@@ -154,8 +154,8 @@ export interface ConnectionPolicyTargetContext {
 }
 
 export interface ConnectionPolicyTargetContextSolution {
-  connectionPolicySid?: string;
-  sid?: string;
+  connectionPolicySid: string;
+  sid: string;
 }
 
 export class ConnectionPolicyTargetContextImpl
@@ -182,13 +182,14 @@ export class ConnectionPolicyTargetContextImpl
   }
 
   remove(callback?: any): Promise<boolean> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -196,9 +197,10 @@ export class ConnectionPolicyTargetContextImpl
   }
 
   fetch(callback?: any): Promise<ConnectionPolicyTargetInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -207,12 +209,12 @@ export class ConnectionPolicyTargetContextImpl
         new ConnectionPolicyTargetInstance(
           operationVersion,
           payload,
-          this._solution.connectionPolicySid,
-          this._solution.sid
+          instance._solution.connectionPolicySid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -243,9 +245,10 @@ export class ConnectionPolicyTargetContextImpl
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -256,12 +259,12 @@ export class ConnectionPolicyTargetContextImpl
         new ConnectionPolicyTargetInstance(
           operationVersion,
           payload,
-          this._solution.connectionPolicySid,
-          this._solution.sid
+          instance._solution.connectionPolicySid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -287,17 +290,17 @@ interface ConnectionPolicyTargetPayload extends TwilioResponsePayload {
 }
 
 interface ConnectionPolicyTargetResource {
-  account_sid?: string | null;
-  connection_policy_sid?: string | null;
-  sid?: string | null;
-  friendly_name?: string | null;
-  target?: string | null;
-  priority?: number | null;
-  weight?: number | null;
-  enabled?: boolean | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  url?: string | null;
+  account_sid: string;
+  connection_policy_sid: string;
+  sid: string;
+  friendly_name: string;
+  target: string;
+  priority: number;
+  weight: number;
+  enabled: boolean;
+  date_created: Date;
+  date_updated: Date;
+  url: string;
 }
 
 export class ConnectionPolicyTargetInstance {
@@ -328,47 +331,47 @@ export class ConnectionPolicyTargetInstance {
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The SID of the Connection Policy that owns the Target
    */
-  connectionPolicySid?: string | null;
+  connectionPolicySid: string;
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The string that you assigned to describe the resource
    */
-  friendlyName?: string | null;
+  friendlyName: string;
   /**
    * The SIP address you want Twilio to route your calls to
    */
-  target?: string | null;
+  target: string;
   /**
    * The relative importance of the target
    */
-  priority?: number | null;
+  priority: number;
   /**
    * The value that determines the relative load the Target should receive compared to others with the same priority
    */
-  weight?: number | null;
+  weight: number;
   /**
    * Whether the target is enabled
    */
-  enabled?: boolean | null;
+  enabled: boolean;
   /**
    * The RFC 2822 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The RFC 2822 date and time in GMT when the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The absolute URL of the resource
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): ConnectionPolicyTargetContext {
     this._context =
@@ -471,7 +474,15 @@ export class ConnectionPolicyTargetInstance {
   }
 }
 
+export interface ConnectionPolicyTargetSolution {
+  connectionPolicySid: string;
+}
+
 export interface ConnectionPolicyTargetListInstance {
+  _version: V1;
+  _solution: ConnectionPolicyTargetSolution;
+  _uri: string;
+
   (sid: string): ConnectionPolicyTargetContext;
   get(sid: string): ConnectionPolicyTargetContext;
 
@@ -632,20 +643,6 @@ export interface ConnectionPolicyTargetListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface ConnectionPolicyTargetSolution {
-  connectionPolicySid?: string;
-}
-
-interface ConnectionPolicyTargetListInstanceImpl
-  extends ConnectionPolicyTargetListInstance {}
-class ConnectionPolicyTargetListInstanceImpl
-  implements ConnectionPolicyTargetListInstance
-{
-  _version?: V1;
-  _solution?: ConnectionPolicyTargetSolution;
-  _uri?: string;
-}
-
 export function ConnectionPolicyTargetListInstance(
   version: V1,
   connectionPolicySid: string
@@ -655,7 +652,7 @@ export function ConnectionPolicyTargetListInstance(
   }
 
   const instance = ((sid) =>
-    instance.get(sid)) as ConnectionPolicyTargetListInstanceImpl;
+    instance.get(sid)) as ConnectionPolicyTargetListInstance;
 
   instance.get = function get(sid): ConnectionPolicyTargetContext {
     return new ConnectionPolicyTargetContextImpl(
@@ -696,7 +693,7 @@ export function ConnectionPolicyTargetListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -707,11 +704,11 @@ export function ConnectionPolicyTargetListInstance(
         new ConnectionPolicyTargetInstance(
           operationVersion,
           payload,
-          this._solution.connectionPolicySid
+          instance._solution.connectionPolicySid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -740,7 +737,7 @@ export function ConnectionPolicyTargetListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
@@ -751,11 +748,11 @@ export function ConnectionPolicyTargetListInstance(
         new ConnectionPolicyTargetPage(
           operationVersion,
           payload,
-          this._solution
+          instance._solution
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -768,31 +765,32 @@ export function ConnectionPolicyTargetListInstance(
     targetUrl?: any,
     callback?: any
   ): Promise<ConnectionPolicyTargetPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
+    let pagePromise = operationPromise.then(
       (payload) =>
-        new ConnectionPolicyTargetPage(this._version, payload, this._solution)
+        new ConnectionPolicyTargetPage(
+          instance._version,
+          payload,
+          instance._solution
+        )
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

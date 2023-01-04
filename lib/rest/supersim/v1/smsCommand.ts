@@ -111,7 +111,7 @@ export interface SmsCommandContext {
 }
 
 export interface SmsCommandContextSolution {
-  sid?: string;
+  sid: string;
 }
 
 export class SmsCommandContextImpl implements SmsCommandContext {
@@ -128,18 +128,23 @@ export class SmsCommandContextImpl implements SmsCommandContext {
   }
 
   fetch(callback?: any): Promise<SmsCommandInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new SmsCommandInstance(operationVersion, payload, this._solution.sid)
+        new SmsCommandInstance(
+          operationVersion,
+          payload,
+          instance._solution.sid
+        )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -165,15 +170,15 @@ interface SmsCommandPayload extends TwilioResponsePayload {
 }
 
 interface SmsCommandResource {
-  sid?: string | null;
-  account_sid?: string | null;
-  sim_sid?: string | null;
-  payload?: string | null;
-  status?: SmsCommandStatus;
-  direction?: SmsCommandDirection;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  url?: string | null;
+  sid: string;
+  account_sid: string;
+  sim_sid: string;
+  payload: string;
+  status: SmsCommandStatus;
+  direction: SmsCommandDirection;
+  date_created: Date;
+  date_updated: Date;
+  url: string;
 }
 
 export class SmsCommandInstance {
@@ -201,33 +206,33 @@ export class SmsCommandInstance {
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The SID of the SIM that this SMS Command was sent to or from
    */
-  simSid?: string | null;
+  simSid: string;
   /**
    * The message body of the SMS Command sent to or from the SIM
    */
-  payload?: string | null;
-  status?: SmsCommandStatus;
-  direction?: SmsCommandDirection;
+  payload: string;
+  status: SmsCommandStatus;
+  direction: SmsCommandDirection;
   /**
    * The ISO 8601 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The ISO 8601 date and time in GMT when the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The absolute URL of the SMS Command resource
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): SmsCommandContext {
     this._context =
@@ -273,7 +278,13 @@ export class SmsCommandInstance {
   }
 }
 
+export interface SmsCommandSolution {}
+
 export interface SmsCommandListInstance {
+  _version: V1;
+  _solution: SmsCommandSolution;
+  _uri: string;
+
   (sid: string): SmsCommandContext;
   get(sid: string): SmsCommandContext;
 
@@ -419,17 +430,8 @@ export interface SmsCommandListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface SmsCommandSolution {}
-
-interface SmsCommandListInstanceImpl extends SmsCommandListInstance {}
-class SmsCommandListInstanceImpl implements SmsCommandListInstance {
-  _version?: V1;
-  _solution?: SmsCommandSolution;
-  _uri?: string;
-}
-
 export function SmsCommandListInstance(version: V1): SmsCommandListInstance {
-  const instance = ((sid) => instance.get(sid)) as SmsCommandListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as SmsCommandListInstance;
 
   instance.get = function get(sid): SmsCommandContext {
     return new SmsCommandContextImpl(version, sid);
@@ -470,7 +472,7 @@ export function SmsCommandListInstance(version: V1): SmsCommandListInstance {
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -480,7 +482,7 @@ export function SmsCommandListInstance(version: V1): SmsCommandListInstance {
       (payload) => new SmsCommandInstance(operationVersion, payload)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -513,17 +515,18 @@ export function SmsCommandListInstance(version: V1): SmsCommandListInstance {
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new SmsCommandPage(operationVersion, payload, this._solution)
+      (payload) =>
+        new SmsCommandPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -536,30 +539,28 @@ export function SmsCommandListInstance(version: V1): SmsCommandListInstance {
     targetUrl?: any,
     callback?: any
   ): Promise<SmsCommandPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new SmsCommandPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new SmsCommandPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

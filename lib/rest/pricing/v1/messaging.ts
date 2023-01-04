@@ -19,7 +19,14 @@ const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 import { CountryListInstance } from "./messaging/country";
 
+export interface MessagingSolution {}
+
 export interface MessagingListInstance {
+  _version: V1;
+  _solution: MessagingSolution;
+  _uri: string;
+
+  _countries?: CountryListInstance;
   countries: CountryListInstance;
 
   /**
@@ -29,19 +36,8 @@ export interface MessagingListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface MessagingSolution {}
-
-interface MessagingListInstanceImpl extends MessagingListInstance {}
-class MessagingListInstanceImpl implements MessagingListInstance {
-  _version?: V1;
-  _solution?: MessagingSolution;
-  _uri?: string;
-
-  _countries?: CountryListInstance;
-}
-
 export function MessagingListInstance(version: V1): MessagingListInstance {
-  const instance = {} as MessagingListInstanceImpl;
+  const instance = {} as MessagingListInstance;
 
   instance._version = version;
   instance._solution = {};
@@ -49,22 +45,22 @@ export function MessagingListInstance(version: V1): MessagingListInstance {
 
   Object.defineProperty(instance, "countries", {
     get: function countries() {
-      if (!this._countries) {
-        this._countries = CountryListInstance(this._version);
+      if (!instance._countries) {
+        instance._countries = CountryListInstance(instance._version);
       }
-      return this._countries;
+      return instance._countries;
     },
   });
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

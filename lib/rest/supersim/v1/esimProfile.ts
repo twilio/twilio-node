@@ -113,7 +113,7 @@ export interface EsimProfileContext {
 }
 
 export interface EsimProfileContextSolution {
-  sid?: string;
+  sid: string;
 }
 
 export class EsimProfileContextImpl implements EsimProfileContext {
@@ -130,18 +130,23 @@ export class EsimProfileContextImpl implements EsimProfileContext {
   }
 
   fetch(callback?: any): Promise<EsimProfileInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new EsimProfileInstance(operationVersion, payload, this._solution.sid)
+        new EsimProfileInstance(
+          operationVersion,
+          payload,
+          instance._solution.sid
+        )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -167,18 +172,18 @@ interface EsimProfilePayload extends TwilioResponsePayload {
 }
 
 interface EsimProfileResource {
-  sid?: string | null;
-  account_sid?: string | null;
-  iccid?: string | null;
-  sim_sid?: string | null;
-  status?: EsimProfileStatus;
-  eid?: string | null;
-  smdp_plus_address?: string | null;
-  error_code?: string | null;
-  error_message?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  url?: string | null;
+  sid: string;
+  account_sid: string;
+  iccid: string;
+  sim_sid: string;
+  status: EsimProfileStatus;
+  eid: string;
+  smdp_plus_address: string;
+  error_code: string;
+  error_message: string;
+  date_created: Date;
+  date_updated: Date;
+  url: string;
 }
 
 export class EsimProfileInstance {
@@ -209,48 +214,48 @@ export class EsimProfileInstance {
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The SID of the Account to which the eSIM Profile resource belongs
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The ICCID associated with the Sim resource
    */
-  iccid?: string | null;
+  iccid: string;
   /**
    * The SID of the Sim resource that this eSIM Profile controls
    */
-  simSid?: string | null;
-  status?: EsimProfileStatus;
+  simSid: string;
+  status: EsimProfileStatus;
   /**
    * Identifier of the eUICC that can claim the eSIM Profile
    */
-  eid?: string | null;
+  eid: string;
   /**
    * Address of the SM-DP+ server from which the Profile will be downloaded
    */
-  smdpPlusAddress?: string | null;
+  smdpPlusAddress: string;
   /**
    * Code indicating the failure if the download of the SIM Profile failed and the eSIM Profile is in `failed` state
    */
-  errorCode?: string | null;
+  errorCode: string;
   /**
    * Error message describing the failure if the download of the SIM Profile failed and the eSIM Profile is in `failed` state
    */
-  errorMessage?: string | null;
+  errorMessage: string;
   /**
    * The ISO 8601 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The ISO 8601 date and time in GMT when the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The absolute URL of the eSIM Profile resource
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): EsimProfileContext {
     this._context =
@@ -299,7 +304,13 @@ export class EsimProfileInstance {
   }
 }
 
+export interface EsimProfileSolution {}
+
 export interface EsimProfileListInstance {
+  _version: V1;
+  _solution: EsimProfileSolution;
+  _uri: string;
+
   (sid: string): EsimProfileContext;
   get(sid: string): EsimProfileContext;
 
@@ -455,17 +466,8 @@ export interface EsimProfileListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface EsimProfileSolution {}
-
-interface EsimProfileListInstanceImpl extends EsimProfileListInstance {}
-class EsimProfileListInstanceImpl implements EsimProfileListInstance {
-  _version?: V1;
-  _solution?: EsimProfileSolution;
-  _uri?: string;
-}
-
 export function EsimProfileListInstance(version: V1): EsimProfileListInstance {
-  const instance = ((sid) => instance.get(sid)) as EsimProfileListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as EsimProfileListInstance;
 
   instance.get = function get(sid): EsimProfileContext {
     return new EsimProfileContextImpl(version, sid);
@@ -499,7 +501,7 @@ export function EsimProfileListInstance(version: V1): EsimProfileListInstance {
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -509,7 +511,7 @@ export function EsimProfileListInstance(version: V1): EsimProfileListInstance {
       (payload) => new EsimProfileInstance(operationVersion, payload)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -541,7 +543,7 @@ export function EsimProfileListInstance(version: V1): EsimProfileListInstance {
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
@@ -549,10 +551,10 @@ export function EsimProfileListInstance(version: V1): EsimProfileListInstance {
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new EsimProfilePage(operationVersion, payload, this._solution)
+        new EsimProfilePage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -565,30 +567,28 @@ export function EsimProfileListInstance(version: V1): EsimProfileListInstance {
     targetUrl?: any,
     callback?: any
   ): Promise<EsimProfilePage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new EsimProfilePage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new EsimProfilePage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

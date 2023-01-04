@@ -177,7 +177,7 @@ export interface WorkspaceContext {
 }
 
 export interface WorkspaceContextSolution {
-  sid?: string;
+  sid: string;
 }
 
 export class WorkspaceContextImpl implements WorkspaceContext {
@@ -278,13 +278,14 @@ export class WorkspaceContextImpl implements WorkspaceContext {
   }
 
   remove(callback?: any): Promise<boolean> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -292,18 +293,19 @@ export class WorkspaceContextImpl implements WorkspaceContext {
   }
 
   fetch(callback?: any): Promise<WorkspaceInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new WorkspaceInstance(operationVersion, payload, this._solution.sid)
+        new WorkspaceInstance(operationVersion, payload, instance._solution.sid)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -338,9 +340,10 @@ export class WorkspaceContextImpl implements WorkspaceContext {
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -348,10 +351,10 @@ export class WorkspaceContextImpl implements WorkspaceContext {
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new WorkspaceInstance(operationVersion, payload, this._solution.sid)
+        new WorkspaceInstance(operationVersion, payload, instance._solution.sid)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -377,21 +380,21 @@ interface WorkspacePayload extends TwilioResponsePayload {
 }
 
 interface WorkspaceResource {
-  account_sid?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  default_activity_name?: string | null;
-  default_activity_sid?: string | null;
-  event_callback_url?: string | null;
-  events_filter?: string | null;
-  friendly_name?: string | null;
-  multi_task_enabled?: boolean | null;
-  sid?: string | null;
-  timeout_activity_name?: string | null;
-  timeout_activity_sid?: string | null;
-  prioritize_queue_order?: WorkspaceQueueOrder;
-  url?: string | null;
-  links?: object | null;
+  account_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  default_activity_name: string;
+  default_activity_sid: string;
+  event_callback_url: string;
+  events_filter: string;
+  friendly_name: string;
+  multi_task_enabled: boolean;
+  sid: string;
+  timeout_activity_name: string;
+  timeout_activity_sid: string;
+  prioritize_queue_order: WorkspaceQueueOrder;
+  url: string;
+  links: object;
 }
 
 export class WorkspaceInstance {
@@ -425,60 +428,60 @@ export class WorkspaceInstance {
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The ISO 8601 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The ISO 8601 date and time in GMT when the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The name of the default activity
    */
-  defaultActivityName?: string | null;
+  defaultActivityName: string;
   /**
    * The SID of the Activity that will be used when new Workers are created in the Workspace
    */
-  defaultActivitySid?: string | null;
+  defaultActivitySid: string;
   /**
    * The URL we call when an event occurs
    */
-  eventCallbackUrl?: string | null;
+  eventCallbackUrl: string;
   /**
    * The list of Workspace events for which to call event_callback_url
    */
-  eventsFilter?: string | null;
+  eventsFilter: string;
   /**
    * The string that you assigned to describe the Workspace resource
    */
-  friendlyName?: string | null;
+  friendlyName: string;
   /**
    * Whether multi-tasking is enabled
    */
-  multiTaskEnabled?: boolean | null;
+  multiTaskEnabled: boolean;
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The name of the timeout activity
    */
-  timeoutActivityName?: string | null;
+  timeoutActivityName: string;
   /**
    * The SID of the Activity that will be assigned to a Worker when a Task reservation times out without a response
    */
-  timeoutActivitySid?: string | null;
-  prioritizeQueueOrder?: WorkspaceQueueOrder;
+  timeoutActivitySid: string;
+  prioritizeQueueOrder: WorkspaceQueueOrder;
   /**
    * The absolute URL of the Workspace resource
    */
-  url?: string | null;
+  url: string;
   /**
    * The URLs of related resources
    */
-  links?: object | null;
+  links: object;
 
   private get _proxy(): WorkspaceContext {
     this._context =
@@ -639,7 +642,13 @@ export class WorkspaceInstance {
   }
 }
 
+export interface WorkspaceSolution {}
+
 export interface WorkspaceListInstance {
+  _version: V1;
+  _solution: WorkspaceSolution;
+  _uri: string;
+
   (sid: string): WorkspaceContext;
   get(sid: string): WorkspaceContext;
 
@@ -785,17 +794,8 @@ export interface WorkspaceListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface WorkspaceSolution {}
-
-interface WorkspaceListInstanceImpl extends WorkspaceListInstance {}
-class WorkspaceListInstanceImpl implements WorkspaceListInstance {
-  _version?: V1;
-  _solution?: WorkspaceSolution;
-  _uri?: string;
-}
-
 export function WorkspaceListInstance(version: V1): WorkspaceListInstance {
-  const instance = ((sid) => instance.get(sid)) as WorkspaceListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as WorkspaceListInstance;
 
   instance.get = function get(sid): WorkspaceContext {
     return new WorkspaceContextImpl(version, sid);
@@ -838,7 +838,7 @@ export function WorkspaceListInstance(version: V1): WorkspaceListInstance {
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -848,7 +848,7 @@ export function WorkspaceListInstance(version: V1): WorkspaceListInstance {
       (payload) => new WorkspaceInstance(operationVersion, payload)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -879,17 +879,18 @@ export function WorkspaceListInstance(version: V1): WorkspaceListInstance {
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new WorkspacePage(operationVersion, payload, this._solution)
+      (payload) =>
+        new WorkspacePage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -902,30 +903,28 @@ export function WorkspaceListInstance(version: V1): WorkspaceListInstance {
     targetUrl?: any,
     callback?: any
   ): Promise<WorkspacePage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new WorkspacePage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new WorkspacePage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

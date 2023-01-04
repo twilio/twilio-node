@@ -28,7 +28,13 @@ export interface ExternalCampaignListInstanceCreateOptions {
   messagingServiceSid: string;
 }
 
+export interface ExternalCampaignSolution {}
+
 export interface ExternalCampaignListInstance {
+  _version: V1;
+  _solution: ExternalCampaignSolution;
+  _uri: string;
+
   /**
    * Create a ExternalCampaignInstance
    *
@@ -50,20 +56,10 @@ export interface ExternalCampaignListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface ExternalCampaignSolution {}
-
-interface ExternalCampaignListInstanceImpl
-  extends ExternalCampaignListInstance {}
-class ExternalCampaignListInstanceImpl implements ExternalCampaignListInstance {
-  _version?: V1;
-  _solution?: ExternalCampaignSolution;
-  _uri?: string;
-}
-
 export function ExternalCampaignListInstance(
   version: V1
 ): ExternalCampaignListInstance {
-  const instance = {} as ExternalCampaignListInstanceImpl;
+  const instance = {} as ExternalCampaignListInstance;
 
   instance._version = version;
   instance._solution = {};
@@ -101,7 +97,7 @@ export function ExternalCampaignListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -111,7 +107,7 @@ export function ExternalCampaignListInstance(
       (payload) => new ExternalCampaignInstance(operationVersion, payload)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -119,14 +115,14 @@ export function ExternalCampaignListInstance(
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;
@@ -135,11 +131,11 @@ export function ExternalCampaignListInstance(
 interface ExternalCampaignPayload extends ExternalCampaignResource {}
 
 interface ExternalCampaignResource {
-  sid?: string | null;
-  account_sid?: string | null;
-  campaign_id?: string | null;
-  messaging_service_sid?: string | null;
-  date_created?: Date | null;
+  sid: string;
+  account_sid: string;
+  campaign_id: string;
+  messaging_service_sid: string;
+  date_created: Date;
 }
 
 export class ExternalCampaignInstance {
@@ -154,23 +150,23 @@ export class ExternalCampaignInstance {
   /**
    * The unique string that identifies a US A2P Compliance resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * ID of the preregistered campaign.
    */
-  campaignId?: string | null;
+  campaignId: string;
   /**
    * The SID of the Messaging Service the resource is associated with
    */
-  messagingServiceSid?: string | null;
+  messagingServiceSid: string;
   /**
    * The ISO 8601 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
 
   /**
    * Provide a user-friendly representation

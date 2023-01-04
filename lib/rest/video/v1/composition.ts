@@ -143,7 +143,7 @@ export interface CompositionContext {
 }
 
 export interface CompositionContextSolution {
-  sid?: string;
+  sid: string;
 }
 
 export class CompositionContextImpl implements CompositionContext {
@@ -160,13 +160,14 @@ export class CompositionContextImpl implements CompositionContext {
   }
 
   remove(callback?: any): Promise<boolean> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -174,18 +175,23 @@ export class CompositionContextImpl implements CompositionContext {
   }
 
   fetch(callback?: any): Promise<CompositionInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new CompositionInstance(operationVersion, payload, this._solution.sid)
+        new CompositionInstance(
+          operationVersion,
+          payload,
+          instance._solution.sid
+        )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -219,27 +225,27 @@ interface CompositionPayload extends TwilioResponsePayload {
 }
 
 interface CompositionResource {
-  account_sid?: string | null;
-  status?: CompositionStatus;
-  date_created?: Date | null;
-  date_completed?: Date | null;
-  date_deleted?: Date | null;
-  sid?: string | null;
-  room_sid?: string | null;
-  audio_sources?: Array<string> | null;
-  audio_sources_excluded?: Array<string> | null;
-  video_layout?: any | null;
-  resolution?: string | null;
-  trim?: boolean | null;
-  format?: CompositionFormat;
-  bitrate?: number | null;
-  size?: number | null;
-  duration?: number | null;
-  media_external_location?: string | null;
-  status_callback?: string | null;
-  status_callback_method?: CompositionStatusCallbackMethod;
-  url?: string | null;
-  links?: object | null;
+  account_sid: string;
+  status: CompositionStatus;
+  date_created: Date;
+  date_completed: Date;
+  date_deleted: Date;
+  sid: string;
+  room_sid: string;
+  audio_sources: Array<string>;
+  audio_sources_excluded: Array<string>;
+  video_layout: any;
+  resolution: string;
+  trim: boolean;
+  format: CompositionFormat;
+  bitrate: number;
+  size: number;
+  duration: number;
+  media_external_location: string;
+  status_callback: string;
+  status_callback_method: CompositionStatusCallbackMethod;
+  url: string;
+  links: object;
 }
 
 export class CompositionInstance {
@@ -279,81 +285,81 @@ export class CompositionInstance {
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
-  status?: CompositionStatus;
+  accountSid: string;
+  status: CompositionStatus;
   /**
    * The ISO 8601 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * Date when the media processing task finished
    */
-  dateCompleted?: Date | null;
+  dateCompleted: Date;
   /**
    * The ISO 8601 date and time in GMT when the composition generated media was deleted
    */
-  dateDeleted?: Date | null;
+  dateDeleted: Date;
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The SID of the Group Room that generated the audio and video tracks used in the composition
    */
-  roomSid?: string | null;
+  roomSid: string;
   /**
    * The array of track names to include in the composition
    */
-  audioSources?: Array<string> | null;
+  audioSources: Array<string>;
   /**
    * The array of track names to exclude from the composition
    */
-  audioSourcesExcluded?: Array<string> | null;
+  audioSourcesExcluded: Array<string>;
   /**
    * An object that describes the video layout of the composition
    */
-  videoLayout?: any | null;
+  videoLayout: any;
   /**
    * The dimensions of the video image in pixels expressed as columns (width) and rows (height)
    */
-  resolution?: string | null;
+  resolution: string;
   /**
    * Whether to remove intervals with no media
    */
-  trim?: boolean | null;
-  format?: CompositionFormat;
+  trim: boolean;
+  format: CompositionFormat;
   /**
    * The average bit rate of the composition\'s media
    */
-  bitrate?: number | null;
+  bitrate: number;
   /**
    * The size of the composed media file in bytes
    */
-  size?: number | null;
+  size: number;
   /**
    * The duration of the composition\'s media file in seconds
    */
-  duration?: number | null;
+  duration: number;
   /**
    * The URL of the media file associated with the composition when stored externally
    */
-  mediaExternalLocation?: string | null;
+  mediaExternalLocation: string;
   /**
    * The URL called to send status information on every composition event.
    */
-  statusCallback?: string | null;
+  statusCallback: string;
   /**
    * The HTTP method used to call `status_callback`
    */
-  statusCallbackMethod?: CompositionStatusCallbackMethod;
+  statusCallbackMethod: CompositionStatusCallbackMethod;
   /**
    * The absolute URL of the resource
    */
-  url?: string | null;
+  url: string;
   /**
    * The URL of the media file associated with the composition
    */
-  links?: object | null;
+  links: object;
 
   private get _proxy(): CompositionContext {
     this._context =
@@ -424,7 +430,13 @@ export class CompositionInstance {
   }
 }
 
+export interface CompositionSolution {}
+
 export interface CompositionListInstance {
+  _version: V1;
+  _solution: CompositionSolution;
+  _uri: string;
+
   (sid: string): CompositionContext;
   get(sid: string): CompositionContext;
 
@@ -570,17 +582,8 @@ export interface CompositionListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface CompositionSolution {}
-
-interface CompositionListInstanceImpl extends CompositionListInstance {}
-class CompositionListInstanceImpl implements CompositionListInstance {
-  _version?: V1;
-  _solution?: CompositionSolution;
-  _uri?: string;
-}
-
 export function CompositionListInstance(version: V1): CompositionListInstance {
-  const instance = ((sid) => instance.get(sid)) as CompositionListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as CompositionListInstance;
 
   instance.get = function get(sid): CompositionContext {
     return new CompositionContextImpl(version, sid);
@@ -629,7 +632,7 @@ export function CompositionListInstance(version: V1): CompositionListInstance {
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -639,7 +642,7 @@ export function CompositionListInstance(version: V1): CompositionListInstance {
       (payload) => new CompositionInstance(operationVersion, payload)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -678,7 +681,7 @@ export function CompositionListInstance(version: V1): CompositionListInstance {
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
@@ -686,10 +689,10 @@ export function CompositionListInstance(version: V1): CompositionListInstance {
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new CompositionPage(operationVersion, payload, this._solution)
+        new CompositionPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -702,30 +705,28 @@ export function CompositionListInstance(version: V1): CompositionListInstance {
     targetUrl?: any,
     callback?: any
   ): Promise<CompositionPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new CompositionPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new CompositionPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

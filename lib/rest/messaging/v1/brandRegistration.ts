@@ -128,7 +128,7 @@ export interface BrandRegistrationContext {
 }
 
 export interface BrandRegistrationContextSolution {
-  sid?: string;
+  sid: string;
 }
 
 export class BrandRegistrationContextImpl implements BrandRegistrationContext {
@@ -154,9 +154,10 @@ export class BrandRegistrationContextImpl implements BrandRegistrationContext {
   }
 
   fetch(callback?: any): Promise<BrandRegistrationInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -165,11 +166,11 @@ export class BrandRegistrationContextImpl implements BrandRegistrationContext {
         new BrandRegistrationInstance(
           operationVersion,
           payload,
-          this._solution.sid
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -177,9 +178,10 @@ export class BrandRegistrationContextImpl implements BrandRegistrationContext {
   }
 
   update(callback?: any): Promise<BrandRegistrationInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
       });
 
@@ -188,11 +190,11 @@ export class BrandRegistrationContextImpl implements BrandRegistrationContext {
         new BrandRegistrationInstance(
           operationVersion,
           payload,
-          this._solution.sid
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -218,26 +220,26 @@ interface BrandRegistrationPayload extends TwilioResponsePayload {
 }
 
 interface BrandRegistrationResource {
-  sid?: string | null;
-  account_sid?: string | null;
-  customer_profile_bundle_sid?: string | null;
-  a2p_profile_bundle_sid?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  brand_type?: string | null;
-  status?: BrandRegistrationsStatus;
-  tcr_id?: string | null;
-  failure_reason?: string | null;
-  url?: string | null;
-  brand_score?: number | null;
-  brand_feedback?: Array<BrandRegistrationsBrandFeedback> | null;
-  identity_status?: BrandRegistrationsIdentityStatus;
-  russell_3000?: boolean | null;
-  government_entity?: boolean | null;
-  tax_exempt_status?: string | null;
-  skip_automatic_sec_vet?: boolean | null;
-  mock?: boolean | null;
-  links?: object | null;
+  sid: string;
+  account_sid: string;
+  customer_profile_bundle_sid: string;
+  a2p_profile_bundle_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  brand_type: string;
+  status: BrandRegistrationsStatus;
+  tcr_id: string;
+  failure_reason: string;
+  url: string;
+  brand_score: number;
+  brand_feedback: Array<BrandRegistrationsBrandFeedback>;
+  identity_status: BrandRegistrationsIdentityStatus;
+  russell_3000: boolean;
+  government_entity: boolean;
+  tax_exempt_status: string;
+  skip_automatic_sec_vet: boolean;
+  mock: boolean;
+  links: object;
 }
 
 export class BrandRegistrationInstance {
@@ -276,74 +278,74 @@ export class BrandRegistrationInstance {
   /**
    * A2P BrandRegistration Sid
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * A2P Messaging Profile Bundle BundleSid
    */
-  customerProfileBundleSid?: string | null;
+  customerProfileBundleSid: string;
   /**
    * A2P Messaging Profile Bundle BundleSid
    */
-  a2pProfileBundleSid?: string | null;
+  a2pProfileBundleSid: string;
   /**
    * The ISO 8601 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The ISO 8601 date and time in GMT when the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * Type of brand. One of: \"STANDARD\", \"STARTER\".
    */
-  brandType?: string | null;
-  status?: BrandRegistrationsStatus;
+  brandType: string;
+  status: BrandRegistrationsStatus;
   /**
    * Campaign Registry (TCR) Brand ID
    */
-  tcrId?: string | null;
+  tcrId: string;
   /**
    * A reason why brand registration has failed
    */
-  failureReason?: string | null;
+  failureReason: string;
   /**
    * The absolute URL of the Brand Registration
    */
-  url?: string | null;
+  url: string;
   /**
    * Brand score
    */
-  brandScore?: number | null;
+  brandScore: number;
   /**
    * Brand feedback
    */
-  brandFeedback?: Array<BrandRegistrationsBrandFeedback> | null;
-  identityStatus?: BrandRegistrationsIdentityStatus;
+  brandFeedback: Array<BrandRegistrationsBrandFeedback>;
+  identityStatus: BrandRegistrationsIdentityStatus;
   /**
    * Russell 3000
    */
-  russell3000?: boolean | null;
+  russell3000: boolean;
   /**
    * Government Entity
    */
-  governmentEntity?: boolean | null;
+  governmentEntity: boolean;
   /**
    * Tax Exempt Status
    */
-  taxExemptStatus?: string | null;
+  taxExemptStatus: string;
   /**
    * Skip Automatic Secondary Vetting
    */
-  skipAutomaticSecVet?: boolean | null;
+  skipAutomaticSecVet: boolean;
   /**
    * A boolean that specifies whether brand should be a mock or not. If true, brand will be registered as a mock brand. Defaults to false if no value is provided.
    */
-  mock?: boolean | null;
-  links?: object | null;
+  mock: boolean;
+  links: object;
 
   private get _proxy(): BrandRegistrationContext {
     this._context =
@@ -420,7 +422,13 @@ export class BrandRegistrationInstance {
   }
 }
 
+export interface BrandRegistrationSolution {}
+
 export interface BrandRegistrationListInstance {
+  _version: V1;
+  _solution: BrandRegistrationSolution;
+  _uri: string;
+
   (sid: string): BrandRegistrationContext;
   get(sid: string): BrandRegistrationContext;
 
@@ -572,23 +580,11 @@ export interface BrandRegistrationListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface BrandRegistrationSolution {}
-
-interface BrandRegistrationListInstanceImpl
-  extends BrandRegistrationListInstance {}
-class BrandRegistrationListInstanceImpl
-  implements BrandRegistrationListInstance
-{
-  _version?: V1;
-  _solution?: BrandRegistrationSolution;
-  _uri?: string;
-}
-
 export function BrandRegistrationListInstance(
   version: V1
 ): BrandRegistrationListInstance {
   const instance = ((sid) =>
-    instance.get(sid)) as BrandRegistrationListInstanceImpl;
+    instance.get(sid)) as BrandRegistrationListInstance;
 
   instance.get = function get(sid): BrandRegistrationContext {
     return new BrandRegistrationContextImpl(version, sid);
@@ -643,7 +639,7 @@ export function BrandRegistrationListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -653,7 +649,7 @@ export function BrandRegistrationListInstance(
       (payload) => new BrandRegistrationInstance(operationVersion, payload)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -682,7 +678,7 @@ export function BrandRegistrationListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
@@ -690,10 +686,10 @@ export function BrandRegistrationListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new BrandRegistrationPage(operationVersion, payload, this._solution)
+        new BrandRegistrationPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -706,31 +702,32 @@ export function BrandRegistrationListInstance(
     targetUrl?: any,
     callback?: any
   ): Promise<BrandRegistrationPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
+    let pagePromise = operationPromise.then(
       (payload) =>
-        new BrandRegistrationPage(this._version, payload, this._solution)
+        new BrandRegistrationPage(
+          instance._version,
+          payload,
+          instance._solution
+        )
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

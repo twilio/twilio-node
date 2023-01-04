@@ -146,7 +146,7 @@ export interface RatePlanContext {
 }
 
 export interface RatePlanContextSolution {
-  sid?: string;
+  sid: string;
 }
 
 export class RatePlanContextImpl implements RatePlanContext {
@@ -163,13 +163,14 @@ export class RatePlanContextImpl implements RatePlanContext {
   }
 
   remove(callback?: any): Promise<boolean> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -177,18 +178,19 @@ export class RatePlanContextImpl implements RatePlanContext {
   }
 
   fetch(callback?: any): Promise<RatePlanInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new RatePlanInstance(operationVersion, payload, this._solution.sid)
+        new RatePlanInstance(operationVersion, payload, instance._solution.sid)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -213,9 +215,10 @@ export class RatePlanContextImpl implements RatePlanContext {
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -223,10 +226,10 @@ export class RatePlanContextImpl implements RatePlanContext {
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new RatePlanInstance(operationVersion, payload, this._solution.sid)
+        new RatePlanInstance(operationVersion, payload, instance._solution.sid)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -252,20 +255,20 @@ interface RatePlanPayload extends TwilioResponsePayload {
 }
 
 interface RatePlanResource {
-  sid?: string | null;
-  unique_name?: string | null;
-  account_sid?: string | null;
-  friendly_name?: string | null;
-  data_enabled?: boolean | null;
-  data_metering?: string | null;
-  data_limit?: number | null;
-  messaging_enabled?: boolean | null;
-  voice_enabled?: boolean | null;
-  national_roaming_enabled?: boolean | null;
-  international_roaming?: Array<string> | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  url?: string | null;
+  sid: string;
+  unique_name: string;
+  account_sid: string;
+  friendly_name: string;
+  data_enabled: boolean;
+  data_metering: string;
+  data_limit: number;
+  messaging_enabled: boolean;
+  voice_enabled: boolean;
+  national_roaming_enabled: boolean;
+  international_roaming: Array<string>;
+  date_created: Date;
+  date_updated: Date;
+  url: string;
 }
 
 export class RatePlanInstance {
@@ -295,20 +298,20 @@ export class RatePlanInstance {
     this._solution = { sid: sid || this.sid };
   }
 
-  sid?: string | null;
-  uniqueName?: string | null;
-  accountSid?: string | null;
-  friendlyName?: string | null;
-  dataEnabled?: boolean | null;
-  dataMetering?: string | null;
-  dataLimit?: number | null;
-  messagingEnabled?: boolean | null;
-  voiceEnabled?: boolean | null;
-  nationalRoamingEnabled?: boolean | null;
-  internationalRoaming?: Array<string> | null;
-  dateCreated?: Date | null;
-  dateUpdated?: Date | null;
-  url?: string | null;
+  sid: string;
+  uniqueName: string;
+  accountSid: string;
+  friendlyName: string;
+  dataEnabled: boolean;
+  dataMetering: string;
+  dataLimit: number;
+  messagingEnabled: boolean;
+  voiceEnabled: boolean;
+  nationalRoamingEnabled: boolean;
+  internationalRoaming: Array<string>;
+  dateCreated: Date;
+  dateUpdated: Date;
+  url: string;
 
   private get _proxy(): RatePlanContext {
     this._context =
@@ -398,7 +401,13 @@ export class RatePlanInstance {
   }
 }
 
+export interface RatePlanSolution {}
+
 export interface RatePlanListInstance {
+  _version: Wireless;
+  _solution: RatePlanSolution;
+  _uri: string;
+
   (sid: string): RatePlanContext;
   get(sid: string): RatePlanContext;
 
@@ -554,17 +563,8 @@ export interface RatePlanListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface RatePlanSolution {}
-
-interface RatePlanListInstanceImpl extends RatePlanListInstance {}
-class RatePlanListInstanceImpl implements RatePlanListInstance {
-  _version?: Wireless;
-  _solution?: RatePlanSolution;
-  _uri?: string;
-}
-
 export function RatePlanListInstance(version: Wireless): RatePlanListInstance {
-  const instance = ((sid) => instance.get(sid)) as RatePlanListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as RatePlanListInstance;
 
   instance.get = function get(sid): RatePlanContext {
     return new RatePlanContextImpl(version, sid);
@@ -618,7 +618,7 @@ export function RatePlanListInstance(version: Wireless): RatePlanListInstance {
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -628,7 +628,7 @@ export function RatePlanListInstance(version: Wireless): RatePlanListInstance {
       (payload) => new RatePlanInstance(operationVersion, payload)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -657,17 +657,18 @@ export function RatePlanListInstance(version: Wireless): RatePlanListInstance {
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new RatePlanPage(operationVersion, payload, this._solution)
+      (payload) =>
+        new RatePlanPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -680,30 +681,28 @@ export function RatePlanListInstance(version: Wireless): RatePlanListInstance {
     targetUrl?: any,
     callback?: any
   ): Promise<RatePlanPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new RatePlanPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new RatePlanPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

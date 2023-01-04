@@ -30,7 +30,13 @@ export interface DeviceCodeListInstanceCreateOptions {
   audiences?: Array<string>;
 }
 
+export interface DeviceCodeSolution {}
+
 export interface DeviceCodeListInstance {
+  _version: V1;
+  _solution: DeviceCodeSolution;
+  _uri: string;
+
   /**
    * Create a DeviceCodeInstance
    *
@@ -52,17 +58,8 @@ export interface DeviceCodeListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface DeviceCodeSolution {}
-
-interface DeviceCodeListInstanceImpl extends DeviceCodeListInstance {}
-class DeviceCodeListInstanceImpl implements DeviceCodeListInstance {
-  _version?: V1;
-  _solution?: DeviceCodeSolution;
-  _uri?: string;
-}
-
 export function DeviceCodeListInstance(version: V1): DeviceCodeListInstance {
-  const instance = {} as DeviceCodeListInstanceImpl;
+  const instance = {} as DeviceCodeListInstance;
 
   instance._version = version;
   instance._solution = {};
@@ -97,7 +94,7 @@ export function DeviceCodeListInstance(version: V1): DeviceCodeListInstance {
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -107,7 +104,7 @@ export function DeviceCodeListInstance(version: V1): DeviceCodeListInstance {
       (payload) => new DeviceCodeInstance(operationVersion, payload)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -115,14 +112,14 @@ export function DeviceCodeListInstance(version: V1): DeviceCodeListInstance {
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;
@@ -131,12 +128,12 @@ export function DeviceCodeListInstance(version: V1): DeviceCodeListInstance {
 interface DeviceCodePayload extends DeviceCodeResource {}
 
 interface DeviceCodeResource {
-  device_code?: string | null;
-  user_code?: string | null;
-  verification_uri?: string | null;
-  verification_uri_complete?: string | null;
-  expires_in?: number | null;
-  interval?: number | null;
+  device_code: string;
+  user_code: string;
+  verification_uri: string;
+  verification_uri_complete: string;
+  expires_in: number;
+  interval: number;
 }
 
 export class DeviceCodeInstance {
@@ -152,27 +149,27 @@ export class DeviceCodeInstance {
   /**
    * The device verification code
    */
-  deviceCode?: string | null;
+  deviceCode: string;
   /**
    * The verification code for the end user
    */
-  userCode?: string | null;
+  userCode: string;
   /**
    * The URI that the end user visits to verify request
    */
-  verificationUri?: string | null;
+  verificationUri: string;
   /**
    * he URI with user_code that the end-user alternatively visits to verify request
    */
-  verificationUriComplete?: string | null;
+  verificationUriComplete: string;
   /**
    * The expiration time of the device_code and user_code in seconds
    */
-  expiresIn?: number | null;
+  expiresIn: number;
   /**
    * The minimum amount of time in seconds that the client should wait between polling requests to the token endpoint
    */
-  interval?: number | null;
+  interval: number;
 
   /**
    * Provide a user-friendly representation

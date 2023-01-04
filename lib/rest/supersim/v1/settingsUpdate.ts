@@ -77,7 +77,13 @@ export interface SettingsUpdateListInstancePageOptions {
   pageToken?: string;
 }
 
+export interface SettingsUpdateSolution {}
+
 export interface SettingsUpdateListInstance {
+  _version: V1;
+  _solution: SettingsUpdateSolution;
+  _uri: string;
+
   /**
    * Streams SettingsUpdateInstance records from the API.
    *
@@ -212,19 +218,10 @@ export interface SettingsUpdateListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface SettingsUpdateSolution {}
-
-interface SettingsUpdateListInstanceImpl extends SettingsUpdateListInstance {}
-class SettingsUpdateListInstanceImpl implements SettingsUpdateListInstance {
-  _version?: V1;
-  _solution?: SettingsUpdateSolution;
-  _uri?: string;
-}
-
 export function SettingsUpdateListInstance(
   version: V1
 ): SettingsUpdateListInstance {
-  const instance = {} as SettingsUpdateListInstanceImpl;
+  const instance = {} as SettingsUpdateListInstance;
 
   instance._version = version;
   instance._solution = {};
@@ -254,7 +251,7 @@ export function SettingsUpdateListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
@@ -262,10 +259,10 @@ export function SettingsUpdateListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new SettingsUpdatePage(operationVersion, payload, this._solution)
+        new SettingsUpdatePage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -278,31 +275,28 @@ export function SettingsUpdateListInstance(
     targetUrl?: any,
     callback?: any
   ): Promise<SettingsUpdatePage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
+    let pagePromise = operationPromise.then(
       (payload) =>
-        new SettingsUpdatePage(this._version, payload, this._solution)
+        new SettingsUpdatePage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;
@@ -313,14 +307,14 @@ interface SettingsUpdatePayload extends TwilioResponsePayload {
 }
 
 interface SettingsUpdateResource {
-  sid?: string | null;
-  iccid?: string | null;
-  sim_sid?: string | null;
-  status?: SettingsUpdateStatus;
-  packages?: Array<any> | null;
-  date_completed?: Date | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
+  sid: string;
+  iccid: string;
+  sim_sid: string;
+  status: SettingsUpdateStatus;
+  packages: Array<any>;
+  date_completed: Date;
+  date_created: Date;
+  date_updated: Date;
 }
 
 export class SettingsUpdateInstance {
@@ -338,32 +332,32 @@ export class SettingsUpdateInstance {
   /**
    * The unique identifier of this Settings Update
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The ICCID associated with the SIM
    */
-  iccid?: string | null;
+  iccid: string;
   /**
    * The SID of the Super SIM to which this Settings Update was applied
    */
-  simSid?: string | null;
-  status?: SettingsUpdateStatus;
+  simSid: string;
+  status: SettingsUpdateStatus;
   /**
    * Array containing the different Settings Packages that will be applied to the SIM after the update completes
    */
-  packages?: Array<any> | null;
+  packages: Array<any>;
   /**
    * The time when the update successfully completed and the new settings were applied to the SIM
    */
-  dateCompleted?: Date | null;
+  dateCompleted: Date;
   /**
    * The date this Settings Update was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The date this Settings Update was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
 
   /**
    * Provide a user-friendly representation

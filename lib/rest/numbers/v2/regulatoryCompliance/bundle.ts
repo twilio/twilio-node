@@ -233,7 +233,7 @@ export interface BundleContext {
 }
 
 export interface BundleContextSolution {
-  sid?: string;
+  sid: string;
 }
 
 export class BundleContextImpl implements BundleContext {
@@ -283,13 +283,14 @@ export class BundleContextImpl implements BundleContext {
   }
 
   remove(callback?: any): Promise<boolean> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -297,18 +298,19 @@ export class BundleContextImpl implements BundleContext {
   }
 
   fetch(callback?: any): Promise<BundleInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new BundleInstance(operationVersion, payload, this._solution.sid)
+        new BundleInstance(operationVersion, payload, instance._solution.sid)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -335,9 +337,10 @@ export class BundleContextImpl implements BundleContext {
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -345,10 +348,10 @@ export class BundleContextImpl implements BundleContext {
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new BundleInstance(operationVersion, payload, this._solution.sid)
+        new BundleInstance(operationVersion, payload, instance._solution.sid)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -374,18 +377,18 @@ interface BundlePayload extends TwilioResponsePayload {
 }
 
 interface BundleResource {
-  sid?: string | null;
-  account_sid?: string | null;
-  regulation_sid?: string | null;
-  friendly_name?: string | null;
-  status?: BundleStatus;
-  valid_until?: Date | null;
-  email?: string | null;
-  status_callback?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  url?: string | null;
-  links?: object | null;
+  sid: string;
+  account_sid: string;
+  regulation_sid: string;
+  friendly_name: string;
+  status: BundleStatus;
+  valid_until: Date;
+  email: string;
+  status_callback: string;
+  date_created: Date;
+  date_updated: Date;
+  url: string;
+  links: object;
 }
 
 export class BundleInstance {
@@ -412,48 +415,48 @@ export class BundleInstance {
   /**
    * The unique string that identifies the resource.
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The unique string of a regulation.
    */
-  regulationSid?: string | null;
+  regulationSid: string;
   /**
    * The string that you assigned to describe the resource
    */
-  friendlyName?: string | null;
-  status?: BundleStatus;
+  friendlyName: string;
+  status: BundleStatus;
   /**
    * The ISO 8601 date and time in GMT when the resource will be valid until.
    */
-  validUntil?: Date | null;
+  validUntil: Date;
   /**
    * The email address
    */
-  email?: string | null;
+  email: string;
   /**
    * The URL we call to inform your application of status changes.
    */
-  statusCallback?: string | null;
+  statusCallback: string;
   /**
    * The ISO 8601 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The ISO 8601 date and time in GMT when the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The absolute URL of the Bundle resource
    */
-  url?: string | null;
+  url: string;
   /**
    * The URLs of the Assigned Items of the Bundle resource
    */
-  links?: object | null;
+  links: object;
 
   private get _proxy(): BundleContext {
     this._context =
@@ -568,7 +571,13 @@ export class BundleInstance {
   }
 }
 
+export interface BundleSolution {}
+
 export interface BundleListInstance {
+  _version: V2;
+  _solution: BundleSolution;
+  _uri: string;
+
   (sid: string): BundleContext;
   get(sid: string): BundleContext;
 
@@ -714,17 +723,8 @@ export interface BundleListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface BundleSolution {}
-
-interface BundleListInstanceImpl extends BundleListInstance {}
-class BundleListInstanceImpl implements BundleListInstance {
-  _version?: V2;
-  _solution?: BundleSolution;
-  _uri?: string;
-}
-
 export function BundleListInstance(version: V2): BundleListInstance {
-  const instance = ((sid) => instance.get(sid)) as BundleListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as BundleListInstance;
 
   instance.get = function get(sid): BundleContext {
     return new BundleContextImpl(version, sid);
@@ -774,7 +774,7 @@ export function BundleListInstance(version: V2): BundleListInstance {
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -784,7 +784,7 @@ export function BundleListInstance(version: V2): BundleListInstance {
       (payload) => new BundleInstance(operationVersion, payload)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -839,17 +839,17 @@ export function BundleListInstance(version: V2): BundleListInstance {
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new BundlePage(operationVersion, payload, this._solution)
+      (payload) => new BundlePage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -862,30 +862,28 @@ export function BundleListInstance(version: V2): BundleListInstance {
     targetUrl?: any,
     callback?: any
   ): Promise<BundlePage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new BundlePage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new BundlePage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

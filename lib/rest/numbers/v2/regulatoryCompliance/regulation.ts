@@ -96,7 +96,7 @@ export interface RegulationContext {
 }
 
 export interface RegulationContextSolution {
-  sid?: string;
+  sid: string;
 }
 
 export class RegulationContextImpl implements RegulationContext {
@@ -113,18 +113,23 @@ export class RegulationContextImpl implements RegulationContext {
   }
 
   fetch(callback?: any): Promise<RegulationInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new RegulationInstance(operationVersion, payload, this._solution.sid)
+        new RegulationInstance(
+          operationVersion,
+          payload,
+          instance._solution.sid
+        )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -150,13 +155,13 @@ interface RegulationPayload extends TwilioResponsePayload {
 }
 
 interface RegulationResource {
-  sid?: string | null;
-  friendly_name?: string | null;
-  iso_country?: string | null;
-  number_type?: string | null;
-  end_user_type?: RegulationEndUserType;
-  requirements?: any | null;
-  url?: string | null;
+  sid: string;
+  friendly_name: string;
+  iso_country: string;
+  number_type: string;
+  end_user_type: RegulationEndUserType;
+  requirements: any;
+  url: string;
 }
 
 export class RegulationInstance {
@@ -182,28 +187,28 @@ export class RegulationInstance {
   /**
    * The unique string that identifies the Regulation resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * A human-readable description of the Regulation resource
    */
-  friendlyName?: string | null;
+  friendlyName: string;
   /**
    * The ISO country code of the phone number\'s country
    */
-  isoCountry?: string | null;
+  isoCountry: string;
   /**
    * The type of phone number restricted by the regulatory requirement
    */
-  numberType?: string | null;
-  endUserType?: RegulationEndUserType;
+  numberType: string;
+  endUserType: RegulationEndUserType;
   /**
    * The sid of a regulation object that dictates requirements
    */
-  requirements?: any | null;
+  requirements: any;
   /**
    * The absolute URL of the Regulation resource
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): RegulationContext {
     this._context =
@@ -247,7 +252,13 @@ export class RegulationInstance {
   }
 }
 
+export interface RegulationSolution {}
+
 export interface RegulationListInstance {
+  _version: V2;
+  _solution: RegulationSolution;
+  _uri: string;
+
   (sid: string): RegulationContext;
   get(sid: string): RegulationContext;
 
@@ -379,17 +390,8 @@ export interface RegulationListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface RegulationSolution {}
-
-interface RegulationListInstanceImpl extends RegulationListInstance {}
-class RegulationListInstanceImpl implements RegulationListInstance {
-  _version?: V2;
-  _solution?: RegulationSolution;
-  _uri?: string;
-}
-
 export function RegulationListInstance(version: V2): RegulationListInstance {
-  const instance = ((sid) => instance.get(sid)) as RegulationListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as RegulationListInstance;
 
   instance.get = function get(sid): RegulationContext {
     return new RegulationContextImpl(version, sid);
@@ -427,17 +429,18 @@ export function RegulationListInstance(version: V2): RegulationListInstance {
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new RegulationPage(operationVersion, payload, this._solution)
+      (payload) =>
+        new RegulationPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -450,30 +453,28 @@ export function RegulationListInstance(version: V2): RegulationListInstance {
     targetUrl?: any,
     callback?: any
   ): Promise<RegulationPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new RegulationPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new RegulationPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

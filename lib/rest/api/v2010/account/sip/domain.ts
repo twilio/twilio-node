@@ -181,8 +181,8 @@ export interface DomainContext {
 }
 
 export interface DomainContextSolution {
-  accountSid?: string;
-  sid?: string;
+  accountSid: string;
+  sid: string;
 }
 
 export class DomainContextImpl implements DomainContext {
@@ -240,13 +240,14 @@ export class DomainContextImpl implements DomainContext {
   }
 
   remove(callback?: any): Promise<boolean> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -254,9 +255,10 @@ export class DomainContextImpl implements DomainContext {
   }
 
   fetch(callback?: any): Promise<DomainInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -265,12 +267,12 @@ export class DomainContextImpl implements DomainContext {
         new DomainInstance(
           operationVersion,
           payload,
-          this._solution.accountSid,
-          this._solution.sid
+          instance._solution.accountSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -318,9 +320,10 @@ export class DomainContextImpl implements DomainContext {
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -331,12 +334,12 @@ export class DomainContextImpl implements DomainContext {
         new DomainInstance(
           operationVersion,
           payload,
-          this._solution.accountSid,
-          this._solution.sid
+          instance._solution.accountSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -384,27 +387,27 @@ interface DomainPayload extends TwilioResponsePayload {
 }
 
 interface DomainResource {
-  account_sid?: string | null;
-  api_version?: string | null;
-  auth_type?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  domain_name?: string | null;
-  friendly_name?: string | null;
-  sid?: string | null;
-  uri?: string | null;
-  voice_fallback_method?: DomainVoiceFallbackMethod;
-  voice_fallback_url?: string | null;
-  voice_method?: DomainVoiceMethod;
-  voice_status_callback_method?: DomainVoiceStatusCallbackMethod;
-  voice_status_callback_url?: string | null;
-  voice_url?: string | null;
-  subresource_uris?: object | null;
-  sip_registration?: boolean | null;
-  emergency_calling_enabled?: boolean | null;
-  secure?: boolean | null;
-  byoc_trunk_sid?: string | null;
-  emergency_caller_sid?: string | null;
+  account_sid: string;
+  api_version: string;
+  auth_type: string;
+  date_created: Date;
+  date_updated: Date;
+  domain_name: string;
+  friendly_name: string;
+  sid: string;
+  uri: string;
+  voice_fallback_method: DomainVoiceFallbackMethod;
+  voice_fallback_url: string;
+  voice_method: DomainVoiceMethod;
+  voice_status_callback_method: DomainVoiceStatusCallbackMethod;
+  voice_status_callback_url: string;
+  voice_url: string;
+  subresource_uris: object;
+  sip_registration: boolean;
+  emergency_calling_enabled: boolean;
+  secure: boolean;
+  byoc_trunk_sid: string;
+  emergency_caller_sid: string;
 }
 
 export class DomainInstance {
@@ -445,87 +448,87 @@ export class DomainInstance {
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The API version used to process the call
    */
-  apiVersion?: string | null;
+  apiVersion: string;
   /**
    * The types of authentication mapped to the domain
    */
-  authType?: string | null;
+  authType: string;
   /**
    * The RFC 2822 date and time in GMT that the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The RFC 2822 date and time in GMT that the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The unique address on Twilio to route SIP traffic
    */
-  domainName?: string | null;
+  domainName: string;
   /**
    * The string that you assigned to describe the resource
    */
-  friendlyName?: string | null;
+  friendlyName: string;
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The URI of the resource, relative to `https://api.twilio.com`
    */
-  uri?: string | null;
+  uri: string;
   /**
    * The HTTP method used with voice_fallback_url
    */
-  voiceFallbackMethod?: DomainVoiceFallbackMethod;
+  voiceFallbackMethod: DomainVoiceFallbackMethod;
   /**
    * The URL we call when an error occurs while executing TwiML
    */
-  voiceFallbackUrl?: string | null;
+  voiceFallbackUrl: string;
   /**
    * The HTTP method to use with voice_url
    */
-  voiceMethod?: DomainVoiceMethod;
+  voiceMethod: DomainVoiceMethod;
   /**
    * The HTTP method we use to call voice_status_callback_url
    */
-  voiceStatusCallbackMethod?: DomainVoiceStatusCallbackMethod;
+  voiceStatusCallbackMethod: DomainVoiceStatusCallbackMethod;
   /**
    * The URL that we call with status updates
    */
-  voiceStatusCallbackUrl?: string | null;
+  voiceStatusCallbackUrl: string;
   /**
    * The URL we call when receiving a call
    */
-  voiceUrl?: string | null;
+  voiceUrl: string;
   /**
    * A list mapping resources associated with the SIP Domain resource
    */
-  subresourceUris?: object | null;
+  subresourceUris: object;
   /**
    * Whether SIP registration is allowed
    */
-  sipRegistration?: boolean | null;
+  sipRegistration: boolean;
   /**
    * Whether emergency calling is enabled for the domain.
    */
-  emergencyCallingEnabled?: boolean | null;
+  emergencyCallingEnabled: boolean;
   /**
    * Whether secure SIP is enabled for the domain
    */
-  secure?: boolean | null;
+  secure: boolean;
   /**
    * The SID of the BYOC Trunk resource.
    */
-  byocTrunkSid?: string | null;
+  byocTrunkSid: string;
   /**
    * Whether an emergency caller sid is configured for the domain.
    */
-  emergencyCallerSid?: string | null;
+  emergencyCallerSid: string;
 
   private get _proxy(): DomainContext {
     this._context =
@@ -647,7 +650,15 @@ export class DomainInstance {
   }
 }
 
+export interface DomainSolution {
+  accountSid: string;
+}
+
 export interface DomainListInstance {
+  _version: V2010;
+  _solution: DomainSolution;
+  _uri: string;
+
   (sid: string): DomainContext;
   get(sid: string): DomainContext;
 
@@ -793,17 +804,6 @@ export interface DomainListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface DomainSolution {
-  accountSid?: string;
-}
-
-interface DomainListInstanceImpl extends DomainListInstance {}
-class DomainListInstanceImpl implements DomainListInstance {
-  _version?: V2010;
-  _solution?: DomainSolution;
-  _uri?: string;
-}
-
 export function DomainListInstance(
   version: V2010,
   accountSid: string
@@ -812,7 +812,7 @@ export function DomainListInstance(
     throw new Error("Parameter 'accountSid' is not valid.");
   }
 
-  const instance = ((sid) => instance.get(sid)) as DomainListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as DomainListInstance;
 
   instance.get = function get(sid): DomainContext {
     return new DomainContextImpl(version, accountSid, sid);
@@ -868,7 +868,7 @@ export function DomainListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -876,10 +876,14 @@ export function DomainListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new DomainInstance(operationVersion, payload, this._solution.accountSid)
+        new DomainInstance(
+          operationVersion,
+          payload,
+          instance._solution.accountSid
+        )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -908,17 +912,17 @@ export function DomainListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new DomainPage(operationVersion, payload, this._solution)
+      (payload) => new DomainPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -931,30 +935,28 @@ export function DomainListInstance(
     targetUrl?: any,
     callback?: any
   ): Promise<DomainPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new DomainPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new DomainPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

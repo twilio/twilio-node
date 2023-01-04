@@ -26,7 +26,13 @@ export interface BulkCountryUpdateListInstanceCreateOptions {
   updateRequest: string;
 }
 
+export interface BulkCountryUpdateSolution {}
+
 export interface BulkCountryUpdateListInstance {
+  _version: V1;
+  _solution: BulkCountryUpdateSolution;
+  _uri: string;
+
   /**
    * Create a BulkCountryUpdateInstance
    *
@@ -48,22 +54,10 @@ export interface BulkCountryUpdateListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface BulkCountryUpdateSolution {}
-
-interface BulkCountryUpdateListInstanceImpl
-  extends BulkCountryUpdateListInstance {}
-class BulkCountryUpdateListInstanceImpl
-  implements BulkCountryUpdateListInstance
-{
-  _version?: V1;
-  _solution?: BulkCountryUpdateSolution;
-  _uri?: string;
-}
-
 export function BulkCountryUpdateListInstance(
   version: V1
 ): BulkCountryUpdateListInstance {
-  const instance = {} as BulkCountryUpdateListInstanceImpl;
+  const instance = {} as BulkCountryUpdateListInstance;
 
   instance._version = version;
   instance._solution = {};
@@ -95,7 +89,7 @@ export function BulkCountryUpdateListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -105,7 +99,7 @@ export function BulkCountryUpdateListInstance(
       (payload) => new BulkCountryUpdateInstance(operationVersion, payload)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -113,14 +107,14 @@ export function BulkCountryUpdateListInstance(
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;
@@ -129,8 +123,8 @@ export function BulkCountryUpdateListInstance(
 interface BulkCountryUpdatePayload extends BulkCountryUpdateResource {}
 
 interface BulkCountryUpdateResource {
-  update_count?: number | null;
-  update_request?: string | null;
+  update_count: number;
+  update_request: string;
 }
 
 export class BulkCountryUpdateInstance {
@@ -142,11 +136,11 @@ export class BulkCountryUpdateInstance {
   /**
    * The number of countries updated
    */
-  updateCount?: number | null;
+  updateCount: number;
   /**
    * A URL encoded JSON array of update objects
    */
-  updateRequest?: string | null;
+  updateRequest: string;
 
   /**
    * Provide a user-friendly representation

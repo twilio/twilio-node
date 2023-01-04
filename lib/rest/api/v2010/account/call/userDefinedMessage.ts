@@ -28,7 +28,16 @@ export interface UserDefinedMessageListInstanceCreateOptions {
   idempotencyKey?: string;
 }
 
+export interface UserDefinedMessageSolution {
+  accountSid: string;
+  callSid: string;
+}
+
 export interface UserDefinedMessageListInstance {
+  _version: V2010;
+  _solution: UserDefinedMessageSolution;
+  _uri: string;
+
   /**
    * Create a UserDefinedMessageInstance
    *
@@ -50,21 +59,6 @@ export interface UserDefinedMessageListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface UserDefinedMessageSolution {
-  accountSid?: string;
-  callSid?: string;
-}
-
-interface UserDefinedMessageListInstanceImpl
-  extends UserDefinedMessageListInstance {}
-class UserDefinedMessageListInstanceImpl
-  implements UserDefinedMessageListInstance
-{
-  _version?: V2010;
-  _solution?: UserDefinedMessageSolution;
-  _uri?: string;
-}
-
 export function UserDefinedMessageListInstance(
   version: V2010,
   accountSid: string,
@@ -78,7 +72,7 @@ export function UserDefinedMessageListInstance(
     throw new Error("Parameter 'callSid' is not valid.");
   }
 
-  const instance = {} as UserDefinedMessageListInstanceImpl;
+  const instance = {} as UserDefinedMessageListInstance;
 
   instance._version = version;
   instance._solution = { accountSid, callSid };
@@ -107,7 +101,7 @@ export function UserDefinedMessageListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -118,12 +112,12 @@ export function UserDefinedMessageListInstance(
         new UserDefinedMessageInstance(
           operationVersion,
           payload,
-          this._solution.accountSid,
-          this._solution.callSid
+          instance._solution.accountSid,
+          instance._solution.callSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -131,14 +125,14 @@ export function UserDefinedMessageListInstance(
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;
@@ -147,10 +141,10 @@ export function UserDefinedMessageListInstance(
 interface UserDefinedMessagePayload extends UserDefinedMessageResource {}
 
 interface UserDefinedMessageResource {
-  account_sid?: string | null;
-  call_sid?: string | null;
-  sid?: string | null;
-  date_created?: Date | null;
+  account_sid: string;
+  call_sid: string;
+  sid: string;
+  date_created: Date;
 }
 
 export class UserDefinedMessageInstance {
@@ -169,19 +163,19 @@ export class UserDefinedMessageInstance {
   /**
    * Account SID.
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * Call SID.
    */
-  callSid?: string | null;
+  callSid: string;
   /**
    * User Defined Message SID.
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The date this User Defined Message was created.
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
 
   /**
    * Provide a user-friendly representation

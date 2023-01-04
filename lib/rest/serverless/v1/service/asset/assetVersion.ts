@@ -78,9 +78,9 @@ export interface AssetVersionContext {
 }
 
 export interface AssetVersionContextSolution {
-  serviceSid?: string;
-  assetSid?: string;
-  sid?: string;
+  serviceSid: string;
+  assetSid: string;
+  sid: string;
 }
 
 export class AssetVersionContextImpl implements AssetVersionContext {
@@ -110,9 +110,10 @@ export class AssetVersionContextImpl implements AssetVersionContext {
   }
 
   fetch(callback?: any): Promise<AssetVersionInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -121,13 +122,13 @@ export class AssetVersionContextImpl implements AssetVersionContext {
         new AssetVersionInstance(
           operationVersion,
           payload,
-          this._solution.serviceSid,
-          this._solution.assetSid,
-          this._solution.sid
+          instance._solution.serviceSid,
+          instance._solution.assetSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -153,14 +154,14 @@ interface AssetVersionPayload extends TwilioResponsePayload {
 }
 
 interface AssetVersionResource {
-  sid?: string | null;
-  account_sid?: string | null;
-  service_sid?: string | null;
-  asset_sid?: string | null;
-  path?: string | null;
-  visibility?: AssetVersionVisibility;
-  date_created?: Date | null;
-  url?: string | null;
+  sid: string;
+  account_sid: string;
+  service_sid: string;
+  asset_sid: string;
+  path: string;
+  visibility: AssetVersionVisibility;
+  date_created: Date;
+  url: string;
 }
 
 export class AssetVersionInstance {
@@ -189,32 +190,32 @@ export class AssetVersionInstance {
   /**
    * The unique string that identifies the Asset Version resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The SID of the Account that created the Asset Version resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The SID of the Service that the Asset Version resource is associated with
    */
-  serviceSid?: string | null;
+  serviceSid: string;
   /**
    * The SID of the Asset resource that is the parent of the Asset Version
    */
-  assetSid?: string | null;
+  assetSid: string;
   /**
    * The URL-friendly string by which the Asset Version can be referenced
    */
-  path?: string | null;
-  visibility?: AssetVersionVisibility;
+  path: string;
+  visibility: AssetVersionVisibility;
   /**
    * The ISO 8601 date and time in GMT when the Asset Version resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The absolute URL of the Asset Version resource
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): AssetVersionContext {
     this._context =
@@ -264,7 +265,16 @@ export class AssetVersionInstance {
   }
 }
 
+export interface AssetVersionSolution {
+  serviceSid: string;
+  assetSid: string;
+}
+
 export interface AssetVersionListInstance {
+  _version: V1;
+  _solution: AssetVersionSolution;
+  _uri: string;
+
   (sid: string): AssetVersionContext;
   get(sid: string): AssetVersionContext;
 
@@ -396,18 +406,6 @@ export interface AssetVersionListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface AssetVersionSolution {
-  serviceSid?: string;
-  assetSid?: string;
-}
-
-interface AssetVersionListInstanceImpl extends AssetVersionListInstance {}
-class AssetVersionListInstanceImpl implements AssetVersionListInstance {
-  _version?: V1;
-  _solution?: AssetVersionSolution;
-  _uri?: string;
-}
-
 export function AssetVersionListInstance(
   version: V1,
   serviceSid: string,
@@ -421,7 +419,7 @@ export function AssetVersionListInstance(
     throw new Error("Parameter 'assetSid' is not valid.");
   }
 
-  const instance = ((sid) => instance.get(sid)) as AssetVersionListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as AssetVersionListInstance;
 
   instance.get = function get(sid): AssetVersionContext {
     return new AssetVersionContextImpl(version, serviceSid, assetSid, sid);
@@ -453,7 +451,7 @@ export function AssetVersionListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
@@ -461,10 +459,10 @@ export function AssetVersionListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new AssetVersionPage(operationVersion, payload, this._solution)
+        new AssetVersionPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -477,30 +475,28 @@ export function AssetVersionListInstance(
     targetUrl?: any,
     callback?: any
   ): Promise<AssetVersionPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new AssetVersionPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new AssetVersionPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

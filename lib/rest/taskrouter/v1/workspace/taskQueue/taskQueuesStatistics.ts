@@ -95,7 +95,15 @@ export interface TaskQueuesStatisticsListInstancePageOptions {
   pageToken?: string;
 }
 
+export interface TaskQueuesStatisticsSolution {
+  workspaceSid: string;
+}
+
 export interface TaskQueuesStatisticsListInstance {
+  _version: V1;
+  _solution: TaskQueuesStatisticsSolution;
+  _uri: string;
+
   /**
    * Streams TaskQueuesStatisticsInstance records from the API.
    *
@@ -236,20 +244,6 @@ export interface TaskQueuesStatisticsListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface TaskQueuesStatisticsSolution {
-  workspaceSid?: string;
-}
-
-interface TaskQueuesStatisticsListInstanceImpl
-  extends TaskQueuesStatisticsListInstance {}
-class TaskQueuesStatisticsListInstanceImpl
-  implements TaskQueuesStatisticsListInstance
-{
-  _version?: V1;
-  _solution?: TaskQueuesStatisticsSolution;
-  _uri?: string;
-}
-
 export function TaskQueuesStatisticsListInstance(
   version: V1,
   workspaceSid: string
@@ -258,7 +252,7 @@ export function TaskQueuesStatisticsListInstance(
     throw new Error("Parameter 'workspaceSid' is not valid.");
   }
 
-  const instance = {} as TaskQueuesStatisticsListInstanceImpl;
+  const instance = {} as TaskQueuesStatisticsListInstance;
 
   instance._version = version;
   instance._solution = { workspaceSid };
@@ -297,7 +291,7 @@ export function TaskQueuesStatisticsListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
@@ -305,10 +299,14 @@ export function TaskQueuesStatisticsListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new TaskQueuesStatisticsPage(operationVersion, payload, this._solution)
+        new TaskQueuesStatisticsPage(
+          operationVersion,
+          payload,
+          instance._solution
+        )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -321,31 +319,32 @@ export function TaskQueuesStatisticsListInstance(
     targetUrl?: any,
     callback?: any
   ): Promise<TaskQueuesStatisticsPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
+    let pagePromise = operationPromise.then(
       (payload) =>
-        new TaskQueuesStatisticsPage(this._version, payload, this._solution)
+        new TaskQueuesStatisticsPage(
+          instance._version,
+          payload,
+          instance._solution
+        )
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;
@@ -356,11 +355,11 @@ interface TaskQueuesStatisticsPayload extends TwilioResponsePayload {
 }
 
 interface TaskQueuesStatisticsResource {
-  account_sid?: string | null;
-  cumulative?: any | null;
-  realtime?: any | null;
-  task_queue_sid?: string | null;
-  workspace_sid?: string | null;
+  account_sid: string;
+  cumulative: any;
+  realtime: any;
+  task_queue_sid: string;
+  workspace_sid: string;
 }
 
 export class TaskQueuesStatisticsInstance {
@@ -379,23 +378,23 @@ export class TaskQueuesStatisticsInstance {
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * An object that contains the cumulative statistics for the TaskQueues
    */
-  cumulative?: any | null;
+  cumulative: any;
   /**
    * An object that contains the real-time statistics for the TaskQueues
    */
-  realtime?: any | null;
+  realtime: any;
   /**
    * The SID of the TaskQueue from which these statistics were calculated
    */
-  taskQueueSid?: string | null;
+  taskQueueSid: string;
   /**
    * The SID of the Workspace that contains the TaskQueues
    */
-  workspaceSid?: string | null;
+  workspaceSid: string;
 
   /**
    * Provide a user-friendly representation

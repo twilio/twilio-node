@@ -130,9 +130,9 @@ export interface BucketContext {
 }
 
 export interface BucketContextSolution {
-  serviceSid?: string;
-  rateLimitSid?: string;
-  sid?: string;
+  serviceSid: string;
+  rateLimitSid: string;
+  sid: string;
 }
 
 export class BucketContextImpl implements BucketContext {
@@ -162,13 +162,14 @@ export class BucketContextImpl implements BucketContext {
   }
 
   remove(callback?: any): Promise<boolean> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -176,9 +177,10 @@ export class BucketContextImpl implements BucketContext {
   }
 
   fetch(callback?: any): Promise<BucketInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -187,13 +189,13 @@ export class BucketContextImpl implements BucketContext {
         new BucketInstance(
           operationVersion,
           payload,
-          this._solution.serviceSid,
-          this._solution.rateLimitSid,
-          this._solution.sid
+          instance._solution.serviceSid,
+          instance._solution.rateLimitSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -216,9 +218,10 @@ export class BucketContextImpl implements BucketContext {
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -229,13 +232,13 @@ export class BucketContextImpl implements BucketContext {
         new BucketInstance(
           operationVersion,
           payload,
-          this._solution.serviceSid,
-          this._solution.rateLimitSid,
-          this._solution.sid
+          instance._solution.serviceSid,
+          instance._solution.rateLimitSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -261,15 +264,15 @@ interface BucketPayload extends TwilioResponsePayload {
 }
 
 interface BucketResource {
-  sid?: string | null;
-  rate_limit_sid?: string | null;
-  service_sid?: string | null;
-  account_sid?: string | null;
-  max?: number | null;
-  interval?: number | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  url?: string | null;
+  sid: string;
+  rate_limit_sid: string;
+  service_sid: string;
+  account_sid: string;
+  max: number;
+  interval: number;
+  date_created: Date;
+  date_updated: Date;
+  url: string;
 }
 
 export class BucketInstance {
@@ -299,39 +302,39 @@ export class BucketInstance {
   /**
    * A string that uniquely identifies this Bucket.
    */
-  sid?: string | null;
+  sid: string;
   /**
    * Rate Limit Sid.
    */
-  rateLimitSid?: string | null;
+  rateLimitSid: string;
   /**
    * The SID of the Service that the resource is associated with
    */
-  serviceSid?: string | null;
+  serviceSid: string;
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * Max number of requests.
    */
-  max?: number | null;
+  max: number;
   /**
    * Number of seconds that the rate limit will be enforced over.
    */
-  interval?: number | null;
+  interval: number;
   /**
    * The RFC 2822 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The RFC 2822 date and time in GMT when the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The URL of this resource.
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): BucketContext {
     this._context =
@@ -421,7 +424,16 @@ export class BucketInstance {
   }
 }
 
+export interface BucketSolution {
+  serviceSid: string;
+  rateLimitSid: string;
+}
+
 export interface BucketListInstance {
+  _version: V2;
+  _solution: BucketSolution;
+  _uri: string;
+
   (sid: string): BucketContext;
   get(sid: string): BucketContext;
 
@@ -567,18 +579,6 @@ export interface BucketListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface BucketSolution {
-  serviceSid?: string;
-  rateLimitSid?: string;
-}
-
-interface BucketListInstanceImpl extends BucketListInstance {}
-class BucketListInstanceImpl implements BucketListInstance {
-  _version?: V2;
-  _solution?: BucketSolution;
-  _uri?: string;
-}
-
 export function BucketListInstance(
   version: V2,
   serviceSid: string,
@@ -592,7 +592,7 @@ export function BucketListInstance(
     throw new Error("Parameter 'rateLimitSid' is not valid.");
   }
 
-  const instance = ((sid) => instance.get(sid)) as BucketListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as BucketListInstance;
 
   instance.get = function get(sid): BucketContext {
     return new BucketContextImpl(version, serviceSid, rateLimitSid, sid);
@@ -629,7 +629,7 @@ export function BucketListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -640,12 +640,12 @@ export function BucketListInstance(
         new BucketInstance(
           operationVersion,
           payload,
-          this._solution.serviceSid,
-          this._solution.rateLimitSid
+          instance._solution.serviceSid,
+          instance._solution.rateLimitSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -674,17 +674,17 @@ export function BucketListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new BucketPage(operationVersion, payload, this._solution)
+      (payload) => new BucketPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -697,30 +697,28 @@ export function BucketListInstance(
     targetUrl?: any,
     callback?: any
   ): Promise<BucketPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new BucketPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new BucketPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

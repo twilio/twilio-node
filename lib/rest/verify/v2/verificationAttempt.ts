@@ -131,7 +131,7 @@ export interface VerificationAttemptContext {
 }
 
 export interface VerificationAttemptContextSolution {
-  sid?: string;
+  sid: string;
 }
 
 export class VerificationAttemptContextImpl
@@ -150,9 +150,10 @@ export class VerificationAttemptContextImpl
   }
 
   fetch(callback?: any): Promise<VerificationAttemptInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -161,11 +162,11 @@ export class VerificationAttemptContextImpl
         new VerificationAttemptInstance(
           operationVersion,
           payload,
-          this._solution.sid
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -191,17 +192,17 @@ interface VerificationAttemptPayload extends TwilioResponsePayload {
 }
 
 interface VerificationAttemptResource {
-  sid?: string | null;
-  account_sid?: string | null;
-  service_sid?: string | null;
-  verification_sid?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  conversion_status?: VerificationAttemptConversionStatus;
-  channel?: VerificationAttemptChannels;
-  price?: any | null;
-  channel_data?: any | null;
-  url?: string | null;
+  sid: string;
+  account_sid: string;
+  service_sid: string;
+  verification_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  conversion_status: VerificationAttemptConversionStatus;
+  channel: VerificationAttemptChannels;
+  price: any;
+  channel_data: any;
+  url: string;
 }
 
 export class VerificationAttemptInstance {
@@ -231,38 +232,38 @@ export class VerificationAttemptInstance {
   /**
    * The SID that uniquely identifies the verification attempt.
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The SID of the Account that created the verification.
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The SID of the verify service that generated this attempt.
    */
-  serviceSid?: string | null;
+  serviceSid: string;
   /**
    * The SID of the verification that generated this attempt.
    */
-  verificationSid?: string | null;
+  verificationSid: string;
   /**
    * The date this Attempt was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The date this Attempt was updated
    */
-  dateUpdated?: Date | null;
-  conversionStatus?: VerificationAttemptConversionStatus;
-  channel?: VerificationAttemptChannels;
+  dateUpdated: Date;
+  conversionStatus: VerificationAttemptConversionStatus;
+  channel: VerificationAttemptChannels;
   /**
    * An object containing the charge for this verification attempt.
    */
-  price?: any | null;
+  price: any;
   /**
    * An object containing the channel specific information for an attempt.
    */
-  channelData?: any | null;
-  url?: string | null;
+  channelData: any;
+  url: string;
 
   private get _proxy(): VerificationAttemptContext {
     this._context =
@@ -310,7 +311,13 @@ export class VerificationAttemptInstance {
   }
 }
 
+export interface VerificationAttemptSolution {}
+
 export interface VerificationAttemptListInstance {
+  _version: V2;
+  _solution: VerificationAttemptSolution;
+  _uri: string;
+
   (sid: string): VerificationAttemptContext;
   get(sid: string): VerificationAttemptContext;
 
@@ -454,23 +461,11 @@ export interface VerificationAttemptListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface VerificationAttemptSolution {}
-
-interface VerificationAttemptListInstanceImpl
-  extends VerificationAttemptListInstance {}
-class VerificationAttemptListInstanceImpl
-  implements VerificationAttemptListInstance
-{
-  _version?: V2;
-  _solution?: VerificationAttemptSolution;
-  _uri?: string;
-}
-
 export function VerificationAttemptListInstance(
   version: V2
 ): VerificationAttemptListInstance {
   const instance = ((sid) =>
-    instance.get(sid)) as VerificationAttemptListInstanceImpl;
+    instance.get(sid)) as VerificationAttemptListInstance;
 
   instance.get = function get(sid): VerificationAttemptContext {
     return new VerificationAttemptContextImpl(version, sid);
@@ -519,7 +514,7 @@ export function VerificationAttemptListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
@@ -527,10 +522,14 @@ export function VerificationAttemptListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new VerificationAttemptPage(operationVersion, payload, this._solution)
+        new VerificationAttemptPage(
+          operationVersion,
+          payload,
+          instance._solution
+        )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -543,31 +542,32 @@ export function VerificationAttemptListInstance(
     targetUrl?: any,
     callback?: any
   ): Promise<VerificationAttemptPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
+    let pagePromise = operationPromise.then(
       (payload) =>
-        new VerificationAttemptPage(this._version, payload, this._solution)
+        new VerificationAttemptPage(
+          instance._version,
+          payload,
+          instance._solution
+        )
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

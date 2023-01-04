@@ -67,7 +67,7 @@ export interface WorkspaceStatisticsContext {
 }
 
 export interface WorkspaceStatisticsContextSolution {
-  workspaceSid?: string;
+  workspaceSid: string;
 }
 
 export class WorkspaceStatisticsContextImpl
@@ -107,9 +107,10 @@ export class WorkspaceStatisticsContextImpl
 
     const headers: any = {};
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
@@ -120,11 +121,11 @@ export class WorkspaceStatisticsContextImpl
         new WorkspaceStatisticsInstance(
           operationVersion,
           payload,
-          this._solution.workspaceSid
+          instance._solution.workspaceSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -148,11 +149,11 @@ export class WorkspaceStatisticsContextImpl
 interface WorkspaceStatisticsPayload extends WorkspaceStatisticsResource {}
 
 interface WorkspaceStatisticsResource {
-  realtime?: any | null;
-  cumulative?: any | null;
-  account_sid?: string | null;
-  workspace_sid?: string | null;
-  url?: string | null;
+  realtime: any;
+  cumulative: any;
+  account_sid: string;
+  workspace_sid: string;
+  url: string;
 }
 
 export class WorkspaceStatisticsInstance {
@@ -176,23 +177,23 @@ export class WorkspaceStatisticsInstance {
   /**
    * n object that contains the real-time statistics for the Workspace
    */
-  realtime?: any | null;
+  realtime: any;
   /**
    * An object that contains the cumulative statistics for the Workspace
    */
-  cumulative?: any | null;
+  cumulative: any;
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The SID of the Workspace
    */
-  workspaceSid?: string | null;
+  workspaceSid: string;
   /**
    * The absolute URL of the Workspace statistics resource
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): WorkspaceStatisticsContext {
     this._context =
@@ -250,7 +251,15 @@ export class WorkspaceStatisticsInstance {
   }
 }
 
+export interface WorkspaceStatisticsSolution {
+  workspaceSid: string;
+}
+
 export interface WorkspaceStatisticsListInstance {
+  _version: V1;
+  _solution: WorkspaceStatisticsSolution;
+  _uri: string;
+
   (): WorkspaceStatisticsContext;
   get(): WorkspaceStatisticsContext;
 
@@ -261,20 +270,6 @@ export interface WorkspaceStatisticsListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface WorkspaceStatisticsSolution {
-  workspaceSid?: string;
-}
-
-interface WorkspaceStatisticsListInstanceImpl
-  extends WorkspaceStatisticsListInstance {}
-class WorkspaceStatisticsListInstanceImpl
-  implements WorkspaceStatisticsListInstance
-{
-  _version?: V1;
-  _solution?: WorkspaceStatisticsSolution;
-  _uri?: string;
-}
-
 export function WorkspaceStatisticsListInstance(
   version: V1,
   workspaceSid: string
@@ -283,8 +278,7 @@ export function WorkspaceStatisticsListInstance(
     throw new Error("Parameter 'workspaceSid' is not valid.");
   }
 
-  const instance = (() =>
-    instance.get()) as WorkspaceStatisticsListInstanceImpl;
+  const instance = (() => instance.get()) as WorkspaceStatisticsListInstance;
 
   instance.get = function get(): WorkspaceStatisticsContext {
     return new WorkspaceStatisticsContextImpl(version, workspaceSid);
@@ -295,14 +289,14 @@ export function WorkspaceStatisticsListInstance(
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

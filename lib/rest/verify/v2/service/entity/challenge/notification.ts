@@ -26,7 +26,17 @@ export interface NotificationListInstanceCreateOptions {
   ttl?: number;
 }
 
+export interface NotificationSolution {
+  serviceSid: string;
+  identity: string;
+  challengeSid: string;
+}
+
 export interface NotificationListInstance {
+  _version: V2;
+  _solution: NotificationSolution;
+  _uri: string;
+
   /**
    * Create a NotificationInstance
    *
@@ -58,19 +68,6 @@ export interface NotificationListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface NotificationSolution {
-  serviceSid?: string;
-  identity?: string;
-  challengeSid?: string;
-}
-
-interface NotificationListInstanceImpl extends NotificationListInstance {}
-class NotificationListInstanceImpl implements NotificationListInstance {
-  _version?: V2;
-  _solution?: NotificationSolution;
-  _uri?: string;
-}
-
 export function NotificationListInstance(
   version: V2,
   serviceSid: string,
@@ -89,7 +86,7 @@ export function NotificationListInstance(
     throw new Error("Parameter 'challengeSid' is not valid.");
   }
 
-  const instance = {} as NotificationListInstanceImpl;
+  const instance = {} as NotificationListInstance;
 
   instance._version = version;
   instance._solution = { serviceSid, identity, challengeSid };
@@ -115,7 +112,7 @@ export function NotificationListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -126,13 +123,13 @@ export function NotificationListInstance(
         new NotificationInstance(
           operationVersion,
           payload,
-          this._solution.serviceSid,
-          this._solution.identity,
-          this._solution.challengeSid
+          instance._solution.serviceSid,
+          instance._solution.identity,
+          instance._solution.challengeSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -140,14 +137,14 @@ export function NotificationListInstance(
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;
@@ -156,15 +153,15 @@ export function NotificationListInstance(
 interface NotificationPayload extends NotificationResource {}
 
 interface NotificationResource {
-  sid?: string | null;
-  account_sid?: string | null;
-  service_sid?: string | null;
-  entity_sid?: string | null;
-  identity?: string | null;
-  challenge_sid?: string | null;
-  priority?: string | null;
-  ttl?: number | null;
-  date_created?: Date | null;
+  sid: string;
+  account_sid: string;
+  service_sid: string;
+  entity_sid: string;
+  identity: string;
+  challenge_sid: string;
+  priority: string;
+  ttl: number;
+  date_created: Date;
 }
 
 export class NotificationInstance {
@@ -189,39 +186,39 @@ export class NotificationInstance {
   /**
    * A string that uniquely identifies this Notification.
    */
-  sid?: string | null;
+  sid: string;
   /**
    * Account Sid.
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * Service Sid.
    */
-  serviceSid?: string | null;
+  serviceSid: string;
   /**
    * Entity Sid.
    */
-  entitySid?: string | null;
+  entitySid: string;
   /**
    * Unique external identifier of the Entity
    */
-  identity?: string | null;
+  identity: string;
   /**
    * Challenge Sid.
    */
-  challengeSid?: string | null;
+  challengeSid: string;
   /**
    * The priority of the notification.
    */
-  priority?: string | null;
+  priority: string;
   /**
    * How long, in seconds, the notification is valid.
    */
-  ttl?: number | null;
+  ttl: number;
   /**
    * The date this Notification was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
 
   /**
    * Provide a user-friendly representation

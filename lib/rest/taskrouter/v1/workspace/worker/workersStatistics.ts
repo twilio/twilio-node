@@ -71,7 +71,7 @@ export interface WorkersStatisticsContext {
 }
 
 export interface WorkersStatisticsContextSolution {
-  workspaceSid?: string;
+  workspaceSid: string;
 }
 
 export class WorkersStatisticsContextImpl implements WorkersStatisticsContext {
@@ -113,9 +113,10 @@ export class WorkersStatisticsContextImpl implements WorkersStatisticsContext {
 
     const headers: any = {};
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
@@ -126,11 +127,11 @@ export class WorkersStatisticsContextImpl implements WorkersStatisticsContext {
         new WorkersStatisticsInstance(
           operationVersion,
           payload,
-          this._solution.workspaceSid
+          instance._solution.workspaceSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -154,11 +155,11 @@ export class WorkersStatisticsContextImpl implements WorkersStatisticsContext {
 interface WorkersStatisticsPayload extends WorkersStatisticsResource {}
 
 interface WorkersStatisticsResource {
-  realtime?: any | null;
-  cumulative?: any | null;
-  account_sid?: string | null;
-  workspace_sid?: string | null;
-  url?: string | null;
+  realtime: any;
+  cumulative: any;
+  account_sid: string;
+  workspace_sid: string;
+  url: string;
 }
 
 export class WorkersStatisticsInstance {
@@ -182,23 +183,23 @@ export class WorkersStatisticsInstance {
   /**
    * An object that contains the real-time statistics for the Worker
    */
-  realtime?: any | null;
+  realtime: any;
   /**
    * An object that contains the cumulative statistics for the Worker
    */
-  cumulative?: any | null;
+  cumulative: any;
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The SID of the Workspace that contains the Worker
    */
-  workspaceSid?: string | null;
+  workspaceSid: string;
   /**
    * The absolute URL of the Worker statistics resource
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): WorkersStatisticsContext {
     this._context =
@@ -256,7 +257,15 @@ export class WorkersStatisticsInstance {
   }
 }
 
+export interface WorkersStatisticsSolution {
+  workspaceSid: string;
+}
+
 export interface WorkersStatisticsListInstance {
+  _version: V1;
+  _solution: WorkersStatisticsSolution;
+  _uri: string;
+
   (): WorkersStatisticsContext;
   get(): WorkersStatisticsContext;
 
@@ -267,20 +276,6 @@ export interface WorkersStatisticsListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface WorkersStatisticsSolution {
-  workspaceSid?: string;
-}
-
-interface WorkersStatisticsListInstanceImpl
-  extends WorkersStatisticsListInstance {}
-class WorkersStatisticsListInstanceImpl
-  implements WorkersStatisticsListInstance
-{
-  _version?: V1;
-  _solution?: WorkersStatisticsSolution;
-  _uri?: string;
-}
-
 export function WorkersStatisticsListInstance(
   version: V1,
   workspaceSid: string
@@ -289,7 +284,7 @@ export function WorkersStatisticsListInstance(
     throw new Error("Parameter 'workspaceSid' is not valid.");
   }
 
-  const instance = (() => instance.get()) as WorkersStatisticsListInstanceImpl;
+  const instance = (() => instance.get()) as WorkersStatisticsListInstance;
 
   instance.get = function get(): WorkersStatisticsContext {
     return new WorkersStatisticsContextImpl(version, workspaceSid);
@@ -300,14 +295,14 @@ export function WorkersStatisticsListInstance(
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

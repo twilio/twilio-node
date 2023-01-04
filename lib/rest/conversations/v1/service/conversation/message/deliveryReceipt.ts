@@ -86,10 +86,10 @@ export interface DeliveryReceiptContext {
 }
 
 export interface DeliveryReceiptContextSolution {
-  chatServiceSid?: string;
-  conversationSid?: string;
-  messageSid?: string;
-  sid?: string;
+  chatServiceSid: string;
+  conversationSid: string;
+  messageSid: string;
+  sid: string;
 }
 
 export class DeliveryReceiptContextImpl implements DeliveryReceiptContext {
@@ -124,9 +124,10 @@ export class DeliveryReceiptContextImpl implements DeliveryReceiptContext {
   }
 
   fetch(callback?: any): Promise<DeliveryReceiptInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -135,14 +136,14 @@ export class DeliveryReceiptContextImpl implements DeliveryReceiptContext {
         new DeliveryReceiptInstance(
           operationVersion,
           payload,
-          this._solution.chatServiceSid,
-          this._solution.conversationSid,
-          this._solution.messageSid,
-          this._solution.sid
+          instance._solution.chatServiceSid,
+          instance._solution.conversationSid,
+          instance._solution.messageSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -168,18 +169,18 @@ interface DeliveryReceiptPayload extends TwilioResponsePayload {
 }
 
 interface DeliveryReceiptResource {
-  account_sid?: string | null;
-  chat_service_sid?: string | null;
-  conversation_sid?: string | null;
-  message_sid?: string | null;
-  sid?: string | null;
-  channel_message_sid?: string | null;
-  participant_sid?: string | null;
-  status?: ServiceConversationMessageReceiptDeliveryStatus;
-  error_code?: number | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  url?: string | null;
+  account_sid: string;
+  chat_service_sid: string;
+  conversation_sid: string;
+  message_sid: string;
+  sid: string;
+  channel_message_sid: string;
+  participant_sid: string;
+  status: ServiceConversationMessageReceiptDeliveryStatus;
+  error_code: number;
+  date_created: Date;
+  date_updated: Date;
+  url: string;
 }
 
 export class DeliveryReceiptInstance {
@@ -218,48 +219,48 @@ export class DeliveryReceiptInstance {
   /**
    * The unique ID of the Account responsible for this participant.
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The SID of the Conversation Service that the resource is associated with.
    */
-  chatServiceSid?: string | null;
+  chatServiceSid: string;
   /**
    * The unique ID of the Conversation for this message.
    */
-  conversationSid?: string | null;
+  conversationSid: string;
   /**
    * The SID of the message the delivery receipt belongs to
    */
-  messageSid?: string | null;
+  messageSid: string;
   /**
    * A 34 character string that uniquely identifies this resource.
    */
-  sid?: string | null;
+  sid: string;
   /**
    * A messaging channel-specific identifier for the message delivered to participant
    */
-  channelMessageSid?: string | null;
+  channelMessageSid: string;
   /**
    * The unique ID of the participant the delivery receipt belongs to.
    */
-  participantSid?: string | null;
-  status?: ServiceConversationMessageReceiptDeliveryStatus;
+  participantSid: string;
+  status: ServiceConversationMessageReceiptDeliveryStatus;
   /**
    * The message [delivery error code](https://www.twilio.com/docs/sms/api/message-resource#delivery-related-errors) for a `failed` status
    */
-  errorCode?: number | null;
+  errorCode: number;
   /**
    * The date that this resource was created.
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The date that this resource was last updated.
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * An absolute URL for this delivery receipt.
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): DeliveryReceiptContext {
     this._context =
@@ -314,7 +315,17 @@ export class DeliveryReceiptInstance {
   }
 }
 
+export interface DeliveryReceiptSolution {
+  chatServiceSid: string;
+  conversationSid: string;
+  messageSid: string;
+}
+
 export interface DeliveryReceiptListInstance {
+  _version: V1;
+  _solution: DeliveryReceiptSolution;
+  _uri: string;
+
   (sid: string): DeliveryReceiptContext;
   get(sid: string): DeliveryReceiptContext;
 
@@ -452,19 +463,6 @@ export interface DeliveryReceiptListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface DeliveryReceiptSolution {
-  chatServiceSid?: string;
-  conversationSid?: string;
-  messageSid?: string;
-}
-
-interface DeliveryReceiptListInstanceImpl extends DeliveryReceiptListInstance {}
-class DeliveryReceiptListInstanceImpl implements DeliveryReceiptListInstance {
-  _version?: V1;
-  _solution?: DeliveryReceiptSolution;
-  _uri?: string;
-}
-
 export function DeliveryReceiptListInstance(
   version: V1,
   chatServiceSid: string,
@@ -483,8 +481,7 @@ export function DeliveryReceiptListInstance(
     throw new Error("Parameter 'messageSid' is not valid.");
   }
 
-  const instance = ((sid) =>
-    instance.get(sid)) as DeliveryReceiptListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as DeliveryReceiptListInstance;
 
   instance.get = function get(sid): DeliveryReceiptContext {
     return new DeliveryReceiptContextImpl(
@@ -522,7 +519,7 @@ export function DeliveryReceiptListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
@@ -530,10 +527,10 @@ export function DeliveryReceiptListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new DeliveryReceiptPage(operationVersion, payload, this._solution)
+        new DeliveryReceiptPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -546,31 +543,28 @@ export function DeliveryReceiptListInstance(
     targetUrl?: any,
     callback?: any
   ): Promise<DeliveryReceiptPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
+    let pagePromise = operationPromise.then(
       (payload) =>
-        new DeliveryReceiptPage(this._version, payload, this._solution)
+        new DeliveryReceiptPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

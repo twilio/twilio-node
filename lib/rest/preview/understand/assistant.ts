@@ -171,7 +171,7 @@ export interface AssistantContext {
 }
 
 export interface AssistantContextSolution {
-  sid?: string;
+  sid: string;
 }
 
 export class AssistantContextImpl implements AssistantContext {
@@ -251,13 +251,14 @@ export class AssistantContextImpl implements AssistantContext {
   }
 
   remove(callback?: any): Promise<boolean> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -265,18 +266,19 @@ export class AssistantContextImpl implements AssistantContext {
   }
 
   fetch(callback?: any): Promise<AssistantInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new AssistantInstance(operationVersion, payload, this._solution.sid)
+        new AssistantInstance(operationVersion, payload, instance._solution.sid)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -313,9 +315,10 @@ export class AssistantContextImpl implements AssistantContext {
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -323,10 +326,10 @@ export class AssistantContextImpl implements AssistantContext {
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new AssistantInstance(operationVersion, payload, this._solution.sid)
+        new AssistantInstance(operationVersion, payload, instance._solution.sid)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -352,18 +355,18 @@ interface AssistantPayload extends TwilioResponsePayload {
 }
 
 interface AssistantResource {
-  account_sid?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  friendly_name?: string | null;
-  latest_model_build_sid?: string | null;
-  links?: object | null;
-  log_queries?: boolean | null;
-  sid?: string | null;
-  unique_name?: string | null;
-  url?: string | null;
-  callback_url?: string | null;
-  callback_events?: string | null;
+  account_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  friendly_name: string;
+  latest_model_build_sid: string;
+  links: object;
+  log_queries: boolean;
+  sid: string;
+  unique_name: string;
+  url: string;
+  callback_url: string;
+  callback_events: string;
 }
 
 export class AssistantInstance {
@@ -394,45 +397,45 @@ export class AssistantInstance {
   /**
    * The unique ID of the Account that created this Assistant.
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The date that this resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The date that this resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * A text description for the Assistant. It is non-unique and can up to 255 characters long.
    */
-  friendlyName?: string | null;
+  friendlyName: string;
   /**
    * The unique ID (Sid) of the latest model build. Null if no model has been built.
    */
-  latestModelBuildSid?: string | null;
-  links?: object | null;
+  latestModelBuildSid: string;
+  links: object;
   /**
    * A boolean that specifies whether queries should be logged for 30 days further training. If false, no queries will be stored, if true, queries will be stored for 30 days and deleted thereafter.
    */
-  logQueries?: boolean | null;
+  logQueries: boolean;
   /**
    * A 34 character string that uniquely identifies this resource.
    */
-  sid?: string | null;
+  sid: string;
   /**
    * A user-provided string that uniquely identifies this resource as an alternative to the sid. You can use the unique name in the URL path. Unique up to 64 characters long.
    */
-  uniqueName?: string | null;
-  url?: string | null;
+  uniqueName: string;
+  url: string;
   /**
    * A user-provided URL to send event callbacks to.
    */
-  callbackUrl?: string | null;
+  callbackUrl: string;
   /**
    * Space-separated list of callback events that will trigger callbacks.
    */
-  callbackEvents?: string | null;
+  callbackEvents: string;
 
   private get _proxy(): AssistantContext {
     this._context =
@@ -576,7 +579,13 @@ export class AssistantInstance {
   }
 }
 
+export interface AssistantSolution {}
+
 export interface AssistantListInstance {
+  _version: Understand;
+  _solution: AssistantSolution;
+  _uri: string;
+
   (sid: string): AssistantContext;
   get(sid: string): AssistantContext;
 
@@ -732,19 +741,10 @@ export interface AssistantListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface AssistantSolution {}
-
-interface AssistantListInstanceImpl extends AssistantListInstance {}
-class AssistantListInstanceImpl implements AssistantListInstance {
-  _version?: Understand;
-  _solution?: AssistantSolution;
-  _uri?: string;
-}
-
 export function AssistantListInstance(
   version: Understand
 ): AssistantListInstance {
-  const instance = ((sid) => instance.get(sid)) as AssistantListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as AssistantListInstance;
 
   instance.get = function get(sid): AssistantContext {
     return new AssistantContextImpl(version, sid);
@@ -789,7 +789,7 @@ export function AssistantListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -799,7 +799,7 @@ export function AssistantListInstance(
       (payload) => new AssistantInstance(operationVersion, payload)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -828,17 +828,18 @@ export function AssistantListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new AssistantPage(operationVersion, payload, this._solution)
+      (payload) =>
+        new AssistantPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -851,30 +852,28 @@ export function AssistantListInstance(
     targetUrl?: any,
     callback?: any
   ): Promise<AssistantPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new AssistantPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new AssistantPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

@@ -108,7 +108,13 @@ export interface UsageRecordListInstancePageOptions {
   pageToken?: string;
 }
 
+export interface UsageRecordSolution {}
+
 export interface UsageRecordListInstance {
+  _version: V1;
+  _solution: UsageRecordSolution;
+  _uri: string;
+
   /**
    * Streams UsageRecordInstance records from the API.
    *
@@ -237,17 +243,8 @@ export interface UsageRecordListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface UsageRecordSolution {}
-
-interface UsageRecordListInstanceImpl extends UsageRecordListInstance {}
-class UsageRecordListInstanceImpl implements UsageRecordListInstance {
-  _version?: V1;
-  _solution?: UsageRecordSolution;
-  _uri?: string;
-}
-
 export function UsageRecordListInstance(version: V1): UsageRecordListInstance {
-  const instance = {} as UsageRecordListInstanceImpl;
+  const instance = {} as UsageRecordListInstance;
 
   instance._version = version;
   instance._solution = {};
@@ -287,7 +284,7 @@ export function UsageRecordListInstance(version: V1): UsageRecordListInstance {
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
@@ -295,10 +292,10 @@ export function UsageRecordListInstance(version: V1): UsageRecordListInstance {
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new UsageRecordPage(operationVersion, payload, this._solution)
+        new UsageRecordPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -311,30 +308,28 @@ export function UsageRecordListInstance(version: V1): UsageRecordListInstance {
     targetUrl?: any,
     callback?: any
   ): Promise<UsageRecordPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new UsageRecordPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new UsageRecordPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;
@@ -345,17 +340,17 @@ interface UsageRecordPayload extends TwilioResponsePayload {
 }
 
 interface UsageRecordResource {
-  account_sid?: string | null;
-  sim_sid?: string | null;
-  network_sid?: string | null;
-  fleet_sid?: string | null;
-  iso_country?: string | null;
-  period?: any | null;
-  data_upload?: number | null;
-  data_download?: number | null;
-  data_total?: number | null;
-  data_total_billed?: number | null;
-  billed_unit?: string | null;
+  account_sid: string;
+  sim_sid: string;
+  network_sid: string;
+  fleet_sid: string;
+  iso_country: string;
+  period: any;
+  data_upload: number;
+  data_download: number;
+  data_total: number;
+  data_total_billed: number;
+  billed_unit: string;
 }
 
 export class UsageRecordInstance {
@@ -376,47 +371,47 @@ export class UsageRecordInstance {
   /**
    * The SID of the Account that incurred the usage.
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * SID of a Sim resource to which the UsageRecord belongs.
    */
-  simSid?: string | null;
+  simSid: string;
   /**
    * SID of the Network resource on which the usage occurred.
    */
-  networkSid?: string | null;
+  networkSid: string;
   /**
    * SID of the Fleet resource on which the usage occurred.
    */
-  fleetSid?: string | null;
+  fleetSid: string;
   /**
    * Alpha-2 ISO Country Code of the country the usage occurred in.
    */
-  isoCountry?: string | null;
+  isoCountry: string;
   /**
    * The time period for which the usage is reported.
    */
-  period?: any | null;
+  period: any;
   /**
    * Total data uploaded in bytes, aggregated by the query parameters.
    */
-  dataUpload?: number | null;
+  dataUpload: number;
   /**
    * Total data downloaded in bytes, aggregated by the query parameters.
    */
-  dataDownload?: number | null;
+  dataDownload: number;
   /**
    * Total of data_upload and data_download.
    */
-  dataTotal?: number | null;
+  dataTotal: number;
   /**
    * Total amount in the `billed_unit` that was charged for the data uploaded or downloaded.
    */
-  dataTotalBilled?: number | null;
+  dataTotalBilled: number;
   /**
    * The currency in which the billed amounts are measured, specified in the 3 letter ISO 4127 format (e.g. `USD`, `EUR`, `JPY`).
    */
-  billedUnit?: string | null;
+  billedUnit: string;
 
   /**
    * Provide a user-friendly representation

@@ -181,7 +181,7 @@ export interface CompositionHookContext {
 }
 
 export interface CompositionHookContextSolution {
-  sid?: string;
+  sid: string;
 }
 
 export class CompositionHookContextImpl implements CompositionHookContext {
@@ -198,13 +198,14 @@ export class CompositionHookContextImpl implements CompositionHookContext {
   }
 
   remove(callback?: any): Promise<boolean> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -212,9 +213,10 @@ export class CompositionHookContextImpl implements CompositionHookContext {
   }
 
   fetch(callback?: any): Promise<CompositionHookInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -223,11 +225,11 @@ export class CompositionHookContextImpl implements CompositionHookContext {
         new CompositionHookInstance(
           operationVersion,
           payload,
-          this._solution.sid
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -273,9 +275,10 @@ export class CompositionHookContextImpl implements CompositionHookContext {
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -286,11 +289,11 @@ export class CompositionHookContextImpl implements CompositionHookContext {
         new CompositionHookInstance(
           operationVersion,
           payload,
-          this._solution.sid
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -324,21 +327,21 @@ interface CompositionHookPayload extends TwilioResponsePayload {
 }
 
 interface CompositionHookResource {
-  account_sid?: string | null;
-  friendly_name?: string | null;
-  enabled?: boolean | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  sid?: string | null;
-  audio_sources?: Array<string> | null;
-  audio_sources_excluded?: Array<string> | null;
-  video_layout?: any | null;
-  resolution?: string | null;
-  trim?: boolean | null;
-  format?: CompositionHookFormat;
-  status_callback?: string | null;
-  status_callback_method?: CompositionHookStatusCallbackMethod;
-  url?: string | null;
+  account_sid: string;
+  friendly_name: string;
+  enabled: boolean;
+  date_created: Date;
+  date_updated: Date;
+  sid: string;
+  audio_sources: Array<string>;
+  audio_sources_excluded: Array<string>;
+  video_layout: any;
+  resolution: string;
+  trim: boolean;
+  format: CompositionHookFormat;
+  status_callback: string;
+  status_callback_method: CompositionHookStatusCallbackMethod;
+  url: string;
 }
 
 export class CompositionHookInstance {
@@ -372,60 +375,60 @@ export class CompositionHookInstance {
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The string that you assigned to describe the resource
    */
-  friendlyName?: string | null;
+  friendlyName: string;
   /**
    * Whether the CompositionHook is active
    */
-  enabled?: boolean | null;
+  enabled: boolean;
   /**
    * The ISO 8601 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The ISO 8601 date and time in GMT when the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The array of track names to include in the compositions created by the composition hook
    */
-  audioSources?: Array<string> | null;
+  audioSources: Array<string>;
   /**
    * The array of track names to exclude from the compositions created by the composition hook
    */
-  audioSourcesExcluded?: Array<string> | null;
+  audioSourcesExcluded: Array<string>;
   /**
    * A JSON object that describes the video layout of the Composition
    */
-  videoLayout?: any | null;
+  videoLayout: any;
   /**
    * The dimensions of the video image in pixels expressed as columns (width) and rows (height)
    */
-  resolution?: string | null;
+  resolution: string;
   /**
    * Whether intervals with no media are clipped
    */
-  trim?: boolean | null;
-  format?: CompositionHookFormat;
+  trim: boolean;
+  format: CompositionHookFormat;
   /**
    * The URL to send status information to your application
    */
-  statusCallback?: string | null;
+  statusCallback: string;
   /**
    * The HTTP method we should use to call status_callback
    */
-  statusCallbackMethod?: CompositionHookStatusCallbackMethod;
+  statusCallbackMethod: CompositionHookStatusCallbackMethod;
   /**
    * The absolute URL of the resource
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): CompositionHookContext {
     this._context =
@@ -506,7 +509,13 @@ export class CompositionHookInstance {
   }
 }
 
+export interface CompositionHookSolution {}
+
 export interface CompositionHookListInstance {
+  _version: V1;
+  _solution: CompositionHookSolution;
+  _uri: string;
+
   (sid: string): CompositionHookContext;
   get(sid: string): CompositionHookContext;
 
@@ -658,20 +667,10 @@ export interface CompositionHookListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface CompositionHookSolution {}
-
-interface CompositionHookListInstanceImpl extends CompositionHookListInstance {}
-class CompositionHookListInstanceImpl implements CompositionHookListInstance {
-  _version?: V1;
-  _solution?: CompositionHookSolution;
-  _uri?: string;
-}
-
 export function CompositionHookListInstance(
   version: V1
 ): CompositionHookListInstance {
-  const instance = ((sid) =>
-    instance.get(sid)) as CompositionHookListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as CompositionHookListInstance;
 
   instance.get = function get(sid): CompositionHookContext {
     return new CompositionHookContextImpl(version, sid);
@@ -725,7 +724,7 @@ export function CompositionHookListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -735,7 +734,7 @@ export function CompositionHookListInstance(
       (payload) => new CompositionHookInstance(operationVersion, payload)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -776,7 +775,7 @@ export function CompositionHookListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
@@ -784,10 +783,10 @@ export function CompositionHookListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new CompositionHookPage(operationVersion, payload, this._solution)
+        new CompositionHookPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -800,31 +799,28 @@ export function CompositionHookListInstance(
     targetUrl?: any,
     callback?: any
   ): Promise<CompositionHookPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
+    let pagePromise = operationPromise.then(
       (payload) =>
-        new CompositionHookPage(this._version, payload, this._solution)
+        new CompositionHookPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

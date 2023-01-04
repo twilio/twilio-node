@@ -100,9 +100,9 @@ export interface AuthCallsIpAccessControlListMappingContext {
 }
 
 export interface AuthCallsIpAccessControlListMappingContextSolution {
-  accountSid?: string;
-  domainSid?: string;
-  sid?: string;
+  accountSid: string;
+  domainSid: string;
+  sid: string;
 }
 
 export class AuthCallsIpAccessControlListMappingContextImpl
@@ -134,13 +134,14 @@ export class AuthCallsIpAccessControlListMappingContextImpl
   }
 
   remove(callback?: any): Promise<boolean> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -148,9 +149,10 @@ export class AuthCallsIpAccessControlListMappingContextImpl
   }
 
   fetch(callback?: any): Promise<AuthCallsIpAccessControlListMappingInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -159,13 +161,13 @@ export class AuthCallsIpAccessControlListMappingContextImpl
         new AuthCallsIpAccessControlListMappingInstance(
           operationVersion,
           payload,
-          this._solution.accountSid,
-          this._solution.domainSid,
-          this._solution.sid
+          instance._solution.accountSid,
+          instance._solution.domainSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -192,11 +194,11 @@ interface AuthCallsIpAccessControlListMappingPayload
 }
 
 interface AuthCallsIpAccessControlListMappingResource {
-  account_sid?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  friendly_name?: string | null;
-  sid?: string | null;
+  account_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  friendly_name: string;
+  sid: string;
 }
 
 export class AuthCallsIpAccessControlListMappingInstance {
@@ -222,23 +224,23 @@ export class AuthCallsIpAccessControlListMappingInstance {
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The RFC 2822 date and time in GMT that the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The RFC 2822 date and time in GMT that the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The string that you assigned to describe the resource
    */
-  friendlyName?: string | null;
+  friendlyName: string;
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
 
   private get _proxy(): AuthCallsIpAccessControlListMappingContext {
     this._context =
@@ -301,7 +303,16 @@ export class AuthCallsIpAccessControlListMappingInstance {
   }
 }
 
+export interface AuthCallsIpAccessControlListMappingSolution {
+  accountSid: string;
+  domainSid: string;
+}
+
 export interface AuthCallsIpAccessControlListMappingListInstance {
+  _version: V2010;
+  _solution: AuthCallsIpAccessControlListMappingSolution;
+  _uri: string;
+
   (sid: string): AuthCallsIpAccessControlListMappingContext;
   get(sid: string): AuthCallsIpAccessControlListMappingContext;
 
@@ -486,21 +497,6 @@ export interface AuthCallsIpAccessControlListMappingListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface AuthCallsIpAccessControlListMappingSolution {
-  accountSid?: string;
-  domainSid?: string;
-}
-
-interface AuthCallsIpAccessControlListMappingListInstanceImpl
-  extends AuthCallsIpAccessControlListMappingListInstance {}
-class AuthCallsIpAccessControlListMappingListInstanceImpl
-  implements AuthCallsIpAccessControlListMappingListInstance
-{
-  _version?: V2010;
-  _solution?: AuthCallsIpAccessControlListMappingSolution;
-  _uri?: string;
-}
-
 export function AuthCallsIpAccessControlListMappingListInstance(
   version: V2010,
   accountSid: string,
@@ -515,7 +511,7 @@ export function AuthCallsIpAccessControlListMappingListInstance(
   }
 
   const instance = ((sid) =>
-    instance.get(sid)) as AuthCallsIpAccessControlListMappingListInstanceImpl;
+    instance.get(sid)) as AuthCallsIpAccessControlListMappingListInstance;
 
   instance.get = function get(sid): AuthCallsIpAccessControlListMappingContext {
     return new AuthCallsIpAccessControlListMappingContextImpl(
@@ -556,7 +552,7 @@ export function AuthCallsIpAccessControlListMappingListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -567,12 +563,12 @@ export function AuthCallsIpAccessControlListMappingListInstance(
         new AuthCallsIpAccessControlListMappingInstance(
           operationVersion,
           payload,
-          this._solution.accountSid,
-          this._solution.domainSid
+          instance._solution.accountSid,
+          instance._solution.domainSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -601,7 +597,7 @@ export function AuthCallsIpAccessControlListMappingListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
@@ -612,11 +608,11 @@ export function AuthCallsIpAccessControlListMappingListInstance(
         new AuthCallsIpAccessControlListMappingPage(
           operationVersion,
           payload,
-          this._solution
+          instance._solution
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -629,35 +625,32 @@ export function AuthCallsIpAccessControlListMappingListInstance(
     targetUrl?: any,
     callback?: any
   ): Promise<AuthCallsIpAccessControlListMappingPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
+    let pagePromise = operationPromise.then(
       (payload) =>
         new AuthCallsIpAccessControlListMappingPage(
-          this._version,
+          instance._version,
           payload,
-          this._solution
+          instance._solution
         )
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

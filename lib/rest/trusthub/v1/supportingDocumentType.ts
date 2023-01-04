@@ -82,7 +82,7 @@ export interface SupportingDocumentTypeContext {
 }
 
 export interface SupportingDocumentTypeContextSolution {
-  sid?: string;
+  sid: string;
 }
 
 export class SupportingDocumentTypeContextImpl
@@ -101,9 +101,10 @@ export class SupportingDocumentTypeContextImpl
   }
 
   fetch(callback?: any): Promise<SupportingDocumentTypeInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -112,11 +113,11 @@ export class SupportingDocumentTypeContextImpl
         new SupportingDocumentTypeInstance(
           operationVersion,
           payload,
-          this._solution.sid
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -142,11 +143,11 @@ interface SupportingDocumentTypePayload extends TwilioResponsePayload {
 }
 
 interface SupportingDocumentTypeResource {
-  sid?: string | null;
-  friendly_name?: string | null;
-  machine_name?: string | null;
-  fields?: Array<any> | null;
-  url?: string | null;
+  sid: string;
+  friendly_name: string;
+  machine_name: string;
+  fields: Array<any>;
+  url: string;
 }
 
 export class SupportingDocumentTypeInstance {
@@ -170,23 +171,23 @@ export class SupportingDocumentTypeInstance {
   /**
    * The unique string that identifies the Supporting Document Type resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * A human-readable description of the Supporting Document Type resource
    */
-  friendlyName?: string | null;
+  friendlyName: string;
   /**
    * The machine-readable description of the Supporting Document Type resource
    */
-  machineName?: string | null;
+  machineName: string;
   /**
    * The required information for creating a Supporting Document
    */
-  fields?: Array<any> | null;
+  fields: Array<any>;
   /**
    * The absolute URL of the Supporting Document Type resource
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): SupportingDocumentTypeContext {
     this._context =
@@ -231,7 +232,13 @@ export class SupportingDocumentTypeInstance {
   }
 }
 
+export interface SupportingDocumentTypeSolution {}
+
 export interface SupportingDocumentTypeListInstance {
+  _version: V1;
+  _solution: SupportingDocumentTypeSolution;
+  _uri: string;
+
   (sid: string): SupportingDocumentTypeContext;
   get(sid: string): SupportingDocumentTypeContext;
 
@@ -375,23 +382,11 @@ export interface SupportingDocumentTypeListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface SupportingDocumentTypeSolution {}
-
-interface SupportingDocumentTypeListInstanceImpl
-  extends SupportingDocumentTypeListInstance {}
-class SupportingDocumentTypeListInstanceImpl
-  implements SupportingDocumentTypeListInstance
-{
-  _version?: V1;
-  _solution?: SupportingDocumentTypeSolution;
-  _uri?: string;
-}
-
 export function SupportingDocumentTypeListInstance(
   version: V1
 ): SupportingDocumentTypeListInstance {
   const instance = ((sid) =>
-    instance.get(sid)) as SupportingDocumentTypeListInstanceImpl;
+    instance.get(sid)) as SupportingDocumentTypeListInstance;
 
   instance.get = function get(sid): SupportingDocumentTypeContext {
     return new SupportingDocumentTypeContextImpl(version, sid);
@@ -423,7 +418,7 @@ export function SupportingDocumentTypeListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
@@ -434,11 +429,11 @@ export function SupportingDocumentTypeListInstance(
         new SupportingDocumentTypePage(
           operationVersion,
           payload,
-          this._solution
+          instance._solution
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -451,31 +446,32 @@ export function SupportingDocumentTypeListInstance(
     targetUrl?: any,
     callback?: any
   ): Promise<SupportingDocumentTypePage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
+    let pagePromise = operationPromise.then(
       (payload) =>
-        new SupportingDocumentTypePage(this._version, payload, this._solution)
+        new SupportingDocumentTypePage(
+          instance._version,
+          payload,
+          instance._solution
+        )
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

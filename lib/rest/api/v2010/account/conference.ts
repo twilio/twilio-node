@@ -175,8 +175,8 @@ export interface ConferenceContext {
 }
 
 export interface ConferenceContextSolution {
-  accountSid?: string;
-  sid?: string;
+  accountSid: string;
+  sid: string;
 }
 
 export class ConferenceContextImpl implements ConferenceContext {
@@ -222,9 +222,10 @@ export class ConferenceContextImpl implements ConferenceContext {
   }
 
   fetch(callback?: any): Promise<ConferenceInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -233,12 +234,12 @@ export class ConferenceContextImpl implements ConferenceContext {
         new ConferenceInstance(
           operationVersion,
           payload,
-          this._solution.accountSid,
-          this._solution.sid
+          instance._solution.accountSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -264,9 +265,10 @@ export class ConferenceContextImpl implements ConferenceContext {
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -277,12 +279,12 @@ export class ConferenceContextImpl implements ConferenceContext {
         new ConferenceInstance(
           operationVersion,
           payload,
-          this._solution.accountSid,
-          this._solution.sid
+          instance._solution.accountSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -308,18 +310,18 @@ interface ConferencePayload extends TwilioResponsePayload {
 }
 
 interface ConferenceResource {
-  account_sid?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  api_version?: string | null;
-  friendly_name?: string | null;
-  region?: string | null;
-  sid?: string | null;
-  status?: ConferenceStatus;
-  uri?: string | null;
-  subresource_uris?: object | null;
-  reason_conference_ended?: ConferenceReasonConferenceEnded;
-  call_sid_ending_conference?: string | null;
+  account_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  api_version: string;
+  friendly_name: string;
+  region: string;
+  sid: string;
+  status: ConferenceStatus;
+  uri: string;
+  subresource_uris: object;
+  reason_conference_ended: ConferenceReasonConferenceEnded;
+  call_sid_ending_conference: string;
 }
 
 export class ConferenceInstance {
@@ -351,45 +353,45 @@ export class ConferenceInstance {
   /**
    * The SID of the Account that created this resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The RFC 2822 date and time in GMT that this resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The RFC 2822 date and time in GMT that this resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The API version used to create this conference
    */
-  apiVersion?: string | null;
+  apiVersion: string;
   /**
    * A string that you assigned to describe this conference room
    */
-  friendlyName?: string | null;
+  friendlyName: string;
   /**
    * A string that represents the Twilio Region where the conference was mixed
    */
-  region?: string | null;
+  region: string;
   /**
    * The unique string that identifies this resource
    */
-  sid?: string | null;
-  status?: ConferenceStatus;
+  sid: string;
+  status: ConferenceStatus;
   /**
    * The URI of this resource, relative to `https://api.twilio.com`
    */
-  uri?: string | null;
+  uri: string;
   /**
    * A list of related resources identified by their relative URIs
    */
-  subresourceUris?: object | null;
-  reasonConferenceEnded?: ConferenceReasonConferenceEnded;
+  subresourceUris: object;
+  reasonConferenceEnded: ConferenceReasonConferenceEnded;
   /**
    * The call SID that caused the conference to end
    */
-  callSidEndingConference?: string | null;
+  callSidEndingConference: string;
 
   private get _proxy(): ConferenceContext {
     this._context =
@@ -482,7 +484,15 @@ export class ConferenceInstance {
   }
 }
 
+export interface ConferenceSolution {
+  accountSid: string;
+}
+
 export interface ConferenceListInstance {
+  _version: V2010;
+  _solution: ConferenceSolution;
+  _uri: string;
+
   (sid: string): ConferenceContext;
   get(sid: string): ConferenceContext;
 
@@ -614,17 +624,6 @@ export interface ConferenceListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface ConferenceSolution {
-  accountSid?: string;
-}
-
-interface ConferenceListInstanceImpl extends ConferenceListInstance {}
-class ConferenceListInstanceImpl implements ConferenceListInstance {
-  _version?: V2010;
-  _solution?: ConferenceSolution;
-  _uri?: string;
-}
-
 export function ConferenceListInstance(
   version: V2010,
   accountSid: string
@@ -633,7 +632,7 @@ export function ConferenceListInstance(
     throw new Error("Parameter 'accountSid' is not valid.");
   }
 
-  const instance = ((sid) => instance.get(sid)) as ConferenceListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as ConferenceListInstance;
 
   instance.get = function get(sid): ConferenceContext {
     return new ConferenceContextImpl(version, accountSid, sid);
@@ -680,17 +679,18 @@ export function ConferenceListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new ConferencePage(operationVersion, payload, this._solution)
+      (payload) =>
+        new ConferencePage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -703,30 +703,28 @@ export function ConferenceListInstance(
     targetUrl?: any,
     callback?: any
   ): Promise<ConferencePage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new ConferencePage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new ConferencePage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

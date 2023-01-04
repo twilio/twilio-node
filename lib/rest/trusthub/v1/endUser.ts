@@ -132,7 +132,7 @@ export interface EndUserContext {
 }
 
 export interface EndUserContextSolution {
-  sid?: string;
+  sid: string;
 }
 
 export class EndUserContextImpl implements EndUserContext {
@@ -149,13 +149,14 @@ export class EndUserContextImpl implements EndUserContext {
   }
 
   remove(callback?: any): Promise<boolean> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -163,18 +164,19 @@ export class EndUserContextImpl implements EndUserContext {
   }
 
   fetch(callback?: any): Promise<EndUserInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new EndUserInstance(operationVersion, payload, this._solution.sid)
+        new EndUserInstance(operationVersion, payload, instance._solution.sid)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -199,9 +201,10 @@ export class EndUserContextImpl implements EndUserContext {
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -209,10 +212,10 @@ export class EndUserContextImpl implements EndUserContext {
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new EndUserInstance(operationVersion, payload, this._solution.sid)
+        new EndUserInstance(operationVersion, payload, instance._solution.sid)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -238,14 +241,14 @@ interface EndUserPayload extends TwilioResponsePayload {
 }
 
 interface EndUserResource {
-  sid?: string | null;
-  account_sid?: string | null;
-  friendly_name?: string | null;
-  type?: string | null;
-  attributes?: any | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  url?: string | null;
+  sid: string;
+  account_sid: string;
+  friendly_name: string;
+  type: string;
+  attributes: any;
+  date_created: Date;
+  date_updated: Date;
+  url: string;
 }
 
 export class EndUserInstance {
@@ -268,35 +271,35 @@ export class EndUserInstance {
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The string that you assigned to describe the resource
    */
-  friendlyName?: string | null;
+  friendlyName: string;
   /**
    * The type of end user of the Bundle resource
    */
-  type?: string | null;
+  type: string;
   /**
    * The set of parameters that compose the End Users resource
    */
-  attributes?: any | null;
+  attributes: any;
   /**
    * The ISO 8601 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The ISO 8601 date and time in GMT when the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The absolute URL of the End User resource
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): EndUserContext {
     this._context =
@@ -380,7 +383,13 @@ export class EndUserInstance {
   }
 }
 
+export interface EndUserSolution {}
+
 export interface EndUserListInstance {
+  _version: V1;
+  _solution: EndUserSolution;
+  _uri: string;
+
   (sid: string): EndUserContext;
   get(sid: string): EndUserContext;
 
@@ -526,17 +535,8 @@ export interface EndUserListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface EndUserSolution {}
-
-interface EndUserListInstanceImpl extends EndUserListInstance {}
-class EndUserListInstanceImpl implements EndUserListInstance {
-  _version?: V1;
-  _solution?: EndUserSolution;
-  _uri?: string;
-}
-
 export function EndUserListInstance(version: V1): EndUserListInstance {
-  const instance = ((sid) => instance.get(sid)) as EndUserListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as EndUserListInstance;
 
   instance.get = function get(sid): EndUserContext {
     return new EndUserContextImpl(version, sid);
@@ -578,7 +578,7 @@ export function EndUserListInstance(version: V1): EndUserListInstance {
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -588,7 +588,7 @@ export function EndUserListInstance(version: V1): EndUserListInstance {
       (payload) => new EndUserInstance(operationVersion, payload)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -617,17 +617,18 @@ export function EndUserListInstance(version: V1): EndUserListInstance {
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new EndUserPage(operationVersion, payload, this._solution)
+      (payload) =>
+        new EndUserPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -640,30 +641,28 @@ export function EndUserListInstance(version: V1): EndUserListInstance {
     targetUrl?: any,
     callback?: any
   ): Promise<EndUserPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new EndUserPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new EndUserPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

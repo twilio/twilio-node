@@ -60,7 +60,7 @@ export interface FlowTestUserContext {
 }
 
 export interface FlowTestUserContextSolution {
-  sid?: string;
+  sid: string;
 }
 
 export class FlowTestUserContextImpl implements FlowTestUserContext {
@@ -77,18 +77,23 @@ export class FlowTestUserContextImpl implements FlowTestUserContext {
   }
 
   fetch(callback?: any): Promise<FlowTestUserInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new FlowTestUserInstance(operationVersion, payload, this._solution.sid)
+        new FlowTestUserInstance(
+          operationVersion,
+          payload,
+          instance._solution.sid
+        )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -111,9 +116,10 @@ export class FlowTestUserContextImpl implements FlowTestUserContext {
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -121,10 +127,14 @@ export class FlowTestUserContextImpl implements FlowTestUserContext {
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new FlowTestUserInstance(operationVersion, payload, this._solution.sid)
+        new FlowTestUserInstance(
+          operationVersion,
+          payload,
+          instance._solution.sid
+        )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -148,9 +158,9 @@ export class FlowTestUserContextImpl implements FlowTestUserContext {
 interface FlowTestUserPayload extends FlowTestUserResource {}
 
 interface FlowTestUserResource {
-  sid?: string | null;
-  test_users?: Array<string> | null;
-  url?: string | null;
+  sid: string;
+  test_users: Array<string>;
+  url: string;
 }
 
 export class FlowTestUserInstance {
@@ -172,15 +182,15 @@ export class FlowTestUserInstance {
   /**
    * Unique identifier of the flow.
    */
-  sid?: string | null;
+  sid: string;
   /**
    * List of test user identities that can test draft versions of the flow.
    */
-  testUsers?: Array<string> | null;
+  testUsers: Array<string>;
   /**
    * The URL of this resource.
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): FlowTestUserContext {
     this._context =
@@ -236,7 +246,15 @@ export class FlowTestUserInstance {
   }
 }
 
+export interface FlowTestUserSolution {
+  sid: string;
+}
+
 export interface FlowTestUserListInstance {
+  _version: V2;
+  _solution: FlowTestUserSolution;
+  _uri: string;
+
   (): FlowTestUserContext;
   get(): FlowTestUserContext;
 
@@ -247,17 +265,6 @@ export interface FlowTestUserListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface FlowTestUserSolution {
-  sid?: string;
-}
-
-interface FlowTestUserListInstanceImpl extends FlowTestUserListInstance {}
-class FlowTestUserListInstanceImpl implements FlowTestUserListInstance {
-  _version?: V2;
-  _solution?: FlowTestUserSolution;
-  _uri?: string;
-}
-
 export function FlowTestUserListInstance(
   version: V2,
   sid: string
@@ -266,7 +273,7 @@ export function FlowTestUserListInstance(
     throw new Error("Parameter 'sid' is not valid.");
   }
 
-  const instance = (() => instance.get()) as FlowTestUserListInstanceImpl;
+  const instance = (() => instance.get()) as FlowTestUserListInstance;
 
   instance.get = function get(): FlowTestUserContext {
     return new FlowTestUserContextImpl(version, sid);
@@ -277,14 +284,14 @@ export function FlowTestUserListInstance(
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

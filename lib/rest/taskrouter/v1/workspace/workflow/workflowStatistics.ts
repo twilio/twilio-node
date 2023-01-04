@@ -67,8 +67,8 @@ export interface WorkflowStatisticsContext {
 }
 
 export interface WorkflowStatisticsContextSolution {
-  workspaceSid?: string;
-  workflowSid?: string;
+  workspaceSid: string;
+  workflowSid: string;
 }
 
 export class WorkflowStatisticsContextImpl
@@ -116,9 +116,10 @@ export class WorkflowStatisticsContextImpl
 
     const headers: any = {};
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
@@ -129,12 +130,12 @@ export class WorkflowStatisticsContextImpl
         new WorkflowStatisticsInstance(
           operationVersion,
           payload,
-          this._solution.workspaceSid,
-          this._solution.workflowSid
+          instance._solution.workspaceSid,
+          instance._solution.workflowSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -158,12 +159,12 @@ export class WorkflowStatisticsContextImpl
 interface WorkflowStatisticsPayload extends WorkflowStatisticsResource {}
 
 interface WorkflowStatisticsResource {
-  account_sid?: string | null;
-  cumulative?: any | null;
-  realtime?: any | null;
-  workflow_sid?: string | null;
-  workspace_sid?: string | null;
-  url?: string | null;
+  account_sid: string;
+  cumulative: any;
+  realtime: any;
+  workflow_sid: string;
+  workspace_sid: string;
+  url: string;
 }
 
 export class WorkflowStatisticsInstance {
@@ -189,27 +190,27 @@ export class WorkflowStatisticsInstance {
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * An object that contains the cumulative statistics for the Workflow
    */
-  cumulative?: any | null;
+  cumulative: any;
   /**
    * An object that contains the real-time statistics for the Workflow
    */
-  realtime?: any | null;
+  realtime: any;
   /**
    * Returns the list of Tasks that are being controlled by the Workflow with the specified SID value
    */
-  workflowSid?: string | null;
+  workflowSid: string;
   /**
    * The SID of the Workspace that contains the Workflow
    */
-  workspaceSid?: string | null;
+  workspaceSid: string;
   /**
    * The absolute URL of the Workflow statistics resource
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): WorkflowStatisticsContext {
     this._context =
@@ -269,7 +270,16 @@ export class WorkflowStatisticsInstance {
   }
 }
 
+export interface WorkflowStatisticsSolution {
+  workspaceSid: string;
+  workflowSid: string;
+}
+
 export interface WorkflowStatisticsListInstance {
+  _version: V1;
+  _solution: WorkflowStatisticsSolution;
+  _uri: string;
+
   (): WorkflowStatisticsContext;
   get(): WorkflowStatisticsContext;
 
@@ -278,21 +288,6 @@ export interface WorkflowStatisticsListInstance {
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export interface WorkflowStatisticsSolution {
-  workspaceSid?: string;
-  workflowSid?: string;
-}
-
-interface WorkflowStatisticsListInstanceImpl
-  extends WorkflowStatisticsListInstance {}
-class WorkflowStatisticsListInstanceImpl
-  implements WorkflowStatisticsListInstance
-{
-  _version?: V1;
-  _solution?: WorkflowStatisticsSolution;
-  _uri?: string;
 }
 
 export function WorkflowStatisticsListInstance(
@@ -308,7 +303,7 @@ export function WorkflowStatisticsListInstance(
     throw new Error("Parameter 'workflowSid' is not valid.");
   }
 
-  const instance = (() => instance.get()) as WorkflowStatisticsListInstanceImpl;
+  const instance = (() => instance.get()) as WorkflowStatisticsListInstance;
 
   instance.get = function get(): WorkflowStatisticsContext {
     return new WorkflowStatisticsContextImpl(
@@ -323,14 +318,14 @@ export function WorkflowStatisticsListInstance(
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

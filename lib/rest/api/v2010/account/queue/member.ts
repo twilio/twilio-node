@@ -99,9 +99,9 @@ export interface MemberContext {
 }
 
 export interface MemberContextSolution {
-  accountSid?: string;
-  queueSid?: string;
-  callSid?: string;
+  accountSid: string;
+  queueSid: string;
+  callSid: string;
 }
 
 export class MemberContextImpl implements MemberContext {
@@ -131,9 +131,10 @@ export class MemberContextImpl implements MemberContext {
   }
 
   fetch(callback?: any): Promise<MemberInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -142,13 +143,13 @@ export class MemberContextImpl implements MemberContext {
         new MemberInstance(
           operationVersion,
           payload,
-          this._solution.accountSid,
-          this._solution.queueSid,
-          this._solution.callSid
+          instance._solution.accountSid,
+          instance._solution.queueSid,
+          instance._solution.callSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -172,9 +173,10 @@ export class MemberContextImpl implements MemberContext {
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -185,13 +187,13 @@ export class MemberContextImpl implements MemberContext {
         new MemberInstance(
           operationVersion,
           payload,
-          this._solution.accountSid,
-          this._solution.queueSid,
-          this._solution.callSid
+          instance._solution.accountSid,
+          instance._solution.queueSid,
+          instance._solution.callSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -217,12 +219,12 @@ interface MemberPayload extends TwilioResponsePayload {
 }
 
 interface MemberResource {
-  call_sid?: string | null;
-  date_enqueued?: Date | null;
-  position?: number | null;
-  uri?: string | null;
-  wait_time?: number | null;
-  queue_sid?: string | null;
+  call_sid: string;
+  date_enqueued: Date;
+  position: number;
+  uri: string;
+  wait_time: number;
+  queue_sid: string;
 }
 
 export class MemberInstance {
@@ -249,27 +251,27 @@ export class MemberInstance {
   /**
    * The SID of the Call the resource is associated with
    */
-  callSid?: string | null;
+  callSid: string;
   /**
    * The date the member was enqueued
    */
-  dateEnqueued?: Date | null;
+  dateEnqueued: Date;
   /**
    * This member\'s current position in the queue.
    */
-  position?: number | null;
+  position: number;
   /**
    * The URI of the resource, relative to `https://api.twilio.com`
    */
-  uri?: string | null;
+  uri: string;
   /**
    * The number of seconds the member has been in the queue.
    */
-  waitTime?: number | null;
+  waitTime: number;
   /**
    * The SID of the Queue the member is in
    */
-  queueSid?: string | null;
+  queueSid: string;
 
   private get _proxy(): MemberContext {
     this._context =
@@ -333,7 +335,16 @@ export class MemberInstance {
   }
 }
 
+export interface MemberSolution {
+  accountSid: string;
+  queueSid: string;
+}
+
 export interface MemberListInstance {
+  _version: V2010;
+  _solution: MemberSolution;
+  _uri: string;
+
   (callSid: string): MemberContext;
   get(callSid: string): MemberContext;
 
@@ -465,18 +476,6 @@ export interface MemberListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface MemberSolution {
-  accountSid?: string;
-  queueSid?: string;
-}
-
-interface MemberListInstanceImpl extends MemberListInstance {}
-class MemberListInstanceImpl implements MemberListInstance {
-  _version?: V2010;
-  _solution?: MemberSolution;
-  _uri?: string;
-}
-
 export function MemberListInstance(
   version: V2010,
   accountSid: string,
@@ -490,8 +489,7 @@ export function MemberListInstance(
     throw new Error("Parameter 'queueSid' is not valid.");
   }
 
-  const instance = ((callSid) =>
-    instance.get(callSid)) as MemberListInstanceImpl;
+  const instance = ((callSid) => instance.get(callSid)) as MemberListInstance;
 
   instance.get = function get(callSid): MemberContext {
     return new MemberContextImpl(version, accountSid, queueSid, callSid);
@@ -523,17 +521,17 @@ export function MemberListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new MemberPage(operationVersion, payload, this._solution)
+      (payload) => new MemberPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -546,30 +544,28 @@ export function MemberListInstance(
     targetUrl?: any,
     callback?: any
   ): Promise<MemberPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new MemberPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new MemberPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

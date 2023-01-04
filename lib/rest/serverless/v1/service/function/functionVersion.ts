@@ -84,9 +84,9 @@ export interface FunctionVersionContext {
 }
 
 export interface FunctionVersionContextSolution {
-  serviceSid?: string;
-  functionSid?: string;
-  sid?: string;
+  serviceSid: string;
+  functionSid: string;
+  sid: string;
 }
 
 export class FunctionVersionContextImpl implements FunctionVersionContext {
@@ -130,9 +130,10 @@ export class FunctionVersionContextImpl implements FunctionVersionContext {
   }
 
   fetch(callback?: any): Promise<FunctionVersionInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -141,13 +142,13 @@ export class FunctionVersionContextImpl implements FunctionVersionContext {
         new FunctionVersionInstance(
           operationVersion,
           payload,
-          this._solution.serviceSid,
-          this._solution.functionSid,
-          this._solution.sid
+          instance._solution.serviceSid,
+          instance._solution.functionSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -173,15 +174,15 @@ interface FunctionVersionPayload extends TwilioResponsePayload {
 }
 
 interface FunctionVersionResource {
-  sid?: string | null;
-  account_sid?: string | null;
-  service_sid?: string | null;
-  function_sid?: string | null;
-  path?: string | null;
-  visibility?: FunctionVersionVisibility;
-  date_created?: Date | null;
-  url?: string | null;
-  links?: object | null;
+  sid: string;
+  account_sid: string;
+  service_sid: string;
+  function_sid: string;
+  path: string;
+  visibility: FunctionVersionVisibility;
+  date_created: Date;
+  url: string;
+  links: object;
 }
 
 export class FunctionVersionInstance {
@@ -211,33 +212,33 @@ export class FunctionVersionInstance {
   /**
    * The unique string that identifies the Function Version resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The SID of the Account that created the Function Version resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The SID of the Service that the Function Version resource is associated with
    */
-  serviceSid?: string | null;
+  serviceSid: string;
   /**
    * The SID of the Function resource that is the parent of the Function Version resource
    */
-  functionSid?: string | null;
+  functionSid: string;
   /**
    * The URL-friendly string by which the Function Version resource can be referenced
    */
-  path?: string | null;
-  visibility?: FunctionVersionVisibility;
+  path: string;
+  visibility: FunctionVersionVisibility;
   /**
    * The ISO 8601 date and time in GMT when the Function Version resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The absolute URL of the Function Version resource
    */
-  url?: string | null;
-  links?: object | null;
+  url: string;
+  links: object;
 
   private get _proxy(): FunctionVersionContext {
     this._context =
@@ -295,7 +296,16 @@ export class FunctionVersionInstance {
   }
 }
 
+export interface FunctionVersionSolution {
+  serviceSid: string;
+  functionSid: string;
+}
+
 export interface FunctionVersionListInstance {
+  _version: V1;
+  _solution: FunctionVersionSolution;
+  _uri: string;
+
   (sid: string): FunctionVersionContext;
   get(sid: string): FunctionVersionContext;
 
@@ -433,18 +443,6 @@ export interface FunctionVersionListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface FunctionVersionSolution {
-  serviceSid?: string;
-  functionSid?: string;
-}
-
-interface FunctionVersionListInstanceImpl extends FunctionVersionListInstance {}
-class FunctionVersionListInstanceImpl implements FunctionVersionListInstance {
-  _version?: V1;
-  _solution?: FunctionVersionSolution;
-  _uri?: string;
-}
-
 export function FunctionVersionListInstance(
   version: V1,
   serviceSid: string,
@@ -458,8 +456,7 @@ export function FunctionVersionListInstance(
     throw new Error("Parameter 'functionSid' is not valid.");
   }
 
-  const instance = ((sid) =>
-    instance.get(sid)) as FunctionVersionListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as FunctionVersionListInstance;
 
   instance.get = function get(sid): FunctionVersionContext {
     return new FunctionVersionContextImpl(
@@ -496,7 +493,7 @@ export function FunctionVersionListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
@@ -504,10 +501,10 @@ export function FunctionVersionListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new FunctionVersionPage(operationVersion, payload, this._solution)
+        new FunctionVersionPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -520,31 +517,28 @@ export function FunctionVersionListInstance(
     targetUrl?: any,
     callback?: any
   ): Promise<FunctionVersionPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
+    let pagePromise = operationPromise.then(
       (payload) =>
-        new FunctionVersionPage(this._version, payload, this._solution)
+        new FunctionVersionPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

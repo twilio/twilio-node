@@ -138,8 +138,8 @@ export interface BindingContext {
 }
 
 export interface BindingContextSolution {
-  serviceSid?: string;
-  sid?: string;
+  serviceSid: string;
+  sid: string;
 }
 
 export class BindingContextImpl implements BindingContext {
@@ -160,13 +160,14 @@ export class BindingContextImpl implements BindingContext {
   }
 
   remove(callback?: any): Promise<boolean> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -174,9 +175,10 @@ export class BindingContextImpl implements BindingContext {
   }
 
   fetch(callback?: any): Promise<BindingInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -185,12 +187,12 @@ export class BindingContextImpl implements BindingContext {
         new BindingInstance(
           operationVersion,
           payload,
-          this._solution.serviceSid,
-          this._solution.sid
+          instance._solution.serviceSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -216,20 +218,20 @@ interface BindingPayload extends TwilioResponsePayload {
 }
 
 interface BindingResource {
-  sid?: string | null;
-  account_sid?: string | null;
-  service_sid?: string | null;
-  credential_sid?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  notification_protocol_version?: string | null;
-  endpoint?: string | null;
-  identity?: string | null;
-  binding_type?: string | null;
-  address?: string | null;
-  tags?: Array<string> | null;
-  url?: string | null;
-  links?: object | null;
+  sid: string;
+  account_sid: string;
+  service_sid: string;
+  credential_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  notification_protocol_version: string;
+  endpoint: string;
+  identity: string;
+  binding_type: string;
+  address: string;
+  tags: Array<string>;
+  url: string;
+  links: object;
 }
 
 export class BindingInstance {
@@ -263,59 +265,59 @@ export class BindingInstance {
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The SID of the Service that the resource is associated with
    */
-  serviceSid?: string | null;
+  serviceSid: string;
   /**
    * The SID of the Credential resource to be used to send notifications to this Binding
    */
-  credentialSid?: string | null;
+  credentialSid: string;
   /**
    * The RFC 2822 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The RFC 2822 date and time in GMT when the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The protocol version to use to send the notification
    */
-  notificationProtocolVersion?: string | null;
+  notificationProtocolVersion: string;
   /**
    * Deprecated
    */
-  endpoint?: string | null;
+  endpoint: string;
   /**
    * The `identity` value that identifies the new resource\'s User
    */
-  identity?: string | null;
+  identity: string;
   /**
    * The type of the Binding
    */
-  bindingType?: string | null;
+  bindingType: string;
   /**
    * The channel-specific address
    */
-  address?: string | null;
+  address: string;
   /**
    * The list of tags associated with this Binding
    */
-  tags?: Array<string> | null;
+  tags: Array<string>;
   /**
    * The absolute URL of the Binding resource
    */
-  url?: string | null;
+  url: string;
   /**
    * The URLs of related resources
    */
-  links?: object | null;
+  links: object;
 
   private get _proxy(): BindingContext {
     this._context =
@@ -383,7 +385,15 @@ export class BindingInstance {
   }
 }
 
+export interface BindingSolution {
+  serviceSid: string;
+}
+
 export interface BindingListInstance {
+  _version: V1;
+  _solution: BindingSolution;
+  _uri: string;
+
   (sid: string): BindingContext;
   get(sid: string): BindingContext;
 
@@ -529,17 +539,6 @@ export interface BindingListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface BindingSolution {
-  serviceSid?: string;
-}
-
-interface BindingListInstanceImpl extends BindingListInstance {}
-class BindingListInstanceImpl implements BindingListInstance {
-  _version?: V1;
-  _solution?: BindingSolution;
-  _uri?: string;
-}
-
 export function BindingListInstance(
   version: V1,
   serviceSid: string
@@ -548,7 +547,7 @@ export function BindingListInstance(
     throw new Error("Parameter 'serviceSid' is not valid.");
   }
 
-  const instance = ((sid) => instance.get(sid)) as BindingListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as BindingListInstance;
 
   instance.get = function get(sid): BindingContext {
     return new BindingContextImpl(version, serviceSid, sid);
@@ -599,7 +598,7 @@ export function BindingListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -610,11 +609,11 @@ export function BindingListInstance(
         new BindingInstance(
           operationVersion,
           payload,
-          this._solution.serviceSid
+          instance._solution.serviceSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -651,17 +650,18 @@ export function BindingListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new BindingPage(operationVersion, payload, this._solution)
+      (payload) =>
+        new BindingPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -674,30 +674,28 @@ export function BindingListInstance(
     targetUrl?: any,
     callback?: any
   ): Promise<BindingPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new BindingPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new BindingPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

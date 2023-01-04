@@ -56,7 +56,16 @@ export interface EventListInstancePageOptions {
   pageToken?: string;
 }
 
+export interface EventSolution {
+  accountSid: string;
+  callSid: string;
+}
+
 export interface EventListInstance {
+  _version: V2010;
+  _solution: EventSolution;
+  _uri: string;
+
   /**
    * Streams EventInstance records from the API.
    *
@@ -185,18 +194,6 @@ export interface EventListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface EventSolution {
-  accountSid?: string;
-  callSid?: string;
-}
-
-interface EventListInstanceImpl extends EventListInstance {}
-class EventListInstanceImpl implements EventListInstance {
-  _version?: V2010;
-  _solution?: EventSolution;
-  _uri?: string;
-}
-
 export function EventListInstance(
   version: V2010,
   accountSid: string,
@@ -210,7 +207,7 @@ export function EventListInstance(
     throw new Error("Parameter 'callSid' is not valid.");
   }
 
-  const instance = {} as EventListInstanceImpl;
+  const instance = {} as EventListInstance;
 
   instance._version = version;
   instance._solution = { accountSid, callSid };
@@ -238,17 +235,17 @@ export function EventListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new EventPage(operationVersion, payload, this._solution)
+      (payload) => new EventPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -261,30 +258,27 @@ export function EventListInstance(
     targetUrl?: any,
     callback?: any
   ): Promise<EventPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new EventPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) => new EventPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;
@@ -295,8 +289,8 @@ interface EventPayload extends TwilioResponsePayload {
 }
 
 interface EventResource {
-  request?: any | null;
-  response?: any | null;
+  request: any;
+  response: any;
 }
 
 export class EventInstance {
@@ -313,11 +307,11 @@ export class EventInstance {
   /**
    * Call Request.
    */
-  request?: any | null;
+  request: any;
   /**
    * Call Response with Events.
    */
-  response?: any | null;
+  response: any;
 
   /**
    * Provide a user-friendly representation

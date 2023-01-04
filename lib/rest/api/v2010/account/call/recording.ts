@@ -163,9 +163,9 @@ export interface RecordingContext {
 }
 
 export interface RecordingContextSolution {
-  accountSid?: string;
-  callSid?: string;
-  sid?: string;
+  accountSid: string;
+  callSid: string;
+  sid: string;
 }
 
 export class RecordingContextImpl implements RecordingContext {
@@ -195,13 +195,14 @@ export class RecordingContextImpl implements RecordingContext {
   }
 
   remove(callback?: any): Promise<boolean> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -209,9 +210,10 @@ export class RecordingContextImpl implements RecordingContext {
   }
 
   fetch(callback?: any): Promise<RecordingInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -220,13 +222,13 @@ export class RecordingContextImpl implements RecordingContext {
         new RecordingInstance(
           operationVersion,
           payload,
-          this._solution.accountSid,
-          this._solution.callSid,
-          this._solution.sid
+          instance._solution.accountSid,
+          instance._solution.callSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -251,9 +253,10 @@ export class RecordingContextImpl implements RecordingContext {
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -264,13 +267,13 @@ export class RecordingContextImpl implements RecordingContext {
         new RecordingInstance(
           operationVersion,
           payload,
-          this._solution.accountSid,
-          this._solution.callSid,
-          this._solution.sid
+          instance._solution.accountSid,
+          instance._solution.callSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -296,24 +299,24 @@ interface RecordingPayload extends TwilioResponsePayload {
 }
 
 interface RecordingResource {
-  account_sid?: string | null;
-  api_version?: string | null;
-  call_sid?: string | null;
-  conference_sid?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  start_time?: Date | null;
-  duration?: string | null;
-  sid?: string | null;
-  price?: number | null;
-  uri?: string | null;
-  encryption_details?: any | null;
-  price_unit?: string | null;
-  status?: CallRecordingStatus;
-  channels?: number | null;
-  source?: CallRecordingSource;
-  error_code?: number | null;
-  track?: string | null;
+  account_sid: string;
+  api_version: string;
+  call_sid: string;
+  conference_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  start_time: Date;
+  duration: string;
+  sid: string;
+  price: number;
+  uri: string;
+  encryption_details: any;
+  price_unit: string;
+  status: CallRecordingStatus;
+  channels: number;
+  source: CallRecordingSource;
+  error_code: number;
+  track: string;
 }
 
 export class RecordingInstance {
@@ -352,69 +355,69 @@ export class RecordingInstance {
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The API version used to make the recording
    */
-  apiVersion?: string | null;
+  apiVersion: string;
   /**
    * The SID of the Call the resource is associated with
    */
-  callSid?: string | null;
+  callSid: string;
   /**
    * The Conference SID that identifies the conference associated with the recording
    */
-  conferenceSid?: string | null;
+  conferenceSid: string;
   /**
    * The RFC 2822 date and time in GMT that the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The RFC 2822 date and time in GMT that the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The start time of the recording, given in RFC 2822 format
    */
-  startTime?: Date | null;
+  startTime: Date;
   /**
    * The length of the recording in seconds
    */
-  duration?: string | null;
+  duration: string;
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The one-time cost of creating the recording.
    */
-  price?: number | null;
+  price: number;
   /**
    * The URI of the resource, relative to `https://api.twilio.com`
    */
-  uri?: string | null;
+  uri: string;
   /**
    * How to decrypt the recording.
    */
-  encryptionDetails?: any | null;
+  encryptionDetails: any;
   /**
    * The currency used in the price property.
    */
-  priceUnit?: string | null;
-  status?: CallRecordingStatus;
+  priceUnit: string;
+  status: CallRecordingStatus;
   /**
    * The number of channels in the final recording file
    */
-  channels?: number | null;
-  source?: CallRecordingSource;
+  channels: number;
+  source: CallRecordingSource;
   /**
    * More information about why the recording is missing, if status is `absent`.
    */
-  errorCode?: number | null;
+  errorCode: number;
   /**
    * The recorded track. Can be: `inbound`, `outbound`, or `both`.
    */
-  track?: string | null;
+  track: string;
 
   private get _proxy(): RecordingContext {
     this._context =
@@ -503,7 +506,16 @@ export class RecordingInstance {
   }
 }
 
+export interface RecordingSolution {
+  accountSid: string;
+  callSid: string;
+}
+
 export interface RecordingListInstance {
+  _version: V2010;
+  _solution: RecordingSolution;
+  _uri: string;
+
   (sid: string): RecordingContext;
   get(sid: string): RecordingContext;
 
@@ -659,18 +671,6 @@ export interface RecordingListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface RecordingSolution {
-  accountSid?: string;
-  callSid?: string;
-}
-
-interface RecordingListInstanceImpl extends RecordingListInstance {}
-class RecordingListInstanceImpl implements RecordingListInstance {
-  _version?: V2010;
-  _solution?: RecordingSolution;
-  _uri?: string;
-}
-
 export function RecordingListInstance(
   version: V2010,
   accountSid: string,
@@ -684,7 +684,7 @@ export function RecordingListInstance(
     throw new Error("Parameter 'callSid' is not valid.");
   }
 
-  const instance = ((sid) => instance.get(sid)) as RecordingListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as RecordingListInstance;
 
   instance.get = function get(sid): RecordingContext {
     return new RecordingContextImpl(version, accountSid, callSid, sid);
@@ -728,7 +728,7 @@ export function RecordingListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -739,12 +739,12 @@ export function RecordingListInstance(
         new RecordingInstance(
           operationVersion,
           payload,
-          this._solution.accountSid,
-          this._solution.callSid
+          instance._solution.accountSid,
+          instance._solution.callSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -779,17 +779,18 @@ export function RecordingListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new RecordingPage(operationVersion, payload, this._solution)
+      (payload) =>
+        new RecordingPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -802,30 +803,28 @@ export function RecordingListInstance(
     targetUrl?: any,
     callback?: any
   ): Promise<RecordingPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new RecordingPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new RecordingPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

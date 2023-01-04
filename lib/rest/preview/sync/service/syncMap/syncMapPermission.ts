@@ -115,9 +115,9 @@ export interface SyncMapPermissionContext {
 }
 
 export interface SyncMapPermissionContextSolution {
-  serviceSid?: string;
-  mapSid?: string;
-  identity?: string;
+  serviceSid: string;
+  mapSid: string;
+  identity: string;
 }
 
 export class SyncMapPermissionContextImpl implements SyncMapPermissionContext {
@@ -147,13 +147,14 @@ export class SyncMapPermissionContextImpl implements SyncMapPermissionContext {
   }
 
   remove(callback?: any): Promise<boolean> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -161,9 +162,10 @@ export class SyncMapPermissionContextImpl implements SyncMapPermissionContext {
   }
 
   fetch(callback?: any): Promise<SyncMapPermissionInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -172,13 +174,13 @@ export class SyncMapPermissionContextImpl implements SyncMapPermissionContext {
         new SyncMapPermissionInstance(
           operationVersion,
           payload,
-          this._solution.serviceSid,
-          this._solution.mapSid,
-          this._solution.identity
+          instance._solution.serviceSid,
+          instance._solution.mapSid,
+          instance._solution.identity
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -213,9 +215,10 @@ export class SyncMapPermissionContextImpl implements SyncMapPermissionContext {
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -226,13 +229,13 @@ export class SyncMapPermissionContextImpl implements SyncMapPermissionContext {
         new SyncMapPermissionInstance(
           operationVersion,
           payload,
-          this._solution.serviceSid,
-          this._solution.mapSid,
-          this._solution.identity
+          instance._solution.serviceSid,
+          instance._solution.mapSid,
+          instance._solution.identity
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -258,14 +261,14 @@ interface SyncMapPermissionPayload extends TwilioResponsePayload {
 }
 
 interface SyncMapPermissionResource {
-  account_sid?: string | null;
-  service_sid?: string | null;
-  map_sid?: string | null;
-  identity?: string | null;
-  read?: boolean | null;
-  write?: boolean | null;
-  manage?: boolean | null;
-  url?: string | null;
+  account_sid: string;
+  service_sid: string;
+  map_sid: string;
+  identity: string;
+  read: boolean;
+  write: boolean;
+  manage: boolean;
+  url: string;
 }
 
 export class SyncMapPermissionInstance {
@@ -298,35 +301,35 @@ export class SyncMapPermissionInstance {
   /**
    * Twilio Account SID.
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * Sync Service Instance SID.
    */
-  serviceSid?: string | null;
+  serviceSid: string;
   /**
    * Sync Map SID.
    */
-  mapSid?: string | null;
+  mapSid: string;
   /**
    * Identity of the user to whom the Sync Map Permission applies.
    */
-  identity?: string | null;
+  identity: string;
   /**
    * Read access.
    */
-  read?: boolean | null;
+  read: boolean;
   /**
    * Write access.
    */
-  write?: boolean | null;
+  write: boolean;
   /**
    * Manage access.
    */
-  manage?: boolean | null;
+  manage: boolean;
   /**
    * URL of this Sync Map Permission.
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): SyncMapPermissionContext {
     this._context =
@@ -405,7 +408,16 @@ export class SyncMapPermissionInstance {
   }
 }
 
+export interface SyncMapPermissionSolution {
+  serviceSid: string;
+  mapSid: string;
+}
+
 export interface SyncMapPermissionListInstance {
+  _version: Sync;
+  _solution: SyncMapPermissionSolution;
+  _uri: string;
+
   (identity: string): SyncMapPermissionContext;
   get(identity: string): SyncMapPermissionContext;
 
@@ -543,21 +555,6 @@ export interface SyncMapPermissionListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface SyncMapPermissionSolution {
-  serviceSid?: string;
-  mapSid?: string;
-}
-
-interface SyncMapPermissionListInstanceImpl
-  extends SyncMapPermissionListInstance {}
-class SyncMapPermissionListInstanceImpl
-  implements SyncMapPermissionListInstance
-{
-  _version?: Sync;
-  _solution?: SyncMapPermissionSolution;
-  _uri?: string;
-}
-
 export function SyncMapPermissionListInstance(
   version: Sync,
   serviceSid: string,
@@ -572,7 +569,7 @@ export function SyncMapPermissionListInstance(
   }
 
   const instance = ((identity) =>
-    instance.get(identity)) as SyncMapPermissionListInstanceImpl;
+    instance.get(identity)) as SyncMapPermissionListInstance;
 
   instance.get = function get(identity): SyncMapPermissionContext {
     return new SyncMapPermissionContextImpl(
@@ -609,7 +606,7 @@ export function SyncMapPermissionListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
@@ -617,10 +614,10 @@ export function SyncMapPermissionListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new SyncMapPermissionPage(operationVersion, payload, this._solution)
+        new SyncMapPermissionPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -633,31 +630,32 @@ export function SyncMapPermissionListInstance(
     targetUrl?: any,
     callback?: any
   ): Promise<SyncMapPermissionPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
+    let pagePromise = operationPromise.then(
       (payload) =>
-        new SyncMapPermissionPage(this._version, payload, this._solution)
+        new SyncMapPermissionPage(
+          instance._version,
+          payload,
+          instance._solution
+        )
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

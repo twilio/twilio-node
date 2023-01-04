@@ -68,8 +68,8 @@ export interface WorkflowRealTimeStatisticsContext {
 }
 
 export interface WorkflowRealTimeStatisticsContextSolution {
-  workspaceSid?: string;
-  workflowSid?: string;
+  workspaceSid: string;
+  workflowSid: string;
 }
 
 export class WorkflowRealTimeStatisticsContextImpl
@@ -113,9 +113,10 @@ export class WorkflowRealTimeStatisticsContextImpl
 
     const headers: any = {};
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
@@ -126,12 +127,12 @@ export class WorkflowRealTimeStatisticsContextImpl
         new WorkflowRealTimeStatisticsInstance(
           operationVersion,
           payload,
-          this._solution.workspaceSid,
-          this._solution.workflowSid
+          instance._solution.workspaceSid,
+          instance._solution.workflowSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -156,15 +157,15 @@ interface WorkflowRealTimeStatisticsPayload
   extends WorkflowRealTimeStatisticsResource {}
 
 interface WorkflowRealTimeStatisticsResource {
-  account_sid?: string | null;
-  longest_task_waiting_age?: number | null;
-  longest_task_waiting_sid?: string | null;
-  tasks_by_priority?: any | null;
-  tasks_by_status?: any | null;
-  total_tasks?: number | null;
-  workflow_sid?: string | null;
-  workspace_sid?: string | null;
-  url?: string | null;
+  account_sid: string;
+  longest_task_waiting_age: number;
+  longest_task_waiting_sid: string;
+  tasks_by_priority: any;
+  tasks_by_status: any;
+  total_tasks: number;
+  workflow_sid: string;
+  workspace_sid: string;
+  url: string;
 }
 
 export class WorkflowRealTimeStatisticsInstance {
@@ -195,39 +196,39 @@ export class WorkflowRealTimeStatisticsInstance {
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The age of the longest waiting Task
    */
-  longestTaskWaitingAge?: number | null;
+  longestTaskWaitingAge: number;
   /**
    * The SID of the longest waiting Task
    */
-  longestTaskWaitingSid?: string | null;
+  longestTaskWaitingSid: string;
   /**
    * The number of Tasks by priority
    */
-  tasksByPriority?: any | null;
+  tasksByPriority: any;
   /**
    * The number of Tasks by their current status
    */
-  tasksByStatus?: any | null;
+  tasksByStatus: any;
   /**
    * The total number of Tasks
    */
-  totalTasks?: number | null;
+  totalTasks: number;
   /**
    * Returns the list of Tasks that are being controlled by the Workflow with the specified SID value
    */
-  workflowSid?: string | null;
+  workflowSid: string;
   /**
    * The SID of the Workspace that contains the Workflow.
    */
-  workspaceSid?: string | null;
+  workspaceSid: string;
   /**
    * The absolute URL of the Workflow statistics resource
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): WorkflowRealTimeStatisticsContext {
     this._context =
@@ -299,7 +300,16 @@ export class WorkflowRealTimeStatisticsInstance {
   }
 }
 
+export interface WorkflowRealTimeStatisticsSolution {
+  workspaceSid: string;
+  workflowSid: string;
+}
+
 export interface WorkflowRealTimeStatisticsListInstance {
+  _version: V1;
+  _solution: WorkflowRealTimeStatisticsSolution;
+  _uri: string;
+
   (): WorkflowRealTimeStatisticsContext;
   get(): WorkflowRealTimeStatisticsContext;
 
@@ -308,21 +318,6 @@ export interface WorkflowRealTimeStatisticsListInstance {
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export interface WorkflowRealTimeStatisticsSolution {
-  workspaceSid?: string;
-  workflowSid?: string;
-}
-
-interface WorkflowRealTimeStatisticsListInstanceImpl
-  extends WorkflowRealTimeStatisticsListInstance {}
-class WorkflowRealTimeStatisticsListInstanceImpl
-  implements WorkflowRealTimeStatisticsListInstance
-{
-  _version?: V1;
-  _solution?: WorkflowRealTimeStatisticsSolution;
-  _uri?: string;
 }
 
 export function WorkflowRealTimeStatisticsListInstance(
@@ -339,7 +334,7 @@ export function WorkflowRealTimeStatisticsListInstance(
   }
 
   const instance = (() =>
-    instance.get()) as WorkflowRealTimeStatisticsListInstanceImpl;
+    instance.get()) as WorkflowRealTimeStatisticsListInstance;
 
   instance.get = function get(): WorkflowRealTimeStatisticsContext {
     return new WorkflowRealTimeStatisticsContextImpl(
@@ -354,14 +349,14 @@ export function WorkflowRealTimeStatisticsListInstance(
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

@@ -18,7 +18,13 @@ const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 
+export interface UsecaseSolution {}
+
 export interface UsecaseListInstance {
+  _version: V1;
+  _solution: UsecaseSolution;
+  _uri: string;
+
   /**
    * Fetch a UsecaseInstance
    *
@@ -37,17 +43,8 @@ export interface UsecaseListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface UsecaseSolution {}
-
-interface UsecaseListInstanceImpl extends UsecaseListInstance {}
-class UsecaseListInstanceImpl implements UsecaseListInstance {
-  _version?: V1;
-  _solution?: UsecaseSolution;
-  _uri?: string;
-}
-
 export function UsecaseListInstance(version: V1): UsecaseListInstance {
-  const instance = {} as UsecaseListInstanceImpl;
+  const instance = {} as UsecaseListInstance;
 
   instance._version = version;
   instance._solution = {};
@@ -56,7 +53,7 @@ export function UsecaseListInstance(version: V1): UsecaseListInstance {
   instance.fetch = function fetch(callback?: any): Promise<UsecaseInstance> {
     let operationVersion = version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -64,7 +61,7 @@ export function UsecaseListInstance(version: V1): UsecaseListInstance {
       (payload) => new UsecaseInstance(operationVersion, payload)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -72,14 +69,14 @@ export function UsecaseListInstance(version: V1): UsecaseListInstance {
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;
@@ -88,7 +85,7 @@ export function UsecaseListInstance(version: V1): UsecaseListInstance {
 interface UsecasePayload extends UsecaseResource {}
 
 interface UsecaseResource {
-  usecases?: Array<any> | null;
+  usecases: Array<any>;
 }
 
 export class UsecaseInstance {
@@ -99,7 +96,7 @@ export class UsecaseInstance {
   /**
    * Human readable Messaging Service Use Case details
    */
-  usecases?: Array<any> | null;
+  usecases: Array<any>;
 
   /**
    * Provide a user-friendly representation

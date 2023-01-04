@@ -91,8 +91,8 @@ export interface CustomerProfilesEvaluationsContext {
 }
 
 export interface CustomerProfilesEvaluationsContextSolution {
-  customerProfileSid?: string;
-  sid?: string;
+  customerProfileSid: string;
+  sid: string;
 }
 
 export class CustomerProfilesEvaluationsContextImpl
@@ -115,9 +115,10 @@ export class CustomerProfilesEvaluationsContextImpl
   }
 
   fetch(callback?: any): Promise<CustomerProfilesEvaluationsInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -126,12 +127,12 @@ export class CustomerProfilesEvaluationsContextImpl
         new CustomerProfilesEvaluationsInstance(
           operationVersion,
           payload,
-          this._solution.customerProfileSid,
-          this._solution.sid
+          instance._solution.customerProfileSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -157,14 +158,14 @@ interface CustomerProfilesEvaluationsPayload extends TwilioResponsePayload {
 }
 
 interface CustomerProfilesEvaluationsResource {
-  sid?: string | null;
-  account_sid?: string | null;
-  policy_sid?: string | null;
-  customer_profile_sid?: string | null;
-  status?: CustomerProfileEvaluationStatus;
-  results?: Array<any> | null;
-  date_created?: Date | null;
-  url?: string | null;
+  sid: string;
+  account_sid: string;
+  policy_sid: string;
+  customer_profile_sid: string;
+  status: CustomerProfileEvaluationStatus;
+  results: Array<any>;
+  date_created: Date;
+  url: string;
 }
 
 export class CustomerProfilesEvaluationsInstance {
@@ -192,26 +193,26 @@ export class CustomerProfilesEvaluationsInstance {
   /**
    * The unique string that identifies the Evaluation resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The unique string of a policy
    */
-  policySid?: string | null;
+  policySid: string;
   /**
    * The unique string that identifies the resource
    */
-  customerProfileSid?: string | null;
-  status?: CustomerProfileEvaluationStatus;
+  customerProfileSid: string;
+  status: CustomerProfileEvaluationStatus;
   /**
    * The results of the Evaluation resource
    */
-  results?: Array<any> | null;
-  dateCreated?: Date | null;
-  url?: string | null;
+  results: Array<any>;
+  dateCreated: Date;
+  url: string;
 
   private get _proxy(): CustomerProfilesEvaluationsContext {
     this._context =
@@ -263,7 +264,15 @@ export class CustomerProfilesEvaluationsInstance {
   }
 }
 
+export interface CustomerProfilesEvaluationsSolution {
+  customerProfileSid: string;
+}
+
 export interface CustomerProfilesEvaluationsListInstance {
+  _version: V1;
+  _solution: CustomerProfilesEvaluationsSolution;
+  _uri: string;
+
   (sid: string): CustomerProfilesEvaluationsContext;
   get(sid: string): CustomerProfilesEvaluationsContext;
 
@@ -445,20 +454,6 @@ export interface CustomerProfilesEvaluationsListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface CustomerProfilesEvaluationsSolution {
-  customerProfileSid?: string;
-}
-
-interface CustomerProfilesEvaluationsListInstanceImpl
-  extends CustomerProfilesEvaluationsListInstance {}
-class CustomerProfilesEvaluationsListInstanceImpl
-  implements CustomerProfilesEvaluationsListInstance
-{
-  _version?: V1;
-  _solution?: CustomerProfilesEvaluationsSolution;
-  _uri?: string;
-}
-
 export function CustomerProfilesEvaluationsListInstance(
   version: V1,
   customerProfileSid: string
@@ -468,7 +463,7 @@ export function CustomerProfilesEvaluationsListInstance(
   }
 
   const instance = ((sid) =>
-    instance.get(sid)) as CustomerProfilesEvaluationsListInstanceImpl;
+    instance.get(sid)) as CustomerProfilesEvaluationsListInstance;
 
   instance.get = function get(sid): CustomerProfilesEvaluationsContext {
     return new CustomerProfilesEvaluationsContextImpl(
@@ -503,7 +498,7 @@ export function CustomerProfilesEvaluationsListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -514,11 +509,11 @@ export function CustomerProfilesEvaluationsListInstance(
         new CustomerProfilesEvaluationsInstance(
           operationVersion,
           payload,
-          this._solution.customerProfileSid
+          instance._solution.customerProfileSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -547,7 +542,7 @@ export function CustomerProfilesEvaluationsListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
@@ -558,11 +553,11 @@ export function CustomerProfilesEvaluationsListInstance(
         new CustomerProfilesEvaluationsPage(
           operationVersion,
           payload,
-          this._solution
+          instance._solution
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -575,35 +570,32 @@ export function CustomerProfilesEvaluationsListInstance(
     targetUrl?: any,
     callback?: any
   ): Promise<CustomerProfilesEvaluationsPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
+    let pagePromise = operationPromise.then(
       (payload) =>
         new CustomerProfilesEvaluationsPage(
-          this._version,
+          instance._version,
           payload,
-          this._solution
+          instance._solution
         )
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

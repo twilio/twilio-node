@@ -87,7 +87,7 @@ export interface AppContext {
 }
 
 export interface AppContextSolution {
-  sid?: string;
+  sid: string;
 }
 
 export class AppContextImpl implements AppContext {
@@ -104,13 +104,14 @@ export class AppContextImpl implements AppContext {
   }
 
   remove(callback?: any): Promise<boolean> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -118,18 +119,19 @@ export class AppContextImpl implements AppContext {
   }
 
   fetch(callback?: any): Promise<AppInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new AppInstance(operationVersion, payload, this._solution.sid)
+        new AppInstance(operationVersion, payload, instance._solution.sid)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -155,13 +157,13 @@ interface AppPayload extends TwilioResponsePayload {
 }
 
 interface AppResource {
-  sid?: string | null;
-  account_sid?: string | null;
-  hash?: string | null;
-  unique_name?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  url?: string | null;
+  sid: string;
+  account_sid: string;
+  hash: string;
+  unique_name: string;
+  date_created: Date;
+  date_updated: Date;
+  url: string;
 }
 
 export class AppInstance {
@@ -183,31 +185,31 @@ export class AppInstance {
   /**
    * A string that uniquely identifies this App.
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The Account SID.
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * App manifest hash represented as hash_algorithm:hash_value.
    */
-  hash?: string | null;
+  hash: string;
   /**
    * An developer-defined string that uniquely identifies the App.
    */
-  uniqueName?: string | null;
+  uniqueName: string;
   /**
    * The date that this App was created.
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The date that this App was last updated.
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The URL of this resource.
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): AppContext {
     this._context =
@@ -263,7 +265,13 @@ export class AppInstance {
   }
 }
 
+export interface AppSolution {}
+
 export interface AppListInstance {
+  _version: V1;
+  _solution: AppSolution;
+  _uri: string;
+
   (sid: string): AppContext;
   get(sid: string): AppContext;
 
@@ -395,17 +403,8 @@ export interface AppListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface AppSolution {}
-
-interface AppListInstanceImpl extends AppListInstance {}
-class AppListInstanceImpl implements AppListInstance {
-  _version?: V1;
-  _solution?: AppSolution;
-  _uri?: string;
-}
-
 export function AppListInstance(version: V1): AppListInstance {
-  const instance = ((sid) => instance.get(sid)) as AppListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as AppListInstance;
 
   instance.get = function get(sid): AppContext {
     return new AppContextImpl(version, sid);
@@ -437,17 +436,17 @@ export function AppListInstance(version: V1): AppListInstance {
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new AppPage(operationVersion, payload, this._solution)
+      (payload) => new AppPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -460,30 +459,27 @@ export function AppListInstance(version: V1): AppListInstance {
     targetUrl?: any,
     callback?: any
   ): Promise<AppPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new AppPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) => new AppPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

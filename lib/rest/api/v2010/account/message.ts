@@ -234,8 +234,8 @@ export interface MessageContext {
 }
 
 export interface MessageContextSolution {
-  accountSid?: string;
-  sid?: string;
+  accountSid: string;
+  sid: string;
 }
 
 export class MessageContextImpl implements MessageContext {
@@ -281,13 +281,14 @@ export class MessageContextImpl implements MessageContext {
   }
 
   remove(callback?: any): Promise<boolean> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -295,9 +296,10 @@ export class MessageContextImpl implements MessageContext {
   }
 
   fetch(callback?: any): Promise<MessageInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -306,12 +308,12 @@ export class MessageContextImpl implements MessageContext {
         new MessageInstance(
           operationVersion,
           payload,
-          this._solution.accountSid,
-          this._solution.sid
+          instance._solution.accountSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -334,9 +336,10 @@ export class MessageContextImpl implements MessageContext {
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -347,12 +350,12 @@ export class MessageContextImpl implements MessageContext {
         new MessageInstance(
           operationVersion,
           payload,
-          this._solution.accountSid,
-          this._solution.sid
+          instance._solution.accountSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -378,26 +381,26 @@ interface MessagePayload extends TwilioResponsePayload {
 }
 
 interface MessageResource {
-  body?: string | null;
-  num_segments?: string | null;
-  direction?: MessageDirection;
-  from?: string | null;
-  to?: string | null;
-  date_updated?: Date | null;
-  price?: string | null;
-  error_message?: string | null;
-  uri?: string | null;
-  account_sid?: string | null;
-  num_media?: string | null;
-  status?: MessageStatus;
-  messaging_service_sid?: string | null;
-  sid?: string | null;
-  date_sent?: Date | null;
-  date_created?: Date | null;
-  error_code?: number | null;
-  price_unit?: string | null;
-  api_version?: string | null;
-  subresource_uris?: object | null;
+  body: string;
+  num_segments: string;
+  direction: MessageDirection;
+  from: string;
+  to: string;
+  date_updated: Date;
+  price: string;
+  error_message: string;
+  uri: string;
+  account_sid: string;
+  num_media: string;
+  status: MessageStatus;
+  messaging_service_sid: string;
+  sid: string;
+  date_sent: Date;
+  date_created: Date;
+  error_code: number;
+  price_unit: string;
+  api_version: string;
+  subresource_uris: object;
 }
 
 export class MessageInstance {
@@ -437,77 +440,77 @@ export class MessageInstance {
   /**
    * The message text
    */
-  body?: string | null;
+  body: string;
   /**
    * The number of messages used to deliver the message body
    */
-  numSegments?: string | null;
-  direction?: MessageDirection;
+  numSegments: string;
+  direction: MessageDirection;
   /**
    * The phone number that initiated the message
    */
-  from?: string | null;
+  from: string;
   /**
    * The phone number that received the message
    */
-  to?: string | null;
+  to: string;
   /**
    * The RFC 2822 date and time in GMT that the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The amount billed for the message
    */
-  price?: string | null;
+  price: string;
   /**
    * The description of the error_code
    */
-  errorMessage?: string | null;
+  errorMessage: string;
   /**
    * The URI of the resource, relative to `https://api.twilio.com`
    */
-  uri?: string | null;
+  uri: string;
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The number of media files associated with the message
    */
-  numMedia?: string | null;
-  status?: MessageStatus;
+  numMedia: string;
+  status: MessageStatus;
   /**
    * The SID of the Messaging Service used with the message.
    */
-  messagingServiceSid?: string | null;
+  messagingServiceSid: string;
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The RFC 2822 date and time in GMT when the message was sent
    */
-  dateSent?: Date | null;
+  dateSent: Date;
   /**
    * The RFC 2822 date and time in GMT that the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The error code associated with the message
    */
-  errorCode?: number | null;
+  errorCode: number;
   /**
    * The currency in which price is measured
    */
-  priceUnit?: string | null;
+  priceUnit: string;
   /**
    * The API version used to process the message
    */
-  apiVersion?: string | null;
+  apiVersion: string;
   /**
    * A list of related resources identified by their relative URIs
    */
-  subresourceUris?: object | null;
+  subresourceUris: object;
 
   private get _proxy(): MessageContext {
     this._context =
@@ -621,7 +624,15 @@ export class MessageInstance {
   }
 }
 
+export interface MessageSolution {
+  accountSid: string;
+}
+
 export interface MessageListInstance {
+  _version: V2010;
+  _solution: MessageSolution;
+  _uri: string;
+
   (sid: string): MessageContext;
   get(sid: string): MessageContext;
 
@@ -767,17 +778,6 @@ export interface MessageListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface MessageSolution {
-  accountSid?: string;
-}
-
-interface MessageListInstanceImpl extends MessageListInstance {}
-class MessageListInstanceImpl implements MessageListInstance {
-  _version?: V2010;
-  _solution?: MessageSolution;
-  _uri?: string;
-}
-
 export function MessageListInstance(
   version: V2010,
   accountSid: string
@@ -786,7 +786,7 @@ export function MessageListInstance(
     throw new Error("Parameter 'accountSid' is not valid.");
   }
 
-  const instance = ((sid) => instance.get(sid)) as MessageListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as MessageListInstance;
 
   instance.get = function get(sid): MessageContext {
     return new MessageContextImpl(version, accountSid, sid);
@@ -858,7 +858,7 @@ export function MessageListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -869,11 +869,11 @@ export function MessageListInstance(
         new MessageInstance(
           operationVersion,
           payload,
-          this._solution.accountSid
+          instance._solution.accountSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -910,17 +910,18 @@ export function MessageListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new MessagePage(operationVersion, payload, this._solution)
+      (payload) =>
+        new MessagePage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -933,30 +934,28 @@ export function MessageListInstance(
     targetUrl?: any,
     callback?: any
   ): Promise<MessagePage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new MessagePage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new MessagePage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

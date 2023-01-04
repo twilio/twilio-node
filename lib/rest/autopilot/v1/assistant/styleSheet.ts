@@ -70,7 +70,7 @@ export interface StyleSheetContext {
 }
 
 export interface StyleSheetContextSolution {
-  assistantSid?: string;
+  assistantSid: string;
 }
 
 export class StyleSheetContextImpl implements StyleSheetContext {
@@ -87,9 +87,10 @@ export class StyleSheetContextImpl implements StyleSheetContext {
   }
 
   fetch(callback?: any): Promise<StyleSheetInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -98,11 +99,11 @@ export class StyleSheetContextImpl implements StyleSheetContext {
         new StyleSheetInstance(
           operationVersion,
           payload,
-          this._solution.assistantSid
+          instance._solution.assistantSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -125,9 +126,10 @@ export class StyleSheetContextImpl implements StyleSheetContext {
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -138,11 +140,11 @@ export class StyleSheetContextImpl implements StyleSheetContext {
         new StyleSheetInstance(
           operationVersion,
           payload,
-          this._solution.assistantSid
+          instance._solution.assistantSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -166,10 +168,10 @@ export class StyleSheetContextImpl implements StyleSheetContext {
 interface StyleSheetPayload extends StyleSheetResource {}
 
 interface StyleSheetResource {
-  account_sid?: string | null;
-  assistant_sid?: string | null;
-  url?: string | null;
-  data?: any | null;
+  account_sid: string;
+  assistant_sid: string;
+  url: string;
+  data: any;
 }
 
 export class StyleSheetInstance {
@@ -192,19 +194,19 @@ export class StyleSheetInstance {
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The SID of the Assistant that is the parent of the resource
    */
-  assistantSid?: string | null;
+  assistantSid: string;
   /**
    * The absolute URL of the StyleSheet resource
    */
-  url?: string | null;
+  url: string;
   /**
    * The JSON string that describes the style sheet object
    */
-  data?: any | null;
+  data: any;
 
   private get _proxy(): StyleSheetContext {
     this._context =
@@ -271,7 +273,15 @@ export class StyleSheetInstance {
   }
 }
 
+export interface StyleSheetSolution {
+  assistantSid: string;
+}
+
 export interface StyleSheetListInstance {
+  _version: V1;
+  _solution: StyleSheetSolution;
+  _uri: string;
+
   (): StyleSheetContext;
   get(): StyleSheetContext;
 
@@ -282,17 +292,6 @@ export interface StyleSheetListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface StyleSheetSolution {
-  assistantSid?: string;
-}
-
-interface StyleSheetListInstanceImpl extends StyleSheetListInstance {}
-class StyleSheetListInstanceImpl implements StyleSheetListInstance {
-  _version?: V1;
-  _solution?: StyleSheetSolution;
-  _uri?: string;
-}
-
 export function StyleSheetListInstance(
   version: V1,
   assistantSid: string
@@ -301,7 +300,7 @@ export function StyleSheetListInstance(
     throw new Error("Parameter 'assistantSid' is not valid.");
   }
 
-  const instance = (() => instance.get()) as StyleSheetListInstanceImpl;
+  const instance = (() => instance.get()) as StyleSheetListInstance;
 
   instance.get = function get(): StyleSheetContext {
     return new StyleSheetContextImpl(version, assistantSid);
@@ -312,14 +311,14 @@ export function StyleSheetListInstance(
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

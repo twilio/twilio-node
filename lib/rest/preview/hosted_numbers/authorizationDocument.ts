@@ -171,7 +171,7 @@ export interface AuthorizationDocumentContext {
 }
 
 export interface AuthorizationDocumentContextSolution {
-  sid?: string;
+  sid: string;
 }
 
 export class AuthorizationDocumentContextImpl
@@ -199,9 +199,10 @@ export class AuthorizationDocumentContextImpl
   }
 
   fetch(callback?: any): Promise<AuthorizationDocumentInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -210,11 +211,11 @@ export class AuthorizationDocumentContextImpl
         new AuthorizationDocumentInstance(
           operationVersion,
           payload,
-          this._solution.sid
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -250,9 +251,10 @@ export class AuthorizationDocumentContextImpl
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -263,11 +265,11 @@ export class AuthorizationDocumentContextImpl
         new AuthorizationDocumentInstance(
           operationVersion,
           payload,
-          this._solution.sid
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -293,15 +295,15 @@ interface AuthorizationDocumentPayload extends TwilioResponsePayload {
 }
 
 interface AuthorizationDocumentResource {
-  sid?: string | null;
-  address_sid?: string | null;
-  status?: AuthorizationDocumentStatus;
-  email?: string | null;
-  cc_emails?: Array<string> | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  url?: string | null;
-  links?: object | null;
+  sid: string;
+  address_sid: string;
+  status: AuthorizationDocumentStatus;
+  email: string;
+  cc_emails: Array<string>;
+  date_created: Date;
+  date_updated: Date;
+  url: string;
+  links: object;
 }
 
 export class AuthorizationDocumentInstance {
@@ -329,30 +331,30 @@ export class AuthorizationDocumentInstance {
   /**
    * AuthorizationDocument sid.
    */
-  sid?: string | null;
+  sid: string;
   /**
    * Address sid.
    */
-  addressSid?: string | null;
-  status?: AuthorizationDocumentStatus;
+  addressSid: string;
+  status: AuthorizationDocumentStatus;
   /**
    * Email.
    */
-  email?: string | null;
+  email: string;
   /**
    * A list of emails.
    */
-  ccEmails?: Array<string> | null;
+  ccEmails: Array<string>;
   /**
    * The date this AuthorizationDocument was created.
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The date this AuthorizationDocument was updated.
    */
-  dateUpdated?: Date | null;
-  url?: string | null;
-  links?: object | null;
+  dateUpdated: Date;
+  url: string;
+  links: object;
 
   private get _proxy(): AuthorizationDocumentContext {
     this._context =
@@ -440,7 +442,13 @@ export class AuthorizationDocumentInstance {
   }
 }
 
+export interface AuthorizationDocumentSolution {}
+
 export interface AuthorizationDocumentListInstance {
+  _version: HostedNumbers;
+  _solution: AuthorizationDocumentSolution;
+  _uri: string;
+
   (sid: string): AuthorizationDocumentContext;
   get(sid: string): AuthorizationDocumentContext;
 
@@ -601,23 +609,11 @@ export interface AuthorizationDocumentListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface AuthorizationDocumentSolution {}
-
-interface AuthorizationDocumentListInstanceImpl
-  extends AuthorizationDocumentListInstance {}
-class AuthorizationDocumentListInstanceImpl
-  implements AuthorizationDocumentListInstance
-{
-  _version?: HostedNumbers;
-  _solution?: AuthorizationDocumentSolution;
-  _uri?: string;
-}
-
 export function AuthorizationDocumentListInstance(
   version: HostedNumbers
 ): AuthorizationDocumentListInstance {
   const instance = ((sid) =>
-    instance.get(sid)) as AuthorizationDocumentListInstanceImpl;
+    instance.get(sid)) as AuthorizationDocumentListInstance;
 
   instance.get = function get(sid): AuthorizationDocumentContext {
     return new AuthorizationDocumentContextImpl(version, sid);
@@ -690,7 +686,7 @@ export function AuthorizationDocumentListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -700,7 +696,7 @@ export function AuthorizationDocumentListInstance(
       (payload) => new AuthorizationDocumentInstance(operationVersion, payload)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -731,7 +727,7 @@ export function AuthorizationDocumentListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
@@ -739,10 +735,14 @@ export function AuthorizationDocumentListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new AuthorizationDocumentPage(operationVersion, payload, this._solution)
+        new AuthorizationDocumentPage(
+          operationVersion,
+          payload,
+          instance._solution
+        )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -755,31 +755,32 @@ export function AuthorizationDocumentListInstance(
     targetUrl?: any,
     callback?: any
   ): Promise<AuthorizationDocumentPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
+    let pagePromise = operationPromise.then(
       (payload) =>
-        new AuthorizationDocumentPage(this._version, payload, this._solution)
+        new AuthorizationDocumentPage(
+          instance._version,
+          payload,
+          instance._solution
+        )
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

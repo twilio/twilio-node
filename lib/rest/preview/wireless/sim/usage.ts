@@ -61,7 +61,7 @@ export interface UsageContext {
 }
 
 export interface UsageContextSolution {
-  simSid?: string;
+  simSid: string;
 }
 
 export class UsageContextImpl implements UsageContext {
@@ -92,9 +92,10 @@ export class UsageContextImpl implements UsageContext {
 
     const headers: any = {};
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
@@ -102,10 +103,10 @@ export class UsageContextImpl implements UsageContext {
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new UsageInstance(operationVersion, payload, this._solution.simSid)
+        new UsageInstance(operationVersion, payload, instance._solution.simSid)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -129,15 +130,15 @@ export class UsageContextImpl implements UsageContext {
 interface UsagePayload extends UsageResource {}
 
 interface UsageResource {
-  sim_sid?: string | null;
-  sim_unique_name?: string | null;
-  account_sid?: string | null;
-  period?: any | null;
-  commands_usage?: any | null;
-  commands_costs?: any | null;
-  data_usage?: any | null;
-  data_costs?: any | null;
-  url?: string | null;
+  sim_sid: string;
+  sim_unique_name: string;
+  account_sid: string;
+  period: any;
+  commands_usage: any;
+  commands_costs: any;
+  data_usage: any;
+  data_costs: any;
+  url: string;
 }
 
 export class UsageInstance {
@@ -162,15 +163,15 @@ export class UsageInstance {
     this._solution = { simSid };
   }
 
-  simSid?: string | null;
-  simUniqueName?: string | null;
-  accountSid?: string | null;
-  period?: any | null;
-  commandsUsage?: any | null;
-  commandsCosts?: any | null;
-  dataUsage?: any | null;
-  dataCosts?: any | null;
-  url?: string | null;
+  simSid: string;
+  simUniqueName: string;
+  accountSid: string;
+  period: any;
+  commandsUsage: any;
+  commandsCosts: any;
+  dataUsage: any;
+  dataCosts: any;
+  url: string;
 
   private get _proxy(): UsageContext {
     this._context =
@@ -229,7 +230,15 @@ export class UsageInstance {
   }
 }
 
+export interface UsageSolution {
+  simSid: string;
+}
+
 export interface UsageListInstance {
+  _version: Wireless;
+  _solution: UsageSolution;
+  _uri: string;
+
   (): UsageContext;
   get(): UsageContext;
 
@@ -240,17 +249,6 @@ export interface UsageListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface UsageSolution {
-  simSid?: string;
-}
-
-interface UsageListInstanceImpl extends UsageListInstance {}
-class UsageListInstanceImpl implements UsageListInstance {
-  _version?: Wireless;
-  _solution?: UsageSolution;
-  _uri?: string;
-}
-
 export function UsageListInstance(
   version: Wireless,
   simSid: string
@@ -259,7 +257,7 @@ export function UsageListInstance(
     throw new Error("Parameter 'simSid' is not valid.");
   }
 
-  const instance = (() => instance.get()) as UsageListInstanceImpl;
+  const instance = (() => instance.get()) as UsageListInstance;
 
   instance.get = function get(): UsageContext {
     return new UsageContextImpl(version, simSid);
@@ -270,14 +268,14 @@ export function UsageListInstance(
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

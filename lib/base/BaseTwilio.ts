@@ -40,9 +40,9 @@ export interface RequestOpts {
 /* jshint ignore:end */
 
 export class BaseTwilio {
-  username?: string;
-  password?: string;
-  accountSid?: string;
+  username: string;
+  password: string;
+  accountSid: string;
   opts?: ClientOpts;
   env?: NodeJS.ProcessEnv;
   edge?: string;
@@ -70,8 +70,18 @@ export class BaseTwilio {
   constructor(username?: string, password?: string, opts?: ClientOpts) {
     this.opts = opts || {};
     this.env = this.opts.env || process.env;
-    this.username = username || this.env.TWILIO_ACCOUNT_SID;
-    this.password = password || this.env.TWILIO_AUTH_TOKEN;
+    this.username =
+      username ||
+      this.env.TWILIO_ACCOUNT_SID ||
+      (() => {
+        throw new Error("username is required");
+      })();
+    this.password =
+      password ||
+      this.env.TWILIO_AUTH_TOKEN ||
+      (() => {
+        throw new Error("password is required");
+      })();
     this.accountSid = this.opts.accountSid || this.username;
     this.edge = this.opts.edge || this.env.TWILIO_EDGE;
     this.region = this.opts.region || this.env.TWILIO_REGION;
@@ -83,16 +93,8 @@ export class BaseTwilio {
       this._httpClient = this.httpClient;
     }
 
-    if (!this.username) {
-      throw new Error("username is required");
-    }
-
-    if (!this.password) {
-      throw new Error("password is required");
-    }
-
-    if (!this.accountSid?.startsWith("AC")) {
-      const apiKeyMsg = this.accountSid?.startsWith("SK")
+    if (!this.accountSid.startsWith("AC")) {
+      const apiKeyMsg = this.accountSid.startsWith("SK")
         ? ". The given SID indicates an API Key which requires the accountSid to be passed as an additional option"
         : "";
 
@@ -116,7 +118,7 @@ export class BaseTwilio {
    */
   /* jshint ignore:end */
 
-  request(opts: RequestOpts) {
+  request(opts: RequestOpts): Promise<any> {
     opts = opts || {};
 
     if (!opts.method) {

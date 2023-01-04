@@ -129,8 +129,8 @@ export interface ShortCodeContext {
 }
 
 export interface ShortCodeContextSolution {
-  accountSid?: string;
-  sid?: string;
+  accountSid: string;
+  sid: string;
 }
 
 export class ShortCodeContextImpl implements ShortCodeContext {
@@ -151,9 +151,10 @@ export class ShortCodeContextImpl implements ShortCodeContext {
   }
 
   fetch(callback?: any): Promise<ShortCodeInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -162,12 +163,12 @@ export class ShortCodeContextImpl implements ShortCodeContext {
         new ShortCodeInstance(
           operationVersion,
           payload,
-          this._solution.accountSid,
-          this._solution.sid
+          instance._solution.accountSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -199,9 +200,10 @@ export class ShortCodeContextImpl implements ShortCodeContext {
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -212,12 +214,12 @@ export class ShortCodeContextImpl implements ShortCodeContext {
         new ShortCodeInstance(
           operationVersion,
           payload,
-          this._solution.accountSid,
-          this._solution.sid
+          instance._solution.accountSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -258,18 +260,18 @@ interface ShortCodePayload extends TwilioResponsePayload {
 }
 
 interface ShortCodeResource {
-  account_sid?: string | null;
-  api_version?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  friendly_name?: string | null;
-  short_code?: string | null;
-  sid?: string | null;
-  sms_fallback_method?: ShortCodeSmsFallbackMethod;
-  sms_fallback_url?: string | null;
-  sms_method?: ShortCodeSmsMethod;
-  sms_url?: string | null;
-  uri?: string | null;
+  account_sid: string;
+  api_version: string;
+  date_created: Date;
+  date_updated: Date;
+  friendly_name: string;
+  short_code: string;
+  sid: string;
+  sms_fallback_method: ShortCodeSmsFallbackMethod;
+  sms_fallback_url: string;
+  sms_method: ShortCodeSmsMethod;
+  sms_url: string;
+  uri: string;
 }
 
 export class ShortCodeInstance {
@@ -301,51 +303,51 @@ export class ShortCodeInstance {
   /**
    * The SID of the Account that created this resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The API version used to start a new TwiML session
    */
-  apiVersion?: string | null;
+  apiVersion: string;
   /**
    * The RFC 2822 date and time in GMT that this resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The RFC 2822 date and time in GMT that this resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * A string that you assigned to describe this resource
    */
-  friendlyName?: string | null;
+  friendlyName: string;
   /**
    * The short code. e.g., 894546.
    */
-  shortCode?: string | null;
+  shortCode: string;
   /**
    * The unique string that identifies this resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * HTTP method we use to call the sms_fallback_url
    */
-  smsFallbackMethod?: ShortCodeSmsFallbackMethod;
+  smsFallbackMethod: ShortCodeSmsFallbackMethod;
   /**
    * URL Twilio will request if an error occurs in executing TwiML
    */
-  smsFallbackUrl?: string | null;
+  smsFallbackUrl: string;
   /**
    * HTTP method to use when requesting the sms url
    */
-  smsMethod?: ShortCodeSmsMethod;
+  smsMethod: ShortCodeSmsMethod;
   /**
    * URL we call when receiving an incoming SMS message to this short code
    */
-  smsUrl?: string | null;
+  smsUrl: string;
   /**
    * The URI of this resource, relative to `https://api.twilio.com`
    */
-  uri?: string | null;
+  uri: string;
 
   private get _proxy(): ShortCodeContext {
     this._context =
@@ -424,7 +426,15 @@ export class ShortCodeInstance {
   }
 }
 
+export interface ShortCodeSolution {
+  accountSid: string;
+}
+
 export interface ShortCodeListInstance {
+  _version: V2010;
+  _solution: ShortCodeSolution;
+  _uri: string;
+
   (sid: string): ShortCodeContext;
   get(sid: string): ShortCodeContext;
 
@@ -556,17 +566,6 @@ export interface ShortCodeListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface ShortCodeSolution {
-  accountSid?: string;
-}
-
-interface ShortCodeListInstanceImpl extends ShortCodeListInstance {}
-class ShortCodeListInstanceImpl implements ShortCodeListInstance {
-  _version?: V2010;
-  _solution?: ShortCodeSolution;
-  _uri?: string;
-}
-
 export function ShortCodeListInstance(
   version: V2010,
   accountSid: string
@@ -575,7 +574,7 @@ export function ShortCodeListInstance(
     throw new Error("Parameter 'accountSid' is not valid.");
   }
 
-  const instance = ((sid) => instance.get(sid)) as ShortCodeListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as ShortCodeListInstance;
 
   instance.get = function get(sid): ShortCodeContext {
     return new ShortCodeContextImpl(version, accountSid, sid);
@@ -611,17 +610,18 @@ export function ShortCodeListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new ShortCodePage(operationVersion, payload, this._solution)
+      (payload) =>
+        new ShortCodePage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -634,30 +634,28 @@ export function ShortCodeListInstance(
     targetUrl?: any,
     callback?: any
   ): Promise<ShortCodePage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new ShortCodePage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new ShortCodePage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

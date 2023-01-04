@@ -177,7 +177,7 @@ export interface AddressConfigurationContext {
 }
 
 export interface AddressConfigurationContextSolution {
-  sid?: string;
+  sid: string;
 }
 
 export class AddressConfigurationContextImpl
@@ -196,13 +196,14 @@ export class AddressConfigurationContextImpl
   }
 
   remove(callback?: any): Promise<boolean> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -210,9 +211,10 @@ export class AddressConfigurationContextImpl
   }
 
   fetch(callback?: any): Promise<AddressConfigurationInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -221,11 +223,11 @@ export class AddressConfigurationContextImpl
         new AddressConfigurationInstance(
           operationVersion,
           payload,
-          this._solution.sid
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -271,9 +273,10 @@ export class AddressConfigurationContextImpl
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -284,11 +287,11 @@ export class AddressConfigurationContextImpl
         new AddressConfigurationInstance(
           operationVersion,
           payload,
-          this._solution.sid
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -314,15 +317,15 @@ interface AddressConfigurationPayload extends TwilioResponsePayload {
 }
 
 interface AddressConfigurationResource {
-  sid?: string | null;
-  account_sid?: string | null;
-  type?: string | null;
-  address?: string | null;
-  friendly_name?: string | null;
-  auto_creation?: any | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  url?: string | null;
+  sid: string;
+  account_sid: string;
+  type: string;
+  address: string;
+  friendly_name: string;
+  auto_creation: any;
+  date_created: Date;
+  date_updated: Date;
+  url: string;
 }
 
 export class AddressConfigurationInstance {
@@ -350,39 +353,39 @@ export class AddressConfigurationInstance {
   /**
    * A 34 character string that uniquely identifies this resource.
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The unique ID of the Account the address belongs to.
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * Type of Address.
    */
-  type?: string | null;
+  type: string;
   /**
    * The unique address to be configured.
    */
-  address?: string | null;
+  address: string;
   /**
    * The human-readable name of this configuration.
    */
-  friendlyName?: string | null;
+  friendlyName: string;
   /**
    * Auto Creation configuration for the address.
    */
-  autoCreation?: any | null;
+  autoCreation: any;
   /**
    * The date that this resource was created.
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The date that this resource was last updated.
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * An absolute URL for this address configuration.
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): AddressConfigurationContext {
     this._context =
@@ -467,7 +470,13 @@ export class AddressConfigurationInstance {
   }
 }
 
+export interface AddressConfigurationSolution {}
+
 export interface AddressConfigurationListInstance {
+  _version: V1;
+  _solution: AddressConfigurationSolution;
+  _uri: string;
+
   (sid: string): AddressConfigurationContext;
   get(sid: string): AddressConfigurationContext;
 
@@ -625,23 +634,11 @@ export interface AddressConfigurationListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface AddressConfigurationSolution {}
-
-interface AddressConfigurationListInstanceImpl
-  extends AddressConfigurationListInstance {}
-class AddressConfigurationListInstanceImpl
-  implements AddressConfigurationListInstance
-{
-  _version?: V1;
-  _solution?: AddressConfigurationSolution;
-  _uri?: string;
-}
-
 export function AddressConfigurationListInstance(
   version: V1
 ): AddressConfigurationListInstance {
   const instance = ((sid) =>
-    instance.get(sid)) as AddressConfigurationListInstanceImpl;
+    instance.get(sid)) as AddressConfigurationListInstance;
 
   instance.get = function get(sid): AddressConfigurationContext {
     return new AddressConfigurationContextImpl(version, sid);
@@ -703,7 +700,7 @@ export function AddressConfigurationListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -713,7 +710,7 @@ export function AddressConfigurationListInstance(
       (payload) => new AddressConfigurationInstance(operationVersion, payload)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -743,7 +740,7 @@ export function AddressConfigurationListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
@@ -751,10 +748,14 @@ export function AddressConfigurationListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new AddressConfigurationPage(operationVersion, payload, this._solution)
+        new AddressConfigurationPage(
+          operationVersion,
+          payload,
+          instance._solution
+        )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -767,31 +768,32 @@ export function AddressConfigurationListInstance(
     targetUrl?: any,
     callback?: any
   ): Promise<AddressConfigurationPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
+    let pagePromise = operationPromise.then(
       (payload) =>
-        new AddressConfigurationPage(this._version, payload, this._solution)
+        new AddressConfigurationPage(
+          instance._version,
+          payload,
+          instance._solution
+        )
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

@@ -74,7 +74,7 @@ export interface WorkersCumulativeStatisticsContext {
 }
 
 export interface WorkersCumulativeStatisticsContextSolution {
-  workspaceSid?: string;
+  workspaceSid: string;
 }
 
 export class WorkersCumulativeStatisticsContextImpl
@@ -115,9 +115,10 @@ export class WorkersCumulativeStatisticsContextImpl
 
     const headers: any = {};
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
@@ -128,11 +129,11 @@ export class WorkersCumulativeStatisticsContextImpl
         new WorkersCumulativeStatisticsInstance(
           operationVersion,
           payload,
-          this._solution.workspaceSid
+          instance._solution.workspaceSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -157,18 +158,18 @@ interface WorkersCumulativeStatisticsPayload
   extends WorkersCumulativeStatisticsResource {}
 
 interface WorkersCumulativeStatisticsResource {
-  account_sid?: string | null;
-  start_time?: Date | null;
-  end_time?: Date | null;
-  activity_durations?: Array<any> | null;
-  reservations_created?: number | null;
-  reservations_accepted?: number | null;
-  reservations_rejected?: number | null;
-  reservations_timed_out?: number | null;
-  reservations_canceled?: number | null;
-  reservations_rescinded?: number | null;
-  workspace_sid?: string | null;
-  url?: string | null;
+  account_sid: string;
+  start_time: Date;
+  end_time: Date;
+  activity_durations: Array<any>;
+  reservations_created: number;
+  reservations_accepted: number;
+  reservations_rejected: number;
+  reservations_timed_out: number;
+  reservations_canceled: number;
+  reservations_rescinded: number;
+  workspace_sid: string;
+  url: string;
 }
 
 export class WorkersCumulativeStatisticsInstance {
@@ -211,51 +212,51 @@ export class WorkersCumulativeStatisticsInstance {
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The beginning of the interval during which these statistics were calculated
    */
-  startTime?: Date | null;
+  startTime: Date;
   /**
    * The end of the interval during which these statistics were calculated
    */
-  endTime?: Date | null;
+  endTime: Date;
   /**
    * The minimum, average, maximum, and total time that Workers spent in each Activity
    */
-  activityDurations?: Array<any> | null;
+  activityDurations: Array<any>;
   /**
    * The total number of Reservations that were created
    */
-  reservationsCreated?: number | null;
+  reservationsCreated: number;
   /**
    * The total number of Reservations that were accepted
    */
-  reservationsAccepted?: number | null;
+  reservationsAccepted: number;
   /**
    * The total number of Reservations that were rejected
    */
-  reservationsRejected?: number | null;
+  reservationsRejected: number;
   /**
    * The total number of Reservations that were timed out
    */
-  reservationsTimedOut?: number | null;
+  reservationsTimedOut: number;
   /**
    * The total number of Reservations that were canceled
    */
-  reservationsCanceled?: number | null;
+  reservationsCanceled: number;
   /**
    * The total number of Reservations that were rescinded
    */
-  reservationsRescinded?: number | null;
+  reservationsRescinded: number;
   /**
    * The SID of the Workspace that contains the Workers
    */
-  workspaceSid?: string | null;
+  workspaceSid: string;
   /**
    * The absolute URL of the Workers statistics resource
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): WorkersCumulativeStatisticsContext {
     this._context =
@@ -329,7 +330,15 @@ export class WorkersCumulativeStatisticsInstance {
   }
 }
 
+export interface WorkersCumulativeStatisticsSolution {
+  workspaceSid: string;
+}
+
 export interface WorkersCumulativeStatisticsListInstance {
+  _version: V1;
+  _solution: WorkersCumulativeStatisticsSolution;
+  _uri: string;
+
   (): WorkersCumulativeStatisticsContext;
   get(): WorkersCumulativeStatisticsContext;
 
@@ -338,20 +347,6 @@ export interface WorkersCumulativeStatisticsListInstance {
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export interface WorkersCumulativeStatisticsSolution {
-  workspaceSid?: string;
-}
-
-interface WorkersCumulativeStatisticsListInstanceImpl
-  extends WorkersCumulativeStatisticsListInstance {}
-class WorkersCumulativeStatisticsListInstanceImpl
-  implements WorkersCumulativeStatisticsListInstance
-{
-  _version?: V1;
-  _solution?: WorkersCumulativeStatisticsSolution;
-  _uri?: string;
 }
 
 export function WorkersCumulativeStatisticsListInstance(
@@ -363,7 +358,7 @@ export function WorkersCumulativeStatisticsListInstance(
   }
 
   const instance = (() =>
-    instance.get()) as WorkersCumulativeStatisticsListInstanceImpl;
+    instance.get()) as WorkersCumulativeStatisticsListInstance;
 
   instance.get = function get(): WorkersCumulativeStatisticsContext {
     return new WorkersCumulativeStatisticsContextImpl(version, workspaceSid);
@@ -374,14 +369,14 @@ export function WorkersCumulativeStatisticsListInstance(
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

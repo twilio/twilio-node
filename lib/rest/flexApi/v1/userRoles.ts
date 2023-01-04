@@ -82,9 +82,10 @@ export class UserRolesContextImpl implements UserRolesContext {
     const headers: any = {};
     if (params["token"] !== undefined) headers["Token"] = params["token"];
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
@@ -94,7 +95,7 @@ export class UserRolesContextImpl implements UserRolesContext {
       (payload) => new UserRolesInstance(operationVersion, payload)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -118,8 +119,8 @@ export class UserRolesContextImpl implements UserRolesContext {
 interface UserRolesPayload extends UserRolesResource {}
 
 interface UserRolesResource {
-  roles?: Array<string> | null;
-  url?: string | null;
+  roles: Array<string>;
+  url: string;
 }
 
 export class UserRolesInstance {
@@ -136,8 +137,8 @@ export class UserRolesInstance {
   /**
    * Flex Insights roles for the user
    */
-  roles?: Array<string> | null;
-  url?: string | null;
+  roles: Array<string>;
+  url: string;
 
   private get _proxy(): UserRolesContext {
     this._context = this._context || new UserRolesContextImpl(this._version);
@@ -187,7 +188,13 @@ export class UserRolesInstance {
   }
 }
 
+export interface UserRolesSolution {}
+
 export interface UserRolesListInstance {
+  _version: V1;
+  _solution: UserRolesSolution;
+  _uri: string;
+
   (): UserRolesContext;
   get(): UserRolesContext;
 
@@ -198,17 +205,8 @@ export interface UserRolesListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface UserRolesSolution {}
-
-interface UserRolesListInstanceImpl extends UserRolesListInstance {}
-class UserRolesListInstanceImpl implements UserRolesListInstance {
-  _version?: V1;
-  _solution?: UserRolesSolution;
-  _uri?: string;
-}
-
 export function UserRolesListInstance(version: V1): UserRolesListInstance {
-  const instance = (() => instance.get()) as UserRolesListInstanceImpl;
+  const instance = (() => instance.get()) as UserRolesListInstance;
 
   instance.get = function get(): UserRolesContext {
     return new UserRolesContextImpl(version);
@@ -219,14 +217,14 @@ export function UserRolesListInstance(version: V1): UserRolesListInstance {
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

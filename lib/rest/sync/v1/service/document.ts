@@ -137,8 +137,8 @@ export interface DocumentContext {
 }
 
 export interface DocumentContextSolution {
-  serviceSid?: string;
-  sid?: string;
+  serviceSid: string;
+  sid: string;
 }
 
 export class DocumentContextImpl implements DocumentContext {
@@ -172,13 +172,14 @@ export class DocumentContextImpl implements DocumentContext {
   }
 
   remove(callback?: any): Promise<boolean> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -186,9 +187,10 @@ export class DocumentContextImpl implements DocumentContext {
   }
 
   fetch(callback?: any): Promise<DocumentInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -197,12 +199,12 @@ export class DocumentContextImpl implements DocumentContext {
         new DocumentInstance(
           operationVersion,
           payload,
-          this._solution.serviceSid,
-          this._solution.sid
+          instance._solution.serviceSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -228,9 +230,10 @@ export class DocumentContextImpl implements DocumentContext {
     if (params["ifMatch"] !== undefined)
       headers["If-Match"] = params["ifMatch"];
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -241,12 +244,12 @@ export class DocumentContextImpl implements DocumentContext {
         new DocumentInstance(
           operationVersion,
           payload,
-          this._solution.serviceSid,
-          this._solution.sid
+          instance._solution.serviceSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -272,18 +275,18 @@ interface DocumentPayload extends TwilioResponsePayload {
 }
 
 interface DocumentResource {
-  sid?: string | null;
-  unique_name?: string | null;
-  account_sid?: string | null;
-  service_sid?: string | null;
-  url?: string | null;
-  links?: object | null;
-  revision?: string | null;
-  data?: any | null;
-  date_expires?: Date | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  created_by?: string | null;
+  sid: string;
+  unique_name: string;
+  account_sid: string;
+  service_sid: string;
+  url: string;
+  links: object;
+  revision: string;
+  data: any;
+  date_expires: Date;
+  date_created: Date;
+  date_updated: Date;
+  created_by: string;
 }
 
 export class DocumentInstance {
@@ -315,51 +318,51 @@ export class DocumentInstance {
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * An application-defined string that uniquely identifies the resource
    */
-  uniqueName?: string | null;
+  uniqueName: string;
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The SID of the Sync Service that the resource is associated with
    */
-  serviceSid?: string | null;
+  serviceSid: string;
   /**
    * The absolute URL of the Document resource
    */
-  url?: string | null;
+  url: string;
   /**
    * The URLs of resources related to the Sync Document
    */
-  links?: object | null;
+  links: object;
   /**
    * The current revision of the Sync Document, represented by a string identifier
    */
-  revision?: string | null;
+  revision: string;
   /**
    * An arbitrary, schema-less object that the Sync Document stores
    */
-  data?: any | null;
+  data: any;
   /**
    * The ISO 8601 date and time in GMT when the Sync Document expires
    */
-  dateExpires?: Date | null;
+  dateExpires: Date;
   /**
    * The ISO 8601 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The ISO 8601 date and time in GMT when the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The identity of the Sync Document\'s creator
    */
-  createdBy?: string | null;
+  createdBy: string;
 
   private get _proxy(): DocumentContext {
     this._context =
@@ -458,7 +461,15 @@ export class DocumentInstance {
   }
 }
 
+export interface DocumentSolution {
+  serviceSid: string;
+}
+
 export interface DocumentListInstance {
+  _version: V1;
+  _solution: DocumentSolution;
+  _uri: string;
+
   (sid: string): DocumentContext;
   get(sid: string): DocumentContext;
 
@@ -614,17 +625,6 @@ export interface DocumentListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface DocumentSolution {
-  serviceSid?: string;
-}
-
-interface DocumentListInstanceImpl extends DocumentListInstance {}
-class DocumentListInstanceImpl implements DocumentListInstance {
-  _version?: V1;
-  _solution?: DocumentSolution;
-  _uri?: string;
-}
-
 export function DocumentListInstance(
   version: V1,
   serviceSid: string
@@ -633,7 +633,7 @@ export function DocumentListInstance(
     throw new Error("Parameter 'serviceSid' is not valid.");
   }
 
-  const instance = ((sid) => instance.get(sid)) as DocumentListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as DocumentListInstance;
 
   instance.get = function get(sid): DocumentContext {
     return new DocumentContextImpl(version, serviceSid, sid);
@@ -667,7 +667,7 @@ export function DocumentListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -678,11 +678,11 @@ export function DocumentListInstance(
         new DocumentInstance(
           operationVersion,
           payload,
-          this._solution.serviceSid
+          instance._solution.serviceSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -711,17 +711,18 @@ export function DocumentListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new DocumentPage(operationVersion, payload, this._solution)
+      (payload) =>
+        new DocumentPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -734,30 +735,28 @@ export function DocumentListInstance(
     targetUrl?: any,
     callback?: any
   ): Promise<DocumentPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new DocumentPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new DocumentPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

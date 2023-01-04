@@ -223,7 +223,7 @@ export interface HostedNumberOrderContext {
 }
 
 export interface HostedNumberOrderContextSolution {
-  sid?: string;
+  sid: string;
 }
 
 export class HostedNumberOrderContextImpl implements HostedNumberOrderContext {
@@ -240,13 +240,14 @@ export class HostedNumberOrderContextImpl implements HostedNumberOrderContext {
   }
 
   remove(callback?: any): Promise<boolean> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -254,9 +255,10 @@ export class HostedNumberOrderContextImpl implements HostedNumberOrderContext {
   }
 
   fetch(callback?: any): Promise<HostedNumberOrderInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -265,11 +267,11 @@ export class HostedNumberOrderContextImpl implements HostedNumberOrderContext {
         new HostedNumberOrderInstance(
           operationVersion,
           payload,
-          this._solution.sid
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -308,9 +310,10 @@ export class HostedNumberOrderContextImpl implements HostedNumberOrderContext {
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -321,11 +324,11 @@ export class HostedNumberOrderContextImpl implements HostedNumberOrderContext {
         new HostedNumberOrderInstance(
           operationVersion,
           payload,
-          this._solution.sid
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -351,29 +354,29 @@ interface HostedNumberOrderPayload extends TwilioResponsePayload {
 }
 
 interface HostedNumberOrderResource {
-  sid?: string | null;
-  account_sid?: string | null;
-  incoming_phone_number_sid?: string | null;
-  address_sid?: string | null;
-  signing_document_sid?: string | null;
-  phone_number?: string | null;
-  capabilities?: PhoneNumberCapabilities | null;
-  friendly_name?: string | null;
-  unique_name?: string | null;
-  status?: HostedNumberOrderStatus;
-  failure_reason?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  verification_attempts?: number | null;
-  email?: string | null;
-  cc_emails?: Array<string> | null;
-  url?: string | null;
-  verification_type?: HostedNumberOrderVerificationType;
-  verification_document_sid?: string | null;
-  extension?: string | null;
-  call_delay?: number | null;
-  verification_code?: string | null;
-  verification_call_sids?: Array<string> | null;
+  sid: string;
+  account_sid: string;
+  incoming_phone_number_sid: string;
+  address_sid: string;
+  signing_document_sid: string;
+  phone_number: string;
+  capabilities: PhoneNumberCapabilities;
+  friendly_name: string;
+  unique_name: string;
+  status: HostedNumberOrderStatus;
+  failure_reason: string;
+  date_created: Date;
+  date_updated: Date;
+  verification_attempts: number;
+  email: string;
+  cc_emails: Array<string>;
+  url: string;
+  verification_type: HostedNumberOrderVerificationType;
+  verification_document_sid: string;
+  extension: string;
+  call_delay: number;
+  verification_code: string;
+  verification_call_sids: Array<string>;
 }
 
 export class HostedNumberOrderInstance {
@@ -417,86 +420,86 @@ export class HostedNumberOrderInstance {
   /**
    * HostedNumberOrder sid.
    */
-  sid?: string | null;
+  sid: string;
   /**
    * Account Sid.
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * IncomingPhoneNumber sid.
    */
-  incomingPhoneNumberSid?: string | null;
+  incomingPhoneNumberSid: string;
   /**
    * Address sid.
    */
-  addressSid?: string | null;
+  addressSid: string;
   /**
    * LOA document sid.
    */
-  signingDocumentSid?: string | null;
+  signingDocumentSid: string;
   /**
    * An E164 formatted phone number.
    */
-  phoneNumber?: string | null;
-  capabilities?: PhoneNumberCapabilities | null;
+  phoneNumber: string;
+  capabilities: PhoneNumberCapabilities;
   /**
    * A human readable description of this resource.
    */
-  friendlyName?: string | null;
+  friendlyName: string;
   /**
    * A unique, developer assigned name of this HostedNumberOrder.
    */
-  uniqueName?: string | null;
-  status?: HostedNumberOrderStatus;
+  uniqueName: string;
+  status: HostedNumberOrderStatus;
   /**
    * Why a hosted_number_order reached status \"action-required\"
    */
-  failureReason?: string | null;
+  failureReason: string;
   /**
    * The date this HostedNumberOrder was created.
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The date this HostedNumberOrder was updated.
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The number of attempts made to verify ownership of the phone number.
    */
-  verificationAttempts?: number | null;
+  verificationAttempts: number;
   /**
    * Email.
    */
-  email?: string | null;
+  email: string;
   /**
    * A list of emails.
    */
-  ccEmails?: Array<string> | null;
+  ccEmails: Array<string>;
   /**
    * The URL of this HostedNumberOrder.
    */
-  url?: string | null;
-  verificationType?: HostedNumberOrderVerificationType;
+  url: string;
+  verificationType: HostedNumberOrderVerificationType;
   /**
    * Verification Document Sid.
    */
-  verificationDocumentSid?: string | null;
+  verificationDocumentSid: string;
   /**
    * Phone extension to use for ownership verification call.
    */
-  extension?: string | null;
+  extension: string;
   /**
    * Seconds (0-30) to delay ownership verification call by.
    */
-  callDelay?: number | null;
+  callDelay: number;
   /**
    * The digits passed during the ownership verification call.
    */
-  verificationCode?: string | null;
+  verificationCode: string;
   /**
    * List of IDs for ownership verification calls.
    */
-  verificationCallSids?: Array<string> | null;
+  verificationCallSids: Array<string>;
 
   private get _proxy(): HostedNumberOrderContext {
     this._context =
@@ -595,7 +598,13 @@ export class HostedNumberOrderInstance {
   }
 }
 
+export interface HostedNumberOrderSolution {}
+
 export interface HostedNumberOrderListInstance {
+  _version: HostedNumbers;
+  _solution: HostedNumberOrderSolution;
+  _uri: string;
+
   (sid: string): HostedNumberOrderContext;
   get(sid: string): HostedNumberOrderContext;
 
@@ -747,23 +756,11 @@ export interface HostedNumberOrderListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface HostedNumberOrderSolution {}
-
-interface HostedNumberOrderListInstanceImpl
-  extends HostedNumberOrderListInstance {}
-class HostedNumberOrderListInstanceImpl
-  implements HostedNumberOrderListInstance
-{
-  _version?: HostedNumbers;
-  _solution?: HostedNumberOrderSolution;
-  _uri?: string;
-}
-
 export function HostedNumberOrderListInstance(
   version: HostedNumbers
 ): HostedNumberOrderListInstance {
   const instance = ((sid) =>
-    instance.get(sid)) as HostedNumberOrderListInstanceImpl;
+    instance.get(sid)) as HostedNumberOrderListInstance;
 
   instance.get = function get(sid): HostedNumberOrderContext {
     return new HostedNumberOrderContextImpl(version, sid);
@@ -833,7 +830,7 @@ export function HostedNumberOrderListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -843,7 +840,7 @@ export function HostedNumberOrderListInstance(
       (payload) => new HostedNumberOrderInstance(operationVersion, payload)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -881,7 +878,7 @@ export function HostedNumberOrderListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
@@ -889,10 +886,10 @@ export function HostedNumberOrderListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new HostedNumberOrderPage(operationVersion, payload, this._solution)
+        new HostedNumberOrderPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -905,31 +902,32 @@ export function HostedNumberOrderListInstance(
     targetUrl?: any,
     callback?: any
   ): Promise<HostedNumberOrderPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
+    let pagePromise = operationPromise.then(
       (payload) =>
-        new HostedNumberOrderPage(this._version, payload, this._solution)
+        new HostedNumberOrderPage(
+          instance._version,
+          payload,
+          instance._solution
+        )
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

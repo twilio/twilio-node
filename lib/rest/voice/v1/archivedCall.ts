@@ -38,8 +38,8 @@ export interface ArchivedCallContext {
 }
 
 export interface ArchivedCallContextSolution {
-  date?: Date;
-  sid?: string;
+  date: Date;
+  sid: string;
 }
 
 export class ArchivedCallContextImpl implements ArchivedCallContext {
@@ -60,13 +60,14 @@ export class ArchivedCallContextImpl implements ArchivedCallContext {
   }
 
   remove(callback?: any): Promise<boolean> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -87,7 +88,13 @@ export class ArchivedCallContextImpl implements ArchivedCallContext {
   }
 }
 
+export interface ArchivedCallSolution {}
+
 export interface ArchivedCallListInstance {
+  _version: V1;
+  _solution: ArchivedCallSolution;
+  _uri: string;
+
   (date: Date, sid: string): ArchivedCallContext;
   get(date: Date, sid: string): ArchivedCallContext;
 
@@ -98,20 +105,11 @@ export interface ArchivedCallListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface ArchivedCallSolution {}
-
-interface ArchivedCallListInstanceImpl extends ArchivedCallListInstance {}
-class ArchivedCallListInstanceImpl implements ArchivedCallListInstance {
-  _version?: V1;
-  _solution?: ArchivedCallSolution;
-  _uri?: string;
-}
-
 export function ArchivedCallListInstance(
   version: V1
 ): ArchivedCallListInstance {
   const instance = ((date, sid) =>
-    instance.get(date, sid)) as ArchivedCallListInstanceImpl;
+    instance.get(date, sid)) as ArchivedCallListInstance;
 
   instance.get = function get(date, sid): ArchivedCallContext {
     return new ArchivedCallContextImpl(version, date, sid);
@@ -122,14 +120,14 @@ export function ArchivedCallListInstance(
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

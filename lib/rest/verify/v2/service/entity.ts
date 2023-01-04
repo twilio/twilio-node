@@ -101,8 +101,8 @@ export interface EntityContext {
 }
 
 export interface EntityContextSolution {
-  serviceSid?: string;
-  identity?: string;
+  serviceSid: string;
+  identity: string;
 }
 
 export class EntityContextImpl implements EntityContext {
@@ -160,13 +160,14 @@ export class EntityContextImpl implements EntityContext {
   }
 
   remove(callback?: any): Promise<boolean> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -174,9 +175,10 @@ export class EntityContextImpl implements EntityContext {
   }
 
   fetch(callback?: any): Promise<EntityInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -185,12 +187,12 @@ export class EntityContextImpl implements EntityContext {
         new EntityInstance(
           operationVersion,
           payload,
-          this._solution.serviceSid,
-          this._solution.identity
+          instance._solution.serviceSid,
+          instance._solution.identity
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -216,14 +218,14 @@ interface EntityPayload extends TwilioResponsePayload {
 }
 
 interface EntityResource {
-  sid?: string | null;
-  identity?: string | null;
-  account_sid?: string | null;
-  service_sid?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  url?: string | null;
-  links?: object | null;
+  sid: string;
+  identity: string;
+  account_sid: string;
+  service_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  url: string;
+  links: object;
 }
 
 export class EntityInstance {
@@ -251,35 +253,35 @@ export class EntityInstance {
   /**
    * A string that uniquely identifies this Entity.
    */
-  sid?: string | null;
+  sid: string;
   /**
    * Unique external identifier of the Entity
    */
-  identity?: string | null;
+  identity: string;
   /**
    * Account Sid.
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * Service Sid.
    */
-  serviceSid?: string | null;
+  serviceSid: string;
   /**
    * The date this Entity was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The date this Entity was updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The URL of this resource.
    */
-  url?: string | null;
+  url: string;
   /**
    * Nested resource URLs.
    */
-  links?: object | null;
+  links: object;
 
   private get _proxy(): EntityContext {
     this._context =
@@ -362,7 +364,15 @@ export class EntityInstance {
   }
 }
 
+export interface EntitySolution {
+  serviceSid: string;
+}
+
 export interface EntityListInstance {
+  _version: V2;
+  _solution: EntitySolution;
+  _uri: string;
+
   (identity: string): EntityContext;
   get(identity: string): EntityContext;
 
@@ -508,17 +518,6 @@ export interface EntityListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface EntitySolution {
-  serviceSid?: string;
-}
-
-interface EntityListInstanceImpl extends EntityListInstance {}
-class EntityListInstanceImpl implements EntityListInstance {
-  _version?: V2;
-  _solution?: EntitySolution;
-  _uri?: string;
-}
-
 export function EntityListInstance(
   version: V2,
   serviceSid: string
@@ -527,8 +526,7 @@ export function EntityListInstance(
     throw new Error("Parameter 'serviceSid' is not valid.");
   }
 
-  const instance = ((identity) =>
-    instance.get(identity)) as EntityListInstanceImpl;
+  const instance = ((identity) => instance.get(identity)) as EntityListInstance;
 
   instance.get = function get(identity): EntityContext {
     return new EntityContextImpl(version, serviceSid, identity);
@@ -559,7 +557,7 @@ export function EntityListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -567,10 +565,14 @@ export function EntityListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new EntityInstance(operationVersion, payload, this._solution.serviceSid)
+        new EntityInstance(
+          operationVersion,
+          payload,
+          instance._solution.serviceSid
+        )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -599,17 +601,17 @@ export function EntityListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new EntityPage(operationVersion, payload, this._solution)
+      (payload) => new EntityPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -622,30 +624,28 @@ export function EntityListInstance(
     targetUrl?: any,
     callback?: any
   ): Promise<EntityPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new EntityPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new EntityPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

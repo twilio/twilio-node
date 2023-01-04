@@ -36,7 +36,15 @@ export interface ValidationRequestListInstanceCreateOptions {
   statusCallbackMethod?: string;
 }
 
+export interface ValidationRequestSolution {
+  accountSid: string;
+}
+
 export interface ValidationRequestListInstance {
+  _version: V2010;
+  _solution: ValidationRequestSolution;
+  _uri: string;
+
   /**
    * Create a ValidationRequestInstance
    *
@@ -58,20 +66,6 @@ export interface ValidationRequestListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface ValidationRequestSolution {
-  accountSid?: string;
-}
-
-interface ValidationRequestListInstanceImpl
-  extends ValidationRequestListInstance {}
-class ValidationRequestListInstanceImpl
-  implements ValidationRequestListInstance
-{
-  _version?: V2010;
-  _solution?: ValidationRequestSolution;
-  _uri?: string;
-}
-
 export function ValidationRequestListInstance(
   version: V2010,
   accountSid: string
@@ -80,7 +74,7 @@ export function ValidationRequestListInstance(
     throw new Error("Parameter 'accountSid' is not valid.");
   }
 
-  const instance = {} as ValidationRequestListInstanceImpl;
+  const instance = {} as ValidationRequestListInstance;
 
   instance._version = version;
   instance._solution = { accountSid };
@@ -117,7 +111,7 @@ export function ValidationRequestListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -128,11 +122,11 @@ export function ValidationRequestListInstance(
         new ValidationRequestInstance(
           operationVersion,
           payload,
-          this._solution.accountSid
+          instance._solution.accountSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -140,14 +134,14 @@ export function ValidationRequestListInstance(
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;
@@ -156,11 +150,11 @@ export function ValidationRequestListInstance(
 interface ValidationRequestPayload extends ValidationRequestResource {}
 
 interface ValidationRequestResource {
-  account_sid?: string | null;
-  call_sid?: string | null;
-  friendly_name?: string | null;
-  phone_number?: string | null;
-  validation_code?: string | null;
+  account_sid: string;
+  call_sid: string;
+  friendly_name: string;
+  phone_number: string;
+  validation_code: string;
 }
 
 export class ValidationRequestInstance {
@@ -179,23 +173,23 @@ export class ValidationRequestInstance {
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The SID of the Call the resource is associated with
    */
-  callSid?: string | null;
+  callSid: string;
   /**
    * The string that you assigned to describe the resource
    */
-  friendlyName?: string | null;
+  friendlyName: string;
   /**
    * The phone number to verify in E.164 format
    */
-  phoneNumber?: string | null;
+  phoneNumber: string;
   /**
    * The 6 digit validation code that someone must enter to validate the Caller ID  when `phone_number` is called
    */
-  validationCode?: string | null;
+  validationCode: string;
 
   /**
    * Provide a user-friendly representation

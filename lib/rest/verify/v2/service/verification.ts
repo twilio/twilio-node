@@ -98,8 +98,8 @@ export interface VerificationContext {
 }
 
 export interface VerificationContextSolution {
-  serviceSid?: string;
-  sid?: string;
+  serviceSid: string;
+  sid: string;
 }
 
 export class VerificationContextImpl implements VerificationContext {
@@ -120,9 +120,10 @@ export class VerificationContextImpl implements VerificationContext {
   }
 
   fetch(callback?: any): Promise<VerificationInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -131,12 +132,12 @@ export class VerificationContextImpl implements VerificationContext {
         new VerificationInstance(
           operationVersion,
           payload,
-          this._solution.serviceSid,
-          this._solution.sid
+          instance._solution.serviceSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -159,9 +160,10 @@ export class VerificationContextImpl implements VerificationContext {
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -172,12 +174,12 @@ export class VerificationContextImpl implements VerificationContext {
         new VerificationInstance(
           operationVersion,
           payload,
-          this._solution.serviceSid,
-          this._solution.sid
+          instance._solution.serviceSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -201,21 +203,21 @@ export class VerificationContextImpl implements VerificationContext {
 interface VerificationPayload extends VerificationResource {}
 
 interface VerificationResource {
-  sid?: string | null;
-  service_sid?: string | null;
-  account_sid?: string | null;
-  to?: string | null;
-  channel?: VerificationChannel;
-  status?: string | null;
-  valid?: boolean | null;
-  lookup?: any | null;
-  amount?: string | null;
-  payee?: string | null;
-  send_code_attempts?: Array<any> | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  sna?: any | null;
-  url?: string | null;
+  sid: string;
+  service_sid: string;
+  account_sid: string;
+  to: string;
+  channel: VerificationChannel;
+  status: string;
+  valid: boolean;
+  lookup: any;
+  amount: string;
+  payee: string;
+  send_code_attempts: Array<any>;
+  date_created: Date;
+  date_updated: Date;
+  sna: any;
+  url: string;
 }
 
 export class VerificationInstance {
@@ -250,60 +252,60 @@ export class VerificationInstance {
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The SID of the Service that the resource is associated with
    */
-  serviceSid?: string | null;
+  serviceSid: string;
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The phone number or email being verified
    */
-  to?: string | null;
-  channel?: VerificationChannel;
+  to: string;
+  channel: VerificationChannel;
   /**
    * The status of the verification resource
    */
-  status?: string | null;
+  status: string;
   /**
    * Whether the verification was successful
    */
-  valid?: boolean | null;
+  valid: boolean;
   /**
    * Information about the phone number being verified
    */
-  lookup?: any | null;
+  lookup: any;
   /**
    * The amount of the associated PSD2 compliant transaction.
    */
-  amount?: string | null;
+  amount: string;
   /**
    * The payee of the associated PSD2 compliant transaction
    */
-  payee?: string | null;
+  payee: string;
   /**
    * An array of verification attempt objects.
    */
-  sendCodeAttempts?: Array<any> | null;
+  sendCodeAttempts: Array<any>;
   /**
    * The RFC 2822 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The RFC 2822 date and time in GMT when the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The set of fields used for a silent network auth (`sna`) verification
    */
-  sna?: any | null;
+  sna: any;
   /**
    * The absolute URL of the Verification resource
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): VerificationContext {
     this._context =
@@ -375,7 +377,15 @@ export class VerificationInstance {
   }
 }
 
+export interface VerificationSolution {
+  serviceSid: string;
+}
+
 export interface VerificationListInstance {
+  _version: V2;
+  _solution: VerificationSolution;
+  _uri: string;
+
   (sid: string): VerificationContext;
   get(sid: string): VerificationContext;
 
@@ -400,17 +410,6 @@ export interface VerificationListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface VerificationSolution {
-  serviceSid?: string;
-}
-
-interface VerificationListInstanceImpl extends VerificationListInstance {}
-class VerificationListInstanceImpl implements VerificationListInstance {
-  _version?: V2;
-  _solution?: VerificationSolution;
-  _uri?: string;
-}
-
 export function VerificationListInstance(
   version: V2,
   serviceSid: string
@@ -419,7 +418,7 @@ export function VerificationListInstance(
     throw new Error("Parameter 'serviceSid' is not valid.");
   }
 
-  const instance = ((sid) => instance.get(sid)) as VerificationListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as VerificationListInstance;
 
   instance.get = function get(sid): VerificationContext {
     return new VerificationContextImpl(version, serviceSid, sid);
@@ -479,7 +478,7 @@ export function VerificationListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -490,11 +489,11 @@ export function VerificationListInstance(
         new VerificationInstance(
           operationVersion,
           payload,
-          this._solution.serviceSid
+          instance._solution.serviceSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -502,14 +501,14 @@ export function VerificationListInstance(
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

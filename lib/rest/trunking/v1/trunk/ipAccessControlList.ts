@@ -97,8 +97,8 @@ export interface IpAccessControlListContext {
 }
 
 export interface IpAccessControlListContextSolution {
-  trunkSid?: string;
-  sid?: string;
+  trunkSid: string;
+  sid: string;
 }
 
 export class IpAccessControlListContextImpl
@@ -121,13 +121,14 @@ export class IpAccessControlListContextImpl
   }
 
   remove(callback?: any): Promise<boolean> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -135,9 +136,10 @@ export class IpAccessControlListContextImpl
   }
 
   fetch(callback?: any): Promise<IpAccessControlListInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -146,12 +148,12 @@ export class IpAccessControlListContextImpl
         new IpAccessControlListInstance(
           operationVersion,
           payload,
-          this._solution.trunkSid,
-          this._solution.sid
+          instance._solution.trunkSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -177,13 +179,13 @@ interface IpAccessControlListPayload extends TwilioResponsePayload {
 }
 
 interface IpAccessControlListResource {
-  account_sid?: string | null;
-  sid?: string | null;
-  trunk_sid?: string | null;
-  friendly_name?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  url?: string | null;
+  account_sid: string;
+  sid: string;
+  trunk_sid: string;
+  friendly_name: string;
+  date_created: Date;
+  date_updated: Date;
+  url: string;
 }
 
 export class IpAccessControlListInstance {
@@ -210,31 +212,31 @@ export class IpAccessControlListInstance {
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The SID of the Trunk the resource is associated with
    */
-  trunkSid?: string | null;
+  trunkSid: string;
   /**
    * The string that you assigned to describe the resource
    */
-  friendlyName?: string | null;
+  friendlyName: string;
   /**
    * The RFC 2822 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The RFC 2822 date and time in GMT when the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The absolute URL of the resource
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): IpAccessControlListContext {
     this._context =
@@ -295,7 +297,15 @@ export class IpAccessControlListInstance {
   }
 }
 
+export interface IpAccessControlListSolution {
+  trunkSid: string;
+}
+
 export interface IpAccessControlListListInstance {
+  _version: V1;
+  _solution: IpAccessControlListSolution;
+  _uri: string;
+
   (sid: string): IpAccessControlListContext;
   get(sid: string): IpAccessControlListContext;
 
@@ -453,20 +463,6 @@ export interface IpAccessControlListListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface IpAccessControlListSolution {
-  trunkSid?: string;
-}
-
-interface IpAccessControlListListInstanceImpl
-  extends IpAccessControlListListInstance {}
-class IpAccessControlListListInstanceImpl
-  implements IpAccessControlListListInstance
-{
-  _version?: V1;
-  _solution?: IpAccessControlListSolution;
-  _uri?: string;
-}
-
 export function IpAccessControlListListInstance(
   version: V1,
   trunkSid: string
@@ -476,7 +472,7 @@ export function IpAccessControlListListInstance(
   }
 
   const instance = ((sid) =>
-    instance.get(sid)) as IpAccessControlListListInstanceImpl;
+    instance.get(sid)) as IpAccessControlListListInstance;
 
   instance.get = function get(sid): IpAccessControlListContext {
     return new IpAccessControlListContextImpl(version, trunkSid, sid);
@@ -512,7 +508,7 @@ export function IpAccessControlListListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -523,11 +519,11 @@ export function IpAccessControlListListInstance(
         new IpAccessControlListInstance(
           operationVersion,
           payload,
-          this._solution.trunkSid
+          instance._solution.trunkSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -556,7 +552,7 @@ export function IpAccessControlListListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
@@ -564,10 +560,14 @@ export function IpAccessControlListListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new IpAccessControlListPage(operationVersion, payload, this._solution)
+        new IpAccessControlListPage(
+          operationVersion,
+          payload,
+          instance._solution
+        )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -580,31 +580,32 @@ export function IpAccessControlListListInstance(
     targetUrl?: any,
     callback?: any
   ): Promise<IpAccessControlListPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
+    let pagePromise = operationPromise.then(
       (payload) =>
-        new IpAccessControlListPage(this._version, payload, this._solution)
+        new IpAccessControlListPage(
+          instance._version,
+          payload,
+          instance._solution
+        )
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

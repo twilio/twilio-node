@@ -135,8 +135,8 @@ export interface ModelBuildContext {
 }
 
 export interface ModelBuildContextSolution {
-  assistantSid?: string;
-  sid?: string;
+  assistantSid: string;
+  sid: string;
 }
 
 export class ModelBuildContextImpl implements ModelBuildContext {
@@ -161,13 +161,14 @@ export class ModelBuildContextImpl implements ModelBuildContext {
   }
 
   remove(callback?: any): Promise<boolean> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -175,9 +176,10 @@ export class ModelBuildContextImpl implements ModelBuildContext {
   }
 
   fetch(callback?: any): Promise<ModelBuildInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -186,12 +188,12 @@ export class ModelBuildContextImpl implements ModelBuildContext {
         new ModelBuildInstance(
           operationVersion,
           payload,
-          this._solution.assistantSid,
-          this._solution.sid
+          instance._solution.assistantSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -214,9 +216,10 @@ export class ModelBuildContextImpl implements ModelBuildContext {
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -227,12 +230,12 @@ export class ModelBuildContextImpl implements ModelBuildContext {
         new ModelBuildInstance(
           operationVersion,
           payload,
-          this._solution.assistantSid,
-          this._solution.sid
+          instance._solution.assistantSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -258,16 +261,16 @@ interface ModelBuildPayload extends TwilioResponsePayload {
 }
 
 interface ModelBuildResource {
-  account_sid?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  assistant_sid?: string | null;
-  sid?: string | null;
-  status?: ModelBuildStatus;
-  unique_name?: string | null;
-  url?: string | null;
-  build_duration?: number | null;
-  error_code?: number | null;
+  account_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  assistant_sid: string;
+  sid: string;
+  status: ModelBuildStatus;
+  unique_name: string;
+  url: string;
+  build_duration: number;
+  error_code: number;
 }
 
 export class ModelBuildInstance {
@@ -297,34 +300,34 @@ export class ModelBuildInstance {
   /**
    * The unique ID of the Account that created this Model Build.
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The date that this resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The date that this resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The unique ID of the parent Assistant.
    */
-  assistantSid?: string | null;
+  assistantSid: string;
   /**
    * A 34 character string that uniquely identifies this resource.
    */
-  sid?: string | null;
-  status?: ModelBuildStatus;
+  sid: string;
+  status: ModelBuildStatus;
   /**
    * A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
    */
-  uniqueName?: string | null;
-  url?: string | null;
+  uniqueName: string;
+  url: string;
   /**
    * The time in seconds it took to build the model.
    */
-  buildDuration?: number | null;
-  errorCode?: number | null;
+  buildDuration: number;
+  errorCode: number;
 
   private get _proxy(): ModelBuildContext {
     this._context =
@@ -414,7 +417,15 @@ export class ModelBuildInstance {
   }
 }
 
+export interface ModelBuildSolution {
+  assistantSid: string;
+}
+
 export interface ModelBuildListInstance {
+  _version: Understand;
+  _solution: ModelBuildSolution;
+  _uri: string;
+
   (sid: string): ModelBuildContext;
   get(sid: string): ModelBuildContext;
 
@@ -570,17 +581,6 @@ export interface ModelBuildListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface ModelBuildSolution {
-  assistantSid?: string;
-}
-
-interface ModelBuildListInstanceImpl extends ModelBuildListInstance {}
-class ModelBuildListInstanceImpl implements ModelBuildListInstance {
-  _version?: Understand;
-  _solution?: ModelBuildSolution;
-  _uri?: string;
-}
-
 export function ModelBuildListInstance(
   version: Understand,
   assistantSid: string
@@ -589,7 +589,7 @@ export function ModelBuildListInstance(
     throw new Error("Parameter 'assistantSid' is not valid.");
   }
 
-  const instance = ((sid) => instance.get(sid)) as ModelBuildListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as ModelBuildListInstance;
 
   instance.get = function get(sid): ModelBuildContext {
     return new ModelBuildContextImpl(version, assistantSid, sid);
@@ -622,7 +622,7 @@ export function ModelBuildListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -633,11 +633,11 @@ export function ModelBuildListInstance(
         new ModelBuildInstance(
           operationVersion,
           payload,
-          this._solution.assistantSid
+          instance._solution.assistantSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -666,17 +666,18 @@ export function ModelBuildListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new ModelBuildPage(operationVersion, payload, this._solution)
+      (payload) =>
+        new ModelBuildPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -689,30 +690,28 @@ export function ModelBuildListInstance(
     targetUrl?: any,
     callback?: any
   ): Promise<ModelBuildPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new ModelBuildPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new ModelBuildPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

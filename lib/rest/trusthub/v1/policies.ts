@@ -76,7 +76,7 @@ export interface PoliciesContext {
 }
 
 export interface PoliciesContextSolution {
-  sid?: string;
+  sid: string;
 }
 
 export class PoliciesContextImpl implements PoliciesContext {
@@ -93,18 +93,19 @@ export class PoliciesContextImpl implements PoliciesContext {
   }
 
   fetch(callback?: any): Promise<PoliciesInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new PoliciesInstance(operationVersion, payload, this._solution.sid)
+        new PoliciesInstance(operationVersion, payload, instance._solution.sid)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -130,10 +131,10 @@ interface PoliciesPayload extends TwilioResponsePayload {
 }
 
 interface PoliciesResource {
-  sid?: string | null;
-  friendly_name?: string | null;
-  requirements?: any | null;
-  url?: string | null;
+  sid: string;
+  friendly_name: string;
+  requirements: any;
+  url: string;
 }
 
 export class PoliciesInstance {
@@ -152,19 +153,19 @@ export class PoliciesInstance {
   /**
    * The unique string that identifies the Policy resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * A human-readable description of the Policy resource
    */
-  friendlyName?: string | null;
+  friendlyName: string;
   /**
    * The sid of a Policy object that dictates requirements
    */
-  requirements?: any | null;
+  requirements: any;
   /**
    * The absolute URL of the Policy resource
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): PoliciesContext {
     this._context =
@@ -205,7 +206,13 @@ export class PoliciesInstance {
   }
 }
 
+export interface PoliciesSolution {}
+
 export interface PoliciesListInstance {
+  _version: V1;
+  _solution: PoliciesSolution;
+  _uri: string;
+
   (sid: string): PoliciesContext;
   get(sid: string): PoliciesContext;
 
@@ -337,17 +344,8 @@ export interface PoliciesListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface PoliciesSolution {}
-
-interface PoliciesListInstanceImpl extends PoliciesListInstance {}
-class PoliciesListInstanceImpl implements PoliciesListInstance {
-  _version?: V1;
-  _solution?: PoliciesSolution;
-  _uri?: string;
-}
-
 export function PoliciesListInstance(version: V1): PoliciesListInstance {
-  const instance = ((sid) => instance.get(sid)) as PoliciesListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as PoliciesListInstance;
 
   instance.get = function get(sid): PoliciesContext {
     return new PoliciesContextImpl(version, sid);
@@ -379,17 +377,18 @@ export function PoliciesListInstance(version: V1): PoliciesListInstance {
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new PoliciesPage(operationVersion, payload, this._solution)
+      (payload) =>
+        new PoliciesPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -402,30 +401,28 @@ export function PoliciesListInstance(version: V1): PoliciesListInstance {
     targetUrl?: any,
     callback?: any
   ): Promise<PoliciesPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new PoliciesPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new PoliciesPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

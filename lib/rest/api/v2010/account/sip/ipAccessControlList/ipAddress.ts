@@ -134,9 +134,9 @@ export interface IpAddressContext {
 }
 
 export interface IpAddressContextSolution {
-  accountSid?: string;
-  ipAccessControlListSid?: string;
-  sid?: string;
+  accountSid: string;
+  ipAccessControlListSid: string;
+  sid: string;
 }
 
 export class IpAddressContextImpl implements IpAddressContext {
@@ -166,13 +166,14 @@ export class IpAddressContextImpl implements IpAddressContext {
   }
 
   remove(callback?: any): Promise<boolean> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -180,9 +181,10 @@ export class IpAddressContextImpl implements IpAddressContext {
   }
 
   fetch(callback?: any): Promise<IpAddressInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -191,13 +193,13 @@ export class IpAddressContextImpl implements IpAddressContext {
         new IpAddressInstance(
           operationVersion,
           payload,
-          this._solution.accountSid,
-          this._solution.ipAccessControlListSid,
-          this._solution.sid
+          instance._solution.accountSid,
+          instance._solution.ipAccessControlListSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -224,9 +226,10 @@ export class IpAddressContextImpl implements IpAddressContext {
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -237,13 +240,13 @@ export class IpAddressContextImpl implements IpAddressContext {
         new IpAddressInstance(
           operationVersion,
           payload,
-          this._solution.accountSid,
-          this._solution.ipAccessControlListSid,
-          this._solution.sid
+          instance._solution.accountSid,
+          instance._solution.ipAccessControlListSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -269,15 +272,15 @@ interface IpAddressPayload extends TwilioResponsePayload {
 }
 
 interface IpAddressResource {
-  sid?: string | null;
-  account_sid?: string | null;
-  friendly_name?: string | null;
-  ip_address?: string | null;
-  cidr_prefix_length?: number | null;
-  ip_access_control_list_sid?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  uri?: string | null;
+  sid: string;
+  account_sid: string;
+  friendly_name: string;
+  ip_address: string;
+  cidr_prefix_length: number;
+  ip_access_control_list_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  uri: string;
 }
 
 export class IpAddressInstance {
@@ -311,39 +314,39 @@ export class IpAddressInstance {
   /**
    * A 34 character string that uniquely identifies this resource.
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The unique id of the Account that is responsible for this resource.
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * A human readable descriptive text for this resource, up to 255 characters long.
    */
-  friendlyName?: string | null;
+  friendlyName: string;
   /**
    * An IP address in dotted decimal notation from which you want to accept traffic. Any SIP requests from this IP address will be allowed by Twilio. IPv4 only supported today.
    */
-  ipAddress?: string | null;
+  ipAddress: string;
   /**
    * An integer representing the length of the CIDR prefix to use with this IP address when accepting traffic. By default the entire IP address is used.
    */
-  cidrPrefixLength?: number | null;
+  cidrPrefixLength: number;
   /**
    * The unique id of the IpAccessControlList resource that includes this resource.
    */
-  ipAccessControlListSid?: string | null;
+  ipAccessControlListSid: string;
   /**
    * The date that this resource was created, given as GMT in RFC 2822 format.
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The date that this resource was last updated, given as GMT in RFC 2822 format.
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The URI for this resource, relative to https://api.twilio.com
    */
-  uri?: string | null;
+  uri: string;
 
   private get _proxy(): IpAddressContext {
     this._context =
@@ -433,7 +436,16 @@ export class IpAddressInstance {
   }
 }
 
+export interface IpAddressSolution {
+  accountSid: string;
+  ipAccessControlListSid: string;
+}
+
 export interface IpAddressListInstance {
+  _version: V2010;
+  _solution: IpAddressSolution;
+  _uri: string;
+
   (sid: string): IpAddressContext;
   get(sid: string): IpAddressContext;
 
@@ -579,18 +591,6 @@ export interface IpAddressListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface IpAddressSolution {
-  accountSid?: string;
-  ipAccessControlListSid?: string;
-}
-
-interface IpAddressListInstanceImpl extends IpAddressListInstance {}
-class IpAddressListInstanceImpl implements IpAddressListInstance {
-  _version?: V2010;
-  _solution?: IpAddressSolution;
-  _uri?: string;
-}
-
 export function IpAddressListInstance(
   version: V2010,
   accountSid: string,
@@ -604,7 +604,7 @@ export function IpAddressListInstance(
     throw new Error("Parameter 'ipAccessControlListSid' is not valid.");
   }
 
-  const instance = ((sid) => instance.get(sid)) as IpAddressListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as IpAddressListInstance;
 
   instance.get = function get(sid): IpAddressContext {
     return new IpAddressContextImpl(
@@ -651,7 +651,7 @@ export function IpAddressListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -662,12 +662,12 @@ export function IpAddressListInstance(
         new IpAddressInstance(
           operationVersion,
           payload,
-          this._solution.accountSid,
-          this._solution.ipAccessControlListSid
+          instance._solution.accountSid,
+          instance._solution.ipAccessControlListSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -696,17 +696,18 @@ export function IpAddressListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new IpAddressPage(operationVersion, payload, this._solution)
+      (payload) =>
+        new IpAddressPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -719,30 +720,28 @@ export function IpAddressListInstance(
     targetUrl?: any,
     callback?: any
   ): Promise<IpAddressPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new IpAddressPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new IpAddressPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

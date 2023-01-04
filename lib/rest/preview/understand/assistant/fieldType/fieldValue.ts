@@ -104,9 +104,9 @@ export interface FieldValueContext {
 }
 
 export interface FieldValueContextSolution {
-  assistantSid?: string;
-  fieldTypeSid?: string;
-  sid?: string;
+  assistantSid: string;
+  fieldTypeSid: string;
+  sid: string;
 }
 
 export class FieldValueContextImpl implements FieldValueContext {
@@ -136,13 +136,14 @@ export class FieldValueContextImpl implements FieldValueContext {
   }
 
   remove(callback?: any): Promise<boolean> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -150,9 +151,10 @@ export class FieldValueContextImpl implements FieldValueContext {
   }
 
   fetch(callback?: any): Promise<FieldValueInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -161,13 +163,13 @@ export class FieldValueContextImpl implements FieldValueContext {
         new FieldValueInstance(
           operationVersion,
           payload,
-          this._solution.assistantSid,
-          this._solution.fieldTypeSid,
-          this._solution.sid
+          instance._solution.assistantSid,
+          instance._solution.fieldTypeSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -193,16 +195,16 @@ interface FieldValuePayload extends TwilioResponsePayload {
 }
 
 interface FieldValueResource {
-  account_sid?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  field_type_sid?: string | null;
-  language?: string | null;
-  assistant_sid?: string | null;
-  sid?: string | null;
-  value?: string | null;
-  url?: string | null;
-  synonym_of?: string | null;
+  account_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  field_type_sid: string;
+  language: string;
+  assistant_sid: string;
+  sid: string;
+  value: string;
+  url: string;
+  synonym_of: string;
 }
 
 export class FieldValueInstance {
@@ -233,40 +235,40 @@ export class FieldValueInstance {
   /**
    * The unique ID of the Account that created this Field Value.
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The date that this resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The date that this resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The unique ID of the Field Type associated with this Field Value.
    */
-  fieldTypeSid?: string | null;
+  fieldTypeSid: string;
   /**
    * An ISO language-country string of the value.
    */
-  language?: string | null;
+  language: string;
   /**
    * The unique ID of the Assistant.
    */
-  assistantSid?: string | null;
+  assistantSid: string;
   /**
    * A 34 character string that uniquely identifies this resource.
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The Field Value itself.
    */
-  value?: string | null;
-  url?: string | null;
+  value: string;
+  url: string;
   /**
    * A value that indicates this field value is a synonym of. Empty if the value is not a synonym.
    */
-  synonymOf?: string | null;
+  synonymOf: string;
 
   private get _proxy(): FieldValueContext {
     this._context =
@@ -331,7 +333,16 @@ export class FieldValueInstance {
   }
 }
 
+export interface FieldValueSolution {
+  assistantSid: string;
+  fieldTypeSid: string;
+}
+
 export interface FieldValueListInstance {
+  _version: Understand;
+  _solution: FieldValueSolution;
+  _uri: string;
+
   (sid: string): FieldValueContext;
   get(sid: string): FieldValueContext;
 
@@ -477,18 +488,6 @@ export interface FieldValueListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface FieldValueSolution {
-  assistantSid?: string;
-  fieldTypeSid?: string;
-}
-
-interface FieldValueListInstanceImpl extends FieldValueListInstance {}
-class FieldValueListInstanceImpl implements FieldValueListInstance {
-  _version?: Understand;
-  _solution?: FieldValueSolution;
-  _uri?: string;
-}
-
 export function FieldValueListInstance(
   version: Understand,
   assistantSid: string,
@@ -502,7 +501,7 @@ export function FieldValueListInstance(
     throw new Error("Parameter 'fieldTypeSid' is not valid.");
   }
 
-  const instance = ((sid) => instance.get(sid)) as FieldValueListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as FieldValueListInstance;
 
   instance.get = function get(sid): FieldValueContext {
     return new FieldValueContextImpl(version, assistantSid, fieldTypeSid, sid);
@@ -541,7 +540,7 @@ export function FieldValueListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -552,12 +551,12 @@ export function FieldValueListInstance(
         new FieldValueInstance(
           operationVersion,
           payload,
-          this._solution.assistantSid,
-          this._solution.fieldTypeSid
+          instance._solution.assistantSid,
+          instance._solution.fieldTypeSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -587,17 +586,18 @@ export function FieldValueListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new FieldValuePage(operationVersion, payload, this._solution)
+      (payload) =>
+        new FieldValuePage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -610,30 +610,28 @@ export function FieldValueListInstance(
     targetUrl?: any,
     callback?: any
   ): Promise<FieldValuePage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new FieldValuePage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new FieldValuePage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

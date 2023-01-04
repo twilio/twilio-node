@@ -26,7 +26,15 @@ export interface NewKeyListInstanceCreateOptions {
   friendlyName?: string;
 }
 
+export interface NewKeySolution {
+  accountSid: string;
+}
+
 export interface NewKeyListInstance {
+  _version: V2010;
+  _solution: NewKeySolution;
+  _uri: string;
+
   /**
    * Create a NewKeyInstance
    *
@@ -58,17 +66,6 @@ export interface NewKeyListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface NewKeySolution {
-  accountSid?: string;
-}
-
-interface NewKeyListInstanceImpl extends NewKeyListInstance {}
-class NewKeyListInstanceImpl implements NewKeyListInstance {
-  _version?: V2010;
-  _solution?: NewKeySolution;
-  _uri?: string;
-}
-
 export function NewKeyListInstance(
   version: V2010,
   accountSid: string
@@ -77,7 +74,7 @@ export function NewKeyListInstance(
     throw new Error("Parameter 'accountSid' is not valid.");
   }
 
-  const instance = {} as NewKeyListInstanceImpl;
+  const instance = {} as NewKeyListInstance;
 
   instance._version = version;
   instance._solution = { accountSid };
@@ -104,7 +101,7 @@ export function NewKeyListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -112,10 +109,14 @@ export function NewKeyListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new NewKeyInstance(operationVersion, payload, this._solution.accountSid)
+        new NewKeyInstance(
+          operationVersion,
+          payload,
+          instance._solution.accountSid
+        )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -123,14 +124,14 @@ export function NewKeyListInstance(
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;
@@ -139,11 +140,11 @@ export function NewKeyListInstance(
 interface NewKeyPayload extends NewKeyResource {}
 
 interface NewKeyResource {
-  sid?: string | null;
-  friendly_name?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  secret?: string | null;
+  sid: string;
+  friendly_name: string;
+  date_created: Date;
+  date_updated: Date;
+  secret: string;
 }
 
 export class NewKeyInstance {
@@ -162,23 +163,23 @@ export class NewKeyInstance {
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The string that you assigned to describe the resource
    */
-  friendlyName?: string | null;
+  friendlyName: string;
   /**
    * The RFC 2822 date and time in GMT that the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The RFC 2822 date and time in GMT that the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The secret your application uses to sign Access Tokens and to authenticate to the REST API.
    */
-  secret?: string | null;
+  secret: string;
 
   /**
    * Provide a user-friendly representation

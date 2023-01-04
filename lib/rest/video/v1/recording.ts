@@ -131,7 +131,7 @@ export interface RecordingContext {
 }
 
 export interface RecordingContextSolution {
-  sid?: string;
+  sid: string;
 }
 
 export class RecordingContextImpl implements RecordingContext {
@@ -148,13 +148,14 @@ export class RecordingContextImpl implements RecordingContext {
   }
 
   remove(callback?: any): Promise<boolean> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -162,18 +163,19 @@ export class RecordingContextImpl implements RecordingContext {
   }
 
   fetch(callback?: any): Promise<RecordingInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new RecordingInstance(operationVersion, payload, this._solution.sid)
+        new RecordingInstance(operationVersion, payload, instance._solution.sid)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -207,24 +209,24 @@ interface RecordingPayload extends TwilioResponsePayload {
 }
 
 interface RecordingResource {
-  account_sid?: string | null;
-  status?: RecordingStatus;
-  date_created?: Date | null;
-  sid?: string | null;
-  source_sid?: string | null;
-  size?: number | null;
-  url?: string | null;
-  type?: RecordingType;
-  duration?: number | null;
-  container_format?: RecordingFormat;
-  codec?: RecordingCodec;
-  grouping_sids?: any | null;
-  track_name?: string | null;
-  offset?: number | null;
-  media_external_location?: string | null;
-  status_callback?: string | null;
-  status_callback_method?: RecordingStatusCallbackMethod;
-  links?: object | null;
+  account_sid: string;
+  status: RecordingStatus;
+  date_created: Date;
+  sid: string;
+  source_sid: string;
+  size: number;
+  url: string;
+  type: RecordingType;
+  duration: number;
+  container_format: RecordingFormat;
+  codec: RecordingCodec;
+  grouping_sids: any;
+  track_name: string;
+  offset: number;
+  media_external_location: string;
+  status_callback: string;
+  status_callback_method: RecordingStatusCallbackMethod;
+  links: object;
 }
 
 export class RecordingInstance {
@@ -261,63 +263,63 @@ export class RecordingInstance {
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
-  status?: RecordingStatus;
+  accountSid: string;
+  status: RecordingStatus;
   /**
    * The ISO 8601 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The SID of the recording source
    */
-  sourceSid?: string | null;
+  sourceSid: string;
   /**
    * The size of the recorded track, in bytes
    */
-  size?: number | null;
+  size: number;
   /**
    * The absolute URL of the resource
    */
-  url?: string | null;
-  type?: RecordingType;
+  url: string;
+  type: RecordingType;
   /**
    * The duration of the recording in seconds
    */
-  duration?: number | null;
-  containerFormat?: RecordingFormat;
-  codec?: RecordingCodec;
+  duration: number;
+  containerFormat: RecordingFormat;
+  codec: RecordingCodec;
   /**
    * A list of SIDs related to the recording
    */
-  groupingSids?: any | null;
+  groupingSids: any;
   /**
    * The name that was given to the source track of the recording
    */
-  trackName?: string | null;
+  trackName: string;
   /**
    * The number of milliseconds between a point in time that is common to all rooms in a group and when the source room of the recording started
    */
-  offset?: number | null;
+  offset: number;
   /**
    * The URL of the media file associated with the recording when stored externally
    */
-  mediaExternalLocation?: string | null;
+  mediaExternalLocation: string;
   /**
    * The URL called to send status information on every recording event.
    */
-  statusCallback?: string | null;
+  statusCallback: string;
   /**
    * The HTTP method used to call `status_callback`
    */
-  statusCallbackMethod?: RecordingStatusCallbackMethod;
+  statusCallbackMethod: RecordingStatusCallbackMethod;
   /**
    * The URLs of related resources
    */
-  links?: object | null;
+  links: object;
 
   private get _proxy(): RecordingContext {
     this._context =
@@ -385,7 +387,13 @@ export class RecordingInstance {
   }
 }
 
+export interface RecordingSolution {}
+
 export interface RecordingListInstance {
+  _version: V1;
+  _solution: RecordingSolution;
+  _uri: string;
+
   (sid: string): RecordingContext;
   get(sid: string): RecordingContext;
 
@@ -517,17 +525,8 @@ export interface RecordingListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface RecordingSolution {}
-
-interface RecordingListInstanceImpl extends RecordingListInstance {}
-class RecordingListInstanceImpl implements RecordingListInstance {
-  _version?: V1;
-  _solution?: RecordingSolution;
-  _uri?: string;
-}
-
 export function RecordingListInstance(version: V1): RecordingListInstance {
-  const instance = ((sid) => instance.get(sid)) as RecordingListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as RecordingListInstance;
 
   instance.get = function get(sid): RecordingContext {
     return new RecordingContextImpl(version, sid);
@@ -574,17 +573,18 @@ export function RecordingListInstance(version: V1): RecordingListInstance {
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new RecordingPage(operationVersion, payload, this._solution)
+      (payload) =>
+        new RecordingPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -597,30 +597,28 @@ export function RecordingListInstance(version: V1): RecordingListInstance {
     targetUrl?: any,
     callback?: any
   ): Promise<RecordingPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new RecordingPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new RecordingPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

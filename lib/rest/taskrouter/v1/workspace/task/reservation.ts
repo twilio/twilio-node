@@ -252,9 +252,9 @@ export interface ReservationContext {
 }
 
 export interface ReservationContextSolution {
-  workspaceSid?: string;
-  taskSid?: string;
-  sid?: string;
+  workspaceSid: string;
+  taskSid: string;
+  sid: string;
 }
 
 export class ReservationContextImpl implements ReservationContext {
@@ -284,9 +284,10 @@ export class ReservationContextImpl implements ReservationContext {
   }
 
   fetch(callback?: any): Promise<ReservationInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -295,13 +296,13 @@ export class ReservationContextImpl implements ReservationContext {
         new ReservationInstance(
           operationVersion,
           payload,
-          this._solution.workspaceSid,
-          this._solution.taskSid,
-          this._solution.sid
+          instance._solution.workspaceSid,
+          instance._solution.taskSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -442,9 +443,10 @@ export class ReservationContextImpl implements ReservationContext {
     if (params["ifMatch"] !== undefined)
       headers["If-Match"] = params["ifMatch"];
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -455,13 +457,13 @@ export class ReservationContextImpl implements ReservationContext {
         new ReservationInstance(
           operationVersion,
           payload,
-          this._solution.workspaceSid,
-          this._solution.taskSid,
-          this._solution.sid
+          instance._solution.workspaceSid,
+          instance._solution.taskSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -487,17 +489,17 @@ interface ReservationPayload extends TwilioResponsePayload {
 }
 
 interface ReservationResource {
-  account_sid?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  reservation_status?: TaskReservationStatus;
-  sid?: string | null;
-  task_sid?: string | null;
-  worker_name?: string | null;
-  worker_sid?: string | null;
-  workspace_sid?: string | null;
-  url?: string | null;
-  links?: object | null;
+  account_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  reservation_status: TaskReservationStatus;
+  sid: string;
+  task_sid: string;
+  worker_name: string;
+  worker_sid: string;
+  workspace_sid: string;
+  url: string;
+  links: object;
 }
 
 export class ReservationInstance {
@@ -529,44 +531,44 @@ export class ReservationInstance {
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The ISO 8601 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The ISO 8601 date and time in GMT when the resource was last updated
    */
-  dateUpdated?: Date | null;
-  reservationStatus?: TaskReservationStatus;
+  dateUpdated: Date;
+  reservationStatus: TaskReservationStatus;
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The SID of the reserved Task resource
    */
-  taskSid?: string | null;
+  taskSid: string;
   /**
    * The friendly_name of the Worker that is reserved
    */
-  workerName?: string | null;
+  workerName: string;
   /**
    * The SID of the reserved Worker resource
    */
-  workerSid?: string | null;
+  workerSid: string;
   /**
    * The SID of the Workspace that this task is contained within.
    */
-  workspaceSid?: string | null;
+  workspaceSid: string;
   /**
    * The absolute URL of the TaskReservation reservation
    */
-  url?: string | null;
+  url: string;
   /**
    * The URLs of related resources
    */
-  links?: object | null;
+  links: object;
 
   private get _proxy(): ReservationContext {
     this._context =
@@ -645,7 +647,16 @@ export class ReservationInstance {
   }
 }
 
+export interface ReservationSolution {
+  workspaceSid: string;
+  taskSid: string;
+}
+
 export interface ReservationListInstance {
+  _version: V1;
+  _solution: ReservationSolution;
+  _uri: string;
+
   (sid: string): ReservationContext;
   get(sid: string): ReservationContext;
 
@@ -777,18 +788,6 @@ export interface ReservationListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface ReservationSolution {
-  workspaceSid?: string;
-  taskSid?: string;
-}
-
-interface ReservationListInstanceImpl extends ReservationListInstance {}
-class ReservationListInstanceImpl implements ReservationListInstance {
-  _version?: V1;
-  _solution?: ReservationSolution;
-  _uri?: string;
-}
-
 export function ReservationListInstance(
   version: V1,
   workspaceSid: string,
@@ -802,7 +801,7 @@ export function ReservationListInstance(
     throw new Error("Parameter 'taskSid' is not valid.");
   }
 
-  const instance = ((sid) => instance.get(sid)) as ReservationListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as ReservationListInstance;
 
   instance.get = function get(sid): ReservationContext {
     return new ReservationContextImpl(version, workspaceSid, taskSid, sid);
@@ -838,7 +837,7 @@ export function ReservationListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
@@ -846,10 +845,10 @@ export function ReservationListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new ReservationPage(operationVersion, payload, this._solution)
+        new ReservationPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -862,30 +861,28 @@ export function ReservationListInstance(
     targetUrl?: any,
     callback?: any
   ): Promise<ReservationPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new ReservationPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new ReservationPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

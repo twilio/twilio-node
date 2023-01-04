@@ -467,9 +467,9 @@ export interface StreamContext {
 }
 
 export interface StreamContextSolution {
-  accountSid?: string;
-  callSid?: string;
-  sid?: string;
+  accountSid: string;
+  callSid: string;
+  sid: string;
 }
 
 export class StreamContextImpl implements StreamContext {
@@ -514,9 +514,10 @@ export class StreamContextImpl implements StreamContext {
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -527,13 +528,13 @@ export class StreamContextImpl implements StreamContext {
         new StreamInstance(
           operationVersion,
           payload,
-          this._solution.accountSid,
-          this._solution.callSid,
-          this._solution.sid
+          instance._solution.accountSid,
+          instance._solution.callSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -557,13 +558,13 @@ export class StreamContextImpl implements StreamContext {
 interface StreamPayload extends StreamResource {}
 
 interface StreamResource {
-  sid?: string | null;
-  account_sid?: string | null;
-  call_sid?: string | null;
-  name?: string | null;
-  status?: StreamStatus;
-  date_updated?: Date | null;
-  uri?: string | null;
+  sid: string;
+  account_sid: string;
+  call_sid: string;
+  name: string;
+  status: StreamStatus;
+  date_updated: Date;
+  uri: string;
 }
 
 export class StreamInstance {
@@ -591,28 +592,28 @@ export class StreamInstance {
   /**
    * The SID of the Stream resource.
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The SID of the Account that created this resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The SID of the Call the resource is associated with
    */
-  callSid?: string | null;
+  callSid: string;
   /**
    * The name of this resource
    */
-  name?: string | null;
-  status?: StreamStatus;
+  name: string;
+  status: StreamStatus;
   /**
    * The RFC 2822 date and time in GMT that this resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The URI of the resource, relative to `https://api.twilio.com`
    */
-  uri?: string | null;
+  uri: string;
 
   private get _proxy(): StreamContext {
     this._context =
@@ -664,7 +665,16 @@ export class StreamInstance {
   }
 }
 
+export interface StreamSolution {
+  accountSid: string;
+  callSid: string;
+}
+
 export interface StreamListInstance {
+  _version: V2010;
+  _solution: StreamSolution;
+  _uri: string;
+
   (sid: string): StreamContext;
   get(sid: string): StreamContext;
 
@@ -689,18 +699,6 @@ export interface StreamListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface StreamSolution {
-  accountSid?: string;
-  callSid?: string;
-}
-
-interface StreamListInstanceImpl extends StreamListInstance {}
-class StreamListInstanceImpl implements StreamListInstance {
-  _version?: V2010;
-  _solution?: StreamSolution;
-  _uri?: string;
-}
-
 export function StreamListInstance(
   version: V2010,
   accountSid: string,
@@ -714,7 +712,7 @@ export function StreamListInstance(
     throw new Error("Parameter 'callSid' is not valid.");
   }
 
-  const instance = ((sid) => instance.get(sid)) as StreamListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as StreamListInstance;
 
   instance.get = function get(sid): StreamContext {
     return new StreamContextImpl(version, accountSid, callSid, sid);
@@ -1147,7 +1145,7 @@ export function StreamListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -1158,12 +1156,12 @@ export function StreamListInstance(
         new StreamInstance(
           operationVersion,
           payload,
-          this._solution.accountSid,
-          this._solution.callSid
+          instance._solution.accountSid,
+          instance._solution.callSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -1171,14 +1169,14 @@ export function StreamListInstance(
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

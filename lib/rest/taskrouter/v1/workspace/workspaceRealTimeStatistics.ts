@@ -68,7 +68,7 @@ export interface WorkspaceRealTimeStatisticsContext {
 }
 
 export interface WorkspaceRealTimeStatisticsContextSolution {
-  workspaceSid?: string;
+  workspaceSid: string;
 }
 
 export class WorkspaceRealTimeStatisticsContextImpl
@@ -104,9 +104,10 @@ export class WorkspaceRealTimeStatisticsContextImpl
 
     const headers: any = {};
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
@@ -117,11 +118,11 @@ export class WorkspaceRealTimeStatisticsContextImpl
         new WorkspaceRealTimeStatisticsInstance(
           operationVersion,
           payload,
-          this._solution.workspaceSid
+          instance._solution.workspaceSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -146,16 +147,16 @@ interface WorkspaceRealTimeStatisticsPayload
   extends WorkspaceRealTimeStatisticsResource {}
 
 interface WorkspaceRealTimeStatisticsResource {
-  account_sid?: string | null;
-  activity_statistics?: Array<any> | null;
-  longest_task_waiting_age?: number | null;
-  longest_task_waiting_sid?: string | null;
-  tasks_by_priority?: any | null;
-  tasks_by_status?: any | null;
-  total_tasks?: number | null;
-  total_workers?: number | null;
-  workspace_sid?: string | null;
-  url?: string | null;
+  account_sid: string;
+  activity_statistics: Array<any>;
+  longest_task_waiting_age: number;
+  longest_task_waiting_sid: string;
+  tasks_by_priority: any;
+  tasks_by_status: any;
+  total_tasks: number;
+  total_workers: number;
+  workspace_sid: string;
+  url: string;
 }
 
 export class WorkspaceRealTimeStatisticsInstance {
@@ -186,43 +187,43 @@ export class WorkspaceRealTimeStatisticsInstance {
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The number of current Workers by Activity
    */
-  activityStatistics?: Array<any> | null;
+  activityStatistics: Array<any>;
   /**
    * The age of the longest waiting Task
    */
-  longestTaskWaitingAge?: number | null;
+  longestTaskWaitingAge: number;
   /**
    * The SID of the longest waiting Task
    */
-  longestTaskWaitingSid?: string | null;
+  longestTaskWaitingSid: string;
   /**
    * The number of Tasks by priority
    */
-  tasksByPriority?: any | null;
+  tasksByPriority: any;
   /**
    * The number of Tasks by their current status
    */
-  tasksByStatus?: any | null;
+  tasksByStatus: any;
   /**
    * The total number of Tasks
    */
-  totalTasks?: number | null;
+  totalTasks: number;
   /**
    * The total number of Workers in the Workspace
    */
-  totalWorkers?: number | null;
+  totalWorkers: number;
   /**
    * The SID of the Workspace
    */
-  workspaceSid?: string | null;
+  workspaceSid: string;
   /**
    * The absolute URL of the Workspace statistics resource
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): WorkspaceRealTimeStatisticsContext {
     this._context =
@@ -294,7 +295,15 @@ export class WorkspaceRealTimeStatisticsInstance {
   }
 }
 
+export interface WorkspaceRealTimeStatisticsSolution {
+  workspaceSid: string;
+}
+
 export interface WorkspaceRealTimeStatisticsListInstance {
+  _version: V1;
+  _solution: WorkspaceRealTimeStatisticsSolution;
+  _uri: string;
+
   (): WorkspaceRealTimeStatisticsContext;
   get(): WorkspaceRealTimeStatisticsContext;
 
@@ -303,20 +312,6 @@ export interface WorkspaceRealTimeStatisticsListInstance {
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export interface WorkspaceRealTimeStatisticsSolution {
-  workspaceSid?: string;
-}
-
-interface WorkspaceRealTimeStatisticsListInstanceImpl
-  extends WorkspaceRealTimeStatisticsListInstance {}
-class WorkspaceRealTimeStatisticsListInstanceImpl
-  implements WorkspaceRealTimeStatisticsListInstance
-{
-  _version?: V1;
-  _solution?: WorkspaceRealTimeStatisticsSolution;
-  _uri?: string;
 }
 
 export function WorkspaceRealTimeStatisticsListInstance(
@@ -328,7 +323,7 @@ export function WorkspaceRealTimeStatisticsListInstance(
   }
 
   const instance = (() =>
-    instance.get()) as WorkspaceRealTimeStatisticsListInstanceImpl;
+    instance.get()) as WorkspaceRealTimeStatisticsListInstance;
 
   instance.get = function get(): WorkspaceRealTimeStatisticsContext {
     return new WorkspaceRealTimeStatisticsContextImpl(version, workspaceSid);
@@ -339,14 +334,14 @@ export function WorkspaceRealTimeStatisticsListInstance(
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

@@ -71,7 +71,15 @@ export interface BundleCopyListInstancePageOptions {
   pageToken?: string;
 }
 
+export interface BundleCopySolution {
+  bundleSid: string;
+}
+
 export interface BundleCopyListInstance {
+  _version: V2;
+  _solution: BundleCopySolution;
+  _uri: string;
+
   /**
    * Create a BundleCopyInstance
    *
@@ -224,17 +232,6 @@ export interface BundleCopyListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface BundleCopySolution {
-  bundleSid?: string;
-}
-
-interface BundleCopyListInstanceImpl extends BundleCopyListInstance {}
-class BundleCopyListInstanceImpl implements BundleCopyListInstance {
-  _version?: V2;
-  _solution?: BundleCopySolution;
-  _uri?: string;
-}
-
 export function BundleCopyListInstance(
   version: V2,
   bundleSid: string
@@ -243,7 +240,7 @@ export function BundleCopyListInstance(
     throw new Error("Parameter 'bundleSid' is not valid.");
   }
 
-  const instance = {} as BundleCopyListInstanceImpl;
+  const instance = {} as BundleCopyListInstance;
 
   instance._version = version;
   instance._solution = { bundleSid };
@@ -270,7 +267,7 @@ export function BundleCopyListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -281,11 +278,11 @@ export function BundleCopyListInstance(
         new BundleCopyInstance(
           operationVersion,
           payload,
-          this._solution.bundleSid
+          instance._solution.bundleSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -314,17 +311,18 @@ export function BundleCopyListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new BundleCopyPage(operationVersion, payload, this._solution)
+      (payload) =>
+        new BundleCopyPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -337,30 +335,28 @@ export function BundleCopyListInstance(
     targetUrl?: any,
     callback?: any
   ): Promise<BundleCopyPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new BundleCopyPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new BundleCopyPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;
@@ -371,16 +367,16 @@ interface BundleCopyPayload extends TwilioResponsePayload {
 }
 
 interface BundleCopyResource {
-  sid?: string | null;
-  account_sid?: string | null;
-  regulation_sid?: string | null;
-  friendly_name?: string | null;
-  status?: BundleCopyStatus;
-  valid_until?: Date | null;
-  email?: string | null;
-  status_callback?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
+  sid: string;
+  account_sid: string;
+  regulation_sid: string;
+  friendly_name: string;
+  status: BundleCopyStatus;
+  valid_until: Date;
+  email: string;
+  status_callback: string;
+  date_created: Date;
+  date_updated: Date;
 }
 
 export class BundleCopyInstance {
@@ -404,40 +400,40 @@ export class BundleCopyInstance {
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The unique string of a regulation
    */
-  regulationSid?: string | null;
+  regulationSid: string;
   /**
    * The string that you assigned to describe the resource
    */
-  friendlyName?: string | null;
-  status?: BundleCopyStatus;
+  friendlyName: string;
+  status: BundleCopyStatus;
   /**
    * The ISO 8601 date and time in GMT when the resource will be valid until
    */
-  validUntil?: Date | null;
+  validUntil: Date;
   /**
    * The email address
    */
-  email?: string | null;
+  email: string;
   /**
    * The URL we call to inform your application of status changes
    */
-  statusCallback?: string | null;
+  statusCallback: string;
   /**
    * The ISO 8601 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The ISO 8601 date and time in GMT when the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
 
   /**
    * Provide a user-friendly representation

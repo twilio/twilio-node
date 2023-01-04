@@ -102,9 +102,9 @@ export interface InviteContext {
 }
 
 export interface InviteContextSolution {
-  serviceSid?: string;
-  channelSid?: string;
-  sid?: string;
+  serviceSid: string;
+  channelSid: string;
+  sid: string;
 }
 
 export class InviteContextImpl implements InviteContext {
@@ -134,13 +134,14 @@ export class InviteContextImpl implements InviteContext {
   }
 
   remove(callback?: any): Promise<boolean> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -148,9 +149,10 @@ export class InviteContextImpl implements InviteContext {
   }
 
   fetch(callback?: any): Promise<InviteInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -159,13 +161,13 @@ export class InviteContextImpl implements InviteContext {
         new InviteInstance(
           operationVersion,
           payload,
-          this._solution.serviceSid,
-          this._solution.channelSid,
-          this._solution.sid
+          instance._solution.serviceSid,
+          instance._solution.channelSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -191,16 +193,16 @@ interface InvitePayload extends TwilioResponsePayload {
 }
 
 interface InviteResource {
-  sid?: string | null;
-  account_sid?: string | null;
-  channel_sid?: string | null;
-  service_sid?: string | null;
-  identity?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  role_sid?: string | null;
-  created_by?: string | null;
-  url?: string | null;
+  sid: string;
+  account_sid: string;
+  channel_sid: string;
+  service_sid: string;
+  identity: string;
+  date_created: Date;
+  date_updated: Date;
+  role_sid: string;
+  created_by: string;
+  url: string;
 }
 
 export class InviteInstance {
@@ -231,43 +233,43 @@ export class InviteInstance {
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The SID of the Channel the new resource belongs to
    */
-  channelSid?: string | null;
+  channelSid: string;
   /**
    * The SID of the Service that the resource is associated with
    */
-  serviceSid?: string | null;
+  serviceSid: string;
   /**
    * The string that identifies the resource\'s User
    */
-  identity?: string | null;
+  identity: string;
   /**
    * The RFC 2822 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The RFC 2822 date and time in GMT when the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The SID of the Role assigned to the member
    */
-  roleSid?: string | null;
+  roleSid: string;
   /**
    * The identity of the User that created the invite
    */
-  createdBy?: string | null;
+  createdBy: string;
   /**
    * The absolute URL of the Invite resource
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): InviteContext {
     this._context =
@@ -332,7 +334,16 @@ export class InviteInstance {
   }
 }
 
+export interface InviteSolution {
+  serviceSid: string;
+  channelSid: string;
+}
+
 export interface InviteListInstance {
+  _version: V1;
+  _solution: InviteSolution;
+  _uri: string;
+
   (sid: string): InviteContext;
   get(sid: string): InviteContext;
 
@@ -478,18 +489,6 @@ export interface InviteListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface InviteSolution {
-  serviceSid?: string;
-  channelSid?: string;
-}
-
-interface InviteListInstanceImpl extends InviteListInstance {}
-class InviteListInstanceImpl implements InviteListInstance {
-  _version?: V1;
-  _solution?: InviteSolution;
-  _uri?: string;
-}
-
 export function InviteListInstance(
   version: V1,
   serviceSid: string,
@@ -503,7 +502,7 @@ export function InviteListInstance(
     throw new Error("Parameter 'channelSid' is not valid.");
   }
 
-  const instance = ((sid) => instance.get(sid)) as InviteListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as InviteListInstance;
 
   instance.get = function get(sid): InviteContext {
     return new InviteContextImpl(version, serviceSid, channelSid, sid);
@@ -535,7 +534,7 @@ export function InviteListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -546,12 +545,12 @@ export function InviteListInstance(
         new InviteInstance(
           operationVersion,
           payload,
-          this._solution.serviceSid,
-          this._solution.channelSid
+          instance._solution.serviceSid,
+          instance._solution.channelSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -582,17 +581,17 @@ export function InviteListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new InvitePage(operationVersion, payload, this._solution)
+      (payload) => new InvitePage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -605,30 +604,28 @@ export function InviteListInstance(
     targetUrl?: any,
     callback?: any
   ): Promise<InvitePage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new InvitePage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new InvitePage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

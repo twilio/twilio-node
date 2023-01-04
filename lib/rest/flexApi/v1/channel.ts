@@ -112,7 +112,7 @@ export interface ChannelContext {
 }
 
 export interface ChannelContextSolution {
-  sid?: string;
+  sid: string;
 }
 
 export class ChannelContextImpl implements ChannelContext {
@@ -129,13 +129,14 @@ export class ChannelContextImpl implements ChannelContext {
   }
 
   remove(callback?: any): Promise<boolean> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -143,18 +144,19 @@ export class ChannelContextImpl implements ChannelContext {
   }
 
   fetch(callback?: any): Promise<ChannelInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new ChannelInstance(operationVersion, payload, this._solution.sid)
+        new ChannelInstance(operationVersion, payload, instance._solution.sid)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -180,14 +182,14 @@ interface ChannelPayload extends TwilioResponsePayload {
 }
 
 interface ChannelResource {
-  account_sid?: string | null;
-  flex_flow_sid?: string | null;
-  sid?: string | null;
-  user_sid?: string | null;
-  task_sid?: string | null;
-  url?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
+  account_sid: string;
+  flex_flow_sid: string;
+  sid: string;
+  user_sid: string;
+  task_sid: string;
+  url: string;
+  date_created: Date;
+  date_updated: Date;
 }
 
 export class ChannelInstance {
@@ -210,35 +212,35 @@ export class ChannelInstance {
   /**
    * The SID of the Account that created the resource and owns this Workflow
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The SID of the Flex Flow
    */
-  flexFlowSid?: string | null;
+  flexFlowSid: string;
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The SID of the chat user
    */
-  userSid?: string | null;
+  userSid: string;
   /**
    * The SID of the TaskRouter Task
    */
-  taskSid?: string | null;
+  taskSid: string;
   /**
    * The absolute URL of the Flex chat channel resource
    */
-  url?: string | null;
+  url: string;
   /**
    * The ISO 8601 date and time in GMT when the Flex chat channel was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The ISO 8601 date and time in GMT when the Flex chat channel was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
 
   private get _proxy(): ChannelContext {
     this._context =
@@ -296,7 +298,13 @@ export class ChannelInstance {
   }
 }
 
+export interface ChannelSolution {}
+
 export interface ChannelListInstance {
+  _version: V1;
+  _solution: ChannelSolution;
+  _uri: string;
+
   (sid: string): ChannelContext;
   get(sid: string): ChannelContext;
 
@@ -442,17 +450,8 @@ export interface ChannelListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface ChannelSolution {}
-
-interface ChannelListInstanceImpl extends ChannelListInstance {}
-class ChannelListInstanceImpl implements ChannelListInstance {
-  _version?: V1;
-  _solution?: ChannelSolution;
-  _uri?: string;
-}
-
 export function ChannelListInstance(version: V1): ChannelListInstance {
-  const instance = ((sid) => instance.get(sid)) as ChannelListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as ChannelListInstance;
 
   instance.get = function get(sid): ChannelContext {
     return new ChannelContextImpl(version, sid);
@@ -521,7 +520,7 @@ export function ChannelListInstance(version: V1): ChannelListInstance {
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -531,7 +530,7 @@ export function ChannelListInstance(version: V1): ChannelListInstance {
       (payload) => new ChannelInstance(operationVersion, payload)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -560,17 +559,18 @@ export function ChannelListInstance(version: V1): ChannelListInstance {
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new ChannelPage(operationVersion, payload, this._solution)
+      (payload) =>
+        new ChannelPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -583,30 +583,28 @@ export function ChannelListInstance(version: V1): ChannelListInstance {
     targetUrl?: any,
     callback?: any
   ): Promise<ChannelPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new ChannelPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new ChannelPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

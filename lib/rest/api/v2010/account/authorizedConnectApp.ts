@@ -81,8 +81,8 @@ export interface AuthorizedConnectAppContext {
 }
 
 export interface AuthorizedConnectAppContextSolution {
-  accountSid?: string;
-  connectAppSid?: string;
+  accountSid: string;
+  connectAppSid: string;
 }
 
 export class AuthorizedConnectAppContextImpl
@@ -109,9 +109,10 @@ export class AuthorizedConnectAppContextImpl
   }
 
   fetch(callback?: any): Promise<AuthorizedConnectAppInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -120,12 +121,12 @@ export class AuthorizedConnectAppContextImpl
         new AuthorizedConnectAppInstance(
           operationVersion,
           payload,
-          this._solution.accountSid,
-          this._solution.connectAppSid
+          instance._solution.accountSid,
+          instance._solution.connectAppSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -151,16 +152,16 @@ interface AuthorizedConnectAppPayload extends TwilioResponsePayload {
 }
 
 interface AuthorizedConnectAppResource {
-  account_sid?: string | null;
-  connect_app_company_name?: string | null;
-  connect_app_description?: string | null;
-  connect_app_friendly_name?: string | null;
-  connect_app_homepage_url?: string | null;
-  connect_app_sid?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  permissions?: Array<AuthorizedConnectAppPermission> | null;
-  uri?: string | null;
+  account_sid: string;
+  connect_app_company_name: string;
+  connect_app_description: string;
+  connect_app_friendly_name: string;
+  connect_app_homepage_url: string;
+  connect_app_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  permissions: Array<AuthorizedConnectAppPermission>;
+  uri: string;
 }
 
 export class AuthorizedConnectAppInstance {
@@ -193,43 +194,43 @@ export class AuthorizedConnectAppInstance {
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The company name set for the Connect App
    */
-  connectAppCompanyName?: string | null;
+  connectAppCompanyName: string;
   /**
    * A detailed description of the app
    */
-  connectAppDescription?: string | null;
+  connectAppDescription: string;
   /**
    * The name of the Connect App
    */
-  connectAppFriendlyName?: string | null;
+  connectAppFriendlyName: string;
   /**
    * The public URL for the Connect App
    */
-  connectAppHomepageUrl?: string | null;
+  connectAppHomepageUrl: string;
   /**
    * The SID that we assigned to the Connect App
    */
-  connectAppSid?: string | null;
+  connectAppSid: string;
   /**
    * The RFC 2822 date and time in GMT that the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The RFC 2822 date and time in GMT that the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * Permissions authorized to the app
    */
-  permissions?: Array<AuthorizedConnectAppPermission> | null;
+  permissions: Array<AuthorizedConnectAppPermission>;
   /**
    * The URI of the resource, relative to `https://api.twilio.com`
    */
-  uri?: string | null;
+  uri: string;
 
   private get _proxy(): AuthorizedConnectAppContext {
     this._context =
@@ -280,7 +281,15 @@ export class AuthorizedConnectAppInstance {
   }
 }
 
+export interface AuthorizedConnectAppSolution {
+  accountSid: string;
+}
+
 export interface AuthorizedConnectAppListInstance {
+  _version: V2010;
+  _solution: AuthorizedConnectAppSolution;
+  _uri: string;
+
   (connectAppSid: string): AuthorizedConnectAppContext;
   get(connectAppSid: string): AuthorizedConnectAppContext;
 
@@ -424,20 +433,6 @@ export interface AuthorizedConnectAppListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface AuthorizedConnectAppSolution {
-  accountSid?: string;
-}
-
-interface AuthorizedConnectAppListInstanceImpl
-  extends AuthorizedConnectAppListInstance {}
-class AuthorizedConnectAppListInstanceImpl
-  implements AuthorizedConnectAppListInstance
-{
-  _version?: V2010;
-  _solution?: AuthorizedConnectAppSolution;
-  _uri?: string;
-}
-
 export function AuthorizedConnectAppListInstance(
   version: V2010,
   accountSid: string
@@ -447,7 +442,7 @@ export function AuthorizedConnectAppListInstance(
   }
 
   const instance = ((connectAppSid) =>
-    instance.get(connectAppSid)) as AuthorizedConnectAppListInstanceImpl;
+    instance.get(connectAppSid)) as AuthorizedConnectAppListInstance;
 
   instance.get = function get(connectAppSid): AuthorizedConnectAppContext {
     return new AuthorizedConnectAppContextImpl(
@@ -483,7 +478,7 @@ export function AuthorizedConnectAppListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
@@ -491,10 +486,14 @@ export function AuthorizedConnectAppListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new AuthorizedConnectAppPage(operationVersion, payload, this._solution)
+        new AuthorizedConnectAppPage(
+          operationVersion,
+          payload,
+          instance._solution
+        )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -507,31 +506,32 @@ export function AuthorizedConnectAppListInstance(
     targetUrl?: any,
     callback?: any
   ): Promise<AuthorizedConnectAppPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
+    let pagePromise = operationPromise.then(
       (payload) =>
-        new AuthorizedConnectAppPage(this._version, payload, this._solution)
+        new AuthorizedConnectAppPage(
+          instance._version,
+          payload,
+          instance._solution
+        )
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

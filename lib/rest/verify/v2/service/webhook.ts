@@ -148,8 +148,8 @@ export interface WebhookContext {
 }
 
 export interface WebhookContextSolution {
-  serviceSid?: string;
-  sid?: string;
+  serviceSid: string;
+  sid: string;
 }
 
 export class WebhookContextImpl implements WebhookContext {
@@ -170,13 +170,14 @@ export class WebhookContextImpl implements WebhookContext {
   }
 
   remove(callback?: any): Promise<boolean> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -184,9 +185,10 @@ export class WebhookContextImpl implements WebhookContext {
   }
 
   fetch(callback?: any): Promise<WebhookInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -195,12 +197,12 @@ export class WebhookContextImpl implements WebhookContext {
         new WebhookInstance(
           operationVersion,
           payload,
-          this._solution.serviceSid,
-          this._solution.sid
+          instance._solution.serviceSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -229,9 +231,10 @@ export class WebhookContextImpl implements WebhookContext {
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -242,12 +245,12 @@ export class WebhookContextImpl implements WebhookContext {
         new WebhookInstance(
           operationVersion,
           payload,
-          this._solution.serviceSid,
-          this._solution.sid
+          instance._solution.serviceSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -273,18 +276,18 @@ interface WebhookPayload extends TwilioResponsePayload {
 }
 
 interface WebhookResource {
-  sid?: string | null;
-  service_sid?: string | null;
-  account_sid?: string | null;
-  friendly_name?: string | null;
-  event_types?: Array<string> | null;
-  status?: WebhookStatus;
-  version?: WebhookVersion;
-  webhook_url?: string | null;
-  webhook_method?: WebhookMethods;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  url?: string | null;
+  sid: string;
+  service_sid: string;
+  account_sid: string;
+  friendly_name: string;
+  event_types: Array<string>;
+  status: WebhookStatus;
+  version: WebhookVersion;
+  webhook_url: string;
+  webhook_method: WebhookMethods;
+  date_created: Date;
+  date_updated: Date;
+  url: string;
 }
 
 export class WebhookInstance {
@@ -316,42 +319,42 @@ export class WebhookInstance {
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * Service Sid.
    */
-  serviceSid?: string | null;
+  serviceSid: string;
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The string that you assigned to describe the webhook
    */
-  friendlyName?: string | null;
+  friendlyName: string;
   /**
    * The array of events that this Webhook is subscribed to.
    */
-  eventTypes?: Array<string> | null;
-  status?: WebhookStatus;
-  version?: WebhookVersion;
+  eventTypes: Array<string>;
+  status: WebhookStatus;
+  version: WebhookVersion;
   /**
    * The URL associated with this Webhook.
    */
-  webhookUrl?: string | null;
-  webhookMethod?: WebhookMethods;
+  webhookUrl: string;
+  webhookMethod: WebhookMethods;
   /**
    * The ISO 8601 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The ISO 8601 date and time in GMT when the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The absolute URL of the Webhook resource
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): WebhookContext {
     this._context =
@@ -443,7 +446,15 @@ export class WebhookInstance {
   }
 }
 
+export interface WebhookSolution {
+  serviceSid: string;
+}
+
 export interface WebhookListInstance {
+  _version: V2;
+  _solution: WebhookSolution;
+  _uri: string;
+
   (sid: string): WebhookContext;
   get(sid: string): WebhookContext;
 
@@ -589,17 +600,6 @@ export interface WebhookListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface WebhookSolution {
-  serviceSid?: string;
-}
-
-interface WebhookListInstanceImpl extends WebhookListInstance {}
-class WebhookListInstanceImpl implements WebhookListInstance {
-  _version?: V2;
-  _solution?: WebhookSolution;
-  _uri?: string;
-}
-
 export function WebhookListInstance(
   version: V2,
   serviceSid: string
@@ -608,7 +608,7 @@ export function WebhookListInstance(
     throw new Error("Parameter 'serviceSid' is not valid.");
   }
 
-  const instance = ((sid) => instance.get(sid)) as WebhookListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as WebhookListInstance;
 
   instance.get = function get(sid): WebhookContext {
     return new WebhookContextImpl(version, serviceSid, sid);
@@ -656,7 +656,7 @@ export function WebhookListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -667,11 +667,11 @@ export function WebhookListInstance(
         new WebhookInstance(
           operationVersion,
           payload,
-          this._solution.serviceSid
+          instance._solution.serviceSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -700,17 +700,18 @@ export function WebhookListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new WebhookPage(operationVersion, payload, this._solution)
+      (payload) =>
+        new WebhookPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -723,30 +724,28 @@ export function WebhookListInstance(
     targetUrl?: any,
     callback?: any
   ): Promise<WebhookPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new WebhookPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new WebhookPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

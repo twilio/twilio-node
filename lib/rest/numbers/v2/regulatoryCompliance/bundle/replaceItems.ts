@@ -34,7 +34,15 @@ export interface ReplaceItemsListInstanceCreateOptions {
   fromBundleSid: string;
 }
 
+export interface ReplaceItemsSolution {
+  bundleSid: string;
+}
+
 export interface ReplaceItemsListInstance {
+  _version: V2;
+  _solution: ReplaceItemsSolution;
+  _uri: string;
+
   /**
    * Create a ReplaceItemsInstance
    *
@@ -56,17 +64,6 @@ export interface ReplaceItemsListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface ReplaceItemsSolution {
-  bundleSid?: string;
-}
-
-interface ReplaceItemsListInstanceImpl extends ReplaceItemsListInstance {}
-class ReplaceItemsListInstanceImpl implements ReplaceItemsListInstance {
-  _version?: V2;
-  _solution?: ReplaceItemsSolution;
-  _uri?: string;
-}
-
 export function ReplaceItemsListInstance(
   version: V2,
   bundleSid: string
@@ -75,7 +72,7 @@ export function ReplaceItemsListInstance(
     throw new Error("Parameter 'bundleSid' is not valid.");
   }
 
-  const instance = {} as ReplaceItemsListInstanceImpl;
+  const instance = {} as ReplaceItemsListInstance;
 
   instance._version = version;
   instance._solution = { bundleSid };
@@ -107,7 +104,7 @@ export function ReplaceItemsListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -118,11 +115,11 @@ export function ReplaceItemsListInstance(
         new ReplaceItemsInstance(
           operationVersion,
           payload,
-          this._solution.bundleSid
+          instance._solution.bundleSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -130,14 +127,14 @@ export function ReplaceItemsListInstance(
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;
@@ -146,16 +143,16 @@ export function ReplaceItemsListInstance(
 interface ReplaceItemsPayload extends ReplaceItemsResource {}
 
 interface ReplaceItemsResource {
-  sid?: string | null;
-  account_sid?: string | null;
-  regulation_sid?: string | null;
-  friendly_name?: string | null;
-  status?: ReplaceItemsStatus;
-  valid_until?: Date | null;
-  email?: string | null;
-  status_callback?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
+  sid: string;
+  account_sid: string;
+  regulation_sid: string;
+  friendly_name: string;
+  status: ReplaceItemsStatus;
+  valid_until: Date;
+  email: string;
+  status_callback: string;
+  date_created: Date;
+  date_updated: Date;
 }
 
 export class ReplaceItemsInstance {
@@ -179,40 +176,40 @@ export class ReplaceItemsInstance {
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The unique string of a regulation
    */
-  regulationSid?: string | null;
+  regulationSid: string;
   /**
    * The string that you assigned to describe the resource
    */
-  friendlyName?: string | null;
-  status?: ReplaceItemsStatus;
+  friendlyName: string;
+  status: ReplaceItemsStatus;
   /**
    * The ISO 8601 date and time in GMT when the resource will be valid until
    */
-  validUntil?: Date | null;
+  validUntil: Date;
   /**
    * The email address
    */
-  email?: string | null;
+  email: string;
   /**
    * The URL we call to inform your application of status changes
    */
-  statusCallback?: string | null;
+  statusCallback: string;
   /**
    * The ISO 8601 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The ISO 8601 date and time in GMT when the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
 
   /**
    * Provide a user-friendly representation

@@ -96,9 +96,9 @@ export interface FieldContext {
 }
 
 export interface FieldContextSolution {
-  assistantSid?: string;
-  taskSid?: string;
-  sid?: string;
+  assistantSid: string;
+  taskSid: string;
+  sid: string;
 }
 
 export class FieldContextImpl implements FieldContext {
@@ -128,13 +128,14 @@ export class FieldContextImpl implements FieldContext {
   }
 
   remove(callback?: any): Promise<boolean> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -142,9 +143,10 @@ export class FieldContextImpl implements FieldContext {
   }
 
   fetch(callback?: any): Promise<FieldInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -153,13 +155,13 @@ export class FieldContextImpl implements FieldContext {
         new FieldInstance(
           operationVersion,
           payload,
-          this._solution.assistantSid,
-          this._solution.taskSid,
-          this._solution.sid
+          instance._solution.assistantSid,
+          instance._solution.taskSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -185,15 +187,15 @@ interface FieldPayload extends TwilioResponsePayload {
 }
 
 interface FieldResource {
-  account_sid?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  field_type?: string | null;
-  task_sid?: string | null;
-  assistant_sid?: string | null;
-  sid?: string | null;
-  unique_name?: string | null;
-  url?: string | null;
+  account_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  field_type: string;
+  task_sid: string;
+  assistant_sid: string;
+  sid: string;
+  unique_name: string;
+  url: string;
 }
 
 export class FieldInstance {
@@ -223,39 +225,39 @@ export class FieldInstance {
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The RFC 2822 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The RFC 2822 date and time in GMT when the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The Field Type of the field
    */
-  fieldType?: string | null;
+  fieldType: string;
   /**
    * The SID of the [Task](https://www.twilio.com/docs/autopilot/api/task) resource associated with this Field
    */
-  taskSid?: string | null;
+  taskSid: string;
   /**
    * The SID of the Assistant that is the parent of the Task associated with the resource
    */
-  assistantSid?: string | null;
+  assistantSid: string;
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * An application-defined string that uniquely identifies the resource
    */
-  uniqueName?: string | null;
+  uniqueName: string;
   /**
    * The absolute URL of the Field resource
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): FieldContext {
     this._context =
@@ -319,7 +321,16 @@ export class FieldInstance {
   }
 }
 
+export interface FieldSolution {
+  assistantSid: string;
+  taskSid: string;
+}
+
 export interface FieldListInstance {
+  _version: V1;
+  _solution: FieldSolution;
+  _uri: string;
+
   (sid: string): FieldContext;
   get(sid: string): FieldContext;
 
@@ -465,18 +476,6 @@ export interface FieldListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface FieldSolution {
-  assistantSid?: string;
-  taskSid?: string;
-}
-
-interface FieldListInstanceImpl extends FieldListInstance {}
-class FieldListInstanceImpl implements FieldListInstance {
-  _version?: V1;
-  _solution?: FieldSolution;
-  _uri?: string;
-}
-
 export function FieldListInstance(
   version: V1,
   assistantSid: string,
@@ -490,7 +489,7 @@ export function FieldListInstance(
     throw new Error("Parameter 'taskSid' is not valid.");
   }
 
-  const instance = ((sid) => instance.get(sid)) as FieldListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as FieldListInstance;
 
   instance.get = function get(sid): FieldContext {
     return new FieldContextImpl(version, assistantSid, taskSid, sid);
@@ -527,7 +526,7 @@ export function FieldListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -538,12 +537,12 @@ export function FieldListInstance(
         new FieldInstance(
           operationVersion,
           payload,
-          this._solution.assistantSid,
-          this._solution.taskSid
+          instance._solution.assistantSid,
+          instance._solution.taskSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -572,17 +571,17 @@ export function FieldListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new FieldPage(operationVersion, payload, this._solution)
+      (payload) => new FieldPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -595,30 +594,27 @@ export function FieldListInstance(
     targetUrl?: any,
     callback?: any
   ): Promise<FieldPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new FieldPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) => new FieldPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

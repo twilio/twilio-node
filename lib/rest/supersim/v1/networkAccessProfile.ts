@@ -123,7 +123,7 @@ export interface NetworkAccessProfileContext {
 }
 
 export interface NetworkAccessProfileContextSolution {
-  sid?: string;
+  sid: string;
 }
 
 export class NetworkAccessProfileContextImpl
@@ -154,9 +154,10 @@ export class NetworkAccessProfileContextImpl
   }
 
   fetch(callback?: any): Promise<NetworkAccessProfileInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -165,11 +166,11 @@ export class NetworkAccessProfileContextImpl
         new NetworkAccessProfileInstance(
           operationVersion,
           payload,
-          this._solution.sid
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -192,9 +193,10 @@ export class NetworkAccessProfileContextImpl
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -205,11 +207,11 @@ export class NetworkAccessProfileContextImpl
         new NetworkAccessProfileInstance(
           operationVersion,
           payload,
-          this._solution.sid
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -235,13 +237,13 @@ interface NetworkAccessProfilePayload extends TwilioResponsePayload {
 }
 
 interface NetworkAccessProfileResource {
-  sid?: string | null;
-  unique_name?: string | null;
-  account_sid?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  url?: string | null;
-  links?: object | null;
+  sid: string;
+  unique_name: string;
+  account_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  url: string;
+  links: object;
 }
 
 export class NetworkAccessProfileInstance {
@@ -267,28 +269,28 @@ export class NetworkAccessProfileInstance {
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * An application-defined string that uniquely identifies the resource
    */
-  uniqueName?: string | null;
+  uniqueName: string;
   /**
    * The SID of the Account that the Network Access Profile belongs to
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The ISO 8601 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The ISO 8601 date and time in GMT when the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The absolute URL of the resource
    */
-  url?: string | null;
-  links?: object | null;
+  url: string;
+  links: object;
 
   private get _proxy(): NetworkAccessProfileContext {
     this._context =
@@ -365,7 +367,13 @@ export class NetworkAccessProfileInstance {
   }
 }
 
+export interface NetworkAccessProfileSolution {}
+
 export interface NetworkAccessProfileListInstance {
+  _version: V1;
+  _solution: NetworkAccessProfileSolution;
+  _uri: string;
+
   (sid: string): NetworkAccessProfileContext;
   get(sid: string): NetworkAccessProfileContext;
 
@@ -533,23 +541,11 @@ export interface NetworkAccessProfileListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface NetworkAccessProfileSolution {}
-
-interface NetworkAccessProfileListInstanceImpl
-  extends NetworkAccessProfileListInstance {}
-class NetworkAccessProfileListInstanceImpl
-  implements NetworkAccessProfileListInstance
-{
-  _version?: V1;
-  _solution?: NetworkAccessProfileSolution;
-  _uri?: string;
-}
-
 export function NetworkAccessProfileListInstance(
   version: V1
 ): NetworkAccessProfileListInstance {
   const instance = ((sid) =>
-    instance.get(sid)) as NetworkAccessProfileListInstanceImpl;
+    instance.get(sid)) as NetworkAccessProfileListInstance;
 
   instance.get = function get(sid): NetworkAccessProfileContext {
     return new NetworkAccessProfileContextImpl(version, sid);
@@ -582,7 +578,7 @@ export function NetworkAccessProfileListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -592,7 +588,7 @@ export function NetworkAccessProfileListInstance(
       (payload) => new NetworkAccessProfileInstance(operationVersion, payload)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -621,7 +617,7 @@ export function NetworkAccessProfileListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
@@ -629,10 +625,14 @@ export function NetworkAccessProfileListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new NetworkAccessProfilePage(operationVersion, payload, this._solution)
+        new NetworkAccessProfilePage(
+          operationVersion,
+          payload,
+          instance._solution
+        )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -645,31 +645,32 @@ export function NetworkAccessProfileListInstance(
     targetUrl?: any,
     callback?: any
   ): Promise<NetworkAccessProfilePage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
+    let pagePromise = operationPromise.then(
       (payload) =>
-        new NetworkAccessProfilePage(this._version, payload, this._solution)
+        new NetworkAccessProfilePage(
+          instance._version,
+          payload,
+          instance._solution
+        )
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

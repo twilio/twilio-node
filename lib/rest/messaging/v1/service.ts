@@ -199,7 +199,7 @@ export interface ServiceContext {
 }
 
 export interface ServiceContextSolution {
-  sid?: string;
+  sid: string;
 }
 
 export class ServiceContextImpl implements ServiceContext {
@@ -257,13 +257,14 @@ export class ServiceContextImpl implements ServiceContext {
   }
 
   remove(callback?: any): Promise<boolean> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -271,18 +272,19 @@ export class ServiceContextImpl implements ServiceContext {
   }
 
   fetch(callback?: any): Promise<ServiceInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new ServiceInstance(operationVersion, payload, this._solution.sid)
+        new ServiceInstance(operationVersion, payload, instance._solution.sid)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -338,9 +340,10 @@ export class ServiceContextImpl implements ServiceContext {
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -348,10 +351,10 @@ export class ServiceContextImpl implements ServiceContext {
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new ServiceInstance(operationVersion, payload, this._solution.sid)
+        new ServiceInstance(operationVersion, payload, instance._solution.sid)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -392,29 +395,29 @@ interface ServicePayload extends TwilioResponsePayload {
 }
 
 interface ServiceResource {
-  sid?: string | null;
-  account_sid?: string | null;
-  friendly_name?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  inbound_request_url?: string | null;
-  inbound_method?: ServiceInboundMethod;
-  fallback_url?: string | null;
-  fallback_method?: ServiceFallbackMethod;
-  status_callback?: string | null;
-  sticky_sender?: boolean | null;
-  mms_converter?: boolean | null;
-  smart_encoding?: boolean | null;
-  scan_message_content?: ServiceScanMessageContent;
-  fallback_to_long_code?: boolean | null;
-  area_code_geomatch?: boolean | null;
-  synchronous_validation?: boolean | null;
-  validity_period?: number | null;
-  url?: string | null;
-  links?: object | null;
-  usecase?: string | null;
-  us_app_to_person_registered?: boolean | null;
-  use_inbound_webhook_on_number?: boolean | null;
+  sid: string;
+  account_sid: string;
+  friendly_name: string;
+  date_created: Date;
+  date_updated: Date;
+  inbound_request_url: string;
+  inbound_method: ServiceInboundMethod;
+  fallback_url: string;
+  fallback_method: ServiceFallbackMethod;
+  status_callback: string;
+  sticky_sender: boolean;
+  mms_converter: boolean;
+  smart_encoding: boolean;
+  scan_message_content: ServiceScanMessageContent;
+  fallback_to_long_code: boolean;
+  area_code_geomatch: boolean;
+  synchronous_validation: boolean;
+  validity_period: number;
+  url: string;
+  links: object;
+  usecase: string;
+  us_app_to_person_registered: boolean;
+  use_inbound_webhook_on_number: boolean;
 }
 
 export class ServiceInstance {
@@ -452,92 +455,92 @@ export class ServiceInstance {
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The string that you assigned to describe the resource
    */
-  friendlyName?: string | null;
+  friendlyName: string;
   /**
    * The ISO 8601 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The ISO 8601 date and time in GMT when the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The URL we call using inbound_method when a message is received by any phone number or short code in the Service. This field will be overridden if the `use_inbound_webhook_on_number` field is enabled.
    */
-  inboundRequestUrl?: string | null;
+  inboundRequestUrl: string;
   /**
    * The HTTP method we use to call inbound_request_url
    */
-  inboundMethod?: ServiceInboundMethod;
+  inboundMethod: ServiceInboundMethod;
   /**
    * The URL that we call using fallback_method if an error occurs while retrieving or executing the TwiML from the Inbound Request URL. This field will be overridden if the `use_inbound_webhook_on_number` field is enabled.
    */
-  fallbackUrl?: string | null;
+  fallbackUrl: string;
   /**
    * The HTTP method we use to call fallback_url
    */
-  fallbackMethod?: ServiceFallbackMethod;
+  fallbackMethod: ServiceFallbackMethod;
   /**
    * The URL we call to pass status updates about message delivery
    */
-  statusCallback?: string | null;
+  statusCallback: string;
   /**
    * Whether to enable Sticky Sender on the Service instance
    */
-  stickySender?: boolean | null;
+  stickySender: boolean;
   /**
    * Whether to enable the MMS Converter for messages sent through the Service instance
    */
-  mmsConverter?: boolean | null;
+  mmsConverter: boolean;
   /**
    * Whether to enable Encoding for messages sent through the Service instance
    */
-  smartEncoding?: boolean | null;
-  scanMessageContent?: ServiceScanMessageContent;
+  smartEncoding: boolean;
+  scanMessageContent: ServiceScanMessageContent;
   /**
    * Whether to enable Fallback to Long Code for messages sent through the Service instance
    */
-  fallbackToLongCode?: boolean | null;
+  fallbackToLongCode: boolean;
   /**
    * Whether to enable Area Code Geomatch on the Service Instance
    */
-  areaCodeGeomatch?: boolean | null;
+  areaCodeGeomatch: boolean;
   /**
    * Reserved
    */
-  synchronousValidation?: boolean | null;
+  synchronousValidation: boolean;
   /**
    * How long, in seconds, messages sent from the Service are valid
    */
-  validityPeriod?: number | null;
+  validityPeriod: number;
   /**
    * The absolute URL of the Service resource
    */
-  url?: string | null;
+  url: string;
   /**
    * The absolute URLs of related resources
    */
-  links?: object | null;
+  links: object;
   /**
    * A string describing the scenario in which the Messaging Service will be used
    */
-  usecase?: string | null;
+  usecase: string;
   /**
    * Whether US A2P campaign is registered for this Service.
    */
-  usAppToPersonRegistered?: boolean | null;
+  usAppToPersonRegistered: boolean;
   /**
    * If enabled, the webhook url configured on the phone number will be used and will override the `inbound_request_url`/`fallback_url` url called when an inbound message is received.
    */
-  useInboundWebhookOnNumber?: boolean | null;
+  useInboundWebhookOnNumber: boolean;
 
   private get _proxy(): ServiceContext {
     this._context =
@@ -671,7 +674,13 @@ export class ServiceInstance {
   }
 }
 
+export interface ServiceSolution {}
+
 export interface ServiceListInstance {
+  _version: V1;
+  _solution: ServiceSolution;
+  _uri: string;
+
   (sid: string): ServiceContext;
   get(sid: string): ServiceContext;
 
@@ -817,17 +826,8 @@ export interface ServiceListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface ServiceSolution {}
-
-interface ServiceListInstanceImpl extends ServiceListInstance {}
-class ServiceListInstanceImpl implements ServiceListInstance {
-  _version?: V1;
-  _solution?: ServiceSolution;
-  _uri?: string;
-}
-
 export function ServiceListInstance(version: V1): ServiceListInstance {
-  const instance = ((sid) => instance.get(sid)) as ServiceListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as ServiceListInstance;
 
   instance.get = function get(sid): ServiceContext {
     return new ServiceContextImpl(version, sid);
@@ -894,7 +894,7 @@ export function ServiceListInstance(version: V1): ServiceListInstance {
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -904,7 +904,7 @@ export function ServiceListInstance(version: V1): ServiceListInstance {
       (payload) => new ServiceInstance(operationVersion, payload)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -933,17 +933,18 @@ export function ServiceListInstance(version: V1): ServiceListInstance {
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new ServicePage(operationVersion, payload, this._solution)
+      (payload) =>
+        new ServicePage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -956,30 +957,28 @@ export function ServiceListInstance(version: V1): ServiceListInstance {
     targetUrl?: any,
     callback?: any
   ): Promise<ServicePage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new ServicePage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new ServicePage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

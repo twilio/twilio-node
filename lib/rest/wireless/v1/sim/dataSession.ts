@@ -56,7 +56,15 @@ export interface DataSessionListInstancePageOptions {
   pageToken?: string;
 }
 
+export interface DataSessionSolution {
+  simSid: string;
+}
+
 export interface DataSessionListInstance {
+  _version: V1;
+  _solution: DataSessionSolution;
+  _uri: string;
+
   /**
    * Streams DataSessionInstance records from the API.
    *
@@ -185,17 +193,6 @@ export interface DataSessionListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface DataSessionSolution {
-  simSid?: string;
-}
-
-interface DataSessionListInstanceImpl extends DataSessionListInstance {}
-class DataSessionListInstanceImpl implements DataSessionListInstance {
-  _version?: V1;
-  _solution?: DataSessionSolution;
-  _uri?: string;
-}
-
 export function DataSessionListInstance(
   version: V1,
   simSid: string
@@ -204,7 +201,7 @@ export function DataSessionListInstance(
     throw new Error("Parameter 'simSid' is not valid.");
   }
 
-  const instance = {} as DataSessionListInstanceImpl;
+  const instance = {} as DataSessionListInstance;
 
   instance._version = version;
   instance._solution = { simSid };
@@ -232,7 +229,7 @@ export function DataSessionListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
@@ -240,10 +237,10 @@ export function DataSessionListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new DataSessionPage(operationVersion, payload, this._solution)
+        new DataSessionPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -256,30 +253,28 @@ export function DataSessionListInstance(
     targetUrl?: any,
     callback?: any
   ): Promise<DataSessionPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new DataSessionPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new DataSessionPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;
@@ -290,22 +285,22 @@ interface DataSessionPayload extends TwilioResponsePayload {
 }
 
 interface DataSessionResource {
-  sid?: string | null;
-  sim_sid?: string | null;
-  account_sid?: string | null;
-  radio_link?: string | null;
-  operator_mcc?: string | null;
-  operator_mnc?: string | null;
-  operator_country?: string | null;
-  operator_name?: string | null;
-  cell_id?: string | null;
-  cell_location_estimate?: any | null;
-  packets_uploaded?: number | null;
-  packets_downloaded?: number | null;
-  last_updated?: Date | null;
-  start?: Date | null;
-  end?: Date | null;
-  imei?: string | null;
+  sid: string;
+  sim_sid: string;
+  account_sid: string;
+  radio_link: string;
+  operator_mcc: string;
+  operator_mnc: string;
+  operator_country: string;
+  operator_name: string;
+  cell_id: string;
+  cell_location_estimate: any;
+  packets_uploaded: number;
+  packets_downloaded: number;
+  last_updated: Date;
+  start: Date;
+  end: Date;
+  imei: string;
 }
 
 export class DataSessionInstance {
@@ -335,67 +330,67 @@ export class DataSessionInstance {
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The SID of the Sim resource that the Data Session is for
    */
-  simSid?: string | null;
+  simSid: string;
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The generation of wireless technology that the device was using
    */
-  radioLink?: string | null;
+  radioLink: string;
   /**
    * The \'mobile country code\' is the unique ID of the home country where the Data Session took place
    */
-  operatorMcc?: string | null;
+  operatorMcc: string;
   /**
    * The \'mobile network code\' is the unique ID specific to the mobile operator network where the Data Session took place
    */
-  operatorMnc?: string | null;
+  operatorMnc: string;
   /**
    * The three letter country code representing where the device\'s Data Session took place
    */
-  operatorCountry?: string | null;
+  operatorCountry: string;
   /**
    * The friendly name of the mobile operator network that the SIM-connected device is attached to
    */
-  operatorName?: string | null;
+  operatorName: string;
   /**
    * The unique ID of the cellular tower that the device was attached to at the moment when the Data Session was last updated
    */
-  cellId?: string | null;
+  cellId: string;
   /**
    * An object with the estimated location where the device\'s Data Session took place
    */
-  cellLocationEstimate?: any | null;
+  cellLocationEstimate: any;
   /**
    * The number of packets uploaded by the device between the start time and when the Data Session was last updated
    */
-  packetsUploaded?: number | null;
+  packetsUploaded: number;
   /**
    * The number of packets downloaded by the device between the start time and when the Data Session was last updated
    */
-  packetsDownloaded?: number | null;
+  packetsDownloaded: number;
   /**
    * The date that the resource was last updated, given as GMT in ISO 8601 format
    */
-  lastUpdated?: Date | null;
+  lastUpdated: Date;
   /**
    * The date that the Data Session started, given as GMT in ISO 8601 format
    */
-  start?: Date | null;
+  start: Date;
   /**
    * The date that the record ended, given as GMT in ISO 8601 format
    */
-  end?: Date | null;
+  end: Date;
   /**
    * The unique ID of the device using the SIM to connect
    */
-  imei?: string | null;
+  imei: string;
 
   /**
    * Provide a user-friendly representation

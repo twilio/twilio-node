@@ -217,8 +217,8 @@ export interface WorkerContext {
 }
 
 export interface WorkerContextSolution {
-  workspaceSid?: string;
-  sid?: string;
+  workspaceSid: string;
+  sid: string;
 }
 
 export class WorkerContextImpl implements WorkerContext {
@@ -289,15 +289,16 @@ export class WorkerContextImpl implements WorkerContext {
     if (params["ifMatch"] !== undefined)
       headers["If-Match"] = params["ifMatch"];
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
         params: data,
         headers,
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -305,9 +306,10 @@ export class WorkerContextImpl implements WorkerContext {
   }
 
   fetch(callback?: any): Promise<WorkerInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -316,12 +318,12 @@ export class WorkerContextImpl implements WorkerContext {
         new WorkerInstance(
           operationVersion,
           payload,
-          this._solution.workspaceSid,
-          this._solution.sid
+          instance._solution.workspaceSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -354,9 +356,10 @@ export class WorkerContextImpl implements WorkerContext {
     if (params["ifMatch"] !== undefined)
       headers["If-Match"] = params["ifMatch"];
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -367,12 +370,12 @@ export class WorkerContextImpl implements WorkerContext {
         new WorkerInstance(
           operationVersion,
           payload,
-          this._solution.workspaceSid,
-          this._solution.sid
+          instance._solution.workspaceSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -398,19 +401,19 @@ interface WorkerPayload extends TwilioResponsePayload {
 }
 
 interface WorkerResource {
-  account_sid?: string | null;
-  activity_name?: string | null;
-  activity_sid?: string | null;
-  attributes?: string | null;
-  available?: boolean | null;
-  date_created?: Date | null;
-  date_status_changed?: Date | null;
-  date_updated?: Date | null;
-  friendly_name?: string | null;
-  sid?: string | null;
-  workspace_sid?: string | null;
-  url?: string | null;
-  links?: object | null;
+  account_sid: string;
+  activity_name: string;
+  activity_sid: string;
+  attributes: string;
+  available: boolean;
+  date_created: Date;
+  date_status_changed: Date;
+  date_updated: Date;
+  friendly_name: string;
+  sid: string;
+  workspace_sid: string;
+  url: string;
+  links: object;
 }
 
 export class WorkerInstance {
@@ -445,55 +448,55 @@ export class WorkerInstance {
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The friendly_name of the Worker\'s current Activity
    */
-  activityName?: string | null;
+  activityName: string;
   /**
    * The SID of the Worker\'s current Activity
    */
-  activitySid?: string | null;
+  activitySid: string;
   /**
    * The JSON string that describes the Worker
    */
-  attributes?: string | null;
+  attributes: string;
   /**
    * Whether the Worker is available to perform tasks
    */
-  available?: boolean | null;
+  available: boolean;
   /**
    * The ISO 8601 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The date and time in GMT of the last change to the Worker\'s activity
    */
-  dateStatusChanged?: Date | null;
+  dateStatusChanged: Date;
   /**
    * The ISO 8601 date and time in GMT when the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The string that you assigned to describe the resource
    */
-  friendlyName?: string | null;
+  friendlyName: string;
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The SID of the Workspace that contains the Worker
    */
-  workspaceSid?: string | null;
+  workspaceSid: string;
   /**
    * The absolute URL of the Worker resource
    */
-  url?: string | null;
+  url: string;
   /**
    * The URLs of related resources
    */
-  links?: object | null;
+  links: object;
 
   private get _proxy(): WorkerContext {
     this._context =
@@ -620,12 +623,23 @@ export class WorkerInstance {
   }
 }
 
+export interface WorkerSolution {
+  workspaceSid: string;
+}
+
 export interface WorkerListInstance {
+  _version: V1;
+  _solution: WorkerSolution;
+  _uri: string;
+
   (sid: string): WorkerContext;
   get(sid: string): WorkerContext;
 
+  _cumulativeStatistics?: WorkersCumulativeStatisticsListInstance;
   cumulativeStatistics: WorkersCumulativeStatisticsListInstance;
+  _realTimeStatistics?: WorkersRealTimeStatisticsListInstance;
   realTimeStatistics: WorkersRealTimeStatisticsListInstance;
+  _statistics?: WorkersStatisticsListInstance;
   statistics: WorkersStatisticsListInstance;
 
   /**
@@ -770,21 +784,6 @@ export interface WorkerListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface WorkerSolution {
-  workspaceSid?: string;
-}
-
-interface WorkerListInstanceImpl extends WorkerListInstance {}
-class WorkerListInstanceImpl implements WorkerListInstance {
-  _version?: V1;
-  _solution?: WorkerSolution;
-  _uri?: string;
-
-  _cumulativeStatistics?: WorkersCumulativeStatisticsListInstance;
-  _realTimeStatistics?: WorkersRealTimeStatisticsListInstance;
-  _statistics?: WorkersStatisticsListInstance;
-}
-
 export function WorkerListInstance(
   version: V1,
   workspaceSid: string
@@ -793,7 +792,7 @@ export function WorkerListInstance(
     throw new Error("Parameter 'workspaceSid' is not valid.");
   }
 
-  const instance = ((sid) => instance.get(sid)) as WorkerListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as WorkerListInstance;
 
   instance.get = function get(sid): WorkerContext {
     return new WorkerContextImpl(version, workspaceSid, sid);
@@ -805,37 +804,38 @@ export function WorkerListInstance(
 
   Object.defineProperty(instance, "cumulativeStatistics", {
     get: function cumulativeStatistics() {
-      if (!this._cumulativeStatistics) {
-        this._cumulativeStatistics = WorkersCumulativeStatisticsListInstance(
-          this._version,
-          this._solution.workspaceSid
-        );
+      if (!instance._cumulativeStatistics) {
+        instance._cumulativeStatistics =
+          WorkersCumulativeStatisticsListInstance(
+            instance._version,
+            instance._solution.workspaceSid
+          );
       }
-      return this._cumulativeStatistics;
+      return instance._cumulativeStatistics;
     },
   });
 
   Object.defineProperty(instance, "realTimeStatistics", {
     get: function realTimeStatistics() {
-      if (!this._realTimeStatistics) {
-        this._realTimeStatistics = WorkersRealTimeStatisticsListInstance(
-          this._version,
-          this._solution.workspaceSid
+      if (!instance._realTimeStatistics) {
+        instance._realTimeStatistics = WorkersRealTimeStatisticsListInstance(
+          instance._version,
+          instance._solution.workspaceSid
         );
       }
-      return this._realTimeStatistics;
+      return instance._realTimeStatistics;
     },
   });
 
   Object.defineProperty(instance, "statistics", {
     get: function statistics() {
-      if (!this._statistics) {
-        this._statistics = WorkersStatisticsListInstance(
-          this._version,
-          this._solution.workspaceSid
+      if (!instance._statistics) {
+        instance._statistics = WorkersStatisticsListInstance(
+          instance._version,
+          instance._solution.workspaceSid
         );
       }
-      return this._statistics;
+      return instance._statistics;
     },
   });
 
@@ -867,7 +867,7 @@ export function WorkerListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -878,11 +878,11 @@ export function WorkerListInstance(
         new WorkerInstance(
           operationVersion,
           payload,
-          this._solution.workspaceSid
+          instance._solution.workspaceSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -926,17 +926,17 @@ export function WorkerListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new WorkerPage(operationVersion, payload, this._solution)
+      (payload) => new WorkerPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -949,30 +949,28 @@ export function WorkerListInstance(
     targetUrl?: any,
     callback?: any
   ): Promise<WorkerPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new WorkerPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new WorkerPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

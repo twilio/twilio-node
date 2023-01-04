@@ -170,7 +170,7 @@ export interface RoomContext {
 }
 
 export interface RoomContextSolution {
-  sid?: string;
+  sid: string;
 }
 
 export class RoomContextImpl implements RoomContext {
@@ -212,18 +212,19 @@ export class RoomContextImpl implements RoomContext {
   }
 
   fetch(callback?: any): Promise<RoomInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new RoomInstance(operationVersion, payload, this._solution.sid)
+        new RoomInstance(operationVersion, payload, instance._solution.sid)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -246,9 +247,10 @@ export class RoomContextImpl implements RoomContext {
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -256,10 +258,10 @@ export class RoomContextImpl implements RoomContext {
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new RoomInstance(operationVersion, payload, this._solution.sid)
+        new RoomInstance(operationVersion, payload, instance._solution.sid)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -293,30 +295,30 @@ interface RoomPayload extends TwilioResponsePayload {
 }
 
 interface RoomResource {
-  sid?: string | null;
-  status?: RoomRoomStatus;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  account_sid?: string | null;
-  enable_turn?: boolean | null;
-  unique_name?: string | null;
-  status_callback?: string | null;
-  status_callback_method?: RoomStatusCallbackMethod;
-  end_time?: Date | null;
-  duration?: number | null;
-  type?: RoomRoomType;
-  max_participants?: number | null;
-  max_participant_duration?: number | null;
-  max_concurrent_published_tracks?: number | null;
-  record_participants_on_connect?: boolean | null;
-  video_codecs?: Array<RoomVideoCodec> | null;
-  media_region?: string | null;
-  audio_only?: boolean | null;
-  empty_room_timeout?: number | null;
-  unused_room_timeout?: number | null;
-  large_room?: boolean | null;
-  url?: string | null;
-  links?: object | null;
+  sid: string;
+  status: RoomRoomStatus;
+  date_created: Date;
+  date_updated: Date;
+  account_sid: string;
+  enable_turn: boolean;
+  unique_name: string;
+  status_callback: string;
+  status_callback_method: RoomStatusCallbackMethod;
+  end_time: Date;
+  duration: number;
+  type: RoomRoomType;
+  max_participants: number;
+  max_participant_duration: number;
+  max_concurrent_published_tracks: number;
+  record_participants_on_connect: boolean;
+  video_codecs: Array<RoomVideoCodec>;
+  media_region: string;
+  audio_only: boolean;
+  empty_room_timeout: number;
+  unused_room_timeout: number;
+  large_room: boolean;
+  url: string;
+  links: object;
 }
 
 export class RoomInstance {
@@ -359,93 +361,93 @@ export class RoomInstance {
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
-  status?: RoomRoomStatus;
+  sid: string;
+  status: RoomRoomStatus;
   /**
    * The ISO 8601 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The ISO 8601 date and time in GMT when the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * Enable Twilio\'s Network Traversal TURN service
    */
-  enableTurn?: boolean | null;
+  enableTurn: boolean;
   /**
    * An application-defined string that uniquely identifies the resource
    */
-  uniqueName?: string | null;
+  uniqueName: string;
   /**
    * The URL to send status information to your application
    */
-  statusCallback?: string | null;
+  statusCallback: string;
   /**
    * The HTTP method we use to call status_callback
    */
-  statusCallbackMethod?: RoomStatusCallbackMethod;
+  statusCallbackMethod: RoomStatusCallbackMethod;
   /**
    * The UTC end time of the room in UTC ISO 8601 format
    */
-  endTime?: Date | null;
+  endTime: Date;
   /**
    * The duration of the room in seconds
    */
-  duration?: number | null;
-  type?: RoomRoomType;
+  duration: number;
+  type: RoomRoomType;
   /**
    * The maximum number of concurrent Participants allowed in the room
    */
-  maxParticipants?: number | null;
+  maxParticipants: number;
   /**
    * The maximum number of seconds a Participant can be connected to the room
    */
-  maxParticipantDuration?: number | null;
+  maxParticipantDuration: number;
   /**
    * The maximum number of published tracks allowed in the room at the same time
    */
-  maxConcurrentPublishedTracks?: number | null;
+  maxConcurrentPublishedTracks: number;
   /**
    * Whether to start recording when Participants connect
    */
-  recordParticipantsOnConnect?: boolean | null;
+  recordParticipantsOnConnect: boolean;
   /**
    * An array of the video codecs that are supported when publishing a track in the room
    */
-  videoCodecs?: Array<RoomVideoCodec> | null;
+  videoCodecs: Array<RoomVideoCodec>;
   /**
    * The region for the media server in Group Rooms
    */
-  mediaRegion?: string | null;
+  mediaRegion: string;
   /**
    * Indicates whether the room will only contain audio track participants for group rooms.
    */
-  audioOnly?: boolean | null;
+  audioOnly: boolean;
   /**
    * The time a room will remain active after last participant leaves.
    */
-  emptyRoomTimeout?: number | null;
+  emptyRoomTimeout: number;
   /**
    * The time a room will remain active when no one joins.
    */
-  unusedRoomTimeout?: number | null;
+  unusedRoomTimeout: number;
   /**
    * Indicates if this is a large room.
    */
-  largeRoom?: boolean | null;
+  largeRoom: boolean;
   /**
    * The absolute URL of the resource
    */
-  url?: string | null;
+  url: string;
   /**
    * The URLs of related resources
    */
-  links?: object | null;
+  links: object;
 
   private get _proxy(): RoomContext {
     this._context =
@@ -542,7 +544,13 @@ export class RoomInstance {
   }
 }
 
+export interface RoomSolution {}
+
 export interface RoomListInstance {
+  _version: V1;
+  _solution: RoomSolution;
+  _uri: string;
+
   (sid: string): RoomContext;
   get(sid: string): RoomContext;
 
@@ -698,17 +706,8 @@ export interface RoomListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface RoomSolution {}
-
-interface RoomListInstanceImpl extends RoomListInstance {}
-class RoomListInstanceImpl implements RoomListInstance {
-  _version?: V1;
-  _solution?: RoomSolution;
-  _uri?: string;
-}
-
 export function RoomListInstance(version: V1): RoomListInstance {
-  const instance = ((sid) => instance.get(sid)) as RoomListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as RoomListInstance;
 
   instance.get = function get(sid): RoomContext {
     return new RoomContextImpl(version, sid);
@@ -768,7 +767,7 @@ export function RoomListInstance(version: V1): RoomListInstance {
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -778,7 +777,7 @@ export function RoomListInstance(version: V1): RoomListInstance {
       (payload) => new RoomInstance(operationVersion, payload)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -818,17 +817,17 @@ export function RoomListInstance(version: V1): RoomListInstance {
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new RoomPage(operationVersion, payload, this._solution)
+      (payload) => new RoomPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -841,30 +840,27 @@ export function RoomListInstance(version: V1): RoomListInstance {
     targetUrl?: any,
     callback?: any
   ): Promise<RoomPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new RoomPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) => new RoomPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

@@ -146,8 +146,8 @@ export interface DeviceContext {
 }
 
 export interface DeviceContextSolution {
-  fleetSid?: string;
-  sid?: string;
+  fleetSid: string;
+  sid: string;
 }
 
 export class DeviceContextImpl implements DeviceContext {
@@ -172,13 +172,14 @@ export class DeviceContextImpl implements DeviceContext {
   }
 
   remove(callback?: any): Promise<boolean> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -186,9 +187,10 @@ export class DeviceContextImpl implements DeviceContext {
   }
 
   fetch(callback?: any): Promise<DeviceInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -197,12 +199,12 @@ export class DeviceContextImpl implements DeviceContext {
         new DeviceInstance(
           operationVersion,
           payload,
-          this._solution.fleetSid,
-          this._solution.sid
+          instance._solution.fleetSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -230,9 +232,10 @@ export class DeviceContextImpl implements DeviceContext {
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -243,12 +246,12 @@ export class DeviceContextImpl implements DeviceContext {
         new DeviceInstance(
           operationVersion,
           payload,
-          this._solution.fleetSid,
-          this._solution.sid
+          instance._solution.fleetSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -274,18 +277,18 @@ interface DevicePayload extends TwilioResponsePayload {
 }
 
 interface DeviceResource {
-  sid?: string | null;
-  url?: string | null;
-  unique_name?: string | null;
-  friendly_name?: string | null;
-  fleet_sid?: string | null;
-  enabled?: boolean | null;
-  account_sid?: string | null;
-  identity?: string | null;
-  deployment_sid?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  date_authenticated?: Date | null;
+  sid: string;
+  url: string;
+  unique_name: string;
+  friendly_name: string;
+  fleet_sid: string;
+  enabled: boolean;
+  account_sid: string;
+  identity: string;
+  deployment_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  date_authenticated: Date;
 }
 
 export class DeviceInstance {
@@ -319,51 +322,51 @@ export class DeviceInstance {
   /**
    * A string that uniquely identifies this Device.
    */
-  sid?: string | null;
+  sid: string;
   /**
    * URL of this Device.
    */
-  url?: string | null;
+  url: string;
   /**
    * A unique, addressable name of this Device.
    */
-  uniqueName?: string | null;
+  uniqueName: string;
   /**
    * A human readable description for this Device
    */
-  friendlyName?: string | null;
+  friendlyName: string;
   /**
    * The unique identifier of the Fleet.
    */
-  fleetSid?: string | null;
+  fleetSid: string;
   /**
    * Device enabled flag.
    */
-  enabled?: boolean | null;
+  enabled: boolean;
   /**
    * The unique SID that identifies this Account.
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * An identifier of the Device user.
    */
-  identity?: string | null;
+  identity: string;
   /**
    * The unique SID of the Deployment group.
    */
-  deploymentSid?: string | null;
+  deploymentSid: string;
   /**
    * The date this Device was created.
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The date this Device was updated.
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The date this Device was authenticated.
    */
-  dateAuthenticated?: Date | null;
+  dateAuthenticated: Date;
 
   private get _proxy(): DeviceContext {
     this._context =
@@ -455,7 +458,15 @@ export class DeviceInstance {
   }
 }
 
+export interface DeviceSolution {
+  fleetSid: string;
+}
+
 export interface DeviceListInstance {
+  _version: DeployedDevices;
+  _solution: DeviceSolution;
+  _uri: string;
+
   (sid: string): DeviceContext;
   get(sid: string): DeviceContext;
 
@@ -611,17 +622,6 @@ export interface DeviceListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface DeviceSolution {
-  fleetSid?: string;
-}
-
-interface DeviceListInstanceImpl extends DeviceListInstance {}
-class DeviceListInstanceImpl implements DeviceListInstance {
-  _version?: DeployedDevices;
-  _solution?: DeviceSolution;
-  _uri?: string;
-}
-
 export function DeviceListInstance(
   version: DeployedDevices,
   fleetSid: string
@@ -630,7 +630,7 @@ export function DeviceListInstance(
     throw new Error("Parameter 'fleetSid' is not valid.");
   }
 
-  const instance = ((sid) => instance.get(sid)) as DeviceListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as DeviceListInstance;
 
   instance.get = function get(sid): DeviceContext {
     return new DeviceContextImpl(version, fleetSid, sid);
@@ -668,7 +668,7 @@ export function DeviceListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -676,10 +676,14 @@ export function DeviceListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new DeviceInstance(operationVersion, payload, this._solution.fleetSid)
+        new DeviceInstance(
+          operationVersion,
+          payload,
+          instance._solution.fleetSid
+        )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -710,17 +714,17 @@ export function DeviceListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new DevicePage(operationVersion, payload, this._solution)
+      (payload) => new DevicePage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -733,30 +737,28 @@ export function DeviceListInstance(
     targetUrl?: any,
     callback?: any
   ): Promise<DevicePage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new DevicePage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new DevicePage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

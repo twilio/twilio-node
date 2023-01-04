@@ -118,8 +118,8 @@ export interface KeyContext {
 }
 
 export interface KeyContextSolution {
-  accountSid?: string;
-  sid?: string;
+  accountSid: string;
+  sid: string;
 }
 
 export class KeyContextImpl implements KeyContext {
@@ -140,13 +140,14 @@ export class KeyContextImpl implements KeyContext {
   }
 
   remove(callback?: any): Promise<boolean> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -154,9 +155,10 @@ export class KeyContextImpl implements KeyContext {
   }
 
   fetch(callback?: any): Promise<KeyInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -165,12 +167,12 @@ export class KeyContextImpl implements KeyContext {
         new KeyInstance(
           operationVersion,
           payload,
-          this._solution.accountSid,
-          this._solution.sid
+          instance._solution.accountSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -193,9 +195,10 @@ export class KeyContextImpl implements KeyContext {
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -206,12 +209,12 @@ export class KeyContextImpl implements KeyContext {
         new KeyInstance(
           operationVersion,
           payload,
-          this._solution.accountSid,
-          this._solution.sid
+          instance._solution.accountSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -237,10 +240,10 @@ interface KeyPayload extends TwilioResponsePayload {
 }
 
 interface KeyResource {
-  sid?: string | null;
-  friendly_name?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
+  sid: string;
+  friendly_name: string;
+  date_created: Date;
+  date_updated: Date;
 }
 
 export class KeyInstance {
@@ -264,19 +267,19 @@ export class KeyInstance {
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The string that you assigned to describe the resource
    */
-  friendlyName?: string | null;
+  friendlyName: string;
   /**
    * The RFC 2822 date and time in GMT that the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The RFC 2822 date and time in GMT that the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
 
   private get _proxy(): KeyContext {
     this._context =
@@ -360,7 +363,15 @@ export class KeyInstance {
   }
 }
 
+export interface KeySolution {
+  accountSid: string;
+}
+
 export interface KeyListInstance {
+  _version: V2010;
+  _solution: KeySolution;
+  _uri: string;
+
   (sid: string): KeyContext;
   get(sid: string): KeyContext;
 
@@ -492,17 +503,6 @@ export interface KeyListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface KeySolution {
-  accountSid?: string;
-}
-
-interface KeyListInstanceImpl extends KeyListInstance {}
-class KeyListInstanceImpl implements KeyListInstance {
-  _version?: V2010;
-  _solution?: KeySolution;
-  _uri?: string;
-}
-
 export function KeyListInstance(
   version: V2010,
   accountSid: string
@@ -511,7 +511,7 @@ export function KeyListInstance(
     throw new Error("Parameter 'accountSid' is not valid.");
   }
 
-  const instance = ((sid) => instance.get(sid)) as KeyListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as KeyListInstance;
 
   instance.get = function get(sid): KeyContext {
     return new KeyContextImpl(version, accountSid, sid);
@@ -543,17 +543,17 @@ export function KeyListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new KeyPage(operationVersion, payload, this._solution)
+      (payload) => new KeyPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -566,30 +566,27 @@ export function KeyListInstance(
     targetUrl?: any,
     callback?: any
   ): Promise<KeyPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new KeyPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) => new KeyPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

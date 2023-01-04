@@ -58,7 +58,16 @@ export interface UserChannelListInstancePageOptions {
   pageToken?: string;
 }
 
+export interface UserChannelSolution {
+  serviceSid: string;
+  userSid: string;
+}
+
 export interface UserChannelListInstance {
+  _version: V1;
+  _solution: UserChannelSolution;
+  _uri: string;
+
   /**
    * Streams UserChannelInstance records from the API.
    *
@@ -187,18 +196,6 @@ export interface UserChannelListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface UserChannelSolution {
-  serviceSid?: string;
-  userSid?: string;
-}
-
-interface UserChannelListInstanceImpl extends UserChannelListInstance {}
-class UserChannelListInstanceImpl implements UserChannelListInstance {
-  _version?: V1;
-  _solution?: UserChannelSolution;
-  _uri?: string;
-}
-
 export function UserChannelListInstance(
   version: V1,
   serviceSid: string,
@@ -212,7 +209,7 @@ export function UserChannelListInstance(
     throw new Error("Parameter 'userSid' is not valid.");
   }
 
-  const instance = {} as UserChannelListInstanceImpl;
+  const instance = {} as UserChannelListInstance;
 
   instance._version = version;
   instance._solution = { serviceSid, userSid };
@@ -240,7 +237,7 @@ export function UserChannelListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
@@ -248,10 +245,10 @@ export function UserChannelListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new UserChannelPage(operationVersion, payload, this._solution)
+        new UserChannelPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -264,30 +261,28 @@ export function UserChannelListInstance(
     targetUrl?: any,
     callback?: any
   ): Promise<UserChannelPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new UserChannelPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new UserChannelPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;
@@ -298,14 +293,14 @@ interface UserChannelPayload extends TwilioResponsePayload {
 }
 
 interface UserChannelResource {
-  account_sid?: string | null;
-  service_sid?: string | null;
-  channel_sid?: string | null;
-  member_sid?: string | null;
-  status?: UserChannelChannelStatus;
-  last_consumed_message_index?: number | null;
-  unread_messages_count?: number | null;
-  links?: object | null;
+  account_sid: string;
+  service_sid: string;
+  channel_sid: string;
+  member_sid: string;
+  status: UserChannelChannelStatus;
+  last_consumed_message_index: number;
+  unread_messages_count: number;
+  links: object;
 }
 
 export class UserChannelInstance {
@@ -329,14 +324,14 @@ export class UserChannelInstance {
     this.links = payload.links;
   }
 
-  accountSid?: string | null;
-  serviceSid?: string | null;
-  channelSid?: string | null;
-  memberSid?: string | null;
-  status?: UserChannelChannelStatus;
-  lastConsumedMessageIndex?: number | null;
-  unreadMessagesCount?: number | null;
-  links?: object | null;
+  accountSid: string;
+  serviceSid: string;
+  channelSid: string;
+  memberSid: string;
+  status: UserChannelChannelStatus;
+  lastConsumedMessageIndex: number;
+  unreadMessagesCount: number;
+  links: object;
 
   /**
    * Provide a user-friendly representation

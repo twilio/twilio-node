@@ -92,7 +92,7 @@ export interface AnnotationContext {
 }
 
 export interface AnnotationContextSolution {
-  callSid?: string;
+  callSid: string;
 }
 
 export class AnnotationContextImpl implements AnnotationContext {
@@ -109,9 +109,10 @@ export class AnnotationContextImpl implements AnnotationContext {
   }
 
   fetch(callback?: any): Promise<AnnotationInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -120,11 +121,11 @@ export class AnnotationContextImpl implements AnnotationContext {
         new AnnotationInstance(
           operationVersion,
           payload,
-          this._solution.callSid
+          instance._solution.callSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -157,9 +158,10 @@ export class AnnotationContextImpl implements AnnotationContext {
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -170,11 +172,11 @@ export class AnnotationContextImpl implements AnnotationContext {
         new AnnotationInstance(
           operationVersion,
           payload,
-          this._solution.callSid
+          instance._solution.callSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -198,16 +200,16 @@ export class AnnotationContextImpl implements AnnotationContext {
 interface AnnotationPayload extends AnnotationResource {}
 
 interface AnnotationResource {
-  call_sid?: string | null;
-  account_sid?: string | null;
-  answered_by?: AnnotationAnsweredBy;
-  connectivity_issue?: AnnotationConnectivityIssue;
-  quality_issues?: Array<string> | null;
-  spam?: boolean | null;
-  call_score?: number | null;
-  comment?: string | null;
-  incident?: string | null;
-  url?: string | null;
+  call_sid: string;
+  account_sid: string;
+  answered_by: AnnotationAnsweredBy;
+  connectivity_issue: AnnotationConnectivityIssue;
+  quality_issues: Array<string>;
+  spam: boolean;
+  call_score: number;
+  comment: string;
+  incident: string;
+  url: string;
 }
 
 export class AnnotationInstance {
@@ -236,37 +238,37 @@ export class AnnotationInstance {
   /**
    * Call SID.
    */
-  callSid?: string | null;
+  callSid: string;
   /**
    * Account SID.
    */
-  accountSid?: string | null;
-  answeredBy?: AnnotationAnsweredBy;
-  connectivityIssue?: AnnotationConnectivityIssue;
+  accountSid: string;
+  answeredBy: AnnotationAnsweredBy;
+  connectivityIssue: AnnotationConnectivityIssue;
   /**
    * Indicates if the call had audio quality issues.
    */
-  qualityIssues?: Array<string> | null;
+  qualityIssues: Array<string>;
   /**
    * Call spam indicator
    */
-  spam?: boolean | null;
+  spam: boolean;
   /**
    * Call Score
    */
-  callScore?: number | null;
+  callScore: number;
   /**
    * User comments
    */
-  comment?: string | null;
+  comment: string;
   /**
    * Call tag for incidents or support ticket
    */
-  incident?: string | null;
+  incident: string;
   /**
    * The URL of this resource.
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): AnnotationContext {
     this._context =
@@ -339,7 +341,15 @@ export class AnnotationInstance {
   }
 }
 
+export interface AnnotationSolution {
+  callSid: string;
+}
+
 export interface AnnotationListInstance {
+  _version: V1;
+  _solution: AnnotationSolution;
+  _uri: string;
+
   (): AnnotationContext;
   get(): AnnotationContext;
 
@@ -350,17 +360,6 @@ export interface AnnotationListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface AnnotationSolution {
-  callSid?: string;
-}
-
-interface AnnotationListInstanceImpl extends AnnotationListInstance {}
-class AnnotationListInstanceImpl implements AnnotationListInstance {
-  _version?: V1;
-  _solution?: AnnotationSolution;
-  _uri?: string;
-}
-
 export function AnnotationListInstance(
   version: V1,
   callSid: string
@@ -369,7 +368,7 @@ export function AnnotationListInstance(
     throw new Error("Parameter 'callSid' is not valid.");
   }
 
-  const instance = (() => instance.get()) as AnnotationListInstanceImpl;
+  const instance = (() => instance.get()) as AnnotationListInstance;
 
   instance.get = function get(): AnnotationContext {
     return new AnnotationContextImpl(version, callSid);
@@ -380,14 +379,14 @@ export function AnnotationListInstance(
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

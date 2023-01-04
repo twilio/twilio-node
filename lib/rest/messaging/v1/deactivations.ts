@@ -84,9 +84,10 @@ export class DeactivationsContextImpl implements DeactivationsContext {
 
     const headers: any = {};
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
@@ -96,7 +97,7 @@ export class DeactivationsContextImpl implements DeactivationsContext {
       (payload) => new DeactivationsInstance(operationVersion, payload)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -120,7 +121,7 @@ export class DeactivationsContextImpl implements DeactivationsContext {
 interface DeactivationsPayload extends DeactivationsResource {}
 
 interface DeactivationsResource {
-  redirect_to?: string | null;
+  redirect_to: string;
 }
 
 export class DeactivationsInstance {
@@ -136,7 +137,7 @@ export class DeactivationsInstance {
   /**
    * Redirect url to the list of deactivated numbers.
    */
-  redirectTo?: string | null;
+  redirectTo: string;
 
   private get _proxy(): DeactivationsContext {
     this._context =
@@ -186,7 +187,13 @@ export class DeactivationsInstance {
   }
 }
 
+export interface DeactivationsSolution {}
+
 export interface DeactivationsListInstance {
+  _version: V1;
+  _solution: DeactivationsSolution;
+  _uri: string;
+
   (): DeactivationsContext;
   get(): DeactivationsContext;
 
@@ -197,19 +204,10 @@ export interface DeactivationsListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface DeactivationsSolution {}
-
-interface DeactivationsListInstanceImpl extends DeactivationsListInstance {}
-class DeactivationsListInstanceImpl implements DeactivationsListInstance {
-  _version?: V1;
-  _solution?: DeactivationsSolution;
-  _uri?: string;
-}
-
 export function DeactivationsListInstance(
   version: V1
 ): DeactivationsListInstance {
-  const instance = (() => instance.get()) as DeactivationsListInstanceImpl;
+  const instance = (() => instance.get()) as DeactivationsListInstance;
 
   instance.get = function get(): DeactivationsContext {
     return new DeactivationsContextImpl(version);
@@ -220,14 +218,14 @@ export function DeactivationsListInstance(
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

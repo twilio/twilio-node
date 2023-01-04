@@ -185,9 +185,9 @@ export interface SyncMapItemContext {
 }
 
 export interface SyncMapItemContextSolution {
-  serviceSid?: string;
-  mapSid?: string;
-  key?: string;
+  serviceSid: string;
+  mapSid: string;
+  key: string;
 }
 
 export class SyncMapItemContextImpl implements SyncMapItemContext {
@@ -230,15 +230,16 @@ export class SyncMapItemContextImpl implements SyncMapItemContext {
     if (params["ifMatch"] !== undefined)
       headers["If-Match"] = params["ifMatch"];
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
         params: data,
         headers,
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -246,9 +247,10 @@ export class SyncMapItemContextImpl implements SyncMapItemContext {
   }
 
   fetch(callback?: any): Promise<SyncMapItemInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -257,13 +259,13 @@ export class SyncMapItemContextImpl implements SyncMapItemContext {
         new SyncMapItemInstance(
           operationVersion,
           payload,
-          this._solution.serviceSid,
-          this._solution.mapSid,
-          this._solution.key
+          instance._solution.serviceSid,
+          instance._solution.mapSid,
+          instance._solution.key
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -292,9 +294,10 @@ export class SyncMapItemContextImpl implements SyncMapItemContext {
     if (params["ifMatch"] !== undefined)
       headers["If-Match"] = params["ifMatch"];
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -305,13 +308,13 @@ export class SyncMapItemContextImpl implements SyncMapItemContext {
         new SyncMapItemInstance(
           operationVersion,
           payload,
-          this._solution.serviceSid,
-          this._solution.mapSid,
-          this._solution.key
+          instance._solution.serviceSid,
+          instance._solution.mapSid,
+          instance._solution.key
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -337,17 +340,17 @@ interface SyncMapItemPayload extends TwilioResponsePayload {
 }
 
 interface SyncMapItemResource {
-  key?: string | null;
-  account_sid?: string | null;
-  service_sid?: string | null;
-  map_sid?: string | null;
-  url?: string | null;
-  revision?: string | null;
-  data?: any | null;
-  date_expires?: Date | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  created_by?: string | null;
+  key: string;
+  account_sid: string;
+  service_sid: string;
+  map_sid: string;
+  url: string;
+  revision: string;
+  data: any;
+  date_expires: Date;
+  date_created: Date;
+  date_updated: Date;
+  created_by: string;
 }
 
 export class SyncMapItemInstance {
@@ -379,47 +382,47 @@ export class SyncMapItemInstance {
   /**
    * The unique, user-defined key for the Map Item
    */
-  key?: string | null;
+  key: string;
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The SID of the Sync Service that the resource is associated with
    */
-  serviceSid?: string | null;
+  serviceSid: string;
   /**
    * The SID of the Sync Map that contains the Map Item
    */
-  mapSid?: string | null;
+  mapSid: string;
   /**
    * The absolute URL of the Map Item resource
    */
-  url?: string | null;
+  url: string;
   /**
    * The current revision of the Map Item, represented as a string
    */
-  revision?: string | null;
+  revision: string;
   /**
    * An arbitrary, schema-less object that the Map Item stores
    */
-  data?: any | null;
+  data: any;
   /**
    * The ISO 8601 date and time in GMT when the Map Item expires
    */
-  dateExpires?: Date | null;
+  dateExpires: Date;
   /**
    * The ISO 8601 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The ISO 8601 date and time in GMT when the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The identity of the Map Item\'s creator
    */
-  createdBy?: string | null;
+  createdBy: string;
 
   private get _proxy(): SyncMapItemContext {
     this._context =
@@ -524,7 +527,16 @@ export class SyncMapItemInstance {
   }
 }
 
+export interface SyncMapItemSolution {
+  serviceSid: string;
+  mapSid: string;
+}
+
 export interface SyncMapItemListInstance {
+  _version: V1;
+  _solution: SyncMapItemSolution;
+  _uri: string;
+
   (key: string): SyncMapItemContext;
   get(key: string): SyncMapItemContext;
 
@@ -670,18 +682,6 @@ export interface SyncMapItemListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface SyncMapItemSolution {
-  serviceSid?: string;
-  mapSid?: string;
-}
-
-interface SyncMapItemListInstanceImpl extends SyncMapItemListInstance {}
-class SyncMapItemListInstanceImpl implements SyncMapItemListInstance {
-  _version?: V1;
-  _solution?: SyncMapItemSolution;
-  _uri?: string;
-}
-
 export function SyncMapItemListInstance(
   version: V1,
   serviceSid: string,
@@ -695,7 +695,7 @@ export function SyncMapItemListInstance(
     throw new Error("Parameter 'mapSid' is not valid.");
   }
 
-  const instance = ((key) => instance.get(key)) as SyncMapItemListInstanceImpl;
+  const instance = ((key) => instance.get(key)) as SyncMapItemListInstance;
 
   instance.get = function get(key): SyncMapItemContext {
     return new SyncMapItemContextImpl(version, serviceSid, mapSid, key);
@@ -736,7 +736,7 @@ export function SyncMapItemListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -747,12 +747,12 @@ export function SyncMapItemListInstance(
         new SyncMapItemInstance(
           operationVersion,
           payload,
-          this._solution.serviceSid,
-          this._solution.mapSid
+          instance._solution.serviceSid,
+          instance._solution.mapSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -784,7 +784,7 @@ export function SyncMapItemListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
@@ -792,10 +792,10 @@ export function SyncMapItemListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new SyncMapItemPage(operationVersion, payload, this._solution)
+        new SyncMapItemPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -808,30 +808,28 @@ export function SyncMapItemListInstance(
     targetUrl?: any,
     callback?: any
   ): Promise<SyncMapItemPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new SyncMapItemPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new SyncMapItemPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

@@ -158,8 +158,8 @@ export interface QueryContext {
 }
 
 export interface QueryContextSolution {
-  assistantSid?: string;
-  sid?: string;
+  assistantSid: string;
+  sid: string;
 }
 
 export class QueryContextImpl implements QueryContext {
@@ -180,13 +180,14 @@ export class QueryContextImpl implements QueryContext {
   }
 
   remove(callback?: any): Promise<boolean> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -194,9 +195,10 @@ export class QueryContextImpl implements QueryContext {
   }
 
   fetch(callback?: any): Promise<QueryInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -205,12 +207,12 @@ export class QueryContextImpl implements QueryContext {
         new QueryInstance(
           operationVersion,
           payload,
-          this._solution.assistantSid,
-          this._solution.sid
+          instance._solution.assistantSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -234,9 +236,10 @@ export class QueryContextImpl implements QueryContext {
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -247,12 +250,12 @@ export class QueryContextImpl implements QueryContext {
         new QueryInstance(
           operationVersion,
           payload,
-          this._solution.assistantSid,
-          this._solution.sid
+          instance._solution.assistantSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -278,20 +281,20 @@ interface QueryPayload extends TwilioResponsePayload {
 }
 
 interface QueryResource {
-  account_sid?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  results?: any | null;
-  language?: string | null;
-  model_build_sid?: string | null;
-  query?: string | null;
-  sample_sid?: string | null;
-  assistant_sid?: string | null;
-  sid?: string | null;
-  status?: string | null;
-  url?: string | null;
-  source_channel?: string | null;
-  dialogue_sid?: string | null;
+  account_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  results: any;
+  language: string;
+  model_build_sid: string;
+  query: string;
+  sample_sid: string;
+  assistant_sid: string;
+  sid: string;
+  status: string;
+  url: string;
+  source_channel: string;
+  dialogue_sid: string;
 }
 
 export class QueryInstance {
@@ -325,59 +328,59 @@ export class QueryInstance {
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The RFC 2822 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The RFC 2822 date and time in GMT when the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The natural language analysis results that include the Task recognized and a list of identified Fields
    */
-  results?: any | null;
+  results: any;
   /**
    * The ISO language-country string that specifies the language used by the Query
    */
-  language?: string | null;
+  language: string;
   /**
    * The SID of the [Model Build](https://www.twilio.com/docs/autopilot/api/model-build) queried
    */
-  modelBuildSid?: string | null;
+  modelBuildSid: string;
   /**
    * The end-user\'s natural language input
    */
-  query?: string | null;
+  query: string;
   /**
    * The SID of an optional reference to the Sample created from the query
    */
-  sampleSid?: string | null;
+  sampleSid: string;
   /**
    * The SID of the Assistant that is the parent of the resource
    */
-  assistantSid?: string | null;
+  assistantSid: string;
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The status of the Query
    */
-  status?: string | null;
+  status: string;
   /**
    * The absolute URL of the Query resource
    */
-  url?: string | null;
+  url: string;
   /**
    * The communication channel from where the end-user input came
    */
-  sourceChannel?: string | null;
+  sourceChannel: string;
   /**
    * The SID of the [Dialogue](https://www.twilio.com/docs/autopilot/api/dialogue).
    */
-  dialogueSid?: string | null;
+  dialogueSid: string;
 
   private get _proxy(): QueryContext {
     this._context =
@@ -471,7 +474,15 @@ export class QueryInstance {
   }
 }
 
+export interface QuerySolution {
+  assistantSid: string;
+}
+
 export interface QueryListInstance {
+  _version: V1;
+  _solution: QuerySolution;
+  _uri: string;
+
   (sid: string): QueryContext;
   get(sid: string): QueryContext;
 
@@ -617,17 +628,6 @@ export interface QueryListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface QuerySolution {
-  assistantSid?: string;
-}
-
-interface QueryListInstanceImpl extends QueryListInstance {}
-class QueryListInstanceImpl implements QueryListInstance {
-  _version?: V1;
-  _solution?: QuerySolution;
-  _uri?: string;
-}
-
 export function QueryListInstance(
   version: V1,
   assistantSid: string
@@ -636,7 +636,7 @@ export function QueryListInstance(
     throw new Error("Parameter 'assistantSid' is not valid.");
   }
 
-  const instance = ((sid) => instance.get(sid)) as QueryListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as QueryListInstance;
 
   instance.get = function get(sid): QueryContext {
     return new QueryContextImpl(version, assistantSid, sid);
@@ -676,7 +676,7 @@ export function QueryListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -687,11 +687,11 @@ export function QueryListInstance(
         new QueryInstance(
           operationVersion,
           payload,
-          this._solution.assistantSid
+          instance._solution.assistantSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -726,17 +726,17 @@ export function QueryListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new QueryPage(operationVersion, payload, this._solution)
+      (payload) => new QueryPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -749,30 +749,27 @@ export function QueryListInstance(
     targetUrl?: any,
     callback?: any
   ): Promise<QueryPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new QueryPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) => new QueryPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

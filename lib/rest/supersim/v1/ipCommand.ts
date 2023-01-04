@@ -123,7 +123,7 @@ export interface IpCommandContext {
 }
 
 export interface IpCommandContextSolution {
-  sid?: string;
+  sid: string;
 }
 
 export class IpCommandContextImpl implements IpCommandContext {
@@ -140,18 +140,19 @@ export class IpCommandContextImpl implements IpCommandContext {
   }
 
   fetch(callback?: any): Promise<IpCommandInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new IpCommandInstance(operationVersion, payload, this._solution.sid)
+        new IpCommandInstance(operationVersion, payload, instance._solution.sid)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -177,19 +178,19 @@ interface IpCommandPayload extends TwilioResponsePayload {
 }
 
 interface IpCommandResource {
-  sid?: string | null;
-  account_sid?: string | null;
-  sim_sid?: string | null;
-  sim_iccid?: string | null;
-  status?: IpCommandStatus;
-  direction?: IpCommandDirection;
-  device_ip?: string | null;
-  device_port?: number | null;
-  payload_type?: IpCommandPayloadType;
-  payload?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  url?: string | null;
+  sid: string;
+  account_sid: string;
+  sim_sid: string;
+  sim_iccid: string;
+  status: IpCommandStatus;
+  direction: IpCommandDirection;
+  device_ip: string;
+  device_port: number;
+  payload_type: IpCommandPayloadType;
+  payload: string;
+  date_created: Date;
+  date_updated: Date;
+  url: string;
 }
 
 export class IpCommandInstance {
@@ -221,46 +222,46 @@ export class IpCommandInstance {
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The SID of the Super SIM that this IP Command was sent to or from
    */
-  simSid?: string | null;
+  simSid: string;
   /**
    * The ICCID of the Super SIM that this IP Command was sent to or from
    */
-  simIccid?: string | null;
-  status?: IpCommandStatus;
-  direction?: IpCommandDirection;
+  simIccid: string;
+  status: IpCommandStatus;
+  direction: IpCommandDirection;
   /**
    * The IP address of the device that the IP Command was sent to or received from
    */
-  deviceIp?: string | null;
+  deviceIp: string;
   /**
    * The port that the IP Command either originated from or was sent to
    */
-  devicePort?: number | null;
-  payloadType?: IpCommandPayloadType;
+  devicePort: number;
+  payloadType: IpCommandPayloadType;
   /**
    * The payload of the IP Command sent to or from the Super SIM
    */
-  payload?: string | null;
+  payload: string;
   /**
    * The ISO 8601 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The ISO 8601 date and time in GMT when the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The absolute URL of the IP Command resource
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): IpCommandContext {
     this._context =
@@ -310,7 +311,13 @@ export class IpCommandInstance {
   }
 }
 
+export interface IpCommandSolution {}
+
 export interface IpCommandListInstance {
+  _version: V1;
+  _solution: IpCommandSolution;
+  _uri: string;
+
   (sid: string): IpCommandContext;
   get(sid: string): IpCommandContext;
 
@@ -456,17 +463,8 @@ export interface IpCommandListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface IpCommandSolution {}
-
-interface IpCommandListInstanceImpl extends IpCommandListInstance {}
-class IpCommandListInstanceImpl implements IpCommandListInstance {
-  _version?: V1;
-  _solution?: IpCommandSolution;
-  _uri?: string;
-}
-
 export function IpCommandListInstance(version: V1): IpCommandListInstance {
-  const instance = ((sid) => instance.get(sid)) as IpCommandListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as IpCommandListInstance;
 
   instance.get = function get(sid): IpCommandContext {
     return new IpCommandContextImpl(version, sid);
@@ -515,7 +513,7 @@ export function IpCommandListInstance(version: V1): IpCommandListInstance {
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -525,7 +523,7 @@ export function IpCommandListInstance(version: V1): IpCommandListInstance {
       (payload) => new IpCommandInstance(operationVersion, payload)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -559,17 +557,18 @@ export function IpCommandListInstance(version: V1): IpCommandListInstance {
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new IpCommandPage(operationVersion, payload, this._solution)
+      (payload) =>
+        new IpCommandPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -582,30 +581,28 @@ export function IpCommandListInstance(version: V1): IpCommandListInstance {
     targetUrl?: any,
     callback?: any
   ): Promise<IpCommandPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new IpCommandPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new IpCommandPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

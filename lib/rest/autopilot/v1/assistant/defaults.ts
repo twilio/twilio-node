@@ -70,7 +70,7 @@ export interface DefaultsContext {
 }
 
 export interface DefaultsContextSolution {
-  assistantSid?: string;
+  assistantSid: string;
 }
 
 export class DefaultsContextImpl implements DefaultsContext {
@@ -87,9 +87,10 @@ export class DefaultsContextImpl implements DefaultsContext {
   }
 
   fetch(callback?: any): Promise<DefaultsInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -98,11 +99,11 @@ export class DefaultsContextImpl implements DefaultsContext {
         new DefaultsInstance(
           operationVersion,
           payload,
-          this._solution.assistantSid
+          instance._solution.assistantSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -125,9 +126,10 @@ export class DefaultsContextImpl implements DefaultsContext {
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -138,11 +140,11 @@ export class DefaultsContextImpl implements DefaultsContext {
         new DefaultsInstance(
           operationVersion,
           payload,
-          this._solution.assistantSid
+          instance._solution.assistantSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -166,10 +168,10 @@ export class DefaultsContextImpl implements DefaultsContext {
 interface DefaultsPayload extends DefaultsResource {}
 
 interface DefaultsResource {
-  account_sid?: string | null;
-  assistant_sid?: string | null;
-  url?: string | null;
-  data?: any | null;
+  account_sid: string;
+  assistant_sid: string;
+  url: string;
+  data: any;
 }
 
 export class DefaultsInstance {
@@ -192,19 +194,19 @@ export class DefaultsInstance {
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The SID of the Assistant that is the parent of the resource
    */
-  assistantSid?: string | null;
+  assistantSid: string;
   /**
    * The absolute URL of the Defaults resource
    */
-  url?: string | null;
+  url: string;
   /**
    * The JSON string that describes the default task links
    */
-  data?: any | null;
+  data: any;
 
   private get _proxy(): DefaultsContext {
     this._context =
@@ -271,7 +273,15 @@ export class DefaultsInstance {
   }
 }
 
+export interface DefaultsSolution {
+  assistantSid: string;
+}
+
 export interface DefaultsListInstance {
+  _version: V1;
+  _solution: DefaultsSolution;
+  _uri: string;
+
   (): DefaultsContext;
   get(): DefaultsContext;
 
@@ -282,17 +292,6 @@ export interface DefaultsListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface DefaultsSolution {
-  assistantSid?: string;
-}
-
-interface DefaultsListInstanceImpl extends DefaultsListInstance {}
-class DefaultsListInstanceImpl implements DefaultsListInstance {
-  _version?: V1;
-  _solution?: DefaultsSolution;
-  _uri?: string;
-}
-
 export function DefaultsListInstance(
   version: V1,
   assistantSid: string
@@ -301,7 +300,7 @@ export function DefaultsListInstance(
     throw new Error("Parameter 'assistantSid' is not valid.");
   }
 
-  const instance = (() => instance.get()) as DefaultsListInstanceImpl;
+  const instance = (() => instance.get()) as DefaultsListInstance;
 
   instance.get = function get(): DefaultsContext {
     return new DefaultsContextImpl(version, assistantSid);
@@ -312,14 +311,14 @@ export function DefaultsListInstance(
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

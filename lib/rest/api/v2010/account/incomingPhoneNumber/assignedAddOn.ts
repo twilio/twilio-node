@@ -97,9 +97,9 @@ export interface AssignedAddOnContext {
 }
 
 export interface AssignedAddOnContextSolution {
-  accountSid?: string;
-  resourceSid?: string;
-  sid?: string;
+  accountSid: string;
+  resourceSid: string;
+  sid: string;
 }
 
 export class AssignedAddOnContextImpl implements AssignedAddOnContext {
@@ -143,13 +143,14 @@ export class AssignedAddOnContextImpl implements AssignedAddOnContext {
   }
 
   remove(callback?: any): Promise<boolean> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -157,9 +158,10 @@ export class AssignedAddOnContextImpl implements AssignedAddOnContext {
   }
 
   fetch(callback?: any): Promise<AssignedAddOnInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -168,13 +170,13 @@ export class AssignedAddOnContextImpl implements AssignedAddOnContext {
         new AssignedAddOnInstance(
           operationVersion,
           payload,
-          this._solution.accountSid,
-          this._solution.resourceSid,
-          this._solution.sid
+          instance._solution.accountSid,
+          instance._solution.resourceSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -200,17 +202,17 @@ interface AssignedAddOnPayload extends TwilioResponsePayload {
 }
 
 interface AssignedAddOnResource {
-  sid?: string | null;
-  account_sid?: string | null;
-  resource_sid?: string | null;
-  friendly_name?: string | null;
-  description?: string | null;
-  configuration?: any | null;
-  unique_name?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  uri?: string | null;
-  subresource_uris?: object | null;
+  sid: string;
+  account_sid: string;
+  resource_sid: string;
+  friendly_name: string;
+  description: string;
+  configuration: any;
+  unique_name: string;
+  date_created: Date;
+  date_updated: Date;
+  uri: string;
+  subresource_uris: object;
 }
 
 export class AssignedAddOnInstance {
@@ -242,47 +244,47 @@ export class AssignedAddOnInstance {
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The SID of the Phone Number that installed this Add-on
    */
-  resourceSid?: string | null;
+  resourceSid: string;
   /**
    * The string that you assigned to describe the resource
    */
-  friendlyName?: string | null;
+  friendlyName: string;
   /**
    * A short description of the Add-on functionality
    */
-  description?: string | null;
+  description: string;
   /**
    * A JSON string that represents the current configuration
    */
-  configuration?: any | null;
+  configuration: any;
   /**
    * An application-defined string that uniquely identifies the resource
    */
-  uniqueName?: string | null;
+  uniqueName: string;
   /**
    * The RFC 2822 date and time in GMT that the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The RFC 2822 date and time in GMT that the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The URI of the resource, relative to `https://api.twilio.com`
    */
-  uri?: string | null;
+  uri: string;
   /**
    * A list of related resources identified by their relative URIs
    */
-  subresourceUris?: object | null;
+  subresourceUris: object;
 
   private get _proxy(): AssignedAddOnContext {
     this._context =
@@ -355,7 +357,16 @@ export class AssignedAddOnInstance {
   }
 }
 
+export interface AssignedAddOnSolution {
+  accountSid: string;
+  resourceSid: string;
+}
+
 export interface AssignedAddOnListInstance {
+  _version: V2010;
+  _solution: AssignedAddOnSolution;
+  _uri: string;
+
   (sid: string): AssignedAddOnContext;
   get(sid: string): AssignedAddOnContext;
 
@@ -507,18 +518,6 @@ export interface AssignedAddOnListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface AssignedAddOnSolution {
-  accountSid?: string;
-  resourceSid?: string;
-}
-
-interface AssignedAddOnListInstanceImpl extends AssignedAddOnListInstance {}
-class AssignedAddOnListInstanceImpl implements AssignedAddOnListInstance {
-  _version?: V2010;
-  _solution?: AssignedAddOnSolution;
-  _uri?: string;
-}
-
 export function AssignedAddOnListInstance(
   version: V2010,
   accountSid: string,
@@ -532,8 +531,7 @@ export function AssignedAddOnListInstance(
     throw new Error("Parameter 'resourceSid' is not valid.");
   }
 
-  const instance = ((sid) =>
-    instance.get(sid)) as AssignedAddOnListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as AssignedAddOnListInstance;
 
   instance.get = function get(sid): AssignedAddOnContext {
     return new AssignedAddOnContextImpl(version, accountSid, resourceSid, sid);
@@ -569,7 +567,7 @@ export function AssignedAddOnListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -580,12 +578,12 @@ export function AssignedAddOnListInstance(
         new AssignedAddOnInstance(
           operationVersion,
           payload,
-          this._solution.accountSid,
-          this._solution.resourceSid
+          instance._solution.accountSid,
+          instance._solution.resourceSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -614,7 +612,7 @@ export function AssignedAddOnListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
@@ -622,10 +620,10 @@ export function AssignedAddOnListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new AssignedAddOnPage(operationVersion, payload, this._solution)
+        new AssignedAddOnPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -638,30 +636,28 @@ export function AssignedAddOnListInstance(
     targetUrl?: any,
     callback?: any
   ): Promise<AssignedAddOnPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new AssignedAddOnPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new AssignedAddOnPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

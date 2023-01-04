@@ -327,7 +327,15 @@ export interface YearlyListInstancePageOptions {
   pageToken?: string;
 }
 
+export interface YearlySolution {
+  accountSid: string;
+}
+
 export interface YearlyListInstance {
+  _version: V2010;
+  _solution: YearlySolution;
+  _uri: string;
+
   /**
    * Streams YearlyInstance records from the API.
    *
@@ -456,17 +464,6 @@ export interface YearlyListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface YearlySolution {
-  accountSid?: string;
-}
-
-interface YearlyListInstanceImpl extends YearlyListInstance {}
-class YearlyListInstanceImpl implements YearlyListInstance {
-  _version?: V2010;
-  _solution?: YearlySolution;
-  _uri?: string;
-}
-
 export function YearlyListInstance(
   version: V2010,
   accountSid: string
@@ -475,7 +472,7 @@ export function YearlyListInstance(
     throw new Error("Parameter 'accountSid' is not valid.");
   }
 
-  const instance = {} as YearlyListInstanceImpl;
+  const instance = {} as YearlyListInstance;
 
   instance._version = version;
   instance._solution = { accountSid };
@@ -510,17 +507,17 @@ export function YearlyListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new YearlyPage(operationVersion, payload, this._solution)
+      (payload) => new YearlyPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -533,30 +530,28 @@ export function YearlyListInstance(
     targetUrl?: any,
     callback?: any
   ): Promise<YearlyPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new YearlyPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new YearlyPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;
@@ -567,21 +562,21 @@ interface YearlyPayload extends TwilioResponsePayload {
 }
 
 interface YearlyResource {
-  account_sid?: string | null;
-  api_version?: string | null;
-  as_of?: string | null;
-  category?: UsageRecordYearlyCategory;
-  count?: string | null;
-  count_unit?: string | null;
-  description?: string | null;
-  end_date?: Date | null;
-  price?: number | null;
-  price_unit?: string | null;
-  start_date?: Date | null;
-  subresource_uris?: object | null;
-  uri?: string | null;
-  usage?: string | null;
-  usage_unit?: string | null;
+  account_sid: string;
+  api_version: string;
+  as_of: string;
+  category: UsageRecordYearlyCategory;
+  count: string;
+  count_unit: string;
+  description: string;
+  end_date: Date;
+  price: number;
+  price_unit: string;
+  start_date: Date;
+  subresource_uris: object;
+  uri: string;
+  usage: string;
+  usage_unit: string;
 }
 
 export class YearlyInstance {
@@ -610,60 +605,60 @@ export class YearlyInstance {
   /**
    * The SID of the Account accrued the usage
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The API version used to create the resource
    */
-  apiVersion?: string | null;
+  apiVersion: string;
   /**
    * Usage records up to date as of this timestamp
    */
-  asOf?: string | null;
-  category?: UsageRecordYearlyCategory;
+  asOf: string;
+  category: UsageRecordYearlyCategory;
   /**
    * The number of usage events
    */
-  count?: string | null;
+  count: string;
   /**
    * The units in which count is measured
    */
-  countUnit?: string | null;
+  countUnit: string;
   /**
    * A plain-language description of the usage category
    */
-  description?: string | null;
+  description: string;
   /**
    * The last date for which usage is included in the UsageRecord
    */
-  endDate?: Date | null;
+  endDate: Date;
   /**
    * The total price of the usage
    */
-  price?: number | null;
+  price: number;
   /**
    * The currency in which `price` is measured
    */
-  priceUnit?: string | null;
+  priceUnit: string;
   /**
    * The first date for which usage is included in this UsageRecord
    */
-  startDate?: Date | null;
+  startDate: Date;
   /**
    * A list of related resources identified by their relative URIs
    */
-  subresourceUris?: object | null;
+  subresourceUris: object;
   /**
    * The URI of the resource, relative to `https://api.twilio.com`
    */
-  uri?: string | null;
+  uri: string;
   /**
    * The amount of usage
    */
-  usage?: string | null;
+  usage: string;
   /**
    * The units in which usage is measured
    */
-  usageUnit?: string | null;
+  usageUnit: string;
 
   /**
    * Provide a user-friendly representation

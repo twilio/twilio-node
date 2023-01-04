@@ -86,9 +86,10 @@ export class ConfigurationContextImpl implements ConfigurationContext {
 
     const headers: any = {};
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
@@ -98,7 +99,7 @@ export class ConfigurationContextImpl implements ConfigurationContext {
       (payload) => new ConfigurationInstance(operationVersion, payload)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -122,51 +123,51 @@ export class ConfigurationContextImpl implements ConfigurationContext {
 interface ConfigurationPayload extends ConfigurationResource {}
 
 interface ConfigurationResource {
-  account_sid?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  attributes?: any | null;
-  status?: ConfigurationStatus;
-  taskrouter_workspace_sid?: string | null;
-  taskrouter_target_workflow_sid?: string | null;
-  taskrouter_target_taskqueue_sid?: string | null;
-  taskrouter_taskqueues?: Array<any> | null;
-  taskrouter_skills?: Array<any> | null;
-  taskrouter_worker_channels?: any | null;
-  taskrouter_worker_attributes?: any | null;
-  taskrouter_offline_activity_sid?: string | null;
-  runtime_domain?: string | null;
-  messaging_service_instance_sid?: string | null;
-  chat_service_instance_sid?: string | null;
-  flex_service_instance_sid?: string | null;
-  ui_language?: string | null;
-  ui_attributes?: any | null;
-  ui_dependencies?: any | null;
-  ui_version?: string | null;
-  service_version?: string | null;
-  call_recording_enabled?: boolean | null;
-  call_recording_webhook_url?: string | null;
-  crm_enabled?: boolean | null;
-  crm_type?: string | null;
-  crm_callback_url?: string | null;
-  crm_fallback_url?: string | null;
-  crm_attributes?: any | null;
-  public_attributes?: any | null;
-  plugin_service_enabled?: boolean | null;
-  plugin_service_attributes?: any | null;
-  integrations?: Array<any> | null;
-  outbound_call_flows?: any | null;
-  serverless_service_sids?: Array<string> | null;
-  queue_stats_configuration?: any | null;
-  notifications?: any | null;
-  markdown?: any | null;
-  url?: string | null;
-  flex_insights_hr?: any | null;
-  flex_insights_drilldown?: boolean | null;
-  flex_url?: string | null;
-  channel_configs?: Array<any> | null;
-  debugger_integration?: any | null;
-  flex_ui_status_report?: any | null;
+  account_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  attributes: any;
+  status: ConfigurationStatus;
+  taskrouter_workspace_sid: string;
+  taskrouter_target_workflow_sid: string;
+  taskrouter_target_taskqueue_sid: string;
+  taskrouter_taskqueues: Array<any>;
+  taskrouter_skills: Array<any>;
+  taskrouter_worker_channels: any;
+  taskrouter_worker_attributes: any;
+  taskrouter_offline_activity_sid: string;
+  runtime_domain: string;
+  messaging_service_instance_sid: string;
+  chat_service_instance_sid: string;
+  flex_service_instance_sid: string;
+  ui_language: string;
+  ui_attributes: any;
+  ui_dependencies: any;
+  ui_version: string;
+  service_version: string;
+  call_recording_enabled: boolean;
+  call_recording_webhook_url: string;
+  crm_enabled: boolean;
+  crm_type: string;
+  crm_callback_url: string;
+  crm_fallback_url: string;
+  crm_attributes: any;
+  public_attributes: any;
+  plugin_service_enabled: boolean;
+  plugin_service_attributes: any;
+  integrations: Array<any>;
+  outbound_call_flows: any;
+  serverless_service_sids: Array<string>;
+  queue_stats_configuration: any;
+  notifications: any;
+  markdown: any;
+  url: string;
+  flex_insights_hr: any;
+  flex_insights_drilldown: boolean;
+  flex_url: string;
+  channel_configs: Array<any>;
+  debugger_integration: any;
+  flex_ui_status_report: any;
 }
 
 export class ConfigurationInstance {
@@ -226,180 +227,180 @@ export class ConfigurationInstance {
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The ISO 8601 date and time in GMT when the Configuration resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The ISO 8601 date and time in GMT when the Configuration resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * An object that contains application-specific data
    */
-  attributes?: any | null;
-  status?: ConfigurationStatus;
+  attributes: any;
+  status: ConfigurationStatus;
   /**
    * The SID of the TaskRouter Workspace
    */
-  taskrouterWorkspaceSid?: string | null;
+  taskrouterWorkspaceSid: string;
   /**
    * The SID of the TaskRouter target Workflow
    */
-  taskrouterTargetWorkflowSid?: string | null;
+  taskrouterTargetWorkflowSid: string;
   /**
    * The SID of the TaskRouter Target TaskQueue
    */
-  taskrouterTargetTaskqueueSid?: string | null;
+  taskrouterTargetTaskqueueSid: string;
   /**
    * The list of TaskRouter TaskQueues
    */
-  taskrouterTaskqueues?: Array<any> | null;
+  taskrouterTaskqueues: Array<any>;
   /**
    * The Skill description for TaskRouter workers
    */
-  taskrouterSkills?: Array<any> | null;
+  taskrouterSkills: Array<any>;
   /**
    * The TaskRouter default channel capacities and availability for workers
    */
-  taskrouterWorkerChannels?: any | null;
+  taskrouterWorkerChannels: any;
   /**
    * The TaskRouter Worker attributes
    */
-  taskrouterWorkerAttributes?: any | null;
+  taskrouterWorkerAttributes: any;
   /**
    * The TaskRouter SID of the offline activity
    */
-  taskrouterOfflineActivitySid?: string | null;
+  taskrouterOfflineActivitySid: string;
   /**
    * The URL where the Flex instance is hosted
    */
-  runtimeDomain?: string | null;
+  runtimeDomain: string;
   /**
    * The SID of the Messaging service instance
    */
-  messagingServiceInstanceSid?: string | null;
+  messagingServiceInstanceSid: string;
   /**
    * The SID of the chat service this user belongs to
    */
-  chatServiceInstanceSid?: string | null;
+  chatServiceInstanceSid: string;
   /**
    * The SID of the Flex service instance
    */
-  flexServiceInstanceSid?: string | null;
+  flexServiceInstanceSid: string;
   /**
    * The primary language of the Flex UI
    */
-  uiLanguage?: string | null;
+  uiLanguage: string;
   /**
    * The object that describes Flex UI characteristics and settings
    */
-  uiAttributes?: any | null;
+  uiAttributes: any;
   /**
    * The object that defines the NPM packages and versions to be used in Hosted Flex
    */
-  uiDependencies?: any | null;
+  uiDependencies: any;
   /**
    * The Pinned UI version
    */
-  uiVersion?: string | null;
+  uiVersion: string;
   /**
    * The Flex Service version
    */
-  serviceVersion?: string | null;
+  serviceVersion: string;
   /**
    * Whether call recording is enabled
    */
-  callRecordingEnabled?: boolean | null;
+  callRecordingEnabled: boolean;
   /**
    * The call recording webhook URL
    */
-  callRecordingWebhookUrl?: string | null;
+  callRecordingWebhookUrl: string;
   /**
    * Whether CRM is present for Flex
    */
-  crmEnabled?: boolean | null;
+  crmEnabled: boolean;
   /**
    * The CRM Type
    */
-  crmType?: string | null;
+  crmType: string;
   /**
    * The CRM Callback URL
    */
-  crmCallbackUrl?: string | null;
+  crmCallbackUrl: string;
   /**
    * The CRM Fallback URL
    */
-  crmFallbackUrl?: string | null;
+  crmFallbackUrl: string;
   /**
    * An object that contains the CRM attributes
    */
-  crmAttributes?: any | null;
+  crmAttributes: any;
   /**
    * The list of public attributes
    */
-  publicAttributes?: any | null;
+  publicAttributes: any;
   /**
    * Whether the plugin service enabled
    */
-  pluginServiceEnabled?: boolean | null;
+  pluginServiceEnabled: boolean;
   /**
    * The plugin service attributes
    */
-  pluginServiceAttributes?: any | null;
+  pluginServiceAttributes: any;
   /**
    * A list of objects that contain the configurations for the Integrations supported in this configuration
    */
-  integrations?: Array<any> | null;
+  integrations: Array<any>;
   /**
    * The list of outbound call flows
    */
-  outboundCallFlows?: any | null;
+  outboundCallFlows: any;
   /**
    * The list of serverless service SIDs
    */
-  serverlessServiceSids?: Array<string> | null;
+  serverlessServiceSids: Array<string>;
   /**
    * Configurable parameters for Queues Statistics
    */
-  queueStatsConfiguration?: any | null;
+  queueStatsConfiguration: any;
   /**
    * Configurable parameters for Notifications
    */
-  notifications?: any | null;
+  notifications: any;
   /**
    * Configurable parameters for Markdown
    */
-  markdown?: any | null;
+  markdown: any;
   /**
    * The absolute URL of the Configuration resource
    */
-  url?: string | null;
+  url: string;
   /**
    * Object that controls workspace reporting
    */
-  flexInsightsHr?: any | null;
+  flexInsightsHr: any;
   /**
    * Setting to enable Flex UI redirection
    */
-  flexInsightsDrilldown?: boolean | null;
+  flexInsightsDrilldown: boolean;
   /**
    * URL to redirect to in case drilldown is enabled.
    */
-  flexUrl?: string | null;
+  flexUrl: string;
   /**
    * Flex Conversations channels\' attachments configurations
    */
-  channelConfigs?: Array<any> | null;
+  channelConfigs: Array<any>;
   /**
    * Configurable parameters for Debugger Integration
    */
-  debuggerIntegration?: any | null;
+  debuggerIntegration: any;
   /**
    * Configurable parameters for Flex UI Status report
    */
-  flexUiStatusReport?: any | null;
+  flexUiStatusReport: any;
 
   private get _proxy(): ConfigurationContext {
     this._context =
@@ -493,7 +494,13 @@ export class ConfigurationInstance {
   }
 }
 
+export interface ConfigurationSolution {}
+
 export interface ConfigurationListInstance {
+  _version: V1;
+  _solution: ConfigurationSolution;
+  _uri: string;
+
   (): ConfigurationContext;
   get(): ConfigurationContext;
 
@@ -504,19 +511,10 @@ export interface ConfigurationListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface ConfigurationSolution {}
-
-interface ConfigurationListInstanceImpl extends ConfigurationListInstance {}
-class ConfigurationListInstanceImpl implements ConfigurationListInstance {
-  _version?: V1;
-  _solution?: ConfigurationSolution;
-  _uri?: string;
-}
-
 export function ConfigurationListInstance(
   version: V1
 ): ConfigurationListInstance {
-  const instance = (() => instance.get()) as ConfigurationListInstanceImpl;
+  const instance = (() => instance.get()) as ConfigurationListInstance;
 
   instance.get = function get(): ConfigurationContext {
     return new ConfigurationContextImpl(version);
@@ -527,14 +525,14 @@ export function ConfigurationListInstance(
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

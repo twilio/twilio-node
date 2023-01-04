@@ -97,8 +97,8 @@ export interface ItemAssignmentContext {
 }
 
 export interface ItemAssignmentContextSolution {
-  bundleSid?: string;
-  sid?: string;
+  bundleSid: string;
+  sid: string;
 }
 
 export class ItemAssignmentContextImpl implements ItemAssignmentContext {
@@ -119,13 +119,14 @@ export class ItemAssignmentContextImpl implements ItemAssignmentContext {
   }
 
   remove(callback?: any): Promise<boolean> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -133,9 +134,10 @@ export class ItemAssignmentContextImpl implements ItemAssignmentContext {
   }
 
   fetch(callback?: any): Promise<ItemAssignmentInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -144,12 +146,12 @@ export class ItemAssignmentContextImpl implements ItemAssignmentContext {
         new ItemAssignmentInstance(
           operationVersion,
           payload,
-          this._solution.bundleSid,
-          this._solution.sid
+          instance._solution.bundleSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -175,12 +177,12 @@ interface ItemAssignmentPayload extends TwilioResponsePayload {
 }
 
 interface ItemAssignmentResource {
-  sid?: string | null;
-  bundle_sid?: string | null;
-  account_sid?: string | null;
-  object_sid?: string | null;
-  date_created?: Date | null;
-  url?: string | null;
+  sid: string;
+  bundle_sid: string;
+  account_sid: string;
+  object_sid: string;
+  date_created: Date;
+  url: string;
 }
 
 export class ItemAssignmentInstance {
@@ -206,27 +208,27 @@ export class ItemAssignmentInstance {
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The unique string that identifies the Bundle resource.
    */
-  bundleSid?: string | null;
+  bundleSid: string;
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The sid of an object bag
    */
-  objectSid?: string | null;
+  objectSid: string;
   /**
    * The ISO 8601 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The absolute URL of the Identity resource
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): ItemAssignmentContext {
     this._context =
@@ -286,7 +288,15 @@ export class ItemAssignmentInstance {
   }
 }
 
+export interface ItemAssignmentSolution {
+  bundleSid: string;
+}
+
 export interface ItemAssignmentListInstance {
+  _version: V2;
+  _solution: ItemAssignmentSolution;
+  _uri: string;
+
   (sid: string): ItemAssignmentContext;
   get(sid: string): ItemAssignmentContext;
 
@@ -438,17 +448,6 @@ export interface ItemAssignmentListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface ItemAssignmentSolution {
-  bundleSid?: string;
-}
-
-interface ItemAssignmentListInstanceImpl extends ItemAssignmentListInstance {}
-class ItemAssignmentListInstanceImpl implements ItemAssignmentListInstance {
-  _version?: V2;
-  _solution?: ItemAssignmentSolution;
-  _uri?: string;
-}
-
 export function ItemAssignmentListInstance(
   version: V2,
   bundleSid: string
@@ -457,8 +456,7 @@ export function ItemAssignmentListInstance(
     throw new Error("Parameter 'bundleSid' is not valid.");
   }
 
-  const instance = ((sid) =>
-    instance.get(sid)) as ItemAssignmentListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as ItemAssignmentListInstance;
 
   instance.get = function get(sid): ItemAssignmentContext {
     return new ItemAssignmentContextImpl(version, bundleSid, sid);
@@ -489,7 +487,7 @@ export function ItemAssignmentListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -500,11 +498,11 @@ export function ItemAssignmentListInstance(
         new ItemAssignmentInstance(
           operationVersion,
           payload,
-          this._solution.bundleSid
+          instance._solution.bundleSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -533,7 +531,7 @@ export function ItemAssignmentListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
@@ -541,10 +539,10 @@ export function ItemAssignmentListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new ItemAssignmentPage(operationVersion, payload, this._solution)
+        new ItemAssignmentPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -557,31 +555,28 @@ export function ItemAssignmentListInstance(
     targetUrl?: any,
     callback?: any
   ): Promise<ItemAssignmentPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
+    let pagePromise = operationPromise.then(
       (payload) =>
-        new ItemAssignmentPage(this._version, payload, this._solution)
+        new ItemAssignmentPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

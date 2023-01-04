@@ -192,8 +192,8 @@ export interface ChannelContext {
 }
 
 export interface ChannelContextSolution {
-  serviceSid?: string;
-  sid?: string;
+  serviceSid: string;
+  sid: string;
 }
 
 export class ChannelContextImpl implements ChannelContext {
@@ -276,15 +276,16 @@ export class ChannelContextImpl implements ChannelContext {
     if (params["xTwilioWebhookEnabled"] !== undefined)
       headers["X-Twilio-Webhook-Enabled"] = params["xTwilioWebhookEnabled"];
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
         params: data,
         headers,
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -292,9 +293,10 @@ export class ChannelContextImpl implements ChannelContext {
   }
 
   fetch(callback?: any): Promise<ChannelInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -303,12 +305,12 @@ export class ChannelContextImpl implements ChannelContext {
         new ChannelInstance(
           operationVersion,
           payload,
-          this._solution.serviceSid,
-          this._solution.sid
+          instance._solution.serviceSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -343,9 +345,10 @@ export class ChannelContextImpl implements ChannelContext {
     if (params["xTwilioWebhookEnabled"] !== undefined)
       headers["X-Twilio-Webhook-Enabled"] = params["xTwilioWebhookEnabled"];
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -356,12 +359,12 @@ export class ChannelContextImpl implements ChannelContext {
         new ChannelInstance(
           operationVersion,
           payload,
-          this._solution.serviceSid,
-          this._solution.sid
+          instance._solution.serviceSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -387,20 +390,20 @@ interface ChannelPayload extends TwilioResponsePayload {
 }
 
 interface ChannelResource {
-  sid?: string | null;
-  account_sid?: string | null;
-  service_sid?: string | null;
-  friendly_name?: string | null;
-  unique_name?: string | null;
-  attributes?: string | null;
-  type?: ChannelChannelType;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  created_by?: string | null;
-  members_count?: number | null;
-  messages_count?: number | null;
-  url?: string | null;
-  links?: object | null;
+  sid: string;
+  account_sid: string;
+  service_sid: string;
+  friendly_name: string;
+  unique_name: string;
+  attributes: string;
+  type: ChannelChannelType;
+  date_created: Date;
+  date_updated: Date;
+  created_by: string;
+  members_count: number;
+  messages_count: number;
+  url: string;
+  links: object;
 }
 
 export class ChannelInstance {
@@ -434,56 +437,56 @@ export class ChannelInstance {
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The SID of the Service that the resource is associated with
    */
-  serviceSid?: string | null;
+  serviceSid: string;
   /**
    * The string that you assigned to describe the resource
    */
-  friendlyName?: string | null;
+  friendlyName: string;
   /**
    * An application-defined string that uniquely identifies the resource
    */
-  uniqueName?: string | null;
+  uniqueName: string;
   /**
    * The JSON string that stores application-specific data
    */
-  attributes?: string | null;
-  type?: ChannelChannelType;
+  attributes: string;
+  type: ChannelChannelType;
   /**
    * The ISO 8601 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The ISO 8601 date and time in GMT when the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The identity of the User that created the channel
    */
-  createdBy?: string | null;
+  createdBy: string;
   /**
    * The number of Members in the Channel
    */
-  membersCount?: number | null;
+  membersCount: number;
   /**
    * The number of Messages that have been passed in the Channel
    */
-  messagesCount?: number | null;
+  messagesCount: number;
   /**
    * The absolute URL of the Channel resource
    */
-  url?: string | null;
+  url: string;
   /**
    * Absolute URLs to access the Members, Messages , Invites and, if it exists, the last Message for the Channel
    */
-  links?: object | null;
+  links: object;
 
   private get _proxy(): ChannelContext {
     this._context =
@@ -618,7 +621,15 @@ export class ChannelInstance {
   }
 }
 
+export interface ChannelSolution {
+  serviceSid: string;
+}
+
 export interface ChannelListInstance {
+  _version: V2;
+  _solution: ChannelSolution;
+  _uri: string;
+
   (sid: string): ChannelContext;
   get(sid: string): ChannelContext;
 
@@ -774,17 +785,6 @@ export interface ChannelListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface ChannelSolution {
-  serviceSid?: string;
-}
-
-interface ChannelListInstanceImpl extends ChannelListInstance {}
-class ChannelListInstanceImpl implements ChannelListInstance {
-  _version?: V2;
-  _solution?: ChannelSolution;
-  _uri?: string;
-}
-
 export function ChannelListInstance(
   version: V2,
   serviceSid: string
@@ -793,7 +793,7 @@ export function ChannelListInstance(
     throw new Error("Parameter 'serviceSid' is not valid.");
   }
 
-  const instance = ((sid) => instance.get(sid)) as ChannelListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as ChannelListInstance;
 
   instance.get = function get(sid): ChannelContext {
     return new ChannelContextImpl(version, serviceSid, sid);
@@ -837,7 +837,7 @@ export function ChannelListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -848,11 +848,11 @@ export function ChannelListInstance(
         new ChannelInstance(
           operationVersion,
           payload,
-          this._solution.serviceSid
+          instance._solution.serviceSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -883,17 +883,18 @@ export function ChannelListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new ChannelPage(operationVersion, payload, this._solution)
+      (payload) =>
+        new ChannelPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -906,30 +907,28 @@ export function ChannelListInstance(
     targetUrl?: any,
     callback?: any
   ): Promise<ChannelPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new ChannelPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new ChannelPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

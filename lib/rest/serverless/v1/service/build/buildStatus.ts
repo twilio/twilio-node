@@ -40,8 +40,8 @@ export interface BuildStatusContext {
 }
 
 export interface BuildStatusContextSolution {
-  serviceSid?: string;
-  sid?: string;
+  serviceSid: string;
+  sid: string;
 }
 
 export class BuildStatusContextImpl implements BuildStatusContext {
@@ -62,9 +62,10 @@ export class BuildStatusContextImpl implements BuildStatusContext {
   }
 
   fetch(callback?: any): Promise<BuildStatusInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -73,12 +74,12 @@ export class BuildStatusContextImpl implements BuildStatusContext {
         new BuildStatusInstance(
           operationVersion,
           payload,
-          this._solution.serviceSid,
-          this._solution.sid
+          instance._solution.serviceSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -102,11 +103,11 @@ export class BuildStatusContextImpl implements BuildStatusContext {
 interface BuildStatusPayload extends BuildStatusResource {}
 
 interface BuildStatusResource {
-  sid?: string | null;
-  account_sid?: string | null;
-  service_sid?: string | null;
-  status?: BuildStatusStatus;
-  url?: string | null;
+  sid: string;
+  account_sid: string;
+  service_sid: string;
+  status: BuildStatusStatus;
+  url: string;
 }
 
 export class BuildStatusInstance {
@@ -131,20 +132,20 @@ export class BuildStatusInstance {
   /**
    * The unique string that identifies the Build resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The SID of the Account that created the Build resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The SID of the Service that the Build resource is associated with
    */
-  serviceSid?: string | null;
-  status?: BuildStatusStatus;
+  serviceSid: string;
+  status: BuildStatusStatus;
   /**
    * The absolute URL of the Build Status resource
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): BuildStatusContext {
     this._context =
@@ -190,7 +191,16 @@ export class BuildStatusInstance {
   }
 }
 
+export interface BuildStatusSolution {
+  serviceSid: string;
+  sid: string;
+}
+
 export interface BuildStatusListInstance {
+  _version: V1;
+  _solution: BuildStatusSolution;
+  _uri: string;
+
   (): BuildStatusContext;
   get(): BuildStatusContext;
 
@@ -199,18 +209,6 @@ export interface BuildStatusListInstance {
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export interface BuildStatusSolution {
-  serviceSid?: string;
-  sid?: string;
-}
-
-interface BuildStatusListInstanceImpl extends BuildStatusListInstance {}
-class BuildStatusListInstanceImpl implements BuildStatusListInstance {
-  _version?: V1;
-  _solution?: BuildStatusSolution;
-  _uri?: string;
 }
 
 export function BuildStatusListInstance(
@@ -226,7 +224,7 @@ export function BuildStatusListInstance(
     throw new Error("Parameter 'sid' is not valid.");
   }
 
-  const instance = (() => instance.get()) as BuildStatusListInstanceImpl;
+  const instance = (() => instance.get()) as BuildStatusListInstance;
 
   instance.get = function get(): BuildStatusContext {
     return new BuildStatusContextImpl(version, serviceSid, sid);
@@ -237,14 +235,14 @@ export function BuildStatusListInstance(
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

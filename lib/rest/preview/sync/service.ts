@@ -145,7 +145,7 @@ export interface ServiceContext {
 }
 
 export interface ServiceContextSolution {
-  sid?: string;
+  sid: string;
 }
 
 export class ServiceContextImpl implements ServiceContext {
@@ -186,13 +186,14 @@ export class ServiceContextImpl implements ServiceContext {
   }
 
   remove(callback?: any): Promise<boolean> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -200,18 +201,19 @@ export class ServiceContextImpl implements ServiceContext {
   }
 
   fetch(callback?: any): Promise<ServiceInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new ServiceInstance(operationVersion, payload, this._solution.sid)
+        new ServiceInstance(operationVersion, payload, instance._solution.sid)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -242,9 +244,10 @@ export class ServiceContextImpl implements ServiceContext {
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -252,10 +255,10 @@ export class ServiceContextImpl implements ServiceContext {
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new ServiceInstance(operationVersion, payload, this._solution.sid)
+        new ServiceInstance(operationVersion, payload, instance._solution.sid)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -281,16 +284,16 @@ interface ServicePayload extends TwilioResponsePayload {
 }
 
 interface ServiceResource {
-  sid?: string | null;
-  account_sid?: string | null;
-  friendly_name?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  url?: string | null;
-  webhook_url?: string | null;
-  reachability_webhooks_enabled?: boolean | null;
-  acl_enabled?: boolean | null;
-  links?: object | null;
+  sid: string;
+  account_sid: string;
+  friendly_name: string;
+  date_created: Date;
+  date_updated: Date;
+  url: string;
+  webhook_url: string;
+  reachability_webhooks_enabled: boolean;
+  acl_enabled: boolean;
+  links: object;
 }
 
 export class ServiceInstance {
@@ -316,16 +319,16 @@ export class ServiceInstance {
     this._solution = { sid: sid || this.sid };
   }
 
-  sid?: string | null;
-  accountSid?: string | null;
-  friendlyName?: string | null;
-  dateCreated?: Date | null;
-  dateUpdated?: Date | null;
-  url?: string | null;
-  webhookUrl?: string | null;
-  reachabilityWebhooksEnabled?: boolean | null;
-  aclEnabled?: boolean | null;
-  links?: object | null;
+  sid: string;
+  accountSid: string;
+  friendlyName: string;
+  dateCreated: Date;
+  dateUpdated: Date;
+  url: string;
+  webhookUrl: string;
+  reachabilityWebhooksEnabled: boolean;
+  aclEnabled: boolean;
+  links: object;
 
   private get _proxy(): ServiceContext {
     this._context =
@@ -432,7 +435,13 @@ export class ServiceInstance {
   }
 }
 
+export interface ServiceSolution {}
+
 export interface ServiceListInstance {
+  _version: Sync;
+  _solution: ServiceSolution;
+  _uri: string;
+
   (sid: string): ServiceContext;
   get(sid: string): ServiceContext;
 
@@ -588,17 +597,8 @@ export interface ServiceListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface ServiceSolution {}
-
-interface ServiceListInstanceImpl extends ServiceListInstance {}
-class ServiceListInstanceImpl implements ServiceListInstance {
-  _version?: Sync;
-  _solution?: ServiceSolution;
-  _uri?: string;
-}
-
 export function ServiceListInstance(version: Sync): ServiceListInstance {
-  const instance = ((sid) => instance.get(sid)) as ServiceListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as ServiceListInstance;
 
   instance.get = function get(sid): ServiceContext {
     return new ServiceContextImpl(version, sid);
@@ -637,7 +637,7 @@ export function ServiceListInstance(version: Sync): ServiceListInstance {
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -647,7 +647,7 @@ export function ServiceListInstance(version: Sync): ServiceListInstance {
       (payload) => new ServiceInstance(operationVersion, payload)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -676,17 +676,18 @@ export function ServiceListInstance(version: Sync): ServiceListInstance {
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new ServicePage(operationVersion, payload, this._solution)
+      (payload) =>
+        new ServicePage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -699,30 +700,28 @@ export function ServiceListInstance(version: Sync): ServiceListInstance {
     targetUrl?: any,
     callback?: any
   ): Promise<ServicePage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new ServicePage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new ServicePage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

@@ -76,7 +76,7 @@ export interface EndUserTypeContext {
 }
 
 export interface EndUserTypeContextSolution {
-  sid?: string;
+  sid: string;
 }
 
 export class EndUserTypeContextImpl implements EndUserTypeContext {
@@ -93,18 +93,23 @@ export class EndUserTypeContextImpl implements EndUserTypeContext {
   }
 
   fetch(callback?: any): Promise<EndUserTypeInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new EndUserTypeInstance(operationVersion, payload, this._solution.sid)
+        new EndUserTypeInstance(
+          operationVersion,
+          payload,
+          instance._solution.sid
+        )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -130,11 +135,11 @@ interface EndUserTypePayload extends TwilioResponsePayload {
 }
 
 interface EndUserTypeResource {
-  sid?: string | null;
-  friendly_name?: string | null;
-  machine_name?: string | null;
-  fields?: Array<any> | null;
-  url?: string | null;
+  sid: string;
+  friendly_name: string;
+  machine_name: string;
+  fields: Array<any>;
+  url: string;
 }
 
 export class EndUserTypeInstance {
@@ -158,23 +163,23 @@ export class EndUserTypeInstance {
   /**
    * The unique string that identifies the End-User Type resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * A human-readable description of the End-User Type resource
    */
-  friendlyName?: string | null;
+  friendlyName: string;
   /**
    * A machine-readable description of the End-User Type resource
    */
-  machineName?: string | null;
+  machineName: string;
   /**
    * The required information for creating an End-User.
    */
-  fields?: Array<any> | null;
+  fields: Array<any>;
   /**
    * The absolute URL of the End-User Type resource
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): EndUserTypeContext {
     this._context =
@@ -216,7 +221,13 @@ export class EndUserTypeInstance {
   }
 }
 
+export interface EndUserTypeSolution {}
+
 export interface EndUserTypeListInstance {
+  _version: V1;
+  _solution: EndUserTypeSolution;
+  _uri: string;
+
   (sid: string): EndUserTypeContext;
   get(sid: string): EndUserTypeContext;
 
@@ -348,17 +359,8 @@ export interface EndUserTypeListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface EndUserTypeSolution {}
-
-interface EndUserTypeListInstanceImpl extends EndUserTypeListInstance {}
-class EndUserTypeListInstanceImpl implements EndUserTypeListInstance {
-  _version?: V1;
-  _solution?: EndUserTypeSolution;
-  _uri?: string;
-}
-
 export function EndUserTypeListInstance(version: V1): EndUserTypeListInstance {
-  const instance = ((sid) => instance.get(sid)) as EndUserTypeListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as EndUserTypeListInstance;
 
   instance.get = function get(sid): EndUserTypeContext {
     return new EndUserTypeContextImpl(version, sid);
@@ -390,7 +392,7 @@ export function EndUserTypeListInstance(version: V1): EndUserTypeListInstance {
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
@@ -398,10 +400,10 @@ export function EndUserTypeListInstance(version: V1): EndUserTypeListInstance {
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new EndUserTypePage(operationVersion, payload, this._solution)
+        new EndUserTypePage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -414,30 +416,28 @@ export function EndUserTypeListInstance(version: V1): EndUserTypeListInstance {
     targetUrl?: any,
     callback?: any
   ): Promise<EndUserTypePage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new EndUserTypePage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new EndUserTypePage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

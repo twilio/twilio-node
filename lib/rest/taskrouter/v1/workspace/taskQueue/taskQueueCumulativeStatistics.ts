@@ -76,8 +76,8 @@ export interface TaskQueueCumulativeStatisticsContext {
 }
 
 export interface TaskQueueCumulativeStatisticsContextSolution {
-  workspaceSid?: string;
-  taskQueueSid?: string;
+  workspaceSid: string;
+  taskQueueSid: string;
 }
 
 export class TaskQueueCumulativeStatisticsContextImpl
@@ -128,9 +128,10 @@ export class TaskQueueCumulativeStatisticsContextImpl
 
     const headers: any = {};
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
@@ -141,12 +142,12 @@ export class TaskQueueCumulativeStatisticsContextImpl
         new TaskQueueCumulativeStatisticsInstance(
           operationVersion,
           payload,
-          this._solution.workspaceSid,
-          this._solution.taskQueueSid
+          instance._solution.workspaceSid,
+          instance._solution.taskQueueSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -171,28 +172,28 @@ interface TaskQueueCumulativeStatisticsPayload
   extends TaskQueueCumulativeStatisticsResource {}
 
 interface TaskQueueCumulativeStatisticsResource {
-  account_sid?: string | null;
-  avg_task_acceptance_time?: number | null;
-  start_time?: Date | null;
-  end_time?: Date | null;
-  reservations_created?: number | null;
-  reservations_accepted?: number | null;
-  reservations_rejected?: number | null;
-  reservations_timed_out?: number | null;
-  reservations_canceled?: number | null;
-  reservations_rescinded?: number | null;
-  split_by_wait_time?: any | null;
-  task_queue_sid?: string | null;
-  wait_duration_until_accepted?: any | null;
-  wait_duration_until_canceled?: any | null;
-  wait_duration_in_queue_until_accepted?: any | null;
-  tasks_canceled?: number | null;
-  tasks_completed?: number | null;
-  tasks_deleted?: number | null;
-  tasks_entered?: number | null;
-  tasks_moved?: number | null;
-  workspace_sid?: string | null;
-  url?: string | null;
+  account_sid: string;
+  avg_task_acceptance_time: number;
+  start_time: Date;
+  end_time: Date;
+  reservations_created: number;
+  reservations_accepted: number;
+  reservations_rejected: number;
+  reservations_timed_out: number;
+  reservations_canceled: number;
+  reservations_rescinded: number;
+  split_by_wait_time: any;
+  task_queue_sid: string;
+  wait_duration_until_accepted: any;
+  wait_duration_until_canceled: any;
+  wait_duration_in_queue_until_accepted: any;
+  tasks_canceled: number;
+  tasks_completed: number;
+  tasks_deleted: number;
+  tasks_entered: number;
+  tasks_moved: number;
+  workspace_sid: string;
+  url: string;
 }
 
 export class TaskQueueCumulativeStatisticsInstance {
@@ -249,91 +250,91 @@ export class TaskQueueCumulativeStatisticsInstance {
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The average time in seconds between Task creation and acceptance
    */
-  avgTaskAcceptanceTime?: number | null;
+  avgTaskAcceptanceTime: number;
   /**
    * The beginning of the interval during which these statistics were calculated
    */
-  startTime?: Date | null;
+  startTime: Date;
   /**
    * The end of the interval during which these statistics were calculated
    */
-  endTime?: Date | null;
+  endTime: Date;
   /**
    * The total number of Reservations created for Tasks in the TaskQueue
    */
-  reservationsCreated?: number | null;
+  reservationsCreated: number;
   /**
    * The total number of Reservations accepted for Tasks in the TaskQueue
    */
-  reservationsAccepted?: number | null;
+  reservationsAccepted: number;
   /**
    * The total number of Reservations rejected for Tasks in the TaskQueue
    */
-  reservationsRejected?: number | null;
+  reservationsRejected: number;
   /**
    * The total number of Reservations that timed out for Tasks in the TaskQueue
    */
-  reservationsTimedOut?: number | null;
+  reservationsTimedOut: number;
   /**
    * The total number of Reservations canceled for Tasks in the TaskQueue
    */
-  reservationsCanceled?: number | null;
+  reservationsCanceled: number;
   /**
    * The total number of Reservations rescinded
    */
-  reservationsRescinded?: number | null;
+  reservationsRescinded: number;
   /**
    * A list of objects that describe the Tasks canceled and reservations accepted above and below the specified thresholds
    */
-  splitByWaitTime?: any | null;
+  splitByWaitTime: any;
   /**
    * The SID of the TaskQueue from which these statistics were calculated
    */
-  taskQueueSid?: string | null;
+  taskQueueSid: string;
   /**
    * The wait duration statistics for Tasks accepted while in the TaskQueue
    */
-  waitDurationUntilAccepted?: any | null;
+  waitDurationUntilAccepted: any;
   /**
    * The wait duration statistics for Tasks canceled while in the TaskQueue
    */
-  waitDurationUntilCanceled?: any | null;
+  waitDurationUntilCanceled: any;
   /**
    * The relative wait duration statistics for Tasks accepted while in the TaskQueue
    */
-  waitDurationInQueueUntilAccepted?: any | null;
+  waitDurationInQueueUntilAccepted: any;
   /**
    * The total number of Tasks canceled in the TaskQueue
    */
-  tasksCanceled?: number | null;
+  tasksCanceled: number;
   /**
    * The total number of Tasks completed in the TaskQueue
    */
-  tasksCompleted?: number | null;
+  tasksCompleted: number;
   /**
    * The total number of Tasks deleted in the TaskQueue
    */
-  tasksDeleted?: number | null;
+  tasksDeleted: number;
   /**
    * The total number of Tasks entered into the TaskQueue
    */
-  tasksEntered?: number | null;
+  tasksEntered: number;
   /**
    * The total number of Tasks that were moved from one queue to another
    */
-  tasksMoved?: number | null;
+  tasksMoved: number;
   /**
    * The SID of the Workspace that contains the TaskQueue
    */
-  workspaceSid?: string | null;
+  workspaceSid: string;
   /**
    * The absolute URL of the TaskQueue statistics resource
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): TaskQueueCumulativeStatisticsContext {
     this._context =
@@ -418,7 +419,16 @@ export class TaskQueueCumulativeStatisticsInstance {
   }
 }
 
+export interface TaskQueueCumulativeStatisticsSolution {
+  workspaceSid: string;
+  taskQueueSid: string;
+}
+
 export interface TaskQueueCumulativeStatisticsListInstance {
+  _version: V1;
+  _solution: TaskQueueCumulativeStatisticsSolution;
+  _uri: string;
+
   (): TaskQueueCumulativeStatisticsContext;
   get(): TaskQueueCumulativeStatisticsContext;
 
@@ -427,21 +437,6 @@ export interface TaskQueueCumulativeStatisticsListInstance {
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export interface TaskQueueCumulativeStatisticsSolution {
-  workspaceSid?: string;
-  taskQueueSid?: string;
-}
-
-interface TaskQueueCumulativeStatisticsListInstanceImpl
-  extends TaskQueueCumulativeStatisticsListInstance {}
-class TaskQueueCumulativeStatisticsListInstanceImpl
-  implements TaskQueueCumulativeStatisticsListInstance
-{
-  _version?: V1;
-  _solution?: TaskQueueCumulativeStatisticsSolution;
-  _uri?: string;
 }
 
 export function TaskQueueCumulativeStatisticsListInstance(
@@ -458,7 +453,7 @@ export function TaskQueueCumulativeStatisticsListInstance(
   }
 
   const instance = (() =>
-    instance.get()) as TaskQueueCumulativeStatisticsListInstanceImpl;
+    instance.get()) as TaskQueueCumulativeStatisticsListInstance;
 
   instance.get = function get(): TaskQueueCumulativeStatisticsContext {
     return new TaskQueueCumulativeStatisticsContextImpl(
@@ -473,14 +468,14 @@ export function TaskQueueCumulativeStatisticsListInstance(
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

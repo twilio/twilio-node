@@ -103,8 +103,8 @@ export interface ParticipantContext {
 }
 
 export interface ParticipantContextSolution {
-  roomSid?: string;
-  participantSid?: string;
+  roomSid: string;
+  participantSid: string;
 }
 
 export class ParticipantContextImpl implements ParticipantContext {
@@ -125,9 +125,10 @@ export class ParticipantContextImpl implements ParticipantContext {
   }
 
   fetch(callback?: any): Promise<ParticipantInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -136,12 +137,12 @@ export class ParticipantContextImpl implements ParticipantContext {
         new ParticipantInstance(
           operationVersion,
           payload,
-          this._solution.roomSid,
-          this._solution.participantSid
+          instance._solution.roomSid,
+          instance._solution.participantSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -167,23 +168,23 @@ interface ParticipantPayload extends TwilioResponsePayload {
 }
 
 interface ParticipantResource {
-  participant_sid?: string | null;
-  participant_identity?: string | null;
-  join_time?: Date | null;
-  leave_time?: Date | null;
-  duration_sec?: number | null;
-  account_sid?: string | null;
-  room_sid?: string | null;
-  status?: VideoParticipantSummaryRoomStatus;
-  codecs?: Array<VideoParticipantSummaryCodec> | null;
-  end_reason?: string | null;
-  error_code?: number | null;
-  error_code_url?: string | null;
-  media_region?: VideoParticipantSummaryTwilioRealm;
-  properties?: any | null;
-  edge_location?: VideoParticipantSummaryEdgeLocation;
-  publisher_info?: any | null;
-  url?: string | null;
+  participant_sid: string;
+  participant_identity: string;
+  join_time: Date;
+  leave_time: Date;
+  duration_sec: number;
+  account_sid: string;
+  room_sid: string;
+  status: VideoParticipantSummaryRoomStatus;
+  codecs: Array<VideoParticipantSummaryCodec>;
+  end_reason: string;
+  error_code: number;
+  error_code_url: string;
+  media_region: VideoParticipantSummaryTwilioRealm;
+  properties: any;
+  edge_location: VideoParticipantSummaryEdgeLocation;
+  publisher_info: any;
+  url: string;
 }
 
 export class ParticipantInstance {
@@ -223,62 +224,62 @@ export class ParticipantInstance {
   /**
    * Unique identifier for the participant.
    */
-  participantSid?: string | null;
+  participantSid: string;
   /**
    * The application-defined string that uniquely identifies the participant within a Room.
    */
-  participantIdentity?: string | null;
+  participantIdentity: string;
   /**
    * When the participant joined the room.
    */
-  joinTime?: Date | null;
+  joinTime: Date;
   /**
    * When the participant left the room
    */
-  leaveTime?: Date | null;
+  leaveTime: Date;
   /**
    * Amount of time in seconds the participant was in the room.
    */
-  durationSec?: number | null;
+  durationSec: number;
   /**
    * Account SID associated with the room.
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * Unique identifier for the room.
    */
-  roomSid?: string | null;
-  status?: VideoParticipantSummaryRoomStatus;
+  roomSid: string;
+  status: VideoParticipantSummaryRoomStatus;
   /**
    * Codecs detected from the participant.
    */
-  codecs?: Array<VideoParticipantSummaryCodec> | null;
+  codecs: Array<VideoParticipantSummaryCodec>;
   /**
    * Reason the participant left the room.
    */
-  endReason?: string | null;
+  endReason: string;
   /**
    * Errors encountered by the participant.
    */
-  errorCode?: number | null;
+  errorCode: number;
   /**
    * Twilio error code dictionary link.
    */
-  errorCodeUrl?: string | null;
-  mediaRegion?: VideoParticipantSummaryTwilioRealm;
+  errorCodeUrl: string;
+  mediaRegion: VideoParticipantSummaryTwilioRealm;
   /**
    * Object containing information about the participant\'s data from the room.
    */
-  properties?: any | null;
-  edgeLocation?: VideoParticipantSummaryEdgeLocation;
+  properties: any;
+  edgeLocation: VideoParticipantSummaryEdgeLocation;
   /**
    * Object containing information about the SDK name and version.
    */
-  publisherInfo?: any | null;
+  publisherInfo: any;
   /**
    * URL of the participant resource.
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): ParticipantContext {
     this._context =
@@ -336,7 +337,15 @@ export class ParticipantInstance {
   }
 }
 
+export interface ParticipantSolution {
+  roomSid: string;
+}
+
 export interface ParticipantListInstance {
+  _version: V1;
+  _solution: ParticipantSolution;
+  _uri: string;
+
   (participantSid: string): ParticipantContext;
   get(participantSid: string): ParticipantContext;
 
@@ -468,17 +477,6 @@ export interface ParticipantListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface ParticipantSolution {
-  roomSid?: string;
-}
-
-interface ParticipantListInstanceImpl extends ParticipantListInstance {}
-class ParticipantListInstanceImpl implements ParticipantListInstance {
-  _version?: V1;
-  _solution?: ParticipantSolution;
-  _uri?: string;
-}
-
 export function ParticipantListInstance(
   version: V1,
   roomSid: string
@@ -488,7 +486,7 @@ export function ParticipantListInstance(
   }
 
   const instance = ((participantSid) =>
-    instance.get(participantSid)) as ParticipantListInstanceImpl;
+    instance.get(participantSid)) as ParticipantListInstance;
 
   instance.get = function get(participantSid): ParticipantContext {
     return new ParticipantContextImpl(version, roomSid, participantSid);
@@ -520,7 +518,7 @@ export function ParticipantListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
@@ -528,10 +526,10 @@ export function ParticipantListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new ParticipantPage(operationVersion, payload, this._solution)
+        new ParticipantPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -544,30 +542,28 @@ export function ParticipantListInstance(
     targetUrl?: any,
     callback?: any
   ): Promise<ParticipantPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new ParticipantPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new ParticipantPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

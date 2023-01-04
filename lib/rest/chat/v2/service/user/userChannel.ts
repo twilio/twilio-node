@@ -149,9 +149,9 @@ export interface UserChannelContext {
 }
 
 export interface UserChannelContextSolution {
-  serviceSid?: string;
-  userSid?: string;
-  channelSid?: string;
+  serviceSid: string;
+  userSid: string;
+  channelSid: string;
 }
 
 export class UserChannelContextImpl implements UserChannelContext {
@@ -194,15 +194,16 @@ export class UserChannelContextImpl implements UserChannelContext {
     if (params["xTwilioWebhookEnabled"] !== undefined)
       headers["X-Twilio-Webhook-Enabled"] = params["xTwilioWebhookEnabled"];
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
         params: data,
         headers,
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -210,9 +211,10 @@ export class UserChannelContextImpl implements UserChannelContext {
   }
 
   fetch(callback?: any): Promise<UserChannelInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -221,13 +223,13 @@ export class UserChannelContextImpl implements UserChannelContext {
         new UserChannelInstance(
           operationVersion,
           payload,
-          this._solution.serviceSid,
-          this._solution.userSid,
-          this._solution.channelSid
+          instance._solution.serviceSid,
+          instance._solution.userSid,
+          instance._solution.channelSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -256,9 +258,10 @@ export class UserChannelContextImpl implements UserChannelContext {
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -269,13 +272,13 @@ export class UserChannelContextImpl implements UserChannelContext {
         new UserChannelInstance(
           operationVersion,
           payload,
-          this._solution.serviceSid,
-          this._solution.userSid,
-          this._solution.channelSid
+          instance._solution.serviceSid,
+          instance._solution.userSid,
+          instance._solution.channelSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -301,17 +304,17 @@ interface UserChannelPayload extends TwilioResponsePayload {
 }
 
 interface UserChannelResource {
-  account_sid?: string | null;
-  service_sid?: string | null;
-  channel_sid?: string | null;
-  user_sid?: string | null;
-  member_sid?: string | null;
-  status?: UserChannelChannelStatus;
-  last_consumed_message_index?: number | null;
-  unread_messages_count?: number | null;
-  links?: object | null;
-  url?: string | null;
-  notification_level?: UserChannelNotificationLevel;
+  account_sid: string;
+  service_sid: string;
+  channel_sid: string;
+  user_sid: string;
+  member_sid: string;
+  status: UserChannelChannelStatus;
+  last_consumed_message_index: number;
+  unread_messages_count: number;
+  links: object;
+  url: string;
+  notification_level: UserChannelNotificationLevel;
 }
 
 export class UserChannelInstance {
@@ -351,41 +354,41 @@ export class UserChannelInstance {
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The SID of the Service that the resource is associated with
    */
-  serviceSid?: string | null;
+  serviceSid: string;
   /**
    * The SID of the Channel the resource belongs to
    */
-  channelSid?: string | null;
+  channelSid: string;
   /**
    * The SID of the User the User Channel belongs to
    */
-  userSid?: string | null;
+  userSid: string;
   /**
    * The SID of the User as a Member in the Channel
    */
-  memberSid?: string | null;
-  status?: UserChannelChannelStatus;
+  memberSid: string;
+  status: UserChannelChannelStatus;
   /**
    * The index of the last Message in the Channel the Member has read
    */
-  lastConsumedMessageIndex?: number | null;
+  lastConsumedMessageIndex: number;
   /**
    * The number of unread Messages in the Channel for the User
    */
-  unreadMessagesCount?: number | null;
+  unreadMessagesCount: number;
   /**
    * Absolute URLs to access the Members, Messages , Invites and, if it exists, the last Message for the Channel
    */
-  links?: object | null;
+  links: object;
   /**
    * The absolute URL of the resource
    */
-  url?: string | null;
-  notificationLevel?: UserChannelNotificationLevel;
+  url: string;
+  notificationLevel: UserChannelNotificationLevel;
 
   private get _proxy(): UserChannelContext {
     this._context =
@@ -490,7 +493,16 @@ export class UserChannelInstance {
   }
 }
 
+export interface UserChannelSolution {
+  serviceSid: string;
+  userSid: string;
+}
+
 export interface UserChannelListInstance {
+  _version: V2;
+  _solution: UserChannelSolution;
+  _uri: string;
+
   (channelSid: string): UserChannelContext;
   get(channelSid: string): UserChannelContext;
 
@@ -622,18 +634,6 @@ export interface UserChannelListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface UserChannelSolution {
-  serviceSid?: string;
-  userSid?: string;
-}
-
-interface UserChannelListInstanceImpl extends UserChannelListInstance {}
-class UserChannelListInstanceImpl implements UserChannelListInstance {
-  _version?: V2;
-  _solution?: UserChannelSolution;
-  _uri?: string;
-}
-
 export function UserChannelListInstance(
   version: V2,
   serviceSid: string,
@@ -648,7 +648,7 @@ export function UserChannelListInstance(
   }
 
   const instance = ((channelSid) =>
-    instance.get(channelSid)) as UserChannelListInstanceImpl;
+    instance.get(channelSid)) as UserChannelListInstance;
 
   instance.get = function get(channelSid): UserChannelContext {
     return new UserChannelContextImpl(version, serviceSid, userSid, channelSid);
@@ -680,7 +680,7 @@ export function UserChannelListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
@@ -688,10 +688,10 @@ export function UserChannelListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new UserChannelPage(operationVersion, payload, this._solution)
+        new UserChannelPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -704,30 +704,28 @@ export function UserChannelListInstance(
     targetUrl?: any,
     callback?: any
   ): Promise<UserChannelPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new UserChannelPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new UserChannelPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

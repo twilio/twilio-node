@@ -110,9 +110,10 @@ export class CompositionSettingsContextImpl
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -122,7 +123,7 @@ export class CompositionSettingsContextImpl
       (payload) => new CompositionSettingsInstance(operationVersion, payload)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -130,9 +131,10 @@ export class CompositionSettingsContextImpl
   }
 
   fetch(callback?: any): Promise<CompositionSettingsInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -140,7 +142,7 @@ export class CompositionSettingsContextImpl
       (payload) => new CompositionSettingsInstance(operationVersion, payload)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -164,14 +166,14 @@ export class CompositionSettingsContextImpl
 interface CompositionSettingsPayload extends CompositionSettingsResource {}
 
 interface CompositionSettingsResource {
-  account_sid?: string | null;
-  friendly_name?: string | null;
-  aws_credentials_sid?: string | null;
-  aws_s3_url?: string | null;
-  aws_storage_enabled?: boolean | null;
-  encryption_key_sid?: string | null;
-  encryption_enabled?: boolean | null;
-  url?: string | null;
+  account_sid: string;
+  friendly_name: string;
+  aws_credentials_sid: string;
+  aws_s3_url: string;
+  aws_storage_enabled: boolean;
+  encryption_key_sid: string;
+  encryption_enabled: boolean;
+  url: string;
 }
 
 export class CompositionSettingsInstance {
@@ -194,35 +196,35 @@ export class CompositionSettingsInstance {
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The string that you assigned to describe the resource
    */
-  friendlyName?: string | null;
+  friendlyName: string;
   /**
    * The SID of the stored Credential resource
    */
-  awsCredentialsSid?: string | null;
+  awsCredentialsSid: string;
   /**
    * The URL of the AWS S3 bucket where the compositions are stored
    */
-  awsS3Url?: string | null;
+  awsS3Url: string;
   /**
    * Whether all compositions are written to the aws_s3_url
    */
-  awsStorageEnabled?: boolean | null;
+  awsStorageEnabled: boolean;
   /**
    * The SID of the Public Key resource used for encryption
    */
-  encryptionKeySid?: string | null;
+  encryptionKeySid: string;
   /**
    * Whether all compositions are stored in an encrypted form
    */
-  encryptionEnabled?: boolean | null;
+  encryptionEnabled: boolean;
   /**
    * The absolute URL of the resource
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): CompositionSettingsContext {
     this._context =
@@ -282,7 +284,13 @@ export class CompositionSettingsInstance {
   }
 }
 
+export interface CompositionSettingsSolution {}
+
 export interface CompositionSettingsListInstance {
+  _version: V1;
+  _solution: CompositionSettingsSolution;
+  _uri: string;
+
   (): CompositionSettingsContext;
   get(): CompositionSettingsContext;
 
@@ -293,23 +301,10 @@ export interface CompositionSettingsListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface CompositionSettingsSolution {}
-
-interface CompositionSettingsListInstanceImpl
-  extends CompositionSettingsListInstance {}
-class CompositionSettingsListInstanceImpl
-  implements CompositionSettingsListInstance
-{
-  _version?: V1;
-  _solution?: CompositionSettingsSolution;
-  _uri?: string;
-}
-
 export function CompositionSettingsListInstance(
   version: V1
 ): CompositionSettingsListInstance {
-  const instance = (() =>
-    instance.get()) as CompositionSettingsListInstanceImpl;
+  const instance = (() => instance.get()) as CompositionSettingsListInstance;
 
   instance.get = function get(): CompositionSettingsContext {
     return new CompositionSettingsContextImpl(version);
@@ -320,14 +315,14 @@ export function CompositionSettingsListInstance(
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

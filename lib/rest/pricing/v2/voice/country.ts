@@ -90,7 +90,7 @@ export interface CountryContext {
 }
 
 export interface CountryContextSolution {
-  isoCountry?: string;
+  isoCountry: string;
 }
 
 export class CountryContextImpl implements CountryContext {
@@ -107,9 +107,10 @@ export class CountryContextImpl implements CountryContext {
   }
 
   fetch(callback?: any): Promise<CountryInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -118,11 +119,11 @@ export class CountryContextImpl implements CountryContext {
         new CountryInstance(
           operationVersion,
           payload,
-          this._solution.isoCountry
+          instance._solution.isoCountry
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -148,12 +149,12 @@ interface CountryPayload extends TwilioResponsePayload {
 }
 
 interface CountryResource {
-  country?: string | null;
-  iso_country?: string | null;
-  outbound_prefix_prices?: Array<PricingV2TrunkingCountryInstanceTerminatingPrefixPrices> | null;
-  inbound_call_prices?: Array<PricingV2TrunkingCountryInstanceOriginatingCallPrices> | null;
-  price_unit?: string | null;
-  url?: string | null;
+  country: string;
+  iso_country: string;
+  outbound_prefix_prices: Array<PricingV2TrunkingCountryInstanceTerminatingPrefixPrices>;
+  inbound_call_prices: Array<PricingV2TrunkingCountryInstanceOriginatingCallPrices>;
+  price_unit: string;
+  url: string;
 }
 
 export class CountryInstance {
@@ -178,27 +179,27 @@ export class CountryInstance {
   /**
    * The name of the country
    */
-  country?: string | null;
+  country: string;
   /**
    * The ISO country code
    */
-  isoCountry?: string | null;
+  isoCountry: string;
   /**
    * The list of OutboundPrefixPriceWithOrigin records
    */
-  outboundPrefixPrices?: Array<PricingV2TrunkingCountryInstanceTerminatingPrefixPrices> | null;
+  outboundPrefixPrices: Array<PricingV2TrunkingCountryInstanceTerminatingPrefixPrices>;
   /**
    * The list of InboundCallPrice records
    */
-  inboundCallPrices?: Array<PricingV2TrunkingCountryInstanceOriginatingCallPrices> | null;
+  inboundCallPrices: Array<PricingV2TrunkingCountryInstanceOriginatingCallPrices>;
   /**
    * The currency in which prices are measured, in ISO 4127 format (e.g. usd, eur, jpy)
    */
-  priceUnit?: string | null;
+  priceUnit: string;
   /**
    * The absolute URL of the resource
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): CountryContext {
     this._context =
@@ -241,7 +242,13 @@ export class CountryInstance {
   }
 }
 
+export interface CountrySolution {}
+
 export interface CountryListInstance {
+  _version: V2;
+  _solution: CountrySolution;
+  _uri: string;
+
   (isoCountry: string): CountryContext;
   get(isoCountry: string): CountryContext;
 
@@ -373,18 +380,9 @@ export interface CountryListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface CountrySolution {}
-
-interface CountryListInstanceImpl extends CountryListInstance {}
-class CountryListInstanceImpl implements CountryListInstance {
-  _version?: V2;
-  _solution?: CountrySolution;
-  _uri?: string;
-}
-
 export function CountryListInstance(version: V2): CountryListInstance {
   const instance = ((isoCountry) =>
-    instance.get(isoCountry)) as CountryListInstanceImpl;
+    instance.get(isoCountry)) as CountryListInstance;
 
   instance.get = function get(isoCountry): CountryContext {
     return new CountryContextImpl(version, isoCountry);
@@ -416,17 +414,18 @@ export function CountryListInstance(version: V2): CountryListInstance {
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new CountryPage(operationVersion, payload, this._solution)
+      (payload) =>
+        new CountryPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -439,30 +438,28 @@ export function CountryListInstance(version: V2): CountryListInstance {
     targetUrl?: any,
     callback?: any
   ): Promise<CountryPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new CountryPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new CountryPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

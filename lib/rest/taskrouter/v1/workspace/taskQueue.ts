@@ -180,8 +180,8 @@ export interface TaskQueueContext {
 }
 
 export interface TaskQueueContextSolution {
-  workspaceSid?: string;
-  sid?: string;
+  workspaceSid: string;
+  sid: string;
 }
 
 export class TaskQueueContextImpl implements TaskQueueContext {
@@ -239,13 +239,14 @@ export class TaskQueueContextImpl implements TaskQueueContext {
   }
 
   remove(callback?: any): Promise<boolean> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -253,9 +254,10 @@ export class TaskQueueContextImpl implements TaskQueueContext {
   }
 
   fetch(callback?: any): Promise<TaskQueueInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -264,12 +266,12 @@ export class TaskQueueContextImpl implements TaskQueueContext {
         new TaskQueueInstance(
           operationVersion,
           payload,
-          this._solution.workspaceSid,
-          this._solution.sid
+          instance._solution.workspaceSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -302,9 +304,10 @@ export class TaskQueueContextImpl implements TaskQueueContext {
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -315,12 +318,12 @@ export class TaskQueueContextImpl implements TaskQueueContext {
         new TaskQueueInstance(
           operationVersion,
           payload,
-          this._solution.workspaceSid,
-          this._solution.sid
+          instance._solution.workspaceSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -346,21 +349,21 @@ interface TaskQueuePayload extends TwilioResponsePayload {
 }
 
 interface TaskQueueResource {
-  account_sid?: string | null;
-  assignment_activity_sid?: string | null;
-  assignment_activity_name?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  friendly_name?: string | null;
-  max_reserved_workers?: number | null;
-  reservation_activity_sid?: string | null;
-  reservation_activity_name?: string | null;
-  sid?: string | null;
-  target_workers?: string | null;
-  task_order?: TaskQueueTaskOrder;
-  url?: string | null;
-  workspace_sid?: string | null;
-  links?: object | null;
+  account_sid: string;
+  assignment_activity_sid: string;
+  assignment_activity_name: string;
+  date_created: Date;
+  date_updated: Date;
+  friendly_name: string;
+  max_reserved_workers: number;
+  reservation_activity_sid: string;
+  reservation_activity_name: string;
+  sid: string;
+  target_workers: string;
+  task_order: TaskQueueTaskOrder;
+  url: string;
+  workspace_sid: string;
+  links: object;
 }
 
 export class TaskQueueInstance {
@@ -395,60 +398,60 @@ export class TaskQueueInstance {
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The SID of the Activity to assign Workers when a task is assigned for them
    */
-  assignmentActivitySid?: string | null;
+  assignmentActivitySid: string;
   /**
    * The name of the Activity to assign Workers when a task is assigned for them
    */
-  assignmentActivityName?: string | null;
+  assignmentActivityName: string;
   /**
    * The RFC 2822 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The RFC 2822 date and time in GMT when the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The string that you assigned to describe the resource
    */
-  friendlyName?: string | null;
+  friendlyName: string;
   /**
    * The maximum number of Workers to reserve
    */
-  maxReservedWorkers?: number | null;
+  maxReservedWorkers: number;
   /**
    * The SID of the Activity to assign Workers once a task is reserved for them
    */
-  reservationActivitySid?: string | null;
+  reservationActivitySid: string;
   /**
    * The name of the Activity to assign Workers once a task is reserved for them
    */
-  reservationActivityName?: string | null;
+  reservationActivityName: string;
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * A string describing the Worker selection criteria for any Tasks that enter the TaskQueue
    */
-  targetWorkers?: string | null;
-  taskOrder?: TaskQueueTaskOrder;
+  targetWorkers: string;
+  taskOrder: TaskQueueTaskOrder;
   /**
    * The absolute URL of the TaskQueue resource
    */
-  url?: string | null;
+  url: string;
   /**
    * The SID of the Workspace that contains the TaskQueue
    */
-  workspaceSid?: string | null;
+  workspaceSid: string;
   /**
    * The URLs of related resources
    */
-  links?: object | null;
+  links: object;
 
   private get _proxy(): TaskQueueContext {
     this._context =
@@ -564,10 +567,19 @@ export class TaskQueueInstance {
   }
 }
 
+export interface TaskQueueSolution {
+  workspaceSid: string;
+}
+
 export interface TaskQueueListInstance {
+  _version: V1;
+  _solution: TaskQueueSolution;
+  _uri: string;
+
   (sid: string): TaskQueueContext;
   get(sid: string): TaskQueueContext;
 
+  _statistics?: TaskQueuesStatisticsListInstance;
   statistics: TaskQueuesStatisticsListInstance;
 
   /**
@@ -712,19 +724,6 @@ export interface TaskQueueListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface TaskQueueSolution {
-  workspaceSid?: string;
-}
-
-interface TaskQueueListInstanceImpl extends TaskQueueListInstance {}
-class TaskQueueListInstanceImpl implements TaskQueueListInstance {
-  _version?: V1;
-  _solution?: TaskQueueSolution;
-  _uri?: string;
-
-  _statistics?: TaskQueuesStatisticsListInstance;
-}
-
 export function TaskQueueListInstance(
   version: V1,
   workspaceSid: string
@@ -733,7 +732,7 @@ export function TaskQueueListInstance(
     throw new Error("Parameter 'workspaceSid' is not valid.");
   }
 
-  const instance = ((sid) => instance.get(sid)) as TaskQueueListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as TaskQueueListInstance;
 
   instance.get = function get(sid): TaskQueueContext {
     return new TaskQueueContextImpl(version, workspaceSid, sid);
@@ -745,13 +744,13 @@ export function TaskQueueListInstance(
 
   Object.defineProperty(instance, "statistics", {
     get: function statistics() {
-      if (!this._statistics) {
-        this._statistics = TaskQueuesStatisticsListInstance(
-          this._version,
-          this._solution.workspaceSid
+      if (!instance._statistics) {
+        instance._statistics = TaskQueuesStatisticsListInstance(
+          instance._version,
+          instance._solution.workspaceSid
         );
       }
-      return this._statistics;
+      return instance._statistics;
     },
   });
 
@@ -789,7 +788,7 @@ export function TaskQueueListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -800,11 +799,11 @@ export function TaskQueueListInstance(
         new TaskQueueInstance(
           operationVersion,
           payload,
-          this._solution.workspaceSid
+          instance._solution.workspaceSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -840,17 +839,18 @@ export function TaskQueueListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new TaskQueuePage(operationVersion, payload, this._solution)
+      (payload) =>
+        new TaskQueuePage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -863,30 +863,28 @@ export function TaskQueueListInstance(
     targetUrl?: any,
     callback?: any
   ): Promise<TaskQueuePage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new TaskQueuePage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new TaskQueuePage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

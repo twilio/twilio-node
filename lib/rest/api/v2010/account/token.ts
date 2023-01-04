@@ -33,7 +33,15 @@ export interface TokenListInstanceCreateOptions {
   ttl?: number;
 }
 
+export interface TokenSolution {
+  accountSid: string;
+}
+
 export interface TokenListInstance {
+  _version: V2010;
+  _solution: TokenSolution;
+  _uri: string;
+
   /**
    * Create a TokenInstance
    *
@@ -65,17 +73,6 @@ export interface TokenListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface TokenSolution {
-  accountSid?: string;
-}
-
-interface TokenListInstanceImpl extends TokenListInstance {}
-class TokenListInstanceImpl implements TokenListInstance {
-  _version?: V2010;
-  _solution?: TokenSolution;
-  _uri?: string;
-}
-
 export function TokenListInstance(
   version: V2010,
   accountSid: string
@@ -84,7 +81,7 @@ export function TokenListInstance(
     throw new Error("Parameter 'accountSid' is not valid.");
   }
 
-  const instance = {} as TokenListInstanceImpl;
+  const instance = {} as TokenListInstance;
 
   instance._version = version;
   instance._solution = { accountSid };
@@ -110,7 +107,7 @@ export function TokenListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -118,10 +115,14 @@ export function TokenListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new TokenInstance(operationVersion, payload, this._solution.accountSid)
+        new TokenInstance(
+          operationVersion,
+          payload,
+          instance._solution.accountSid
+        )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -129,14 +130,14 @@ export function TokenListInstance(
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;
@@ -145,13 +146,13 @@ export function TokenListInstance(
 interface TokenPayload extends TokenResource {}
 
 interface TokenResource {
-  account_sid?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  ice_servers?: Array<ApiV2010AccountTokenIceServers> | null;
-  password?: string | null;
-  ttl?: string | null;
-  username?: string | null;
+  account_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  ice_servers: Array<ApiV2010AccountTokenIceServers>;
+  password: string;
+  ttl: string;
+  username: string;
 }
 
 export class TokenInstance {
@@ -172,31 +173,31 @@ export class TokenInstance {
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The RFC 2822 date and time in GMT that the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The RFC 2822 date and time in GMT that the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * An array representing the ephemeral credentials
    */
-  iceServers?: Array<ApiV2010AccountTokenIceServers> | null;
+  iceServers: Array<ApiV2010AccountTokenIceServers>;
   /**
    * The temporary password used for authenticating
    */
-  password?: string | null;
+  password: string;
   /**
    * The duration in seconds the credentials are valid
    */
-  ttl?: string | null;
+  ttl: string;
   /**
    * The temporary username that uniquely identifies a Token
    */
-  username?: string | null;
+  username: string;
 
   /**
    * Provide a user-friendly representation

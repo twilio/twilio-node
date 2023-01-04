@@ -151,7 +151,7 @@ export interface FleetContext {
 }
 
 export interface FleetContextSolution {
-  sid?: string;
+  sid: string;
 }
 
 export class FleetContextImpl implements FleetContext {
@@ -168,18 +168,19 @@ export class FleetContextImpl implements FleetContext {
   }
 
   fetch(callback?: any): Promise<FleetInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new FleetInstance(operationVersion, payload, this._solution.sid)
+        new FleetInstance(operationVersion, payload, instance._solution.sid)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -214,9 +215,10 @@ export class FleetContextImpl implements FleetContext {
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -224,10 +226,10 @@ export class FleetContextImpl implements FleetContext {
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new FleetInstance(operationVersion, payload, this._solution.sid)
+        new FleetInstance(operationVersion, payload, instance._solution.sid)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -268,21 +270,21 @@ interface FleetPayload extends TwilioResponsePayload {
 }
 
 interface FleetResource {
-  account_sid?: string | null;
-  sid?: string | null;
-  unique_name?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  url?: string | null;
-  data_enabled?: boolean | null;
-  data_limit?: number | null;
-  data_metering?: FleetDataMetering;
-  sms_commands_enabled?: boolean | null;
-  sms_commands_url?: string | null;
-  sms_commands_method?: FleetSmsCommandsMethod;
-  network_access_profile_sid?: string | null;
-  ip_commands_url?: string | null;
-  ip_commands_method?: FleetIpCommandsMethod;
+  account_sid: string;
+  sid: string;
+  unique_name: string;
+  date_created: Date;
+  date_updated: Date;
+  url: string;
+  data_enabled: boolean;
+  data_limit: number;
+  data_metering: FleetDataMetering;
+  sms_commands_enabled: boolean;
+  sms_commands_url: string;
+  sms_commands_method: FleetSmsCommandsMethod;
+  network_access_profile_sid: string;
+  ip_commands_url: string;
+  ip_commands_method: FleetIpCommandsMethod;
 }
 
 export class FleetInstance {
@@ -312,60 +314,60 @@ export class FleetInstance {
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * An application-defined string that uniquely identifies the resource
    */
-  uniqueName?: string | null;
+  uniqueName: string;
   /**
    * The ISO 8601 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The ISO 8601 date and time in GMT when the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The absolute URL of the Fleet resource
    */
-  url?: string | null;
+  url: string;
   /**
    * Defines whether SIMs in the Fleet are capable of using data connectivity
    */
-  dataEnabled?: boolean | null;
+  dataEnabled: boolean;
   /**
    * The total data usage (download and upload combined) in Megabytes that each Super SIM assigned to the Fleet can consume
    */
-  dataLimit?: number | null;
-  dataMetering?: FleetDataMetering;
+  dataLimit: number;
+  dataMetering: FleetDataMetering;
   /**
    * Defines whether SIMs in the Fleet are capable of sending and receiving machine-to-machine SMS via Commands
    */
-  smsCommandsEnabled?: boolean | null;
+  smsCommandsEnabled: boolean;
   /**
    * The URL that will receive a webhook when a Super SIM in the Fleet is used to send an SMS from your device to the SMS Commands number
    */
-  smsCommandsUrl?: string | null;
+  smsCommandsUrl: string;
   /**
    * A string representing the HTTP method to use when making a request to `sms_commands_url`
    */
-  smsCommandsMethod?: FleetSmsCommandsMethod;
+  smsCommandsMethod: FleetSmsCommandsMethod;
   /**
    * The SID of the Network Access Profile of the Fleet
    */
-  networkAccessProfileSid?: string | null;
+  networkAccessProfileSid: string;
   /**
    * The URL that will receive a webhook when a Super SIM in the Fleet is used to send an IP Command from your device
    */
-  ipCommandsUrl?: string | null;
+  ipCommandsUrl: string;
   /**
    * A string representing the HTTP method to use when making a request to `ip_commands_url`
    */
-  ipCommandsMethod?: FleetIpCommandsMethod;
+  ipCommandsMethod: FleetIpCommandsMethod;
 
   private get _proxy(): FleetContext {
     this._context =
@@ -442,7 +444,13 @@ export class FleetInstance {
   }
 }
 
+export interface FleetSolution {}
+
 export interface FleetListInstance {
+  _version: V1;
+  _solution: FleetSolution;
+  _uri: string;
+
   (sid: string): FleetContext;
   get(sid: string): FleetContext;
 
@@ -588,17 +596,8 @@ export interface FleetListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface FleetSolution {}
-
-interface FleetListInstanceImpl extends FleetListInstance {}
-class FleetListInstanceImpl implements FleetListInstance {
-  _version?: V1;
-  _solution?: FleetSolution;
-  _uri?: string;
-}
-
 export function FleetListInstance(version: V1): FleetListInstance {
-  const instance = ((sid) => instance.get(sid)) as FleetListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as FleetListInstance;
 
   instance.get = function get(sid): FleetContext {
     return new FleetContextImpl(version, sid);
@@ -650,7 +649,7 @@ export function FleetListInstance(version: V1): FleetListInstance {
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -660,7 +659,7 @@ export function FleetListInstance(version: V1): FleetListInstance {
       (payload) => new FleetInstance(operationVersion, payload)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -691,17 +690,17 @@ export function FleetListInstance(version: V1): FleetListInstance {
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new FleetPage(operationVersion, payload, this._solution)
+      (payload) => new FleetPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -714,30 +713,27 @@ export function FleetListInstance(version: V1): FleetListInstance {
     targetUrl?: any,
     callback?: any
   ): Promise<FleetPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new FleetPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) => new FleetPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

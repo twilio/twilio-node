@@ -103,9 +103,9 @@ export interface ParticipantContext {
 }
 
 export interface ParticipantContextSolution {
-  serviceSid?: string;
-  sessionSid?: string;
-  sid?: string;
+  serviceSid: string;
+  sessionSid: string;
+  sid: string;
 }
 
 export class ParticipantContextImpl implements ParticipantContext {
@@ -149,13 +149,14 @@ export class ParticipantContextImpl implements ParticipantContext {
   }
 
   remove(callback?: any): Promise<boolean> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -163,9 +164,10 @@ export class ParticipantContextImpl implements ParticipantContext {
   }
 
   fetch(callback?: any): Promise<ParticipantInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -174,13 +176,13 @@ export class ParticipantContextImpl implements ParticipantContext {
         new ParticipantInstance(
           operationVersion,
           payload,
-          this._solution.serviceSid,
-          this._solution.sessionSid,
-          this._solution.sid
+          instance._solution.serviceSid,
+          instance._solution.sessionSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -206,19 +208,19 @@ interface ParticipantPayload extends TwilioResponsePayload {
 }
 
 interface ParticipantResource {
-  sid?: string | null;
-  session_sid?: string | null;
-  service_sid?: string | null;
-  account_sid?: string | null;
-  friendly_name?: string | null;
-  identifier?: string | null;
-  proxy_identifier?: string | null;
-  proxy_identifier_sid?: string | null;
-  date_deleted?: Date | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  url?: string | null;
-  links?: object | null;
+  sid: string;
+  session_sid: string;
+  service_sid: string;
+  account_sid: string;
+  friendly_name: string;
+  identifier: string;
+  proxy_identifier: string;
+  proxy_identifier_sid: string;
+  date_deleted: Date;
+  date_created: Date;
+  date_updated: Date;
+  url: string;
+  links: object;
 }
 
 export class ParticipantInstance {
@@ -252,55 +254,55 @@ export class ParticipantInstance {
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The SID of the resource\'s parent Session
    */
-  sessionSid?: string | null;
+  sessionSid: string;
   /**
    * The SID of the resource\'s parent Service
    */
-  serviceSid?: string | null;
+  serviceSid: string;
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The string that you assigned to describe the participant
    */
-  friendlyName?: string | null;
+  friendlyName: string;
   /**
    * The phone number or channel identifier of the Participant
    */
-  identifier?: string | null;
+  identifier: string;
   /**
    * The phone number or short code of the participant\'s partner
    */
-  proxyIdentifier?: string | null;
+  proxyIdentifier: string;
   /**
    * The SID of the Proxy Identifier assigned to the Participant
    */
-  proxyIdentifierSid?: string | null;
+  proxyIdentifierSid: string;
   /**
    * The ISO 8601 date the Participant was removed
    */
-  dateDeleted?: Date | null;
+  dateDeleted: Date;
   /**
    * The ISO 8601 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The ISO 8601 date and time in GMT when the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The absolute URL of the Participant resource
    */
-  url?: string | null;
+  url: string;
   /**
    * The URLs to resources related the participant
    */
-  links?: object | null;
+  links: object;
 
   private get _proxy(): ParticipantContext {
     this._context =
@@ -375,7 +377,16 @@ export class ParticipantInstance {
   }
 }
 
+export interface ParticipantSolution {
+  serviceSid: string;
+  sessionSid: string;
+}
+
 export interface ParticipantListInstance {
+  _version: V1;
+  _solution: ParticipantSolution;
+  _uri: string;
+
   (sid: string): ParticipantContext;
   get(sid: string): ParticipantContext;
 
@@ -521,18 +532,6 @@ export interface ParticipantListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface ParticipantSolution {
-  serviceSid?: string;
-  sessionSid?: string;
-}
-
-interface ParticipantListInstanceImpl extends ParticipantListInstance {}
-class ParticipantListInstanceImpl implements ParticipantListInstance {
-  _version?: V1;
-  _solution?: ParticipantSolution;
-  _uri?: string;
-}
-
 export function ParticipantListInstance(
   version: V1,
   serviceSid: string,
@@ -546,7 +545,7 @@ export function ParticipantListInstance(
     throw new Error("Parameter 'sessionSid' is not valid.");
   }
 
-  const instance = ((sid) => instance.get(sid)) as ParticipantListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as ParticipantListInstance;
 
   instance.get = function get(sid): ParticipantContext {
     return new ParticipantContextImpl(version, serviceSid, sessionSid, sid);
@@ -583,7 +582,7 @@ export function ParticipantListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -594,12 +593,12 @@ export function ParticipantListInstance(
         new ParticipantInstance(
           operationVersion,
           payload,
-          this._solution.serviceSid,
-          this._solution.sessionSid
+          instance._solution.serviceSid,
+          instance._solution.sessionSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -628,7 +627,7 @@ export function ParticipantListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
@@ -636,10 +635,10 @@ export function ParticipantListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new ParticipantPage(operationVersion, payload, this._solution)
+        new ParticipantPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -652,30 +651,28 @@ export function ParticipantListInstance(
     targetUrl?: any,
     callback?: any
   ): Promise<ParticipantPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new ParticipantPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new ParticipantPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

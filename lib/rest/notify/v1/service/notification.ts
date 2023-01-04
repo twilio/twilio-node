@@ -62,7 +62,15 @@ export interface NotificationListInstanceCreateOptions {
   tag?: Array<string>;
 }
 
+export interface NotificationSolution {
+  serviceSid: string;
+}
+
 export interface NotificationListInstance {
+  _version: V1;
+  _solution: NotificationSolution;
+  _uri: string;
+
   /**
    * Create a NotificationInstance
    *
@@ -94,17 +102,6 @@ export interface NotificationListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface NotificationSolution {
-  serviceSid?: string;
-}
-
-interface NotificationListInstanceImpl extends NotificationListInstance {}
-class NotificationListInstanceImpl implements NotificationListInstance {
-  _version?: V1;
-  _solution?: NotificationSolution;
-  _uri?: string;
-}
-
 export function NotificationListInstance(
   version: V1,
   serviceSid: string
@@ -113,7 +110,7 @@ export function NotificationListInstance(
     throw new Error("Parameter 'serviceSid' is not valid.");
   }
 
-  const instance = {} as NotificationListInstanceImpl;
+  const instance = {} as NotificationListInstance;
 
   instance._version = version;
   instance._solution = { serviceSid };
@@ -168,7 +165,7 @@ export function NotificationListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -179,11 +176,11 @@ export function NotificationListInstance(
         new NotificationInstance(
           operationVersion,
           payload,
-          this._solution.serviceSid
+          instance._solution.serviceSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -191,14 +188,14 @@ export function NotificationListInstance(
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;
@@ -207,26 +204,26 @@ export function NotificationListInstance(
 interface NotificationPayload extends NotificationResource {}
 
 interface NotificationResource {
-  sid?: string | null;
-  account_sid?: string | null;
-  service_sid?: string | null;
-  date_created?: Date | null;
-  identities?: Array<string> | null;
-  tags?: Array<string> | null;
-  segments?: Array<string> | null;
-  priority?: NotificationPriority;
-  ttl?: number | null;
-  title?: string | null;
-  body?: string | null;
-  sound?: string | null;
-  action?: string | null;
-  data?: any | null;
-  apn?: any | null;
-  gcm?: any | null;
-  fcm?: any | null;
-  sms?: any | null;
-  facebook_messenger?: any | null;
-  alexa?: any | null;
+  sid: string;
+  account_sid: string;
+  service_sid: string;
+  date_created: Date;
+  identities: Array<string>;
+  tags: Array<string>;
+  segments: Array<string>;
+  priority: NotificationPriority;
+  ttl: number;
+  title: string;
+  body: string;
+  sound: string;
+  action: string;
+  data: any;
+  apn: any;
+  gcm: any;
+  fcm: any;
+  sms: any;
+  facebook_messenger: any;
+  alexa: any;
 }
 
 export class NotificationInstance {
@@ -260,80 +257,80 @@ export class NotificationInstance {
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The SID of the Service that the resource is associated with
    */
-  serviceSid?: string | null;
+  serviceSid: string;
   /**
    * The RFC 2822 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The list of identity values of the Users to notify
    */
-  identities?: Array<string> | null;
+  identities: Array<string>;
   /**
    * The tags that select the Bindings to notify
    */
-  tags?: Array<string> | null;
+  tags: Array<string>;
   /**
    * The list of Segments to notify
    */
-  segments?: Array<string> | null;
-  priority?: NotificationPriority;
+  segments: Array<string>;
+  priority: NotificationPriority;
   /**
    * How long, in seconds, the notification is valid
    */
-  ttl?: number | null;
+  ttl: number;
   /**
    * The notification title
    */
-  title?: string | null;
+  title: string;
   /**
    * The notification body text
    */
-  body?: string | null;
+  body: string;
   /**
    * The name of the sound to be played for the notification
    */
-  sound?: string | null;
+  sound: string;
   /**
    * The actions to display for the notification
    */
-  action?: string | null;
+  action: string;
   /**
    * The custom key-value pairs of the notification\'s payload
    */
-  data?: any | null;
+  data: any;
   /**
    * The APNS-specific payload that overrides corresponding attributes in a generic payload for APNS Bindings
    */
-  apn?: any | null;
+  apn: any;
   /**
    * The GCM-specific payload that overrides corresponding attributes in generic payload for GCM Bindings
    */
-  gcm?: any | null;
+  gcm: any;
   /**
    * The FCM-specific payload that overrides corresponding attributes in generic payload for FCM Bindings
    */
-  fcm?: any | null;
+  fcm: any;
   /**
    * The SMS-specific payload that overrides corresponding attributes in generic payload for SMS Bindings
    */
-  sms?: any | null;
+  sms: any;
   /**
    * Deprecated
    */
-  facebookMessenger?: any | null;
+  facebookMessenger: any;
   /**
    * Deprecated
    */
-  alexa?: any | null;
+  alexa: any;
 
   /**
    * Provide a user-friendly representation

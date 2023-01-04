@@ -70,8 +70,8 @@ export interface TaskActionsContext {
 }
 
 export interface TaskActionsContextSolution {
-  assistantSid?: string;
-  taskSid?: string;
+  assistantSid: string;
+  taskSid: string;
 }
 
 export class TaskActionsContextImpl implements TaskActionsContext {
@@ -96,9 +96,10 @@ export class TaskActionsContextImpl implements TaskActionsContext {
   }
 
   fetch(callback?: any): Promise<TaskActionsInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -107,12 +108,12 @@ export class TaskActionsContextImpl implements TaskActionsContext {
         new TaskActionsInstance(
           operationVersion,
           payload,
-          this._solution.assistantSid,
-          this._solution.taskSid
+          instance._solution.assistantSid,
+          instance._solution.taskSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -135,9 +136,10 @@ export class TaskActionsContextImpl implements TaskActionsContext {
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -148,12 +150,12 @@ export class TaskActionsContextImpl implements TaskActionsContext {
         new TaskActionsInstance(
           operationVersion,
           payload,
-          this._solution.assistantSid,
-          this._solution.taskSid
+          instance._solution.assistantSid,
+          instance._solution.taskSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -177,11 +179,11 @@ export class TaskActionsContextImpl implements TaskActionsContext {
 interface TaskActionsPayload extends TaskActionsResource {}
 
 interface TaskActionsResource {
-  account_sid?: string | null;
-  assistant_sid?: string | null;
-  task_sid?: string | null;
-  url?: string | null;
-  data?: any | null;
+  account_sid: string;
+  assistant_sid: string;
+  task_sid: string;
+  url: string;
+  data: any;
 }
 
 export class TaskActionsInstance {
@@ -206,17 +208,17 @@ export class TaskActionsInstance {
   /**
    * The unique ID of the Account that created this Field.
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The unique ID of the parent Assistant.
    */
-  assistantSid?: string | null;
+  assistantSid: string;
   /**
    * The unique ID of the Task.
    */
-  taskSid?: string | null;
-  url?: string | null;
-  data?: any | null;
+  taskSid: string;
+  url: string;
+  data: any;
 
   private get _proxy(): TaskActionsContext {
     this._context =
@@ -288,7 +290,16 @@ export class TaskActionsInstance {
   }
 }
 
+export interface TaskActionsSolution {
+  assistantSid: string;
+  taskSid: string;
+}
+
 export interface TaskActionsListInstance {
+  _version: Understand;
+  _solution: TaskActionsSolution;
+  _uri: string;
+
   (): TaskActionsContext;
   get(): TaskActionsContext;
 
@@ -297,18 +308,6 @@ export interface TaskActionsListInstance {
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export interface TaskActionsSolution {
-  assistantSid?: string;
-  taskSid?: string;
-}
-
-interface TaskActionsListInstanceImpl extends TaskActionsListInstance {}
-class TaskActionsListInstanceImpl implements TaskActionsListInstance {
-  _version?: Understand;
-  _solution?: TaskActionsSolution;
-  _uri?: string;
 }
 
 export function TaskActionsListInstance(
@@ -324,7 +323,7 @@ export function TaskActionsListInstance(
     throw new Error("Parameter 'taskSid' is not valid.");
   }
 
-  const instance = (() => instance.get()) as TaskActionsListInstanceImpl;
+  const instance = (() => instance.get()) as TaskActionsListInstance;
 
   instance.get = function get(): TaskActionsContext {
     return new TaskActionsContextImpl(version, assistantSid, taskSid);
@@ -335,14 +334,14 @@ export function TaskActionsListInstance(
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

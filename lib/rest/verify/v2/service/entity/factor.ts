@@ -140,9 +140,9 @@ export interface FactorContext {
 }
 
 export interface FactorContextSolution {
-  serviceSid?: string;
-  identity?: string;
-  sid?: string;
+  serviceSid: string;
+  identity: string;
+  sid: string;
 }
 
 export class FactorContextImpl implements FactorContext {
@@ -172,13 +172,14 @@ export class FactorContextImpl implements FactorContext {
   }
 
   remove(callback?: any): Promise<boolean> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -186,9 +187,10 @@ export class FactorContextImpl implements FactorContext {
   }
 
   fetch(callback?: any): Promise<FactorInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -197,13 +199,13 @@ export class FactorContextImpl implements FactorContext {
         new FactorInstance(
           operationVersion,
           payload,
-          this._solution.serviceSid,
-          this._solution.identity,
-          this._solution.sid
+          instance._solution.serviceSid,
+          instance._solution.identity,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -243,9 +245,10 @@ export class FactorContextImpl implements FactorContext {
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -256,13 +259,13 @@ export class FactorContextImpl implements FactorContext {
         new FactorInstance(
           operationVersion,
           payload,
-          this._solution.serviceSid,
-          this._solution.identity,
-          this._solution.sid
+          instance._solution.serviceSid,
+          instance._solution.identity,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -288,19 +291,19 @@ interface FactorPayload extends TwilioResponsePayload {
 }
 
 interface FactorResource {
-  sid?: string | null;
-  account_sid?: string | null;
-  service_sid?: string | null;
-  entity_sid?: string | null;
-  identity?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  friendly_name?: string | null;
-  status?: FactorFactorStatuses;
-  factor_type?: FactorFactorTypes;
-  config?: any | null;
-  metadata?: any | null;
-  url?: string | null;
+  sid: string;
+  account_sid: string;
+  service_sid: string;
+  entity_sid: string;
+  identity: string;
+  date_created: Date;
+  date_updated: Date;
+  friendly_name: string;
+  status: FactorFactorStatuses;
+  factor_type: FactorFactorTypes;
+  config: any;
+  metadata: any;
+  url: string;
 }
 
 export class FactorInstance {
@@ -334,49 +337,49 @@ export class FactorInstance {
   /**
    * A string that uniquely identifies this Factor.
    */
-  sid?: string | null;
+  sid: string;
   /**
    * Account Sid.
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * Service Sid.
    */
-  serviceSid?: string | null;
+  serviceSid: string;
   /**
    * Entity Sid.
    */
-  entitySid?: string | null;
+  entitySid: string;
   /**
    * Unique external identifier of the Entity
    */
-  identity?: string | null;
+  identity: string;
   /**
    * The date this Factor was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The date this Factor was updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * A human readable description of this resource.
    */
-  friendlyName?: string | null;
-  status?: FactorFactorStatuses;
-  factorType?: FactorFactorTypes;
+  friendlyName: string;
+  status: FactorFactorStatuses;
+  factorType: FactorFactorTypes;
   /**
    * Configurations for a `factor_type`.
    */
-  config?: any | null;
+  config: any;
   /**
    * Metadata of the factor.
    */
-  metadata?: any | null;
+  metadata: any;
   /**
    * The URL of this resource.
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): FactorContext {
     this._context =
@@ -470,7 +473,16 @@ export class FactorInstance {
   }
 }
 
+export interface FactorSolution {
+  serviceSid: string;
+  identity: string;
+}
+
 export interface FactorListInstance {
+  _version: V2;
+  _solution: FactorSolution;
+  _uri: string;
+
   (sid: string): FactorContext;
   get(sid: string): FactorContext;
 
@@ -602,18 +614,6 @@ export interface FactorListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface FactorSolution {
-  serviceSid?: string;
-  identity?: string;
-}
-
-interface FactorListInstanceImpl extends FactorListInstance {}
-class FactorListInstanceImpl implements FactorListInstance {
-  _version?: V2;
-  _solution?: FactorSolution;
-  _uri?: string;
-}
-
 export function FactorListInstance(
   version: V2,
   serviceSid: string,
@@ -627,7 +627,7 @@ export function FactorListInstance(
     throw new Error("Parameter 'identity' is not valid.");
   }
 
-  const instance = ((sid) => instance.get(sid)) as FactorListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as FactorListInstance;
 
   instance.get = function get(sid): FactorContext {
     return new FactorContextImpl(version, serviceSid, identity, sid);
@@ -659,17 +659,17 @@ export function FactorListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new FactorPage(operationVersion, payload, this._solution)
+      (payload) => new FactorPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -682,30 +682,28 @@ export function FactorListInstance(
     targetUrl?: any,
     callback?: any
   ): Promise<FactorPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new FactorPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new FactorPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

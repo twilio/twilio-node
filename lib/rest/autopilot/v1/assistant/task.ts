@@ -147,8 +147,8 @@ export interface TaskContext {
 }
 
 export interface TaskContextSolution {
-  assistantSid?: string;
-  sid?: string;
+  assistantSid: string;
+  sid: string;
 }
 
 export class TaskContextImpl implements TaskContext {
@@ -218,13 +218,14 @@ export class TaskContextImpl implements TaskContext {
   }
 
   remove(callback?: any): Promise<boolean> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -232,9 +233,10 @@ export class TaskContextImpl implements TaskContext {
   }
 
   fetch(callback?: any): Promise<TaskInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -243,12 +245,12 @@ export class TaskContextImpl implements TaskContext {
         new TaskInstance(
           operationVersion,
           payload,
-          this._solution.assistantSid,
-          this._solution.sid
+          instance._solution.assistantSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -277,9 +279,10 @@ export class TaskContextImpl implements TaskContext {
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -290,12 +293,12 @@ export class TaskContextImpl implements TaskContext {
         new TaskInstance(
           operationVersion,
           payload,
-          this._solution.assistantSid,
-          this._solution.sid
+          instance._solution.assistantSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -321,16 +324,16 @@ interface TaskPayload extends TwilioResponsePayload {
 }
 
 interface TaskResource {
-  account_sid?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  friendly_name?: string | null;
-  links?: object | null;
-  assistant_sid?: string | null;
-  sid?: string | null;
-  unique_name?: string | null;
-  actions_url?: string | null;
-  url?: string | null;
+  account_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  friendly_name: string;
+  links: object;
+  assistant_sid: string;
+  sid: string;
+  unique_name: string;
+  actions_url: string;
+  url: string;
 }
 
 export class TaskInstance {
@@ -360,43 +363,43 @@ export class TaskInstance {
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The RFC 2822 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The RFC 2822 date and time in GMT when the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The string that you assigned to describe the resource
    */
-  friendlyName?: string | null;
+  friendlyName: string;
   /**
    * A list of the URLs of related resources
    */
-  links?: object | null;
+  links: object;
   /**
    * The SID of the Assistant that is the parent of the resource
    */
-  assistantSid?: string | null;
+  assistantSid: string;
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * An application-defined string that uniquely identifies the resource
    */
-  uniqueName?: string | null;
+  uniqueName: string;
   /**
    * The URL from which the Assistant can fetch actions
    */
-  actionsUrl?: string | null;
+  actionsUrl: string;
   /**
    * The absolute URL of the Task resource
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): TaskContext {
     this._context =
@@ -514,7 +517,15 @@ export class TaskInstance {
   }
 }
 
+export interface TaskSolution {
+  assistantSid: string;
+}
+
 export interface TaskListInstance {
+  _version: V1;
+  _solution: TaskSolution;
+  _uri: string;
+
   (sid: string): TaskContext;
   get(sid: string): TaskContext;
 
@@ -660,17 +671,6 @@ export interface TaskListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface TaskSolution {
-  assistantSid?: string;
-}
-
-interface TaskListInstanceImpl extends TaskListInstance {}
-class TaskListInstanceImpl implements TaskListInstance {
-  _version?: V1;
-  _solution?: TaskSolution;
-  _uri?: string;
-}
-
 export function TaskListInstance(
   version: V1,
   assistantSid: string
@@ -679,7 +679,7 @@ export function TaskListInstance(
     throw new Error("Parameter 'assistantSid' is not valid.");
   }
 
-  const instance = ((sid) => instance.get(sid)) as TaskListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as TaskListInstance;
 
   instance.get = function get(sid): TaskContext {
     return new TaskContextImpl(version, assistantSid, sid);
@@ -716,7 +716,7 @@ export function TaskListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -724,10 +724,14 @@ export function TaskListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new TaskInstance(operationVersion, payload, this._solution.assistantSid)
+        new TaskInstance(
+          operationVersion,
+          payload,
+          instance._solution.assistantSid
+        )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -756,17 +760,17 @@ export function TaskListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new TaskPage(operationVersion, payload, this._solution)
+      (payload) => new TaskPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -779,30 +783,27 @@ export function TaskListInstance(
     targetUrl?: any,
     callback?: any
   ): Promise<TaskPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new TaskPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) => new TaskPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

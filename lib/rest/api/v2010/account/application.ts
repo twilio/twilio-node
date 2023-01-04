@@ -188,8 +188,8 @@ export interface ApplicationContext {
 }
 
 export interface ApplicationContextSolution {
-  accountSid?: string;
-  sid?: string;
+  accountSid: string;
+  sid: string;
 }
 
 export class ApplicationContextImpl implements ApplicationContext {
@@ -210,13 +210,14 @@ export class ApplicationContextImpl implements ApplicationContext {
   }
 
   remove(callback?: any): Promise<boolean> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -224,9 +225,10 @@ export class ApplicationContextImpl implements ApplicationContext {
   }
 
   fetch(callback?: any): Promise<ApplicationInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -235,12 +237,12 @@ export class ApplicationContextImpl implements ApplicationContext {
         new ApplicationInstance(
           operationVersion,
           payload,
-          this._solution.accountSid,
-          this._solution.sid
+          instance._solution.accountSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -291,9 +293,10 @@ export class ApplicationContextImpl implements ApplicationContext {
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -304,12 +307,12 @@ export class ApplicationContextImpl implements ApplicationContext {
         new ApplicationInstance(
           operationVersion,
           payload,
-          this._solution.accountSid,
-          this._solution.sid
+          instance._solution.accountSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -371,26 +374,26 @@ interface ApplicationPayload extends TwilioResponsePayload {
 }
 
 interface ApplicationResource {
-  account_sid?: string | null;
-  api_version?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  friendly_name?: string | null;
-  message_status_callback?: string | null;
-  sid?: string | null;
-  sms_fallback_method?: ApplicationSmsFallbackMethod;
-  sms_fallback_url?: string | null;
-  sms_method?: ApplicationSmsMethod;
-  sms_status_callback?: string | null;
-  sms_url?: string | null;
-  status_callback?: string | null;
-  status_callback_method?: ApplicationStatusCallbackMethod;
-  uri?: string | null;
-  voice_caller_id_lookup?: boolean | null;
-  voice_fallback_method?: ApplicationVoiceFallbackMethod;
-  voice_fallback_url?: string | null;
-  voice_method?: ApplicationVoiceMethod;
-  voice_url?: string | null;
+  account_sid: string;
+  api_version: string;
+  date_created: Date;
+  date_updated: Date;
+  friendly_name: string;
+  message_status_callback: string;
+  sid: string;
+  sms_fallback_method: ApplicationSmsFallbackMethod;
+  sms_fallback_url: string;
+  sms_method: ApplicationSmsMethod;
+  sms_status_callback: string;
+  sms_url: string;
+  status_callback: string;
+  status_callback_method: ApplicationStatusCallbackMethod;
+  uri: string;
+  voice_caller_id_lookup: boolean;
+  voice_fallback_method: ApplicationVoiceFallbackMethod;
+  voice_fallback_url: string;
+  voice_method: ApplicationVoiceMethod;
+  voice_url: string;
 }
 
 export class ApplicationInstance {
@@ -430,83 +433,83 @@ export class ApplicationInstance {
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The API version used to start a new TwiML session
    */
-  apiVersion?: string | null;
+  apiVersion: string;
   /**
    * The RFC 2822 date and time in GMT that the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The RFC 2822 date and time in GMT that the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The string that you assigned to describe the resource
    */
-  friendlyName?: string | null;
+  friendlyName: string;
   /**
    * The URL to send message status information to your application
    */
-  messageStatusCallback?: string | null;
+  messageStatusCallback: string;
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The HTTP method used with sms_fallback_url
    */
-  smsFallbackMethod?: ApplicationSmsFallbackMethod;
+  smsFallbackMethod: ApplicationSmsFallbackMethod;
   /**
    * The URL that we call when an error occurs while retrieving or executing the TwiML
    */
-  smsFallbackUrl?: string | null;
+  smsFallbackUrl: string;
   /**
    * The HTTP method to use with sms_url
    */
-  smsMethod?: ApplicationSmsMethod;
+  smsMethod: ApplicationSmsMethod;
   /**
    * The URL to send status information to your application
    */
-  smsStatusCallback?: string | null;
+  smsStatusCallback: string;
   /**
    * The URL we call when the phone number receives an incoming SMS message
    */
-  smsUrl?: string | null;
+  smsUrl: string;
   /**
    * The URL to send status information to your application
    */
-  statusCallback?: string | null;
+  statusCallback: string;
   /**
    * The HTTP method we use to call status_callback
    */
-  statusCallbackMethod?: ApplicationStatusCallbackMethod;
+  statusCallbackMethod: ApplicationStatusCallbackMethod;
   /**
    * The URI of the resource, relative to `https://api.twilio.com`
    */
-  uri?: string | null;
+  uri: string;
   /**
    * Whether to lookup the caller\'s name
    */
-  voiceCallerIdLookup?: boolean | null;
+  voiceCallerIdLookup: boolean;
   /**
    * The HTTP method used with voice_fallback_url
    */
-  voiceFallbackMethod?: ApplicationVoiceFallbackMethod;
+  voiceFallbackMethod: ApplicationVoiceFallbackMethod;
   /**
    * The URL we call when a TwiML error occurs
    */
-  voiceFallbackUrl?: string | null;
+  voiceFallbackUrl: string;
   /**
    * The HTTP method used with the voice_url
    */
-  voiceMethod?: ApplicationVoiceMethod;
+  voiceMethod: ApplicationVoiceMethod;
   /**
    * The URL we call when the phone number receives a call
    */
-  voiceUrl?: string | null;
+  voiceUrl: string;
 
   private get _proxy(): ApplicationContext {
     this._context =
@@ -606,7 +609,15 @@ export class ApplicationInstance {
   }
 }
 
+export interface ApplicationSolution {
+  accountSid: string;
+}
+
 export interface ApplicationListInstance {
+  _version: V2010;
+  _solution: ApplicationSolution;
+  _uri: string;
+
   (sid: string): ApplicationContext;
   get(sid: string): ApplicationContext;
 
@@ -762,17 +773,6 @@ export interface ApplicationListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface ApplicationSolution {
-  accountSid?: string;
-}
-
-interface ApplicationListInstanceImpl extends ApplicationListInstance {}
-class ApplicationListInstanceImpl implements ApplicationListInstance {
-  _version?: V2010;
-  _solution?: ApplicationSolution;
-  _uri?: string;
-}
-
 export function ApplicationListInstance(
   version: V2010,
   accountSid: string
@@ -781,7 +781,7 @@ export function ApplicationListInstance(
     throw new Error("Parameter 'accountSid' is not valid.");
   }
 
-  const instance = ((sid) => instance.get(sid)) as ApplicationListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as ApplicationListInstance;
 
   instance.get = function get(sid): ApplicationContext {
     return new ApplicationContextImpl(version, accountSid, sid);
@@ -840,7 +840,7 @@ export function ApplicationListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -851,11 +851,11 @@ export function ApplicationListInstance(
         new ApplicationInstance(
           operationVersion,
           payload,
-          this._solution.accountSid
+          instance._solution.accountSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -886,7 +886,7 @@ export function ApplicationListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
@@ -894,10 +894,10 @@ export function ApplicationListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new ApplicationPage(operationVersion, payload, this._solution)
+        new ApplicationPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -910,30 +910,28 @@ export function ApplicationListInstance(
     targetUrl?: any,
     callback?: any
   ): Promise<ApplicationPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new ApplicationPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new ApplicationPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

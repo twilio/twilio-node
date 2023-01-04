@@ -24,12 +24,24 @@ import { RegulationListInstance } from "./regulatoryCompliance/regulation";
 import { SupportingDocumentListInstance } from "./regulatoryCompliance/supportingDocument";
 import { SupportingDocumentTypeListInstance } from "./regulatoryCompliance/supportingDocumentType";
 
+export interface RegulatoryComplianceSolution {}
+
 export interface RegulatoryComplianceListInstance {
+  _version: V2;
+  _solution: RegulatoryComplianceSolution;
+  _uri: string;
+
+  _bundles?: BundleListInstance;
   bundles: BundleListInstance;
+  _endUsers?: EndUserListInstance;
   endUsers: EndUserListInstance;
+  _endUserTypes?: EndUserTypeListInstance;
   endUserTypes: EndUserTypeListInstance;
+  _regulations?: RegulationListInstance;
   regulations: RegulationListInstance;
+  _supportingDocuments?: SupportingDocumentListInstance;
   supportingDocuments: SupportingDocumentListInstance;
+  _supportingDocumentTypes?: SupportingDocumentTypeListInstance;
   supportingDocumentTypes: SupportingDocumentTypeListInstance;
 
   /**
@@ -39,29 +51,10 @@ export interface RegulatoryComplianceListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface RegulatoryComplianceSolution {}
-
-interface RegulatoryComplianceListInstanceImpl
-  extends RegulatoryComplianceListInstance {}
-class RegulatoryComplianceListInstanceImpl
-  implements RegulatoryComplianceListInstance
-{
-  _version?: V2;
-  _solution?: RegulatoryComplianceSolution;
-  _uri?: string;
-
-  _bundles?: BundleListInstance;
-  _endUsers?: EndUserListInstance;
-  _endUserTypes?: EndUserTypeListInstance;
-  _regulations?: RegulationListInstance;
-  _supportingDocuments?: SupportingDocumentListInstance;
-  _supportingDocumentTypes?: SupportingDocumentTypeListInstance;
-}
-
 export function RegulatoryComplianceListInstance(
   version: V2
 ): RegulatoryComplianceListInstance {
-  const instance = {} as RegulatoryComplianceListInstanceImpl;
+  const instance = {} as RegulatoryComplianceListInstance;
 
   instance._version = version;
   instance._solution = {};
@@ -69,71 +62,71 @@ export function RegulatoryComplianceListInstance(
 
   Object.defineProperty(instance, "bundles", {
     get: function bundles() {
-      if (!this._bundles) {
-        this._bundles = BundleListInstance(this._version);
+      if (!instance._bundles) {
+        instance._bundles = BundleListInstance(instance._version);
       }
-      return this._bundles;
+      return instance._bundles;
     },
   });
 
   Object.defineProperty(instance, "endUsers", {
     get: function endUsers() {
-      if (!this._endUsers) {
-        this._endUsers = EndUserListInstance(this._version);
+      if (!instance._endUsers) {
+        instance._endUsers = EndUserListInstance(instance._version);
       }
-      return this._endUsers;
+      return instance._endUsers;
     },
   });
 
   Object.defineProperty(instance, "endUserTypes", {
     get: function endUserTypes() {
-      if (!this._endUserTypes) {
-        this._endUserTypes = EndUserTypeListInstance(this._version);
+      if (!instance._endUserTypes) {
+        instance._endUserTypes = EndUserTypeListInstance(instance._version);
       }
-      return this._endUserTypes;
+      return instance._endUserTypes;
     },
   });
 
   Object.defineProperty(instance, "regulations", {
     get: function regulations() {
-      if (!this._regulations) {
-        this._regulations = RegulationListInstance(this._version);
+      if (!instance._regulations) {
+        instance._regulations = RegulationListInstance(instance._version);
       }
-      return this._regulations;
+      return instance._regulations;
     },
   });
 
   Object.defineProperty(instance, "supportingDocuments", {
     get: function supportingDocuments() {
-      if (!this._supportingDocuments) {
-        this._supportingDocuments = SupportingDocumentListInstance(
-          this._version
+      if (!instance._supportingDocuments) {
+        instance._supportingDocuments = SupportingDocumentListInstance(
+          instance._version
         );
       }
-      return this._supportingDocuments;
+      return instance._supportingDocuments;
     },
   });
 
   Object.defineProperty(instance, "supportingDocumentTypes", {
     get: function supportingDocumentTypes() {
-      if (!this._supportingDocumentTypes) {
-        this._supportingDocumentTypes = SupportingDocumentTypeListInstance(
-          this._version
+      if (!instance._supportingDocumentTypes) {
+        instance._supportingDocumentTypes = SupportingDocumentTypeListInstance(
+          instance._version
         );
       }
-      return this._supportingDocumentTypes;
+      return instance._supportingDocumentTypes;
     },
   });
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

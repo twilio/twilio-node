@@ -264,9 +264,9 @@ export interface ParticipantContext {
 }
 
 export interface ParticipantContextSolution {
-  accountSid?: string;
-  conferenceSid?: string;
-  callSid?: string;
+  accountSid: string;
+  conferenceSid: string;
+  callSid: string;
 }
 
 export class ParticipantContextImpl implements ParticipantContext {
@@ -296,13 +296,14 @@ export class ParticipantContextImpl implements ParticipantContext {
   }
 
   remove(callback?: any): Promise<boolean> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -310,9 +311,10 @@ export class ParticipantContextImpl implements ParticipantContext {
   }
 
   fetch(callback?: any): Promise<ParticipantInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -321,13 +323,13 @@ export class ParticipantContextImpl implements ParticipantContext {
         new ParticipantInstance(
           operationVersion,
           payload,
-          this._solution.accountSid,
-          this._solution.conferenceSid,
-          this._solution.callSid
+          instance._solution.accountSid,
+          instance._solution.conferenceSid,
+          instance._solution.callSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -372,9 +374,10 @@ export class ParticipantContextImpl implements ParticipantContext {
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -385,13 +388,13 @@ export class ParticipantContextImpl implements ParticipantContext {
         new ParticipantInstance(
           operationVersion,
           payload,
-          this._solution.accountSid,
-          this._solution.conferenceSid,
-          this._solution.callSid
+          instance._solution.accountSid,
+          instance._solution.conferenceSid,
+          instance._solution.callSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -417,20 +420,20 @@ interface ParticipantPayload extends TwilioResponsePayload {
 }
 
 interface ParticipantResource {
-  account_sid?: string | null;
-  call_sid?: string | null;
-  label?: string | null;
-  call_sid_to_coach?: string | null;
-  coaching?: boolean | null;
-  conference_sid?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  end_conference_on_exit?: boolean | null;
-  muted?: boolean | null;
-  hold?: boolean | null;
-  start_conference_on_enter?: boolean | null;
-  status?: ParticipantStatus;
-  uri?: string | null;
+  account_sid: string;
+  call_sid: string;
+  label: string;
+  call_sid_to_coach: string;
+  coaching: boolean;
+  conference_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  end_conference_on_exit: boolean;
+  muted: boolean;
+  hold: boolean;
+  start_conference_on_enter: boolean;
+  status: ParticipantStatus;
+  uri: string;
 }
 
 export class ParticipantInstance {
@@ -469,56 +472,56 @@ export class ParticipantInstance {
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The SID of the Call the resource is associated with
    */
-  callSid?: string | null;
+  callSid: string;
   /**
    * The label of this participant
    */
-  label?: string | null;
+  label: string;
   /**
    * The SID of the participant who is being `coached`
    */
-  callSidToCoach?: string | null;
+  callSidToCoach: string;
   /**
    * Indicates if the participant changed to coach
    */
-  coaching?: boolean | null;
+  coaching: boolean;
   /**
    * The SID of the conference the participant is in
    */
-  conferenceSid?: string | null;
+  conferenceSid: string;
   /**
    * The RFC 2822 date and time in GMT that the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The RFC 2822 date and time in GMT that the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * Whether the conference ends when the participant leaves
    */
-  endConferenceOnExit?: boolean | null;
+  endConferenceOnExit: boolean;
   /**
    * Whether the participant is muted
    */
-  muted?: boolean | null;
+  muted: boolean;
   /**
    * Whether the participant is on hold
    */
-  hold?: boolean | null;
+  hold: boolean;
   /**
    * Whether the conference starts when the participant joins the conference
    */
-  startConferenceOnEnter?: boolean | null;
-  status?: ParticipantStatus;
+  startConferenceOnEnter: boolean;
+  status: ParticipantStatus;
   /**
    * The URI of the resource, relative to `https://api.twilio.com`
    */
-  uri?: string | null;
+  uri: string;
 
   private get _proxy(): ParticipantContext {
     this._context =
@@ -613,7 +616,16 @@ export class ParticipantInstance {
   }
 }
 
+export interface ParticipantSolution {
+  accountSid: string;
+  conferenceSid: string;
+}
+
 export interface ParticipantListInstance {
+  _version: V2010;
+  _solution: ParticipantSolution;
+  _uri: string;
+
   (callSid: string): ParticipantContext;
   get(callSid: string): ParticipantContext;
 
@@ -759,18 +771,6 @@ export interface ParticipantListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface ParticipantSolution {
-  accountSid?: string;
-  conferenceSid?: string;
-}
-
-interface ParticipantListInstanceImpl extends ParticipantListInstance {}
-class ParticipantListInstanceImpl implements ParticipantListInstance {
-  _version?: V2010;
-  _solution?: ParticipantSolution;
-  _uri?: string;
-}
-
 export function ParticipantListInstance(
   version: V2010,
   accountSid: string,
@@ -785,7 +785,7 @@ export function ParticipantListInstance(
   }
 
   const instance = ((callSid) =>
-    instance.get(callSid)) as ParticipantListInstanceImpl;
+    instance.get(callSid)) as ParticipantListInstance;
 
   instance.get = function get(callSid): ParticipantContext {
     return new ParticipantContextImpl(
@@ -931,7 +931,7 @@ export function ParticipantListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -942,12 +942,12 @@ export function ParticipantListInstance(
         new ParticipantInstance(
           operationVersion,
           payload,
-          this._solution.accountSid,
-          this._solution.conferenceSid
+          instance._solution.accountSid,
+          instance._solution.conferenceSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -982,7 +982,7 @@ export function ParticipantListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
@@ -990,10 +990,10 @@ export function ParticipantListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new ParticipantPage(operationVersion, payload, this._solution)
+        new ParticipantPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -1006,30 +1006,28 @@ export function ParticipantListInstance(
     targetUrl?: any,
     callback?: any
   ): Promise<ParticipantPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new ParticipantPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new ParticipantPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

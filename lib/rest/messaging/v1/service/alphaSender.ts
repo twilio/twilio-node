@@ -94,8 +94,8 @@ export interface AlphaSenderContext {
 }
 
 export interface AlphaSenderContextSolution {
-  serviceSid?: string;
-  sid?: string;
+  serviceSid: string;
+  sid: string;
 }
 
 export class AlphaSenderContextImpl implements AlphaSenderContext {
@@ -116,13 +116,14 @@ export class AlphaSenderContextImpl implements AlphaSenderContext {
   }
 
   remove(callback?: any): Promise<boolean> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -130,9 +131,10 @@ export class AlphaSenderContextImpl implements AlphaSenderContext {
   }
 
   fetch(callback?: any): Promise<AlphaSenderInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -141,12 +143,12 @@ export class AlphaSenderContextImpl implements AlphaSenderContext {
         new AlphaSenderInstance(
           operationVersion,
           payload,
-          this._solution.serviceSid,
-          this._solution.sid
+          instance._solution.serviceSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -172,14 +174,14 @@ interface AlphaSenderPayload extends TwilioResponsePayload {
 }
 
 interface AlphaSenderResource {
-  sid?: string | null;
-  account_sid?: string | null;
-  service_sid?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  alpha_sender?: string | null;
-  capabilities?: Array<string> | null;
-  url?: string | null;
+  sid: string;
+  account_sid: string;
+  service_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  alpha_sender: string;
+  capabilities: Array<string>;
+  url: string;
 }
 
 export class AlphaSenderInstance {
@@ -207,35 +209,35 @@ export class AlphaSenderInstance {
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The SID of the Service that the resource is associated with
    */
-  serviceSid?: string | null;
+  serviceSid: string;
   /**
    * The ISO 8601 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The ISO 8601 date and time in GMT when the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The Alphanumeric Sender ID string
    */
-  alphaSender?: string | null;
+  alphaSender: string;
   /**
    * An array of values that describe whether the number can receive calls or messages
    */
-  capabilities?: Array<string> | null;
+  capabilities: Array<string>;
   /**
    * The absolute URL of the AlphaSender resource
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): AlphaSenderContext {
     this._context =
@@ -297,7 +299,15 @@ export class AlphaSenderInstance {
   }
 }
 
+export interface AlphaSenderSolution {
+  serviceSid: string;
+}
+
 export interface AlphaSenderListInstance {
+  _version: V1;
+  _solution: AlphaSenderSolution;
+  _uri: string;
+
   (sid: string): AlphaSenderContext;
   get(sid: string): AlphaSenderContext;
 
@@ -443,17 +453,6 @@ export interface AlphaSenderListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface AlphaSenderSolution {
-  serviceSid?: string;
-}
-
-interface AlphaSenderListInstanceImpl extends AlphaSenderListInstance {}
-class AlphaSenderListInstanceImpl implements AlphaSenderListInstance {
-  _version?: V1;
-  _solution?: AlphaSenderSolution;
-  _uri?: string;
-}
-
 export function AlphaSenderListInstance(
   version: V1,
   serviceSid: string
@@ -462,7 +461,7 @@ export function AlphaSenderListInstance(
     throw new Error("Parameter 'serviceSid' is not valid.");
   }
 
-  const instance = ((sid) => instance.get(sid)) as AlphaSenderListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as AlphaSenderListInstance;
 
   instance.get = function get(sid): AlphaSenderContext {
     return new AlphaSenderContextImpl(version, serviceSid, sid);
@@ -493,7 +492,7 @@ export function AlphaSenderListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -504,11 +503,11 @@ export function AlphaSenderListInstance(
         new AlphaSenderInstance(
           operationVersion,
           payload,
-          this._solution.serviceSid
+          instance._solution.serviceSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -537,7 +536,7 @@ export function AlphaSenderListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
@@ -545,10 +544,10 @@ export function AlphaSenderListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new AlphaSenderPage(operationVersion, payload, this._solution)
+        new AlphaSenderPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -561,30 +560,28 @@ export function AlphaSenderListInstance(
     targetUrl?: any,
     callback?: any
   ): Promise<AlphaSenderPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new AlphaSenderPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new AlphaSenderPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

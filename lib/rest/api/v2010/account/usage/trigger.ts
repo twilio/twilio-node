@@ -411,8 +411,8 @@ export interface TriggerContext {
 }
 
 export interface TriggerContextSolution {
-  accountSid?: string;
-  sid?: string;
+  accountSid: string;
+  sid: string;
 }
 
 export class TriggerContextImpl implements TriggerContext {
@@ -433,13 +433,14 @@ export class TriggerContextImpl implements TriggerContext {
   }
 
   remove(callback?: any): Promise<boolean> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -447,9 +448,10 @@ export class TriggerContextImpl implements TriggerContext {
   }
 
   fetch(callback?: any): Promise<TriggerInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -458,12 +460,12 @@ export class TriggerContextImpl implements TriggerContext {
         new TriggerInstance(
           operationVersion,
           payload,
-          this._solution.accountSid,
-          this._solution.sid
+          instance._solution.accountSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -490,9 +492,10 @@ export class TriggerContextImpl implements TriggerContext {
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -503,12 +506,12 @@ export class TriggerContextImpl implements TriggerContext {
         new TriggerInstance(
           operationVersion,
           payload,
-          this._solution.accountSid,
-          this._solution.sid
+          instance._solution.accountSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -542,22 +545,22 @@ interface TriggerPayload extends TwilioResponsePayload {
 }
 
 interface TriggerResource {
-  account_sid?: string | null;
-  api_version?: string | null;
-  callback_method?: TriggerCallbackMethod;
-  callback_url?: string | null;
-  current_value?: string | null;
-  date_created?: Date | null;
-  date_fired?: Date | null;
-  date_updated?: Date | null;
-  friendly_name?: string | null;
-  recurring?: UsageTriggerRecurring;
-  sid?: string | null;
-  trigger_by?: UsageTriggerTriggerField;
-  trigger_value?: string | null;
-  uri?: string | null;
-  usage_category?: UsageTriggerUsageCategory;
-  usage_record_uri?: string | null;
+  account_sid: string;
+  api_version: string;
+  callback_method: TriggerCallbackMethod;
+  callback_url: string;
+  current_value: string;
+  date_created: Date;
+  date_fired: Date;
+  date_updated: Date;
+  friendly_name: string;
+  recurring: UsageTriggerRecurring;
+  sid: string;
+  trigger_by: UsageTriggerTriggerField;
+  trigger_value: string;
+  uri: string;
+  usage_category: UsageTriggerUsageCategory;
+  usage_record_uri: string;
 }
 
 export class TriggerInstance {
@@ -593,58 +596,58 @@ export class TriggerInstance {
   /**
    * The SID of the Account that this trigger monitors
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The API version used to create the resource
    */
-  apiVersion?: string | null;
+  apiVersion: string;
   /**
    * The HTTP method we use to call callback_url
    */
-  callbackMethod?: TriggerCallbackMethod;
+  callbackMethod: TriggerCallbackMethod;
   /**
    * he URL we call when the trigger fires
    */
-  callbackUrl?: string | null;
+  callbackUrl: string;
   /**
    * The current value of the field the trigger is watching
    */
-  currentValue?: string | null;
+  currentValue: string;
   /**
    * The RFC 2822 date and time in GMT that the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The RFC 2822 date and time in GMT that the trigger was last fired
    */
-  dateFired?: Date | null;
+  dateFired: Date;
   /**
    * The RFC 2822 date and time in GMT that the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The string that you assigned to describe the trigger
    */
-  friendlyName?: string | null;
-  recurring?: UsageTriggerRecurring;
+  friendlyName: string;
+  recurring: UsageTriggerRecurring;
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
-  triggerBy?: UsageTriggerTriggerField;
+  sid: string;
+  triggerBy: UsageTriggerTriggerField;
   /**
    * The value at which the trigger will fire
    */
-  triggerValue?: string | null;
+  triggerValue: string;
   /**
    * The URI of the resource, relative to `https://api.twilio.com`
    */
-  uri?: string | null;
-  usageCategory?: UsageTriggerUsageCategory;
+  uri: string;
+  usageCategory: UsageTriggerUsageCategory;
   /**
    * The URI of the UsageRecord resource this trigger watches
    */
-  usageRecordUri?: string | null;
+  usageRecordUri: string;
 
   private get _proxy(): TriggerContext {
     this._context =
@@ -740,7 +743,15 @@ export class TriggerInstance {
   }
 }
 
+export interface TriggerSolution {
+  accountSid: string;
+}
+
 export interface TriggerListInstance {
+  _version: V2010;
+  _solution: TriggerSolution;
+  _uri: string;
+
   (sid: string): TriggerContext;
   get(sid: string): TriggerContext;
 
@@ -886,17 +897,6 @@ export interface TriggerListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface TriggerSolution {
-  accountSid?: string;
-}
-
-interface TriggerListInstanceImpl extends TriggerListInstance {}
-class TriggerListInstanceImpl implements TriggerListInstance {
-  _version?: V2010;
-  _solution?: TriggerSolution;
-  _uri?: string;
-}
-
 export function TriggerListInstance(
   version: V2010,
   accountSid: string
@@ -905,7 +905,7 @@ export function TriggerListInstance(
     throw new Error("Parameter 'accountSid' is not valid.");
   }
 
-  const instance = ((sid) => instance.get(sid)) as TriggerListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as TriggerListInstance;
 
   instance.get = function get(sid): TriggerContext {
     return new TriggerContextImpl(version, accountSid, sid);
@@ -964,7 +964,7 @@ export function TriggerListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -975,11 +975,11 @@ export function TriggerListInstance(
         new TriggerInstance(
           operationVersion,
           payload,
-          this._solution.accountSid
+          instance._solution.accountSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -1014,17 +1014,18 @@ export function TriggerListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new TriggerPage(operationVersion, payload, this._solution)
+      (payload) =>
+        new TriggerPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -1037,30 +1038,28 @@ export function TriggerListInstance(
     targetUrl?: any,
     callback?: any
   ): Promise<TriggerPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new TriggerPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new TriggerPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

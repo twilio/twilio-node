@@ -118,8 +118,8 @@ export interface UsAppToPersonContext {
 }
 
 export interface UsAppToPersonContextSolution {
-  messagingServiceSid?: string;
-  sid?: string;
+  messagingServiceSid: string;
+  sid: string;
 }
 
 export class UsAppToPersonContextImpl implements UsAppToPersonContext {
@@ -144,13 +144,14 @@ export class UsAppToPersonContextImpl implements UsAppToPersonContext {
   }
 
   remove(callback?: any): Promise<boolean> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -158,9 +159,10 @@ export class UsAppToPersonContextImpl implements UsAppToPersonContext {
   }
 
   fetch(callback?: any): Promise<UsAppToPersonInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -169,12 +171,12 @@ export class UsAppToPersonContextImpl implements UsAppToPersonContext {
         new UsAppToPersonInstance(
           operationVersion,
           payload,
-          this._solution.messagingServiceSid,
-          this._solution.sid
+          instance._solution.messagingServiceSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -200,30 +202,30 @@ interface UsAppToPersonPayload extends TwilioResponsePayload {
 }
 
 interface UsAppToPersonResource {
-  sid?: string | null;
-  account_sid?: string | null;
-  brand_registration_sid?: string | null;
-  messaging_service_sid?: string | null;
-  description?: string | null;
-  message_samples?: Array<string> | null;
-  us_app_to_person_usecase?: string | null;
-  has_embedded_links?: boolean | null;
-  has_embedded_phone?: boolean | null;
-  campaign_status?: string | null;
-  campaign_id?: string | null;
-  is_externally_registered?: boolean | null;
-  rate_limits?: any | null;
-  message_flow?: string | null;
-  opt_in_message?: string | null;
-  opt_out_message?: string | null;
-  help_message?: string | null;
-  opt_in_keywords?: Array<string> | null;
-  opt_out_keywords?: Array<string> | null;
-  help_keywords?: Array<string> | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  url?: string | null;
-  mock?: boolean | null;
+  sid: string;
+  account_sid: string;
+  brand_registration_sid: string;
+  messaging_service_sid: string;
+  description: string;
+  message_samples: Array<string>;
+  us_app_to_person_usecase: string;
+  has_embedded_links: boolean;
+  has_embedded_phone: boolean;
+  campaign_status: string;
+  campaign_id: string;
+  is_externally_registered: boolean;
+  rate_limits: any;
+  message_flow: string;
+  opt_in_message: string;
+  opt_out_message: string;
+  help_message: string;
+  opt_in_keywords: Array<string>;
+  opt_out_keywords: Array<string>;
+  help_keywords: Array<string>;
+  date_created: Date;
+  date_updated: Date;
+  url: string;
+  mock: boolean;
 }
 
 export class UsAppToPersonInstance {
@@ -267,99 +269,99 @@ export class UsAppToPersonInstance {
   /**
    * The unique string that identifies a US A2P Compliance resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * A2P Brand Registration SID
    */
-  brandRegistrationSid?: string | null;
+  brandRegistrationSid: string;
   /**
    * The SID of the Messaging Service the resource is associated with
    */
-  messagingServiceSid?: string | null;
+  messagingServiceSid: string;
   /**
    * A short description of what this SMS campaign does
    */
-  description?: string | null;
+  description: string;
   /**
    * Message samples
    */
-  messageSamples?: Array<string> | null;
+  messageSamples: Array<string>;
   /**
    * A2P Campaign Use Case.
    */
-  usAppToPersonUsecase?: string | null;
+  usAppToPersonUsecase: string;
   /**
    * Indicate that this SMS campaign will send messages that contain links
    */
-  hasEmbeddedLinks?: boolean | null;
+  hasEmbeddedLinks: boolean;
   /**
    * Indicates that this SMS campaign will send messages that contain phone numbers
    */
-  hasEmbeddedPhone?: boolean | null;
+  hasEmbeddedPhone: boolean;
   /**
    * Campaign status
    */
-  campaignStatus?: string | null;
+  campaignStatus: string;
   /**
    * The Campaign Registry (TCR) Campaign ID.
    */
-  campaignId?: string | null;
+  campaignId: string;
   /**
    * Indicates whether the campaign was registered externally or not
    */
-  isExternallyRegistered?: boolean | null;
+  isExternallyRegistered: boolean;
   /**
    * Rate limit and/or classification set by each carrier
    */
-  rateLimits?: any | null;
+  rateLimits: any;
   /**
    * Consumer opt-in flow
    */
-  messageFlow?: string | null;
+  messageFlow: string;
   /**
    * Opt In Message
    */
-  optInMessage?: string | null;
+  optInMessage: string;
   /**
    * Opt Out Message
    */
-  optOutMessage?: string | null;
+  optOutMessage: string;
   /**
    * Help Message
    */
-  helpMessage?: string | null;
+  helpMessage: string;
   /**
    * Opt In Keywords
    */
-  optInKeywords?: Array<string> | null;
+  optInKeywords: Array<string>;
   /**
    * Opt Out Keywords
    */
-  optOutKeywords?: Array<string> | null;
+  optOutKeywords: Array<string>;
   /**
    * Help Keywords
    */
-  helpKeywords?: Array<string> | null;
+  helpKeywords: Array<string>;
   /**
    * The ISO 8601 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The ISO 8601 date and time in GMT when the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The absolute URL of the US App to Person resource
    */
-  url?: string | null;
+  url: string;
   /**
    * A boolean that specifies whether campaign is a mock or not.
    */
-  mock?: boolean | null;
+  mock: boolean;
 
   private get _proxy(): UsAppToPersonContext {
     this._context =
@@ -437,7 +439,15 @@ export class UsAppToPersonInstance {
   }
 }
 
+export interface UsAppToPersonSolution {
+  messagingServiceSid: string;
+}
+
 export interface UsAppToPersonListInstance {
+  _version: V1;
+  _solution: UsAppToPersonSolution;
+  _uri: string;
+
   (sid: string): UsAppToPersonContext;
   get(sid: string): UsAppToPersonContext;
 
@@ -589,17 +599,6 @@ export interface UsAppToPersonListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface UsAppToPersonSolution {
-  messagingServiceSid?: string;
-}
-
-interface UsAppToPersonListInstanceImpl extends UsAppToPersonListInstance {}
-class UsAppToPersonListInstanceImpl implements UsAppToPersonListInstance {
-  _version?: V1;
-  _solution?: UsAppToPersonSolution;
-  _uri?: string;
-}
-
 export function UsAppToPersonListInstance(
   version: V1,
   messagingServiceSid: string
@@ -608,8 +607,7 @@ export function UsAppToPersonListInstance(
     throw new Error("Parameter 'messagingServiceSid' is not valid.");
   }
 
-  const instance = ((sid) =>
-    instance.get(sid)) as UsAppToPersonListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as UsAppToPersonListInstance;
 
   instance.get = function get(sid): UsAppToPersonContext {
     return new UsAppToPersonContextImpl(version, messagingServiceSid, sid);
@@ -716,7 +714,7 @@ export function UsAppToPersonListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -727,11 +725,11 @@ export function UsAppToPersonListInstance(
         new UsAppToPersonInstance(
           operationVersion,
           payload,
-          this._solution.messagingServiceSid
+          instance._solution.messagingServiceSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -760,7 +758,7 @@ export function UsAppToPersonListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
@@ -768,10 +766,10 @@ export function UsAppToPersonListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new UsAppToPersonPage(operationVersion, payload, this._solution)
+        new UsAppToPersonPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -784,30 +782,28 @@ export function UsAppToPersonListInstance(
     targetUrl?: any,
     callback?: any
   ): Promise<UsAppToPersonPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new UsAppToPersonPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new UsAppToPersonPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;
