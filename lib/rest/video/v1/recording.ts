@@ -30,84 +30,73 @@ type RecordingType = "audio" | "video" | "data";
 
 /**
  * Options to pass to each
- *
- * @property { RecordingStatus } [status] Read only the recordings that have this status. Can be: `processing`, `completed`, or `deleted`.
- * @property { string } [sourceSid] Read only the recordings that have this `source_sid`.
- * @property { Array<string> } [groupingSid] Read only recordings with this `grouping_sid`, which may include a `participant_sid` and/or a `room_sid`.
- * @property { Date } [dateCreatedAfter] Read only recordings that started on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time with time zone.
- * @property { Date } [dateCreatedBefore] Read only recordings that started before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time with time zone, given as `YYYY-MM-DDThh:mm:ss+|-hh:mm` or `YYYY-MM-DDThh:mm:ssZ`.
- * @property { RecordingType } [mediaType] Read only recordings that have this media type. Can be either `audio` or `video`.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface RecordingListInstanceEachOptions {
+  /** Read only the recordings that have this status. Can be: `processing`, `completed`, or `deleted`. */
   status?: RecordingStatus;
+  /** Read only the recordings that have this `source_sid`. */
   sourceSid?: string;
+  /** Read only recordings with this `grouping_sid`, which may include a `participant_sid` and/or a `room_sid`. */
   groupingSid?: Array<string>;
+  /** Read only recordings that started on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time with time zone. */
   dateCreatedAfter?: Date;
+  /** Read only recordings that started before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time with time zone, given as `YYYY-MM-DDThh:mm:ss+|-hh:mm` or `YYYY-MM-DDThh:mm:ssZ`. */
   dateCreatedBefore?: Date;
+  /** Read only recordings that have this media type. Can be either `audio` or `video`. */
   mediaType?: RecordingType;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: RecordingInstance, done: (err?: Error) => void) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { RecordingStatus } [status] Read only the recordings that have this status. Can be: `processing`, `completed`, or `deleted`.
- * @property { string } [sourceSid] Read only the recordings that have this `source_sid`.
- * @property { Array<string> } [groupingSid] Read only recordings with this `grouping_sid`, which may include a `participant_sid` and/or a `room_sid`.
- * @property { Date } [dateCreatedAfter] Read only recordings that started on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time with time zone.
- * @property { Date } [dateCreatedBefore] Read only recordings that started before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time with time zone, given as `YYYY-MM-DDThh:mm:ss+|-hh:mm` or `YYYY-MM-DDThh:mm:ssZ`.
- * @property { RecordingType } [mediaType] Read only recordings that have this media type. Can be either `audio` or `video`.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface RecordingListInstanceOptions {
+  /** Read only the recordings that have this status. Can be: `processing`, `completed`, or `deleted`. */
   status?: RecordingStatus;
+  /** Read only the recordings that have this `source_sid`. */
   sourceSid?: string;
+  /** Read only recordings with this `grouping_sid`, which may include a `participant_sid` and/or a `room_sid`. */
   groupingSid?: Array<string>;
+  /** Read only recordings that started on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time with time zone. */
   dateCreatedAfter?: Date;
+  /** Read only recordings that started before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time with time zone, given as `YYYY-MM-DDThh:mm:ss+|-hh:mm` or `YYYY-MM-DDThh:mm:ssZ`. */
   dateCreatedBefore?: Date;
+  /** Read only recordings that have this media type. Can be either `audio` or `video`. */
   mediaType?: RecordingType;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { RecordingStatus } [status] Read only the recordings that have this status. Can be: `processing`, `completed`, or `deleted`.
- * @property { string } [sourceSid] Read only the recordings that have this `source_sid`.
- * @property { Array<string> } [groupingSid] Read only recordings with this `grouping_sid`, which may include a `participant_sid` and/or a `room_sid`.
- * @property { Date } [dateCreatedAfter] Read only recordings that started on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time with time zone.
- * @property { Date } [dateCreatedBefore] Read only recordings that started before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time with time zone, given as `YYYY-MM-DDThh:mm:ss+|-hh:mm` or `YYYY-MM-DDThh:mm:ssZ`.
- * @property { RecordingType } [mediaType] Read only recordings that have this media type. Can be either `audio` or `video`.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface RecordingListInstancePageOptions {
+  /** Read only the recordings that have this status. Can be: `processing`, `completed`, or `deleted`. */
   status?: RecordingStatus;
+  /** Read only the recordings that have this `source_sid`. */
   sourceSid?: string;
+  /** Read only recordings with this `grouping_sid`, which may include a `participant_sid` and/or a `room_sid`. */
   groupingSid?: Array<string>;
+  /** Read only recordings that started on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time with time zone. */
   dateCreatedAfter?: Date;
+  /** Read only recordings that started before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time with time zone, given as `YYYY-MM-DDThh:mm:ss+|-hh:mm` or `YYYY-MM-DDThh:mm:ssZ`. */
   dateCreatedBefore?: Date;
+  /** Read only recordings that have this media type. Can be either `audio` or `video`. */
   mediaType?: RecordingType;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
@@ -115,9 +104,9 @@ export interface RecordingContext {
   /**
    * Remove a RecordingInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -126,9 +115,9 @@ export interface RecordingContext {
   /**
    * Fetch a RecordingInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed RecordingInstance
+   * @returns Resolves to processed RecordingInstance
    */
   fetch(
     callback?: (error: Error | null, item?: RecordingInstance) => any
@@ -340,9 +329,9 @@ export class RecordingInstance {
   /**
    * Remove a RecordingInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -353,9 +342,9 @@ export class RecordingInstance {
   /**
    * Fetch a RecordingInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed RecordingInstance
+   * @returns Resolves to processed RecordingInstance
    */
   fetch(
     callback?: (error: Error | null, item?: RecordingInstance) => any

@@ -22,9 +22,9 @@ export interface UserInfoContext {
   /**
    * Fetch a UserInfoInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed UserInfoInstance
+   * @returns Resolves to processed UserInfoInstance
    */
   fetch(
     callback?: (error: Error | null, item?: UserInfoInstance) => any
@@ -136,9 +136,9 @@ export class UserInfoInstance {
   /**
    * Fetch a UserInfoInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed UserInfoInstance
+   * @returns Resolves to processed UserInfoInstance
    */
   fetch(
     callback?: (error: Error | null, item?: UserInfoInstance) => any

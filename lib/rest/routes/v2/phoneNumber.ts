@@ -20,12 +20,11 @@ import { isValidPathParam } from "../../../base/utility";
 
 /**
  * Options to pass to update a PhoneNumberInstance
- *
- * @property { string } [voiceRegion] The Inbound Processing Region used for this phone number for voice
- * @property { string } [friendlyName] A human readable description of this resource, up to 64 characters.
  */
 export interface PhoneNumberContextUpdateOptions {
+  /** The Inbound Processing Region used for this phone number for voice */
   voiceRegion?: string;
+  /** A human readable description of this resource, up to 64 characters. */
   friendlyName?: string;
 }
 
@@ -33,9 +32,9 @@ export interface PhoneNumberContext {
   /**
    * Fetch a PhoneNumberInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed PhoneNumberInstance
+   * @returns Resolves to processed PhoneNumberInstance
    */
   fetch(
     callback?: (error: Error | null, item?: PhoneNumberInstance) => any
@@ -44,9 +43,9 @@ export interface PhoneNumberContext {
   /**
    * Update a PhoneNumberInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed PhoneNumberInstance
+   * @returns Resolves to processed PhoneNumberInstance
    */
   update(
     callback?: (error: Error | null, item?: PhoneNumberInstance) => any
@@ -54,10 +53,10 @@ export interface PhoneNumberContext {
   /**
    * Update a PhoneNumberInstance
    *
-   * @param { PhoneNumberContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed PhoneNumberInstance
+   * @returns Resolves to processed PhoneNumberInstance
    */
   update(
     params: PhoneNumberContextUpdateOptions,
@@ -245,9 +244,9 @@ export class PhoneNumberInstance {
   /**
    * Fetch a PhoneNumberInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed PhoneNumberInstance
+   * @returns Resolves to processed PhoneNumberInstance
    */
   fetch(
     callback?: (error: Error | null, item?: PhoneNumberInstance) => any
@@ -258,9 +257,9 @@ export class PhoneNumberInstance {
   /**
    * Update a PhoneNumberInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed PhoneNumberInstance
+   * @returns Resolves to processed PhoneNumberInstance
    */
   update(
     callback?: (error: Error | null, item?: PhoneNumberInstance) => any
@@ -268,10 +267,10 @@ export class PhoneNumberInstance {
   /**
    * Update a PhoneNumberInstance
    *
-   * @param { PhoneNumberContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed PhoneNumberInstance
+   * @returns Resolves to processed PhoneNumberInstance
    */
   update(
     params: PhoneNumberContextUpdateOptions,

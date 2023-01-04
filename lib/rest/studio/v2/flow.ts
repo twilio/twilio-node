@@ -27,77 +27,64 @@ type FlowStatus = "draft" | "published";
 
 /**
  * Options to pass to update a FlowInstance
- *
- * @property { FlowStatus } status
- * @property { string } [friendlyName] The string that you assigned to describe the Flow.
- * @property { any } [definition] JSON representation of flow definition.
- * @property { string } [commitMessage] Description of change made in the revision.
  */
 export interface FlowContextUpdateOptions {
+  /**  */
   status: FlowStatus;
+  /** The string that you assigned to describe the Flow. */
   friendlyName?: string;
+  /** JSON representation of flow definition. */
   definition?: any;
+  /** Description of change made in the revision. */
   commitMessage?: string;
 }
 
 /**
  * Options to pass to create a FlowInstance
- *
- * @property { string } friendlyName The string that you assigned to describe the Flow.
- * @property { FlowStatus } status
- * @property { any } definition JSON representation of flow definition.
- * @property { string } [commitMessage] Description of change made in the revision.
  */
 export interface FlowListInstanceCreateOptions {
+  /** The string that you assigned to describe the Flow. */
   friendlyName: string;
+  /**  */
   status: FlowStatus;
+  /** JSON representation of flow definition. */
   definition: any;
+  /** Description of change made in the revision. */
   commitMessage?: string;
 }
 /**
  * Options to pass to each
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface FlowListInstanceEachOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: FlowInstance, done: (err?: Error) => void) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface FlowListInstanceOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface FlowListInstancePageOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
@@ -109,9 +96,9 @@ export interface FlowContext {
   /**
    * Remove a FlowInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -120,9 +107,9 @@ export interface FlowContext {
   /**
    * Fetch a FlowInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed FlowInstance
+   * @returns Resolves to processed FlowInstance
    */
   fetch(
     callback?: (error: Error | null, item?: FlowInstance) => any
@@ -131,10 +118,10 @@ export interface FlowContext {
   /**
    * Update a FlowInstance
    *
-   * @param { FlowContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed FlowInstance
+   * @returns Resolves to processed FlowInstance
    */
   update(
     params: FlowContextUpdateOptions,
@@ -390,9 +377,9 @@ export class FlowInstance {
   /**
    * Remove a FlowInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -403,9 +390,9 @@ export class FlowInstance {
   /**
    * Fetch a FlowInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed FlowInstance
+   * @returns Resolves to processed FlowInstance
    */
   fetch(
     callback?: (error: Error | null, item?: FlowInstance) => any
@@ -416,10 +403,10 @@ export class FlowInstance {
   /**
    * Update a FlowInstance
    *
-   * @param { FlowContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed FlowInstance
+   * @returns Resolves to processed FlowInstance
    */
   update(
     params: FlowContextUpdateOptions,
@@ -487,10 +474,10 @@ export interface FlowListInstance {
   /**
    * Create a FlowInstance
    *
-   * @param { FlowListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed FlowInstance
+   * @returns Resolves to processed FlowInstance
    */
   create(
     params: FlowListInstanceCreateOptions,

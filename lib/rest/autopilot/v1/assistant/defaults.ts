@@ -20,10 +20,9 @@ import { isValidPathParam } from "../../../../base/utility";
 
 /**
  * Options to pass to update a DefaultsInstance
- *
- * @property { any } [defaults] A JSON string that describes the default task links for the `assistant_initiation`, `collect`, and `fallback` situations.
  */
 export interface DefaultsContextUpdateOptions {
+  /** A JSON string that describes the default task links for the `assistant_initiation`, `collect`, and `fallback` situations. */
   defaults?: any;
 }
 
@@ -31,9 +30,9 @@ export interface DefaultsContext {
   /**
    * Fetch a DefaultsInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed DefaultsInstance
+   * @returns Resolves to processed DefaultsInstance
    */
   fetch(
     callback?: (error: Error | null, item?: DefaultsInstance) => any
@@ -42,9 +41,9 @@ export interface DefaultsContext {
   /**
    * Update a DefaultsInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed DefaultsInstance
+   * @returns Resolves to processed DefaultsInstance
    */
   update(
     callback?: (error: Error | null, item?: DefaultsInstance) => any
@@ -52,10 +51,10 @@ export interface DefaultsContext {
   /**
    * Update a DefaultsInstance
    *
-   * @param { DefaultsContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed DefaultsInstance
+   * @returns Resolves to processed DefaultsInstance
    */
   update(
     params: DefaultsContextUpdateOptions,
@@ -217,9 +216,9 @@ export class DefaultsInstance {
   /**
    * Fetch a DefaultsInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed DefaultsInstance
+   * @returns Resolves to processed DefaultsInstance
    */
   fetch(
     callback?: (error: Error | null, item?: DefaultsInstance) => any
@@ -230,9 +229,9 @@ export class DefaultsInstance {
   /**
    * Update a DefaultsInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed DefaultsInstance
+   * @returns Resolves to processed DefaultsInstance
    */
   update(
     callback?: (error: Error | null, item?: DefaultsInstance) => any
@@ -240,10 +239,10 @@ export class DefaultsInstance {
   /**
    * Update a DefaultsInstance
    *
-   * @param { DefaultsContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed DefaultsInstance
+   * @returns Resolves to processed DefaultsInstance
    */
   update(
     params: DefaultsContextUpdateOptions,

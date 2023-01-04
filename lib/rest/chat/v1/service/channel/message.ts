@@ -24,77 +24,64 @@ type MessageOrderType = "asc" | "desc";
 
 /**
  * Options to pass to update a MessageInstance
- *
- * @property { string } [body] The message to send to the channel. Can also be an empty string or `null`, which sets the value as an empty string. You can send structured data in the body by serializing it as a string.
- * @property { string } [attributes] A valid JSON string that contains application-specific data.
  */
 export interface MessageContextUpdateOptions {
+  /** The message to send to the channel. Can also be an empty string or `null`, which sets the value as an empty string. You can send structured data in the body by serializing it as a string. */
   body?: string;
+  /** A valid JSON string that contains application-specific data. */
   attributes?: string;
 }
 
 /**
  * Options to pass to create a MessageInstance
- *
- * @property { string } body The message to send to the channel. Can also be an empty string or `null`, which sets the value as an empty string. You can send structured data in the body by serializing it as a string.
- * @property { string } [from] The [identity](https://www.twilio.com/docs/api/chat/guides/identity) of the new message\\\'s author. The default value is `system`.
- * @property { string } [attributes] A valid JSON string that contains application-specific data.
  */
 export interface MessageListInstanceCreateOptions {
+  /** The message to send to the channel. Can also be an empty string or `null`, which sets the value as an empty string. You can send structured data in the body by serializing it as a string. */
   body: string;
+  /** The [identity](https://www.twilio.com/docs/api/chat/guides/identity) of the new message\\\'s author. The default value is `system`. */
   from?: string;
+  /** A valid JSON string that contains application-specific data. */
   attributes?: string;
 }
 /**
  * Options to pass to each
- *
- * @property { MessageOrderType } [order] The sort order of the returned messages. Can be: `asc` (ascending) or `desc` (descending) with `asc` as the default.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface MessageListInstanceEachOptions {
+  /** The sort order of the returned messages. Can be: `asc` (ascending) or `desc` (descending) with `asc` as the default. */
   order?: MessageOrderType;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: MessageInstance, done: (err?: Error) => void) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { MessageOrderType } [order] The sort order of the returned messages. Can be: `asc` (ascending) or `desc` (descending) with `asc` as the default.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface MessageListInstanceOptions {
+  /** The sort order of the returned messages. Can be: `asc` (ascending) or `desc` (descending) with `asc` as the default. */
   order?: MessageOrderType;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { MessageOrderType } [order] The sort order of the returned messages. Can be: `asc` (ascending) or `desc` (descending) with `asc` as the default.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface MessageListInstancePageOptions {
+  /** The sort order of the returned messages. Can be: `asc` (ascending) or `desc` (descending) with `asc` as the default. */
   order?: MessageOrderType;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
@@ -102,9 +89,9 @@ export interface MessageContext {
   /**
    * Remove a MessageInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -113,9 +100,9 @@ export interface MessageContext {
   /**
    * Fetch a MessageInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed MessageInstance
+   * @returns Resolves to processed MessageInstance
    */
   fetch(
     callback?: (error: Error | null, item?: MessageInstance) => any
@@ -124,9 +111,9 @@ export interface MessageContext {
   /**
    * Update a MessageInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed MessageInstance
+   * @returns Resolves to processed MessageInstance
    */
   update(
     callback?: (error: Error | null, item?: MessageInstance) => any
@@ -134,10 +121,10 @@ export interface MessageContext {
   /**
    * Update a MessageInstance
    *
-   * @param { MessageContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed MessageInstance
+   * @returns Resolves to processed MessageInstance
    */
   update(
     params: MessageContextUpdateOptions,
@@ -396,9 +383,9 @@ export class MessageInstance {
   /**
    * Remove a MessageInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -409,9 +396,9 @@ export class MessageInstance {
   /**
    * Fetch a MessageInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed MessageInstance
+   * @returns Resolves to processed MessageInstance
    */
   fetch(
     callback?: (error: Error | null, item?: MessageInstance) => any
@@ -422,9 +409,9 @@ export class MessageInstance {
   /**
    * Update a MessageInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed MessageInstance
+   * @returns Resolves to processed MessageInstance
    */
   update(
     callback?: (error: Error | null, item?: MessageInstance) => any
@@ -432,10 +419,10 @@ export class MessageInstance {
   /**
    * Update a MessageInstance
    *
-   * @param { MessageContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed MessageInstance
+   * @returns Resolves to processed MessageInstance
    */
   update(
     params: MessageContextUpdateOptions,
@@ -480,10 +467,10 @@ export interface MessageListInstance {
   /**
    * Create a MessageInstance
    *
-   * @param { MessageListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed MessageInstance
+   * @returns Resolves to processed MessageInstance
    */
   create(
     params: MessageListInstanceCreateOptions,

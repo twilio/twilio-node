@@ -30,12 +30,11 @@ type CallFeedbackIssues =
 
 /**
  * Options to pass to update a FeedbackInstance
- *
- * @property { number } [qualityScore] The call quality expressed as an integer from `1` to `5` where `1` represents very poor call quality and `5` represents a perfect call.
- * @property { Array<CallFeedbackIssues> } [issue] One or more issues experienced during the call. The issues can be: `imperfect-audio`, `dropped-call`, `incorrect-caller-id`, `post-dial-delay`, `digits-not-captured`, `audio-latency`, `unsolicited-call`, or `one-way-audio`.
  */
 export interface FeedbackContextUpdateOptions {
+  /** The call quality expressed as an integer from `1` to `5` where `1` represents very poor call quality and `5` represents a perfect call. */
   qualityScore?: number;
+  /** One or more issues experienced during the call. The issues can be: `imperfect-audio`, `dropped-call`, `incorrect-caller-id`, `post-dial-delay`, `digits-not-captured`, `audio-latency`, `unsolicited-call`, or `one-way-audio`. */
   issue?: Array<CallFeedbackIssues>;
 }
 
@@ -43,9 +42,9 @@ export interface FeedbackContext {
   /**
    * Fetch a FeedbackInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed FeedbackInstance
+   * @returns Resolves to processed FeedbackInstance
    */
   fetch(
     callback?: (error: Error | null, item?: FeedbackInstance) => any
@@ -54,9 +53,9 @@ export interface FeedbackContext {
   /**
    * Update a FeedbackInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed FeedbackInstance
+   * @returns Resolves to processed FeedbackInstance
    */
   update(
     callback?: (error: Error | null, item?: FeedbackInstance) => any
@@ -64,10 +63,10 @@ export interface FeedbackContext {
   /**
    * Update a FeedbackInstance
    *
-   * @param { FeedbackContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed FeedbackInstance
+   * @returns Resolves to processed FeedbackInstance
    */
   update(
     params: FeedbackContextUpdateOptions,
@@ -255,9 +254,9 @@ export class FeedbackInstance {
   /**
    * Fetch a FeedbackInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed FeedbackInstance
+   * @returns Resolves to processed FeedbackInstance
    */
   fetch(
     callback?: (error: Error | null, item?: FeedbackInstance) => any
@@ -268,9 +267,9 @@ export class FeedbackInstance {
   /**
    * Update a FeedbackInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed FeedbackInstance
+   * @returns Resolves to processed FeedbackInstance
    */
   update(
     callback?: (error: Error | null, item?: FeedbackInstance) => any
@@ -278,10 +277,10 @@ export class FeedbackInstance {
   /**
    * Update a FeedbackInstance
    *
-   * @param { FeedbackContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed FeedbackInstance
+   * @returns Resolves to processed FeedbackInstance
    */
   update(
     params: FeedbackContextUpdateOptions,

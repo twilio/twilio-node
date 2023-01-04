@@ -20,10 +20,9 @@ import { isValidPathParam } from "../../../../../base/utility";
 
 /**
  * Options to pass to fetch a WorkersRealTimeStatisticsInstance
- *
- * @property { string } [taskChannel] Only calculate real-time statistics on this TaskChannel. Can be the TaskChannel\'s SID or its `unique_name`, such as `voice`, `sms`, or `default`.
  */
 export interface WorkersRealTimeStatisticsContextFetchOptions {
+  /** Only calculate real-time statistics on this TaskChannel. Can be the TaskChannel\'s SID or its `unique_name`, such as `voice`, `sms`, or `default`. */
   taskChannel?: string;
 }
 
@@ -31,9 +30,9 @@ export interface WorkersRealTimeStatisticsContext {
   /**
    * Fetch a WorkersRealTimeStatisticsInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed WorkersRealTimeStatisticsInstance
+   * @returns Resolves to processed WorkersRealTimeStatisticsInstance
    */
   fetch(
     callback?: (
@@ -44,10 +43,10 @@ export interface WorkersRealTimeStatisticsContext {
   /**
    * Fetch a WorkersRealTimeStatisticsInstance
    *
-   * @param { WorkersRealTimeStatisticsContextFetchOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed WorkersRealTimeStatisticsInstance
+   * @returns Resolves to processed WorkersRealTimeStatisticsInstance
    */
   fetch(
     params: WorkersRealTimeStatisticsContextFetchOptions,
@@ -206,9 +205,9 @@ export class WorkersRealTimeStatisticsInstance {
   /**
    * Fetch a WorkersRealTimeStatisticsInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed WorkersRealTimeStatisticsInstance
+   * @returns Resolves to processed WorkersRealTimeStatisticsInstance
    */
   fetch(
     callback?: (
@@ -219,10 +218,10 @@ export class WorkersRealTimeStatisticsInstance {
   /**
    * Fetch a WorkersRealTimeStatisticsInstance
    *
-   * @param { WorkersRealTimeStatisticsContextFetchOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed WorkersRealTimeStatisticsInstance
+   * @returns Resolves to processed WorkersRealTimeStatisticsInstance
    */
   fetch(
     params: WorkersRealTimeStatisticsContextFetchOptions,

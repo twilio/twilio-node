@@ -22,97 +22,84 @@ import { isValidPathParam } from "../../../../base/utility";
 
 /**
  * Options to pass to update a QueryInstance
- *
- * @property { string } [sampleSid] The SID of an optional reference to the [Sample](https://www.twilio.com/docs/autopilot/api/task-sample) created from the query.
- * @property { string } [status] The new status of the resource. Can be: `pending-review`, `reviewed`, or `discarded`
  */
 export interface QueryContextUpdateOptions {
+  /** The SID of an optional reference to the [Sample](https://www.twilio.com/docs/autopilot/api/task-sample) created from the query. */
   sampleSid?: string;
+  /** The new status of the resource. Can be: `pending-review`, `reviewed`, or `discarded` */
   status?: string;
 }
 
 /**
  * Options to pass to create a QueryInstance
- *
- * @property { string } language The [ISO language-country](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) string that specifies the language used for the new query. For example: `en-US`.
- * @property { string } query The end-user\\\'s natural language input. It can be up to 2048 characters long.
- * @property { string } [tasks] The list of tasks to limit the new query to. Tasks are expressed as a comma-separated list of task `unique_name` values. For example, `task-unique_name-1, task-unique_name-2`. Listing specific tasks is useful to constrain the paths that a user can take.
- * @property { string } [modelBuild] The SID or unique name of the [Model Build](https://www.twilio.com/docs/autopilot/api/model-build) to be queried.
  */
 export interface QueryListInstanceCreateOptions {
+  /** The [ISO language-country](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) string that specifies the language used for the new query. For example: `en-US`. */
   language: string;
+  /** The end-user\\\'s natural language input. It can be up to 2048 characters long. */
   query: string;
+  /** The list of tasks to limit the new query to. Tasks are expressed as a comma-separated list of task `unique_name` values. For example, `task-unique_name-1, task-unique_name-2`. Listing specific tasks is useful to constrain the paths that a user can take. */
   tasks?: string;
+  /** The SID or unique name of the [Model Build](https://www.twilio.com/docs/autopilot/api/model-build) to be queried. */
   modelBuild?: string;
 }
 /**
  * Options to pass to each
- *
- * @property { string } [language] The [ISO language-country](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) string that specifies the language used by the Query resources to read. For example: `en-US`.
- * @property { string } [modelBuild] The SID or unique name of the [Model Build](https://www.twilio.com/docs/autopilot/api/model-build) to be queried.
- * @property { string } [status] The status of the resources to read. Can be: `pending-review`, `reviewed`, or `discarded`
- * @property { string } [dialogueSid] The SID of the [Dialogue](https://www.twilio.com/docs/autopilot/api/dialogue).
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface QueryListInstanceEachOptions {
+  /** The [ISO language-country](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) string that specifies the language used by the Query resources to read. For example: `en-US`. */
   language?: string;
+  /** The SID or unique name of the [Model Build](https://www.twilio.com/docs/autopilot/api/model-build) to be queried. */
   modelBuild?: string;
+  /** The status of the resources to read. Can be: `pending-review`, `reviewed`, or `discarded` */
   status?: string;
+  /** The SID of the [Dialogue](https://www.twilio.com/docs/autopilot/api/dialogue). */
   dialogueSid?: string;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: QueryInstance, done: (err?: Error) => void) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { string } [language] The [ISO language-country](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) string that specifies the language used by the Query resources to read. For example: `en-US`.
- * @property { string } [modelBuild] The SID or unique name of the [Model Build](https://www.twilio.com/docs/autopilot/api/model-build) to be queried.
- * @property { string } [status] The status of the resources to read. Can be: `pending-review`, `reviewed`, or `discarded`
- * @property { string } [dialogueSid] The SID of the [Dialogue](https://www.twilio.com/docs/autopilot/api/dialogue).
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface QueryListInstanceOptions {
+  /** The [ISO language-country](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) string that specifies the language used by the Query resources to read. For example: `en-US`. */
   language?: string;
+  /** The SID or unique name of the [Model Build](https://www.twilio.com/docs/autopilot/api/model-build) to be queried. */
   modelBuild?: string;
+  /** The status of the resources to read. Can be: `pending-review`, `reviewed`, or `discarded` */
   status?: string;
+  /** The SID of the [Dialogue](https://www.twilio.com/docs/autopilot/api/dialogue). */
   dialogueSid?: string;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { string } [language] The [ISO language-country](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) string that specifies the language used by the Query resources to read. For example: `en-US`.
- * @property { string } [modelBuild] The SID or unique name of the [Model Build](https://www.twilio.com/docs/autopilot/api/model-build) to be queried.
- * @property { string } [status] The status of the resources to read. Can be: `pending-review`, `reviewed`, or `discarded`
- * @property { string } [dialogueSid] The SID of the [Dialogue](https://www.twilio.com/docs/autopilot/api/dialogue).
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface QueryListInstancePageOptions {
+  /** The [ISO language-country](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) string that specifies the language used by the Query resources to read. For example: `en-US`. */
   language?: string;
+  /** The SID or unique name of the [Model Build](https://www.twilio.com/docs/autopilot/api/model-build) to be queried. */
   modelBuild?: string;
+  /** The status of the resources to read. Can be: `pending-review`, `reviewed`, or `discarded` */
   status?: string;
+  /** The SID of the [Dialogue](https://www.twilio.com/docs/autopilot/api/dialogue). */
   dialogueSid?: string;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
@@ -120,9 +107,9 @@ export interface QueryContext {
   /**
    * Remove a QueryInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -131,9 +118,9 @@ export interface QueryContext {
   /**
    * Fetch a QueryInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed QueryInstance
+   * @returns Resolves to processed QueryInstance
    */
   fetch(
     callback?: (error: Error | null, item?: QueryInstance) => any
@@ -142,9 +129,9 @@ export interface QueryContext {
   /**
    * Update a QueryInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed QueryInstance
+   * @returns Resolves to processed QueryInstance
    */
   update(
     callback?: (error: Error | null, item?: QueryInstance) => any
@@ -152,10 +139,10 @@ export interface QueryContext {
   /**
    * Update a QueryInstance
    *
-   * @param { QueryContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed QueryInstance
+   * @returns Resolves to processed QueryInstance
    */
   update(
     params: QueryContextUpdateOptions,
@@ -406,9 +393,9 @@ export class QueryInstance {
   /**
    * Remove a QueryInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -419,9 +406,9 @@ export class QueryInstance {
   /**
    * Fetch a QueryInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed QueryInstance
+   * @returns Resolves to processed QueryInstance
    */
   fetch(
     callback?: (error: Error | null, item?: QueryInstance) => any
@@ -432,9 +419,9 @@ export class QueryInstance {
   /**
    * Update a QueryInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed QueryInstance
+   * @returns Resolves to processed QueryInstance
    */
   update(
     callback?: (error: Error | null, item?: QueryInstance) => any
@@ -442,10 +429,10 @@ export class QueryInstance {
   /**
    * Update a QueryInstance
    *
-   * @param { QueryContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed QueryInstance
+   * @returns Resolves to processed QueryInstance
    */
   update(
     params: QueryContextUpdateOptions,
@@ -491,10 +478,10 @@ export interface QueryListInstance {
   /**
    * Create a QueryInstance
    *
-   * @param { QueryListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed QueryInstance
+   * @returns Resolves to processed QueryInstance
    */
   create(
     params: QueryListInstanceCreateOptions,

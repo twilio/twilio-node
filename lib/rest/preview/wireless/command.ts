@@ -22,92 +22,80 @@ import { isValidPathParam } from "../../../base/utility";
 
 /**
  * Options to pass to create a CommandInstance
- *
- * @property { string } command
- * @property { string } [device]
- * @property { string } [sim]
- * @property { string } [callbackMethod]
- * @property { string } [callbackUrl]
- * @property { string } [commandMode]
- * @property { string } [includeSid]
  */
 export interface CommandListInstanceCreateOptions {
+  /**  */
   command: string;
+  /**  */
   device?: string;
+  /**  */
   sim?: string;
+  /**  */
   callbackMethod?: string;
+  /**  */
   callbackUrl?: string;
+  /**  */
   commandMode?: string;
+  /**  */
   includeSid?: string;
 }
 /**
  * Options to pass to each
- *
- * @property { string } [device]
- * @property { string } [sim]
- * @property { string } [status]
- * @property { string } [direction]
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface CommandListInstanceEachOptions {
+  /**  */
   device?: string;
+  /**  */
   sim?: string;
+  /**  */
   status?: string;
+  /**  */
   direction?: string;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: CommandInstance, done: (err?: Error) => void) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { string } [device]
- * @property { string } [sim]
- * @property { string } [status]
- * @property { string } [direction]
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface CommandListInstanceOptions {
+  /**  */
   device?: string;
+  /**  */
   sim?: string;
+  /**  */
   status?: string;
+  /**  */
   direction?: string;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { string } [device]
- * @property { string } [sim]
- * @property { string } [status]
- * @property { string } [direction]
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface CommandListInstancePageOptions {
+  /**  */
   device?: string;
+  /**  */
   sim?: string;
+  /**  */
   status?: string;
+  /**  */
   direction?: string;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
@@ -115,9 +103,9 @@ export interface CommandContext {
   /**
    * Fetch a CommandInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed CommandInstance
+   * @returns Resolves to processed CommandInstance
    */
   fetch(
     callback?: (error: Error | null, item?: CommandInstance) => any
@@ -244,9 +232,9 @@ export class CommandInstance {
   /**
    * Fetch a CommandInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed CommandInstance
+   * @returns Resolves to processed CommandInstance
    */
   fetch(
     callback?: (error: Error | null, item?: CommandInstance) => any
@@ -287,10 +275,10 @@ export interface CommandListInstance {
   /**
    * Create a CommandInstance
    *
-   * @param { CommandListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed CommandInstance
+   * @returns Resolves to processed CommandInstance
    */
   create(
     params: CommandListInstanceCreateOptions,

@@ -24,9 +24,9 @@ export interface AnonymizeContext {
   /**
    * Update a AnonymizeInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed AnonymizeInstance
+   * @returns Resolves to processed AnonymizeInstance
    */
   update(
     callback?: (error: Error | null, item?: AnonymizeInstance) => any
@@ -196,9 +196,9 @@ export class AnonymizeInstance {
   /**
    * Update a AnonymizeInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed AnonymizeInstance
+   * @returns Resolves to processed AnonymizeInstance
    */
   update(
     callback?: (error: Error | null, item?: AnonymizeInstance) => any

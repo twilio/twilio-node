@@ -39,9 +39,9 @@ export interface NumberContext {
   /**
    * Fetch a NumberInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed NumberInstance
+   * @returns Resolves to processed NumberInstance
    */
   fetch(
     callback?: (error: Error | null, item?: NumberInstance) => any
@@ -169,9 +169,9 @@ export class NumberInstance {
   /**
    * Fetch a NumberInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed NumberInstance
+   * @returns Resolves to processed NumberInstance
    */
   fetch(
     callback?: (error: Error | null, item?: NumberInstance) => any

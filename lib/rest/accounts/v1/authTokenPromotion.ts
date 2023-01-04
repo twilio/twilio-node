@@ -22,9 +22,9 @@ export interface AuthTokenPromotionContext {
   /**
    * Update a AuthTokenPromotionInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed AuthTokenPromotionInstance
+   * @returns Resolves to processed AuthTokenPromotionInstance
    */
   update(
     callback?: (error: Error | null, item?: AuthTokenPromotionInstance) => any
@@ -136,9 +136,9 @@ export class AuthTokenPromotionInstance {
   /**
    * Update a AuthTokenPromotionInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed AuthTokenPromotionInstance
+   * @returns Resolves to processed AuthTokenPromotionInstance
    */
   update(
     callback?: (error: Error | null, item?: AuthTokenPromotionInstance) => any

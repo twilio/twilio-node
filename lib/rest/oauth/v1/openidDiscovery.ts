@@ -22,9 +22,9 @@ export interface OpenidDiscoveryContext {
   /**
    * Fetch a OpenidDiscoveryInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed OpenidDiscoveryInstance
+   * @returns Resolves to processed OpenidDiscoveryInstance
    */
   fetch(
     callback?: (error: Error | null, item?: OpenidDiscoveryInstance) => any
@@ -180,9 +180,9 @@ export class OpenidDiscoveryInstance {
   /**
    * Fetch a OpenidDiscoveryInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed OpenidDiscoveryInstance
+   * @returns Resolves to processed OpenidDiscoveryInstance
    */
   fetch(
     callback?: (error: Error | null, item?: OpenidDiscoveryInstance) => any

@@ -21,23 +21,24 @@ export default class V1 extends Version {
   /**
    * Initialize the V1 version of Bulkexports
    *
-   * @property { Twilio.Bulkexports.V1.ExportListInstance } exports - exports resource
-   * @property { Twilio.Bulkexports.V1.ExportConfigurationListInstance } exportConfiguration - exportConfiguration resource
-   *
-   * @param { Twilio.Bulkexports } domain - The Twilio domain
+   * @param domain - The Twilio (Twilio.Bulkexports) domain
    */
   constructor(domain: BulkexportsBase) {
     super(domain, "v1");
   }
 
+  /** exports - { Twilio.Bulkexports.V1.ExportListInstance } resource */
   protected _exports?: ExportListInstance;
+  /** exportConfiguration - { Twilio.Bulkexports.V1.ExportConfigurationListInstance } resource */
   protected _exportConfiguration?: ExportConfigurationListInstance;
 
+  /** Getter for exports resource */
   get exports(): ExportListInstance {
     this._exports = this._exports || ExportListInstance(this);
     return this._exports;
   }
 
+  /** Getter for exportConfiguration resource */
   get exportConfiguration(): ExportConfigurationListInstance {
     this._exportConfiguration =
       this._exportConfiguration || ExportConfigurationListInstance(this);

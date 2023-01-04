@@ -20,10 +20,9 @@ import { isValidPathParam } from "../../../base/utility";
 
 /**
  * Options to pass to update a RestoreAssistantInstance
- *
- * @property { string } assistant The Twilio-provided string that uniquely identifies the Assistant resource to restore.
  */
 export interface RestoreAssistantListInstanceUpdateOptions {
+  /** The Twilio-provided string that uniquely identifies the Assistant resource to restore. */
   assistant: string;
 }
 
@@ -31,10 +30,10 @@ export interface RestoreAssistantListInstance {
   /**
    * Update a RestoreAssistantInstance
    *
-   * @param { RestoreAssistantListInstanceUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed RestoreAssistantInstance
+   * @returns Resolves to processed RestoreAssistantInstance
    */
   update(
     params: RestoreAssistantListInstanceUpdateOptions,

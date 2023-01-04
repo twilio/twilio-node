@@ -24,69 +24,56 @@ type ServiceRoleRoleType = "conversation" | "service";
 
 /**
  * Options to pass to update a RoleInstance
- *
- * @property { Array<string> } permission A permission that you grant to the role. Only one permission can be granted per parameter. To assign more than one permission, repeat this parameter for each permission value. Note that the update action replaces all previously assigned permissions with those defined in the update action. To remove a permission, do not include it in the subsequent update action. The values for this parameter depend on the role\\\'s `type`.
  */
 export interface RoleContextUpdateOptions {
+  /** A permission that you grant to the role. Only one permission can be granted per parameter. To assign more than one permission, repeat this parameter for each permission value. Note that the update action replaces all previously assigned permissions with those defined in the update action. To remove a permission, do not include it in the subsequent update action. The values for this parameter depend on the role\\\'s `type`. */
   permission: Array<string>;
 }
 
 /**
  * Options to pass to create a RoleInstance
- *
- * @property { string } friendlyName A descriptive string that you create to describe the new resource. It can be up to 64 characters long.
- * @property { ServiceRoleRoleType } type
- * @property { Array<string> } permission A permission that you grant to the new role. Only one permission can be granted per parameter. To assign more than one permission, repeat this parameter for each permission value. The values for this parameter depend on the role\\\'s `type`.
  */
 export interface RoleListInstanceCreateOptions {
+  /** A descriptive string that you create to describe the new resource. It can be up to 64 characters long. */
   friendlyName: string;
+  /**  */
   type: ServiceRoleRoleType;
+  /** A permission that you grant to the new role. Only one permission can be granted per parameter. To assign more than one permission, repeat this parameter for each permission value. The values for this parameter depend on the role\\\'s `type`. */
   permission: Array<string>;
 }
 /**
  * Options to pass to each
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface RoleListInstanceEachOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: RoleInstance, done: (err?: Error) => void) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface RoleListInstanceOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface RoleListInstancePageOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
@@ -94,9 +81,9 @@ export interface RoleContext {
   /**
    * Remove a RoleInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -105,9 +92,9 @@ export interface RoleContext {
   /**
    * Fetch a RoleInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed RoleInstance
+   * @returns Resolves to processed RoleInstance
    */
   fetch(
     callback?: (error: Error | null, item?: RoleInstance) => any
@@ -116,10 +103,10 @@ export interface RoleContext {
   /**
    * Update a RoleInstance
    *
-   * @param { RoleContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed RoleInstance
+   * @returns Resolves to processed RoleInstance
    */
   update(
     params: RoleContextUpdateOptions,
@@ -336,9 +323,9 @@ export class RoleInstance {
   /**
    * Remove a RoleInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -349,9 +336,9 @@ export class RoleInstance {
   /**
    * Fetch a RoleInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed RoleInstance
+   * @returns Resolves to processed RoleInstance
    */
   fetch(
     callback?: (error: Error | null, item?: RoleInstance) => any
@@ -362,10 +349,10 @@ export class RoleInstance {
   /**
    * Update a RoleInstance
    *
-   * @param { RoleContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed RoleInstance
+   * @returns Resolves to processed RoleInstance
    */
   update(
     params: RoleContextUpdateOptions,
@@ -406,10 +393,10 @@ export interface RoleListInstance {
   /**
    * Create a RoleInstance
    *
-   * @param { RoleListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed RoleInstance
+   * @returns Resolves to processed RoleInstance
    */
   create(
     params: RoleListInstanceCreateOptions,

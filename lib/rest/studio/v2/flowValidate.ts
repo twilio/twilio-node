@@ -22,16 +22,15 @@ type FlowValidateStatus = "draft" | "published";
 
 /**
  * Options to pass to update a FlowValidateInstance
- *
- * @property { string } friendlyName The string that you assigned to describe the Flow.
- * @property { FlowValidateStatus } status
- * @property { any } definition JSON representation of flow definition.
- * @property { string } [commitMessage] Description of change made in the revision.
  */
 export interface FlowValidateListInstanceUpdateOptions {
+  /** The string that you assigned to describe the Flow. */
   friendlyName: string;
+  /**  */
   status: FlowValidateStatus;
+  /** JSON representation of flow definition. */
   definition: any;
+  /** Description of change made in the revision. */
   commitMessage?: string;
 }
 
@@ -39,10 +38,10 @@ export interface FlowValidateListInstance {
   /**
    * Update a FlowValidateInstance
    *
-   * @param { FlowValidateListInstanceUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed FlowValidateInstance
+   * @returns Resolves to processed FlowValidateInstance
    */
   update(
     params: FlowValidateListInstanceUpdateOptions,

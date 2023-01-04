@@ -40,149 +40,136 @@ type BundleStatus =
 
 /**
  * Options to pass to update a BundleInstance
- *
- * @property { BundleStatus } [status]
- * @property { string } [statusCallback] The URL we call to inform your application of status changes.
- * @property { string } [friendlyName] The string that you assigned to describe the resource.
- * @property { string } [email] The email address that will receive updates when the Bundle resource changes status.
  */
 export interface BundleContextUpdateOptions {
+  /**  */
   status?: BundleStatus;
+  /** The URL we call to inform your application of status changes. */
   statusCallback?: string;
+  /** The string that you assigned to describe the resource. */
   friendlyName?: string;
+  /** The email address that will receive updates when the Bundle resource changes status. */
   email?: string;
 }
 
 /**
  * Options to pass to create a BundleInstance
- *
- * @property { string } friendlyName The string that you assigned to describe the resource.
- * @property { string } email The email address that will receive updates when the Bundle resource changes status.
- * @property { string } [statusCallback] The URL we call to inform your application of status changes.
- * @property { string } [regulationSid] The unique string of a regulation that is associated to the Bundle resource.
- * @property { string } [isoCountry] The [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the Bundle\\\'s phone number country ownership request.
- * @property { BundleEndUserType } [endUserType]
- * @property { string } [numberType] The type of phone number of the Bundle\\\'s ownership request. Can be `local`, `mobile`, `national`, or `toll free`.
  */
 export interface BundleListInstanceCreateOptions {
+  /** The string that you assigned to describe the resource. */
   friendlyName: string;
+  /** The email address that will receive updates when the Bundle resource changes status. */
   email: string;
+  /** The URL we call to inform your application of status changes. */
   statusCallback?: string;
+  /** The unique string of a regulation that is associated to the Bundle resource. */
   regulationSid?: string;
+  /** The [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the Bundle\\\'s phone number country ownership request. */
   isoCountry?: string;
+  /**  */
   endUserType?: BundleEndUserType;
+  /** The type of phone number of the Bundle\\\'s ownership request. Can be `local`, `mobile`, `national`, or `toll free`. */
   numberType?: string;
 }
 /**
  * Options to pass to each
- *
- * @property { BundleStatus } [status] The verification status of the Bundle resource. Please refer to [Bundle Statuses](https://www.twilio.com/docs/phone-numbers/regulatory/api/bundles#bundle-statuses) for more details.
- * @property { string } [friendlyName] The string that you assigned to describe the resource. The column can contain 255 variable characters.
- * @property { string } [regulationSid] The unique string of a [Regulation resource](https://www.twilio.com/docs/phone-numbers/regulatory/api/regulations) that is associated to the Bundle resource.
- * @property { string } [isoCountry] The 2-digit [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the Bundle\'s phone number country ownership request.
- * @property { string } [numberType] The type of phone number of the Bundle\'s ownership request. Can be `local`, `mobile`, `national`, or `tollfree`.
- * @property { boolean } [hasValidUntilDate] Indicates that the Bundle is a valid Bundle until a specified expiration date.
- * @property { BundleSortBy } [sortBy] Can be `valid-until` or `date-updated`. Defaults to `date-created`.
- * @property { BundleSortDirection } [sortDirection] Default is `DESC`. Can be `ASC` or `DESC`.
- * @property { Date } [validUntilDate] Date to filter Bundles having their `valid_until_date` before or after the specified date. Can be `ValidUntilDate>=` or `ValidUntilDate<=`. Both can be used in conjunction as well. [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) is the acceptable date format.
- * @property { Date } [validUntilDateBefore] Date to filter Bundles having their `valid_until_date` before or after the specified date. Can be `ValidUntilDate>=` or `ValidUntilDate<=`. Both can be used in conjunction as well. [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) is the acceptable date format.
- * @property { Date } [validUntilDateAfter] Date to filter Bundles having their `valid_until_date` before or after the specified date. Can be `ValidUntilDate>=` or `ValidUntilDate<=`. Both can be used in conjunction as well. [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) is the acceptable date format.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface BundleListInstanceEachOptions {
+  /** The verification status of the Bundle resource. Please refer to [Bundle Statuses](https://www.twilio.com/docs/phone-numbers/regulatory/api/bundles#bundle-statuses) for more details. */
   status?: BundleStatus;
+  /** The string that you assigned to describe the resource. The column can contain 255 variable characters. */
   friendlyName?: string;
+  /** The unique string of a [Regulation resource](https://www.twilio.com/docs/phone-numbers/regulatory/api/regulations) that is associated to the Bundle resource. */
   regulationSid?: string;
+  /** The 2-digit [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the Bundle\'s phone number country ownership request. */
   isoCountry?: string;
+  /** The type of phone number of the Bundle\'s ownership request. Can be `local`, `mobile`, `national`, or `tollfree`. */
   numberType?: string;
+  /** Indicates that the Bundle is a valid Bundle until a specified expiration date. */
   hasValidUntilDate?: boolean;
+  /** Can be `valid-until` or `date-updated`. Defaults to `date-created`. */
   sortBy?: BundleSortBy;
+  /** Default is `DESC`. Can be `ASC` or `DESC`. */
   sortDirection?: BundleSortDirection;
+  /** Date to filter Bundles having their `valid_until_date` before or after the specified date. Can be `ValidUntilDate>=` or `ValidUntilDate<=`. Both can be used in conjunction as well. [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) is the acceptable date format. */
   validUntilDate?: Date;
+  /** Date to filter Bundles having their `valid_until_date` before or after the specified date. Can be `ValidUntilDate>=` or `ValidUntilDate<=`. Both can be used in conjunction as well. [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) is the acceptable date format. */
   validUntilDateBefore?: Date;
+  /** Date to filter Bundles having their `valid_until_date` before or after the specified date. Can be `ValidUntilDate>=` or `ValidUntilDate<=`. Both can be used in conjunction as well. [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) is the acceptable date format. */
   validUntilDateAfter?: Date;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: BundleInstance, done: (err?: Error) => void) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { BundleStatus } [status] The verification status of the Bundle resource. Please refer to [Bundle Statuses](https://www.twilio.com/docs/phone-numbers/regulatory/api/bundles#bundle-statuses) for more details.
- * @property { string } [friendlyName] The string that you assigned to describe the resource. The column can contain 255 variable characters.
- * @property { string } [regulationSid] The unique string of a [Regulation resource](https://www.twilio.com/docs/phone-numbers/regulatory/api/regulations) that is associated to the Bundle resource.
- * @property { string } [isoCountry] The 2-digit [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the Bundle\'s phone number country ownership request.
- * @property { string } [numberType] The type of phone number of the Bundle\'s ownership request. Can be `local`, `mobile`, `national`, or `tollfree`.
- * @property { boolean } [hasValidUntilDate] Indicates that the Bundle is a valid Bundle until a specified expiration date.
- * @property { BundleSortBy } [sortBy] Can be `valid-until` or `date-updated`. Defaults to `date-created`.
- * @property { BundleSortDirection } [sortDirection] Default is `DESC`. Can be `ASC` or `DESC`.
- * @property { Date } [validUntilDate] Date to filter Bundles having their `valid_until_date` before or after the specified date. Can be `ValidUntilDate>=` or `ValidUntilDate<=`. Both can be used in conjunction as well. [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) is the acceptable date format.
- * @property { Date } [validUntilDateBefore] Date to filter Bundles having their `valid_until_date` before or after the specified date. Can be `ValidUntilDate>=` or `ValidUntilDate<=`. Both can be used in conjunction as well. [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) is the acceptable date format.
- * @property { Date } [validUntilDateAfter] Date to filter Bundles having their `valid_until_date` before or after the specified date. Can be `ValidUntilDate>=` or `ValidUntilDate<=`. Both can be used in conjunction as well. [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) is the acceptable date format.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface BundleListInstanceOptions {
+  /** The verification status of the Bundle resource. Please refer to [Bundle Statuses](https://www.twilio.com/docs/phone-numbers/regulatory/api/bundles#bundle-statuses) for more details. */
   status?: BundleStatus;
+  /** The string that you assigned to describe the resource. The column can contain 255 variable characters. */
   friendlyName?: string;
+  /** The unique string of a [Regulation resource](https://www.twilio.com/docs/phone-numbers/regulatory/api/regulations) that is associated to the Bundle resource. */
   regulationSid?: string;
+  /** The 2-digit [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the Bundle\'s phone number country ownership request. */
   isoCountry?: string;
+  /** The type of phone number of the Bundle\'s ownership request. Can be `local`, `mobile`, `national`, or `tollfree`. */
   numberType?: string;
+  /** Indicates that the Bundle is a valid Bundle until a specified expiration date. */
   hasValidUntilDate?: boolean;
+  /** Can be `valid-until` or `date-updated`. Defaults to `date-created`. */
   sortBy?: BundleSortBy;
+  /** Default is `DESC`. Can be `ASC` or `DESC`. */
   sortDirection?: BundleSortDirection;
+  /** Date to filter Bundles having their `valid_until_date` before or after the specified date. Can be `ValidUntilDate>=` or `ValidUntilDate<=`. Both can be used in conjunction as well. [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) is the acceptable date format. */
   validUntilDate?: Date;
+  /** Date to filter Bundles having their `valid_until_date` before or after the specified date. Can be `ValidUntilDate>=` or `ValidUntilDate<=`. Both can be used in conjunction as well. [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) is the acceptable date format. */
   validUntilDateBefore?: Date;
+  /** Date to filter Bundles having their `valid_until_date` before or after the specified date. Can be `ValidUntilDate>=` or `ValidUntilDate<=`. Both can be used in conjunction as well. [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) is the acceptable date format. */
   validUntilDateAfter?: Date;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { BundleStatus } [status] The verification status of the Bundle resource. Please refer to [Bundle Statuses](https://www.twilio.com/docs/phone-numbers/regulatory/api/bundles#bundle-statuses) for more details.
- * @property { string } [friendlyName] The string that you assigned to describe the resource. The column can contain 255 variable characters.
- * @property { string } [regulationSid] The unique string of a [Regulation resource](https://www.twilio.com/docs/phone-numbers/regulatory/api/regulations) that is associated to the Bundle resource.
- * @property { string } [isoCountry] The 2-digit [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the Bundle\'s phone number country ownership request.
- * @property { string } [numberType] The type of phone number of the Bundle\'s ownership request. Can be `local`, `mobile`, `national`, or `tollfree`.
- * @property { boolean } [hasValidUntilDate] Indicates that the Bundle is a valid Bundle until a specified expiration date.
- * @property { BundleSortBy } [sortBy] Can be `valid-until` or `date-updated`. Defaults to `date-created`.
- * @property { BundleSortDirection } [sortDirection] Default is `DESC`. Can be `ASC` or `DESC`.
- * @property { Date } [validUntilDate] Date to filter Bundles having their `valid_until_date` before or after the specified date. Can be `ValidUntilDate>=` or `ValidUntilDate<=`. Both can be used in conjunction as well. [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) is the acceptable date format.
- * @property { Date } [validUntilDateBefore] Date to filter Bundles having their `valid_until_date` before or after the specified date. Can be `ValidUntilDate>=` or `ValidUntilDate<=`. Both can be used in conjunction as well. [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) is the acceptable date format.
- * @property { Date } [validUntilDateAfter] Date to filter Bundles having their `valid_until_date` before or after the specified date. Can be `ValidUntilDate>=` or `ValidUntilDate<=`. Both can be used in conjunction as well. [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) is the acceptable date format.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface BundleListInstancePageOptions {
+  /** The verification status of the Bundle resource. Please refer to [Bundle Statuses](https://www.twilio.com/docs/phone-numbers/regulatory/api/bundles#bundle-statuses) for more details. */
   status?: BundleStatus;
+  /** The string that you assigned to describe the resource. The column can contain 255 variable characters. */
   friendlyName?: string;
+  /** The unique string of a [Regulation resource](https://www.twilio.com/docs/phone-numbers/regulatory/api/regulations) that is associated to the Bundle resource. */
   regulationSid?: string;
+  /** The 2-digit [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the Bundle\'s phone number country ownership request. */
   isoCountry?: string;
+  /** The type of phone number of the Bundle\'s ownership request. Can be `local`, `mobile`, `national`, or `tollfree`. */
   numberType?: string;
+  /** Indicates that the Bundle is a valid Bundle until a specified expiration date. */
   hasValidUntilDate?: boolean;
+  /** Can be `valid-until` or `date-updated`. Defaults to `date-created`. */
   sortBy?: BundleSortBy;
+  /** Default is `DESC`. Can be `ASC` or `DESC`. */
   sortDirection?: BundleSortDirection;
+  /** Date to filter Bundles having their `valid_until_date` before or after the specified date. Can be `ValidUntilDate>=` or `ValidUntilDate<=`. Both can be used in conjunction as well. [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) is the acceptable date format. */
   validUntilDate?: Date;
+  /** Date to filter Bundles having their `valid_until_date` before or after the specified date. Can be `ValidUntilDate>=` or `ValidUntilDate<=`. Both can be used in conjunction as well. [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) is the acceptable date format. */
   validUntilDateBefore?: Date;
+  /** Date to filter Bundles having their `valid_until_date` before or after the specified date. Can be `ValidUntilDate>=` or `ValidUntilDate<=`. Both can be used in conjunction as well. [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) is the acceptable date format. */
   validUntilDateAfter?: Date;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
@@ -195,9 +182,9 @@ export interface BundleContext {
   /**
    * Remove a BundleInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -206,9 +193,9 @@ export interface BundleContext {
   /**
    * Fetch a BundleInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed BundleInstance
+   * @returns Resolves to processed BundleInstance
    */
   fetch(
     callback?: (error: Error | null, item?: BundleInstance) => any
@@ -217,9 +204,9 @@ export interface BundleContext {
   /**
    * Update a BundleInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed BundleInstance
+   * @returns Resolves to processed BundleInstance
    */
   update(
     callback?: (error: Error | null, item?: BundleInstance) => any
@@ -227,10 +214,10 @@ export interface BundleContext {
   /**
    * Update a BundleInstance
    *
-   * @param { BundleContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed BundleInstance
+   * @returns Resolves to processed BundleInstance
    */
   update(
     params: BundleContextUpdateOptions,
@@ -477,9 +464,9 @@ export class BundleInstance {
   /**
    * Remove a BundleInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -490,9 +477,9 @@ export class BundleInstance {
   /**
    * Fetch a BundleInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed BundleInstance
+   * @returns Resolves to processed BundleInstance
    */
   fetch(
     callback?: (error: Error | null, item?: BundleInstance) => any
@@ -503,9 +490,9 @@ export class BundleInstance {
   /**
    * Update a BundleInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed BundleInstance
+   * @returns Resolves to processed BundleInstance
    */
   update(
     callback?: (error: Error | null, item?: BundleInstance) => any
@@ -513,10 +500,10 @@ export class BundleInstance {
   /**
    * Update a BundleInstance
    *
-   * @param { BundleContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed BundleInstance
+   * @returns Resolves to processed BundleInstance
    */
   update(
     params: BundleContextUpdateOptions,
@@ -588,10 +575,10 @@ export interface BundleListInstance {
   /**
    * Create a BundleInstance
    *
-   * @param { BundleListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed BundleInstance
+   * @returns Resolves to processed BundleInstance
    */
   create(
     params: BundleListInstanceCreateOptions,

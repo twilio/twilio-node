@@ -24,9 +24,9 @@ export interface BuildStatusContext {
   /**
    * Fetch a BuildStatusInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed BuildStatusInstance
+   * @returns Resolves to processed BuildStatusInstance
    */
   fetch(
     callback?: (error: Error | null, item?: BuildStatusInstance) => any
@@ -160,9 +160,9 @@ export class BuildStatusInstance {
   /**
    * Fetch a BuildStatusInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed BuildStatusInstance
+   * @returns Resolves to processed BuildStatusInstance
    */
   fetch(
     callback?: (error: Error | null, item?: BuildStatusInstance) => any

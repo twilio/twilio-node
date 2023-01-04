@@ -22,69 +22,56 @@ import { isValidPathParam } from "../../../base/utility";
 
 /**
  * Options to pass to update a IpRecordInstance
- *
- * @property { string } [friendlyName] A descriptive string that you create to describe the resource. It is not unique and can be up to 255 characters long.
  */
 export interface IpRecordContextUpdateOptions {
+  /** A descriptive string that you create to describe the resource. It is not unique and can be up to 255 characters long. */
   friendlyName?: string;
 }
 
 /**
  * Options to pass to create a IpRecordInstance
- *
- * @property { string } ipAddress An IP address in dotted decimal notation, IPv4 only.
- * @property { string } [friendlyName] A descriptive string that you create to describe the resource. It is not unique and can be up to 255 characters long.
- * @property { number } [cidrPrefixLength] An integer representing the length of the [CIDR](https://tools.ietf.org/html/rfc4632) prefix to use with this IP address. By default the entire IP address is used, which for IPv4 is value 32.
  */
 export interface IpRecordListInstanceCreateOptions {
+  /** An IP address in dotted decimal notation, IPv4 only. */
   ipAddress: string;
+  /** A descriptive string that you create to describe the resource. It is not unique and can be up to 255 characters long. */
   friendlyName?: string;
+  /** An integer representing the length of the [CIDR](https://tools.ietf.org/html/rfc4632) prefix to use with this IP address. By default the entire IP address is used, which for IPv4 is value 32. */
   cidrPrefixLength?: number;
 }
 /**
  * Options to pass to each
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface IpRecordListInstanceEachOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: IpRecordInstance, done: (err?: Error) => void) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface IpRecordListInstanceOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface IpRecordListInstancePageOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
@@ -92,9 +79,9 @@ export interface IpRecordContext {
   /**
    * Remove a IpRecordInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -103,9 +90,9 @@ export interface IpRecordContext {
   /**
    * Fetch a IpRecordInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed IpRecordInstance
+   * @returns Resolves to processed IpRecordInstance
    */
   fetch(
     callback?: (error: Error | null, item?: IpRecordInstance) => any
@@ -114,9 +101,9 @@ export interface IpRecordContext {
   /**
    * Update a IpRecordInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed IpRecordInstance
+   * @returns Resolves to processed IpRecordInstance
    */
   update(
     callback?: (error: Error | null, item?: IpRecordInstance) => any
@@ -124,10 +111,10 @@ export interface IpRecordContext {
   /**
    * Update a IpRecordInstance
    *
-   * @param { IpRecordContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed IpRecordInstance
+   * @returns Resolves to processed IpRecordInstance
    */
   update(
     params: IpRecordContextUpdateOptions,
@@ -317,9 +304,9 @@ export class IpRecordInstance {
   /**
    * Remove a IpRecordInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -330,9 +317,9 @@ export class IpRecordInstance {
   /**
    * Fetch a IpRecordInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed IpRecordInstance
+   * @returns Resolves to processed IpRecordInstance
    */
   fetch(
     callback?: (error: Error | null, item?: IpRecordInstance) => any
@@ -343,9 +330,9 @@ export class IpRecordInstance {
   /**
    * Update a IpRecordInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed IpRecordInstance
+   * @returns Resolves to processed IpRecordInstance
    */
   update(
     callback?: (error: Error | null, item?: IpRecordInstance) => any
@@ -353,10 +340,10 @@ export class IpRecordInstance {
   /**
    * Update a IpRecordInstance
    *
-   * @param { IpRecordContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed IpRecordInstance
+   * @returns Resolves to processed IpRecordInstance
    */
   update(
     params: IpRecordContextUpdateOptions,
@@ -396,10 +383,10 @@ export interface IpRecordListInstance {
   /**
    * Create a IpRecordInstance
    *
-   * @param { IpRecordListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed IpRecordInstance
+   * @returns Resolves to processed IpRecordInstance
    */
   create(
     params: IpRecordListInstanceCreateOptions,

@@ -26,96 +26,82 @@ type SyncMapItemQueryResultOrder = "asc" | "desc";
 
 /**
  * Options to pass to remove a SyncMapItemInstance
- *
- * @property { string } [ifMatch] The If-Match HTTP request header
  */
 export interface SyncMapItemContextRemoveOptions {
+  /** The If-Match HTTP request header */
   ifMatch?: string;
 }
 
 /**
  * Options to pass to update a SyncMapItemInstance
- *
- * @property { any } data
- * @property { string } [ifMatch] The If-Match HTTP request header
  */
 export interface SyncMapItemContextUpdateOptions {
+  /**  */
   data: any;
+  /** The If-Match HTTP request header */
   ifMatch?: string;
 }
 
 /**
  * Options to pass to create a SyncMapItemInstance
- *
- * @property { string } key
- * @property { any } data
  */
 export interface SyncMapItemListInstanceCreateOptions {
+  /**  */
   key: string;
+  /**  */
   data: any;
 }
 /**
  * Options to pass to each
- *
- * @property { SyncMapItemQueryResultOrder } [order]
- * @property { string } [from]
- * @property { SyncMapItemQueryFromBoundType } [bounds]
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface SyncMapItemListInstanceEachOptions {
+  /**  */
   order?: SyncMapItemQueryResultOrder;
+  /**  */
   from?: string;
+  /**  */
   bounds?: SyncMapItemQueryFromBoundType;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: SyncMapItemInstance, done: (err?: Error) => void) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { SyncMapItemQueryResultOrder } [order]
- * @property { string } [from]
- * @property { SyncMapItemQueryFromBoundType } [bounds]
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface SyncMapItemListInstanceOptions {
+  /**  */
   order?: SyncMapItemQueryResultOrder;
+  /**  */
   from?: string;
+  /**  */
   bounds?: SyncMapItemQueryFromBoundType;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { SyncMapItemQueryResultOrder } [order]
- * @property { string } [from]
- * @property { SyncMapItemQueryFromBoundType } [bounds]
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface SyncMapItemListInstancePageOptions {
+  /**  */
   order?: SyncMapItemQueryResultOrder;
+  /**  */
   from?: string;
+  /**  */
   bounds?: SyncMapItemQueryFromBoundType;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
@@ -123,9 +109,9 @@ export interface SyncMapItemContext {
   /**
    * Remove a SyncMapItemInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -133,10 +119,10 @@ export interface SyncMapItemContext {
   /**
    * Remove a SyncMapItemInstance
    *
-   * @param { SyncMapItemContextRemoveOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SyncMapItemInstance
+   * @returns Resolves to processed SyncMapItemInstance
    */
   remove(
     params: SyncMapItemContextRemoveOptions,
@@ -147,9 +133,9 @@ export interface SyncMapItemContext {
   /**
    * Fetch a SyncMapItemInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SyncMapItemInstance
+   * @returns Resolves to processed SyncMapItemInstance
    */
   fetch(
     callback?: (error: Error | null, item?: SyncMapItemInstance) => any
@@ -158,10 +144,10 @@ export interface SyncMapItemContext {
   /**
    * Update a SyncMapItemInstance
    *
-   * @param { SyncMapItemContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SyncMapItemInstance
+   * @returns Resolves to processed SyncMapItemInstance
    */
   update(
     params: SyncMapItemContextUpdateOptions,
@@ -388,9 +374,9 @@ export class SyncMapItemInstance {
   /**
    * Remove a SyncMapItemInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -398,10 +384,10 @@ export class SyncMapItemInstance {
   /**
    * Remove a SyncMapItemInstance
    *
-   * @param { SyncMapItemContextRemoveOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SyncMapItemInstance
+   * @returns Resolves to processed SyncMapItemInstance
    */
   remove(
     params: SyncMapItemContextRemoveOptions,
@@ -414,9 +400,9 @@ export class SyncMapItemInstance {
   /**
    * Fetch a SyncMapItemInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SyncMapItemInstance
+   * @returns Resolves to processed SyncMapItemInstance
    */
   fetch(
     callback?: (error: Error | null, item?: SyncMapItemInstance) => any
@@ -427,10 +413,10 @@ export class SyncMapItemInstance {
   /**
    * Update a SyncMapItemInstance
    *
-   * @param { SyncMapItemContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SyncMapItemInstance
+   * @returns Resolves to processed SyncMapItemInstance
    */
   update(
     params: SyncMapItemContextUpdateOptions,
@@ -472,10 +458,10 @@ export interface SyncMapItemListInstance {
   /**
    * Create a SyncMapItemInstance
    *
-   * @param { SyncMapItemListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SyncMapItemInstance
+   * @returns Resolves to processed SyncMapItemInstance
    */
   create(
     params: SyncMapItemListInstanceCreateOptions,

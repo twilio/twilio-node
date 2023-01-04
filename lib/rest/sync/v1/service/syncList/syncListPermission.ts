@@ -22,63 +22,51 @@ import { isValidPathParam } from "../../../../../base/utility";
 
 /**
  * Options to pass to update a SyncListPermissionInstance
- *
- * @property { boolean } read Whether the identity can read the Sync List and its Items. Default value is `false`.
- * @property { boolean } write Whether the identity can create, update, and delete Items in the Sync List. Default value is `false`.
- * @property { boolean } manage Whether the identity can delete the Sync List. Default value is `false`.
  */
 export interface SyncListPermissionContextUpdateOptions {
+  /** Whether the identity can read the Sync List and its Items. Default value is `false`. */
   read: boolean;
+  /** Whether the identity can create, update, and delete Items in the Sync List. Default value is `false`. */
   write: boolean;
+  /** Whether the identity can delete the Sync List. Default value is `false`. */
   manage: boolean;
 }
 /**
  * Options to pass to each
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface SyncListPermissionListInstanceEachOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (
     item: SyncListPermissionInstance,
     done: (err?: Error) => void
   ) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface SyncListPermissionListInstanceOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface SyncListPermissionListInstancePageOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
@@ -86,9 +74,9 @@ export interface SyncListPermissionContext {
   /**
    * Remove a SyncListPermissionInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -97,9 +85,9 @@ export interface SyncListPermissionContext {
   /**
    * Fetch a SyncListPermissionInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SyncListPermissionInstance
+   * @returns Resolves to processed SyncListPermissionInstance
    */
   fetch(
     callback?: (error: Error | null, item?: SyncListPermissionInstance) => any
@@ -108,10 +96,10 @@ export interface SyncListPermissionContext {
   /**
    * Update a SyncListPermissionInstance
    *
-   * @param { SyncListPermissionContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SyncListPermissionInstance
+   * @returns Resolves to processed SyncListPermissionInstance
    */
   update(
     params: SyncListPermissionContextUpdateOptions,
@@ -357,9 +345,9 @@ export class SyncListPermissionInstance {
   /**
    * Remove a SyncListPermissionInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -370,9 +358,9 @@ export class SyncListPermissionInstance {
   /**
    * Fetch a SyncListPermissionInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SyncListPermissionInstance
+   * @returns Resolves to processed SyncListPermissionInstance
    */
   fetch(
     callback?: (error: Error | null, item?: SyncListPermissionInstance) => any
@@ -383,10 +371,10 @@ export class SyncListPermissionInstance {
   /**
    * Update a SyncListPermissionInstance
    *
-   * @param { SyncListPermissionContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SyncListPermissionInstance
+   * @returns Resolves to processed SyncListPermissionInstance
    */
   update(
     params: SyncListPermissionContextUpdateOptions,

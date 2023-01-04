@@ -53,108 +53,97 @@ type ConferenceTag =
 
 /**
  * Options to pass to each
- *
- * @property { string } [conferenceSid] The SID of the conference.
- * @property { string } [friendlyName] Custom label for the conference resource, up to 64 characters.
- * @property { string } [status] Conference status.
- * @property { string } [createdAfter] Conferences created after the provided timestamp specified in ISO 8601 format
- * @property { string } [createdBefore] Conferences created before the provided timestamp specified in ISO 8601 format.
- * @property { string } [mixerRegion] Twilio region where the conference media was mixed.
- * @property { string } [tags] Tags applied by Twilio for common potential configuration, quality, or performance issues.
- * @property { string } [subaccount] Account SID for the subaccount whose resources you wish to retrieve.
- * @property { string } [detectedIssues] Potential configuration, behavior, or performance issues detected during the conference.
- * @property { string } [endReason] Conference end reason; e.g. last participant left, modified by API, etc.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface ConferenceListInstanceEachOptions {
+  /** The SID of the conference. */
   conferenceSid?: string;
+  /** Custom label for the conference resource, up to 64 characters. */
   friendlyName?: string;
+  /** Conference status. */
   status?: string;
+  /** Conferences created after the provided timestamp specified in ISO 8601 format */
   createdAfter?: string;
+  /** Conferences created before the provided timestamp specified in ISO 8601 format. */
   createdBefore?: string;
+  /** Twilio region where the conference media was mixed. */
   mixerRegion?: string;
+  /** Tags applied by Twilio for common potential configuration, quality, or performance issues. */
   tags?: string;
+  /** Account SID for the subaccount whose resources you wish to retrieve. */
   subaccount?: string;
+  /** Potential configuration, behavior, or performance issues detected during the conference. */
   detectedIssues?: string;
+  /** Conference end reason; e.g. last participant left, modified by API, etc. */
   endReason?: string;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: ConferenceInstance, done: (err?: Error) => void) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { string } [conferenceSid] The SID of the conference.
- * @property { string } [friendlyName] Custom label for the conference resource, up to 64 characters.
- * @property { string } [status] Conference status.
- * @property { string } [createdAfter] Conferences created after the provided timestamp specified in ISO 8601 format
- * @property { string } [createdBefore] Conferences created before the provided timestamp specified in ISO 8601 format.
- * @property { string } [mixerRegion] Twilio region where the conference media was mixed.
- * @property { string } [tags] Tags applied by Twilio for common potential configuration, quality, or performance issues.
- * @property { string } [subaccount] Account SID for the subaccount whose resources you wish to retrieve.
- * @property { string } [detectedIssues] Potential configuration, behavior, or performance issues detected during the conference.
- * @property { string } [endReason] Conference end reason; e.g. last participant left, modified by API, etc.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface ConferenceListInstanceOptions {
+  /** The SID of the conference. */
   conferenceSid?: string;
+  /** Custom label for the conference resource, up to 64 characters. */
   friendlyName?: string;
+  /** Conference status. */
   status?: string;
+  /** Conferences created after the provided timestamp specified in ISO 8601 format */
   createdAfter?: string;
+  /** Conferences created before the provided timestamp specified in ISO 8601 format. */
   createdBefore?: string;
+  /** Twilio region where the conference media was mixed. */
   mixerRegion?: string;
+  /** Tags applied by Twilio for common potential configuration, quality, or performance issues. */
   tags?: string;
+  /** Account SID for the subaccount whose resources you wish to retrieve. */
   subaccount?: string;
+  /** Potential configuration, behavior, or performance issues detected during the conference. */
   detectedIssues?: string;
+  /** Conference end reason; e.g. last participant left, modified by API, etc. */
   endReason?: string;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { string } [conferenceSid] The SID of the conference.
- * @property { string } [friendlyName] Custom label for the conference resource, up to 64 characters.
- * @property { string } [status] Conference status.
- * @property { string } [createdAfter] Conferences created after the provided timestamp specified in ISO 8601 format
- * @property { string } [createdBefore] Conferences created before the provided timestamp specified in ISO 8601 format.
- * @property { string } [mixerRegion] Twilio region where the conference media was mixed.
- * @property { string } [tags] Tags applied by Twilio for common potential configuration, quality, or performance issues.
- * @property { string } [subaccount] Account SID for the subaccount whose resources you wish to retrieve.
- * @property { string } [detectedIssues] Potential configuration, behavior, or performance issues detected during the conference.
- * @property { string } [endReason] Conference end reason; e.g. last participant left, modified by API, etc.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface ConferenceListInstancePageOptions {
+  /** The SID of the conference. */
   conferenceSid?: string;
+  /** Custom label for the conference resource, up to 64 characters. */
   friendlyName?: string;
+  /** Conference status. */
   status?: string;
+  /** Conferences created after the provided timestamp specified in ISO 8601 format */
   createdAfter?: string;
+  /** Conferences created before the provided timestamp specified in ISO 8601 format. */
   createdBefore?: string;
+  /** Twilio region where the conference media was mixed. */
   mixerRegion?: string;
+  /** Tags applied by Twilio for common potential configuration, quality, or performance issues. */
   tags?: string;
+  /** Account SID for the subaccount whose resources you wish to retrieve. */
   subaccount?: string;
+  /** Potential configuration, behavior, or performance issues detected during the conference. */
   detectedIssues?: string;
+  /** Conference end reason; e.g. last participant left, modified by API, etc. */
   endReason?: string;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
@@ -164,9 +153,9 @@ export interface ConferenceContext {
   /**
    * Fetch a ConferenceInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ConferenceInstance
+   * @returns Resolves to processed ConferenceInstance
    */
   fetch(
     callback?: (error: Error | null, item?: ConferenceInstance) => any
@@ -403,9 +392,9 @@ export class ConferenceInstance {
   /**
    * Fetch a ConferenceInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ConferenceInstance
+   * @returns Resolves to processed ConferenceInstance
    */
   fetch(
     callback?: (error: Error | null, item?: ConferenceInstance) => any

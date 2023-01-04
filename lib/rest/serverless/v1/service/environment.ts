@@ -25,58 +25,46 @@ import { VariableListInstance } from "./environment/variable";
 
 /**
  * Options to pass to create a EnvironmentInstance
- *
- * @property { string } uniqueName A user-defined string that uniquely identifies the Environment resource. It can be a maximum of 100 characters.
- * @property { string } [domainSuffix] A URL-friendly name that represents the environment and forms part of the domain name. It can be a maximum of 16 characters.
  */
 export interface EnvironmentListInstanceCreateOptions {
+  /** A user-defined string that uniquely identifies the Environment resource. It can be a maximum of 100 characters. */
   uniqueName: string;
+  /** A URL-friendly name that represents the environment and forms part of the domain name. It can be a maximum of 16 characters. */
   domainSuffix?: string;
 }
 /**
  * Options to pass to each
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface EnvironmentListInstanceEachOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: EnvironmentInstance, done: (err?: Error) => void) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface EnvironmentListInstanceOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface EnvironmentListInstancePageOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
@@ -88,9 +76,9 @@ export interface EnvironmentContext {
   /**
    * Remove a EnvironmentInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -99,9 +87,9 @@ export interface EnvironmentContext {
   /**
    * Fetch a EnvironmentInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed EnvironmentInstance
+   * @returns Resolves to processed EnvironmentInstance
    */
   fetch(
     callback?: (error: Error | null, item?: EnvironmentInstance) => any
@@ -327,9 +315,9 @@ export class EnvironmentInstance {
   /**
    * Remove a EnvironmentInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -340,9 +328,9 @@ export class EnvironmentInstance {
   /**
    * Fetch a EnvironmentInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed EnvironmentInstance
+   * @returns Resolves to processed EnvironmentInstance
    */
   fetch(
     callback?: (error: Error | null, item?: EnvironmentInstance) => any
@@ -404,10 +392,10 @@ export interface EnvironmentListInstance {
   /**
    * Create a EnvironmentInstance
    *
-   * @param { EnvironmentListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed EnvironmentInstance
+   * @returns Resolves to processed EnvironmentInstance
    */
   create(
     params: EnvironmentListInstanceCreateOptions,

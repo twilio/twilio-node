@@ -43,67 +43,55 @@ type BrandRegistrationsStatus =
 
 /**
  * Options to pass to create a BrandRegistrationInstance
- *
- * @property { string } customerProfileBundleSid Customer Profile Bundle Sid.
- * @property { string } a2PProfileBundleSid A2P Messaging Profile Bundle Sid.
- * @property { string } [brandType] Type of brand being created. One of: \\\"STANDARD\\\", \\\"STARTER\\\". STARTER is for low volume, starter use cases. STANDARD is for all other use cases.
- * @property { boolean } [mock] A boolean that specifies whether brand should be a mock or not. If true, brand will be registered as a mock brand. Defaults to false if no value is provided.
- * @property { boolean } [skipAutomaticSecVet] A flag to disable automatic secondary vetting for brands which it would otherwise be done.
  */
 export interface BrandRegistrationListInstanceCreateOptions {
+  /** Customer Profile Bundle Sid. */
   customerProfileBundleSid: string;
+  /** A2P Messaging Profile Bundle Sid. */
   a2PProfileBundleSid: string;
+  /** Type of brand being created. One of: \\\"STANDARD\\\", \\\"STARTER\\\". STARTER is for low volume, starter use cases. STANDARD is for all other use cases. */
   brandType?: string;
+  /** A boolean that specifies whether brand should be a mock or not. If true, brand will be registered as a mock brand. Defaults to false if no value is provided. */
   mock?: boolean;
+  /** A flag to disable automatic secondary vetting for brands which it would otherwise be done. */
   skipAutomaticSecVet?: boolean;
 }
 /**
  * Options to pass to each
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface BrandRegistrationListInstanceEachOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (
     item: BrandRegistrationInstance,
     done: (err?: Error) => void
   ) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface BrandRegistrationListInstanceOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface BrandRegistrationListInstancePageOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
@@ -113,9 +101,9 @@ export interface BrandRegistrationContext {
   /**
    * Fetch a BrandRegistrationInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed BrandRegistrationInstance
+   * @returns Resolves to processed BrandRegistrationInstance
    */
   fetch(
     callback?: (error: Error | null, item?: BrandRegistrationInstance) => any
@@ -124,9 +112,9 @@ export interface BrandRegistrationContext {
   /**
    * Update a BrandRegistrationInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed BrandRegistrationInstance
+   * @returns Resolves to processed BrandRegistrationInstance
    */
   update(
     callback?: (error: Error | null, item?: BrandRegistrationInstance) => any
@@ -367,9 +355,9 @@ export class BrandRegistrationInstance {
   /**
    * Fetch a BrandRegistrationInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed BrandRegistrationInstance
+   * @returns Resolves to processed BrandRegistrationInstance
    */
   fetch(
     callback?: (error: Error | null, item?: BrandRegistrationInstance) => any
@@ -380,9 +368,9 @@ export class BrandRegistrationInstance {
   /**
    * Update a BrandRegistrationInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed BrandRegistrationInstance
+   * @returns Resolves to processed BrandRegistrationInstance
    */
   update(
     callback?: (error: Error | null, item?: BrandRegistrationInstance) => any
@@ -439,10 +427,10 @@ export interface BrandRegistrationListInstance {
   /**
    * Create a BrandRegistrationInstance
    *
-   * @param { BrandRegistrationListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed BrandRegistrationInstance
+   * @returns Resolves to processed BrandRegistrationInstance
    */
   create(
     params: BrandRegistrationListInstanceCreateOptions,

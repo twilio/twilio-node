@@ -20,10 +20,9 @@ import { isValidPathParam } from "../../../../base/utility";
 
 /**
  * Options to pass to create a SinkValidateInstance
- *
- * @property { string } testId A 34 character string that uniquely identifies the test event for a Sink being validated.
  */
 export interface SinkValidateListInstanceCreateOptions {
+  /** A 34 character string that uniquely identifies the test event for a Sink being validated. */
   testId: string;
 }
 
@@ -31,10 +30,10 @@ export interface SinkValidateListInstance {
   /**
    * Create a SinkValidateInstance
    *
-   * @param { SinkValidateListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SinkValidateInstance
+   * @returns Resolves to processed SinkValidateInstance
    */
   create(
     params: SinkValidateListInstanceCreateOptions,

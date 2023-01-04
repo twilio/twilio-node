@@ -20,16 +20,15 @@ import { isValidPathParam } from "../../../base/utility";
 
 /**
  * Options to pass to update a DomainConfigInstance
- *
- * @property { Array<string> } messagingServiceSids A list of messagingServiceSids (with prefix MG)
- * @property { string } [fallbackUrl] Any requests we receive to this domain that do not match an existing shortened message will be redirected to the fallback url. These will likely be either expired messages, random misdirected traffic, or intentional scraping.
- * @property { string } [callbackUrl] URL to receive click events to your webhook whenever the recipients click on the shortened links
- * @property { string } [messagingServiceSidsAction] An action type for messaging_service_sids operation (ADD, DELETE, REPLACE)
  */
 export interface DomainConfigContextUpdateOptions {
+  /** A list of messagingServiceSids (with prefix MG) */
   messagingServiceSids: Array<string>;
+  /** Any requests we receive to this domain that do not match an existing shortened message will be redirected to the fallback url. These will likely be either expired messages, random misdirected traffic, or intentional scraping. */
   fallbackUrl?: string;
+  /** URL to receive click events to your webhook whenever the recipients click on the shortened links */
   callbackUrl?: string;
+  /** An action type for messaging_service_sids operation (ADD, DELETE, REPLACE) */
   messagingServiceSidsAction?: string;
 }
 
@@ -37,9 +36,9 @@ export interface DomainConfigContext {
   /**
    * Fetch a DomainConfigInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed DomainConfigInstance
+   * @returns Resolves to processed DomainConfigInstance
    */
   fetch(
     callback?: (error: Error | null, item?: DomainConfigInstance) => any
@@ -48,10 +47,10 @@ export interface DomainConfigContext {
   /**
    * Update a DomainConfigInstance
    *
-   * @param { DomainConfigContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed DomainConfigInstance
+   * @returns Resolves to processed DomainConfigInstance
    */
   update(
     params: DomainConfigContextUpdateOptions,
@@ -248,9 +247,9 @@ export class DomainConfigInstance {
   /**
    * Fetch a DomainConfigInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed DomainConfigInstance
+   * @returns Resolves to processed DomainConfigInstance
    */
   fetch(
     callback?: (error: Error | null, item?: DomainConfigInstance) => any
@@ -261,10 +260,10 @@ export class DomainConfigInstance {
   /**
    * Update a DomainConfigInstance
    *
-   * @param { DomainConfigContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed DomainConfigInstance
+   * @returns Resolves to processed DomainConfigInstance
    */
   update(
     params: DomainConfigContextUpdateOptions,

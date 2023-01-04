@@ -58,78 +58,67 @@ type VideoRoomSummaryTwilioRealm =
 
 /**
  * Options to pass to each
- *
- * @property { Array<VideoRoomSummaryRoomType> } [roomType] Type of room. Can be `go`, `peer_to_peer`, `group`, or `group_small`.
- * @property { Array<VideoRoomSummaryCodec> } [codec] Codecs used by participants in the room. Can be `VP8`, `H264`, or `VP9`.
- * @property { string } [roomName] Room friendly name.
- * @property { Date } [createdAfter] Only read rooms that started on or after this ISO 8601 timestamp.
- * @property { Date } [createdBefore] Only read rooms that started before this ISO 8601 timestamp.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface RoomListInstanceEachOptions {
+  /** Type of room. Can be `go`, `peer_to_peer`, `group`, or `group_small`. */
   roomType?: Array<VideoRoomSummaryRoomType>;
+  /** Codecs used by participants in the room. Can be `VP8`, `H264`, or `VP9`. */
   codec?: Array<VideoRoomSummaryCodec>;
+  /** Room friendly name. */
   roomName?: string;
+  /** Only read rooms that started on or after this ISO 8601 timestamp. */
   createdAfter?: Date;
+  /** Only read rooms that started before this ISO 8601 timestamp. */
   createdBefore?: Date;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: RoomInstance, done: (err?: Error) => void) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { Array<VideoRoomSummaryRoomType> } [roomType] Type of room. Can be `go`, `peer_to_peer`, `group`, or `group_small`.
- * @property { Array<VideoRoomSummaryCodec> } [codec] Codecs used by participants in the room. Can be `VP8`, `H264`, or `VP9`.
- * @property { string } [roomName] Room friendly name.
- * @property { Date } [createdAfter] Only read rooms that started on or after this ISO 8601 timestamp.
- * @property { Date } [createdBefore] Only read rooms that started before this ISO 8601 timestamp.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface RoomListInstanceOptions {
+  /** Type of room. Can be `go`, `peer_to_peer`, `group`, or `group_small`. */
   roomType?: Array<VideoRoomSummaryRoomType>;
+  /** Codecs used by participants in the room. Can be `VP8`, `H264`, or `VP9`. */
   codec?: Array<VideoRoomSummaryCodec>;
+  /** Room friendly name. */
   roomName?: string;
+  /** Only read rooms that started on or after this ISO 8601 timestamp. */
   createdAfter?: Date;
+  /** Only read rooms that started before this ISO 8601 timestamp. */
   createdBefore?: Date;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { Array<VideoRoomSummaryRoomType> } [roomType] Type of room. Can be `go`, `peer_to_peer`, `group`, or `group_small`.
- * @property { Array<VideoRoomSummaryCodec> } [codec] Codecs used by participants in the room. Can be `VP8`, `H264`, or `VP9`.
- * @property { string } [roomName] Room friendly name.
- * @property { Date } [createdAfter] Only read rooms that started on or after this ISO 8601 timestamp.
- * @property { Date } [createdBefore] Only read rooms that started before this ISO 8601 timestamp.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface RoomListInstancePageOptions {
+  /** Type of room. Can be `go`, `peer_to_peer`, `group`, or `group_small`. */
   roomType?: Array<VideoRoomSummaryRoomType>;
+  /** Codecs used by participants in the room. Can be `VP8`, `H264`, or `VP9`. */
   codec?: Array<VideoRoomSummaryCodec>;
+  /** Room friendly name. */
   roomName?: string;
+  /** Only read rooms that started on or after this ISO 8601 timestamp. */
   createdAfter?: Date;
+  /** Only read rooms that started before this ISO 8601 timestamp. */
   createdBefore?: Date;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
@@ -139,9 +128,9 @@ export interface RoomContext {
   /**
    * Fetch a RoomInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed RoomInstance
+   * @returns Resolves to processed RoomInstance
    */
   fetch(
     callback?: (error: Error | null, item?: RoomInstance) => any
@@ -389,9 +378,9 @@ export class RoomInstance {
   /**
    * Fetch a RoomInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed RoomInstance
+   * @returns Resolves to processed RoomInstance
    */
   fetch(
     callback?: (error: Error | null, item?: RoomInstance) => any

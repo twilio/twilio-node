@@ -28,10 +28,9 @@ type ReplaceItemsStatus =
 
 /**
  * Options to pass to create a ReplaceItemsInstance
- *
- * @property { string } fromBundleSid The source bundle sid to copy the item assignments from.
  */
 export interface ReplaceItemsListInstanceCreateOptions {
+  /** The source bundle sid to copy the item assignments from. */
   fromBundleSid: string;
 }
 
@@ -39,10 +38,10 @@ export interface ReplaceItemsListInstance {
   /**
    * Create a ReplaceItemsInstance
    *
-   * @param { ReplaceItemsListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ReplaceItemsInstance
+   * @returns Resolves to processed ReplaceItemsInstance
    */
   create(
     params: ReplaceItemsListInstanceCreateOptions,

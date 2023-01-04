@@ -22,9 +22,9 @@ export interface DialogueContext {
   /**
    * Fetch a DialogueInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed DialogueInstance
+   * @returns Resolves to processed DialogueInstance
    */
   fetch(
     callback?: (error: Error | null, item?: DialogueInstance) => any
@@ -161,9 +161,9 @@ export class DialogueInstance {
   /**
    * Fetch a DialogueInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed DialogueInstance
+   * @returns Resolves to processed DialogueInstance
    */
   fetch(
     callback?: (error: Error | null, item?: DialogueInstance) => any

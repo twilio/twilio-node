@@ -23,116 +23,104 @@ import { UsageListInstance } from "./sim/usage";
 
 /**
  * Options to pass to update a SimInstance
- *
- * @property { string } [uniqueName]
- * @property { string } [callbackMethod]
- * @property { string } [callbackUrl]
- * @property { string } [friendlyName]
- * @property { string } [ratePlan]
- * @property { string } [status]
- * @property { string } [commandsCallbackMethod]
- * @property { string } [commandsCallbackUrl]
- * @property { string } [smsFallbackMethod]
- * @property { string } [smsFallbackUrl]
- * @property { string } [smsMethod]
- * @property { string } [smsUrl]
- * @property { string } [voiceFallbackMethod]
- * @property { string } [voiceFallbackUrl]
- * @property { string } [voiceMethod]
- * @property { string } [voiceUrl]
  */
 export interface SimContextUpdateOptions {
+  /**  */
   uniqueName?: string;
+  /**  */
   callbackMethod?: string;
+  /**  */
   callbackUrl?: string;
+  /**  */
   friendlyName?: string;
+  /**  */
   ratePlan?: string;
+  /**  */
   status?: string;
+  /**  */
   commandsCallbackMethod?: string;
+  /**  */
   commandsCallbackUrl?: string;
+  /**  */
   smsFallbackMethod?: string;
+  /**  */
   smsFallbackUrl?: string;
+  /**  */
   smsMethod?: string;
+  /**  */
   smsUrl?: string;
+  /**  */
   voiceFallbackMethod?: string;
+  /**  */
   voiceFallbackUrl?: string;
+  /**  */
   voiceMethod?: string;
+  /**  */
   voiceUrl?: string;
 }
 /**
  * Options to pass to each
- *
- * @property { string } [status]
- * @property { string } [iccid]
- * @property { string } [ratePlan]
- * @property { string } [eId]
- * @property { string } [simRegistrationCode]
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface SimListInstanceEachOptions {
+  /**  */
   status?: string;
+  /**  */
   iccid?: string;
+  /**  */
   ratePlan?: string;
+  /**  */
   eId?: string;
+  /**  */
   simRegistrationCode?: string;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: SimInstance, done: (err?: Error) => void) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { string } [status]
- * @property { string } [iccid]
- * @property { string } [ratePlan]
- * @property { string } [eId]
- * @property { string } [simRegistrationCode]
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface SimListInstanceOptions {
+  /**  */
   status?: string;
+  /**  */
   iccid?: string;
+  /**  */
   ratePlan?: string;
+  /**  */
   eId?: string;
+  /**  */
   simRegistrationCode?: string;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { string } [status]
- * @property { string } [iccid]
- * @property { string } [ratePlan]
- * @property { string } [eId]
- * @property { string } [simRegistrationCode]
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface SimListInstancePageOptions {
+  /**  */
   status?: string;
+  /**  */
   iccid?: string;
+  /**  */
   ratePlan?: string;
+  /**  */
   eId?: string;
+  /**  */
   simRegistrationCode?: string;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
@@ -142,9 +130,9 @@ export interface SimContext {
   /**
    * Fetch a SimInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SimInstance
+   * @returns Resolves to processed SimInstance
    */
   fetch(
     callback?: (error: Error | null, item?: SimInstance) => any
@@ -153,9 +141,9 @@ export interface SimContext {
   /**
    * Update a SimInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SimInstance
+   * @returns Resolves to processed SimInstance
    */
   update(
     callback?: (error: Error | null, item?: SimInstance) => any
@@ -163,10 +151,10 @@ export interface SimContext {
   /**
    * Update a SimInstance
    *
-   * @param { SimContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SimInstance
+   * @returns Resolves to processed SimInstance
    */
   update(
     params: SimContextUpdateOptions,
@@ -420,9 +408,9 @@ export class SimInstance {
   /**
    * Fetch a SimInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SimInstance
+   * @returns Resolves to processed SimInstance
    */
   fetch(
     callback?: (error: Error | null, item?: SimInstance) => any
@@ -433,9 +421,9 @@ export class SimInstance {
   /**
    * Update a SimInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SimInstance
+   * @returns Resolves to processed SimInstance
    */
   update(
     callback?: (error: Error | null, item?: SimInstance) => any
@@ -443,10 +431,10 @@ export class SimInstance {
   /**
    * Update a SimInstance
    *
-   * @param { SimContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SimInstance
+   * @returns Resolves to processed SimInstance
    */
   update(
     params: SimContextUpdateOptions,

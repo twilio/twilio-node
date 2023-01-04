@@ -20,12 +20,11 @@ import { isValidPathParam } from "../../../../../base/utility";
 
 /**
  * Options to pass to create a UserDefinedMessageInstance
- *
- * @property { string } content The User Defined Message in the form of URL-encoded JSON string.
- * @property { string } [idempotencyKey] A unique string value to identify API call. This should be a unique string value per API call and can be a randomly generated.
  */
 export interface UserDefinedMessageListInstanceCreateOptions {
+  /** The User Defined Message in the form of URL-encoded JSON string. */
   content: string;
+  /** A unique string value to identify API call. This should be a unique string value per API call and can be a randomly generated. */
   idempotencyKey?: string;
 }
 
@@ -33,10 +32,10 @@ export interface UserDefinedMessageListInstance {
   /**
    * Create a UserDefinedMessageInstance
    *
-   * @param { UserDefinedMessageListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed UserDefinedMessageInstance
+   * @returns Resolves to processed UserDefinedMessageInstance
    */
   create(
     params: UserDefinedMessageListInstanceCreateOptions,

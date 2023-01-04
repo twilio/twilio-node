@@ -22,9 +22,9 @@ export interface ExecutionStepContextContext {
   /**
    * Fetch a ExecutionStepContextInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ExecutionStepContextInstance
+   * @returns Resolves to processed ExecutionStepContextInstance
    */
   fetch(
     callback?: (error: Error | null, item?: ExecutionStepContextInstance) => any
@@ -182,9 +182,9 @@ export class ExecutionStepContextInstance {
   /**
    * Fetch a ExecutionStepContextInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ExecutionStepContextInstance
+   * @returns Resolves to processed ExecutionStepContextInstance
    */
   fetch(
     callback?: (error: Error | null, item?: ExecutionStepContextInstance) => any

@@ -22,101 +22,88 @@ import { isValidPathParam } from "../../../base/utility";
 
 /**
  * Options to pass to update a ByocTrunkInstance
- *
- * @property { string } [friendlyName] A descriptive string that you create to describe the resource. It is not unique and can be up to 255 characters long.
- * @property { string } [voiceUrl] The URL we should call when the BYOC Trunk receives a call.
- * @property { string } [voiceMethod] The HTTP method we should use to call `voice_url`
- * @property { string } [voiceFallbackUrl] The URL that we should call when an error occurs while retrieving or executing the TwiML requested by `voice_url`.
- * @property { string } [voiceFallbackMethod] The HTTP method we should use to call `voice_fallback_url`. Can be: `GET` or `POST`.
- * @property { string } [statusCallbackUrl] The URL that we should call to pass status parameters (such as call ended) to your application.
- * @property { string } [statusCallbackMethod] The HTTP method we should use to call `status_callback_url`. Can be: `GET` or `POST`.
- * @property { boolean } [cnamLookupEnabled] Whether Caller ID Name (CNAM) lookup is enabled for the trunk. If enabled, all inbound calls to the BYOC Trunk from the United States and Canada automatically perform a CNAM Lookup and display Caller ID data on your phone. See [CNAM Lookups](https://www.twilio.com/docs/sip-trunking#CNAM) for more information.
- * @property { string } [connectionPolicySid] The SID of the Connection Policy that Twilio will use when routing traffic to your communications infrastructure.
- * @property { string } [fromDomainSid] The SID of the SIP Domain that should be used in the `From` header of originating calls sent to your SIP infrastructure. If your SIP infrastructure allows users to \\\"call back\\\" an incoming call, configure this with a [SIP Domain](https://www.twilio.com/docs/voice/api/sending-sip) to ensure proper routing. If not configured, the from domain will default to \\\"sip.twilio.com\\\".
  */
 export interface ByocTrunkContextUpdateOptions {
+  /** A descriptive string that you create to describe the resource. It is not unique and can be up to 255 characters long. */
   friendlyName?: string;
+  /** The URL we should call when the BYOC Trunk receives a call. */
   voiceUrl?: string;
+  /** The HTTP method we should use to call `voice_url` */
   voiceMethod?: string;
+  /** The URL that we should call when an error occurs while retrieving or executing the TwiML requested by `voice_url`. */
   voiceFallbackUrl?: string;
+  /** The HTTP method we should use to call `voice_fallback_url`. Can be: `GET` or `POST`. */
   voiceFallbackMethod?: string;
+  /** The URL that we should call to pass status parameters (such as call ended) to your application. */
   statusCallbackUrl?: string;
+  /** The HTTP method we should use to call `status_callback_url`. Can be: `GET` or `POST`. */
   statusCallbackMethod?: string;
+  /** Whether Caller ID Name (CNAM) lookup is enabled for the trunk. If enabled, all inbound calls to the BYOC Trunk from the United States and Canada automatically perform a CNAM Lookup and display Caller ID data on your phone. See [CNAM Lookups](https://www.twilio.com/docs/sip-trunking#CNAM) for more information. */
   cnamLookupEnabled?: boolean;
+  /** The SID of the Connection Policy that Twilio will use when routing traffic to your communications infrastructure. */
   connectionPolicySid?: string;
+  /** The SID of the SIP Domain that should be used in the `From` header of originating calls sent to your SIP infrastructure. If your SIP infrastructure allows users to \\\"call back\\\" an incoming call, configure this with a [SIP Domain](https://www.twilio.com/docs/voice/api/sending-sip) to ensure proper routing. If not configured, the from domain will default to \\\"sip.twilio.com\\\". */
   fromDomainSid?: string;
 }
 
 /**
  * Options to pass to create a ByocTrunkInstance
- *
- * @property { string } [friendlyName] A descriptive string that you create to describe the resource. It is not unique and can be up to 255 characters long.
- * @property { string } [voiceUrl] The URL we should call when the BYOC Trunk receives a call.
- * @property { string } [voiceMethod] The HTTP method we should use to call `voice_url`. Can be: `GET` or `POST`.
- * @property { string } [voiceFallbackUrl] The URL that we should call when an error occurs while retrieving or executing the TwiML from `voice_url`.
- * @property { string } [voiceFallbackMethod] The HTTP method we should use to call `voice_fallback_url`. Can be: `GET` or `POST`.
- * @property { string } [statusCallbackUrl] The URL that we should call to pass status parameters (such as call ended) to your application.
- * @property { string } [statusCallbackMethod] The HTTP method we should use to call `status_callback_url`. Can be: `GET` or `POST`.
- * @property { boolean } [cnamLookupEnabled] Whether Caller ID Name (CNAM) lookup is enabled for the trunk. If enabled, all inbound calls to the BYOC Trunk from the United States and Canada automatically perform a CNAM Lookup and display Caller ID data on your phone. See [CNAM Lookups](https://www.twilio.com/docs/sip-trunking#CNAM) for more information.
- * @property { string } [connectionPolicySid] The SID of the Connection Policy that Twilio will use when routing traffic to your communications infrastructure.
- * @property { string } [fromDomainSid] The SID of the SIP Domain that should be used in the `From` header of originating calls sent to your SIP infrastructure. If your SIP infrastructure allows users to \\\"call back\\\" an incoming call, configure this with a [SIP Domain](https://www.twilio.com/docs/voice/api/sending-sip) to ensure proper routing. If not configured, the from domain will default to \\\"sip.twilio.com\\\".
  */
 export interface ByocTrunkListInstanceCreateOptions {
+  /** A descriptive string that you create to describe the resource. It is not unique and can be up to 255 characters long. */
   friendlyName?: string;
+  /** The URL we should call when the BYOC Trunk receives a call. */
   voiceUrl?: string;
+  /** The HTTP method we should use to call `voice_url`. Can be: `GET` or `POST`. */
   voiceMethod?: string;
+  /** The URL that we should call when an error occurs while retrieving or executing the TwiML from `voice_url`. */
   voiceFallbackUrl?: string;
+  /** The HTTP method we should use to call `voice_fallback_url`. Can be: `GET` or `POST`. */
   voiceFallbackMethod?: string;
+  /** The URL that we should call to pass status parameters (such as call ended) to your application. */
   statusCallbackUrl?: string;
+  /** The HTTP method we should use to call `status_callback_url`. Can be: `GET` or `POST`. */
   statusCallbackMethod?: string;
+  /** Whether Caller ID Name (CNAM) lookup is enabled for the trunk. If enabled, all inbound calls to the BYOC Trunk from the United States and Canada automatically perform a CNAM Lookup and display Caller ID data on your phone. See [CNAM Lookups](https://www.twilio.com/docs/sip-trunking#CNAM) for more information. */
   cnamLookupEnabled?: boolean;
+  /** The SID of the Connection Policy that Twilio will use when routing traffic to your communications infrastructure. */
   connectionPolicySid?: string;
+  /** The SID of the SIP Domain that should be used in the `From` header of originating calls sent to your SIP infrastructure. If your SIP infrastructure allows users to \\\"call back\\\" an incoming call, configure this with a [SIP Domain](https://www.twilio.com/docs/voice/api/sending-sip) to ensure proper routing. If not configured, the from domain will default to \\\"sip.twilio.com\\\". */
   fromDomainSid?: string;
 }
 /**
  * Options to pass to each
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface ByocTrunkListInstanceEachOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: ByocTrunkInstance, done: (err?: Error) => void) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface ByocTrunkListInstanceOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface ByocTrunkListInstancePageOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
@@ -124,9 +111,9 @@ export interface ByocTrunkContext {
   /**
    * Remove a ByocTrunkInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -135,9 +122,9 @@ export interface ByocTrunkContext {
   /**
    * Fetch a ByocTrunkInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ByocTrunkInstance
+   * @returns Resolves to processed ByocTrunkInstance
    */
   fetch(
     callback?: (error: Error | null, item?: ByocTrunkInstance) => any
@@ -146,9 +133,9 @@ export interface ByocTrunkContext {
   /**
    * Update a ByocTrunkInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ByocTrunkInstance
+   * @returns Resolves to processed ByocTrunkInstance
    */
   update(
     callback?: (error: Error | null, item?: ByocTrunkInstance) => any
@@ -156,10 +143,10 @@ export interface ByocTrunkContext {
   /**
    * Update a ByocTrunkInstance
    *
-   * @param { ByocTrunkContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ByocTrunkInstance
+   * @returns Resolves to processed ByocTrunkInstance
    */
   update(
     params: ByocTrunkContextUpdateOptions,
@@ -434,9 +421,9 @@ export class ByocTrunkInstance {
   /**
    * Remove a ByocTrunkInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -447,9 +434,9 @@ export class ByocTrunkInstance {
   /**
    * Fetch a ByocTrunkInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ByocTrunkInstance
+   * @returns Resolves to processed ByocTrunkInstance
    */
   fetch(
     callback?: (error: Error | null, item?: ByocTrunkInstance) => any
@@ -460,9 +447,9 @@ export class ByocTrunkInstance {
   /**
    * Update a ByocTrunkInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ByocTrunkInstance
+   * @returns Resolves to processed ByocTrunkInstance
    */
   update(
     callback?: (error: Error | null, item?: ByocTrunkInstance) => any
@@ -470,10 +457,10 @@ export class ByocTrunkInstance {
   /**
    * Update a ByocTrunkInstance
    *
-   * @param { ByocTrunkContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ByocTrunkInstance
+   * @returns Resolves to processed ByocTrunkInstance
    */
   update(
     params: ByocTrunkContextUpdateOptions,
@@ -520,9 +507,9 @@ export interface ByocTrunkListInstance {
   /**
    * Create a ByocTrunkInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ByocTrunkInstance
+   * @returns Resolves to processed ByocTrunkInstance
    */
   create(
     callback?: (error: Error | null, item?: ByocTrunkInstance) => any
@@ -530,10 +517,10 @@ export interface ByocTrunkListInstance {
   /**
    * Create a ByocTrunkInstance
    *
-   * @param { ByocTrunkListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ByocTrunkInstance
+   * @returns Resolves to processed ByocTrunkInstance
    */
   create(
     params: ByocTrunkListInstanceCreateOptions,

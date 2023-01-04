@@ -20,12 +20,11 @@ import { isValidPathParam } from "../../../base/utility";
 
 /**
  * Options to pass to create a ExternalCampaignInstance
- *
- * @property { string } campaignId ID of the preregistered campaign.
- * @property { string } messagingServiceSid The SID of the [Messaging Service](https://www.twilio.com/docs/messaging/services/api) that the resource is associated with.
  */
 export interface ExternalCampaignListInstanceCreateOptions {
+  /** ID of the preregistered campaign. */
   campaignId: string;
+  /** The SID of the [Messaging Service](https://www.twilio.com/docs/messaging/services/api) that the resource is associated with. */
   messagingServiceSid: string;
 }
 
@@ -33,10 +32,10 @@ export interface ExternalCampaignListInstance {
   /**
    * Create a ExternalCampaignInstance
    *
-   * @param { ExternalCampaignListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ExternalCampaignInstance
+   * @returns Resolves to processed ExternalCampaignInstance
    */
   create(
     params: ExternalCampaignListInstanceCreateOptions,

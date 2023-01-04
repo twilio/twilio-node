@@ -20,16 +20,16 @@ export default class Understand extends Version {
   /**
    * Initialize the Understand version of Preview
    *
-   * @property { Twilio.Preview.Understand.AssistantListInstance } assistants - assistants resource
-   *
-   * @param { Twilio.Preview } domain - The Twilio domain
+   * @param domain - The Twilio (Twilio.Preview) domain
    */
   constructor(domain: PreviewBase) {
     super(domain, "understand");
   }
 
+  /** assistants - { Twilio.Preview.Understand.AssistantListInstance } resource */
   protected _assistants?: AssistantListInstance;
 
+  /** Getter for assistants resource */
   get assistants(): AssistantListInstance {
     this._assistants = this._assistants || AssistantListInstance(this);
     return this._assistants;

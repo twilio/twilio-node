@@ -22,73 +22,61 @@ import { isValidPathParam } from "../../../../base/utility";
 
 /**
  * Options to pass to create a TrustProductsChannelEndpointAssignmentInstance
- *
- * @property { string } channelEndpointType The type of channel endpoint. eg: phone-number
- * @property { string } channelEndpointSid The SID of an channel endpoint
  */
 export interface TrustProductsChannelEndpointAssignmentListInstanceCreateOptions {
+  /** The type of channel endpoint. eg: phone-number */
   channelEndpointType: string;
+  /** The SID of an channel endpoint */
   channelEndpointSid: string;
 }
 /**
  * Options to pass to each
- *
- * @property { string } [channelEndpointSid] The SID of an channel endpoint
- * @property { string } [channelEndpointSids] comma separated list of channel endpoint sids
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface TrustProductsChannelEndpointAssignmentListInstanceEachOptions {
+  /** The SID of an channel endpoint */
   channelEndpointSid?: string;
+  /** comma separated list of channel endpoint sids */
   channelEndpointSids?: string;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (
     item: TrustProductsChannelEndpointAssignmentInstance,
     done: (err?: Error) => void
   ) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { string } [channelEndpointSid] The SID of an channel endpoint
- * @property { string } [channelEndpointSids] comma separated list of channel endpoint sids
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface TrustProductsChannelEndpointAssignmentListInstanceOptions {
+  /** The SID of an channel endpoint */
   channelEndpointSid?: string;
+  /** comma separated list of channel endpoint sids */
   channelEndpointSids?: string;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { string } [channelEndpointSid] The SID of an channel endpoint
- * @property { string } [channelEndpointSids] comma separated list of channel endpoint sids
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface TrustProductsChannelEndpointAssignmentListInstancePageOptions {
+  /** The SID of an channel endpoint */
   channelEndpointSid?: string;
+  /** comma separated list of channel endpoint sids */
   channelEndpointSids?: string;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
@@ -96,9 +84,9 @@ export interface TrustProductsChannelEndpointAssignmentContext {
   /**
    * Remove a TrustProductsChannelEndpointAssignmentInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -107,9 +95,9 @@ export interface TrustProductsChannelEndpointAssignmentContext {
   /**
    * Fetch a TrustProductsChannelEndpointAssignmentInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed TrustProductsChannelEndpointAssignmentInstance
+   * @returns Resolves to processed TrustProductsChannelEndpointAssignmentInstance
    */
   fetch(
     callback?: (
@@ -282,9 +270,9 @@ export class TrustProductsChannelEndpointAssignmentInstance {
   /**
    * Remove a TrustProductsChannelEndpointAssignmentInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -295,9 +283,9 @@ export class TrustProductsChannelEndpointAssignmentInstance {
   /**
    * Fetch a TrustProductsChannelEndpointAssignmentInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed TrustProductsChannelEndpointAssignmentInstance
+   * @returns Resolves to processed TrustProductsChannelEndpointAssignmentInstance
    */
   fetch(
     callback?: (
@@ -337,10 +325,10 @@ export interface TrustProductsChannelEndpointAssignmentListInstance {
   /**
    * Create a TrustProductsChannelEndpointAssignmentInstance
    *
-   * @param { TrustProductsChannelEndpointAssignmentListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed TrustProductsChannelEndpointAssignmentInstance
+   * @returns Resolves to processed TrustProductsChannelEndpointAssignmentInstance
    */
   create(
     params: TrustProductsChannelEndpointAssignmentListInstanceCreateOptions,

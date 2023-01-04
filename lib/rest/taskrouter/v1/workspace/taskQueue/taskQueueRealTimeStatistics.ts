@@ -20,10 +20,9 @@ import { isValidPathParam } from "../../../../../base/utility";
 
 /**
  * Options to pass to fetch a TaskQueueRealTimeStatisticsInstance
- *
- * @property { string } [taskChannel] The TaskChannel for which to fetch statistics. Can be the TaskChannel\'s SID or its `unique_name`, such as `voice`, `sms`, or `default`.
  */
 export interface TaskQueueRealTimeStatisticsContextFetchOptions {
+  /** The TaskChannel for which to fetch statistics. Can be the TaskChannel\'s SID or its `unique_name`, such as `voice`, `sms`, or `default`. */
   taskChannel?: string;
 }
 
@@ -31,9 +30,9 @@ export interface TaskQueueRealTimeStatisticsContext {
   /**
    * Fetch a TaskQueueRealTimeStatisticsInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed TaskQueueRealTimeStatisticsInstance
+   * @returns Resolves to processed TaskQueueRealTimeStatisticsInstance
    */
   fetch(
     callback?: (
@@ -44,10 +43,10 @@ export interface TaskQueueRealTimeStatisticsContext {
   /**
    * Fetch a TaskQueueRealTimeStatisticsInstance
    *
-   * @param { TaskQueueRealTimeStatisticsContextFetchOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed TaskQueueRealTimeStatisticsInstance
+   * @returns Resolves to processed TaskQueueRealTimeStatisticsInstance
    */
   fetch(
     params: TaskQueueRealTimeStatisticsContextFetchOptions,
@@ -281,9 +280,9 @@ export class TaskQueueRealTimeStatisticsInstance {
   /**
    * Fetch a TaskQueueRealTimeStatisticsInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed TaskQueueRealTimeStatisticsInstance
+   * @returns Resolves to processed TaskQueueRealTimeStatisticsInstance
    */
   fetch(
     callback?: (
@@ -294,10 +293,10 @@ export class TaskQueueRealTimeStatisticsInstance {
   /**
    * Fetch a TaskQueueRealTimeStatisticsInstance
    *
-   * @param { TaskQueueRealTimeStatisticsContextFetchOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed TaskQueueRealTimeStatisticsInstance
+   * @returns Resolves to processed TaskQueueRealTimeStatisticsInstance
    */
   fetch(
     params: TaskQueueRealTimeStatisticsContextFetchOptions,

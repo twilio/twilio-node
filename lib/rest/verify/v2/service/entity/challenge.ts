@@ -31,95 +31,82 @@ type ChallengeListOrders = "asc" | "desc";
 
 /**
  * Options to pass to update a ChallengeInstance
- *
- * @property { string } [authPayload] The optional payload needed to verify the Challenge. E.g., a TOTP would use the numeric code. For `TOTP` this value must be between 3 and 8 characters long. For `Push` this value can be up to 5456 characters in length
- * @property { any } [metadata] Custom metadata associated with the challenge. This is added by the Device/SDK directly to allow for the inclusion of device information. It must be a stringified JSON with only strings values eg. `{\\\"os\\\": \\\"Android\\\"}`. Can be up to 1024 characters in length.
  */
 export interface ChallengeContextUpdateOptions {
+  /** The optional payload needed to verify the Challenge. E.g., a TOTP would use the numeric code. For `TOTP` this value must be between 3 and 8 characters long. For `Push` this value can be up to 5456 characters in length */
   authPayload?: string;
+  /** Custom metadata associated with the challenge. This is added by the Device/SDK directly to allow for the inclusion of device information. It must be a stringified JSON with only strings values eg. `{\\\"os\\\": \\\"Android\\\"}`. Can be up to 1024 characters in length. */
   metadata?: any;
 }
 
 /**
  * Options to pass to create a ChallengeInstance
- *
- * @property { string } factorSid The unique SID identifier of the Factor.
- * @property { Date } [expirationDate] The date-time when this Challenge expires, given in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. The default value is five (5) minutes after Challenge creation. The max value is sixty (60) minutes after creation.
- * @property { string } [details.message] Shown to the user when the push notification arrives. Required when `factor_type` is `push`. Can be up to 256 characters in length
- * @property { Array<any> } [details.fields] A list of objects that describe the Fields included in the Challenge. Each object contains the label and value of the field, the label can be up to 36 characters in length and the value can be up to 128 characters in length. Used when `factor_type` is `push`. There can be up to 20 details fields.
- * @property { any } [hiddenDetails] Details provided to give context about the Challenge. Not shown to the end user. It must be a stringified JSON with only strings values eg. `{\\\"ip\\\": \\\"172.168.1.234\\\"}`. Can be up to 1024 characters in length
- * @property { string } [authPayload] Optional payload used to verify the Challenge upon creation. Only used with a Factor of type `totp` to carry the TOTP code that needs to be verified. For `TOTP` this value must be between 3 and 8 characters long.
  */
 export interface ChallengeListInstanceCreateOptions {
+  /** The unique SID identifier of the Factor. */
   factorSid: string;
+  /** The date-time when this Challenge expires, given in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. The default value is five (5) minutes after Challenge creation. The max value is sixty (60) minutes after creation. */
   expirationDate?: Date;
+  /** Shown to the user when the push notification arrives. Required when `factor_type` is `push`. Can be up to 256 characters in length */
   "details.message"?: string;
+  /** A list of objects that describe the Fields included in the Challenge. Each object contains the label and value of the field, the label can be up to 36 characters in length and the value can be up to 128 characters in length. Used when `factor_type` is `push`. There can be up to 20 details fields. */
   "details.fields"?: Array<any>;
+  /** Details provided to give context about the Challenge. Not shown to the end user. It must be a stringified JSON with only strings values eg. `{\\\"ip\\\": \\\"172.168.1.234\\\"}`. Can be up to 1024 characters in length */
   hiddenDetails?: any;
+  /** Optional payload used to verify the Challenge upon creation. Only used with a Factor of type `totp` to carry the TOTP code that needs to be verified. For `TOTP` this value must be between 3 and 8 characters long. */
   authPayload?: string;
 }
 /**
  * Options to pass to each
- *
- * @property { string } [factorSid] The unique SID identifier of the Factor.
- * @property { ChallengeChallengeStatuses } [status] The Status of the Challenges to fetch. One of `pending`, `expired`, `approved` or `denied`.
- * @property { ChallengeListOrders } [order] The desired sort order of the Challenges list. One of `asc` or `desc` for ascending and descending respectively. Defaults to `asc`.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface ChallengeListInstanceEachOptions {
+  /** The unique SID identifier of the Factor. */
   factorSid?: string;
+  /** The Status of the Challenges to fetch. One of `pending`, `expired`, `approved` or `denied`. */
   status?: ChallengeChallengeStatuses;
+  /** The desired sort order of the Challenges list. One of `asc` or `desc` for ascending and descending respectively. Defaults to `asc`. */
   order?: ChallengeListOrders;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: ChallengeInstance, done: (err?: Error) => void) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { string } [factorSid] The unique SID identifier of the Factor.
- * @property { ChallengeChallengeStatuses } [status] The Status of the Challenges to fetch. One of `pending`, `expired`, `approved` or `denied`.
- * @property { ChallengeListOrders } [order] The desired sort order of the Challenges list. One of `asc` or `desc` for ascending and descending respectively. Defaults to `asc`.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface ChallengeListInstanceOptions {
+  /** The unique SID identifier of the Factor. */
   factorSid?: string;
+  /** The Status of the Challenges to fetch. One of `pending`, `expired`, `approved` or `denied`. */
   status?: ChallengeChallengeStatuses;
+  /** The desired sort order of the Challenges list. One of `asc` or `desc` for ascending and descending respectively. Defaults to `asc`. */
   order?: ChallengeListOrders;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { string } [factorSid] The unique SID identifier of the Factor.
- * @property { ChallengeChallengeStatuses } [status] The Status of the Challenges to fetch. One of `pending`, `expired`, `approved` or `denied`.
- * @property { ChallengeListOrders } [order] The desired sort order of the Challenges list. One of `asc` or `desc` for ascending and descending respectively. Defaults to `asc`.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface ChallengeListInstancePageOptions {
+  /** The unique SID identifier of the Factor. */
   factorSid?: string;
+  /** The Status of the Challenges to fetch. One of `pending`, `expired`, `approved` or `denied`. */
   status?: ChallengeChallengeStatuses;
+  /** The desired sort order of the Challenges list. One of `asc` or `desc` for ascending and descending respectively. Defaults to `asc`. */
   order?: ChallengeListOrders;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
@@ -129,9 +116,9 @@ export interface ChallengeContext {
   /**
    * Fetch a ChallengeInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ChallengeInstance
+   * @returns Resolves to processed ChallengeInstance
    */
   fetch(
     callback?: (error: Error | null, item?: ChallengeInstance) => any
@@ -140,9 +127,9 @@ export interface ChallengeContext {
   /**
    * Update a ChallengeInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ChallengeInstance
+   * @returns Resolves to processed ChallengeInstance
    */
   update(
     callback?: (error: Error | null, item?: ChallengeInstance) => any
@@ -150,10 +137,10 @@ export interface ChallengeContext {
   /**
    * Update a ChallengeInstance
    *
-   * @param { ChallengeContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ChallengeInstance
+   * @returns Resolves to processed ChallengeInstance
    */
   update(
     params: ChallengeContextUpdateOptions,
@@ -434,9 +421,9 @@ export class ChallengeInstance {
   /**
    * Fetch a ChallengeInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ChallengeInstance
+   * @returns Resolves to processed ChallengeInstance
    */
   fetch(
     callback?: (error: Error | null, item?: ChallengeInstance) => any
@@ -447,9 +434,9 @@ export class ChallengeInstance {
   /**
    * Update a ChallengeInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ChallengeInstance
+   * @returns Resolves to processed ChallengeInstance
    */
   update(
     callback?: (error: Error | null, item?: ChallengeInstance) => any
@@ -457,10 +444,10 @@ export class ChallengeInstance {
   /**
    * Update a ChallengeInstance
    *
-   * @param { ChallengeContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ChallengeInstance
+   * @returns Resolves to processed ChallengeInstance
    */
   update(
     params: ChallengeContextUpdateOptions,
@@ -517,10 +504,10 @@ export interface ChallengeListInstance {
   /**
    * Create a ChallengeInstance
    *
-   * @param { ChallengeListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ChallengeInstance
+   * @returns Resolves to processed ChallengeInstance
    */
   create(
     params: ChallengeListInstanceCreateOptions,

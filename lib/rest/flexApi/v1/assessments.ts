@@ -22,9 +22,9 @@ export interface AssessmentsContext {
   /**
    * Create a AssessmentsInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed AssessmentsInstance
+   * @returns Resolves to processed AssessmentsInstance
    */
   create(
     callback?: (error: Error | null, item?: AssessmentsInstance) => any
@@ -109,9 +109,9 @@ export class AssessmentsInstance {
   /**
    * Create a AssessmentsInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed AssessmentsInstance
+   * @returns Resolves to processed AssessmentsInstance
    */
   create(
     callback?: (error: Error | null, item?: AssessmentsInstance) => any

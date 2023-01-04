@@ -21,24 +21,25 @@ export default class Marketplace extends Version {
   /**
    * Initialize the Marketplace version of Preview
    *
-   * @property { Twilio.Preview.Marketplace.AvailableAddOnListInstance } availableAddOns - availableAddOns resource
-   * @property { Twilio.Preview.Marketplace.InstalledAddOnListInstance } installedAddOns - installedAddOns resource
-   *
-   * @param { Twilio.Preview } domain - The Twilio domain
+   * @param domain - The Twilio (Twilio.Preview) domain
    */
   constructor(domain: PreviewBase) {
     super(domain, "marketplace");
   }
 
+  /** availableAddOns - { Twilio.Preview.Marketplace.AvailableAddOnListInstance } resource */
   protected _availableAddOns?: AvailableAddOnListInstance;
+  /** installedAddOns - { Twilio.Preview.Marketplace.InstalledAddOnListInstance } resource */
   protected _installedAddOns?: InstalledAddOnListInstance;
 
+  /** Getter for availableAddOns resource */
   get availableAddOns(): AvailableAddOnListInstance {
     this._availableAddOns =
       this._availableAddOns || AvailableAddOnListInstance(this);
     return this._availableAddOns;
   }
 
+  /** Getter for installedAddOns resource */
   get installedAddOns(): InstalledAddOnListInstance {
     this._installedAddOns =
       this._installedAddOns || InstalledAddOnListInstance(this);

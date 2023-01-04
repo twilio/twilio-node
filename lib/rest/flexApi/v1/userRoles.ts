@@ -20,10 +20,9 @@ import { isValidPathParam } from "../../../base/utility";
 
 /**
  * Options to pass to fetch a UserRolesInstance
- *
- * @property { string } [token] The Token HTTP request header
  */
 export interface UserRolesContextFetchOptions {
+  /** The Token HTTP request header */
   token?: string;
 }
 
@@ -31,9 +30,9 @@ export interface UserRolesContext {
   /**
    * Fetch a UserRolesInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed UserRolesInstance
+   * @returns Resolves to processed UserRolesInstance
    */
   fetch(
     callback?: (error: Error | null, item?: UserRolesInstance) => any
@@ -41,10 +40,10 @@ export interface UserRolesContext {
   /**
    * Fetch a UserRolesInstance
    *
-   * @param { UserRolesContextFetchOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed UserRolesInstance
+   * @returns Resolves to processed UserRolesInstance
    */
   fetch(
     params: UserRolesContextFetchOptions,
@@ -148,9 +147,9 @@ export class UserRolesInstance {
   /**
    * Fetch a UserRolesInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed UserRolesInstance
+   * @returns Resolves to processed UserRolesInstance
    */
   fetch(
     callback?: (error: Error | null, item?: UserRolesInstance) => any
@@ -158,10 +157,10 @@ export class UserRolesInstance {
   /**
    * Fetch a UserRolesInstance
    *
-   * @param { UserRolesContextFetchOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed UserRolesInstance
+   * @returns Resolves to processed UserRolesInstance
    */
   fetch(
     params: UserRolesContextFetchOptions,

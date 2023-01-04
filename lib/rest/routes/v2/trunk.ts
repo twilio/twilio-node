@@ -20,12 +20,11 @@ import { isValidPathParam } from "../../../base/utility";
 
 /**
  * Options to pass to update a TrunkInstance
- *
- * @property { string } [voiceRegion] The Inbound Processing Region used for this SIP Trunk for voice
- * @property { string } [friendlyName] A human readable description of this resource, up to 64 characters.
  */
 export interface TrunkContextUpdateOptions {
+  /** The Inbound Processing Region used for this SIP Trunk for voice */
   voiceRegion?: string;
+  /** A human readable description of this resource, up to 64 characters. */
   friendlyName?: string;
 }
 
@@ -33,9 +32,9 @@ export interface TrunkContext {
   /**
    * Fetch a TrunkInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed TrunkInstance
+   * @returns Resolves to processed TrunkInstance
    */
   fetch(
     callback?: (error: Error | null, item?: TrunkInstance) => any
@@ -44,9 +43,9 @@ export interface TrunkContext {
   /**
    * Update a TrunkInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed TrunkInstance
+   * @returns Resolves to processed TrunkInstance
    */
   update(
     callback?: (error: Error | null, item?: TrunkInstance) => any
@@ -54,10 +53,10 @@ export interface TrunkContext {
   /**
    * Update a TrunkInstance
    *
-   * @param { TrunkContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed TrunkInstance
+   * @returns Resolves to processed TrunkInstance
    */
   update(
     params: TrunkContextUpdateOptions,
@@ -245,9 +244,9 @@ export class TrunkInstance {
   /**
    * Fetch a TrunkInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed TrunkInstance
+   * @returns Resolves to processed TrunkInstance
    */
   fetch(
     callback?: (error: Error | null, item?: TrunkInstance) => any
@@ -258,9 +257,9 @@ export class TrunkInstance {
   /**
    * Update a TrunkInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed TrunkInstance
+   * @returns Resolves to processed TrunkInstance
    */
   update(
     callback?: (error: Error | null, item?: TrunkInstance) => any
@@ -268,10 +267,10 @@ export class TrunkInstance {
   /**
    * Update a TrunkInstance
    *
-   * @param { TrunkContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed TrunkInstance
+   * @returns Resolves to processed TrunkInstance
    */
   update(
     params: TrunkContextUpdateOptions,

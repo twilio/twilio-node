@@ -26,423 +26,421 @@ type StreamUpdateStatus = "stopped";
 
 /**
  * Options to pass to update a StreamInstance
- *
- * @property { StreamUpdateStatus } status
  */
 export interface StreamContextUpdateOptions {
+  /**  */
   status: StreamUpdateStatus;
 }
 
 /**
  * Options to pass to create a StreamInstance
- *
- * @property { string } url Relative or absolute url where WebSocket connection will be established.
- * @property { string } [name] The user-specified name of this Stream, if one was given when the Stream was created. This may be used to stop the Stream.
- * @property { StreamTrack } [track]
- * @property { string } [statusCallback] Absolute URL of the status callback.
- * @property { string } [statusCallbackMethod] The http method for the status_callback (one of GET, POST).
- * @property { string } [parameter1.name] Parameter name
- * @property { string } [parameter1.value] Parameter value
- * @property { string } [parameter2.name] Parameter name
- * @property { string } [parameter2.value] Parameter value
- * @property { string } [parameter3.name] Parameter name
- * @property { string } [parameter3.value] Parameter value
- * @property { string } [parameter4.name] Parameter name
- * @property { string } [parameter4.value] Parameter value
- * @property { string } [parameter5.name] Parameter name
- * @property { string } [parameter5.value] Parameter value
- * @property { string } [parameter6.name] Parameter name
- * @property { string } [parameter6.value] Parameter value
- * @property { string } [parameter7.name] Parameter name
- * @property { string } [parameter7.value] Parameter value
- * @property { string } [parameter8.name] Parameter name
- * @property { string } [parameter8.value] Parameter value
- * @property { string } [parameter9.name] Parameter name
- * @property { string } [parameter9.value] Parameter value
- * @property { string } [parameter10.name] Parameter name
- * @property { string } [parameter10.value] Parameter value
- * @property { string } [parameter11.name] Parameter name
- * @property { string } [parameter11.value] Parameter value
- * @property { string } [parameter12.name] Parameter name
- * @property { string } [parameter12.value] Parameter value
- * @property { string } [parameter13.name] Parameter name
- * @property { string } [parameter13.value] Parameter value
- * @property { string } [parameter14.name] Parameter name
- * @property { string } [parameter14.value] Parameter value
- * @property { string } [parameter15.name] Parameter name
- * @property { string } [parameter15.value] Parameter value
- * @property { string } [parameter16.name] Parameter name
- * @property { string } [parameter16.value] Parameter value
- * @property { string } [parameter17.name] Parameter name
- * @property { string } [parameter17.value] Parameter value
- * @property { string } [parameter18.name] Parameter name
- * @property { string } [parameter18.value] Parameter value
- * @property { string } [parameter19.name] Parameter name
- * @property { string } [parameter19.value] Parameter value
- * @property { string } [parameter20.name] Parameter name
- * @property { string } [parameter20.value] Parameter value
- * @property { string } [parameter21.name] Parameter name
- * @property { string } [parameter21.value] Parameter value
- * @property { string } [parameter22.name] Parameter name
- * @property { string } [parameter22.value] Parameter value
- * @property { string } [parameter23.name] Parameter name
- * @property { string } [parameter23.value] Parameter value
- * @property { string } [parameter24.name] Parameter name
- * @property { string } [parameter24.value] Parameter value
- * @property { string } [parameter25.name] Parameter name
- * @property { string } [parameter25.value] Parameter value
- * @property { string } [parameter26.name] Parameter name
- * @property { string } [parameter26.value] Parameter value
- * @property { string } [parameter27.name] Parameter name
- * @property { string } [parameter27.value] Parameter value
- * @property { string } [parameter28.name] Parameter name
- * @property { string } [parameter28.value] Parameter value
- * @property { string } [parameter29.name] Parameter name
- * @property { string } [parameter29.value] Parameter value
- * @property { string } [parameter30.name] Parameter name
- * @property { string } [parameter30.value] Parameter value
- * @property { string } [parameter31.name] Parameter name
- * @property { string } [parameter31.value] Parameter value
- * @property { string } [parameter32.name] Parameter name
- * @property { string } [parameter32.value] Parameter value
- * @property { string } [parameter33.name] Parameter name
- * @property { string } [parameter33.value] Parameter value
- * @property { string } [parameter34.name] Parameter name
- * @property { string } [parameter34.value] Parameter value
- * @property { string } [parameter35.name] Parameter name
- * @property { string } [parameter35.value] Parameter value
- * @property { string } [parameter36.name] Parameter name
- * @property { string } [parameter36.value] Parameter value
- * @property { string } [parameter37.name] Parameter name
- * @property { string } [parameter37.value] Parameter value
- * @property { string } [parameter38.name] Parameter name
- * @property { string } [parameter38.value] Parameter value
- * @property { string } [parameter39.name] Parameter name
- * @property { string } [parameter39.value] Parameter value
- * @property { string } [parameter40.name] Parameter name
- * @property { string } [parameter40.value] Parameter value
- * @property { string } [parameter41.name] Parameter name
- * @property { string } [parameter41.value] Parameter value
- * @property { string } [parameter42.name] Parameter name
- * @property { string } [parameter42.value] Parameter value
- * @property { string } [parameter43.name] Parameter name
- * @property { string } [parameter43.value] Parameter value
- * @property { string } [parameter44.name] Parameter name
- * @property { string } [parameter44.value] Parameter value
- * @property { string } [parameter45.name] Parameter name
- * @property { string } [parameter45.value] Parameter value
- * @property { string } [parameter46.name] Parameter name
- * @property { string } [parameter46.value] Parameter value
- * @property { string } [parameter47.name] Parameter name
- * @property { string } [parameter47.value] Parameter value
- * @property { string } [parameter48.name] Parameter name
- * @property { string } [parameter48.value] Parameter value
- * @property { string } [parameter49.name] Parameter name
- * @property { string } [parameter49.value] Parameter value
- * @property { string } [parameter50.name] Parameter name
- * @property { string } [parameter50.value] Parameter value
- * @property { string } [parameter51.name] Parameter name
- * @property { string } [parameter51.value] Parameter value
- * @property { string } [parameter52.name] Parameter name
- * @property { string } [parameter52.value] Parameter value
- * @property { string } [parameter53.name] Parameter name
- * @property { string } [parameter53.value] Parameter value
- * @property { string } [parameter54.name] Parameter name
- * @property { string } [parameter54.value] Parameter value
- * @property { string } [parameter55.name] Parameter name
- * @property { string } [parameter55.value] Parameter value
- * @property { string } [parameter56.name] Parameter name
- * @property { string } [parameter56.value] Parameter value
- * @property { string } [parameter57.name] Parameter name
- * @property { string } [parameter57.value] Parameter value
- * @property { string } [parameter58.name] Parameter name
- * @property { string } [parameter58.value] Parameter value
- * @property { string } [parameter59.name] Parameter name
- * @property { string } [parameter59.value] Parameter value
- * @property { string } [parameter60.name] Parameter name
- * @property { string } [parameter60.value] Parameter value
- * @property { string } [parameter61.name] Parameter name
- * @property { string } [parameter61.value] Parameter value
- * @property { string } [parameter62.name] Parameter name
- * @property { string } [parameter62.value] Parameter value
- * @property { string } [parameter63.name] Parameter name
- * @property { string } [parameter63.value] Parameter value
- * @property { string } [parameter64.name] Parameter name
- * @property { string } [parameter64.value] Parameter value
- * @property { string } [parameter65.name] Parameter name
- * @property { string } [parameter65.value] Parameter value
- * @property { string } [parameter66.name] Parameter name
- * @property { string } [parameter66.value] Parameter value
- * @property { string } [parameter67.name] Parameter name
- * @property { string } [parameter67.value] Parameter value
- * @property { string } [parameter68.name] Parameter name
- * @property { string } [parameter68.value] Parameter value
- * @property { string } [parameter69.name] Parameter name
- * @property { string } [parameter69.value] Parameter value
- * @property { string } [parameter70.name] Parameter name
- * @property { string } [parameter70.value] Parameter value
- * @property { string } [parameter71.name] Parameter name
- * @property { string } [parameter71.value] Parameter value
- * @property { string } [parameter72.name] Parameter name
- * @property { string } [parameter72.value] Parameter value
- * @property { string } [parameter73.name] Parameter name
- * @property { string } [parameter73.value] Parameter value
- * @property { string } [parameter74.name] Parameter name
- * @property { string } [parameter74.value] Parameter value
- * @property { string } [parameter75.name] Parameter name
- * @property { string } [parameter75.value] Parameter value
- * @property { string } [parameter76.name] Parameter name
- * @property { string } [parameter76.value] Parameter value
- * @property { string } [parameter77.name] Parameter name
- * @property { string } [parameter77.value] Parameter value
- * @property { string } [parameter78.name] Parameter name
- * @property { string } [parameter78.value] Parameter value
- * @property { string } [parameter79.name] Parameter name
- * @property { string } [parameter79.value] Parameter value
- * @property { string } [parameter80.name] Parameter name
- * @property { string } [parameter80.value] Parameter value
- * @property { string } [parameter81.name] Parameter name
- * @property { string } [parameter81.value] Parameter value
- * @property { string } [parameter82.name] Parameter name
- * @property { string } [parameter82.value] Parameter value
- * @property { string } [parameter83.name] Parameter name
- * @property { string } [parameter83.value] Parameter value
- * @property { string } [parameter84.name] Parameter name
- * @property { string } [parameter84.value] Parameter value
- * @property { string } [parameter85.name] Parameter name
- * @property { string } [parameter85.value] Parameter value
- * @property { string } [parameter86.name] Parameter name
- * @property { string } [parameter86.value] Parameter value
- * @property { string } [parameter87.name] Parameter name
- * @property { string } [parameter87.value] Parameter value
- * @property { string } [parameter88.name] Parameter name
- * @property { string } [parameter88.value] Parameter value
- * @property { string } [parameter89.name] Parameter name
- * @property { string } [parameter89.value] Parameter value
- * @property { string } [parameter90.name] Parameter name
- * @property { string } [parameter90.value] Parameter value
- * @property { string } [parameter91.name] Parameter name
- * @property { string } [parameter91.value] Parameter value
- * @property { string } [parameter92.name] Parameter name
- * @property { string } [parameter92.value] Parameter value
- * @property { string } [parameter93.name] Parameter name
- * @property { string } [parameter93.value] Parameter value
- * @property { string } [parameter94.name] Parameter name
- * @property { string } [parameter94.value] Parameter value
- * @property { string } [parameter95.name] Parameter name
- * @property { string } [parameter95.value] Parameter value
- * @property { string } [parameter96.name] Parameter name
- * @property { string } [parameter96.value] Parameter value
- * @property { string } [parameter97.name] Parameter name
- * @property { string } [parameter97.value] Parameter value
- * @property { string } [parameter98.name] Parameter name
- * @property { string } [parameter98.value] Parameter value
- * @property { string } [parameter99.name] Parameter name
- * @property { string } [parameter99.value] Parameter value
  */
 export interface StreamListInstanceCreateOptions {
+  /** Relative or absolute url where WebSocket connection will be established. */
   url: string;
+  /** The user-specified name of this Stream, if one was given when the Stream was created. This may be used to stop the Stream. */
   name?: string;
+  /**  */
   track?: StreamTrack;
+  /** Absolute URL of the status callback. */
   statusCallback?: string;
+  /** The http method for the status_callback (one of GET, POST). */
   statusCallbackMethod?: string;
+  /** Parameter name */
   "parameter1.name"?: string;
+  /** Parameter value */
   "parameter1.value"?: string;
+  /** Parameter name */
   "parameter2.name"?: string;
+  /** Parameter value */
   "parameter2.value"?: string;
+  /** Parameter name */
   "parameter3.name"?: string;
+  /** Parameter value */
   "parameter3.value"?: string;
+  /** Parameter name */
   "parameter4.name"?: string;
+  /** Parameter value */
   "parameter4.value"?: string;
+  /** Parameter name */
   "parameter5.name"?: string;
+  /** Parameter value */
   "parameter5.value"?: string;
+  /** Parameter name */
   "parameter6.name"?: string;
+  /** Parameter value */
   "parameter6.value"?: string;
+  /** Parameter name */
   "parameter7.name"?: string;
+  /** Parameter value */
   "parameter7.value"?: string;
+  /** Parameter name */
   "parameter8.name"?: string;
+  /** Parameter value */
   "parameter8.value"?: string;
+  /** Parameter name */
   "parameter9.name"?: string;
+  /** Parameter value */
   "parameter9.value"?: string;
+  /** Parameter name */
   "parameter10.name"?: string;
+  /** Parameter value */
   "parameter10.value"?: string;
+  /** Parameter name */
   "parameter11.name"?: string;
+  /** Parameter value */
   "parameter11.value"?: string;
+  /** Parameter name */
   "parameter12.name"?: string;
+  /** Parameter value */
   "parameter12.value"?: string;
+  /** Parameter name */
   "parameter13.name"?: string;
+  /** Parameter value */
   "parameter13.value"?: string;
+  /** Parameter name */
   "parameter14.name"?: string;
+  /** Parameter value */
   "parameter14.value"?: string;
+  /** Parameter name */
   "parameter15.name"?: string;
+  /** Parameter value */
   "parameter15.value"?: string;
+  /** Parameter name */
   "parameter16.name"?: string;
+  /** Parameter value */
   "parameter16.value"?: string;
+  /** Parameter name */
   "parameter17.name"?: string;
+  /** Parameter value */
   "parameter17.value"?: string;
+  /** Parameter name */
   "parameter18.name"?: string;
+  /** Parameter value */
   "parameter18.value"?: string;
+  /** Parameter name */
   "parameter19.name"?: string;
+  /** Parameter value */
   "parameter19.value"?: string;
+  /** Parameter name */
   "parameter20.name"?: string;
+  /** Parameter value */
   "parameter20.value"?: string;
+  /** Parameter name */
   "parameter21.name"?: string;
+  /** Parameter value */
   "parameter21.value"?: string;
+  /** Parameter name */
   "parameter22.name"?: string;
+  /** Parameter value */
   "parameter22.value"?: string;
+  /** Parameter name */
   "parameter23.name"?: string;
+  /** Parameter value */
   "parameter23.value"?: string;
+  /** Parameter name */
   "parameter24.name"?: string;
+  /** Parameter value */
   "parameter24.value"?: string;
+  /** Parameter name */
   "parameter25.name"?: string;
+  /** Parameter value */
   "parameter25.value"?: string;
+  /** Parameter name */
   "parameter26.name"?: string;
+  /** Parameter value */
   "parameter26.value"?: string;
+  /** Parameter name */
   "parameter27.name"?: string;
+  /** Parameter value */
   "parameter27.value"?: string;
+  /** Parameter name */
   "parameter28.name"?: string;
+  /** Parameter value */
   "parameter28.value"?: string;
+  /** Parameter name */
   "parameter29.name"?: string;
+  /** Parameter value */
   "parameter29.value"?: string;
+  /** Parameter name */
   "parameter30.name"?: string;
+  /** Parameter value */
   "parameter30.value"?: string;
+  /** Parameter name */
   "parameter31.name"?: string;
+  /** Parameter value */
   "parameter31.value"?: string;
+  /** Parameter name */
   "parameter32.name"?: string;
+  /** Parameter value */
   "parameter32.value"?: string;
+  /** Parameter name */
   "parameter33.name"?: string;
+  /** Parameter value */
   "parameter33.value"?: string;
+  /** Parameter name */
   "parameter34.name"?: string;
+  /** Parameter value */
   "parameter34.value"?: string;
+  /** Parameter name */
   "parameter35.name"?: string;
+  /** Parameter value */
   "parameter35.value"?: string;
+  /** Parameter name */
   "parameter36.name"?: string;
+  /** Parameter value */
   "parameter36.value"?: string;
+  /** Parameter name */
   "parameter37.name"?: string;
+  /** Parameter value */
   "parameter37.value"?: string;
+  /** Parameter name */
   "parameter38.name"?: string;
+  /** Parameter value */
   "parameter38.value"?: string;
+  /** Parameter name */
   "parameter39.name"?: string;
+  /** Parameter value */
   "parameter39.value"?: string;
+  /** Parameter name */
   "parameter40.name"?: string;
+  /** Parameter value */
   "parameter40.value"?: string;
+  /** Parameter name */
   "parameter41.name"?: string;
+  /** Parameter value */
   "parameter41.value"?: string;
+  /** Parameter name */
   "parameter42.name"?: string;
+  /** Parameter value */
   "parameter42.value"?: string;
+  /** Parameter name */
   "parameter43.name"?: string;
+  /** Parameter value */
   "parameter43.value"?: string;
+  /** Parameter name */
   "parameter44.name"?: string;
+  /** Parameter value */
   "parameter44.value"?: string;
+  /** Parameter name */
   "parameter45.name"?: string;
+  /** Parameter value */
   "parameter45.value"?: string;
+  /** Parameter name */
   "parameter46.name"?: string;
+  /** Parameter value */
   "parameter46.value"?: string;
+  /** Parameter name */
   "parameter47.name"?: string;
+  /** Parameter value */
   "parameter47.value"?: string;
+  /** Parameter name */
   "parameter48.name"?: string;
+  /** Parameter value */
   "parameter48.value"?: string;
+  /** Parameter name */
   "parameter49.name"?: string;
+  /** Parameter value */
   "parameter49.value"?: string;
+  /** Parameter name */
   "parameter50.name"?: string;
+  /** Parameter value */
   "parameter50.value"?: string;
+  /** Parameter name */
   "parameter51.name"?: string;
+  /** Parameter value */
   "parameter51.value"?: string;
+  /** Parameter name */
   "parameter52.name"?: string;
+  /** Parameter value */
   "parameter52.value"?: string;
+  /** Parameter name */
   "parameter53.name"?: string;
+  /** Parameter value */
   "parameter53.value"?: string;
+  /** Parameter name */
   "parameter54.name"?: string;
+  /** Parameter value */
   "parameter54.value"?: string;
+  /** Parameter name */
   "parameter55.name"?: string;
+  /** Parameter value */
   "parameter55.value"?: string;
+  /** Parameter name */
   "parameter56.name"?: string;
+  /** Parameter value */
   "parameter56.value"?: string;
+  /** Parameter name */
   "parameter57.name"?: string;
+  /** Parameter value */
   "parameter57.value"?: string;
+  /** Parameter name */
   "parameter58.name"?: string;
+  /** Parameter value */
   "parameter58.value"?: string;
+  /** Parameter name */
   "parameter59.name"?: string;
+  /** Parameter value */
   "parameter59.value"?: string;
+  /** Parameter name */
   "parameter60.name"?: string;
+  /** Parameter value */
   "parameter60.value"?: string;
+  /** Parameter name */
   "parameter61.name"?: string;
+  /** Parameter value */
   "parameter61.value"?: string;
+  /** Parameter name */
   "parameter62.name"?: string;
+  /** Parameter value */
   "parameter62.value"?: string;
+  /** Parameter name */
   "parameter63.name"?: string;
+  /** Parameter value */
   "parameter63.value"?: string;
+  /** Parameter name */
   "parameter64.name"?: string;
+  /** Parameter value */
   "parameter64.value"?: string;
+  /** Parameter name */
   "parameter65.name"?: string;
+  /** Parameter value */
   "parameter65.value"?: string;
+  /** Parameter name */
   "parameter66.name"?: string;
+  /** Parameter value */
   "parameter66.value"?: string;
+  /** Parameter name */
   "parameter67.name"?: string;
+  /** Parameter value */
   "parameter67.value"?: string;
+  /** Parameter name */
   "parameter68.name"?: string;
+  /** Parameter value */
   "parameter68.value"?: string;
+  /** Parameter name */
   "parameter69.name"?: string;
+  /** Parameter value */
   "parameter69.value"?: string;
+  /** Parameter name */
   "parameter70.name"?: string;
+  /** Parameter value */
   "parameter70.value"?: string;
+  /** Parameter name */
   "parameter71.name"?: string;
+  /** Parameter value */
   "parameter71.value"?: string;
+  /** Parameter name */
   "parameter72.name"?: string;
+  /** Parameter value */
   "parameter72.value"?: string;
+  /** Parameter name */
   "parameter73.name"?: string;
+  /** Parameter value */
   "parameter73.value"?: string;
+  /** Parameter name */
   "parameter74.name"?: string;
+  /** Parameter value */
   "parameter74.value"?: string;
+  /** Parameter name */
   "parameter75.name"?: string;
+  /** Parameter value */
   "parameter75.value"?: string;
+  /** Parameter name */
   "parameter76.name"?: string;
+  /** Parameter value */
   "parameter76.value"?: string;
+  /** Parameter name */
   "parameter77.name"?: string;
+  /** Parameter value */
   "parameter77.value"?: string;
+  /** Parameter name */
   "parameter78.name"?: string;
+  /** Parameter value */
   "parameter78.value"?: string;
+  /** Parameter name */
   "parameter79.name"?: string;
+  /** Parameter value */
   "parameter79.value"?: string;
+  /** Parameter name */
   "parameter80.name"?: string;
+  /** Parameter value */
   "parameter80.value"?: string;
+  /** Parameter name */
   "parameter81.name"?: string;
+  /** Parameter value */
   "parameter81.value"?: string;
+  /** Parameter name */
   "parameter82.name"?: string;
+  /** Parameter value */
   "parameter82.value"?: string;
+  /** Parameter name */
   "parameter83.name"?: string;
+  /** Parameter value */
   "parameter83.value"?: string;
+  /** Parameter name */
   "parameter84.name"?: string;
+  /** Parameter value */
   "parameter84.value"?: string;
+  /** Parameter name */
   "parameter85.name"?: string;
+  /** Parameter value */
   "parameter85.value"?: string;
+  /** Parameter name */
   "parameter86.name"?: string;
+  /** Parameter value */
   "parameter86.value"?: string;
+  /** Parameter name */
   "parameter87.name"?: string;
+  /** Parameter value */
   "parameter87.value"?: string;
+  /** Parameter name */
   "parameter88.name"?: string;
+  /** Parameter value */
   "parameter88.value"?: string;
+  /** Parameter name */
   "parameter89.name"?: string;
+  /** Parameter value */
   "parameter89.value"?: string;
+  /** Parameter name */
   "parameter90.name"?: string;
+  /** Parameter value */
   "parameter90.value"?: string;
+  /** Parameter name */
   "parameter91.name"?: string;
+  /** Parameter value */
   "parameter91.value"?: string;
+  /** Parameter name */
   "parameter92.name"?: string;
+  /** Parameter value */
   "parameter92.value"?: string;
+  /** Parameter name */
   "parameter93.name"?: string;
+  /** Parameter value */
   "parameter93.value"?: string;
+  /** Parameter name */
   "parameter94.name"?: string;
+  /** Parameter value */
   "parameter94.value"?: string;
+  /** Parameter name */
   "parameter95.name"?: string;
+  /** Parameter value */
   "parameter95.value"?: string;
+  /** Parameter name */
   "parameter96.name"?: string;
+  /** Parameter value */
   "parameter96.value"?: string;
+  /** Parameter name */
   "parameter97.name"?: string;
+  /** Parameter value */
   "parameter97.value"?: string;
+  /** Parameter name */
   "parameter98.name"?: string;
+  /** Parameter value */
   "parameter98.value"?: string;
+  /** Parameter name */
   "parameter99.name"?: string;
+  /** Parameter value */
   "parameter99.value"?: string;
 }
 
@@ -450,10 +448,10 @@ export interface StreamContext {
   /**
    * Update a StreamInstance
    *
-   * @param { StreamContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed StreamInstance
+   * @returns Resolves to processed StreamInstance
    */
   update(
     params: StreamContextUpdateOptions,
@@ -631,10 +629,10 @@ export class StreamInstance {
   /**
    * Update a StreamInstance
    *
-   * @param { StreamContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed StreamInstance
+   * @returns Resolves to processed StreamInstance
    */
   update(
     params: StreamContextUpdateOptions,
@@ -673,10 +671,10 @@ export interface StreamListInstance {
   /**
    * Create a StreamInstance
    *
-   * @param { StreamListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed StreamInstance
+   * @returns Resolves to processed StreamInstance
    */
   create(
     params: StreamListInstanceCreateOptions,

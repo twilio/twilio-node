@@ -20,10 +20,9 @@ import { isValidPathParam } from "../../../../base/utility";
 
 /**
  * Options to pass to update a AssistantFallbackActionsInstance
- *
- * @property { any } [fallbackActions]
  */
 export interface AssistantFallbackActionsContextUpdateOptions {
+  /**  */
   fallbackActions?: any;
 }
 
@@ -31,9 +30,9 @@ export interface AssistantFallbackActionsContext {
   /**
    * Fetch a AssistantFallbackActionsInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed AssistantFallbackActionsInstance
+   * @returns Resolves to processed AssistantFallbackActionsInstance
    */
   fetch(
     callback?: (
@@ -45,9 +44,9 @@ export interface AssistantFallbackActionsContext {
   /**
    * Update a AssistantFallbackActionsInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed AssistantFallbackActionsInstance
+   * @returns Resolves to processed AssistantFallbackActionsInstance
    */
   update(
     callback?: (
@@ -58,10 +57,10 @@ export interface AssistantFallbackActionsContext {
   /**
    * Update a AssistantFallbackActionsInstance
    *
-   * @param { AssistantFallbackActionsContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed AssistantFallbackActionsInstance
+   * @returns Resolves to processed AssistantFallbackActionsInstance
    */
   update(
     params: AssistantFallbackActionsContextUpdateOptions,
@@ -226,9 +225,9 @@ export class AssistantFallbackActionsInstance {
   /**
    * Fetch a AssistantFallbackActionsInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed AssistantFallbackActionsInstance
+   * @returns Resolves to processed AssistantFallbackActionsInstance
    */
   fetch(
     callback?: (
@@ -242,9 +241,9 @@ export class AssistantFallbackActionsInstance {
   /**
    * Update a AssistantFallbackActionsInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed AssistantFallbackActionsInstance
+   * @returns Resolves to processed AssistantFallbackActionsInstance
    */
   update(
     callback?: (
@@ -255,10 +254,10 @@ export class AssistantFallbackActionsInstance {
   /**
    * Update a AssistantFallbackActionsInstance
    *
-   * @param { AssistantFallbackActionsContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed AssistantFallbackActionsInstance
+   * @returns Resolves to processed AssistantFallbackActionsInstance
    */
   update(
     params: AssistantFallbackActionsContextUpdateOptions,

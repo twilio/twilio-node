@@ -22,70 +22,57 @@ import { isValidPathParam } from "../../../base/utility";
 
 /**
  * Options to pass to update a SourceIpMappingInstance
- *
- * @property { string } sipDomainSid The SID of the SIP Domain that the IP Record should be mapped to.
  */
 export interface SourceIpMappingContextUpdateOptions {
+  /** The SID of the SIP Domain that the IP Record should be mapped to. */
   sipDomainSid: string;
 }
 
 /**
  * Options to pass to create a SourceIpMappingInstance
- *
- * @property { string } ipRecordSid The Twilio-provided string that uniquely identifies the IP Record resource to map from.
- * @property { string } sipDomainSid The SID of the SIP Domain that the IP Record should be mapped to.
  */
 export interface SourceIpMappingListInstanceCreateOptions {
+  /** The Twilio-provided string that uniquely identifies the IP Record resource to map from. */
   ipRecordSid: string;
+  /** The SID of the SIP Domain that the IP Record should be mapped to. */
   sipDomainSid: string;
 }
 /**
  * Options to pass to each
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface SourceIpMappingListInstanceEachOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (
     item: SourceIpMappingInstance,
     done: (err?: Error) => void
   ) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface SourceIpMappingListInstanceOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface SourceIpMappingListInstancePageOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
@@ -93,9 +80,9 @@ export interface SourceIpMappingContext {
   /**
    * Remove a SourceIpMappingInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -104,9 +91,9 @@ export interface SourceIpMappingContext {
   /**
    * Fetch a SourceIpMappingInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SourceIpMappingInstance
+   * @returns Resolves to processed SourceIpMappingInstance
    */
   fetch(
     callback?: (error: Error | null, item?: SourceIpMappingInstance) => any
@@ -115,10 +102,10 @@ export interface SourceIpMappingContext {
   /**
    * Update a SourceIpMappingInstance
    *
-   * @param { SourceIpMappingContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SourceIpMappingInstance
+   * @returns Resolves to processed SourceIpMappingInstance
    */
   update(
     params: SourceIpMappingContextUpdateOptions,
@@ -311,9 +298,9 @@ export class SourceIpMappingInstance {
   /**
    * Remove a SourceIpMappingInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -324,9 +311,9 @@ export class SourceIpMappingInstance {
   /**
    * Fetch a SourceIpMappingInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SourceIpMappingInstance
+   * @returns Resolves to processed SourceIpMappingInstance
    */
   fetch(
     callback?: (error: Error | null, item?: SourceIpMappingInstance) => any
@@ -337,10 +324,10 @@ export class SourceIpMappingInstance {
   /**
    * Update a SourceIpMappingInstance
    *
-   * @param { SourceIpMappingContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SourceIpMappingInstance
+   * @returns Resolves to processed SourceIpMappingInstance
    */
   update(
     params: SourceIpMappingContextUpdateOptions,
@@ -378,10 +365,10 @@ export interface SourceIpMappingListInstance {
   /**
    * Create a SourceIpMappingInstance
    *
-   * @param { SourceIpMappingListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SourceIpMappingInstance
+   * @returns Resolves to processed SourceIpMappingInstance
    */
   create(
     params: SourceIpMappingListInstanceCreateOptions,

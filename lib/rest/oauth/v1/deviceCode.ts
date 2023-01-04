@@ -20,14 +20,13 @@ import { isValidPathParam } from "../../../base/utility";
 
 /**
  * Options to pass to create a DeviceCodeInstance
- *
- * @property { string } clientSid A 34 character string that uniquely identifies this OAuth App.
- * @property { Array<string> } scopes An Array of scopes for authorization request
- * @property { Array<string> } [audiences] An array of intended audiences for token requests
  */
 export interface DeviceCodeListInstanceCreateOptions {
+  /** A 34 character string that uniquely identifies this OAuth App. */
   clientSid: string;
+  /** An Array of scopes for authorization request */
   scopes: Array<string>;
+  /** An array of intended audiences for token requests */
   audiences?: Array<string>;
 }
 
@@ -35,10 +34,10 @@ export interface DeviceCodeListInstance {
   /**
    * Create a DeviceCodeInstance
    *
-   * @param { DeviceCodeListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed DeviceCodeInstance
+   * @returns Resolves to processed DeviceCodeInstance
    */
   create(
     params: DeviceCodeListInstanceCreateOptions,

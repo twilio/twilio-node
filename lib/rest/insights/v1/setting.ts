@@ -20,23 +20,21 @@ import { isValidPathParam } from "../../../base/utility";
 
 /**
  * Options to pass to fetch a SettingInstance
- *
- * @property { string } [subaccountSid]
  */
 export interface SettingContextFetchOptions {
+  /**  */
   subaccountSid?: string;
 }
 
 /**
  * Options to pass to update a SettingInstance
- *
- * @property { boolean } [advancedFeatures]
- * @property { boolean } [voiceTrace]
- * @property { string } [subaccountSid]
  */
 export interface SettingContextUpdateOptions {
+  /**  */
   advancedFeatures?: boolean;
+  /**  */
   voiceTrace?: boolean;
+  /**  */
   subaccountSid?: string;
 }
 
@@ -44,9 +42,9 @@ export interface SettingContext {
   /**
    * Fetch a SettingInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SettingInstance
+   * @returns Resolves to processed SettingInstance
    */
   fetch(
     callback?: (error: Error | null, item?: SettingInstance) => any
@@ -54,10 +52,10 @@ export interface SettingContext {
   /**
    * Fetch a SettingInstance
    *
-   * @param { SettingContextFetchOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SettingInstance
+   * @returns Resolves to processed SettingInstance
    */
   fetch(
     params: SettingContextFetchOptions,
@@ -68,9 +66,9 @@ export interface SettingContext {
   /**
    * Update a SettingInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SettingInstance
+   * @returns Resolves to processed SettingInstance
    */
   update(
     callback?: (error: Error | null, item?: SettingInstance) => any
@@ -78,10 +76,10 @@ export interface SettingContext {
   /**
    * Update a SettingInstance
    *
-   * @param { SettingContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SettingInstance
+   * @returns Resolves to processed SettingInstance
    */
   update(
     params: SettingContextUpdateOptions,
@@ -229,9 +227,9 @@ export class SettingInstance {
   /**
    * Fetch a SettingInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SettingInstance
+   * @returns Resolves to processed SettingInstance
    */
   fetch(
     callback?: (error: Error | null, item?: SettingInstance) => any
@@ -239,10 +237,10 @@ export class SettingInstance {
   /**
    * Fetch a SettingInstance
    *
-   * @param { SettingContextFetchOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SettingInstance
+   * @returns Resolves to processed SettingInstance
    */
   fetch(
     params: SettingContextFetchOptions,
@@ -255,9 +253,9 @@ export class SettingInstance {
   /**
    * Update a SettingInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SettingInstance
+   * @returns Resolves to processed SettingInstance
    */
   update(
     callback?: (error: Error | null, item?: SettingInstance) => any
@@ -265,10 +263,10 @@ export class SettingInstance {
   /**
    * Update a SettingInstance
    *
-   * @param { SettingContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SettingInstance
+   * @returns Resolves to processed SettingInstance
    */
   update(
     params: SettingContextUpdateOptions,

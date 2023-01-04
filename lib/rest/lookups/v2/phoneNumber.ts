@@ -28,32 +28,31 @@ type PhoneNumberValidationError =
 
 /**
  * Options to pass to fetch a PhoneNumberInstance
- *
- * @property { string } [fields] A comma-separated list of fields to return. Possible values are caller_name, sim_swap, call_forwarding, live_activity, line_type_intelligence, identity_match.
- * @property { string } [countryCode] The [country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) used if the phone number provided is in national format.
- * @property { string } [firstName] User’s first name. This query parameter is only used (optionally) for identity_match package requests.
- * @property { string } [lastName] User’s last name. This query parameter is only used (optionally) for identity_match package requests.
- * @property { string } [addressLine1] User’s first address line. This query parameter is only used (optionally) for identity_match package requests.
- * @property { string } [addressLine2] User’s second address line. This query parameter is only used (optionally) for identity_match package requests.
- * @property { string } [city] User’s city. This query parameter is only used (optionally) for identity_match package requests.
- * @property { string } [state] User’s country subdivision, such as state, province, or locality. This query parameter is only used (optionally) for identity_match package requests.
- * @property { string } [postalCode] User’s postal zip code. This query parameter is only used (optionally) for identity_match package requests.
- * @property { string } [addressCountryCode] User’s country, up to two characters. This query parameter is only used (optionally) for identity_match package requests.
- * @property { string } [nationalId] User’s national ID, such as SSN or Passport ID. This query parameter is only used (optionally) for identity_match package requests.
- * @property { string } [dateOfBirth] User’s date of birth, in YYYYMMDD format. This query parameter is only used (optionally) for identity_match package requests.
  */
 export interface PhoneNumberContextFetchOptions {
+  /** A comma-separated list of fields to return. Possible values are caller_name, sim_swap, call_forwarding, live_activity, line_type_intelligence, identity_match. */
   fields?: string;
+  /** The [country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) used if the phone number provided is in national format. */
   countryCode?: string;
+  /** User’s first name. This query parameter is only used (optionally) for identity_match package requests. */
   firstName?: string;
+  /** User’s last name. This query parameter is only used (optionally) for identity_match package requests. */
   lastName?: string;
+  /** User’s first address line. This query parameter is only used (optionally) for identity_match package requests. */
   addressLine1?: string;
+  /** User’s second address line. This query parameter is only used (optionally) for identity_match package requests. */
   addressLine2?: string;
+  /** User’s city. This query parameter is only used (optionally) for identity_match package requests. */
   city?: string;
+  /** User’s country subdivision, such as state, province, or locality. This query parameter is only used (optionally) for identity_match package requests. */
   state?: string;
+  /** User’s postal zip code. This query parameter is only used (optionally) for identity_match package requests. */
   postalCode?: string;
+  /** User’s country, up to two characters. This query parameter is only used (optionally) for identity_match package requests. */
   addressCountryCode?: string;
+  /** User’s national ID, such as SSN or Passport ID. This query parameter is only used (optionally) for identity_match package requests. */
   nationalId?: string;
+  /** User’s date of birth, in YYYYMMDD format. This query parameter is only used (optionally) for identity_match package requests. */
   dateOfBirth?: string;
 }
 
@@ -61,9 +60,9 @@ export interface PhoneNumberContext {
   /**
    * Fetch a PhoneNumberInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed PhoneNumberInstance
+   * @returns Resolves to processed PhoneNumberInstance
    */
   fetch(
     callback?: (error: Error | null, item?: PhoneNumberInstance) => any
@@ -71,10 +70,10 @@ export interface PhoneNumberContext {
   /**
    * Fetch a PhoneNumberInstance
    *
-   * @param { PhoneNumberContextFetchOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed PhoneNumberInstance
+   * @returns Resolves to processed PhoneNumberInstance
    */
   fetch(
     params: PhoneNumberContextFetchOptions,
@@ -284,9 +283,9 @@ export class PhoneNumberInstance {
   /**
    * Fetch a PhoneNumberInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed PhoneNumberInstance
+   * @returns Resolves to processed PhoneNumberInstance
    */
   fetch(
     callback?: (error: Error | null, item?: PhoneNumberInstance) => any
@@ -294,10 +293,10 @@ export class PhoneNumberInstance {
   /**
    * Fetch a PhoneNumberInstance
    *
-   * @param { PhoneNumberContextFetchOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed PhoneNumberInstance
+   * @returns Resolves to processed PhoneNumberInstance
    */
   fetch(
     params: PhoneNumberContextFetchOptions,

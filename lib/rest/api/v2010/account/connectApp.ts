@@ -24,70 +24,58 @@ type ConnectAppPermission = "get-all" | "post-all";
 
 /**
  * Options to pass to update a ConnectAppInstance
- *
- * @property { string } [authorizeRedirectUrl] The URL to redirect the user to after we authenticate the user and obtain authorization to access the Connect App.
- * @property { string } [companyName] The company name to set for the Connect App.
- * @property { string } [deauthorizeCallbackMethod] The HTTP method to use when calling `deauthorize_callback_url`.
- * @property { string } [deauthorizeCallbackUrl] The URL to call using the `deauthorize_callback_method` to de-authorize the Connect App.
- * @property { string } [description] A description of the Connect App.
- * @property { string } [friendlyName] A descriptive string that you create to describe the resource. It can be up to 64 characters long.
- * @property { string } [homepageUrl] A public URL where users can obtain more information about this Connect App.
- * @property { Array<ConnectAppPermission> } [permissions] A comma-separated list of the permissions you will request from the users of this ConnectApp.  Can include: `get-all` and `post-all`.
  */
 export interface ConnectAppContextUpdateOptions {
+  /** The URL to redirect the user to after we authenticate the user and obtain authorization to access the Connect App. */
   authorizeRedirectUrl?: string;
+  /** The company name to set for the Connect App. */
   companyName?: string;
+  /** The HTTP method to use when calling `deauthorize_callback_url`. */
   deauthorizeCallbackMethod?: string;
+  /** The URL to call using the `deauthorize_callback_method` to de-authorize the Connect App. */
   deauthorizeCallbackUrl?: string;
+  /** A description of the Connect App. */
   description?: string;
+  /** A descriptive string that you create to describe the resource. It can be up to 64 characters long. */
   friendlyName?: string;
+  /** A public URL where users can obtain more information about this Connect App. */
   homepageUrl?: string;
+  /** A comma-separated list of the permissions you will request from the users of this ConnectApp.  Can include: `get-all` and `post-all`. */
   permissions?: Array<ConnectAppPermission>;
 }
 /**
  * Options to pass to each
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface ConnectAppListInstanceEachOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: ConnectAppInstance, done: (err?: Error) => void) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface ConnectAppListInstanceOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface ConnectAppListInstancePageOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
@@ -95,9 +83,9 @@ export interface ConnectAppContext {
   /**
    * Remove a ConnectAppInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -106,9 +94,9 @@ export interface ConnectAppContext {
   /**
    * Fetch a ConnectAppInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ConnectAppInstance
+   * @returns Resolves to processed ConnectAppInstance
    */
   fetch(
     callback?: (error: Error | null, item?: ConnectAppInstance) => any
@@ -117,9 +105,9 @@ export interface ConnectAppContext {
   /**
    * Update a ConnectAppInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ConnectAppInstance
+   * @returns Resolves to processed ConnectAppInstance
    */
   update(
     callback?: (error: Error | null, item?: ConnectAppInstance) => any
@@ -127,10 +115,10 @@ export interface ConnectAppContext {
   /**
    * Update a ConnectAppInstance
    *
-   * @param { ConnectAppContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ConnectAppInstance
+   * @returns Resolves to processed ConnectAppInstance
    */
   update(
     params: ConnectAppContextUpdateOptions,
@@ -384,9 +372,9 @@ export class ConnectAppInstance {
   /**
    * Remove a ConnectAppInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -397,9 +385,9 @@ export class ConnectAppInstance {
   /**
    * Fetch a ConnectAppInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ConnectAppInstance
+   * @returns Resolves to processed ConnectAppInstance
    */
   fetch(
     callback?: (error: Error | null, item?: ConnectAppInstance) => any
@@ -410,9 +398,9 @@ export class ConnectAppInstance {
   /**
    * Update a ConnectAppInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ConnectAppInstance
+   * @returns Resolves to processed ConnectAppInstance
    */
   update(
     callback?: (error: Error | null, item?: ConnectAppInstance) => any
@@ -420,10 +408,10 @@ export class ConnectAppInstance {
   /**
    * Update a ConnectAppInstance
    *
-   * @param { ConnectAppContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ConnectAppInstance
+   * @returns Resolves to processed ConnectAppInstance
    */
   update(
     params: ConnectAppContextUpdateOptions,

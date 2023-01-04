@@ -21,12 +21,11 @@ import { InteractionChannelListInstance } from "./interaction/interactionChannel
 
 /**
  * Options to pass to create a InteractionInstance
- *
- * @property { any } channel The Interaction\\\'s channel.
- * @property { any } routing The Interaction\\\'s routing logic.
  */
 export interface InteractionListInstanceCreateOptions {
+  /** The Interaction\\\'s channel. */
   channel: any;
+  /** The Interaction\\\'s routing logic. */
   routing: any;
 }
 
@@ -36,9 +35,9 @@ export interface InteractionContext {
   /**
    * Fetch a InteractionInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed InteractionInstance
+   * @returns Resolves to processed InteractionInstance
    */
   fetch(
     callback?: (error: Error | null, item?: InteractionInstance) => any
@@ -163,9 +162,9 @@ export class InteractionInstance {
   /**
    * Fetch a InteractionInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed InteractionInstance
+   * @returns Resolves to processed InteractionInstance
    */
   fetch(
     callback?: (error: Error | null, item?: InteractionInstance) => any
@@ -207,10 +206,10 @@ export interface InteractionListInstance {
   /**
    * Create a InteractionInstance
    *
-   * @param { InteractionListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed InteractionInstance
+   * @returns Resolves to processed InteractionInstance
    */
   create(
     params: InteractionListInstanceCreateOptions,

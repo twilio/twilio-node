@@ -22,79 +22,66 @@ import { isValidPathParam } from "../../../../base/utility";
 
 /**
  * Options to pass to update a ActivityInstance
- *
- * @property { string } [friendlyName] A descriptive string that you create to describe the Activity resource. It can be up to 64 characters long. These names are used to calculate and expose statistics about Workers, and provide visibility into the state of each Worker. Examples of friendly names include: `on-call`, `break`, and `email`.
  */
 export interface ActivityContextUpdateOptions {
+  /** A descriptive string that you create to describe the Activity resource. It can be up to 64 characters long. These names are used to calculate and expose statistics about Workers, and provide visibility into the state of each Worker. Examples of friendly names include: `on-call`, `break`, and `email`. */
   friendlyName?: string;
 }
 
 /**
  * Options to pass to create a ActivityInstance
- *
- * @property { string } friendlyName A descriptive string that you create to describe the Activity resource. It can be up to 64 characters long. These names are used to calculate and expose statistics about Workers, and provide visibility into the state of each Worker. Examples of friendly names include: `on-call`, `break`, and `email`.
- * @property { boolean } [available] Whether the Worker should be eligible to receive a Task when it occupies the Activity. A value of `true`, `1`, or `yes` specifies the Activity is available. All other values specify that it is not. The value cannot be changed after the Activity is created.
  */
 export interface ActivityListInstanceCreateOptions {
+  /** A descriptive string that you create to describe the Activity resource. It can be up to 64 characters long. These names are used to calculate and expose statistics about Workers, and provide visibility into the state of each Worker. Examples of friendly names include: `on-call`, `break`, and `email`. */
   friendlyName: string;
+  /** Whether the Worker should be eligible to receive a Task when it occupies the Activity. A value of `true`, `1`, or `yes` specifies the Activity is available. All other values specify that it is not. The value cannot be changed after the Activity is created. */
   available?: boolean;
 }
 /**
  * Options to pass to each
- *
- * @property { string } [friendlyName] The `friendly_name` of the Activity resources to read.
- * @property { string } [available] Whether return only Activity resources that are available or unavailable. A value of `true` returns only available activities. Values of \'1\' or `yes` also indicate `true`. All other values represent `false` and return activities that are unavailable.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface ActivityListInstanceEachOptions {
+  /** The `friendly_name` of the Activity resources to read. */
   friendlyName?: string;
+  /** Whether return only Activity resources that are available or unavailable. A value of `true` returns only available activities. Values of \'1\' or `yes` also indicate `true`. All other values represent `false` and return activities that are unavailable. */
   available?: string;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: ActivityInstance, done: (err?: Error) => void) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { string } [friendlyName] The `friendly_name` of the Activity resources to read.
- * @property { string } [available] Whether return only Activity resources that are available or unavailable. A value of `true` returns only available activities. Values of \'1\' or `yes` also indicate `true`. All other values represent `false` and return activities that are unavailable.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface ActivityListInstanceOptions {
+  /** The `friendly_name` of the Activity resources to read. */
   friendlyName?: string;
+  /** Whether return only Activity resources that are available or unavailable. A value of `true` returns only available activities. Values of \'1\' or `yes` also indicate `true`. All other values represent `false` and return activities that are unavailable. */
   available?: string;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { string } [friendlyName] The `friendly_name` of the Activity resources to read.
- * @property { string } [available] Whether return only Activity resources that are available or unavailable. A value of `true` returns only available activities. Values of \'1\' or `yes` also indicate `true`. All other values represent `false` and return activities that are unavailable.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface ActivityListInstancePageOptions {
+  /** The `friendly_name` of the Activity resources to read. */
   friendlyName?: string;
+  /** Whether return only Activity resources that are available or unavailable. A value of `true` returns only available activities. Values of \'1\' or `yes` also indicate `true`. All other values represent `false` and return activities that are unavailable. */
   available?: string;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
@@ -102,9 +89,9 @@ export interface ActivityContext {
   /**
    * Remove a ActivityInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -113,9 +100,9 @@ export interface ActivityContext {
   /**
    * Fetch a ActivityInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ActivityInstance
+   * @returns Resolves to processed ActivityInstance
    */
   fetch(
     callback?: (error: Error | null, item?: ActivityInstance) => any
@@ -124,9 +111,9 @@ export interface ActivityContext {
   /**
    * Update a ActivityInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ActivityInstance
+   * @returns Resolves to processed ActivityInstance
    */
   update(
     callback?: (error: Error | null, item?: ActivityInstance) => any
@@ -134,10 +121,10 @@ export interface ActivityContext {
   /**
    * Update a ActivityInstance
    *
-   * @param { ActivityContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ActivityInstance
+   * @returns Resolves to processed ActivityInstance
    */
   update(
     params: ActivityContextUpdateOptions,
@@ -354,9 +341,9 @@ export class ActivityInstance {
   /**
    * Remove a ActivityInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -367,9 +354,9 @@ export class ActivityInstance {
   /**
    * Fetch a ActivityInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ActivityInstance
+   * @returns Resolves to processed ActivityInstance
    */
   fetch(
     callback?: (error: Error | null, item?: ActivityInstance) => any
@@ -380,9 +367,9 @@ export class ActivityInstance {
   /**
    * Update a ActivityInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ActivityInstance
+   * @returns Resolves to processed ActivityInstance
    */
   update(
     callback?: (error: Error | null, item?: ActivityInstance) => any
@@ -390,10 +377,10 @@ export class ActivityInstance {
   /**
    * Update a ActivityInstance
    *
-   * @param { ActivityContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ActivityInstance
+   * @returns Resolves to processed ActivityInstance
    */
   update(
     params: ActivityContextUpdateOptions,
@@ -434,10 +421,10 @@ export interface ActivityListInstance {
   /**
    * Create a ActivityInstance
    *
-   * @param { ActivityListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ActivityInstance
+   * @returns Resolves to processed ActivityInstance
    */
   create(
     params: ActivityListInstanceCreateOptions,

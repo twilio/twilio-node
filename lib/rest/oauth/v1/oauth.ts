@@ -22,9 +22,9 @@ export interface OauthContext {
   /**
    * Fetch a OauthInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed OauthInstance
+   * @returns Resolves to processed OauthInstance
    */
   fetch(
     callback?: (error: Error | null, item?: OauthInstance) => any
@@ -112,9 +112,9 @@ export class OauthInstance {
   /**
    * Fetch a OauthInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed OauthInstance
+   * @returns Resolves to processed OauthInstance
    */
   fetch(
     callback?: (error: Error | null, item?: OauthInstance) => any

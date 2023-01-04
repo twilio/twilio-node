@@ -22,69 +22,56 @@ import { isValidPathParam } from "../../../../../base/utility";
 
 /**
  * Options to pass to update a VariableInstance
- *
- * @property { string } [key] A string by which the Variable resource can be referenced. It can be a maximum of 128 characters.
- * @property { string } [value] A string that contains the actual value of the Variable. It can be a maximum of 450 bytes in size.
  */
 export interface VariableContextUpdateOptions {
+  /** A string by which the Variable resource can be referenced. It can be a maximum of 128 characters. */
   key?: string;
+  /** A string that contains the actual value of the Variable. It can be a maximum of 450 bytes in size. */
   value?: string;
 }
 
 /**
  * Options to pass to create a VariableInstance
- *
- * @property { string } key A string by which the Variable resource can be referenced. It can be a maximum of 128 characters.
- * @property { string } value A string that contains the actual value of the Variable. It can be a maximum of 450 bytes in size.
  */
 export interface VariableListInstanceCreateOptions {
+  /** A string by which the Variable resource can be referenced. It can be a maximum of 128 characters. */
   key: string;
+  /** A string that contains the actual value of the Variable. It can be a maximum of 450 bytes in size. */
   value: string;
 }
 /**
  * Options to pass to each
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface VariableListInstanceEachOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: VariableInstance, done: (err?: Error) => void) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface VariableListInstanceOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface VariableListInstancePageOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
@@ -92,9 +79,9 @@ export interface VariableContext {
   /**
    * Remove a VariableInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -103,9 +90,9 @@ export interface VariableContext {
   /**
    * Fetch a VariableInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed VariableInstance
+   * @returns Resolves to processed VariableInstance
    */
   fetch(
     callback?: (error: Error | null, item?: VariableInstance) => any
@@ -114,9 +101,9 @@ export interface VariableContext {
   /**
    * Update a VariableInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed VariableInstance
+   * @returns Resolves to processed VariableInstance
    */
   update(
     callback?: (error: Error | null, item?: VariableInstance) => any
@@ -124,10 +111,10 @@ export interface VariableContext {
   /**
    * Update a VariableInstance
    *
-   * @param { VariableContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed VariableInstance
+   * @returns Resolves to processed VariableInstance
    */
   update(
     params: VariableContextUpdateOptions,
@@ -361,9 +348,9 @@ export class VariableInstance {
   /**
    * Remove a VariableInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -374,9 +361,9 @@ export class VariableInstance {
   /**
    * Fetch a VariableInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed VariableInstance
+   * @returns Resolves to processed VariableInstance
    */
   fetch(
     callback?: (error: Error | null, item?: VariableInstance) => any
@@ -387,9 +374,9 @@ export class VariableInstance {
   /**
    * Update a VariableInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed VariableInstance
+   * @returns Resolves to processed VariableInstance
    */
   update(
     callback?: (error: Error | null, item?: VariableInstance) => any
@@ -397,10 +384,10 @@ export class VariableInstance {
   /**
    * Update a VariableInstance
    *
-   * @param { VariableContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed VariableInstance
+   * @returns Resolves to processed VariableInstance
    */
   update(
     params: VariableContextUpdateOptions,
@@ -441,10 +428,10 @@ export interface VariableListInstance {
   /**
    * Create a VariableInstance
    *
-   * @param { VariableListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed VariableInstance
+   * @returns Resolves to processed VariableInstance
    */
   create(
     params: VariableListInstanceCreateOptions,

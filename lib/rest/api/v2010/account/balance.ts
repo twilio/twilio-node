@@ -22,9 +22,9 @@ export interface BalanceListInstance {
   /**
    * Fetch a BalanceInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed BalanceInstance
+   * @returns Resolves to processed BalanceInstance
    */
   fetch(
     callback?: (error: Error | null, item?: BalanceInstance) => any

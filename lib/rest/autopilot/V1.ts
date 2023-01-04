@@ -21,23 +21,24 @@ export default class V1 extends Version {
   /**
    * Initialize the V1 version of Autopilot
    *
-   * @property { Twilio.Autopilot.V1.AssistantListInstance } assistants - assistants resource
-   * @property { Twilio.Autopilot.V1.RestoreAssistantListInstance } restoreAssistant - restoreAssistant resource
-   *
-   * @param { Twilio.Autopilot } domain - The Twilio domain
+   * @param domain - The Twilio (Twilio.Autopilot) domain
    */
   constructor(domain: AutopilotBase) {
     super(domain, "v1");
   }
 
+  /** assistants - { Twilio.Autopilot.V1.AssistantListInstance } resource */
   protected _assistants?: AssistantListInstance;
+  /** restoreAssistant - { Twilio.Autopilot.V1.RestoreAssistantListInstance } resource */
   protected _restoreAssistant?: RestoreAssistantListInstance;
 
+  /** Getter for assistants resource */
   get assistants(): AssistantListInstance {
     this._assistants = this._assistants || AssistantListInstance(this);
     return this._assistants;
   }
 
+  /** Getter for restoreAssistant resource */
   get restoreAssistant(): RestoreAssistantListInstance {
     this._restoreAssistant =
       this._restoreAssistant || RestoreAssistantListInstance(this);

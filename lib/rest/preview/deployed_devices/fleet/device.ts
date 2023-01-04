@@ -22,85 +22,72 @@ import { isValidPathParam } from "../../../../base/utility";
 
 /**
  * Options to pass to update a DeviceInstance
- *
- * @property { string } [friendlyName] Provides a human readable descriptive text to be assigned to this Device, up to 256 characters long.
- * @property { string } [identity] Provides an arbitrary string identifier representing a human user to be associated with this Device, up to 256 characters long.
- * @property { string } [deploymentSid] Specifies the unique string identifier of the Deployment group that this Device is going to be associated with.
- * @property { boolean } [enabled]
  */
 export interface DeviceContextUpdateOptions {
+  /** Provides a human readable descriptive text to be assigned to this Device, up to 256 characters long. */
   friendlyName?: string;
+  /** Provides an arbitrary string identifier representing a human user to be associated with this Device, up to 256 characters long. */
   identity?: string;
+  /** Specifies the unique string identifier of the Deployment group that this Device is going to be associated with. */
   deploymentSid?: string;
+  /**  */
   enabled?: boolean;
 }
 
 /**
  * Options to pass to create a DeviceInstance
- *
- * @property { string } [uniqueName] Provides a unique and addressable name to be assigned to this Device, to be used in addition to SID, up to 128 characters long.
- * @property { string } [friendlyName] Provides a human readable descriptive text to be assigned to this Device, up to 256 characters long.
- * @property { string } [identity] Provides an arbitrary string identifier representing a human user to be associated with this Device, up to 256 characters long.
- * @property { string } [deploymentSid] Specifies the unique string identifier of the Deployment group that this Device is going to be associated with.
- * @property { boolean } [enabled]
  */
 export interface DeviceListInstanceCreateOptions {
+  /** Provides a unique and addressable name to be assigned to this Device, to be used in addition to SID, up to 128 characters long. */
   uniqueName?: string;
+  /** Provides a human readable descriptive text to be assigned to this Device, up to 256 characters long. */
   friendlyName?: string;
+  /** Provides an arbitrary string identifier representing a human user to be associated with this Device, up to 256 characters long. */
   identity?: string;
+  /** Specifies the unique string identifier of the Deployment group that this Device is going to be associated with. */
   deploymentSid?: string;
+  /**  */
   enabled?: boolean;
 }
 /**
  * Options to pass to each
- *
- * @property { string } [deploymentSid] Filters the resulting list of Devices by a unique string identifier of the Deployment they are associated with.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface DeviceListInstanceEachOptions {
+  /** Filters the resulting list of Devices by a unique string identifier of the Deployment they are associated with. */
   deploymentSid?: string;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: DeviceInstance, done: (err?: Error) => void) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { string } [deploymentSid] Filters the resulting list of Devices by a unique string identifier of the Deployment they are associated with.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface DeviceListInstanceOptions {
+  /** Filters the resulting list of Devices by a unique string identifier of the Deployment they are associated with. */
   deploymentSid?: string;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { string } [deploymentSid] Filters the resulting list of Devices by a unique string identifier of the Deployment they are associated with.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface DeviceListInstancePageOptions {
+  /** Filters the resulting list of Devices by a unique string identifier of the Deployment they are associated with. */
   deploymentSid?: string;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
@@ -108,9 +95,9 @@ export interface DeviceContext {
   /**
    * Remove a DeviceInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -119,9 +106,9 @@ export interface DeviceContext {
   /**
    * Fetch a DeviceInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed DeviceInstance
+   * @returns Resolves to processed DeviceInstance
    */
   fetch(
     callback?: (error: Error | null, item?: DeviceInstance) => any
@@ -130,9 +117,9 @@ export interface DeviceContext {
   /**
    * Update a DeviceInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed DeviceInstance
+   * @returns Resolves to processed DeviceInstance
    */
   update(
     callback?: (error: Error | null, item?: DeviceInstance) => any
@@ -140,10 +127,10 @@ export interface DeviceContext {
   /**
    * Update a DeviceInstance
    *
-   * @param { DeviceContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed DeviceInstance
+   * @returns Resolves to processed DeviceInstance
    */
   update(
     params: DeviceContextUpdateOptions,
@@ -392,9 +379,9 @@ export class DeviceInstance {
   /**
    * Remove a DeviceInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -405,9 +392,9 @@ export class DeviceInstance {
   /**
    * Fetch a DeviceInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed DeviceInstance
+   * @returns Resolves to processed DeviceInstance
    */
   fetch(
     callback?: (error: Error | null, item?: DeviceInstance) => any
@@ -418,9 +405,9 @@ export class DeviceInstance {
   /**
    * Update a DeviceInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed DeviceInstance
+   * @returns Resolves to processed DeviceInstance
    */
   update(
     callback?: (error: Error | null, item?: DeviceInstance) => any
@@ -428,10 +415,10 @@ export class DeviceInstance {
   /**
    * Update a DeviceInstance
    *
-   * @param { DeviceContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed DeviceInstance
+   * @returns Resolves to processed DeviceInstance
    */
   update(
     params: DeviceContextUpdateOptions,
@@ -475,9 +462,9 @@ export interface DeviceListInstance {
   /**
    * Create a DeviceInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed DeviceInstance
+   * @returns Resolves to processed DeviceInstance
    */
   create(
     callback?: (error: Error | null, item?: DeviceInstance) => any
@@ -485,10 +472,10 @@ export interface DeviceListInstance {
   /**
    * Create a DeviceInstance
    *
-   * @param { DeviceListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed DeviceInstance
+   * @returns Resolves to processed DeviceInstance
    */
   create(
     params: DeviceListInstanceCreateOptions,

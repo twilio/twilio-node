@@ -28,109 +28,96 @@ type TaskQueueTaskOrder = "FIFO" | "LIFO";
 
 /**
  * Options to pass to update a TaskQueueInstance
- *
- * @property { string } [friendlyName] A descriptive string that you create to describe the TaskQueue. For example `Support-Tier 1`, `Sales`, or `Escalation`.
- * @property { string } [targetWorkers] A string describing the Worker selection criteria for any Tasks that enter the TaskQueue. For example \\\'\\\"language\\\" == \\\"spanish\\\"\\\' If no TargetWorkers parameter is provided, Tasks will wait in the queue until they are either deleted or moved to another queue. Additional examples on how to describing Worker selection criteria below.
- * @property { string } [reservationActivitySid] The SID of the Activity to assign Workers when a task is reserved for them.
- * @property { string } [assignmentActivitySid] The SID of the Activity to assign Workers when a task is assigned for them.
- * @property { number } [maxReservedWorkers] The maximum number of Workers to create reservations for the assignment of a task while in the queue. Maximum of 50.
- * @property { TaskQueueTaskOrder } [taskOrder]
  */
 export interface TaskQueueContextUpdateOptions {
+  /** A descriptive string that you create to describe the TaskQueue. For example `Support-Tier 1`, `Sales`, or `Escalation`. */
   friendlyName?: string;
+  /** A string describing the Worker selection criteria for any Tasks that enter the TaskQueue. For example \\\'\\\"language\\\" == \\\"spanish\\\"\\\' If no TargetWorkers parameter is provided, Tasks will wait in the queue until they are either deleted or moved to another queue. Additional examples on how to describing Worker selection criteria below. */
   targetWorkers?: string;
+  /** The SID of the Activity to assign Workers when a task is reserved for them. */
   reservationActivitySid?: string;
+  /** The SID of the Activity to assign Workers when a task is assigned for them. */
   assignmentActivitySid?: string;
+  /** The maximum number of Workers to create reservations for the assignment of a task while in the queue. Maximum of 50. */
   maxReservedWorkers?: number;
+  /**  */
   taskOrder?: TaskQueueTaskOrder;
 }
 
 /**
  * Options to pass to create a TaskQueueInstance
- *
- * @property { string } friendlyName A descriptive string that you create to describe the TaskQueue. For example `Support-Tier 1`, `Sales`, or `Escalation`.
- * @property { string } [targetWorkers] A string that describes the Worker selection criteria for any Tasks that enter the TaskQueue. For example, `\\\'\\\"language\\\" == \\\"spanish\\\"\\\'`. The default value is `1==1`. If this value is empty, Tasks will wait in the TaskQueue until they are deleted or moved to another TaskQueue. For more information about Worker selection, see [Describing Worker selection criteria](https://www.twilio.com/docs/taskrouter/api/taskqueues#target-workers).
- * @property { number } [maxReservedWorkers] The maximum number of Workers to reserve for the assignment of a Task in the queue. Can be an integer between 1 and 50, inclusive and defaults to 1.
- * @property { TaskQueueTaskOrder } [taskOrder]
- * @property { string } [reservationActivitySid] The SID of the Activity to assign Workers when a task is reserved for them.
- * @property { string } [assignmentActivitySid] The SID of the Activity to assign Workers when a task is assigned to them.
  */
 export interface TaskQueueListInstanceCreateOptions {
+  /** A descriptive string that you create to describe the TaskQueue. For example `Support-Tier 1`, `Sales`, or `Escalation`. */
   friendlyName: string;
+  /** A string that describes the Worker selection criteria for any Tasks that enter the TaskQueue. For example, `\\\'\\\"language\\\" == \\\"spanish\\\"\\\'`. The default value is `1==1`. If this value is empty, Tasks will wait in the TaskQueue until they are deleted or moved to another TaskQueue. For more information about Worker selection, see [Describing Worker selection criteria](https://www.twilio.com/docs/taskrouter/api/taskqueues#target-workers). */
   targetWorkers?: string;
+  /** The maximum number of Workers to reserve for the assignment of a Task in the queue. Can be an integer between 1 and 50, inclusive and defaults to 1. */
   maxReservedWorkers?: number;
+  /**  */
   taskOrder?: TaskQueueTaskOrder;
+  /** The SID of the Activity to assign Workers when a task is reserved for them. */
   reservationActivitySid?: string;
+  /** The SID of the Activity to assign Workers when a task is assigned to them. */
   assignmentActivitySid?: string;
 }
 /**
  * Options to pass to each
- *
- * @property { string } [friendlyName] The `friendly_name` of the TaskQueue resources to read.
- * @property { string } [evaluateWorkerAttributes] The attributes of the Workers to read. Returns the TaskQueues with Workers that match the attributes specified in this parameter.
- * @property { string } [workerSid] The SID of the Worker with the TaskQueue resources to read.
- * @property { string } [ordering] Sorting parameter for TaskQueues
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface TaskQueueListInstanceEachOptions {
+  /** The `friendly_name` of the TaskQueue resources to read. */
   friendlyName?: string;
+  /** The attributes of the Workers to read. Returns the TaskQueues with Workers that match the attributes specified in this parameter. */
   evaluateWorkerAttributes?: string;
+  /** The SID of the Worker with the TaskQueue resources to read. */
   workerSid?: string;
+  /** Sorting parameter for TaskQueues */
   ordering?: string;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: TaskQueueInstance, done: (err?: Error) => void) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { string } [friendlyName] The `friendly_name` of the TaskQueue resources to read.
- * @property { string } [evaluateWorkerAttributes] The attributes of the Workers to read. Returns the TaskQueues with Workers that match the attributes specified in this parameter.
- * @property { string } [workerSid] The SID of the Worker with the TaskQueue resources to read.
- * @property { string } [ordering] Sorting parameter for TaskQueues
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface TaskQueueListInstanceOptions {
+  /** The `friendly_name` of the TaskQueue resources to read. */
   friendlyName?: string;
+  /** The attributes of the Workers to read. Returns the TaskQueues with Workers that match the attributes specified in this parameter. */
   evaluateWorkerAttributes?: string;
+  /** The SID of the Worker with the TaskQueue resources to read. */
   workerSid?: string;
+  /** Sorting parameter for TaskQueues */
   ordering?: string;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { string } [friendlyName] The `friendly_name` of the TaskQueue resources to read.
- * @property { string } [evaluateWorkerAttributes] The attributes of the Workers to read. Returns the TaskQueues with Workers that match the attributes specified in this parameter.
- * @property { string } [workerSid] The SID of the Worker with the TaskQueue resources to read.
- * @property { string } [ordering] Sorting parameter for TaskQueues
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface TaskQueueListInstancePageOptions {
+  /** The `friendly_name` of the TaskQueue resources to read. */
   friendlyName?: string;
+  /** The attributes of the Workers to read. Returns the TaskQueues with Workers that match the attributes specified in this parameter. */
   evaluateWorkerAttributes?: string;
+  /** The SID of the Worker with the TaskQueue resources to read. */
   workerSid?: string;
+  /** Sorting parameter for TaskQueues */
   ordering?: string;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
@@ -142,9 +129,9 @@ export interface TaskQueueContext {
   /**
    * Remove a TaskQueueInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -153,9 +140,9 @@ export interface TaskQueueContext {
   /**
    * Fetch a TaskQueueInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed TaskQueueInstance
+   * @returns Resolves to processed TaskQueueInstance
    */
   fetch(
     callback?: (error: Error | null, item?: TaskQueueInstance) => any
@@ -164,9 +151,9 @@ export interface TaskQueueContext {
   /**
    * Update a TaskQueueInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed TaskQueueInstance
+   * @returns Resolves to processed TaskQueueInstance
    */
   update(
     callback?: (error: Error | null, item?: TaskQueueInstance) => any
@@ -174,10 +161,10 @@ export interface TaskQueueContext {
   /**
    * Update a TaskQueueInstance
    *
-   * @param { TaskQueueContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed TaskQueueInstance
+   * @returns Resolves to processed TaskQueueInstance
    */
   update(
     params: TaskQueueContextUpdateOptions,
@@ -477,9 +464,9 @@ export class TaskQueueInstance {
   /**
    * Remove a TaskQueueInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -490,9 +477,9 @@ export class TaskQueueInstance {
   /**
    * Fetch a TaskQueueInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed TaskQueueInstance
+   * @returns Resolves to processed TaskQueueInstance
    */
   fetch(
     callback?: (error: Error | null, item?: TaskQueueInstance) => any
@@ -503,9 +490,9 @@ export class TaskQueueInstance {
   /**
    * Update a TaskQueueInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed TaskQueueInstance
+   * @returns Resolves to processed TaskQueueInstance
    */
   update(
     callback?: (error: Error | null, item?: TaskQueueInstance) => any
@@ -513,10 +500,10 @@ export class TaskQueueInstance {
   /**
    * Update a TaskQueueInstance
    *
-   * @param { TaskQueueContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed TaskQueueInstance
+   * @returns Resolves to processed TaskQueueInstance
    */
   update(
     params: TaskQueueContextUpdateOptions,
@@ -586,10 +573,10 @@ export interface TaskQueueListInstance {
   /**
    * Create a TaskQueueInstance
    *
-   * @param { TaskQueueListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed TaskQueueInstance
+   * @returns Resolves to processed TaskQueueInstance
    */
   create(
     params: TaskQueueListInstanceCreateOptions,

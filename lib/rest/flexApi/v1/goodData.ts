@@ -20,10 +20,9 @@ import { isValidPathParam } from "../../../base/utility";
 
 /**
  * Options to pass to create a GoodDataInstance
- *
- * @property { string } [token] The Token HTTP request header
  */
 export interface GoodDataContextCreateOptions {
+  /** The Token HTTP request header */
   token?: string;
 }
 
@@ -31,9 +30,9 @@ export interface GoodDataContext {
   /**
    * Create a GoodDataInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed GoodDataInstance
+   * @returns Resolves to processed GoodDataInstance
    */
   create(
     callback?: (error: Error | null, item?: GoodDataInstance) => any
@@ -41,10 +40,10 @@ export interface GoodDataContext {
   /**
    * Create a GoodDataInstance
    *
-   * @param { GoodDataContextCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed GoodDataInstance
+   * @returns Resolves to processed GoodDataInstance
    */
   create(
     params: GoodDataContextCreateOptions,
@@ -169,9 +168,9 @@ export class GoodDataInstance {
   /**
    * Create a GoodDataInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed GoodDataInstance
+   * @returns Resolves to processed GoodDataInstance
    */
   create(
     callback?: (error: Error | null, item?: GoodDataInstance) => any
@@ -179,10 +178,10 @@ export class GoodDataInstance {
   /**
    * Create a GoodDataInstance
    *
-   * @param { GoodDataContextCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed GoodDataInstance
+   * @returns Resolves to processed GoodDataInstance
    */
   create(
     params: GoodDataContextCreateOptions,

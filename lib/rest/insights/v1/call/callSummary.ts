@@ -43,10 +43,9 @@ type SummaryProcessingState = "complete" | "partial";
 
 /**
  * Options to pass to fetch a CallSummaryInstance
- *
- * @property { SummaryProcessingState } [processingState]
  */
 export interface CallSummaryContextFetchOptions {
+  /**  */
   processingState?: SummaryProcessingState;
 }
 
@@ -54,9 +53,9 @@ export interface CallSummaryContext {
   /**
    * Fetch a CallSummaryInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed CallSummaryInstance
+   * @returns Resolves to processed CallSummaryInstance
    */
   fetch(
     callback?: (error: Error | null, item?: CallSummaryInstance) => any
@@ -64,10 +63,10 @@ export interface CallSummaryContext {
   /**
    * Fetch a CallSummaryInstance
    *
-   * @param { CallSummaryContextFetchOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed CallSummaryInstance
+   * @returns Resolves to processed CallSummaryInstance
    */
   fetch(
     params: CallSummaryContextFetchOptions,
@@ -250,9 +249,9 @@ export class CallSummaryInstance {
   /**
    * Fetch a CallSummaryInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed CallSummaryInstance
+   * @returns Resolves to processed CallSummaryInstance
    */
   fetch(
     callback?: (error: Error | null, item?: CallSummaryInstance) => any
@@ -260,10 +259,10 @@ export class CallSummaryInstance {
   /**
    * Fetch a CallSummaryInstance
    *
-   * @param { CallSummaryContextFetchOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed CallSummaryInstance
+   * @returns Resolves to processed CallSummaryInstance
    */
   fetch(
     params: CallSummaryContextFetchOptions,

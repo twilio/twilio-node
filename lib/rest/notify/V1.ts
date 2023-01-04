@@ -21,23 +21,24 @@ export default class V1 extends Version {
   /**
    * Initialize the V1 version of Notify
    *
-   * @property { Twilio.Notify.V1.CredentialListInstance } credentials - credentials resource
-   * @property { Twilio.Notify.V1.ServiceListInstance } services - services resource
-   *
-   * @param { Twilio.Notify } domain - The Twilio domain
+   * @param domain - The Twilio (Twilio.Notify) domain
    */
   constructor(domain: NotifyBase) {
     super(domain, "v1");
   }
 
+  /** credentials - { Twilio.Notify.V1.CredentialListInstance } resource */
   protected _credentials?: CredentialListInstance;
+  /** services - { Twilio.Notify.V1.ServiceListInstance } resource */
   protected _services?: ServiceListInstance;
 
+  /** Getter for credentials resource */
   get credentials(): CredentialListInstance {
     this._credentials = this._credentials || CredentialListInstance(this);
     return this._credentials;
   }
 
+  /** Getter for services resource */
   get services(): ServiceListInstance {
     this._services = this._services || ServiceListInstance(this);
     return this._services;

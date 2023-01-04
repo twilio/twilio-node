@@ -24,77 +24,64 @@ type WebChannelChatStatus = "inactive";
 
 /**
  * Options to pass to update a WebChannelInstance
- *
- * @property { WebChannelChatStatus } [chatStatus]
- * @property { string } [postEngagementData] The post-engagement data.
  */
 export interface WebChannelContextUpdateOptions {
+  /**  */
   chatStatus?: WebChannelChatStatus;
+  /** The post-engagement data. */
   postEngagementData?: string;
 }
 
 /**
  * Options to pass to create a WebChannelInstance
- *
- * @property { string } flexFlowSid The SID of the Flex Flow.
- * @property { string } identity The chat identity.
- * @property { string } customerFriendlyName The chat participant\\\'s friendly name.
- * @property { string } chatFriendlyName The chat channel\\\'s friendly name.
- * @property { string } [chatUniqueName] The chat channel\\\'s unique name.
- * @property { string } [preEngagementData] The pre-engagement data.
  */
 export interface WebChannelListInstanceCreateOptions {
+  /** The SID of the Flex Flow. */
   flexFlowSid: string;
+  /** The chat identity. */
   identity: string;
+  /** The chat participant\\\'s friendly name. */
   customerFriendlyName: string;
+  /** The chat channel\\\'s friendly name. */
   chatFriendlyName: string;
+  /** The chat channel\\\'s unique name. */
   chatUniqueName?: string;
+  /** The pre-engagement data. */
   preEngagementData?: string;
 }
 /**
  * Options to pass to each
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface WebChannelListInstanceEachOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: WebChannelInstance, done: (err?: Error) => void) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface WebChannelListInstanceOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface WebChannelListInstancePageOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
@@ -102,9 +89,9 @@ export interface WebChannelContext {
   /**
    * Remove a WebChannelInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -113,9 +100,9 @@ export interface WebChannelContext {
   /**
    * Fetch a WebChannelInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed WebChannelInstance
+   * @returns Resolves to processed WebChannelInstance
    */
   fetch(
     callback?: (error: Error | null, item?: WebChannelInstance) => any
@@ -124,9 +111,9 @@ export interface WebChannelContext {
   /**
    * Update a WebChannelInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed WebChannelInstance
+   * @returns Resolves to processed WebChannelInstance
    */
   update(
     callback?: (error: Error | null, item?: WebChannelInstance) => any
@@ -134,10 +121,10 @@ export interface WebChannelContext {
   /**
    * Update a WebChannelInstance
    *
-   * @param { WebChannelContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed WebChannelInstance
+   * @returns Resolves to processed WebChannelInstance
    */
   update(
     params: WebChannelContextUpdateOptions,
@@ -321,9 +308,9 @@ export class WebChannelInstance {
   /**
    * Remove a WebChannelInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -334,9 +321,9 @@ export class WebChannelInstance {
   /**
    * Fetch a WebChannelInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed WebChannelInstance
+   * @returns Resolves to processed WebChannelInstance
    */
   fetch(
     callback?: (error: Error | null, item?: WebChannelInstance) => any
@@ -347,9 +334,9 @@ export class WebChannelInstance {
   /**
    * Update a WebChannelInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed WebChannelInstance
+   * @returns Resolves to processed WebChannelInstance
    */
   update(
     callback?: (error: Error | null, item?: WebChannelInstance) => any
@@ -357,10 +344,10 @@ export class WebChannelInstance {
   /**
    * Update a WebChannelInstance
    *
-   * @param { WebChannelContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed WebChannelInstance
+   * @returns Resolves to processed WebChannelInstance
    */
   update(
     params: WebChannelContextUpdateOptions,
@@ -398,10 +385,10 @@ export interface WebChannelListInstance {
   /**
    * Create a WebChannelInstance
    *
-   * @param { WebChannelListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed WebChannelInstance
+   * @returns Resolves to processed WebChannelInstance
    */
   create(
     params: WebChannelListInstanceCreateOptions,

@@ -20,10 +20,9 @@ import { isValidPathParam } from "../../../../base/utility";
 
 /**
  * Options to pass to update a FlowTestUserInstance
- *
- * @property { Array<string> } testUsers List of test user identities that can test draft versions of the flow.
  */
 export interface FlowTestUserContextUpdateOptions {
+  /** List of test user identities that can test draft versions of the flow. */
   testUsers: Array<string>;
 }
 
@@ -31,9 +30,9 @@ export interface FlowTestUserContext {
   /**
    * Fetch a FlowTestUserInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed FlowTestUserInstance
+   * @returns Resolves to processed FlowTestUserInstance
    */
   fetch(
     callback?: (error: Error | null, item?: FlowTestUserInstance) => any
@@ -42,10 +41,10 @@ export interface FlowTestUserContext {
   /**
    * Update a FlowTestUserInstance
    *
-   * @param { FlowTestUserContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed FlowTestUserInstance
+   * @returns Resolves to processed FlowTestUserInstance
    */
   update(
     params: FlowTestUserContextUpdateOptions,
@@ -193,9 +192,9 @@ export class FlowTestUserInstance {
   /**
    * Fetch a FlowTestUserInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed FlowTestUserInstance
+   * @returns Resolves to processed FlowTestUserInstance
    */
   fetch(
     callback?: (error: Error | null, item?: FlowTestUserInstance) => any
@@ -206,10 +205,10 @@ export class FlowTestUserInstance {
   /**
    * Update a FlowTestUserInstance
    *
-   * @param { FlowTestUserContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed FlowTestUserInstance
+   * @returns Resolves to processed FlowTestUserInstance
    */
   update(
     params: FlowTestUserContextUpdateOptions,

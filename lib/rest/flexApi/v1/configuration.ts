@@ -22,10 +22,9 @@ type ConfigurationStatus = "ok" | "inprogress" | "notstarted";
 
 /**
  * Options to pass to fetch a ConfigurationInstance
- *
- * @property { string } [uiVersion] The Pinned UI version of the Configuration resource to fetch.
  */
 export interface ConfigurationContextFetchOptions {
+  /** The Pinned UI version of the Configuration resource to fetch. */
   uiVersion?: string;
 }
 
@@ -33,9 +32,9 @@ export interface ConfigurationContext {
   /**
    * Fetch a ConfigurationInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ConfigurationInstance
+   * @returns Resolves to processed ConfigurationInstance
    */
   fetch(
     callback?: (error: Error | null, item?: ConfigurationInstance) => any
@@ -43,10 +42,10 @@ export interface ConfigurationContext {
   /**
    * Fetch a ConfigurationInstance
    *
-   * @param { ConfigurationContextFetchOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ConfigurationInstance
+   * @returns Resolves to processed ConfigurationInstance
    */
   fetch(
     params: ConfigurationContextFetchOptions,
@@ -411,9 +410,9 @@ export class ConfigurationInstance {
   /**
    * Fetch a ConfigurationInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ConfigurationInstance
+   * @returns Resolves to processed ConfigurationInstance
    */
   fetch(
     callback?: (error: Error | null, item?: ConfigurationInstance) => any
@@ -421,10 +420,10 @@ export class ConfigurationInstance {
   /**
    * Fetch a ConfigurationInstance
    *
-   * @param { ConfigurationContextFetchOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ConfigurationInstance
+   * @returns Resolves to processed ConfigurationInstance
    */
   fetch(
     params: ConfigurationContextFetchOptions,

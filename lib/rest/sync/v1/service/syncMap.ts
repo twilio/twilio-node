@@ -24,71 +24,58 @@ import { SyncMapPermissionListInstance } from "./syncMap/syncMapPermission";
 
 /**
  * Options to pass to update a SyncMapInstance
- *
- * @property { number } [ttl] An alias for `collection_ttl`. If both parameters are provided, this value is ignored.
- * @property { number } [collectionTtl] How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Sync Map expires (time-to-live) and is deleted.
  */
 export interface SyncMapContextUpdateOptions {
+  /** An alias for `collection_ttl`. If both parameters are provided, this value is ignored. */
   ttl?: number;
+  /** How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Sync Map expires (time-to-live) and is deleted. */
   collectionTtl?: number;
 }
 
 /**
  * Options to pass to create a SyncMapInstance
- *
- * @property { string } [uniqueName] An application-defined string that uniquely identifies the resource. It can be used as an alternative to the `sid` in the URL path to address the resource.
- * @property { number } [ttl] An alias for `collection_ttl`. If both parameters are provided, this value is ignored.
- * @property { number } [collectionTtl] How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Sync Map expires (time-to-live) and is deleted.
  */
 export interface SyncMapListInstanceCreateOptions {
+  /** An application-defined string that uniquely identifies the resource. It can be used as an alternative to the `sid` in the URL path to address the resource. */
   uniqueName?: string;
+  /** An alias for `collection_ttl`. If both parameters are provided, this value is ignored. */
   ttl?: number;
+  /** How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Sync Map expires (time-to-live) and is deleted. */
   collectionTtl?: number;
 }
 /**
  * Options to pass to each
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface SyncMapListInstanceEachOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: SyncMapInstance, done: (err?: Error) => void) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface SyncMapListInstanceOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface SyncMapListInstancePageOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
@@ -99,9 +86,9 @@ export interface SyncMapContext {
   /**
    * Remove a SyncMapInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -110,9 +97,9 @@ export interface SyncMapContext {
   /**
    * Fetch a SyncMapInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SyncMapInstance
+   * @returns Resolves to processed SyncMapInstance
    */
   fetch(
     callback?: (error: Error | null, item?: SyncMapInstance) => any
@@ -121,9 +108,9 @@ export interface SyncMapContext {
   /**
    * Update a SyncMapInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SyncMapInstance
+   * @returns Resolves to processed SyncMapInstance
    */
   update(
     callback?: (error: Error | null, item?: SyncMapInstance) => any
@@ -131,10 +118,10 @@ export interface SyncMapContext {
   /**
    * Update a SyncMapInstance
    *
-   * @param { SyncMapContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SyncMapInstance
+   * @returns Resolves to processed SyncMapInstance
    */
   update(
     params: SyncMapContextUpdateOptions,
@@ -392,9 +379,9 @@ export class SyncMapInstance {
   /**
    * Remove a SyncMapInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -405,9 +392,9 @@ export class SyncMapInstance {
   /**
    * Fetch a SyncMapInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SyncMapInstance
+   * @returns Resolves to processed SyncMapInstance
    */
   fetch(
     callback?: (error: Error | null, item?: SyncMapInstance) => any
@@ -418,9 +405,9 @@ export class SyncMapInstance {
   /**
    * Update a SyncMapInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SyncMapInstance
+   * @returns Resolves to processed SyncMapInstance
    */
   update(
     callback?: (error: Error | null, item?: SyncMapInstance) => any
@@ -428,10 +415,10 @@ export class SyncMapInstance {
   /**
    * Update a SyncMapInstance
    *
-   * @param { SyncMapContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SyncMapInstance
+   * @returns Resolves to processed SyncMapInstance
    */
   update(
     params: SyncMapContextUpdateOptions,
@@ -488,9 +475,9 @@ export interface SyncMapListInstance {
   /**
    * Create a SyncMapInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SyncMapInstance
+   * @returns Resolves to processed SyncMapInstance
    */
   create(
     callback?: (error: Error | null, item?: SyncMapInstance) => any
@@ -498,10 +485,10 @@ export interface SyncMapListInstance {
   /**
    * Create a SyncMapInstance
    *
-   * @param { SyncMapListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SyncMapInstance
+   * @returns Resolves to processed SyncMapInstance
    */
   create(
     params: SyncMapListInstanceCreateOptions,

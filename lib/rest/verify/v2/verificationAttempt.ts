@@ -26,99 +26,88 @@ type VerificationAttemptConversionStatus = "converted" | "unconverted";
 
 /**
  * Options to pass to each
- *
- * @property { Date } [dateCreatedAfter] Datetime filter used to query Verification Attempts created after this datetime. Given as GMT in RFC 2822 format.
- * @property { Date } [dateCreatedBefore] Datetime filter used to query Verification Attempts created before this datetime. Given as GMT in RFC 2822 format.
- * @property { string } [channelData.to] Destination of a verification. It is phone number in E.164 format.
- * @property { string } [country] Filter used to query Verification Attempts sent to the specified destination country.
- * @property { VerificationAttemptChannels } [channel] Filter used to query Verification Attempts by communication channel. Valid values are `SMS` and `CALL`
- * @property { string } [verifyServiceSid] Filter used to query Verification Attempts by verify service. Only attempts of the provided SID will be returned.
- * @property { string } [verificationSid] Filter used to return all the Verification Attempts of a single verification. Only attempts of the provided verification SID will be returned.
- * @property { VerificationAttemptConversionStatus } [status] Filter used to query Verification Attempts by conversion status. Valid values are `UNCONVERTED`, for attempts that were not converted, and `CONVERTED`, for attempts that were confirmed.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface VerificationAttemptListInstanceEachOptions {
+  /** Datetime filter used to query Verification Attempts created after this datetime. Given as GMT in RFC 2822 format. */
   dateCreatedAfter?: Date;
+  /** Datetime filter used to query Verification Attempts created before this datetime. Given as GMT in RFC 2822 format. */
   dateCreatedBefore?: Date;
+  /** Destination of a verification. It is phone number in E.164 format. */
   "channelData.to"?: string;
+  /** Filter used to query Verification Attempts sent to the specified destination country. */
   country?: string;
+  /** Filter used to query Verification Attempts by communication channel. Valid values are `SMS` and `CALL` */
   channel?: VerificationAttemptChannels;
+  /** Filter used to query Verification Attempts by verify service. Only attempts of the provided SID will be returned. */
   verifyServiceSid?: string;
+  /** Filter used to return all the Verification Attempts of a single verification. Only attempts of the provided verification SID will be returned. */
   verificationSid?: string;
+  /** Filter used to query Verification Attempts by conversion status. Valid values are `UNCONVERTED`, for attempts that were not converted, and `CONVERTED`, for attempts that were confirmed. */
   status?: VerificationAttemptConversionStatus;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (
     item: VerificationAttemptInstance,
     done: (err?: Error) => void
   ) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { Date } [dateCreatedAfter] Datetime filter used to query Verification Attempts created after this datetime. Given as GMT in RFC 2822 format.
- * @property { Date } [dateCreatedBefore] Datetime filter used to query Verification Attempts created before this datetime. Given as GMT in RFC 2822 format.
- * @property { string } [channelData.to] Destination of a verification. It is phone number in E.164 format.
- * @property { string } [country] Filter used to query Verification Attempts sent to the specified destination country.
- * @property { VerificationAttemptChannels } [channel] Filter used to query Verification Attempts by communication channel. Valid values are `SMS` and `CALL`
- * @property { string } [verifyServiceSid] Filter used to query Verification Attempts by verify service. Only attempts of the provided SID will be returned.
- * @property { string } [verificationSid] Filter used to return all the Verification Attempts of a single verification. Only attempts of the provided verification SID will be returned.
- * @property { VerificationAttemptConversionStatus } [status] Filter used to query Verification Attempts by conversion status. Valid values are `UNCONVERTED`, for attempts that were not converted, and `CONVERTED`, for attempts that were confirmed.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface VerificationAttemptListInstanceOptions {
+  /** Datetime filter used to query Verification Attempts created after this datetime. Given as GMT in RFC 2822 format. */
   dateCreatedAfter?: Date;
+  /** Datetime filter used to query Verification Attempts created before this datetime. Given as GMT in RFC 2822 format. */
   dateCreatedBefore?: Date;
+  /** Destination of a verification. It is phone number in E.164 format. */
   "channelData.to"?: string;
+  /** Filter used to query Verification Attempts sent to the specified destination country. */
   country?: string;
+  /** Filter used to query Verification Attempts by communication channel. Valid values are `SMS` and `CALL` */
   channel?: VerificationAttemptChannels;
+  /** Filter used to query Verification Attempts by verify service. Only attempts of the provided SID will be returned. */
   verifyServiceSid?: string;
+  /** Filter used to return all the Verification Attempts of a single verification. Only attempts of the provided verification SID will be returned. */
   verificationSid?: string;
+  /** Filter used to query Verification Attempts by conversion status. Valid values are `UNCONVERTED`, for attempts that were not converted, and `CONVERTED`, for attempts that were confirmed. */
   status?: VerificationAttemptConversionStatus;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { Date } [dateCreatedAfter] Datetime filter used to query Verification Attempts created after this datetime. Given as GMT in RFC 2822 format.
- * @property { Date } [dateCreatedBefore] Datetime filter used to query Verification Attempts created before this datetime. Given as GMT in RFC 2822 format.
- * @property { string } [channelData.to] Destination of a verification. It is phone number in E.164 format.
- * @property { string } [country] Filter used to query Verification Attempts sent to the specified destination country.
- * @property { VerificationAttemptChannels } [channel] Filter used to query Verification Attempts by communication channel. Valid values are `SMS` and `CALL`
- * @property { string } [verifyServiceSid] Filter used to query Verification Attempts by verify service. Only attempts of the provided SID will be returned.
- * @property { string } [verificationSid] Filter used to return all the Verification Attempts of a single verification. Only attempts of the provided verification SID will be returned.
- * @property { VerificationAttemptConversionStatus } [status] Filter used to query Verification Attempts by conversion status. Valid values are `UNCONVERTED`, for attempts that were not converted, and `CONVERTED`, for attempts that were confirmed.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface VerificationAttemptListInstancePageOptions {
+  /** Datetime filter used to query Verification Attempts created after this datetime. Given as GMT in RFC 2822 format. */
   dateCreatedAfter?: Date;
+  /** Datetime filter used to query Verification Attempts created before this datetime. Given as GMT in RFC 2822 format. */
   dateCreatedBefore?: Date;
+  /** Destination of a verification. It is phone number in E.164 format. */
   "channelData.to"?: string;
+  /** Filter used to query Verification Attempts sent to the specified destination country. */
   country?: string;
+  /** Filter used to query Verification Attempts by communication channel. Valid values are `SMS` and `CALL` */
   channel?: VerificationAttemptChannels;
+  /** Filter used to query Verification Attempts by verify service. Only attempts of the provided SID will be returned. */
   verifyServiceSid?: string;
+  /** Filter used to return all the Verification Attempts of a single verification. Only attempts of the provided verification SID will be returned. */
   verificationSid?: string;
+  /** Filter used to query Verification Attempts by conversion status. Valid values are `UNCONVERTED`, for attempts that were not converted, and `CONVERTED`, for attempts that were confirmed. */
   status?: VerificationAttemptConversionStatus;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
@@ -126,9 +115,9 @@ export interface VerificationAttemptContext {
   /**
    * Fetch a VerificationAttemptInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed VerificationAttemptInstance
+   * @returns Resolves to processed VerificationAttemptInstance
    */
   fetch(
     callback?: (error: Error | null, item?: VerificationAttemptInstance) => any
@@ -285,9 +274,9 @@ export class VerificationAttemptInstance {
   /**
    * Fetch a VerificationAttemptInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed VerificationAttemptInstance
+   * @returns Resolves to processed VerificationAttemptInstance
    */
   fetch(
     callback?: (error: Error | null, item?: VerificationAttemptInstance) => any
