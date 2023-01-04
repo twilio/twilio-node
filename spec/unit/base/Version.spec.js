@@ -87,3 +87,67 @@ describe("streaming results", function () {
     done();
   });
 });
+
+describe("done should only be called once in each", () => {
+  let holodeck;
+  let client;
+  let body;
+  beforeEach(function () {
+    holodeck = new Holodeck();
+    client = new Twilio("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "AUTHTOKEN", {
+      httpClient: holodeck,
+    });
+    body = {
+      end: 0,
+      first_page_uri:
+        "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IncomingPhoneNumbers.json?FriendlyName=friendly_name&Beta=true&PhoneNumber=%2B19876543210&PageSize=1&Page=0",
+      incoming_phone_numbers: [{}],
+      next_page_uri:
+        "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IncomingPhoneNumbers.json?FriendlyName=friendly_name&Beta=true&PhoneNumber=%2B19876543210&PageSize=1&Page=1",
+      page: 0,
+      page_size: 1,
+      previous_page_uri: null,
+      start: 0,
+      uri: "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IncomingPhoneNumbers.json?FriendlyName=friendly_name&Beta=true&PhoneNumber=%2B19876543210&PageSize=1&Page=0",
+    };
+  });
+  it("done is explicitly called", async () => {
+    holodeck.mock(new Response(200, body));
+    holodeck.mock(new Response(200, body));
+    const mockDone = jest.fn(console.debug.bind(null, "done!"));
+    client.api.v2010
+      .accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+      .incomingPhoneNumbers.each({
+        limit: 1,
+        callback: (account, done) => {
+          done();
+        },
+        done: mockDone,
+      });
+
+    // Sleep to allow async work to complete
+    await new Promise((r) => setTimeout(r, 2000));
+
+    expect(mockDone.mock.calls.length).toBe(1);
+  });
+
+  it("done is not explicitly called", async () => {
+    holodeck.mock(new Response(200, body));
+    holodeck.mock(new Response(200, body));
+    const mockDone = jest.fn(console.debug.bind(null, "done!"));
+    client.api.v2010
+      .accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+      .incomingPhoneNumbers.each({
+        limit: 1,
+        callback: (account, done) => {
+          console.log();
+        },
+        done: mockDone,
+      });
+
+    // Sleep to allow async work to complete
+    await new Promise((r) => setTimeout(r, 2000));
+
+    expect(mockDone.mock.calls.length).toBe(1);
+  });
+});
