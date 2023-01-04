@@ -266,7 +266,7 @@ export default class Version {
         return;
       }
       promise.then((page) => {
-        Object.keys(page.instances).forEach(function (instance: any) {
+        page.instances.forEach(function (instance: any) {
           if (
             done ||
             (typeof params.limit !== "undefined" &&
