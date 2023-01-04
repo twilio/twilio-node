@@ -225,10 +225,33 @@ export default class Version {
     return operationPromise;
   }
 
+  /**
+   * For each record instance, executes a provided callback function with that
+   * instance
+   * 
+   * @param {object} [params] Parameters
+   * @param {number} [params.limit] The maximum number of record instances to
+   *  fetch
+   * @param {number} [params.pageSize] The maximum number of records to return
+   *  with every request
+   * @param {function} params.callback Callback function to call with each
+   *  record instance
+   * @param {function} [params.done] Optional done function to call when all
+   *  records are processed, the limit is reached, or an error occurs.
+   *  Receives an error argument if an error occurs. If done is not provided,
+   *  the each function will return a promise.
+   * @param {function} [callback] Callback function to call with each record.
+   *  Receives an onComplete function argument that will short-circuit the for-
+   *  each loop that may accept an error argument.
+   * @returns {undefined|Promise<undefined>} Returns undefined if a done
+   *  function is provided in the params. Returns a promise if a done function
+   *  is not provided. Promise resolves when all records processed or if the
+   *  limit is reached, and rejects with an error if an error occurs.
+   */
   each<T>(
     params?: any,
     callback?: (item: T, done: (err?: Error) => void) => void
-  ): void {
+  ): Promise<undefined> | undefined {
     if (typeof params === "function") {
       callback = params;
       params = {};
@@ -246,18 +269,31 @@ export default class Version {
     let currentPage = 1;
     let currentResource = 0;
     let limits = {} as PageLimit;
+    let promise;
+    let pResolve;
+    let pReject;
     if (this._version instanceof Version) {
       limits = this._version.readLimits({
         limit: params.limit,
         pageSize: params.pageSize,
       });
     }
-    function onComplete(error?) {
+    function onComplete(error?: Error) {
       done = true;
       if (typeof params.done === "function" && !doneCalled) {
         params.done(error);
       }
       doneCalled = true;
+      if (typeof params.done === "function" && !doneCalled) {
+        params.done(error);
+      }
+      doneCalled = true;
+      if (error && typeof pReject === "function") {
+        return pReject(error);
+      }
+      if (!error && typeof pResolve === "function") {
+        return pResolve();
+      }
     }
     function fetchNextPage(fn) {
       let promise = fn();
@@ -265,23 +301,29 @@ export default class Version {
         onComplete();
         return;
       }
+
       promise.then((page) => {
-        Object.keys(page.instances).forEach(function (instance: any) {
-          if (
-            done ||
-            (typeof params.limit !== "undefined" &&
-              currentResource >= params.limit)
-          ) {
-            done = true;
-            return false;
-          }
-          currentResource++;
-          try {
-            callback(instance, onComplete);
-          } catch (e) {
-            throw e;
-          }
-        });
+        try {
+          Object.keys(page.instances).forEach(function (instance) {
+            if (
+              done ||
+              (typeof params.limit !== "undefined" &&
+                currentResource >= params.limit)
+            ) {
+              done = true;
+              return false;
+            }
+            currentResource++;
+            try {
+              callback(page.instances[instance], onComplete);
+            } catch (e) {
+              throw e;
+            }
+          });
+        } catch(e) {
+          return onComplete(e);
+        }
+
         if (!done) {
           currentPage++;
           fetchNextPage(page.nextPage.bind(page));
@@ -291,7 +333,18 @@ export default class Version {
       });
       promise.catch(onComplete);
     }
-    fetchNextPage(this.page.bind(this, Object.assign(params, limits)));
+
+    if (typeof params.done !== "function") {
+      promise = new Promise((resolve, reject) => {
+        pResolve = resolve;
+        pReject = reject;
+        fetchNextPage(this.page.bind(this, Object.assign(params, limits)))
+      });
+    } else {
+      fetchNextPage(this.page.bind(this, Object.assign(params, limits)));
+    }
+    
+    return promise;
   }
 
   list<T>(
