@@ -78,75 +78,75 @@ import { ValidationRequestListInstance } from "./api/v2010/account/validationReq
 
 class Twilio extends BaseTwilio {
   /** (Twilio.Accounts) - accounts domain */
-  _accounts: Accounts;
+  _accounts?: Accounts;
   /** (Twilio.Api) - api domain */
-  _api: Api;
+  _api?: Api;
   /** (Twilio.Autopilot) - autopilot domain */
-  _autopilot: Autopilot;
+  _autopilot?: Autopilot;
   /** (Twilio.Bulkexports) - bulkexports domain */
-  _bulkexports: Bulkexports;
+  _bulkexports?: Bulkexports;
   /** (Twilio.Chat) - chat domain */
-  _chat: Chat;
+  _chat?: Chat;
   /** (Twilio.Content) - content domain */
-  _content: Content;
+  _content?: Content;
   /** (Twilio.Conversations) - conversations domain */
-  _conversations: Conversations;
+  _conversations?: Conversations;
   /** (Twilio.Events) - events domain */
-  _events: Events;
+  _events?: Events;
   /** (Twilio.FlexApi) - flexApi domain */
-  _flexApi: FlexApi;
+  _flexApi?: FlexApi;
   /** (Twilio.FrontlineApi) - frontlineApi domain */
-  _frontlineApi: FrontlineApi;
+  _frontlineApi?: FrontlineApi;
   /** (Twilio.Insights) - insights domain */
-  _insights: Insights;
+  _insights?: Insights;
   /** (Twilio.IpMessaging) - ipMessaging domain */
-  _ipMessaging: IpMessaging;
+  _ipMessaging?: IpMessaging;
   /** (Twilio.Lookups) - lookups domain */
-  _lookups: Lookups;
+  _lookups?: Lookups;
   /** (Twilio.Media) - media domain */
-  _media: Media;
+  _media?: Media;
   /** (Twilio.Messaging) - messaging domain */
-  _messaging: Messaging;
+  _messaging?: Messaging;
   /** (Twilio.Microvisor) - microvisor domain */
-  _microvisor: Microvisor;
+  _microvisor?: Microvisor;
   /** (Twilio.Monitor) - monitor domain */
-  _monitor: Monitor;
+  _monitor?: Monitor;
   /** (Twilio.Notify) - notify domain */
-  _notify: Notify;
+  _notify?: Notify;
   /** (Twilio.Numbers) - numbers domain */
-  _numbers: Numbers;
+  _numbers?: Numbers;
   /** (Twilio.Oauth) - oauth domain */
-  _oauth: Oauth;
+  _oauth?: Oauth;
   /** (Twilio.Preview) - preview domain */
-  _preview: Preview;
+  _preview?: Preview;
   /** (Twilio.Pricing) - pricing domain */
-  _pricing: Pricing;
+  _pricing?: Pricing;
   /** (Twilio.Proxy) - proxy domain */
-  _proxy: Proxy;
+  _proxy?: Proxy;
   /** (Twilio.Routes) - routes domain */
-  _routes: Routes;
+  _routes?: Routes;
   /** (Twilio.Serverless) - serverless domain */
-  _serverless: Serverless;
+  _serverless?: Serverless;
   /** (Twilio.Studio) - studio domain */
-  _studio: Studio;
+  _studio?: Studio;
   /** (Twilio.Supersim) - supersim domain */
-  _supersim: Supersim;
+  _supersim?: Supersim;
   /** (Twilio.Sync) - sync domain */
-  _sync: Sync;
+  _sync?: Sync;
   /** (Twilio.Taskrouter) - taskrouter domain */
-  _taskrouter: Taskrouter;
+  _taskrouter?: Taskrouter;
   /** (Twilio.Trunking) - trunking domain */
-  _trunking: Trunking;
+  _trunking?: Trunking;
   /** (Twilio.Trusthub) - trusthub domain */
-  _trusthub: Trusthub;
+  _trusthub?: Trusthub;
   /** (Twilio.Verify) - verify domain */
-  _verify: Verify;
+  _verify?: Verify;
   /** (Twilio.Video) - video domain */
-  _video: Video;
+  _video?: Video;
   /** (Twilio.Voice) - voice domain */
-  _voice: Voice;
+  _voice?: Voice;
   /** (Twilio.Wireless) - wireless domain */
-  _wireless: Wireless;
+  _wireless?: Wireless;
 
   /* jshint ignore:start */
   /**
@@ -206,283 +206,180 @@ class Twilio extends BaseTwilio {
   //Domains
   /** Getter for (Twilio.Accounts) domain */
   get accounts(): Accounts {
-    if (!this._accounts) {
-      const Accounts = require("./Accounts"); /* jshint ignore:line */
-      this._accounts = new Accounts(this);
-    }
-    return this._accounts;
+    return (
+      this._accounts ?? (this._accounts = new (require("./Accounts"))(this))
+    );
   }
   /** Getter for (Twilio.Api) domain */
   get api(): Api {
-    if (!this._api) {
-      const Api = require("./Api"); /* jshint ignore:line */
-      this._api = new Api(this);
-    }
-    return this._api;
+    return this._api ?? (this._api = new (require("./Api"))(this));
   }
   /** Getter for (Twilio.Autopilot) domain */
   get autopilot(): Autopilot {
-    if (!this._autopilot) {
-      const Autopilot = require("./Autopilot"); /* jshint ignore:line */
-      this._autopilot = new Autopilot(this);
-    }
-    return this._autopilot;
+    return (
+      this._autopilot ?? (this._autopilot = new (require("./Autopilot"))(this))
+    );
   }
   /** Getter for (Twilio.Bulkexports) domain */
   get bulkexports(): Bulkexports {
-    if (!this._bulkexports) {
-      const Bulkexports = require("./Bulkexports"); /* jshint ignore:line */
-      this._bulkexports = new Bulkexports(this);
-    }
-    return this._bulkexports;
+    return (
+      this._bulkexports ??
+      (this._bulkexports = new (require("./Bulkexports"))(this))
+    );
   }
   /** Getter for (Twilio.Chat) domain */
   get chat(): Chat {
-    if (!this._chat) {
-      const Chat = require("./Chat"); /* jshint ignore:line */
-      this._chat = new Chat(this);
-    }
-    return this._chat;
+    return this._chat ?? (this._chat = new (require("./Chat"))(this));
   }
   /** Getter for (Twilio.Content) domain */
   get content(): Content {
-    if (!this._content) {
-      const Content = require("./Content"); /* jshint ignore:line */
-      this._content = new Content(this);
-    }
-    return this._content;
+    return this._content ?? (this._content = new (require("./Content"))(this));
   }
   /** Getter for (Twilio.Conversations) domain */
   get conversations(): Conversations {
-    if (!this._conversations) {
-      const Conversations = require("./Conversations"); /* jshint ignore:line */
-      this._conversations = new Conversations(this);
-    }
-    return this._conversations;
+    return (
+      this._conversations ??
+      (this._conversations = new (require("./Conversations"))(this))
+    );
   }
   /** Getter for (Twilio.Events) domain */
   get events(): Events {
-    if (!this._events) {
-      const Events = require("./Events"); /* jshint ignore:line */
-      this._events = new Events(this);
-    }
-    return this._events;
+    return this._events ?? (this._events = new (require("./Events"))(this));
   }
   /** Getter for (Twilio.FlexApi) domain */
   get flexApi(): FlexApi {
-    if (!this._flexApi) {
-      const FlexApi = require("./FlexApi"); /* jshint ignore:line */
-      this._flexApi = new FlexApi(this);
-    }
-    return this._flexApi;
+    return this._flexApi ?? (this._flexApi = new (require("./FlexApi"))(this));
   }
   /** Getter for (Twilio.FrontlineApi) domain */
   get frontlineApi(): FrontlineApi {
-    if (!this._frontlineApi) {
-      const FrontlineApi = require("./FrontlineApi"); /* jshint ignore:line */
-      this._frontlineApi = new FrontlineApi(this);
-    }
-    return this._frontlineApi;
+    return (
+      this._frontlineApi ??
+      (this._frontlineApi = new (require("./FrontlineApi"))(this))
+    );
   }
   /** Getter for (Twilio.Insights) domain */
   get insights(): Insights {
-    if (!this._insights) {
-      const Insights = require("./Insights"); /* jshint ignore:line */
-      this._insights = new Insights(this);
-    }
-    return this._insights;
+    return (
+      this._insights ?? (this._insights = new (require("./Insights"))(this))
+    );
   }
   /** Getter for (Twilio.IpMessaging) domain */
   get ipMessaging(): IpMessaging {
-    if (!this._ipMessaging) {
-      const IpMessaging = require("./IpMessaging"); /* jshint ignore:line */
-      this._ipMessaging = new IpMessaging(this);
-    }
-    return this._ipMessaging;
+    return (
+      this._ipMessaging ??
+      (this._ipMessaging = new (require("./IpMessaging"))(this))
+    );
   }
   /** Getter for (Twilio.Lookups) domain */
   get lookups(): Lookups {
-    if (!this._lookups) {
-      const Lookups = require("./Lookups"); /* jshint ignore:line */
-      this._lookups = new Lookups(this);
-    }
-    return this._lookups;
+    return this._lookups ?? (this._lookups = new (require("./Lookups"))(this));
   }
   /** Getter for (Twilio.Media) domain */
   get media(): Media {
-    if (!this._media) {
-      const Media = require("./Media"); /* jshint ignore:line */
-      this._media = new Media(this);
-    }
-    return this._media;
+    return this._media ?? (this._media = new (require("./Media"))(this));
   }
   /** Getter for (Twilio.Messaging) domain */
   get messaging(): Messaging {
-    if (!this._messaging) {
-      const Messaging = require("./Messaging"); /* jshint ignore:line */
-      this._messaging = new Messaging(this);
-    }
-    return this._messaging;
+    return (
+      this._messaging ?? (this._messaging = new (require("./Messaging"))(this))
+    );
   }
   /** Getter for (Twilio.Microvisor) domain */
   get microvisor(): Microvisor {
-    if (!this._microvisor) {
-      const Microvisor = require("./Microvisor"); /* jshint ignore:line */
-      this._microvisor = new Microvisor(this);
-    }
-    return this._microvisor;
+    return (
+      this._microvisor ??
+      (this._microvisor = new (require("./Microvisor"))(this))
+    );
   }
   /** Getter for (Twilio.Monitor) domain */
   get monitor(): Monitor {
-    if (!this._monitor) {
-      const Monitor = require("./Monitor"); /* jshint ignore:line */
-      this._monitor = new Monitor(this);
-    }
-    return this._monitor;
+    return this._monitor ?? (this._monitor = new (require("./Monitor"))(this));
   }
   /** Getter for (Twilio.Notify) domain */
   get notify(): Notify {
-    if (!this._notify) {
-      const Notify = require("./Notify"); /* jshint ignore:line */
-      this._notify = new Notify(this);
-    }
-    return this._notify;
+    return this._notify ?? (this._notify = new (require("./Notify"))(this));
   }
   /** Getter for (Twilio.Numbers) domain */
   get numbers(): Numbers {
-    if (!this._numbers) {
-      const Numbers = require("./Numbers"); /* jshint ignore:line */
-      this._numbers = new Numbers(this);
-    }
-    return this._numbers;
+    return this._numbers ?? (this._numbers = new (require("./Numbers"))(this));
   }
   /** Getter for (Twilio.Oauth) domain */
   get oauth(): Oauth {
-    if (!this._oauth) {
-      const Oauth = require("./Oauth"); /* jshint ignore:line */
-      this._oauth = new Oauth(this);
-    }
-    return this._oauth;
+    return this._oauth ?? (this._oauth = new (require("./Oauth"))(this));
   }
   /** Getter for (Twilio.Preview) domain */
   get preview(): Preview {
-    if (!this._preview) {
-      const Preview = require("./Preview"); /* jshint ignore:line */
-      this._preview = new Preview(this);
-    }
-    return this._preview;
+    return this._preview ?? (this._preview = new (require("./Preview"))(this));
   }
   /** Getter for (Twilio.Pricing) domain */
   get pricing(): Pricing {
-    if (!this._pricing) {
-      const Pricing = require("./Pricing"); /* jshint ignore:line */
-      this._pricing = new Pricing(this);
-    }
-    return this._pricing;
+    return this._pricing ?? (this._pricing = new (require("./Pricing"))(this));
   }
   /** Getter for (Twilio.Proxy) domain */
   get proxy(): Proxy {
-    if (!this._proxy) {
-      const Proxy = require("./Proxy"); /* jshint ignore:line */
-      this._proxy = new Proxy(this);
-    }
-    return this._proxy;
+    return this._proxy ?? (this._proxy = new (require("./Proxy"))(this));
   }
   /** Getter for (Twilio.Routes) domain */
   get routes(): Routes {
-    if (!this._routes) {
-      const Routes = require("./Routes"); /* jshint ignore:line */
-      this._routes = new Routes(this);
-    }
-    return this._routes;
+    return this._routes ?? (this._routes = new (require("./Routes"))(this));
   }
   /** Getter for (Twilio.Serverless) domain */
   get serverless(): Serverless {
-    if (!this._serverless) {
-      const Serverless = require("./Serverless"); /* jshint ignore:line */
-      this._serverless = new Serverless(this);
-    }
-    return this._serverless;
+    return (
+      this._serverless ??
+      (this._serverless = new (require("./Serverless"))(this))
+    );
   }
   /** Getter for (Twilio.Studio) domain */
   get studio(): Studio {
-    if (!this._studio) {
-      const Studio = require("./Studio"); /* jshint ignore:line */
-      this._studio = new Studio(this);
-    }
-    return this._studio;
+    return this._studio ?? (this._studio = new (require("./Studio"))(this));
   }
   /** Getter for (Twilio.Supersim) domain */
   get supersim(): Supersim {
-    if (!this._supersim) {
-      const Supersim = require("./Supersim"); /* jshint ignore:line */
-      this._supersim = new Supersim(this);
-    }
-    return this._supersim;
+    return (
+      this._supersim ?? (this._supersim = new (require("./Supersim"))(this))
+    );
   }
   /** Getter for (Twilio.Sync) domain */
   get sync(): Sync {
-    if (!this._sync) {
-      const Sync = require("./Sync"); /* jshint ignore:line */
-      this._sync = new Sync(this);
-    }
-    return this._sync;
+    return this._sync ?? (this._sync = new (require("./Sync"))(this));
   }
   /** Getter for (Twilio.Taskrouter) domain */
   get taskrouter(): Taskrouter {
-    if (!this._taskrouter) {
-      const Taskrouter = require("./Taskrouter"); /* jshint ignore:line */
-      this._taskrouter = new Taskrouter(this);
-    }
-    return this._taskrouter;
+    return (
+      this._taskrouter ??
+      (this._taskrouter = new (require("./Taskrouter"))(this))
+    );
   }
   /** Getter for (Twilio.Trunking) domain */
   get trunking(): Trunking {
-    if (!this._trunking) {
-      const Trunking = require("./Trunking"); /* jshint ignore:line */
-      this._trunking = new Trunking(this);
-    }
-    return this._trunking;
+    return (
+      this._trunking ?? (this._trunking = new (require("./Trunking"))(this))
+    );
   }
   /** Getter for (Twilio.Trusthub) domain */
   get trusthub(): Trusthub {
-    if (!this._trusthub) {
-      const Trusthub = require("./Trusthub"); /* jshint ignore:line */
-      this._trusthub = new Trusthub(this);
-    }
-    return this._trusthub;
+    return (
+      this._trusthub ?? (this._trusthub = new (require("./Trusthub"))(this))
+    );
   }
   /** Getter for (Twilio.Verify) domain */
   get verify(): Verify {
-    if (!this._verify) {
-      const Verify = require("./Verify"); /* jshint ignore:line */
-      this._verify = new Verify(this);
-    }
-    return this._verify;
+    return this._verify ?? (this._verify = new (require("./Verify"))(this));
   }
   /** Getter for (Twilio.Video) domain */
   get video(): Video {
-    if (!this._video) {
-      const Video = require("./Video"); /* jshint ignore:line */
-      this._video = new Video(this);
-    }
-    return this._video;
+    return this._video ?? (this._video = new (require("./Video"))(this));
   }
   /** Getter for (Twilio.Voice) domain */
   get voice(): Voice {
-    if (!this._voice) {
-      const Voice = require("./Voice"); /* jshint ignore:line */
-      this._voice = new Voice(this);
-    }
-    return this._voice;
+    return this._voice ?? (this._voice = new (require("./Voice"))(this));
   }
   /** Getter for (Twilio.Wireless) domain */
   get wireless(): Wireless {
-    if (!this._wireless) {
-      const Wireless = require("./Wireless"); /* jshint ignore:line */
-      this._wireless = new Wireless(this);
-    }
-    return this._wireless;
+    return (
+      this._wireless ?? (this._wireless = new (require("./Wireless"))(this))
+    );
   }
 
   /** Getter for (Twilio.Api.V2010.AccountContext.AddressListInstance) addresses resource */
