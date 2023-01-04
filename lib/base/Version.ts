@@ -228,7 +228,7 @@ export default class Version {
   /**
    * For each record instance, executes a provided callback function with that
    * instance
-   * 
+   *
    * @param {object} [params] Parameters
    * @param {number} [params.limit] The maximum number of record instances to
    *  fetch
@@ -320,7 +320,7 @@ export default class Version {
               throw e;
             }
           });
-        } catch(e) {
+        } catch (e) {
           return onComplete(e);
         }
 
@@ -338,12 +338,12 @@ export default class Version {
       promise = new Promise((resolve, reject) => {
         pResolve = resolve;
         pReject = reject;
-        fetchNextPage(this.page.bind(this, Object.assign(params, limits)))
+        fetchNextPage(this.page.bind(this, Object.assign(params, limits)));
       });
     } else {
       fetchNextPage(this.page.bind(this, Object.assign(params, limits)));
     }
-    
+
     return promise;
   }
 
