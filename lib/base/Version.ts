@@ -91,9 +91,9 @@ export default class Version {
    * Create a new record
    *
    * @param opts - request options
-   * 
+   *
    * @throws Error If response returns non 2xx or 201 status code
-   * 
+   *
    * @returns promise that resolves to created record
    */
   create(opts: RequestOpts): Promise<any> {
@@ -115,9 +115,9 @@ export default class Version {
    * Fetch an instance of a record
    *
    * @param opts - request options
-   * 
+   *
    * @throws Error If response returns non 2xx or 3xx status code
-   * 
+   *
    * @returns promise that resolves to fetched result
    */
   fetch(opts: RequestOpts): Promise<any> {
@@ -151,9 +151,9 @@ export default class Version {
    * Update a record
    *
    * @param opts - request options
-   * 
+   *
    * @throws Error If response returns non 2xx status code
-   * 
+   *
    * @returns promise that resolves to updated result
    */
   update(opts: RequestOpts): Promise<any> {
@@ -176,9 +176,9 @@ export default class Version {
    * Delete a record
    *
    * @param opts - request options
-   * 
+   *
    * @throws Error If response returns a 5xx status
-   * 
+   *
    * @returns promise that resolves to true if record was deleted
    */
   remove(opts: RequestOpts): Promise<boolean> {
@@ -199,7 +199,7 @@ export default class Version {
    *
    * @param opts.limit - The maximum number of items to fetch
    * @param opts.pageSize - The maximum number of items to return with every request
-   * 
+   *
    */
   readLimits(opts: PageLimitOptions): PageLimit {
     var limit = opts.limit;

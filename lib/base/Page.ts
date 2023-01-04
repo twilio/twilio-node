@@ -74,7 +74,7 @@ export default class Page<
 
   /**
    * Meta keys returned in a list request
-   * 
+   *
    * @constant META_KEYS
    */
   static META_KEYS: META_KEYS[] = [
@@ -230,9 +230,9 @@ export default class Page<
    * Parse json response from API
    *
    * @param response - API response
-   * 
+   *
    * @throws Error If non 200 status code is returned
-   * 
+   *
    * @returns json parsed response
    */
   processResponse(response: Response<string | TPayload>): TPayload {
@@ -250,9 +250,9 @@ export default class Page<
    * Load a page of records
    *
    * @param payload - json payload
-   * 
+   *
    * @throws Error If records cannot be deserialized
-   * 
+   *
    * @returns the page of records
    */
   loadPage(payload: TPayload): TResource[] {

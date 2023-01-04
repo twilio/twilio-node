@@ -55,8 +55,8 @@ export class BaseTwilio {
   /**
    * Create a BaseTwilio instance
    *
-   * @param username - 
-   *          The username used for authentication. This is normally account sid, but if using key/secret auth will be 
+   * @param username -
+   *          The username used for authentication. This is normally account sid, but if using key/secret auth will be
    *          the api key sid.
    * @param password -
    *          The password used for authentication. This is normally auth token, but if using key/secret auth will be
