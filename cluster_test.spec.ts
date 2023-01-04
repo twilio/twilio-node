@@ -76,17 +76,21 @@ test("Should list available numbers", () => {
 });
 
 test("Should call with twiml string", () => {
-    return testClient.calls.create({
-        twiml: twiml.toString(),
-        to: toNumber,
-        from: fromNumber,
-    }).then(call => expect(call.sid).toBeDefined())
-})
+  return testClient.calls
+    .create({
+      twiml: twiml.toString(),
+      to: toNumber,
+      from: fromNumber,
+    })
+    .then((call) => expect(call.sid).toBeDefined());
+});
 
 test("Should call with twiml object", () => {
-    return testClient.calls.create({
-        twiml: twiml,
-        to: toNumber,
-        from: fromNumber,
-    }).then(call => expect(call.sid).toBeDefined())
-})
+  return testClient.calls
+    .create({
+      twiml: twiml,
+      to: toNumber,
+      from: fromNumber,
+    })
+    .then((call) => expect(call.sid).toBeDefined());
+});
