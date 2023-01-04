@@ -179,14 +179,14 @@ export class DomainConfigContextImpl implements DomainConfigContext {
 interface DomainConfigPayload extends DomainConfigResource {}
 
 interface DomainConfigResource {
-  domain_sid?: string | null;
-  config_sid?: string | null;
-  messaging_service_sids?: Array<string> | null;
-  fallback_url?: string | null;
-  callback_url?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  url?: string | null;
+  domain_sid: string;
+  config_sid: string;
+  messaging_service_sids: Array<string>;
+  fallback_url: string;
+  callback_url: string;
+  date_created: Date;
+  date_updated: Date;
+  url: string;
 }
 
 export class DomainConfigInstance {
@@ -213,32 +213,32 @@ export class DomainConfigInstance {
   /**
    * The unique string that we created to identify the Domain resource.
    */
-  domainSid?: string | null;
+  domainSid: string;
   /**
    * The unique string that we created to identify the Domain config (prefix ZK).
    */
-  configSid?: string | null;
+  configSid: string;
   /**
    * A list of messagingServiceSids (with prefix MG).
    */
-  messagingServiceSids?: Array<string> | null;
+  messagingServiceSids: Array<string>;
   /**
    * We will redirect requests to urls we are unable to identify to this url.
    */
-  fallbackUrl?: string | null;
+  fallbackUrl: string;
   /**
    * URL to receive click events to your webhook whenever the recipients click on the shortened links.
    */
-  callbackUrl?: string | null;
+  callbackUrl: string;
   /**
    * Date this Domain Config was created.
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * Date that this Domain Config was last updated.
    */
-  dateUpdated?: Date | null;
-  url?: string | null;
+  dateUpdated: Date;
+  url: string;
 
   private get _proxy(): DomainConfigContext {
     this._context =

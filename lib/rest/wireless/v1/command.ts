@@ -220,18 +220,18 @@ interface CommandPayload extends TwilioResponsePayload {
 }
 
 interface CommandResource {
-  sid?: string | null;
-  account_sid?: string | null;
-  sim_sid?: string | null;
-  command?: string | null;
-  command_mode?: CommandCommandMode;
-  transport?: CommandTransport;
-  delivery_receipt_requested?: boolean | null;
-  status?: CommandStatus;
-  direction?: CommandDirection;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  url?: string | null;
+  sid: string;
+  account_sid: string;
+  sim_sid: string;
+  command: string;
+  command_mode: CommandCommandMode;
+  transport: CommandTransport;
+  delivery_receipt_requested: boolean;
+  status: CommandStatus;
+  direction: CommandDirection;
+  date_created: Date;
+  date_updated: Date;
+  url: string;
 }
 
 export class CommandInstance {
@@ -258,39 +258,39 @@ export class CommandInstance {
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The SID of the Sim resource that the Command was sent to or from
    */
-  simSid?: string | null;
+  simSid: string;
   /**
    * The message being sent to or from the SIM
    */
-  command?: string | null;
-  commandMode?: CommandCommandMode;
-  transport?: CommandTransport;
+  command: string;
+  commandMode: CommandCommandMode;
+  transport: CommandTransport;
   /**
    * Whether to request a delivery receipt
    */
-  deliveryReceiptRequested?: boolean | null;
-  status?: CommandStatus;
-  direction?: CommandDirection;
+  deliveryReceiptRequested: boolean;
+  status: CommandStatus;
+  direction: CommandDirection;
   /**
    * The ISO 8601 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The ISO 8601 date and time in GMT when the resource was last updated format
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The absolute URL of the resource
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): CommandContext {
     this._context =

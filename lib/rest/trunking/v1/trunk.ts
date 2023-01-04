@@ -352,23 +352,23 @@ interface TrunkPayload extends TwilioResponsePayload {
 }
 
 interface TrunkResource {
-  account_sid?: string | null;
-  domain_name?: string | null;
-  disaster_recovery_method?: TrunkDisasterRecoveryMethod;
-  disaster_recovery_url?: string | null;
-  friendly_name?: string | null;
-  secure?: boolean | null;
-  recording?: any | null;
-  transfer_mode?: TrunkTransferSetting;
-  transfer_caller_id?: TrunkTransferCallerId;
-  cnam_lookup_enabled?: boolean | null;
-  auth_type?: string | null;
-  auth_type_set?: Array<string> | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  sid?: string | null;
-  url?: string | null;
-  links?: object | null;
+  account_sid: string;
+  domain_name: string;
+  disaster_recovery_method: TrunkDisasterRecoveryMethod;
+  disaster_recovery_url: string;
+  friendly_name: string;
+  secure: boolean;
+  recording: any;
+  transfer_mode: TrunkTransferSetting;
+  transfer_caller_id: TrunkTransferCallerId;
+  cnam_lookup_enabled: boolean;
+  auth_type: string;
+  auth_type_set: Array<string>;
+  date_created: Date;
+  date_updated: Date;
+  sid: string;
+  url: string;
+  links: object;
 }
 
 export class TrunkInstance {
@@ -400,65 +400,65 @@ export class TrunkInstance {
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The unique address you reserve on Twilio to which you route your SIP traffic
    */
-  domainName?: string | null;
+  domainName: string;
   /**
    * The HTTP method we use to call the disaster_recovery_url
    */
-  disasterRecoveryMethod?: TrunkDisasterRecoveryMethod;
+  disasterRecoveryMethod: TrunkDisasterRecoveryMethod;
   /**
    * The HTTP URL that we call if an error occurs while sending SIP traffic towards your configured Origination URL
    */
-  disasterRecoveryUrl?: string | null;
+  disasterRecoveryUrl: string;
   /**
    * The string that you assigned to describe the resource
    */
-  friendlyName?: string | null;
+  friendlyName: string;
   /**
    * Whether Secure Trunking is enabled for the trunk
    */
-  secure?: boolean | null;
+  secure: boolean;
   /**
    * The recording settings for the trunk
    */
-  recording?: any | null;
-  transferMode?: TrunkTransferSetting;
-  transferCallerId?: TrunkTransferCallerId;
+  recording: any;
+  transferMode: TrunkTransferSetting;
+  transferCallerId: TrunkTransferCallerId;
   /**
    * Whether Caller ID Name (CNAM) lookup is enabled for the trunk
    */
-  cnamLookupEnabled?: boolean | null;
+  cnamLookupEnabled: boolean;
   /**
    * The types of authentication mapped to the domain
    */
-  authType?: string | null;
+  authType: string;
   /**
    * Reserved
    */
-  authTypeSet?: Array<string> | null;
+  authTypeSet: Array<string>;
   /**
    * The RFC 2822 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The RFC 2822 date and time in GMT when the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The absolute URL of the resource
    */
-  url?: string | null;
+  url: string;
   /**
    * The URLs of related resources
    */
-  links?: object | null;
+  links: object;
 
   private get _proxy(): TrunkContext {
     this._context =

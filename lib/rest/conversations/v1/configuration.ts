@@ -166,13 +166,13 @@ export class ConfigurationContextImpl implements ConfigurationContext {
 interface ConfigurationPayload extends ConfigurationResource {}
 
 interface ConfigurationResource {
-  account_sid?: string | null;
-  default_chat_service_sid?: string | null;
-  default_messaging_service_sid?: string | null;
-  default_inactive_timer?: string | null;
-  default_closed_timer?: string | null;
-  url?: string | null;
-  links?: object | null;
+  account_sid: string;
+  default_chat_service_sid: string;
+  default_messaging_service_sid: string;
+  default_inactive_timer: string;
+  default_closed_timer: string;
+  url: string;
+  links: object;
 }
 
 export class ConfigurationInstance {
@@ -194,31 +194,31 @@ export class ConfigurationInstance {
   /**
    * The SID of the Account responsible for this configuration.
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The SID of the default Conversation Service that every new conversation is associated with.
    */
-  defaultChatServiceSid?: string | null;
+  defaultChatServiceSid: string;
   /**
    * The SID of the default Messaging Service that every new conversation is associated with.
    */
-  defaultMessagingServiceSid?: string | null;
+  defaultMessagingServiceSid: string;
   /**
    * Default ISO8601 duration when conversation will be switched to `inactive` state.
    */
-  defaultInactiveTimer?: string | null;
+  defaultInactiveTimer: string;
   /**
    * Default ISO8601 duration when conversation will be switched to `closed` state.
    */
-  defaultClosedTimer?: string | null;
+  defaultClosedTimer: string;
   /**
    * An absolute URL for this global configuration.
    */
-  url?: string | null;
+  url: string;
   /**
    * Absolute URLs to access the webhook and default service configurations.
    */
-  links?: object | null;
+  links: object;
 
   private get _proxy(): ConfigurationContext {
     this._context =

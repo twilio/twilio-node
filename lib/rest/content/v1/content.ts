@@ -180,16 +180,16 @@ interface ContentPayload extends TwilioResponsePayload {
 }
 
 interface ContentResource {
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  sid?: string | null;
-  account_sid?: string | null;
-  friendly_name?: string | null;
-  language?: string | null;
-  variables?: any | null;
-  types?: any | null;
-  url?: string | null;
-  links?: object | null;
+  date_created: Date;
+  date_updated: Date;
+  sid: string;
+  account_sid: string;
+  friendly_name: string;
+  language: string;
+  variables: any;
+  types: any;
+  url: string;
+  links: object;
 }
 
 export class ContentInstance {
@@ -214,43 +214,43 @@ export class ContentInstance {
   /**
    * The RFC 2822 date and time in GMT that the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The RFC 2822 date and time in GMT that the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * A string name used to describe the Content resource
    */
-  friendlyName?: string | null;
+  friendlyName: string;
   /**
    * Two-letter language code identifying the language the Content resource is in.
    */
-  language?: string | null;
+  language: string;
   /**
    * Defines the default placeholder values for variables included in the Content resource
    */
-  variables?: any | null;
+  variables: any;
   /**
    * The Content types (e.g. twilio/text) for this Content resource
    */
-  types?: any | null;
+  types: any;
   /**
    * The URL of the resource, relative to `https://content.twilio.com`
    */
-  url?: string | null;
+  url: string;
   /**
    * A list of links related to the Content resource
    */
-  links?: object | null;
+  links: object;
 
   private get _proxy(): ContentContext {
     this._context =

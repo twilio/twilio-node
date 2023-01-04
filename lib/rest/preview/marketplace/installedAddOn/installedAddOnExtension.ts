@@ -234,13 +234,13 @@ interface InstalledAddOnExtensionPayload extends TwilioResponsePayload {
 }
 
 interface InstalledAddOnExtensionResource {
-  sid?: string | null;
-  installed_add_on_sid?: string | null;
-  friendly_name?: string | null;
-  product_name?: string | null;
-  unique_name?: string | null;
-  enabled?: boolean | null;
-  url?: string | null;
+  sid: string;
+  installed_add_on_sid: string;
+  friendly_name: string;
+  product_name: string;
+  unique_name: string;
+  enabled: boolean;
+  url: string;
 }
 
 export class InstalledAddOnExtensionInstance {
@@ -267,31 +267,31 @@ export class InstalledAddOnExtensionInstance {
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The SID of the InstalledAddOn resource to which this extension applies
    */
-  installedAddOnSid?: string | null;
+  installedAddOnSid: string;
   /**
    * The string that you assigned to describe the resource
    */
-  friendlyName?: string | null;
+  friendlyName: string;
   /**
    * The name of the Extension\'s Product
    */
-  productName?: string | null;
+  productName: string;
   /**
    * An application-defined string that uniquely identifies the resource
    */
-  uniqueName?: string | null;
+  uniqueName: string;
   /**
    * Whether the Extension will be invoked
    */
-  enabled?: boolean | null;
+  enabled: boolean;
   /**
    * The absolute URL of the resource
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): InstalledAddOnExtensionContext {
     this._context =
@@ -365,7 +365,7 @@ export class InstalledAddOnExtensionInstance {
 }
 
 export interface InstalledAddOnExtensionSolution {
-  installedAddOnSid?: string;
+  installedAddOnSid: string;
 }
 
 export interface InstalledAddOnExtensionListInstance {

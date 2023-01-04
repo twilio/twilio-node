@@ -176,11 +176,11 @@ export class TaskActionsContextImpl implements TaskActionsContext {
 interface TaskActionsPayload extends TaskActionsResource {}
 
 interface TaskActionsResource {
-  account_sid?: string | null;
-  assistant_sid?: string | null;
-  task_sid?: string | null;
-  url?: string | null;
-  data?: any | null;
+  account_sid: string;
+  assistant_sid: string;
+  task_sid: string;
+  url: string;
+  data: any;
 }
 
 export class TaskActionsInstance {
@@ -205,23 +205,23 @@ export class TaskActionsInstance {
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The SID of the Assistant that is the parent of the Task associated with the resource
    */
-  assistantSid?: string | null;
+  assistantSid: string;
   /**
    * The SID of the Task associated with the resource
    */
-  taskSid?: string | null;
+  taskSid: string;
   /**
    * The absolute URL of the TaskActions resource
    */
-  url?: string | null;
+  url: string;
   /**
    * The JSON string that specifies the actions that instruct the Assistant on how to perform the task
    */
-  data?: any | null;
+  data: any;
 
   private get _proxy(): TaskActionsContext {
     this._context =
@@ -294,8 +294,8 @@ export class TaskActionsInstance {
 }
 
 export interface TaskActionsSolution {
-  assistantSid?: string;
-  taskSid?: string;
+  assistantSid: string;
+  taskSid: string;
 }
 
 export interface TaskActionsListInstance {

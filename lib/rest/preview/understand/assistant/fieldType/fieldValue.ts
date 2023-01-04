@@ -207,16 +207,16 @@ interface FieldValuePayload extends TwilioResponsePayload {
 }
 
 interface FieldValueResource {
-  account_sid?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  field_type_sid?: string | null;
-  language?: string | null;
-  assistant_sid?: string | null;
-  sid?: string | null;
-  value?: string | null;
-  url?: string | null;
-  synonym_of?: string | null;
+  account_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  field_type_sid: string;
+  language: string;
+  assistant_sid: string;
+  sid: string;
+  value: string;
+  url: string;
+  synonym_of: string;
 }
 
 export class FieldValueInstance {
@@ -247,40 +247,40 @@ export class FieldValueInstance {
   /**
    * The unique ID of the Account that created this Field Value.
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The date that this resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The date that this resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The unique ID of the Field Type associated with this Field Value.
    */
-  fieldTypeSid?: string | null;
+  fieldTypeSid: string;
   /**
    * An ISO language-country string of the value.
    */
-  language?: string | null;
+  language: string;
   /**
    * The unique ID of the Assistant.
    */
-  assistantSid?: string | null;
+  assistantSid: string;
   /**
    * A 34 character string that uniquely identifies this resource.
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The Field Value itself.
    */
-  value?: string | null;
-  url?: string | null;
+  value: string;
+  url: string;
   /**
    * A value that indicates this field value is a synonym of. Empty if the value is not a synonym.
    */
-  synonymOf?: string | null;
+  synonymOf: string;
 
   private get _proxy(): FieldValueContext {
     this._context =
@@ -346,8 +346,8 @@ export class FieldValueInstance {
 }
 
 export interface FieldValueSolution {
-  assistantSid?: string;
-  fieldTypeSid?: string;
+  assistantSid: string;
+  fieldTypeSid: string;
 }
 
 export interface FieldValueListInstance {

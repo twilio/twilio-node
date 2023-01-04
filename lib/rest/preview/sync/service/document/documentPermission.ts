@@ -275,14 +275,14 @@ interface DocumentPermissionPayload extends TwilioResponsePayload {
 }
 
 interface DocumentPermissionResource {
-  account_sid?: string | null;
-  service_sid?: string | null;
-  document_sid?: string | null;
-  identity?: string | null;
-  read?: boolean | null;
-  write?: boolean | null;
-  manage?: boolean | null;
-  url?: string | null;
+  account_sid: string;
+  service_sid: string;
+  document_sid: string;
+  identity: string;
+  read: boolean;
+  write: boolean;
+  manage: boolean;
+  url: string;
 }
 
 export class DocumentPermissionInstance {
@@ -315,35 +315,35 @@ export class DocumentPermissionInstance {
   /**
    * Twilio Account SID.
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * Sync Service Instance SID.
    */
-  serviceSid?: string | null;
+  serviceSid: string;
   /**
    * Sync Document SID.
    */
-  documentSid?: string | null;
+  documentSid: string;
   /**
    * Identity of the user to whom the Sync Document Permission applies.
    */
-  identity?: string | null;
+  identity: string;
   /**
    * Read access.
    */
-  read?: boolean | null;
+  read: boolean;
   /**
    * Write access.
    */
-  write?: boolean | null;
+  write: boolean;
   /**
    * Manage access.
    */
-  manage?: boolean | null;
+  manage: boolean;
   /**
    * URL of this Sync Document Permission.
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): DocumentPermissionContext {
     this._context =
@@ -423,8 +423,8 @@ export class DocumentPermissionInstance {
 }
 
 export interface DocumentPermissionSolution {
-  serviceSid?: string;
-  documentSid?: string;
+  serviceSid: string;
+  documentSid: string;
 }
 
 export interface DocumentPermissionListInstance {

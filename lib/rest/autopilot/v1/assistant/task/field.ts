@@ -199,15 +199,15 @@ interface FieldPayload extends TwilioResponsePayload {
 }
 
 interface FieldResource {
-  account_sid?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  field_type?: string | null;
-  task_sid?: string | null;
-  assistant_sid?: string | null;
-  sid?: string | null;
-  unique_name?: string | null;
-  url?: string | null;
+  account_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  field_type: string;
+  task_sid: string;
+  assistant_sid: string;
+  sid: string;
+  unique_name: string;
+  url: string;
 }
 
 export class FieldInstance {
@@ -237,39 +237,39 @@ export class FieldInstance {
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The RFC 2822 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The RFC 2822 date and time in GMT when the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The Field Type of the field
    */
-  fieldType?: string | null;
+  fieldType: string;
   /**
    * The SID of the [Task](https://www.twilio.com/docs/autopilot/api/task) resource associated with this Field
    */
-  taskSid?: string | null;
+  taskSid: string;
   /**
    * The SID of the Assistant that is the parent of the Task associated with the resource
    */
-  assistantSid?: string | null;
+  assistantSid: string;
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * An application-defined string that uniquely identifies the resource
    */
-  uniqueName?: string | null;
+  uniqueName: string;
   /**
    * The absolute URL of the Field resource
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): FieldContext {
     this._context =
@@ -334,8 +334,8 @@ export class FieldInstance {
 }
 
 export interface FieldSolution {
-  assistantSid?: string;
-  taskSid?: string;
+  assistantSid: string;
+  taskSid: string;
 }
 
 export interface FieldListInstance {

@@ -211,13 +211,13 @@ interface CustomerProfilesChannelEndpointAssignmentPayload
 }
 
 interface CustomerProfilesChannelEndpointAssignmentResource {
-  sid?: string | null;
-  customer_profile_sid?: string | null;
-  account_sid?: string | null;
-  channel_endpoint_type?: string | null;
-  channel_endpoint_sid?: string | null;
-  date_created?: Date | null;
-  url?: string | null;
+  sid: string;
+  customer_profile_sid: string;
+  account_sid: string;
+  channel_endpoint_type: string;
+  channel_endpoint_sid: string;
+  date_created: Date;
+  url: string;
 }
 
 export class CustomerProfilesChannelEndpointAssignmentInstance {
@@ -244,31 +244,31 @@ export class CustomerProfilesChannelEndpointAssignmentInstance {
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The unique string that identifies the CustomerProfile resource.
    */
-  customerProfileSid?: string | null;
+  customerProfileSid: string;
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The type of channel endpoint
    */
-  channelEndpointType?: string | null;
+  channelEndpointType: string;
   /**
    * The sid of an channel endpoint
    */
-  channelEndpointSid?: string | null;
+  channelEndpointSid: string;
   /**
    * The ISO 8601 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The absolute URL of the Identity resource
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): CustomerProfilesChannelEndpointAssignmentContext {
     this._context =
@@ -333,7 +333,7 @@ export class CustomerProfilesChannelEndpointAssignmentInstance {
 }
 
 export interface CustomerProfilesChannelEndpointAssignmentSolution {
-  customerProfileSid?: string;
+  customerProfileSid: string;
 }
 
 export interface CustomerProfilesChannelEndpointAssignmentListInstance {

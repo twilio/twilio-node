@@ -285,17 +285,17 @@ interface OriginationUrlPayload extends TwilioResponsePayload {
 }
 
 interface OriginationUrlResource {
-  account_sid?: string | null;
-  sid?: string | null;
-  trunk_sid?: string | null;
-  weight?: number | null;
-  enabled?: boolean | null;
-  sip_url?: string | null;
-  friendly_name?: string | null;
-  priority?: number | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  url?: string | null;
+  account_sid: string;
+  sid: string;
+  trunk_sid: string;
+  weight: number;
+  enabled: boolean;
+  sip_url: string;
+  friendly_name: string;
+  priority: number;
+  date_created: Date;
+  date_updated: Date;
+  url: string;
 }
 
 export class OriginationUrlInstance {
@@ -326,47 +326,47 @@ export class OriginationUrlInstance {
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The SID of the Trunk that owns the Origination URL
    */
-  trunkSid?: string | null;
+  trunkSid: string;
   /**
    * The value that determines the relative load the URI should receive compared to others with the same priority
    */
-  weight?: number | null;
+  weight: number;
   /**
    * Whether the URL is enabled
    */
-  enabled?: boolean | null;
+  enabled: boolean;
   /**
    * The SIP address you want Twilio to route your Origination calls to
    */
-  sipUrl?: string | null;
+  sipUrl: string;
   /**
    * The string that you assigned to describe the resource
    */
-  friendlyName?: string | null;
+  friendlyName: string;
   /**
    * The relative importance of the URI
    */
-  priority?: number | null;
+  priority: number;
   /**
    * The RFC 2822 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The RFC 2822 date and time in GMT when the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The absolute URL of the resource
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): OriginationUrlContext {
     this._context =
@@ -458,7 +458,7 @@ export class OriginationUrlInstance {
 }
 
 export interface OriginationUrlSolution {
-  trunkSid?: string;
+  trunkSid: string;
 }
 
 export interface OriginationUrlListInstance {

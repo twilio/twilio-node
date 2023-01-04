@@ -340,19 +340,19 @@ interface WorkflowPayload extends TwilioResponsePayload {
 }
 
 interface WorkflowResource {
-  account_sid?: string | null;
-  assignment_callback_url?: string | null;
-  configuration?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  document_content_type?: string | null;
-  fallback_assignment_callback_url?: string | null;
-  friendly_name?: string | null;
-  sid?: string | null;
-  task_reservation_timeout?: number | null;
-  workspace_sid?: string | null;
-  url?: string | null;
-  links?: object | null;
+  account_sid: string;
+  assignment_callback_url: string;
+  configuration: string;
+  date_created: Date;
+  date_updated: Date;
+  document_content_type: string;
+  fallback_assignment_callback_url: string;
+  friendly_name: string;
+  sid: string;
+  task_reservation_timeout: number;
+  workspace_sid: string;
+  url: string;
+  links: object;
 }
 
 export class WorkflowInstance {
@@ -388,55 +388,55 @@ export class WorkflowInstance {
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The URL that we call when a task managed by the Workflow is assigned to a Worker
    */
-  assignmentCallbackUrl?: string | null;
+  assignmentCallbackUrl: string;
   /**
    * A JSON string that contains the Workflow\'s configuration
    */
-  configuration?: string | null;
+  configuration: string;
   /**
    * The RFC 2822 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The RFC 2822 date and time in GMT when the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The MIME type of the document
    */
-  documentContentType?: string | null;
+  documentContentType: string;
   /**
    * The URL that we call when a call to the `assignment_callback_url` fails
    */
-  fallbackAssignmentCallbackUrl?: string | null;
+  fallbackAssignmentCallbackUrl: string;
   /**
    * The string that you assigned to describe the Workflow resource
    */
-  friendlyName?: string | null;
+  friendlyName: string;
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * How long TaskRouter will wait for a confirmation response from your application after it assigns a Task to a Worker
    */
-  taskReservationTimeout?: number | null;
+  taskReservationTimeout: number;
   /**
    * The SID of the Workspace that contains the Workflow
    */
-  workspaceSid?: string | null;
+  workspaceSid: string;
   /**
    * The absolute URL of the Workflow resource
    */
-  url?: string | null;
+  url: string;
   /**
    * The URLs of related resources
    */
-  links?: object | null;
+  links: object;
 
   private get _proxy(): WorkflowContext {
     this._context =
@@ -551,7 +551,7 @@ export class WorkflowInstance {
 }
 
 export interface WorkflowSolution {
-  workspaceSid?: string;
+  workspaceSid: string;
 }
 
 export interface WorkflowListInstance {

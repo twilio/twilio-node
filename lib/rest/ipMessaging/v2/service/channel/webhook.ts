@@ -315,15 +315,15 @@ interface WebhookPayload extends TwilioResponsePayload {
 }
 
 interface WebhookResource {
-  sid?: string | null;
-  account_sid?: string | null;
-  service_sid?: string | null;
-  channel_sid?: string | null;
-  type?: string | null;
-  url?: string | null;
-  configuration?: any | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
+  sid: string;
+  account_sid: string;
+  service_sid: string;
+  channel_sid: string;
+  type: string;
+  url: string;
+  configuration: any;
+  date_created: Date;
+  date_updated: Date;
 }
 
 export class WebhookInstance {
@@ -350,15 +350,15 @@ export class WebhookInstance {
     this._solution = { serviceSid, channelSid, sid: sid || this.sid };
   }
 
-  sid?: string | null;
-  accountSid?: string | null;
-  serviceSid?: string | null;
-  channelSid?: string | null;
-  type?: string | null;
-  url?: string | null;
-  configuration?: any | null;
-  dateCreated?: Date | null;
-  dateUpdated?: Date | null;
+  sid: string;
+  accountSid: string;
+  serviceSid: string;
+  channelSid: string;
+  type: string;
+  url: string;
+  configuration: any;
+  dateCreated: Date;
+  dateUpdated: Date;
 
   private get _proxy(): WebhookContext {
     this._context =
@@ -449,8 +449,8 @@ export class WebhookInstance {
 }
 
 export interface WebhookSolution {
-  serviceSid?: string;
-  channelSid?: string;
+  serviceSid: string;
+  channelSid: string;
 }
 
 export interface WebhookListInstance {

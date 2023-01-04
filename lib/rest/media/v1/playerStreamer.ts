@@ -271,18 +271,18 @@ interface PlayerStreamerPayload extends TwilioResponsePayload {
 }
 
 interface PlayerStreamerResource {
-  account_sid?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  video?: boolean | null;
-  links?: object | null;
-  sid?: string | null;
-  status?: PlayerStreamerStatus;
-  url?: string | null;
-  status_callback?: string | null;
-  status_callback_method?: PlayerStreamerStatusCallbackMethod;
-  ended_reason?: PlayerStreamerEndedReason;
-  max_duration?: number | null;
+  account_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  video: boolean;
+  links: object;
+  sid: string;
+  status: PlayerStreamerStatus;
+  url: string;
+  status_callback: string;
+  status_callback_method: PlayerStreamerStatusCallbackMethod;
+  ended_reason: PlayerStreamerEndedReason;
+  max_duration: number;
 }
 
 export class PlayerStreamerInstance {
@@ -313,45 +313,45 @@ export class PlayerStreamerInstance {
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The ISO 8601 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The ISO 8601 date and time in GMT when the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * Whether the PlayerStreamer is configured to stream video
    */
-  video?: boolean | null;
+  video: boolean;
   /**
    * The URLs of related resources
    */
-  links?: object | null;
+  links: object;
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
-  status?: PlayerStreamerStatus;
+  sid: string;
+  status: PlayerStreamerStatus;
   /**
    * The absolute URL of the resource
    */
-  url?: string | null;
+  url: string;
   /**
    * The URL to which Twilio will send PlayerStreamer event updates
    */
-  statusCallback?: string | null;
+  statusCallback: string;
   /**
    * The HTTP method Twilio should use to call the `status_callback` URL
    */
-  statusCallbackMethod?: PlayerStreamerStatusCallbackMethod;
-  endedReason?: PlayerStreamerEndedReason;
+  statusCallbackMethod: PlayerStreamerStatusCallbackMethod;
+  endedReason: PlayerStreamerEndedReason;
   /**
    * Maximum PlayerStreamer duration in seconds
    */
-  maxDuration?: number | null;
+  maxDuration: number;
 
   private get _proxy(): PlayerStreamerContext {
     this._context =

@@ -270,12 +270,12 @@ interface WebChannelPayload extends TwilioResponsePayload {
 }
 
 interface WebChannelResource {
-  account_sid?: string | null;
-  flex_flow_sid?: string | null;
-  sid?: string | null;
-  url?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
+  account_sid: string;
+  flex_flow_sid: string;
+  sid: string;
+  url: string;
+  date_created: Date;
+  date_updated: Date;
 }
 
 export class WebChannelInstance {
@@ -300,27 +300,27 @@ export class WebChannelInstance {
   /**
    * The SID of the Account that created the resource and owns this Workflow
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The SID of the Flex Flow
    */
-  flexFlowSid?: string | null;
+  flexFlowSid: string;
   /**
    * The unique string that identifies the WebChannel resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The absolute URL of the WebChannel resource
    */
-  url?: string | null;
+  url: string;
   /**
    * The ISO 8601 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The ISO 8601 date and time in GMT when the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
 
   private get _proxy(): WebChannelContext {
     this._context =

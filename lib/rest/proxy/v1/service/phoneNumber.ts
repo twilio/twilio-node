@@ -266,18 +266,18 @@ interface PhoneNumberPayload extends TwilioResponsePayload {
 }
 
 interface PhoneNumberResource {
-  sid?: string | null;
-  account_sid?: string | null;
-  service_sid?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  phone_number?: string | null;
-  friendly_name?: string | null;
-  iso_country?: string | null;
-  capabilities?: PhoneNumberCapabilities | null;
-  url?: string | null;
-  is_reserved?: boolean | null;
-  in_use?: number | null;
+  sid: string;
+  account_sid: string;
+  service_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  phone_number: string;
+  friendly_name: string;
+  iso_country: string;
+  capabilities: PhoneNumberCapabilities;
+  url: string;
+  is_reserved: boolean;
+  in_use: number;
 }
 
 export class PhoneNumberInstance {
@@ -309,48 +309,48 @@ export class PhoneNumberInstance {
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The SID of the PhoneNumber resource\'s parent Service resource
    */
-  serviceSid?: string | null;
+  serviceSid: string;
   /**
    * The ISO 8601 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The ISO 8601 date and time in GMT when the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The phone number in E.164 format
    */
-  phoneNumber?: string | null;
+  phoneNumber: string;
   /**
    * The string that you assigned to describe the resource
    */
-  friendlyName?: string | null;
+  friendlyName: string;
   /**
    * The ISO Country Code
    */
-  isoCountry?: string | null;
-  capabilities?: PhoneNumberCapabilities | null;
+  isoCountry: string;
+  capabilities: PhoneNumberCapabilities;
   /**
    * The absolute URL of the PhoneNumber resource
    */
-  url?: string | null;
+  url: string;
   /**
    * Reserve the phone number for manual assignment to participants only
    */
-  isReserved?: boolean | null;
+  isReserved: boolean;
   /**
    * The number of open session assigned to the number.
    */
-  inUse?: number | null;
+  inUse: number;
 
   private get _proxy(): PhoneNumberContext {
     this._context =
@@ -443,7 +443,7 @@ export class PhoneNumberInstance {
 }
 
 export interface PhoneNumberSolution {
-  serviceSid?: string;
+  serviceSid: string;
 }
 
 export interface PhoneNumberListInstance {

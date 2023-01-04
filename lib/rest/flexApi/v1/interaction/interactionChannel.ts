@@ -269,14 +269,14 @@ interface InteractionChannelPayload extends TwilioResponsePayload {
 }
 
 interface InteractionChannelResource {
-  sid?: string | null;
-  interaction_sid?: string | null;
-  type?: InteractionChannelType;
-  status?: InteractionChannelChannelStatus;
-  error_code?: number | null;
-  error_message?: string | null;
-  url?: string | null;
-  links?: object | null;
+  sid: string;
+  interaction_sid: string;
+  type: InteractionChannelType;
+  status: InteractionChannelChannelStatus;
+  error_code: number;
+  error_message: string;
+  url: string;
+  links: object;
 }
 
 export class InteractionChannelInstance {
@@ -304,23 +304,23 @@ export class InteractionChannelInstance {
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The unique string that identifies the resource.
    */
-  interactionSid?: string | null;
-  type?: InteractionChannelType;
-  status?: InteractionChannelChannelStatus;
+  interactionSid: string;
+  type: InteractionChannelType;
+  status: InteractionChannelChannelStatus;
   /**
    * The Twilio error code for a failed channel.
    */
-  errorCode?: number | null;
+  errorCode: number;
   /**
    * The error message for a failed channel.
    */
-  errorMessage?: string | null;
-  url?: string | null;
-  links?: object | null;
+  errorMessage: string;
+  url: string;
+  links: object;
 
   private get _proxy(): InteractionChannelContext {
     this._context =
@@ -400,7 +400,7 @@ export class InteractionChannelInstance {
 }
 
 export interface InteractionChannelSolution {
-  interactionSid?: string;
+  interactionSid: string;
 }
 
 export interface InteractionChannelListInstance {

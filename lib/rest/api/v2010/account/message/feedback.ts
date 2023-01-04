@@ -30,8 +30,8 @@ export interface FeedbackListInstanceCreateOptions {
 }
 
 export interface FeedbackSolution {
-  accountSid?: string;
-  messageSid?: string;
+  accountSid: string;
+  messageSid: string;
 }
 
 export interface FeedbackListInstance {
@@ -149,12 +149,12 @@ export function FeedbackListInstance(
 interface FeedbackPayload extends FeedbackResource {}
 
 interface FeedbackResource {
-  account_sid?: string | null;
-  message_sid?: string | null;
-  outcome?: MessageFeedbackOutcome;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  uri?: string | null;
+  account_sid: string;
+  message_sid: string;
+  outcome: MessageFeedbackOutcome;
+  date_created: Date;
+  date_updated: Date;
+  uri: string;
 }
 
 export class FeedbackInstance {
@@ -175,24 +175,24 @@ export class FeedbackInstance {
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The SID of the Message resource for which the feedback was provided
    */
-  messageSid?: string | null;
-  outcome?: MessageFeedbackOutcome;
+  messageSid: string;
+  outcome: MessageFeedbackOutcome;
   /**
    * The RFC 2822 date and time in GMT that the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The RFC 2822 date and time in GMT that the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The URI of the resource, relative to `https://api.twilio.com`
    */
-  uri?: string | null;
+  uri: string;
 
   /**
    * Provide a user-friendly representation

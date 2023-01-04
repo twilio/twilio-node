@@ -315,15 +315,15 @@ interface WebhookPayload extends TwilioResponsePayload {
 }
 
 interface WebhookResource {
-  sid?: string | null;
-  account_sid?: string | null;
-  service_sid?: string | null;
-  channel_sid?: string | null;
-  type?: string | null;
-  url?: string | null;
-  configuration?: any | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
+  sid: string;
+  account_sid: string;
+  service_sid: string;
+  channel_sid: string;
+  type: string;
+  url: string;
+  configuration: any;
+  date_created: Date;
+  date_updated: Date;
 }
 
 export class WebhookInstance {
@@ -353,39 +353,39 @@ export class WebhookInstance {
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The SID of the Service that the Channel Webhook resource is associated with
    */
-  serviceSid?: string | null;
+  serviceSid: string;
   /**
    * The SID of the Channel the Channel Webhook resource belongs to
    */
-  channelSid?: string | null;
+  channelSid: string;
   /**
    * The type of webhook
    */
-  type?: string | null;
+  type: string;
   /**
    * The absolute URL of the Channel Webhook resource
    */
-  url?: string | null;
+  url: string;
   /**
    * The JSON string that describes the configuration object for the channel webhook
    */
-  configuration?: any | null;
+  configuration: any;
   /**
    * The ISO 8601 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The ISO 8601 date and time in GMT when the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
 
   private get _proxy(): WebhookContext {
     this._context =
@@ -476,8 +476,8 @@ export class WebhookInstance {
 }
 
 export interface WebhookSolution {
-  serviceSid?: string;
-  channelSid?: string;
+  serviceSid: string;
+  channelSid: string;
 }
 
 export interface WebhookListInstance {

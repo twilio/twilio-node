@@ -205,16 +205,16 @@ interface InvitePayload extends TwilioResponsePayload {
 }
 
 interface InviteResource {
-  sid?: string | null;
-  account_sid?: string | null;
-  channel_sid?: string | null;
-  service_sid?: string | null;
-  identity?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  role_sid?: string | null;
-  created_by?: string | null;
-  url?: string | null;
+  sid: string;
+  account_sid: string;
+  channel_sid: string;
+  service_sid: string;
+  identity: string;
+  date_created: Date;
+  date_updated: Date;
+  role_sid: string;
+  created_by: string;
+  url: string;
 }
 
 export class InviteInstance {
@@ -245,43 +245,43 @@ export class InviteInstance {
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The SID of the Channel the new resource belongs to
    */
-  channelSid?: string | null;
+  channelSid: string;
   /**
    * The SID of the Service that the resource is associated with
    */
-  serviceSid?: string | null;
+  serviceSid: string;
   /**
    * The string that identifies the resource\'s User
    */
-  identity?: string | null;
+  identity: string;
   /**
    * The RFC 2822 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The RFC 2822 date and time in GMT when the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The SID of the Role assigned to the member
    */
-  roleSid?: string | null;
+  roleSid: string;
   /**
    * The identity of the User that created the invite
    */
-  createdBy?: string | null;
+  createdBy: string;
   /**
    * The absolute URL of the Invite resource
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): InviteContext {
     this._context =
@@ -347,8 +347,8 @@ export class InviteInstance {
 }
 
 export interface InviteSolution {
-  serviceSid?: string;
-  channelSid?: string;
+  serviceSid: string;
+  channelSid: string;
 }
 
 export interface InviteListInstance {

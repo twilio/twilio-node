@@ -218,23 +218,23 @@ interface EventPayload extends TwilioResponsePayload {
 }
 
 interface EventResource {
-  account_sid?: string | null;
-  actor_sid?: string | null;
-  actor_type?: string | null;
-  actor_url?: string | null;
-  description?: string | null;
-  event_data?: any | null;
-  event_date?: Date | null;
-  event_date_ms?: number | null;
-  event_type?: string | null;
-  resource_sid?: string | null;
-  resource_type?: string | null;
-  resource_url?: string | null;
-  sid?: string | null;
-  source?: string | null;
-  source_ip_address?: string | null;
-  url?: string | null;
-  workspace_sid?: string | null;
+  account_sid: string;
+  actor_sid: string;
+  actor_type: string;
+  actor_url: string;
+  description: string;
+  event_data: any;
+  event_date: Date;
+  event_date_ms: number;
+  event_type: string;
+  resource_sid: string;
+  resource_type: string;
+  resource_url: string;
+  sid: string;
+  source: string;
+  source_ip_address: string;
+  url: string;
+  workspace_sid: string;
 }
 
 export class EventInstance {
@@ -271,71 +271,71 @@ export class EventInstance {
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The SID of the resource that triggered the event
    */
-  actorSid?: string | null;
+  actorSid: string;
   /**
    * The type of resource that triggered the event
    */
-  actorType?: string | null;
+  actorType: string;
   /**
    * The absolute URL of the resource that triggered the event
    */
-  actorUrl?: string | null;
+  actorUrl: string;
   /**
    * A description of the event
    */
-  description?: string | null;
+  description: string;
   /**
    * Data about the event
    */
-  eventData?: any | null;
+  eventData: any;
   /**
    * The time the event was sent
    */
-  eventDate?: Date | null;
+  eventDate: Date;
   /**
    * The time the event was sent in milliseconds
    */
-  eventDateMs?: number | null;
+  eventDateMs: number;
   /**
    * The identifier for the event
    */
-  eventType?: string | null;
+  eventType: string;
   /**
    * The SID of the object the event is most relevant to
    */
-  resourceSid?: string | null;
+  resourceSid: string;
   /**
    * The type of object the event is most relevant to
    */
-  resourceType?: string | null;
+  resourceType: string;
   /**
    * The URL of the resource the event is most relevant to
    */
-  resourceUrl?: string | null;
+  resourceUrl: string;
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * Where the Event originated
    */
-  source?: string | null;
+  source: string;
   /**
    * The IP from which the Event originated
    */
-  sourceIpAddress?: string | null;
+  sourceIpAddress: string;
   /**
    * The absolute URL of the Event resource
    */
-  url?: string | null;
+  url: string;
   /**
    * The SID of the Workspace that contains the Event
    */
-  workspaceSid?: string | null;
+  workspaceSid: string;
 
   private get _proxy(): EventContext {
     this._context =
@@ -394,7 +394,7 @@ export class EventInstance {
 }
 
 export interface EventSolution {
-  workspaceSid?: string;
+  workspaceSid: string;
 }
 
 export interface EventListInstance {

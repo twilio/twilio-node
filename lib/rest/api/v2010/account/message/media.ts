@@ -207,13 +207,13 @@ interface MediaPayload extends TwilioResponsePayload {
 }
 
 interface MediaResource {
-  account_sid?: string | null;
-  content_type?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  parent_sid?: string | null;
-  sid?: string | null;
-  uri?: string | null;
+  account_sid: string;
+  content_type: string;
+  date_created: Date;
+  date_updated: Date;
+  parent_sid: string;
+  sid: string;
+  uri: string;
 }
 
 export class MediaInstance {
@@ -241,31 +241,31 @@ export class MediaInstance {
   /**
    * The SID of the Account that created this resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The default mime-type of the media
    */
-  contentType?: string | null;
+  contentType: string;
   /**
    * The RFC 2822 date and time in GMT that this resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The RFC 2822 date and time in GMT that this resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The SID of the resource that created the media
    */
-  parentSid?: string | null;
+  parentSid: string;
   /**
    * The unique string that identifies this resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The URI of this resource, relative to `https://api.twilio.com`
    */
-  uri?: string | null;
+  uri: string;
 
   private get _proxy(): MediaContext {
     this._context =
@@ -328,8 +328,8 @@ export class MediaInstance {
 }
 
 export interface MediaSolution {
-  accountSid?: string;
-  messageSid?: string;
+  accountSid: string;
+  messageSid: string;
 }
 
 export interface MediaListInstance {

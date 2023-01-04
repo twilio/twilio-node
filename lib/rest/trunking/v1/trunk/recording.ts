@@ -180,8 +180,8 @@ export class RecordingContextImpl implements RecordingContext {
 interface RecordingPayload extends RecordingResource {}
 
 interface RecordingResource {
-  mode?: RecordingRecordingMode;
-  trim?: RecordingRecordingTrim;
+  mode: RecordingRecordingMode;
+  trim: RecordingRecordingTrim;
 }
 
 export class RecordingInstance {
@@ -199,8 +199,8 @@ export class RecordingInstance {
     this._solution = { trunkSid };
   }
 
-  mode?: RecordingRecordingMode;
-  trim?: RecordingRecordingTrim;
+  mode: RecordingRecordingMode;
+  trim: RecordingRecordingTrim;
 
   private get _proxy(): RecordingContext {
     this._context =
@@ -266,7 +266,7 @@ export class RecordingInstance {
 }
 
 export interface RecordingSolution {
-  trunkSid?: string;
+  trunkSid: string;
 }
 
 export interface RecordingListInstance {

@@ -214,17 +214,17 @@ interface AssignedAddOnPayload extends TwilioResponsePayload {
 }
 
 interface AssignedAddOnResource {
-  sid?: string | null;
-  account_sid?: string | null;
-  resource_sid?: string | null;
-  friendly_name?: string | null;
-  description?: string | null;
-  configuration?: any | null;
-  unique_name?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  uri?: string | null;
-  subresource_uris?: object | null;
+  sid: string;
+  account_sid: string;
+  resource_sid: string;
+  friendly_name: string;
+  description: string;
+  configuration: any;
+  unique_name: string;
+  date_created: Date;
+  date_updated: Date;
+  uri: string;
+  subresource_uris: object;
 }
 
 export class AssignedAddOnInstance {
@@ -256,47 +256,47 @@ export class AssignedAddOnInstance {
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The SID of the Phone Number that installed this Add-on
    */
-  resourceSid?: string | null;
+  resourceSid: string;
   /**
    * The string that you assigned to describe the resource
    */
-  friendlyName?: string | null;
+  friendlyName: string;
   /**
    * A short description of the Add-on functionality
    */
-  description?: string | null;
+  description: string;
   /**
    * A JSON string that represents the current configuration
    */
-  configuration?: any | null;
+  configuration: any;
   /**
    * An application-defined string that uniquely identifies the resource
    */
-  uniqueName?: string | null;
+  uniqueName: string;
   /**
    * The RFC 2822 date and time in GMT that the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The RFC 2822 date and time in GMT that the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The URI of the resource, relative to `https://api.twilio.com`
    */
-  uri?: string | null;
+  uri: string;
   /**
    * A list of related resources identified by their relative URIs
    */
-  subresourceUris?: object | null;
+  subresourceUris: object;
 
   private get _proxy(): AssignedAddOnContext {
     this._context =
@@ -370,8 +370,8 @@ export class AssignedAddOnInstance {
 }
 
 export interface AssignedAddOnSolution {
-  accountSid?: string;
-  resourceSid?: string;
+  accountSid: string;
+  resourceSid: string;
 }
 
 export interface AssignedAddOnListInstance {

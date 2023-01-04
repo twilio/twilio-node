@@ -395,30 +395,30 @@ interface SimPayload extends TwilioResponsePayload {
 }
 
 interface SimResource {
-  sid?: string | null;
-  unique_name?: string | null;
-  account_sid?: string | null;
-  rate_plan_sid?: string | null;
-  friendly_name?: string | null;
-  iccid?: string | null;
-  e_id?: string | null;
-  status?: SimStatus;
-  reset_status?: SimResetStatus;
-  commands_callback_url?: string | null;
-  commands_callback_method?: SimCommandsCallbackMethod;
-  sms_fallback_method?: SimSmsFallbackMethod;
-  sms_fallback_url?: string | null;
-  sms_method?: SimSmsMethod;
-  sms_url?: string | null;
-  voice_fallback_method?: SimVoiceFallbackMethod;
-  voice_fallback_url?: string | null;
-  voice_method?: SimVoiceMethod;
-  voice_url?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  url?: string | null;
-  links?: object | null;
-  ip_address?: string | null;
+  sid: string;
+  unique_name: string;
+  account_sid: string;
+  rate_plan_sid: string;
+  friendly_name: string;
+  iccid: string;
+  e_id: string;
+  status: SimStatus;
+  reset_status: SimResetStatus;
+  commands_callback_url: string;
+  commands_callback_method: SimCommandsCallbackMethod;
+  sms_fallback_method: SimSmsFallbackMethod;
+  sms_fallback_url: string;
+  sms_method: SimSmsMethod;
+  sms_url: string;
+  voice_fallback_method: SimVoiceFallbackMethod;
+  voice_fallback_url: string;
+  voice_method: SimVoiceMethod;
+  voice_url: string;
+  date_created: Date;
+  date_updated: Date;
+  url: string;
+  links: object;
+  ip_address: string;
 }
 
 export class SimInstance {
@@ -457,93 +457,93 @@ export class SimInstance {
   /**
    * The unique string that identifies the Sim resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * An application-defined string that uniquely identifies the resource
    */
-  uniqueName?: string | null;
+  uniqueName: string;
   /**
    * The SID of the Account to which the Sim resource belongs
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The SID of the RatePlan resource to which the Sim resource is assigned.
    */
-  ratePlanSid?: string | null;
+  ratePlanSid: string;
   /**
    * The string that you assigned to describe the Sim resource
    */
-  friendlyName?: string | null;
+  friendlyName: string;
   /**
    * The ICCID associated with the SIM
    */
-  iccid?: string | null;
+  iccid: string;
   /**
    * Deprecated
    */
-  eId?: string | null;
-  status?: SimStatus;
-  resetStatus?: SimResetStatus;
+  eId: string;
+  status: SimStatus;
+  resetStatus: SimResetStatus;
   /**
    * The URL we call when the SIM originates a machine-to-machine Command
    */
-  commandsCallbackUrl?: string | null;
+  commandsCallbackUrl: string;
   /**
    * The HTTP method we use to call commands_callback_url
    */
-  commandsCallbackMethod?: SimCommandsCallbackMethod;
+  commandsCallbackMethod: SimCommandsCallbackMethod;
   /**
    * Deprecated
    */
-  smsFallbackMethod?: SimSmsFallbackMethod;
+  smsFallbackMethod: SimSmsFallbackMethod;
   /**
    * Deprecated
    */
-  smsFallbackUrl?: string | null;
+  smsFallbackUrl: string;
   /**
    * Deprecated
    */
-  smsMethod?: SimSmsMethod;
+  smsMethod: SimSmsMethod;
   /**
    * Deprecated
    */
-  smsUrl?: string | null;
+  smsUrl: string;
   /**
    * Deprecated. The HTTP method we use to call voice_fallback_url
    */
-  voiceFallbackMethod?: SimVoiceFallbackMethod;
+  voiceFallbackMethod: SimVoiceFallbackMethod;
   /**
    * Deprecated. The URL we call when an error occurs while retrieving or executing the TwiML requested from voice_url
    */
-  voiceFallbackUrl?: string | null;
+  voiceFallbackUrl: string;
   /**
    * Deprecated. The HTTP method we use to call voice_url
    */
-  voiceMethod?: SimVoiceMethod;
+  voiceMethod: SimVoiceMethod;
   /**
    * Deprecated. The URL we call when the SIM-connected device makes a voice call
    */
-  voiceUrl?: string | null;
+  voiceUrl: string;
   /**
    * The ISO 8601 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The ISO 8601 date and time in GMT when the Sim resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The absolute URL of the resource
    */
-  url?: string | null;
+  url: string;
   /**
    * The URLs of related subresources
    */
-  links?: object | null;
+  links: object;
   /**
    * Deprecated
    */
-  ipAddress?: string | null;
+  ipAddress: string;
 
   private get _proxy(): SimContext {
     this._context =

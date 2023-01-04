@@ -560,13 +560,13 @@ export class SiprecContextImpl implements SiprecContext {
 interface SiprecPayload extends SiprecResource {}
 
 interface SiprecResource {
-  sid?: string | null;
-  account_sid?: string | null;
-  call_sid?: string | null;
-  name?: string | null;
-  status?: SiprecStatus;
-  date_updated?: Date | null;
-  uri?: string | null;
+  sid: string;
+  account_sid: string;
+  call_sid: string;
+  name: string;
+  status: SiprecStatus;
+  date_updated: Date;
+  uri: string;
 }
 
 export class SiprecInstance {
@@ -594,28 +594,28 @@ export class SiprecInstance {
   /**
    * The SID of the Siprec resource.
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The SID of the Account that created this resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The SID of the Call the resource is associated with
    */
-  callSid?: string | null;
+  callSid: string;
   /**
    * The name of this resource
    */
-  name?: string | null;
-  status?: SiprecStatus;
+  name: string;
+  status: SiprecStatus;
   /**
    * The RFC 2822 date and time in GMT that this resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The URI of the resource, relative to `https://api.twilio.com`
    */
-  uri?: string | null;
+  uri: string;
 
   private get _proxy(): SiprecContext {
     this._context =
@@ -668,8 +668,8 @@ export class SiprecInstance {
 }
 
 export interface SiprecSolution {
-  accountSid?: string;
-  callSid?: string;
+  accountSid: string;
+  callSid: string;
 }
 
 export interface SiprecListInstance {

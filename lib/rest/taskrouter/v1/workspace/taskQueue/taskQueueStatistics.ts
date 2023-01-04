@@ -160,12 +160,12 @@ export class TaskQueueStatisticsContextImpl
 interface TaskQueueStatisticsPayload extends TaskQueueStatisticsResource {}
 
 interface TaskQueueStatisticsResource {
-  account_sid?: string | null;
-  cumulative?: any | null;
-  realtime?: any | null;
-  task_queue_sid?: string | null;
-  workspace_sid?: string | null;
-  url?: string | null;
+  account_sid: string;
+  cumulative: any;
+  realtime: any;
+  task_queue_sid: string;
+  workspace_sid: string;
+  url: string;
 }
 
 export class TaskQueueStatisticsInstance {
@@ -191,27 +191,27 @@ export class TaskQueueStatisticsInstance {
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * An object that contains the cumulative statistics for the TaskQueue
    */
-  cumulative?: any | null;
+  cumulative: any;
   /**
    * An object that contains the real-time statistics for the TaskQueue
    */
-  realtime?: any | null;
+  realtime: any;
   /**
    * The SID of the TaskQueue from which these statistics were calculated
    */
-  taskQueueSid?: string | null;
+  taskQueueSid: string;
   /**
    * The SID of the Workspace that contains the TaskQueue
    */
-  workspaceSid?: string | null;
+  workspaceSid: string;
   /**
    * The absolute URL of the TaskQueue statistics resource
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): TaskQueueStatisticsContext {
     this._context =
@@ -272,8 +272,8 @@ export class TaskQueueStatisticsInstance {
 }
 
 export interface TaskQueueStatisticsSolution {
-  workspaceSid?: string;
-  taskQueueSid?: string;
+  workspaceSid: string;
+  taskQueueSid: string;
 }
 
 export interface TaskQueueStatisticsListInstance {

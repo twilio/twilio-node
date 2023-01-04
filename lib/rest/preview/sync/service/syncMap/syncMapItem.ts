@@ -328,16 +328,16 @@ interface SyncMapItemPayload extends TwilioResponsePayload {
 }
 
 interface SyncMapItemResource {
-  key?: string | null;
-  account_sid?: string | null;
-  service_sid?: string | null;
-  map_sid?: string | null;
-  url?: string | null;
-  revision?: string | null;
-  data?: any | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  created_by?: string | null;
+  key: string;
+  account_sid: string;
+  service_sid: string;
+  map_sid: string;
+  url: string;
+  revision: string;
+  data: any;
+  date_created: Date;
+  date_updated: Date;
+  created_by: string;
 }
 
 export class SyncMapItemInstance {
@@ -365,16 +365,16 @@ export class SyncMapItemInstance {
     this._solution = { serviceSid, mapSid, key: key || this.key };
   }
 
-  key?: string | null;
-  accountSid?: string | null;
-  serviceSid?: string | null;
-  mapSid?: string | null;
-  url?: string | null;
-  revision?: string | null;
-  data?: any | null;
-  dateCreated?: Date | null;
-  dateUpdated?: Date | null;
-  createdBy?: string | null;
+  key: string;
+  accountSid: string;
+  serviceSid: string;
+  mapSid: string;
+  url: string;
+  revision: string;
+  data: any;
+  dateCreated: Date;
+  dateUpdated: Date;
+  createdBy: string;
 
   private get _proxy(): SyncMapItemContext {
     this._context =
@@ -469,8 +469,8 @@ export class SyncMapItemInstance {
 }
 
 export interface SyncMapItemSolution {
-  serviceSid?: string;
-  mapSid?: string;
+  serviceSid: string;
+  mapSid: string;
 }
 
 export interface SyncMapItemListInstance {

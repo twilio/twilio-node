@@ -270,22 +270,22 @@ interface RatePlanPayload extends TwilioResponsePayload {
 }
 
 interface RatePlanResource {
-  sid?: string | null;
-  unique_name?: string | null;
-  account_sid?: string | null;
-  friendly_name?: string | null;
-  data_enabled?: boolean | null;
-  data_metering?: string | null;
-  data_limit?: number | null;
-  messaging_enabled?: boolean | null;
-  voice_enabled?: boolean | null;
-  national_roaming_enabled?: boolean | null;
-  national_roaming_data_limit?: number | null;
-  international_roaming?: Array<string> | null;
-  international_roaming_data_limit?: number | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  url?: string | null;
+  sid: string;
+  unique_name: string;
+  account_sid: string;
+  friendly_name: string;
+  data_enabled: boolean;
+  data_metering: string;
+  data_limit: number;
+  messaging_enabled: boolean;
+  voice_enabled: boolean;
+  national_roaming_enabled: boolean;
+  national_roaming_data_limit: number;
+  international_roaming: Array<string>;
+  international_roaming_data_limit: number;
+  date_created: Date;
+  date_updated: Date;
+  url: string;
 }
 
 export class RatePlanInstance {
@@ -320,67 +320,67 @@ export class RatePlanInstance {
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * An application-defined string that uniquely identifies the resource
    */
-  uniqueName?: string | null;
+  uniqueName: string;
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The string that you assigned to describe the resource
    */
-  friendlyName?: string | null;
+  friendlyName: string;
   /**
    * Whether SIMs can use GPRS/3G/4G/LTE data connectivity
    */
-  dataEnabled?: boolean | null;
+  dataEnabled: boolean;
   /**
    * The model used to meter data usage
    */
-  dataMetering?: string | null;
+  dataMetering: string;
   /**
    * The total data usage in Megabytes that the Network allows during one month on the home network
    */
-  dataLimit?: number | null;
+  dataLimit: number;
   /**
    * Whether SIMs can make, send, and receive SMS using Commands
    */
-  messagingEnabled?: boolean | null;
+  messagingEnabled: boolean;
   /**
    * Deprecated. Whether SIMs can make and receive voice calls
    */
-  voiceEnabled?: boolean | null;
+  voiceEnabled: boolean;
   /**
    * Whether SIMs can roam on networks other than the home network in the United States
    */
-  nationalRoamingEnabled?: boolean | null;
+  nationalRoamingEnabled: boolean;
   /**
    * The total data usage in Megabytes that the Network allows during one month on non-home networks in the United States
    */
-  nationalRoamingDataLimit?: number | null;
+  nationalRoamingDataLimit: number;
   /**
    * The services that SIMs capable of using GPRS/3G/4G/LTE data connectivity can use outside of the United States
    */
-  internationalRoaming?: Array<string> | null;
+  internationalRoaming: Array<string>;
   /**
    * The total data usage (download and upload combined) in Megabytes that the Network allows during one month when roaming outside the United States
    */
-  internationalRoamingDataLimit?: number | null;
+  internationalRoamingDataLimit: number;
   /**
    * The date when the resource was created, given as GMT in ISO 8601 format
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The date when the resource was last updated, given as GMT in ISO 8601 format
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The absolute URL of the resource
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): RatePlanContext {
     this._context =

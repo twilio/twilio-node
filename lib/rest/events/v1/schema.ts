@@ -103,11 +103,11 @@ export class SchemaContextImpl implements SchemaContext {
 interface SchemaPayload extends SchemaResource {}
 
 interface SchemaResource {
-  id?: string | null;
-  url?: string | null;
-  links?: object | null;
-  latest_version_date_created?: Date | null;
-  latest_version?: number | null;
+  id: string;
+  url: string;
+  links: object;
+  latest_version_date_created: Date;
+  latest_version: number;
 }
 
 export class SchemaInstance {
@@ -129,23 +129,23 @@ export class SchemaInstance {
   /**
    * Schema Identifier.
    */
-  id?: string | null;
+  id: string;
   /**
    * The URL of this resource.
    */
-  url?: string | null;
+  url: string;
   /**
    * Nested resource URLs.
    */
-  links?: object | null;
+  links: object;
   /**
    * The date that the latest schema version was created.
    */
-  latestVersionDateCreated?: Date | null;
+  latestVersionDateCreated: Date;
   /**
    * Latest schema version.
    */
-  latestVersion?: number | null;
+  latestVersion: number;
 
   private get _proxy(): SchemaContext {
     this._context =

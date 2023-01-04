@@ -360,20 +360,20 @@ interface FlexFlowPayload extends TwilioResponsePayload {
 }
 
 interface FlexFlowResource {
-  account_sid?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  sid?: string | null;
-  friendly_name?: string | null;
-  chat_service_sid?: string | null;
-  channel_type?: FlexFlowChannelType;
-  contact_identity?: string | null;
-  enabled?: boolean | null;
-  integration_type?: FlexFlowIntegrationType;
-  integration?: any | null;
-  long_lived?: boolean | null;
-  janitor_enabled?: boolean | null;
-  url?: string | null;
+  account_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  sid: string;
+  friendly_name: string;
+  chat_service_sid: string;
+  channel_type: FlexFlowChannelType;
+  contact_identity: string;
+  enabled: boolean;
+  integration_type: FlexFlowIntegrationType;
+  integration: any;
+  long_lived: boolean;
+  janitor_enabled: boolean;
+  url: string;
 }
 
 export class FlexFlowInstance {
@@ -402,53 +402,53 @@ export class FlexFlowInstance {
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The ISO 8601 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The ISO 8601 date and time in GMT when the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The string that you assigned to describe the resource
    */
-  friendlyName?: string | null;
+  friendlyName: string;
   /**
    * The SID of the chat service
    */
-  chatServiceSid?: string | null;
-  channelType?: FlexFlowChannelType;
+  chatServiceSid: string;
+  channelType: FlexFlowChannelType;
   /**
    * The channel contact\'s Identity
    */
-  contactIdentity?: string | null;
+  contactIdentity: string;
   /**
    * Whether the Flex Flow is enabled
    */
-  enabled?: boolean | null;
-  integrationType?: FlexFlowIntegrationType;
+  enabled: boolean;
+  integrationType: FlexFlowIntegrationType;
   /**
    * An object that contains specific parameters for the integration
    */
-  integration?: any | null;
+  integration: any;
   /**
    * Re-use this chat channel for future interactions with a contact
    */
-  longLived?: boolean | null;
+  longLived: boolean;
   /**
    * Remove active Proxy sessions if the corresponding Task is deleted.
    */
-  janitorEnabled?: boolean | null;
+  janitorEnabled: boolean;
   /**
    * The absolute URL of the Flex Flow resource
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): FlexFlowContext {
     this._context =

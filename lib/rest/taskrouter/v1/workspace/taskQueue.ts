@@ -362,21 +362,21 @@ interface TaskQueuePayload extends TwilioResponsePayload {
 }
 
 interface TaskQueueResource {
-  account_sid?: string | null;
-  assignment_activity_sid?: string | null;
-  assignment_activity_name?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  friendly_name?: string | null;
-  max_reserved_workers?: number | null;
-  reservation_activity_sid?: string | null;
-  reservation_activity_name?: string | null;
-  sid?: string | null;
-  target_workers?: string | null;
-  task_order?: TaskQueueTaskOrder;
-  url?: string | null;
-  workspace_sid?: string | null;
-  links?: object | null;
+  account_sid: string;
+  assignment_activity_sid: string;
+  assignment_activity_name: string;
+  date_created: Date;
+  date_updated: Date;
+  friendly_name: string;
+  max_reserved_workers: number;
+  reservation_activity_sid: string;
+  reservation_activity_name: string;
+  sid: string;
+  target_workers: string;
+  task_order: TaskQueueTaskOrder;
+  url: string;
+  workspace_sid: string;
+  links: object;
 }
 
 export class TaskQueueInstance {
@@ -411,60 +411,60 @@ export class TaskQueueInstance {
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The SID of the Activity to assign Workers when a task is assigned for them
    */
-  assignmentActivitySid?: string | null;
+  assignmentActivitySid: string;
   /**
    * The name of the Activity to assign Workers when a task is assigned for them
    */
-  assignmentActivityName?: string | null;
+  assignmentActivityName: string;
   /**
    * The RFC 2822 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The RFC 2822 date and time in GMT when the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The string that you assigned to describe the resource
    */
-  friendlyName?: string | null;
+  friendlyName: string;
   /**
    * The maximum number of Workers to reserve
    */
-  maxReservedWorkers?: number | null;
+  maxReservedWorkers: number;
   /**
    * The SID of the Activity to assign Workers once a task is reserved for them
    */
-  reservationActivitySid?: string | null;
+  reservationActivitySid: string;
   /**
    * The name of the Activity to assign Workers once a task is reserved for them
    */
-  reservationActivityName?: string | null;
+  reservationActivityName: string;
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * A string describing the Worker selection criteria for any Tasks that enter the TaskQueue
    */
-  targetWorkers?: string | null;
-  taskOrder?: TaskQueueTaskOrder;
+  targetWorkers: string;
+  taskOrder: TaskQueueTaskOrder;
   /**
    * The absolute URL of the TaskQueue resource
    */
-  url?: string | null;
+  url: string;
   /**
    * The SID of the Workspace that contains the TaskQueue
    */
-  workspaceSid?: string | null;
+  workspaceSid: string;
   /**
    * The URLs of related resources
    */
-  links?: object | null;
+  links: object;
 
   private get _proxy(): TaskQueueContext {
     this._context =
@@ -581,7 +581,7 @@ export class TaskQueueInstance {
 }
 
 export interface TaskQueueSolution {
-  workspaceSid?: string;
+  workspaceSid: string;
 }
 
 export interface TaskQueueListInstance {

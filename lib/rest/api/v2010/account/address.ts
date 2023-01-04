@@ -342,22 +342,22 @@ interface AddressPayload extends TwilioResponsePayload {
 }
 
 interface AddressResource {
-  account_sid?: string | null;
-  city?: string | null;
-  customer_name?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  friendly_name?: string | null;
-  iso_country?: string | null;
-  postal_code?: string | null;
-  region?: string | null;
-  sid?: string | null;
-  street?: string | null;
-  uri?: string | null;
-  emergency_enabled?: boolean | null;
-  validated?: boolean | null;
-  verified?: boolean | null;
-  street_secondary?: string | null;
+  account_sid: string;
+  city: string;
+  customer_name: string;
+  date_created: Date;
+  date_updated: Date;
+  friendly_name: string;
+  iso_country: string;
+  postal_code: string;
+  region: string;
+  sid: string;
+  street: string;
+  uri: string;
+  emergency_enabled: boolean;
+  validated: boolean;
+  verified: boolean;
+  street_secondary: string;
 }
 
 export class AddressInstance {
@@ -393,67 +393,67 @@ export class AddressInstance {
   /**
    * The SID of the Account that is responsible for the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The city in which the address is located
    */
-  city?: string | null;
+  city: string;
   /**
    * The name associated with the address
    */
-  customerName?: string | null;
+  customerName: string;
   /**
    * The RFC 2822 date and time in GMT that the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The RFC 2822 date and time in GMT that the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The string that you assigned to describe the resource
    */
-  friendlyName?: string | null;
+  friendlyName: string;
   /**
    * The ISO country code of the address
    */
-  isoCountry?: string | null;
+  isoCountry: string;
   /**
    * The postal code of the address
    */
-  postalCode?: string | null;
+  postalCode: string;
   /**
    * The state or region of the address
    */
-  region?: string | null;
+  region: string;
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The number and street address of the address
    */
-  street?: string | null;
+  street: string;
   /**
    * The URI of the resource, relative to `https://api.twilio.com`
    */
-  uri?: string | null;
+  uri: string;
   /**
    * Whether emergency calling has been enabled on this number
    */
-  emergencyEnabled?: boolean | null;
+  emergencyEnabled: boolean;
   /**
    * Whether the address has been validated to comply with local regulation
    */
-  validated?: boolean | null;
+  validated: boolean;
   /**
    * Whether the address has been verified to comply with regulation
    */
-  verified?: boolean | null;
+  verified: boolean;
   /**
    * The additional number and street address of the address
    */
-  streetSecondary?: string | null;
+  streetSecondary: string;
 
   private get _proxy(): AddressContext {
     this._context =
@@ -557,7 +557,7 @@ export class AddressInstance {
 }
 
 export interface AddressSolution {
-  accountSid?: string;
+  accountSid: string;
 }
 
 export interface AddressListInstance {

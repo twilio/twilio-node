@@ -186,13 +186,13 @@ export class ConfigurationContextImpl implements ConfigurationContext {
 interface ConfigurationPayload extends ConfigurationResource {}
 
 interface ConfigurationResource {
-  chat_service_sid?: string | null;
-  default_conversation_creator_role_sid?: string | null;
-  default_conversation_role_sid?: string | null;
-  default_chat_service_role_sid?: string | null;
-  url?: string | null;
-  links?: object | null;
-  reachability_enabled?: boolean | null;
+  chat_service_sid: string;
+  default_conversation_creator_role_sid: string;
+  default_conversation_role_sid: string;
+  default_chat_service_role_sid: string;
+  url: string;
+  links: object;
+  reachability_enabled: boolean;
 }
 
 export class ConfigurationInstance {
@@ -219,31 +219,31 @@ export class ConfigurationInstance {
   /**
    * The unique string that identifies the resource
    */
-  chatServiceSid?: string | null;
+  chatServiceSid: string;
   /**
    * The role assigned to a conversation creator user when they join a new conversation
    */
-  defaultConversationCreatorRoleSid?: string | null;
+  defaultConversationCreatorRoleSid: string;
   /**
    * The role assigned to users when they are added to a conversation
    */
-  defaultConversationRoleSid?: string | null;
+  defaultConversationRoleSid: string;
   /**
    * The service role assigned to users when they are added to the service
    */
-  defaultChatServiceRoleSid?: string | null;
+  defaultChatServiceRoleSid: string;
   /**
    * An absolute URL for this service configuration.
    */
-  url?: string | null;
+  url: string;
   /**
    * Absolute URL to access the push notifications configuration of this service.
    */
-  links?: object | null;
+  links: object;
   /**
    * Whether the Reachability Indicator feature is enabled for this Conversations Service
    */
-  reachabilityEnabled?: boolean | null;
+  reachabilityEnabled: boolean;
 
   private get _proxy(): ConfigurationContext {
     this._context =
@@ -317,7 +317,7 @@ export class ConfigurationInstance {
 }
 
 export interface ConfigurationSolution {
-  chatServiceSid?: string;
+  chatServiceSid: string;
 }
 
 export interface ConfigurationListInstance {

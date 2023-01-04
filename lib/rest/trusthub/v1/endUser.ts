@@ -254,14 +254,14 @@ interface EndUserPayload extends TwilioResponsePayload {
 }
 
 interface EndUserResource {
-  sid?: string | null;
-  account_sid?: string | null;
-  friendly_name?: string | null;
-  type?: string | null;
-  attributes?: any | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  url?: string | null;
+  sid: string;
+  account_sid: string;
+  friendly_name: string;
+  type: string;
+  attributes: any;
+  date_created: Date;
+  date_updated: Date;
+  url: string;
 }
 
 export class EndUserInstance {
@@ -284,35 +284,35 @@ export class EndUserInstance {
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The string that you assigned to describe the resource
    */
-  friendlyName?: string | null;
+  friendlyName: string;
   /**
    * The type of end user of the Bundle resource
    */
-  type?: string | null;
+  type: string;
   /**
    * The set of parameters that compose the End Users resource
    */
-  attributes?: any | null;
+  attributes: any;
   /**
    * The ISO 8601 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The ISO 8601 date and time in GMT when the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The absolute URL of the End User resource
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): EndUserContext {
     this._context =

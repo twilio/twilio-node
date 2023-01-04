@@ -290,16 +290,16 @@ interface SamplePayload extends TwilioResponsePayload {
 }
 
 interface SampleResource {
-  account_sid?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  task_sid?: string | null;
-  language?: string | null;
-  assistant_sid?: string | null;
-  sid?: string | null;
-  tagged_text?: string | null;
-  url?: string | null;
-  source_channel?: string | null;
+  account_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  task_sid: string;
+  language: string;
+  assistant_sid: string;
+  sid: string;
+  tagged_text: string;
+  url: string;
+  source_channel: string;
 }
 
 export class SampleInstance {
@@ -330,43 +330,43 @@ export class SampleInstance {
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The RFC 2822 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The RFC 2822 date and time in GMT when the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The SID of the Task associated with the resource
    */
-  taskSid?: string | null;
+  taskSid: string;
   /**
    * An ISO language-country string that specifies the language used for the sample
    */
-  language?: string | null;
+  language: string;
   /**
    * The SID of the Assistant that is the parent of the Task associated with the resource
    */
-  assistantSid?: string | null;
+  assistantSid: string;
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The text example of how end users might express the task
    */
-  taggedText?: string | null;
+  taggedText: string;
   /**
    * The absolute URL of the Sample resource
    */
-  url?: string | null;
+  url: string;
   /**
    * The communication channel from which the sample was captured
    */
-  sourceChannel?: string | null;
+  sourceChannel: string;
 
   private get _proxy(): SampleContext {
     this._context =
@@ -458,8 +458,8 @@ export class SampleInstance {
 }
 
 export interface SampleSolution {
-  assistantSid?: string;
-  taskSid?: string;
+  assistantSid: string;
+  taskSid: string;
 }
 
 export interface SampleListInstance {

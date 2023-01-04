@@ -497,40 +497,40 @@ interface IncomingPhoneNumberPayload extends TwilioResponsePayload {
 }
 
 interface IncomingPhoneNumberResource {
-  account_sid?: string | null;
-  address_sid?: string | null;
-  address_requirements?: IncomingPhoneNumberAddressRequirement;
-  api_version?: string | null;
-  beta?: boolean | null;
-  capabilities?: PhoneNumberCapabilities | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  friendly_name?: string | null;
-  identity_sid?: string | null;
-  phone_number?: string | null;
-  origin?: string | null;
-  sid?: string | null;
-  sms_application_sid?: string | null;
-  sms_fallback_method?: IncomingPhoneNumberSmsFallbackMethod;
-  sms_fallback_url?: string | null;
-  sms_method?: IncomingPhoneNumberSmsMethod;
-  sms_url?: string | null;
-  status_callback?: string | null;
-  status_callback_method?: IncomingPhoneNumberStatusCallbackMethod;
-  trunk_sid?: string | null;
-  uri?: string | null;
-  voice_receive_mode?: IncomingPhoneNumberVoiceReceiveMode;
-  voice_application_sid?: string | null;
-  voice_caller_id_lookup?: boolean | null;
-  voice_fallback_method?: IncomingPhoneNumberVoiceFallbackMethod;
-  voice_fallback_url?: string | null;
-  voice_method?: IncomingPhoneNumberVoiceMethod;
-  voice_url?: string | null;
-  emergency_status?: IncomingPhoneNumberEmergencyStatus;
-  emergency_address_sid?: string | null;
-  emergency_address_status?: IncomingPhoneNumberEmergencyAddressStatus;
-  bundle_sid?: string | null;
-  status?: string | null;
+  account_sid: string;
+  address_sid: string;
+  address_requirements: IncomingPhoneNumberAddressRequirement;
+  api_version: string;
+  beta: boolean;
+  capabilities: PhoneNumberCapabilities;
+  date_created: Date;
+  date_updated: Date;
+  friendly_name: string;
+  identity_sid: string;
+  phone_number: string;
+  origin: string;
+  sid: string;
+  sms_application_sid: string;
+  sms_fallback_method: IncomingPhoneNumberSmsFallbackMethod;
+  sms_fallback_url: string;
+  sms_method: IncomingPhoneNumberSmsMethod;
+  sms_url: string;
+  status_callback: string;
+  status_callback_method: IncomingPhoneNumberStatusCallbackMethod;
+  trunk_sid: string;
+  uri: string;
+  voice_receive_mode: IncomingPhoneNumberVoiceReceiveMode;
+  voice_application_sid: string;
+  voice_caller_id_lookup: boolean;
+  voice_fallback_method: IncomingPhoneNumberVoiceFallbackMethod;
+  voice_fallback_url: string;
+  voice_method: IncomingPhoneNumberVoiceMethod;
+  voice_url: string;
+  emergency_status: IncomingPhoneNumberEmergencyStatus;
+  emergency_address_sid: string;
+  emergency_address_status: IncomingPhoneNumberEmergencyAddressStatus;
+  bundle_sid: string;
+  status: string;
 }
 
 export class IncomingPhoneNumberInstance {
@@ -584,121 +584,121 @@ export class IncomingPhoneNumberInstance {
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The SID of the Address resource associated with the phone number
    */
-  addressSid?: string | null;
-  addressRequirements?: IncomingPhoneNumberAddressRequirement;
+  addressSid: string;
+  addressRequirements: IncomingPhoneNumberAddressRequirement;
   /**
    * The API version used to start a new TwiML session
    */
-  apiVersion?: string | null;
+  apiVersion: string;
   /**
    * Whether the phone number is new to the Twilio platform
    */
-  beta?: boolean | null;
-  capabilities?: PhoneNumberCapabilities | null;
+  beta: boolean;
+  capabilities: PhoneNumberCapabilities;
   /**
    * The RFC 2822 date and time in GMT that the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The RFC 2822 date and time in GMT that the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The string that you assigned to describe the resource
    */
-  friendlyName?: string | null;
+  friendlyName: string;
   /**
    * The SID of the Identity resource associated with number
    */
-  identitySid?: string | null;
+  identitySid: string;
   /**
    * The phone number in E.164 format
    */
-  phoneNumber?: string | null;
+  phoneNumber: string;
   /**
    * The phone number\'s origin. Can be twilio or hosted.
    */
-  origin?: string | null;
+  origin: string;
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The SID of the application that handles SMS messages sent to the phone number
    */
-  smsApplicationSid?: string | null;
+  smsApplicationSid: string;
   /**
    * The HTTP method used with sms_fallback_url
    */
-  smsFallbackMethod?: IncomingPhoneNumberSmsFallbackMethod;
+  smsFallbackMethod: IncomingPhoneNumberSmsFallbackMethod;
   /**
    * The URL that we call when an error occurs while retrieving or executing the TwiML
    */
-  smsFallbackUrl?: string | null;
+  smsFallbackUrl: string;
   /**
    * The HTTP method to use with sms_url
    */
-  smsMethod?: IncomingPhoneNumberSmsMethod;
+  smsMethod: IncomingPhoneNumberSmsMethod;
   /**
    * The URL we call when the phone number receives an incoming SMS message
    */
-  smsUrl?: string | null;
+  smsUrl: string;
   /**
    * The URL to send status information to your application
    */
-  statusCallback?: string | null;
+  statusCallback: string;
   /**
    * The HTTP method we use to call status_callback
    */
-  statusCallbackMethod?: IncomingPhoneNumberStatusCallbackMethod;
+  statusCallbackMethod: IncomingPhoneNumberStatusCallbackMethod;
   /**
    * The SID of the Trunk that handles calls to the phone number
    */
-  trunkSid?: string | null;
+  trunkSid: string;
   /**
    * The URI of the resource, relative to `https://api.twilio.com`
    */
-  uri?: string | null;
-  voiceReceiveMode?: IncomingPhoneNumberVoiceReceiveMode;
+  uri: string;
+  voiceReceiveMode: IncomingPhoneNumberVoiceReceiveMode;
   /**
    * The SID of the application that handles calls to the phone number
    */
-  voiceApplicationSid?: string | null;
+  voiceApplicationSid: string;
   /**
    * Whether to lookup the caller\'s name
    */
-  voiceCallerIdLookup?: boolean | null;
+  voiceCallerIdLookup: boolean;
   /**
    * The HTTP method used with voice_fallback_url
    */
-  voiceFallbackMethod?: IncomingPhoneNumberVoiceFallbackMethod;
+  voiceFallbackMethod: IncomingPhoneNumberVoiceFallbackMethod;
   /**
    * The URL we call when an error occurs in TwiML
    */
-  voiceFallbackUrl?: string | null;
+  voiceFallbackUrl: string;
   /**
    * The HTTP method used with the voice_url
    */
-  voiceMethod?: IncomingPhoneNumberVoiceMethod;
+  voiceMethod: IncomingPhoneNumberVoiceMethod;
   /**
    * The URL we call when the phone number receives a call
    */
-  voiceUrl?: string | null;
-  emergencyStatus?: IncomingPhoneNumberEmergencyStatus;
+  voiceUrl: string;
+  emergencyStatus: IncomingPhoneNumberEmergencyStatus;
   /**
    * The emergency address configuration to use for emergency calling
    */
-  emergencyAddressSid?: string | null;
-  emergencyAddressStatus?: IncomingPhoneNumberEmergencyAddressStatus;
+  emergencyAddressSid: string;
+  emergencyAddressStatus: IncomingPhoneNumberEmergencyAddressStatus;
   /**
    * The SID of the Bundle resource associated with number
    */
-  bundleSid?: string | null;
-  status?: string | null;
+  bundleSid: string;
+  status: string;
 
   private get _proxy(): IncomingPhoneNumberContext {
     this._context =
@@ -820,7 +820,7 @@ export class IncomingPhoneNumberInstance {
 }
 
 export interface IncomingPhoneNumberSolution {
-  accountSid?: string;
+  accountSid: string;
 }
 
 export interface IncomingPhoneNumberListInstance {

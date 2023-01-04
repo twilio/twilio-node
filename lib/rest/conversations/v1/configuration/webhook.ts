@@ -171,13 +171,13 @@ export class WebhookContextImpl implements WebhookContext {
 interface WebhookPayload extends WebhookResource {}
 
 interface WebhookResource {
-  account_sid?: string | null;
-  method?: ConfigurationWebhookMethod;
-  filters?: Array<string> | null;
-  pre_webhook_url?: string | null;
-  post_webhook_url?: string | null;
-  target?: ConfigurationWebhookTarget;
-  url?: string | null;
+  account_sid: string;
+  method: ConfigurationWebhookMethod;
+  filters: Array<string>;
+  pre_webhook_url: string;
+  post_webhook_url: string;
+  target: ConfigurationWebhookTarget;
+  url: string;
 }
 
 export class WebhookInstance {
@@ -199,25 +199,25 @@ export class WebhookInstance {
   /**
    * The unique ID of the Account responsible for this conversation.
    */
-  accountSid?: string | null;
-  method?: ConfigurationWebhookMethod;
+  accountSid: string;
+  method: ConfigurationWebhookMethod;
   /**
    * The list of webhook event triggers that are enabled for this Service.
    */
-  filters?: Array<string> | null;
+  filters: Array<string>;
   /**
    * The absolute url the pre-event webhook request should be sent to.
    */
-  preWebhookUrl?: string | null;
+  preWebhookUrl: string;
   /**
    * The absolute url the post-event webhook request should be sent to.
    */
-  postWebhookUrl?: string | null;
-  target?: ConfigurationWebhookTarget;
+  postWebhookUrl: string;
+  target: ConfigurationWebhookTarget;
   /**
    * An absolute URL for this webhook.
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): WebhookContext {
     this._context = this._context || new WebhookContextImpl(this._version);

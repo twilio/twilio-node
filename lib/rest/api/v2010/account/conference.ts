@@ -322,18 +322,18 @@ interface ConferencePayload extends TwilioResponsePayload {
 }
 
 interface ConferenceResource {
-  account_sid?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  api_version?: string | null;
-  friendly_name?: string | null;
-  region?: string | null;
-  sid?: string | null;
-  status?: ConferenceStatus;
-  uri?: string | null;
-  subresource_uris?: object | null;
-  reason_conference_ended?: ConferenceReasonConferenceEnded;
-  call_sid_ending_conference?: string | null;
+  account_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  api_version: string;
+  friendly_name: string;
+  region: string;
+  sid: string;
+  status: ConferenceStatus;
+  uri: string;
+  subresource_uris: object;
+  reason_conference_ended: ConferenceReasonConferenceEnded;
+  call_sid_ending_conference: string;
 }
 
 export class ConferenceInstance {
@@ -365,45 +365,45 @@ export class ConferenceInstance {
   /**
    * The SID of the Account that created this resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The RFC 2822 date and time in GMT that this resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The RFC 2822 date and time in GMT that this resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The API version used to create this conference
    */
-  apiVersion?: string | null;
+  apiVersion: string;
   /**
    * A string that you assigned to describe this conference room
    */
-  friendlyName?: string | null;
+  friendlyName: string;
   /**
    * A string that represents the Twilio Region where the conference was mixed
    */
-  region?: string | null;
+  region: string;
   /**
    * The unique string that identifies this resource
    */
-  sid?: string | null;
-  status?: ConferenceStatus;
+  sid: string;
+  status: ConferenceStatus;
   /**
    * The URI of this resource, relative to `https://api.twilio.com`
    */
-  uri?: string | null;
+  uri: string;
   /**
    * A list of related resources identified by their relative URIs
    */
-  subresourceUris?: object | null;
-  reasonConferenceEnded?: ConferenceReasonConferenceEnded;
+  subresourceUris: object;
+  reasonConferenceEnded: ConferenceReasonConferenceEnded;
   /**
    * The call SID that caused the conference to end
    */
-  callSidEndingConference?: string | null;
+  callSidEndingConference: string;
 
   private get _proxy(): ConferenceContext {
     this._context =
@@ -497,7 +497,7 @@ export class ConferenceInstance {
 }
 
 export interface ConferenceSolution {
-  accountSid?: string;
+  accountSid: string;
 }
 
 export interface ConferenceListInstance {

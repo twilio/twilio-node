@@ -232,26 +232,26 @@ interface BrandRegistrationPayload extends TwilioResponsePayload {
 }
 
 interface BrandRegistrationResource {
-  sid?: string | null;
-  account_sid?: string | null;
-  customer_profile_bundle_sid?: string | null;
-  a2p_profile_bundle_sid?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  brand_type?: string | null;
-  status?: BrandRegistrationsStatus;
-  tcr_id?: string | null;
-  failure_reason?: string | null;
-  url?: string | null;
-  brand_score?: number | null;
-  brand_feedback?: Array<BrandRegistrationsBrandFeedback> | null;
-  identity_status?: BrandRegistrationsIdentityStatus;
-  russell_3000?: boolean | null;
-  government_entity?: boolean | null;
-  tax_exempt_status?: string | null;
-  skip_automatic_sec_vet?: boolean | null;
-  mock?: boolean | null;
-  links?: object | null;
+  sid: string;
+  account_sid: string;
+  customer_profile_bundle_sid: string;
+  a2p_profile_bundle_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  brand_type: string;
+  status: BrandRegistrationsStatus;
+  tcr_id: string;
+  failure_reason: string;
+  url: string;
+  brand_score: number;
+  brand_feedback: Array<BrandRegistrationsBrandFeedback>;
+  identity_status: BrandRegistrationsIdentityStatus;
+  russell_3000: boolean;
+  government_entity: boolean;
+  tax_exempt_status: string;
+  skip_automatic_sec_vet: boolean;
+  mock: boolean;
+  links: object;
 }
 
 export class BrandRegistrationInstance {
@@ -290,74 +290,74 @@ export class BrandRegistrationInstance {
   /**
    * A2P BrandRegistration Sid
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * A2P Messaging Profile Bundle BundleSid
    */
-  customerProfileBundleSid?: string | null;
+  customerProfileBundleSid: string;
   /**
    * A2P Messaging Profile Bundle BundleSid
    */
-  a2pProfileBundleSid?: string | null;
+  a2pProfileBundleSid: string;
   /**
    * The ISO 8601 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The ISO 8601 date and time in GMT when the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * Type of brand. One of: \"STANDARD\", \"STARTER\".
    */
-  brandType?: string | null;
-  status?: BrandRegistrationsStatus;
+  brandType: string;
+  status: BrandRegistrationsStatus;
   /**
    * Campaign Registry (TCR) Brand ID
    */
-  tcrId?: string | null;
+  tcrId: string;
   /**
    * A reason why brand registration has failed
    */
-  failureReason?: string | null;
+  failureReason: string;
   /**
    * The absolute URL of the Brand Registration
    */
-  url?: string | null;
+  url: string;
   /**
    * Brand score
    */
-  brandScore?: number | null;
+  brandScore: number;
   /**
    * Brand feedback
    */
-  brandFeedback?: Array<BrandRegistrationsBrandFeedback> | null;
-  identityStatus?: BrandRegistrationsIdentityStatus;
+  brandFeedback: Array<BrandRegistrationsBrandFeedback>;
+  identityStatus: BrandRegistrationsIdentityStatus;
   /**
    * Russell 3000
    */
-  russell3000?: boolean | null;
+  russell3000: boolean;
   /**
    * Government Entity
    */
-  governmentEntity?: boolean | null;
+  governmentEntity: boolean;
   /**
    * Tax Exempt Status
    */
-  taxExemptStatus?: string | null;
+  taxExemptStatus: string;
   /**
    * Skip Automatic Secondary Vetting
    */
-  skipAutomaticSecVet?: boolean | null;
+  skipAutomaticSecVet: boolean;
   /**
    * A boolean that specifies whether brand should be a mock or not. If true, brand will be registered as a mock brand. Defaults to false if no value is provided.
    */
-  mock?: boolean | null;
-  links?: object | null;
+  mock: boolean;
+  links: object;
 
   private get _proxy(): BrandRegistrationContext {
     this._context =

@@ -147,11 +147,11 @@ export function TokenListInstance(version: V1): TokenListInstance {
 interface TokenPayload extends TokenResource {}
 
 interface TokenResource {
-  access_token?: string | null;
-  refresh_token?: string | null;
-  id_token?: string | null;
-  refresh_token_expires_at?: Date | null;
-  access_token_expires_at?: Date | null;
+  access_token: string;
+  refresh_token: string;
+  id_token: string;
+  refresh_token_expires_at: Date;
+  access_token_expires_at: Date;
 }
 
 export class TokenInstance {
@@ -170,20 +170,20 @@ export class TokenInstance {
   /**
    * Token which carries the necessary information to access a Twilio resource directly
    */
-  accessToken?: string | null;
+  accessToken: string;
   /**
    * Token which carries the information necessary to get a new access token
    */
-  refreshToken?: string | null;
-  idToken?: string | null;
+  refreshToken: string;
+  idToken: string;
   /**
    * The RFC 2822 date and time in GMT when the refresh token expires
    */
-  refreshTokenExpiresAt?: Date | null;
+  refreshTokenExpiresAt: Date;
   /**
    * The RFC 2822 date and time in GMT when the access token expires
    */
-  accessTokenExpiresAt?: Date | null;
+  accessTokenExpiresAt: Date;
 
   /**
    * Provide a user-friendly representation

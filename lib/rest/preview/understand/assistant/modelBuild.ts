@@ -274,16 +274,16 @@ interface ModelBuildPayload extends TwilioResponsePayload {
 }
 
 interface ModelBuildResource {
-  account_sid?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  assistant_sid?: string | null;
-  sid?: string | null;
-  status?: ModelBuildStatus;
-  unique_name?: string | null;
-  url?: string | null;
-  build_duration?: number | null;
-  error_code?: number | null;
+  account_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  assistant_sid: string;
+  sid: string;
+  status: ModelBuildStatus;
+  unique_name: string;
+  url: string;
+  build_duration: number;
+  error_code: number;
 }
 
 export class ModelBuildInstance {
@@ -313,34 +313,34 @@ export class ModelBuildInstance {
   /**
    * The unique ID of the Account that created this Model Build.
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The date that this resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The date that this resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The unique ID of the parent Assistant.
    */
-  assistantSid?: string | null;
+  assistantSid: string;
   /**
    * A 34 character string that uniquely identifies this resource.
    */
-  sid?: string | null;
-  status?: ModelBuildStatus;
+  sid: string;
+  status: ModelBuildStatus;
   /**
    * A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
    */
-  uniqueName?: string | null;
-  url?: string | null;
+  uniqueName: string;
+  url: string;
   /**
    * The time in seconds it took to build the model.
    */
-  buildDuration?: number | null;
-  errorCode?: number | null;
+  buildDuration: number;
+  errorCode: number;
 
   private get _proxy(): ModelBuildContext {
     this._context =
@@ -431,7 +431,7 @@ export class ModelBuildInstance {
 }
 
 export interface ModelBuildSolution {
-  assistantSid?: string;
+  assistantSid: string;
 }
 
 export interface ModelBuildListInstance {

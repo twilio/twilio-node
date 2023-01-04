@@ -251,29 +251,29 @@ interface ConferencePayload extends TwilioResponsePayload {
 }
 
 interface ConferenceResource {
-  conference_sid?: string | null;
-  account_sid?: string | null;
-  friendly_name?: string | null;
-  create_time?: Date | null;
-  start_time?: Date | null;
-  end_time?: Date | null;
-  duration_seconds?: number | null;
-  connect_duration_seconds?: number | null;
-  status?: ConferenceConferenceStatus;
-  max_participants?: number | null;
-  max_concurrent_participants?: number | null;
-  unique_participants?: number | null;
-  end_reason?: ConferenceConferenceEndReason;
-  ended_by?: string | null;
-  mixer_region?: ConferenceRegion;
-  mixer_region_requested?: ConferenceRegion;
-  recording_enabled?: boolean | null;
-  detected_issues?: any | null;
-  tags?: Array<ConferenceTag> | null;
-  tag_info?: any | null;
-  processing_state?: ConferenceProcessingState;
-  url?: string | null;
-  links?: object | null;
+  conference_sid: string;
+  account_sid: string;
+  friendly_name: string;
+  create_time: Date;
+  start_time: Date;
+  end_time: Date;
+  duration_seconds: number;
+  connect_duration_seconds: number;
+  status: ConferenceConferenceStatus;
+  max_participants: number;
+  max_concurrent_participants: number;
+  unique_participants: number;
+  end_reason: ConferenceConferenceEndReason;
+  ended_by: string;
+  mixer_region: ConferenceRegion;
+  mixer_region_requested: ConferenceRegion;
+  recording_enabled: boolean;
+  detected_issues: any;
+  tags: Array<ConferenceTag>;
+  tag_info: any;
+  processing_state: ConferenceProcessingState;
+  url: string;
+  links: object;
 }
 
 export class ConferenceInstance {
@@ -319,80 +319,80 @@ export class ConferenceInstance {
   /**
    * Conference SID.
    */
-  conferenceSid?: string | null;
+  conferenceSid: string;
   /**
    * Account SID.
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * Custom label for the conference.
    */
-  friendlyName?: string | null;
+  friendlyName: string;
   /**
    * Conference creation date/time.
    */
-  createTime?: Date | null;
+  createTime: Date;
   /**
    * Timestamp in ISO 8601 format when the conference started.
    */
-  startTime?: Date | null;
+  startTime: Date;
   /**
    * Conference end date/time.
    */
-  endTime?: Date | null;
+  endTime: Date;
   /**
    * Conference duration in seconds.
    */
-  durationSeconds?: number | null;
+  durationSeconds: number;
   /**
    * Duration of the conference in seconds.
    */
-  connectDurationSeconds?: number | null;
-  status?: ConferenceConferenceStatus;
+  connectDurationSeconds: number;
+  status: ConferenceConferenceStatus;
   /**
    * Max participants specified in config.
    */
-  maxParticipants?: number | null;
+  maxParticipants: number;
   /**
    * Actual maximum concurrent participants.
    */
-  maxConcurrentParticipants?: number | null;
+  maxConcurrentParticipants: number;
   /**
    * Unique conference participants.
    */
-  uniqueParticipants?: number | null;
-  endReason?: ConferenceConferenceEndReason;
+  uniqueParticipants: number;
+  endReason: ConferenceConferenceEndReason;
   /**
    * Call SID that ended the conference.
    */
-  endedBy?: string | null;
-  mixerRegion?: ConferenceRegion;
-  mixerRegionRequested?: ConferenceRegion;
+  endedBy: string;
+  mixerRegion: ConferenceRegion;
+  mixerRegionRequested: ConferenceRegion;
   /**
    * Boolean. Indicates whether recording was enabled.
    */
-  recordingEnabled?: boolean | null;
+  recordingEnabled: boolean;
   /**
    * Potential issues detected during the conference.
    */
-  detectedIssues?: any | null;
+  detectedIssues: any;
   /**
    * Tags for detected conference conditions and participant behaviors.
    */
-  tags?: Array<ConferenceTag> | null;
+  tags: Array<ConferenceTag>;
   /**
    * Object. Contains details about conference tags.
    */
-  tagInfo?: any | null;
-  processingState?: ConferenceProcessingState;
+  tagInfo: any;
+  processingState: ConferenceProcessingState;
   /**
    * The URL of this resource.
    */
-  url?: string | null;
+  url: string;
   /**
    * Nested resource URLs.
    */
-  links?: object | null;
+  links: object;
 
   private get _proxy(): ConferenceContext {
     this._context =

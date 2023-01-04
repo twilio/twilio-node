@@ -154,18 +154,18 @@ interface FlowRevisionPayload extends TwilioResponsePayload {
 }
 
 interface FlowRevisionResource {
-  sid?: string | null;
-  account_sid?: string | null;
-  friendly_name?: string | null;
-  definition?: any | null;
-  status?: FlowRevisionStatus;
-  revision?: number | null;
-  commit_message?: string | null;
-  valid?: boolean | null;
-  errors?: Array<any> | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  url?: string | null;
+  sid: string;
+  account_sid: string;
+  friendly_name: string;
+  definition: any;
+  status: FlowRevisionStatus;
+  revision: number;
+  commit_message: string;
+  valid: boolean;
+  errors: Array<any>;
+  date_created: Date;
+  date_updated: Date;
+  url: string;
 }
 
 export class FlowRevisionInstance {
@@ -197,48 +197,48 @@ export class FlowRevisionInstance {
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The string that you assigned to describe the Flow
    */
-  friendlyName?: string | null;
+  friendlyName: string;
   /**
    * JSON representation of flow definition
    */
-  definition?: any | null;
-  status?: FlowRevisionStatus;
+  definition: any;
+  status: FlowRevisionStatus;
   /**
    * The latest revision number of the Flow\'s definition
    */
-  revision?: number | null;
+  revision: number;
   /**
    * Description of change made in the revision
    */
-  commitMessage?: string | null;
+  commitMessage: string;
   /**
    * Boolean if the flow definition is valid
    */
-  valid?: boolean | null;
+  valid: boolean;
   /**
    * List of error in the flow definition
    */
-  errors?: Array<any> | null;
+  errors: Array<any>;
   /**
    * The ISO 8601 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The ISO 8601 date and time in GMT when the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The absolute URL of the resource
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): FlowRevisionContext {
     this._context =
@@ -292,7 +292,7 @@ export class FlowRevisionInstance {
 }
 
 export interface FlowRevisionSolution {
-  sid?: string;
+  sid: string;
 }
 
 export interface FlowRevisionListInstance {

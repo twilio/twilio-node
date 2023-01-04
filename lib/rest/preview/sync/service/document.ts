@@ -273,17 +273,17 @@ interface DocumentPayload extends TwilioResponsePayload {
 }
 
 interface DocumentResource {
-  sid?: string | null;
-  unique_name?: string | null;
-  account_sid?: string | null;
-  service_sid?: string | null;
-  url?: string | null;
-  links?: object | null;
-  revision?: string | null;
-  data?: any | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  created_by?: string | null;
+  sid: string;
+  unique_name: string;
+  account_sid: string;
+  service_sid: string;
+  url: string;
+  links: object;
+  revision: string;
+  data: any;
+  date_created: Date;
+  date_updated: Date;
+  created_by: string;
 }
 
 export class DocumentInstance {
@@ -311,17 +311,17 @@ export class DocumentInstance {
     this._solution = { serviceSid, sid: sid || this.sid };
   }
 
-  sid?: string | null;
-  uniqueName?: string | null;
-  accountSid?: string | null;
-  serviceSid?: string | null;
-  url?: string | null;
-  links?: object | null;
-  revision?: string | null;
-  data?: any | null;
-  dateCreated?: Date | null;
-  dateUpdated?: Date | null;
-  createdBy?: string | null;
+  sid: string;
+  uniqueName: string;
+  accountSid: string;
+  serviceSid: string;
+  url: string;
+  links: object;
+  revision: string;
+  data: any;
+  dateCreated: Date;
+  dateUpdated: Date;
+  createdBy: string;
 
   private get _proxy(): DocumentContext {
     this._context =
@@ -410,7 +410,7 @@ export class DocumentInstance {
 }
 
 export interface DocumentSolution {
-  serviceSid?: string;
+  serviceSid: string;
 }
 
 export interface DocumentListInstance {

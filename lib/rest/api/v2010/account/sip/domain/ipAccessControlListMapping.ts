@@ -205,13 +205,13 @@ interface IpAccessControlListMappingPayload extends TwilioResponsePayload {
 }
 
 interface IpAccessControlListMappingResource {
-  account_sid?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  domain_sid?: string | null;
-  friendly_name?: string | null;
-  sid?: string | null;
-  uri?: string | null;
+  account_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  domain_sid: string;
+  friendly_name: string;
+  sid: string;
+  uri: string;
 }
 
 export class IpAccessControlListMappingInstance {
@@ -239,31 +239,31 @@ export class IpAccessControlListMappingInstance {
   /**
    * The unique id of the Account that is responsible for this resource.
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The date that this resource was created, given as GMT in RFC 2822 format.
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The date that this resource was last updated, given as GMT in RFC 2822 format.
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The unique string that identifies the SipDomain resource.
    */
-  domainSid?: string | null;
+  domainSid: string;
   /**
    * A human readable descriptive text for this resource, up to 64 characters long.
    */
-  friendlyName?: string | null;
+  friendlyName: string;
   /**
    * A 34 character string that uniquely identifies this resource.
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The URI for this resource, relative to https://api.twilio.com
    */
-  uri?: string | null;
+  uri: string;
 
   private get _proxy(): IpAccessControlListMappingContext {
     this._context =
@@ -329,8 +329,8 @@ export class IpAccessControlListMappingInstance {
 }
 
 export interface IpAccessControlListMappingSolution {
-  accountSid?: string;
-  domainSid?: string;
+  accountSid: string;
+  domainSid: string;
 }
 
 export interface IpAccessControlListMappingListInstance {

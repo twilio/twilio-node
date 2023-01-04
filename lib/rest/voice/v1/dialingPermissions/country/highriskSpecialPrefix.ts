@@ -71,7 +71,7 @@ export interface HighriskSpecialPrefixListInstancePageOptions {
 }
 
 export interface HighriskSpecialPrefixSolution {
-  isoCode?: string;
+  isoCode: string;
 }
 
 export interface HighriskSpecialPrefixListInstance {
@@ -319,7 +319,7 @@ interface HighriskSpecialPrefixPayload extends TwilioResponsePayload {
 }
 
 interface HighriskSpecialPrefixResource {
-  prefix?: string | null;
+  prefix: string;
 }
 
 export class HighriskSpecialPrefixInstance {
@@ -334,7 +334,7 @@ export class HighriskSpecialPrefixInstance {
   /**
    * A prefix that includes the E.164 assigned country code
    */
-  prefix?: string | null;
+  prefix: string;
 
   /**
    * Provide a user-friendly representation

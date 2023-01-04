@@ -119,18 +119,18 @@ export function RestoreAssistantListInstance(
 interface RestoreAssistantPayload extends RestoreAssistantResource {}
 
 interface RestoreAssistantResource {
-  account_sid?: string | null;
-  sid?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  unique_name?: string | null;
-  friendly_name?: string | null;
-  needs_model_build?: boolean | null;
-  latest_model_build_sid?: string | null;
-  log_queries?: boolean | null;
-  development_stage?: string | null;
-  callback_url?: string | null;
-  callback_events?: string | null;
+  account_sid: string;
+  sid: string;
+  date_created: Date;
+  date_updated: Date;
+  unique_name: string;
+  friendly_name: string;
+  needs_model_build: boolean;
+  latest_model_build_sid: string;
+  log_queries: boolean;
+  development_stage: string;
+  callback_url: string;
+  callback_events: string;
 }
 
 export class RestoreAssistantInstance {
@@ -152,51 +152,51 @@ export class RestoreAssistantInstance {
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The RFC 2822 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The RFC 2822 date and time in GMT when the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * An application-defined string that uniquely identifies the resource
    */
-  uniqueName?: string | null;
+  uniqueName: string;
   /**
    * The string that you assigned to describe the resource
    */
-  friendlyName?: string | null;
+  friendlyName: string;
   /**
    * Whether model needs to be rebuilt
    */
-  needsModelBuild?: boolean | null;
+  needsModelBuild: boolean;
   /**
    * Reserved
    */
-  latestModelBuildSid?: string | null;
+  latestModelBuildSid: string;
   /**
    * Whether queries should be logged and kept after training
    */
-  logQueries?: boolean | null;
+  logQueries: boolean;
   /**
    * A string describing the state of the assistant.
    */
-  developmentStage?: string | null;
+  developmentStage: string;
   /**
    * Reserved
    */
-  callbackUrl?: string | null;
+  callbackUrl: string;
   /**
    * Reserved
    */
-  callbackEvents?: string | null;
+  callbackEvents: string;
 
   /**
    * Provide a user-friendly representation

@@ -279,15 +279,15 @@ interface RateLimitPayload extends TwilioResponsePayload {
 }
 
 interface RateLimitResource {
-  sid?: string | null;
-  service_sid?: string | null;
-  account_sid?: string | null;
-  unique_name?: string | null;
-  description?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  url?: string | null;
-  links?: object | null;
+  sid: string;
+  service_sid: string;
+  account_sid: string;
+  unique_name: string;
+  description: string;
+  date_created: Date;
+  date_updated: Date;
+  url: string;
+  links: object;
 }
 
 export class RateLimitInstance {
@@ -316,39 +316,39 @@ export class RateLimitInstance {
   /**
    * A string that uniquely identifies this Rate Limit.
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The SID of the Service that the resource is associated with
    */
-  serviceSid?: string | null;
+  serviceSid: string;
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * A unique, developer assigned name of this Rate Limit.
    */
-  uniqueName?: string | null;
+  uniqueName: string;
   /**
    * Description of this Rate Limit
    */
-  description?: string | null;
+  description: string;
   /**
    * The RFC 2822 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The RFC 2822 date and time in GMT when the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The URL of this resource.
    */
-  url?: string | null;
+  url: string;
   /**
    * The URLs of related resources
    */
-  links?: object | null;
+  links: object;
 
   private get _proxy(): RateLimitContext {
     this._context =
@@ -445,7 +445,7 @@ export class RateLimitInstance {
 }
 
 export interface RateLimitSolution {
-  serviceSid?: string;
+  serviceSid: string;
 }
 
 export interface RateLimitListInstance {

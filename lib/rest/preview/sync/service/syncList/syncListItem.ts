@@ -326,16 +326,16 @@ interface SyncListItemPayload extends TwilioResponsePayload {
 }
 
 interface SyncListItemResource {
-  index?: number | null;
-  account_sid?: string | null;
-  service_sid?: string | null;
-  list_sid?: string | null;
-  url?: string | null;
-  revision?: string | null;
-  data?: any | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  created_by?: string | null;
+  index: number;
+  account_sid: string;
+  service_sid: string;
+  list_sid: string;
+  url: string;
+  revision: string;
+  data: any;
+  date_created: Date;
+  date_updated: Date;
+  created_by: string;
 }
 
 export class SyncListItemInstance {
@@ -363,16 +363,16 @@ export class SyncListItemInstance {
     this._solution = { serviceSid, listSid, index: index || this.index };
   }
 
-  index?: number | null;
-  accountSid?: string | null;
-  serviceSid?: string | null;
-  listSid?: string | null;
-  url?: string | null;
-  revision?: string | null;
-  data?: any | null;
-  dateCreated?: Date | null;
-  dateUpdated?: Date | null;
-  createdBy?: string | null;
+  index: number;
+  accountSid: string;
+  serviceSid: string;
+  listSid: string;
+  url: string;
+  revision: string;
+  data: any;
+  dateCreated: Date;
+  dateUpdated: Date;
+  createdBy: string;
 
   private get _proxy(): SyncListItemContext {
     this._context =
@@ -467,8 +467,8 @@ export class SyncListItemInstance {
 }
 
 export interface SyncListItemSolution {
-  serviceSid?: string;
-  listSid?: string;
+  serviceSid: string;
+  listSid: string;
 }
 
 export interface SyncListItemListInstance {

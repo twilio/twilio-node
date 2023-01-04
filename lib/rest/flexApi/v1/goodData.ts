@@ -120,11 +120,11 @@ export class GoodDataContextImpl implements GoodDataContext {
 interface GoodDataPayload extends GoodDataResource {}
 
 interface GoodDataResource {
-  workspace_id?: string | null;
-  session_expiry?: string | null;
-  session_id?: string | null;
-  base_url?: string | null;
-  url?: string | null;
+  workspace_id: string;
+  session_expiry: string;
+  session_id: string;
+  base_url: string;
+  url: string;
 }
 
 export class GoodDataInstance {
@@ -144,23 +144,23 @@ export class GoodDataInstance {
   /**
    * Unique ID to identify the user\'s workspace
    */
-  workspaceId?: string | null;
+  workspaceId: string;
   /**
    * The session expiry date and time
    */
-  sessionExpiry?: string | null;
+  sessionExpiry: string;
   /**
    * Unique session ID
    */
-  sessionId?: string | null;
+  sessionId: string;
   /**
    * Base URL to fetch reports and dashboards
    */
-  baseUrl?: string | null;
+  baseUrl: string;
   /**
    * The URL of this resource.
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): GoodDataContext {
     this._context = this._context || new GoodDataContextImpl(this._version);

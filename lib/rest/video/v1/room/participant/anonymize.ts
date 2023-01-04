@@ -103,17 +103,17 @@ export class AnonymizeContextImpl implements AnonymizeContext {
 interface AnonymizePayload extends AnonymizeResource {}
 
 interface AnonymizeResource {
-  sid?: string | null;
-  room_sid?: string | null;
-  account_sid?: string | null;
-  status?: RoomParticipantAnonymizeStatus;
-  identity?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  start_time?: Date | null;
-  end_time?: Date | null;
-  duration?: number | null;
-  url?: string | null;
+  sid: string;
+  room_sid: string;
+  account_sid: string;
+  status: RoomParticipantAnonymizeStatus;
+  identity: string;
+  date_created: Date;
+  date_updated: Date;
+  start_time: Date;
+  end_time: Date;
+  duration: number;
+  url: string;
 }
 
 export class AnonymizeInstance {
@@ -144,44 +144,44 @@ export class AnonymizeInstance {
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The SID of the participant\'s room
    */
-  roomSid?: string | null;
+  roomSid: string;
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
-  status?: RoomParticipantAnonymizeStatus;
+  accountSid: string;
+  status: RoomParticipantAnonymizeStatus;
   /**
    * The SID of the participant
    */
-  identity?: string | null;
+  identity: string;
   /**
    * The ISO 8601 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The ISO 8601 date and time in GMT when the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The time of participant connected to the room in ISO 8601 format
    */
-  startTime?: Date | null;
+  startTime: Date;
   /**
    * The time when the participant disconnected from the room in ISO 8601 format
    */
-  endTime?: Date | null;
+  endTime: Date;
   /**
    * Duration of time in seconds the participant was connected
    */
-  duration?: number | null;
+  duration: number;
   /**
    * The absolute URL of the resource
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): AnonymizeContext {
     this._context =
@@ -234,8 +234,8 @@ export class AnonymizeInstance {
 }
 
 export interface AnonymizeSolution {
-  roomSid?: string;
-  sid?: string;
+  roomSid: string;
+  sid: string;
 }
 
 export interface AnonymizeListInstance {

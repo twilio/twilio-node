@@ -270,14 +270,14 @@ interface AssetPayload extends TwilioResponsePayload {
 }
 
 interface AssetResource {
-  sid?: string | null;
-  account_sid?: string | null;
-  service_sid?: string | null;
-  friendly_name?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  url?: string | null;
-  links?: object | null;
+  sid: string;
+  account_sid: string;
+  service_sid: string;
+  friendly_name: string;
+  date_created: Date;
+  date_updated: Date;
+  url: string;
+  links: object;
 }
 
 export class AssetInstance {
@@ -305,35 +305,35 @@ export class AssetInstance {
   /**
    * The unique string that identifies the Asset resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The SID of the Account that created the Asset resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The SID of the Service that the Asset resource is associated with
    */
-  serviceSid?: string | null;
+  serviceSid: string;
   /**
    * The string that you assigned to describe the Asset resource
    */
-  friendlyName?: string | null;
+  friendlyName: string;
   /**
    * The ISO 8601 date and time in GMT when the Asset resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The ISO 8601 date and time in GMT when the Asset resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The absolute URL of the Asset resource
    */
-  url?: string | null;
+  url: string;
   /**
    * The URLs of the Asset resource\'s nested resources
    */
-  links?: object | null;
+  links: object;
 
   private get _proxy(): AssetContext {
     this._context =
@@ -419,7 +419,7 @@ export class AssetInstance {
 }
 
 export interface AssetSolution {
-  serviceSid?: string;
+  serviceSid: string;
 }
 
 export interface AssetListInstance {

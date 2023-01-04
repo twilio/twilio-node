@@ -290,17 +290,17 @@ interface ConnectAppPayload extends TwilioResponsePayload {
 }
 
 interface ConnectAppResource {
-  account_sid?: string | null;
-  authorize_redirect_url?: string | null;
-  company_name?: string | null;
-  deauthorize_callback_method?: ConnectAppDeauthorizeCallbackMethod;
-  deauthorize_callback_url?: string | null;
-  description?: string | null;
-  friendly_name?: string | null;
-  homepage_url?: string | null;
-  permissions?: Array<ConnectAppPermission> | null;
-  sid?: string | null;
-  uri?: string | null;
+  account_sid: string;
+  authorize_redirect_url: string;
+  company_name: string;
+  deauthorize_callback_method: ConnectAppDeauthorizeCallbackMethod;
+  deauthorize_callback_url: string;
+  description: string;
+  friendly_name: string;
+  homepage_url: string;
+  permissions: Array<ConnectAppPermission>;
+  sid: string;
+  uri: string;
 }
 
 export class ConnectAppInstance {
@@ -331,47 +331,47 @@ export class ConnectAppInstance {
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The URL to redirect the user to after authorization
    */
-  authorizeRedirectUrl?: string | null;
+  authorizeRedirectUrl: string;
   /**
    * The company name set for the Connect App
    */
-  companyName?: string | null;
+  companyName: string;
   /**
    * The HTTP method we use to call deauthorize_callback_url
    */
-  deauthorizeCallbackMethod?: ConnectAppDeauthorizeCallbackMethod;
+  deauthorizeCallbackMethod: ConnectAppDeauthorizeCallbackMethod;
   /**
    * The URL we call to de-authorize the Connect App
    */
-  deauthorizeCallbackUrl?: string | null;
+  deauthorizeCallbackUrl: string;
   /**
    * The description of the Connect App
    */
-  description?: string | null;
+  description: string;
   /**
    * The string that you assigned to describe the resource
    */
-  friendlyName?: string | null;
+  friendlyName: string;
   /**
    * The URL users can obtain more information
    */
-  homepageUrl?: string | null;
+  homepageUrl: string;
   /**
    * The set of permissions that your ConnectApp requests
    */
-  permissions?: Array<ConnectAppPermission> | null;
+  permissions: Array<ConnectAppPermission>;
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The URI of the resource, relative to `https://api.twilio.com`
    */
-  uri?: string | null;
+  uri: string;
 
   private get _proxy(): ConnectAppContext {
     this._context =
@@ -463,7 +463,7 @@ export class ConnectAppInstance {
 }
 
 export interface ConnectAppSolution {
-  accountSid?: string;
+  accountSid: string;
 }
 
 export interface ConnectAppListInstance {

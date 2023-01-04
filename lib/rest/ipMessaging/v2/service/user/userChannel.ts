@@ -278,17 +278,17 @@ interface UserChannelPayload extends TwilioResponsePayload {
 }
 
 interface UserChannelResource {
-  account_sid?: string | null;
-  service_sid?: string | null;
-  channel_sid?: string | null;
-  user_sid?: string | null;
-  member_sid?: string | null;
-  status?: UserChannelChannelStatus;
-  last_consumed_message_index?: number | null;
-  unread_messages_count?: number | null;
-  links?: object | null;
-  url?: string | null;
-  notification_level?: UserChannelNotificationLevel;
+  account_sid: string;
+  service_sid: string;
+  channel_sid: string;
+  user_sid: string;
+  member_sid: string;
+  status: UserChannelChannelStatus;
+  last_consumed_message_index: number;
+  unread_messages_count: number;
+  links: object;
+  url: string;
+  notification_level: UserChannelNotificationLevel;
 }
 
 export class UserChannelInstance {
@@ -325,17 +325,17 @@ export class UserChannelInstance {
     };
   }
 
-  accountSid?: string | null;
-  serviceSid?: string | null;
-  channelSid?: string | null;
-  userSid?: string | null;
-  memberSid?: string | null;
-  status?: UserChannelChannelStatus;
-  lastConsumedMessageIndex?: number | null;
-  unreadMessagesCount?: number | null;
-  links?: object | null;
-  url?: string | null;
-  notificationLevel?: UserChannelNotificationLevel;
+  accountSid: string;
+  serviceSid: string;
+  channelSid: string;
+  userSid: string;
+  memberSid: string;
+  status: UserChannelChannelStatus;
+  lastConsumedMessageIndex: number;
+  unreadMessagesCount: number;
+  links: object;
+  url: string;
+  notificationLevel: UserChannelNotificationLevel;
 
   private get _proxy(): UserChannelContext {
     this._context =
@@ -428,8 +428,8 @@ export class UserChannelInstance {
 }
 
 export interface UserChannelSolution {
-  serviceSid?: string;
-  userSid?: string;
+  serviceSid: string;
+  userSid: string;
 }
 
 export interface UserChannelListInstance {

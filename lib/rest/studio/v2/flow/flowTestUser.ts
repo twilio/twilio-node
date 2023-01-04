@@ -159,9 +159,9 @@ export class FlowTestUserContextImpl implements FlowTestUserContext {
 interface FlowTestUserPayload extends FlowTestUserResource {}
 
 interface FlowTestUserResource {
-  sid?: string | null;
-  test_users?: Array<string> | null;
-  url?: string | null;
+  sid: string;
+  test_users: Array<string>;
+  url: string;
 }
 
 export class FlowTestUserInstance {
@@ -183,15 +183,15 @@ export class FlowTestUserInstance {
   /**
    * Unique identifier of the flow.
    */
-  sid?: string | null;
+  sid: string;
   /**
    * List of test user identities that can test draft versions of the flow.
    */
-  testUsers?: Array<string> | null;
+  testUsers: Array<string>;
   /**
    * The URL of this resource.
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): FlowTestUserContext {
     this._context =
@@ -248,7 +248,7 @@ export class FlowTestUserInstance {
 }
 
 export interface FlowTestUserSolution {
-  sid?: string;
+  sid: string;
 }
 
 export interface FlowTestUserListInstance {

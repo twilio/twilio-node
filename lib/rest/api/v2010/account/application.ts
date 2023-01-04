@@ -387,26 +387,26 @@ interface ApplicationPayload extends TwilioResponsePayload {
 }
 
 interface ApplicationResource {
-  account_sid?: string | null;
-  api_version?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  friendly_name?: string | null;
-  message_status_callback?: string | null;
-  sid?: string | null;
-  sms_fallback_method?: ApplicationSmsFallbackMethod;
-  sms_fallback_url?: string | null;
-  sms_method?: ApplicationSmsMethod;
-  sms_status_callback?: string | null;
-  sms_url?: string | null;
-  status_callback?: string | null;
-  status_callback_method?: ApplicationStatusCallbackMethod;
-  uri?: string | null;
-  voice_caller_id_lookup?: boolean | null;
-  voice_fallback_method?: ApplicationVoiceFallbackMethod;
-  voice_fallback_url?: string | null;
-  voice_method?: ApplicationVoiceMethod;
-  voice_url?: string | null;
+  account_sid: string;
+  api_version: string;
+  date_created: Date;
+  date_updated: Date;
+  friendly_name: string;
+  message_status_callback: string;
+  sid: string;
+  sms_fallback_method: ApplicationSmsFallbackMethod;
+  sms_fallback_url: string;
+  sms_method: ApplicationSmsMethod;
+  sms_status_callback: string;
+  sms_url: string;
+  status_callback: string;
+  status_callback_method: ApplicationStatusCallbackMethod;
+  uri: string;
+  voice_caller_id_lookup: boolean;
+  voice_fallback_method: ApplicationVoiceFallbackMethod;
+  voice_fallback_url: string;
+  voice_method: ApplicationVoiceMethod;
+  voice_url: string;
 }
 
 export class ApplicationInstance {
@@ -446,83 +446,83 @@ export class ApplicationInstance {
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The API version used to start a new TwiML session
    */
-  apiVersion?: string | null;
+  apiVersion: string;
   /**
    * The RFC 2822 date and time in GMT that the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The RFC 2822 date and time in GMT that the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The string that you assigned to describe the resource
    */
-  friendlyName?: string | null;
+  friendlyName: string;
   /**
    * The URL to send message status information to your application
    */
-  messageStatusCallback?: string | null;
+  messageStatusCallback: string;
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The HTTP method used with sms_fallback_url
    */
-  smsFallbackMethod?: ApplicationSmsFallbackMethod;
+  smsFallbackMethod: ApplicationSmsFallbackMethod;
   /**
    * The URL that we call when an error occurs while retrieving or executing the TwiML
    */
-  smsFallbackUrl?: string | null;
+  smsFallbackUrl: string;
   /**
    * The HTTP method to use with sms_url
    */
-  smsMethod?: ApplicationSmsMethod;
+  smsMethod: ApplicationSmsMethod;
   /**
    * The URL to send status information to your application
    */
-  smsStatusCallback?: string | null;
+  smsStatusCallback: string;
   /**
    * The URL we call when the phone number receives an incoming SMS message
    */
-  smsUrl?: string | null;
+  smsUrl: string;
   /**
    * The URL to send status information to your application
    */
-  statusCallback?: string | null;
+  statusCallback: string;
   /**
    * The HTTP method we use to call status_callback
    */
-  statusCallbackMethod?: ApplicationStatusCallbackMethod;
+  statusCallbackMethod: ApplicationStatusCallbackMethod;
   /**
    * The URI of the resource, relative to `https://api.twilio.com`
    */
-  uri?: string | null;
+  uri: string;
   /**
    * Whether to lookup the caller\'s name
    */
-  voiceCallerIdLookup?: boolean | null;
+  voiceCallerIdLookup: boolean;
   /**
    * The HTTP method used with voice_fallback_url
    */
-  voiceFallbackMethod?: ApplicationVoiceFallbackMethod;
+  voiceFallbackMethod: ApplicationVoiceFallbackMethod;
   /**
    * The URL we call when a TwiML error occurs
    */
-  voiceFallbackUrl?: string | null;
+  voiceFallbackUrl: string;
   /**
    * The HTTP method used with the voice_url
    */
-  voiceMethod?: ApplicationVoiceMethod;
+  voiceMethod: ApplicationVoiceMethod;
   /**
    * The URL we call when the phone number receives a call
    */
-  voiceUrl?: string | null;
+  voiceUrl: string;
 
   private get _proxy(): ApplicationContext {
     this._context =
@@ -623,7 +623,7 @@ export class ApplicationInstance {
 }
 
 export interface ApplicationSolution {
-  accountSid?: string;
+  accountSid: string;
 }
 
 export interface ApplicationListInstance {

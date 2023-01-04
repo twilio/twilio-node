@@ -473,16 +473,16 @@ interface AccountPayload extends TwilioResponsePayload {
 }
 
 interface AccountResource {
-  auth_token?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  friendly_name?: string | null;
-  owner_account_sid?: string | null;
-  sid?: string | null;
-  status?: AccountStatus;
-  subresource_uris?: object | null;
-  type?: AccountType;
-  uri?: string | null;
+  auth_token: string;
+  date_created: Date;
+  date_updated: Date;
+  friendly_name: string;
+  owner_account_sid: string;
+  sid: string;
+  status: AccountStatus;
+  subresource_uris: object;
+  type: AccountType;
+  uri: string;
 }
 
 export class AccountInstance {
@@ -511,37 +511,37 @@ export class AccountInstance {
   /**
    * The authorization token for this account
    */
-  authToken?: string | null;
+  authToken: string;
   /**
    * The date this account was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The date this account was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * A human readable description of this account
    */
-  friendlyName?: string | null;
+  friendlyName: string;
   /**
    * The unique 34 character id representing the parent of this account
    */
-  ownerAccountSid?: string | null;
+  ownerAccountSid: string;
   /**
    * A 34 character string that uniquely identifies this resource.
    */
-  sid?: string | null;
-  status?: AccountStatus;
+  sid: string;
+  status: AccountStatus;
   /**
    * Account Instance Subresources
    */
-  subresourceUris?: object | null;
-  type?: AccountType;
+  subresourceUris: object;
+  type: AccountType;
   /**
    * The URI for this resource, relative to `https://api.twilio.com`
    */
-  uri?: string | null;
+  uri: string;
 
   private get _proxy(): AccountContext {
     this._context =

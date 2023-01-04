@@ -165,14 +165,14 @@ export class RecordingSettingsContextImpl implements RecordingSettingsContext {
 interface RecordingSettingsPayload extends RecordingSettingsResource {}
 
 interface RecordingSettingsResource {
-  account_sid?: string | null;
-  friendly_name?: string | null;
-  aws_credentials_sid?: string | null;
-  aws_s3_url?: string | null;
-  aws_storage_enabled?: boolean | null;
-  encryption_key_sid?: string | null;
-  encryption_enabled?: boolean | null;
-  url?: string | null;
+  account_sid: string;
+  friendly_name: string;
+  aws_credentials_sid: string;
+  aws_s3_url: string;
+  aws_storage_enabled: boolean;
+  encryption_key_sid: string;
+  encryption_enabled: boolean;
+  url: string;
 }
 
 export class RecordingSettingsInstance {
@@ -195,35 +195,35 @@ export class RecordingSettingsInstance {
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The string that you assigned to describe the resource
    */
-  friendlyName?: string | null;
+  friendlyName: string;
   /**
    * The SID of the stored Credential resource
    */
-  awsCredentialsSid?: string | null;
+  awsCredentialsSid: string;
   /**
    * The URL of the AWS S3 bucket where the recordings are stored
    */
-  awsS3Url?: string | null;
+  awsS3Url: string;
   /**
    * Whether all recordings are written to the aws_s3_url
    */
-  awsStorageEnabled?: boolean | null;
+  awsStorageEnabled: boolean;
   /**
    * The SID of the Public Key resource used for encryption
    */
-  encryptionKeySid?: string | null;
+  encryptionKeySid: string;
   /**
    * Whether all recordings are stored in an encrypted form
    */
-  encryptionEnabled?: boolean | null;
+  encryptionEnabled: boolean;
   /**
    * The absolute URL of the resource
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): RecordingSettingsContext {
     this._context =

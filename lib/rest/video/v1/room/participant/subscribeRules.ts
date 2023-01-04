@@ -37,8 +37,8 @@ export interface SubscribeRulesListInstanceUpdateOptions {
 }
 
 export interface SubscribeRulesSolution {
-  roomSid?: string;
-  participantSid?: string;
+  roomSid: string;
+  participantSid: string;
 }
 
 export interface SubscribeRulesListInstance {
@@ -194,11 +194,11 @@ export function SubscribeRulesListInstance(
 interface SubscribeRulesPayload extends SubscribeRulesResource {}
 
 interface SubscribeRulesResource {
-  participant_sid?: string | null;
-  room_sid?: string | null;
-  rules?: Array<VideoV1RoomRoomParticipantRoomParticipantSubscribeRuleRules> | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
+  participant_sid: string;
+  room_sid: string;
+  rules: Array<VideoV1RoomRoomParticipantRoomParticipantSubscribeRuleRules>;
+  date_created: Date;
+  date_updated: Date;
 }
 
 export class SubscribeRulesInstance {
@@ -218,23 +218,23 @@ export class SubscribeRulesInstance {
   /**
    * The SID of the Participant resource for the Subscribe Rules
    */
-  participantSid?: string | null;
+  participantSid: string;
   /**
    * The SID of the Room resource for the Subscribe Rules
    */
-  roomSid?: string | null;
+  roomSid: string;
   /**
    * A collection of Subscribe Rules that describe how to include or exclude matching tracks
    */
-  rules?: Array<VideoV1RoomRoomParticipantRoomParticipantSubscribeRuleRules> | null;
+  rules: Array<VideoV1RoomRoomParticipantRoomParticipantSubscribeRuleRules>;
   /**
    * The ISO 8601 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The ISO 8601 date and time in GMT when the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
 
   /**
    * Provide a user-friendly representation

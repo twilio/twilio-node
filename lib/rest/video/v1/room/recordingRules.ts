@@ -36,7 +36,7 @@ export interface RecordingRulesListInstanceUpdateOptions {
 }
 
 export interface RecordingRulesSolution {
-  roomSid?: string;
+  roomSid: string;
 }
 
 export interface RecordingRulesListInstance {
@@ -185,10 +185,10 @@ export function RecordingRulesListInstance(
 interface RecordingRulesPayload extends RecordingRulesResource {}
 
 interface RecordingRulesResource {
-  room_sid?: string | null;
-  rules?: Array<VideoV1RoomRoomRecordingRuleRules> | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
+  room_sid: string;
+  rules: Array<VideoV1RoomRoomRecordingRuleRules>;
+  date_created: Date;
+  date_updated: Date;
 }
 
 export class RecordingRulesInstance {
@@ -206,19 +206,19 @@ export class RecordingRulesInstance {
   /**
    * The SID of the Room resource for the Recording Rules
    */
-  roomSid?: string | null;
+  roomSid: string;
   /**
    * A collection of recording Rules that describe how to include or exclude matching tracks for recording
    */
-  rules?: Array<VideoV1RoomRoomRecordingRuleRules> | null;
+  rules: Array<VideoV1RoomRoomRecordingRuleRules>;
   /**
    * The ISO 8601 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The ISO 8601 date and time in GMT when the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
 
   /**
    * Provide a user-friendly representation

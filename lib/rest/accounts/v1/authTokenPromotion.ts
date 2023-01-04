@@ -86,11 +86,11 @@ export class AuthTokenPromotionContextImpl
 interface AuthTokenPromotionPayload extends AuthTokenPromotionResource {}
 
 interface AuthTokenPromotionResource {
-  account_sid?: string | null;
-  auth_token?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  url?: string | null;
+  account_sid: string;
+  auth_token: string;
+  date_created: Date;
+  date_updated: Date;
+  url: string;
 }
 
 export class AuthTokenPromotionInstance {
@@ -110,23 +110,23 @@ export class AuthTokenPromotionInstance {
   /**
    * The SID of the Account that the secondary Auth Token was created for
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The promoted Auth Token
    */
-  authToken?: string | null;
+  authToken: string;
   /**
    * The ISO 8601 formatted date and time in UTC when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The ISO 8601 formatted date and time in UTC when the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The URI for this resource, relative to `https://accounts.twilio.com`
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): AuthTokenPromotionContext {
     this._context =

@@ -170,14 +170,14 @@ interface TrustProductsEvaluationsPayload extends TwilioResponsePayload {
 }
 
 interface TrustProductsEvaluationsResource {
-  sid?: string | null;
-  account_sid?: string | null;
-  policy_sid?: string | null;
-  trust_product_sid?: string | null;
-  status?: TrustProductEvaluationStatus;
-  results?: Array<any> | null;
-  date_created?: Date | null;
-  url?: string | null;
+  sid: string;
+  account_sid: string;
+  policy_sid: string;
+  trust_product_sid: string;
+  status: TrustProductEvaluationStatus;
+  results: Array<any>;
+  date_created: Date;
+  url: string;
 }
 
 export class TrustProductsEvaluationsInstance {
@@ -205,26 +205,26 @@ export class TrustProductsEvaluationsInstance {
   /**
    * The unique string that identifies the Evaluation resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The unique string of a policy
    */
-  policySid?: string | null;
+  policySid: string;
   /**
    * The unique string that identifies the resource
    */
-  trustProductSid?: string | null;
-  status?: TrustProductEvaluationStatus;
+  trustProductSid: string;
+  status: TrustProductEvaluationStatus;
   /**
    * The results of the Evaluation resource
    */
-  results?: Array<any> | null;
-  dateCreated?: Date | null;
-  url?: string | null;
+  results: Array<any>;
+  dateCreated: Date;
+  url: string;
 
   private get _proxy(): TrustProductsEvaluationsContext {
     this._context =
@@ -277,7 +277,7 @@ export class TrustProductsEvaluationsInstance {
 }
 
 export interface TrustProductsEvaluationsSolution {
-  trustProductSid?: string;
+  trustProductSid: string;
 }
 
 export interface TrustProductsEvaluationsListInstance {

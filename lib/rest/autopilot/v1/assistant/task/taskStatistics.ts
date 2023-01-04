@@ -101,12 +101,12 @@ export class TaskStatisticsContextImpl implements TaskStatisticsContext {
 interface TaskStatisticsPayload extends TaskStatisticsResource {}
 
 interface TaskStatisticsResource {
-  account_sid?: string | null;
-  assistant_sid?: string | null;
-  task_sid?: string | null;
-  samples_count?: number | null;
-  fields_count?: number | null;
-  url?: string | null;
+  account_sid: string;
+  assistant_sid: string;
+  task_sid: string;
+  samples_count: number;
+  fields_count: number;
+  url: string;
 }
 
 export class TaskStatisticsInstance {
@@ -132,27 +132,27 @@ export class TaskStatisticsInstance {
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The SID of the Assistant that is the parent of the Task associated with the resource
    */
-  assistantSid?: string | null;
+  assistantSid: string;
   /**
    * The SID of the Task for which the statistics were collected
    */
-  taskSid?: string | null;
+  taskSid: string;
   /**
    * The total number of Samples associated with the Task
    */
-  samplesCount?: number | null;
+  samplesCount: number;
   /**
    * The total number of Fields associated with the Task
    */
-  fieldsCount?: number | null;
+  fieldsCount: number;
   /**
    * The absolute URL of the TaskStatistics resource
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): TaskStatisticsContext {
     this._context =
@@ -200,8 +200,8 @@ export class TaskStatisticsInstance {
 }
 
 export interface TaskStatisticsSolution {
-  assistantSid?: string;
-  taskSid?: string;
+  assistantSid: string;
+  taskSid: string;
 }
 
 export interface TaskStatisticsListInstance {

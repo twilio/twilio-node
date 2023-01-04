@@ -312,20 +312,20 @@ interface UserPayload extends TwilioResponsePayload {
 }
 
 interface UserResource {
-  sid?: string | null;
-  account_sid?: string | null;
-  service_sid?: string | null;
-  attributes?: string | null;
-  friendly_name?: string | null;
-  role_sid?: string | null;
-  identity?: string | null;
-  is_online?: boolean | null;
-  is_notifiable?: boolean | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  joined_channels_count?: number | null;
-  links?: object | null;
-  url?: string | null;
+  sid: string;
+  account_sid: string;
+  service_sid: string;
+  attributes: string;
+  friendly_name: string;
+  role_sid: string;
+  identity: string;
+  is_online: boolean;
+  is_notifiable: boolean;
+  date_created: Date;
+  date_updated: Date;
+  joined_channels_count: number;
+  links: object;
+  url: string;
 }
 
 export class UserInstance {
@@ -358,20 +358,20 @@ export class UserInstance {
     this._solution = { serviceSid, sid: sid || this.sid };
   }
 
-  sid?: string | null;
-  accountSid?: string | null;
-  serviceSid?: string | null;
-  attributes?: string | null;
-  friendlyName?: string | null;
-  roleSid?: string | null;
-  identity?: string | null;
-  isOnline?: boolean | null;
-  isNotifiable?: boolean | null;
-  dateCreated?: Date | null;
-  dateUpdated?: Date | null;
-  joinedChannelsCount?: number | null;
-  links?: object | null;
-  url?: string | null;
+  sid: string;
+  accountSid: string;
+  serviceSid: string;
+  attributes: string;
+  friendlyName: string;
+  roleSid: string;
+  identity: string;
+  isOnline: boolean;
+  isNotifiable: boolean;
+  dateCreated: Date;
+  dateUpdated: Date;
+  joinedChannelsCount: number;
+  links: object;
+  url: string;
 
   private get _proxy(): UserContext {
     this._context =
@@ -480,7 +480,7 @@ export class UserInstance {
 }
 
 export interface UserSolution {
-  serviceSid?: string;
+  serviceSid: string;
 }
 
 export interface UserListInstance {

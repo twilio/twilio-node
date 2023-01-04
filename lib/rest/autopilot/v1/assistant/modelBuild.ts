@@ -270,16 +270,16 @@ interface ModelBuildPayload extends TwilioResponsePayload {
 }
 
 interface ModelBuildResource {
-  account_sid?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  assistant_sid?: string | null;
-  sid?: string | null;
-  status?: ModelBuildStatus;
-  unique_name?: string | null;
-  url?: string | null;
-  build_duration?: number | null;
-  error_code?: number | null;
+  account_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  assistant_sid: string;
+  sid: string;
+  status: ModelBuildStatus;
+  unique_name: string;
+  url: string;
+  build_duration: number;
+  error_code: number;
 }
 
 export class ModelBuildInstance {
@@ -309,40 +309,40 @@ export class ModelBuildInstance {
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The RFC 2822 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The RFC 2822 date and time in GMT when the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The SID of the Assistant that is the parent of the resource
    */
-  assistantSid?: string | null;
+  assistantSid: string;
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
-  status?: ModelBuildStatus;
+  sid: string;
+  status: ModelBuildStatus;
   /**
    * An application-defined string that uniquely identifies the resource
    */
-  uniqueName?: string | null;
+  uniqueName: string;
   /**
    * The absolute URL of the ModelBuild resource
    */
-  url?: string | null;
+  url: string;
   /**
    * The time in seconds it took to build the model
    */
-  buildDuration?: number | null;
+  buildDuration: number;
   /**
    * More information about why the model build failed, if `status` is `failed`
    */
-  errorCode?: number | null;
+  errorCode: number;
 
   private get _proxy(): ModelBuildContext {
     this._context =
@@ -433,7 +433,7 @@ export class ModelBuildInstance {
 }
 
 export interface ModelBuildSolution {
-  assistantSid?: string;
+  assistantSid: string;
 }
 
 export interface ModelBuildListInstance {

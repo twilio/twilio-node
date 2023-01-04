@@ -278,16 +278,16 @@ interface WebhookPayload extends TwilioResponsePayload {
 }
 
 interface WebhookResource {
-  url?: string | null;
-  account_sid?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  assistant_sid?: string | null;
-  sid?: string | null;
-  unique_name?: string | null;
-  events?: string | null;
-  webhook_url?: string | null;
-  webhook_method?: string | null;
+  url: string;
+  account_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  assistant_sid: string;
+  sid: string;
+  unique_name: string;
+  events: string;
+  webhook_url: string;
+  webhook_method: string;
 }
 
 export class WebhookInstance {
@@ -317,43 +317,43 @@ export class WebhookInstance {
   /**
    * The absolute URL of the Webhook resource
    */
-  url?: string | null;
+  url: string;
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The RFC 2822 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The RFC 2822 date and time in GMT when the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The SID of the Assistant that is the parent of the resource
    */
-  assistantSid?: string | null;
+  assistantSid: string;
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * An application-defined string that uniquely identifies the resource
    */
-  uniqueName?: string | null;
+  uniqueName: string;
   /**
    * The list of space-separated events that this Webhook is subscribed to.
    */
-  events?: string | null;
+  events: string;
   /**
    * The URL associated with this Webhook.
    */
-  webhookUrl?: string | null;
+  webhookUrl: string;
   /**
    * The method used when calling the webhook\'s URL.
    */
-  webhookMethod?: string | null;
+  webhookMethod: string;
 
   private get _proxy(): WebhookContext {
     this._context =
@@ -444,7 +444,7 @@ export class WebhookInstance {
 }
 
 export interface WebhookSolution {
-  assistantSid?: string;
+  assistantSid: string;
 }
 
 export interface WebhookListInstance {

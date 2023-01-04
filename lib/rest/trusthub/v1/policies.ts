@@ -142,10 +142,10 @@ interface PoliciesPayload extends TwilioResponsePayload {
 }
 
 interface PoliciesResource {
-  sid?: string | null;
-  friendly_name?: string | null;
-  requirements?: any | null;
-  url?: string | null;
+  sid: string;
+  friendly_name: string;
+  requirements: any;
+  url: string;
 }
 
 export class PoliciesInstance {
@@ -164,19 +164,19 @@ export class PoliciesInstance {
   /**
    * The unique string that identifies the Policy resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * A human-readable description of the Policy resource
    */
-  friendlyName?: string | null;
+  friendlyName: string;
   /**
    * The sid of a Policy object that dictates requirements
    */
-  requirements?: any | null;
+  requirements: any;
   /**
    * The absolute URL of the Policy resource
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): PoliciesContext {
     this._context =

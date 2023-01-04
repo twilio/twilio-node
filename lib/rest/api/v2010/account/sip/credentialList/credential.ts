@@ -274,13 +274,13 @@ interface CredentialPayload extends TwilioResponsePayload {
 }
 
 interface CredentialResource {
-  sid?: string | null;
-  account_sid?: string | null;
-  credential_list_sid?: string | null;
-  username?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  uri?: string | null;
+  sid: string;
+  account_sid: string;
+  credential_list_sid: string;
+  username: string;
+  date_created: Date;
+  date_updated: Date;
+  uri: string;
 }
 
 export class CredentialInstance {
@@ -308,31 +308,31 @@ export class CredentialInstance {
   /**
    * A 34 character string that uniquely identifies this resource.
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The unique id of the Account that is responsible for this resource.
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The unique id that identifies the credential list that includes this credential
    */
-  credentialListSid?: string | null;
+  credentialListSid: string;
   /**
    * The username for this credential.
    */
-  username?: string | null;
+  username: string;
   /**
    * The date that this resource was created, given as GMT in RFC 2822 format.
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The date that this resource was last updated, given as GMT in RFC 2822 format.
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The URI for this resource, relative to https://api.twilio.com
    */
-  uri?: string | null;
+  uri: string;
 
   private get _proxy(): CredentialContext {
     this._context =
@@ -421,8 +421,8 @@ export class CredentialInstance {
 }
 
 export interface CredentialSolution {
-  accountSid?: string;
-  credentialListSid?: string;
+  accountSid: string;
+  credentialListSid: string;
 }
 
 export interface CredentialListInstance {

@@ -560,13 +560,13 @@ export class StreamContextImpl implements StreamContext {
 interface StreamPayload extends StreamResource {}
 
 interface StreamResource {
-  sid?: string | null;
-  account_sid?: string | null;
-  call_sid?: string | null;
-  name?: string | null;
-  status?: StreamStatus;
-  date_updated?: Date | null;
-  uri?: string | null;
+  sid: string;
+  account_sid: string;
+  call_sid: string;
+  name: string;
+  status: StreamStatus;
+  date_updated: Date;
+  uri: string;
 }
 
 export class StreamInstance {
@@ -594,28 +594,28 @@ export class StreamInstance {
   /**
    * The SID of the Stream resource.
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The SID of the Account that created this resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The SID of the Call the resource is associated with
    */
-  callSid?: string | null;
+  callSid: string;
   /**
    * The name of this resource
    */
-  name?: string | null;
-  status?: StreamStatus;
+  name: string;
+  status: StreamStatus;
   /**
    * The RFC 2822 date and time in GMT that this resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The URI of the resource, relative to `https://api.twilio.com`
    */
-  uri?: string | null;
+  uri: string;
 
   private get _proxy(): StreamContext {
     this._context =
@@ -668,8 +668,8 @@ export class StreamInstance {
 }
 
 export interface StreamSolution {
-  accountSid?: string;
-  callSid?: string;
+  accountSid: string;
+  callSid: string;
 }
 
 export interface StreamListInstance {

@@ -330,15 +330,15 @@ interface AddressConfigurationPayload extends TwilioResponsePayload {
 }
 
 interface AddressConfigurationResource {
-  sid?: string | null;
-  account_sid?: string | null;
-  type?: string | null;
-  address?: string | null;
-  friendly_name?: string | null;
-  auto_creation?: any | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  url?: string | null;
+  sid: string;
+  account_sid: string;
+  type: string;
+  address: string;
+  friendly_name: string;
+  auto_creation: any;
+  date_created: Date;
+  date_updated: Date;
+  url: string;
 }
 
 export class AddressConfigurationInstance {
@@ -366,39 +366,39 @@ export class AddressConfigurationInstance {
   /**
    * A 34 character string that uniquely identifies this resource.
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The unique ID of the Account the address belongs to.
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * Type of Address.
    */
-  type?: string | null;
+  type: string;
   /**
    * The unique address to be configured.
    */
-  address?: string | null;
+  address: string;
   /**
    * The human-readable name of this configuration.
    */
-  friendlyName?: string | null;
+  friendlyName: string;
   /**
    * Auto Creation configuration for the address.
    */
-  autoCreation?: any | null;
+  autoCreation: any;
   /**
    * The date that this resource was created.
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The date that this resource was last updated.
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * An absolute URL for this address configuration.
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): AddressConfigurationContext {
     this._context =

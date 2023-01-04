@@ -179,23 +179,23 @@ interface ParticipantPayload extends TwilioResponsePayload {
 }
 
 interface ParticipantResource {
-  participant_sid?: string | null;
-  participant_identity?: string | null;
-  join_time?: Date | null;
-  leave_time?: Date | null;
-  duration_sec?: number | null;
-  account_sid?: string | null;
-  room_sid?: string | null;
-  status?: VideoParticipantSummaryRoomStatus;
-  codecs?: Array<VideoParticipantSummaryCodec> | null;
-  end_reason?: string | null;
-  error_code?: number | null;
-  error_code_url?: string | null;
-  media_region?: VideoParticipantSummaryTwilioRealm;
-  properties?: any | null;
-  edge_location?: VideoParticipantSummaryEdgeLocation;
-  publisher_info?: any | null;
-  url?: string | null;
+  participant_sid: string;
+  participant_identity: string;
+  join_time: Date;
+  leave_time: Date;
+  duration_sec: number;
+  account_sid: string;
+  room_sid: string;
+  status: VideoParticipantSummaryRoomStatus;
+  codecs: Array<VideoParticipantSummaryCodec>;
+  end_reason: string;
+  error_code: number;
+  error_code_url: string;
+  media_region: VideoParticipantSummaryTwilioRealm;
+  properties: any;
+  edge_location: VideoParticipantSummaryEdgeLocation;
+  publisher_info: any;
+  url: string;
 }
 
 export class ParticipantInstance {
@@ -235,62 +235,62 @@ export class ParticipantInstance {
   /**
    * Unique identifier for the participant.
    */
-  participantSid?: string | null;
+  participantSid: string;
   /**
    * The application-defined string that uniquely identifies the participant within a Room.
    */
-  participantIdentity?: string | null;
+  participantIdentity: string;
   /**
    * When the participant joined the room.
    */
-  joinTime?: Date | null;
+  joinTime: Date;
   /**
    * When the participant left the room
    */
-  leaveTime?: Date | null;
+  leaveTime: Date;
   /**
    * Amount of time in seconds the participant was in the room.
    */
-  durationSec?: number | null;
+  durationSec: number;
   /**
    * Account SID associated with the room.
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * Unique identifier for the room.
    */
-  roomSid?: string | null;
-  status?: VideoParticipantSummaryRoomStatus;
+  roomSid: string;
+  status: VideoParticipantSummaryRoomStatus;
   /**
    * Codecs detected from the participant.
    */
-  codecs?: Array<VideoParticipantSummaryCodec> | null;
+  codecs: Array<VideoParticipantSummaryCodec>;
   /**
    * Reason the participant left the room.
    */
-  endReason?: string | null;
+  endReason: string;
   /**
    * Errors encountered by the participant.
    */
-  errorCode?: number | null;
+  errorCode: number;
   /**
    * Twilio error code dictionary link.
    */
-  errorCodeUrl?: string | null;
-  mediaRegion?: VideoParticipantSummaryTwilioRealm;
+  errorCodeUrl: string;
+  mediaRegion: VideoParticipantSummaryTwilioRealm;
   /**
    * Object containing information about the participant\'s data from the room.
    */
-  properties?: any | null;
-  edgeLocation?: VideoParticipantSummaryEdgeLocation;
+  properties: any;
+  edgeLocation: VideoParticipantSummaryEdgeLocation;
   /**
    * Object containing information about the SDK name and version.
    */
-  publisherInfo?: any | null;
+  publisherInfo: any;
   /**
    * URL of the participant resource.
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): ParticipantContext {
     this._context =
@@ -349,7 +349,7 @@ export class ParticipantInstance {
 }
 
 export interface ParticipantSolution {
-  roomSid?: string;
+  roomSid: string;
 }
 
 export interface ParticipantListInstance {

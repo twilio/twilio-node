@@ -335,19 +335,19 @@ interface UserPayload extends TwilioResponsePayload {
 }
 
 interface UserResource {
-  sid?: string | null;
-  account_sid?: string | null;
-  chat_service_sid?: string | null;
-  role_sid?: string | null;
-  identity?: string | null;
-  friendly_name?: string | null;
-  attributes?: string | null;
-  is_online?: boolean | null;
-  is_notifiable?: boolean | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  url?: string | null;
-  links?: object | null;
+  sid: string;
+  account_sid: string;
+  chat_service_sid: string;
+  role_sid: string;
+  identity: string;
+  friendly_name: string;
+  attributes: string;
+  is_online: boolean;
+  is_notifiable: boolean;
+  date_created: Date;
+  date_updated: Date;
+  url: string;
+  links: object;
 }
 
 export class UserInstance {
@@ -380,52 +380,52 @@ export class UserInstance {
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The SID of the Conversation Service that the resource is associated with
    */
-  chatServiceSid?: string | null;
+  chatServiceSid: string;
   /**
    * The SID of a service-level Role assigned to the user
    */
-  roleSid?: string | null;
+  roleSid: string;
   /**
    * The string that identifies the resource\'s User
    */
-  identity?: string | null;
+  identity: string;
   /**
    * The string that you assigned to describe the resource
    */
-  friendlyName?: string | null;
+  friendlyName: string;
   /**
    * The JSON Object string that stores application-specific data
    */
-  attributes?: string | null;
+  attributes: string;
   /**
    * Whether the User is actively connected to this Conversations Service and online
    */
-  isOnline?: boolean | null;
+  isOnline: boolean;
   /**
    * Whether the User has a potentially valid Push Notification registration for this Conversations Service
    */
-  isNotifiable?: boolean | null;
+  isNotifiable: boolean;
   /**
    * The ISO 8601 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The ISO 8601 date and time in GMT when the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * An absolute URL for this user.
    */
-  url?: string | null;
-  links?: object | null;
+  url: string;
+  links: object;
 
   private get _proxy(): UserContext {
     this._context =
@@ -539,7 +539,7 @@ export class UserInstance {
 }
 
 export interface UserSolution {
-  chatServiceSid?: string;
+  chatServiceSid: string;
 }
 
 export interface UserListInstance {

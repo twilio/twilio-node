@@ -277,15 +277,15 @@ interface SinkPayload extends TwilioResponsePayload {
 }
 
 interface SinkResource {
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  description?: string | null;
-  sid?: string | null;
-  sink_configuration?: any | null;
-  sink_type?: SinkSinkType;
-  status?: SinkStatus;
-  url?: string | null;
-  links?: object | null;
+  date_created: Date;
+  date_updated: Date;
+  description: string;
+  sid: string;
+  sink_configuration: any;
+  sink_type: SinkSinkType;
+  status: SinkStatus;
+  url: string;
+  links: object;
 }
 
 export class SinkInstance {
@@ -309,33 +309,33 @@ export class SinkInstance {
   /**
    * The date this Sink was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The date this Sink was updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * Sink Description
    */
-  description?: string | null;
+  description: string;
   /**
    * A string that uniquely identifies this Sink.
    */
-  sid?: string | null;
+  sid: string;
   /**
    * JSON Sink configuration.
    */
-  sinkConfiguration?: any | null;
-  sinkType?: SinkSinkType;
-  status?: SinkStatus;
+  sinkConfiguration: any;
+  sinkType: SinkSinkType;
+  status: SinkStatus;
   /**
    * The URL of this resource.
    */
-  url?: string | null;
+  url: string;
   /**
    * Nested resource URLs.
    */
-  links?: object | null;
+  links: object;
 
   private get _proxy(): SinkContext {
     this._context =

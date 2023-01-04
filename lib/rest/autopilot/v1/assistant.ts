@@ -364,20 +364,20 @@ interface AssistantPayload extends TwilioResponsePayload {
 }
 
 interface AssistantResource {
-  account_sid?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  friendly_name?: string | null;
-  latest_model_build_sid?: string | null;
-  links?: object | null;
-  log_queries?: boolean | null;
-  development_stage?: string | null;
-  needs_model_build?: boolean | null;
-  sid?: string | null;
-  unique_name?: string | null;
-  url?: string | null;
-  callback_url?: string | null;
-  callback_events?: string | null;
+  account_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  friendly_name: string;
+  latest_model_build_sid: string;
+  links: object;
+  log_queries: boolean;
+  development_stage: string;
+  needs_model_build: boolean;
+  sid: string;
+  unique_name: string;
+  url: string;
+  callback_url: string;
+  callback_events: string;
 }
 
 export class AssistantInstance {
@@ -410,59 +410,59 @@ export class AssistantInstance {
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The RFC 2822 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The RFC 2822 date and time in GMT when the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The string that you assigned to describe the resource
    */
-  friendlyName?: string | null;
+  friendlyName: string;
   /**
    * Reserved
    */
-  latestModelBuildSid?: string | null;
+  latestModelBuildSid: string;
   /**
    * A list of the URLs of the Assistant\'s related resources
    */
-  links?: object | null;
+  links: object;
   /**
    * Whether queries should be logged and kept after training
    */
-  logQueries?: boolean | null;
+  logQueries: boolean;
   /**
    * A string describing the state of the assistant.
    */
-  developmentStage?: string | null;
+  developmentStage: string;
   /**
    * Whether model needs to be rebuilt
    */
-  needsModelBuild?: boolean | null;
+  needsModelBuild: boolean;
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * An application-defined string that uniquely identifies the resource
    */
-  uniqueName?: string | null;
+  uniqueName: string;
   /**
    * The absolute URL of the Assistant resource
    */
-  url?: string | null;
+  url: string;
   /**
    * Reserved
    */
-  callbackUrl?: string | null;
+  callbackUrl: string;
   /**
    * Reserved
    */
-  callbackEvents?: string | null;
+  callbackEvents: string;
 
   private get _proxy(): AssistantContext {
     this._context =

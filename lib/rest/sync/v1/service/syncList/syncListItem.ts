@@ -352,17 +352,17 @@ interface SyncListItemPayload extends TwilioResponsePayload {
 }
 
 interface SyncListItemResource {
-  index?: number | null;
-  account_sid?: string | null;
-  service_sid?: string | null;
-  list_sid?: string | null;
-  url?: string | null;
-  revision?: string | null;
-  data?: any | null;
-  date_expires?: Date | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  created_by?: string | null;
+  index: number;
+  account_sid: string;
+  service_sid: string;
+  list_sid: string;
+  url: string;
+  revision: string;
+  data: any;
+  date_expires: Date;
+  date_created: Date;
+  date_updated: Date;
+  created_by: string;
 }
 
 export class SyncListItemInstance {
@@ -394,47 +394,47 @@ export class SyncListItemInstance {
   /**
    * The automatically generated index of the List Item
    */
-  index?: number | null;
+  index: number;
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The SID of the Sync Service that the resource is associated with
    */
-  serviceSid?: string | null;
+  serviceSid: string;
   /**
    * The SID of the Sync List that contains the List Item
    */
-  listSid?: string | null;
+  listSid: string;
   /**
    * The absolute URL of the List Item resource
    */
-  url?: string | null;
+  url: string;
   /**
    * The current revision of the item, represented as a string
    */
-  revision?: string | null;
+  revision: string;
   /**
    * An arbitrary, schema-less object that the List Item stores
    */
-  data?: any | null;
+  data: any;
   /**
    * The ISO 8601 date and time in GMT when the List Item expires
    */
-  dateExpires?: Date | null;
+  dateExpires: Date;
   /**
    * The ISO 8601 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The ISO 8601 date and time in GMT when the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The identity of the List Item\'s creator
    */
-  createdBy?: string | null;
+  createdBy: string;
 
   private get _proxy(): SyncListItemContext {
     this._context =
@@ -540,8 +540,8 @@ export class SyncListItemInstance {
 }
 
 export interface SyncListItemSolution {
-  serviceSid?: string;
-  listSid?: string;
+  serviceSid: string;
+  listSid: string;
 }
 
 export interface SyncListItemListInstance {

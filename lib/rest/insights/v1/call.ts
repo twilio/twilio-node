@@ -131,9 +131,9 @@ export class CallContextImpl implements CallContext {
 interface CallPayload extends CallResource {}
 
 interface CallResource {
-  sid?: string | null;
-  url?: string | null;
-  links?: object | null;
+  sid: string;
+  url: string;
+  links: object;
 }
 
 export class CallInstance {
@@ -148,9 +148,9 @@ export class CallInstance {
     this._solution = { sid: sid || this.sid };
   }
 
-  sid?: string | null;
-  url?: string | null;
-  links?: object | null;
+  sid: string;
+  url: string;
+  links: object;
 
   private get _proxy(): CallContext {
     this._context =

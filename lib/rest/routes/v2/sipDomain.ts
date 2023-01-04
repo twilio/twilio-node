@@ -173,14 +173,14 @@ export class SipDomainContextImpl implements SipDomainContext {
 interface SipDomainPayload extends SipDomainResource {}
 
 interface SipDomainResource {
-  sip_domain?: string | null;
-  url?: string | null;
-  sid?: string | null;
-  account_sid?: string | null;
-  friendly_name?: string | null;
-  voice_region?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
+  sip_domain: string;
+  url: string;
+  sid: string;
+  account_sid: string;
+  friendly_name: string;
+  voice_region: string;
+  date_created: Date;
+  date_updated: Date;
 }
 
 export class SipDomainInstance {
@@ -204,14 +204,14 @@ export class SipDomainInstance {
     this._solution = { sipDomain: sipDomain || this.sipDomain };
   }
 
-  sipDomain?: string | null;
-  url?: string | null;
-  sid?: string | null;
-  accountSid?: string | null;
-  friendlyName?: string | null;
-  voiceRegion?: string | null;
-  dateCreated?: Date | null;
-  dateUpdated?: Date | null;
+  sipDomain: string;
+  url: string;
+  sid: string;
+  accountSid: string;
+  friendlyName: string;
+  voiceRegion: string;
+  dateCreated: Date;
+  dateUpdated: Date;
 
   private get _proxy(): SipDomainContext {
     this._context =

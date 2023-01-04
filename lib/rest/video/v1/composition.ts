@@ -237,27 +237,27 @@ interface CompositionPayload extends TwilioResponsePayload {
 }
 
 interface CompositionResource {
-  account_sid?: string | null;
-  status?: CompositionStatus;
-  date_created?: Date | null;
-  date_completed?: Date | null;
-  date_deleted?: Date | null;
-  sid?: string | null;
-  room_sid?: string | null;
-  audio_sources?: Array<string> | null;
-  audio_sources_excluded?: Array<string> | null;
-  video_layout?: any | null;
-  resolution?: string | null;
-  trim?: boolean | null;
-  format?: CompositionFormat;
-  bitrate?: number | null;
-  size?: number | null;
-  duration?: number | null;
-  media_external_location?: string | null;
-  status_callback?: string | null;
-  status_callback_method?: CompositionStatusCallbackMethod;
-  url?: string | null;
-  links?: object | null;
+  account_sid: string;
+  status: CompositionStatus;
+  date_created: Date;
+  date_completed: Date;
+  date_deleted: Date;
+  sid: string;
+  room_sid: string;
+  audio_sources: Array<string>;
+  audio_sources_excluded: Array<string>;
+  video_layout: any;
+  resolution: string;
+  trim: boolean;
+  format: CompositionFormat;
+  bitrate: number;
+  size: number;
+  duration: number;
+  media_external_location: string;
+  status_callback: string;
+  status_callback_method: CompositionStatusCallbackMethod;
+  url: string;
+  links: object;
 }
 
 export class CompositionInstance {
@@ -297,81 +297,81 @@ export class CompositionInstance {
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
-  status?: CompositionStatus;
+  accountSid: string;
+  status: CompositionStatus;
   /**
    * The ISO 8601 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * Date when the media processing task finished
    */
-  dateCompleted?: Date | null;
+  dateCompleted: Date;
   /**
    * The ISO 8601 date and time in GMT when the composition generated media was deleted
    */
-  dateDeleted?: Date | null;
+  dateDeleted: Date;
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The SID of the Group Room that generated the audio and video tracks used in the composition
    */
-  roomSid?: string | null;
+  roomSid: string;
   /**
    * The array of track names to include in the composition
    */
-  audioSources?: Array<string> | null;
+  audioSources: Array<string>;
   /**
    * The array of track names to exclude from the composition
    */
-  audioSourcesExcluded?: Array<string> | null;
+  audioSourcesExcluded: Array<string>;
   /**
    * An object that describes the video layout of the composition
    */
-  videoLayout?: any | null;
+  videoLayout: any;
   /**
    * The dimensions of the video image in pixels expressed as columns (width) and rows (height)
    */
-  resolution?: string | null;
+  resolution: string;
   /**
    * Whether to remove intervals with no media
    */
-  trim?: boolean | null;
-  format?: CompositionFormat;
+  trim: boolean;
+  format: CompositionFormat;
   /**
    * The average bit rate of the composition\'s media
    */
-  bitrate?: number | null;
+  bitrate: number;
   /**
    * The size of the composed media file in bytes
    */
-  size?: number | null;
+  size: number;
   /**
    * The duration of the composition\'s media file in seconds
    */
-  duration?: number | null;
+  duration: number;
   /**
    * The URL of the media file associated with the composition when stored externally
    */
-  mediaExternalLocation?: string | null;
+  mediaExternalLocation: string;
   /**
    * The URL called to send status information on every composition event.
    */
-  statusCallback?: string | null;
+  statusCallback: string;
   /**
    * The HTTP method used to call `status_callback`
    */
-  statusCallbackMethod?: CompositionStatusCallbackMethod;
+  statusCallbackMethod: CompositionStatusCallbackMethod;
   /**
    * The absolute URL of the resource
    */
-  url?: string | null;
+  url: string;
   /**
    * The URL of the media file associated with the composition
    */
-  links?: object | null;
+  links: object;
 
   private get _proxy(): CompositionContext {
     this._context =

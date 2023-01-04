@@ -393,21 +393,21 @@ interface WorkspacePayload extends TwilioResponsePayload {
 }
 
 interface WorkspaceResource {
-  account_sid?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  default_activity_name?: string | null;
-  default_activity_sid?: string | null;
-  event_callback_url?: string | null;
-  events_filter?: string | null;
-  friendly_name?: string | null;
-  multi_task_enabled?: boolean | null;
-  sid?: string | null;
-  timeout_activity_name?: string | null;
-  timeout_activity_sid?: string | null;
-  prioritize_queue_order?: WorkspaceQueueOrder;
-  url?: string | null;
-  links?: object | null;
+  account_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  default_activity_name: string;
+  default_activity_sid: string;
+  event_callback_url: string;
+  events_filter: string;
+  friendly_name: string;
+  multi_task_enabled: boolean;
+  sid: string;
+  timeout_activity_name: string;
+  timeout_activity_sid: string;
+  prioritize_queue_order: WorkspaceQueueOrder;
+  url: string;
+  links: object;
 }
 
 export class WorkspaceInstance {
@@ -441,60 +441,60 @@ export class WorkspaceInstance {
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The ISO 8601 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The ISO 8601 date and time in GMT when the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The name of the default activity
    */
-  defaultActivityName?: string | null;
+  defaultActivityName: string;
   /**
    * The SID of the Activity that will be used when new Workers are created in the Workspace
    */
-  defaultActivitySid?: string | null;
+  defaultActivitySid: string;
   /**
    * The URL we call when an event occurs
    */
-  eventCallbackUrl?: string | null;
+  eventCallbackUrl: string;
   /**
    * The list of Workspace events for which to call event_callback_url
    */
-  eventsFilter?: string | null;
+  eventsFilter: string;
   /**
    * The string that you assigned to describe the Workspace resource
    */
-  friendlyName?: string | null;
+  friendlyName: string;
   /**
    * Whether multi-tasking is enabled
    */
-  multiTaskEnabled?: boolean | null;
+  multiTaskEnabled: boolean;
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The name of the timeout activity
    */
-  timeoutActivityName?: string | null;
+  timeoutActivityName: string;
   /**
    * The SID of the Activity that will be assigned to a Worker when a Task reservation times out without a response
    */
-  timeoutActivitySid?: string | null;
-  prioritizeQueueOrder?: WorkspaceQueueOrder;
+  timeoutActivitySid: string;
+  prioritizeQueueOrder: WorkspaceQueueOrder;
   /**
    * The absolute URL of the Workspace resource
    */
-  url?: string | null;
+  url: string;
   /**
    * The URLs of related resources
    */
-  links?: object | null;
+  links: object;
 
   private get _proxy(): WorkspaceContext {
     this._context =

@@ -252,10 +252,10 @@ interface KeyPayload extends TwilioResponsePayload {
 }
 
 interface KeyResource {
-  sid?: string | null;
-  friendly_name?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
+  sid: string;
+  friendly_name: string;
+  date_created: Date;
+  date_updated: Date;
 }
 
 export class KeyInstance {
@@ -279,19 +279,19 @@ export class KeyInstance {
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The string that you assigned to describe the resource
    */
-  friendlyName?: string | null;
+  friendlyName: string;
   /**
    * The RFC 2822 date and time in GMT that the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The RFC 2822 date and time in GMT that the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
 
   private get _proxy(): KeyContext {
     this._context =
@@ -376,7 +376,7 @@ export class KeyInstance {
 }
 
 export interface KeySolution {
-  accountSid?: string;
+  accountSid: string;
 }
 
 export interface KeyListInstance {

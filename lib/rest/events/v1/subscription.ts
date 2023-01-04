@@ -279,14 +279,14 @@ interface SubscriptionPayload extends TwilioResponsePayload {
 }
 
 interface SubscriptionResource {
-  account_sid?: string | null;
-  sid?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  description?: string | null;
-  sink_sid?: string | null;
-  url?: string | null;
-  links?: object | null;
+  account_sid: string;
+  sid: string;
+  date_created: Date;
+  date_updated: Date;
+  description: string;
+  sink_sid: string;
+  url: string;
+  links: object;
 }
 
 export class SubscriptionInstance {
@@ -313,35 +313,35 @@ export class SubscriptionInstance {
   /**
    * Account SID.
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * A string that uniquely identifies this Subscription.
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The date this Subscription was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The date this Subscription was updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * Subscription description
    */
-  description?: string | null;
+  description: string;
   /**
    * Sink SID.
    */
-  sinkSid?: string | null;
+  sinkSid: string;
   /**
    * The URL of this resource.
    */
-  url?: string | null;
+  url: string;
   /**
    * Nested resource URLs.
    */
-  links?: object | null;
+  links: object;
 
   private get _proxy(): SubscriptionContext {
     this._context =

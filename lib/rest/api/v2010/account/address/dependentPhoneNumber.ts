@@ -79,8 +79,8 @@ export interface DependentPhoneNumberListInstancePageOptions {
 }
 
 export interface DependentPhoneNumberSolution {
-  accountSid?: string;
-  addressSid?: string;
+  accountSid: string;
+  addressSid: string;
 }
 
 export interface DependentPhoneNumberListInstance {
@@ -368,32 +368,32 @@ interface DependentPhoneNumberPayload extends TwilioResponsePayload {
 }
 
 interface DependentPhoneNumberResource {
-  sid?: string | null;
-  account_sid?: string | null;
-  friendly_name?: string | null;
-  phone_number?: string | null;
-  voice_url?: string | null;
-  voice_method?: DependentPhoneNumberVoiceMethod;
-  voice_fallback_method?: DependentPhoneNumberVoiceFallbackMethod;
-  voice_fallback_url?: string | null;
-  voice_caller_id_lookup?: boolean | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  sms_fallback_method?: DependentPhoneNumberSmsFallbackMethod;
-  sms_fallback_url?: string | null;
-  sms_method?: DependentPhoneNumberSmsMethod;
-  sms_url?: string | null;
-  address_requirements?: DependentPhoneNumberAddressRequirement;
-  capabilities?: any | null;
-  status_callback?: string | null;
-  status_callback_method?: DependentPhoneNumberStatusCallbackMethod;
-  api_version?: string | null;
-  sms_application_sid?: string | null;
-  voice_application_sid?: string | null;
-  trunk_sid?: string | null;
-  emergency_status?: DependentPhoneNumberEmergencyStatus;
-  emergency_address_sid?: string | null;
-  uri?: string | null;
+  sid: string;
+  account_sid: string;
+  friendly_name: string;
+  phone_number: string;
+  voice_url: string;
+  voice_method: DependentPhoneNumberVoiceMethod;
+  voice_fallback_method: DependentPhoneNumberVoiceFallbackMethod;
+  voice_fallback_url: string;
+  voice_caller_id_lookup: boolean;
+  date_created: Date;
+  date_updated: Date;
+  sms_fallback_method: DependentPhoneNumberSmsFallbackMethod;
+  sms_fallback_url: string;
+  sms_method: DependentPhoneNumberSmsMethod;
+  sms_url: string;
+  address_requirements: DependentPhoneNumberAddressRequirement;
+  capabilities: any;
+  status_callback: string;
+  status_callback_method: DependentPhoneNumberStatusCallbackMethod;
+  api_version: string;
+  sms_application_sid: string;
+  voice_application_sid: string;
+  trunk_sid: string;
+  emergency_status: DependentPhoneNumberEmergencyStatus;
+  emergency_address_sid: string;
+  uri: string;
 }
 
 export class DependentPhoneNumberInstance {
@@ -434,101 +434,101 @@ export class DependentPhoneNumberInstance {
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The string that you assigned to describe the resource
    */
-  friendlyName?: string | null;
+  friendlyName: string;
   /**
    * The phone number in E.164 format
    */
-  phoneNumber?: string | null;
+  phoneNumber: string;
   /**
    * The URL we call when the phone number receives a call
    */
-  voiceUrl?: string | null;
+  voiceUrl: string;
   /**
    * The HTTP method used with the voice_url
    */
-  voiceMethod?: DependentPhoneNumberVoiceMethod;
+  voiceMethod: DependentPhoneNumberVoiceMethod;
   /**
    * The HTTP method used with voice_fallback_url
    */
-  voiceFallbackMethod?: DependentPhoneNumberVoiceFallbackMethod;
+  voiceFallbackMethod: DependentPhoneNumberVoiceFallbackMethod;
   /**
    * The URL we call when an error occurs in TwiML
    */
-  voiceFallbackUrl?: string | null;
+  voiceFallbackUrl: string;
   /**
    * Whether to lookup the caller\'s name
    */
-  voiceCallerIdLookup?: boolean | null;
+  voiceCallerIdLookup: boolean;
   /**
    * The RFC 2822 date and time in GMT that the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The RFC 2822 date and time in GMT that the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The HTTP method used with sms_fallback_url
    */
-  smsFallbackMethod?: DependentPhoneNumberSmsFallbackMethod;
+  smsFallbackMethod: DependentPhoneNumberSmsFallbackMethod;
   /**
    * The URL that we call when an error occurs while retrieving or executing the TwiML
    */
-  smsFallbackUrl?: string | null;
+  smsFallbackUrl: string;
   /**
    * The HTTP method to use with sms_url
    */
-  smsMethod?: DependentPhoneNumberSmsMethod;
+  smsMethod: DependentPhoneNumberSmsMethod;
   /**
    * The URL we call when the phone number receives an incoming SMS message
    */
-  smsUrl?: string | null;
-  addressRequirements?: DependentPhoneNumberAddressRequirement;
+  smsUrl: string;
+  addressRequirements: DependentPhoneNumberAddressRequirement;
   /**
    * Indicate if a phone can receive calls or messages
    */
-  capabilities?: any | null;
+  capabilities: any;
   /**
    * The URL to send status information to your application
    */
-  statusCallback?: string | null;
+  statusCallback: string;
   /**
    * The HTTP method we use to call status_callback
    */
-  statusCallbackMethod?: DependentPhoneNumberStatusCallbackMethod;
+  statusCallbackMethod: DependentPhoneNumberStatusCallbackMethod;
   /**
    * The API version used to start a new TwiML session
    */
-  apiVersion?: string | null;
+  apiVersion: string;
   /**
    * The SID of the application that handles SMS messages sent to the phone number
    */
-  smsApplicationSid?: string | null;
+  smsApplicationSid: string;
   /**
    * The SID of the application that handles calls to the phone number
    */
-  voiceApplicationSid?: string | null;
+  voiceApplicationSid: string;
   /**
    * The SID of the Trunk that handles calls to the phone number
    */
-  trunkSid?: string | null;
-  emergencyStatus?: DependentPhoneNumberEmergencyStatus;
+  trunkSid: string;
+  emergencyStatus: DependentPhoneNumberEmergencyStatus;
   /**
    * The emergency address configuration to use for emergency calling
    */
-  emergencyAddressSid?: string | null;
+  emergencyAddressSid: string;
   /**
    * The URI of the resource, relative to `https://api.twilio.com`
    */
-  uri?: string | null;
+  uri: string;
 
   /**
    * Provide a user-friendly representation

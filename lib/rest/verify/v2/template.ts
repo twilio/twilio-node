@@ -295,11 +295,11 @@ interface TemplatePayload extends TwilioResponsePayload {
 }
 
 interface TemplateResource {
-  sid?: string | null;
-  account_sid?: string | null;
-  friendly_name?: string | null;
-  channels?: Array<string> | null;
-  translations?: any | null;
+  sid: string;
+  account_sid: string;
+  friendly_name: string;
+  channels: Array<string>;
+  translations: any;
 }
 
 export class TemplateInstance {
@@ -314,23 +314,23 @@ export class TemplateInstance {
   /**
    * A string that uniquely identifies this Template
    */
-  sid?: string | null;
+  sid: string;
   /**
    * Account Sid
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * A string to describe the verification template
    */
-  friendlyName?: string | null;
+  friendlyName: string;
   /**
    * A list of channels that support the Template
    */
-  channels?: Array<string> | null;
+  channels: Array<string>;
   /**
    * Object with the template translations.
    */
-  translations?: any | null;
+  translations: any;
 
   /**
    * Provide a user-friendly representation

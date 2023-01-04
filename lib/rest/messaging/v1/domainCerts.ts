@@ -185,14 +185,14 @@ export class DomainCertsContextImpl implements DomainCertsContext {
 interface DomainCertsPayload extends DomainCertsResource {}
 
 interface DomainCertsResource {
-  domain_sid?: string | null;
-  date_updated?: Date | null;
-  date_expires?: Date | null;
-  date_created?: Date | null;
-  domain_name?: string | null;
-  certificate_sid?: string | null;
-  url?: string | null;
-  validated?: boolean | null;
+  domain_sid: string;
+  date_updated: Date;
+  date_expires: Date;
+  date_created: Date;
+  domain_name: string;
+  certificate_sid: string;
+  url: string;
+  validated: boolean;
 }
 
 export class DomainCertsInstance {
@@ -219,32 +219,32 @@ export class DomainCertsInstance {
   /**
    * The unique string that we created to identify the Domain resource.
    */
-  domainSid?: string | null;
+  domainSid: string;
   /**
    * Date that this Domain was last updated.
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * Expiration date for your private certificate.
    */
-  dateExpires?: Date | null;
+  dateExpires: Date;
   /**
    * Date this Domain SID was created.
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * Full url path for this domain.
    */
-  domainName?: string | null;
+  domainName: string;
   /**
    * The unique string that we created to identify this Certificate resource.
    */
-  certificateSid?: string | null;
-  url?: string | null;
+  certificateSid: string;
+  url: string;
   /**
    * Certificate validation field
    */
-  validated?: boolean | null;
+  validated: boolean;
 
   private get _proxy(): DomainCertsContext {
     this._context =

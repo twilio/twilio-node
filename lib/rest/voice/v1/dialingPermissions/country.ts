@@ -194,15 +194,15 @@ interface CountryPayload extends TwilioResponsePayload {
 }
 
 interface CountryResource {
-  iso_code?: string | null;
-  name?: string | null;
-  continent?: string | null;
-  country_codes?: Array<string> | null;
-  low_risk_numbers_enabled?: boolean | null;
-  high_risk_special_numbers_enabled?: boolean | null;
-  high_risk_tollfraud_numbers_enabled?: boolean | null;
-  url?: string | null;
-  links?: object | null;
+  iso_code: string;
+  name: string;
+  continent: string;
+  country_codes: Array<string>;
+  low_risk_numbers_enabled: boolean;
+  high_risk_special_numbers_enabled: boolean;
+  high_risk_tollfraud_numbers_enabled: boolean;
+  url: string;
+  links: object;
 }
 
 export class CountryInstance {
@@ -232,39 +232,39 @@ export class CountryInstance {
   /**
    * The ISO country code
    */
-  isoCode?: string | null;
+  isoCode: string;
   /**
    * The name of the country
    */
-  name?: string | null;
+  name: string;
   /**
    * The name of the continent in which the country is located
    */
-  continent?: string | null;
+  continent: string;
   /**
    * The E.164 assigned country codes(s)
    */
-  countryCodes?: Array<string> | null;
+  countryCodes: Array<string>;
   /**
    * Whether dialing to low-risk numbers is enabled
    */
-  lowRiskNumbersEnabled?: boolean | null;
+  lowRiskNumbersEnabled: boolean;
   /**
    * Whether dialing to high-risk special services numbers is enabled
    */
-  highRiskSpecialNumbersEnabled?: boolean | null;
+  highRiskSpecialNumbersEnabled: boolean;
   /**
    * Whether dialing to high-risk toll fraud numbers is enabled, else `false`
    */
-  highRiskTollfraudNumbersEnabled?: boolean | null;
+  highRiskTollfraudNumbersEnabled: boolean;
   /**
    * The absolute URL of this resource
    */
-  url?: string | null;
+  url: string;
   /**
    * A list of URLs related to this resource
    */
-  links?: object | null;
+  links: object;
 
   private get _proxy(): CountryContext {
     this._context =

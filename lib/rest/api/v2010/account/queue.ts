@@ -282,15 +282,15 @@ interface QueuePayload extends TwilioResponsePayload {
 }
 
 interface QueueResource {
-  date_updated?: Date | null;
-  current_size?: number | null;
-  friendly_name?: string | null;
-  uri?: string | null;
-  account_sid?: string | null;
-  average_wait_time?: number | null;
-  sid?: string | null;
-  date_created?: Date | null;
-  max_size?: number | null;
+  date_updated: Date;
+  current_size: number;
+  friendly_name: string;
+  uri: string;
+  account_sid: string;
+  average_wait_time: number;
+  sid: string;
+  date_created: Date;
+  max_size: number;
 }
 
 export class QueueInstance {
@@ -319,39 +319,39 @@ export class QueueInstance {
   /**
    * The RFC 2822 date and time in GMT that this resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The number of calls currently in the queue.
    */
-  currentSize?: number | null;
+  currentSize: number;
   /**
    * A string that you assigned to describe this resource
    */
-  friendlyName?: string | null;
+  friendlyName: string;
   /**
    * The URI of this resource, relative to `https://api.twilio.com`
    */
-  uri?: string | null;
+  uri: string;
   /**
    * The SID of the Account that created this resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * Average wait time of members in the queue
    */
-  averageWaitTime?: number | null;
+  averageWaitTime: number;
   /**
    * The unique string that identifies this resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The RFC 2822 date and time in GMT that this resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The max number of calls allowed in the queue
    */
-  maxSize?: number | null;
+  maxSize: number;
 
   private get _proxy(): QueueContext {
     this._context =
@@ -448,7 +448,7 @@ export class QueueInstance {
 }
 
 export interface QueueSolution {
-  accountSid?: string;
+  accountSid: string;
 }
 
 export interface QueueListInstance {

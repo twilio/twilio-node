@@ -161,13 +161,13 @@ interface AvailableAddOnPayload extends TwilioResponsePayload {
 }
 
 interface AvailableAddOnResource {
-  sid?: string | null;
-  friendly_name?: string | null;
-  description?: string | null;
-  pricing_type?: string | null;
-  configuration_schema?: any | null;
-  url?: string | null;
-  links?: object | null;
+  sid: string;
+  friendly_name: string;
+  description: string;
+  pricing_type: string;
+  configuration_schema: any;
+  url: string;
+  links: object;
 }
 
 export class AvailableAddOnInstance {
@@ -193,31 +193,31 @@ export class AvailableAddOnInstance {
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The string that you assigned to describe the resource
    */
-  friendlyName?: string | null;
+  friendlyName: string;
   /**
    * A short description of the Add-on\'s functionality
    */
-  description?: string | null;
+  description: string;
   /**
    * How customers are charged for using this Add-on
    */
-  pricingType?: string | null;
+  pricingType: string;
   /**
    * The JSON object with the configuration that must be provided when installing a given Add-on
    */
-  configurationSchema?: any | null;
+  configurationSchema: any;
   /**
    * The absolute URL of the resource
    */
-  url?: string | null;
+  url: string;
   /**
    * The URLs of related resources
    */
-  links?: object | null;
+  links: object;
 
   private get _proxy(): AvailableAddOnContext {
     this._context =

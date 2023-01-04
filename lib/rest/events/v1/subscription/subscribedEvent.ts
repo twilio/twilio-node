@@ -266,11 +266,11 @@ interface SubscribedEventPayload extends TwilioResponsePayload {
 }
 
 interface SubscribedEventResource {
-  account_sid?: string | null;
-  type?: string | null;
-  schema_version?: number | null;
-  subscription_sid?: string | null;
-  url?: string | null;
+  account_sid: string;
+  type: string;
+  schema_version: number;
+  subscription_sid: string;
+  url: string;
 }
 
 export class SubscribedEventInstance {
@@ -295,23 +295,23 @@ export class SubscribedEventInstance {
   /**
    * Account SID.
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * Type of event being subscribed to.
    */
-  type?: string | null;
+  type: string;
   /**
    * The schema version that the subscription should use.
    */
-  schemaVersion?: number | null;
+  schemaVersion: number;
   /**
    * Subscription SID.
    */
-  subscriptionSid?: string | null;
+  subscriptionSid: string;
   /**
    * The URL of this resource.
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): SubscribedEventContext {
     this._context =
@@ -397,7 +397,7 @@ export class SubscribedEventInstance {
 }
 
 export interface SubscribedEventSolution {
-  subscriptionSid?: string;
+  subscriptionSid: string;
 }
 
 export interface SubscribedEventListInstance {

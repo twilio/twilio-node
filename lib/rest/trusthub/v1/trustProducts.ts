@@ -333,18 +333,18 @@ interface TrustProductsPayload extends TwilioResponsePayload {
 }
 
 interface TrustProductsResource {
-  sid?: string | null;
-  account_sid?: string | null;
-  policy_sid?: string | null;
-  friendly_name?: string | null;
-  status?: TrustProductStatus;
-  valid_until?: Date | null;
-  email?: string | null;
-  status_callback?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  url?: string | null;
-  links?: object | null;
+  sid: string;
+  account_sid: string;
+  policy_sid: string;
+  friendly_name: string;
+  status: TrustProductStatus;
+  valid_until: Date;
+  email: string;
+  status_callback: string;
+  date_created: Date;
+  date_updated: Date;
+  url: string;
+  links: object;
 }
 
 export class TrustProductsInstance {
@@ -375,48 +375,48 @@ export class TrustProductsInstance {
   /**
    * The unique string that identifies the resource.
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The unique string of a policy.
    */
-  policySid?: string | null;
+  policySid: string;
   /**
    * The string that you assigned to describe the resource
    */
-  friendlyName?: string | null;
-  status?: TrustProductStatus;
+  friendlyName: string;
+  status: TrustProductStatus;
   /**
    * The ISO 8601 date and time in GMT when the resource will be valid until.
    */
-  validUntil?: Date | null;
+  validUntil: Date;
   /**
    * The email address
    */
-  email?: string | null;
+  email: string;
   /**
    * The URL we call to inform your application of status changes.
    */
-  statusCallback?: string | null;
+  statusCallback: string;
   /**
    * The ISO 8601 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The ISO 8601 date and time in GMT when the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The absolute URL of the Customer-Profile resource
    */
-  url?: string | null;
+  url: string;
   /**
    * The URLs of the Assigned Items of the Customer-Profile resource
    */
-  links?: object | null;
+  links: object;
 
   private get _proxy(): TrustProductsContext {
     this._context =

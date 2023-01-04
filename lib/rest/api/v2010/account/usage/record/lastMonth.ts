@@ -339,7 +339,7 @@ export interface LastMonthListInstancePageOptions {
 }
 
 export interface LastMonthSolution {
-  accountSid?: string;
+  accountSid: string;
 }
 
 export interface LastMonthListInstance {
@@ -574,21 +574,21 @@ interface LastMonthPayload extends TwilioResponsePayload {
 }
 
 interface LastMonthResource {
-  account_sid?: string | null;
-  api_version?: string | null;
-  as_of?: string | null;
-  category?: UsageRecordLastMonthCategory;
-  count?: string | null;
-  count_unit?: string | null;
-  description?: string | null;
-  end_date?: Date | null;
-  price?: number | null;
-  price_unit?: string | null;
-  start_date?: Date | null;
-  subresource_uris?: object | null;
-  uri?: string | null;
-  usage?: string | null;
-  usage_unit?: string | null;
+  account_sid: string;
+  api_version: string;
+  as_of: string;
+  category: UsageRecordLastMonthCategory;
+  count: string;
+  count_unit: string;
+  description: string;
+  end_date: Date;
+  price: number;
+  price_unit: string;
+  start_date: Date;
+  subresource_uris: object;
+  uri: string;
+  usage: string;
+  usage_unit: string;
 }
 
 export class LastMonthInstance {
@@ -617,60 +617,60 @@ export class LastMonthInstance {
   /**
    * The SID of the Account accrued the usage
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The API version used to create the resource
    */
-  apiVersion?: string | null;
+  apiVersion: string;
   /**
    * Usage records up to date as of this timestamp
    */
-  asOf?: string | null;
-  category?: UsageRecordLastMonthCategory;
+  asOf: string;
+  category: UsageRecordLastMonthCategory;
   /**
    * The number of usage events
    */
-  count?: string | null;
+  count: string;
   /**
    * The units in which count is measured
    */
-  countUnit?: string | null;
+  countUnit: string;
   /**
    * A plain-language description of the usage category
    */
-  description?: string | null;
+  description: string;
   /**
    * The last date for which usage is included in the UsageRecord
    */
-  endDate?: Date | null;
+  endDate: Date;
   /**
    * The total price of the usage
    */
-  price?: number | null;
+  price: number;
   /**
    * The currency in which `price` is measured
    */
-  priceUnit?: string | null;
+  priceUnit: string;
   /**
    * The first date for which usage is included in this UsageRecord
    */
-  startDate?: Date | null;
+  startDate: Date;
   /**
    * A list of related resources identified by their relative URIs
    */
-  subresourceUris?: object | null;
+  subresourceUris: object;
   /**
    * The URI of the resource, relative to `https://api.twilio.com`
    */
-  uri?: string | null;
+  uri: string;
   /**
    * The amount of usage
    */
-  usage?: string | null;
+  usage: string;
   /**
    * The units in which usage is measured
    */
-  usageUnit?: string | null;
+  usageUnit: string;
 
   /**
    * Provide a user-friendly representation

@@ -85,7 +85,7 @@ export function UsecaseListInstance(version: V1): UsecaseListInstance {
 interface UsecasePayload extends UsecaseResource {}
 
 interface UsecaseResource {
-  usecases?: Array<any> | null;
+  usecases: Array<any>;
 }
 
 export class UsecaseInstance {
@@ -96,7 +96,7 @@ export class UsecaseInstance {
   /**
    * Human readable Messaging Service Use Case details
    */
-  usecases?: Array<any> | null;
+  usecases: Array<any>;
 
   /**
    * Provide a user-friendly representation

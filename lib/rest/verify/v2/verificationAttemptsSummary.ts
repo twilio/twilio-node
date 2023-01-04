@@ -166,11 +166,11 @@ interface VerificationAttemptsSummaryPayload
   extends VerificationAttemptsSummaryResource {}
 
 interface VerificationAttemptsSummaryResource {
-  total_attempts?: number | null;
-  total_converted?: number | null;
-  total_unconverted?: number | null;
-  conversion_rate_percentage?: number | null;
-  url?: string | null;
+  total_attempts: number;
+  total_converted: number;
+  total_unconverted: number;
+  conversion_rate_percentage: number;
+  url: string;
 }
 
 export class VerificationAttemptsSummaryInstance {
@@ -193,20 +193,20 @@ export class VerificationAttemptsSummaryInstance {
   /**
    * Total of attempts made.
    */
-  totalAttempts?: number | null;
+  totalAttempts: number;
   /**
    * Total of attempts confirmed by the end user.
    */
-  totalConverted?: number | null;
+  totalConverted: number;
   /**
    * Total of attempts made that were not confirmed by the end user.
    */
-  totalUnconverted?: number | null;
+  totalUnconverted: number;
   /**
    * Percentage of the confirmed messages over the total.
    */
-  conversionRatePercentage?: number | null;
-  url?: string | null;
+  conversionRatePercentage: number;
+  url: string;
 
   private get _proxy(): VerificationAttemptsSummaryContext {
     this._context =

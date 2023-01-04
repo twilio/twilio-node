@@ -532,27 +532,27 @@ interface ServicePayload extends TwilioResponsePayload {
 }
 
 interface ServiceResource {
-  sid?: string | null;
-  account_sid?: string | null;
-  friendly_name?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  default_service_role_sid?: string | null;
-  default_channel_role_sid?: string | null;
-  default_channel_creator_role_sid?: string | null;
-  read_status_enabled?: boolean | null;
-  reachability_enabled?: boolean | null;
-  typing_indicator_timeout?: number | null;
-  consumption_report_interval?: number | null;
-  limits?: any | null;
-  webhooks?: any | null;
-  pre_webhook_url?: string | null;
-  post_webhook_url?: string | null;
-  webhook_method?: string | null;
-  webhook_filters?: Array<string> | null;
-  notifications?: any | null;
-  url?: string | null;
-  links?: object | null;
+  sid: string;
+  account_sid: string;
+  friendly_name: string;
+  date_created: Date;
+  date_updated: Date;
+  default_service_role_sid: string;
+  default_channel_role_sid: string;
+  default_channel_creator_role_sid: string;
+  read_status_enabled: boolean;
+  reachability_enabled: boolean;
+  typing_indicator_timeout: number;
+  consumption_report_interval: number;
+  limits: any;
+  webhooks: any;
+  pre_webhook_url: string;
+  post_webhook_url: string;
+  webhook_method: string;
+  webhook_filters: Array<string>;
+  notifications: any;
+  url: string;
+  links: object;
 }
 
 export class ServiceInstance {
@@ -590,27 +590,27 @@ export class ServiceInstance {
     this._solution = { sid: sid || this.sid };
   }
 
-  sid?: string | null;
-  accountSid?: string | null;
-  friendlyName?: string | null;
-  dateCreated?: Date | null;
-  dateUpdated?: Date | null;
-  defaultServiceRoleSid?: string | null;
-  defaultChannelRoleSid?: string | null;
-  defaultChannelCreatorRoleSid?: string | null;
-  readStatusEnabled?: boolean | null;
-  reachabilityEnabled?: boolean | null;
-  typingIndicatorTimeout?: number | null;
-  consumptionReportInterval?: number | null;
-  limits?: any | null;
-  webhooks?: any | null;
-  preWebhookUrl?: string | null;
-  postWebhookUrl?: string | null;
-  webhookMethod?: string | null;
-  webhookFilters?: Array<string> | null;
-  notifications?: any | null;
-  url?: string | null;
-  links?: object | null;
+  sid: string;
+  accountSid: string;
+  friendlyName: string;
+  dateCreated: Date;
+  dateUpdated: Date;
+  defaultServiceRoleSid: string;
+  defaultChannelRoleSid: string;
+  defaultChannelCreatorRoleSid: string;
+  readStatusEnabled: boolean;
+  reachabilityEnabled: boolean;
+  typingIndicatorTimeout: number;
+  consumptionReportInterval: number;
+  limits: any;
+  webhooks: any;
+  preWebhookUrl: string;
+  postWebhookUrl: string;
+  webhookMethod: string;
+  webhookFilters: Array<string>;
+  notifications: any;
+  url: string;
+  links: object;
 
   private get _proxy(): ServiceContext {
     this._context =

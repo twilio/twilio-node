@@ -30,8 +30,8 @@ export interface UserDefinedMessageListInstanceCreateOptions {
 }
 
 export interface UserDefinedMessageSolution {
-  accountSid?: string;
-  callSid?: string;
+  accountSid: string;
+  callSid: string;
 }
 
 export interface UserDefinedMessageListInstance {
@@ -142,10 +142,10 @@ export function UserDefinedMessageListInstance(
 interface UserDefinedMessagePayload extends UserDefinedMessageResource {}
 
 interface UserDefinedMessageResource {
-  account_sid?: string | null;
-  call_sid?: string | null;
-  sid?: string | null;
-  date_created?: Date | null;
+  account_sid: string;
+  call_sid: string;
+  sid: string;
+  date_created: Date;
 }
 
 export class UserDefinedMessageInstance {
@@ -164,19 +164,19 @@ export class UserDefinedMessageInstance {
   /**
    * Account SID.
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * Call SID.
    */
-  callSid?: string | null;
+  callSid: string;
   /**
    * User Defined Message SID.
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The date this User Defined Message was created.
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
 
   /**
    * Provide a user-friendly representation

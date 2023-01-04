@@ -195,12 +195,12 @@ interface CustomerProfilesEntityAssignmentsPayload
 }
 
 interface CustomerProfilesEntityAssignmentsResource {
-  sid?: string | null;
-  customer_profile_sid?: string | null;
-  account_sid?: string | null;
-  object_sid?: string | null;
-  date_created?: Date | null;
-  url?: string | null;
+  sid: string;
+  customer_profile_sid: string;
+  account_sid: string;
+  object_sid: string;
+  date_created: Date;
+  url: string;
 }
 
 export class CustomerProfilesEntityAssignmentsInstance {
@@ -226,27 +226,27 @@ export class CustomerProfilesEntityAssignmentsInstance {
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The unique string that identifies the CustomerProfile resource.
    */
-  customerProfileSid?: string | null;
+  customerProfileSid: string;
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The sid of an object bag
    */
-  objectSid?: string | null;
+  objectSid: string;
   /**
    * The ISO 8601 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The absolute URL of the Identity resource
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): CustomerProfilesEntityAssignmentsContext {
     this._context =
@@ -310,7 +310,7 @@ export class CustomerProfilesEntityAssignmentsInstance {
 }
 
 export interface CustomerProfilesEntityAssignmentsSolution {
-  customerProfileSid?: string;
+  customerProfileSid: string;
 }
 
 export interface CustomerProfilesEntityAssignmentsListInstance {

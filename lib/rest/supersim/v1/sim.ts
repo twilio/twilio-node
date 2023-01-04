@@ -284,16 +284,16 @@ interface SimPayload extends TwilioResponsePayload {
 }
 
 interface SimResource {
-  sid?: string | null;
-  unique_name?: string | null;
-  account_sid?: string | null;
-  iccid?: string | null;
-  status?: SimStatus;
-  fleet_sid?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  url?: string | null;
-  links?: object | null;
+  sid: string;
+  unique_name: string;
+  account_sid: string;
+  iccid: string;
+  status: SimStatus;
+  fleet_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  url: string;
+  links: object;
 }
 
 export class SimInstance {
@@ -318,37 +318,37 @@ export class SimInstance {
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * An application-defined string that uniquely identifies the resource
    */
-  uniqueName?: string | null;
+  uniqueName: string;
   /**
    * The SID of the Account that the Super SIM belongs to
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The ICCID associated with the SIM
    */
-  iccid?: string | null;
-  status?: SimStatus;
+  iccid: string;
+  status: SimStatus;
   /**
    * The unique ID of the Fleet configured for this SIM
    */
-  fleetSid?: string | null;
+  fleetSid: string;
   /**
    * The ISO 8601 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The ISO 8601 date and time in GMT when the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The absolute URL of the Sim Resource
    */
-  url?: string | null;
-  links?: object | null;
+  url: string;
+  links: object;
 
   private get _proxy(): SimContext {
     this._context =

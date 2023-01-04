@@ -118,11 +118,11 @@ export class InteractionContextImpl implements InteractionContext {
 interface InteractionPayload extends InteractionResource {}
 
 interface InteractionResource {
-  sid?: string | null;
-  channel?: any | null;
-  routing?: any | null;
-  url?: string | null;
-  links?: object | null;
+  sid: string;
+  channel: any;
+  routing: any;
+  url: string;
+  links: object;
 }
 
 export class InteractionInstance {
@@ -146,17 +146,17 @@ export class InteractionInstance {
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The Interaction\'s channel
    */
-  channel?: any | null;
+  channel: any;
   /**
    * A JSON Object representing the routing rules for the Interaction Channel
    */
-  routing?: any | null;
-  url?: string | null;
-  links?: object | null;
+  routing: any;
+  url: string;
+  links: object;
 
   private get _proxy(): InteractionContext {
     this._context =

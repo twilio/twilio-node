@@ -277,15 +277,15 @@ interface VariablePayload extends TwilioResponsePayload {
 }
 
 interface VariableResource {
-  sid?: string | null;
-  account_sid?: string | null;
-  service_sid?: string | null;
-  environment_sid?: string | null;
-  key?: string | null;
-  value?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  url?: string | null;
+  sid: string;
+  account_sid: string;
+  service_sid: string;
+  environment_sid: string;
+  key: string;
+  value: string;
+  date_created: Date;
+  date_updated: Date;
+  url: string;
 }
 
 export class VariableInstance {
@@ -315,39 +315,39 @@ export class VariableInstance {
   /**
    * The unique string that identifies the Variable resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The SID of the Account that created the Variable resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The SID of the Service that the Variable resource is associated with
    */
-  serviceSid?: string | null;
+  serviceSid: string;
   /**
    * The SID of the Environment in which the Variable exists
    */
-  environmentSid?: string | null;
+  environmentSid: string;
   /**
    * A string by which the Variable resource can be referenced
    */
-  key?: string | null;
+  key: string;
   /**
    * A string that contains the actual value of the Variable
    */
-  value?: string | null;
+  value: string;
   /**
    * The ISO 8601 date and time in GMT when the Variable resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The ISO 8601 date and time in GMT when the Variable resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The absolute URL of the Variable resource
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): VariableContext {
     this._context =
@@ -438,8 +438,8 @@ export class VariableInstance {
 }
 
 export interface VariableSolution {
-  serviceSid?: string;
-  environmentSid?: string;
+  serviceSid: string;
+  environmentSid: string;
 }
 
 export interface VariableListInstance {

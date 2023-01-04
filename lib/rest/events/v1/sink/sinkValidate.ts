@@ -28,7 +28,7 @@ export interface SinkValidateListInstanceCreateOptions {
 }
 
 export interface SinkValidateSolution {
-  sid?: string;
+  sid: string;
 }
 
 export interface SinkValidateListInstance {
@@ -131,7 +131,7 @@ export function SinkValidateListInstance(
 interface SinkValidatePayload extends SinkValidateResource {}
 
 interface SinkValidateResource {
-  result?: string | null;
+  result: string;
 }
 
 export class SinkValidateInstance {
@@ -146,7 +146,7 @@ export class SinkValidateInstance {
   /**
    * Feedback indicating whether the given Sink was validated.
    */
-  result?: string | null;
+  result: string;
 
   /**
    * Provide a user-friendly representation

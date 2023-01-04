@@ -28,9 +28,9 @@ export interface NotificationListInstanceCreateOptions {
 }
 
 export interface NotificationSolution {
-  serviceSid?: string;
-  identity?: string;
-  challengeSid?: string;
+  serviceSid: string;
+  identity: string;
+  challengeSid: string;
 }
 
 export interface NotificationListInstance {
@@ -154,15 +154,15 @@ export function NotificationListInstance(
 interface NotificationPayload extends NotificationResource {}
 
 interface NotificationResource {
-  sid?: string | null;
-  account_sid?: string | null;
-  service_sid?: string | null;
-  entity_sid?: string | null;
-  identity?: string | null;
-  challenge_sid?: string | null;
-  priority?: string | null;
-  ttl?: number | null;
-  date_created?: Date | null;
+  sid: string;
+  account_sid: string;
+  service_sid: string;
+  entity_sid: string;
+  identity: string;
+  challenge_sid: string;
+  priority: string;
+  ttl: number;
+  date_created: Date;
 }
 
 export class NotificationInstance {
@@ -187,39 +187,39 @@ export class NotificationInstance {
   /**
    * A string that uniquely identifies this Notification.
    */
-  sid?: string | null;
+  sid: string;
   /**
    * Account Sid.
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * Service Sid.
    */
-  serviceSid?: string | null;
+  serviceSid: string;
   /**
    * Entity Sid.
    */
-  entitySid?: string | null;
+  entitySid: string;
   /**
    * Unique external identifier of the Entity
    */
-  identity?: string | null;
+  identity: string;
   /**
    * Challenge Sid.
    */
-  challengeSid?: string | null;
+  challengeSid: string;
   /**
    * The priority of the notification.
    */
-  priority?: string | null;
+  priority: string;
   /**
    * How long, in seconds, the notification is valid.
    */
-  ttl?: number | null;
+  ttl: number;
   /**
    * The date this Notification was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
 
   /**
    * Provide a user-friendly representation

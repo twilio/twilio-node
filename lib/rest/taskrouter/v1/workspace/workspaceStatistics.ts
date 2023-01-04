@@ -150,11 +150,11 @@ export class WorkspaceStatisticsContextImpl
 interface WorkspaceStatisticsPayload extends WorkspaceStatisticsResource {}
 
 interface WorkspaceStatisticsResource {
-  realtime?: any | null;
-  cumulative?: any | null;
-  account_sid?: string | null;
-  workspace_sid?: string | null;
-  url?: string | null;
+  realtime: any;
+  cumulative: any;
+  account_sid: string;
+  workspace_sid: string;
+  url: string;
 }
 
 export class WorkspaceStatisticsInstance {
@@ -178,23 +178,23 @@ export class WorkspaceStatisticsInstance {
   /**
    * n object that contains the real-time statistics for the Workspace
    */
-  realtime?: any | null;
+  realtime: any;
   /**
    * An object that contains the cumulative statistics for the Workspace
    */
-  cumulative?: any | null;
+  cumulative: any;
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The SID of the Workspace
    */
-  workspaceSid?: string | null;
+  workspaceSid: string;
   /**
    * The absolute URL of the Workspace statistics resource
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): WorkspaceStatisticsContext {
     this._context =
@@ -253,7 +253,7 @@ export class WorkspaceStatisticsInstance {
 }
 
 export interface WorkspaceStatisticsSolution {
-  workspaceSid?: string;
+  workspaceSid: string;
 }
 
 export interface WorkspaceStatisticsListInstance {

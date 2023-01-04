@@ -160,12 +160,12 @@ export class WorkflowStatisticsContextImpl
 interface WorkflowStatisticsPayload extends WorkflowStatisticsResource {}
 
 interface WorkflowStatisticsResource {
-  account_sid?: string | null;
-  cumulative?: any | null;
-  realtime?: any | null;
-  workflow_sid?: string | null;
-  workspace_sid?: string | null;
-  url?: string | null;
+  account_sid: string;
+  cumulative: any;
+  realtime: any;
+  workflow_sid: string;
+  workspace_sid: string;
+  url: string;
 }
 
 export class WorkflowStatisticsInstance {
@@ -191,27 +191,27 @@ export class WorkflowStatisticsInstance {
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * An object that contains the cumulative statistics for the Workflow
    */
-  cumulative?: any | null;
+  cumulative: any;
   /**
    * An object that contains the real-time statistics for the Workflow
    */
-  realtime?: any | null;
+  realtime: any;
   /**
    * Returns the list of Tasks that are being controlled by the Workflow with the specified SID value
    */
-  workflowSid?: string | null;
+  workflowSid: string;
   /**
    * The SID of the Workspace that contains the Workflow
    */
-  workspaceSid?: string | null;
+  workspaceSid: string;
   /**
    * The absolute URL of the Workflow statistics resource
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): WorkflowStatisticsContext {
     this._context =
@@ -272,8 +272,8 @@ export class WorkflowStatisticsInstance {
 }
 
 export interface WorkflowStatisticsSolution {
-  workspaceSid?: string;
-  workflowSid?: string;
+  workspaceSid: string;
+  workflowSid: string;
 }
 
 export interface WorkflowStatisticsListInstance {

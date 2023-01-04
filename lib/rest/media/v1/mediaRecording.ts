@@ -213,21 +213,21 @@ interface MediaRecordingPayload extends TwilioResponsePayload {
 }
 
 interface MediaRecordingResource {
-  account_sid?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  duration?: number | null;
-  format?: MediaRecordingFormat;
-  links?: object | null;
-  processor_sid?: string | null;
-  resolution?: string | null;
-  source_sid?: string | null;
-  sid?: string | null;
-  media_size?: number | null;
-  status?: MediaRecordingStatus;
-  status_callback?: string | null;
-  status_callback_method?: MediaRecordingStatusCallbackMethod;
-  url?: string | null;
+  account_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  duration: number;
+  format: MediaRecordingFormat;
+  links: object;
+  processor_sid: string;
+  resolution: string;
+  source_sid: string;
+  sid: string;
+  media_size: number;
+  status: MediaRecordingStatus;
+  status_callback: string;
+  status_callback_method: MediaRecordingStatusCallbackMethod;
+  url: string;
 }
 
 export class MediaRecordingInstance {
@@ -261,57 +261,57 @@ export class MediaRecordingInstance {
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The ISO 8601 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The ISO 8601 date and time in GMT when the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The duration of the MediaRecording
    */
-  duration?: number | null;
-  format?: MediaRecordingFormat;
+  duration: number;
+  format: MediaRecordingFormat;
   /**
    * The URLs of related resources
    */
-  links?: object | null;
+  links: object;
   /**
    * The SID of the MediaProcessor
    */
-  processorSid?: string | null;
+  processorSid: string;
   /**
    * The dimensions of the video image in pixels
    */
-  resolution?: string | null;
+  resolution: string;
   /**
    * The SID of the resource that generated the original media
    */
-  sourceSid?: string | null;
+  sourceSid: string;
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The size of the recording media
    */
-  mediaSize?: number | null;
-  status?: MediaRecordingStatus;
+  mediaSize: number;
+  status: MediaRecordingStatus;
   /**
    * The URL to which Twilio will send MediaRecording event updates
    */
-  statusCallback?: string | null;
+  statusCallback: string;
   /**
    * The HTTP method Twilio should use to call the `status_callback` URL
    */
-  statusCallbackMethod?: MediaRecordingStatusCallbackMethod;
+  statusCallbackMethod: MediaRecordingStatusCallbackMethod;
   /**
    * The absolute URL of the resource
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): MediaRecordingContext {
     this._context =

@@ -148,16 +148,16 @@ interface WorkspaceRealTimeStatisticsPayload
   extends WorkspaceRealTimeStatisticsResource {}
 
 interface WorkspaceRealTimeStatisticsResource {
-  account_sid?: string | null;
-  activity_statistics?: Array<any> | null;
-  longest_task_waiting_age?: number | null;
-  longest_task_waiting_sid?: string | null;
-  tasks_by_priority?: any | null;
-  tasks_by_status?: any | null;
-  total_tasks?: number | null;
-  total_workers?: number | null;
-  workspace_sid?: string | null;
-  url?: string | null;
+  account_sid: string;
+  activity_statistics: Array<any>;
+  longest_task_waiting_age: number;
+  longest_task_waiting_sid: string;
+  tasks_by_priority: any;
+  tasks_by_status: any;
+  total_tasks: number;
+  total_workers: number;
+  workspace_sid: string;
+  url: string;
 }
 
 export class WorkspaceRealTimeStatisticsInstance {
@@ -188,43 +188,43 @@ export class WorkspaceRealTimeStatisticsInstance {
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The number of current Workers by Activity
    */
-  activityStatistics?: Array<any> | null;
+  activityStatistics: Array<any>;
   /**
    * The age of the longest waiting Task
    */
-  longestTaskWaitingAge?: number | null;
+  longestTaskWaitingAge: number;
   /**
    * The SID of the longest waiting Task
    */
-  longestTaskWaitingSid?: string | null;
+  longestTaskWaitingSid: string;
   /**
    * The number of Tasks by priority
    */
-  tasksByPriority?: any | null;
+  tasksByPriority: any;
   /**
    * The number of Tasks by their current status
    */
-  tasksByStatus?: any | null;
+  tasksByStatus: any;
   /**
    * The total number of Tasks
    */
-  totalTasks?: number | null;
+  totalTasks: number;
   /**
    * The total number of Workers in the Workspace
    */
-  totalWorkers?: number | null;
+  totalWorkers: number;
   /**
    * The SID of the Workspace
    */
-  workspaceSid?: string | null;
+  workspaceSid: string;
   /**
    * The absolute URL of the Workspace statistics resource
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): WorkspaceRealTimeStatisticsContext {
     this._context =
@@ -297,7 +297,7 @@ export class WorkspaceRealTimeStatisticsInstance {
 }
 
 export interface WorkspaceRealTimeStatisticsSolution {
-  workspaceSid?: string;
+  workspaceSid: string;
 }
 
 export interface WorkspaceRealTimeStatisticsListInstance {

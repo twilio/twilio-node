@@ -114,12 +114,12 @@ export class ExecutionStepContextContextImpl
 interface ExecutionStepContextPayload extends ExecutionStepContextResource {}
 
 interface ExecutionStepContextResource {
-  account_sid?: string | null;
-  context?: any | null;
-  execution_sid?: string | null;
-  flow_sid?: string | null;
-  step_sid?: string | null;
-  url?: string | null;
+  account_sid: string;
+  context: any;
+  execution_sid: string;
+  flow_sid: string;
+  step_sid: string;
+  url: string;
 }
 
 export class ExecutionStepContextInstance {
@@ -146,27 +146,27 @@ export class ExecutionStepContextInstance {
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The current state of the flow
    */
-  context?: any | null;
+  context: any;
   /**
    * The SID of the Execution
    */
-  executionSid?: string | null;
+  executionSid: string;
   /**
    * The SID of the Flow
    */
-  flowSid?: string | null;
+  flowSid: string;
   /**
    * Step SID
    */
-  stepSid?: string | null;
+  stepSid: string;
   /**
    * The absolute URL of the resource
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): ExecutionStepContextContext {
     this._context =
@@ -215,9 +215,9 @@ export class ExecutionStepContextInstance {
 }
 
 export interface ExecutionStepContextSolution {
-  flowSid?: string;
-  executionSid?: string;
-  stepSid?: string;
+  flowSid: string;
+  executionSid: string;
+  stepSid: string;
 }
 
 export interface ExecutionStepContextListInstance {

@@ -275,15 +275,15 @@ interface ActivityPayload extends TwilioResponsePayload {
 }
 
 interface ActivityResource {
-  account_sid?: string | null;
-  available?: boolean | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  friendly_name?: string | null;
-  sid?: string | null;
-  workspace_sid?: string | null;
-  url?: string | null;
-  links?: object | null;
+  account_sid: string;
+  available: boolean;
+  date_created: Date;
+  date_updated: Date;
+  friendly_name: string;
+  sid: string;
+  workspace_sid: string;
+  url: string;
+  links: object;
 }
 
 export class ActivityInstance {
@@ -312,36 +312,36 @@ export class ActivityInstance {
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * Whether the Worker should be eligible to receive a Task when it occupies the Activity
    */
-  available?: boolean | null;
+  available: boolean;
   /**
    * The ISO 8601 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The ISO 8601 date and time in GMT when the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The string that you assigned to describe the Activity resource
    */
-  friendlyName?: string | null;
+  friendlyName: string;
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The SID of the Workspace that contains the Activity
    */
-  workspaceSid?: string | null;
+  workspaceSid: string;
   /**
    * The absolute URL of the Activity resource
    */
-  url?: string | null;
-  links?: object | null;
+  url: string;
+  links: object;
 
   private get _proxy(): ActivityContext {
     this._context =
@@ -431,7 +431,7 @@ export class ActivityInstance {
 }
 
 export interface ActivitySolution {
-  workspaceSid?: string;
+  workspaceSid: string;
 }
 
 export interface ActivityListInstance {

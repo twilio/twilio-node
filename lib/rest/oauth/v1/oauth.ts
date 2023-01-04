@@ -84,8 +84,8 @@ export class OauthContextImpl implements OauthContext {
 interface OauthPayload extends OauthResource {}
 
 interface OauthResource {
-  keys?: any | null;
-  url?: string | null;
+  keys: any;
+  url: string;
 }
 
 export class OauthInstance {
@@ -102,8 +102,8 @@ export class OauthInstance {
   /**
    * A collection of certificates
    */
-  keys?: any | null;
-  url?: string | null;
+  keys: any;
+  url: string;
 
   private get _proxy(): OauthContext {
     this._context = this._context || new OauthContextImpl(this._version);

@@ -275,16 +275,16 @@ interface SupportingDocumentPayload extends TwilioResponsePayload {
 }
 
 interface SupportingDocumentResource {
-  sid?: string | null;
-  account_sid?: string | null;
-  friendly_name?: string | null;
-  mime_type?: string | null;
-  status?: SupportingDocumentStatus;
-  type?: string | null;
-  attributes?: any | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  url?: string | null;
+  sid: string;
+  account_sid: string;
+  friendly_name: string;
+  mime_type: string;
+  status: SupportingDocumentStatus;
+  type: string;
+  attributes: any;
+  date_created: Date;
+  date_updated: Date;
+  url: string;
 }
 
 export class SupportingDocumentInstance {
@@ -313,40 +313,40 @@ export class SupportingDocumentInstance {
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The string that you assigned to describe the resource
    */
-  friendlyName?: string | null;
+  friendlyName: string;
   /**
    * The image type of the file
    */
-  mimeType?: string | null;
-  status?: SupportingDocumentStatus;
+  mimeType: string;
+  status: SupportingDocumentStatus;
   /**
    * The type of the Supporting Document
    */
-  type?: string | null;
+  type: string;
   /**
    * The set of parameters that compose the Supporting Documents resource
    */
-  attributes?: any | null;
+  attributes: any;
   /**
    * The ISO 8601 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The ISO 8601 date and time in GMT when the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The absolute URL of the Supporting Document resource
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): SupportingDocumentContext {
     this._context =

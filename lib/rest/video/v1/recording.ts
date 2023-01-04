@@ -220,24 +220,24 @@ interface RecordingPayload extends TwilioResponsePayload {
 }
 
 interface RecordingResource {
-  account_sid?: string | null;
-  status?: RecordingStatus;
-  date_created?: Date | null;
-  sid?: string | null;
-  source_sid?: string | null;
-  size?: number | null;
-  url?: string | null;
-  type?: RecordingType;
-  duration?: number | null;
-  container_format?: RecordingFormat;
-  codec?: RecordingCodec;
-  grouping_sids?: any | null;
-  track_name?: string | null;
-  offset?: number | null;
-  media_external_location?: string | null;
-  status_callback?: string | null;
-  status_callback_method?: RecordingStatusCallbackMethod;
-  links?: object | null;
+  account_sid: string;
+  status: RecordingStatus;
+  date_created: Date;
+  sid: string;
+  source_sid: string;
+  size: number;
+  url: string;
+  type: RecordingType;
+  duration: number;
+  container_format: RecordingFormat;
+  codec: RecordingCodec;
+  grouping_sids: any;
+  track_name: string;
+  offset: number;
+  media_external_location: string;
+  status_callback: string;
+  status_callback_method: RecordingStatusCallbackMethod;
+  links: object;
 }
 
 export class RecordingInstance {
@@ -274,63 +274,63 @@ export class RecordingInstance {
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
-  status?: RecordingStatus;
+  accountSid: string;
+  status: RecordingStatus;
   /**
    * The ISO 8601 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The SID of the recording source
    */
-  sourceSid?: string | null;
+  sourceSid: string;
   /**
    * The size of the recorded track, in bytes
    */
-  size?: number | null;
+  size: number;
   /**
    * The absolute URL of the resource
    */
-  url?: string | null;
-  type?: RecordingType;
+  url: string;
+  type: RecordingType;
   /**
    * The duration of the recording in seconds
    */
-  duration?: number | null;
-  containerFormat?: RecordingFormat;
-  codec?: RecordingCodec;
+  duration: number;
+  containerFormat: RecordingFormat;
+  codec: RecordingCodec;
   /**
    * A list of SIDs related to the recording
    */
-  groupingSids?: any | null;
+  groupingSids: any;
   /**
    * The name that was given to the source track of the recording
    */
-  trackName?: string | null;
+  trackName: string;
   /**
    * The number of milliseconds between a point in time that is common to all rooms in a group and when the source room of the recording started
    */
-  offset?: number | null;
+  offset: number;
   /**
    * The URL of the media file associated with the recording when stored externally
    */
-  mediaExternalLocation?: string | null;
+  mediaExternalLocation: string;
   /**
    * The URL called to send status information on every recording event.
    */
-  statusCallback?: string | null;
+  statusCallback: string;
   /**
    * The HTTP method used to call `status_callback`
    */
-  statusCallbackMethod?: RecordingStatusCallbackMethod;
+  statusCallbackMethod: RecordingStatusCallbackMethod;
   /**
    * The URLs of related resources
    */
-  links?: object | null;
+  links: object;
 
   private get _proxy(): RecordingContext {
     this._context =

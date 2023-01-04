@@ -203,17 +203,17 @@ interface VerificationAttemptPayload extends TwilioResponsePayload {
 }
 
 interface VerificationAttemptResource {
-  sid?: string | null;
-  account_sid?: string | null;
-  service_sid?: string | null;
-  verification_sid?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  conversion_status?: VerificationAttemptConversionStatus;
-  channel?: VerificationAttemptChannels;
-  price?: any | null;
-  channel_data?: any | null;
-  url?: string | null;
+  sid: string;
+  account_sid: string;
+  service_sid: string;
+  verification_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  conversion_status: VerificationAttemptConversionStatus;
+  channel: VerificationAttemptChannels;
+  price: any;
+  channel_data: any;
+  url: string;
 }
 
 export class VerificationAttemptInstance {
@@ -243,38 +243,38 @@ export class VerificationAttemptInstance {
   /**
    * The SID that uniquely identifies the verification attempt.
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The SID of the Account that created the verification.
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The SID of the verify service that generated this attempt.
    */
-  serviceSid?: string | null;
+  serviceSid: string;
   /**
    * The SID of the verification that generated this attempt.
    */
-  verificationSid?: string | null;
+  verificationSid: string;
   /**
    * The date this Attempt was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The date this Attempt was updated
    */
-  dateUpdated?: Date | null;
-  conversionStatus?: VerificationAttemptConversionStatus;
-  channel?: VerificationAttemptChannels;
+  dateUpdated: Date;
+  conversionStatus: VerificationAttemptConversionStatus;
+  channel: VerificationAttemptChannels;
   /**
    * An object containing the charge for this verification attempt.
    */
-  price?: any | null;
+  price: any;
   /**
    * An object containing the channel specific information for an attempt.
    */
-  channelData?: any | null;
-  url?: string | null;
+  channelData: any;
+  url: string;
 
   private get _proxy(): VerificationAttemptContext {
     this._context =

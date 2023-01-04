@@ -174,16 +174,16 @@ interface BrandVettingPayload extends TwilioResponsePayload {
 }
 
 interface BrandVettingResource {
-  account_sid?: string | null;
-  brand_sid?: string | null;
-  brand_vetting_sid?: string | null;
-  date_updated?: Date | null;
-  date_created?: Date | null;
-  vetting_id?: string | null;
-  vetting_class?: string | null;
-  vetting_status?: string | null;
-  vetting_provider?: BrandVettingVettingProvider;
-  url?: string | null;
+  account_sid: string;
+  brand_sid: string;
+  brand_vetting_sid: string;
+  date_updated: Date;
+  date_created: Date;
+  vetting_id: string;
+  vetting_class: string;
+  vetting_status: string;
+  vetting_provider: BrandVettingVettingProvider;
+  url: string;
 }
 
 export class BrandVettingInstance {
@@ -216,40 +216,40 @@ export class BrandVettingInstance {
   /**
    * The SID of the Account that created the vetting
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * A2P BrandRegistration Sid
    */
-  brandSid?: string | null;
+  brandSid: string;
   /**
    * SID for third-party vetting record
    */
-  brandVettingSid?: string | null;
+  brandVettingSid: string;
   /**
    * The ISO 8601 date and time in GMT when the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The ISO 8601 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The unique ID of the vetting
    */
-  vettingId?: string | null;
+  vettingId: string;
   /**
    * The type of vetting
    */
-  vettingClass?: string | null;
+  vettingClass: string;
   /**
    * Status of vetting attempt
    */
-  vettingStatus?: string | null;
-  vettingProvider?: BrandVettingVettingProvider;
+  vettingStatus: string;
+  vettingProvider: BrandVettingVettingProvider;
   /**
    * The absolute URL of the Brand Vetting
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): BrandVettingContext {
     this._context =
@@ -301,7 +301,7 @@ export class BrandVettingInstance {
 }
 
 export interface BrandVettingSolution {
-  brandSid?: string;
+  brandSid: string;
 }
 
 export interface BrandVettingListInstance {

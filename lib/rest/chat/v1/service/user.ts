@@ -290,20 +290,20 @@ interface UserPayload extends TwilioResponsePayload {
 }
 
 interface UserResource {
-  sid?: string | null;
-  account_sid?: string | null;
-  service_sid?: string | null;
-  attributes?: string | null;
-  friendly_name?: string | null;
-  role_sid?: string | null;
-  identity?: string | null;
-  is_online?: boolean | null;
-  is_notifiable?: boolean | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  joined_channels_count?: number | null;
-  links?: object | null;
-  url?: string | null;
+  sid: string;
+  account_sid: string;
+  service_sid: string;
+  attributes: string;
+  friendly_name: string;
+  role_sid: string;
+  identity: string;
+  is_online: boolean;
+  is_notifiable: boolean;
+  date_created: Date;
+  date_updated: Date;
+  joined_channels_count: number;
+  links: object;
+  url: string;
 }
 
 export class UserInstance {
@@ -339,59 +339,59 @@ export class UserInstance {
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The SID of the Service that the resource is associated with
    */
-  serviceSid?: string | null;
+  serviceSid: string;
   /**
    * The JSON string that stores application-specific data
    */
-  attributes?: string | null;
+  attributes: string;
   /**
    * The string that you assigned to describe the resource
    */
-  friendlyName?: string | null;
+  friendlyName: string;
   /**
    * The SID of the assigned to the user
    */
-  roleSid?: string | null;
+  roleSid: string;
   /**
    * The string that identifies the resource\'s User
    */
-  identity?: string | null;
+  identity: string;
   /**
    * Whether the User is actively connected to the Service instance and online
    */
-  isOnline?: boolean | null;
+  isOnline: boolean;
   /**
    * Whether the User has a potentially valid Push Notification registration for the Service instance
    */
-  isNotifiable?: boolean | null;
+  isNotifiable: boolean;
   /**
    * The RFC 2822 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The RFC 2822 date and time in GMT when the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The number of Channels this User is a Member of
    */
-  joinedChannelsCount?: number | null;
+  joinedChannelsCount: number;
   /**
    * The absolute URLs of the Channel and Binding resources related to the user
    */
-  links?: object | null;
+  links: object;
   /**
    * The absolute URL of the User resource
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): UserContext {
     this._context =
@@ -493,7 +493,7 @@ export class UserInstance {
 }
 
 export interface UserSolution {
-  serviceSid?: string;
+  serviceSid: string;
 }
 
 export interface UserListInstance {

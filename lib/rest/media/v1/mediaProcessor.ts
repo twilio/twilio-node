@@ -257,18 +257,18 @@ interface MediaProcessorPayload extends TwilioResponsePayload {
 }
 
 interface MediaProcessorResource {
-  account_sid?: string | null;
-  sid?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  extension?: string | null;
-  extension_context?: string | null;
-  status?: MediaProcessorStatus;
-  url?: string | null;
-  ended_reason?: string | null;
-  status_callback?: string | null;
-  status_callback_method?: MediaProcessorStatusCallbackMethod;
-  max_duration?: number | null;
+  account_sid: string;
+  sid: string;
+  date_created: Date;
+  date_updated: Date;
+  extension: string;
+  extension_context: string;
+  status: MediaProcessorStatus;
+  url: string;
+  ended_reason: string;
+  status_callback: string;
+  status_callback_method: MediaProcessorStatusCallbackMethod;
+  max_duration: number;
 }
 
 export class MediaProcessorInstance {
@@ -299,48 +299,48 @@ export class MediaProcessorInstance {
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The ISO 8601 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The ISO 8601 date and time in GMT when the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The Media Extension name or URL
    */
-  extension?: string | null;
+  extension: string;
   /**
    * The Media Extension context
    */
-  extensionContext?: string | null;
-  status?: MediaProcessorStatus;
+  extensionContext: string;
+  status: MediaProcessorStatus;
   /**
    * The absolute URL of the resource
    */
-  url?: string | null;
+  url: string;
   /**
    * The reason why a MediaProcessor ended
    */
-  endedReason?: string | null;
+  endedReason: string;
   /**
    * The URL to which Twilio will send MediaProcessor event updates
    */
-  statusCallback?: string | null;
+  statusCallback: string;
   /**
    * The HTTP method Twilio should use to call the `status_callback` URL
    */
-  statusCallbackMethod?: MediaProcessorStatusCallbackMethod;
+  statusCallbackMethod: MediaProcessorStatusCallbackMethod;
   /**
    * Maximum MediaProcessor duration in seconds
    */
-  maxDuration?: number | null;
+  maxDuration: number;
 
   private get _proxy(): MediaProcessorContext {
     this._context =

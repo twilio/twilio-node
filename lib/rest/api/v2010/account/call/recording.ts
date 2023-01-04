@@ -312,24 +312,24 @@ interface RecordingPayload extends TwilioResponsePayload {
 }
 
 interface RecordingResource {
-  account_sid?: string | null;
-  api_version?: string | null;
-  call_sid?: string | null;
-  conference_sid?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  start_time?: Date | null;
-  duration?: string | null;
-  sid?: string | null;
-  price?: number | null;
-  uri?: string | null;
-  encryption_details?: any | null;
-  price_unit?: string | null;
-  status?: CallRecordingStatus;
-  channels?: number | null;
-  source?: CallRecordingSource;
-  error_code?: number | null;
-  track?: string | null;
+  account_sid: string;
+  api_version: string;
+  call_sid: string;
+  conference_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  start_time: Date;
+  duration: string;
+  sid: string;
+  price: number;
+  uri: string;
+  encryption_details: any;
+  price_unit: string;
+  status: CallRecordingStatus;
+  channels: number;
+  source: CallRecordingSource;
+  error_code: number;
+  track: string;
 }
 
 export class RecordingInstance {
@@ -368,69 +368,69 @@ export class RecordingInstance {
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The API version used to make the recording
    */
-  apiVersion?: string | null;
+  apiVersion: string;
   /**
    * The SID of the Call the resource is associated with
    */
-  callSid?: string | null;
+  callSid: string;
   /**
    * The Conference SID that identifies the conference associated with the recording
    */
-  conferenceSid?: string | null;
+  conferenceSid: string;
   /**
    * The RFC 2822 date and time in GMT that the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The RFC 2822 date and time in GMT that the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The start time of the recording, given in RFC 2822 format
    */
-  startTime?: Date | null;
+  startTime: Date;
   /**
    * The length of the recording in seconds
    */
-  duration?: string | null;
+  duration: string;
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The one-time cost of creating the recording.
    */
-  price?: number | null;
+  price: number;
   /**
    * The URI of the resource, relative to `https://api.twilio.com`
    */
-  uri?: string | null;
+  uri: string;
   /**
    * How to decrypt the recording.
    */
-  encryptionDetails?: any | null;
+  encryptionDetails: any;
   /**
    * The currency used in the price property.
    */
-  priceUnit?: string | null;
-  status?: CallRecordingStatus;
+  priceUnit: string;
+  status: CallRecordingStatus;
   /**
    * The number of channels in the final recording file
    */
-  channels?: number | null;
-  source?: CallRecordingSource;
+  channels: number;
+  source: CallRecordingSource;
   /**
    * More information about why the recording is missing, if status is `absent`.
    */
-  errorCode?: number | null;
+  errorCode: number;
   /**
    * The recorded track. Can be: `inbound`, `outbound`, or `both`.
    */
-  track?: string | null;
+  track: string;
 
   private get _proxy(): RecordingContext {
     this._context =
@@ -520,8 +520,8 @@ export class RecordingInstance {
 }
 
 export interface RecordingSolution {
-  accountSid?: string;
-  callSid?: string;
+  accountSid: string;
+  callSid: string;
 }
 
 export interface RecordingListInstance {

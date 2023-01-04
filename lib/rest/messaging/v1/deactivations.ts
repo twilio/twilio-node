@@ -122,7 +122,7 @@ export class DeactivationsContextImpl implements DeactivationsContext {
 interface DeactivationsPayload extends DeactivationsResource {}
 
 interface DeactivationsResource {
-  redirect_to?: string | null;
+  redirect_to: string;
 }
 
 export class DeactivationsInstance {
@@ -138,7 +138,7 @@ export class DeactivationsInstance {
   /**
    * Redirect url to the list of deactivated numbers.
    */
-  redirectTo?: string | null;
+  redirectTo: string;
 
   private get _proxy(): DeactivationsContext {
     this._context =

@@ -205,21 +205,21 @@ export class VerificationContextImpl implements VerificationContext {
 interface VerificationPayload extends VerificationResource {}
 
 interface VerificationResource {
-  sid?: string | null;
-  service_sid?: string | null;
-  account_sid?: string | null;
-  to?: string | null;
-  channel?: VerificationChannel;
-  status?: string | null;
-  valid?: boolean | null;
-  lookup?: any | null;
-  amount?: string | null;
-  payee?: string | null;
-  send_code_attempts?: Array<any> | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  sna?: any | null;
-  url?: string | null;
+  sid: string;
+  service_sid: string;
+  account_sid: string;
+  to: string;
+  channel: VerificationChannel;
+  status: string;
+  valid: boolean;
+  lookup: any;
+  amount: string;
+  payee: string;
+  send_code_attempts: Array<any>;
+  date_created: Date;
+  date_updated: Date;
+  sna: any;
+  url: string;
 }
 
 export class VerificationInstance {
@@ -254,60 +254,60 @@ export class VerificationInstance {
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The SID of the Service that the resource is associated with
    */
-  serviceSid?: string | null;
+  serviceSid: string;
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The phone number or email being verified
    */
-  to?: string | null;
-  channel?: VerificationChannel;
+  to: string;
+  channel: VerificationChannel;
   /**
    * The status of the verification resource
    */
-  status?: string | null;
+  status: string;
   /**
    * Whether the verification was successful
    */
-  valid?: boolean | null;
+  valid: boolean;
   /**
    * Information about the phone number being verified
    */
-  lookup?: any | null;
+  lookup: any;
   /**
    * The amount of the associated PSD2 compliant transaction.
    */
-  amount?: string | null;
+  amount: string;
   /**
    * The payee of the associated PSD2 compliant transaction
    */
-  payee?: string | null;
+  payee: string;
   /**
    * An array of verification attempt objects.
    */
-  sendCodeAttempts?: Array<any> | null;
+  sendCodeAttempts: Array<any>;
   /**
    * The RFC 2822 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The RFC 2822 date and time in GMT when the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The set of fields used for a silent network auth (`sna`) verification
    */
-  sna?: any | null;
+  sna: any;
   /**
    * The absolute URL of the Verification resource
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): VerificationContext {
     this._context =
@@ -380,7 +380,7 @@ export class VerificationInstance {
 }
 
 export interface VerificationSolution {
-  serviceSid?: string;
+  serviceSid: string;
 }
 
 export interface VerificationListInstance {

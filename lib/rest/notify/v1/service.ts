@@ -357,26 +357,26 @@ interface ServicePayload extends TwilioResponsePayload {
 }
 
 interface ServiceResource {
-  sid?: string | null;
-  account_sid?: string | null;
-  friendly_name?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  apn_credential_sid?: string | null;
-  gcm_credential_sid?: string | null;
-  fcm_credential_sid?: string | null;
-  messaging_service_sid?: string | null;
-  facebook_messenger_page_id?: string | null;
-  default_apn_notification_protocol_version?: string | null;
-  default_gcm_notification_protocol_version?: string | null;
-  default_fcm_notification_protocol_version?: string | null;
-  log_enabled?: boolean | null;
-  url?: string | null;
-  links?: object | null;
-  alexa_skill_id?: string | null;
-  default_alexa_notification_protocol_version?: string | null;
-  delivery_callback_url?: string | null;
-  delivery_callback_enabled?: boolean | null;
+  sid: string;
+  account_sid: string;
+  friendly_name: string;
+  date_created: Date;
+  date_updated: Date;
+  apn_credential_sid: string;
+  gcm_credential_sid: string;
+  fcm_credential_sid: string;
+  messaging_service_sid: string;
+  facebook_messenger_page_id: string;
+  default_apn_notification_protocol_version: string;
+  default_gcm_notification_protocol_version: string;
+  default_fcm_notification_protocol_version: string;
+  log_enabled: boolean;
+  url: string;
+  links: object;
+  alexa_skill_id: string;
+  default_alexa_notification_protocol_version: string;
+  delivery_callback_url: string;
+  delivery_callback_enabled: boolean;
 }
 
 export class ServiceInstance {
@@ -415,83 +415,83 @@ export class ServiceInstance {
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The string that you assigned to describe the resource
    */
-  friendlyName?: string | null;
+  friendlyName: string;
   /**
    * The RFC 2822 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The RFC 2822 date and time in GMT when the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The SID of the Credential to use for APN Bindings
    */
-  apnCredentialSid?: string | null;
+  apnCredentialSid: string;
   /**
    * The SID of the Credential to use for GCM Bindings
    */
-  gcmCredentialSid?: string | null;
+  gcmCredentialSid: string;
   /**
    * The SID of the Credential to use for FCM Bindings
    */
-  fcmCredentialSid?: string | null;
+  fcmCredentialSid: string;
   /**
    * The SID of the Messaging Service to use for SMS Bindings
    */
-  messagingServiceSid?: string | null;
+  messagingServiceSid: string;
   /**
    * Deprecated
    */
-  facebookMessengerPageId?: string | null;
+  facebookMessengerPageId: string;
   /**
    * The protocol version to use for sending APNS notifications
    */
-  defaultApnNotificationProtocolVersion?: string | null;
+  defaultApnNotificationProtocolVersion: string;
   /**
    * The protocol version to use for sending GCM notifications
    */
-  defaultGcmNotificationProtocolVersion?: string | null;
+  defaultGcmNotificationProtocolVersion: string;
   /**
    * The protocol version to use for sending FCM notifications
    */
-  defaultFcmNotificationProtocolVersion?: string | null;
+  defaultFcmNotificationProtocolVersion: string;
   /**
    * Whether to log notifications
    */
-  logEnabled?: boolean | null;
+  logEnabled: boolean;
   /**
    * The absolute URL of the Service resource
    */
-  url?: string | null;
+  url: string;
   /**
    * The URLs of the resources related to the service
    */
-  links?: object | null;
+  links: object;
   /**
    * Deprecated
    */
-  alexaSkillId?: string | null;
+  alexaSkillId: string;
   /**
    * Deprecated
    */
-  defaultAlexaNotificationProtocolVersion?: string | null;
+  defaultAlexaNotificationProtocolVersion: string;
   /**
    * Webhook URL
    */
-  deliveryCallbackUrl?: string | null;
+  deliveryCallbackUrl: string;
   /**
    * Enable delivery callbacks
    */
-  deliveryCallbackEnabled?: boolean | null;
+  deliveryCallbackEnabled: boolean;
 
   private get _proxy(): ServiceContext {
     this._context =

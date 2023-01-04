@@ -168,15 +168,15 @@ interface PublishedTrackPayload extends TwilioResponsePayload {
 }
 
 interface PublishedTrackResource {
-  sid?: string | null;
-  participant_sid?: string | null;
-  room_sid?: string | null;
-  name?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  enabled?: boolean | null;
-  kind?: RoomParticipantPublishedTrackKind;
-  url?: string | null;
+  sid: string;
+  participant_sid: string;
+  room_sid: string;
+  name: string;
+  date_created: Date;
+  date_updated: Date;
+  enabled: boolean;
+  kind: RoomParticipantPublishedTrackKind;
+  url: string;
 }
 
 export class PublishedTrackInstance {
@@ -206,36 +206,36 @@ export class PublishedTrackInstance {
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The SID of the Participant resource with the published track
    */
-  participantSid?: string | null;
+  participantSid: string;
   /**
    * The SID of the Room resource where the track is published
    */
-  roomSid?: string | null;
+  roomSid: string;
   /**
    * The track name
    */
-  name?: string | null;
+  name: string;
   /**
    * The ISO 8601 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The ISO 8601 date and time in GMT when the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * Whether the track is enabled
    */
-  enabled?: boolean | null;
-  kind?: RoomParticipantPublishedTrackKind;
+  enabled: boolean;
+  kind: RoomParticipantPublishedTrackKind;
   /**
    * The absolute URL of the resource
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): PublishedTrackContext {
     this._context =
@@ -287,8 +287,8 @@ export class PublishedTrackInstance {
 }
 
 export interface PublishedTrackSolution {
-  roomSid?: string;
-  participantSid?: string;
+  roomSid: string;
+  participantSid: string;
 }
 
 export interface PublishedTrackListInstance {

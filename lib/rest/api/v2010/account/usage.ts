@@ -268,7 +268,7 @@ type UsageRecordCategory =
   | "wireless-usage-voice";
 
 export interface UsageSolution {
-  accountSid?: string;
+  accountSid: string;
 }
 
 export interface UsageListInstance {

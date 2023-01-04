@@ -225,11 +225,11 @@ interface InteractionChannelParticipantPayload extends TwilioResponsePayload {
 }
 
 interface InteractionChannelParticipantResource {
-  sid?: string | null;
-  type?: InteractionChannelParticipantType;
-  interaction_sid?: string | null;
-  channel_sid?: string | null;
-  url?: string | null;
+  sid: string;
+  type: InteractionChannelParticipantType;
+  interaction_sid: string;
+  channel_sid: string;
+  url: string;
 }
 
 export class InteractionChannelParticipantInstance {
@@ -255,17 +255,17 @@ export class InteractionChannelParticipantInstance {
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
-  type?: InteractionChannelParticipantType;
+  sid: string;
+  type: InteractionChannelParticipantType;
   /**
    * The Interaction Sid for this channel.
    */
-  interactionSid?: string | null;
+  interactionSid: string;
   /**
    * The Channel Sid for this Participant.
    */
-  channelSid?: string | null;
-  url?: string | null;
+  channelSid: string;
+  url: string;
 
   private get _proxy(): InteractionChannelParticipantContext {
     this._context =
@@ -322,8 +322,8 @@ export class InteractionChannelParticipantInstance {
 }
 
 export interface InteractionChannelParticipantSolution {
-  interactionSid?: string;
-  channelSid?: string;
+  interactionSid: string;
+  channelSid: string;
 }
 
 export interface InteractionChannelParticipantListInstance {

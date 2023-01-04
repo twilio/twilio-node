@@ -144,7 +144,7 @@ export function FlowValidateListInstance(
 interface FlowValidatePayload extends FlowValidateResource {}
 
 interface FlowValidateResource {
-  valid?: boolean | null;
+  valid: boolean;
 }
 
 export class FlowValidateInstance {
@@ -155,7 +155,7 @@ export class FlowValidateInstance {
   /**
    * Boolean if the flow definition is valid
    */
-  valid?: boolean | null;
+  valid: boolean;
 
   /**
    * Provide a user-friendly representation

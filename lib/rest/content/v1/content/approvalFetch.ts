@@ -95,10 +95,10 @@ export class ApprovalFetchContextImpl implements ApprovalFetchContext {
 interface ApprovalFetchPayload extends ApprovalFetchResource {}
 
 interface ApprovalFetchResource {
-  sid?: string | null;
-  account_sid?: string | null;
-  whatsapp?: any | null;
-  url?: string | null;
+  sid: string;
+  account_sid: string;
+  whatsapp: any;
+  url: string;
 }
 
 export class ApprovalFetchInstance {
@@ -121,19 +121,19 @@ export class ApprovalFetchInstance {
   /**
    * The unique string that identifies the Content resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The SID of the Account that created the Content resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * Contains the whatsapp approval information for the Content resource
    */
-  whatsapp?: any | null;
+  whatsapp: any;
   /**
    * The URL of the resource, relative to `https://content.twilio.com`
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): ApprovalFetchContext {
     this._context =
@@ -175,7 +175,7 @@ export class ApprovalFetchInstance {
 }
 
 export interface ApprovalFetchSolution {
-  sid?: string;
+  sid: string;
 }
 
 export interface ApprovalFetchListInstance {

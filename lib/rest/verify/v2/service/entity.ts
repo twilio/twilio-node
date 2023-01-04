@@ -230,14 +230,14 @@ interface EntityPayload extends TwilioResponsePayload {
 }
 
 interface EntityResource {
-  sid?: string | null;
-  identity?: string | null;
-  account_sid?: string | null;
-  service_sid?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  url?: string | null;
-  links?: object | null;
+  sid: string;
+  identity: string;
+  account_sid: string;
+  service_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  url: string;
+  links: object;
 }
 
 export class EntityInstance {
@@ -265,35 +265,35 @@ export class EntityInstance {
   /**
    * A string that uniquely identifies this Entity.
    */
-  sid?: string | null;
+  sid: string;
   /**
    * Unique external identifier of the Entity
    */
-  identity?: string | null;
+  identity: string;
   /**
    * Account Sid.
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * Service Sid.
    */
-  serviceSid?: string | null;
+  serviceSid: string;
   /**
    * The date this Entity was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The date this Entity was updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The URL of this resource.
    */
-  url?: string | null;
+  url: string;
   /**
    * Nested resource URLs.
    */
-  links?: object | null;
+  links: object;
 
   private get _proxy(): EntityContext {
     this._context =
@@ -377,7 +377,7 @@ export class EntityInstance {
 }
 
 export interface EntitySolution {
-  serviceSid?: string;
+  serviceSid: string;
 }
 
 export interface EntityListInstance {

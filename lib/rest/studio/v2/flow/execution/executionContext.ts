@@ -101,11 +101,11 @@ export class ExecutionContextContextImpl implements ExecutionContextContext {
 interface ExecutionContextPayload extends ExecutionContextResource {}
 
 interface ExecutionContextResource {
-  account_sid?: string | null;
-  context?: any | null;
-  flow_sid?: string | null;
-  execution_sid?: string | null;
-  url?: string | null;
+  account_sid: string;
+  context: any;
+  flow_sid: string;
+  execution_sid: string;
+  url: string;
 }
 
 export class ExecutionContextInstance {
@@ -130,23 +130,23 @@ export class ExecutionContextInstance {
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The current state of the flow
    */
-  context?: any | null;
+  context: any;
   /**
    * The SID of the Flow
    */
-  flowSid?: string | null;
+  flowSid: string;
   /**
    * The SID of the Execution
    */
-  executionSid?: string | null;
+  executionSid: string;
   /**
    * The absolute URL of the resource
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): ExecutionContextContext {
     this._context =
@@ -193,8 +193,8 @@ export class ExecutionContextInstance {
 }
 
 export interface ExecutionContextSolution {
-  flowSid?: string;
-  executionSid?: string;
+  flowSid: string;
+  executionSid: string;
 }
 
 export interface ExecutionContextListInstance {

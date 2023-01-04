@@ -70,7 +70,7 @@ export interface SimIpAddressListInstancePageOptions {
 }
 
 export interface SimIpAddressSolution {
-  simSid?: string;
+  simSid: string;
 }
 
 export interface SimIpAddressListInstance {
@@ -298,8 +298,8 @@ interface SimIpAddressPayload extends TwilioResponsePayload {
 }
 
 interface SimIpAddressResource {
-  ip_address?: string | null;
-  ip_address_version?: SimIpAddressIpAddressVersion;
+  ip_address: string;
+  ip_address_version: SimIpAddressIpAddressVersion;
 }
 
 export class SimIpAddressInstance {
@@ -315,8 +315,8 @@ export class SimIpAddressInstance {
   /**
    * IP address assigned to the given Super SIM
    */
-  ipAddress?: string | null;
-  ipAddressVersion?: SimIpAddressIpAddressVersion;
+  ipAddress: string;
+  ipAddressVersion: SimIpAddressIpAddressVersion;
 
   /**
    * Provide a user-friendly representation

@@ -201,16 +201,16 @@ export class AnnotationContextImpl implements AnnotationContext {
 interface AnnotationPayload extends AnnotationResource {}
 
 interface AnnotationResource {
-  call_sid?: string | null;
-  account_sid?: string | null;
-  answered_by?: AnnotationAnsweredBy;
-  connectivity_issue?: AnnotationConnectivityIssue;
-  quality_issues?: Array<string> | null;
-  spam?: boolean | null;
-  call_score?: number | null;
-  comment?: string | null;
-  incident?: string | null;
-  url?: string | null;
+  call_sid: string;
+  account_sid: string;
+  answered_by: AnnotationAnsweredBy;
+  connectivity_issue: AnnotationConnectivityIssue;
+  quality_issues: Array<string>;
+  spam: boolean;
+  call_score: number;
+  comment: string;
+  incident: string;
+  url: string;
 }
 
 export class AnnotationInstance {
@@ -239,37 +239,37 @@ export class AnnotationInstance {
   /**
    * Call SID.
    */
-  callSid?: string | null;
+  callSid: string;
   /**
    * Account SID.
    */
-  accountSid?: string | null;
-  answeredBy?: AnnotationAnsweredBy;
-  connectivityIssue?: AnnotationConnectivityIssue;
+  accountSid: string;
+  answeredBy: AnnotationAnsweredBy;
+  connectivityIssue: AnnotationConnectivityIssue;
   /**
    * Indicates if the call had audio quality issues.
    */
-  qualityIssues?: Array<string> | null;
+  qualityIssues: Array<string>;
   /**
    * Call spam indicator
    */
-  spam?: boolean | null;
+  spam: boolean;
   /**
    * Call Score
    */
-  callScore?: number | null;
+  callScore: number;
   /**
    * User comments
    */
-  comment?: string | null;
+  comment: string;
   /**
    * Call tag for incidents or support ticket
    */
-  incident?: string | null;
+  incident: string;
   /**
    * The URL of this resource.
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): AnnotationContext {
     this._context =
@@ -343,7 +343,7 @@ export class AnnotationInstance {
 }
 
 export interface AnnotationSolution {
-  callSid?: string;
+  callSid: string;
 }
 
 export interface AnnotationListInstance {

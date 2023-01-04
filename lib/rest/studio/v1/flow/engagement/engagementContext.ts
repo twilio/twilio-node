@@ -101,11 +101,11 @@ export class EngagementContextContextImpl implements EngagementContextContext {
 interface EngagementContextPayload extends EngagementContextResource {}
 
 interface EngagementContextResource {
-  account_sid?: string | null;
-  context?: any | null;
-  engagement_sid?: string | null;
-  flow_sid?: string | null;
-  url?: string | null;
+  account_sid: string;
+  context: any;
+  engagement_sid: string;
+  flow_sid: string;
+  url: string;
 }
 
 export class EngagementContextInstance {
@@ -130,23 +130,23 @@ export class EngagementContextInstance {
   /**
    * Account SID
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * Flow state
    */
-  context?: any | null;
+  context: any;
   /**
    * Engagement SID
    */
-  engagementSid?: string | null;
+  engagementSid: string;
   /**
    * Flow SID
    */
-  flowSid?: string | null;
+  flowSid: string;
   /**
    * The URL of the resource
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): EngagementContextContext {
     this._context =
@@ -193,8 +193,8 @@ export class EngagementContextInstance {
 }
 
 export interface EngagementContextSolution {
-  flowSid?: string;
-  engagementSid?: string;
+  flowSid: string;
+  engagementSid: string;
 }
 
 export interface EngagementContextListInstance {

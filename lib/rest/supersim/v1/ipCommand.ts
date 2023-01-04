@@ -190,19 +190,19 @@ interface IpCommandPayload extends TwilioResponsePayload {
 }
 
 interface IpCommandResource {
-  sid?: string | null;
-  account_sid?: string | null;
-  sim_sid?: string | null;
-  sim_iccid?: string | null;
-  status?: IpCommandStatus;
-  direction?: IpCommandDirection;
-  device_ip?: string | null;
-  device_port?: number | null;
-  payload_type?: IpCommandPayloadType;
-  payload?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  url?: string | null;
+  sid: string;
+  account_sid: string;
+  sim_sid: string;
+  sim_iccid: string;
+  status: IpCommandStatus;
+  direction: IpCommandDirection;
+  device_ip: string;
+  device_port: number;
+  payload_type: IpCommandPayloadType;
+  payload: string;
+  date_created: Date;
+  date_updated: Date;
+  url: string;
 }
 
 export class IpCommandInstance {
@@ -234,46 +234,46 @@ export class IpCommandInstance {
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The SID of the Super SIM that this IP Command was sent to or from
    */
-  simSid?: string | null;
+  simSid: string;
   /**
    * The ICCID of the Super SIM that this IP Command was sent to or from
    */
-  simIccid?: string | null;
-  status?: IpCommandStatus;
-  direction?: IpCommandDirection;
+  simIccid: string;
+  status: IpCommandStatus;
+  direction: IpCommandDirection;
   /**
    * The IP address of the device that the IP Command was sent to or received from
    */
-  deviceIp?: string | null;
+  deviceIp: string;
   /**
    * The port that the IP Command either originated from or was sent to
    */
-  devicePort?: number | null;
-  payloadType?: IpCommandPayloadType;
+  devicePort: number;
+  payloadType: IpCommandPayloadType;
   /**
    * The payload of the IP Command sent to or from the Super SIM
    */
-  payload?: string | null;
+  payload: string;
   /**
    * The ISO 8601 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The ISO 8601 date and time in GMT when the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The absolute URL of the IP Command resource
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): IpCommandContext {
     this._context =

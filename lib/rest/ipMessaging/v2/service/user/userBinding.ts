@@ -197,18 +197,18 @@ interface UserBindingPayload extends TwilioResponsePayload {
 }
 
 interface UserBindingResource {
-  sid?: string | null;
-  account_sid?: string | null;
-  service_sid?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  endpoint?: string | null;
-  identity?: string | null;
-  user_sid?: string | null;
-  credential_sid?: string | null;
-  binding_type?: UserBindingBindingType;
-  message_types?: Array<string> | null;
-  url?: string | null;
+  sid: string;
+  account_sid: string;
+  service_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  endpoint: string;
+  identity: string;
+  user_sid: string;
+  credential_sid: string;
+  binding_type: UserBindingBindingType;
+  message_types: Array<string>;
+  url: string;
 }
 
 export class UserBindingInstance {
@@ -238,18 +238,18 @@ export class UserBindingInstance {
     this._solution = { serviceSid, userSid, sid: sid || this.sid };
   }
 
-  sid?: string | null;
-  accountSid?: string | null;
-  serviceSid?: string | null;
-  dateCreated?: Date | null;
-  dateUpdated?: Date | null;
-  endpoint?: string | null;
-  identity?: string | null;
-  userSid?: string | null;
-  credentialSid?: string | null;
-  bindingType?: UserBindingBindingType;
-  messageTypes?: Array<string> | null;
-  url?: string | null;
+  sid: string;
+  accountSid: string;
+  serviceSid: string;
+  dateCreated: Date;
+  dateUpdated: Date;
+  endpoint: string;
+  identity: string;
+  userSid: string;
+  credentialSid: string;
+  bindingType: UserBindingBindingType;
+  messageTypes: Array<string>;
+  url: string;
 
   private get _proxy(): UserBindingContext {
     this._context =
@@ -317,8 +317,8 @@ export class UserBindingInstance {
 }
 
 export interface UserBindingSolution {
-  serviceSid?: string;
-  userSid?: string;
+  serviceSid: string;
+  userSid: string;
 }
 
 export interface UserBindingListInstance {

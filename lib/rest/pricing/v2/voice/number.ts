@@ -148,14 +148,14 @@ export class NumberContextImpl implements NumberContext {
 interface NumberPayload extends NumberResource {}
 
 interface NumberResource {
-  destination_number?: string | null;
-  origination_number?: string | null;
-  country?: string | null;
-  iso_country?: string | null;
-  outbound_call_prices?: Array<PricingV2VoiceVoiceNumberOutboundCallPrices> | null;
-  inbound_call_price?: PricingV2VoiceVoiceNumberInboundCallPrice | null;
-  price_unit?: string | null;
-  url?: string | null;
+  destination_number: string;
+  origination_number: string;
+  country: string;
+  iso_country: string;
+  outbound_call_prices: Array<PricingV2VoiceVoiceNumberOutboundCallPrices>;
+  inbound_call_price: PricingV2VoiceVoiceNumberInboundCallPrice;
+  price_unit: string;
+  url: string;
 }
 
 export class NumberInstance {
@@ -184,32 +184,32 @@ export class NumberInstance {
   /**
    * The destination phone number, in E.164 format
    */
-  destinationNumber?: string | null;
+  destinationNumber: string;
   /**
    * The origination phone number, in E.164 format
    */
-  originationNumber?: string | null;
+  originationNumber: string;
   /**
    * The name of the country
    */
-  country?: string | null;
+  country: string;
   /**
    * The ISO country code
    */
-  isoCountry?: string | null;
+  isoCountry: string;
   /**
    * The list of OutboundCallPriceWithOrigin records
    */
-  outboundCallPrices?: Array<PricingV2VoiceVoiceNumberOutboundCallPrices> | null;
-  inboundCallPrice?: PricingV2VoiceVoiceNumberInboundCallPrice | null;
+  outboundCallPrices: Array<PricingV2VoiceVoiceNumberOutboundCallPrices>;
+  inboundCallPrice: PricingV2VoiceVoiceNumberInboundCallPrice;
   /**
    * The currency in which prices are measured, in ISO 4127 format (e.g. usd, eur, jpy)
    */
-  priceUnit?: string | null;
+  priceUnit: string;
   /**
    * The absolute URL of the resource
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): NumberContext {
     this._context =

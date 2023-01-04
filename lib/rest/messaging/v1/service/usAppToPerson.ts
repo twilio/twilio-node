@@ -214,30 +214,30 @@ interface UsAppToPersonPayload extends TwilioResponsePayload {
 }
 
 interface UsAppToPersonResource {
-  sid?: string | null;
-  account_sid?: string | null;
-  brand_registration_sid?: string | null;
-  messaging_service_sid?: string | null;
-  description?: string | null;
-  message_samples?: Array<string> | null;
-  us_app_to_person_usecase?: string | null;
-  has_embedded_links?: boolean | null;
-  has_embedded_phone?: boolean | null;
-  campaign_status?: string | null;
-  campaign_id?: string | null;
-  is_externally_registered?: boolean | null;
-  rate_limits?: any | null;
-  message_flow?: string | null;
-  opt_in_message?: string | null;
-  opt_out_message?: string | null;
-  help_message?: string | null;
-  opt_in_keywords?: Array<string> | null;
-  opt_out_keywords?: Array<string> | null;
-  help_keywords?: Array<string> | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  url?: string | null;
-  mock?: boolean | null;
+  sid: string;
+  account_sid: string;
+  brand_registration_sid: string;
+  messaging_service_sid: string;
+  description: string;
+  message_samples: Array<string>;
+  us_app_to_person_usecase: string;
+  has_embedded_links: boolean;
+  has_embedded_phone: boolean;
+  campaign_status: string;
+  campaign_id: string;
+  is_externally_registered: boolean;
+  rate_limits: any;
+  message_flow: string;
+  opt_in_message: string;
+  opt_out_message: string;
+  help_message: string;
+  opt_in_keywords: Array<string>;
+  opt_out_keywords: Array<string>;
+  help_keywords: Array<string>;
+  date_created: Date;
+  date_updated: Date;
+  url: string;
+  mock: boolean;
 }
 
 export class UsAppToPersonInstance {
@@ -281,99 +281,99 @@ export class UsAppToPersonInstance {
   /**
    * The unique string that identifies a US A2P Compliance resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * A2P Brand Registration SID
    */
-  brandRegistrationSid?: string | null;
+  brandRegistrationSid: string;
   /**
    * The SID of the Messaging Service the resource is associated with
    */
-  messagingServiceSid?: string | null;
+  messagingServiceSid: string;
   /**
    * A short description of what this SMS campaign does
    */
-  description?: string | null;
+  description: string;
   /**
    * Message samples
    */
-  messageSamples?: Array<string> | null;
+  messageSamples: Array<string>;
   /**
    * A2P Campaign Use Case.
    */
-  usAppToPersonUsecase?: string | null;
+  usAppToPersonUsecase: string;
   /**
    * Indicate that this SMS campaign will send messages that contain links
    */
-  hasEmbeddedLinks?: boolean | null;
+  hasEmbeddedLinks: boolean;
   /**
    * Indicates that this SMS campaign will send messages that contain phone numbers
    */
-  hasEmbeddedPhone?: boolean | null;
+  hasEmbeddedPhone: boolean;
   /**
    * Campaign status
    */
-  campaignStatus?: string | null;
+  campaignStatus: string;
   /**
    * The Campaign Registry (TCR) Campaign ID.
    */
-  campaignId?: string | null;
+  campaignId: string;
   /**
    * Indicates whether the campaign was registered externally or not
    */
-  isExternallyRegistered?: boolean | null;
+  isExternallyRegistered: boolean;
   /**
    * Rate limit and/or classification set by each carrier
    */
-  rateLimits?: any | null;
+  rateLimits: any;
   /**
    * Consumer opt-in flow
    */
-  messageFlow?: string | null;
+  messageFlow: string;
   /**
    * Opt In Message
    */
-  optInMessage?: string | null;
+  optInMessage: string;
   /**
    * Opt Out Message
    */
-  optOutMessage?: string | null;
+  optOutMessage: string;
   /**
    * Help Message
    */
-  helpMessage?: string | null;
+  helpMessage: string;
   /**
    * Opt In Keywords
    */
-  optInKeywords?: Array<string> | null;
+  optInKeywords: Array<string>;
   /**
    * Opt Out Keywords
    */
-  optOutKeywords?: Array<string> | null;
+  optOutKeywords: Array<string>;
   /**
    * Help Keywords
    */
-  helpKeywords?: Array<string> | null;
+  helpKeywords: Array<string>;
   /**
    * The ISO 8601 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The ISO 8601 date and time in GMT when the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The absolute URL of the US App to Person resource
    */
-  url?: string | null;
+  url: string;
   /**
    * A boolean that specifies whether campaign is a mock or not.
    */
-  mock?: boolean | null;
+  mock: boolean;
 
   private get _proxy(): UsAppToPersonContext {
     this._context =
@@ -452,7 +452,7 @@ export class UsAppToPersonInstance {
 }
 
 export interface UsAppToPersonSolution {
-  messagingServiceSid?: string;
+  messagingServiceSid: string;
 }
 
 export interface UsAppToPersonListInstance {

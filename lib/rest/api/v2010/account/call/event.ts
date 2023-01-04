@@ -68,8 +68,8 @@ export interface EventListInstancePageOptions {
 }
 
 export interface EventSolution {
-  accountSid?: string;
-  callSid?: string;
+  accountSid: string;
+  callSid: string;
 }
 
 export interface EventListInstance {
@@ -300,8 +300,8 @@ interface EventPayload extends TwilioResponsePayload {
 }
 
 interface EventResource {
-  request?: any | null;
-  response?: any | null;
+  request: any;
+  response: any;
 }
 
 export class EventInstance {
@@ -318,11 +318,11 @@ export class EventInstance {
   /**
    * Call Request.
    */
-  request?: any | null;
+  request: any;
   /**
    * Call Response with Events.
    */
-  response?: any | null;
+  response: any;
 
   /**
    * Provide a user-friendly representation

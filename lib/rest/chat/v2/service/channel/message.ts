@@ -356,22 +356,22 @@ interface MessagePayload extends TwilioResponsePayload {
 }
 
 interface MessageResource {
-  sid?: string | null;
-  account_sid?: string | null;
-  attributes?: string | null;
-  service_sid?: string | null;
-  to?: string | null;
-  channel_sid?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  last_updated_by?: string | null;
-  was_edited?: boolean | null;
-  from?: string | null;
-  body?: string | null;
-  index?: number | null;
-  type?: string | null;
-  media?: any | null;
-  url?: string | null;
+  sid: string;
+  account_sid: string;
+  attributes: string;
+  service_sid: string;
+  to: string;
+  channel_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  last_updated_by: string;
+  was_edited: boolean;
+  from: string;
+  body: string;
+  index: number;
+  type: string;
+  media: any;
+  url: string;
 }
 
 export class MessageInstance {
@@ -408,67 +408,67 @@ export class MessageInstance {
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The JSON string that stores application-specific data
    */
-  attributes?: string | null;
+  attributes: string;
   /**
    * The SID of the Service that the resource is associated with
    */
-  serviceSid?: string | null;
+  serviceSid: string;
   /**
    * The SID of the Channel that the message was sent to
    */
-  to?: string | null;
+  to: string;
   /**
    * The SID of the Channel the Message resource belongs to
    */
-  channelSid?: string | null;
+  channelSid: string;
   /**
    * The RFC 2822 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The RFC 2822 date and time in GMT when the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The Identity of the User who last updated the Message
    */
-  lastUpdatedBy?: string | null;
+  lastUpdatedBy: string;
   /**
    * Whether the message has been edited since  it was created
    */
-  wasEdited?: boolean | null;
+  wasEdited: boolean;
   /**
    * The Identity of the message\'s author
    */
-  from?: string | null;
+  from: string;
   /**
    * The content of the message
    */
-  body?: string | null;
+  body: string;
   /**
    * The index of the message within the Channel
    */
-  index?: number | null;
+  index: number;
   /**
    * The Message type
    */
-  type?: string | null;
+  type: string;
   /**
    * A Media object that describes the Message\'s media if attached; otherwise, null
    */
-  media?: any | null;
+  media: any;
   /**
    * The absolute URL of the Message resource
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): MessageContext {
     this._context =
@@ -579,8 +579,8 @@ export class MessageInstance {
 }
 
 export interface MessageSolution {
-  serviceSid?: string;
-  channelSid?: string;
+  serviceSid: string;
+  channelSid: string;
 }
 
 export interface MessageListInstance {

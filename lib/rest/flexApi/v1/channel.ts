@@ -194,14 +194,14 @@ interface ChannelPayload extends TwilioResponsePayload {
 }
 
 interface ChannelResource {
-  account_sid?: string | null;
-  flex_flow_sid?: string | null;
-  sid?: string | null;
-  user_sid?: string | null;
-  task_sid?: string | null;
-  url?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
+  account_sid: string;
+  flex_flow_sid: string;
+  sid: string;
+  user_sid: string;
+  task_sid: string;
+  url: string;
+  date_created: Date;
+  date_updated: Date;
 }
 
 export class ChannelInstance {
@@ -224,35 +224,35 @@ export class ChannelInstance {
   /**
    * The SID of the Account that created the resource and owns this Workflow
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The SID of the Flex Flow
    */
-  flexFlowSid?: string | null;
+  flexFlowSid: string;
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The SID of the chat user
    */
-  userSid?: string | null;
+  userSid: string;
   /**
    * The SID of the TaskRouter Task
    */
-  taskSid?: string | null;
+  taskSid: string;
   /**
    * The absolute URL of the Flex chat channel resource
    */
-  url?: string | null;
+  url: string;
   /**
    * The ISO 8601 date and time in GMT when the Flex chat channel was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The ISO 8601 date and time in GMT when the Flex chat channel was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
 
   private get _proxy(): ChannelContext {
     this._context =

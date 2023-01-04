@@ -181,19 +181,19 @@ export class PhoneNumberContextImpl implements PhoneNumberContext {
 interface PhoneNumberPayload extends PhoneNumberResource {}
 
 interface PhoneNumberResource {
-  calling_country_code?: string | null;
-  country_code?: string | null;
-  phone_number?: string | null;
-  national_format?: string | null;
-  valid?: boolean | null;
-  validation_errors?: Array<PhoneNumberValidationError> | null;
-  caller_name?: any | null;
-  sim_swap?: any | null;
-  call_forwarding?: any | null;
-  live_activity?: any | null;
-  line_type_intelligence?: any | null;
-  identity_match?: any | null;
-  url?: string | null;
+  calling_country_code: string;
+  country_code: string;
+  phone_number: string;
+  national_format: string;
+  valid: boolean;
+  validation_errors: Array<PhoneNumberValidationError>;
+  caller_name: any;
+  sim_swap: any;
+  call_forwarding: any;
+  live_activity: any;
+  line_type_intelligence: any;
+  identity_match: any;
+  url: string;
 }
 
 export class PhoneNumberInstance {
@@ -225,55 +225,55 @@ export class PhoneNumberInstance {
   /**
    * International dialing prefix
    */
-  callingCountryCode?: string | null;
+  callingCountryCode: string;
   /**
    * Phone number\'s ISO country code
    */
-  countryCode?: string | null;
+  countryCode: string;
   /**
    * Phone number in E.164 format
    */
-  phoneNumber?: string | null;
+  phoneNumber: string;
   /**
    * Phone number in national format
    */
-  nationalFormat?: string | null;
+  nationalFormat: string;
   /**
    * Boolean which indicates if the phone number is valid
    */
-  valid?: boolean | null;
+  valid: boolean;
   /**
    * Contains reasons why a phone number is invalid
    */
-  validationErrors?: Array<PhoneNumberValidationError> | null;
+  validationErrors: Array<PhoneNumberValidationError>;
   /**
    * An object that contains caller name information
    */
-  callerName?: any | null;
+  callerName: any;
   /**
    * An object that contains SIM swap information
    */
-  simSwap?: any | null;
+  simSwap: any;
   /**
    * An object that contains call forwarding status information
    */
-  callForwarding?: any | null;
+  callForwarding: any;
   /**
    * An object that contains live activity information
    */
-  liveActivity?: any | null;
+  liveActivity: any;
   /**
    * An object that contains line type information
    */
-  lineTypeIntelligence?: any | null;
+  lineTypeIntelligence: any;
   /**
    * An object that contains identity match information
    */
-  identityMatch?: any | null;
+  identityMatch: any;
   /**
    * The absolute URL of the resource
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): PhoneNumberContext {
     this._context =

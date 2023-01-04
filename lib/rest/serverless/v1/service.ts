@@ -300,17 +300,17 @@ interface ServicePayload extends TwilioResponsePayload {
 }
 
 interface ServiceResource {
-  sid?: string | null;
-  account_sid?: string | null;
-  friendly_name?: string | null;
-  unique_name?: string | null;
-  include_credentials?: boolean | null;
-  ui_editable?: boolean | null;
-  domain_base?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  url?: string | null;
-  links?: object | null;
+  sid: string;
+  account_sid: string;
+  friendly_name: string;
+  unique_name: string;
+  include_credentials: boolean;
+  ui_editable: boolean;
+  domain_base: string;
+  date_created: Date;
+  date_updated: Date;
+  url: string;
+  links: object;
 }
 
 export class ServiceInstance {
@@ -336,47 +336,47 @@ export class ServiceInstance {
   /**
    * The unique string that identifies the Service resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The SID of the Account that created the Service resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The string that you assigned to describe the Service resource
    */
-  friendlyName?: string | null;
+  friendlyName: string;
   /**
    * A user-defined string that uniquely identifies the Service resource
    */
-  uniqueName?: string | null;
+  uniqueName: string;
   /**
    * Whether to inject Account credentials into a function invocation context
    */
-  includeCredentials?: boolean | null;
+  includeCredentials: boolean;
   /**
    * Whether the Service resource\'s properties and subresources can be edited via the UI
    */
-  uiEditable?: boolean | null;
+  uiEditable: boolean;
   /**
    * The base domain name for this Service, which is a combination of the unique name and a randomly generated string
    */
-  domainBase?: string | null;
+  domainBase: string;
   /**
    * The ISO 8601 date and time in GMT when the Service resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The ISO 8601 date and time in GMT when the Service resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The absolute URL of the Service resource
    */
-  url?: string | null;
+  url: string;
   /**
    * The URLs of the Service\'s nested resources
    */
-  links?: object | null;
+  links: object;
 
   private get _proxy(): ServiceContext {
     this._context =

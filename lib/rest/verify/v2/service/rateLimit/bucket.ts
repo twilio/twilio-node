@@ -277,15 +277,15 @@ interface BucketPayload extends TwilioResponsePayload {
 }
 
 interface BucketResource {
-  sid?: string | null;
-  rate_limit_sid?: string | null;
-  service_sid?: string | null;
-  account_sid?: string | null;
-  max?: number | null;
-  interval?: number | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  url?: string | null;
+  sid: string;
+  rate_limit_sid: string;
+  service_sid: string;
+  account_sid: string;
+  max: number;
+  interval: number;
+  date_created: Date;
+  date_updated: Date;
+  url: string;
 }
 
 export class BucketInstance {
@@ -315,39 +315,39 @@ export class BucketInstance {
   /**
    * A string that uniquely identifies this Bucket.
    */
-  sid?: string | null;
+  sid: string;
   /**
    * Rate Limit Sid.
    */
-  rateLimitSid?: string | null;
+  rateLimitSid: string;
   /**
    * The SID of the Service that the resource is associated with
    */
-  serviceSid?: string | null;
+  serviceSid: string;
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * Max number of requests.
    */
-  max?: number | null;
+  max: number;
   /**
    * Number of seconds that the rate limit will be enforced over.
    */
-  interval?: number | null;
+  interval: number;
   /**
    * The RFC 2822 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The RFC 2822 date and time in GMT when the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The URL of this resource.
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): BucketContext {
     this._context =
@@ -438,8 +438,8 @@ export class BucketInstance {
 }
 
 export interface BucketSolution {
-  serviceSid?: string;
-  rateLimitSid?: string;
+  serviceSid: string;
+  rateLimitSid: string;
 }
 
 export interface BucketListInstance {

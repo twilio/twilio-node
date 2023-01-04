@@ -19,7 +19,7 @@ const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
 
 export interface BalanceSolution {
-  accountSid?: string;
+  accountSid: string;
 }
 
 export interface BalanceListInstance {
@@ -99,9 +99,9 @@ export function BalanceListInstance(
 interface BalancePayload extends BalanceResource {}
 
 interface BalanceResource {
-  account_sid?: string | null;
-  balance?: string | null;
-  currency?: string | null;
+  account_sid: string;
+  balance: string;
+  currency: string;
 }
 
 export class BalanceInstance {
@@ -118,15 +118,15 @@ export class BalanceInstance {
   /**
    * Account Sid.
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * Account balance
    */
-  balance?: string | null;
+  balance: string;
   /**
    * Currency units
    */
-  currency?: string | null;
+  currency: string;
 
   /**
    * Provide a user-friendly representation

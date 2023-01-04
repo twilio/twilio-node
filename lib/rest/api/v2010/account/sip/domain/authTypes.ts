@@ -21,8 +21,8 @@ import { AuthTypeCallsListInstance } from "./authTypes/authTypeCalls";
 import { AuthTypeRegistrationsListInstance } from "./authTypes/authTypeRegistrations";
 
 export interface AuthTypesSolution {
-  accountSid?: string;
-  domainSid?: string;
+  accountSid: string;
+  domainSid: string;
 }
 
 export interface AuthTypesListInstance {

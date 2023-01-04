@@ -88,7 +88,7 @@ export interface UsageRecordListInstancePageOptions {
 }
 
 export interface UsageRecordSolution {
-  simSid?: string;
+  simSid: string;
 }
 
 export interface UsageRecordListInstance {
@@ -322,11 +322,11 @@ interface UsageRecordPayload extends TwilioResponsePayload {
 }
 
 interface UsageRecordResource {
-  sim_sid?: string | null;
-  account_sid?: string | null;
-  period?: any | null;
-  commands?: any | null;
-  data?: any | null;
+  sim_sid: string;
+  account_sid: string;
+  period: any;
+  commands: any;
+  data: any;
 }
 
 export class UsageRecordInstance {
@@ -345,23 +345,23 @@ export class UsageRecordInstance {
   /**
    * The SID of the Sim resource that this Usage Record is for
    */
-  simSid?: string | null;
+  simSid: string;
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The time period for which the usage is reported
    */
-  period?: any | null;
+  period: any;
   /**
    * An object that describes the SIM\'s usage of Commands during the specified period
    */
-  commands?: any | null;
+  commands: any;
   /**
    * An object that describes the SIM\'s data usage during the specified period
    */
-  data?: any | null;
+  data: any;
 
   /**
    * Provide a user-friendly representation

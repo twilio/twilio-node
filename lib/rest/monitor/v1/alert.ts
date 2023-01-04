@@ -168,25 +168,25 @@ interface AlertPayload extends TwilioResponsePayload {
 }
 
 interface AlertResource {
-  account_sid?: string | null;
-  alert_text?: string | null;
-  api_version?: string | null;
-  date_created?: Date | null;
-  date_generated?: Date | null;
-  date_updated?: Date | null;
-  error_code?: string | null;
-  log_level?: string | null;
-  more_info?: string | null;
-  request_method?: AlertRequestMethod;
-  request_url?: string | null;
-  request_variables?: string | null;
-  resource_sid?: string | null;
-  response_body?: string | null;
-  response_headers?: string | null;
-  sid?: string | null;
-  url?: string | null;
-  request_headers?: string | null;
-  service_sid?: string | null;
+  account_sid: string;
+  alert_text: string;
+  api_version: string;
+  date_created: Date;
+  date_generated: Date;
+  date_updated: Date;
+  error_code: string;
+  log_level: string;
+  more_info: string;
+  request_method: AlertRequestMethod;
+  request_url: string;
+  request_variables: string;
+  resource_sid: string;
+  response_body: string;
+  response_headers: string;
+  sid: string;
+  url: string;
+  request_headers: string;
+  service_sid: string;
 }
 
 export class AlertInstance {
@@ -220,79 +220,79 @@ export class AlertInstance {
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The text of the alert
    */
-  alertText?: string | null;
+  alertText: string;
   /**
    * The API version used when the alert was generated
    */
-  apiVersion?: string | null;
+  apiVersion: string;
   /**
    * The ISO 8601 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The date and time when the alert was generated specified in ISO 8601 format
    */
-  dateGenerated?: Date | null;
+  dateGenerated: Date;
   /**
    * The ISO 8601 date and time in GMT when the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The error code for the condition that generated the alert
    */
-  errorCode?: string | null;
+  errorCode: string;
   /**
    * The log level
    */
-  logLevel?: string | null;
+  logLevel: string;
   /**
    * The URL of the page in our Error Dictionary with more information about the error condition
    */
-  moreInfo?: string | null;
+  moreInfo: string;
   /**
    * The method used by the request that generated the alert
    */
-  requestMethod?: AlertRequestMethod;
+  requestMethod: AlertRequestMethod;
   /**
    * The URL of the request that generated the alert
    */
-  requestUrl?: string | null;
+  requestUrl: string;
   /**
    * The variables passed in the request that generated the alert
    */
-  requestVariables?: string | null;
+  requestVariables: string;
   /**
    * The SID of the resource for which the alert was generated
    */
-  resourceSid?: string | null;
+  resourceSid: string;
   /**
    * The response body of the request that generated the alert
    */
-  responseBody?: string | null;
+  responseBody: string;
   /**
    * The response headers of the request that generated the alert
    */
-  responseHeaders?: string | null;
+  responseHeaders: string;
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The absolute URL of the Alert resource
    */
-  url?: string | null;
+  url: string;
   /**
    * The request headers of the request that generated the alert
    */
-  requestHeaders?: string | null;
+  requestHeaders: string;
   /**
    * The SID of the service or resource that generated the alert
    */
-  serviceSid?: string | null;
+  serviceSid: string;
 
   private get _proxy(): AlertContext {
     this._context =

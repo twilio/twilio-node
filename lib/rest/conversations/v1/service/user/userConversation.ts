@@ -281,24 +281,24 @@ interface UserConversationPayload extends TwilioResponsePayload {
 }
 
 interface UserConversationResource {
-  account_sid?: string | null;
-  chat_service_sid?: string | null;
-  conversation_sid?: string | null;
-  unread_messages_count?: number | null;
-  last_read_message_index?: number | null;
-  participant_sid?: string | null;
-  user_sid?: string | null;
-  friendly_name?: string | null;
-  conversation_state?: ServiceUserConversationState;
-  timers?: any | null;
-  attributes?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  created_by?: string | null;
-  notification_level?: ServiceUserConversationNotificationLevel;
-  unique_name?: string | null;
-  url?: string | null;
-  links?: object | null;
+  account_sid: string;
+  chat_service_sid: string;
+  conversation_sid: string;
+  unread_messages_count: number;
+  last_read_message_index: number;
+  participant_sid: string;
+  user_sid: string;
+  friendly_name: string;
+  conversation_state: ServiceUserConversationState;
+  timers: any;
+  attributes: string;
+  date_created: Date;
+  date_updated: Date;
+  created_by: string;
+  notification_level: ServiceUserConversationNotificationLevel;
+  unique_name: string;
+  url: string;
+  links: object;
 }
 
 export class UserConversationInstance {
@@ -345,66 +345,66 @@ export class UserConversationInstance {
   /**
    * The unique ID of the Account responsible for this conversation.
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The unique ID of the Conversation Service this conversation belongs to.
    */
-  chatServiceSid?: string | null;
+  chatServiceSid: string;
   /**
    * The unique ID of the Conversation for this User Conversation.
    */
-  conversationSid?: string | null;
+  conversationSid: string;
   /**
    * The number of unread Messages in the Conversation.
    */
-  unreadMessagesCount?: number | null;
+  unreadMessagesCount: number;
   /**
    * The index of the last read Message .
    */
-  lastReadMessageIndex?: number | null;
+  lastReadMessageIndex: number;
   /**
    * Participant Sid.
    */
-  participantSid?: string | null;
+  participantSid: string;
   /**
    * The unique ID for the User.
    */
-  userSid?: string | null;
+  userSid: string;
   /**
    * The human-readable name of this conversation.
    */
-  friendlyName?: string | null;
-  conversationState?: ServiceUserConversationState;
+  friendlyName: string;
+  conversationState: ServiceUserConversationState;
   /**
    * Timer date values for this conversation.
    */
-  timers?: any | null;
+  timers: any;
   /**
    * An optional string metadata field you can use to store any data you wish.
    */
-  attributes?: string | null;
+  attributes: string;
   /**
    * The date that this conversation was created.
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The date that this conversation was last updated.
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * Creator of this conversation.
    */
-  createdBy?: string | null;
-  notificationLevel?: ServiceUserConversationNotificationLevel;
+  createdBy: string;
+  notificationLevel: ServiceUserConversationNotificationLevel;
   /**
    * An application-defined string that uniquely identifies the Conversation resource.
    */
-  uniqueName?: string | null;
-  url?: string | null;
+  uniqueName: string;
+  url: string;
   /**
    * Absolute URLs to access the participant and conversation of this user conversation.
    */
-  links?: object | null;
+  links: object;
 
   private get _proxy(): UserConversationContext {
     this._context =
@@ -504,8 +504,8 @@ export class UserConversationInstance {
 }
 
 export interface UserConversationSolution {
-  chatServiceSid?: string;
-  userSid?: string;
+  chatServiceSid: string;
+  userSid: string;
 }
 
 export interface UserConversationListInstance {

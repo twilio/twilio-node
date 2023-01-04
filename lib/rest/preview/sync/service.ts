@@ -297,16 +297,16 @@ interface ServicePayload extends TwilioResponsePayload {
 }
 
 interface ServiceResource {
-  sid?: string | null;
-  account_sid?: string | null;
-  friendly_name?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  url?: string | null;
-  webhook_url?: string | null;
-  reachability_webhooks_enabled?: boolean | null;
-  acl_enabled?: boolean | null;
-  links?: object | null;
+  sid: string;
+  account_sid: string;
+  friendly_name: string;
+  date_created: Date;
+  date_updated: Date;
+  url: string;
+  webhook_url: string;
+  reachability_webhooks_enabled: boolean;
+  acl_enabled: boolean;
+  links: object;
 }
 
 export class ServiceInstance {
@@ -332,16 +332,16 @@ export class ServiceInstance {
     this._solution = { sid: sid || this.sid };
   }
 
-  sid?: string | null;
-  accountSid?: string | null;
-  friendlyName?: string | null;
-  dateCreated?: Date | null;
-  dateUpdated?: Date | null;
-  url?: string | null;
-  webhookUrl?: string | null;
-  reachabilityWebhooksEnabled?: boolean | null;
-  aclEnabled?: boolean | null;
-  links?: object | null;
+  sid: string;
+  accountSid: string;
+  friendlyName: string;
+  dateCreated: Date;
+  dateUpdated: Date;
+  url: string;
+  webhookUrl: string;
+  reachabilityWebhooksEnabled: boolean;
+  aclEnabled: boolean;
+  links: object;
 
   private get _proxy(): ServiceContext {
     this._context =

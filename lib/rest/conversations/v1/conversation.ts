@@ -378,20 +378,20 @@ interface ConversationPayload extends TwilioResponsePayload {
 }
 
 interface ConversationResource {
-  account_sid?: string | null;
-  chat_service_sid?: string | null;
-  messaging_service_sid?: string | null;
-  sid?: string | null;
-  friendly_name?: string | null;
-  unique_name?: string | null;
-  attributes?: string | null;
-  state?: ConversationState;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  timers?: any | null;
-  url?: string | null;
-  links?: object | null;
-  bindings?: any | null;
+  account_sid: string;
+  chat_service_sid: string;
+  messaging_service_sid: string;
+  sid: string;
+  friendly_name: string;
+  unique_name: string;
+  attributes: string;
+  state: ConversationState;
+  date_created: Date;
+  date_updated: Date;
+  timers: any;
+  url: string;
+  links: object;
+  bindings: any;
 }
 
 export class ConversationInstance {
@@ -424,53 +424,53 @@ export class ConversationInstance {
   /**
    * The unique ID of the Account responsible for this conversation.
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The unique ID of the Conversation Service this conversation belongs to.
    */
-  chatServiceSid?: string | null;
+  chatServiceSid: string;
   /**
    * The unique ID of the Messaging Service this conversation belongs to.
    */
-  messagingServiceSid?: string | null;
+  messagingServiceSid: string;
   /**
    * A 34 character string that uniquely identifies this resource.
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The human-readable name of this conversation.
    */
-  friendlyName?: string | null;
+  friendlyName: string;
   /**
    * An application-defined string that uniquely identifies the resource
    */
-  uniqueName?: string | null;
+  uniqueName: string;
   /**
    * An optional string metadata field you can use to store any data you wish.
    */
-  attributes?: string | null;
-  state?: ConversationState;
+  attributes: string;
+  state: ConversationState;
   /**
    * The date that this resource was created.
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The date that this resource was last updated.
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * Timer date values for this conversation.
    */
-  timers?: any | null;
+  timers: any;
   /**
    * An absolute URL for this conversation.
    */
-  url?: string | null;
+  url: string;
   /**
    * Absolute URLs to access the participants, messages and webhooks of this conversation.
    */
-  links?: object | null;
-  bindings?: any | null;
+  links: object;
+  bindings: any;
 
   private get _proxy(): ConversationContext {
     this._context =

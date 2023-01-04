@@ -20,8 +20,8 @@ import { isValidPathParam } from "../../../../../../../base/utility";
 import { AuthRegistrationsCredentialListMappingListInstance } from "./authTypeRegistrations/authRegistrationsCredentialListMapping";
 
 export interface AuthTypeRegistrationsSolution {
-  accountSid?: string;
-  domainSid?: string;
+  accountSid: string;
+  domainSid: string;
 }
 
 export interface AuthTypeRegistrationsListInstance {

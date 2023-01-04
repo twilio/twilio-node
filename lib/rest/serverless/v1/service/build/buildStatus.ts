@@ -103,11 +103,11 @@ export class BuildStatusContextImpl implements BuildStatusContext {
 interface BuildStatusPayload extends BuildStatusResource {}
 
 interface BuildStatusResource {
-  sid?: string | null;
-  account_sid?: string | null;
-  service_sid?: string | null;
-  status?: BuildStatusStatus;
-  url?: string | null;
+  sid: string;
+  account_sid: string;
+  service_sid: string;
+  status: BuildStatusStatus;
+  url: string;
 }
 
 export class BuildStatusInstance {
@@ -132,20 +132,20 @@ export class BuildStatusInstance {
   /**
    * The unique string that identifies the Build resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The SID of the Account that created the Build resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The SID of the Service that the Build resource is associated with
    */
-  serviceSid?: string | null;
-  status?: BuildStatusStatus;
+  serviceSid: string;
+  status: BuildStatusStatus;
   /**
    * The absolute URL of the Build Status resource
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): BuildStatusContext {
     this._context =
@@ -192,8 +192,8 @@ export class BuildStatusInstance {
 }
 
 export interface BuildStatusSolution {
-  serviceSid?: string;
-  sid?: string;
+  serviceSid: string;
+  sid: string;
 }
 
 export interface BuildStatusListInstance {

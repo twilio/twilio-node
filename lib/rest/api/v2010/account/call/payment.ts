@@ -223,12 +223,12 @@ export class PaymentContextImpl implements PaymentContext {
 interface PaymentPayload extends PaymentResource {}
 
 interface PaymentResource {
-  account_sid?: string | null;
-  call_sid?: string | null;
-  sid?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  uri?: string | null;
+  account_sid: string;
+  call_sid: string;
+  sid: string;
+  date_created: Date;
+  date_updated: Date;
+  uri: string;
 }
 
 export class PaymentInstance {
@@ -255,27 +255,27 @@ export class PaymentInstance {
   /**
    * The SID of the Account that created the Payments resource.
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The SID of the Call the resource is associated with.
    */
-  callSid?: string | null;
+  callSid: string;
   /**
    * The SID of the Payments resource.
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The RFC 2822 date and time in GMT that the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The RFC 2822 date and time in GMT that the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The URI of the resource, relative to `https://api.twilio.com`
    */
-  uri?: string | null;
+  uri: string;
 
   private get _proxy(): PaymentContext {
     this._context =
@@ -327,8 +327,8 @@ export class PaymentInstance {
 }
 
 export interface PaymentSolution {
-  accountSid?: string;
-  callSid?: string;
+  accountSid: string;
+  callSid: string;
 }
 
 export interface PaymentListInstance {

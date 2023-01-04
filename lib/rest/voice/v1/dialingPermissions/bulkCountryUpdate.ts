@@ -124,8 +124,8 @@ export function BulkCountryUpdateListInstance(
 interface BulkCountryUpdatePayload extends BulkCountryUpdateResource {}
 
 interface BulkCountryUpdateResource {
-  update_count?: number | null;
-  update_request?: string | null;
+  update_count: number;
+  update_request: string;
 }
 
 export class BulkCountryUpdateInstance {
@@ -137,11 +137,11 @@ export class BulkCountryUpdateInstance {
   /**
    * The number of countries updated
    */
-  updateCount?: number | null;
+  updateCount: number;
   /**
    * A URL encoded JSON array of update objects
    */
-  updateRequest?: string | null;
+  updateRequest: string;
 
   /**
    * Provide a user-friendly representation

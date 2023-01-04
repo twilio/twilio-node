@@ -171,14 +171,14 @@ interface DeploymentPayload extends TwilioResponsePayload {
 }
 
 interface DeploymentResource {
-  sid?: string | null;
-  account_sid?: string | null;
-  service_sid?: string | null;
-  environment_sid?: string | null;
-  build_sid?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  url?: string | null;
+  sid: string;
+  account_sid: string;
+  service_sid: string;
+  environment_sid: string;
+  build_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  url: string;
 }
 
 export class DeploymentInstance {
@@ -207,35 +207,35 @@ export class DeploymentInstance {
   /**
    * The unique string that identifies the Deployment resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The SID of the Account that created the Deployment resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The SID of the Service that the Deployment resource is associated with
    */
-  serviceSid?: string | null;
+  serviceSid: string;
   /**
    * The SID of the Environment for the Deployment
    */
-  environmentSid?: string | null;
+  environmentSid: string;
   /**
    * The SID of the Build for the deployment
    */
-  buildSid?: string | null;
+  buildSid: string;
   /**
    * The ISO 8601 date and time in GMT when the Deployment resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The ISO 8601 date and time in GMT when the Deployment resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The absolute URL of the Deployment resource
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): DeploymentContext {
     this._context =
@@ -286,8 +286,8 @@ export class DeploymentInstance {
 }
 
 export interface DeploymentSolution {
-  serviceSid?: string;
-  environmentSid?: string;
+  serviceSid: string;
+  environmentSid: string;
 }
 
 export interface DeploymentListInstance {

@@ -323,20 +323,20 @@ interface ServicePayload extends TwilioResponsePayload {
 }
 
 interface ServiceResource {
-  sid?: string | null;
-  unique_name?: string | null;
-  account_sid?: string | null;
-  chat_instance_sid?: string | null;
-  callback_url?: string | null;
-  default_ttl?: number | null;
-  number_selection_behavior?: ServiceNumberSelectionBehavior;
-  geo_match_level?: ServiceGeoMatchLevel;
-  intercept_callback_url?: string | null;
-  out_of_session_callback_url?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  url?: string | null;
-  links?: object | null;
+  sid: string;
+  unique_name: string;
+  account_sid: string;
+  chat_instance_sid: string;
+  callback_url: string;
+  default_ttl: number;
+  number_selection_behavior: ServiceNumberSelectionBehavior;
+  geo_match_level: ServiceGeoMatchLevel;
+  intercept_callback_url: string;
+  out_of_session_callback_url: string;
+  date_created: Date;
+  date_updated: Date;
+  url: string;
+  links: object;
 }
 
 export class ServiceInstance {
@@ -365,53 +365,53 @@ export class ServiceInstance {
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * An application-defined string that uniquely identifies the resource
    */
-  uniqueName?: string | null;
+  uniqueName: string;
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The SID of the Chat Service Instance
    */
-  chatInstanceSid?: string | null;
+  chatInstanceSid: string;
   /**
    * The URL we call when the interaction status changes
    */
-  callbackUrl?: string | null;
+  callbackUrl: string;
   /**
    * Default TTL for a Session, in seconds
    */
-  defaultTtl?: number | null;
-  numberSelectionBehavior?: ServiceNumberSelectionBehavior;
-  geoMatchLevel?: ServiceGeoMatchLevel;
+  defaultTtl: number;
+  numberSelectionBehavior: ServiceNumberSelectionBehavior;
+  geoMatchLevel: ServiceGeoMatchLevel;
   /**
    * The URL we call on each interaction
    */
-  interceptCallbackUrl?: string | null;
+  interceptCallbackUrl: string;
   /**
    * The URL we call when an inbound call or SMS action occurs on a closed or non-existent Session
    */
-  outOfSessionCallbackUrl?: string | null;
+  outOfSessionCallbackUrl: string;
   /**
    * The ISO 8601 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The ISO 8601 date and time in GMT when the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The absolute URL of the Service resource
    */
-  url?: string | null;
+  url: string;
   /**
    * The URLs of resources related to the Service
    */
-  links?: object | null;
+  links: object;
 
   private get _proxy(): ServiceContext {
     this._context =

@@ -197,18 +197,18 @@ interface UserBindingPayload extends TwilioResponsePayload {
 }
 
 interface UserBindingResource {
-  sid?: string | null;
-  account_sid?: string | null;
-  service_sid?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  endpoint?: string | null;
-  identity?: string | null;
-  user_sid?: string | null;
-  credential_sid?: string | null;
-  binding_type?: UserBindingBindingType;
-  message_types?: Array<string> | null;
-  url?: string | null;
+  sid: string;
+  account_sid: string;
+  service_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  endpoint: string;
+  identity: string;
+  user_sid: string;
+  credential_sid: string;
+  binding_type: UserBindingBindingType;
+  message_types: Array<string>;
+  url: string;
 }
 
 export class UserBindingInstance {
@@ -241,48 +241,48 @@ export class UserBindingInstance {
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The SID of the Service that the resource is associated with
    */
-  serviceSid?: string | null;
+  serviceSid: string;
   /**
    * The ISO 8601 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The ISO 8601 date and time in GMT when the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The unique endpoint identifier for the User Binding
    */
-  endpoint?: string | null;
+  endpoint: string;
   /**
    * The string that identifies the resource\'s User
    */
-  identity?: string | null;
+  identity: string;
   /**
    * The SID of the User with the binding
    */
-  userSid?: string | null;
+  userSid: string;
   /**
    * The SID of the Credential for the binding
    */
-  credentialSid?: string | null;
-  bindingType?: UserBindingBindingType;
+  credentialSid: string;
+  bindingType: UserBindingBindingType;
   /**
    * The Programmable Chat message types the binding is subscribed to
    */
-  messageTypes?: Array<string> | null;
+  messageTypes: Array<string>;
   /**
    * The absolute URL of the User Binding resource
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): UserBindingContext {
     this._context =
@@ -350,8 +350,8 @@ export class UserBindingInstance {
 }
 
 export interface UserBindingSolution {
-  serviceSid?: string;
-  userSid?: string;
+  serviceSid: string;
+  userSid: string;
 }
 
 export interface UserBindingListInstance {

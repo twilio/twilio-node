@@ -208,11 +208,11 @@ interface AuthRegistrationsCredentialListMappingPayload
 }
 
 interface AuthRegistrationsCredentialListMappingResource {
-  account_sid?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  friendly_name?: string | null;
-  sid?: string | null;
+  account_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  friendly_name: string;
+  sid: string;
 }
 
 export class AuthRegistrationsCredentialListMappingInstance {
@@ -238,23 +238,23 @@ export class AuthRegistrationsCredentialListMappingInstance {
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The RFC 2822 date and time in GMT that the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The RFC 2822 date and time in GMT that the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The string that you assigned to describe the resource
    */
-  friendlyName?: string | null;
+  friendlyName: string;
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
 
   private get _proxy(): AuthRegistrationsCredentialListMappingContext {
     this._context =
@@ -318,8 +318,8 @@ export class AuthRegistrationsCredentialListMappingInstance {
 }
 
 export interface AuthRegistrationsCredentialListMappingSolution {
-  accountSid?: string;
-  domainSid?: string;
+  accountSid: string;
+  domainSid: string;
 }
 
 export interface AuthRegistrationsCredentialListMappingListInstance {

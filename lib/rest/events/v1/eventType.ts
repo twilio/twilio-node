@@ -152,13 +152,13 @@ interface EventTypePayload extends TwilioResponsePayload {
 }
 
 interface EventTypeResource {
-  type?: string | null;
-  schema_id?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  description?: string | null;
-  url?: string | null;
-  links?: object | null;
+  type: string;
+  schema_id: string;
+  date_created: Date;
+  date_updated: Date;
+  description: string;
+  url: string;
+  links: object;
 }
 
 export class EventTypeInstance {
@@ -184,28 +184,28 @@ export class EventTypeInstance {
   /**
    * The Event Type identifier.
    */
-  type?: string | null;
+  type: string;
   /**
    * The Schema identifier for this Event Type.
    */
-  schemaId?: string | null;
+  schemaId: string;
   /**
    * The date this Event Type was created.
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The date this Event Type was updated.
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * Event Type description.
    */
-  description?: string | null;
+  description: string;
   /**
    * The URL of this resource.
    */
-  url?: string | null;
-  links?: object | null;
+  url: string;
+  links: object;
 
   private get _proxy(): EventTypeContext {
     this._context =

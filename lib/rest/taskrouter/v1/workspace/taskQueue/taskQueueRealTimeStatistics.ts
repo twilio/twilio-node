@@ -158,20 +158,20 @@ interface TaskQueueRealTimeStatisticsPayload
   extends TaskQueueRealTimeStatisticsResource {}
 
 interface TaskQueueRealTimeStatisticsResource {
-  account_sid?: string | null;
-  activity_statistics?: Array<any> | null;
-  longest_task_waiting_age?: number | null;
-  longest_task_waiting_sid?: string | null;
-  longest_relative_task_age_in_queue?: number | null;
-  longest_relative_task_sid_in_queue?: string | null;
-  task_queue_sid?: string | null;
-  tasks_by_priority?: any | null;
-  tasks_by_status?: any | null;
-  total_available_workers?: number | null;
-  total_eligible_workers?: number | null;
-  total_tasks?: number | null;
-  workspace_sid?: string | null;
-  url?: string | null;
+  account_sid: string;
+  activity_statistics: Array<any>;
+  longest_task_waiting_age: number;
+  longest_task_waiting_sid: string;
+  longest_relative_task_age_in_queue: number;
+  longest_relative_task_sid_in_queue: string;
+  task_queue_sid: string;
+  tasks_by_priority: any;
+  tasks_by_status: any;
+  total_available_workers: number;
+  total_eligible_workers: number;
+  total_tasks: number;
+  workspace_sid: string;
+  url: string;
 }
 
 export class TaskQueueRealTimeStatisticsInstance {
@@ -214,59 +214,59 @@ export class TaskQueueRealTimeStatisticsInstance {
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The number of current Workers by Activity
    */
-  activityStatistics?: Array<any> | null;
+  activityStatistics: Array<any>;
   /**
    * The age of the longest waiting Task
    */
-  longestTaskWaitingAge?: number | null;
+  longestTaskWaitingAge: number;
   /**
    * The SID of the longest waiting Task
    */
-  longestTaskWaitingSid?: string | null;
+  longestTaskWaitingSid: string;
   /**
    * The relative age in the TaskQueue for the longest waiting Task.
    */
-  longestRelativeTaskAgeInQueue?: number | null;
+  longestRelativeTaskAgeInQueue: number;
   /**
    * The SID of the Task waiting in the TaskQueue the longest.
    */
-  longestRelativeTaskSidInQueue?: string | null;
+  longestRelativeTaskSidInQueue: string;
   /**
    * The SID of the TaskQueue from which these statistics were calculated
    */
-  taskQueueSid?: string | null;
+  taskQueueSid: string;
   /**
    * The number of Tasks by priority
    */
-  tasksByPriority?: any | null;
+  tasksByPriority: any;
   /**
    * The number of Tasks by their current status
    */
-  tasksByStatus?: any | null;
+  tasksByStatus: any;
   /**
    * The total number of Workers available for Tasks in the TaskQueue
    */
-  totalAvailableWorkers?: number | null;
+  totalAvailableWorkers: number;
   /**
    * The total number of Workers eligible for Tasks in the TaskQueue, independent of their Activity state
    */
-  totalEligibleWorkers?: number | null;
+  totalEligibleWorkers: number;
   /**
    * The total number of Tasks
    */
-  totalTasks?: number | null;
+  totalTasks: number;
   /**
    * The SID of the Workspace that contains the TaskQueue
    */
-  workspaceSid?: string | null;
+  workspaceSid: string;
   /**
    * The absolute URL of the TaskQueue statistics resource
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): TaskQueueRealTimeStatisticsContext {
     this._context =
@@ -344,8 +344,8 @@ export class TaskQueueRealTimeStatisticsInstance {
 }
 
 export interface TaskQueueRealTimeStatisticsSolution {
-  workspaceSid?: string;
-  taskQueueSid?: string;
+  workspaceSid: string;
+  taskQueueSid: string;
 }
 
 export interface TaskQueueRealTimeStatisticsListInstance {

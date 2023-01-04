@@ -19,7 +19,7 @@ const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
 
 export interface SinkTestSolution {
-  sid?: string;
+  sid: string;
 }
 
 export interface SinkTestListInstance {
@@ -95,7 +95,7 @@ export function SinkTestListInstance(
 interface SinkTestPayload extends SinkTestResource {}
 
 interface SinkTestResource {
-  result?: string | null;
+  result: string;
 }
 
 export class SinkTestInstance {
@@ -106,7 +106,7 @@ export class SinkTestInstance {
   /**
    * Feedback indicating whether the test event was generated.
    */
-  result?: string | null;
+  result: string;
 
   /**
    * Provide a user-friendly representation

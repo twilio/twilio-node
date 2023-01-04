@@ -231,12 +231,12 @@ interface MemberPayload extends TwilioResponsePayload {
 }
 
 interface MemberResource {
-  call_sid?: string | null;
-  date_enqueued?: Date | null;
-  position?: number | null;
-  uri?: string | null;
-  wait_time?: number | null;
-  queue_sid?: string | null;
+  call_sid: string;
+  date_enqueued: Date;
+  position: number;
+  uri: string;
+  wait_time: number;
+  queue_sid: string;
 }
 
 export class MemberInstance {
@@ -263,27 +263,27 @@ export class MemberInstance {
   /**
    * The SID of the Call the resource is associated with
    */
-  callSid?: string | null;
+  callSid: string;
   /**
    * The date the member was enqueued
    */
-  dateEnqueued?: Date | null;
+  dateEnqueued: Date;
   /**
    * This member\'s current position in the queue.
    */
-  position?: number | null;
+  position: number;
   /**
    * The URI of the resource, relative to `https://api.twilio.com`
    */
-  uri?: string | null;
+  uri: string;
   /**
    * The number of seconds the member has been in the queue.
    */
-  waitTime?: number | null;
+  waitTime: number;
   /**
    * The SID of the Queue the member is in
    */
-  queueSid?: string | null;
+  queueSid: string;
 
   private get _proxy(): MemberContext {
     this._context =
@@ -348,8 +348,8 @@ export class MemberInstance {
 }
 
 export interface MemberSolution {
-  accountSid?: string;
-  queueSid?: string;
+  accountSid: string;
+  queueSid: string;
 }
 
 export interface MemberListInstance {

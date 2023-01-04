@@ -364,19 +364,19 @@ interface ParticipantPayload extends TwilioResponsePayload {
 }
 
 interface ParticipantResource {
-  account_sid?: string | null;
-  chat_service_sid?: string | null;
-  conversation_sid?: string | null;
-  sid?: string | null;
-  identity?: string | null;
-  attributes?: string | null;
-  messaging_binding?: any | null;
-  role_sid?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  url?: string | null;
-  last_read_message_index?: number | null;
-  last_read_timestamp?: string | null;
+  account_sid: string;
+  chat_service_sid: string;
+  conversation_sid: string;
+  sid: string;
+  identity: string;
+  attributes: string;
+  messaging_binding: any;
+  role_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  url: string;
+  last_read_message_index: number;
+  last_read_timestamp: string;
 }
 
 export class ParticipantInstance {
@@ -412,55 +412,55 @@ export class ParticipantInstance {
   /**
    * The unique ID of the Account responsible for this participant.
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The SID of the Conversation Service that the resource is associated with.
    */
-  chatServiceSid?: string | null;
+  chatServiceSid: string;
   /**
    * The unique ID of the Conversation for this participant.
    */
-  conversationSid?: string | null;
+  conversationSid: string;
   /**
    * A 34 character string that uniquely identifies this resource.
    */
-  sid?: string | null;
+  sid: string;
   /**
    * A unique string identifier for the conversation participant as Conversation User.
    */
-  identity?: string | null;
+  identity: string;
   /**
    * An optional string metadata field you can use to store any data you wish.
    */
-  attributes?: string | null;
+  attributes: string;
   /**
    * Information about how this participant exchanges messages with the conversation.
    */
-  messagingBinding?: any | null;
+  messagingBinding: any;
   /**
    * The SID of a conversation-level Role to assign to the participant
    */
-  roleSid?: string | null;
+  roleSid: string;
   /**
    * The date that this resource was created.
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The date that this resource was last updated.
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * An absolute URL for this participant.
    */
-  url?: string | null;
+  url: string;
   /**
    * Index of last “read” message in the Conversation for the Participant.
    */
-  lastReadMessageIndex?: number | null;
+  lastReadMessageIndex: number;
   /**
    * Timestamp of last “read” message in the Conversation for the Participant.
    */
-  lastReadTimestamp?: string | null;
+  lastReadTimestamp: string;
 
   private get _proxy(): ParticipantContext {
     this._context =
@@ -568,8 +568,8 @@ export class ParticipantInstance {
 }
 
 export interface ParticipantSolution {
-  chatServiceSid?: string;
-  conversationSid?: string;
+  chatServiceSid: string;
+  conversationSid: string;
 }
 
 export interface ParticipantListInstance {

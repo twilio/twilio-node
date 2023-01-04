@@ -93,10 +93,10 @@ export class FormContextImpl implements FormContext {
 interface FormPayload extends FormResource {}
 
 interface FormResource {
-  form_type?: FormFormTypes;
-  forms?: any | null;
-  form_meta?: any | null;
-  url?: string | null;
+  form_type: FormFormTypes;
+  forms: any;
+  form_meta: any;
+  url: string;
 }
 
 export class FormInstance {
@@ -116,19 +116,19 @@ export class FormInstance {
     this._solution = { formType: formType || this.formType };
   }
 
-  formType?: FormFormTypes;
+  formType: FormFormTypes;
   /**
    * Object that contains the available forms for this type.
    */
-  forms?: any | null;
+  forms: any;
   /**
    * Additional information for the available forms for this type.
    */
-  formMeta?: any | null;
+  formMeta: any;
   /**
    * The URL to access the forms for this type.
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): FormContext {
     this._context =

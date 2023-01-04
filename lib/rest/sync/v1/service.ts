@@ -330,20 +330,20 @@ interface ServicePayload extends TwilioResponsePayload {
 }
 
 interface ServiceResource {
-  sid?: string | null;
-  unique_name?: string | null;
-  account_sid?: string | null;
-  friendly_name?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  url?: string | null;
-  webhook_url?: string | null;
-  webhooks_from_rest_enabled?: boolean | null;
-  reachability_webhooks_enabled?: boolean | null;
-  acl_enabled?: boolean | null;
-  reachability_debouncing_enabled?: boolean | null;
-  reachability_debouncing_window?: number | null;
-  links?: object | null;
+  sid: string;
+  unique_name: string;
+  account_sid: string;
+  friendly_name: string;
+  date_created: Date;
+  date_updated: Date;
+  url: string;
+  webhook_url: string;
+  webhooks_from_rest_enabled: boolean;
+  reachability_webhooks_enabled: boolean;
+  acl_enabled: boolean;
+  reachability_debouncing_enabled: boolean;
+  reachability_debouncing_window: number;
+  links: object;
 }
 
 export class ServiceInstance {
@@ -375,59 +375,59 @@ export class ServiceInstance {
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * An application-defined string that uniquely identifies the resource
    */
-  uniqueName?: string | null;
+  uniqueName: string;
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The string that you assigned to describe the resource
    */
-  friendlyName?: string | null;
+  friendlyName: string;
   /**
    * The ISO 8601 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The ISO 8601 date and time in GMT when the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The absolute URL of the Service resource
    */
-  url?: string | null;
+  url: string;
   /**
    * The URL we call when Sync objects are manipulated
    */
-  webhookUrl?: string | null;
+  webhookUrl: string;
   /**
    * Whether the Service instance should call webhook_url when the REST API is used to update Sync objects
    */
-  webhooksFromRestEnabled?: boolean | null;
+  webhooksFromRestEnabled: boolean;
   /**
    * Whether the service instance calls webhook_url when client endpoints connect to Sync
    */
-  reachabilityWebhooksEnabled?: boolean | null;
+  reachabilityWebhooksEnabled: boolean;
   /**
    * Whether token identities in the Service must be granted access to Sync objects by using the Permissions resource
    */
-  aclEnabled?: boolean | null;
+  aclEnabled: boolean;
   /**
    * Whether every endpoint_disconnected event occurs after a configurable delay
    */
-  reachabilityDebouncingEnabled?: boolean | null;
+  reachabilityDebouncingEnabled: boolean;
   /**
    * The reachability event delay in milliseconds
    */
-  reachabilityDebouncingWindow?: number | null;
+  reachabilityDebouncingWindow: number;
   /**
    * The URLs of related resources
    */
-  links?: object | null;
+  links: object;
 
   private get _proxy(): ServiceContext {
     this._context =

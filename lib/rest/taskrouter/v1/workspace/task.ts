@@ -402,27 +402,27 @@ interface TaskPayload extends TwilioResponsePayload {
 }
 
 interface TaskResource {
-  account_sid?: string | null;
-  age?: number | null;
-  assignment_status?: TaskStatus;
-  attributes?: string | null;
-  addons?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  task_queue_entered_date?: Date | null;
-  priority?: number | null;
-  reason?: string | null;
-  sid?: string | null;
-  task_queue_sid?: string | null;
-  task_queue_friendly_name?: string | null;
-  task_channel_sid?: string | null;
-  task_channel_unique_name?: string | null;
-  timeout?: number | null;
-  workflow_sid?: string | null;
-  workflow_friendly_name?: string | null;
-  workspace_sid?: string | null;
-  url?: string | null;
-  links?: object | null;
+  account_sid: string;
+  age: number;
+  assignment_status: TaskStatus;
+  attributes: string;
+  addons: string;
+  date_created: Date;
+  date_updated: Date;
+  task_queue_entered_date: Date;
+  priority: number;
+  reason: string;
+  sid: string;
+  task_queue_sid: string;
+  task_queue_friendly_name: string;
+  task_channel_sid: string;
+  task_channel_unique_name: string;
+  timeout: number;
+  workflow_sid: string;
+  workflow_friendly_name: string;
+  workspace_sid: string;
+  url: string;
+  links: object;
 }
 
 export class TaskInstance {
@@ -465,84 +465,84 @@ export class TaskInstance {
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The number of seconds since the Task was created
    */
-  age?: number | null;
-  assignmentStatus?: TaskStatus;
+  age: number;
+  assignmentStatus: TaskStatus;
   /**
    * The JSON string with custom attributes of the work
    */
-  attributes?: string | null;
+  attributes: string;
   /**
    * An object that contains the addon data for all installed addons
    */
-  addons?: string | null;
+  addons: string;
   /**
    * The ISO 8601 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The ISO 8601 date and time in GMT when the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The ISO 8601 date and time in GMT when the Task entered the TaskQueue.
    */
-  taskQueueEnteredDate?: Date | null;
+  taskQueueEnteredDate: Date;
   /**
    * Retrieve the list of all Tasks in the Workspace with the specified priority
    */
-  priority?: number | null;
+  priority: number;
   /**
    * The reason the Task was canceled or completed
    */
-  reason?: string | null;
+  reason: string;
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The SID of the TaskQueue
    */
-  taskQueueSid?: string | null;
+  taskQueueSid: string;
   /**
    * The friendly name of the TaskQueue
    */
-  taskQueueFriendlyName?: string | null;
+  taskQueueFriendlyName: string;
   /**
    * The SID of the TaskChannel
    */
-  taskChannelSid?: string | null;
+  taskChannelSid: string;
   /**
    * The unique name of the TaskChannel
    */
-  taskChannelUniqueName?: string | null;
+  taskChannelUniqueName: string;
   /**
    * The amount of time in seconds that the Task can live before being assigned
    */
-  timeout?: number | null;
+  timeout: number;
   /**
    * The SID of the Workflow that is controlling the Task
    */
-  workflowSid?: string | null;
+  workflowSid: string;
   /**
    * The friendly name of the Workflow that is controlling the Task
    */
-  workflowFriendlyName?: string | null;
+  workflowFriendlyName: string;
   /**
    * The SID of the Workspace that contains the Task
    */
-  workspaceSid?: string | null;
+  workspaceSid: string;
   /**
    * The absolute URL of the Task resource
    */
-  url?: string | null;
+  url: string;
   /**
    * The URLs of related resources
    */
-  links?: object | null;
+  links: object;
 
   private get _proxy(): TaskContext {
     this._context =
@@ -664,7 +664,7 @@ export class TaskInstance {
 }
 
 export interface TaskSolution {
-  workspaceSid?: string;
+  workspaceSid: string;
 }
 
 export interface TaskListInstance {

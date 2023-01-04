@@ -148,11 +148,11 @@ interface WorkersRealTimeStatisticsPayload
   extends WorkersRealTimeStatisticsResource {}
 
 interface WorkersRealTimeStatisticsResource {
-  account_sid?: string | null;
-  activity_statistics?: Array<any> | null;
-  total_workers?: number | null;
-  workspace_sid?: string | null;
-  url?: string | null;
+  account_sid: string;
+  activity_statistics: Array<any>;
+  total_workers: number;
+  workspace_sid: string;
+  url: string;
 }
 
 export class WorkersRealTimeStatisticsInstance {
@@ -176,23 +176,23 @@ export class WorkersRealTimeStatisticsInstance {
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The number of current Workers by Activity
    */
-  activityStatistics?: Array<any> | null;
+  activityStatistics: Array<any>;
   /**
    * The total number of Workers
    */
-  totalWorkers?: number | null;
+  totalWorkers: number;
   /**
    * The SID of the Workspace that contains the Workers
    */
-  workspaceSid?: string | null;
+  workspaceSid: string;
   /**
    * The absolute URL of the Workers statistics resource
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): WorkersRealTimeStatisticsContext {
     this._context =
@@ -260,7 +260,7 @@ export class WorkersRealTimeStatisticsInstance {
 }
 
 export interface WorkersRealTimeStatisticsSolution {
-  workspaceSid?: string;
+  workspaceSid: string;
 }
 
 export interface WorkersRealTimeStatisticsListInstance {

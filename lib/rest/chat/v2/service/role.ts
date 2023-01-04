@@ -257,15 +257,15 @@ interface RolePayload extends TwilioResponsePayload {
 }
 
 interface RoleResource {
-  sid?: string | null;
-  account_sid?: string | null;
-  service_sid?: string | null;
-  friendly_name?: string | null;
-  type?: RoleRoleType;
-  permissions?: Array<string> | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  url?: string | null;
+  sid: string;
+  account_sid: string;
+  service_sid: string;
+  friendly_name: string;
+  type: RoleRoleType;
+  permissions: Array<string>;
+  date_created: Date;
+  date_updated: Date;
+  url: string;
 }
 
 export class RoleInstance {
@@ -294,36 +294,36 @@ export class RoleInstance {
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The SID of the Service that the resource is associated with
    */
-  serviceSid?: string | null;
+  serviceSid: string;
   /**
    * The string that you assigned to describe the resource
    */
-  friendlyName?: string | null;
-  type?: RoleRoleType;
+  friendlyName: string;
+  type: RoleRoleType;
   /**
    * An array of the permissions the role has been granted
    */
-  permissions?: Array<string> | null;
+  permissions: Array<string>;
   /**
    * The ISO 8601 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The ISO 8601 date and time in GMT when the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The absolute URL of the Role resource
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): RoleContext {
     this._context =
@@ -403,7 +403,7 @@ export class RoleInstance {
 }
 
 export interface RoleSolution {
-  serviceSid?: string;
+  serviceSid: string;
 }
 
 export interface RoleListInstance {

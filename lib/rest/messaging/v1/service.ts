@@ -408,29 +408,29 @@ interface ServicePayload extends TwilioResponsePayload {
 }
 
 interface ServiceResource {
-  sid?: string | null;
-  account_sid?: string | null;
-  friendly_name?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  inbound_request_url?: string | null;
-  inbound_method?: ServiceInboundMethod;
-  fallback_url?: string | null;
-  fallback_method?: ServiceFallbackMethod;
-  status_callback?: string | null;
-  sticky_sender?: boolean | null;
-  mms_converter?: boolean | null;
-  smart_encoding?: boolean | null;
-  scan_message_content?: ServiceScanMessageContent;
-  fallback_to_long_code?: boolean | null;
-  area_code_geomatch?: boolean | null;
-  synchronous_validation?: boolean | null;
-  validity_period?: number | null;
-  url?: string | null;
-  links?: object | null;
-  usecase?: string | null;
-  us_app_to_person_registered?: boolean | null;
-  use_inbound_webhook_on_number?: boolean | null;
+  sid: string;
+  account_sid: string;
+  friendly_name: string;
+  date_created: Date;
+  date_updated: Date;
+  inbound_request_url: string;
+  inbound_method: ServiceInboundMethod;
+  fallback_url: string;
+  fallback_method: ServiceFallbackMethod;
+  status_callback: string;
+  sticky_sender: boolean;
+  mms_converter: boolean;
+  smart_encoding: boolean;
+  scan_message_content: ServiceScanMessageContent;
+  fallback_to_long_code: boolean;
+  area_code_geomatch: boolean;
+  synchronous_validation: boolean;
+  validity_period: number;
+  url: string;
+  links: object;
+  usecase: string;
+  us_app_to_person_registered: boolean;
+  use_inbound_webhook_on_number: boolean;
 }
 
 export class ServiceInstance {
@@ -468,92 +468,92 @@ export class ServiceInstance {
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The string that you assigned to describe the resource
    */
-  friendlyName?: string | null;
+  friendlyName: string;
   /**
    * The ISO 8601 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The ISO 8601 date and time in GMT when the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The URL we call using inbound_method when a message is received by any phone number or short code in the Service. This field will be overridden if the `use_inbound_webhook_on_number` field is enabled.
    */
-  inboundRequestUrl?: string | null;
+  inboundRequestUrl: string;
   /**
    * The HTTP method we use to call inbound_request_url
    */
-  inboundMethod?: ServiceInboundMethod;
+  inboundMethod: ServiceInboundMethod;
   /**
    * The URL that we call using fallback_method if an error occurs while retrieving or executing the TwiML from the Inbound Request URL. This field will be overridden if the `use_inbound_webhook_on_number` field is enabled.
    */
-  fallbackUrl?: string | null;
+  fallbackUrl: string;
   /**
    * The HTTP method we use to call fallback_url
    */
-  fallbackMethod?: ServiceFallbackMethod;
+  fallbackMethod: ServiceFallbackMethod;
   /**
    * The URL we call to pass status updates about message delivery
    */
-  statusCallback?: string | null;
+  statusCallback: string;
   /**
    * Whether to enable Sticky Sender on the Service instance
    */
-  stickySender?: boolean | null;
+  stickySender: boolean;
   /**
    * Whether to enable the MMS Converter for messages sent through the Service instance
    */
-  mmsConverter?: boolean | null;
+  mmsConverter: boolean;
   /**
    * Whether to enable Encoding for messages sent through the Service instance
    */
-  smartEncoding?: boolean | null;
-  scanMessageContent?: ServiceScanMessageContent;
+  smartEncoding: boolean;
+  scanMessageContent: ServiceScanMessageContent;
   /**
    * Whether to enable Fallback to Long Code for messages sent through the Service instance
    */
-  fallbackToLongCode?: boolean | null;
+  fallbackToLongCode: boolean;
   /**
    * Whether to enable Area Code Geomatch on the Service Instance
    */
-  areaCodeGeomatch?: boolean | null;
+  areaCodeGeomatch: boolean;
   /**
    * Reserved
    */
-  synchronousValidation?: boolean | null;
+  synchronousValidation: boolean;
   /**
    * How long, in seconds, messages sent from the Service are valid
    */
-  validityPeriod?: number | null;
+  validityPeriod: number;
   /**
    * The absolute URL of the Service resource
    */
-  url?: string | null;
+  url: string;
   /**
    * The absolute URLs of related resources
    */
-  links?: object | null;
+  links: object;
   /**
    * A string describing the scenario in which the Messaging Service will be used
    */
-  usecase?: string | null;
+  usecase: string;
   /**
    * Whether US A2P campaign is registered for this Service.
    */
-  usAppToPersonRegistered?: boolean | null;
+  usAppToPersonRegistered: boolean;
   /**
    * If enabled, the webhook url configured on the phone number will be used and will override the `inbound_request_url`/`fallback_url` url called when an inbound message is received.
    */
-  useInboundWebhookOnNumber?: boolean | null;
+  useInboundWebhookOnNumber: boolean;
 
   private get _proxy(): ServiceContext {
     this._context =

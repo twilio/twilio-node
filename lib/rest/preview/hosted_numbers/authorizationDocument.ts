@@ -308,15 +308,15 @@ interface AuthorizationDocumentPayload extends TwilioResponsePayload {
 }
 
 interface AuthorizationDocumentResource {
-  sid?: string | null;
-  address_sid?: string | null;
-  status?: AuthorizationDocumentStatus;
-  email?: string | null;
-  cc_emails?: Array<string> | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  url?: string | null;
-  links?: object | null;
+  sid: string;
+  address_sid: string;
+  status: AuthorizationDocumentStatus;
+  email: string;
+  cc_emails: Array<string>;
+  date_created: Date;
+  date_updated: Date;
+  url: string;
+  links: object;
 }
 
 export class AuthorizationDocumentInstance {
@@ -344,30 +344,30 @@ export class AuthorizationDocumentInstance {
   /**
    * AuthorizationDocument sid.
    */
-  sid?: string | null;
+  sid: string;
   /**
    * Address sid.
    */
-  addressSid?: string | null;
-  status?: AuthorizationDocumentStatus;
+  addressSid: string;
+  status: AuthorizationDocumentStatus;
   /**
    * Email.
    */
-  email?: string | null;
+  email: string;
   /**
    * A list of emails.
    */
-  ccEmails?: Array<string> | null;
+  ccEmails: Array<string>;
   /**
    * The date this AuthorizationDocument was created.
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The date this AuthorizationDocument was updated.
    */
-  dateUpdated?: Date | null;
-  url?: string | null;
-  links?: object | null;
+  dateUpdated: Date;
+  url: string;
+  links: object;
 
   private get _proxy(): AuthorizationDocumentContext {
     this._context =

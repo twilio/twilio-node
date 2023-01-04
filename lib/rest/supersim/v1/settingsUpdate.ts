@@ -318,14 +318,14 @@ interface SettingsUpdatePayload extends TwilioResponsePayload {
 }
 
 interface SettingsUpdateResource {
-  sid?: string | null;
-  iccid?: string | null;
-  sim_sid?: string | null;
-  status?: SettingsUpdateStatus;
-  packages?: Array<any> | null;
-  date_completed?: Date | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
+  sid: string;
+  iccid: string;
+  sim_sid: string;
+  status: SettingsUpdateStatus;
+  packages: Array<any>;
+  date_completed: Date;
+  date_created: Date;
+  date_updated: Date;
 }
 
 export class SettingsUpdateInstance {
@@ -343,32 +343,32 @@ export class SettingsUpdateInstance {
   /**
    * The unique identifier of this Settings Update
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The ICCID associated with the SIM
    */
-  iccid?: string | null;
+  iccid: string;
   /**
    * The SID of the Super SIM to which this Settings Update was applied
    */
-  simSid?: string | null;
-  status?: SettingsUpdateStatus;
+  simSid: string;
+  status: SettingsUpdateStatus;
   /**
    * Array containing the different Settings Packages that will be applied to the SIM after the update completes
    */
-  packages?: Array<any> | null;
+  packages: Array<any>;
   /**
    * The time when the update successfully completed and the new settings were applied to the SIM
    */
-  dateCompleted?: Date | null;
+  dateCompleted: Date;
   /**
    * The date this Settings Update was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The date this Settings Update was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
 
   /**
    * Provide a user-friendly representation

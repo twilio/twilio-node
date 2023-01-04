@@ -270,14 +270,14 @@ interface FunctionPayload extends TwilioResponsePayload {
 }
 
 interface FunctionResource {
-  sid?: string | null;
-  account_sid?: string | null;
-  service_sid?: string | null;
-  friendly_name?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  url?: string | null;
-  links?: object | null;
+  sid: string;
+  account_sid: string;
+  service_sid: string;
+  friendly_name: string;
+  date_created: Date;
+  date_updated: Date;
+  url: string;
+  links: object;
 }
 
 export class FunctionInstance {
@@ -305,35 +305,35 @@ export class FunctionInstance {
   /**
    * The unique string that identifies the Function resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The SID of the Account that created the Function resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The SID of the Service that the Function resource is associated with
    */
-  serviceSid?: string | null;
+  serviceSid: string;
   /**
    * The string that you assigned to describe the Function resource
    */
-  friendlyName?: string | null;
+  friendlyName: string;
   /**
    * The ISO 8601 date and time in GMT when the Function resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The ISO 8601 date and time in GMT when the Function resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The absolute URL of the Function resource
    */
-  url?: string | null;
+  url: string;
   /**
    * The URLs of nested resources of the Function resource
    */
-  links?: object | null;
+  links: object;
 
   private get _proxy(): FunctionContext {
     this._context =
@@ -419,7 +419,7 @@ export class FunctionInstance {
 }
 
 export interface FunctionSolution {
-  serviceSid?: string;
+  serviceSid: string;
 }
 
 export interface FunctionListInstance {

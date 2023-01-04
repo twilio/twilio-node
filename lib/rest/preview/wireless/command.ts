@@ -186,17 +186,17 @@ interface CommandPayload extends TwilioResponsePayload {
 }
 
 interface CommandResource {
-  sid?: string | null;
-  account_sid?: string | null;
-  device_sid?: string | null;
-  sim_sid?: string | null;
-  command?: string | null;
-  command_mode?: string | null;
-  status?: string | null;
-  direction?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  url?: string | null;
+  sid: string;
+  account_sid: string;
+  device_sid: string;
+  sim_sid: string;
+  command: string;
+  command_mode: string;
+  status: string;
+  direction: string;
+  date_created: Date;
+  date_updated: Date;
+  url: string;
 }
 
 export class CommandInstance {
@@ -223,17 +223,17 @@ export class CommandInstance {
     this._solution = { sid: sid || this.sid };
   }
 
-  sid?: string | null;
-  accountSid?: string | null;
-  deviceSid?: string | null;
-  simSid?: string | null;
-  command?: string | null;
-  commandMode?: string | null;
-  status?: string | null;
-  direction?: string | null;
-  dateCreated?: Date | null;
-  dateUpdated?: Date | null;
-  url?: string | null;
+  sid: string;
+  accountSid: string;
+  deviceSid: string;
+  simSid: string;
+  command: string;
+  commandMode: string;
+  status: string;
+  direction: string;
+  dateCreated: Date;
+  dateUpdated: Date;
+  url: string;
 
   private get _proxy(): CommandContext {
     this._context =

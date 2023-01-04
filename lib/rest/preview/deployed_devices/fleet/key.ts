@@ -277,15 +277,15 @@ interface KeyPayload extends TwilioResponsePayload {
 }
 
 interface KeyResource {
-  sid?: string | null;
-  url?: string | null;
-  friendly_name?: string | null;
-  fleet_sid?: string | null;
-  account_sid?: string | null;
-  device_sid?: string | null;
-  secret?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
+  sid: string;
+  url: string;
+  friendly_name: string;
+  fleet_sid: string;
+  account_sid: string;
+  device_sid: string;
+  secret: string;
+  date_created: Date;
+  date_updated: Date;
 }
 
 export class KeyInstance {
@@ -314,39 +314,39 @@ export class KeyInstance {
   /**
    * A string that uniquely identifies this Key.
    */
-  sid?: string | null;
+  sid: string;
   /**
    * URL of this Key.
    */
-  url?: string | null;
+  url: string;
   /**
    * A human readable description for this Key.
    */
-  friendlyName?: string | null;
+  friendlyName: string;
   /**
    * The unique identifier of the Fleet.
    */
-  fleetSid?: string | null;
+  fleetSid: string;
   /**
    * The unique SID that identifies this Account.
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The unique identifier of a mapped Device.
    */
-  deviceSid?: string | null;
+  deviceSid: string;
   /**
    * The key secret.
    */
-  secret?: string | null;
+  secret: string;
   /**
    * The date this Key credential was created.
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The date this Key credential was updated.
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
 
   private get _proxy(): KeyContext {
     this._context =
@@ -436,7 +436,7 @@ export class KeyInstance {
 }
 
 export interface KeySolution {
-  fleetSid?: string;
+  fleetSid: string;
 }
 
 export interface KeyListInstance {

@@ -163,27 +163,27 @@ interface WorkspaceCumulativeStatisticsPayload
   extends WorkspaceCumulativeStatisticsResource {}
 
 interface WorkspaceCumulativeStatisticsResource {
-  account_sid?: string | null;
-  avg_task_acceptance_time?: number | null;
-  start_time?: Date | null;
-  end_time?: Date | null;
-  reservations_created?: number | null;
-  reservations_accepted?: number | null;
-  reservations_rejected?: number | null;
-  reservations_timed_out?: number | null;
-  reservations_canceled?: number | null;
-  reservations_rescinded?: number | null;
-  split_by_wait_time?: any | null;
-  wait_duration_until_accepted?: any | null;
-  wait_duration_until_canceled?: any | null;
-  tasks_canceled?: number | null;
-  tasks_completed?: number | null;
-  tasks_created?: number | null;
-  tasks_deleted?: number | null;
-  tasks_moved?: number | null;
-  tasks_timed_out_in_workflow?: number | null;
-  workspace_sid?: string | null;
-  url?: string | null;
+  account_sid: string;
+  avg_task_acceptance_time: number;
+  start_time: Date;
+  end_time: Date;
+  reservations_created: number;
+  reservations_accepted: number;
+  reservations_rejected: number;
+  reservations_timed_out: number;
+  reservations_canceled: number;
+  reservations_rescinded: number;
+  split_by_wait_time: any;
+  wait_duration_until_accepted: any;
+  wait_duration_until_canceled: any;
+  tasks_canceled: number;
+  tasks_completed: number;
+  tasks_created: number;
+  tasks_deleted: number;
+  tasks_moved: number;
+  tasks_timed_out_in_workflow: number;
+  workspace_sid: string;
+  url: string;
 }
 
 export class WorkspaceCumulativeStatisticsInstance {
@@ -239,87 +239,87 @@ export class WorkspaceCumulativeStatisticsInstance {
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The average time in seconds between Task creation and acceptance
    */
-  avgTaskAcceptanceTime?: number | null;
+  avgTaskAcceptanceTime: number;
   /**
    * The beginning of the interval during which these statistics were calculated
    */
-  startTime?: Date | null;
+  startTime: Date;
   /**
    * The end of the interval during which these statistics were calculated
    */
-  endTime?: Date | null;
+  endTime: Date;
   /**
    * The total number of Reservations that were created for Workers
    */
-  reservationsCreated?: number | null;
+  reservationsCreated: number;
   /**
    * The total number of Reservations accepted by Workers
    */
-  reservationsAccepted?: number | null;
+  reservationsAccepted: number;
   /**
    * The total number of Reservations that were rejected
    */
-  reservationsRejected?: number | null;
+  reservationsRejected: number;
   /**
    * The total number of Reservations that were timed out
    */
-  reservationsTimedOut?: number | null;
+  reservationsTimedOut: number;
   /**
    * The total number of Reservations that were canceled
    */
-  reservationsCanceled?: number | null;
+  reservationsCanceled: number;
   /**
    * The total number of Reservations that were rescinded
    */
-  reservationsRescinded?: number | null;
+  reservationsRescinded: number;
   /**
    * A list of objects that describe the Tasks canceled and reservations accepted above and below the specified thresholds
    */
-  splitByWaitTime?: any | null;
+  splitByWaitTime: any;
   /**
    * The wait duration statistics for Tasks that were accepted
    */
-  waitDurationUntilAccepted?: any | null;
+  waitDurationUntilAccepted: any;
   /**
    * The wait duration statistics for Tasks that were canceled
    */
-  waitDurationUntilCanceled?: any | null;
+  waitDurationUntilCanceled: any;
   /**
    * The total number of Tasks that were canceled
    */
-  tasksCanceled?: number | null;
+  tasksCanceled: number;
   /**
    * The total number of Tasks that were completed
    */
-  tasksCompleted?: number | null;
+  tasksCompleted: number;
   /**
    * The total number of Tasks created
    */
-  tasksCreated?: number | null;
+  tasksCreated: number;
   /**
    * The total number of Tasks that were deleted
    */
-  tasksDeleted?: number | null;
+  tasksDeleted: number;
   /**
    * The total number of Tasks that were moved from one queue to another
    */
-  tasksMoved?: number | null;
+  tasksMoved: number;
   /**
    * The total number of Tasks that were timed out of their Workflows
    */
-  tasksTimedOutInWorkflow?: number | null;
+  tasksTimedOutInWorkflow: number;
   /**
    * The SID of the Workspace
    */
-  workspaceSid?: string | null;
+  workspaceSid: string;
   /**
    * The absolute URL of the Workspace statistics resource
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): WorkspaceCumulativeStatisticsContext {
     this._context =
@@ -403,7 +403,7 @@ export class WorkspaceCumulativeStatisticsInstance {
 }
 
 export interface WorkspaceCumulativeStatisticsSolution {
-  workspaceSid?: string;
+  workspaceSid: string;
 }
 
 export interface WorkspaceCumulativeStatisticsListInstance {

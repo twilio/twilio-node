@@ -299,16 +299,16 @@ interface ExecutionPayload extends TwilioResponsePayload {
 }
 
 interface ExecutionResource {
-  sid?: string | null;
-  account_sid?: string | null;
-  flow_sid?: string | null;
-  contact_channel_address?: string | null;
-  context?: any | null;
-  status?: ExecutionStatus;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  url?: string | null;
-  links?: object | null;
+  sid: string;
+  account_sid: string;
+  flow_sid: string;
+  contact_channel_address: string;
+  context: any;
+  status: ExecutionStatus;
+  date_created: Date;
+  date_updated: Date;
+  url: string;
+  links: object;
 }
 
 export class ExecutionInstance {
@@ -338,40 +338,40 @@ export class ExecutionInstance {
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The SID of the Flow
    */
-  flowSid?: string | null;
+  flowSid: string;
   /**
    * The phone number, SIP address or Client identifier that triggered the Execution
    */
-  contactChannelAddress?: string | null;
+  contactChannelAddress: string;
   /**
    * The current state of the flow
    */
-  context?: any | null;
-  status?: ExecutionStatus;
+  context: any;
+  status: ExecutionStatus;
   /**
    * The ISO 8601 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The ISO 8601 date and time in GMT when the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The absolute URL of the resource
    */
-  url?: string | null;
+  url: string;
   /**
    * Nested resource URLs
    */
-  links?: object | null;
+  links: object;
 
   private get _proxy(): ExecutionContext {
     this._context =
@@ -466,7 +466,7 @@ export class ExecutionInstance {
 }
 
 export interface ExecutionSolution {
-  flowSid?: string;
+  flowSid: string;
 }
 
 export interface ExecutionListInstance {

@@ -182,15 +182,15 @@ interface SmsCommandPayload extends TwilioResponsePayload {
 }
 
 interface SmsCommandResource {
-  sid?: string | null;
-  account_sid?: string | null;
-  sim_sid?: string | null;
-  payload?: string | null;
-  status?: SmsCommandStatus;
-  direction?: SmsCommandDirection;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  url?: string | null;
+  sid: string;
+  account_sid: string;
+  sim_sid: string;
+  payload: string;
+  status: SmsCommandStatus;
+  direction: SmsCommandDirection;
+  date_created: Date;
+  date_updated: Date;
+  url: string;
 }
 
 export class SmsCommandInstance {
@@ -218,33 +218,33 @@ export class SmsCommandInstance {
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The SID of the SIM that this SMS Command was sent to or from
    */
-  simSid?: string | null;
+  simSid: string;
   /**
    * The message body of the SMS Command sent to or from the SIM
    */
-  payload?: string | null;
-  status?: SmsCommandStatus;
-  direction?: SmsCommandDirection;
+  payload: string;
+  status: SmsCommandStatus;
+  direction: SmsCommandDirection;
   /**
    * The ISO 8601 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The ISO 8601 date and time in GMT when the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The absolute URL of the SMS Command resource
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): SmsCommandContext {
     this._context =

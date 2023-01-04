@@ -288,18 +288,18 @@ interface DocumentPayload extends TwilioResponsePayload {
 }
 
 interface DocumentResource {
-  sid?: string | null;
-  unique_name?: string | null;
-  account_sid?: string | null;
-  service_sid?: string | null;
-  url?: string | null;
-  links?: object | null;
-  revision?: string | null;
-  data?: any | null;
-  date_expires?: Date | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  created_by?: string | null;
+  sid: string;
+  unique_name: string;
+  account_sid: string;
+  service_sid: string;
+  url: string;
+  links: object;
+  revision: string;
+  data: any;
+  date_expires: Date;
+  date_created: Date;
+  date_updated: Date;
+  created_by: string;
 }
 
 export class DocumentInstance {
@@ -331,51 +331,51 @@ export class DocumentInstance {
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * An application-defined string that uniquely identifies the resource
    */
-  uniqueName?: string | null;
+  uniqueName: string;
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The SID of the Sync Service that the resource is associated with
    */
-  serviceSid?: string | null;
+  serviceSid: string;
   /**
    * The absolute URL of the Document resource
    */
-  url?: string | null;
+  url: string;
   /**
    * The URLs of resources related to the Sync Document
    */
-  links?: object | null;
+  links: object;
   /**
    * The current revision of the Sync Document, represented by a string identifier
    */
-  revision?: string | null;
+  revision: string;
   /**
    * An arbitrary, schema-less object that the Sync Document stores
    */
-  data?: any | null;
+  data: any;
   /**
    * The ISO 8601 date and time in GMT when the Sync Document expires
    */
-  dateExpires?: Date | null;
+  dateExpires: Date;
   /**
    * The ISO 8601 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The ISO 8601 date and time in GMT when the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The identity of the Sync Document\'s creator
    */
-  createdBy?: string | null;
+  createdBy: string;
 
   private get _proxy(): DocumentContext {
     this._context =
@@ -475,7 +475,7 @@ export class DocumentInstance {
 }
 
 export interface DocumentSolution {
-  serviceSid?: string;
+  serviceSid: string;
 }
 
 export interface DocumentListInstance {

@@ -129,8 +129,8 @@ export function WebChannelsListInstance(version: V2): WebChannelsListInstance {
 interface WebChannelsPayload extends WebChannelsResource {}
 
 interface WebChannelsResource {
-  conversation_sid?: string | null;
-  identity?: string | null;
+  conversation_sid: string;
+  identity: string;
 }
 
 export class WebChannelsInstance {
@@ -142,11 +142,11 @@ export class WebChannelsInstance {
   /**
    * The unique string representing the Conversation resource created
    */
-  conversationSid?: string | null;
+  conversationSid: string;
   /**
    * The unique string representing the User created
    */
-  identity?: string | null;
+  identity: string;
 
   /**
    * Provide a user-friendly representation

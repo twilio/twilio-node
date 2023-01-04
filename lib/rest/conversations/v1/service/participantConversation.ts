@@ -85,7 +85,7 @@ export interface ParticipantConversationListInstancePageOptions {
 }
 
 export interface ParticipantConversationSolution {
-  chatServiceSid?: string;
+  chatServiceSid: string;
 }
 
 export interface ParticipantConversationListInstance {
@@ -338,22 +338,22 @@ interface ParticipantConversationPayload extends TwilioResponsePayload {
 }
 
 interface ParticipantConversationResource {
-  account_sid?: string | null;
-  chat_service_sid?: string | null;
-  participant_sid?: string | null;
-  participant_user_sid?: string | null;
-  participant_identity?: string | null;
-  participant_messaging_binding?: any | null;
-  conversation_sid?: string | null;
-  conversation_unique_name?: string | null;
-  conversation_friendly_name?: string | null;
-  conversation_attributes?: string | null;
-  conversation_date_created?: Date | null;
-  conversation_date_updated?: Date | null;
-  conversation_created_by?: string | null;
-  conversation_state?: ServiceParticipantConversationState;
-  conversation_timers?: any | null;
-  links?: object | null;
+  account_sid: string;
+  chat_service_sid: string;
+  participant_sid: string;
+  participant_user_sid: string;
+  participant_identity: string;
+  participant_messaging_binding: any;
+  conversation_sid: string;
+  conversation_unique_name: string;
+  conversation_friendly_name: string;
+  conversation_attributes: string;
+  conversation_date_created: Date;
+  conversation_date_updated: Date;
+  conversation_created_by: string;
+  conversation_state: ServiceParticipantConversationState;
+  conversation_timers: any;
+  links: object;
 }
 
 export class ParticipantConversationInstance {
@@ -387,64 +387,64 @@ export class ParticipantConversationInstance {
   /**
    * The unique ID of the Account responsible for this conversation.
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The unique ID of the Conversation Service this conversation belongs to.
    */
-  chatServiceSid?: string | null;
+  chatServiceSid: string;
   /**
    * The unique ID of the Participant.
    */
-  participantSid?: string | null;
+  participantSid: string;
   /**
    * The unique ID for the conversation participant as Conversation User.
    */
-  participantUserSid?: string | null;
+  participantUserSid: string;
   /**
    * A unique string identifier for the conversation participant as Conversation User.
    */
-  participantIdentity?: string | null;
+  participantIdentity: string;
   /**
    * Information about how this participant exchanges messages with the conversation.
    */
-  participantMessagingBinding?: any | null;
+  participantMessagingBinding: any;
   /**
    * The unique ID of the Conversation this Participant belongs to.
    */
-  conversationSid?: string | null;
+  conversationSid: string;
   /**
    * An application-defined string that uniquely identifies the Conversation resource.
    */
-  conversationUniqueName?: string | null;
+  conversationUniqueName: string;
   /**
    * The human-readable name of this conversation.
    */
-  conversationFriendlyName?: string | null;
+  conversationFriendlyName: string;
   /**
    * An optional string metadata field you can use to store any data you wish.
    */
-  conversationAttributes?: string | null;
+  conversationAttributes: string;
   /**
    * The date that this conversation was created.
    */
-  conversationDateCreated?: Date | null;
+  conversationDateCreated: Date;
   /**
    * The date that this conversation was last updated.
    */
-  conversationDateUpdated?: Date | null;
+  conversationDateUpdated: Date;
   /**
    * Creator of this conversation.
    */
-  conversationCreatedBy?: string | null;
-  conversationState?: ServiceParticipantConversationState;
+  conversationCreatedBy: string;
+  conversationState: ServiceParticipantConversationState;
   /**
    * Timer date values for this conversation.
    */
-  conversationTimers?: any | null;
+  conversationTimers: any;
   /**
    * Absolute URLs to access the participant and conversation of this Participant Conversation.
    */
-  links?: object | null;
+  links: object;
 
   /**
    * Provide a user-friendly representation

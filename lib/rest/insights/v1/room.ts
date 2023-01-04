@@ -227,32 +227,32 @@ interface RoomPayload extends TwilioResponsePayload {
 }
 
 interface RoomResource {
-  account_sid?: string | null;
-  room_sid?: string | null;
-  room_name?: string | null;
-  create_time?: Date | null;
-  end_time?: Date | null;
-  room_type?: VideoRoomSummaryRoomType;
-  room_status?: VideoRoomSummaryRoomStatus;
-  status_callback?: string | null;
-  status_callback_method?: RoomStatusCallbackMethod;
-  created_method?: VideoRoomSummaryCreatedMethod;
-  end_reason?: VideoRoomSummaryEndReason;
-  max_participants?: number | null;
-  unique_participants?: number | null;
-  unique_participant_identities?: number | null;
-  concurrent_participants?: number | null;
-  max_concurrent_participants?: number | null;
-  codecs?: Array<VideoRoomSummaryCodec> | null;
-  media_region?: VideoRoomSummaryTwilioRealm;
-  duration_sec?: number | null;
-  total_participant_duration_sec?: number | null;
-  total_recording_duration_sec?: number | null;
-  processing_state?: VideoRoomSummaryProcessingState;
-  recording_enabled?: boolean | null;
-  edge_location?: VideoRoomSummaryEdgeLocation;
-  url?: string | null;
-  links?: object | null;
+  account_sid: string;
+  room_sid: string;
+  room_name: string;
+  create_time: Date;
+  end_time: Date;
+  room_type: VideoRoomSummaryRoomType;
+  room_status: VideoRoomSummaryRoomStatus;
+  status_callback: string;
+  status_callback_method: RoomStatusCallbackMethod;
+  created_method: VideoRoomSummaryCreatedMethod;
+  end_reason: VideoRoomSummaryEndReason;
+  max_participants: number;
+  unique_participants: number;
+  unique_participant_identities: number;
+  concurrent_participants: number;
+  max_concurrent_participants: number;
+  codecs: Array<VideoRoomSummaryCodec>;
+  media_region: VideoRoomSummaryTwilioRealm;
+  duration_sec: number;
+  total_participant_duration_sec: number;
+  total_recording_duration_sec: number;
+  processing_state: VideoRoomSummaryProcessingState;
+  recording_enabled: boolean;
+  edge_location: VideoRoomSummaryEdgeLocation;
+  url: string;
+  links: object;
 }
 
 export class RoomInstance {
@@ -299,86 +299,86 @@ export class RoomInstance {
   /**
    * Account SID associated with this room.
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * Unique identifier for the room.
    */
-  roomSid?: string | null;
+  roomSid: string;
   /**
    * room friendly name.
    */
-  roomName?: string | null;
+  roomName: string;
   /**
    * Creation time of the room.
    */
-  createTime?: Date | null;
+  createTime: Date;
   /**
    * End time for the room.
    */
-  endTime?: Date | null;
-  roomType?: VideoRoomSummaryRoomType;
-  roomStatus?: VideoRoomSummaryRoomStatus;
+  endTime: Date;
+  roomType: VideoRoomSummaryRoomType;
+  roomStatus: VideoRoomSummaryRoomStatus;
   /**
    * Webhook provided for status callbacks.
    */
-  statusCallback?: string | null;
+  statusCallback: string;
   /**
    * HTTP method provided for status callback URL.
    */
-  statusCallbackMethod?: RoomStatusCallbackMethod;
-  createdMethod?: VideoRoomSummaryCreatedMethod;
-  endReason?: VideoRoomSummaryEndReason;
+  statusCallbackMethod: RoomStatusCallbackMethod;
+  createdMethod: VideoRoomSummaryCreatedMethod;
+  endReason: VideoRoomSummaryEndReason;
   /**
    * Max number of total participants allowed by the application settings.
    */
-  maxParticipants?: number | null;
+  maxParticipants: number;
   /**
    * Number of participants. May include duplicate identities for participants who left and rejoined.
    */
-  uniqueParticipants?: number | null;
+  uniqueParticipants: number;
   /**
    * Unique number of participant identities.
    */
-  uniqueParticipantIdentities?: number | null;
+  uniqueParticipantIdentities: number;
   /**
    * Actual number of concurrent participants.
    */
-  concurrentParticipants?: number | null;
+  concurrentParticipants: number;
   /**
    * Maximum number of participants allowed in the room at the same time allowed by the application settings.
    */
-  maxConcurrentParticipants?: number | null;
+  maxConcurrentParticipants: number;
   /**
    * Codecs used by participants in the room.
    */
-  codecs?: Array<VideoRoomSummaryCodec> | null;
-  mediaRegion?: VideoRoomSummaryTwilioRealm;
+  codecs: Array<VideoRoomSummaryCodec>;
+  mediaRegion: VideoRoomSummaryTwilioRealm;
   /**
    * Total room duration from create time to end time.
    */
-  durationSec?: number | null;
+  durationSec: number;
   /**
    * Combined amount of participant time in the room.
    */
-  totalParticipantDurationSec?: number | null;
+  totalParticipantDurationSec: number;
   /**
    * Combined amount of recorded seconds for participants in the room.
    */
-  totalRecordingDurationSec?: number | null;
-  processingState?: VideoRoomSummaryProcessingState;
+  totalRecordingDurationSec: number;
+  processingState: VideoRoomSummaryProcessingState;
   /**
    * Boolean indicating if recording is enabled for the room.
    */
-  recordingEnabled?: boolean | null;
-  edgeLocation?: VideoRoomSummaryEdgeLocation;
+  recordingEnabled: boolean;
+  edgeLocation: VideoRoomSummaryEdgeLocation;
   /**
    * URL for the room resource.
    */
-  url?: string | null;
+  url: string;
   /**
    * Room subresources.
    */
-  links?: object | null;
+  links: object;
 
   private get _proxy(): RoomContext {
     this._context =

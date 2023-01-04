@@ -433,20 +433,20 @@ interface ParticipantPayload extends TwilioResponsePayload {
 }
 
 interface ParticipantResource {
-  account_sid?: string | null;
-  call_sid?: string | null;
-  label?: string | null;
-  call_sid_to_coach?: string | null;
-  coaching?: boolean | null;
-  conference_sid?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  end_conference_on_exit?: boolean | null;
-  muted?: boolean | null;
-  hold?: boolean | null;
-  start_conference_on_enter?: boolean | null;
-  status?: ParticipantStatus;
-  uri?: string | null;
+  account_sid: string;
+  call_sid: string;
+  label: string;
+  call_sid_to_coach: string;
+  coaching: boolean;
+  conference_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  end_conference_on_exit: boolean;
+  muted: boolean;
+  hold: boolean;
+  start_conference_on_enter: boolean;
+  status: ParticipantStatus;
+  uri: string;
 }
 
 export class ParticipantInstance {
@@ -485,56 +485,56 @@ export class ParticipantInstance {
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The SID of the Call the resource is associated with
    */
-  callSid?: string | null;
+  callSid: string;
   /**
    * The label of this participant
    */
-  label?: string | null;
+  label: string;
   /**
    * The SID of the participant who is being `coached`
    */
-  callSidToCoach?: string | null;
+  callSidToCoach: string;
   /**
    * Indicates if the participant changed to coach
    */
-  coaching?: boolean | null;
+  coaching: boolean;
   /**
    * The SID of the conference the participant is in
    */
-  conferenceSid?: string | null;
+  conferenceSid: string;
   /**
    * The RFC 2822 date and time in GMT that the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The RFC 2822 date and time in GMT that the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * Whether the conference ends when the participant leaves
    */
-  endConferenceOnExit?: boolean | null;
+  endConferenceOnExit: boolean;
   /**
    * Whether the participant is muted
    */
-  muted?: boolean | null;
+  muted: boolean;
   /**
    * Whether the participant is on hold
    */
-  hold?: boolean | null;
+  hold: boolean;
   /**
    * Whether the conference starts when the participant joins the conference
    */
-  startConferenceOnEnter?: boolean | null;
-  status?: ParticipantStatus;
+  startConferenceOnEnter: boolean;
+  status: ParticipantStatus;
   /**
    * The URI of the resource, relative to `https://api.twilio.com`
    */
-  uri?: string | null;
+  uri: string;
 
   private get _proxy(): ParticipantContext {
     this._context =
@@ -630,8 +630,8 @@ export class ParticipantInstance {
 }
 
 export interface ParticipantSolution {
-  accountSid?: string;
-  conferenceSid?: string;
+  accountSid: string;
+  conferenceSid: string;
 }
 
 export interface ParticipantListInstance {

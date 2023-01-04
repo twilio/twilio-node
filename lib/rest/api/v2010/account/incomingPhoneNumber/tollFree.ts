@@ -163,7 +163,7 @@ export interface TollFreeListInstancePageOptions {
 }
 
 export interface TollFreeSolution {
-  accountSid?: string;
+  accountSid: string;
 }
 
 export interface TollFreeListInstance {
@@ -533,40 +533,40 @@ interface TollFreePayload extends TwilioResponsePayload {
 }
 
 interface TollFreeResource {
-  account_sid?: string | null;
-  address_sid?: string | null;
-  address_requirements?: IncomingPhoneNumberTollFreeAddressRequirement;
-  api_version?: string | null;
-  beta?: boolean | null;
-  capabilities?: PhoneNumberCapabilities | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  friendly_name?: string | null;
-  identity_sid?: string | null;
-  phone_number?: string | null;
-  origin?: string | null;
-  sid?: string | null;
-  sms_application_sid?: string | null;
-  sms_fallback_method?: TollFreeSmsFallbackMethod;
-  sms_fallback_url?: string | null;
-  sms_method?: TollFreeSmsMethod;
-  sms_url?: string | null;
-  status_callback?: string | null;
-  status_callback_method?: TollFreeStatusCallbackMethod;
-  trunk_sid?: string | null;
-  uri?: string | null;
-  voice_receive_mode?: IncomingPhoneNumberTollFreeVoiceReceiveMode;
-  voice_application_sid?: string | null;
-  voice_caller_id_lookup?: boolean | null;
-  voice_fallback_method?: TollFreeVoiceFallbackMethod;
-  voice_fallback_url?: string | null;
-  voice_method?: TollFreeVoiceMethod;
-  voice_url?: string | null;
-  emergency_status?: IncomingPhoneNumberTollFreeEmergencyStatus;
-  emergency_address_sid?: string | null;
-  emergency_address_status?: IncomingPhoneNumberTollFreeEmergencyAddressStatus;
-  bundle_sid?: string | null;
-  status?: string | null;
+  account_sid: string;
+  address_sid: string;
+  address_requirements: IncomingPhoneNumberTollFreeAddressRequirement;
+  api_version: string;
+  beta: boolean;
+  capabilities: PhoneNumberCapabilities;
+  date_created: Date;
+  date_updated: Date;
+  friendly_name: string;
+  identity_sid: string;
+  phone_number: string;
+  origin: string;
+  sid: string;
+  sms_application_sid: string;
+  sms_fallback_method: TollFreeSmsFallbackMethod;
+  sms_fallback_url: string;
+  sms_method: TollFreeSmsMethod;
+  sms_url: string;
+  status_callback: string;
+  status_callback_method: TollFreeStatusCallbackMethod;
+  trunk_sid: string;
+  uri: string;
+  voice_receive_mode: IncomingPhoneNumberTollFreeVoiceReceiveMode;
+  voice_application_sid: string;
+  voice_caller_id_lookup: boolean;
+  voice_fallback_method: TollFreeVoiceFallbackMethod;
+  voice_fallback_url: string;
+  voice_method: TollFreeVoiceMethod;
+  voice_url: string;
+  emergency_status: IncomingPhoneNumberTollFreeEmergencyStatus;
+  emergency_address_sid: string;
+  emergency_address_status: IncomingPhoneNumberTollFreeEmergencyAddressStatus;
+  bundle_sid: string;
+  status: string;
 }
 
 export class TollFreeInstance {
@@ -614,121 +614,121 @@ export class TollFreeInstance {
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The SID of the Address resource associated with the phone number
    */
-  addressSid?: string | null;
-  addressRequirements?: IncomingPhoneNumberTollFreeAddressRequirement;
+  addressSid: string;
+  addressRequirements: IncomingPhoneNumberTollFreeAddressRequirement;
   /**
    * The API version used to start a new TwiML session
    */
-  apiVersion?: string | null;
+  apiVersion: string;
   /**
    * Whether the phone number is new to the Twilio platform
    */
-  beta?: boolean | null;
-  capabilities?: PhoneNumberCapabilities | null;
+  beta: boolean;
+  capabilities: PhoneNumberCapabilities;
   /**
    * The RFC 2822 date and time in GMT that the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The RFC 2822 date and time in GMT that the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The string that you assigned to describe the resource
    */
-  friendlyName?: string | null;
+  friendlyName: string;
   /**
    * The SID of the Identity resource associated with number
    */
-  identitySid?: string | null;
+  identitySid: string;
   /**
    * The phone number in E.164 format
    */
-  phoneNumber?: string | null;
+  phoneNumber: string;
   /**
    * The phone number\'s origin. Can be twilio or hosted.
    */
-  origin?: string | null;
+  origin: string;
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The SID of the application that handles SMS messages sent to the phone number
    */
-  smsApplicationSid?: string | null;
+  smsApplicationSid: string;
   /**
    * The HTTP method used with sms_fallback_url
    */
-  smsFallbackMethod?: TollFreeSmsFallbackMethod;
+  smsFallbackMethod: TollFreeSmsFallbackMethod;
   /**
    * The URL that we call when an error occurs while retrieving or executing the TwiML
    */
-  smsFallbackUrl?: string | null;
+  smsFallbackUrl: string;
   /**
    * The HTTP method to use with sms_url
    */
-  smsMethod?: TollFreeSmsMethod;
+  smsMethod: TollFreeSmsMethod;
   /**
    * The URL we call when the phone number receives an incoming SMS message
    */
-  smsUrl?: string | null;
+  smsUrl: string;
   /**
    * The URL to send status information to your application
    */
-  statusCallback?: string | null;
+  statusCallback: string;
   /**
    * The HTTP method we use to call status_callback
    */
-  statusCallbackMethod?: TollFreeStatusCallbackMethod;
+  statusCallbackMethod: TollFreeStatusCallbackMethod;
   /**
    * The SID of the Trunk that handles calls to the phone number
    */
-  trunkSid?: string | null;
+  trunkSid: string;
   /**
    * The URI of the resource, relative to `https://api.twilio.com`
    */
-  uri?: string | null;
-  voiceReceiveMode?: IncomingPhoneNumberTollFreeVoiceReceiveMode;
+  uri: string;
+  voiceReceiveMode: IncomingPhoneNumberTollFreeVoiceReceiveMode;
   /**
    * The SID of the application that handles calls to the phone number
    */
-  voiceApplicationSid?: string | null;
+  voiceApplicationSid: string;
   /**
    * Whether to lookup the caller\'s name
    */
-  voiceCallerIdLookup?: boolean | null;
+  voiceCallerIdLookup: boolean;
   /**
    * The HTTP method used with voice_fallback_url
    */
-  voiceFallbackMethod?: TollFreeVoiceFallbackMethod;
+  voiceFallbackMethod: TollFreeVoiceFallbackMethod;
   /**
    * The URL we call when an error occurs in TwiML
    */
-  voiceFallbackUrl?: string | null;
+  voiceFallbackUrl: string;
   /**
    * The HTTP method used with the voice_url
    */
-  voiceMethod?: TollFreeVoiceMethod;
+  voiceMethod: TollFreeVoiceMethod;
   /**
    * The URL we call when the phone number receives a call
    */
-  voiceUrl?: string | null;
-  emergencyStatus?: IncomingPhoneNumberTollFreeEmergencyStatus;
+  voiceUrl: string;
+  emergencyStatus: IncomingPhoneNumberTollFreeEmergencyStatus;
   /**
    * The emergency address configuration to use for emergency calling
    */
-  emergencyAddressSid?: string | null;
-  emergencyAddressStatus?: IncomingPhoneNumberTollFreeEmergencyAddressStatus;
+  emergencyAddressSid: string;
+  emergencyAddressStatus: IncomingPhoneNumberTollFreeEmergencyAddressStatus;
   /**
    * The SID of the Bundle resource associated with number
    */
-  bundleSid?: string | null;
-  status?: string | null;
+  bundleSid: string;
+  status: string;
 
   /**
    * Provide a user-friendly representation

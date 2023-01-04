@@ -283,15 +283,15 @@ interface FieldTypePayload extends TwilioResponsePayload {
 }
 
 interface FieldTypeResource {
-  account_sid?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  friendly_name?: string | null;
-  links?: object | null;
-  assistant_sid?: string | null;
-  sid?: string | null;
-  unique_name?: string | null;
-  url?: string | null;
+  account_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  friendly_name: string;
+  links: object;
+  assistant_sid: string;
+  sid: string;
+  unique_name: string;
+  url: string;
 }
 
 export class FieldTypeInstance {
@@ -320,39 +320,39 @@ export class FieldTypeInstance {
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The RFC 2822 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The RFC 2822 date and time in GMT when the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The string that you assigned to describe the resource
    */
-  friendlyName?: string | null;
+  friendlyName: string;
   /**
    * A list of the URLs of related resources
    */
-  links?: object | null;
+  links: object;
   /**
    * The SID of the Assistant that is the parent of the resource
    */
-  assistantSid?: string | null;
+  assistantSid: string;
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * An application-defined string that uniquely identifies the resource
    */
-  uniqueName?: string | null;
+  uniqueName: string;
   /**
    * The absolute URL of the FieldType resource
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): FieldTypeContext {
     this._context =
@@ -449,7 +449,7 @@ export class FieldTypeInstance {
 }
 
 export interface FieldTypeSolution {
-  assistantSid?: string;
+  assistantSid: string;
 }
 
 export interface FieldTypeListInstance {

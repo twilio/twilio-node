@@ -130,9 +130,9 @@ export class SafelistContextImpl implements SafelistContext {
 interface SafelistPayload extends SafelistResource {}
 
 interface SafelistResource {
-  sid?: string | null;
-  phone_number?: string | null;
-  url?: string | null;
+  sid: string;
+  phone_number: string;
+  url: string;
 }
 
 export class SafelistInstance {
@@ -154,15 +154,15 @@ export class SafelistInstance {
   /**
    * The unique string that identifies the resource.
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The phone number in SafeList.
    */
-  phoneNumber?: string | null;
+  phoneNumber: string;
   /**
    * The absolute URL of the SafeList resource.
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): SafelistContext {
     this._context =

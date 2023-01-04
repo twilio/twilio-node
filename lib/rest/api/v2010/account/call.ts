@@ -558,32 +558,32 @@ interface CallPayload extends TwilioResponsePayload {
 }
 
 interface CallResource {
-  sid?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  parent_call_sid?: string | null;
-  account_sid?: string | null;
-  to?: string | null;
-  to_formatted?: string | null;
-  from?: string | null;
-  from_formatted?: string | null;
-  phone_number_sid?: string | null;
-  status?: CallStatus;
-  start_time?: Date | null;
-  end_time?: Date | null;
-  duration?: string | null;
-  price?: string | null;
-  price_unit?: string | null;
-  direction?: string | null;
-  answered_by?: string | null;
-  api_version?: string | null;
-  forwarded_from?: string | null;
-  group_sid?: string | null;
-  caller_name?: string | null;
-  queue_time?: string | null;
-  trunk_sid?: string | null;
-  uri?: string | null;
-  subresource_uris?: object | null;
+  sid: string;
+  date_created: Date;
+  date_updated: Date;
+  parent_call_sid: string;
+  account_sid: string;
+  to: string;
+  to_formatted: string;
+  from: string;
+  from_formatted: string;
+  phone_number_sid: string;
+  status: CallStatus;
+  start_time: Date;
+  end_time: Date;
+  duration: string;
+  price: string;
+  price_unit: string;
+  direction: string;
+  answered_by: string;
+  api_version: string;
+  forwarded_from: string;
+  group_sid: string;
+  caller_name: string;
+  queue_time: string;
+  trunk_sid: string;
+  uri: string;
+  subresource_uris: object;
 }
 
 export class CallInstance {
@@ -629,104 +629,104 @@ export class CallInstance {
   /**
    * The unique string that identifies this resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The RFC 2822 date and time in GMT that this resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The RFC 2822 date and time in GMT that this resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The SID that identifies the call that created this leg.
    */
-  parentCallSid?: string | null;
+  parentCallSid: string;
   /**
    * The SID of the Account that created this resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The phone number, SIP address or Client identifier that received this call. Phone numbers are in E.164 format (e.g., +16175551212). SIP addresses are formatted as `name@company.com`. Client identifiers are formatted `client:name`.
    */
-  to?: string | null;
+  to: string;
   /**
    * The phone number, SIP address or Client identifier that received this call. Formatted for display.
    */
-  toFormatted?: string | null;
+  toFormatted: string;
   /**
    * The phone number, SIP address or Client identifier that made this call. Phone numbers are in E.164 format (e.g., +16175551212). SIP addresses are formatted as `name@company.com`. Client identifiers are formatted `client:name`.
    */
-  from?: string | null;
+  from: string;
   /**
    * The calling phone number, SIP address, or Client identifier formatted for display.
    */
-  fromFormatted?: string | null;
+  fromFormatted: string;
   /**
    * If the call was inbound, this is the SID of the IncomingPhoneNumber resource that received the call. If the call was outbound, it is the SID of the OutgoingCallerId resource from which the call was placed.
    */
-  phoneNumberSid?: string | null;
-  status?: CallStatus;
+  phoneNumberSid: string;
+  status: CallStatus;
   /**
    * The start time of the call. Null if the call has not yet been dialed.
    */
-  startTime?: Date | null;
+  startTime: Date;
   /**
    * The end time of the call. Null if the call did not complete successfully.
    */
-  endTime?: Date | null;
+  endTime: Date;
   /**
    * The length of the call in seconds.
    */
-  duration?: string | null;
+  duration: string;
   /**
    * The charge for this call, in the currency associated with the account. Populated after the call is completed. May not be immediately available.
    */
-  price?: string | null;
+  price: string;
   /**
    * The currency in which `Price` is measured.
    */
-  priceUnit?: string | null;
+  priceUnit: string;
   /**
    * A string describing the direction of the call. `inbound` for inbound calls, `outbound-api` for calls initiated via the REST API or `outbound-dial` for calls initiated by a `Dial` verb.
    */
-  direction?: string | null;
+  direction: string;
   /**
    * Either `human` or `machine` if this call was initiated with answering machine detection. Empty otherwise.
    */
-  answeredBy?: string | null;
+  answeredBy: string;
   /**
    * The API Version used to create the call
    */
-  apiVersion?: string | null;
+  apiVersion: string;
   /**
    * The forwarding phone number if this call was an incoming call forwarded from another number (depends on carrier supporting forwarding). Otherwise, empty.
    */
-  forwardedFrom?: string | null;
+  forwardedFrom: string;
   /**
    * The Group SID associated with this call. If no Group is associated with the call, the field is empty.
    */
-  groupSid?: string | null;
+  groupSid: string;
   /**
    * The caller\'s name if this call was an incoming call to a phone number with caller ID Lookup enabled. Otherwise, empty.
    */
-  callerName?: string | null;
+  callerName: string;
   /**
    * The wait time in milliseconds before the call is placed.
    */
-  queueTime?: string | null;
+  queueTime: string;
   /**
    * The (optional) unique identifier of the trunk resource that was used for this call.
    */
-  trunkSid?: string | null;
+  trunkSid: string;
   /**
    * The URI of this resource, relative to `https://api.twilio.com`
    */
-  uri?: string | null;
+  uri: string;
   /**
    * A list of related subresources identified by their relative URIs
    */
-  subresourceUris?: object | null;
+  subresourceUris: object;
 
   private get _proxy(): CallContext {
     this._context =
@@ -896,7 +896,7 @@ export class CallInstance {
 }
 
 export interface CallSolution {
-  accountSid?: string;
+  accountSid: string;
 }
 
 export interface CallListInstance {

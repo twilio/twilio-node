@@ -299,14 +299,14 @@ interface WebhookPayload extends TwilioResponsePayload {
 }
 
 interface WebhookResource {
-  sid?: string | null;
-  account_sid?: string | null;
-  conversation_sid?: string | null;
-  target?: string | null;
-  url?: string | null;
-  configuration?: any | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
+  sid: string;
+  account_sid: string;
+  conversation_sid: string;
+  target: string;
+  url: string;
+  configuration: any;
+  date_created: Date;
+  date_updated: Date;
 }
 
 export class WebhookInstance {
@@ -334,35 +334,35 @@ export class WebhookInstance {
   /**
    * A 34 character string that uniquely identifies this resource.
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The unique ID of the Account responsible for this conversation.
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The unique ID of the Conversation for this webhook.
    */
-  conversationSid?: string | null;
+  conversationSid: string;
   /**
    * The target of this webhook.
    */
-  target?: string | null;
+  target: string;
   /**
    * An absolute URL for this webhook.
    */
-  url?: string | null;
+  url: string;
   /**
    * The configuration of this webhook.
    */
-  configuration?: any | null;
+  configuration: any;
   /**
    * The date that this resource was created.
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The date that this resource was last updated.
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
 
   private get _proxy(): WebhookContext {
     this._context =
@@ -451,7 +451,7 @@ export class WebhookInstance {
 }
 
 export interface WebhookSolution {
-  conversationSid?: string;
+  conversationSid: string;
 }
 
 export interface WebhookListInstance {

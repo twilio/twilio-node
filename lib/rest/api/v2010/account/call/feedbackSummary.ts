@@ -150,20 +150,20 @@ export class FeedbackSummaryContextImpl implements FeedbackSummaryContext {
 interface FeedbackSummaryPayload extends FeedbackSummaryResource {}
 
 interface FeedbackSummaryResource {
-  account_sid?: string | null;
-  call_count?: number | null;
-  call_feedback_count?: number | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  end_date?: Date | null;
-  include_subaccounts?: boolean | null;
-  issues?: Array<any> | null;
-  quality_score_average?: number | null;
-  quality_score_median?: number | null;
-  quality_score_standard_deviation?: number | null;
-  sid?: string | null;
-  start_date?: Date | null;
-  status?: CallFeedbackSummaryStatus;
+  account_sid: string;
+  call_count: number;
+  call_feedback_count: number;
+  date_created: Date;
+  date_updated: Date;
+  end_date: Date;
+  include_subaccounts: boolean;
+  issues: Array<any>;
+  quality_score_average: number;
+  quality_score_median: number;
+  quality_score_standard_deviation: number;
+  sid: string;
+  start_date: Date;
+  status: CallFeedbackSummaryStatus;
 }
 
 export class FeedbackSummaryInstance {
@@ -198,56 +198,56 @@ export class FeedbackSummaryInstance {
   /**
    * The unique sid that identifies this account
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The total number of calls
    */
-  callCount?: number | null;
+  callCount: number;
   /**
    * The total number of calls with a feedback entry
    */
-  callFeedbackCount?: number | null;
+  callFeedbackCount: number;
   /**
    * The date this resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The date this resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The latest feedback entry date in the summary
    */
-  endDate?: Date | null;
+  endDate: Date;
   /**
    * Whether the feedback summary includes subaccounts
    */
-  includeSubaccounts?: boolean | null;
+  includeSubaccounts: boolean;
   /**
    * Issues experienced during the call
    */
-  issues?: Array<any> | null;
+  issues: Array<any>;
   /**
    * The average QualityScore of the feedback entries
    */
-  qualityScoreAverage?: number | null;
+  qualityScoreAverage: number;
   /**
    * The median QualityScore of the feedback entries
    */
-  qualityScoreMedian?: number | null;
+  qualityScoreMedian: number;
   /**
    * The standard deviation of the quality scores
    */
-  qualityScoreStandardDeviation?: number | null;
+  qualityScoreStandardDeviation: number;
   /**
    * A string that uniquely identifies this feedback entry
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The earliest feedback entry date in the summary
    */
-  startDate?: Date | null;
-  status?: CallFeedbackSummaryStatus;
+  startDate: Date;
+  status: CallFeedbackSummaryStatus;
 
   private get _proxy(): FeedbackSummaryContext {
     this._context =
@@ -316,7 +316,7 @@ export class FeedbackSummaryInstance {
 }
 
 export interface FeedbackSummarySolution {
-  accountSid?: string;
+  accountSid: string;
 }
 
 export interface FeedbackSummaryListInstance {

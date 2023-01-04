@@ -252,10 +252,10 @@ interface SigningKeyPayload extends TwilioResponsePayload {
 }
 
 interface SigningKeyResource {
-  sid?: string | null;
-  friendly_name?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
+  sid: string;
+  friendly_name: string;
+  date_created: Date;
+  date_updated: Date;
 }
 
 export class SigningKeyInstance {
@@ -276,10 +276,10 @@ export class SigningKeyInstance {
     this._solution = { accountSid, sid: sid || this.sid };
   }
 
-  sid?: string | null;
-  friendlyName?: string | null;
-  dateCreated?: Date | null;
-  dateUpdated?: Date | null;
+  sid: string;
+  friendlyName: string;
+  dateCreated: Date;
+  dateUpdated: Date;
 
   private get _proxy(): SigningKeyContext {
     this._context =
@@ -364,7 +364,7 @@ export class SigningKeyInstance {
 }
 
 export interface SigningKeySolution {
-  accountSid?: string;
+  accountSid: string;
 }
 
 export interface SigningKeyListInstance {

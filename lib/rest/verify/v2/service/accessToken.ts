@@ -118,16 +118,16 @@ export class AccessTokenContextImpl implements AccessTokenContext {
 interface AccessTokenPayload extends AccessTokenResource {}
 
 interface AccessTokenResource {
-  sid?: string | null;
-  account_sid?: string | null;
-  service_sid?: string | null;
-  entity_identity?: string | null;
-  factor_type?: AccessTokenFactorTypes;
-  factor_friendly_name?: string | null;
-  token?: string | null;
-  url?: string | null;
-  ttl?: number | null;
-  date_created?: Date | null;
+  sid: string;
+  account_sid: string;
+  service_sid: string;
+  entity_identity: string;
+  factor_type: AccessTokenFactorTypes;
+  factor_friendly_name: string;
+  token: string;
+  url: string;
+  ttl: number;
+  date_created: Date;
 }
 
 export class AccessTokenInstance {
@@ -157,40 +157,40 @@ export class AccessTokenInstance {
   /**
    * A string that uniquely identifies this Access Token.
    */
-  sid?: string | null;
+  sid: string;
   /**
    * Account Sid.
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * Verify Service Sid.
    */
-  serviceSid?: string | null;
+  serviceSid: string;
   /**
    * Unique external identifier of the Entity
    */
-  entityIdentity?: string | null;
-  factorType?: AccessTokenFactorTypes;
+  entityIdentity: string;
+  factorType: AccessTokenFactorTypes;
   /**
    * A human readable description of this factor.
    */
-  factorFriendlyName?: string | null;
+  factorFriendlyName: string;
   /**
    * Generated access token.
    */
-  token?: string | null;
+  token: string;
   /**
    * The URL of this resource.
    */
-  url?: string | null;
+  url: string;
   /**
    * How long, in seconds, the access token is valid.
    */
-  ttl?: number | null;
+  ttl: number;
   /**
    * The date this access token was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
 
   private get _proxy(): AccessTokenContext {
     this._context =
@@ -242,7 +242,7 @@ export class AccessTokenInstance {
 }
 
 export interface AccessTokenSolution {
-  serviceSid?: string;
+  serviceSid: string;
 }
 
 export interface AccessTokenListInstance {

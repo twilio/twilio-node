@@ -199,15 +199,15 @@ interface FieldPayload extends TwilioResponsePayload {
 }
 
 interface FieldResource {
-  account_sid?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  field_type?: string | null;
-  task_sid?: string | null;
-  assistant_sid?: string | null;
-  sid?: string | null;
-  unique_name?: string | null;
-  url?: string | null;
+  account_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  field_type: string;
+  task_sid: string;
+  assistant_sid: string;
+  sid: string;
+  unique_name: string;
+  url: string;
 }
 
 export class FieldInstance {
@@ -237,36 +237,36 @@ export class FieldInstance {
   /**
    * The unique ID of the Account that created this Field.
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The date that this resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The date that this resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The Field Type of this field. It can be any Built-in Field Type or unique_name or the Field Type sid of a custom Field Type.
    */
-  fieldType?: string | null;
+  fieldType: string;
   /**
    * The unique ID of the Task associated with this Field.
    */
-  taskSid?: string | null;
+  taskSid: string;
   /**
    * The unique ID of the parent Assistant.
    */
-  assistantSid?: string | null;
+  assistantSid: string;
   /**
    * A 34 character string that uniquely identifies this resource.
    */
-  sid?: string | null;
+  sid: string;
   /**
    * A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
    */
-  uniqueName?: string | null;
-  url?: string | null;
+  uniqueName: string;
+  url: string;
 
   private get _proxy(): FieldContext {
     this._context =
@@ -331,8 +331,8 @@ export class FieldInstance {
 }
 
 export interface FieldSolution {
-  assistantSid?: string;
-  taskSid?: string;
+  assistantSid: string;
+  taskSid: string;
 }
 
 export interface FieldListInstance {

@@ -150,11 +150,11 @@ export class WorkerStatisticsContextImpl implements WorkerStatisticsContext {
 interface WorkerStatisticsPayload extends WorkerStatisticsResource {}
 
 interface WorkerStatisticsResource {
-  account_sid?: string | null;
-  cumulative?: any | null;
-  worker_sid?: string | null;
-  workspace_sid?: string | null;
-  url?: string | null;
+  account_sid: string;
+  cumulative: any;
+  worker_sid: string;
+  workspace_sid: string;
+  url: string;
 }
 
 export class WorkerStatisticsInstance {
@@ -179,23 +179,23 @@ export class WorkerStatisticsInstance {
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * An object that contains the cumulative statistics for the Worker
    */
-  cumulative?: any | null;
+  cumulative: any;
   /**
    * The SID of the Worker that contains the WorkerChannel
    */
-  workerSid?: string | null;
+  workerSid: string;
   /**
    * The SID of the Workspace that contains the WorkerChannel
    */
-  workspaceSid?: string | null;
+  workspaceSid: string;
   /**
    * The absolute URL of the WorkerChannel statistics resource
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): WorkerStatisticsContext {
     this._context =
@@ -255,8 +255,8 @@ export class WorkerStatisticsInstance {
 }
 
 export interface WorkerStatisticsSolution {
-  workspaceSid?: string;
-  workerSid?: string;
+  workspaceSid: string;
+  workerSid: string;
 }
 
 export interface WorkerStatisticsListInstance {

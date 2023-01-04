@@ -169,10 +169,10 @@ export class DefaultsContextImpl implements DefaultsContext {
 interface DefaultsPayload extends DefaultsResource {}
 
 interface DefaultsResource {
-  account_sid?: string | null;
-  assistant_sid?: string | null;
-  url?: string | null;
-  data?: any | null;
+  account_sid: string;
+  assistant_sid: string;
+  url: string;
+  data: any;
 }
 
 export class DefaultsInstance {
@@ -195,19 +195,19 @@ export class DefaultsInstance {
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The SID of the Assistant that is the parent of the resource
    */
-  assistantSid?: string | null;
+  assistantSid: string;
   /**
    * The absolute URL of the Defaults resource
    */
-  url?: string | null;
+  url: string;
   /**
    * The JSON string that describes the default task links
    */
-  data?: any | null;
+  data: any;
 
   private get _proxy(): DefaultsContext {
     this._context =
@@ -275,7 +275,7 @@ export class DefaultsInstance {
 }
 
 export interface DefaultsSolution {
-  assistantSid?: string;
+  assistantSid: string;
 }
 
 export interface DefaultsListInstance {

@@ -179,11 +179,11 @@ export class ExportConfigurationContextImpl
 interface ExportConfigurationPayload extends ExportConfigurationResource {}
 
 interface ExportConfigurationResource {
-  enabled?: boolean | null;
-  webhook_url?: string | null;
-  webhook_method?: string | null;
-  resource_type?: string | null;
-  url?: string | null;
+  enabled: boolean;
+  webhook_url: string;
+  webhook_method: string;
+  resource_type: string;
+  url: string;
 }
 
 export class ExportConfigurationInstance {
@@ -207,23 +207,23 @@ export class ExportConfigurationInstance {
   /**
    * Whether files are automatically generated
    */
-  enabled?: boolean | null;
+  enabled: boolean;
   /**
    * URL targeted at export
    */
-  webhookUrl?: string | null;
+  webhookUrl: string;
   /**
    * Whether to GET or POST to the webhook url
    */
-  webhookMethod?: string | null;
+  webhookMethod: string;
   /**
    * The type of communication – Messages, Calls, Conferences, and Participants
    */
-  resourceType?: string | null;
+  resourceType: string;
   /**
    * The URL of this resource.
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): ExportConfigurationContext {
     this._context =

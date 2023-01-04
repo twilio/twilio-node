@@ -271,16 +271,16 @@ interface TaskChannelPayload extends TwilioResponsePayload {
 }
 
 interface TaskChannelResource {
-  account_sid?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  friendly_name?: string | null;
-  sid?: string | null;
-  unique_name?: string | null;
-  workspace_sid?: string | null;
-  channel_optimized_routing?: boolean | null;
-  url?: string | null;
-  links?: object | null;
+  account_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  friendly_name: string;
+  sid: string;
+  unique_name: string;
+  workspace_sid: string;
+  channel_optimized_routing: boolean;
+  url: string;
+  links: object;
 }
 
 export class TaskChannelInstance {
@@ -310,43 +310,43 @@ export class TaskChannelInstance {
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The ISO 8601 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The ISO 8601 date and time in GMT when the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The string that you assigned to describe the resource
    */
-  friendlyName?: string | null;
+  friendlyName: string;
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * An application-defined string that uniquely identifies the Task Channel
    */
-  uniqueName?: string | null;
+  uniqueName: string;
   /**
    * The SID of the Workspace that contains the Task Channel
    */
-  workspaceSid?: string | null;
+  workspaceSid: string;
   /**
    * Whether the Task Channel will prioritize Workers that have been idle
    */
-  channelOptimizedRouting?: boolean | null;
+  channelOptimizedRouting: boolean;
   /**
    * The absolute URL of the Task Channel resource
    */
-  url?: string | null;
+  url: string;
   /**
    * The URLs of related resources
    */
-  links?: object | null;
+  links: object;
 
   private get _proxy(): TaskChannelContext {
     this._context =
@@ -437,7 +437,7 @@ export class TaskChannelInstance {
 }
 
 export interface TaskChannelSolution {
-  workspaceSid?: string;
+  workspaceSid: string;
 }
 
 export interface TaskChannelListInstance {

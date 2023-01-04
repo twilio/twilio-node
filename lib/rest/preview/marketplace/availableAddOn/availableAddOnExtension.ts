@@ -164,12 +164,12 @@ interface AvailableAddOnExtensionPayload extends TwilioResponsePayload {
 }
 
 interface AvailableAddOnExtensionResource {
-  sid?: string | null;
-  available_add_on_sid?: string | null;
-  friendly_name?: string | null;
-  product_name?: string | null;
-  unique_name?: string | null;
-  url?: string | null;
+  sid: string;
+  available_add_on_sid: string;
+  friendly_name: string;
+  product_name: string;
+  unique_name: string;
+  url: string;
 }
 
 export class AvailableAddOnExtensionInstance {
@@ -195,27 +195,27 @@ export class AvailableAddOnExtensionInstance {
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The SID of the AvailableAddOn resource to which this extension applies
    */
-  availableAddOnSid?: string | null;
+  availableAddOnSid: string;
   /**
    * The string that you assigned to describe the resource
    */
-  friendlyName?: string | null;
+  friendlyName: string;
   /**
    * The name of the Extension\'s Product
    */
-  productName?: string | null;
+  productName: string;
   /**
    * An application-defined string that uniquely identifies the resource
    */
-  uniqueName?: string | null;
+  uniqueName: string;
   /**
    * The absolute URL of the resource
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): AvailableAddOnExtensionContext {
     this._context =
@@ -266,7 +266,7 @@ export class AvailableAddOnExtensionInstance {
 }
 
 export interface AvailableAddOnExtensionSolution {
-  availableAddOnSid?: string;
+  availableAddOnSid: string;
 }
 
 export interface AvailableAddOnExtensionListInstance {

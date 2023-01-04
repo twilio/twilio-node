@@ -112,11 +112,11 @@ export class SecondaryAuthTokenContextImpl
 interface SecondaryAuthTokenPayload extends SecondaryAuthTokenResource {}
 
 interface SecondaryAuthTokenResource {
-  account_sid?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  secondary_auth_token?: string | null;
-  url?: string | null;
+  account_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  secondary_auth_token: string;
+  url: string;
 }
 
 export class SecondaryAuthTokenInstance {
@@ -136,23 +136,23 @@ export class SecondaryAuthTokenInstance {
   /**
    * The SID of the Account that the secondary Auth Token was created for
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The ISO 8601 formatted date and time in UTC when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The ISO 8601 formatted date and time in UTC when the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The generated secondary Auth Token
    */
-  secondaryAuthToken?: string | null;
+  secondaryAuthToken: string;
   /**
    * The URI for this resource, relative to `https://accounts.twilio.com`
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): SecondaryAuthTokenContext {
     this._context =

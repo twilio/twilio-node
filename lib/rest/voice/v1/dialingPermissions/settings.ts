@@ -155,8 +155,8 @@ export class SettingsContextImpl implements SettingsContext {
 interface SettingsPayload extends SettingsResource {}
 
 interface SettingsResource {
-  dialing_permissions_inheritance?: boolean | null;
-  url?: string | null;
+  dialing_permissions_inheritance: boolean;
+  url: string;
 }
 
 export class SettingsInstance {
@@ -174,11 +174,11 @@ export class SettingsInstance {
   /**
    * `true` if the sub-account will inherit voice dialing permissions from the Master Project; otherwise `false`
    */
-  dialingPermissionsInheritance?: boolean | null;
+  dialingPermissionsInheritance: boolean;
   /**
    * The absolute URL of this resource
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): SettingsContext {
     this._context = this._context || new SettingsContextImpl(this._version);

@@ -273,14 +273,14 @@ interface SyncMapPermissionPayload extends TwilioResponsePayload {
 }
 
 interface SyncMapPermissionResource {
-  account_sid?: string | null;
-  service_sid?: string | null;
-  map_sid?: string | null;
-  identity?: string | null;
-  read?: boolean | null;
-  write?: boolean | null;
-  manage?: boolean | null;
-  url?: string | null;
+  account_sid: string;
+  service_sid: string;
+  map_sid: string;
+  identity: string;
+  read: boolean;
+  write: boolean;
+  manage: boolean;
+  url: string;
 }
 
 export class SyncMapPermissionInstance {
@@ -313,35 +313,35 @@ export class SyncMapPermissionInstance {
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The SID of the Sync Service that the resource is associated with
    */
-  serviceSid?: string | null;
+  serviceSid: string;
   /**
    * Sync Map SID
    */
-  mapSid?: string | null;
+  mapSid: string;
   /**
    * The identity of the user to whom the Sync Document Permission applies
    */
-  identity?: string | null;
+  identity: string;
   /**
    * Read access
    */
-  read?: boolean | null;
+  read: boolean;
   /**
    * Write access
    */
-  write?: boolean | null;
+  write: boolean;
   /**
    * Manage access
    */
-  manage?: boolean | null;
+  manage: boolean;
   /**
    * The absolute URL of the Sync Map Permission resource
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): SyncMapPermissionContext {
     this._context =
@@ -421,8 +421,8 @@ export class SyncMapPermissionInstance {
 }
 
 export interface SyncMapPermissionSolution {
-  serviceSid?: string;
-  mapSid?: string;
+  serviceSid: string;
+  mapSid: string;
 }
 
 export interface SyncMapPermissionListInstance {

@@ -120,8 +120,8 @@ export class UserRolesContextImpl implements UserRolesContext {
 interface UserRolesPayload extends UserRolesResource {}
 
 interface UserRolesResource {
-  roles?: Array<string> | null;
-  url?: string | null;
+  roles: Array<string>;
+  url: string;
 }
 
 export class UserRolesInstance {
@@ -138,8 +138,8 @@ export class UserRolesInstance {
   /**
    * Flex Insights roles for the user
    */
-  roles?: Array<string> | null;
-  url?: string | null;
+  roles: Array<string>;
+  url: string;
 
   private get _proxy(): UserRolesContext {
     this._context = this._context || new UserRolesContextImpl(this._version);

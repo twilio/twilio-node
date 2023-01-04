@@ -169,10 +169,10 @@ export class StyleSheetContextImpl implements StyleSheetContext {
 interface StyleSheetPayload extends StyleSheetResource {}
 
 interface StyleSheetResource {
-  account_sid?: string | null;
-  assistant_sid?: string | null;
-  url?: string | null;
-  data?: any | null;
+  account_sid: string;
+  assistant_sid: string;
+  url: string;
+  data: any;
 }
 
 export class StyleSheetInstance {
@@ -195,16 +195,16 @@ export class StyleSheetInstance {
   /**
    * The unique ID of the Account that created this Assistant
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The unique ID of the Assistant
    */
-  assistantSid?: string | null;
-  url?: string | null;
+  assistantSid: string;
+  url: string;
   /**
    * The JSON style sheet object
    */
-  data?: any | null;
+  data: any;
 
   private get _proxy(): StyleSheetContext {
     this._context =
@@ -272,7 +272,7 @@ export class StyleSheetInstance {
 }
 
 export interface StyleSheetSolution {
-  assistantSid?: string;
+  assistantSid: string;
 }
 
 export interface StyleSheetListInstance {

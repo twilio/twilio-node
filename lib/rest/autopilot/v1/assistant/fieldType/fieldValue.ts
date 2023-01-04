@@ -207,16 +207,16 @@ interface FieldValuePayload extends TwilioResponsePayload {
 }
 
 interface FieldValueResource {
-  account_sid?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  field_type_sid?: string | null;
-  language?: string | null;
-  assistant_sid?: string | null;
-  sid?: string | null;
-  value?: string | null;
-  url?: string | null;
-  synonym_of?: string | null;
+  account_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  field_type_sid: string;
+  language: string;
+  assistant_sid: string;
+  sid: string;
+  value: string;
+  url: string;
+  synonym_of: string;
 }
 
 export class FieldValueInstance {
@@ -247,43 +247,43 @@ export class FieldValueInstance {
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The RFC 2822 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The RFC 2822 date and time in GMT when the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The SID of the Field Type associated with the Field Value
    */
-  fieldTypeSid?: string | null;
+  fieldTypeSid: string;
   /**
    * The ISO language-country tag that identifies the language of the value
    */
-  language?: string | null;
+  language: string;
   /**
    * The SID of the Assistant that is the parent of the FieldType associated with the resource
    */
-  assistantSid?: string | null;
+  assistantSid: string;
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The Field Value data
    */
-  value?: string | null;
+  value: string;
   /**
    * The absolute URL of the FieldValue resource
    */
-  url?: string | null;
+  url: string;
   /**
    * The word for which the field value is a synonym of
    */
-  synonymOf?: string | null;
+  synonymOf: string;
 
   private get _proxy(): FieldValueContext {
     this._context =
@@ -349,8 +349,8 @@ export class FieldValueInstance {
 }
 
 export interface FieldValueSolution {
-  assistantSid?: string;
-  fieldTypeSid?: string;
+  assistantSid: string;
+  fieldTypeSid: string;
 }
 
 export interface FieldValueListInstance {

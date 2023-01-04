@@ -214,25 +214,25 @@ interface InteractionPayload extends TwilioResponsePayload {
 }
 
 interface InteractionResource {
-  sid?: string | null;
-  session_sid?: string | null;
-  service_sid?: string | null;
-  account_sid?: string | null;
-  data?: string | null;
-  type?: InteractionType;
-  inbound_participant_sid?: string | null;
-  inbound_resource_sid?: string | null;
-  inbound_resource_status?: InteractionResourceStatus;
-  inbound_resource_type?: string | null;
-  inbound_resource_url?: string | null;
-  outbound_participant_sid?: string | null;
-  outbound_resource_sid?: string | null;
-  outbound_resource_status?: InteractionResourceStatus;
-  outbound_resource_type?: string | null;
-  outbound_resource_url?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  url?: string | null;
+  sid: string;
+  session_sid: string;
+  service_sid: string;
+  account_sid: string;
+  data: string;
+  type: InteractionType;
+  inbound_participant_sid: string;
+  inbound_resource_sid: string;
+  inbound_resource_status: InteractionResourceStatus;
+  inbound_resource_type: string;
+  inbound_resource_url: string;
+  outbound_participant_sid: string;
+  outbound_resource_sid: string;
+  outbound_resource_status: InteractionResourceStatus;
+  outbound_resource_type: string;
+  outbound_resource_url: string;
+  date_created: Date;
+  date_updated: Date;
+  url: string;
 }
 
 export class InteractionInstance {
@@ -272,70 +272,70 @@ export class InteractionInstance {
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The SID of the resource\'s parent Session
    */
-  sessionSid?: string | null;
+  sessionSid: string;
   /**
    * The SID of the resource\'s parent Service
    */
-  serviceSid?: string | null;
+  serviceSid: string;
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * A JSON string that includes the message body of message interactions
    */
-  data?: string | null;
-  type?: InteractionType;
+  data: string;
+  type: InteractionType;
   /**
    * The SID of the inbound Participant resource
    */
-  inboundParticipantSid?: string | null;
+  inboundParticipantSid: string;
   /**
    * The SID of the inbound resource
    */
-  inboundResourceSid?: string | null;
-  inboundResourceStatus?: InteractionResourceStatus;
+  inboundResourceSid: string;
+  inboundResourceStatus: InteractionResourceStatus;
   /**
    * The inbound resource type
    */
-  inboundResourceType?: string | null;
+  inboundResourceType: string;
   /**
    * The URL of the Twilio inbound resource
    */
-  inboundResourceUrl?: string | null;
+  inboundResourceUrl: string;
   /**
    * The SID of the outbound Participant
    */
-  outboundParticipantSid?: string | null;
+  outboundParticipantSid: string;
   /**
    * The SID of the outbound resource
    */
-  outboundResourceSid?: string | null;
-  outboundResourceStatus?: InteractionResourceStatus;
+  outboundResourceSid: string;
+  outboundResourceStatus: InteractionResourceStatus;
   /**
    * The outbound resource type
    */
-  outboundResourceType?: string | null;
+  outboundResourceType: string;
   /**
    * The URL of the Twilio outbound resource
    */
-  outboundResourceUrl?: string | null;
+  outboundResourceUrl: string;
   /**
    * The ISO 8601 date and time in GMT when the Interaction was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The ISO 8601 date and time in GMT when the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The absolute URL of the Interaction resource
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): InteractionContext {
     this._context =
@@ -410,8 +410,8 @@ export class InteractionInstance {
 }
 
 export interface InteractionSolution {
-  serviceSid?: string;
-  sessionSid?: string;
+  serviceSid: string;
+  sessionSid: string;
 }
 
 export interface InteractionListInstance {

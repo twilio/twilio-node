@@ -165,14 +165,14 @@ interface AssetVersionPayload extends TwilioResponsePayload {
 }
 
 interface AssetVersionResource {
-  sid?: string | null;
-  account_sid?: string | null;
-  service_sid?: string | null;
-  asset_sid?: string | null;
-  path?: string | null;
-  visibility?: AssetVersionVisibility;
-  date_created?: Date | null;
-  url?: string | null;
+  sid: string;
+  account_sid: string;
+  service_sid: string;
+  asset_sid: string;
+  path: string;
+  visibility: AssetVersionVisibility;
+  date_created: Date;
+  url: string;
 }
 
 export class AssetVersionInstance {
@@ -201,32 +201,32 @@ export class AssetVersionInstance {
   /**
    * The unique string that identifies the Asset Version resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The SID of the Account that created the Asset Version resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The SID of the Service that the Asset Version resource is associated with
    */
-  serviceSid?: string | null;
+  serviceSid: string;
   /**
    * The SID of the Asset resource that is the parent of the Asset Version
    */
-  assetSid?: string | null;
+  assetSid: string;
   /**
    * The URL-friendly string by which the Asset Version can be referenced
    */
-  path?: string | null;
-  visibility?: AssetVersionVisibility;
+  path: string;
+  visibility: AssetVersionVisibility;
   /**
    * The ISO 8601 date and time in GMT when the Asset Version resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The absolute URL of the Asset Version resource
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): AssetVersionContext {
     this._context =
@@ -277,8 +277,8 @@ export class AssetVersionInstance {
 }
 
 export interface AssetVersionSolution {
-  serviceSid?: string;
-  assetSid?: string;
+  serviceSid: string;
+  assetSid: string;
 }
 
 export interface AssetVersionListInstance {

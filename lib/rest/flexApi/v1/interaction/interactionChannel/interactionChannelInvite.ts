@@ -79,8 +79,8 @@ export interface InteractionChannelInviteListInstancePageOptions {
 }
 
 export interface InteractionChannelInviteSolution {
-  interactionSid?: string;
-  channelSid?: string;
+  interactionSid: string;
+  channelSid: string;
 }
 
 export interface InteractionChannelInviteListInstance {
@@ -400,11 +400,11 @@ interface InteractionChannelInvitePayload extends TwilioResponsePayload {
 }
 
 interface InteractionChannelInviteResource {
-  sid?: string | null;
-  interaction_sid?: string | null;
-  channel_sid?: string | null;
-  routing?: any | null;
-  url?: string | null;
+  sid: string;
+  interaction_sid: string;
+  channel_sid: string;
+  routing: any;
+  url: string;
 }
 
 export class InteractionChannelInviteInstance {
@@ -424,20 +424,20 @@ export class InteractionChannelInviteInstance {
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The Interaction SID for this Channel
    */
-  interactionSid?: string | null;
+  interactionSid: string;
   /**
    * The Channel SID for this Invite
    */
-  channelSid?: string | null;
+  channelSid: string;
   /**
    * A JSON object representing the routing rules for the Interaction Channel
    */
-  routing?: any | null;
-  url?: string | null;
+  routing: any;
+  url: string;
 
   /**
    * Provide a user-friendly representation

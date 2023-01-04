@@ -558,22 +558,22 @@ interface TriggerPayload extends TwilioResponsePayload {
 }
 
 interface TriggerResource {
-  account_sid?: string | null;
-  api_version?: string | null;
-  callback_method?: TriggerCallbackMethod;
-  callback_url?: string | null;
-  current_value?: string | null;
-  date_created?: Date | null;
-  date_fired?: Date | null;
-  date_updated?: Date | null;
-  friendly_name?: string | null;
-  recurring?: UsageTriggerRecurring;
-  sid?: string | null;
-  trigger_by?: UsageTriggerTriggerField;
-  trigger_value?: string | null;
-  uri?: string | null;
-  usage_category?: UsageTriggerUsageCategory;
-  usage_record_uri?: string | null;
+  account_sid: string;
+  api_version: string;
+  callback_method: TriggerCallbackMethod;
+  callback_url: string;
+  current_value: string;
+  date_created: Date;
+  date_fired: Date;
+  date_updated: Date;
+  friendly_name: string;
+  recurring: UsageTriggerRecurring;
+  sid: string;
+  trigger_by: UsageTriggerTriggerField;
+  trigger_value: string;
+  uri: string;
+  usage_category: UsageTriggerUsageCategory;
+  usage_record_uri: string;
 }
 
 export class TriggerInstance {
@@ -609,58 +609,58 @@ export class TriggerInstance {
   /**
    * The SID of the Account that this trigger monitors
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The API version used to create the resource
    */
-  apiVersion?: string | null;
+  apiVersion: string;
   /**
    * The HTTP method we use to call callback_url
    */
-  callbackMethod?: TriggerCallbackMethod;
+  callbackMethod: TriggerCallbackMethod;
   /**
    * he URL we call when the trigger fires
    */
-  callbackUrl?: string | null;
+  callbackUrl: string;
   /**
    * The current value of the field the trigger is watching
    */
-  currentValue?: string | null;
+  currentValue: string;
   /**
    * The RFC 2822 date and time in GMT that the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The RFC 2822 date and time in GMT that the trigger was last fired
    */
-  dateFired?: Date | null;
+  dateFired: Date;
   /**
    * The RFC 2822 date and time in GMT that the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The string that you assigned to describe the trigger
    */
-  friendlyName?: string | null;
-  recurring?: UsageTriggerRecurring;
+  friendlyName: string;
+  recurring: UsageTriggerRecurring;
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
-  triggerBy?: UsageTriggerTriggerField;
+  sid: string;
+  triggerBy: UsageTriggerTriggerField;
   /**
    * The value at which the trigger will fire
    */
-  triggerValue?: string | null;
+  triggerValue: string;
   /**
    * The URI of the resource, relative to `https://api.twilio.com`
    */
-  uri?: string | null;
-  usageCategory?: UsageTriggerUsageCategory;
+  uri: string;
+  usageCategory: UsageTriggerUsageCategory;
   /**
    * The URI of the UsageRecord resource this trigger watches
    */
-  usageRecordUri?: string | null;
+  usageRecordUri: string;
 
   private get _proxy(): TriggerContext {
     this._context =
@@ -757,7 +757,7 @@ export class TriggerInstance {
 }
 
 export interface TriggerSolution {
-  accountSid?: string;
+  accountSid: string;
 }
 
 export interface TriggerListInstance {

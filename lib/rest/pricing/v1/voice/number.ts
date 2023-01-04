@@ -108,13 +108,13 @@ export class NumberContextImpl implements NumberContext {
 interface NumberPayload extends NumberResource {}
 
 interface NumberResource {
-  number?: string | null;
-  country?: string | null;
-  iso_country?: string | null;
-  outbound_call_price?: PricingV1VoiceVoiceNumberOutboundCallPrice | null;
-  inbound_call_price?: PricingV1VoiceVoiceNumberInboundCallPrice | null;
-  price_unit?: string | null;
-  url?: string | null;
+  number: string;
+  country: string;
+  iso_country: string;
+  outbound_call_price: PricingV1VoiceVoiceNumberOutboundCallPrice;
+  inbound_call_price: PricingV1VoiceVoiceNumberInboundCallPrice;
+  price_unit: string;
+  url: string;
 }
 
 export class NumberInstance {
@@ -140,25 +140,25 @@ export class NumberInstance {
   /**
    * The phone number
    */
-  number?: string | null;
+  number: string;
   /**
    * The name of the country
    */
-  country?: string | null;
+  country: string;
   /**
    * The ISO country code
    */
-  isoCountry?: string | null;
-  outboundCallPrice?: PricingV1VoiceVoiceNumberOutboundCallPrice | null;
-  inboundCallPrice?: PricingV1VoiceVoiceNumberInboundCallPrice | null;
+  isoCountry: string;
+  outboundCallPrice: PricingV1VoiceVoiceNumberOutboundCallPrice;
+  inboundCallPrice: PricingV1VoiceVoiceNumberInboundCallPrice;
   /**
    * The currency in which prices are measured, in ISO 4127 format (e.g. usd, eur, jpy)
    */
-  priceUnit?: string | null;
+  priceUnit: string;
   /**
    * The absolute URL of the resource
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): NumberContext {
     this._context =

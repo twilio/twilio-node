@@ -272,18 +272,18 @@ interface ShortCodePayload extends TwilioResponsePayload {
 }
 
 interface ShortCodeResource {
-  account_sid?: string | null;
-  api_version?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  friendly_name?: string | null;
-  short_code?: string | null;
-  sid?: string | null;
-  sms_fallback_method?: ShortCodeSmsFallbackMethod;
-  sms_fallback_url?: string | null;
-  sms_method?: ShortCodeSmsMethod;
-  sms_url?: string | null;
-  uri?: string | null;
+  account_sid: string;
+  api_version: string;
+  date_created: Date;
+  date_updated: Date;
+  friendly_name: string;
+  short_code: string;
+  sid: string;
+  sms_fallback_method: ShortCodeSmsFallbackMethod;
+  sms_fallback_url: string;
+  sms_method: ShortCodeSmsMethod;
+  sms_url: string;
+  uri: string;
 }
 
 export class ShortCodeInstance {
@@ -315,51 +315,51 @@ export class ShortCodeInstance {
   /**
    * The SID of the Account that created this resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The API version used to start a new TwiML session
    */
-  apiVersion?: string | null;
+  apiVersion: string;
   /**
    * The RFC 2822 date and time in GMT that this resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The RFC 2822 date and time in GMT that this resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * A string that you assigned to describe this resource
    */
-  friendlyName?: string | null;
+  friendlyName: string;
   /**
    * The short code. e.g., 894546.
    */
-  shortCode?: string | null;
+  shortCode: string;
   /**
    * The unique string that identifies this resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * HTTP method we use to call the sms_fallback_url
    */
-  smsFallbackMethod?: ShortCodeSmsFallbackMethod;
+  smsFallbackMethod: ShortCodeSmsFallbackMethod;
   /**
    * URL Twilio will request if an error occurs in executing TwiML
    */
-  smsFallbackUrl?: string | null;
+  smsFallbackUrl: string;
   /**
    * HTTP method to use when requesting the sms url
    */
-  smsMethod?: ShortCodeSmsMethod;
+  smsMethod: ShortCodeSmsMethod;
   /**
    * URL we call when receiving an incoming SMS message to this short code
    */
-  smsUrl?: string | null;
+  smsUrl: string;
   /**
    * The URI of this resource, relative to `https://api.twilio.com`
    */
-  uri?: string | null;
+  uri: string;
 
   private get _proxy(): ShortCodeContext {
     this._context =
@@ -439,7 +439,7 @@ export class ShortCodeInstance {
 }
 
 export interface ShortCodeSolution {
-  accountSid?: string;
+  accountSid: string;
 }
 
 export interface ShortCodeListInstance {

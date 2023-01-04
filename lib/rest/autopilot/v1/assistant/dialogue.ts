@@ -101,11 +101,11 @@ export class DialogueContextImpl implements DialogueContext {
 interface DialoguePayload extends DialogueResource {}
 
 interface DialogueResource {
-  account_sid?: string | null;
-  assistant_sid?: string | null;
-  sid?: string | null;
-  data?: any | null;
-  url?: string | null;
+  account_sid: string;
+  assistant_sid: string;
+  sid: string;
+  data: any;
+  url: string;
 }
 
 export class DialogueInstance {
@@ -130,23 +130,23 @@ export class DialogueInstance {
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The SID of the Assistant that is the parent of the resource
    */
-  assistantSid?: string | null;
+  assistantSid: string;
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The JSON string that describes the dialogue session object
    */
-  data?: any | null;
+  data: any;
   /**
    * The absolute URL of the Dialogue resource
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): DialogueContext {
     this._context =
@@ -193,7 +193,7 @@ export class DialogueInstance {
 }
 
 export interface DialogueSolution {
-  assistantSid?: string;
+  assistantSid: string;
 }
 
 export interface DialogueListInstance {

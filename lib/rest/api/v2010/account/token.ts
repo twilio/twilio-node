@@ -35,7 +35,7 @@ export interface TokenListInstanceCreateOptions {
 }
 
 export interface TokenSolution {
-  accountSid?: string;
+  accountSid: string;
 }
 
 export interface TokenListInstance {
@@ -147,13 +147,13 @@ export function TokenListInstance(
 interface TokenPayload extends TokenResource {}
 
 interface TokenResource {
-  account_sid?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  ice_servers?: Array<ApiV2010AccountTokenIceServers> | null;
-  password?: string | null;
-  ttl?: string | null;
-  username?: string | null;
+  account_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  ice_servers: Array<ApiV2010AccountTokenIceServers>;
+  password: string;
+  ttl: string;
+  username: string;
 }
 
 export class TokenInstance {
@@ -174,31 +174,31 @@ export class TokenInstance {
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The RFC 2822 date and time in GMT that the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The RFC 2822 date and time in GMT that the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * An array representing the ephemeral credentials
    */
-  iceServers?: Array<ApiV2010AccountTokenIceServers> | null;
+  iceServers: Array<ApiV2010AccountTokenIceServers>;
   /**
    * The temporary password used for authenticating
    */
-  password?: string | null;
+  password: string;
   /**
    * The duration in seconds the credentials are valid
    */
-  ttl?: string | null;
+  ttl: string;
   /**
    * The temporary username that uniquely identifies a Token
    */
-  username?: string | null;
+  username: string;
 
   /**
    * Provide a user-friendly representation

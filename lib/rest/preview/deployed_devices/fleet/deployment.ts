@@ -271,14 +271,14 @@ interface DeploymentPayload extends TwilioResponsePayload {
 }
 
 interface DeploymentResource {
-  sid?: string | null;
-  url?: string | null;
-  friendly_name?: string | null;
-  fleet_sid?: string | null;
-  account_sid?: string | null;
-  sync_service_sid?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
+  sid: string;
+  url: string;
+  friendly_name: string;
+  fleet_sid: string;
+  account_sid: string;
+  sync_service_sid: string;
+  date_created: Date;
+  date_updated: Date;
 }
 
 export class DeploymentInstance {
@@ -306,35 +306,35 @@ export class DeploymentInstance {
   /**
    * A string that uniquely identifies this Deployment.
    */
-  sid?: string | null;
+  sid: string;
   /**
    * URL of this Deployment.
    */
-  url?: string | null;
+  url: string;
   /**
    * A human readable description for this Deployment
    */
-  friendlyName?: string | null;
+  friendlyName: string;
   /**
    * The unique identifier of the Fleet.
    */
-  fleetSid?: string | null;
+  fleetSid: string;
   /**
    * The unique SID that identifies this Account.
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The unique identifier of the Sync service instance.
    */
-  syncServiceSid?: string | null;
+  syncServiceSid: string;
   /**
    * The date this Deployment was created.
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The date this Deployment was updated.
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
 
   private get _proxy(): DeploymentContext {
     this._context =
@@ -423,7 +423,7 @@ export class DeploymentInstance {
 }
 
 export interface DeploymentSolution {
-  fleetSid?: string;
+  fleetSid: string;
 }
 
 export interface DeploymentListInstance {

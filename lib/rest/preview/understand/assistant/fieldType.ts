@@ -287,15 +287,15 @@ interface FieldTypePayload extends TwilioResponsePayload {
 }
 
 interface FieldTypeResource {
-  account_sid?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  friendly_name?: string | null;
-  links?: object | null;
-  assistant_sid?: string | null;
-  sid?: string | null;
-  unique_name?: string | null;
-  url?: string | null;
+  account_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  friendly_name: string;
+  links: object;
+  assistant_sid: string;
+  sid: string;
+  unique_name: string;
+  url: string;
 }
 
 export class FieldTypeInstance {
@@ -324,33 +324,33 @@ export class FieldTypeInstance {
   /**
    * The unique ID of the Account that created this Field Type.
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The date that this resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The date that this resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * A user-provided string that identifies this resource. It is non-unique and can up to 255 characters long.
    */
-  friendlyName?: string | null;
-  links?: object | null;
+  friendlyName: string;
+  links: object;
   /**
    * The unique ID of the Assistant.
    */
-  assistantSid?: string | null;
+  assistantSid: string;
   /**
    * A 34 character string that uniquely identifies this resource.
    */
-  sid?: string | null;
+  sid: string;
   /**
    * A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
    */
-  uniqueName?: string | null;
-  url?: string | null;
+  uniqueName: string;
+  url: string;
 
   private get _proxy(): FieldTypeContext {
     this._context =
@@ -447,7 +447,7 @@ export class FieldTypeInstance {
 }
 
 export interface FieldTypeSolution {
-  assistantSid?: string;
+  assistantSid: string;
 }
 
 export interface FieldTypeListInstance {

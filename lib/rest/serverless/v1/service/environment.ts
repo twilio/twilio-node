@@ -232,17 +232,17 @@ interface EnvironmentPayload extends TwilioResponsePayload {
 }
 
 interface EnvironmentResource {
-  sid?: string | null;
-  account_sid?: string | null;
-  service_sid?: string | null;
-  build_sid?: string | null;
-  unique_name?: string | null;
-  domain_suffix?: string | null;
-  domain_name?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  url?: string | null;
-  links?: object | null;
+  sid: string;
+  account_sid: string;
+  service_sid: string;
+  build_sid: string;
+  unique_name: string;
+  domain_suffix: string;
+  domain_name: string;
+  date_created: Date;
+  date_updated: Date;
+  url: string;
+  links: object;
 }
 
 export class EnvironmentInstance {
@@ -273,47 +273,47 @@ export class EnvironmentInstance {
   /**
    * The unique string that identifies the Environment resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The SID of the Account that created the Environment resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The SID of the Service that the Environment resource is associated with
    */
-  serviceSid?: string | null;
+  serviceSid: string;
   /**
    * The SID of the build deployed in the environment
    */
-  buildSid?: string | null;
+  buildSid: string;
   /**
    * A user-defined string that uniquely identifies the Environment resource
    */
-  uniqueName?: string | null;
+  uniqueName: string;
   /**
    * A URL-friendly name that represents the environment
    */
-  domainSuffix?: string | null;
+  domainSuffix: string;
   /**
    * The domain name for all Functions and Assets deployed in the Environment
    */
-  domainName?: string | null;
+  domainName: string;
   /**
    * The ISO 8601 date and time in GMT when the Environment resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The ISO 8601 date and time in GMT when the Environment resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The absolute URL of the Environment resource
    */
-  url?: string | null;
+  url: string;
   /**
    * The URLs of the Environment resource\'s nested resources
    */
-  links?: object | null;
+  links: object;
 
   private get _proxy(): EnvironmentContext {
     this._context =
@@ -400,7 +400,7 @@ export class EnvironmentInstance {
 }
 
 export interface EnvironmentSolution {
-  serviceSid?: string;
+  serviceSid: string;
 }
 
 export interface EnvironmentListInstance {

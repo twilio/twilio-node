@@ -298,17 +298,17 @@ interface SyncListPayload extends TwilioResponsePayload {
 }
 
 interface SyncListResource {
-  sid?: string | null;
-  unique_name?: string | null;
-  account_sid?: string | null;
-  service_sid?: string | null;
-  url?: string | null;
-  links?: object | null;
-  revision?: string | null;
-  date_expires?: Date | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  created_by?: string | null;
+  sid: string;
+  unique_name: string;
+  account_sid: string;
+  service_sid: string;
+  url: string;
+  links: object;
+  revision: string;
+  date_expires: Date;
+  date_created: Date;
+  date_updated: Date;
+  created_by: string;
 }
 
 export class SyncListInstance {
@@ -339,47 +339,47 @@ export class SyncListInstance {
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * An application-defined string that uniquely identifies the resource
    */
-  uniqueName?: string | null;
+  uniqueName: string;
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The SID of the Sync Service that the resource is associated with
    */
-  serviceSid?: string | null;
+  serviceSid: string;
   /**
    * The absolute URL of the Sync List resource
    */
-  url?: string | null;
+  url: string;
   /**
    * The URLs of the Sync List\'s nested resources
    */
-  links?: object | null;
+  links: object;
   /**
    * The current revision of the Sync List, represented as a string
    */
-  revision?: string | null;
+  revision: string;
   /**
    * The ISO 8601 date and time in GMT when the Sync List expires
    */
-  dateExpires?: Date | null;
+  dateExpires: Date;
   /**
    * The ISO 8601 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The ISO 8601 date and time in GMT when the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The identity of the Sync List\'s creator
    */
-  createdBy?: string | null;
+  createdBy: string;
 
   private get _proxy(): SyncListContext {
     this._context =
@@ -485,7 +485,7 @@ export class SyncListInstance {
 }
 
 export interface SyncListSolution {
-  serviceSid?: string;
+  serviceSid: string;
 }
 
 export interface SyncListListInstance {

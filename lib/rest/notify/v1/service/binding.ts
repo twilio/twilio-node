@@ -230,20 +230,20 @@ interface BindingPayload extends TwilioResponsePayload {
 }
 
 interface BindingResource {
-  sid?: string | null;
-  account_sid?: string | null;
-  service_sid?: string | null;
-  credential_sid?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  notification_protocol_version?: string | null;
-  endpoint?: string | null;
-  identity?: string | null;
-  binding_type?: string | null;
-  address?: string | null;
-  tags?: Array<string> | null;
-  url?: string | null;
-  links?: object | null;
+  sid: string;
+  account_sid: string;
+  service_sid: string;
+  credential_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  notification_protocol_version: string;
+  endpoint: string;
+  identity: string;
+  binding_type: string;
+  address: string;
+  tags: Array<string>;
+  url: string;
+  links: object;
 }
 
 export class BindingInstance {
@@ -277,59 +277,59 @@ export class BindingInstance {
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The SID of the Service that the resource is associated with
    */
-  serviceSid?: string | null;
+  serviceSid: string;
   /**
    * The SID of the Credential resource to be used to send notifications to this Binding
    */
-  credentialSid?: string | null;
+  credentialSid: string;
   /**
    * The RFC 2822 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The RFC 2822 date and time in GMT when the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The protocol version to use to send the notification
    */
-  notificationProtocolVersion?: string | null;
+  notificationProtocolVersion: string;
   /**
    * Deprecated
    */
-  endpoint?: string | null;
+  endpoint: string;
   /**
    * The `identity` value that identifies the new resource\'s User
    */
-  identity?: string | null;
+  identity: string;
   /**
    * The type of the Binding
    */
-  bindingType?: string | null;
+  bindingType: string;
   /**
    * The channel-specific address
    */
-  address?: string | null;
+  address: string;
   /**
    * The list of tags associated with this Binding
    */
-  tags?: Array<string> | null;
+  tags: Array<string>;
   /**
    * The absolute URL of the Binding resource
    */
-  url?: string | null;
+  url: string;
   /**
    * The URLs of related resources
    */
-  links?: object | null;
+  links: object;
 
   private get _proxy(): BindingContext {
     this._context =
@@ -398,7 +398,7 @@ export class BindingInstance {
 }
 
 export interface BindingSolution {
-  serviceSid?: string;
+  serviceSid: string;
 }
 
 export interface BindingListInstance {

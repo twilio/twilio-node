@@ -219,15 +219,15 @@ interface DevicePayload extends TwilioResponsePayload {
 }
 
 interface DeviceResource {
-  sid?: string | null;
-  unique_name?: string | null;
-  account_sid?: string | null;
-  app?: any | null;
-  logging?: any | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  url?: string | null;
-  links?: object | null;
+  sid: string;
+  unique_name: string;
+  account_sid: string;
+  app: any;
+  logging: any;
+  date_created: Date;
+  date_updated: Date;
+  url: string;
+  links: object;
 }
 
 export class DeviceInstance {
@@ -251,39 +251,39 @@ export class DeviceInstance {
   /**
    * A string that uniquely identifies this Device.
    */
-  sid?: string | null;
+  sid: string;
   /**
    * A developer-defined string that uniquely identifies the Device.
    */
-  uniqueName?: string | null;
+  uniqueName: string;
   /**
    * Account SID.
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * Information about the target App and the App reported by this Device.
    */
-  app?: any | null;
+  app: any;
   /**
    * Object specifying whether application logging is enabled for this Device.
    */
-  logging?: any | null;
+  logging: any;
   /**
    * The date that this Device was created.
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The date that this Device was last updated.
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The URL of this resource.
    */
-  url?: string | null;
+  url: string;
   /**
    * The absolute URLs of related resources
    */
-  links?: object | null;
+  links: object;
 
   private get _proxy(): DeviceContext {
     this._context =

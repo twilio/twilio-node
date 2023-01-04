@@ -286,14 +286,14 @@ interface CredentialPayload extends TwilioResponsePayload {
 }
 
 interface CredentialResource {
-  sid?: string | null;
-  account_sid?: string | null;
-  friendly_name?: string | null;
-  type?: CredentialPushService;
-  sandbox?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  url?: string | null;
+  sid: string;
+  account_sid: string;
+  friendly_name: string;
+  type: CredentialPushService;
+  sandbox: string;
+  date_created: Date;
+  date_updated: Date;
+  url: string;
 }
 
 export class CredentialInstance {
@@ -320,32 +320,32 @@ export class CredentialInstance {
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The string that you assigned to describe the resource
    */
-  friendlyName?: string | null;
-  type?: CredentialPushService;
+  friendlyName: string;
+  type: CredentialPushService;
   /**
    * [APN only] Whether to send the credential to sandbox APNs
    */
-  sandbox?: string | null;
+  sandbox: string;
   /**
    * The ISO 8601 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The ISO 8601 date and time in GMT when the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The absolute URL of the Credential resource
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): CredentialContext {
     this._context =

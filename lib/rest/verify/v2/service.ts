@@ -413,24 +413,24 @@ interface ServicePayload extends TwilioResponsePayload {
 }
 
 interface ServiceResource {
-  sid?: string | null;
-  account_sid?: string | null;
-  friendly_name?: string | null;
-  code_length?: number | null;
-  lookup_enabled?: boolean | null;
-  psd2_enabled?: boolean | null;
-  skip_sms_to_landlines?: boolean | null;
-  dtmf_input_required?: boolean | null;
-  tts_name?: string | null;
-  do_not_share_warning_enabled?: boolean | null;
-  custom_code_enabled?: boolean | null;
-  push?: any | null;
-  totp?: any | null;
-  default_template_sid?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  url?: string | null;
-  links?: object | null;
+  sid: string;
+  account_sid: string;
+  friendly_name: string;
+  code_length: number;
+  lookup_enabled: boolean;
+  psd2_enabled: boolean;
+  skip_sms_to_landlines: boolean;
+  dtmf_input_required: boolean;
+  tts_name: string;
+  do_not_share_warning_enabled: boolean;
+  custom_code_enabled: boolean;
+  push: any;
+  totp: any;
+  default_template_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  url: string;
+  links: object;
 }
 
 export class ServiceInstance {
@@ -463,72 +463,72 @@ export class ServiceInstance {
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The string that you assigned to describe the verification service
    */
-  friendlyName?: string | null;
+  friendlyName: string;
   /**
    * The length of the verification code
    */
-  codeLength?: number | null;
+  codeLength: number;
   /**
    * Whether to perform a lookup with each verification
    */
-  lookupEnabled?: boolean | null;
+  lookupEnabled: boolean;
   /**
    * Whether to pass PSD2 transaction parameters when starting a verification
    */
-  psd2Enabled?: boolean | null;
+  psd2Enabled: boolean;
   /**
    * Whether to skip sending SMS verifications to landlines
    */
-  skipSmsToLandlines?: boolean | null;
+  skipSmsToLandlines: boolean;
   /**
    * Whether to ask the user to press a number before delivering the verify code in a phone call
    */
-  dtmfInputRequired?: boolean | null;
+  dtmfInputRequired: boolean;
   /**
    * The name of an alternative text-to-speech service to use in phone calls
    */
-  ttsName?: string | null;
+  ttsName: string;
   /**
    * Whether to add a security warning at the end of an SMS.
    */
-  doNotShareWarningEnabled?: boolean | null;
+  doNotShareWarningEnabled: boolean;
   /**
    * Whether to allow sending verifications with a custom code.
    */
-  customCodeEnabled?: boolean | null;
+  customCodeEnabled: boolean;
   /**
    * The service level configuration of factor push type.
    */
-  push?: any | null;
+  push: any;
   /**
    * The service level configuration of factor TOTP type.
    */
-  totp?: any | null;
-  defaultTemplateSid?: string | null;
+  totp: any;
+  defaultTemplateSid: string;
   /**
    * The RFC 2822 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The RFC 2822 date and time in GMT when the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The absolute URL of the resource
    */
-  url?: string | null;
+  url: string;
   /**
    * The URLs of related resources
    */
-  links?: object | null;
+  links: object;
 
   private get _proxy(): ServiceContext {
     this._context =

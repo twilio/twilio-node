@@ -154,14 +154,14 @@ interface EvaluationPayload extends TwilioResponsePayload {
 }
 
 interface EvaluationResource {
-  sid?: string | null;
-  account_sid?: string | null;
-  regulation_sid?: string | null;
-  bundle_sid?: string | null;
-  status?: EvaluationStatus;
-  results?: Array<any> | null;
-  date_created?: Date | null;
-  url?: string | null;
+  sid: string;
+  account_sid: string;
+  regulation_sid: string;
+  bundle_sid: string;
+  status: EvaluationStatus;
+  results: Array<any>;
+  date_created: Date;
+  url: string;
 }
 
 export class EvaluationInstance {
@@ -189,26 +189,26 @@ export class EvaluationInstance {
   /**
    * The unique string that identifies the Evaluation resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The unique string of a regulation
    */
-  regulationSid?: string | null;
+  regulationSid: string;
   /**
    * The unique string that identifies the resource
    */
-  bundleSid?: string | null;
-  status?: EvaluationStatus;
+  bundleSid: string;
+  status: EvaluationStatus;
   /**
    * The results of the Evaluation resource
    */
-  results?: Array<any> | null;
-  dateCreated?: Date | null;
-  url?: string | null;
+  results: Array<any>;
+  dateCreated: Date;
+  url: string;
 
   private get _proxy(): EvaluationContext {
     this._context =
@@ -258,7 +258,7 @@ export class EvaluationInstance {
 }
 
 export interface EvaluationSolution {
-  bundleSid?: string;
+  bundleSid: string;
 }
 
 export interface EvaluationListInstance {

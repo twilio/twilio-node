@@ -357,18 +357,18 @@ interface MemberPayload extends TwilioResponsePayload {
 }
 
 interface MemberResource {
-  sid?: string | null;
-  account_sid?: string | null;
-  channel_sid?: string | null;
-  service_sid?: string | null;
-  identity?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  role_sid?: string | null;
-  last_consumed_message_index?: number | null;
-  last_consumption_timestamp?: Date | null;
-  url?: string | null;
-  attributes?: string | null;
+  sid: string;
+  account_sid: string;
+  channel_sid: string;
+  service_sid: string;
+  identity: string;
+  date_created: Date;
+  date_updated: Date;
+  role_sid: string;
+  last_consumed_message_index: number;
+  last_consumption_timestamp: Date;
+  url: string;
+  attributes: string;
 }
 
 export class MemberInstance {
@@ -402,18 +402,18 @@ export class MemberInstance {
     this._solution = { serviceSid, channelSid, sid: sid || this.sid };
   }
 
-  sid?: string | null;
-  accountSid?: string | null;
-  channelSid?: string | null;
-  serviceSid?: string | null;
-  identity?: string | null;
-  dateCreated?: Date | null;
-  dateUpdated?: Date | null;
-  roleSid?: string | null;
-  lastConsumedMessageIndex?: number | null;
-  lastConsumptionTimestamp?: Date | null;
-  url?: string | null;
-  attributes?: string | null;
+  sid: string;
+  accountSid: string;
+  channelSid: string;
+  serviceSid: string;
+  identity: string;
+  dateCreated: Date;
+  dateUpdated: Date;
+  roleSid: string;
+  lastConsumedMessageIndex: number;
+  lastConsumptionTimestamp: Date;
+  url: string;
+  attributes: string;
 
   private get _proxy(): MemberContext {
     this._context =
@@ -520,8 +520,8 @@ export class MemberInstance {
 }
 
 export interface MemberSolution {
-  serviceSid?: string;
-  channelSid?: string;
+  serviceSid: string;
+  channelSid: string;
 }
 
 export interface MemberListInstance {

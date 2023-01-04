@@ -501,17 +501,17 @@ interface ReservationPayload extends TwilioResponsePayload {
 }
 
 interface ReservationResource {
-  account_sid?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  reservation_status?: TaskReservationStatus;
-  sid?: string | null;
-  task_sid?: string | null;
-  worker_name?: string | null;
-  worker_sid?: string | null;
-  workspace_sid?: string | null;
-  url?: string | null;
-  links?: object | null;
+  account_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  reservation_status: TaskReservationStatus;
+  sid: string;
+  task_sid: string;
+  worker_name: string;
+  worker_sid: string;
+  workspace_sid: string;
+  url: string;
+  links: object;
 }
 
 export class ReservationInstance {
@@ -543,44 +543,44 @@ export class ReservationInstance {
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The ISO 8601 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The ISO 8601 date and time in GMT when the resource was last updated
    */
-  dateUpdated?: Date | null;
-  reservationStatus?: TaskReservationStatus;
+  dateUpdated: Date;
+  reservationStatus: TaskReservationStatus;
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The SID of the reserved Task resource
    */
-  taskSid?: string | null;
+  taskSid: string;
   /**
    * The friendly_name of the Worker that is reserved
    */
-  workerName?: string | null;
+  workerName: string;
   /**
    * The SID of the reserved Worker resource
    */
-  workerSid?: string | null;
+  workerSid: string;
   /**
    * The SID of the Workspace that this task is contained within.
    */
-  workspaceSid?: string | null;
+  workspaceSid: string;
   /**
    * The absolute URL of the TaskReservation reservation
    */
-  url?: string | null;
+  url: string;
   /**
    * The URLs of related resources
    */
-  links?: object | null;
+  links: object;
 
   private get _proxy(): ReservationContext {
     this._context =
@@ -660,8 +660,8 @@ export class ReservationInstance {
 }
 
 export interface ReservationSolution {
-  workspaceSid?: string;
-  taskSid?: string;
+  workspaceSid: string;
+  taskSid: string;
 }
 
 export interface ReservationListInstance {

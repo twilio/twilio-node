@@ -160,11 +160,11 @@ interface NetworkPayload extends TwilioResponsePayload {
 }
 
 interface NetworkResource {
-  sid?: string | null;
-  friendly_name?: string | null;
-  url?: string | null;
-  iso_country?: string | null;
-  identifiers?: Array<any> | null;
+  sid: string;
+  friendly_name: string;
+  url: string;
+  iso_country: string;
+  identifiers: Array<any>;
 }
 
 export class NetworkInstance {
@@ -184,23 +184,23 @@ export class NetworkInstance {
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * A human readable identifier of this resource
    */
-  friendlyName?: string | null;
+  friendlyName: string;
   /**
    * The absolute URL of the Network resource
    */
-  url?: string | null;
+  url: string;
   /**
    * The ISO country code of the Network resource
    */
-  isoCountry?: string | null;
+  isoCountry: string;
   /**
    * The MCC/MNCs included in the Network resource
    */
-  identifiers?: Array<any> | null;
+  identifiers: Array<any>;
 
   private get _proxy(): NetworkContext {
     this._context =

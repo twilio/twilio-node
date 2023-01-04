@@ -172,11 +172,11 @@ export class PlaybackGrantContextImpl implements PlaybackGrantContext {
 interface PlaybackGrantPayload extends PlaybackGrantResource {}
 
 interface PlaybackGrantResource {
-  sid?: string | null;
-  url?: string | null;
-  account_sid?: string | null;
-  date_created?: Date | null;
-  grant?: any | null;
+  sid: string;
+  url: string;
+  account_sid: string;
+  date_created: Date;
+  grant: any;
 }
 
 export class PlaybackGrantInstance {
@@ -200,23 +200,23 @@ export class PlaybackGrantInstance {
   /**
    * The unique string that identifies the PlayerStreamer associated with this PlaybackGrant.
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The absolute URL of the resource
    */
-  url?: string | null;
+  url: string;
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The ISO 8601 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The grant that authorizes the player sdk to connect to the livestream
    */
-  grant?: any | null;
+  grant: any;
 
   private get _proxy(): PlaybackGrantContext {
     this._context =
@@ -285,7 +285,7 @@ export class PlaybackGrantInstance {
 }
 
 export interface PlaybackGrantSolution {
-  sid?: string;
+  sid: string;
 }
 
 export interface PlaybackGrantListInstance {

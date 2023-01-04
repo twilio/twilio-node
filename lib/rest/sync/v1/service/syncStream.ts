@@ -278,16 +278,16 @@ interface SyncStreamPayload extends TwilioResponsePayload {
 }
 
 interface SyncStreamResource {
-  sid?: string | null;
-  unique_name?: string | null;
-  account_sid?: string | null;
-  service_sid?: string | null;
-  url?: string | null;
-  links?: object | null;
-  date_expires?: Date | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  created_by?: string | null;
+  sid: string;
+  unique_name: string;
+  account_sid: string;
+  service_sid: string;
+  url: string;
+  links: object;
+  date_expires: Date;
+  date_created: Date;
+  date_updated: Date;
+  created_by: string;
 }
 
 export class SyncStreamInstance {
@@ -317,43 +317,43 @@ export class SyncStreamInstance {
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * An application-defined string that uniquely identifies the resource
    */
-  uniqueName?: string | null;
+  uniqueName: string;
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The SID of the Sync Service that the resource is associated with
    */
-  serviceSid?: string | null;
+  serviceSid: string;
   /**
    * The absolute URL of the Message Stream resource
    */
-  url?: string | null;
+  url: string;
   /**
    * The URLs of the Stream\'s nested resources
    */
-  links?: object | null;
+  links: object;
   /**
    * The ISO 8601 date and time in GMT when the Message Stream expires
    */
-  dateExpires?: Date | null;
+  dateExpires: Date;
   /**
    * The ISO 8601 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The ISO 8601 date and time in GMT when the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The Identity of the Stream\'s creator
    */
-  createdBy?: string | null;
+  createdBy: string;
 
   private get _proxy(): SyncStreamContext {
     this._context =
@@ -451,7 +451,7 @@ export class SyncStreamInstance {
 }
 
 export interface SyncStreamSolution {
-  serviceSid?: string;
+  serviceSid: string;
 }
 
 export interface SyncStreamListInstance {

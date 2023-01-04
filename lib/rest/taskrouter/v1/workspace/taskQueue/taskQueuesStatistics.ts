@@ -107,7 +107,7 @@ export interface TaskQueuesStatisticsListInstancePageOptions {
 }
 
 export interface TaskQueuesStatisticsSolution {
-  workspaceSid?: string;
+  workspaceSid: string;
 }
 
 export interface TaskQueuesStatisticsListInstance {
@@ -366,11 +366,11 @@ interface TaskQueuesStatisticsPayload extends TwilioResponsePayload {
 }
 
 interface TaskQueuesStatisticsResource {
-  account_sid?: string | null;
-  cumulative?: any | null;
-  realtime?: any | null;
-  task_queue_sid?: string | null;
-  workspace_sid?: string | null;
+  account_sid: string;
+  cumulative: any;
+  realtime: any;
+  task_queue_sid: string;
+  workspace_sid: string;
 }
 
 export class TaskQueuesStatisticsInstance {
@@ -389,23 +389,23 @@ export class TaskQueuesStatisticsInstance {
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * An object that contains the cumulative statistics for the TaskQueues
    */
-  cumulative?: any | null;
+  cumulative: any;
   /**
    * An object that contains the real-time statistics for the TaskQueues
    */
-  realtime?: any | null;
+  realtime: any;
   /**
    * The SID of the TaskQueue from which these statistics were calculated
    */
-  taskQueueSid?: string | null;
+  taskQueueSid: string;
   /**
    * The SID of the Workspace that contains the TaskQueues
    */
-  workspaceSid?: string | null;
+  workspaceSid: string;
 
   /**
    * Provide a user-friendly representation

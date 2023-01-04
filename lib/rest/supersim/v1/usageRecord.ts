@@ -351,17 +351,17 @@ interface UsageRecordPayload extends TwilioResponsePayload {
 }
 
 interface UsageRecordResource {
-  account_sid?: string | null;
-  sim_sid?: string | null;
-  network_sid?: string | null;
-  fleet_sid?: string | null;
-  iso_country?: string | null;
-  period?: any | null;
-  data_upload?: number | null;
-  data_download?: number | null;
-  data_total?: number | null;
-  data_total_billed?: number | null;
-  billed_unit?: string | null;
+  account_sid: string;
+  sim_sid: string;
+  network_sid: string;
+  fleet_sid: string;
+  iso_country: string;
+  period: any;
+  data_upload: number;
+  data_download: number;
+  data_total: number;
+  data_total_billed: number;
+  billed_unit: string;
 }
 
 export class UsageRecordInstance {
@@ -382,47 +382,47 @@ export class UsageRecordInstance {
   /**
    * The SID of the Account that incurred the usage.
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * SID of a Sim resource to which the UsageRecord belongs.
    */
-  simSid?: string | null;
+  simSid: string;
   /**
    * SID of the Network resource on which the usage occurred.
    */
-  networkSid?: string | null;
+  networkSid: string;
   /**
    * SID of the Fleet resource on which the usage occurred.
    */
-  fleetSid?: string | null;
+  fleetSid: string;
   /**
    * Alpha-2 ISO Country Code of the country the usage occurred in.
    */
-  isoCountry?: string | null;
+  isoCountry: string;
   /**
    * The time period for which the usage is reported.
    */
-  period?: any | null;
+  period: any;
   /**
    * Total data uploaded in bytes, aggregated by the query parameters.
    */
-  dataUpload?: number | null;
+  dataUpload: number;
   /**
    * Total data downloaded in bytes, aggregated by the query parameters.
    */
-  dataDownload?: number | null;
+  dataDownload: number;
   /**
    * Total of data_upload and data_download.
    */
-  dataTotal?: number | null;
+  dataTotal: number;
   /**
    * Total amount in the `billed_unit` that was charged for the data uploaded or downloaded.
    */
-  dataTotalBilled?: number | null;
+  dataTotalBilled: number;
   /**
    * The currency in which the billed amounts are measured, specified in the 3 letter ISO 4127 format (e.g. `USD`, `EUR`, `JPY`).
    */
-  billedUnit?: string | null;
+  billedUnit: string;
 
   /**
    * Provide a user-friendly representation

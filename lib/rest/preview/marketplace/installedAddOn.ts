@@ -279,16 +279,16 @@ interface InstalledAddOnPayload extends TwilioResponsePayload {
 }
 
 interface InstalledAddOnResource {
-  sid?: string | null;
-  account_sid?: string | null;
-  friendly_name?: string | null;
-  description?: string | null;
-  configuration?: any | null;
-  unique_name?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  url?: string | null;
-  links?: object | null;
+  sid: string;
+  account_sid: string;
+  friendly_name: string;
+  description: string;
+  configuration: any;
+  unique_name: string;
+  date_created: Date;
+  date_updated: Date;
+  url: string;
+  links: object;
 }
 
 export class InstalledAddOnInstance {
@@ -317,43 +317,43 @@ export class InstalledAddOnInstance {
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The string that you assigned to describe the resource
    */
-  friendlyName?: string | null;
+  friendlyName: string;
   /**
    * A short description of the Add-on\'s functionality
    */
-  description?: string | null;
+  description: string;
   /**
    * The JSON object that represents the current configuration of installed Add-on
    */
-  configuration?: any | null;
+  configuration: any;
   /**
    * An application-defined string that uniquely identifies the resource
    */
-  uniqueName?: string | null;
+  uniqueName: string;
   /**
    * The ISO 8601 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The ISO 8601 date and time in GMT when the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The absolute URL of the resource
    */
-  url?: string | null;
+  url: string;
   /**
    * The URLs of related resources
    */
-  links?: object | null;
+  links: object;
 
   private get _proxy(): InstalledAddOnContext {
     this._context =

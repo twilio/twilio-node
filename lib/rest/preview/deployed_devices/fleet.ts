@@ -290,15 +290,15 @@ interface FleetPayload extends TwilioResponsePayload {
 }
 
 interface FleetResource {
-  sid?: string | null;
-  url?: string | null;
-  unique_name?: string | null;
-  friendly_name?: string | null;
-  account_sid?: string | null;
-  default_deployment_sid?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  links?: object | null;
+  sid: string;
+  url: string;
+  unique_name: string;
+  friendly_name: string;
+  account_sid: string;
+  default_deployment_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  links: object;
 }
 
 export class FleetInstance {
@@ -326,39 +326,39 @@ export class FleetInstance {
   /**
    * A string that uniquely identifies this Fleet.
    */
-  sid?: string | null;
+  sid: string;
   /**
    * URL of this Fleet.
    */
-  url?: string | null;
+  url: string;
   /**
    * A unique, addressable name of this Fleet.
    */
-  uniqueName?: string | null;
+  uniqueName: string;
   /**
    * A human readable description for this Fleet.
    */
-  friendlyName?: string | null;
+  friendlyName: string;
   /**
    * The unique SID that identifies this Account.
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The unique SID that identifies this Fleet\'s default Deployment.
    */
-  defaultDeploymentSid?: string | null;
+  defaultDeploymentSid: string;
   /**
    * The date this Fleet was created.
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The date this Fleet was updated.
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * Nested resource URLs.
    */
-  links?: object | null;
+  links: object;
 
   private get _proxy(): FleetContext {
     this._context =

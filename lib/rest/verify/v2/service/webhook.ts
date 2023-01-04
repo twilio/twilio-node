@@ -289,18 +289,18 @@ interface WebhookPayload extends TwilioResponsePayload {
 }
 
 interface WebhookResource {
-  sid?: string | null;
-  service_sid?: string | null;
-  account_sid?: string | null;
-  friendly_name?: string | null;
-  event_types?: Array<string> | null;
-  status?: WebhookStatus;
-  version?: WebhookVersion;
-  webhook_url?: string | null;
-  webhook_method?: WebhookMethods;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  url?: string | null;
+  sid: string;
+  service_sid: string;
+  account_sid: string;
+  friendly_name: string;
+  event_types: Array<string>;
+  status: WebhookStatus;
+  version: WebhookVersion;
+  webhook_url: string;
+  webhook_method: WebhookMethods;
+  date_created: Date;
+  date_updated: Date;
+  url: string;
 }
 
 export class WebhookInstance {
@@ -332,42 +332,42 @@ export class WebhookInstance {
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * Service Sid.
    */
-  serviceSid?: string | null;
+  serviceSid: string;
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The string that you assigned to describe the webhook
    */
-  friendlyName?: string | null;
+  friendlyName: string;
   /**
    * The array of events that this Webhook is subscribed to.
    */
-  eventTypes?: Array<string> | null;
-  status?: WebhookStatus;
-  version?: WebhookVersion;
+  eventTypes: Array<string>;
+  status: WebhookStatus;
+  version: WebhookVersion;
   /**
    * The URL associated with this Webhook.
    */
-  webhookUrl?: string | null;
-  webhookMethod?: WebhookMethods;
+  webhookUrl: string;
+  webhookMethod: WebhookMethods;
   /**
    * The ISO 8601 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The ISO 8601 date and time in GMT when the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The absolute URL of the Webhook resource
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): WebhookContext {
     this._context =
@@ -460,7 +460,7 @@ export class WebhookInstance {
 }
 
 export interface WebhookSolution {
-  serviceSid?: string;
+  serviceSid: string;
 }
 
 export interface WebhookListInstance {

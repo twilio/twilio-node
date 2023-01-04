@@ -115,7 +115,7 @@ export interface DependentHostedNumberOrderListInstancePageOptions {
 }
 
 export interface DependentHostedNumberOrderSolution {
-  signingDocumentSid?: string;
+  signingDocumentSid: string;
 }
 
 export interface DependentHostedNumberOrderListInstance {
@@ -390,28 +390,28 @@ interface DependentHostedNumberOrderPayload extends TwilioResponsePayload {
 }
 
 interface DependentHostedNumberOrderResource {
-  sid?: string | null;
-  account_sid?: string | null;
-  incoming_phone_number_sid?: string | null;
-  address_sid?: string | null;
-  signing_document_sid?: string | null;
-  phone_number?: string | null;
-  capabilities?: PhoneNumberCapabilities | null;
-  friendly_name?: string | null;
-  unique_name?: string | null;
-  status?: DependentHostedNumberOrderStatus;
-  failure_reason?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  verification_attempts?: number | null;
-  email?: string | null;
-  cc_emails?: Array<string> | null;
-  verification_type?: DependentHostedNumberOrderVerificationType;
-  verification_document_sid?: string | null;
-  extension?: string | null;
-  call_delay?: number | null;
-  verification_code?: string | null;
-  verification_call_sids?: Array<string> | null;
+  sid: string;
+  account_sid: string;
+  incoming_phone_number_sid: string;
+  address_sid: string;
+  signing_document_sid: string;
+  phone_number: string;
+  capabilities: PhoneNumberCapabilities;
+  friendly_name: string;
+  unique_name: string;
+  status: DependentHostedNumberOrderStatus;
+  failure_reason: string;
+  date_created: Date;
+  date_updated: Date;
+  verification_attempts: number;
+  email: string;
+  cc_emails: Array<string>;
+  verification_type: DependentHostedNumberOrderVerificationType;
+  verification_document_sid: string;
+  extension: string;
+  call_delay: number;
+  verification_code: string;
+  verification_call_sids: Array<string>;
 }
 
 export class DependentHostedNumberOrderInstance {
@@ -449,82 +449,82 @@ export class DependentHostedNumberOrderInstance {
   /**
    * HostedNumberOrder sid.
    */
-  sid?: string | null;
+  sid: string;
   /**
    * Account sid.
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * IncomingPhoneNumber sid.
    */
-  incomingPhoneNumberSid?: string | null;
+  incomingPhoneNumberSid: string;
   /**
    * Address sid.
    */
-  addressSid?: string | null;
+  addressSid: string;
   /**
    * LOA document sid.
    */
-  signingDocumentSid?: string | null;
+  signingDocumentSid: string;
   /**
    * An E164 formatted phone number.
    */
-  phoneNumber?: string | null;
-  capabilities?: PhoneNumberCapabilities | null;
+  phoneNumber: string;
+  capabilities: PhoneNumberCapabilities;
   /**
    * A human readable description of this resource.
    */
-  friendlyName?: string | null;
+  friendlyName: string;
   /**
    * A unique, developer assigned name of this HostedNumberOrder.
    */
-  uniqueName?: string | null;
-  status?: DependentHostedNumberOrderStatus;
+  uniqueName: string;
+  status: DependentHostedNumberOrderStatus;
   /**
    * Why a hosted_number_order reached status \"action-required\"
    */
-  failureReason?: string | null;
+  failureReason: string;
   /**
    * The date this HostedNumberOrder was created.
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The date this HostedNumberOrder was updated.
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The number of attempts made to verify ownership of the phone number.
    */
-  verificationAttempts?: number | null;
+  verificationAttempts: number;
   /**
    * Email.
    */
-  email?: string | null;
+  email: string;
   /**
    * A list of emails.
    */
-  ccEmails?: Array<string> | null;
-  verificationType?: DependentHostedNumberOrderVerificationType;
+  ccEmails: Array<string>;
+  verificationType: DependentHostedNumberOrderVerificationType;
   /**
    * Verification Document Sid.
    */
-  verificationDocumentSid?: string | null;
+  verificationDocumentSid: string;
   /**
    * Phone extension to use for ownership verification call.
    */
-  extension?: string | null;
+  extension: string;
   /**
    * Seconds (0-30) to delay ownership verification call by.
    */
-  callDelay?: number | null;
+  callDelay: number;
   /**
    * The digits passed during the ownership verification call.
    */
-  verificationCode?: string | null;
+  verificationCode: string;
   /**
    * List of IDs for ownership verification calls.
    */
-  verificationCallSids?: Array<string> | null;
+  verificationCallSids: Array<string>;
 
   /**
    * Provide a user-friendly representation

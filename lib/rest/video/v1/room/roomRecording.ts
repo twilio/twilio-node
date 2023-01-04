@@ -210,23 +210,23 @@ interface RoomRecordingPayload extends TwilioResponsePayload {
 }
 
 interface RoomRecordingResource {
-  account_sid?: string | null;
-  status?: RoomRecordingStatus;
-  date_created?: Date | null;
-  sid?: string | null;
-  source_sid?: string | null;
-  size?: number | null;
-  url?: string | null;
-  type?: RoomRecordingType;
-  duration?: number | null;
-  container_format?: RoomRecordingFormat;
-  codec?: RoomRecordingCodec;
-  grouping_sids?: any | null;
-  track_name?: string | null;
-  offset?: number | null;
-  media_external_location?: string | null;
-  room_sid?: string | null;
-  links?: object | null;
+  account_sid: string;
+  status: RoomRecordingStatus;
+  date_created: Date;
+  sid: string;
+  source_sid: string;
+  size: number;
+  url: string;
+  type: RoomRecordingType;
+  duration: number;
+  container_format: RoomRecordingFormat;
+  codec: RoomRecordingCodec;
+  grouping_sids: any;
+  track_name: string;
+  offset: number;
+  media_external_location: string;
+  room_sid: string;
+  links: object;
 }
 
 export class RoomRecordingInstance {
@@ -263,59 +263,59 @@ export class RoomRecordingInstance {
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
-  status?: RoomRecordingStatus;
+  accountSid: string;
+  status: RoomRecordingStatus;
   /**
    * The ISO 8601 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The SID of the recording source
    */
-  sourceSid?: string | null;
+  sourceSid: string;
   /**
    * The size of the recorded track in bytes
    */
-  size?: number | null;
+  size: number;
   /**
    * The absolute URL of the resource
    */
-  url?: string | null;
-  type?: RoomRecordingType;
+  url: string;
+  type: RoomRecordingType;
   /**
    * The duration of the recording in seconds
    */
-  duration?: number | null;
-  containerFormat?: RoomRecordingFormat;
-  codec?: RoomRecordingCodec;
+  duration: number;
+  containerFormat: RoomRecordingFormat;
+  codec: RoomRecordingCodec;
   /**
    * A list of SIDs related to the Recording
    */
-  groupingSids?: any | null;
+  groupingSids: any;
   /**
    * The name that was given to the source track of the recording
    */
-  trackName?: string | null;
+  trackName: string;
   /**
    * The number of milliseconds between a point in time that is common to all rooms in a group and when the source room of the recording started
    */
-  offset?: number | null;
+  offset: number;
   /**
    * The URL of the media file associated with the recording when stored externally
    */
-  mediaExternalLocation?: string | null;
+  mediaExternalLocation: string;
   /**
    * The SID of the Room resource the recording is associated with
    */
-  roomSid?: string | null;
+  roomSid: string;
   /**
    * The URLs of related resources
    */
-  links?: object | null;
+  links: object;
 
   private get _proxy(): RoomRecordingContext {
     this._context =
@@ -387,7 +387,7 @@ export class RoomRecordingInstance {
 }
 
 export interface RoomRecordingSolution {
-  roomSid?: string;
+  roomSid: string;
 }
 
 export interface RoomRecordingListInstance {

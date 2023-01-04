@@ -112,12 +112,12 @@ export class StepContextContextImpl implements StepContextContext {
 interface StepContextPayload extends StepContextResource {}
 
 interface StepContextResource {
-  account_sid?: string | null;
-  context?: any | null;
-  engagement_sid?: string | null;
-  flow_sid?: string | null;
-  step_sid?: string | null;
-  url?: string | null;
+  account_sid: string;
+  context: any;
+  engagement_sid: string;
+  flow_sid: string;
+  step_sid: string;
+  url: string;
 }
 
 export class StepContextInstance {
@@ -144,27 +144,27 @@ export class StepContextInstance {
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The current state of the flow
    */
-  context?: any | null;
+  context: any;
   /**
    * The SID of the Engagement
    */
-  engagementSid?: string | null;
+  engagementSid: string;
   /**
    * The SID of the Flow
    */
-  flowSid?: string | null;
+  flowSid: string;
   /**
    * Step SID
    */
-  stepSid?: string | null;
+  stepSid: string;
   /**
    * The absolute URL of the resource
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): StepContextContext {
     this._context =
@@ -213,9 +213,9 @@ export class StepContextInstance {
 }
 
 export interface StepContextSolution {
-  flowSid?: string;
-  engagementSid?: string;
-  stepSid?: string;
+  flowSid: string;
+  engagementSid: string;
+  stepSid: string;
 }
 
 export interface StepContextListInstance {

@@ -38,7 +38,7 @@ export interface ValidationRequestListInstanceCreateOptions {
 }
 
 export interface ValidationRequestSolution {
-  accountSid?: string;
+  accountSid: string;
 }
 
 export interface ValidationRequestListInstance {
@@ -151,11 +151,11 @@ export function ValidationRequestListInstance(
 interface ValidationRequestPayload extends ValidationRequestResource {}
 
 interface ValidationRequestResource {
-  account_sid?: string | null;
-  call_sid?: string | null;
-  friendly_name?: string | null;
-  phone_number?: string | null;
-  validation_code?: string | null;
+  account_sid: string;
+  call_sid: string;
+  friendly_name: string;
+  phone_number: string;
+  validation_code: string;
 }
 
 export class ValidationRequestInstance {
@@ -174,23 +174,23 @@ export class ValidationRequestInstance {
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The SID of the Call the resource is associated with
    */
-  callSid?: string | null;
+  callSid: string;
   /**
    * The string that you assigned to describe the resource
    */
-  friendlyName?: string | null;
+  friendlyName: string;
   /**
    * The phone number to verify in E.164 format
    */
-  phoneNumber?: string | null;
+  phoneNumber: string;
   /**
    * The 6 digit validation code that someone must enter to validate the Caller ID  when `phone_number` is called
    */
-  validationCode?: string | null;
+  validationCode: string;
 
   /**
    * Provide a user-friendly representation

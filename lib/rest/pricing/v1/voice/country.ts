@@ -159,12 +159,12 @@ interface CountryPayload extends TwilioResponsePayload {
 }
 
 interface CountryResource {
-  country?: string | null;
-  iso_country?: string | null;
-  outbound_prefix_prices?: Array<PricingV1VoiceVoiceCountryInstanceOutboundPrefixPrices> | null;
-  inbound_call_prices?: Array<PricingV1VoiceVoiceCountryInstanceInboundCallPrices> | null;
-  price_unit?: string | null;
-  url?: string | null;
+  country: string;
+  iso_country: string;
+  outbound_prefix_prices: Array<PricingV1VoiceVoiceCountryInstanceOutboundPrefixPrices>;
+  inbound_call_prices: Array<PricingV1VoiceVoiceCountryInstanceInboundCallPrices>;
+  price_unit: string;
+  url: string;
 }
 
 export class CountryInstance {
@@ -189,27 +189,27 @@ export class CountryInstance {
   /**
    * The name of the country
    */
-  country?: string | null;
+  country: string;
   /**
    * The ISO country code
    */
-  isoCountry?: string | null;
+  isoCountry: string;
   /**
    * The list of OutboundPrefixPrice records
    */
-  outboundPrefixPrices?: Array<PricingV1VoiceVoiceCountryInstanceOutboundPrefixPrices> | null;
+  outboundPrefixPrices: Array<PricingV1VoiceVoiceCountryInstanceOutboundPrefixPrices>;
   /**
    * The list of InboundCallPrice records
    */
-  inboundCallPrices?: Array<PricingV1VoiceVoiceCountryInstanceInboundCallPrices> | null;
+  inboundCallPrices: Array<PricingV1VoiceVoiceCountryInstanceInboundCallPrices>;
   /**
    * The currency in which prices are measured, in ISO 4127 format (e.g. usd, eur, jpy)
    */
-  priceUnit?: string | null;
+  priceUnit: string;
   /**
    * The absolute URL of the resource
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): CountryContext {
     this._context =

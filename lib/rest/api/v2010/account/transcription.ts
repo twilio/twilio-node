@@ -180,19 +180,19 @@ interface TranscriptionPayload extends TwilioResponsePayload {
 }
 
 interface TranscriptionResource {
-  account_sid?: string | null;
-  api_version?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  duration?: string | null;
-  price?: number | null;
-  price_unit?: string | null;
-  recording_sid?: string | null;
-  sid?: string | null;
-  status?: TranscriptionStatus;
-  transcription_text?: string | null;
-  type?: string | null;
-  uri?: string | null;
+  account_sid: string;
+  api_version: string;
+  date_created: Date;
+  date_updated: Date;
+  duration: string;
+  price: number;
+  price_unit: string;
+  recording_sid: string;
+  sid: string;
+  status: TranscriptionStatus;
+  transcription_text: string;
+  type: string;
+  uri: string;
 }
 
 export class TranscriptionInstance {
@@ -225,52 +225,52 @@ export class TranscriptionInstance {
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The API version used to create the transcription
    */
-  apiVersion?: string | null;
+  apiVersion: string;
   /**
    * The RFC 2822 date and time in GMT that the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The RFC 2822 date and time in GMT that the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The duration of the transcribed audio in seconds.
    */
-  duration?: string | null;
+  duration: string;
   /**
    * The charge for the transcription
    */
-  price?: number | null;
+  price: number;
   /**
    * The currency in which price is measured
    */
-  priceUnit?: string | null;
+  priceUnit: string;
   /**
    * The SID that identifies the transcription\'s recording
    */
-  recordingSid?: string | null;
+  recordingSid: string;
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
-  status?: TranscriptionStatus;
+  sid: string;
+  status: TranscriptionStatus;
   /**
    * The text content of the transcription.
    */
-  transcriptionText?: string | null;
+  transcriptionText: string;
   /**
    * The transcription type
    */
-  type?: string | null;
+  type: string;
   /**
    * The URI of the resource, relative to `https://api.twilio.com`
    */
-  uri?: string | null;
+  uri: string;
 
   private get _proxy(): TranscriptionContext {
     this._context =
@@ -338,7 +338,7 @@ export class TranscriptionInstance {
 }
 
 export interface TranscriptionSolution {
-  accountSid?: string;
+  accountSid: string;
 }
 
 export interface TranscriptionListInstance {

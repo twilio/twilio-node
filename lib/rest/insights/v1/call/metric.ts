@@ -89,7 +89,7 @@ export interface MetricListInstancePageOptions {
 }
 
 export interface MetricSolution {
-  callSid?: string;
+  callSid: string;
 }
 
 export interface MetricListInstance {
@@ -319,15 +319,15 @@ interface MetricPayload extends TwilioResponsePayload {
 }
 
 interface MetricResource {
-  timestamp?: string | null;
-  call_sid?: string | null;
-  account_sid?: string | null;
-  edge?: MetricTwilioEdge;
-  direction?: MetricStreamDirection;
-  carrier_edge?: any | null;
-  sip_edge?: any | null;
-  sdk_edge?: any | null;
-  client_edge?: any | null;
+  timestamp: string;
+  call_sid: string;
+  account_sid: string;
+  edge: MetricTwilioEdge;
+  direction: MetricStreamDirection;
+  carrier_edge: any;
+  sip_edge: any;
+  sdk_edge: any;
+  client_edge: any;
 }
 
 export class MetricInstance {
@@ -347,15 +347,15 @@ export class MetricInstance {
     this.clientEdge = payload.client_edge;
   }
 
-  timestamp?: string | null;
-  callSid?: string | null;
-  accountSid?: string | null;
-  edge?: MetricTwilioEdge;
-  direction?: MetricStreamDirection;
-  carrierEdge?: any | null;
-  sipEdge?: any | null;
-  sdkEdge?: any | null;
-  clientEdge?: any | null;
+  timestamp: string;
+  callSid: string;
+  accountSid: string;
+  edge: MetricTwilioEdge;
+  direction: MetricStreamDirection;
+  carrierEdge: any;
+  sipEdge: any;
+  sdkEdge: any;
+  clientEdge: any;
 
   /**
    * Provide a user-friendly representation

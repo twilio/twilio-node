@@ -173,17 +173,17 @@ interface DeliveryReceiptPayload extends TwilioResponsePayload {
 }
 
 interface DeliveryReceiptResource {
-  account_sid?: string | null;
-  conversation_sid?: string | null;
-  sid?: string | null;
-  message_sid?: string | null;
-  channel_message_sid?: string | null;
-  participant_sid?: string | null;
-  status?: ConversationMessageReceiptDeliveryStatus;
-  error_code?: number | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  url?: string | null;
+  account_sid: string;
+  conversation_sid: string;
+  sid: string;
+  message_sid: string;
+  channel_message_sid: string;
+  participant_sid: string;
+  status: ConversationMessageReceiptDeliveryStatus;
+  error_code: number;
+  date_created: Date;
+  date_updated: Date;
+  url: string;
 }
 
 export class DeliveryReceiptInstance {
@@ -215,44 +215,44 @@ export class DeliveryReceiptInstance {
   /**
    * The unique ID of the Account responsible for this participant.
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The unique ID of the Conversation for this message.
    */
-  conversationSid?: string | null;
+  conversationSid: string;
   /**
    * A 34 character string that uniquely identifies this resource.
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The SID of the message the delivery receipt belongs to
    */
-  messageSid?: string | null;
+  messageSid: string;
   /**
    * A messaging channel-specific identifier for the message delivered to participant
    */
-  channelMessageSid?: string | null;
+  channelMessageSid: string;
   /**
    * The unique ID of the participant the delivery receipt belongs to.
    */
-  participantSid?: string | null;
-  status?: ConversationMessageReceiptDeliveryStatus;
+  participantSid: string;
+  status: ConversationMessageReceiptDeliveryStatus;
   /**
    * The message [delivery error code](https://www.twilio.com/docs/sms/api/message-resource#delivery-related-errors) for a `failed` status
    */
-  errorCode?: number | null;
+  errorCode: number;
   /**
    * The date that this resource was created.
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The date that this resource was last updated.
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * An absolute URL for this delivery receipt.
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): DeliveryReceiptContext {
     this._context =
@@ -306,8 +306,8 @@ export class DeliveryReceiptInstance {
 }
 
 export interface DeliveryReceiptSolution {
-  conversationSid?: string;
-  messageSid?: string;
+  conversationSid: string;
+  messageSid: string;
 }
 
 export interface DeliveryReceiptListInstance {

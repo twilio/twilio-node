@@ -354,17 +354,17 @@ interface SyncMapItemPayload extends TwilioResponsePayload {
 }
 
 interface SyncMapItemResource {
-  key?: string | null;
-  account_sid?: string | null;
-  service_sid?: string | null;
-  map_sid?: string | null;
-  url?: string | null;
-  revision?: string | null;
-  data?: any | null;
-  date_expires?: Date | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  created_by?: string | null;
+  key: string;
+  account_sid: string;
+  service_sid: string;
+  map_sid: string;
+  url: string;
+  revision: string;
+  data: any;
+  date_expires: Date;
+  date_created: Date;
+  date_updated: Date;
+  created_by: string;
 }
 
 export class SyncMapItemInstance {
@@ -396,47 +396,47 @@ export class SyncMapItemInstance {
   /**
    * The unique, user-defined key for the Map Item
    */
-  key?: string | null;
+  key: string;
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The SID of the Sync Service that the resource is associated with
    */
-  serviceSid?: string | null;
+  serviceSid: string;
   /**
    * The SID of the Sync Map that contains the Map Item
    */
-  mapSid?: string | null;
+  mapSid: string;
   /**
    * The absolute URL of the Map Item resource
    */
-  url?: string | null;
+  url: string;
   /**
    * The current revision of the Map Item, represented as a string
    */
-  revision?: string | null;
+  revision: string;
   /**
    * An arbitrary, schema-less object that the Map Item stores
    */
-  data?: any | null;
+  data: any;
   /**
    * The ISO 8601 date and time in GMT when the Map Item expires
    */
-  dateExpires?: Date | null;
+  dateExpires: Date;
   /**
    * The ISO 8601 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The ISO 8601 date and time in GMT when the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The identity of the Map Item\'s creator
    */
-  createdBy?: string | null;
+  createdBy: string;
 
   private get _proxy(): SyncMapItemContext {
     this._context =
@@ -542,8 +542,8 @@ export class SyncMapItemInstance {
 }
 
 export interface SyncMapItemSolution {
-  serviceSid?: string;
-  mapSid?: string;
+  serviceSid: string;
+  mapSid: string;
 }
 
 export interface SyncMapItemListInstance {

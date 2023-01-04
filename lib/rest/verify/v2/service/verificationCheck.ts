@@ -38,7 +38,7 @@ export interface VerificationCheckListInstanceCreateOptions {
 }
 
 export interface VerificationCheckSolution {
-  serviceSid?: string;
+  serviceSid: string;
 }
 
 export interface VerificationCheckListInstance {
@@ -155,18 +155,18 @@ export function VerificationCheckListInstance(
 interface VerificationCheckPayload extends VerificationCheckResource {}
 
 interface VerificationCheckResource {
-  sid?: string | null;
-  service_sid?: string | null;
-  account_sid?: string | null;
-  to?: string | null;
-  channel?: VerificationCheckChannel;
-  status?: string | null;
-  valid?: boolean | null;
-  amount?: string | null;
-  payee?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  sna_attempts_error_codes?: Array<any> | null;
+  sid: string;
+  service_sid: string;
+  account_sid: string;
+  to: string;
+  channel: VerificationCheckChannel;
+  status: string;
+  valid: boolean;
+  amount: string;
+  payee: string;
+  date_created: Date;
+  date_updated: Date;
+  sna_attempts_error_codes: Array<any>;
 }
 
 export class VerificationCheckInstance {
@@ -192,48 +192,48 @@ export class VerificationCheckInstance {
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The SID of the Service that the resource is associated with
    */
-  serviceSid?: string | null;
+  serviceSid: string;
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The phone number or email being verified
    */
-  to?: string | null;
-  channel?: VerificationCheckChannel;
+  to: string;
+  channel: VerificationCheckChannel;
   /**
    * The status of the verification resource
    */
-  status?: string | null;
+  status: string;
   /**
    * Whether the verification was successful
    */
-  valid?: boolean | null;
+  valid: boolean;
   /**
    * The amount of the associated PSD2 compliant transaction.
    */
-  amount?: string | null;
+  amount: string;
   /**
    * The payee of the associated PSD2 compliant transaction
    */
-  payee?: string | null;
+  payee: string;
   /**
    * The ISO 8601 date and time in GMT when the Verification Check resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The ISO 8601 date and time in GMT when the Verification Check resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * List of error codes as a result of attempting a verification using the `sna` channel.
    */
-  snaAttemptsErrorCodes?: Array<any> | null;
+  snaAttemptsErrorCodes: Array<any>;
 
   /**
    * Provide a user-friendly representation

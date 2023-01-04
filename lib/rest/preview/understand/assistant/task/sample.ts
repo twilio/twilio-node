@@ -290,16 +290,16 @@ interface SamplePayload extends TwilioResponsePayload {
 }
 
 interface SampleResource {
-  account_sid?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  task_sid?: string | null;
-  language?: string | null;
-  assistant_sid?: string | null;
-  sid?: string | null;
-  tagged_text?: string | null;
-  url?: string | null;
-  source_channel?: string | null;
+  account_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  task_sid: string;
+  language: string;
+  assistant_sid: string;
+  sid: string;
+  tagged_text: string;
+  url: string;
+  source_channel: string;
 }
 
 export class SampleInstance {
@@ -330,40 +330,40 @@ export class SampleInstance {
   /**
    * The unique ID of the Account that created this Sample.
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The date that this resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The date that this resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The unique ID of the Task associated with this Sample.
    */
-  taskSid?: string | null;
+  taskSid: string;
   /**
    * An ISO language-country string of the sample.
    */
-  language?: string | null;
+  language: string;
   /**
    * The unique ID of the Assistant.
    */
-  assistantSid?: string | null;
+  assistantSid: string;
   /**
    * A 34 character string that uniquely identifies this resource.
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The text example of how end-users may express this task. The sample may contain Field tag blocks.
    */
-  taggedText?: string | null;
-  url?: string | null;
+  taggedText: string;
+  url: string;
   /**
    * The communication channel the sample was captured. It can be: voice, sms, chat, alexa, google-assistant, or slack. If not included the value will be null
    */
-  sourceChannel?: string | null;
+  sourceChannel: string;
 
   private get _proxy(): SampleContext {
     this._context =
@@ -455,8 +455,8 @@ export class SampleInstance {
 }
 
 export interface SampleSolution {
-  assistantSid?: string;
-  taskSid?: string;
+  assistantSid: string;
+  taskSid: string;
 }
 
 export interface SampleListInstance {

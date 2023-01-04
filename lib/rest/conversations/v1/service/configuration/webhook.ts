@@ -182,13 +182,13 @@ export class WebhookContextImpl implements WebhookContext {
 interface WebhookPayload extends WebhookResource {}
 
 interface WebhookResource {
-  account_sid?: string | null;
-  chat_service_sid?: string | null;
-  pre_webhook_url?: string | null;
-  post_webhook_url?: string | null;
-  filters?: Array<string> | null;
-  method?: ServiceWebhookConfigurationMethod;
-  url?: string | null;
+  account_sid: string;
+  chat_service_sid: string;
+  pre_webhook_url: string;
+  post_webhook_url: string;
+  filters: Array<string>;
+  method: ServiceWebhookConfigurationMethod;
+  url: string;
 }
 
 export class WebhookInstance {
@@ -214,28 +214,28 @@ export class WebhookInstance {
   /**
    * The unique ID of the Account responsible for this service.
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The unique ID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) this conversation belongs to.
    */
-  chatServiceSid?: string | null;
+  chatServiceSid: string;
   /**
    * The absolute url the pre-event webhook request should be sent to.
    */
-  preWebhookUrl?: string | null;
+  preWebhookUrl: string;
   /**
    * The absolute url the post-event webhook request should be sent to.
    */
-  postWebhookUrl?: string | null;
+  postWebhookUrl: string;
   /**
    * The list of events that your configured webhook targets will receive. Events not configured here will not fire.
    */
-  filters?: Array<string> | null;
-  method?: ServiceWebhookConfigurationMethod;
+  filters: Array<string>;
+  method: ServiceWebhookConfigurationMethod;
   /**
    * An absolute URL for this webhook.
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): WebhookContext {
     this._context =
@@ -306,7 +306,7 @@ export class WebhookInstance {
 }
 
 export interface WebhookSolution {
-  chatServiceSid?: string;
+  chatServiceSid: string;
 }
 
 export interface WebhookListInstance {

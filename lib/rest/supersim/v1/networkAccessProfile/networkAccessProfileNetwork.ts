@@ -198,12 +198,12 @@ interface NetworkAccessProfileNetworkPayload extends TwilioResponsePayload {
 }
 
 interface NetworkAccessProfileNetworkResource {
-  sid?: string | null;
-  network_access_profile_sid?: string | null;
-  friendly_name?: string | null;
-  iso_country?: string | null;
-  identifiers?: Array<any> | null;
-  url?: string | null;
+  sid: string;
+  network_access_profile_sid: string;
+  friendly_name: string;
+  iso_country: string;
+  identifiers: Array<any>;
+  url: string;
 }
 
 export class NetworkAccessProfileNetworkInstance {
@@ -229,27 +229,27 @@ export class NetworkAccessProfileNetworkInstance {
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The unique string that identifies the Network Access Profile resource
    */
-  networkAccessProfileSid?: string | null;
+  networkAccessProfileSid: string;
   /**
    * A human readable identifier of this resource
    */
-  friendlyName?: string | null;
+  friendlyName: string;
   /**
    * The ISO country code of the Network resource
    */
-  isoCountry?: string | null;
+  isoCountry: string;
   /**
    * The MCC/MNCs included in the resource
    */
-  identifiers?: Array<any> | null;
+  identifiers: Array<any>;
   /**
    * The absolute URL of the resource
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): NetworkAccessProfileNetworkContext {
     this._context =
@@ -313,7 +313,7 @@ export class NetworkAccessProfileNetworkInstance {
 }
 
 export interface NetworkAccessProfileNetworkSolution {
-  networkAccessProfileSid?: string;
+  networkAccessProfileSid: string;
 }
 
 export interface NetworkAccessProfileNetworkListInstance {

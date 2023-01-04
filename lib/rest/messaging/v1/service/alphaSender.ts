@@ -186,14 +186,14 @@ interface AlphaSenderPayload extends TwilioResponsePayload {
 }
 
 interface AlphaSenderResource {
-  sid?: string | null;
-  account_sid?: string | null;
-  service_sid?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  alpha_sender?: string | null;
-  capabilities?: Array<string> | null;
-  url?: string | null;
+  sid: string;
+  account_sid: string;
+  service_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  alpha_sender: string;
+  capabilities: Array<string>;
+  url: string;
 }
 
 export class AlphaSenderInstance {
@@ -221,35 +221,35 @@ export class AlphaSenderInstance {
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The SID of the Service that the resource is associated with
    */
-  serviceSid?: string | null;
+  serviceSid: string;
   /**
    * The ISO 8601 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The ISO 8601 date and time in GMT when the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The Alphanumeric Sender ID string
    */
-  alphaSender?: string | null;
+  alphaSender: string;
   /**
    * An array of values that describe whether the number can receive calls or messages
    */
-  capabilities?: Array<string> | null;
+  capabilities: Array<string>;
   /**
    * The absolute URL of the AlphaSender resource
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): AlphaSenderContext {
     this._context =
@@ -312,7 +312,7 @@ export class AlphaSenderInstance {
 }
 
 export interface AlphaSenderSolution {
-  serviceSid?: string;
+  serviceSid: string;
 }
 
 export interface AlphaSenderListInstance {

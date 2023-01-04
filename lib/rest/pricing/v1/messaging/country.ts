@@ -165,12 +165,12 @@ interface CountryPayload extends TwilioResponsePayload {
 }
 
 interface CountryResource {
-  country?: string | null;
-  iso_country?: string | null;
-  outbound_sms_prices?: Array<PricingV1MessagingMessagingCountryInstanceOutboundSmsPrices> | null;
-  inbound_sms_prices?: Array<PricingV1MessagingMessagingCountryInstanceInboundSmsPrices> | null;
-  price_unit?: string | null;
-  url?: string | null;
+  country: string;
+  iso_country: string;
+  outbound_sms_prices: Array<PricingV1MessagingMessagingCountryInstanceOutboundSmsPrices>;
+  inbound_sms_prices: Array<PricingV1MessagingMessagingCountryInstanceInboundSmsPrices>;
+  price_unit: string;
+  url: string;
 }
 
 export class CountryInstance {
@@ -195,27 +195,27 @@ export class CountryInstance {
   /**
    * The name of the country
    */
-  country?: string | null;
+  country: string;
   /**
    * The ISO country code
    */
-  isoCountry?: string | null;
+  isoCountry: string;
   /**
    * The list of OutboundSMSPrice records
    */
-  outboundSmsPrices?: Array<PricingV1MessagingMessagingCountryInstanceOutboundSmsPrices> | null;
+  outboundSmsPrices: Array<PricingV1MessagingMessagingCountryInstanceOutboundSmsPrices>;
   /**
    * The list of InboundPrice records
    */
-  inboundSmsPrices?: Array<PricingV1MessagingMessagingCountryInstanceInboundSmsPrices> | null;
+  inboundSmsPrices: Array<PricingV1MessagingMessagingCountryInstanceInboundSmsPrices>;
   /**
    * The currency in which prices are measured, in ISO 4127 format (e.g. usd, eur, jpy)
    */
-  priceUnit?: string | null;
+  priceUnit: string;
   /**
    * The absolute URL of the resource
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): CountryContext {
     this._context =

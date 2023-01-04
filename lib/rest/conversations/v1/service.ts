@@ -235,13 +235,13 @@ interface ServicePayload extends TwilioResponsePayload {
 }
 
 interface ServiceResource {
-  account_sid?: string | null;
-  sid?: string | null;
-  friendly_name?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  url?: string | null;
-  links?: object | null;
+  account_sid: string;
+  sid: string;
+  friendly_name: string;
+  date_created: Date;
+  date_updated: Date;
+  url: string;
+  links: object;
 }
 
 export class ServiceInstance {
@@ -263,31 +263,31 @@ export class ServiceInstance {
   /**
    * The unique ID of the Account responsible for this service.
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * A 34 character string that uniquely identifies this resource.
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The human-readable name of this service.
    */
-  friendlyName?: string | null;
+  friendlyName: string;
   /**
    * The date that this resource was created.
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The date that this resource was last updated.
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * An absolute URL for this service.
    */
-  url?: string | null;
+  url: string;
   /**
    * Absolute URLs to access the conversations, users, roles, bindings and configuration of this service.
    */
-  links?: object | null;
+  links: object;
 
   private get _proxy(): ServiceContext {
     this._context =

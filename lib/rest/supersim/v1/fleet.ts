@@ -283,21 +283,21 @@ interface FleetPayload extends TwilioResponsePayload {
 }
 
 interface FleetResource {
-  account_sid?: string | null;
-  sid?: string | null;
-  unique_name?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  url?: string | null;
-  data_enabled?: boolean | null;
-  data_limit?: number | null;
-  data_metering?: FleetDataMetering;
-  sms_commands_enabled?: boolean | null;
-  sms_commands_url?: string | null;
-  sms_commands_method?: FleetSmsCommandsMethod;
-  network_access_profile_sid?: string | null;
-  ip_commands_url?: string | null;
-  ip_commands_method?: FleetIpCommandsMethod;
+  account_sid: string;
+  sid: string;
+  unique_name: string;
+  date_created: Date;
+  date_updated: Date;
+  url: string;
+  data_enabled: boolean;
+  data_limit: number;
+  data_metering: FleetDataMetering;
+  sms_commands_enabled: boolean;
+  sms_commands_url: string;
+  sms_commands_method: FleetSmsCommandsMethod;
+  network_access_profile_sid: string;
+  ip_commands_url: string;
+  ip_commands_method: FleetIpCommandsMethod;
 }
 
 export class FleetInstance {
@@ -327,60 +327,60 @@ export class FleetInstance {
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * An application-defined string that uniquely identifies the resource
    */
-  uniqueName?: string | null;
+  uniqueName: string;
   /**
    * The ISO 8601 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The ISO 8601 date and time in GMT when the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The absolute URL of the Fleet resource
    */
-  url?: string | null;
+  url: string;
   /**
    * Defines whether SIMs in the Fleet are capable of using data connectivity
    */
-  dataEnabled?: boolean | null;
+  dataEnabled: boolean;
   /**
    * The total data usage (download and upload combined) in Megabytes that each Super SIM assigned to the Fleet can consume
    */
-  dataLimit?: number | null;
-  dataMetering?: FleetDataMetering;
+  dataLimit: number;
+  dataMetering: FleetDataMetering;
   /**
    * Defines whether SIMs in the Fleet are capable of sending and receiving machine-to-machine SMS via Commands
    */
-  smsCommandsEnabled?: boolean | null;
+  smsCommandsEnabled: boolean;
   /**
    * The URL that will receive a webhook when a Super SIM in the Fleet is used to send an SMS from your device to the SMS Commands number
    */
-  smsCommandsUrl?: string | null;
+  smsCommandsUrl: string;
   /**
    * A string representing the HTTP method to use when making a request to `sms_commands_url`
    */
-  smsCommandsMethod?: FleetSmsCommandsMethod;
+  smsCommandsMethod: FleetSmsCommandsMethod;
   /**
    * The SID of the Network Access Profile of the Fleet
    */
-  networkAccessProfileSid?: string | null;
+  networkAccessProfileSid: string;
   /**
    * The URL that will receive a webhook when a Super SIM in the Fleet is used to send an IP Command from your device
    */
-  ipCommandsUrl?: string | null;
+  ipCommandsUrl: string;
   /**
    * A string representing the HTTP method to use when making a request to `ip_commands_url`
    */
-  ipCommandsMethod?: FleetIpCommandsMethod;
+  ipCommandsMethod: FleetIpCommandsMethod;
 
   private get _proxy(): FleetContext {
     this._context =

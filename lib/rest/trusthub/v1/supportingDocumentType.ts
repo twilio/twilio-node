@@ -154,11 +154,11 @@ interface SupportingDocumentTypePayload extends TwilioResponsePayload {
 }
 
 interface SupportingDocumentTypeResource {
-  sid?: string | null;
-  friendly_name?: string | null;
-  machine_name?: string | null;
-  fields?: Array<any> | null;
-  url?: string | null;
+  sid: string;
+  friendly_name: string;
+  machine_name: string;
+  fields: Array<any>;
+  url: string;
 }
 
 export class SupportingDocumentTypeInstance {
@@ -182,23 +182,23 @@ export class SupportingDocumentTypeInstance {
   /**
    * The unique string that identifies the Supporting Document Type resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * A human-readable description of the Supporting Document Type resource
    */
-  friendlyName?: string | null;
+  friendlyName: string;
   /**
    * The machine-readable description of the Supporting Document Type resource
    */
-  machineName?: string | null;
+  machineName: string;
   /**
    * The required information for creating a Supporting Document
    */
-  fields?: Array<any> | null;
+  fields: Array<any>;
   /**
    * The absolute URL of the Supporting Document Type resource
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): SupportingDocumentTypeContext {
     this._context =

@@ -284,17 +284,17 @@ interface MemberPayload extends TwilioResponsePayload {
 }
 
 interface MemberResource {
-  sid?: string | null;
-  account_sid?: string | null;
-  channel_sid?: string | null;
-  service_sid?: string | null;
-  identity?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  role_sid?: string | null;
-  last_consumed_message_index?: number | null;
-  last_consumption_timestamp?: Date | null;
-  url?: string | null;
+  sid: string;
+  account_sid: string;
+  channel_sid: string;
+  service_sid: string;
+  identity: string;
+  date_created: Date;
+  date_updated: Date;
+  role_sid: string;
+  last_consumed_message_index: number;
+  last_consumption_timestamp: Date;
+  url: string;
 }
 
 export class MemberInstance {
@@ -330,47 +330,47 @@ export class MemberInstance {
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The unique ID of the Channel for the member
    */
-  channelSid?: string | null;
+  channelSid: string;
   /**
    * The SID of the Service that the resource is associated with
    */
-  serviceSid?: string | null;
+  serviceSid: string;
   /**
    * The string that identifies the resource\'s User
    */
-  identity?: string | null;
+  identity: string;
   /**
    * The RFC 2822 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The RFC 2822 date and time in GMT when the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The SID of the Role assigned to the member
    */
-  roleSid?: string | null;
+  roleSid: string;
   /**
    * The index of the last Message that the Member has read within the Channel
    */
-  lastConsumedMessageIndex?: number | null;
+  lastConsumedMessageIndex: number;
   /**
    * The ISO 8601 based timestamp string that represents the date-time of the last Message read event for the Member within the Channel
    */
-  lastConsumptionTimestamp?: Date | null;
+  lastConsumptionTimestamp: Date;
   /**
    * The absolute URL of the Member resource
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): MemberContext {
     this._context =
@@ -463,8 +463,8 @@ export class MemberInstance {
 }
 
 export interface MemberSolution {
-  serviceSid?: string;
-  channelSid?: string;
+  serviceSid: string;
+  channelSid: string;
 }
 
 export interface MemberListInstance {

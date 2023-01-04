@@ -196,17 +196,17 @@ interface PayloadPayload extends TwilioResponsePayload {
 }
 
 interface PayloadResource {
-  sid?: string | null;
-  add_on_result_sid?: string | null;
-  account_sid?: string | null;
-  label?: string | null;
-  add_on_sid?: string | null;
-  add_on_configuration_sid?: string | null;
-  content_type?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  reference_sid?: string | null;
-  subresource_uris?: object | null;
+  sid: string;
+  add_on_result_sid: string;
+  account_sid: string;
+  label: string;
+  add_on_sid: string;
+  add_on_configuration_sid: string;
+  content_type: string;
+  date_created: Date;
+  date_updated: Date;
+  reference_sid: string;
+  subresource_uris: object;
 }
 
 export class PayloadInstance {
@@ -244,47 +244,47 @@ export class PayloadInstance {
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The SID of the AddOnResult to which the payload belongs
    */
-  addOnResultSid?: string | null;
+  addOnResultSid: string;
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The string that describes the payload
    */
-  label?: string | null;
+  label: string;
   /**
    * The SID of the Add-on to which the result belongs
    */
-  addOnSid?: string | null;
+  addOnSid: string;
   /**
    * The SID of the Add-on configuration
    */
-  addOnConfigurationSid?: string | null;
+  addOnConfigurationSid: string;
   /**
    * The MIME type of the payload
    */
-  contentType?: string | null;
+  contentType: string;
   /**
    * The RFC 2822 date and time in GMT that the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The RFC 2822 date and time in GMT that the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The SID of the recording to which the AddOnResult resource that contains the payload belongs
    */
-  referenceSid?: string | null;
+  referenceSid: string;
   /**
    * A list of related resources identified by their relative URIs
    */
-  subresourceUris?: object | null;
+  subresourceUris: object;
 
   private get _proxy(): PayloadContext {
     this._context =
@@ -352,9 +352,9 @@ export class PayloadInstance {
 }
 
 export interface PayloadSolution {
-  accountSid?: string;
-  referenceSid?: string;
-  addOnResultSid?: string;
+  accountSid: string;
+  referenceSid: string;
+  addOnResultSid: string;
 }
 
 export interface PayloadListInstance {

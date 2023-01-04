@@ -132,11 +132,11 @@ export function ExternalCampaignListInstance(
 interface ExternalCampaignPayload extends ExternalCampaignResource {}
 
 interface ExternalCampaignResource {
-  sid?: string | null;
-  account_sid?: string | null;
-  campaign_id?: string | null;
-  messaging_service_sid?: string | null;
-  date_created?: Date | null;
+  sid: string;
+  account_sid: string;
+  campaign_id: string;
+  messaging_service_sid: string;
+  date_created: Date;
 }
 
 export class ExternalCampaignInstance {
@@ -151,23 +151,23 @@ export class ExternalCampaignInstance {
   /**
    * The unique string that identifies a US A2P Compliance resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * ID of the preregistered campaign.
    */
-  campaignId?: string | null;
+  campaignId: string;
   /**
    * The SID of the Messaging Service the resource is associated with
    */
-  messagingServiceSid?: string | null;
+  messagingServiceSid: string;
   /**
    * The ISO 8601 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
 
   /**
    * Provide a user-friendly representation

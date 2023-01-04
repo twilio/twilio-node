@@ -216,16 +216,16 @@ interface AddOnResultPayload extends TwilioResponsePayload {
 }
 
 interface AddOnResultResource {
-  sid?: string | null;
-  account_sid?: string | null;
-  status?: RecordingAddOnResultStatus;
-  add_on_sid?: string | null;
-  add_on_configuration_sid?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  date_completed?: Date | null;
-  reference_sid?: string | null;
-  subresource_uris?: object | null;
+  sid: string;
+  account_sid: string;
+  status: RecordingAddOnResultStatus;
+  add_on_sid: string;
+  add_on_configuration_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  date_completed: Date;
+  reference_sid: string;
+  subresource_uris: object;
 }
 
 export class AddOnResultInstance {
@@ -256,40 +256,40 @@ export class AddOnResultInstance {
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
-  status?: RecordingAddOnResultStatus;
+  accountSid: string;
+  status: RecordingAddOnResultStatus;
   /**
    * The SID of the Add-on to which the result belongs
    */
-  addOnSid?: string | null;
+  addOnSid: string;
   /**
    * The SID of the Add-on configuration
    */
-  addOnConfigurationSid?: string | null;
+  addOnConfigurationSid: string;
   /**
    * The RFC 2822 date and time in GMT that the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The RFC 2822 date and time in GMT that the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The date and time in GMT that the result was completed
    */
-  dateCompleted?: Date | null;
+  dateCompleted: Date;
   /**
    * The SID of the recording to which the AddOnResult resource belongs
    */
-  referenceSid?: string | null;
+  referenceSid: string;
   /**
    * A list of related resources identified by their relative URIs
    */
-  subresourceUris?: object | null;
+  subresourceUris: object;
 
   private get _proxy(): AddOnResultContext {
     this._context =
@@ -362,8 +362,8 @@ export class AddOnResultInstance {
 }
 
 export interface AddOnResultSolution {
-  accountSid?: string;
-  referenceSid?: string;
+  accountSid: string;
+  referenceSid: string;
 }
 
 export interface AddOnResultListInstance {

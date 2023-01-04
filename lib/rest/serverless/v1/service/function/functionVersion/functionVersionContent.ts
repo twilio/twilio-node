@@ -118,12 +118,12 @@ interface FunctionVersionContentPayload
   extends FunctionVersionContentResource {}
 
 interface FunctionVersionContentResource {
-  sid?: string | null;
-  account_sid?: string | null;
-  service_sid?: string | null;
-  function_sid?: string | null;
-  content?: string | null;
-  url?: string | null;
+  sid: string;
+  account_sid: string;
+  service_sid: string;
+  function_sid: string;
+  content: string;
+  url: string;
 }
 
 export class FunctionVersionContentInstance {
@@ -150,24 +150,24 @@ export class FunctionVersionContentInstance {
   /**
    * The unique string that identifies the Function Version resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The SID of the Account that created the Function Version resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The SID of the Service that the Function Version resource is associated with
    */
-  serviceSid?: string | null;
+  serviceSid: string;
   /**
    * The SID of the Function that is the parent of the Function Version
    */
-  functionSid?: string | null;
+  functionSid: string;
   /**
    * The content of the Function Version resource
    */
-  content?: string | null;
-  url?: string | null;
+  content: string;
+  url: string;
 
   private get _proxy(): FunctionVersionContentContext {
     this._context =
@@ -219,9 +219,9 @@ export class FunctionVersionContentInstance {
 }
 
 export interface FunctionVersionContentSolution {
-  serviceSid?: string;
-  functionSid?: string;
-  sid?: string;
+  serviceSid: string;
+  functionSid: string;
+  sid: string;
 }
 
 export interface FunctionVersionContentListInstance {

@@ -173,14 +173,14 @@ export class PhoneNumberContextImpl implements PhoneNumberContext {
 interface PhoneNumberPayload extends PhoneNumberResource {}
 
 interface PhoneNumberResource {
-  phone_number?: string | null;
-  url?: string | null;
-  sid?: string | null;
-  account_sid?: string | null;
-  friendly_name?: string | null;
-  voice_region?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
+  phone_number: string;
+  url: string;
+  sid: string;
+  account_sid: string;
+  friendly_name: string;
+  voice_region: string;
+  date_created: Date;
+  date_updated: Date;
 }
 
 export class PhoneNumberInstance {
@@ -207,35 +207,35 @@ export class PhoneNumberInstance {
   /**
    * The phone number
    */
-  phoneNumber?: string | null;
+  phoneNumber: string;
   /**
    * The absolute URL of the resource
    */
-  url?: string | null;
+  url: string;
   /**
    * A string that uniquely identifies the Inbound Processing Region assignments for this phone number.
    */
-  sid?: string | null;
+  sid: string;
   /**
    * Account Sid.
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * A human readable description of the Inbound Processing Region assignments for this phone number.
    */
-  friendlyName?: string | null;
+  friendlyName: string;
   /**
    * The Inbound Processing Region used for this phone number for voice.
    */
-  voiceRegion?: string | null;
+  voiceRegion: string;
   /**
    * The date that this phone number was assigned an Inbound Processing Region.
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The date that the Inbound Processing Region was updated for this phone number.
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
 
   private get _proxy(): PhoneNumberContext {
     this._context =

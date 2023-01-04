@@ -220,19 +220,19 @@ interface ParticipantPayload extends TwilioResponsePayload {
 }
 
 interface ParticipantResource {
-  sid?: string | null;
-  session_sid?: string | null;
-  service_sid?: string | null;
-  account_sid?: string | null;
-  friendly_name?: string | null;
-  identifier?: string | null;
-  proxy_identifier?: string | null;
-  proxy_identifier_sid?: string | null;
-  date_deleted?: Date | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  url?: string | null;
-  links?: object | null;
+  sid: string;
+  session_sid: string;
+  service_sid: string;
+  account_sid: string;
+  friendly_name: string;
+  identifier: string;
+  proxy_identifier: string;
+  proxy_identifier_sid: string;
+  date_deleted: Date;
+  date_created: Date;
+  date_updated: Date;
+  url: string;
+  links: object;
 }
 
 export class ParticipantInstance {
@@ -266,55 +266,55 @@ export class ParticipantInstance {
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The SID of the resource\'s parent Session
    */
-  sessionSid?: string | null;
+  sessionSid: string;
   /**
    * The SID of the resource\'s parent Service
    */
-  serviceSid?: string | null;
+  serviceSid: string;
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The string that you assigned to describe the participant
    */
-  friendlyName?: string | null;
+  friendlyName: string;
   /**
    * The phone number or channel identifier of the Participant
    */
-  identifier?: string | null;
+  identifier: string;
   /**
    * The phone number or short code of the participant\'s partner
    */
-  proxyIdentifier?: string | null;
+  proxyIdentifier: string;
   /**
    * The SID of the Proxy Identifier assigned to the Participant
    */
-  proxyIdentifierSid?: string | null;
+  proxyIdentifierSid: string;
   /**
    * The ISO 8601 date the Participant was removed
    */
-  dateDeleted?: Date | null;
+  dateDeleted: Date;
   /**
    * The ISO 8601 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The ISO 8601 date and time in GMT when the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The absolute URL of the Participant resource
    */
-  url?: string | null;
+  url: string;
   /**
    * The URLs to resources related the participant
    */
-  links?: object | null;
+  links: object;
 
   private get _proxy(): ParticipantContext {
     this._context =
@@ -390,8 +390,8 @@ export class ParticipantInstance {
 }
 
 export interface ParticipantSolution {
-  serviceSid?: string;
-  sessionSid?: string;
+  serviceSid: string;
+  sessionSid: string;
 }
 
 export interface ParticipantListInstance {

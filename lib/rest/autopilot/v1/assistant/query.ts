@@ -294,20 +294,20 @@ interface QueryPayload extends TwilioResponsePayload {
 }
 
 interface QueryResource {
-  account_sid?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  results?: any | null;
-  language?: string | null;
-  model_build_sid?: string | null;
-  query?: string | null;
-  sample_sid?: string | null;
-  assistant_sid?: string | null;
-  sid?: string | null;
-  status?: string | null;
-  url?: string | null;
-  source_channel?: string | null;
-  dialogue_sid?: string | null;
+  account_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  results: any;
+  language: string;
+  model_build_sid: string;
+  query: string;
+  sample_sid: string;
+  assistant_sid: string;
+  sid: string;
+  status: string;
+  url: string;
+  source_channel: string;
+  dialogue_sid: string;
 }
 
 export class QueryInstance {
@@ -341,59 +341,59 @@ export class QueryInstance {
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The RFC 2822 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The RFC 2822 date and time in GMT when the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The natural language analysis results that include the Task recognized and a list of identified Fields
    */
-  results?: any | null;
+  results: any;
   /**
    * The ISO language-country string that specifies the language used by the Query
    */
-  language?: string | null;
+  language: string;
   /**
    * The SID of the [Model Build](https://www.twilio.com/docs/autopilot/api/model-build) queried
    */
-  modelBuildSid?: string | null;
+  modelBuildSid: string;
   /**
    * The end-user\'s natural language input
    */
-  query?: string | null;
+  query: string;
   /**
    * The SID of an optional reference to the Sample created from the query
    */
-  sampleSid?: string | null;
+  sampleSid: string;
   /**
    * The SID of the Assistant that is the parent of the resource
    */
-  assistantSid?: string | null;
+  assistantSid: string;
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The status of the Query
    */
-  status?: string | null;
+  status: string;
   /**
    * The absolute URL of the Query resource
    */
-  url?: string | null;
+  url: string;
   /**
    * The communication channel from where the end-user input came
    */
-  sourceChannel?: string | null;
+  sourceChannel: string;
   /**
    * The SID of the [Dialogue](https://www.twilio.com/docs/autopilot/api/dialogue).
    */
-  dialogueSid?: string | null;
+  dialogueSid: string;
 
   private get _proxy(): QueryContext {
     this._context =
@@ -488,7 +488,7 @@ export class QueryInstance {
 }
 
 export interface QuerySolution {
-  assistantSid?: string;
+  assistantSid: string;
 }
 
 export interface QueryListInstance {

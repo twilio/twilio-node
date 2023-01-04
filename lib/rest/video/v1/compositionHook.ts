@@ -340,21 +340,21 @@ interface CompositionHookPayload extends TwilioResponsePayload {
 }
 
 interface CompositionHookResource {
-  account_sid?: string | null;
-  friendly_name?: string | null;
-  enabled?: boolean | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  sid?: string | null;
-  audio_sources?: Array<string> | null;
-  audio_sources_excluded?: Array<string> | null;
-  video_layout?: any | null;
-  resolution?: string | null;
-  trim?: boolean | null;
-  format?: CompositionHookFormat;
-  status_callback?: string | null;
-  status_callback_method?: CompositionHookStatusCallbackMethod;
-  url?: string | null;
+  account_sid: string;
+  friendly_name: string;
+  enabled: boolean;
+  date_created: Date;
+  date_updated: Date;
+  sid: string;
+  audio_sources: Array<string>;
+  audio_sources_excluded: Array<string>;
+  video_layout: any;
+  resolution: string;
+  trim: boolean;
+  format: CompositionHookFormat;
+  status_callback: string;
+  status_callback_method: CompositionHookStatusCallbackMethod;
+  url: string;
 }
 
 export class CompositionHookInstance {
@@ -388,60 +388,60 @@ export class CompositionHookInstance {
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The string that you assigned to describe the resource
    */
-  friendlyName?: string | null;
+  friendlyName: string;
   /**
    * Whether the CompositionHook is active
    */
-  enabled?: boolean | null;
+  enabled: boolean;
   /**
    * The ISO 8601 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The ISO 8601 date and time in GMT when the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The array of track names to include in the compositions created by the composition hook
    */
-  audioSources?: Array<string> | null;
+  audioSources: Array<string>;
   /**
    * The array of track names to exclude from the compositions created by the composition hook
    */
-  audioSourcesExcluded?: Array<string> | null;
+  audioSourcesExcluded: Array<string>;
   /**
    * A JSON object that describes the video layout of the Composition
    */
-  videoLayout?: any | null;
+  videoLayout: any;
   /**
    * The dimensions of the video image in pixels expressed as columns (width) and rows (height)
    */
-  resolution?: string | null;
+  resolution: string;
   /**
    * Whether intervals with no media are clipped
    */
-  trim?: boolean | null;
-  format?: CompositionHookFormat;
+  trim: boolean;
+  format: CompositionHookFormat;
   /**
    * The URL to send status information to your application
    */
-  statusCallback?: string | null;
+  statusCallback: string;
   /**
    * The HTTP method we should use to call status_callback
    */
-  statusCallbackMethod?: CompositionHookStatusCallbackMethod;
+  statusCallbackMethod: CompositionHookStatusCallbackMethod;
   /**
    * The absolute URL of the resource
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): CompositionHookContext {
     this._context =

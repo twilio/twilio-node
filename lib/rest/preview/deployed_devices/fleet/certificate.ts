@@ -279,15 +279,15 @@ interface CertificatePayload extends TwilioResponsePayload {
 }
 
 interface CertificateResource {
-  sid?: string | null;
-  url?: string | null;
-  friendly_name?: string | null;
-  fleet_sid?: string | null;
-  account_sid?: string | null;
-  device_sid?: string | null;
-  thumbprint?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
+  sid: string;
+  url: string;
+  friendly_name: string;
+  fleet_sid: string;
+  account_sid: string;
+  device_sid: string;
+  thumbprint: string;
+  date_created: Date;
+  date_updated: Date;
 }
 
 export class CertificateInstance {
@@ -316,39 +316,39 @@ export class CertificateInstance {
   /**
    * A string that uniquely identifies this Certificate.
    */
-  sid?: string | null;
+  sid: string;
   /**
    * URL of this Certificate.
    */
-  url?: string | null;
+  url: string;
   /**
    * A human readable description for this Certificate.
    */
-  friendlyName?: string | null;
+  friendlyName: string;
   /**
    * The unique identifier of the Fleet.
    */
-  fleetSid?: string | null;
+  fleetSid: string;
   /**
    * The unique SID that identifies this Account.
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The unique identifier of a mapped Device.
    */
-  deviceSid?: string | null;
+  deviceSid: string;
   /**
    * A Certificate unique payload hash.
    */
-  thumbprint?: string | null;
+  thumbprint: string;
   /**
    * The date this Certificate was created.
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The date this Certificate was updated.
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
 
   private get _proxy(): CertificateContext {
     this._context =
@@ -438,7 +438,7 @@ export class CertificateInstance {
 }
 
 export interface CertificateSolution {
-  fleetSid?: string;
+  fleetSid: string;
 }
 
 export interface CertificateListInstance {

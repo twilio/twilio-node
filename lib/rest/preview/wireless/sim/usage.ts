@@ -131,15 +131,15 @@ export class UsageContextImpl implements UsageContext {
 interface UsagePayload extends UsageResource {}
 
 interface UsageResource {
-  sim_sid?: string | null;
-  sim_unique_name?: string | null;
-  account_sid?: string | null;
-  period?: any | null;
-  commands_usage?: any | null;
-  commands_costs?: any | null;
-  data_usage?: any | null;
-  data_costs?: any | null;
-  url?: string | null;
+  sim_sid: string;
+  sim_unique_name: string;
+  account_sid: string;
+  period: any;
+  commands_usage: any;
+  commands_costs: any;
+  data_usage: any;
+  data_costs: any;
+  url: string;
 }
 
 export class UsageInstance {
@@ -164,15 +164,15 @@ export class UsageInstance {
     this._solution = { simSid };
   }
 
-  simSid?: string | null;
-  simUniqueName?: string | null;
-  accountSid?: string | null;
-  period?: any | null;
-  commandsUsage?: any | null;
-  commandsCosts?: any | null;
-  dataUsage?: any | null;
-  dataCosts?: any | null;
-  url?: string | null;
+  simSid: string;
+  simUniqueName: string;
+  accountSid: string;
+  period: any;
+  commandsUsage: any;
+  commandsCosts: any;
+  dataUsage: any;
+  dataCosts: any;
+  url: string;
 
   private get _proxy(): UsageContext {
     this._context =
@@ -232,7 +232,7 @@ export class UsageInstance {
 }
 
 export interface UsageSolution {
-  simSid?: string;
+  simSid: string;
 }
 
 export interface UsageListInstance {

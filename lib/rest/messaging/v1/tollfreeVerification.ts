@@ -226,37 +226,37 @@ interface TollfreeVerificationPayload extends TwilioResponsePayload {
 }
 
 interface TollfreeVerificationResource {
-  sid?: string | null;
-  account_sid?: string | null;
-  customer_profile_sid?: string | null;
-  trust_product_sid?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  regulated_item_sid?: string | null;
-  business_name?: string | null;
-  business_street_address?: string | null;
-  business_street_address2?: string | null;
-  business_city?: string | null;
-  business_state_province_region?: string | null;
-  business_postal_code?: string | null;
-  business_country?: string | null;
-  business_website?: string | null;
-  business_contact_first_name?: string | null;
-  business_contact_last_name?: string | null;
-  business_contact_email?: string | null;
-  business_contact_phone?: string | null;
-  notification_email?: string | null;
-  use_case_categories?: Array<string> | null;
-  use_case_summary?: string | null;
-  production_message_sample?: string | null;
-  opt_in_image_urls?: Array<string> | null;
-  opt_in_type?: TollfreeVerificationOptInType;
-  message_volume?: string | null;
-  additional_information?: string | null;
-  tollfree_phone_number_sid?: string | null;
-  status?: TollfreeVerificationStatus;
-  url?: string | null;
-  resource_links?: any | null;
+  sid: string;
+  account_sid: string;
+  customer_profile_sid: string;
+  trust_product_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  regulated_item_sid: string;
+  business_name: string;
+  business_street_address: string;
+  business_street_address2: string;
+  business_city: string;
+  business_state_province_region: string;
+  business_postal_code: string;
+  business_country: string;
+  business_website: string;
+  business_contact_first_name: string;
+  business_contact_last_name: string;
+  business_contact_email: string;
+  business_contact_phone: string;
+  notification_email: string;
+  use_case_categories: Array<string>;
+  use_case_summary: string;
+  production_message_sample: string;
+  opt_in_image_urls: Array<string>;
+  opt_in_type: TollfreeVerificationOptInType;
+  message_volume: string;
+  additional_information: string;
+  tollfree_phone_number_sid: string;
+  status: TollfreeVerificationStatus;
+  url: string;
+  resource_links: any;
 }
 
 export class TollfreeVerificationInstance {
@@ -306,121 +306,121 @@ export class TollfreeVerificationInstance {
   /**
    * Tollfree Verification Sid
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * Customer\'s Profile Bundle BundleSid
    */
-  customerProfileSid?: string | null;
+  customerProfileSid: string;
   /**
    * Tollfree TrustProduct Bundle BundleSid
    */
-  trustProductSid?: string | null;
+  trustProductSid: string;
   /**
    * The ISO 8601 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The ISO 8601 date and time in GMT when the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The SID of the Regulated Item
    */
-  regulatedItemSid?: string | null;
+  regulatedItemSid: string;
   /**
    * The name of the business or organization using the Tollfree number
    */
-  businessName?: string | null;
+  businessName: string;
   /**
    * The address of the business or organization using the Tollfree number
    */
-  businessStreetAddress?: string | null;
+  businessStreetAddress: string;
   /**
    * The address of the business or organization using the Tollfree number
    */
-  businessStreetAddress2?: string | null;
+  businessStreetAddress2: string;
   /**
    * The city of the business or organization using the Tollfree number
    */
-  businessCity?: string | null;
+  businessCity: string;
   /**
    * The state/province/region of the business or organization using the Tollfree number
    */
-  businessStateProvinceRegion?: string | null;
+  businessStateProvinceRegion: string;
   /**
    * The postal code of the business or organization using the Tollfree number
    */
-  businessPostalCode?: string | null;
+  businessPostalCode: string;
   /**
    * The country of the business or organization using the Tollfree number
    */
-  businessCountry?: string | null;
+  businessCountry: string;
   /**
    * The website of the business or organization using the Tollfree number
    */
-  businessWebsite?: string | null;
+  businessWebsite: string;
   /**
    * The first name of the contact for the business or organization using the Tollfree number
    */
-  businessContactFirstName?: string | null;
+  businessContactFirstName: string;
   /**
    * The last name of the contact for the business or organization using the Tollfree number
    */
-  businessContactLastName?: string | null;
+  businessContactLastName: string;
   /**
    * The email address of the contact for the business or organization using the Tollfree number
    */
-  businessContactEmail?: string | null;
+  businessContactEmail: string;
   /**
    * The phone number of the contact for the business or organization using the Tollfree number
    */
-  businessContactPhone?: string | null;
+  businessContactPhone: string;
   /**
    * The email address to receive the notification about the verification result.
    */
-  notificationEmail?: string | null;
+  notificationEmail: string;
   /**
    * The category of the use case for the Tollfree Number. List as many are applicable.
    */
-  useCaseCategories?: Array<string> | null;
+  useCaseCategories: Array<string>;
   /**
    * Further explaination on how messaging is used by the business or organization
    */
-  useCaseSummary?: string | null;
+  useCaseSummary: string;
   /**
    * An example of message content, i.e. a sample message
    */
-  productionMessageSample?: string | null;
+  productionMessageSample: string;
   /**
    * Link to an image that shows the opt-in workflow. Multiple images allowed and must be a publicly hosted URL
    */
-  optInImageUrls?: Array<string> | null;
-  optInType?: TollfreeVerificationOptInType;
+  optInImageUrls: Array<string>;
+  optInType: TollfreeVerificationOptInType;
   /**
    * Estimate monthly volume of messages from the Tollfree Number
    */
-  messageVolume?: string | null;
+  messageVolume: string;
   /**
    * Additional information to be provided for verification
    */
-  additionalInformation?: string | null;
+  additionalInformation: string;
   /**
    * The SID of the Phone Number associated with the Tollfree Verification
    */
-  tollfreePhoneNumberSid?: string | null;
-  status?: TollfreeVerificationStatus;
+  tollfreePhoneNumberSid: string;
+  status: TollfreeVerificationStatus;
   /**
    * The absolute URL of the Tollfree Verification
    */
-  url?: string | null;
+  url: string;
   /**
    * The URLs of the documents associated with the Tollfree Verification resource
    */
-  resourceLinks?: any | null;
+  resourceLinks: any;
 
   private get _proxy(): TollfreeVerificationContext {
     this._context =

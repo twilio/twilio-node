@@ -152,11 +152,11 @@ interface CountryPayload extends TwilioResponsePayload {
 }
 
 interface CountryResource {
-  country?: string | null;
-  iso_country?: string | null;
-  phone_number_prices?: Array<PricingV1PhoneNumberPhoneNumberCountryInstancePhoneNumberPrices> | null;
-  price_unit?: string | null;
-  url?: string | null;
+  country: string;
+  iso_country: string;
+  phone_number_prices: Array<PricingV1PhoneNumberPhoneNumberCountryInstancePhoneNumberPrices>;
+  price_unit: string;
+  url: string;
 }
 
 export class CountryInstance {
@@ -180,23 +180,23 @@ export class CountryInstance {
   /**
    * The name of the country
    */
-  country?: string | null;
+  country: string;
   /**
    * The ISO country code
    */
-  isoCountry?: string | null;
+  isoCountry: string;
   /**
    * The list of PhoneNumberPrices records
    */
-  phoneNumberPrices?: Array<PricingV1PhoneNumberPhoneNumberCountryInstancePhoneNumberPrices> | null;
+  phoneNumberPrices: Array<PricingV1PhoneNumberPhoneNumberCountryInstancePhoneNumberPrices>;
   /**
    * The currency in which prices are measured, in ISO 4127 format (e.g. usd, eur, jpy)
    */
-  priceUnit?: string | null;
+  priceUnit: string;
   /**
    * The absolute URL of the resource
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): CountryContext {
     this._context =

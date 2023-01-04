@@ -354,20 +354,20 @@ interface MessagePayload extends TwilioResponsePayload {
 }
 
 interface MessageResource {
-  account_sid?: string | null;
-  conversation_sid?: string | null;
-  sid?: string | null;
-  index?: number | null;
-  author?: string | null;
-  body?: string | null;
-  media?: Array<any> | null;
-  attributes?: string | null;
-  participant_sid?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  url?: string | null;
-  delivery?: any | null;
-  links?: object | null;
+  account_sid: string;
+  conversation_sid: string;
+  sid: string;
+  index: number;
+  author: string;
+  body: string;
+  media: Array<any>;
+  attributes: string;
+  participant_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  url: string;
+  delivery: any;
+  links: object;
 }
 
 export class MessageInstance {
@@ -401,59 +401,59 @@ export class MessageInstance {
   /**
    * The unique ID of the Account responsible for this message.
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The unique ID of the Conversation for this message.
    */
-  conversationSid?: string | null;
+  conversationSid: string;
   /**
    * A 34 character string that uniquely identifies this resource.
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The index of the message within the Conversation.
    */
-  index?: number | null;
+  index: number;
   /**
    * The channel specific identifier of the message\'s author.
    */
-  author?: string | null;
+  author: string;
   /**
    * The content of the message.
    */
-  body?: string | null;
+  body: string;
   /**
    * An array of objects that describe the Message\'s media if attached, otherwise, null.
    */
-  media?: Array<any> | null;
+  media: Array<any>;
   /**
    * A string metadata field you can use to store any data you wish.
    */
-  attributes?: string | null;
+  attributes: string;
   /**
    * The unique ID of messages\'s author participant.
    */
-  participantSid?: string | null;
+  participantSid: string;
   /**
    * The date that this resource was created.
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The date that this resource was last updated.
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * An absolute API URL for this message.
    */
-  url?: string | null;
+  url: string;
   /**
    * An object that contains the summary of delivery statuses for the message to non-chat participants.
    */
-  delivery?: any | null;
+  delivery: any;
   /**
    * Absolute URL to access the receipts of this message.
    */
-  links?: object | null;
+  links: object;
 
   private get _proxy(): MessageContext {
     this._context =
@@ -568,7 +568,7 @@ export class MessageInstance {
 }
 
 export interface MessageSolution {
-  conversationSid?: string;
+  conversationSid: string;
 }
 
 export interface MessageListInstance {

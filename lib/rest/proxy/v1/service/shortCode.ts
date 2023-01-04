@@ -262,16 +262,16 @@ interface ShortCodePayload extends TwilioResponsePayload {
 }
 
 interface ShortCodeResource {
-  sid?: string | null;
-  account_sid?: string | null;
-  service_sid?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  short_code?: string | null;
-  iso_country?: string | null;
-  capabilities?: PhoneNumberCapabilities | null;
-  url?: string | null;
-  is_reserved?: boolean | null;
+  sid: string;
+  account_sid: string;
+  service_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  short_code: string;
+  iso_country: string;
+  capabilities: PhoneNumberCapabilities;
+  url: string;
+  is_reserved: boolean;
 }
 
 export class ShortCodeInstance {
@@ -301,40 +301,40 @@ export class ShortCodeInstance {
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The SID of the resource\'s parent Service
    */
-  serviceSid?: string | null;
+  serviceSid: string;
   /**
    * The ISO 8601 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The ISO 8601 date and time in GMT when the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The short code\'s number
    */
-  shortCode?: string | null;
+  shortCode: string;
   /**
    * The ISO Country Code
    */
-  isoCountry?: string | null;
-  capabilities?: PhoneNumberCapabilities | null;
+  isoCountry: string;
+  capabilities: PhoneNumberCapabilities;
   /**
    * The absolute URL of the ShortCode resource
    */
-  url?: string | null;
+  url: string;
   /**
    * Whether the short code should be reserved for manual assignment to participants only
    */
-  isReserved?: boolean | null;
+  isReserved: boolean;
 
   private get _proxy(): ShortCodeContext {
     this._context =
@@ -425,7 +425,7 @@ export class ShortCodeInstance {
 }
 
 export interface ShortCodeSolution {
-  serviceSid?: string;
+  serviceSid: string;
 }
 
 export interface ShortCodeListInstance {

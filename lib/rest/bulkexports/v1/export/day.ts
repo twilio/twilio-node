@@ -152,12 +152,12 @@ interface DayPayload extends TwilioResponsePayload {
 }
 
 interface DayResource {
-  redirect_to?: string | null;
-  day?: string | null;
-  size?: number | null;
-  create_date?: string | null;
-  friendly_name?: string | null;
-  resource_type?: string | null;
+  redirect_to: string;
+  day: string;
+  size: number;
+  create_date: string;
+  friendly_name: string;
+  resource_type: string;
 }
 
 export class DayInstance {
@@ -180,27 +180,27 @@ export class DayInstance {
     this._solution = { resourceType, day: day || this.day };
   }
 
-  redirectTo?: string | null;
+  redirectTo: string;
   /**
    * The date of the data in the file
    */
-  day?: string | null;
+  day: string;
   /**
    * Size of the file in bytes
    */
-  size?: number | null;
+  size: number;
   /**
    * The date when resource is created
    */
-  createDate?: string | null;
+  createDate: string;
   /**
    * The friendly name specified when creating the job
    */
-  friendlyName?: string | null;
+  friendlyName: string;
   /**
    * The type of communication – Messages, Calls, Conferences, and Participants
    */
-  resourceType?: string | null;
+  resourceType: string;
 
   private get _proxy(): DayContext {
     this._context =
@@ -248,7 +248,7 @@ export class DayInstance {
 }
 
 export interface DaySolution {
-  resourceType?: string;
+  resourceType: string;
 }
 
 export interface DayListInstance {

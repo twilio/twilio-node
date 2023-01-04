@@ -229,13 +229,13 @@ export class NotificationContextImpl implements NotificationContext {
 interface NotificationPayload extends NotificationResource {}
 
 interface NotificationResource {
-  account_sid?: string | null;
-  chat_service_sid?: string | null;
-  new_message?: any | null;
-  added_to_conversation?: any | null;
-  removed_from_conversation?: any | null;
-  log_enabled?: boolean | null;
-  url?: string | null;
+  account_sid: string;
+  chat_service_sid: string;
+  new_message: any;
+  added_to_conversation: any;
+  removed_from_conversation: any;
+  log_enabled: boolean;
+  url: string;
 }
 
 export class NotificationInstance {
@@ -261,31 +261,31 @@ export class NotificationInstance {
   /**
    * The unique ID of the Account responsible for this configuration.
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The SID of the Conversation Service that the Configuration applies to.
    */
-  chatServiceSid?: string | null;
+  chatServiceSid: string;
   /**
    * The Push Notification configuration for New Messages.
    */
-  newMessage?: any | null;
+  newMessage: any;
   /**
    * The Push Notification configuration for being added to a Conversation.
    */
-  addedToConversation?: any | null;
+  addedToConversation: any;
   /**
    * The Push Notification configuration for being removed from a Conversation.
    */
-  removedFromConversation?: any | null;
+  removedFromConversation: any;
   /**
    * Weather the notification logging is enabled.
    */
-  logEnabled?: boolean | null;
+  logEnabled: boolean;
   /**
    * An absolute URL for this configuration.
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): NotificationContext {
     this._context =
@@ -356,7 +356,7 @@ export class NotificationInstance {
 }
 
 export interface NotificationSolution {
-  chatServiceSid?: string;
+  chatServiceSid: string;
 }
 
 export interface NotificationListInstance {

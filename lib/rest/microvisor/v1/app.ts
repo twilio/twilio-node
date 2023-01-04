@@ -168,13 +168,13 @@ interface AppPayload extends TwilioResponsePayload {
 }
 
 interface AppResource {
-  sid?: string | null;
-  account_sid?: string | null;
-  hash?: string | null;
-  unique_name?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  url?: string | null;
+  sid: string;
+  account_sid: string;
+  hash: string;
+  unique_name: string;
+  date_created: Date;
+  date_updated: Date;
+  url: string;
 }
 
 export class AppInstance {
@@ -196,31 +196,31 @@ export class AppInstance {
   /**
    * A string that uniquely identifies this App.
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The Account SID.
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * App manifest hash represented as hash_algorithm:hash_value.
    */
-  hash?: string | null;
+  hash: string;
   /**
    * An developer-defined string that uniquely identifies the App.
    */
-  uniqueName?: string | null;
+  uniqueName: string;
   /**
    * The date that this App was created.
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The date that this App was last updated.
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The URL of this resource.
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): AppContext {
     this._context =

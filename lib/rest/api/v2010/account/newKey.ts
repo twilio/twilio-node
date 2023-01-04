@@ -28,7 +28,7 @@ export interface NewKeyListInstanceCreateOptions {
 }
 
 export interface NewKeySolution {
-  accountSid?: string;
+  accountSid: string;
 }
 
 export interface NewKeyListInstance {
@@ -141,11 +141,11 @@ export function NewKeyListInstance(
 interface NewKeyPayload extends NewKeyResource {}
 
 interface NewKeyResource {
-  sid?: string | null;
-  friendly_name?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  secret?: string | null;
+  sid: string;
+  friendly_name: string;
+  date_created: Date;
+  date_updated: Date;
+  secret: string;
 }
 
 export class NewKeyInstance {
@@ -164,23 +164,23 @@ export class NewKeyInstance {
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The string that you assigned to describe the resource
    */
-  friendlyName?: string | null;
+  friendlyName: string;
   /**
    * The RFC 2822 date and time in GMT that the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The RFC 2822 date and time in GMT that the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The secret your application uses to sign Access Tokens and to authenticate to the REST API.
    */
-  secret?: string | null;
+  secret: string;
 
   /**
    * Provide a user-friendly representation

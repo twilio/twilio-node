@@ -178,20 +178,20 @@ interface EventPayload extends TwilioResponsePayload {
 }
 
 interface EventResource {
-  account_sid?: string | null;
-  actor_sid?: string | null;
-  actor_type?: string | null;
-  description?: string | null;
-  event_data?: any | null;
-  event_date?: Date | null;
-  event_type?: string | null;
-  resource_sid?: string | null;
-  resource_type?: string | null;
-  sid?: string | null;
-  source?: string | null;
-  source_ip_address?: string | null;
-  url?: string | null;
-  links?: object | null;
+  account_sid: string;
+  actor_sid: string;
+  actor_type: string;
+  description: string;
+  event_data: any;
+  event_date: Date;
+  event_type: string;
+  resource_sid: string;
+  resource_type: string;
+  sid: string;
+  source: string;
+  source_ip_address: string;
+  url: string;
+  links: object;
 }
 
 export class EventInstance {
@@ -220,59 +220,59 @@ export class EventInstance {
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The SID of the actor that caused the event, if available
    */
-  actorSid?: string | null;
+  actorSid: string;
   /**
    * The type of actor that caused the event
    */
-  actorType?: string | null;
+  actorType: string;
   /**
    * A description of the event
    */
-  description?: string | null;
+  description: string;
   /**
    * A JSON string that represents an object with additional data about the event
    */
-  eventData?: any | null;
+  eventData: any;
   /**
    * The ISO 8601 date and time in GMT when the event was recorded
    */
-  eventDate?: Date | null;
+  eventDate: Date;
   /**
    * The event\'s type
    */
-  eventType?: string | null;
+  eventType: string;
   /**
    * The SID of the resource that was affected
    */
-  resourceSid?: string | null;
+  resourceSid: string;
   /**
    * The type of resource that was affected
    */
-  resourceType?: string | null;
+  resourceType: string;
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The originating system or interface that caused the event
    */
-  source?: string | null;
+  source: string;
   /**
    * The IP address of the source
    */
-  sourceIpAddress?: string | null;
+  sourceIpAddress: string;
   /**
    * The absolute URL of the resource that was affected
    */
-  url?: string | null;
+  url: string;
   /**
    * The absolute URLs of related resources
    */
-  links?: object | null;
+  links: object;
 
   private get _proxy(): EventContext {
     this._context =

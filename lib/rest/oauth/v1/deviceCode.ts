@@ -129,12 +129,12 @@ export function DeviceCodeListInstance(version: V1): DeviceCodeListInstance {
 interface DeviceCodePayload extends DeviceCodeResource {}
 
 interface DeviceCodeResource {
-  device_code?: string | null;
-  user_code?: string | null;
-  verification_uri?: string | null;
-  verification_uri_complete?: string | null;
-  expires_in?: number | null;
-  interval?: number | null;
+  device_code: string;
+  user_code: string;
+  verification_uri: string;
+  verification_uri_complete: string;
+  expires_in: number;
+  interval: number;
 }
 
 export class DeviceCodeInstance {
@@ -150,27 +150,27 @@ export class DeviceCodeInstance {
   /**
    * The device verification code
    */
-  deviceCode?: string | null;
+  deviceCode: string;
   /**
    * The verification code for the end user
    */
-  userCode?: string | null;
+  userCode: string;
   /**
    * The URI that the end user visits to verify request
    */
-  verificationUri?: string | null;
+  verificationUri: string;
   /**
    * he URI with user_code that the end-user alternatively visits to verify request
    */
-  verificationUriComplete?: string | null;
+  verificationUriComplete: string;
   /**
    * The expiration time of the device_code and user_code in seconds
    */
-  expiresIn?: number | null;
+  expiresIn: number;
   /**
    * The minimum amount of time in seconds that the client should wait between polling requests to the token endpoint
    */
-  interval?: number | null;
+  interval: number;
 
   /**
    * Provide a user-friendly representation

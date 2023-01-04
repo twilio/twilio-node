@@ -269,13 +269,13 @@ interface MessagingConfigurationPayload extends TwilioResponsePayload {
 }
 
 interface MessagingConfigurationResource {
-  account_sid?: string | null;
-  service_sid?: string | null;
-  country?: string | null;
-  messaging_service_sid?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  url?: string | null;
+  account_sid: string;
+  service_sid: string;
+  country: string;
+  messaging_service_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  url: string;
 }
 
 export class MessagingConfigurationInstance {
@@ -302,31 +302,31 @@ export class MessagingConfigurationInstance {
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The SID of the Service that the resource is associated with
    */
-  serviceSid?: string | null;
+  serviceSid: string;
   /**
    * The ISO-3166-1 country code of the country or `all`.
    */
-  country?: string | null;
+  country: string;
   /**
    * The SID of the Messaging Service used for this configuration.
    */
-  messagingServiceSid?: string | null;
+  messagingServiceSid: string;
   /**
    * The RFC 2822 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The RFC 2822 date and time in GMT when the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The URL of this resource.
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): MessagingConfigurationContext {
     this._context =
@@ -410,7 +410,7 @@ export class MessagingConfigurationInstance {
 }
 
 export interface MessagingConfigurationSolution {
-  serviceSid?: string;
+  serviceSid: string;
 }
 
 export interface MessagingConfigurationListInstance {

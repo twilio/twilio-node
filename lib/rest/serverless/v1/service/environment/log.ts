@@ -183,18 +183,18 @@ interface LogPayload extends TwilioResponsePayload {
 }
 
 interface LogResource {
-  sid?: string | null;
-  account_sid?: string | null;
-  service_sid?: string | null;
-  environment_sid?: string | null;
-  build_sid?: string | null;
-  deployment_sid?: string | null;
-  function_sid?: string | null;
-  request_sid?: string | null;
-  level?: LogLevel;
-  message?: string | null;
-  date_created?: Date | null;
-  url?: string | null;
+  sid: string;
+  account_sid: string;
+  service_sid: string;
+  environment_sid: string;
+  build_sid: string;
+  deployment_sid: string;
+  function_sid: string;
+  request_sid: string;
+  level: LogLevel;
+  message: string;
+  date_created: Date;
+  url: string;
 }
 
 export class LogInstance {
@@ -227,48 +227,48 @@ export class LogInstance {
   /**
    * The unique string that identifies the Log resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The SID of the Account that created the Log resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The SID of the Service that the Log resource is associated with
    */
-  serviceSid?: string | null;
+  serviceSid: string;
   /**
    * The SID of the environment in which the log occurred
    */
-  environmentSid?: string | null;
+  environmentSid: string;
   /**
    * The SID of the build that corresponds to the log
    */
-  buildSid?: string | null;
+  buildSid: string;
   /**
    * The SID of the deployment that corresponds to the log
    */
-  deploymentSid?: string | null;
+  deploymentSid: string;
   /**
    * The SID of the function whose invocation produced the log
    */
-  functionSid?: string | null;
+  functionSid: string;
   /**
    * The SID of the request associated with the log
    */
-  requestSid?: string | null;
-  level?: LogLevel;
+  requestSid: string;
+  level: LogLevel;
   /**
    * The log message
    */
-  message?: string | null;
+  message: string;
   /**
    * The ISO 8601 date and time in GMT when the Log resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The absolute URL of the Log resource
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): LogContext {
     this._context =
@@ -323,8 +323,8 @@ export class LogInstance {
 }
 
 export interface LogSolution {
-  serviceSid?: string;
-  environmentSid?: string;
+  serviceSid: string;
+  environmentSid: string;
 }
 
 export interface LogListInstance {

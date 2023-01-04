@@ -152,11 +152,11 @@ interface SchemaVersionPayload extends TwilioResponsePayload {
 }
 
 interface SchemaVersionResource {
-  id?: string | null;
-  schema_version?: number | null;
-  date_created?: Date | null;
-  url?: string | null;
-  raw?: string | null;
+  id: string;
+  schema_version: number;
+  date_created: Date;
+  url: string;
+  raw: string;
 }
 
 export class SchemaVersionInstance {
@@ -181,20 +181,20 @@ export class SchemaVersionInstance {
   /**
    * The unique identifier of the schema.
    */
-  id?: string | null;
+  id: string;
   /**
    * The version of this schema.
    */
-  schemaVersion?: number | null;
+  schemaVersion: number;
   /**
    * The date the schema version was created.
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The URL of this resource.
    */
-  url?: string | null;
-  raw?: string | null;
+  url: string;
+  raw: string;
 
   private get _proxy(): SchemaVersionContext {
     this._context =
@@ -241,7 +241,7 @@ export class SchemaVersionInstance {
 }
 
 export interface SchemaVersionSolution {
-  id?: string;
+  id: string;
 }
 
 export interface SchemaVersionListInstance {

@@ -70,8 +70,8 @@ export interface UserChannelListInstancePageOptions {
 }
 
 export interface UserChannelSolution {
-  serviceSid?: string;
-  userSid?: string;
+  serviceSid: string;
+  userSid: string;
 }
 
 export interface UserChannelListInstance {
@@ -304,14 +304,14 @@ interface UserChannelPayload extends TwilioResponsePayload {
 }
 
 interface UserChannelResource {
-  account_sid?: string | null;
-  service_sid?: string | null;
-  channel_sid?: string | null;
-  member_sid?: string | null;
-  status?: UserChannelChannelStatus;
-  last_consumed_message_index?: number | null;
-  unread_messages_count?: number | null;
-  links?: object | null;
+  account_sid: string;
+  service_sid: string;
+  channel_sid: string;
+  member_sid: string;
+  status: UserChannelChannelStatus;
+  last_consumed_message_index: number;
+  unread_messages_count: number;
+  links: object;
 }
 
 export class UserChannelInstance {
@@ -335,14 +335,14 @@ export class UserChannelInstance {
     this.links = payload.links;
   }
 
-  accountSid?: string | null;
-  serviceSid?: string | null;
-  channelSid?: string | null;
-  memberSid?: string | null;
-  status?: UserChannelChannelStatus;
-  lastConsumedMessageIndex?: number | null;
-  unreadMessagesCount?: number | null;
-  links?: object | null;
+  accountSid: string;
+  serviceSid: string;
+  channelSid: string;
+  memberSid: string;
+  status: UserChannelChannelStatus;
+  lastConsumedMessageIndex: number;
+  unreadMessagesCount: number;
+  links: object;
 
   /**
    * Provide a user-friendly representation

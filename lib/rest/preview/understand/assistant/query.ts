@@ -294,19 +294,19 @@ interface QueryPayload extends TwilioResponsePayload {
 }
 
 interface QueryResource {
-  account_sid?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  results?: any | null;
-  language?: string | null;
-  model_build_sid?: string | null;
-  query?: string | null;
-  sample_sid?: string | null;
-  assistant_sid?: string | null;
-  sid?: string | null;
-  status?: string | null;
-  url?: string | null;
-  source_channel?: string | null;
+  account_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  results: any;
+  language: string;
+  model_build_sid: string;
+  query: string;
+  sample_sid: string;
+  assistant_sid: string;
+  sid: string;
+  status: string;
+  url: string;
+  source_channel: string;
 }
 
 export class QueryInstance {
@@ -339,52 +339,52 @@ export class QueryInstance {
   /**
    * The unique ID of the Account that created this Query.
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The date that this resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The date that this resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The natural language analysis results which include the Task recognized, the confidence score and a list of identified Fields.
    */
-  results?: any | null;
+  results: any;
   /**
    * An ISO language-country string of the sample.
    */
-  language?: string | null;
+  language: string;
   /**
    * The unique ID of the Model Build queried.
    */
-  modelBuildSid?: string | null;
+  modelBuildSid: string;
   /**
    * The end-user\'s natural language input.
    */
-  query?: string | null;
+  query: string;
   /**
    * An optional reference to the Sample created from this query.
    */
-  sampleSid?: string | null;
+  sampleSid: string;
   /**
    * The unique ID of the parent Assistant.
    */
-  assistantSid?: string | null;
+  assistantSid: string;
   /**
    * A 34 character string that uniquely identifies this resource.
    */
-  sid?: string | null;
+  sid: string;
   /**
    * A string that described the query status. The values can be: pending_review, reviewed, discarded
    */
-  status?: string | null;
-  url?: string | null;
+  status: string;
+  url: string;
   /**
    * The communication channel where this end-user input came from
    */
-  sourceChannel?: string | null;
+  sourceChannel: string;
 
   private get _proxy(): QueryContext {
     this._context =
@@ -478,7 +478,7 @@ export class QueryInstance {
 }
 
 export interface QuerySolution {
-  assistantSid?: string;
+  assistantSid: string;
 }
 
 export interface QueryListInstance {

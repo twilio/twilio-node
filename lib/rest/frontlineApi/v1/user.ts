@@ -173,13 +173,13 @@ export class UserContextImpl implements UserContext {
 interface UserPayload extends UserResource {}
 
 interface UserResource {
-  sid?: string | null;
-  identity?: string | null;
-  friendly_name?: string | null;
-  avatar?: string | null;
-  state?: UserStateType;
-  is_available?: boolean | null;
-  url?: string | null;
+  sid: string;
+  identity: string;
+  friendly_name: string;
+  avatar: string;
+  state: UserStateType;
+  is_available: boolean;
+  url: string;
 }
 
 export class UserInstance {
@@ -201,28 +201,28 @@ export class UserInstance {
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The string that identifies the resource\'s User
    */
-  identity?: string | null;
+  identity: string;
   /**
    * The string that you assigned to describe the User
    */
-  friendlyName?: string | null;
+  friendlyName: string;
   /**
    * The avatar URL which will be shown in Frontline application
    */
-  avatar?: string | null;
-  state?: UserStateType;
+  avatar: string;
+  state: UserStateType;
   /**
    * Whether the User is available for new conversations
    */
-  isAvailable?: boolean | null;
+  isAvailable: boolean;
   /**
    * An absolute URL for this user.
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): UserContext {
     this._context =

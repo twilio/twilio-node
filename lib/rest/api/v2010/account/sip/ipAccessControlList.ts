@@ -275,13 +275,13 @@ interface IpAccessControlListPayload extends TwilioResponsePayload {
 }
 
 interface IpAccessControlListResource {
-  sid?: string | null;
-  account_sid?: string | null;
-  friendly_name?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  subresource_uris?: object | null;
-  uri?: string | null;
+  sid: string;
+  account_sid: string;
+  friendly_name: string;
+  date_created: Date;
+  date_updated: Date;
+  subresource_uris: object;
+  uri: string;
 }
 
 export class IpAccessControlListInstance {
@@ -308,31 +308,31 @@ export class IpAccessControlListInstance {
   /**
    * A string that uniquely identifies this resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The unique sid that identifies this account
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * A human readable description of this resource
    */
-  friendlyName?: string | null;
+  friendlyName: string;
   /**
    * The date this resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The date this resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The IP addresses associated with this resource.
    */
-  subresourceUris?: object | null;
+  subresourceUris: object;
   /**
    * The URI for this resource
    */
-  uri?: string | null;
+  uri: string;
 
   private get _proxy(): IpAccessControlListContext {
     this._context =
@@ -417,7 +417,7 @@ export class IpAccessControlListInstance {
 }
 
 export interface IpAccessControlListSolution {
-  accountSid?: string;
+  accountSid: string;
 }
 
 export interface IpAccessControlListListInstance {

@@ -241,19 +241,19 @@ interface WorkerChannelPayload extends TwilioResponsePayload {
 }
 
 interface WorkerChannelResource {
-  account_sid?: string | null;
-  assigned_tasks?: number | null;
-  available?: boolean | null;
-  available_capacity_percentage?: number | null;
-  configured_capacity?: number | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  sid?: string | null;
-  task_channel_sid?: string | null;
-  task_channel_unique_name?: string | null;
-  worker_sid?: string | null;
-  workspace_sid?: string | null;
-  url?: string | null;
+  account_sid: string;
+  assigned_tasks: number;
+  available: boolean;
+  available_capacity_percentage: number;
+  configured_capacity: number;
+  date_created: Date;
+  date_updated: Date;
+  sid: string;
+  task_channel_sid: string;
+  task_channel_unique_name: string;
+  worker_sid: string;
+  workspace_sid: string;
+  url: string;
 }
 
 export class WorkerChannelInstance {
@@ -289,55 +289,55 @@ export class WorkerChannelInstance {
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The total number of Tasks assigned to Worker for the TaskChannel type
    */
-  assignedTasks?: number | null;
+  assignedTasks: number;
   /**
    * Whether the Worker should receive Tasks of the TaskChannel type
    */
-  available?: boolean | null;
+  available: boolean;
   /**
    * The current available capacity between 0 to 100 for the TaskChannel
    */
-  availableCapacityPercentage?: number | null;
+  availableCapacityPercentage: number;
   /**
    * The current configured capacity for the WorkerChannel
    */
-  configuredCapacity?: number | null;
+  configuredCapacity: number;
   /**
    * The RFC 2822 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The RFC 2822 date and time in GMT when the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The SID of the TaskChannel
    */
-  taskChannelSid?: string | null;
+  taskChannelSid: string;
   /**
    * The unique name of the TaskChannel, such as \'voice\' or \'sms\'
    */
-  taskChannelUniqueName?: string | null;
+  taskChannelUniqueName: string;
   /**
    * The SID of the Worker that contains the WorkerChannel
    */
-  workerSid?: string | null;
+  workerSid: string;
   /**
    * The SID of the Workspace that contains the WorkerChannel
    */
-  workspaceSid?: string | null;
+  workspaceSid: string;
   /**
    * The absolute URL of the WorkerChannel resource
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): WorkerChannelContext {
     this._context =
@@ -419,8 +419,8 @@ export class WorkerChannelInstance {
 }
 
 export interface WorkerChannelSolution {
-  workspaceSid?: string;
-  workerSid?: string;
+  workspaceSid: string;
+  workerSid: string;
 }
 
 export interface WorkerChannelListInstance {

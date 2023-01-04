@@ -84,7 +84,7 @@ export class AssessmentsContextImpl implements AssessmentsContext {
 interface AssessmentsPayload extends AssessmentsResource {}
 
 interface AssessmentsResource {
-  url?: string | null;
+  url: string;
 }
 
 export class AssessmentsInstance {
@@ -100,7 +100,7 @@ export class AssessmentsInstance {
   /**
    * The URL of this resource.
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): AssessmentsContext {
     this._context = this._context || new AssessmentsContextImpl(this._version);

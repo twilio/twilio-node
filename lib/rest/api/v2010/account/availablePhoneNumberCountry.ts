@@ -264,11 +264,11 @@ interface AvailablePhoneNumberCountryPayload extends TwilioResponsePayload {
 }
 
 interface AvailablePhoneNumberCountryResource {
-  country_code?: string | null;
-  country?: string | null;
-  uri?: string | null;
-  beta?: boolean | null;
-  subresource_uris?: object | null;
+  country_code: string;
+  country: string;
+  uri: string;
+  beta: boolean;
+  subresource_uris: object;
 }
 
 export class AvailablePhoneNumberCountryInstance {
@@ -296,23 +296,23 @@ export class AvailablePhoneNumberCountryInstance {
   /**
    * The ISO-3166-1 country code of the country.
    */
-  countryCode?: string | null;
+  countryCode: string;
   /**
    * The name of the country
    */
-  country?: string | null;
+  country: string;
   /**
    * The URI of the Country resource, relative to `https://api.twilio.com`
    */
-  uri?: string | null;
+  uri: string;
   /**
    * Whether all phone numbers available in the country are new to the Twilio platform.
    */
-  beta?: boolean | null;
+  beta: boolean;
   /**
    * A list of related resources identified by their relative URIs
    */
-  subresourceUris?: object | null;
+  subresourceUris: object;
 
   private get _proxy(): AvailablePhoneNumberCountryContext {
     this._context =
@@ -411,7 +411,7 @@ export class AvailablePhoneNumberCountryInstance {
 }
 
 export interface AvailablePhoneNumberCountrySolution {
-  accountSid?: string;
+  accountSid: string;
 }
 
 export interface AvailablePhoneNumberCountryListInstance {

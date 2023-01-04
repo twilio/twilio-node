@@ -356,22 +356,22 @@ interface MessagePayload extends TwilioResponsePayload {
 }
 
 interface MessageResource {
-  sid?: string | null;
-  account_sid?: string | null;
-  attributes?: string | null;
-  service_sid?: string | null;
-  to?: string | null;
-  channel_sid?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  last_updated_by?: string | null;
-  was_edited?: boolean | null;
-  from?: string | null;
-  body?: string | null;
-  index?: number | null;
-  type?: string | null;
-  media?: any | null;
-  url?: string | null;
+  sid: string;
+  account_sid: string;
+  attributes: string;
+  service_sid: string;
+  to: string;
+  channel_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  last_updated_by: string;
+  was_edited: boolean;
+  from: string;
+  body: string;
+  index: number;
+  type: string;
+  media: any;
+  url: string;
 }
 
 export class MessageInstance {
@@ -405,22 +405,22 @@ export class MessageInstance {
     this._solution = { serviceSid, channelSid, sid: sid || this.sid };
   }
 
-  sid?: string | null;
-  accountSid?: string | null;
-  attributes?: string | null;
-  serviceSid?: string | null;
-  to?: string | null;
-  channelSid?: string | null;
-  dateCreated?: Date | null;
-  dateUpdated?: Date | null;
-  lastUpdatedBy?: string | null;
-  wasEdited?: boolean | null;
-  from?: string | null;
-  body?: string | null;
-  index?: number | null;
-  type?: string | null;
-  media?: any | null;
-  url?: string | null;
+  sid: string;
+  accountSid: string;
+  attributes: string;
+  serviceSid: string;
+  to: string;
+  channelSid: string;
+  dateCreated: Date;
+  dateUpdated: Date;
+  lastUpdatedBy: string;
+  wasEdited: boolean;
+  from: string;
+  body: string;
+  index: number;
+  type: string;
+  media: any;
+  url: string;
 
   private get _proxy(): MessageContext {
     this._context =
@@ -531,8 +531,8 @@ export class MessageInstance {
 }
 
 export interface MessageSolution {
-  serviceSid?: string;
-  channelSid?: string;
+  serviceSid: string;
+  channelSid: string;
 }
 
 export interface MessageListInstance {

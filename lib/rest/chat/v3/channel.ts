@@ -151,20 +151,20 @@ export class ChannelContextImpl implements ChannelContext {
 interface ChannelPayload extends ChannelResource {}
 
 interface ChannelResource {
-  sid?: string | null;
-  account_sid?: string | null;
-  service_sid?: string | null;
-  friendly_name?: string | null;
-  unique_name?: string | null;
-  attributes?: string | null;
-  type?: ChannelChannelType;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  created_by?: string | null;
-  members_count?: number | null;
-  messages_count?: number | null;
-  messaging_service_sid?: string | null;
-  url?: string | null;
+  sid: string;
+  account_sid: string;
+  service_sid: string;
+  friendly_name: string;
+  unique_name: string;
+  attributes: string;
+  type: ChannelChannelType;
+  date_created: Date;
+  date_updated: Date;
+  created_by: string;
+  members_count: number;
+  messages_count: number;
+  messaging_service_sid: string;
+  url: string;
 }
 
 export class ChannelInstance {
@@ -201,56 +201,56 @@ export class ChannelInstance {
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The SID of the Service that the resource is associated with
    */
-  serviceSid?: string | null;
+  serviceSid: string;
   /**
    * The string that you assigned to describe the resource
    */
-  friendlyName?: string | null;
+  friendlyName: string;
   /**
    * An application-defined string that uniquely identifies the resource
    */
-  uniqueName?: string | null;
+  uniqueName: string;
   /**
    * The JSON string that stores application-specific data
    */
-  attributes?: string | null;
-  type?: ChannelChannelType;
+  attributes: string;
+  type: ChannelChannelType;
   /**
    * The ISO 8601 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The ISO 8601 date and time in GMT when the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The identity of the User that created the channel
    */
-  createdBy?: string | null;
+  createdBy: string;
   /**
    * The number of Members in the Channel
    */
-  membersCount?: number | null;
+  membersCount: number;
   /**
    * The number of Messages that have been passed in the Channel
    */
-  messagesCount?: number | null;
+  messagesCount: number;
   /**
    * The unique ID of the Messaging Service this channel belongs to.
    */
-  messagingServiceSid?: string | null;
+  messagingServiceSid: string;
   /**
    * The absolute URL of the Channel resource
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): ChannelContext {
     this._context =

@@ -177,8 +177,8 @@ export interface MobileListInstancePageOptions {
 }
 
 export interface MobileSolution {
-  accountSid?: string;
-  countryCode?: string;
+  accountSid: string;
+  countryCode: string;
 }
 
 export interface MobileListInstance {
@@ -447,19 +447,19 @@ interface MobilePayload extends TwilioResponsePayload {
 }
 
 interface MobileResource {
-  friendly_name?: string | null;
-  phone_number?: string | null;
-  lata?: string | null;
-  locality?: string | null;
-  rate_center?: string | null;
-  latitude?: number | null;
-  longitude?: number | null;
-  region?: string | null;
-  postal_code?: string | null;
-  iso_country?: string | null;
-  address_requirements?: string | null;
-  beta?: boolean | null;
-  capabilities?: PhoneNumberCapabilities | null;
+  friendly_name: string;
+  phone_number: string;
+  lata: string;
+  locality: string;
+  rate_center: string;
+  latitude: number;
+  longitude: number;
+  region: string;
+  postal_code: string;
+  iso_country: string;
+  address_requirements: string;
+  beta: boolean;
+  capabilities: PhoneNumberCapabilities;
 }
 
 export class MobileInstance {
@@ -487,52 +487,52 @@ export class MobileInstance {
   /**
    * A formatted version of the phone number
    */
-  friendlyName?: string | null;
+  friendlyName: string;
   /**
    * The phone number in E.164 format
    */
-  phoneNumber?: string | null;
+  phoneNumber: string;
   /**
    * The LATA of this phone number
    */
-  lata?: string | null;
+  lata: string;
   /**
    * The locality or city of this phone number\'s location
    */
-  locality?: string | null;
+  locality: string;
   /**
    * The rate center of this phone number
    */
-  rateCenter?: string | null;
+  rateCenter: string;
   /**
    * The latitude of this phone number\'s location
    */
-  latitude?: number | null;
+  latitude: number;
   /**
    * The longitude of this phone number\'s location
    */
-  longitude?: number | null;
+  longitude: number;
   /**
    * The two-letter state or province abbreviation of this phone number\'s location
    */
-  region?: string | null;
+  region: string;
   /**
    * The postal or ZIP code of this phone number\'s location
    */
-  postalCode?: string | null;
+  postalCode: string;
   /**
    * The ISO country code of this phone number
    */
-  isoCountry?: string | null;
+  isoCountry: string;
   /**
    * The type of Address resource the phone number requires
    */
-  addressRequirements?: string | null;
+  addressRequirements: string;
   /**
    * Whether the phone number is new to the Twilio platform
    */
-  beta?: boolean | null;
-  capabilities?: PhoneNumberCapabilities | null;
+  beta: boolean;
+  capabilities: PhoneNumberCapabilities;
 
   /**
    * Provide a user-friendly representation

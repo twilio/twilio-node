@@ -311,22 +311,22 @@ interface SessionPayload extends TwilioResponsePayload {
 }
 
 interface SessionResource {
-  sid?: string | null;
-  service_sid?: string | null;
-  account_sid?: string | null;
-  date_started?: Date | null;
-  date_ended?: Date | null;
-  date_last_interaction?: Date | null;
-  date_expiry?: Date | null;
-  unique_name?: string | null;
-  status?: SessionStatus;
-  closed_reason?: string | null;
-  ttl?: number | null;
-  mode?: SessionMode;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  url?: string | null;
-  links?: object | null;
+  sid: string;
+  service_sid: string;
+  account_sid: string;
+  date_started: Date;
+  date_ended: Date;
+  date_last_interaction: Date;
+  date_expiry: Date;
+  unique_name: string;
+  status: SessionStatus;
+  closed_reason: string;
+  ttl: number;
+  mode: SessionMode;
+  date_created: Date;
+  date_updated: Date;
+  url: string;
+  links: object;
 }
 
 export class SessionInstance {
@@ -364,61 +364,61 @@ export class SessionInstance {
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The SID of the resource\'s parent Service
    */
-  serviceSid?: string | null;
+  serviceSid: string;
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The ISO 8601 date when the Session started
    */
-  dateStarted?: Date | null;
+  dateStarted: Date;
   /**
    * The ISO 8601 date when the Session ended
    */
-  dateEnded?: Date | null;
+  dateEnded: Date;
   /**
    * The ISO 8601 date when the Session last had an interaction
    */
-  dateLastInteraction?: Date | null;
+  dateLastInteraction: Date;
   /**
    * The ISO 8601 date when the Session should expire
    */
-  dateExpiry?: Date | null;
+  dateExpiry: Date;
   /**
    * An application-defined string that uniquely identifies the resource
    */
-  uniqueName?: string | null;
-  status?: SessionStatus;
+  uniqueName: string;
+  status: SessionStatus;
   /**
    * The reason the Session ended
    */
-  closedReason?: string | null;
+  closedReason: string;
   /**
    * When the session will expire
    */
-  ttl?: number | null;
-  mode?: SessionMode;
+  ttl: number;
+  mode: SessionMode;
   /**
    * The ISO 8601 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The ISO 8601 date and time in GMT when the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The absolute URL of the Session resource
    */
-  url?: string | null;
+  url: string;
   /**
    * The URLs of resources related to the Session
    */
-  links?: object | null;
+  links: object;
 
   private get _proxy(): SessionContext {
     this._context =
@@ -529,7 +529,7 @@ export class SessionInstance {
 }
 
 export interface SessionSolution {
-  serviceSid?: string;
+  serviceSid: string;
 }
 
 export interface SessionListInstance {

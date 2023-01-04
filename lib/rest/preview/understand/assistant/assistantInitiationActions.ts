@@ -187,10 +187,10 @@ interface AssistantInitiationActionsPayload
   extends AssistantInitiationActionsResource {}
 
 interface AssistantInitiationActionsResource {
-  account_sid?: string | null;
-  assistant_sid?: string | null;
-  url?: string | null;
-  data?: any | null;
+  account_sid: string;
+  assistant_sid: string;
+  url: string;
+  data: any;
 }
 
 export class AssistantInitiationActionsInstance {
@@ -210,10 +210,10 @@ export class AssistantInitiationActionsInstance {
     this._solution = { assistantSid };
   }
 
-  accountSid?: string | null;
-  assistantSid?: string | null;
-  url?: string | null;
-  data?: any | null;
+  accountSid: string;
+  assistantSid: string;
+  url: string;
+  data: any;
 
   private get _proxy(): AssistantInitiationActionsContext {
     this._context =
@@ -296,7 +296,7 @@ export class AssistantInitiationActionsInstance {
 }
 
 export interface AssistantInitiationActionsSolution {
-  assistantSid?: string;
+  assistantSid: string;
 }
 
 export interface AssistantInitiationActionsListInstance {

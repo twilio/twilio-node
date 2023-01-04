@@ -275,14 +275,14 @@ interface SyncListPermissionPayload extends TwilioResponsePayload {
 }
 
 interface SyncListPermissionResource {
-  account_sid?: string | null;
-  service_sid?: string | null;
-  list_sid?: string | null;
-  identity?: string | null;
-  read?: boolean | null;
-  write?: boolean | null;
-  manage?: boolean | null;
-  url?: string | null;
+  account_sid: string;
+  service_sid: string;
+  list_sid: string;
+  identity: string;
+  read: boolean;
+  write: boolean;
+  manage: boolean;
+  url: string;
 }
 
 export class SyncListPermissionInstance {
@@ -315,35 +315,35 @@ export class SyncListPermissionInstance {
   /**
    * Twilio Account SID.
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * Sync Service Instance SID.
    */
-  serviceSid?: string | null;
+  serviceSid: string;
   /**
    * Sync List SID.
    */
-  listSid?: string | null;
+  listSid: string;
   /**
    * Identity of the user to whom the Sync List Permission applies.
    */
-  identity?: string | null;
+  identity: string;
   /**
    * Read access.
    */
-  read?: boolean | null;
+  read: boolean;
   /**
    * Write access.
    */
-  write?: boolean | null;
+  write: boolean;
   /**
    * Manage access.
    */
-  manage?: boolean | null;
+  manage: boolean;
   /**
    * URL of this Sync List Permission.
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): SyncListPermissionContext {
     this._context =
@@ -423,8 +423,8 @@ export class SyncListPermissionInstance {
 }
 
 export interface SyncListPermissionSolution {
-  serviceSid?: string;
-  listSid?: string;
+  serviceSid: string;
+  listSid: string;
 }
 
 export interface SyncListPermissionListInstance {

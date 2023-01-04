@@ -205,16 +205,16 @@ interface InvitePayload extends TwilioResponsePayload {
 }
 
 interface InviteResource {
-  sid?: string | null;
-  account_sid?: string | null;
-  channel_sid?: string | null;
-  service_sid?: string | null;
-  identity?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  role_sid?: string | null;
-  created_by?: string | null;
-  url?: string | null;
+  sid: string;
+  account_sid: string;
+  channel_sid: string;
+  service_sid: string;
+  identity: string;
+  date_created: Date;
+  date_updated: Date;
+  role_sid: string;
+  created_by: string;
+  url: string;
 }
 
 export class InviteInstance {
@@ -242,16 +242,16 @@ export class InviteInstance {
     this._solution = { serviceSid, channelSid, sid: sid || this.sid };
   }
 
-  sid?: string | null;
-  accountSid?: string | null;
-  channelSid?: string | null;
-  serviceSid?: string | null;
-  identity?: string | null;
-  dateCreated?: Date | null;
-  dateUpdated?: Date | null;
-  roleSid?: string | null;
-  createdBy?: string | null;
-  url?: string | null;
+  sid: string;
+  accountSid: string;
+  channelSid: string;
+  serviceSid: string;
+  identity: string;
+  dateCreated: Date;
+  dateUpdated: Date;
+  roleSid: string;
+  createdBy: string;
+  url: string;
 
   private get _proxy(): InviteContext {
     this._context =
@@ -317,8 +317,8 @@ export class InviteInstance {
 }
 
 export interface InviteSolution {
-  serviceSid?: string;
-  channelSid?: string;
+  serviceSid: string;
+  channelSid: string;
 }
 
 export interface InviteListInstance {

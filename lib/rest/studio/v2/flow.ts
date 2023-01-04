@@ -288,21 +288,21 @@ interface FlowPayload extends TwilioResponsePayload {
 }
 
 interface FlowResource {
-  sid?: string | null;
-  account_sid?: string | null;
-  friendly_name?: string | null;
-  definition?: any | null;
-  status?: FlowStatus;
-  revision?: number | null;
-  commit_message?: string | null;
-  valid?: boolean | null;
-  errors?: Array<any> | null;
-  warnings?: Array<any> | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  webhook_url?: string | null;
-  url?: string | null;
-  links?: object | null;
+  sid: string;
+  account_sid: string;
+  friendly_name: string;
+  definition: any;
+  status: FlowStatus;
+  revision: number;
+  commit_message: string;
+  valid: boolean;
+  errors: Array<any>;
+  warnings: Array<any>;
+  date_created: Date;
+  date_updated: Date;
+  webhook_url: string;
+  url: string;
+  links: object;
 }
 
 export class FlowInstance {
@@ -332,57 +332,57 @@ export class FlowInstance {
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The string that you assigned to describe the Flow
    */
-  friendlyName?: string | null;
+  friendlyName: string;
   /**
    * JSON representation of flow definition
    */
-  definition?: any | null;
-  status?: FlowStatus;
+  definition: any;
+  status: FlowStatus;
   /**
    * The latest revision number of the Flow\'s definition
    */
-  revision?: number | null;
+  revision: number;
   /**
    * Description of change made in the revision
    */
-  commitMessage?: string | null;
+  commitMessage: string;
   /**
    * Boolean if the flow definition is valid
    */
-  valid?: boolean | null;
+  valid: boolean;
   /**
    * List of error in the flow definition
    */
-  errors?: Array<any> | null;
+  errors: Array<any>;
   /**
    * List of warnings in the flow definition
    */
-  warnings?: Array<any> | null;
+  warnings: Array<any>;
   /**
    * The ISO 8601 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The ISO 8601 date and time in GMT when the resource was last updated
    */
-  dateUpdated?: Date | null;
-  webhookUrl?: string | null;
+  dateUpdated: Date;
+  webhookUrl: string;
   /**
    * The absolute URL of the resource
    */
-  url?: string | null;
+  url: string;
   /**
    * Nested resource URLs
    */
-  links?: object | null;
+  links: object;
 
   private get _proxy(): FlowContext {
     this._context =

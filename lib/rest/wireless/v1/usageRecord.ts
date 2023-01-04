@@ -313,10 +313,10 @@ interface UsageRecordPayload extends TwilioResponsePayload {
 }
 
 interface UsageRecordResource {
-  account_sid?: string | null;
-  period?: any | null;
-  commands?: any | null;
-  data?: any | null;
+  account_sid: string;
+  period: any;
+  commands: any;
+  data: any;
 }
 
 export class UsageRecordInstance {
@@ -330,19 +330,19 @@ export class UsageRecordInstance {
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The time period for which usage is reported
    */
-  period?: any | null;
+  period: any;
   /**
    * An object that describes the aggregated Commands usage for all SIMs during the specified period
    */
-  commands?: any | null;
+  commands: any;
   /**
    * An object that describes the aggregated Data usage for all SIMs over the period
    */
-  data?: any | null;
+  data: any;
 
   /**
    * Provide a user-friendly representation

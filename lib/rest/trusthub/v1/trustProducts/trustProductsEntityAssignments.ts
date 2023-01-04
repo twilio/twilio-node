@@ -194,12 +194,12 @@ interface TrustProductsEntityAssignmentsPayload extends TwilioResponsePayload {
 }
 
 interface TrustProductsEntityAssignmentsResource {
-  sid?: string | null;
-  trust_product_sid?: string | null;
-  account_sid?: string | null;
-  object_sid?: string | null;
-  date_created?: Date | null;
-  url?: string | null;
+  sid: string;
+  trust_product_sid: string;
+  account_sid: string;
+  object_sid: string;
+  date_created: Date;
+  url: string;
 }
 
 export class TrustProductsEntityAssignmentsInstance {
@@ -225,27 +225,27 @@ export class TrustProductsEntityAssignmentsInstance {
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The unique string that identifies the TrustProduct resource.
    */
-  trustProductSid?: string | null;
+  trustProductSid: string;
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The sid of an object bag
    */
-  objectSid?: string | null;
+  objectSid: string;
   /**
    * The ISO 8601 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The absolute URL of the Identity resource
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): TrustProductsEntityAssignmentsContext {
     this._context =
@@ -309,7 +309,7 @@ export class TrustProductsEntityAssignmentsInstance {
 }
 
 export interface TrustProductsEntityAssignmentsSolution {
-  trustProductSid?: string;
+  trustProductSid: string;
 }
 
 export interface TrustProductsEntityAssignmentsListInstance {

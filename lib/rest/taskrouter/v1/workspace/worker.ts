@@ -415,19 +415,19 @@ interface WorkerPayload extends TwilioResponsePayload {
 }
 
 interface WorkerResource {
-  account_sid?: string | null;
-  activity_name?: string | null;
-  activity_sid?: string | null;
-  attributes?: string | null;
-  available?: boolean | null;
-  date_created?: Date | null;
-  date_status_changed?: Date | null;
-  date_updated?: Date | null;
-  friendly_name?: string | null;
-  sid?: string | null;
-  workspace_sid?: string | null;
-  url?: string | null;
-  links?: object | null;
+  account_sid: string;
+  activity_name: string;
+  activity_sid: string;
+  attributes: string;
+  available: boolean;
+  date_created: Date;
+  date_status_changed: Date;
+  date_updated: Date;
+  friendly_name: string;
+  sid: string;
+  workspace_sid: string;
+  url: string;
+  links: object;
 }
 
 export class WorkerInstance {
@@ -462,55 +462,55 @@ export class WorkerInstance {
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The friendly_name of the Worker\'s current Activity
    */
-  activityName?: string | null;
+  activityName: string;
   /**
    * The SID of the Worker\'s current Activity
    */
-  activitySid?: string | null;
+  activitySid: string;
   /**
    * The JSON string that describes the Worker
    */
-  attributes?: string | null;
+  attributes: string;
   /**
    * Whether the Worker is available to perform tasks
    */
-  available?: boolean | null;
+  available: boolean;
   /**
    * The ISO 8601 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The date and time in GMT of the last change to the Worker\'s activity
    */
-  dateStatusChanged?: Date | null;
+  dateStatusChanged: Date;
   /**
    * The ISO 8601 date and time in GMT when the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The string that you assigned to describe the resource
    */
-  friendlyName?: string | null;
+  friendlyName: string;
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The SID of the Workspace that contains the Worker
    */
-  workspaceSid?: string | null;
+  workspaceSid: string;
   /**
    * The absolute URL of the Worker resource
    */
-  url?: string | null;
+  url: string;
   /**
    * The URLs of related resources
    */
-  links?: object | null;
+  links: object;
 
   private get _proxy(): WorkerContext {
     this._context =
@@ -638,7 +638,7 @@ export class WorkerInstance {
 }
 
 export interface WorkerSolution {
-  workspaceSid?: string;
+  workspaceSid: string;
 }
 
 export interface WorkerListInstance {

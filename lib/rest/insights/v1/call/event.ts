@@ -83,7 +83,7 @@ export interface EventListInstancePageOptions {
 }
 
 export interface EventSolution {
-  callSid?: string;
+  callSid: string;
 }
 
 export interface EventListInstance {
@@ -310,17 +310,17 @@ interface EventPayload extends TwilioResponsePayload {
 }
 
 interface EventResource {
-  timestamp?: string | null;
-  call_sid?: string | null;
-  account_sid?: string | null;
-  edge?: EventTwilioEdge;
-  group?: string | null;
-  level?: EventLevel;
-  name?: string | null;
-  carrier_edge?: any | null;
-  sip_edge?: any | null;
-  sdk_edge?: any | null;
-  client_edge?: any | null;
+  timestamp: string;
+  call_sid: string;
+  account_sid: string;
+  edge: EventTwilioEdge;
+  group: string;
+  level: EventLevel;
+  name: string;
+  carrier_edge: any;
+  sip_edge: any;
+  sdk_edge: any;
+  client_edge: any;
 }
 
 export class EventInstance {
@@ -338,17 +338,17 @@ export class EventInstance {
     this.clientEdge = payload.client_edge;
   }
 
-  timestamp?: string | null;
-  callSid?: string | null;
-  accountSid?: string | null;
-  edge?: EventTwilioEdge;
-  group?: string | null;
-  level?: EventLevel;
-  name?: string | null;
-  carrierEdge?: any | null;
-  sipEdge?: any | null;
-  sdkEdge?: any | null;
-  clientEdge?: any | null;
+  timestamp: string;
+  callSid: string;
+  accountSid: string;
+  edge: EventTwilioEdge;
+  group: string;
+  level: EventLevel;
+  name: string;
+  carrierEdge: any;
+  sipEdge: any;
+  sdkEdge: any;
+  clientEdge: any;
 
   /**
    * Provide a user-friendly representation

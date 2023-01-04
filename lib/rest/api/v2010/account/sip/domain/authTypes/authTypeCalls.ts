@@ -21,8 +21,8 @@ import { AuthCallsCredentialListMappingListInstance } from "./authTypeCalls/auth
 import { AuthCallsIpAccessControlListMappingListInstance } from "./authTypeCalls/authCallsIpAccessControlListMapping";
 
 export interface AuthTypeCallsSolution {
-  accountSid?: string;
-  domainSid?: string;
+  accountSid: string;
+  domainSid: string;
 }
 
 export interface AuthTypeCallsListInstance {

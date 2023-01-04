@@ -394,26 +394,26 @@ interface MessagePayload extends TwilioResponsePayload {
 }
 
 interface MessageResource {
-  body?: string | null;
-  num_segments?: string | null;
-  direction?: MessageDirection;
-  from?: string | null;
-  to?: string | null;
-  date_updated?: Date | null;
-  price?: string | null;
-  error_message?: string | null;
-  uri?: string | null;
-  account_sid?: string | null;
-  num_media?: string | null;
-  status?: MessageStatus;
-  messaging_service_sid?: string | null;
-  sid?: string | null;
-  date_sent?: Date | null;
-  date_created?: Date | null;
-  error_code?: number | null;
-  price_unit?: string | null;
-  api_version?: string | null;
-  subresource_uris?: object | null;
+  body: string;
+  num_segments: string;
+  direction: MessageDirection;
+  from: string;
+  to: string;
+  date_updated: Date;
+  price: string;
+  error_message: string;
+  uri: string;
+  account_sid: string;
+  num_media: string;
+  status: MessageStatus;
+  messaging_service_sid: string;
+  sid: string;
+  date_sent: Date;
+  date_created: Date;
+  error_code: number;
+  price_unit: string;
+  api_version: string;
+  subresource_uris: object;
 }
 
 export class MessageInstance {
@@ -453,77 +453,77 @@ export class MessageInstance {
   /**
    * The message text
    */
-  body?: string | null;
+  body: string;
   /**
    * The number of messages used to deliver the message body
    */
-  numSegments?: string | null;
-  direction?: MessageDirection;
+  numSegments: string;
+  direction: MessageDirection;
   /**
    * The phone number that initiated the message
    */
-  from?: string | null;
+  from: string;
   /**
    * The phone number that received the message
    */
-  to?: string | null;
+  to: string;
   /**
    * The RFC 2822 date and time in GMT that the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The amount billed for the message
    */
-  price?: string | null;
+  price: string;
   /**
    * The description of the error_code
    */
-  errorMessage?: string | null;
+  errorMessage: string;
   /**
    * The URI of the resource, relative to `https://api.twilio.com`
    */
-  uri?: string | null;
+  uri: string;
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The number of media files associated with the message
    */
-  numMedia?: string | null;
-  status?: MessageStatus;
+  numMedia: string;
+  status: MessageStatus;
   /**
    * The SID of the Messaging Service used with the message.
    */
-  messagingServiceSid?: string | null;
+  messagingServiceSid: string;
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The RFC 2822 date and time in GMT when the message was sent
    */
-  dateSent?: Date | null;
+  dateSent: Date;
   /**
    * The RFC 2822 date and time in GMT that the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The error code associated with the message
    */
-  errorCode?: number | null;
+  errorCode: number;
   /**
    * The currency in which price is measured
    */
-  priceUnit?: string | null;
+  priceUnit: string;
   /**
    * The API version used to process the message
    */
-  apiVersion?: string | null;
+  apiVersion: string;
   /**
    * A list of related resources identified by their relative URIs
    */
-  subresourceUris?: object | null;
+  subresourceUris: object;
 
   private get _proxy(): MessageContext {
     this._context =
@@ -638,7 +638,7 @@ export class MessageInstance {
 }
 
 export interface MessageSolution {
-  accountSid?: string;
+  accountSid: string;
 }
 
 export interface MessageListInstance {

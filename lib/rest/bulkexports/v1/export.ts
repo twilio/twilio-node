@@ -117,9 +117,9 @@ export class ExportContextImpl implements ExportContext {
 interface ExportPayload extends ExportResource {}
 
 interface ExportResource {
-  resource_type?: string | null;
-  url?: string | null;
-  links?: object | null;
+  resource_type: string;
+  url: string;
+  links: object;
 }
 
 export class ExportInstance {
@@ -141,15 +141,15 @@ export class ExportInstance {
   /**
    * The type of communication – Messages, Calls, Conferences, and Participants
    */
-  resourceType?: string | null;
+  resourceType: string;
   /**
    * The URL of this resource.
    */
-  url?: string | null;
+  url: string;
   /**
    * Nested resource URLs.
    */
-  links?: object | null;
+  links: object;
 
   private get _proxy(): ExportContext {
     this._context =

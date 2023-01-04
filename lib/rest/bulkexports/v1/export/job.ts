@@ -117,18 +117,18 @@ export class JobContextImpl implements JobContext {
 interface JobPayload extends JobResource {}
 
 interface JobResource {
-  resource_type?: string | null;
-  friendly_name?: string | null;
-  details?: any | null;
-  start_day?: string | null;
-  end_day?: string | null;
-  job_sid?: string | null;
-  webhook_url?: string | null;
-  webhook_method?: string | null;
-  email?: string | null;
-  url?: string | null;
-  job_queue_position?: string | null;
-  estimated_completion_time?: string | null;
+  resource_type: string;
+  friendly_name: string;
+  details: any;
+  start_day: string;
+  end_day: string;
+  job_sid: string;
+  webhook_url: string;
+  webhook_method: string;
+  email: string;
+  url: string;
+  job_queue_position: string;
+  estimated_completion_time: string;
 }
 
 export class JobInstance {
@@ -155,48 +155,48 @@ export class JobInstance {
   /**
    * The type of communication – Messages, Calls, Conferences, and Participants
    */
-  resourceType?: string | null;
+  resourceType: string;
   /**
    * The friendly name specified when creating the job
    */
-  friendlyName?: string | null;
+  friendlyName: string;
   /**
    * The details of a job state which is an object that contains a `status` string, a day count integer, and list of days in the job
    */
-  details?: any | null;
+  details: any;
   /**
    * The start time for the export specified when creating the job
    */
-  startDay?: string | null;
+  startDay: string;
   /**
    * The end time for the export specified when creating the job
    */
-  endDay?: string | null;
+  endDay: string;
   /**
    * The job_sid returned when the export was created
    */
-  jobSid?: string | null;
+  jobSid: string;
   /**
    * The optional webhook url called on completion
    */
-  webhookUrl?: string | null;
+  webhookUrl: string;
   /**
    * This is the method used to call the webhook
    */
-  webhookMethod?: string | null;
+  webhookMethod: string;
   /**
    * The optional email to send the completion notification to
    */
-  email?: string | null;
-  url?: string | null;
+  email: string;
+  url: string;
   /**
    * This is the job position from the 1st in line. Your queue position will never increase. As jobs ahead of yours in the queue are processed, the queue position number will decrease
    */
-  jobQueuePosition?: string | null;
+  jobQueuePosition: string;
   /**
    * this is the time estimated until your job is complete. This is calculated each time you request the job list. The time is calculated based on the current rate of job completion (which may vary) and your job queue position
    */
-  estimatedCompletionTime?: string | null;
+  estimatedCompletionTime: string;
 
   private get _proxy(): JobContext {
     this._context =

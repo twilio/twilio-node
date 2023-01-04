@@ -28,8 +28,8 @@ export interface StreamMessageListInstanceCreateOptions {
 }
 
 export interface StreamMessageSolution {
-  serviceSid?: string;
-  streamSid?: string;
+  serviceSid: string;
+  streamSid: string;
 }
 
 export interface StreamMessageListInstance {
@@ -138,8 +138,8 @@ export function StreamMessageListInstance(
 interface StreamMessagePayload extends StreamMessageResource {}
 
 interface StreamMessageResource {
-  sid?: string | null;
-  data?: any | null;
+  sid: string;
+  data: any;
 }
 
 export class StreamMessageInstance {
@@ -156,11 +156,11 @@ export class StreamMessageInstance {
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * Stream Message body
    */
-  data?: any | null;
+  data: any;
 
   /**
    * Provide a user-friendly representation

@@ -180,11 +180,11 @@ export class TaskActionsContextImpl implements TaskActionsContext {
 interface TaskActionsPayload extends TaskActionsResource {}
 
 interface TaskActionsResource {
-  account_sid?: string | null;
-  assistant_sid?: string | null;
-  task_sid?: string | null;
-  url?: string | null;
-  data?: any | null;
+  account_sid: string;
+  assistant_sid: string;
+  task_sid: string;
+  url: string;
+  data: any;
 }
 
 export class TaskActionsInstance {
@@ -209,17 +209,17 @@ export class TaskActionsInstance {
   /**
    * The unique ID of the Account that created this Field.
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The unique ID of the parent Assistant.
    */
-  assistantSid?: string | null;
+  assistantSid: string;
   /**
    * The unique ID of the Task.
    */
-  taskSid?: string | null;
-  url?: string | null;
-  data?: any | null;
+  taskSid: string;
+  url: string;
+  data: any;
 
   private get _proxy(): TaskActionsContext {
     this._context =
@@ -292,8 +292,8 @@ export class TaskActionsInstance {
 }
 
 export interface TaskActionsSolution {
-  assistantSid?: string;
-  taskSid?: string;
+  assistantSid: string;
+  taskSid: string;
 }
 
 export interface TaskActionsListInstance {

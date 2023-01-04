@@ -184,18 +184,18 @@ interface EsimProfilePayload extends TwilioResponsePayload {
 }
 
 interface EsimProfileResource {
-  sid?: string | null;
-  account_sid?: string | null;
-  iccid?: string | null;
-  sim_sid?: string | null;
-  status?: EsimProfileStatus;
-  eid?: string | null;
-  smdp_plus_address?: string | null;
-  error_code?: string | null;
-  error_message?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  url?: string | null;
+  sid: string;
+  account_sid: string;
+  iccid: string;
+  sim_sid: string;
+  status: EsimProfileStatus;
+  eid: string;
+  smdp_plus_address: string;
+  error_code: string;
+  error_message: string;
+  date_created: Date;
+  date_updated: Date;
+  url: string;
 }
 
 export class EsimProfileInstance {
@@ -226,48 +226,48 @@ export class EsimProfileInstance {
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The SID of the Account to which the eSIM Profile resource belongs
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The ICCID associated with the Sim resource
    */
-  iccid?: string | null;
+  iccid: string;
   /**
    * The SID of the Sim resource that this eSIM Profile controls
    */
-  simSid?: string | null;
-  status?: EsimProfileStatus;
+  simSid: string;
+  status: EsimProfileStatus;
   /**
    * Identifier of the eUICC that can claim the eSIM Profile
    */
-  eid?: string | null;
+  eid: string;
   /**
    * Address of the SM-DP+ server from which the Profile will be downloaded
    */
-  smdpPlusAddress?: string | null;
+  smdpPlusAddress: string;
   /**
    * Code indicating the failure if the download of the SIM Profile failed and the eSIM Profile is in `failed` state
    */
-  errorCode?: string | null;
+  errorCode: string;
   /**
    * Error message describing the failure if the download of the SIM Profile failed and the eSIM Profile is in `failed` state
    */
-  errorMessage?: string | null;
+  errorMessage: string;
   /**
    * The ISO 8601 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The ISO 8601 date and time in GMT when the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The absolute URL of the eSIM Profile resource
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): EsimProfileContext {
     this._context =

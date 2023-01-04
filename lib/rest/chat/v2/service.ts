@@ -430,29 +430,29 @@ interface ServicePayload extends TwilioResponsePayload {
 }
 
 interface ServiceResource {
-  sid?: string | null;
-  account_sid?: string | null;
-  friendly_name?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  default_service_role_sid?: string | null;
-  default_channel_role_sid?: string | null;
-  default_channel_creator_role_sid?: string | null;
-  read_status_enabled?: boolean | null;
-  reachability_enabled?: boolean | null;
-  typing_indicator_timeout?: number | null;
-  consumption_report_interval?: number | null;
-  limits?: any | null;
-  pre_webhook_url?: string | null;
-  post_webhook_url?: string | null;
-  webhook_method?: string | null;
-  webhook_filters?: Array<string> | null;
-  pre_webhook_retry_count?: number | null;
-  post_webhook_retry_count?: number | null;
-  notifications?: any | null;
-  media?: any | null;
-  url?: string | null;
-  links?: object | null;
+  sid: string;
+  account_sid: string;
+  friendly_name: string;
+  date_created: Date;
+  date_updated: Date;
+  default_service_role_sid: string;
+  default_channel_role_sid: string;
+  default_channel_creator_role_sid: string;
+  read_status_enabled: boolean;
+  reachability_enabled: boolean;
+  typing_indicator_timeout: number;
+  consumption_report_interval: number;
+  limits: any;
+  pre_webhook_url: string;
+  post_webhook_url: string;
+  webhook_method: string;
+  webhook_filters: Array<string>;
+  pre_webhook_retry_count: number;
+  post_webhook_retry_count: number;
+  notifications: any;
+  media: any;
+  url: string;
+  links: object;
 }
 
 export class ServiceInstance {
@@ -499,95 +499,95 @@ export class ServiceInstance {
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The string that you assigned to describe the resource
    */
-  friendlyName?: string | null;
+  friendlyName: string;
   /**
    * The RFC 2822 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The RFC 2822 date and time in GMT when the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The service role assigned to users when they are added to the service
    */
-  defaultServiceRoleSid?: string | null;
+  defaultServiceRoleSid: string;
   /**
    * The channel role assigned to users when they are added to a channel
    */
-  defaultChannelRoleSid?: string | null;
+  defaultChannelRoleSid: string;
   /**
    * The channel role assigned to a channel creator when they join a new channel
    */
-  defaultChannelCreatorRoleSid?: string | null;
+  defaultChannelCreatorRoleSid: string;
   /**
    * Whether the Message Consumption Horizon feature is enabled
    */
-  readStatusEnabled?: boolean | null;
+  readStatusEnabled: boolean;
   /**
    * Whether the Reachability Indicator feature is enabled for this Service instance
    */
-  reachabilityEnabled?: boolean | null;
+  reachabilityEnabled: boolean;
   /**
    * How long in seconds to wait before assuming the user is no longer typing
    */
-  typingIndicatorTimeout?: number | null;
+  typingIndicatorTimeout: number;
   /**
    * DEPRECATED
    */
-  consumptionReportInterval?: number | null;
+  consumptionReportInterval: number;
   /**
    * An object that describes the limits of the service instance
    */
-  limits?: any | null;
+  limits: any;
   /**
    * The webhook URL for pre-event webhooks
    */
-  preWebhookUrl?: string | null;
+  preWebhookUrl: string;
   /**
    * The URL for post-event webhooks
    */
-  postWebhookUrl?: string | null;
+  postWebhookUrl: string;
   /**
    * The HTTP method  to use for both PRE and POST webhooks
    */
-  webhookMethod?: string | null;
+  webhookMethod: string;
   /**
    * The list of webhook events that are enabled for this Service instance
    */
-  webhookFilters?: Array<string> | null;
+  webhookFilters: Array<string>;
   /**
    * Count of times webhook will be retried in case of timeout or 429/503/504 HTTP responses
    */
-  preWebhookRetryCount?: number | null;
+  preWebhookRetryCount: number;
   /**
    * The number of times calls to the `post_webhook_url` will be retried
    */
-  postWebhookRetryCount?: number | null;
+  postWebhookRetryCount: number;
   /**
    * The notification configuration for the Service instance
    */
-  notifications?: any | null;
+  notifications: any;
   /**
    * The properties of the media that the service supports
    */
-  media?: any | null;
+  media: any;
   /**
    * The absolute URL of the Service resource
    */
-  url?: string | null;
+  url: string;
   /**
    * The absolute URLs of the Service\'s Channels, Roles, and Users
    */
-  links?: object | null;
+  links: object;
 
   private get _proxy(): ServiceContext {
     this._context =

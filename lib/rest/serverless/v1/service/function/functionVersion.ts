@@ -185,15 +185,15 @@ interface FunctionVersionPayload extends TwilioResponsePayload {
 }
 
 interface FunctionVersionResource {
-  sid?: string | null;
-  account_sid?: string | null;
-  service_sid?: string | null;
-  function_sid?: string | null;
-  path?: string | null;
-  visibility?: FunctionVersionVisibility;
-  date_created?: Date | null;
-  url?: string | null;
-  links?: object | null;
+  sid: string;
+  account_sid: string;
+  service_sid: string;
+  function_sid: string;
+  path: string;
+  visibility: FunctionVersionVisibility;
+  date_created: Date;
+  url: string;
+  links: object;
 }
 
 export class FunctionVersionInstance {
@@ -223,33 +223,33 @@ export class FunctionVersionInstance {
   /**
    * The unique string that identifies the Function Version resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The SID of the Account that created the Function Version resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The SID of the Service that the Function Version resource is associated with
    */
-  serviceSid?: string | null;
+  serviceSid: string;
   /**
    * The SID of the Function resource that is the parent of the Function Version resource
    */
-  functionSid?: string | null;
+  functionSid: string;
   /**
    * The URL-friendly string by which the Function Version resource can be referenced
    */
-  path?: string | null;
-  visibility?: FunctionVersionVisibility;
+  path: string;
+  visibility: FunctionVersionVisibility;
   /**
    * The ISO 8601 date and time in GMT when the Function Version resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The absolute URL of the Function Version resource
    */
-  url?: string | null;
-  links?: object | null;
+  url: string;
+  links: object;
 
   private get _proxy(): FunctionVersionContext {
     this._context =
@@ -308,8 +308,8 @@ export class FunctionVersionInstance {
 }
 
 export interface FunctionVersionSolution {
-  serviceSid?: string;
-  functionSid?: string;
+  serviceSid: string;
+  functionSid: string;
 }
 
 export interface FunctionVersionListInstance {

@@ -158,15 +158,15 @@ interface WorkflowRealTimeStatisticsPayload
   extends WorkflowRealTimeStatisticsResource {}
 
 interface WorkflowRealTimeStatisticsResource {
-  account_sid?: string | null;
-  longest_task_waiting_age?: number | null;
-  longest_task_waiting_sid?: string | null;
-  tasks_by_priority?: any | null;
-  tasks_by_status?: any | null;
-  total_tasks?: number | null;
-  workflow_sid?: string | null;
-  workspace_sid?: string | null;
-  url?: string | null;
+  account_sid: string;
+  longest_task_waiting_age: number;
+  longest_task_waiting_sid: string;
+  tasks_by_priority: any;
+  tasks_by_status: any;
+  total_tasks: number;
+  workflow_sid: string;
+  workspace_sid: string;
+  url: string;
 }
 
 export class WorkflowRealTimeStatisticsInstance {
@@ -197,39 +197,39 @@ export class WorkflowRealTimeStatisticsInstance {
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The age of the longest waiting Task
    */
-  longestTaskWaitingAge?: number | null;
+  longestTaskWaitingAge: number;
   /**
    * The SID of the longest waiting Task
    */
-  longestTaskWaitingSid?: string | null;
+  longestTaskWaitingSid: string;
   /**
    * The number of Tasks by priority
    */
-  tasksByPriority?: any | null;
+  tasksByPriority: any;
   /**
    * The number of Tasks by their current status
    */
-  tasksByStatus?: any | null;
+  tasksByStatus: any;
   /**
    * The total number of Tasks
    */
-  totalTasks?: number | null;
+  totalTasks: number;
   /**
    * Returns the list of Tasks that are being controlled by the Workflow with the specified SID value
    */
-  workflowSid?: string | null;
+  workflowSid: string;
   /**
    * The SID of the Workspace that contains the Workflow.
    */
-  workspaceSid?: string | null;
+  workspaceSid: string;
   /**
    * The absolute URL of the Workflow statistics resource
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): WorkflowRealTimeStatisticsContext {
     this._context =
@@ -302,8 +302,8 @@ export class WorkflowRealTimeStatisticsInstance {
 }
 
 export interface WorkflowRealTimeStatisticsSolution {
-  workspaceSid?: string;
-  workflowSid?: string;
+  workspaceSid: string;
+  workflowSid: string;
 }
 
 export interface WorkflowRealTimeStatisticsListInstance {

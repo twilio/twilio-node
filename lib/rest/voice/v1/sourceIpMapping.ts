@@ -252,12 +252,12 @@ interface SourceIpMappingPayload extends TwilioResponsePayload {
 }
 
 interface SourceIpMappingResource {
-  sid?: string | null;
-  ip_record_sid?: string | null;
-  sip_domain_sid?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  url?: string | null;
+  sid: string;
+  ip_record_sid: string;
+  sip_domain_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  url: string;
 }
 
 export class SourceIpMappingInstance {
@@ -282,27 +282,27 @@ export class SourceIpMappingInstance {
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The unique string that identifies an IP Record
    */
-  ipRecordSid?: string | null;
+  ipRecordSid: string;
   /**
    * The unique string that identifies a SIP Domain
    */
-  sipDomainSid?: string | null;
+  sipDomainSid: string;
   /**
    * The RFC 2822 date and time in GMT that the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The RFC 2822 date and time in GMT that the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The absolute URL of the resource
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): SourceIpMappingContext {
     this._context =

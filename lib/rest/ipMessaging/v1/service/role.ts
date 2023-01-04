@@ -257,15 +257,15 @@ interface RolePayload extends TwilioResponsePayload {
 }
 
 interface RoleResource {
-  sid?: string | null;
-  account_sid?: string | null;
-  service_sid?: string | null;
-  friendly_name?: string | null;
-  type?: RoleRoleType;
-  permissions?: Array<string> | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  url?: string | null;
+  sid: string;
+  account_sid: string;
+  service_sid: string;
+  friendly_name: string;
+  type: RoleRoleType;
+  permissions: Array<string>;
+  date_created: Date;
+  date_updated: Date;
+  url: string;
 }
 
 export class RoleInstance {
@@ -291,15 +291,15 @@ export class RoleInstance {
     this._solution = { serviceSid, sid: sid || this.sid };
   }
 
-  sid?: string | null;
-  accountSid?: string | null;
-  serviceSid?: string | null;
-  friendlyName?: string | null;
-  type?: RoleRoleType;
-  permissions?: Array<string> | null;
-  dateCreated?: Date | null;
-  dateUpdated?: Date | null;
-  url?: string | null;
+  sid: string;
+  accountSid: string;
+  serviceSid: string;
+  friendlyName: string;
+  type: RoleRoleType;
+  permissions: Array<string>;
+  dateCreated: Date;
+  dateUpdated: Date;
+  url: string;
 
   private get _proxy(): RoleContext {
     this._context =
@@ -379,7 +379,7 @@ export class RoleInstance {
 }
 
 export interface RoleSolution {
-  serviceSid?: string;
+  serviceSid: string;
 }
 
 export interface RoleListInstance {

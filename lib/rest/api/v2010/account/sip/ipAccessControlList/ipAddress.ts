@@ -285,15 +285,15 @@ interface IpAddressPayload extends TwilioResponsePayload {
 }
 
 interface IpAddressResource {
-  sid?: string | null;
-  account_sid?: string | null;
-  friendly_name?: string | null;
-  ip_address?: string | null;
-  cidr_prefix_length?: number | null;
-  ip_access_control_list_sid?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  uri?: string | null;
+  sid: string;
+  account_sid: string;
+  friendly_name: string;
+  ip_address: string;
+  cidr_prefix_length: number;
+  ip_access_control_list_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  uri: string;
 }
 
 export class IpAddressInstance {
@@ -327,39 +327,39 @@ export class IpAddressInstance {
   /**
    * A 34 character string that uniquely identifies this resource.
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The unique id of the Account that is responsible for this resource.
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * A human readable descriptive text for this resource, up to 255 characters long.
    */
-  friendlyName?: string | null;
+  friendlyName: string;
   /**
    * An IP address in dotted decimal notation from which you want to accept traffic. Any SIP requests from this IP address will be allowed by Twilio. IPv4 only supported today.
    */
-  ipAddress?: string | null;
+  ipAddress: string;
   /**
    * An integer representing the length of the CIDR prefix to use with this IP address when accepting traffic. By default the entire IP address is used.
    */
-  cidrPrefixLength?: number | null;
+  cidrPrefixLength: number;
   /**
    * The unique id of the IpAccessControlList resource that includes this resource.
    */
-  ipAccessControlListSid?: string | null;
+  ipAccessControlListSid: string;
   /**
    * The date that this resource was created, given as GMT in RFC 2822 format.
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The date that this resource was last updated, given as GMT in RFC 2822 format.
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The URI for this resource, relative to https://api.twilio.com
    */
-  uri?: string | null;
+  uri: string;
 
   private get _proxy(): IpAddressContext {
     this._context =
@@ -450,8 +450,8 @@ export class IpAddressInstance {
 }
 
 export interface IpAddressSolution {
-  accountSid?: string;
-  ipAccessControlListSid?: string;
+  accountSid: string;
+  ipAccessControlListSid: string;
 }
 
 export interface IpAddressListInstance {

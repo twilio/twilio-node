@@ -148,13 +148,13 @@ export class PhoneNumberContextImpl implements PhoneNumberContext {
 interface PhoneNumberPayload extends PhoneNumberResource {}
 
 interface PhoneNumberResource {
-  caller_name?: any | null;
-  country_code?: string | null;
-  phone_number?: string | null;
-  national_format?: string | null;
-  carrier?: any | null;
-  add_ons?: any | null;
-  url?: string | null;
+  caller_name: any;
+  country_code: string;
+  phone_number: string;
+  national_format: string;
+  carrier: any;
+  add_ons: any;
+  url: string;
 }
 
 export class PhoneNumberInstance {
@@ -180,31 +180,31 @@ export class PhoneNumberInstance {
   /**
    * The name of the phone number\'s owner
    */
-  callerName?: any | null;
+  callerName: any;
   /**
    * The ISO country code for the phone number
    */
-  countryCode?: string | null;
+  countryCode: string;
   /**
    * The phone number in E.164 format
    */
-  phoneNumber?: string | null;
+  phoneNumber: string;
   /**
    * The phone number, in national format
    */
-  nationalFormat?: string | null;
+  nationalFormat: string;
   /**
    * The telecom company that provides the phone number
    */
-  carrier?: any | null;
+  carrier: any;
   /**
    * A JSON string with the results of the Add-ons you specified
    */
-  addOns?: any | null;
+  addOns: any;
   /**
    * The absolute URL of the resource
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): PhoneNumberContext {
     this._context =

@@ -62,8 +62,8 @@ export interface NewFactorListInstanceCreateOptions {
 }
 
 export interface NewFactorSolution {
-  serviceSid?: string;
-  identity?: string;
+  serviceSid: string;
+  identity: string;
 }
 
 export interface NewFactorListInstance {
@@ -206,20 +206,20 @@ export function NewFactorListInstance(
 interface NewFactorPayload extends NewFactorResource {}
 
 interface NewFactorResource {
-  sid?: string | null;
-  account_sid?: string | null;
-  service_sid?: string | null;
-  entity_sid?: string | null;
-  identity?: string | null;
-  binding?: any | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  friendly_name?: string | null;
-  status?: NewFactorFactorStatuses;
-  factor_type?: NewFactorFactorTypes;
-  config?: any | null;
-  metadata?: any | null;
-  url?: string | null;
+  sid: string;
+  account_sid: string;
+  service_sid: string;
+  entity_sid: string;
+  identity: string;
+  binding: any;
+  date_created: Date;
+  date_updated: Date;
+  friendly_name: string;
+  status: NewFactorFactorStatuses;
+  factor_type: NewFactorFactorTypes;
+  config: any;
+  metadata: any;
+  url: string;
 }
 
 export class NewFactorInstance {
@@ -248,53 +248,53 @@ export class NewFactorInstance {
   /**
    * A string that uniquely identifies this Factor.
    */
-  sid?: string | null;
+  sid: string;
   /**
    * Account Sid.
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * Service Sid.
    */
-  serviceSid?: string | null;
+  serviceSid: string;
   /**
    * Entity Sid.
    */
-  entitySid?: string | null;
+  entitySid: string;
   /**
    * Unique external identifier of the Entity
    */
-  identity?: string | null;
+  identity: string;
   /**
    * Binding of the factor
    */
-  binding?: any | null;
+  binding: any;
   /**
    * The date this Factor was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The date this Factor was updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * A human readable description of this resource.
    */
-  friendlyName?: string | null;
-  status?: NewFactorFactorStatuses;
-  factorType?: NewFactorFactorTypes;
+  friendlyName: string;
+  status: NewFactorFactorStatuses;
+  factorType: NewFactorFactorTypes;
   /**
    * Configurations for a `factor_type`.
    */
-  config?: any | null;
+  config: any;
   /**
    * Metadata of the factor.
    */
-  metadata?: any | null;
+  metadata: any;
   /**
    * The URL of this resource.
    */
-  url?: string | null;
+  url: string;
 
   /**
    * Provide a user-friendly representation

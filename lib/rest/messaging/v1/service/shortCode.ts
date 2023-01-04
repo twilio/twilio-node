@@ -186,15 +186,15 @@ interface ShortCodePayload extends TwilioResponsePayload {
 }
 
 interface ShortCodeResource {
-  sid?: string | null;
-  account_sid?: string | null;
-  service_sid?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  short_code?: string | null;
-  country_code?: string | null;
-  capabilities?: Array<string> | null;
-  url?: string | null;
+  sid: string;
+  account_sid: string;
+  service_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  short_code: string;
+  country_code: string;
+  capabilities: Array<string>;
+  url: string;
 }
 
 export class ShortCodeInstance {
@@ -223,39 +223,39 @@ export class ShortCodeInstance {
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The SID of the Service that the resource is associated with
    */
-  serviceSid?: string | null;
+  serviceSid: string;
   /**
    * The ISO 8601 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The ISO 8601 date and time in GMT when the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The E.164 format of the short code
    */
-  shortCode?: string | null;
+  shortCode: string;
   /**
    * The 2-character ISO Country Code of the number
    */
-  countryCode?: string | null;
+  countryCode: string;
   /**
    * An array of values that describe whether the number can receive calls or messages
    */
-  capabilities?: Array<string> | null;
+  capabilities: Array<string>;
   /**
    * The absolute URL of the ShortCode resource
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): ShortCodeContext {
     this._context =
@@ -319,7 +319,7 @@ export class ShortCodeInstance {
 }
 
 export interface ShortCodeSolution {
-  serviceSid?: string;
+  serviceSid: string;
 }
 
 export interface ShortCodeListInstance {

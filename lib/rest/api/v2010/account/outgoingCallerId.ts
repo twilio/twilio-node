@@ -267,13 +267,13 @@ interface OutgoingCallerIdPayload extends TwilioResponsePayload {
 }
 
 interface OutgoingCallerIdResource {
-  sid?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  friendly_name?: string | null;
-  account_sid?: string | null;
-  phone_number?: string | null;
-  uri?: string | null;
+  sid: string;
+  date_created: Date;
+  date_updated: Date;
+  friendly_name: string;
+  account_sid: string;
+  phone_number: string;
+  uri: string;
 }
 
 export class OutgoingCallerIdInstance {
@@ -300,31 +300,31 @@ export class OutgoingCallerIdInstance {
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The RFC 2822 date and time in GMT that the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The RFC 2822 date and time in GMT that the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The string that you assigned to describe the resource
    */
-  friendlyName?: string | null;
+  friendlyName: string;
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The phone number in E.164 format
    */
-  phoneNumber?: string | null;
+  phoneNumber: string;
   /**
    * The URI of the resource, relative to `https://api.twilio.com`
    */
-  uri?: string | null;
+  uri: string;
 
   private get _proxy(): OutgoingCallerIdContext {
     this._context =
@@ -412,7 +412,7 @@ export class OutgoingCallerIdInstance {
 }
 
 export interface OutgoingCallerIdSolution {
-  accountSid?: string;
+  accountSid: string;
 }
 
 export interface OutgoingCallerIdListInstance {

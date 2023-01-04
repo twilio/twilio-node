@@ -222,17 +222,17 @@ interface EngagementPayload extends TwilioResponsePayload {
 }
 
 interface EngagementResource {
-  sid?: string | null;
-  account_sid?: string | null;
-  flow_sid?: string | null;
-  contact_sid?: string | null;
-  contact_channel_address?: string | null;
-  context?: any | null;
-  status?: EngagementStatus;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  url?: string | null;
-  links?: object | null;
+  sid: string;
+  account_sid: string;
+  flow_sid: string;
+  contact_sid: string;
+  contact_channel_address: string;
+  context: any;
+  status: EngagementStatus;
+  date_created: Date;
+  date_updated: Date;
+  url: string;
+  links: object;
 }
 
 export class EngagementInstance {
@@ -263,44 +263,44 @@ export class EngagementInstance {
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The SID of the Flow
    */
-  flowSid?: string | null;
+  flowSid: string;
   /**
    * The SID of the Contact
    */
-  contactSid?: string | null;
+  contactSid: string;
   /**
    * The phone number, SIP address or Client identifier that triggered this Engagement
    */
-  contactChannelAddress?: string | null;
+  contactChannelAddress: string;
   /**
    * The current state of the execution flow
    */
-  context?: any | null;
-  status?: EngagementStatus;
+  context: any;
+  status: EngagementStatus;
   /**
    * The ISO 8601 date and time in GMT when the Engagement was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The ISO 8601 date and time in GMT when the Engagement was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The absolute URL of the resource
    */
-  url?: string | null;
+  url: string;
   /**
    * The URLs of the Engagement\'s nested resources
    */
-  links?: object | null;
+  links: object;
 
   private get _proxy(): EngagementContext {
     this._context =
@@ -380,7 +380,7 @@ export class EngagementInstance {
 }
 
 export interface EngagementSolution {
-  flowSid?: string;
+  flowSid: string;
 }
 
 export interface EngagementListInstance {

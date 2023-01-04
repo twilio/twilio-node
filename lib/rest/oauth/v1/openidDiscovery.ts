@@ -84,19 +84,19 @@ export class OpenidDiscoveryContextImpl implements OpenidDiscoveryContext {
 interface OpenidDiscoveryPayload extends OpenidDiscoveryResource {}
 
 interface OpenidDiscoveryResource {
-  issuer?: string | null;
-  authorization_endpoint?: string | null;
-  device_authorization_endpoint?: string | null;
-  token_endpoint?: string | null;
-  userinfo_endpoint?: string | null;
-  revocation_endpoint?: string | null;
-  jwk_uri?: string | null;
-  response_type_supported?: Array<string> | null;
-  subject_type_supported?: Array<string> | null;
-  id_token_signing_alg_values_supported?: Array<string> | null;
-  scopes_supported?: Array<string> | null;
-  claims_supported?: Array<string> | null;
-  url?: string | null;
+  issuer: string;
+  authorization_endpoint: string;
+  device_authorization_endpoint: string;
+  token_endpoint: string;
+  userinfo_endpoint: string;
+  revocation_endpoint: string;
+  jwk_uri: string;
+  response_type_supported: Array<string>;
+  subject_type_supported: Array<string>;
+  id_token_signing_alg_values_supported: Array<string>;
+  scopes_supported: Array<string>;
+  claims_supported: Array<string>;
+  url: string;
 }
 
 export class OpenidDiscoveryInstance {
@@ -125,52 +125,52 @@ export class OpenidDiscoveryInstance {
   /**
    * The issuer URL
    */
-  issuer?: string | null;
+  issuer: string;
   /**
    * The URL of authorization endpoint
    */
-  authorizationEndpoint?: string | null;
+  authorizationEndpoint: string;
   /**
    * The URL of device code authorization endpoint
    */
-  deviceAuthorizationEndpoint?: string | null;
+  deviceAuthorizationEndpoint: string;
   /**
    * The URL of token endpoint
    */
-  tokenEndpoint?: string | null;
+  tokenEndpoint: string;
   /**
    * The URL of user info endpoint
    */
-  userinfoEndpoint?: string | null;
+  userinfoEndpoint: string;
   /**
    * The URL of revocation endpoint
    */
-  revocationEndpoint?: string | null;
+  revocationEndpoint: string;
   /**
    * The URL of public JWK endpoint
    */
-  jwkUri?: string | null;
+  jwkUri: string;
   /**
    * List of response type supported for identity token
    */
-  responseTypeSupported?: Array<string> | null;
+  responseTypeSupported: Array<string>;
   /**
    * List of subject supported for identity token
    */
-  subjectTypeSupported?: Array<string> | null;
+  subjectTypeSupported: Array<string>;
   /**
    * List of JWS signing algorithms supported for identity token
    */
-  idTokenSigningAlgValuesSupported?: Array<string> | null;
+  idTokenSigningAlgValuesSupported: Array<string>;
   /**
    * List of scopes supported identity token
    */
-  scopesSupported?: Array<string> | null;
+  scopesSupported: Array<string>;
   /**
    * List of claims supported for identity token
    */
-  claimsSupported?: Array<string> | null;
-  url?: string | null;
+  claimsSupported: Array<string>;
+  url: string;
 
   private get _proxy(): OpenidDiscoveryContext {
     this._context =

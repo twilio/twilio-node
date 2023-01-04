@@ -28,7 +28,7 @@ export interface UsAppToPersonUsecaseListInstanceFetchOptions {
 }
 
 export interface UsAppToPersonUsecaseSolution {
-  messagingServiceSid?: string;
+  messagingServiceSid: string;
 }
 
 export interface UsAppToPersonUsecaseListInstance {
@@ -140,7 +140,7 @@ export function UsAppToPersonUsecaseListInstance(
 interface UsAppToPersonUsecasePayload extends UsAppToPersonUsecaseResource {}
 
 interface UsAppToPersonUsecaseResource {
-  us_app_to_person_usecases?: Array<any> | null;
+  us_app_to_person_usecases: Array<any>;
 }
 
 export class UsAppToPersonUsecaseInstance {
@@ -155,7 +155,7 @@ export class UsAppToPersonUsecaseInstance {
   /**
    * Human readable A2P Use Case details
    */
-  usAppToPersonUsecases?: Array<any> | null;
+  usAppToPersonUsecases: Array<any>;
 
   /**
    * Provide a user-friendly representation

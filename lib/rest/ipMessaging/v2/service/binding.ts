@@ -192,18 +192,18 @@ interface BindingPayload extends TwilioResponsePayload {
 }
 
 interface BindingResource {
-  sid?: string | null;
-  account_sid?: string | null;
-  service_sid?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  endpoint?: string | null;
-  identity?: string | null;
-  credential_sid?: string | null;
-  binding_type?: BindingBindingType;
-  message_types?: Array<string> | null;
-  url?: string | null;
-  links?: object | null;
+  sid: string;
+  account_sid: string;
+  service_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  endpoint: string;
+  identity: string;
+  credential_sid: string;
+  binding_type: BindingBindingType;
+  message_types: Array<string>;
+  url: string;
+  links: object;
 }
 
 export class BindingInstance {
@@ -232,18 +232,18 @@ export class BindingInstance {
     this._solution = { serviceSid, sid: sid || this.sid };
   }
 
-  sid?: string | null;
-  accountSid?: string | null;
-  serviceSid?: string | null;
-  dateCreated?: Date | null;
-  dateUpdated?: Date | null;
-  endpoint?: string | null;
-  identity?: string | null;
-  credentialSid?: string | null;
-  bindingType?: BindingBindingType;
-  messageTypes?: Array<string> | null;
-  url?: string | null;
-  links?: object | null;
+  sid: string;
+  accountSid: string;
+  serviceSid: string;
+  dateCreated: Date;
+  dateUpdated: Date;
+  endpoint: string;
+  identity: string;
+  credentialSid: string;
+  bindingType: BindingBindingType;
+  messageTypes: Array<string>;
+  url: string;
+  links: object;
 
   private get _proxy(): BindingContext {
     this._context =
@@ -310,7 +310,7 @@ export class BindingInstance {
 }
 
 export interface BindingSolution {
-  serviceSid?: string;
+  serviceSid: string;
 }
 
 export interface BindingListInstance {

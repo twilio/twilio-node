@@ -303,17 +303,17 @@ interface ConnectionPolicyTargetPayload extends TwilioResponsePayload {
 }
 
 interface ConnectionPolicyTargetResource {
-  account_sid?: string | null;
-  connection_policy_sid?: string | null;
-  sid?: string | null;
-  friendly_name?: string | null;
-  target?: string | null;
-  priority?: number | null;
-  weight?: number | null;
-  enabled?: boolean | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  url?: string | null;
+  account_sid: string;
+  connection_policy_sid: string;
+  sid: string;
+  friendly_name: string;
+  target: string;
+  priority: number;
+  weight: number;
+  enabled: boolean;
+  date_created: Date;
+  date_updated: Date;
+  url: string;
 }
 
 export class ConnectionPolicyTargetInstance {
@@ -344,47 +344,47 @@ export class ConnectionPolicyTargetInstance {
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The SID of the Connection Policy that owns the Target
    */
-  connectionPolicySid?: string | null;
+  connectionPolicySid: string;
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The string that you assigned to describe the resource
    */
-  friendlyName?: string | null;
+  friendlyName: string;
   /**
    * The SIP address you want Twilio to route your calls to
    */
-  target?: string | null;
+  target: string;
   /**
    * The relative importance of the target
    */
-  priority?: number | null;
+  priority: number;
   /**
    * The value that determines the relative load the Target should receive compared to others with the same priority
    */
-  weight?: number | null;
+  weight: number;
   /**
    * Whether the target is enabled
    */
-  enabled?: boolean | null;
+  enabled: boolean;
   /**
    * The RFC 2822 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The RFC 2822 date and time in GMT when the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The absolute URL of the resource
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): ConnectionPolicyTargetContext {
     this._context =
@@ -488,7 +488,7 @@ export class ConnectionPolicyTargetInstance {
 }
 
 export interface ConnectionPolicyTargetSolution {
-  connectionPolicySid?: string;
+  connectionPolicySid: string;
 }
 
 export interface ConnectionPolicyTargetListInstance {

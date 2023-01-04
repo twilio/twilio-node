@@ -210,26 +210,26 @@ interface MessageInteractionPayload extends TwilioResponsePayload {
 }
 
 interface MessageInteractionResource {
-  sid?: string | null;
-  session_sid?: string | null;
-  service_sid?: string | null;
-  account_sid?: string | null;
-  data?: string | null;
-  type?: MessageInteractionType;
-  participant_sid?: string | null;
-  inbound_participant_sid?: string | null;
-  inbound_resource_sid?: string | null;
-  inbound_resource_status?: MessageInteractionResourceStatus;
-  inbound_resource_type?: string | null;
-  inbound_resource_url?: string | null;
-  outbound_participant_sid?: string | null;
-  outbound_resource_sid?: string | null;
-  outbound_resource_status?: MessageInteractionResourceStatus;
-  outbound_resource_type?: string | null;
-  outbound_resource_url?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  url?: string | null;
+  sid: string;
+  session_sid: string;
+  service_sid: string;
+  account_sid: string;
+  data: string;
+  type: MessageInteractionType;
+  participant_sid: string;
+  inbound_participant_sid: string;
+  inbound_resource_sid: string;
+  inbound_resource_status: MessageInteractionResourceStatus;
+  inbound_resource_type: string;
+  inbound_resource_url: string;
+  outbound_participant_sid: string;
+  outbound_resource_sid: string;
+  outbound_resource_status: MessageInteractionResourceStatus;
+  outbound_resource_type: string;
+  outbound_resource_url: string;
+  date_created: Date;
+  date_updated: Date;
+  url: string;
 }
 
 export class MessageInteractionInstance {
@@ -276,74 +276,74 @@ export class MessageInteractionInstance {
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The SID of the resource\'s parent Session
    */
-  sessionSid?: string | null;
+  sessionSid: string;
   /**
    * The SID of the resource\'s parent Service
    */
-  serviceSid?: string | null;
+  serviceSid: string;
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * A JSON string that includes the message body sent to the participant
    */
-  data?: string | null;
-  type?: MessageInteractionType;
+  data: string;
+  type: MessageInteractionType;
   /**
    * The SID of the Participant resource
    */
-  participantSid?: string | null;
+  participantSid: string;
   /**
    * Always empty for Message Interactions
    */
-  inboundParticipantSid?: string | null;
+  inboundParticipantSid: string;
   /**
    * Always empty for Message Interactions
    */
-  inboundResourceSid?: string | null;
-  inboundResourceStatus?: MessageInteractionResourceStatus;
+  inboundResourceSid: string;
+  inboundResourceStatus: MessageInteractionResourceStatus;
   /**
    * Always empty for Message Interactions
    */
-  inboundResourceType?: string | null;
+  inboundResourceType: string;
   /**
    * Always empty for Message Interactions
    */
-  inboundResourceUrl?: string | null;
+  inboundResourceUrl: string;
   /**
    * The SID of the outbound Participant resource
    */
-  outboundParticipantSid?: string | null;
+  outboundParticipantSid: string;
   /**
    * The SID of the outbound Message resource
    */
-  outboundResourceSid?: string | null;
-  outboundResourceStatus?: MessageInteractionResourceStatus;
+  outboundResourceSid: string;
+  outboundResourceStatus: MessageInteractionResourceStatus;
   /**
    * The outbound resource type
    */
-  outboundResourceType?: string | null;
+  outboundResourceType: string;
   /**
    * The URL of the Twilio message resource
    */
-  outboundResourceUrl?: string | null;
+  outboundResourceUrl: string;
   /**
    * The ISO 8601 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The ISO 8601 date and time in GMT when the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The absolute URL of the MessageInteraction resource
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): MessageInteractionContext {
     this._context =
@@ -407,9 +407,9 @@ export class MessageInteractionInstance {
 }
 
 export interface MessageInteractionSolution {
-  serviceSid?: string;
-  sessionSid?: string;
-  participantSid?: string;
+  serviceSid: string;
+  sessionSid: string;
+  participantSid: string;
 }
 
 export interface MessageInteractionListInstance {

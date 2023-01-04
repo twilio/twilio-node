@@ -290,18 +290,18 @@ interface DevicePayload extends TwilioResponsePayload {
 }
 
 interface DeviceResource {
-  sid?: string | null;
-  url?: string | null;
-  unique_name?: string | null;
-  friendly_name?: string | null;
-  fleet_sid?: string | null;
-  enabled?: boolean | null;
-  account_sid?: string | null;
-  identity?: string | null;
-  deployment_sid?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  date_authenticated?: Date | null;
+  sid: string;
+  url: string;
+  unique_name: string;
+  friendly_name: string;
+  fleet_sid: string;
+  enabled: boolean;
+  account_sid: string;
+  identity: string;
+  deployment_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  date_authenticated: Date;
 }
 
 export class DeviceInstance {
@@ -335,51 +335,51 @@ export class DeviceInstance {
   /**
    * A string that uniquely identifies this Device.
    */
-  sid?: string | null;
+  sid: string;
   /**
    * URL of this Device.
    */
-  url?: string | null;
+  url: string;
   /**
    * A unique, addressable name of this Device.
    */
-  uniqueName?: string | null;
+  uniqueName: string;
   /**
    * A human readable description for this Device
    */
-  friendlyName?: string | null;
+  friendlyName: string;
   /**
    * The unique identifier of the Fleet.
    */
-  fleetSid?: string | null;
+  fleetSid: string;
   /**
    * Device enabled flag.
    */
-  enabled?: boolean | null;
+  enabled: boolean;
   /**
    * The unique SID that identifies this Account.
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * An identifier of the Device user.
    */
-  identity?: string | null;
+  identity: string;
   /**
    * The unique SID of the Deployment group.
    */
-  deploymentSid?: string | null;
+  deploymentSid: string;
   /**
    * The date this Device was created.
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The date this Device was updated.
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The date this Device was authenticated.
    */
-  dateAuthenticated?: Date | null;
+  dateAuthenticated: Date;
 
   private get _proxy(): DeviceContext {
     this._context =
@@ -472,7 +472,7 @@ export class DeviceInstance {
 }
 
 export interface DeviceSolution {
-  fleetSid?: string;
+  fleetSid: string;
 }
 
 export interface DeviceListInstance {

@@ -22,7 +22,7 @@ import { DomainListInstance } from "./sip/domain";
 import { IpAccessControlListListInstance } from "./sip/ipAccessControlList";
 
 export interface SipSolution {
-  accountSid?: string;
+  accountSid: string;
 }
 
 export interface SipListInstance {

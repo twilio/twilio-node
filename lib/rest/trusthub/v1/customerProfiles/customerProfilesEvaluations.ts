@@ -170,14 +170,14 @@ interface CustomerProfilesEvaluationsPayload extends TwilioResponsePayload {
 }
 
 interface CustomerProfilesEvaluationsResource {
-  sid?: string | null;
-  account_sid?: string | null;
-  policy_sid?: string | null;
-  customer_profile_sid?: string | null;
-  status?: CustomerProfileEvaluationStatus;
-  results?: Array<any> | null;
-  date_created?: Date | null;
-  url?: string | null;
+  sid: string;
+  account_sid: string;
+  policy_sid: string;
+  customer_profile_sid: string;
+  status: CustomerProfileEvaluationStatus;
+  results: Array<any>;
+  date_created: Date;
+  url: string;
 }
 
 export class CustomerProfilesEvaluationsInstance {
@@ -205,26 +205,26 @@ export class CustomerProfilesEvaluationsInstance {
   /**
    * The unique string that identifies the Evaluation resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The unique string of a policy
    */
-  policySid?: string | null;
+  policySid: string;
   /**
    * The unique string that identifies the resource
    */
-  customerProfileSid?: string | null;
-  status?: CustomerProfileEvaluationStatus;
+  customerProfileSid: string;
+  status: CustomerProfileEvaluationStatus;
   /**
    * The results of the Evaluation resource
    */
-  results?: Array<any> | null;
-  dateCreated?: Date | null;
-  url?: string | null;
+  results: Array<any>;
+  dateCreated: Date;
+  url: string;
 
   private get _proxy(): CustomerProfilesEvaluationsContext {
     this._context =
@@ -277,7 +277,7 @@ export class CustomerProfilesEvaluationsInstance {
 }
 
 export interface CustomerProfilesEvaluationsSolution {
-  customerProfileSid?: string;
+  customerProfileSid: string;
 }
 
 export interface CustomerProfilesEvaluationsListInstance {

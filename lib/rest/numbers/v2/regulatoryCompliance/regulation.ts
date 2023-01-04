@@ -166,13 +166,13 @@ interface RegulationPayload extends TwilioResponsePayload {
 }
 
 interface RegulationResource {
-  sid?: string | null;
-  friendly_name?: string | null;
-  iso_country?: string | null;
-  number_type?: string | null;
-  end_user_type?: RegulationEndUserType;
-  requirements?: any | null;
-  url?: string | null;
+  sid: string;
+  friendly_name: string;
+  iso_country: string;
+  number_type: string;
+  end_user_type: RegulationEndUserType;
+  requirements: any;
+  url: string;
 }
 
 export class RegulationInstance {
@@ -198,28 +198,28 @@ export class RegulationInstance {
   /**
    * The unique string that identifies the Regulation resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * A human-readable description of the Regulation resource
    */
-  friendlyName?: string | null;
+  friendlyName: string;
   /**
    * The ISO country code of the phone number\'s country
    */
-  isoCountry?: string | null;
+  isoCountry: string;
   /**
    * The type of phone number restricted by the regulatory requirement
    */
-  numberType?: string | null;
-  endUserType?: RegulationEndUserType;
+  numberType: string;
+  endUserType: RegulationEndUserType;
   /**
    * The sid of a regulation object that dictates requirements
    */
-  requirements?: any | null;
+  requirements: any;
   /**
    * The absolute URL of the Regulation resource
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): RegulationContext {
     this._context =

@@ -192,15 +192,15 @@ interface FlowPayload extends TwilioResponsePayload {
 }
 
 interface FlowResource {
-  sid?: string | null;
-  account_sid?: string | null;
-  friendly_name?: string | null;
-  status?: FlowStatus;
-  version?: number | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  url?: string | null;
-  links?: object | null;
+  sid: string;
+  account_sid: string;
+  friendly_name: string;
+  status: FlowStatus;
+  version: number;
+  date_created: Date;
+  date_updated: Date;
+  url: string;
+  links: object;
 }
 
 export class FlowInstance {
@@ -224,36 +224,36 @@ export class FlowInstance {
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The string that you assigned to describe the Flow
    */
-  friendlyName?: string | null;
-  status?: FlowStatus;
+  friendlyName: string;
+  status: FlowStatus;
   /**
    * The latest version number of the Flow\'s definition
    */
-  version?: number | null;
+  version: number;
   /**
    * The ISO 8601 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The ISO 8601 date and time in GMT when the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The absolute URL of the resource
    */
-  url?: string | null;
+  url: string;
   /**
    * Nested resource URLs
    */
-  links?: object | null;
+  links: object;
 
   private get _proxy(): FlowContext {
     this._context =

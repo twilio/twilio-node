@@ -400,27 +400,27 @@ interface DomainPayload extends TwilioResponsePayload {
 }
 
 interface DomainResource {
-  account_sid?: string | null;
-  api_version?: string | null;
-  auth_type?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  domain_name?: string | null;
-  friendly_name?: string | null;
-  sid?: string | null;
-  uri?: string | null;
-  voice_fallback_method?: DomainVoiceFallbackMethod;
-  voice_fallback_url?: string | null;
-  voice_method?: DomainVoiceMethod;
-  voice_status_callback_method?: DomainVoiceStatusCallbackMethod;
-  voice_status_callback_url?: string | null;
-  voice_url?: string | null;
-  subresource_uris?: object | null;
-  sip_registration?: boolean | null;
-  emergency_calling_enabled?: boolean | null;
-  secure?: boolean | null;
-  byoc_trunk_sid?: string | null;
-  emergency_caller_sid?: string | null;
+  account_sid: string;
+  api_version: string;
+  auth_type: string;
+  date_created: Date;
+  date_updated: Date;
+  domain_name: string;
+  friendly_name: string;
+  sid: string;
+  uri: string;
+  voice_fallback_method: DomainVoiceFallbackMethod;
+  voice_fallback_url: string;
+  voice_method: DomainVoiceMethod;
+  voice_status_callback_method: DomainVoiceStatusCallbackMethod;
+  voice_status_callback_url: string;
+  voice_url: string;
+  subresource_uris: object;
+  sip_registration: boolean;
+  emergency_calling_enabled: boolean;
+  secure: boolean;
+  byoc_trunk_sid: string;
+  emergency_caller_sid: string;
 }
 
 export class DomainInstance {
@@ -461,87 +461,87 @@ export class DomainInstance {
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The API version used to process the call
    */
-  apiVersion?: string | null;
+  apiVersion: string;
   /**
    * The types of authentication mapped to the domain
    */
-  authType?: string | null;
+  authType: string;
   /**
    * The RFC 2822 date and time in GMT that the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The RFC 2822 date and time in GMT that the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The unique address on Twilio to route SIP traffic
    */
-  domainName?: string | null;
+  domainName: string;
   /**
    * The string that you assigned to describe the resource
    */
-  friendlyName?: string | null;
+  friendlyName: string;
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The URI of the resource, relative to `https://api.twilio.com`
    */
-  uri?: string | null;
+  uri: string;
   /**
    * The HTTP method used with voice_fallback_url
    */
-  voiceFallbackMethod?: DomainVoiceFallbackMethod;
+  voiceFallbackMethod: DomainVoiceFallbackMethod;
   /**
    * The URL we call when an error occurs while executing TwiML
    */
-  voiceFallbackUrl?: string | null;
+  voiceFallbackUrl: string;
   /**
    * The HTTP method to use with voice_url
    */
-  voiceMethod?: DomainVoiceMethod;
+  voiceMethod: DomainVoiceMethod;
   /**
    * The HTTP method we use to call voice_status_callback_url
    */
-  voiceStatusCallbackMethod?: DomainVoiceStatusCallbackMethod;
+  voiceStatusCallbackMethod: DomainVoiceStatusCallbackMethod;
   /**
    * The URL that we call with status updates
    */
-  voiceStatusCallbackUrl?: string | null;
+  voiceStatusCallbackUrl: string;
   /**
    * The URL we call when receiving a call
    */
-  voiceUrl?: string | null;
+  voiceUrl: string;
   /**
    * A list mapping resources associated with the SIP Domain resource
    */
-  subresourceUris?: object | null;
+  subresourceUris: object;
   /**
    * Whether SIP registration is allowed
    */
-  sipRegistration?: boolean | null;
+  sipRegistration: boolean;
   /**
    * Whether emergency calling is enabled for the domain.
    */
-  emergencyCallingEnabled?: boolean | null;
+  emergencyCallingEnabled: boolean;
   /**
    * Whether secure SIP is enabled for the domain
    */
-  secure?: boolean | null;
+  secure: boolean;
   /**
    * The SID of the BYOC Trunk resource.
    */
-  byocTrunkSid?: string | null;
+  byocTrunkSid: string;
   /**
    * Whether an emergency caller sid is configured for the domain.
    */
-  emergencyCallerSid?: string | null;
+  emergencyCallerSid: string;
 
   private get _proxy(): DomainContext {
     this._context =
@@ -664,7 +664,7 @@ export class DomainInstance {
 }
 
 export interface DomainSolution {
-  accountSid?: string;
+  accountSid: string;
 }
 
 export interface DomainListInstance {

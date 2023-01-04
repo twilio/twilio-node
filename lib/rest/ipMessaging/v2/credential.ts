@@ -286,14 +286,14 @@ interface CredentialPayload extends TwilioResponsePayload {
 }
 
 interface CredentialResource {
-  sid?: string | null;
-  account_sid?: string | null;
-  friendly_name?: string | null;
-  type?: CredentialPushService;
-  sandbox?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  url?: string | null;
+  sid: string;
+  account_sid: string;
+  friendly_name: string;
+  type: CredentialPushService;
+  sandbox: string;
+  date_created: Date;
+  date_updated: Date;
+  url: string;
 }
 
 export class CredentialInstance {
@@ -317,14 +317,14 @@ export class CredentialInstance {
     this._solution = { sid: sid || this.sid };
   }
 
-  sid?: string | null;
-  accountSid?: string | null;
-  friendlyName?: string | null;
-  type?: CredentialPushService;
-  sandbox?: string | null;
-  dateCreated?: Date | null;
-  dateUpdated?: Date | null;
-  url?: string | null;
+  sid: string;
+  accountSid: string;
+  friendlyName: string;
+  type: CredentialPushService;
+  sandbox: string;
+  dateCreated: Date;
+  dateUpdated: Date;
+  url: string;
 
   private get _proxy(): CredentialContext {
     this._context =

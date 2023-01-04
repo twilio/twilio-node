@@ -199,10 +199,10 @@ export class SettingContextImpl implements SettingContext {
 interface SettingPayload extends SettingResource {}
 
 interface SettingResource {
-  account_sid?: string | null;
-  advanced_features?: boolean | null;
-  voice_trace?: boolean | null;
-  url?: string | null;
+  account_sid: string;
+  advanced_features: boolean;
+  voice_trace: boolean;
+  url: string;
 }
 
 export class SettingInstance {
@@ -218,10 +218,10 @@ export class SettingInstance {
     this._solution = {};
   }
 
-  accountSid?: string | null;
-  advancedFeatures?: boolean | null;
-  voiceTrace?: boolean | null;
-  url?: string | null;
+  accountSid: string;
+  advancedFeatures: boolean;
+  voiceTrace: boolean;
+  url: string;
 
   private get _proxy(): SettingContext {
     this._context = this._context || new SettingContextImpl(this._version);

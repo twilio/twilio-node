@@ -212,18 +212,18 @@ interface BuildPayload extends TwilioResponsePayload {
 }
 
 interface BuildResource {
-  sid?: string | null;
-  account_sid?: string | null;
-  service_sid?: string | null;
-  status?: BuildStatus;
-  asset_versions?: Array<any> | null;
-  function_versions?: Array<any> | null;
-  dependencies?: Array<any> | null;
-  runtime?: BuildRuntime;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  url?: string | null;
-  links?: object | null;
+  sid: string;
+  account_sid: string;
+  service_sid: string;
+  status: BuildStatus;
+  asset_versions: Array<any>;
+  function_versions: Array<any>;
+  dependencies: Array<any>;
+  runtime: BuildRuntime;
+  date_created: Date;
+  date_updated: Date;
+  url: string;
+  links: object;
 }
 
 export class BuildInstance {
@@ -255,42 +255,42 @@ export class BuildInstance {
   /**
    * The unique string that identifies the Build resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The SID of the Account that created the Build resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The SID of the Service that the Build resource is associated with
    */
-  serviceSid?: string | null;
-  status?: BuildStatus;
+  serviceSid: string;
+  status: BuildStatus;
   /**
    * The list of Asset Version resource SIDs that are included in the Build
    */
-  assetVersions?: Array<any> | null;
+  assetVersions: Array<any>;
   /**
    * The list of Function Version resource SIDs that are included in the Build
    */
-  functionVersions?: Array<any> | null;
+  functionVersions: Array<any>;
   /**
    * A list of objects that describe the Dependencies included in the Build
    */
-  dependencies?: Array<any> | null;
-  runtime?: BuildRuntime;
+  dependencies: Array<any>;
+  runtime: BuildRuntime;
   /**
    * The ISO 8601 date and time in GMT when the Build resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The ISO 8601 date and time in GMT when the Build resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The absolute URL of the Build resource
    */
-  url?: string | null;
-  links?: object | null;
+  url: string;
+  links: object;
 
   private get _proxy(): BuildContext {
     this._context =
@@ -364,7 +364,7 @@ export class BuildInstance {
 }
 
 export interface BuildSolution {
-  serviceSid?: string;
+  serviceSid: string;
 }
 
 export interface BuildListInstance {

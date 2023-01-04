@@ -268,20 +268,20 @@ interface RatePlanPayload extends TwilioResponsePayload {
 }
 
 interface RatePlanResource {
-  sid?: string | null;
-  unique_name?: string | null;
-  account_sid?: string | null;
-  friendly_name?: string | null;
-  data_enabled?: boolean | null;
-  data_metering?: string | null;
-  data_limit?: number | null;
-  messaging_enabled?: boolean | null;
-  voice_enabled?: boolean | null;
-  national_roaming_enabled?: boolean | null;
-  international_roaming?: Array<string> | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  url?: string | null;
+  sid: string;
+  unique_name: string;
+  account_sid: string;
+  friendly_name: string;
+  data_enabled: boolean;
+  data_metering: string;
+  data_limit: number;
+  messaging_enabled: boolean;
+  voice_enabled: boolean;
+  national_roaming_enabled: boolean;
+  international_roaming: Array<string>;
+  date_created: Date;
+  date_updated: Date;
+  url: string;
 }
 
 export class RatePlanInstance {
@@ -311,20 +311,20 @@ export class RatePlanInstance {
     this._solution = { sid: sid || this.sid };
   }
 
-  sid?: string | null;
-  uniqueName?: string | null;
-  accountSid?: string | null;
-  friendlyName?: string | null;
-  dataEnabled?: boolean | null;
-  dataMetering?: string | null;
-  dataLimit?: number | null;
-  messagingEnabled?: boolean | null;
-  voiceEnabled?: boolean | null;
-  nationalRoamingEnabled?: boolean | null;
-  internationalRoaming?: Array<string> | null;
-  dateCreated?: Date | null;
-  dateUpdated?: Date | null;
-  url?: string | null;
+  sid: string;
+  uniqueName: string;
+  accountSid: string;
+  friendlyName: string;
+  dataEnabled: boolean;
+  dataMetering: string;
+  dataLimit: number;
+  messagingEnabled: boolean;
+  voiceEnabled: boolean;
+  nationalRoamingEnabled: boolean;
+  internationalRoaming: Array<string>;
+  dateCreated: Date;
+  dateUpdated: Date;
+  url: string;
 
   private get _proxy(): RatePlanContext {
     this._context =

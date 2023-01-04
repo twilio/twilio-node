@@ -190,12 +190,12 @@ export class FeedbackContextImpl implements FeedbackContext {
 interface FeedbackPayload extends FeedbackResource {}
 
 interface FeedbackResource {
-  account_sid?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  issues?: Array<CallFeedbackIssues> | null;
-  quality_score?: number | null;
-  sid?: string | null;
+  account_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  issues: Array<CallFeedbackIssues>;
+  quality_score: number;
+  sid: string;
 }
 
 export class FeedbackInstance {
@@ -221,27 +221,27 @@ export class FeedbackInstance {
   /**
    * The unique sid that identifies this account
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The date this resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The date this resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * Issues experienced during the call
    */
-  issues?: Array<CallFeedbackIssues> | null;
+  issues: Array<CallFeedbackIssues>;
   /**
    * 1 to 5 quality score
    */
-  qualityScore?: number | null;
+  qualityScore: number;
   /**
    * A string that uniquely identifies this feedback resource
    */
-  sid?: string | null;
+  sid: string;
 
   private get _proxy(): FeedbackContext {
     this._context =
@@ -315,8 +315,8 @@ export class FeedbackInstance {
 }
 
 export interface FeedbackSolution {
-  accountSid?: string;
-  callSid?: string;
+  accountSid: string;
+  callSid: string;
 }
 
 export interface FeedbackListInstance {

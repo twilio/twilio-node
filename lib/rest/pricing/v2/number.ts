@@ -150,14 +150,14 @@ export class NumberContextImpl implements NumberContext {
 interface NumberPayload extends NumberResource {}
 
 interface NumberResource {
-  destination_number?: string | null;
-  origination_number?: string | null;
-  country?: string | null;
-  iso_country?: string | null;
-  terminating_prefix_prices?: Array<PricingV2TrunkingCountryInstanceTerminatingPrefixPrices> | null;
-  originating_call_price?: PricingV2TrunkingNumberOriginatingCallPrice | null;
-  price_unit?: string | null;
-  url?: string | null;
+  destination_number: string;
+  origination_number: string;
+  country: string;
+  iso_country: string;
+  terminating_prefix_prices: Array<PricingV2TrunkingCountryInstanceTerminatingPrefixPrices>;
+  originating_call_price: PricingV2TrunkingNumberOriginatingCallPrice;
+  price_unit: string;
+  url: string;
 }
 
 export class NumberInstance {
@@ -186,29 +186,29 @@ export class NumberInstance {
   /**
    * The destination phone number, in E.164 format
    */
-  destinationNumber?: string | null;
+  destinationNumber: string;
   /**
    * The origination phone number, in E.164 format
    */
-  originationNumber?: string | null;
+  originationNumber: string;
   /**
    * The name of the country
    */
-  country?: string | null;
+  country: string;
   /**
    * The ISO country code
    */
-  isoCountry?: string | null;
-  terminatingPrefixPrices?: Array<PricingV2TrunkingCountryInstanceTerminatingPrefixPrices> | null;
-  originatingCallPrice?: PricingV2TrunkingNumberOriginatingCallPrice | null;
+  isoCountry: string;
+  terminatingPrefixPrices: Array<PricingV2TrunkingCountryInstanceTerminatingPrefixPrices>;
+  originatingCallPrice: PricingV2TrunkingNumberOriginatingCallPrice;
   /**
    * The currency in which prices are measured, in ISO 4127 format (e.g. usd, eur, jpy)
    */
-  priceUnit?: string | null;
+  priceUnit: string;
   /**
    * The absolute URL of the resource
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): NumberContext {
     this._context =

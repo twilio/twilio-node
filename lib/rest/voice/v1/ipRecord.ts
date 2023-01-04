@@ -250,14 +250,14 @@ interface IpRecordPayload extends TwilioResponsePayload {
 }
 
 interface IpRecordResource {
-  account_sid?: string | null;
-  sid?: string | null;
-  friendly_name?: string | null;
-  ip_address?: string | null;
-  cidr_prefix_length?: number | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  url?: string | null;
+  account_sid: string;
+  sid: string;
+  friendly_name: string;
+  ip_address: string;
+  cidr_prefix_length: number;
+  date_created: Date;
+  date_updated: Date;
+  url: string;
 }
 
 export class IpRecordInstance {
@@ -280,35 +280,35 @@ export class IpRecordInstance {
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The string that you assigned to describe the resource
    */
-  friendlyName?: string | null;
+  friendlyName: string;
   /**
    * An IP address in dotted decimal notation, IPv4 only.
    */
-  ipAddress?: string | null;
+  ipAddress: string;
   /**
    * An integer representing the length of the [CIDR](https://tools.ietf.org/html/rfc4632) prefix to use with this IP address. By default the entire IP address is used, which for IPv4 is value 32.
    */
-  cidrPrefixLength?: number | null;
+  cidrPrefixLength: number;
   /**
    * The RFC 2822 date and time in GMT that the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The RFC 2822 date and time in GMT that the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The absolute URL of the resource
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): IpRecordContext {
     this._context =

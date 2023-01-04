@@ -146,11 +146,11 @@ interface EndUserTypePayload extends TwilioResponsePayload {
 }
 
 interface EndUserTypeResource {
-  sid?: string | null;
-  friendly_name?: string | null;
-  machine_name?: string | null;
-  fields?: Array<any> | null;
-  url?: string | null;
+  sid: string;
+  friendly_name: string;
+  machine_name: string;
+  fields: Array<any>;
+  url: string;
 }
 
 export class EndUserTypeInstance {
@@ -174,23 +174,23 @@ export class EndUserTypeInstance {
   /**
    * The unique string that identifies the End-User Type resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * A human-readable description of the End-User Type resource
    */
-  friendlyName?: string | null;
+  friendlyName: string;
   /**
    * A machine-readable description of the End-User Type resource
    */
-  machineName?: string | null;
+  machineName: string;
   /**
    * The required information for creating an End-User.
    */
-  fields?: Array<any> | null;
+  fields: Array<any>;
   /**
    * The absolute URL of the End-User Type resource
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): EndUserTypeContext {
     this._context =

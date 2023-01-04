@@ -117,11 +117,11 @@ interface UserDefinedMessageSubscriptionPayload
   extends UserDefinedMessageSubscriptionResource {}
 
 interface UserDefinedMessageSubscriptionResource {
-  account_sid?: string | null;
-  call_sid?: string | null;
-  sid?: string | null;
-  date_created?: Date | null;
-  uri?: string | null;
+  account_sid: string;
+  call_sid: string;
+  sid: string;
+  date_created: Date;
+  uri: string;
 }
 
 export class UserDefinedMessageSubscriptionInstance {
@@ -147,23 +147,23 @@ export class UserDefinedMessageSubscriptionInstance {
   /**
    * Account SID.
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * Call SID.
    */
-  callSid?: string | null;
+  callSid: string;
   /**
    * User Defined Message Subscription SID.
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The date this User Defined Message Subscription was created.
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The URI of the User Defined Message Subscription Resource, relative to `https://api.twilio.com`.
    */
-  uri?: string | null;
+  uri: string;
 
   private get _proxy(): UserDefinedMessageSubscriptionContext {
     this._context =
@@ -211,8 +211,8 @@ export class UserDefinedMessageSubscriptionInstance {
 }
 
 export interface UserDefinedMessageSubscriptionSolution {
-  accountSid?: string;
-  callSid?: string;
+  accountSid: string;
+  callSid: string;
 }
 
 export interface UserDefinedMessageSubscriptionListInstance {

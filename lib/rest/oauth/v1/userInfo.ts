@@ -84,12 +84,12 @@ export class UserInfoContextImpl implements UserInfoContext {
 interface UserInfoPayload extends UserInfoResource {}
 
 interface UserInfoResource {
-  user_sid?: string | null;
-  first_name?: string | null;
-  last_name?: string | null;
-  friendly_name?: string | null;
-  email?: string | null;
-  url?: string | null;
+  user_sid: string;
+  first_name: string;
+  last_name: string;
+  friendly_name: string;
+  email: string;
+  url: string;
 }
 
 export class UserInfoInstance {
@@ -110,24 +110,24 @@ export class UserInfoInstance {
   /**
    * The user sid
    */
-  userSid?: string | null;
+  userSid: string;
   /**
    * The first name of the end-user
    */
-  firstName?: string | null;
+  firstName: string;
   /**
    * The last name of the end-user
    */
-  lastName?: string | null;
+  lastName: string;
   /**
    * The friendly name of the end-user
    */
-  friendlyName?: string | null;
+  friendlyName: string;
   /**
    * The end-user\'s preferred email address
    */
-  email?: string | null;
-  url?: string | null;
+  email: string;
+  url: string;
 
   private get _proxy(): UserInfoContext {
     this._context = this._context || new UserInfoContextImpl(this._version);

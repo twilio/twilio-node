@@ -317,17 +317,17 @@ interface UserChannelPayload extends TwilioResponsePayload {
 }
 
 interface UserChannelResource {
-  account_sid?: string | null;
-  service_sid?: string | null;
-  channel_sid?: string | null;
-  user_sid?: string | null;
-  member_sid?: string | null;
-  status?: UserChannelChannelStatus;
-  last_consumed_message_index?: number | null;
-  unread_messages_count?: number | null;
-  links?: object | null;
-  url?: string | null;
-  notification_level?: UserChannelNotificationLevel;
+  account_sid: string;
+  service_sid: string;
+  channel_sid: string;
+  user_sid: string;
+  member_sid: string;
+  status: UserChannelChannelStatus;
+  last_consumed_message_index: number;
+  unread_messages_count: number;
+  links: object;
+  url: string;
+  notification_level: UserChannelNotificationLevel;
 }
 
 export class UserChannelInstance {
@@ -367,41 +367,41 @@ export class UserChannelInstance {
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The SID of the Service that the resource is associated with
    */
-  serviceSid?: string | null;
+  serviceSid: string;
   /**
    * The SID of the Channel the resource belongs to
    */
-  channelSid?: string | null;
+  channelSid: string;
   /**
    * The SID of the User the User Channel belongs to
    */
-  userSid?: string | null;
+  userSid: string;
   /**
    * The SID of the User as a Member in the Channel
    */
-  memberSid?: string | null;
-  status?: UserChannelChannelStatus;
+  memberSid: string;
+  status: UserChannelChannelStatus;
   /**
    * The index of the last Message in the Channel the Member has read
    */
-  lastConsumedMessageIndex?: number | null;
+  lastConsumedMessageIndex: number;
   /**
    * The number of unread Messages in the Channel for the User
    */
-  unreadMessagesCount?: number | null;
+  unreadMessagesCount: number;
   /**
    * Absolute URLs to access the Members, Messages , Invites and, if it exists, the last Message for the Channel
    */
-  links?: object | null;
+  links: object;
   /**
    * The absolute URL of the resource
    */
-  url?: string | null;
-  notificationLevel?: UserChannelNotificationLevel;
+  url: string;
+  notificationLevel: UserChannelNotificationLevel;
 
   private get _proxy(): UserChannelContext {
     this._context =
@@ -507,8 +507,8 @@ export class UserChannelInstance {
 }
 
 export interface UserChannelSolution {
-  serviceSid?: string;
-  userSid?: string;
+  serviceSid: string;
+  userSid: string;
 }
 
 export interface UserChannelListInstance {
