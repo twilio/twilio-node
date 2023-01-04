@@ -45,9 +45,6 @@ class VoiceResponse extends TwiML {
   /**
    * <Connect> TwiML Verb
    *
-   * @function connect
-   * @memberof VoiceResponse
-   *
    * @param attributes - TwiML attributes
    */
   connect(attributes?: VoiceResponse.ConnectAttributes): VoiceResponse.Connect {
@@ -55,9 +52,6 @@ class VoiceResponse extends TwiML {
   }
   /**
    * <Dial> TwiML Verb
-   *
-   * @function dial
-   * @memberof VoiceResponse
    *
    * @param attributes - TwiML attributes
    * @param number - Phone number to dial
@@ -82,9 +76,6 @@ class VoiceResponse extends TwiML {
   /**
    * <Echo> TwiML Verb
    *
-   * @function echo
-   * @memberof VoiceResponse
-   *
    * @param attributes - TwiML attributes
    */
   echo(attributes?: object): VoiceResponse.Echo {
@@ -92,9 +83,6 @@ class VoiceResponse extends TwiML {
   }
   /**
    * <Enqueue> TwiML Noun
-   *
-   * @function enqueue
-   * @memberof VoiceResponse
    *
    * @param attributes - TwiML attributes
    * @param name - Friendly name
@@ -119,9 +107,6 @@ class VoiceResponse extends TwiML {
   /**
    * <Gather> TwiML Verb
    *
-   * @function gather
-   * @memberof VoiceResponse
-   *
    * @param attributes - TwiML attributes
    */
   gather(attributes?: VoiceResponse.GatherAttributes): VoiceResponse.Gather {
@@ -129,9 +114,6 @@ class VoiceResponse extends TwiML {
   }
   /**
    * <Hangup> TwiML Verb
-   *
-   * @function hangup
-   * @memberof VoiceResponse
    *
    * @param attributes - TwiML attributes
    */
@@ -141,9 +123,6 @@ class VoiceResponse extends TwiML {
   /**
    * <Leave> TwiML Verb
    *
-   * @function leave
-   * @memberof VoiceResponse
-   *
    * @param attributes - TwiML attributes
    */
   leave(attributes?: object): VoiceResponse.Leave {
@@ -151,9 +130,6 @@ class VoiceResponse extends TwiML {
   }
   /**
    * <Pause> TwiML Verb
-   *
-   * @function pause
-   * @memberof VoiceResponse
    *
    * @param attributes - TwiML attributes
    */
@@ -163,9 +139,6 @@ class VoiceResponse extends TwiML {
   /**
    * <Pay> Twiml Verb
    *
-   * @function pay
-   * @memberof VoiceResponse
-   *
    * @param attributes - TwiML attributes
    */
   pay(attributes?: VoiceResponse.PayAttributes): VoiceResponse.Pay {
@@ -173,9 +146,6 @@ class VoiceResponse extends TwiML {
   }
   /**
    * <Play> TwiML Verb
-   *
-   * @function play
-   * @memberof VoiceResponse
    *
    * @param attributes - TwiML attributes
    * @param url - Media URL
@@ -198,9 +168,6 @@ class VoiceResponse extends TwiML {
   /**
    * <Prompt> Twiml Verb
    *
-   * @function prompt
-   * @memberof VoiceResponse
-   *
    * @param attributes - TwiML attributes
    */
   prompt(attributes?: VoiceResponse.PromptAttributes): VoiceResponse.Prompt {
@@ -208,9 +175,6 @@ class VoiceResponse extends TwiML {
   }
   /**
    * <Queue> TwiML Noun
-   *
-   * @function queue
-   * @memberof VoiceResponse
    *
    * @param attributes - TwiML attributes
    * @param name - Queue name
@@ -235,9 +199,6 @@ class VoiceResponse extends TwiML {
   /**
    * <Record> TwiML Verb
    *
-   * @function record
-   * @memberof VoiceResponse
-   *
    * @param attributes - TwiML attributes
    */
   record(attributes?: VoiceResponse.RecordAttributes): VoiceResponse.Record {
@@ -245,9 +206,6 @@ class VoiceResponse extends TwiML {
   }
   /**
    * <Redirect> TwiML Verb
-   *
-   * @function redirect
-   * @memberof VoiceResponse
    *
    * @param attributes - TwiML attributes
    * @param url - Redirect URL
@@ -272,9 +230,6 @@ class VoiceResponse extends TwiML {
   /**
    * <Refer> TwiML Verb
    *
-   * @function refer
-   * @memberof VoiceResponse
-   *
    * @param attributes - TwiML attributes
    */
   refer(attributes?: VoiceResponse.ReferAttributes): VoiceResponse.Refer {
@@ -283,9 +238,6 @@ class VoiceResponse extends TwiML {
   /**
    * <Reject> TwiML Verb
    *
-   * @function reject
-   * @memberof VoiceResponse
-   *
    * @param attributes - TwiML attributes
    */
   reject(attributes?: VoiceResponse.RejectAttributes): VoiceResponse.Reject {
@@ -293,9 +245,6 @@ class VoiceResponse extends TwiML {
   }
   /**
    * <Say> TwiML Verb
-   *
-   * @function say
-   * @memberof VoiceResponse
    *
    * @param attributes - TwiML attributes
    * @param message - Message to say
@@ -318,9 +267,6 @@ class VoiceResponse extends TwiML {
   /**
    * <Sms> TwiML Noun
    *
-   * @function sms
-   * @memberof VoiceResponse
-   *
    * @param attributes - TwiML attributes
    * @param message - Message body
    */
@@ -342,9 +288,6 @@ class VoiceResponse extends TwiML {
   /**
    * <Start> TwiML Verb
    *
-   * @function start
-   * @memberof VoiceResponse
-   *
    * @param attributes - TwiML attributes
    */
   start(attributes?: VoiceResponse.StartAttributes): VoiceResponse.Start {
@@ -352,9 +295,6 @@ class VoiceResponse extends TwiML {
   }
   /**
    * <Stop> TwiML Verb
-   *
-   * @function stop
-   * @memberof VoiceResponse
    *
    * @param attributes - TwiML attributes
    */
@@ -915,1320 +855,1223 @@ namespace VoiceResponse {
 
   /**
    * Attributes to pass to connect
-   *
-   * @property action - Action URL
-   * @property method - Action URL method
    */
   export interface ConnectAttributes {
+    /** action - Action URL */
     action?: string;
+    /** method - Action URL method */
     method?: string;
   }
 
   /**
    * Attributes to pass to dial
-   *
-   * @property action - Action URL
-   * @property answerOnBridge - Preserve the ringing behavior of the inbound call until the Dialed call picks up
-   * @property callerId - Caller ID to display
-   * @property hangupOnStar - Hangup call on star press
-   * @property method - Action URL method
-   * @property record - Record the call
-   * @property recordingStatusCallback - Recording status callback URL
-   * @property recordingStatusCallbackEvent - Recording status callback events
-   * @property recordingStatusCallbackMethod - Recording status callback URL method
-   * @property recordingTrack - To indicate which audio track should be recorded
-   * @property referMethod - The HTTP method to use for the refer Webhook
-   * @property referUrl - Webhook that will receive future SIP REFER requests
-   * @property ringTone - Ringtone allows you to override the ringback tone that Twilio will play back to the caller while executing the Dial
-   * @property sequential - Used to determine if child TwiML nouns should be dialed in order, one after the other (sequential) or dial all at once (parallel). Default is false, parallel
-   * @property timeLimit - Max time length
-   * @property timeout - Time to wait for answer
-   * @property trim - Trim the recording
    */
   export interface DialAttributes {
+    /** action - Action URL */
     action?: string;
+    /** answerOnBridge - Preserve the ringing behavior of the inbound call until the Dialed call picks up */
     answerOnBridge?: boolean;
+    /** callerId - Caller ID to display */
     callerId?: string;
+    /** hangupOnStar - Hangup call on star press */
     hangupOnStar?: boolean;
+    /** method - Action URL method */
     method?: string;
+    /** record - Record the call */
     record?: DialRecord;
+    /** recordingStatusCallback - Recording status callback URL */
     recordingStatusCallback?: string;
+    /** recordingStatusCallbackEvent - Recording status callback events */
     recordingStatusCallbackEvent?: DialRecordingEvent[];
+    /** recordingStatusCallbackMethod - Recording status callback URL method */
     recordingStatusCallbackMethod?: string;
+    /** recordingTrack - To indicate which audio track should be recorded */
     recordingTrack?: DialRecordingTrack;
+    /** referMethod - The HTTP method to use for the refer Webhook */
     referMethod?: string;
+    /** referUrl - Webhook that will receive future SIP REFER requests */
     referUrl?: string;
+    /** ringTone - Ringtone allows you to override the ringback tone that Twilio will play back to the caller while executing the Dial */
     ringTone?: DialRingTone;
+    /** sequential - Used to determine if child TwiML nouns should be dialed in order, one after the other (sequential) or dial all at once (parallel). Default is false, parallel */
     sequential?: boolean;
+    /** timeLimit - Max time length */
     timeLimit?: number;
+    /** timeout - Time to wait for answer */
     timeout?: number;
+    /** trim - Trim the recording */
     trim?: DialTrim;
   }
 
   /**
    * Attributes to pass to enqueue
-   *
-   * @property action - Action URL
-   * @property maxQueueSize - Maximum size of queue
-   * @property method - Action URL method
-   * @property waitUrl - Wait URL
-   * @property waitUrlMethod - Wait URL method
-   * @property workflowSid - TaskRouter Workflow SID
    */
   export interface EnqueueAttributes {
+    /** action - Action URL */
     action?: string;
+    /** maxQueueSize - Maximum size of queue */
     maxQueueSize?: number;
+    /** method - Action URL method */
     method?: string;
+    /** waitUrl - Wait URL */
     waitUrl?: string;
+    /** waitUrlMethod - Wait URL method */
     waitUrlMethod?: string;
+    /** workflowSid - TaskRouter Workflow SID */
     workflowSid?: string;
   }
 
   /**
    * Attributes to pass to gather
-   *
-   * @property action - Action URL
-   * @property actionOnEmptyResult - Force webhook to the action URL event if there is no input
-   * @property bargeIn - Stop playing media upon speech
-   * @property debug - Allow debug for gather
-   * @property enhanced - Use enhanced speech model
-   * @property finishOnKey - Finish gather on key
-   * @property hints - Speech recognition hints
-   * @property input - Input type Twilio should accept
-   * @property language - Language to use
-   * @property maxSpeechTime - Max allowed time for speech input
-   * @property method - Action URL method
-   * @property numDigits - Number of digits to collect
-   * @property partialResultCallback - Partial result callback URL
-   * @property partialResultCallbackMethod - Partial result callback URL method
-   * @property profanityFilter - Profanity Filter on speech
-   * @property speechModel - Specify the model that is best suited for your use case
-   * @property speechTimeout - Time to wait to gather speech input and it should be either auto or a positive integer.
-   * @property timeout - Time to wait to gather input
    */
   export interface GatherAttributes {
+    /** action - Action URL */
     action?: string;
+    /** actionOnEmptyResult - Force webhook to the action URL event if there is no input */
     actionOnEmptyResult?: boolean;
+    /** bargeIn - Stop playing media upon speech */
     bargeIn?: boolean;
+    /** debug - Allow debug for gather */
     debug?: boolean;
+    /** enhanced - Use enhanced speech model */
     enhanced?: boolean;
+    /** finishOnKey - Finish gather on key */
     finishOnKey?: string;
+    /** hints - Speech recognition hints */
     hints?: string;
+    /** input - Input type Twilio should accept */
     input?: GatherInput[];
+    /** language - Language to use */
     language?: GatherLanguage;
+    /** maxSpeechTime - Max allowed time for speech input */
     maxSpeechTime?: number;
+    /** method - Action URL method */
     method?: string;
+    /** numDigits - Number of digits to collect */
     numDigits?: number;
+    /** partialResultCallback - Partial result callback URL */
     partialResultCallback?: string;
+    /** partialResultCallbackMethod - Partial result callback URL method */
     partialResultCallbackMethod?: string;
+    /** profanityFilter - Profanity Filter on speech */
     profanityFilter?: boolean;
+    /** speechModel - Specify the model that is best suited for your use case */
     speechModel?: GatherSpeechModel;
+    /** speechTimeout - Time to wait to gather speech input and it should be either auto or a positive integer. */
     speechTimeout?: string;
+    /** timeout - Time to wait to gather input */
     timeout?: number;
   }
 
   /**
    * Attributes to pass to pause
-   *
-   * @property length - Length in seconds to pause
    */
   export interface PauseAttributes {
+    /** length - Length in seconds to pause */
     length?: number;
   }
 
   /**
    * Attributes to pass to play
-   *
-   * @property digits - Play DTMF tones for digits
-   * @property loop - Times to loop media
    */
   export interface PlayAttributes {
+    /** digits - Play DTMF tones for digits */
     digits?: string;
+    /** loop - Times to loop media */
     loop?: number;
   }
 
   /**
    * Attributes to pass to queue
-   *
-   * @property method - Action URL method
-   * @property postWorkActivitySid - TaskRouter Activity SID
-   * @property reservationSid - TaskRouter Reservation SID
-   * @property url - Action URL
    */
   export interface QueueAttributes {
+    /** method - Action URL method */
     method?: string;
+    /** postWorkActivitySid - TaskRouter Activity SID */
     postWorkActivitySid?: string;
+    /** reservationSid - TaskRouter Reservation SID */
     reservationSid?: string;
+    /** url - Action URL */
     url?: string;
   }
 
   /**
    * Attributes to pass to record
-   *
-   * @property action - Action URL
-   * @property finishOnKey - Finish recording on key
-   * @property maxLength - Max time to record in seconds
-   * @property method - Action URL method
-   * @property playBeep - Play beep
-   * @property recordingStatusCallback - Status callback URL
-   * @property recordingStatusCallbackEvent - Recording status callback events
-   * @property recordingStatusCallbackMethod - Status callback URL method
-   * @property timeout - Timeout to begin recording
-   * @property transcribe - Transcribe the recording
-   * @property transcribeCallback - Transcribe callback URL
-   * @property trim - Trim the recording
    */
   export interface RecordAttributes {
+    /** action - Action URL */
     action?: string;
+    /** finishOnKey - Finish recording on key */
     finishOnKey?: string;
+    /** maxLength - Max time to record in seconds */
     maxLength?: number;
+    /** method - Action URL method */
     method?: string;
+    /** playBeep - Play beep */
     playBeep?: boolean;
+    /** recordingStatusCallback - Status callback URL */
     recordingStatusCallback?: string;
+    /** recordingStatusCallbackEvent - Recording status callback events */
     recordingStatusCallbackEvent?: RecordRecordingEvent[];
+    /** recordingStatusCallbackMethod - Status callback URL method */
     recordingStatusCallbackMethod?: string;
+    /** timeout - Timeout to begin recording */
     timeout?: number;
+    /** transcribe - Transcribe the recording */
     transcribe?: boolean;
+    /** transcribeCallback - Transcribe callback URL */
     transcribeCallback?: string;
+    /** trim - Trim the recording */
     trim?: RecordTrim;
   }
 
   /**
    * Attributes to pass to redirect
-   *
-   * @property method - Redirect URL method
    */
   export interface RedirectAttributes {
+    /** method - Redirect URL method */
     method?: string;
   }
 
   /**
    * Attributes to pass to reject
-   *
-   * @property reason - Rejection reason
    */
   export interface RejectAttributes {
+    /** reason - Rejection reason */
     reason?: RejectReason;
   }
 
   /**
    * Attributes to pass to say
-   *
-   * @property language - Message language
-   * @property loop - Times to loop message
-   * @property voice - Voice to use
    */
   export interface SayAttributes {
+    /** language - Message language */
     language?: SayLanguage;
+    /** loop - Times to loop message */
     loop?: number;
+    /** voice - Voice to use */
     voice?: SayVoice;
   }
 
   /**
    * Attributes to pass to sms
-   *
-   * @property action - Action URL
-   * @property from - Number to send message from
-   * @property method - Action URL method
-   * @property statusCallback - Status callback URL
-   * @property to - Number to send message to
    */
   export interface SmsAttributes {
+    /** action - Action URL */
     action?: string;
+    /** from - Number to send message from */
     from?: string;
+    /** method - Action URL method */
     method?: string;
+    /** statusCallback - Status callback URL */
     statusCallback?: string;
+    /** to - Number to send message to */
     to?: string;
   }
 
   /**
    * Attributes to pass to pay
-   *
-   * @property action - Action URL
-   * @property bankAccountType - Bank account type for ach transactions. If set, payment method attribute must be provided and value should be set to ach-debit. defaults to consumer-checking
-   * @property chargeAmount - Amount to process. If value is greater than 0 then make the payment else create a payment token
-   * @property currency - Currency of the amount attribute
-   * @property description - Details regarding the payment
-   * @property input - Input type Twilio should accept
-   * @property language - Language to use
-   * @property maxAttempts - Maximum number of allowed retries when gathering input
-   * @property minPostalCodeLength - Prompt for minimum postal code length
-   * @property paymentConnector - Unique name for payment connector
-   * @property paymentMethod - Payment method to be used. defaults to credit-card
-   * @property postalCode - Prompt for postal code and it should be true/false or default postal code
-   * @property securityCode - Prompt for security code
-   * @property statusCallback - Status callback URL
-   * @property statusCallbackMethod - Status callback method
-   * @property timeout - Time to wait to gather input
-   * @property tokenType - Type of token
-   * @property validCardTypes - Comma separated accepted card types
    */
   export interface PayAttributes {
+    /** action - Action URL */
     action?: string;
+    /** bankAccountType - Bank account type for ach transactions. If set, payment method attribute must be provided and value should be set to ach-debit. defaults to consumer-checking */
     bankAccountType?: PayBankAccountType;
+    /** chargeAmount - Amount to process. If value is greater than 0 then make the payment else create a payment token */
     chargeAmount?: string;
+    /** currency - Currency of the amount attribute */
     currency?: string;
+    /** description - Details regarding the payment */
     description?: string;
+    /** input - Input type Twilio should accept */
     input?: PayInput;
+    /** language - Language to use */
     language?: PayLanguage;
+    /** maxAttempts - Maximum number of allowed retries when gathering input */
     maxAttempts?: number;
+    /** minPostalCodeLength - Prompt for minimum postal code length */
     minPostalCodeLength?: number;
+    /** paymentConnector - Unique name for payment connector */
     paymentConnector?: string;
+    /** paymentMethod - Payment method to be used. defaults to credit-card */
     paymentMethod?: PayPaymentMethod;
+    /** postalCode - Prompt for postal code and it should be true/false or default postal code */
     postalCode?: string;
+    /** securityCode - Prompt for security code */
     securityCode?: boolean;
+    /** statusCallback - Status callback URL */
     statusCallback?: string;
+    /** statusCallbackMethod - Status callback method */
     statusCallbackMethod?: PayStatusCallbackMethod;
+    /** timeout - Time to wait to gather input */
     timeout?: number;
+    /** tokenType - Type of token */
     tokenType?: PayTokenType;
+    /** validCardTypes - Comma separated accepted card types */
     validCardTypes?: PayValidCardTypes[];
   }
 
   /**
    * Attributes to pass to prompt
-   *
-   * @property attempt - Current attempt count
-   * @property cardType - Type of the credit card
-   * @property errorType - Type of error
-   * @property for - Name of the payment source data element
-   * @property requireMatchingInputs - Require customer to input requested information twice and verify matching.
    */
   export interface PromptAttributes {
+    /** attempt - Current attempt count */
     attempt?: number[];
+    /** cardType - Type of the credit card */
     cardType?: PromptCardType[];
+    /** errorType - Type of error */
     errorType?: PromptErrorType[];
+    /** for - Name of the payment source data element */
     for?: PromptFor;
+    /** requireMatchingInputs - Require customer to input requested information twice and verify matching. */
     requireMatchingInputs?: boolean;
   }
 
   /**
    * Attributes to pass to start
-   *
-   * @property action - Action URL
-   * @property method - Action URL method
    */
   export interface StartAttributes {
+    /** action - Action URL */
     action?: string;
+    /** method - Action URL method */
     method?: string;
   }
 
   /**
    * Attributes to pass to refer
-   *
-   * @property action - Action URL
-   * @property method - Action URL method
    */
   export interface ReferAttributes {
+    /** action - Action URL */
     action?: string;
+    /** method - Action URL method */
     method?: string;
   }
 
   /**
    * Attributes to pass to stream
-   *
-   * @property connectorName - Unique name for Stream Connector
-   * @property name - Friendly name given to the Stream
-   * @property statusCallback - Status Callback URL
-   * @property statusCallbackMethod - Status Callback URL method
-   * @property track - Track to be streamed to remote service
-   * @property url - URL of the remote service where the Stream is routed
    */
   export interface StreamAttributes {
+    /** connectorName - Unique name for Stream Connector */
     connectorName?: string;
+    /** name - Friendly name given to the Stream */
     name?: string;
+    /** statusCallback - Status Callback URL */
     statusCallback?: string;
+    /** statusCallbackMethod - Status Callback URL method */
     statusCallbackMethod?: StreamStatusCallbackMethod;
+    /** track - Track to be streamed to remote service */
     track?: StreamTrack;
+    /** url - URL of the remote service where the Stream is routed */
     url?: string;
   }
 
   /**
    * Attributes to pass to siprec
-   *
-   * @property connectorName - Unique name for Connector
-   * @property name - Friendly name given to SIPREC
-   * @property track - Track to be streamed to remote service
    */
   export interface SiprecAttributes {
+    /** connectorName - Unique name for Connector */
     connectorName?: string;
+    /** name - Friendly name given to SIPREC */
     name?: string;
+    /** track - Track to be streamed to remote service */
     track?: SiprecTrack;
   }
 
   /**
    * Attributes to pass to parameter
-   *
-   * @property name - The name of the custom parameter
-   * @property value - The value of the custom parameter
    */
   export interface ParameterAttributes {
+    /** name - The name of the custom parameter */
     name?: string;
+    /** value - The value of the custom parameter */
     value?: string;
   }
 
   /**
    * Attributes to pass to parameter
-   *
-   * @property name - The name of the custom parameter
-   * @property value - The value of the custom parameter
    */
   export interface ParameterAttributes {
+    /** name - The name of the custom parameter */
     name?: string;
+    /** value - The value of the custom parameter */
     value?: string;
   }
 
   /**
    * Attributes to pass to stream
-   *
-   * @property connectorName - Unique name for Stream Connector
-   * @property name - Friendly name given to the Stream
-   * @property statusCallback - Status Callback URL
-   * @property statusCallbackMethod - Status Callback URL method
-   * @property track - Track to be streamed to remote service
-   * @property url - URL of the remote service where the Stream is routed
    */
   export interface StreamAttributes {
+    /** connectorName - Unique name for Stream Connector */
     connectorName?: string;
+    /** name - Friendly name given to the Stream */
     name?: string;
+    /** statusCallback - Status Callback URL */
     statusCallback?: string;
+    /** statusCallbackMethod - Status Callback URL method */
     statusCallbackMethod?: StreamStatusCallbackMethod;
+    /** track - Track to be streamed to remote service */
     track?: StreamTrack;
+    /** url - URL of the remote service where the Stream is routed */
     url?: string;
   }
 
   /**
    * Attributes to pass to siprec
-   *
-   * @property connectorName - Unique name for Connector
-   * @property name - Friendly name given to SIPREC
-   * @property track - Track to be streamed to remote service
    */
   export interface SiprecAttributes {
+    /** connectorName - Unique name for Connector */
     connectorName?: string;
+    /** name - Friendly name given to SIPREC */
     name?: string;
+    /** track - Track to be streamed to remote service */
     track?: SiprecTrack;
   }
 
   /**
    * Attributes to pass to say
-   *
-   * @property language - Message language
-   * @property loop - Times to loop message
-   * @property voice - Voice to use
    */
   export interface SayAttributes {
+    /** language - Message language */
     language?: SayLanguage;
+    /** loop - Times to loop message */
     loop?: number;
+    /** voice - Voice to use */
     voice?: SayVoice;
   }
 
   /**
    * Attributes to pass to play
-   *
-   * @property digits - Play DTMF tones for digits
-   * @property loop - Times to loop media
    */
   export interface PlayAttributes {
+    /** digits - Play DTMF tones for digits */
     digits?: string;
+    /** loop - Times to loop media */
     loop?: number;
   }
 
   /**
    * Attributes to pass to pause
-   *
-   * @property length - Length in seconds to pause
    */
   export interface PauseAttributes {
+    /** length - Length in seconds to pause */
     length?: number;
   }
 
   /**
    * Attributes to pass to break_
-   *
-   * @property strength - Set a pause based on strength
-   * @property time - Set a pause to a specific length of time in seconds or milliseconds, available values: [number]s, [number]ms
    */
   export interface SsmlBreakAttributes {
+    /** strength - Set a pause based on strength */
     strength?: SsmlBreakStrength;
+    /** time - Set a pause to a specific length of time in seconds or milliseconds, available values: [number]s, [number]ms */
     time?: string;
   }
 
   /**
    * Attributes to pass to emphasis
-   *
-   * @property level - Specify the degree of emphasis
    */
   export interface SsmlEmphasisAttributes {
+    /** level - Specify the degree of emphasis */
     level?: SsmlEmphasisLevel;
   }
 
   /**
    * Attributes to pass to lang
-   *
-   * @property xml:lang - Specify the language
    */
   export interface SsmlLangAttributes {
+    /** xml:lang - Specify the language */
     "xml:lang"?: SsmlLangXmlLang;
   }
 
   /**
    * Attributes to pass to phoneme
-   *
-   * @property alphabet - Specify the phonetic alphabet
-   * @property ph - Specifiy the phonetic symbols for pronunciation
    */
   export interface SsmlPhonemeAttributes {
+    /** alphabet - Specify the phonetic alphabet */
     alphabet?: SsmlPhonemeAlphabet;
+    /** ph - Specifiy the phonetic symbols for pronunciation */
     ph?: string;
   }
 
   /**
    * Attributes to pass to prosody
-   *
-   * @property pitch - Specify the pitch, available values: default, x-low, low, medium, high, x-high, +n%, -n%
-   * @property rate - Specify the rate, available values: x-slow, slow, medium, fast, x-fast, n%
-   * @property volume - Specify the volume, available values: default, silent, x-soft, soft, medium, loud, x-loud, +ndB, -ndB
    */
   export interface SsmlProsodyAttributes {
+    /** pitch - Specify the pitch, available values: default, x-low, low, medium, high, x-high, +n%, -n% */
     pitch?: string;
+    /** rate - Specify the rate, available values: x-slow, slow, medium, fast, x-fast, n% */
     rate?: string;
+    /** volume - Specify the volume, available values: default, silent, x-soft, soft, medium, loud, x-loud, +ndB, -ndB */
     volume?: string;
   }
 
   /**
    * Attributes to pass to sayAs
-   *
-   * @property format - Specify the format of the date when interpret-as is set to date
-   * @property interpret-as - Specify the type of words are spoken
    */
   export interface SsmlSayAsAttributes {
+    /** format - Specify the format of the date when interpret-as is set to date */
     format?: SsmlSayAsFormat;
+    /** interpret-as - Specify the type of words are spoken */
     "interpret-as"?: SsmlSayAsInterpretAs;
   }
 
   /**
    * Attributes to pass to sub
-   *
-   * @property alias - Substitute a different word (or pronunciation) for selected text such as an acronym or abbreviation
    */
   export interface SsmlSubAttributes {
+    /** alias - Substitute a different word (or pronunciation) for selected text such as an acronym or abbreviation */
     alias?: string;
   }
 
   /**
    * Attributes to pass to w
-   *
-   * @property role - Customize the pronunciation of words by specifying the word’s part of speech or alternate meaning
    */
   export interface SsmlWAttributes {
+    /** role - Customize the pronunciation of words by specifying the word’s part of speech or alternate meaning */
     role?: string;
   }
 
   /**
    * Attributes to pass to break_
-   *
-   * @property strength - Set a pause based on strength
-   * @property time - Set a pause to a specific length of time in seconds or milliseconds, available values: [number]s, [number]ms
    */
   export interface SsmlBreakAttributes {
+    /** strength - Set a pause based on strength */
     strength?: SsmlBreakStrength;
+    /** time - Set a pause to a specific length of time in seconds or milliseconds, available values: [number]s, [number]ms */
     time?: string;
   }
 
   /**
    * Attributes to pass to emphasis
-   *
-   * @property level - Specify the degree of emphasis
    */
   export interface SsmlEmphasisAttributes {
+    /** level - Specify the degree of emphasis */
     level?: SsmlEmphasisLevel;
   }
 
   /**
    * Attributes to pass to phoneme
-   *
-   * @property alphabet - Specify the phonetic alphabet
-   * @property ph - Specifiy the phonetic symbols for pronunciation
    */
   export interface SsmlPhonemeAttributes {
+    /** alphabet - Specify the phonetic alphabet */
     alphabet?: SsmlPhonemeAlphabet;
+    /** ph - Specifiy the phonetic symbols for pronunciation */
     ph?: string;
   }
 
   /**
    * Attributes to pass to prosody
-   *
-   * @property pitch - Specify the pitch, available values: default, x-low, low, medium, high, x-high, +n%, -n%
-   * @property rate - Specify the rate, available values: x-slow, slow, medium, fast, x-fast, n%
-   * @property volume - Specify the volume, available values: default, silent, x-soft, soft, medium, loud, x-loud, +ndB, -ndB
    */
   export interface SsmlProsodyAttributes {
+    /** pitch - Specify the pitch, available values: default, x-low, low, medium, high, x-high, +n%, -n% */
     pitch?: string;
+    /** rate - Specify the rate, available values: x-slow, slow, medium, fast, x-fast, n% */
     rate?: string;
+    /** volume - Specify the volume, available values: default, silent, x-soft, soft, medium, loud, x-loud, +ndB, -ndB */
     volume?: string;
   }
 
   /**
    * Attributes to pass to sayAs
-   *
-   * @property format - Specify the format of the date when interpret-as is set to date
-   * @property interpret-as - Specify the type of words are spoken
    */
   export interface SsmlSayAsAttributes {
+    /** format - Specify the format of the date when interpret-as is set to date */
     format?: SsmlSayAsFormat;
+    /** interpret-as - Specify the type of words are spoken */
     "interpret-as"?: SsmlSayAsInterpretAs;
   }
 
   /**
    * Attributes to pass to sub
-   *
-   * @property alias - Substitute a different word (or pronunciation) for selected text such as an acronym or abbreviation
    */
   export interface SsmlSubAttributes {
+    /** alias - Substitute a different word (or pronunciation) for selected text such as an acronym or abbreviation */
     alias?: string;
   }
 
   /**
    * Attributes to pass to break_
-   *
-   * @property strength - Set a pause based on strength
-   * @property time - Set a pause to a specific length of time in seconds or milliseconds, available values: [number]s, [number]ms
    */
   export interface SsmlBreakAttributes {
+    /** strength - Set a pause based on strength */
     strength?: SsmlBreakStrength;
+    /** time - Set a pause to a specific length of time in seconds or milliseconds, available values: [number]s, [number]ms */
     time?: string;
   }
 
   /**
    * Attributes to pass to emphasis
-   *
-   * @property level - Specify the degree of emphasis
    */
   export interface SsmlEmphasisAttributes {
+    /** level - Specify the degree of emphasis */
     level?: SsmlEmphasisLevel;
   }
 
   /**
    * Attributes to pass to lang
-   *
-   * @property xml:lang - Specify the language
    */
   export interface SsmlLangAttributes {
+    /** xml:lang - Specify the language */
     "xml:lang"?: SsmlLangXmlLang;
   }
 
   /**
    * Attributes to pass to phoneme
-   *
-   * @property alphabet - Specify the phonetic alphabet
-   * @property ph - Specifiy the phonetic symbols for pronunciation
    */
   export interface SsmlPhonemeAttributes {
+    /** alphabet - Specify the phonetic alphabet */
     alphabet?: SsmlPhonemeAlphabet;
+    /** ph - Specifiy the phonetic symbols for pronunciation */
     ph?: string;
   }
 
   /**
    * Attributes to pass to prosody
-   *
-   * @property pitch - Specify the pitch, available values: default, x-low, low, medium, high, x-high, +n%, -n%
-   * @property rate - Specify the rate, available values: x-slow, slow, medium, fast, x-fast, n%
-   * @property volume - Specify the volume, available values: default, silent, x-soft, soft, medium, loud, x-loud, +ndB, -ndB
    */
   export interface SsmlProsodyAttributes {
+    /** pitch - Specify the pitch, available values: default, x-low, low, medium, high, x-high, +n%, -n% */
     pitch?: string;
+    /** rate - Specify the rate, available values: x-slow, slow, medium, fast, x-fast, n% */
     rate?: string;
+    /** volume - Specify the volume, available values: default, silent, x-soft, soft, medium, loud, x-loud, +ndB, -ndB */
     volume?: string;
   }
 
   /**
    * Attributes to pass to sayAs
-   *
-   * @property format - Specify the format of the date when interpret-as is set to date
-   * @property interpret-as - Specify the type of words are spoken
    */
   export interface SsmlSayAsAttributes {
+    /** format - Specify the format of the date when interpret-as is set to date */
     format?: SsmlSayAsFormat;
+    /** interpret-as - Specify the type of words are spoken */
     "interpret-as"?: SsmlSayAsInterpretAs;
   }
 
   /**
    * Attributes to pass to sub
-   *
-   * @property alias - Substitute a different word (or pronunciation) for selected text such as an acronym or abbreviation
    */
   export interface SsmlSubAttributes {
+    /** alias - Substitute a different word (or pronunciation) for selected text such as an acronym or abbreviation */
     alias?: string;
   }
 
   /**
    * Attributes to pass to w
-   *
-   * @property role - Customize the pronunciation of words by specifying the word’s part of speech or alternate meaning
    */
   export interface SsmlWAttributes {
+    /** role - Customize the pronunciation of words by specifying the word’s part of speech or alternate meaning */
     role?: string;
   }
 
   /**
    * Attributes to pass to break_
-   *
-   * @property strength - Set a pause based on strength
-   * @property time - Set a pause to a specific length of time in seconds or milliseconds, available values: [number]s, [number]ms
    */
   export interface SsmlBreakAttributes {
+    /** strength - Set a pause based on strength */
     strength?: SsmlBreakStrength;
+    /** time - Set a pause to a specific length of time in seconds or milliseconds, available values: [number]s, [number]ms */
     time?: string;
   }
 
   /**
    * Attributes to pass to emphasis
-   *
-   * @property level - Specify the degree of emphasis
    */
   export interface SsmlEmphasisAttributes {
+    /** level - Specify the degree of emphasis */
     level?: SsmlEmphasisLevel;
   }
 
   /**
    * Attributes to pass to lang
-   *
-   * @property xml:lang - Specify the language
    */
   export interface SsmlLangAttributes {
+    /** xml:lang - Specify the language */
     "xml:lang"?: SsmlLangXmlLang;
   }
 
   /**
    * Attributes to pass to phoneme
-   *
-   * @property alphabet - Specify the phonetic alphabet
-   * @property ph - Specifiy the phonetic symbols for pronunciation
    */
   export interface SsmlPhonemeAttributes {
+    /** alphabet - Specify the phonetic alphabet */
     alphabet?: SsmlPhonemeAlphabet;
+    /** ph - Specifiy the phonetic symbols for pronunciation */
     ph?: string;
   }
 
   /**
    * Attributes to pass to prosody
-   *
-   * @property pitch - Specify the pitch, available values: default, x-low, low, medium, high, x-high, +n%, -n%
-   * @property rate - Specify the rate, available values: x-slow, slow, medium, fast, x-fast, n%
-   * @property volume - Specify the volume, available values: default, silent, x-soft, soft, medium, loud, x-loud, +ndB, -ndB
    */
   export interface SsmlProsodyAttributes {
+    /** pitch - Specify the pitch, available values: default, x-low, low, medium, high, x-high, +n%, -n% */
     pitch?: string;
+    /** rate - Specify the rate, available values: x-slow, slow, medium, fast, x-fast, n% */
     rate?: string;
+    /** volume - Specify the volume, available values: default, silent, x-soft, soft, medium, loud, x-loud, +ndB, -ndB */
     volume?: string;
   }
 
   /**
    * Attributes to pass to sayAs
-   *
-   * @property format - Specify the format of the date when interpret-as is set to date
-   * @property interpret-as - Specify the type of words are spoken
    */
   export interface SsmlSayAsAttributes {
+    /** format - Specify the format of the date when interpret-as is set to date */
     format?: SsmlSayAsFormat;
+    /** interpret-as - Specify the type of words are spoken */
     "interpret-as"?: SsmlSayAsInterpretAs;
   }
 
   /**
    * Attributes to pass to sub
-   *
-   * @property alias - Substitute a different word (or pronunciation) for selected text such as an acronym or abbreviation
    */
   export interface SsmlSubAttributes {
+    /** alias - Substitute a different word (or pronunciation) for selected text such as an acronym or abbreviation */
     alias?: string;
   }
 
   /**
    * Attributes to pass to w
-   *
-   * @property role - Customize the pronunciation of words by specifying the word’s part of speech or alternate meaning
    */
   export interface SsmlWAttributes {
+    /** role - Customize the pronunciation of words by specifying the word’s part of speech or alternate meaning */
     role?: string;
   }
 
   /**
    * Attributes to pass to break_
-   *
-   * @property strength - Set a pause based on strength
-   * @property time - Set a pause to a specific length of time in seconds or milliseconds, available values: [number]s, [number]ms
    */
   export interface SsmlBreakAttributes {
+    /** strength - Set a pause based on strength */
     strength?: SsmlBreakStrength;
+    /** time - Set a pause to a specific length of time in seconds or milliseconds, available values: [number]s, [number]ms */
     time?: string;
   }
 
   /**
    * Attributes to pass to emphasis
-   *
-   * @property level - Specify the degree of emphasis
    */
   export interface SsmlEmphasisAttributes {
+    /** level - Specify the degree of emphasis */
     level?: SsmlEmphasisLevel;
   }
 
   /**
    * Attributes to pass to lang
-   *
-   * @property xml:lang - Specify the language
    */
   export interface SsmlLangAttributes {
+    /** xml:lang - Specify the language */
     "xml:lang"?: SsmlLangXmlLang;
   }
 
   /**
    * Attributes to pass to phoneme
-   *
-   * @property alphabet - Specify the phonetic alphabet
-   * @property ph - Specifiy the phonetic symbols for pronunciation
    */
   export interface SsmlPhonemeAttributes {
+    /** alphabet - Specify the phonetic alphabet */
     alphabet?: SsmlPhonemeAlphabet;
+    /** ph - Specifiy the phonetic symbols for pronunciation */
     ph?: string;
   }
 
   /**
    * Attributes to pass to prosody
-   *
-   * @property pitch - Specify the pitch, available values: default, x-low, low, medium, high, x-high, +n%, -n%
-   * @property rate - Specify the rate, available values: x-slow, slow, medium, fast, x-fast, n%
-   * @property volume - Specify the volume, available values: default, silent, x-soft, soft, medium, loud, x-loud, +ndB, -ndB
    */
   export interface SsmlProsodyAttributes {
+    /** pitch - Specify the pitch, available values: default, x-low, low, medium, high, x-high, +n%, -n% */
     pitch?: string;
+    /** rate - Specify the rate, available values: x-slow, slow, medium, fast, x-fast, n% */
     rate?: string;
+    /** volume - Specify the volume, available values: default, silent, x-soft, soft, medium, loud, x-loud, +ndB, -ndB */
     volume?: string;
   }
 
   /**
    * Attributes to pass to sayAs
-   *
-   * @property format - Specify the format of the date when interpret-as is set to date
-   * @property interpret-as - Specify the type of words are spoken
    */
   export interface SsmlSayAsAttributes {
+    /** format - Specify the format of the date when interpret-as is set to date */
     format?: SsmlSayAsFormat;
+    /** interpret-as - Specify the type of words are spoken */
     "interpret-as"?: SsmlSayAsInterpretAs;
   }
 
   /**
    * Attributes to pass to sub
-   *
-   * @property alias - Substitute a different word (or pronunciation) for selected text such as an acronym or abbreviation
    */
   export interface SsmlSubAttributes {
+    /** alias - Substitute a different word (or pronunciation) for selected text such as an acronym or abbreviation */
     alias?: string;
   }
 
   /**
    * Attributes to pass to w
-   *
-   * @property role - Customize the pronunciation of words by specifying the word’s part of speech or alternate meaning
    */
   export interface SsmlWAttributes {
+    /** role - Customize the pronunciation of words by specifying the word’s part of speech or alternate meaning */
     role?: string;
   }
 
   /**
    * Attributes to pass to break_
-   *
-   * @property strength - Set a pause based on strength
-   * @property time - Set a pause to a specific length of time in seconds or milliseconds, available values: [number]s, [number]ms
    */
   export interface SsmlBreakAttributes {
+    /** strength - Set a pause based on strength */
     strength?: SsmlBreakStrength;
+    /** time - Set a pause to a specific length of time in seconds or milliseconds, available values: [number]s, [number]ms */
     time?: string;
   }
 
   /**
    * Attributes to pass to emphasis
-   *
-   * @property level - Specify the degree of emphasis
    */
   export interface SsmlEmphasisAttributes {
+    /** level - Specify the degree of emphasis */
     level?: SsmlEmphasisLevel;
   }
 
   /**
    * Attributes to pass to lang
-   *
-   * @property xml:lang - Specify the language
    */
   export interface SsmlLangAttributes {
+    /** xml:lang - Specify the language */
     "xml:lang"?: SsmlLangXmlLang;
   }
 
   /**
    * Attributes to pass to phoneme
-   *
-   * @property alphabet - Specify the phonetic alphabet
-   * @property ph - Specifiy the phonetic symbols for pronunciation
    */
   export interface SsmlPhonemeAttributes {
+    /** alphabet - Specify the phonetic alphabet */
     alphabet?: SsmlPhonemeAlphabet;
+    /** ph - Specifiy the phonetic symbols for pronunciation */
     ph?: string;
   }
 
   /**
    * Attributes to pass to prosody
-   *
-   * @property pitch - Specify the pitch, available values: default, x-low, low, medium, high, x-high, +n%, -n%
-   * @property rate - Specify the rate, available values: x-slow, slow, medium, fast, x-fast, n%
-   * @property volume - Specify the volume, available values: default, silent, x-soft, soft, medium, loud, x-loud, +ndB, -ndB
    */
   export interface SsmlProsodyAttributes {
+    /** pitch - Specify the pitch, available values: default, x-low, low, medium, high, x-high, +n%, -n% */
     pitch?: string;
+    /** rate - Specify the rate, available values: x-slow, slow, medium, fast, x-fast, n% */
     rate?: string;
+    /** volume - Specify the volume, available values: default, silent, x-soft, soft, medium, loud, x-loud, +ndB, -ndB */
     volume?: string;
   }
 
   /**
    * Attributes to pass to sayAs
-   *
-   * @property format - Specify the format of the date when interpret-as is set to date
-   * @property interpret-as - Specify the type of words are spoken
    */
   export interface SsmlSayAsAttributes {
+    /** format - Specify the format of the date when interpret-as is set to date */
     format?: SsmlSayAsFormat;
+    /** interpret-as - Specify the type of words are spoken */
     "interpret-as"?: SsmlSayAsInterpretAs;
   }
 
   /**
    * Attributes to pass to sub
-   *
-   * @property alias - Substitute a different word (or pronunciation) for selected text such as an acronym or abbreviation
    */
   export interface SsmlSubAttributes {
+    /** alias - Substitute a different word (or pronunciation) for selected text such as an acronym or abbreviation */
     alias?: string;
   }
 
   /**
    * Attributes to pass to w
-   *
-   * @property role - Customize the pronunciation of words by specifying the word’s part of speech or alternate meaning
    */
   export interface SsmlWAttributes {
+    /** role - Customize the pronunciation of words by specifying the word’s part of speech or alternate meaning */
     role?: string;
   }
 
   /**
    * Attributes to pass to break_
-   *
-   * @property strength - Set a pause based on strength
-   * @property time - Set a pause to a specific length of time in seconds or milliseconds, available values: [number]s, [number]ms
    */
   export interface SsmlBreakAttributes {
+    /** strength - Set a pause based on strength */
     strength?: SsmlBreakStrength;
+    /** time - Set a pause to a specific length of time in seconds or milliseconds, available values: [number]s, [number]ms */
     time?: string;
   }
 
   /**
    * Attributes to pass to emphasis
-   *
-   * @property level - Specify the degree of emphasis
    */
   export interface SsmlEmphasisAttributes {
+    /** level - Specify the degree of emphasis */
     level?: SsmlEmphasisLevel;
   }
 
   /**
    * Attributes to pass to lang
-   *
-   * @property xml:lang - Specify the language
    */
   export interface SsmlLangAttributes {
+    /** xml:lang - Specify the language */
     "xml:lang"?: SsmlLangXmlLang;
   }
 
   /**
    * Attributes to pass to phoneme
-   *
-   * @property alphabet - Specify the phonetic alphabet
-   * @property ph - Specifiy the phonetic symbols for pronunciation
    */
   export interface SsmlPhonemeAttributes {
+    /** alphabet - Specify the phonetic alphabet */
     alphabet?: SsmlPhonemeAlphabet;
+    /** ph - Specifiy the phonetic symbols for pronunciation */
     ph?: string;
   }
 
   /**
    * Attributes to pass to prosody
-   *
-   * @property pitch - Specify the pitch, available values: default, x-low, low, medium, high, x-high, +n%, -n%
-   * @property rate - Specify the rate, available values: x-slow, slow, medium, fast, x-fast, n%
-   * @property volume - Specify the volume, available values: default, silent, x-soft, soft, medium, loud, x-loud, +ndB, -ndB
    */
   export interface SsmlProsodyAttributes {
+    /** pitch - Specify the pitch, available values: default, x-low, low, medium, high, x-high, +n%, -n% */
     pitch?: string;
+    /** rate - Specify the rate, available values: x-slow, slow, medium, fast, x-fast, n% */
     rate?: string;
+    /** volume - Specify the volume, available values: default, silent, x-soft, soft, medium, loud, x-loud, +ndB, -ndB */
     volume?: string;
   }
 
   /**
    * Attributes to pass to sayAs
-   *
-   * @property format - Specify the format of the date when interpret-as is set to date
-   * @property interpret-as - Specify the type of words are spoken
    */
   export interface SsmlSayAsAttributes {
+    /** format - Specify the format of the date when interpret-as is set to date */
     format?: SsmlSayAsFormat;
+    /** interpret-as - Specify the type of words are spoken */
     "interpret-as"?: SsmlSayAsInterpretAs;
   }
 
   /**
    * Attributes to pass to sub
-   *
-   * @property alias - Substitute a different word (or pronunciation) for selected text such as an acronym or abbreviation
    */
   export interface SsmlSubAttributes {
+    /** alias - Substitute a different word (or pronunciation) for selected text such as an acronym or abbreviation */
     alias?: string;
   }
 
   /**
    * Attributes to pass to w
-   *
-   * @property role - Customize the pronunciation of words by specifying the word’s part of speech or alternate meaning
    */
   export interface SsmlWAttributes {
+    /** role - Customize the pronunciation of words by specifying the word’s part of speech or alternate meaning */
     role?: string;
   }
 
   /**
    * Attributes to pass to prompt
-   *
-   * @property attempt - Current attempt count
-   * @property cardType - Type of the credit card
-   * @property errorType - Type of error
-   * @property for - Name of the payment source data element
-   * @property requireMatchingInputs - Require customer to input requested information twice and verify matching.
    */
   export interface PromptAttributes {
+    /** attempt - Current attempt count */
     attempt?: number[];
+    /** cardType - Type of the credit card */
     cardType?: PromptCardType[];
+    /** errorType - Type of error */
     errorType?: PromptErrorType[];
+    /** for - Name of the payment source data element */
     for?: PromptFor;
+    /** requireMatchingInputs - Require customer to input requested information twice and verify matching. */
     requireMatchingInputs?: boolean;
   }
 
   /**
    * Attributes to pass to parameter
-   *
-   * @property name - The name of the custom parameter
-   * @property value - The value of the custom parameter
    */
   export interface ParameterAttributes {
+    /** name - The name of the custom parameter */
     name?: string;
+    /** value - The value of the custom parameter */
     value?: string;
   }
 
   /**
    * Attributes to pass to say
-   *
-   * @property language - Message language
-   * @property loop - Times to loop message
-   * @property voice - Voice to use
    */
   export interface SayAttributes {
+    /** language - Message language */
     language?: SayLanguage;
+    /** loop - Times to loop message */
     loop?: number;
+    /** voice - Voice to use */
     voice?: SayVoice;
   }
 
   /**
    * Attributes to pass to pause
-   *
-   * @property length - Length in seconds to pause
    */
   export interface PauseAttributes {
+    /** length - Length in seconds to pause */
     length?: number;
   }
 
   /**
    * Attributes to pass to play
-   *
-   * @property digits - Play DTMF tones for digits
-   * @property loop - Times to loop media
    */
   export interface PlayAttributes {
+    /** digits - Play DTMF tones for digits */
     digits?: string;
+    /** loop - Times to loop media */
     loop?: number;
   }
 
   /**
    * Attributes to pass to task
-   *
-   * @property priority - Task priority
-   * @property timeout - Timeout associated with task
    */
   export interface TaskAttributes {
+    /** priority - Task priority */
     priority?: number;
+    /** timeout - Timeout associated with task */
     timeout?: number;
   }
 
   /**
    * Attributes to pass to client
-   *
-   * @property method - Client URL Method
-   * @property statusCallback - Status Callback URL
-   * @property statusCallbackEvent - Events to trigger status callback
-   * @property statusCallbackMethod - Status Callback URL Method
-   * @property url - Client URL
    */
   export interface ClientAttributes {
+    /** method - Client URL Method */
     method?: string;
+    /** statusCallback - Status Callback URL */
     statusCallback?: string;
+    /** statusCallbackEvent - Events to trigger status callback */
     statusCallbackEvent?: ClientEvent[];
+    /** statusCallbackMethod - Status Callback URL Method */
     statusCallbackMethod?: string;
+    /** url - Client URL */
     url?: string;
   }
 
   /**
    * Attributes to pass to conference
-   *
-   * @property beep - Play beep when joining
-   * @property coach - Call coach
-   * @property endConferenceOnExit - End the conferenceon exit
-   * @property eventCallbackUrl - Event callback URL
-   * @property jitterBufferSize - Size of jitter buffer for participant
-   * @property maxParticipants - Maximum number of participants
-   * @property muted - Join the conference muted
-   * @property participantLabel - A label for participant
-   * @property record - Record the conference
-   * @property recordingStatusCallback - Recording status callback URL
-   * @property recordingStatusCallbackEvent - Recording status callback events
-   * @property recordingStatusCallbackMethod - Recording status callback URL method
-   * @property region - Conference region
-   * @property startConferenceOnEnter - Start the conference on enter
-   * @property statusCallback - Status callback URL
-   * @property statusCallbackEvent - Events to call status callback URL
-   * @property statusCallbackMethod - Status callback URL method
-   * @property trim - Trim the conference recording
-   * @property waitMethod - Wait URL method
-   * @property waitUrl - Wait URL
    */
   export interface ConferenceAttributes {
+    /** beep - Play beep when joining */
     beep?: ConferenceBeep;
+    /** coach - Call coach */
     coach?: string;
+    /** endConferenceOnExit - End the conferenceon exit */
     endConferenceOnExit?: boolean;
+    /** eventCallbackUrl - Event callback URL */
     eventCallbackUrl?: string;
+    /** jitterBufferSize - Size of jitter buffer for participant */
     jitterBufferSize?: ConferenceJitterBufferSize;
+    /** maxParticipants - Maximum number of participants */
     maxParticipants?: number;
+    /** muted - Join the conference muted */
     muted?: boolean;
+    /** participantLabel - A label for participant */
     participantLabel?: string;
+    /** record - Record the conference */
     record?: ConferenceRecord;
+    /** recordingStatusCallback - Recording status callback URL */
     recordingStatusCallback?: string;
+    /** recordingStatusCallbackEvent - Recording status callback events */
     recordingStatusCallbackEvent?: ConferenceRecordingEvent[];
+    /** recordingStatusCallbackMethod - Recording status callback URL method */
     recordingStatusCallbackMethod?: string;
+    /** region - Conference region */
     region?: ConferenceRegion;
+    /** startConferenceOnEnter - Start the conference on enter */
     startConferenceOnEnter?: boolean;
+    /** statusCallback - Status callback URL */
     statusCallback?: string;
+    /** statusCallbackEvent - Events to call status callback URL */
     statusCallbackEvent?: ConferenceEvent[];
+    /** statusCallbackMethod - Status callback URL method */
     statusCallbackMethod?: string;
+    /** trim - Trim the conference recording */
     trim?: ConferenceTrim;
+    /** waitMethod - Wait URL method */
     waitMethod?: string;
+    /** waitUrl - Wait URL */
     waitUrl?: string;
   }
 
   /**
    * Attributes to pass to number
-   *
-   * @property amdStatusCallback - The URL we should call to send amd status information to your application
-   * @property amdStatusCallbackMethod - HTTP Method to use with amd_status_callback
-   * @property byoc - BYOC trunk SID (Beta)
-   * @property machineDetection - Enable machine detection or end of greeting detection
-   * @property machineDetectionSilenceTimeout - Number of milliseconds of initial silence
-   * @property machineDetectionSpeechEndThreshold - Number of milliseconds of silence after speech activity
-   * @property machineDetectionSpeechThreshold - Number of milliseconds for measuring stick for the length of the speech activity
-   * @property machineDetectionTimeout - Number of seconds to wait for machine detection
-   * @property method - TwiML URL method
-   * @property sendDigits - DTMF tones to play when the call is answered
-   * @property statusCallback - Status callback URL
-   * @property statusCallbackEvent - Events to call status callback
-   * @property statusCallbackMethod - Status callback URL method
-   * @property url - TwiML URL
    */
   export interface NumberAttributes {
+    /** amdStatusCallback - The URL we should call to send amd status information to your application */
     amdStatusCallback?: string;
+    /** amdStatusCallbackMethod - HTTP Method to use with amd_status_callback */
     amdStatusCallbackMethod?: string;
+    /** byoc - BYOC trunk SID (Beta) */
     byoc?: string;
+    /** machineDetection - Enable machine detection or end of greeting detection */
     machineDetection?: string;
+    /** machineDetectionSilenceTimeout - Number of milliseconds of initial silence */
     machineDetectionSilenceTimeout?: number;
+    /** machineDetectionSpeechEndThreshold - Number of milliseconds of silence after speech activity */
     machineDetectionSpeechEndThreshold?: number;
+    /** machineDetectionSpeechThreshold - Number of milliseconds for measuring stick for the length of the speech activity */
     machineDetectionSpeechThreshold?: number;
+    /** machineDetectionTimeout - Number of seconds to wait for machine detection */
     machineDetectionTimeout?: number;
+    /** method - TwiML URL method */
     method?: string;
+    /** sendDigits - DTMF tones to play when the call is answered */
     sendDigits?: string;
+    /** statusCallback - Status callback URL */
     statusCallback?: string;
+    /** statusCallbackEvent - Events to call status callback */
     statusCallbackEvent?: NumberEvent[];
+    /** statusCallbackMethod - Status callback URL method */
     statusCallbackMethod?: string;
+    /** url - TwiML URL */
     url?: string;
   }
 
   /**
    * Attributes to pass to queue
-   *
-   * @property method - Action URL method
-   * @property postWorkActivitySid - TaskRouter Activity SID
-   * @property reservationSid - TaskRouter Reservation SID
-   * @property url - Action URL
    */
   export interface QueueAttributes {
+    /** method - Action URL method */
     method?: string;
+    /** postWorkActivitySid - TaskRouter Activity SID */
     postWorkActivitySid?: string;
+    /** reservationSid - TaskRouter Reservation SID */
     reservationSid?: string;
+    /** url - Action URL */
     url?: string;
   }
 
   /**
    * Attributes to pass to sip
-   *
-   * @property amdStatusCallback - The URL we should call to send amd status information to your application
-   * @property amdStatusCallbackMethod - HTTP Method to use with amd_status_callback
-   * @property machineDetection - Enable machine detection or end of greeting detection
-   * @property machineDetectionSilenceTimeout - Number of milliseconds of initial silence
-   * @property machineDetectionSpeechEndThreshold - Number of milliseconds of silence after speech activity
-   * @property machineDetectionSpeechThreshold - Number of milliseconds for measuring stick for the length of the speech activity
-   * @property machineDetectionTimeout - Number of seconds to wait for machine detection
-   * @property method - Action URL method
-   * @property password - SIP Password
-   * @property statusCallback - Status callback URL
-   * @property statusCallbackEvent - Status callback events
-   * @property statusCallbackMethod - Status callback URL method
-   * @property url - Action URL
-   * @property username - SIP Username
    */
   export interface SipAttributes {
+    /** amdStatusCallback - The URL we should call to send amd status information to your application */
     amdStatusCallback?: string;
+    /** amdStatusCallbackMethod - HTTP Method to use with amd_status_callback */
     amdStatusCallbackMethod?: string;
+    /** machineDetection - Enable machine detection or end of greeting detection */
     machineDetection?: string;
+    /** machineDetectionSilenceTimeout - Number of milliseconds of initial silence */
     machineDetectionSilenceTimeout?: number;
+    /** machineDetectionSpeechEndThreshold - Number of milliseconds of silence after speech activity */
     machineDetectionSpeechEndThreshold?: number;
+    /** machineDetectionSpeechThreshold - Number of milliseconds for measuring stick for the length of the speech activity */
     machineDetectionSpeechThreshold?: number;
+    /** machineDetectionTimeout - Number of seconds to wait for machine detection */
     machineDetectionTimeout?: number;
+    /** method - Action URL method */
     method?: string;
+    /** password - SIP Password */
     password?: string;
+    /** statusCallback - Status callback URL */
     statusCallback?: string;
+    /** statusCallbackEvent - Status callback events */
     statusCallbackEvent?: SipEvent[];
+    /** statusCallbackMethod - Status callback URL method */
     statusCallbackMethod?: string;
+    /** url - Action URL */
     url?: string;
+    /** username - SIP Username */
     username?: string;
   }
 
   /**
    * Attributes to pass to parameter
-   *
-   * @property name - The name of the custom parameter
-   * @property value - The value of the custom parameter
    */
   export interface ParameterAttributes {
+    /** name - The name of the custom parameter */
     name?: string;
+    /** value - The value of the custom parameter */
     value?: string;
   }
 
   /**
    * Attributes to pass to room
-   *
-   * @property participantIdentity - Participant identity when connecting to the Room
    */
   export interface RoomAttributes {
+    /** participantIdentity - Participant identity when connecting to the Room */
     participantIdentity?: string;
   }
 
   /**
    * Attributes to pass to stream
-   *
-   * @property connectorName - Unique name for Stream Connector
-   * @property name - Friendly name given to the Stream
-   * @property statusCallback - Status Callback URL
-   * @property statusCallbackMethod - Status Callback URL method
-   * @property track - Track to be streamed to remote service
-   * @property url - URL of the remote service where the Stream is routed
    */
   export interface StreamAttributes {
+    /** connectorName - Unique name for Stream Connector */
     connectorName?: string;
+    /** name - Friendly name given to the Stream */
     name?: string;
+    /** statusCallback - Status Callback URL */
     statusCallback?: string;
+    /** statusCallbackMethod - Status Callback URL method */
     statusCallbackMethod?: StreamStatusCallbackMethod;
+    /** track - Track to be streamed to remote service */
     track?: StreamTrack;
+    /** url - URL of the remote service where the Stream is routed */
     url?: string;
   }
 
   /**
    * Attributes to pass to virtualAgent
-   *
-   * @property connectorName - Defines the conversation profile Dialogflow needs to use
-   * @property language - Language to be used by Dialogflow to transcribe speech
-   * @property sentimentAnalysis - Whether sentiment analysis needs to be enabled or not
-   * @property statusCallback - URL to post status callbacks from Twilio
-   * @property statusCallbackMethod - HTTP method to use when requesting the status callback URL
    */
   export interface VirtualAgentAttributes {
+    /** connectorName - Defines the conversation profile Dialogflow needs to use */
     connectorName?: string;
+    /** language - Language to be used by Dialogflow to transcribe speech */
     language?: string;
+    /** sentimentAnalysis - Whether sentiment analysis needs to be enabled or not */
     sentimentAnalysis?: boolean;
+    /** statusCallback - URL to post status callbacks from Twilio */
     statusCallback?: string;
+    /** statusCallbackMethod - HTTP method to use when requesting the status callback URL */
     statusCallbackMethod?: string;
   }
 
   /**
    * Attributes to pass to conversation
-   *
-   * @property inboundAutocreation - Inbound autocreation
-   * @property inboundTimeout - Inbound timeout
-   * @property method - TwiML URL method
-   * @property record - Record
-   * @property recordingStatusCallback - Recording status callback URL
-   * @property recordingStatusCallbackEvent - Recording status callback events
-   * @property recordingStatusCallbackMethod - Recording status callback URL method
-   * @property routingAssignmentTimeout - Routing assignment timeout
-   * @property serviceInstanceSid - Service instance Sid
-   * @property statusCallback - Status callback URL
-   * @property statusCallbackEvent - Events to call status callback URL
-   * @property statusCallbackMethod - Status callback URL method
-   * @property trim - Trim
-   * @property url - TwiML URL
    */
   export interface ConversationAttributes {
+    /** inboundAutocreation - Inbound autocreation */
     inboundAutocreation?: boolean;
+    /** inboundTimeout - Inbound timeout */
     inboundTimeout?: number;
+    /** method - TwiML URL method */
     method?: string;
+    /** record - Record */
     record?: ConversationRecord;
+    /** recordingStatusCallback - Recording status callback URL */
     recordingStatusCallback?: string;
+    /** recordingStatusCallbackEvent - Recording status callback events */
     recordingStatusCallbackEvent?: ConversationRecordingEvent[];
+    /** recordingStatusCallbackMethod - Recording status callback URL method */
     recordingStatusCallbackMethod?: string;
+    /** routingAssignmentTimeout - Routing assignment timeout */
     routingAssignmentTimeout?: number;
+    /** serviceInstanceSid - Service instance Sid */
     serviceInstanceSid?: string;
+    /** statusCallback - Status callback URL */
     statusCallback?: string;
+    /** statusCallbackEvent - Events to call status callback URL */
     statusCallbackEvent?: ConversationEvent[];
+    /** statusCallbackMethod - Status callback URL method */
     statusCallbackMethod?: string;
+    /** trim - Trim */
     trim?: ConversationTrim;
+    /** url - TwiML URL */
     url?: string;
   }
 
   /**
    * Attributes to pass to config
-   *
-   * @property name - The name of the custom config
-   * @property value - The value of the custom config
    */
   export interface ConfigAttributes {
+    /** name - The name of the custom config */
     name?: string;
+    /** value - The value of the custom config */
     value?: string;
   }
 
   /**
    * Attributes to pass to parameter
-   *
-   * @property name - The name of the custom parameter
-   * @property value - The value of the custom parameter
    */
   export interface ParameterAttributes {
+    /** name - The name of the custom parameter */
     name?: string;
+    /** value - The value of the custom parameter */
     value?: string;
   }
 
@@ -2257,9 +2100,6 @@ namespace VoiceResponse {
     /**
      * <Identity> TwiML Noun
      *
-     * @function identity
-     * @memberof Client
-     *
      * @param attributes - TwiML attributes
      * @param clientIdentity - Identity of the client to dial
      */
@@ -2282,9 +2122,6 @@ namespace VoiceResponse {
     }
     /**
      * <Parameter> TwiML Noun
-     *
-     * @function parameter
-     * @memberof Client
      *
      * @param attributes - TwiML attributes
      */
@@ -2334,9 +2171,6 @@ namespace VoiceResponse {
     /**
      * <Autopilot> TwiML Noun
      *
-     * @function autopilot
-     * @memberof Connect
-     *
      * @param attributes - TwiML attributes
      * @param name - Autopilot assistant sid or unique name
      */
@@ -2357,9 +2191,6 @@ namespace VoiceResponse {
     /**
      * <Conversation> TwiML Noun
      *
-     * @function conversation
-     * @memberof Connect
-     *
      * @param attributes - TwiML attributes
      */
     conversation(
@@ -2371,9 +2202,6 @@ namespace VoiceResponse {
     }
     /**
      * <Room> TwiML Noun
-     *
-     * @function room
-     * @memberof Connect
      *
      * @param attributes - TwiML attributes
      * @param name - Room name
@@ -2396,9 +2224,6 @@ namespace VoiceResponse {
     /**
      * <Stream> TwiML Noun
      *
-     * @function stream
-     * @memberof Connect
-     *
      * @param attributes - TwiML attributes
      */
     stream(attributes?: VoiceResponse.StreamAttributes): VoiceResponse.Stream {
@@ -2406,9 +2231,6 @@ namespace VoiceResponse {
     }
     /**
      * <VirtualAgent> TwiML Noun
-     *
-     * @function virtualAgent
-     * @memberof Connect
      *
      * @param attributes - TwiML attributes
      */
@@ -2446,9 +2268,6 @@ namespace VoiceResponse {
     /**
      * <Client> TwiML Noun
      *
-     * @function client
-     * @memberof Dial
-     *
      * @param attributes - TwiML attributes
      * @param identity - Client identity
      */
@@ -2471,9 +2290,6 @@ namespace VoiceResponse {
     }
     /**
      * <Conference> TwiML Noun
-     *
-     * @function conference
-     * @memberof Dial
      *
      * @param attributes - TwiML attributes
      * @param name - Conference name
@@ -2498,9 +2314,6 @@ namespace VoiceResponse {
     /**
      * <Number> TwiML Noun
      *
-     * @function number
-     * @memberof Dial
-     *
      * @param attributes - TwiML attributes
      * @param phoneNumber - Phone Number to dial
      */
@@ -2524,9 +2337,6 @@ namespace VoiceResponse {
     /**
      * <Queue> TwiML Noun
      *
-     * @function queue
-     * @memberof Dial
-     *
      * @param attributes - TwiML attributes
      * @param name - Queue name
      */
@@ -2548,9 +2358,6 @@ namespace VoiceResponse {
     /**
      * <Sim> TwiML Noun
      *
-     * @function sim
-     * @memberof Dial
-     *
      * @param attributes - TwiML attributes
      * @param simSid - SIM SID
      */
@@ -2565,9 +2372,6 @@ namespace VoiceResponse {
     }
     /**
      * <Sip> TwiML Noun
-     *
-     * @function sip
-     * @memberof Dial
      *
      * @param attributes - TwiML attributes
      * @param sipUrl - SIP URL
@@ -2614,9 +2418,6 @@ namespace VoiceResponse {
     /**
      * <Task> TwiML Noun
      *
-     * @function task
-     * @memberof Enqueue
-     *
      * @param attributes - TwiML attributes
      * @param body - TaskRouter task attributes
      */
@@ -2650,9 +2451,6 @@ namespace VoiceResponse {
     /**
      * <Pause> TwiML Verb
      *
-     * @function pause
-     * @memberof Gather
-     *
      * @param attributes - TwiML attributes
      */
     pause(attributes?: VoiceResponse.PauseAttributes): VoiceResponse.Pause {
@@ -2660,9 +2458,6 @@ namespace VoiceResponse {
     }
     /**
      * <Play> TwiML Verb
-     *
-     * @function play
-     * @memberof Gather
      *
      * @param attributes - TwiML attributes
      * @param url - Media URL
@@ -2684,9 +2479,6 @@ namespace VoiceResponse {
     }
     /**
      * <Say> TwiML Verb
-     *
-     * @function say
-     * @memberof Gather
      *
      * @param attributes - TwiML attributes
      * @param message - Message to say
@@ -2793,9 +2585,6 @@ namespace VoiceResponse {
     /**
      * <Parameter> TwiML Noun
      *
-     * @function parameter
-     * @memberof Pay
-     *
      * @param attributes - TwiML attributes
      */
     parameter(
@@ -2805,9 +2594,6 @@ namespace VoiceResponse {
     }
     /**
      * <Prompt> Twiml Verb
-     *
-     * @function prompt
-     * @memberof Pay
      *
      * @param attributes - TwiML attributes
      */
@@ -2841,9 +2627,6 @@ namespace VoiceResponse {
     /**
      * <Pause> TwiML Verb
      *
-     * @function pause
-     * @memberof Prompt
-     *
      * @param attributes - TwiML attributes
      */
     pause(attributes?: VoiceResponse.PauseAttributes): VoiceResponse.Pause {
@@ -2851,9 +2634,6 @@ namespace VoiceResponse {
     }
     /**
      * <Play> TwiML Verb
-     *
-     * @function play
-     * @memberof Prompt
      *
      * @param attributes - TwiML attributes
      * @param url - Media URL
@@ -2875,9 +2655,6 @@ namespace VoiceResponse {
     }
     /**
      * <Say> TwiML Verb
-     *
-     * @function say
-     * @memberof Prompt
      *
      * @param attributes - TwiML attributes
      * @param message - Message to say
@@ -2948,9 +2725,6 @@ namespace VoiceResponse {
     /**
      * <Sip> TwiML Noun used in <Refer>
      *
-     * @function sip
-     * @memberof Refer
-     *
      * @param attributes - TwiML attributes
      * @param sipUrl - SIP URL
      */
@@ -3016,9 +2790,6 @@ namespace VoiceResponse {
     /**
      * Adding a Pause in <Say>
      *
-     * @function break_
-     * @memberof Say
-     *
      * @param attributes - TwiML attributes
      */
     break_(
@@ -3028,9 +2799,6 @@ namespace VoiceResponse {
     }
     /**
      * Emphasizing Words in <Say>
-     *
-     * @function emphasis
-     * @memberof Say
      *
      * @param attributes - TwiML attributes
      * @param words - Words to emphasize
@@ -3055,9 +2823,6 @@ namespace VoiceResponse {
     /**
      * Specifying Another Language for Specific Words in <Say>
      *
-     * @function lang
-     * @memberof Say
-     *
      * @param attributes - TwiML attributes
      * @param words - Words to speak
      */
@@ -3081,9 +2846,6 @@ namespace VoiceResponse {
     /**
      * Adding a Pause Between Paragraphs in <Say>
      *
-     * @function p
-     * @memberof Say
-     *
      * @param attributes - TwiML attributes
      * @param words - Words to speak
      */
@@ -3098,9 +2860,6 @@ namespace VoiceResponse {
     }
     /**
      * Using Phonetic Pronunciation in <Say>
-     *
-     * @function phoneme
-     * @memberof Say
      *
      * @param attributes - TwiML attributes
      * @param words - Words to speak
@@ -3125,9 +2884,6 @@ namespace VoiceResponse {
     /**
      * Controling Volume, Speaking Rate, and Pitch in <Say>
      *
-     * @function prosody
-     * @memberof Say
-     *
      * @param attributes - TwiML attributes
      * @param words - Words to speak
      */
@@ -3151,9 +2907,6 @@ namespace VoiceResponse {
     /**
      * Adding A Pause Between Sentences in <Say>
      *
-     * @function s
-     * @memberof Say
-     *
      * @param attributes - TwiML attributes
      * @param words - Words to speak
      */
@@ -3168,9 +2921,6 @@ namespace VoiceResponse {
     }
     /**
      * Controlling How Special Types of Words Are Spoken in <Say>
-     *
-     * @function sayAs
-     * @memberof Say
      *
      * @param attributes - TwiML attributes
      * @param words - Words to be interpreted
@@ -3195,9 +2945,6 @@ namespace VoiceResponse {
     /**
      * Pronouncing Acronyms and Abbreviations in <Say>
      *
-     * @function sub
-     * @memberof Say
-     *
      * @param attributes - TwiML attributes
      * @param words - Words to be substituted
      */
@@ -3218,9 +2965,6 @@ namespace VoiceResponse {
     }
     /**
      * Improving Pronunciation by Specifying Parts of Speech in <Say>
-     *
-     * @function w
-     * @memberof Say
      *
      * @param attributes - TwiML attributes
      * @param words - Words to speak
@@ -3279,9 +3023,6 @@ namespace VoiceResponse {
     /**
      * <Parameter> TwiML Noun
      *
-     * @function parameter
-     * @memberof Siprec
-     *
      * @param attributes - TwiML attributes
      */
     parameter(
@@ -3330,9 +3071,6 @@ namespace VoiceResponse {
     /**
      * Adding a Pause in <Say>
      *
-     * @function break_
-     * @memberof SsmlEmphasis
-     *
      * @param attributes - TwiML attributes
      */
     break_(
@@ -3344,9 +3082,6 @@ namespace VoiceResponse {
     }
     /**
      * Emphasizing Words in <Say>
-     *
-     * @function emphasis
-     * @memberof SsmlEmphasis
      *
      * @param attributes - TwiML attributes
      * @param words - Words to emphasize
@@ -3371,9 +3106,6 @@ namespace VoiceResponse {
     /**
      * Specifying Another Language for Specific Words in <Say>
      *
-     * @function lang
-     * @memberof SsmlEmphasis
-     *
      * @param attributes - TwiML attributes
      * @param words - Words to speak
      */
@@ -3396,9 +3128,6 @@ namespace VoiceResponse {
     }
     /**
      * Using Phonetic Pronunciation in <Say>
-     *
-     * @function phoneme
-     * @memberof SsmlEmphasis
      *
      * @param attributes - TwiML attributes
      * @param words - Words to speak
@@ -3423,9 +3152,6 @@ namespace VoiceResponse {
     /**
      * Controling Volume, Speaking Rate, and Pitch in <Say>
      *
-     * @function prosody
-     * @memberof SsmlEmphasis
-     *
      * @param attributes - TwiML attributes
      * @param words - Words to speak
      */
@@ -3448,9 +3174,6 @@ namespace VoiceResponse {
     }
     /**
      * Controlling How Special Types of Words Are Spoken in <Say>
-     *
-     * @function sayAs
-     * @memberof SsmlEmphasis
      *
      * @param attributes - TwiML attributes
      * @param words - Words to be interpreted
@@ -3475,9 +3198,6 @@ namespace VoiceResponse {
     /**
      * Pronouncing Acronyms and Abbreviations in <Say>
      *
-     * @function sub
-     * @memberof SsmlEmphasis
-     *
      * @param attributes - TwiML attributes
      * @param words - Words to be substituted
      */
@@ -3500,9 +3220,6 @@ namespace VoiceResponse {
     }
     /**
      * Improving Pronunciation by Specifying Parts of Speech in <Say>
-     *
-     * @function w
-     * @memberof SsmlEmphasis
      *
      * @param attributes - TwiML attributes
      * @param words - Words to speak
@@ -3539,9 +3256,6 @@ namespace VoiceResponse {
     /**
      * Adding a Pause in <Say>
      *
-     * @function break_
-     * @memberof SsmlLang
-     *
      * @param attributes - TwiML attributes
      */
     break_(
@@ -3553,9 +3267,6 @@ namespace VoiceResponse {
     }
     /**
      * Emphasizing Words in <Say>
-     *
-     * @function emphasis
-     * @memberof SsmlLang
      *
      * @param attributes - TwiML attributes
      * @param words - Words to emphasize
@@ -3580,9 +3291,6 @@ namespace VoiceResponse {
     /**
      * Specifying Another Language for Specific Words in <Say>
      *
-     * @function lang
-     * @memberof SsmlLang
-     *
      * @param attributes - TwiML attributes
      * @param words - Words to speak
      */
@@ -3606,9 +3314,6 @@ namespace VoiceResponse {
     /**
      * Adding a Pause Between Paragraphs in <Say>
      *
-     * @function p
-     * @memberof SsmlLang
-     *
      * @param attributes - TwiML attributes
      * @param words - Words to speak
      */
@@ -3623,9 +3328,6 @@ namespace VoiceResponse {
     }
     /**
      * Using Phonetic Pronunciation in <Say>
-     *
-     * @function phoneme
-     * @memberof SsmlLang
      *
      * @param attributes - TwiML attributes
      * @param words - Words to speak
@@ -3650,9 +3352,6 @@ namespace VoiceResponse {
     /**
      * Controling Volume, Speaking Rate, and Pitch in <Say>
      *
-     * @function prosody
-     * @memberof SsmlLang
-     *
      * @param attributes - TwiML attributes
      * @param words - Words to speak
      */
@@ -3676,9 +3375,6 @@ namespace VoiceResponse {
     /**
      * Adding A Pause Between Sentences in <Say>
      *
-     * @function s
-     * @memberof SsmlLang
-     *
      * @param attributes - TwiML attributes
      * @param words - Words to speak
      */
@@ -3693,9 +3389,6 @@ namespace VoiceResponse {
     }
     /**
      * Controlling How Special Types of Words Are Spoken in <Say>
-     *
-     * @function sayAs
-     * @memberof SsmlLang
      *
      * @param attributes - TwiML attributes
      * @param words - Words to be interpreted
@@ -3720,9 +3413,6 @@ namespace VoiceResponse {
     /**
      * Pronouncing Acronyms and Abbreviations in <Say>
      *
-     * @function sub
-     * @memberof SsmlLang
-     *
      * @param attributes - TwiML attributes
      * @param words - Words to be substituted
      */
@@ -3745,9 +3435,6 @@ namespace VoiceResponse {
     }
     /**
      * Improving Pronunciation by Specifying Parts of Speech in <Say>
-     *
-     * @function w
-     * @memberof SsmlLang
      *
      * @param attributes - TwiML attributes
      * @param words - Words to speak
@@ -3782,9 +3469,6 @@ namespace VoiceResponse {
     /**
      * Adding a Pause in <Say>
      *
-     * @function break_
-     * @memberof SsmlP
-     *
      * @param attributes - TwiML attributes
      */
     break_(
@@ -3794,9 +3478,6 @@ namespace VoiceResponse {
     }
     /**
      * Emphasizing Words in <Say>
-     *
-     * @function emphasis
-     * @memberof SsmlP
      *
      * @param attributes - TwiML attributes
      * @param words - Words to emphasize
@@ -3821,9 +3502,6 @@ namespace VoiceResponse {
     /**
      * Specifying Another Language for Specific Words in <Say>
      *
-     * @function lang
-     * @memberof SsmlP
-     *
      * @param attributes - TwiML attributes
      * @param words - Words to speak
      */
@@ -3846,9 +3524,6 @@ namespace VoiceResponse {
     }
     /**
      * Using Phonetic Pronunciation in <Say>
-     *
-     * @function phoneme
-     * @memberof SsmlP
      *
      * @param attributes - TwiML attributes
      * @param words - Words to speak
@@ -3873,9 +3548,6 @@ namespace VoiceResponse {
     /**
      * Controling Volume, Speaking Rate, and Pitch in <Say>
      *
-     * @function prosody
-     * @memberof SsmlP
-     *
      * @param attributes - TwiML attributes
      * @param words - Words to speak
      */
@@ -3899,9 +3571,6 @@ namespace VoiceResponse {
     /**
      * Adding A Pause Between Sentences in <Say>
      *
-     * @function s
-     * @memberof SsmlP
-     *
      * @param attributes - TwiML attributes
      * @param words - Words to speak
      */
@@ -3916,9 +3585,6 @@ namespace VoiceResponse {
     }
     /**
      * Controlling How Special Types of Words Are Spoken in <Say>
-     *
-     * @function sayAs
-     * @memberof SsmlP
      *
      * @param attributes - TwiML attributes
      * @param words - Words to be interpreted
@@ -3943,9 +3609,6 @@ namespace VoiceResponse {
     /**
      * Pronouncing Acronyms and Abbreviations in <Say>
      *
-     * @function sub
-     * @memberof SsmlP
-     *
      * @param attributes - TwiML attributes
      * @param words - Words to be substituted
      */
@@ -3968,9 +3631,6 @@ namespace VoiceResponse {
     }
     /**
      * Improving Pronunciation by Specifying Parts of Speech in <Say>
-     *
-     * @function w
-     * @memberof SsmlP
      *
      * @param attributes - TwiML attributes
      * @param words - Words to speak
@@ -4017,9 +3677,6 @@ namespace VoiceResponse {
     /**
      * Adding a Pause in <Say>
      *
-     * @function break_
-     * @memberof SsmlProsody
-     *
      * @param attributes - TwiML attributes
      */
     break_(
@@ -4031,9 +3688,6 @@ namespace VoiceResponse {
     }
     /**
      * Emphasizing Words in <Say>
-     *
-     * @function emphasis
-     * @memberof SsmlProsody
      *
      * @param attributes - TwiML attributes
      * @param words - Words to emphasize
@@ -4058,9 +3712,6 @@ namespace VoiceResponse {
     /**
      * Specifying Another Language for Specific Words in <Say>
      *
-     * @function lang
-     * @memberof SsmlProsody
-     *
      * @param attributes - TwiML attributes
      * @param words - Words to speak
      */
@@ -4084,9 +3735,6 @@ namespace VoiceResponse {
     /**
      * Adding a Pause Between Paragraphs in <Say>
      *
-     * @function p
-     * @memberof SsmlProsody
-     *
      * @param attributes - TwiML attributes
      * @param words - Words to speak
      */
@@ -4103,9 +3751,6 @@ namespace VoiceResponse {
     }
     /**
      * Using Phonetic Pronunciation in <Say>
-     *
-     * @function phoneme
-     * @memberof SsmlProsody
      *
      * @param attributes - TwiML attributes
      * @param words - Words to speak
@@ -4130,9 +3775,6 @@ namespace VoiceResponse {
     /**
      * Controling Volume, Speaking Rate, and Pitch in <Say>
      *
-     * @function prosody
-     * @memberof SsmlProsody
-     *
      * @param attributes - TwiML attributes
      * @param words - Words to speak
      */
@@ -4156,9 +3798,6 @@ namespace VoiceResponse {
     /**
      * Adding A Pause Between Sentences in <Say>
      *
-     * @function s
-     * @memberof SsmlProsody
-     *
      * @param attributes - TwiML attributes
      * @param words - Words to speak
      */
@@ -4175,9 +3814,6 @@ namespace VoiceResponse {
     }
     /**
      * Controlling How Special Types of Words Are Spoken in <Say>
-     *
-     * @function sayAs
-     * @memberof SsmlProsody
      *
      * @param attributes - TwiML attributes
      * @param words - Words to be interpreted
@@ -4202,9 +3838,6 @@ namespace VoiceResponse {
     /**
      * Pronouncing Acronyms and Abbreviations in <Say>
      *
-     * @function sub
-     * @memberof SsmlProsody
-     *
      * @param attributes - TwiML attributes
      * @param words - Words to be substituted
      */
@@ -4227,9 +3860,6 @@ namespace VoiceResponse {
     }
     /**
      * Improving Pronunciation by Specifying Parts of Speech in <Say>
-     *
-     * @function w
-     * @memberof SsmlProsody
      *
      * @param attributes - TwiML attributes
      * @param words - Words to speak
@@ -4266,9 +3896,6 @@ namespace VoiceResponse {
     /**
      * Adding a Pause in <Say>
      *
-     * @function break_
-     * @memberof SsmlS
-     *
      * @param attributes - TwiML attributes
      */
     break_(
@@ -4278,9 +3905,6 @@ namespace VoiceResponse {
     }
     /**
      * Emphasizing Words in <Say>
-     *
-     * @function emphasis
-     * @memberof SsmlS
      *
      * @param attributes - TwiML attributes
      * @param words - Words to emphasize
@@ -4305,9 +3929,6 @@ namespace VoiceResponse {
     /**
      * Specifying Another Language for Specific Words in <Say>
      *
-     * @function lang
-     * @memberof SsmlS
-     *
      * @param attributes - TwiML attributes
      * @param words - Words to speak
      */
@@ -4330,9 +3951,6 @@ namespace VoiceResponse {
     }
     /**
      * Using Phonetic Pronunciation in <Say>
-     *
-     * @function phoneme
-     * @memberof SsmlS
      *
      * @param attributes - TwiML attributes
      * @param words - Words to speak
@@ -4357,9 +3975,6 @@ namespace VoiceResponse {
     /**
      * Controling Volume, Speaking Rate, and Pitch in <Say>
      *
-     * @function prosody
-     * @memberof SsmlS
-     *
      * @param attributes - TwiML attributes
      * @param words - Words to speak
      */
@@ -4382,9 +3997,6 @@ namespace VoiceResponse {
     }
     /**
      * Controlling How Special Types of Words Are Spoken in <Say>
-     *
-     * @function sayAs
-     * @memberof SsmlS
      *
      * @param attributes - TwiML attributes
      * @param words - Words to be interpreted
@@ -4409,9 +4021,6 @@ namespace VoiceResponse {
     /**
      * Pronouncing Acronyms and Abbreviations in <Say>
      *
-     * @function sub
-     * @memberof SsmlS
-     *
      * @param attributes - TwiML attributes
      * @param words - Words to be substituted
      */
@@ -4434,9 +4043,6 @@ namespace VoiceResponse {
     }
     /**
      * Improving Pronunciation by Specifying Parts of Speech in <Say>
-     *
-     * @function w
-     * @memberof SsmlS
      *
      * @param attributes - TwiML attributes
      * @param words - Words to speak
@@ -4495,9 +4101,6 @@ namespace VoiceResponse {
     /**
      * Adding a Pause in <Say>
      *
-     * @function break_
-     * @memberof SsmlW
-     *
      * @param attributes - TwiML attributes
      */
     break_(
@@ -4507,9 +4110,6 @@ namespace VoiceResponse {
     }
     /**
      * Emphasizing Words in <Say>
-     *
-     * @function emphasis
-     * @memberof SsmlW
      *
      * @param attributes - TwiML attributes
      * @param words - Words to emphasize
@@ -4534,9 +4134,6 @@ namespace VoiceResponse {
     /**
      * Using Phonetic Pronunciation in <Say>
      *
-     * @function phoneme
-     * @memberof SsmlW
-     *
      * @param attributes - TwiML attributes
      * @param words - Words to speak
      */
@@ -4559,9 +4156,6 @@ namespace VoiceResponse {
     }
     /**
      * Controling Volume, Speaking Rate, and Pitch in <Say>
-     *
-     * @function prosody
-     * @memberof SsmlW
      *
      * @param attributes - TwiML attributes
      * @param words - Words to speak
@@ -4586,9 +4180,6 @@ namespace VoiceResponse {
     /**
      * Controlling How Special Types of Words Are Spoken in <Say>
      *
-     * @function sayAs
-     * @memberof SsmlW
-     *
      * @param attributes - TwiML attributes
      * @param words - Words to be interpreted
      */
@@ -4611,9 +4202,6 @@ namespace VoiceResponse {
     }
     /**
      * Pronouncing Acronyms and Abbreviations in <Say>
-     *
-     * @function sub
-     * @memberof SsmlW
      *
      * @param attributes - TwiML attributes
      * @param words - Words to be substituted
@@ -4650,9 +4238,6 @@ namespace VoiceResponse {
     /**
      * <Siprec> TwiML Noun
      *
-     * @function siprec
-     * @memberof Start
-     *
      * @param attributes - TwiML attributes
      */
     siprec(attributes?: VoiceResponse.SiprecAttributes): VoiceResponse.Siprec {
@@ -4660,9 +4245,6 @@ namespace VoiceResponse {
     }
     /**
      * <Stream> TwiML Noun
-     *
-     * @function stream
-     * @memberof Start
      *
      * @param attributes - TwiML attributes
      */
@@ -4684,9 +4266,6 @@ namespace VoiceResponse {
     /**
      * <Siprec> TwiML Noun
      *
-     * @function siprec
-     * @memberof Stop
-     *
      * @param attributes - TwiML attributes
      */
     siprec(attributes?: VoiceResponse.SiprecAttributes): VoiceResponse.Siprec {
@@ -4694,9 +4273,6 @@ namespace VoiceResponse {
     }
     /**
      * <Stream> TwiML Noun
-     *
-     * @function stream
-     * @memberof Stop
      *
      * @param attributes - TwiML attributes
      */
@@ -4717,9 +4293,6 @@ namespace VoiceResponse {
     }
     /**
      * <Parameter> TwiML Noun
-     *
-     * @function parameter
-     * @memberof Stream
      *
      * @param attributes - TwiML attributes
      */
@@ -4757,9 +4330,6 @@ namespace VoiceResponse {
     /**
      * <Config> TwiML Noun
      *
-     * @function config
-     * @memberof VirtualAgent
-     *
      * @param attributes - TwiML attributes
      */
     config(attributes?: VoiceResponse.ConfigAttributes): VoiceResponse.Config {
@@ -4769,9 +4339,6 @@ namespace VoiceResponse {
     }
     /**
      * <Parameter> TwiML Noun
-     *
-     * @function parameter
-     * @memberof VirtualAgent
      *
      * @param attributes - TwiML attributes
      */
