@@ -72,7 +72,6 @@ export interface FeedbackContext {
     params: FeedbackContextUpdateOptions,
     callback?: (error: Error | null, item?: FeedbackInstance) => any
   ): Promise<FeedbackInstance>;
-  update(params?: any, callback?: any): Promise<FeedbackInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -103,7 +102,9 @@ export class FeedbackContextImpl implements FeedbackContext {
     this._uri = `/Accounts/${accountSid}/Calls/${callSid}/Feedback.json`;
   }
 
-  fetch(callback?: any): Promise<FeedbackInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: FeedbackInstance) => any
+  ): Promise<FeedbackInstance> {
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
@@ -128,9 +129,17 @@ export class FeedbackContextImpl implements FeedbackContext {
     return operationPromise;
   }
 
-  update(params?: any, callback?: any): Promise<FeedbackInstance> {
+  update(
+    params?:
+      | FeedbackContextUpdateOptions
+      | ((error: Error | null, item?: FeedbackInstance) => any),
+    callback?: (error: Error | null, item?: FeedbackInstance) => any
+  ): Promise<FeedbackInstance> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (
+        error: Error | null,
+        item?: FeedbackInstance
+      ) => any;
       params = {};
     } else {
       params = params || {};
@@ -288,7 +297,11 @@ export class FeedbackInstance {
     params: FeedbackContextUpdateOptions,
     callback?: (error: Error | null, item?: FeedbackInstance) => any
   ): Promise<FeedbackInstance>;
-  update(params?: any, callback?: any): Promise<FeedbackInstance> {
+
+  update(
+    params?: any,
+    callback?: (error: Error | null, item?: FeedbackInstance) => any
+  ): Promise<FeedbackInstance> {
     return this._proxy.update(params, callback);
   }
 

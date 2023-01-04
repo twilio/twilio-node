@@ -61,7 +61,9 @@ export class AnonymizeContextImpl implements AnonymizeContext {
     this._uri = `/Rooms/${roomSid}/Participants/${sid}/Anonymize`;
   }
 
-  update(callback?: any): Promise<AnonymizeInstance> {
+  update(
+    callback?: (error: Error | null, item?: AnonymizeInstance) => any
+  ): Promise<AnonymizeInstance> {
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.update({

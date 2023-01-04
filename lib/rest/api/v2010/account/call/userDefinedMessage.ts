@@ -50,7 +50,6 @@ export interface UserDefinedMessageListInstance {
     params: UserDefinedMessageListInstanceCreateOptions,
     callback?: (error: Error | null, item?: UserDefinedMessageInstance) => any
   ): Promise<UserDefinedMessageInstance>;
-  create(params: any, callback?: any): Promise<UserDefinedMessageInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -79,8 +78,8 @@ export function UserDefinedMessageListInstance(
   instance._uri = `/Accounts/${accountSid}/Calls/${callSid}/UserDefinedMessages.json`;
 
   instance.create = function create(
-    params: any,
-    callback?: any
+    params: UserDefinedMessageListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: UserDefinedMessageInstance) => any
   ): Promise<UserDefinedMessageInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');

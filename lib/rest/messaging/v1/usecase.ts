@@ -50,7 +50,9 @@ export function UsecaseListInstance(version: V1): UsecaseListInstance {
   instance._solution = {};
   instance._uri = `/Services/Usecases`;
 
-  instance.fetch = function fetch(callback?: any): Promise<UsecaseInstance> {
+  instance.fetch = function fetch(
+    callback?: (error: Error | null, item?: UsecaseInstance) => any
+  ): Promise<UsecaseInstance> {
     let operationVersion = version,
       operationPromise = operationVersion.fetch({
         uri: instance._uri,

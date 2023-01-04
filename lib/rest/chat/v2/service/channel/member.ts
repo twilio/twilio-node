@@ -136,7 +136,6 @@ export interface MemberContext {
     params: MemberContextRemoveOptions,
     callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean>;
-  remove(params?: any, callback?: any): Promise<boolean>;
 
   /**
    * Fetch a MemberInstance
@@ -171,7 +170,6 @@ export interface MemberContext {
     params: MemberContextUpdateOptions,
     callback?: (error: Error | null, item?: MemberInstance) => any
   ): Promise<MemberInstance>;
-  update(params?: any, callback?: any): Promise<MemberInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -212,9 +210,14 @@ export class MemberContextImpl implements MemberContext {
     this._uri = `/Services/${serviceSid}/Channels/${channelSid}/Members/${sid}`;
   }
 
-  remove(params?: any, callback?: any): Promise<boolean> {
+  remove(
+    params?:
+      | MemberContextRemoveOptions
+      | ((error: Error | null, item?: boolean) => any),
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (error: Error | null, item?: boolean) => any;
       params = {};
     } else {
       params = params || {};
@@ -242,7 +245,9 @@ export class MemberContextImpl implements MemberContext {
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<MemberInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: MemberInstance) => any
+  ): Promise<MemberInstance> {
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
@@ -268,9 +273,14 @@ export class MemberContextImpl implements MemberContext {
     return operationPromise;
   }
 
-  update(params?: any, callback?: any): Promise<MemberInstance> {
+  update(
+    params?:
+      | MemberContextUpdateOptions
+      | ((error: Error | null, item?: MemberInstance) => any),
+    callback?: (error: Error | null, item?: MemberInstance) => any
+  ): Promise<MemberInstance> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (error: Error | null, item?: MemberInstance) => any;
       params = {};
     } else {
       params = params || {};
@@ -471,7 +481,11 @@ export class MemberInstance {
     params: MemberContextRemoveOptions,
     callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean>;
-  remove(params?: any, callback?: any): Promise<boolean> {
+
+  remove(
+    params?: any,
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     return this._proxy.remove(params, callback);
   }
 
@@ -510,7 +524,11 @@ export class MemberInstance {
     params: MemberContextUpdateOptions,
     callback?: (error: Error | null, item?: MemberInstance) => any
   ): Promise<MemberInstance>;
-  update(params?: any, callback?: any): Promise<MemberInstance> {
+
+  update(
+    params?: any,
+    callback?: (error: Error | null, item?: MemberInstance) => any
+  ): Promise<MemberInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -566,25 +584,7 @@ export interface MemberListInstance {
     params: MemberListInstanceCreateOptions,
     callback?: (error: Error | null, item?: MemberInstance) => any
   ): Promise<MemberInstance>;
-  create(params: any, callback?: any): Promise<MemberInstance>;
 
-  /**
-   * Streams MemberInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (item: MemberInstance, done: (err?: Error) => void) => void
-  ): void;
   /**
    * Streams MemberInstance records from the API.
    *
@@ -601,50 +601,24 @@ export interface MemberListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: MemberListInstanceEachOptions,
     callback?: (item: MemberInstance, done: (err?: Error) => void) => void
   ): void;
-  each(params?: any, callback?: any): void;
+  each(
+    params: MemberListInstanceEachOptions,
+    callback?: (item: MemberInstance, done: (err?: Error) => void) => void
+  ): void;
   /**
    * Retrieve a single target page of MemberInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: MemberPage) => any
-  ): Promise<MemberPage>;
-  /**
-   * Retrieve a single target page of MemberInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: MemberPage) => any
   ): Promise<MemberPage>;
-  getPage(params?: any, callback?: any): Promise<MemberPage>;
-  /**
-   * Lists MemberInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: MemberInstance[]) => any
-  ): Promise<MemberInstance[]>;
   /**
    * Lists MemberInstance records from the API as a list.
    *
@@ -655,23 +629,12 @@ export interface MemberListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: MemberListInstanceOptions,
     callback?: (error: Error | null, items: MemberInstance[]) => any
   ): Promise<MemberInstance[]>;
-  list(params?: any, callback?: any): Promise<MemberInstance[]>;
-  /**
-   * Retrieve a single page of MemberInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: MemberPage) => any
-  ): Promise<MemberPage>;
+  list(
+    params: MemberListInstanceOptions,
+    callback?: (error: Error | null, items: MemberInstance[]) => any
+  ): Promise<MemberInstance[]>;
   /**
    * Retrieve a single page of MemberInstance records from the API.
    *
@@ -684,10 +647,12 @@ export interface MemberListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
+    callback?: (error: Error | null, items: MemberPage) => any
+  ): Promise<MemberPage>;
+  page(
     params: MemberListInstancePageOptions,
     callback?: (error: Error | null, items: MemberPage) => any
   ): Promise<MemberPage>;
-  page(params?: any, callback?: any): Promise<MemberPage>;
 
   /**
    * Provide a user-friendly representation
@@ -720,8 +685,8 @@ export function MemberListInstance(
   instance._uri = `/Services/${serviceSid}/Channels/${channelSid}/Members`;
 
   instance.create = function create(
-    params: any,
-    callback?: any
+    params: MemberListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: MemberInstance) => any
   ): Promise<MemberInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -779,11 +744,13 @@ export function MemberListInstance(
   };
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | MemberListInstancePageOptions
+      | ((error: Error | null, item?: MemberPage) => any),
+    callback?: (error: Error | null, item?: MemberPage) => any
   ): Promise<MemberPage> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (error: Error | null, item?: MemberPage) => any;
       params = {};
     } else {
       params = params || {};
@@ -795,7 +762,7 @@ export function MemberListInstance(
       data["Identity"] = serialize.map(params["identity"], (e) => e);
     if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
@@ -822,8 +789,8 @@ export function MemberListInstance(
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: MemberPage) => any
   ): Promise<MemberPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",

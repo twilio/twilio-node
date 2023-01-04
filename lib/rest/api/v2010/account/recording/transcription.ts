@@ -120,7 +120,9 @@ export class TranscriptionContextImpl implements TranscriptionContext {
     this._uri = `/Accounts/${accountSid}/Recordings/${recordingSid}/Transcriptions/${sid}.json`;
   }
 
-  remove(callback?: any): Promise<boolean> {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
@@ -135,7 +137,9 @@ export class TranscriptionContextImpl implements TranscriptionContext {
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<TranscriptionInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: TranscriptionInstance) => any
+  ): Promise<TranscriptionInstance> {
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
@@ -364,77 +368,34 @@ export interface TranscriptionListInstance {
    * If a function is passed as the first argument, it will be used as the callback
    * function.
    *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (
-      item: TranscriptionInstance,
-      done: (err?: Error) => void
-    ) => void
-  ): void;
-  /**
-   * Streams TranscriptionInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
    * @param { TranscriptionListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: TranscriptionListInstanceEachOptions,
     callback?: (
       item: TranscriptionInstance,
       done: (err?: Error) => void
     ) => void
   ): void;
-  each(params?: any, callback?: any): void;
+  each(
+    params: TranscriptionListInstanceEachOptions,
+    callback?: (
+      item: TranscriptionInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
   /**
    * Retrieve a single target page of TranscriptionInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: TranscriptionPage) => any
-  ): Promise<TranscriptionPage>;
-  /**
-   * Retrieve a single target page of TranscriptionInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: TranscriptionPage) => any
   ): Promise<TranscriptionPage>;
-  getPage(params?: any, callback?: any): Promise<TranscriptionPage>;
-  /**
-   * Lists TranscriptionInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: TranscriptionInstance[]) => any
-  ): Promise<TranscriptionInstance[]>;
   /**
    * Lists TranscriptionInstance records from the API as a list.
    *
@@ -445,23 +406,12 @@ export interface TranscriptionListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: TranscriptionListInstanceOptions,
     callback?: (error: Error | null, items: TranscriptionInstance[]) => any
   ): Promise<TranscriptionInstance[]>;
-  list(params?: any, callback?: any): Promise<TranscriptionInstance[]>;
-  /**
-   * Retrieve a single page of TranscriptionInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: TranscriptionPage) => any
-  ): Promise<TranscriptionPage>;
+  list(
+    params: TranscriptionListInstanceOptions,
+    callback?: (error: Error | null, items: TranscriptionInstance[]) => any
+  ): Promise<TranscriptionInstance[]>;
   /**
    * Retrieve a single page of TranscriptionInstance records from the API.
    *
@@ -474,10 +424,12 @@ export interface TranscriptionListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
+    callback?: (error: Error | null, items: TranscriptionPage) => any
+  ): Promise<TranscriptionPage>;
+  page(
     params: TranscriptionListInstancePageOptions,
     callback?: (error: Error | null, items: TranscriptionPage) => any
   ): Promise<TranscriptionPage>;
-  page(params?: any, callback?: any): Promise<TranscriptionPage>;
 
   /**
    * Provide a user-friendly representation
@@ -510,11 +462,16 @@ export function TranscriptionListInstance(
   instance._uri = `/Accounts/${accountSid}/Recordings/${recordingSid}/Transcriptions.json`;
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | TranscriptionListInstancePageOptions
+      | ((error: Error | null, item?: TranscriptionPage) => any),
+    callback?: (error: Error | null, item?: TranscriptionPage) => any
   ): Promise<TranscriptionPage> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (
+        error: Error | null,
+        item?: TranscriptionPage
+      ) => any;
       params = {};
     } else {
       params = params || {};
@@ -524,7 +481,7 @@ export function TranscriptionListInstance(
 
     if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
@@ -552,8 +509,8 @@ export function TranscriptionListInstance(
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: TranscriptionPage) => any
   ): Promise<TranscriptionPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",

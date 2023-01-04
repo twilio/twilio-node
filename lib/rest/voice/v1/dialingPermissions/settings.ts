@@ -60,7 +60,6 @@ export interface SettingsContext {
     params: SettingsContextUpdateOptions,
     callback?: (error: Error | null, item?: SettingsInstance) => any
   ): Promise<SettingsInstance>;
-  update(params?: any, callback?: any): Promise<SettingsInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -80,7 +79,9 @@ export class SettingsContextImpl implements SettingsContext {
     this._uri = `/Settings`;
   }
 
-  fetch(callback?: any): Promise<SettingsInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: SettingsInstance) => any
+  ): Promise<SettingsInstance> {
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
@@ -99,9 +100,17 @@ export class SettingsContextImpl implements SettingsContext {
     return operationPromise;
   }
 
-  update(params?: any, callback?: any): Promise<SettingsInstance> {
+  update(
+    params?:
+      | SettingsContextUpdateOptions
+      | ((error: Error | null, item?: SettingsInstance) => any),
+    callback?: (error: Error | null, item?: SettingsInstance) => any
+  ): Promise<SettingsInstance> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (
+        error: Error | null,
+        item?: SettingsInstance
+      ) => any;
       params = {};
     } else {
       params = params || {};
@@ -219,7 +228,11 @@ export class SettingsInstance {
     params: SettingsContextUpdateOptions,
     callback?: (error: Error | null, item?: SettingsInstance) => any
   ): Promise<SettingsInstance>;
-  update(params?: any, callback?: any): Promise<SettingsInstance> {
+
+  update(
+    params?: any,
+    callback?: (error: Error | null, item?: SettingsInstance) => any
+  ): Promise<SettingsInstance> {
     return this._proxy.update(params, callback);
   }
 

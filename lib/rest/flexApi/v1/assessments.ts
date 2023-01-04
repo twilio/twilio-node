@@ -48,7 +48,9 @@ export class AssessmentsContextImpl implements AssessmentsContext {
     this._uri = `/Accounts/Assessments`;
   }
 
-  create(callback?: any): Promise<AssessmentsInstance> {
+  create(
+    callback?: (error: Error | null, item?: AssessmentsInstance) => any
+  ): Promise<AssessmentsInstance> {
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.create({

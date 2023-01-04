@@ -72,7 +72,6 @@ export interface CallSummaryContext {
     params: CallSummaryContextFetchOptions,
     callback?: (error: Error | null, item?: CallSummaryInstance) => any
   ): Promise<CallSummaryInstance>;
-  fetch(params?: any, callback?: any): Promise<CallSummaryInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -98,9 +97,17 @@ export class CallSummaryContextImpl implements CallSummaryContext {
     this._uri = `/Voice/${callSid}/Summary`;
   }
 
-  fetch(params?: any, callback?: any): Promise<CallSummaryInstance> {
+  fetch(
+    params?:
+      | CallSummaryContextFetchOptions
+      | ((error: Error | null, item?: CallSummaryInstance) => any),
+    callback?: (error: Error | null, item?: CallSummaryInstance) => any
+  ): Promise<CallSummaryInstance> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (
+        error: Error | null,
+        item?: CallSummaryInstance
+      ) => any;
       params = {};
     } else {
       params = params || {};
@@ -269,7 +276,11 @@ export class CallSummaryInstance {
     params: CallSummaryContextFetchOptions,
     callback?: (error: Error | null, item?: CallSummaryInstance) => any
   ): Promise<CallSummaryInstance>;
-  fetch(params?: any, callback?: any): Promise<CallSummaryInstance> {
+
+  fetch(
+    params?: any,
+    callback?: (error: Error | null, item?: CallSummaryInstance) => any
+  ): Promise<CallSummaryInstance> {
     return this._proxy.fetch(params, callback);
   }
 

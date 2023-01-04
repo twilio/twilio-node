@@ -65,7 +65,9 @@ export class JobContextImpl implements JobContext {
     this._uri = `/Exports/Jobs/${jobSid}`;
   }
 
-  remove(callback?: any): Promise<boolean> {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
@@ -80,7 +82,9 @@ export class JobContextImpl implements JobContext {
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<JobInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: JobInstance) => any
+  ): Promise<JobInstance> {
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({

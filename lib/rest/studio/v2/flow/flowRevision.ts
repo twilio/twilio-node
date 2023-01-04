@@ -99,7 +99,9 @@ export class FlowRevisionContextImpl implements FlowRevisionContext {
     this._uri = `/Flows/${sid}/Revisions/${revision}`;
   }
 
-  fetch(callback?: any): Promise<FlowRevisionInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: FlowRevisionInstance) => any
+  ): Promise<FlowRevisionInstance> {
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
@@ -304,71 +306,28 @@ export interface FlowRevisionListInstance {
    * If a function is passed as the first argument, it will be used as the callback
    * function.
    *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (item: FlowRevisionInstance, done: (err?: Error) => void) => void
-  ): void;
-  /**
-   * Streams FlowRevisionInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
    * @param { FlowRevisionListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: FlowRevisionListInstanceEachOptions,
     callback?: (item: FlowRevisionInstance, done: (err?: Error) => void) => void
   ): void;
-  each(params?: any, callback?: any): void;
+  each(
+    params: FlowRevisionListInstanceEachOptions,
+    callback?: (item: FlowRevisionInstance, done: (err?: Error) => void) => void
+  ): void;
   /**
    * Retrieve a single target page of FlowRevisionInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: FlowRevisionPage) => any
-  ): Promise<FlowRevisionPage>;
-  /**
-   * Retrieve a single target page of FlowRevisionInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: FlowRevisionPage) => any
   ): Promise<FlowRevisionPage>;
-  getPage(params?: any, callback?: any): Promise<FlowRevisionPage>;
-  /**
-   * Lists FlowRevisionInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: FlowRevisionInstance[]) => any
-  ): Promise<FlowRevisionInstance[]>;
   /**
    * Lists FlowRevisionInstance records from the API as a list.
    *
@@ -379,23 +338,12 @@ export interface FlowRevisionListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: FlowRevisionListInstanceOptions,
     callback?: (error: Error | null, items: FlowRevisionInstance[]) => any
   ): Promise<FlowRevisionInstance[]>;
-  list(params?: any, callback?: any): Promise<FlowRevisionInstance[]>;
-  /**
-   * Retrieve a single page of FlowRevisionInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: FlowRevisionPage) => any
-  ): Promise<FlowRevisionPage>;
+  list(
+    params: FlowRevisionListInstanceOptions,
+    callback?: (error: Error | null, items: FlowRevisionInstance[]) => any
+  ): Promise<FlowRevisionInstance[]>;
   /**
    * Retrieve a single page of FlowRevisionInstance records from the API.
    *
@@ -408,10 +356,12 @@ export interface FlowRevisionListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
+    callback?: (error: Error | null, items: FlowRevisionPage) => any
+  ): Promise<FlowRevisionPage>;
+  page(
     params: FlowRevisionListInstancePageOptions,
     callback?: (error: Error | null, items: FlowRevisionPage) => any
   ): Promise<FlowRevisionPage>;
-  page(params?: any, callback?: any): Promise<FlowRevisionPage>;
 
   /**
    * Provide a user-friendly representation
@@ -440,11 +390,16 @@ export function FlowRevisionListInstance(
   instance._uri = `/Flows/${sid}/Revisions`;
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | FlowRevisionListInstancePageOptions
+      | ((error: Error | null, item?: FlowRevisionPage) => any),
+    callback?: (error: Error | null, item?: FlowRevisionPage) => any
   ): Promise<FlowRevisionPage> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (
+        error: Error | null,
+        item?: FlowRevisionPage
+      ) => any;
       params = {};
     } else {
       params = params || {};
@@ -454,7 +409,7 @@ export function FlowRevisionListInstance(
 
     if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
@@ -482,8 +437,8 @@ export function FlowRevisionListInstance(
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: FlowRevisionPage) => any
   ): Promise<FlowRevisionPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",

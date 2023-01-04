@@ -61,7 +61,6 @@ export interface DomainCertsContext {
     params: DomainCertsContextUpdateOptions,
     callback?: (error: Error | null, item?: DomainCertsInstance) => any
   ): Promise<DomainCertsInstance>;
-  update(params: any, callback?: any): Promise<DomainCertsInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -87,7 +86,9 @@ export class DomainCertsContextImpl implements DomainCertsContext {
     this._uri = `/LinkShortening/Domains/${domainSid}/Certificate`;
   }
 
-  remove(callback?: any): Promise<boolean> {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
@@ -102,7 +103,9 @@ export class DomainCertsContextImpl implements DomainCertsContext {
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<DomainCertsInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: DomainCertsInstance) => any
+  ): Promise<DomainCertsInstance> {
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
@@ -126,7 +129,12 @@ export class DomainCertsContextImpl implements DomainCertsContext {
     return operationPromise;
   }
 
-  update(params: any, callback?: any): Promise<DomainCertsInstance> {
+  update(
+    params:
+      | DomainCertsContextUpdateOptions
+      | ((error: Error | null, item?: DomainCertsInstance) => any),
+    callback?: (error: Error | null, item?: DomainCertsInstance) => any
+  ): Promise<DomainCertsInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
@@ -290,7 +298,11 @@ export class DomainCertsInstance {
     params: DomainCertsContextUpdateOptions,
     callback?: (error: Error | null, item?: DomainCertsInstance) => any
   ): Promise<DomainCertsInstance>;
-  update(params: any, callback?: any): Promise<DomainCertsInstance> {
+
+  update(
+    params?: any,
+    callback?: (error: Error | null, item?: DomainCertsInstance) => any
+  ): Promise<DomainCertsInstance> {
     return this._proxy.update(params, callback);
   }
 

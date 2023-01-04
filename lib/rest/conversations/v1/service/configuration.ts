@@ -68,7 +68,6 @@ export interface ConfigurationContext {
     params: ConfigurationContextUpdateOptions,
     callback?: (error: Error | null, item?: ConfigurationInstance) => any
   ): Promise<ConfigurationInstance>;
-  update(params?: any, callback?: any): Promise<ConfigurationInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -94,7 +93,9 @@ export class ConfigurationContextImpl implements ConfigurationContext {
     this._uri = `/Services/${chatServiceSid}/Configuration`;
   }
 
-  fetch(callback?: any): Promise<ConfigurationInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: ConfigurationInstance) => any
+  ): Promise<ConfigurationInstance> {
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
@@ -118,9 +119,17 @@ export class ConfigurationContextImpl implements ConfigurationContext {
     return operationPromise;
   }
 
-  update(params?: any, callback?: any): Promise<ConfigurationInstance> {
+  update(
+    params?:
+      | ConfigurationContextUpdateOptions
+      | ((error: Error | null, item?: ConfigurationInstance) => any),
+    callback?: (error: Error | null, item?: ConfigurationInstance) => any
+  ): Promise<ConfigurationInstance> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (
+        error: Error | null,
+        item?: ConfigurationInstance
+      ) => any;
       params = {};
     } else {
       params = params || {};
@@ -289,7 +298,11 @@ export class ConfigurationInstance {
     params: ConfigurationContextUpdateOptions,
     callback?: (error: Error | null, item?: ConfigurationInstance) => any
   ): Promise<ConfigurationInstance>;
-  update(params?: any, callback?: any): Promise<ConfigurationInstance> {
+
+  update(
+    params?: any,
+    callback?: (error: Error | null, item?: ConfigurationInstance) => any
+  ): Promise<ConfigurationInstance> {
     return this._proxy.update(params, callback);
   }
 

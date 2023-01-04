@@ -63,10 +63,6 @@ export interface WorkflowCumulativeStatisticsContext {
       item?: WorkflowCumulativeStatisticsInstance
     ) => any
   ): Promise<WorkflowCumulativeStatisticsInstance>;
-  fetch(
-    params?: any,
-    callback?: any
-  ): Promise<WorkflowCumulativeStatisticsInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -104,11 +100,22 @@ export class WorkflowCumulativeStatisticsContextImpl
   }
 
   fetch(
-    params?: any,
-    callback?: any
+    params?:
+      | WorkflowCumulativeStatisticsContextFetchOptions
+      | ((
+          error: Error | null,
+          item?: WorkflowCumulativeStatisticsInstance
+        ) => any),
+    callback?: (
+      error: Error | null,
+      item?: WorkflowCumulativeStatisticsInstance
+    ) => any
   ): Promise<WorkflowCumulativeStatisticsInstance> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (
+        error: Error | null,
+        item?: WorkflowCumulativeStatisticsInstance
+      ) => any;
       params = {};
     } else {
       params = params || {};
@@ -376,9 +383,13 @@ export class WorkflowCumulativeStatisticsInstance {
       item?: WorkflowCumulativeStatisticsInstance
     ) => any
   ): Promise<WorkflowCumulativeStatisticsInstance>;
+
   fetch(
     params?: any,
-    callback?: any
+    callback?: (
+      error: Error | null,
+      item?: WorkflowCumulativeStatisticsInstance
+    ) => any
   ): Promise<WorkflowCumulativeStatisticsInstance> {
     return this._proxy.fetch(params, callback);
   }

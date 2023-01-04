@@ -50,7 +50,9 @@ export class AuthTokenPromotionContextImpl
     this._uri = `/AuthTokens/Promote`;
   }
 
-  update(callback?: any): Promise<AuthTokenPromotionInstance> {
+  update(
+    callback?: (error: Error | null, item?: AuthTokenPromotionInstance) => any
+  ): Promise<AuthTokenPromotionInstance> {
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.update({

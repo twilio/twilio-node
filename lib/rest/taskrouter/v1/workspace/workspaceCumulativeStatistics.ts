@@ -63,10 +63,6 @@ export interface WorkspaceCumulativeStatisticsContext {
       item?: WorkspaceCumulativeStatisticsInstance
     ) => any
   ): Promise<WorkspaceCumulativeStatisticsInstance>;
-  fetch(
-    params?: any,
-    callback?: any
-  ): Promise<WorkspaceCumulativeStatisticsInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -95,11 +91,22 @@ export class WorkspaceCumulativeStatisticsContextImpl
   }
 
   fetch(
-    params?: any,
-    callback?: any
+    params?:
+      | WorkspaceCumulativeStatisticsContextFetchOptions
+      | ((
+          error: Error | null,
+          item?: WorkspaceCumulativeStatisticsInstance
+        ) => any),
+    callback?: (
+      error: Error | null,
+      item?: WorkspaceCumulativeStatisticsInstance
+    ) => any
   ): Promise<WorkspaceCumulativeStatisticsInstance> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (
+        error: Error | null,
+        item?: WorkspaceCumulativeStatisticsInstance
+      ) => any;
       params = {};
     } else {
       params = params || {};
@@ -358,9 +365,13 @@ export class WorkspaceCumulativeStatisticsInstance {
       item?: WorkspaceCumulativeStatisticsInstance
     ) => any
   ): Promise<WorkspaceCumulativeStatisticsInstance>;
+
   fetch(
     params?: any,
-    callback?: any
+    callback?: (
+      error: Error | null,
+      item?: WorkspaceCumulativeStatisticsInstance
+    ) => any
   ): Promise<WorkspaceCumulativeStatisticsInstance> {
     return this._proxy.fetch(params, callback);
   }

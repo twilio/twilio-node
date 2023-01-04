@@ -167,7 +167,6 @@ export interface WorkspaceContext {
     params: WorkspaceContextUpdateOptions,
     callback?: (error: Error | null, item?: WorkspaceInstance) => any
   ): Promise<WorkspaceInstance>;
-  update(params?: any, callback?: any): Promise<WorkspaceInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -277,7 +276,9 @@ export class WorkspaceContextImpl implements WorkspaceContext {
     return this._statistics;
   }
 
-  remove(callback?: any): Promise<boolean> {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
@@ -292,7 +293,9 @@ export class WorkspaceContextImpl implements WorkspaceContext {
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<WorkspaceInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: WorkspaceInstance) => any
+  ): Promise<WorkspaceInstance> {
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
@@ -312,9 +315,17 @@ export class WorkspaceContextImpl implements WorkspaceContext {
     return operationPromise;
   }
 
-  update(params?: any, callback?: any): Promise<WorkspaceInstance> {
+  update(
+    params?:
+      | WorkspaceContextUpdateOptions
+      | ((error: Error | null, item?: WorkspaceInstance) => any),
+    callback?: (error: Error | null, item?: WorkspaceInstance) => any
+  ): Promise<WorkspaceInstance> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (
+        error: Error | null,
+        item?: WorkspaceInstance
+      ) => any;
       params = {};
     } else {
       params = params || {};
@@ -538,7 +549,11 @@ export class WorkspaceInstance {
     params: WorkspaceContextUpdateOptions,
     callback?: (error: Error | null, item?: WorkspaceInstance) => any
   ): Promise<WorkspaceInstance>;
-  update(params?: any, callback?: any): Promise<WorkspaceInstance> {
+
+  update(
+    params?: any,
+    callback?: (error: Error | null, item?: WorkspaceInstance) => any
+  ): Promise<WorkspaceInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -664,25 +679,7 @@ export interface WorkspaceListInstance {
     params: WorkspaceListInstanceCreateOptions,
     callback?: (error: Error | null, item?: WorkspaceInstance) => any
   ): Promise<WorkspaceInstance>;
-  create(params: any, callback?: any): Promise<WorkspaceInstance>;
 
-  /**
-   * Streams WorkspaceInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (item: WorkspaceInstance, done: (err?: Error) => void) => void
-  ): void;
   /**
    * Streams WorkspaceInstance records from the API.
    *
@@ -699,50 +696,24 @@ export interface WorkspaceListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: WorkspaceListInstanceEachOptions,
     callback?: (item: WorkspaceInstance, done: (err?: Error) => void) => void
   ): void;
-  each(params?: any, callback?: any): void;
+  each(
+    params: WorkspaceListInstanceEachOptions,
+    callback?: (item: WorkspaceInstance, done: (err?: Error) => void) => void
+  ): void;
   /**
    * Retrieve a single target page of WorkspaceInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: WorkspacePage) => any
-  ): Promise<WorkspacePage>;
-  /**
-   * Retrieve a single target page of WorkspaceInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: WorkspacePage) => any
   ): Promise<WorkspacePage>;
-  getPage(params?: any, callback?: any): Promise<WorkspacePage>;
-  /**
-   * Lists WorkspaceInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: WorkspaceInstance[]) => any
-  ): Promise<WorkspaceInstance[]>;
   /**
    * Lists WorkspaceInstance records from the API as a list.
    *
@@ -753,23 +724,12 @@ export interface WorkspaceListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: WorkspaceListInstanceOptions,
     callback?: (error: Error | null, items: WorkspaceInstance[]) => any
   ): Promise<WorkspaceInstance[]>;
-  list(params?: any, callback?: any): Promise<WorkspaceInstance[]>;
-  /**
-   * Retrieve a single page of WorkspaceInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: WorkspacePage) => any
-  ): Promise<WorkspacePage>;
+  list(
+    params: WorkspaceListInstanceOptions,
+    callback?: (error: Error | null, items: WorkspaceInstance[]) => any
+  ): Promise<WorkspaceInstance[]>;
   /**
    * Retrieve a single page of WorkspaceInstance records from the API.
    *
@@ -782,10 +742,12 @@ export interface WorkspaceListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
+    callback?: (error: Error | null, items: WorkspacePage) => any
+  ): Promise<WorkspacePage>;
+  page(
     params: WorkspaceListInstancePageOptions,
     callback?: (error: Error | null, items: WorkspacePage) => any
   ): Promise<WorkspacePage>;
-  page(params?: any, callback?: any): Promise<WorkspacePage>;
 
   /**
    * Provide a user-friendly representation
@@ -806,8 +768,8 @@ export function WorkspaceListInstance(version: V1): WorkspaceListInstance {
   instance._uri = `/Workspaces`;
 
   instance.create = function create(
-    params: any,
-    callback?: any
+    params: WorkspaceListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: WorkspaceInstance) => any
   ): Promise<WorkspaceInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -856,11 +818,13 @@ export function WorkspaceListInstance(version: V1): WorkspaceListInstance {
   };
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | WorkspaceListInstancePageOptions
+      | ((error: Error | null, item?: WorkspacePage) => any),
+    callback?: (error: Error | null, item?: WorkspacePage) => any
   ): Promise<WorkspacePage> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (error: Error | null, item?: WorkspacePage) => any;
       params = {};
     } else {
       params = params || {};
@@ -872,7 +836,7 @@ export function WorkspaceListInstance(version: V1): WorkspaceListInstance {
       data["FriendlyName"] = params["friendlyName"];
     if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
@@ -900,8 +864,8 @@ export function WorkspaceListInstance(version: V1): WorkspaceListInstance {
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: WorkspacePage) => any
   ): Promise<WorkspacePage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",

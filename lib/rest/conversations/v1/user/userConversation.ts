@@ -119,7 +119,6 @@ export interface UserConversationContext {
     params: UserConversationContextUpdateOptions,
     callback?: (error: Error | null, item?: UserConversationInstance) => any
   ): Promise<UserConversationInstance>;
-  update(params?: any, callback?: any): Promise<UserConversationInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -154,7 +153,9 @@ export class UserConversationContextImpl implements UserConversationContext {
     this._uri = `/Users/${userSid}/Conversations/${conversationSid}`;
   }
 
-  remove(callback?: any): Promise<boolean> {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
@@ -169,7 +170,9 @@ export class UserConversationContextImpl implements UserConversationContext {
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<UserConversationInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: UserConversationInstance) => any
+  ): Promise<UserConversationInstance> {
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
@@ -194,9 +197,17 @@ export class UserConversationContextImpl implements UserConversationContext {
     return operationPromise;
   }
 
-  update(params?: any, callback?: any): Promise<UserConversationInstance> {
+  update(
+    params?:
+      | UserConversationContextUpdateOptions
+      | ((error: Error | null, item?: UserConversationInstance) => any),
+    callback?: (error: Error | null, item?: UserConversationInstance) => any
+  ): Promise<UserConversationInstance> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (
+        error: Error | null,
+        item?: UserConversationInstance
+      ) => any;
       params = {};
     } else {
       params = params || {};
@@ -443,7 +454,11 @@ export class UserConversationInstance {
     params: UserConversationContextUpdateOptions,
     callback?: (error: Error | null, item?: UserConversationInstance) => any
   ): Promise<UserConversationInstance>;
-  update(params?: any, callback?: any): Promise<UserConversationInstance> {
+
+  update(
+    params?: any,
+    callback?: (error: Error | null, item?: UserConversationInstance) => any
+  ): Promise<UserConversationInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -504,77 +519,34 @@ export interface UserConversationListInstance {
    * If a function is passed as the first argument, it will be used as the callback
    * function.
    *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (
-      item: UserConversationInstance,
-      done: (err?: Error) => void
-    ) => void
-  ): void;
-  /**
-   * Streams UserConversationInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
    * @param { UserConversationListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: UserConversationListInstanceEachOptions,
     callback?: (
       item: UserConversationInstance,
       done: (err?: Error) => void
     ) => void
   ): void;
-  each(params?: any, callback?: any): void;
+  each(
+    params: UserConversationListInstanceEachOptions,
+    callback?: (
+      item: UserConversationInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
   /**
    * Retrieve a single target page of UserConversationInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: UserConversationPage) => any
-  ): Promise<UserConversationPage>;
-  /**
-   * Retrieve a single target page of UserConversationInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: UserConversationPage) => any
   ): Promise<UserConversationPage>;
-  getPage(params?: any, callback?: any): Promise<UserConversationPage>;
-  /**
-   * Lists UserConversationInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: UserConversationInstance[]) => any
-  ): Promise<UserConversationInstance[]>;
   /**
    * Lists UserConversationInstance records from the API as a list.
    *
@@ -585,23 +557,12 @@ export interface UserConversationListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: UserConversationListInstanceOptions,
     callback?: (error: Error | null, items: UserConversationInstance[]) => any
   ): Promise<UserConversationInstance[]>;
-  list(params?: any, callback?: any): Promise<UserConversationInstance[]>;
-  /**
-   * Retrieve a single page of UserConversationInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: UserConversationPage) => any
-  ): Promise<UserConversationPage>;
+  list(
+    params: UserConversationListInstanceOptions,
+    callback?: (error: Error | null, items: UserConversationInstance[]) => any
+  ): Promise<UserConversationInstance[]>;
   /**
    * Retrieve a single page of UserConversationInstance records from the API.
    *
@@ -614,10 +575,12 @@ export interface UserConversationListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
+    callback?: (error: Error | null, items: UserConversationPage) => any
+  ): Promise<UserConversationPage>;
+  page(
     params: UserConversationListInstancePageOptions,
     callback?: (error: Error | null, items: UserConversationPage) => any
   ): Promise<UserConversationPage>;
-  page(params?: any, callback?: any): Promise<UserConversationPage>;
 
   /**
    * Provide a user-friendly representation
@@ -646,11 +609,16 @@ export function UserConversationListInstance(
   instance._uri = `/Users/${userSid}/Conversations`;
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | UserConversationListInstancePageOptions
+      | ((error: Error | null, item?: UserConversationPage) => any),
+    callback?: (error: Error | null, item?: UserConversationPage) => any
   ): Promise<UserConversationPage> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (
+        error: Error | null,
+        item?: UserConversationPage
+      ) => any;
       params = {};
     } else {
       params = params || {};
@@ -660,7 +628,7 @@ export function UserConversationListInstance(
 
     if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
@@ -688,8 +656,8 @@ export function UserConversationListInstance(
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: UserConversationPage) => any
   ): Promise<UserConversationPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",

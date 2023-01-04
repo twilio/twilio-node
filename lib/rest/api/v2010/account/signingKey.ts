@@ -108,7 +108,6 @@ export interface SigningKeyContext {
     params: SigningKeyContextUpdateOptions,
     callback?: (error: Error | null, item?: SigningKeyInstance) => any
   ): Promise<SigningKeyInstance>;
-  update(params?: any, callback?: any): Promise<SigningKeyInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -139,7 +138,9 @@ export class SigningKeyContextImpl implements SigningKeyContext {
     this._uri = `/Accounts/${accountSid}/SigningKeys/${sid}.json`;
   }
 
-  remove(callback?: any): Promise<boolean> {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
@@ -154,7 +155,9 @@ export class SigningKeyContextImpl implements SigningKeyContext {
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<SigningKeyInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: SigningKeyInstance) => any
+  ): Promise<SigningKeyInstance> {
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
@@ -179,9 +182,17 @@ export class SigningKeyContextImpl implements SigningKeyContext {
     return operationPromise;
   }
 
-  update(params?: any, callback?: any): Promise<SigningKeyInstance> {
+  update(
+    params?:
+      | SigningKeyContextUpdateOptions
+      | ((error: Error | null, item?: SigningKeyInstance) => any),
+    callback?: (error: Error | null, item?: SigningKeyInstance) => any
+  ): Promise<SigningKeyInstance> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (
+        error: Error | null,
+        item?: SigningKeyInstance
+      ) => any;
       params = {};
     } else {
       params = params || {};
@@ -328,7 +339,11 @@ export class SigningKeyInstance {
     params: SigningKeyContextUpdateOptions,
     callback?: (error: Error | null, item?: SigningKeyInstance) => any
   ): Promise<SigningKeyInstance>;
-  update(params?: any, callback?: any): Promise<SigningKeyInstance> {
+
+  update(
+    params?: any,
+    callback?: (error: Error | null, item?: SigningKeyInstance) => any
+  ): Promise<SigningKeyInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -375,71 +390,28 @@ export interface SigningKeyListInstance {
    * If a function is passed as the first argument, it will be used as the callback
    * function.
    *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (item: SigningKeyInstance, done: (err?: Error) => void) => void
-  ): void;
-  /**
-   * Streams SigningKeyInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
    * @param { SigningKeyListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: SigningKeyListInstanceEachOptions,
     callback?: (item: SigningKeyInstance, done: (err?: Error) => void) => void
   ): void;
-  each(params?: any, callback?: any): void;
+  each(
+    params: SigningKeyListInstanceEachOptions,
+    callback?: (item: SigningKeyInstance, done: (err?: Error) => void) => void
+  ): void;
   /**
    * Retrieve a single target page of SigningKeyInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: SigningKeyPage) => any
-  ): Promise<SigningKeyPage>;
-  /**
-   * Retrieve a single target page of SigningKeyInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: SigningKeyPage) => any
   ): Promise<SigningKeyPage>;
-  getPage(params?: any, callback?: any): Promise<SigningKeyPage>;
-  /**
-   * Lists SigningKeyInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: SigningKeyInstance[]) => any
-  ): Promise<SigningKeyInstance[]>;
   /**
    * Lists SigningKeyInstance records from the API as a list.
    *
@@ -450,23 +422,12 @@ export interface SigningKeyListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: SigningKeyListInstanceOptions,
     callback?: (error: Error | null, items: SigningKeyInstance[]) => any
   ): Promise<SigningKeyInstance[]>;
-  list(params?: any, callback?: any): Promise<SigningKeyInstance[]>;
-  /**
-   * Retrieve a single page of SigningKeyInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: SigningKeyPage) => any
-  ): Promise<SigningKeyPage>;
+  list(
+    params: SigningKeyListInstanceOptions,
+    callback?: (error: Error | null, items: SigningKeyInstance[]) => any
+  ): Promise<SigningKeyInstance[]>;
   /**
    * Retrieve a single page of SigningKeyInstance records from the API.
    *
@@ -479,10 +440,12 @@ export interface SigningKeyListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
+    callback?: (error: Error | null, items: SigningKeyPage) => any
+  ): Promise<SigningKeyPage>;
+  page(
     params: SigningKeyListInstancePageOptions,
     callback?: (error: Error | null, items: SigningKeyPage) => any
   ): Promise<SigningKeyPage>;
-  page(params?: any, callback?: any): Promise<SigningKeyPage>;
 
   /**
    * Provide a user-friendly representation
@@ -510,11 +473,13 @@ export function SigningKeyListInstance(
   instance._uri = `/Accounts/${accountSid}/SigningKeys.json`;
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | SigningKeyListInstancePageOptions
+      | ((error: Error | null, item?: SigningKeyPage) => any),
+    callback?: (error: Error | null, item?: SigningKeyPage) => any
   ): Promise<SigningKeyPage> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (error: Error | null, item?: SigningKeyPage) => any;
       params = {};
     } else {
       params = params || {};
@@ -524,7 +489,7 @@ export function SigningKeyListInstance(
 
     if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
@@ -552,8 +517,8 @@ export function SigningKeyListInstance(
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: SigningKeyPage) => any
   ): Promise<SigningKeyPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",

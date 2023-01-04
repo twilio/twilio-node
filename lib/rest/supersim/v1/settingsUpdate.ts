@@ -96,77 +96,34 @@ export interface SettingsUpdateListInstance {
    * If a function is passed as the first argument, it will be used as the callback
    * function.
    *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (
-      item: SettingsUpdateInstance,
-      done: (err?: Error) => void
-    ) => void
-  ): void;
-  /**
-   * Streams SettingsUpdateInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
    * @param { SettingsUpdateListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: SettingsUpdateListInstanceEachOptions,
     callback?: (
       item: SettingsUpdateInstance,
       done: (err?: Error) => void
     ) => void
   ): void;
-  each(params?: any, callback?: any): void;
+  each(
+    params: SettingsUpdateListInstanceEachOptions,
+    callback?: (
+      item: SettingsUpdateInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
   /**
    * Retrieve a single target page of SettingsUpdateInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: SettingsUpdatePage) => any
-  ): Promise<SettingsUpdatePage>;
-  /**
-   * Retrieve a single target page of SettingsUpdateInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: SettingsUpdatePage) => any
   ): Promise<SettingsUpdatePage>;
-  getPage(params?: any, callback?: any): Promise<SettingsUpdatePage>;
-  /**
-   * Lists SettingsUpdateInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: SettingsUpdateInstance[]) => any
-  ): Promise<SettingsUpdateInstance[]>;
   /**
    * Lists SettingsUpdateInstance records from the API as a list.
    *
@@ -177,23 +134,12 @@ export interface SettingsUpdateListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: SettingsUpdateListInstanceOptions,
     callback?: (error: Error | null, items: SettingsUpdateInstance[]) => any
   ): Promise<SettingsUpdateInstance[]>;
-  list(params?: any, callback?: any): Promise<SettingsUpdateInstance[]>;
-  /**
-   * Retrieve a single page of SettingsUpdateInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: SettingsUpdatePage) => any
-  ): Promise<SettingsUpdatePage>;
+  list(
+    params: SettingsUpdateListInstanceOptions,
+    callback?: (error: Error | null, items: SettingsUpdateInstance[]) => any
+  ): Promise<SettingsUpdateInstance[]>;
   /**
    * Retrieve a single page of SettingsUpdateInstance records from the API.
    *
@@ -206,10 +152,12 @@ export interface SettingsUpdateListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
+    callback?: (error: Error | null, items: SettingsUpdatePage) => any
+  ): Promise<SettingsUpdatePage>;
+  page(
     params: SettingsUpdateListInstancePageOptions,
     callback?: (error: Error | null, items: SettingsUpdatePage) => any
   ): Promise<SettingsUpdatePage>;
-  page(params?: any, callback?: any): Promise<SettingsUpdatePage>;
 
   /**
    * Provide a user-friendly representation
@@ -228,11 +176,16 @@ export function SettingsUpdateListInstance(
   instance._uri = `/SettingsUpdates`;
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | SettingsUpdateListInstancePageOptions
+      | ((error: Error | null, item?: SettingsUpdatePage) => any),
+    callback?: (error: Error | null, item?: SettingsUpdatePage) => any
   ): Promise<SettingsUpdatePage> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (
+        error: Error | null,
+        item?: SettingsUpdatePage
+      ) => any;
       params = {};
     } else {
       params = params || {};
@@ -244,7 +197,7 @@ export function SettingsUpdateListInstance(
     if (params["status"] !== undefined) data["Status"] = params["status"];
     if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
@@ -272,8 +225,8 @@ export function SettingsUpdateListInstance(
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: SettingsUpdatePage) => any
   ): Promise<SettingsUpdatePage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",

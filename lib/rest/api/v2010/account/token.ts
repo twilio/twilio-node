@@ -64,7 +64,6 @@ export interface TokenListInstance {
     params: TokenListInstanceCreateOptions,
     callback?: (error: Error | null, item?: TokenInstance) => any
   ): Promise<TokenInstance>;
-  create(params?: any, callback?: any): Promise<TokenInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -88,11 +87,13 @@ export function TokenListInstance(
   instance._uri = `/Accounts/${accountSid}/Tokens.json`;
 
   instance.create = function create(
-    params?: any,
-    callback?: any
+    params?:
+      | TokenListInstanceCreateOptions
+      | ((error: Error | null, item?: TokenInstance) => any),
+    callback?: (error: Error | null, item?: TokenInstance) => any
   ): Promise<TokenInstance> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (error: Error | null, item?: TokenInstance) => any;
       params = {};
     } else {
       params = params || {};

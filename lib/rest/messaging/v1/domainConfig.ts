@@ -56,7 +56,6 @@ export interface DomainConfigContext {
     params: DomainConfigContextUpdateOptions,
     callback?: (error: Error | null, item?: DomainConfigInstance) => any
   ): Promise<DomainConfigInstance>;
-  update(params: any, callback?: any): Promise<DomainConfigInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -82,7 +81,9 @@ export class DomainConfigContextImpl implements DomainConfigContext {
     this._uri = `/LinkShortening/Domains/${domainSid}/Config`;
   }
 
-  fetch(callback?: any): Promise<DomainConfigInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: DomainConfigInstance) => any
+  ): Promise<DomainConfigInstance> {
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
@@ -106,7 +107,12 @@ export class DomainConfigContextImpl implements DomainConfigContext {
     return operationPromise;
   }
 
-  update(params: any, callback?: any): Promise<DomainConfigInstance> {
+  update(
+    params:
+      | DomainConfigContextUpdateOptions
+      | ((error: Error | null, item?: DomainConfigInstance) => any),
+    callback?: (error: Error | null, item?: DomainConfigInstance) => any
+  ): Promise<DomainConfigInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
@@ -271,7 +277,11 @@ export class DomainConfigInstance {
     params: DomainConfigContextUpdateOptions,
     callback?: (error: Error | null, item?: DomainConfigInstance) => any
   ): Promise<DomainConfigInstance>;
-  update(params: any, callback?: any): Promise<DomainConfigInstance> {
+
+  update(
+    params?: any,
+    callback?: (error: Error | null, item?: DomainConfigInstance) => any
+  ): Promise<DomainConfigInstance> {
     return this._proxy.update(params, callback);
   }
 

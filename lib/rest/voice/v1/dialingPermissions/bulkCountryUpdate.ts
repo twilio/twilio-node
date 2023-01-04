@@ -45,7 +45,6 @@ export interface BulkCountryUpdateListInstance {
     params: BulkCountryUpdateListInstanceCreateOptions,
     callback?: (error: Error | null, item?: BulkCountryUpdateInstance) => any
   ): Promise<BulkCountryUpdateInstance>;
-  create(params: any, callback?: any): Promise<BulkCountryUpdateInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -64,8 +63,8 @@ export function BulkCountryUpdateListInstance(
   instance._uri = `/DialingPermissions/BulkCountryUpdates`;
 
   instance.create = function create(
-    params: any,
-    callback?: any
+    params: BulkCountryUpdateListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: BulkCountryUpdateInstance) => any
   ): Promise<BulkCountryUpdateInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');

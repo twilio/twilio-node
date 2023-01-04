@@ -118,7 +118,9 @@ export class BrandVettingContextImpl implements BrandVettingContext {
     this._uri = `/a2p/BrandRegistrations/${brandSid}/Vettings/${brandVettingSid}`;
   }
 
-  fetch(callback?: any): Promise<BrandVettingInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: BrandVettingInstance) => any
+  ): Promise<BrandVettingInstance> {
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
@@ -312,25 +314,7 @@ export interface BrandVettingListInstance {
     params: BrandVettingListInstanceCreateOptions,
     callback?: (error: Error | null, item?: BrandVettingInstance) => any
   ): Promise<BrandVettingInstance>;
-  create(params: any, callback?: any): Promise<BrandVettingInstance>;
 
-  /**
-   * Streams BrandVettingInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (item: BrandVettingInstance, done: (err?: Error) => void) => void
-  ): void;
   /**
    * Streams BrandVettingInstance records from the API.
    *
@@ -347,50 +331,24 @@ export interface BrandVettingListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: BrandVettingListInstanceEachOptions,
     callback?: (item: BrandVettingInstance, done: (err?: Error) => void) => void
   ): void;
-  each(params?: any, callback?: any): void;
+  each(
+    params: BrandVettingListInstanceEachOptions,
+    callback?: (item: BrandVettingInstance, done: (err?: Error) => void) => void
+  ): void;
   /**
    * Retrieve a single target page of BrandVettingInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: BrandVettingPage) => any
-  ): Promise<BrandVettingPage>;
-  /**
-   * Retrieve a single target page of BrandVettingInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: BrandVettingPage) => any
   ): Promise<BrandVettingPage>;
-  getPage(params?: any, callback?: any): Promise<BrandVettingPage>;
-  /**
-   * Lists BrandVettingInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: BrandVettingInstance[]) => any
-  ): Promise<BrandVettingInstance[]>;
   /**
    * Lists BrandVettingInstance records from the API as a list.
    *
@@ -401,23 +359,12 @@ export interface BrandVettingListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: BrandVettingListInstanceOptions,
     callback?: (error: Error | null, items: BrandVettingInstance[]) => any
   ): Promise<BrandVettingInstance[]>;
-  list(params?: any, callback?: any): Promise<BrandVettingInstance[]>;
-  /**
-   * Retrieve a single page of BrandVettingInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: BrandVettingPage) => any
-  ): Promise<BrandVettingPage>;
+  list(
+    params: BrandVettingListInstanceOptions,
+    callback?: (error: Error | null, items: BrandVettingInstance[]) => any
+  ): Promise<BrandVettingInstance[]>;
   /**
    * Retrieve a single page of BrandVettingInstance records from the API.
    *
@@ -430,10 +377,12 @@ export interface BrandVettingListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
+    callback?: (error: Error | null, items: BrandVettingPage) => any
+  ): Promise<BrandVettingPage>;
+  page(
     params: BrandVettingListInstancePageOptions,
     callback?: (error: Error | null, items: BrandVettingPage) => any
   ): Promise<BrandVettingPage>;
-  page(params?: any, callback?: any): Promise<BrandVettingPage>;
 
   /**
    * Provide a user-friendly representation
@@ -462,8 +411,8 @@ export function BrandVettingListInstance(
   instance._uri = `/a2p/BrandRegistrations/${brandSid}/Vettings`;
 
   instance.create = function create(
-    params: any,
-    callback?: any
+    params: BrandVettingListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: BrandVettingInstance) => any
   ): Promise<BrandVettingInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -512,11 +461,16 @@ export function BrandVettingListInstance(
   };
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | BrandVettingListInstancePageOptions
+      | ((error: Error | null, item?: BrandVettingPage) => any),
+    callback?: (error: Error | null, item?: BrandVettingPage) => any
   ): Promise<BrandVettingPage> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (
+        error: Error | null,
+        item?: BrandVettingPage
+      ) => any;
       params = {};
     } else {
       params = params || {};
@@ -528,7 +482,7 @@ export function BrandVettingListInstance(
       data["VettingProvider"] = params["vettingProvider"];
     if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
@@ -556,8 +510,8 @@ export function BrandVettingListInstance(
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: BrandVettingPage) => any
   ): Promise<BrandVettingPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",

@@ -60,7 +60,6 @@ export interface DefaultsContext {
     params: DefaultsContextUpdateOptions,
     callback?: (error: Error | null, item?: DefaultsInstance) => any
   ): Promise<DefaultsInstance>;
-  update(params?: any, callback?: any): Promise<DefaultsInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -86,7 +85,9 @@ export class DefaultsContextImpl implements DefaultsContext {
     this._uri = `/Assistants/${assistantSid}/Defaults`;
   }
 
-  fetch(callback?: any): Promise<DefaultsInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: DefaultsInstance) => any
+  ): Promise<DefaultsInstance> {
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
@@ -110,9 +111,17 @@ export class DefaultsContextImpl implements DefaultsContext {
     return operationPromise;
   }
 
-  update(params?: any, callback?: any): Promise<DefaultsInstance> {
+  update(
+    params?:
+      | DefaultsContextUpdateOptions
+      | ((error: Error | null, item?: DefaultsInstance) => any),
+    callback?: (error: Error | null, item?: DefaultsInstance) => any
+  ): Promise<DefaultsInstance> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (
+        error: Error | null,
+        item?: DefaultsInstance
+      ) => any;
       params = {};
     } else {
       params = params || {};
@@ -250,7 +259,11 @@ export class DefaultsInstance {
     params: DefaultsContextUpdateOptions,
     callback?: (error: Error | null, item?: DefaultsInstance) => any
   ): Promise<DefaultsInstance>;
-  update(params?: any, callback?: any): Promise<DefaultsInstance> {
+
+  update(
+    params?: any,
+    callback?: (error: Error | null, item?: DefaultsInstance) => any
+  ): Promise<DefaultsInstance> {
     return this._proxy.update(params, callback);
   }
 

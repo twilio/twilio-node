@@ -121,7 +121,9 @@ export class NotificationContextImpl implements NotificationContext {
     this._uri = `/Accounts/${accountSid}/Notifications/${sid}.json`;
   }
 
-  fetch(callback?: any): Promise<NotificationInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: NotificationInstance) => any
+  ): Promise<NotificationInstance> {
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
@@ -372,71 +374,28 @@ export interface NotificationListInstance {
    * If a function is passed as the first argument, it will be used as the callback
    * function.
    *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (item: NotificationInstance, done: (err?: Error) => void) => void
-  ): void;
-  /**
-   * Streams NotificationInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
    * @param { NotificationListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: NotificationListInstanceEachOptions,
     callback?: (item: NotificationInstance, done: (err?: Error) => void) => void
   ): void;
-  each(params?: any, callback?: any): void;
+  each(
+    params: NotificationListInstanceEachOptions,
+    callback?: (item: NotificationInstance, done: (err?: Error) => void) => void
+  ): void;
   /**
    * Retrieve a single target page of NotificationInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: NotificationPage) => any
-  ): Promise<NotificationPage>;
-  /**
-   * Retrieve a single target page of NotificationInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: NotificationPage) => any
   ): Promise<NotificationPage>;
-  getPage(params?: any, callback?: any): Promise<NotificationPage>;
-  /**
-   * Lists NotificationInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: NotificationInstance[]) => any
-  ): Promise<NotificationInstance[]>;
   /**
    * Lists NotificationInstance records from the API as a list.
    *
@@ -447,23 +406,12 @@ export interface NotificationListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: NotificationListInstanceOptions,
     callback?: (error: Error | null, items: NotificationInstance[]) => any
   ): Promise<NotificationInstance[]>;
-  list(params?: any, callback?: any): Promise<NotificationInstance[]>;
-  /**
-   * Retrieve a single page of NotificationInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: NotificationPage) => any
-  ): Promise<NotificationPage>;
+  list(
+    params: NotificationListInstanceOptions,
+    callback?: (error: Error | null, items: NotificationInstance[]) => any
+  ): Promise<NotificationInstance[]>;
   /**
    * Retrieve a single page of NotificationInstance records from the API.
    *
@@ -476,10 +424,12 @@ export interface NotificationListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
+    callback?: (error: Error | null, items: NotificationPage) => any
+  ): Promise<NotificationPage>;
+  page(
     params: NotificationListInstancePageOptions,
     callback?: (error: Error | null, items: NotificationPage) => any
   ): Promise<NotificationPage>;
-  page(params?: any, callback?: any): Promise<NotificationPage>;
 
   /**
    * Provide a user-friendly representation
@@ -507,11 +457,16 @@ export function NotificationListInstance(
   instance._uri = `/Accounts/${accountSid}/Notifications.json`;
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | NotificationListInstancePageOptions
+      | ((error: Error | null, item?: NotificationPage) => any),
+    callback?: (error: Error | null, item?: NotificationPage) => any
   ): Promise<NotificationPage> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (
+        error: Error | null,
+        item?: NotificationPage
+      ) => any;
       params = {};
     } else {
       params = params || {};
@@ -528,7 +483,7 @@ export function NotificationListInstance(
       data["MessageDate>"] = serialize.iso8601Date(params["messageDateAfter"]);
     if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
@@ -556,8 +511,8 @@ export function NotificationListInstance(
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: NotificationPage) => any
   ): Promise<NotificationPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",

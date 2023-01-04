@@ -111,7 +111,6 @@ export interface SourceIpMappingContext {
     params: SourceIpMappingContextUpdateOptions,
     callback?: (error: Error | null, item?: SourceIpMappingInstance) => any
   ): Promise<SourceIpMappingInstance>;
-  update(params: any, callback?: any): Promise<SourceIpMappingInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -137,7 +136,9 @@ export class SourceIpMappingContextImpl implements SourceIpMappingContext {
     this._uri = `/SourceIpMappings/${sid}`;
   }
 
-  remove(callback?: any): Promise<boolean> {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
@@ -152,7 +153,9 @@ export class SourceIpMappingContextImpl implements SourceIpMappingContext {
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<SourceIpMappingInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: SourceIpMappingInstance) => any
+  ): Promise<SourceIpMappingInstance> {
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
@@ -176,7 +179,12 @@ export class SourceIpMappingContextImpl implements SourceIpMappingContext {
     return operationPromise;
   }
 
-  update(params: any, callback?: any): Promise<SourceIpMappingInstance> {
+  update(
+    params:
+      | SourceIpMappingContextUpdateOptions
+      | ((error: Error | null, item?: SourceIpMappingInstance) => any),
+    callback?: (error: Error | null, item?: SourceIpMappingInstance) => any
+  ): Promise<SourceIpMappingInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
@@ -336,7 +344,11 @@ export class SourceIpMappingInstance {
     params: SourceIpMappingContextUpdateOptions,
     callback?: (error: Error | null, item?: SourceIpMappingInstance) => any
   ): Promise<SourceIpMappingInstance>;
-  update(params: any, callback?: any): Promise<SourceIpMappingInstance> {
+
+  update(
+    params?: any,
+    callback?: (error: Error | null, item?: SourceIpMappingInstance) => any
+  ): Promise<SourceIpMappingInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -383,28 +395,7 @@ export interface SourceIpMappingListInstance {
     params: SourceIpMappingListInstanceCreateOptions,
     callback?: (error: Error | null, item?: SourceIpMappingInstance) => any
   ): Promise<SourceIpMappingInstance>;
-  create(params: any, callback?: any): Promise<SourceIpMappingInstance>;
 
-  /**
-   * Streams SourceIpMappingInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (
-      item: SourceIpMappingInstance,
-      done: (err?: Error) => void
-    ) => void
-  ): void;
   /**
    * Streams SourceIpMappingInstance records from the API.
    *
@@ -421,53 +412,30 @@ export interface SourceIpMappingListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: SourceIpMappingListInstanceEachOptions,
     callback?: (
       item: SourceIpMappingInstance,
       done: (err?: Error) => void
     ) => void
   ): void;
-  each(params?: any, callback?: any): void;
+  each(
+    params: SourceIpMappingListInstanceEachOptions,
+    callback?: (
+      item: SourceIpMappingInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
   /**
    * Retrieve a single target page of SourceIpMappingInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: SourceIpMappingPage) => any
-  ): Promise<SourceIpMappingPage>;
-  /**
-   * Retrieve a single target page of SourceIpMappingInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: SourceIpMappingPage) => any
   ): Promise<SourceIpMappingPage>;
-  getPage(params?: any, callback?: any): Promise<SourceIpMappingPage>;
-  /**
-   * Lists SourceIpMappingInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: SourceIpMappingInstance[]) => any
-  ): Promise<SourceIpMappingInstance[]>;
   /**
    * Lists SourceIpMappingInstance records from the API as a list.
    *
@@ -478,23 +446,12 @@ export interface SourceIpMappingListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: SourceIpMappingListInstanceOptions,
     callback?: (error: Error | null, items: SourceIpMappingInstance[]) => any
   ): Promise<SourceIpMappingInstance[]>;
-  list(params?: any, callback?: any): Promise<SourceIpMappingInstance[]>;
-  /**
-   * Retrieve a single page of SourceIpMappingInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: SourceIpMappingPage) => any
-  ): Promise<SourceIpMappingPage>;
+  list(
+    params: SourceIpMappingListInstanceOptions,
+    callback?: (error: Error | null, items: SourceIpMappingInstance[]) => any
+  ): Promise<SourceIpMappingInstance[]>;
   /**
    * Retrieve a single page of SourceIpMappingInstance records from the API.
    *
@@ -507,10 +464,12 @@ export interface SourceIpMappingListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
+    callback?: (error: Error | null, items: SourceIpMappingPage) => any
+  ): Promise<SourceIpMappingPage>;
+  page(
     params: SourceIpMappingListInstancePageOptions,
     callback?: (error: Error | null, items: SourceIpMappingPage) => any
   ): Promise<SourceIpMappingPage>;
-  page(params?: any, callback?: any): Promise<SourceIpMappingPage>;
 
   /**
    * Provide a user-friendly representation
@@ -533,8 +492,8 @@ export function SourceIpMappingListInstance(
   instance._uri = `/SourceIpMappings`;
 
   instance.create = function create(
-    params: any,
-    callback?: any
+    params: SourceIpMappingListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: SourceIpMappingInstance) => any
   ): Promise<SourceIpMappingInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -580,11 +539,16 @@ export function SourceIpMappingListInstance(
   };
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | SourceIpMappingListInstancePageOptions
+      | ((error: Error | null, item?: SourceIpMappingPage) => any),
+    callback?: (error: Error | null, item?: SourceIpMappingPage) => any
   ): Promise<SourceIpMappingPage> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (
+        error: Error | null,
+        item?: SourceIpMappingPage
+      ) => any;
       params = {};
     } else {
       params = params || {};
@@ -594,7 +558,7 @@ export function SourceIpMappingListInstance(
 
     if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
@@ -622,8 +586,8 @@ export function SourceIpMappingListInstance(
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: SourceIpMappingPage) => any
   ): Promise<SourceIpMappingPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",

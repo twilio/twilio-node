@@ -55,10 +55,6 @@ export interface WorkersRealTimeStatisticsContext {
       item?: WorkersRealTimeStatisticsInstance
     ) => any
   ): Promise<WorkersRealTimeStatisticsInstance>;
-  fetch(
-    params?: any,
-    callback?: any
-  ): Promise<WorkersRealTimeStatisticsInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -87,11 +83,22 @@ export class WorkersRealTimeStatisticsContextImpl
   }
 
   fetch(
-    params?: any,
-    callback?: any
+    params?:
+      | WorkersRealTimeStatisticsContextFetchOptions
+      | ((
+          error: Error | null,
+          item?: WorkersRealTimeStatisticsInstance
+        ) => any),
+    callback?: (
+      error: Error | null,
+      item?: WorkersRealTimeStatisticsInstance
+    ) => any
   ): Promise<WorkersRealTimeStatisticsInstance> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (
+        error: Error | null,
+        item?: WorkersRealTimeStatisticsInstance
+      ) => any;
       params = {};
     } else {
       params = params || {};
@@ -231,9 +238,13 @@ export class WorkersRealTimeStatisticsInstance {
       item?: WorkersRealTimeStatisticsInstance
     ) => any
   ): Promise<WorkersRealTimeStatisticsInstance>;
+
   fetch(
     params?: any,
-    callback?: any
+    callback?: (
+      error: Error | null,
+      item?: WorkersRealTimeStatisticsInstance
+    ) => any
   ): Promise<WorkersRealTimeStatisticsInstance> {
     return this._proxy.fetch(params, callback);
   }

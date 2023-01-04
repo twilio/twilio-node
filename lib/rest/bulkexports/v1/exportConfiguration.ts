@@ -64,7 +64,6 @@ export interface ExportConfigurationContext {
     params: ExportConfigurationContextUpdateOptions,
     callback?: (error: Error | null, item?: ExportConfigurationInstance) => any
   ): Promise<ExportConfigurationInstance>;
-  update(params?: any, callback?: any): Promise<ExportConfigurationInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -92,7 +91,9 @@ export class ExportConfigurationContextImpl
     this._uri = `/Exports/${resourceType}/Configuration`;
   }
 
-  fetch(callback?: any): Promise<ExportConfigurationInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: ExportConfigurationInstance) => any
+  ): Promise<ExportConfigurationInstance> {
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
@@ -116,9 +117,17 @@ export class ExportConfigurationContextImpl
     return operationPromise;
   }
 
-  update(params?: any, callback?: any): Promise<ExportConfigurationInstance> {
+  update(
+    params?:
+      | ExportConfigurationContextUpdateOptions
+      | ((error: Error | null, item?: ExportConfigurationInstance) => any),
+    callback?: (error: Error | null, item?: ExportConfigurationInstance) => any
+  ): Promise<ExportConfigurationInstance> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (
+        error: Error | null,
+        item?: ExportConfigurationInstance
+      ) => any;
       params = {};
     } else {
       params = params || {};
@@ -269,7 +278,11 @@ export class ExportConfigurationInstance {
     params: ExportConfigurationContextUpdateOptions,
     callback?: (error: Error | null, item?: ExportConfigurationInstance) => any
   ): Promise<ExportConfigurationInstance>;
-  update(params?: any, callback?: any): Promise<ExportConfigurationInstance> {
+
+  update(
+    params?: any,
+    callback?: (error: Error | null, item?: ExportConfigurationInstance) => any
+  ): Promise<ExportConfigurationInstance> {
     return this._proxy.update(params, callback);
   }
 

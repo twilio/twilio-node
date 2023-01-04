@@ -59,7 +59,6 @@ export interface TokenListInstance {
     params: TokenListInstanceCreateOptions,
     callback?: (error: Error | null, item?: TokenInstance) => any
   ): Promise<TokenInstance>;
-  create(params: any, callback?: any): Promise<TokenInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -76,8 +75,8 @@ export function TokenListInstance(version: V1): TokenListInstance {
   instance._uri = `/token`;
 
   instance.create = function create(
-    params: any,
-    callback?: any
+    params: TokenListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: TokenInstance) => any
   ): Promise<TokenInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');

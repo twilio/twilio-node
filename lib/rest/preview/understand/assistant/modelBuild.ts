@@ -125,7 +125,6 @@ export interface ModelBuildContext {
     params: ModelBuildContextUpdateOptions,
     callback?: (error: Error | null, item?: ModelBuildInstance) => any
   ): Promise<ModelBuildInstance>;
-  update(params?: any, callback?: any): Promise<ModelBuildInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -160,7 +159,9 @@ export class ModelBuildContextImpl implements ModelBuildContext {
     this._uri = `/Assistants/${assistantSid}/ModelBuilds/${sid}`;
   }
 
-  remove(callback?: any): Promise<boolean> {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
@@ -175,7 +176,9 @@ export class ModelBuildContextImpl implements ModelBuildContext {
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<ModelBuildInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: ModelBuildInstance) => any
+  ): Promise<ModelBuildInstance> {
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
@@ -200,9 +203,17 @@ export class ModelBuildContextImpl implements ModelBuildContext {
     return operationPromise;
   }
 
-  update(params?: any, callback?: any): Promise<ModelBuildInstance> {
+  update(
+    params?:
+      | ModelBuildContextUpdateOptions
+      | ((error: Error | null, item?: ModelBuildInstance) => any),
+    callback?: (error: Error | null, item?: ModelBuildInstance) => any
+  ): Promise<ModelBuildInstance> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (
+        error: Error | null,
+        item?: ModelBuildInstance
+      ) => any;
       params = {};
     } else {
       params = params || {};
@@ -388,7 +399,11 @@ export class ModelBuildInstance {
     params: ModelBuildContextUpdateOptions,
     callback?: (error: Error | null, item?: ModelBuildInstance) => any
   ): Promise<ModelBuildInstance>;
-  update(params?: any, callback?: any): Promise<ModelBuildInstance> {
+
+  update(
+    params?: any,
+    callback?: (error: Error | null, item?: ModelBuildInstance) => any
+  ): Promise<ModelBuildInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -451,25 +466,7 @@ export interface ModelBuildListInstance {
     params: ModelBuildListInstanceCreateOptions,
     callback?: (error: Error | null, item?: ModelBuildInstance) => any
   ): Promise<ModelBuildInstance>;
-  create(params?: any, callback?: any): Promise<ModelBuildInstance>;
 
-  /**
-   * Streams ModelBuildInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (item: ModelBuildInstance, done: (err?: Error) => void) => void
-  ): void;
   /**
    * Streams ModelBuildInstance records from the API.
    *
@@ -486,50 +483,24 @@ export interface ModelBuildListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: ModelBuildListInstanceEachOptions,
     callback?: (item: ModelBuildInstance, done: (err?: Error) => void) => void
   ): void;
-  each(params?: any, callback?: any): void;
+  each(
+    params: ModelBuildListInstanceEachOptions,
+    callback?: (item: ModelBuildInstance, done: (err?: Error) => void) => void
+  ): void;
   /**
    * Retrieve a single target page of ModelBuildInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: ModelBuildPage) => any
-  ): Promise<ModelBuildPage>;
-  /**
-   * Retrieve a single target page of ModelBuildInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: ModelBuildPage) => any
   ): Promise<ModelBuildPage>;
-  getPage(params?: any, callback?: any): Promise<ModelBuildPage>;
-  /**
-   * Lists ModelBuildInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: ModelBuildInstance[]) => any
-  ): Promise<ModelBuildInstance[]>;
   /**
    * Lists ModelBuildInstance records from the API as a list.
    *
@@ -540,23 +511,12 @@ export interface ModelBuildListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: ModelBuildListInstanceOptions,
     callback?: (error: Error | null, items: ModelBuildInstance[]) => any
   ): Promise<ModelBuildInstance[]>;
-  list(params?: any, callback?: any): Promise<ModelBuildInstance[]>;
-  /**
-   * Retrieve a single page of ModelBuildInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: ModelBuildPage) => any
-  ): Promise<ModelBuildPage>;
+  list(
+    params: ModelBuildListInstanceOptions,
+    callback?: (error: Error | null, items: ModelBuildInstance[]) => any
+  ): Promise<ModelBuildInstance[]>;
   /**
    * Retrieve a single page of ModelBuildInstance records from the API.
    *
@@ -569,10 +529,12 @@ export interface ModelBuildListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
+    callback?: (error: Error | null, items: ModelBuildPage) => any
+  ): Promise<ModelBuildPage>;
+  page(
     params: ModelBuildListInstancePageOptions,
     callback?: (error: Error | null, items: ModelBuildPage) => any
   ): Promise<ModelBuildPage>;
-  page(params?: any, callback?: any): Promise<ModelBuildPage>;
 
   /**
    * Provide a user-friendly representation
@@ -600,11 +562,16 @@ export function ModelBuildListInstance(
   instance._uri = `/Assistants/${assistantSid}/ModelBuilds`;
 
   instance.create = function create(
-    params?: any,
-    callback?: any
+    params?:
+      | ModelBuildListInstanceCreateOptions
+      | ((error: Error | null, item?: ModelBuildInstance) => any),
+    callback?: (error: Error | null, item?: ModelBuildInstance) => any
   ): Promise<ModelBuildInstance> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (
+        error: Error | null,
+        item?: ModelBuildInstance
+      ) => any;
       params = {};
     } else {
       params = params || {};
@@ -645,11 +612,13 @@ export function ModelBuildListInstance(
   };
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | ModelBuildListInstancePageOptions
+      | ((error: Error | null, item?: ModelBuildPage) => any),
+    callback?: (error: Error | null, item?: ModelBuildPage) => any
   ): Promise<ModelBuildPage> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (error: Error | null, item?: ModelBuildPage) => any;
       params = {};
     } else {
       params = params || {};
@@ -659,7 +628,7 @@ export function ModelBuildListInstance(
 
     if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
@@ -687,8 +656,8 @@ export function ModelBuildListInstance(
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: ModelBuildPage) => any
   ): Promise<ModelBuildPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",

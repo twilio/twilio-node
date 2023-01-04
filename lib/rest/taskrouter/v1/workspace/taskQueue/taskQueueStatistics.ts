@@ -57,7 +57,6 @@ export interface TaskQueueStatisticsContext {
     params: TaskQueueStatisticsContextFetchOptions,
     callback?: (error: Error | null, item?: TaskQueueStatisticsInstance) => any
   ): Promise<TaskQueueStatisticsInstance>;
-  fetch(params?: any, callback?: any): Promise<TaskQueueStatisticsInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -94,9 +93,17 @@ export class TaskQueueStatisticsContextImpl
     this._uri = `/Workspaces/${workspaceSid}/TaskQueues/${taskQueueSid}/Statistics`;
   }
 
-  fetch(params?: any, callback?: any): Promise<TaskQueueStatisticsInstance> {
+  fetch(
+    params?:
+      | TaskQueueStatisticsContextFetchOptions
+      | ((error: Error | null, item?: TaskQueueStatisticsInstance) => any),
+    callback?: (error: Error | null, item?: TaskQueueStatisticsInstance) => any
+  ): Promise<TaskQueueStatisticsInstance> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (
+        error: Error | null,
+        item?: TaskQueueStatisticsInstance
+      ) => any;
       params = {};
     } else {
       params = params || {};
@@ -245,7 +252,11 @@ export class TaskQueueStatisticsInstance {
     params: TaskQueueStatisticsContextFetchOptions,
     callback?: (error: Error | null, item?: TaskQueueStatisticsInstance) => any
   ): Promise<TaskQueueStatisticsInstance>;
-  fetch(params?: any, callback?: any): Promise<TaskQueueStatisticsInstance> {
+
+  fetch(
+    params?: any,
+    callback?: (error: Error | null, item?: TaskQueueStatisticsInstance) => any
+  ): Promise<TaskQueueStatisticsInstance> {
     return this._proxy.fetch(params, callback);
   }
 

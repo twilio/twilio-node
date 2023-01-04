@@ -112,7 +112,6 @@ export interface IpAccessControlListContext {
     params: IpAccessControlListContextUpdateOptions,
     callback?: (error: Error | null, item?: IpAccessControlListInstance) => any
   ): Promise<IpAccessControlListInstance>;
-  update(params: any, callback?: any): Promise<IpAccessControlListInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -158,7 +157,9 @@ export class IpAccessControlListContextImpl
     return this._ipAddresses;
   }
 
-  remove(callback?: any): Promise<boolean> {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
@@ -173,7 +174,9 @@ export class IpAccessControlListContextImpl
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<IpAccessControlListInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: IpAccessControlListInstance) => any
+  ): Promise<IpAccessControlListInstance> {
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
@@ -198,7 +201,12 @@ export class IpAccessControlListContextImpl
     return operationPromise;
   }
 
-  update(params: any, callback?: any): Promise<IpAccessControlListInstance> {
+  update(
+    params:
+      | IpAccessControlListContextUpdateOptions
+      | ((error: Error | null, item?: IpAccessControlListInstance) => any),
+    callback?: (error: Error | null, item?: IpAccessControlListInstance) => any
+  ): Promise<IpAccessControlListInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
@@ -370,7 +378,11 @@ export class IpAccessControlListInstance {
     params: IpAccessControlListContextUpdateOptions,
     callback?: (error: Error | null, item?: IpAccessControlListInstance) => any
   ): Promise<IpAccessControlListInstance>;
-  update(params: any, callback?: any): Promise<IpAccessControlListInstance> {
+
+  update(
+    params?: any,
+    callback?: (error: Error | null, item?: IpAccessControlListInstance) => any
+  ): Promise<IpAccessControlListInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -427,28 +439,7 @@ export interface IpAccessControlListListInstance {
     params: IpAccessControlListListInstanceCreateOptions,
     callback?: (error: Error | null, item?: IpAccessControlListInstance) => any
   ): Promise<IpAccessControlListInstance>;
-  create(params: any, callback?: any): Promise<IpAccessControlListInstance>;
 
-  /**
-   * Streams IpAccessControlListInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (
-      item: IpAccessControlListInstance,
-      done: (err?: Error) => void
-    ) => void
-  ): void;
   /**
    * Streams IpAccessControlListInstance records from the API.
    *
@@ -465,56 +456,30 @@ export interface IpAccessControlListListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: IpAccessControlListListInstanceEachOptions,
     callback?: (
       item: IpAccessControlListInstance,
       done: (err?: Error) => void
     ) => void
   ): void;
-  each(params?: any, callback?: any): void;
+  each(
+    params: IpAccessControlListListInstanceEachOptions,
+    callback?: (
+      item: IpAccessControlListInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
   /**
    * Retrieve a single target page of IpAccessControlListInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: IpAccessControlListPage) => any
-  ): Promise<IpAccessControlListPage>;
-  /**
-   * Retrieve a single target page of IpAccessControlListInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: IpAccessControlListPage) => any
   ): Promise<IpAccessControlListPage>;
-  getPage(params?: any, callback?: any): Promise<IpAccessControlListPage>;
-  /**
-   * Lists IpAccessControlListInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (
-      error: Error | null,
-      items: IpAccessControlListInstance[]
-    ) => any
-  ): Promise<IpAccessControlListInstance[]>;
   /**
    * Lists IpAccessControlListInstance records from the API as a list.
    *
@@ -525,26 +490,18 @@ export interface IpAccessControlListListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: IpAccessControlListListInstanceOptions,
     callback?: (
       error: Error | null,
       items: IpAccessControlListInstance[]
     ) => any
   ): Promise<IpAccessControlListInstance[]>;
-  list(params?: any, callback?: any): Promise<IpAccessControlListInstance[]>;
-  /**
-   * Retrieve a single page of IpAccessControlListInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: IpAccessControlListPage) => any
-  ): Promise<IpAccessControlListPage>;
+  list(
+    params: IpAccessControlListListInstanceOptions,
+    callback?: (
+      error: Error | null,
+      items: IpAccessControlListInstance[]
+    ) => any
+  ): Promise<IpAccessControlListInstance[]>;
   /**
    * Retrieve a single page of IpAccessControlListInstance records from the API.
    *
@@ -557,10 +514,12 @@ export interface IpAccessControlListListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
+    callback?: (error: Error | null, items: IpAccessControlListPage) => any
+  ): Promise<IpAccessControlListPage>;
+  page(
     params: IpAccessControlListListInstancePageOptions,
     callback?: (error: Error | null, items: IpAccessControlListPage) => any
   ): Promise<IpAccessControlListPage>;
-  page(params?: any, callback?: any): Promise<IpAccessControlListPage>;
 
   /**
    * Provide a user-friendly representation
@@ -589,8 +548,8 @@ export function IpAccessControlListListInstance(
   instance._uri = `/Accounts/${accountSid}/SIP/IpAccessControlLists.json`;
 
   instance.create = function create(
-    params: any,
-    callback?: any
+    params: IpAccessControlListListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: IpAccessControlListInstance) => any
   ): Promise<IpAccessControlListInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -635,11 +594,16 @@ export function IpAccessControlListListInstance(
   };
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | IpAccessControlListListInstancePageOptions
+      | ((error: Error | null, item?: IpAccessControlListPage) => any),
+    callback?: (error: Error | null, item?: IpAccessControlListPage) => any
   ): Promise<IpAccessControlListPage> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (
+        error: Error | null,
+        item?: IpAccessControlListPage
+      ) => any;
       params = {};
     } else {
       params = params || {};
@@ -649,7 +613,7 @@ export function IpAccessControlListListInstance(
 
     if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
@@ -681,8 +645,8 @@ export function IpAccessControlListListInstance(
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: IpAccessControlListPage) => any
   ): Promise<IpAccessControlListPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",

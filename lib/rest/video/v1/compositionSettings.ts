@@ -49,7 +49,6 @@ export interface CompositionSettingsContext {
     params: CompositionSettingsContextCreateOptions,
     callback?: (error: Error | null, item?: CompositionSettingsInstance) => any
   ): Promise<CompositionSettingsInstance>;
-  create(params: any, callback?: any): Promise<CompositionSettingsInstance>;
 
   /**
    * Fetch a CompositionSettingsInstance
@@ -82,7 +81,12 @@ export class CompositionSettingsContextImpl
     this._uri = `/CompositionSettings/Default`;
   }
 
-  create(params: any, callback?: any): Promise<CompositionSettingsInstance> {
+  create(
+    params:
+      | CompositionSettingsContextCreateOptions
+      | ((error: Error | null, item?: CompositionSettingsInstance) => any),
+    callback?: (error: Error | null, item?: CompositionSettingsInstance) => any
+  ): Promise<CompositionSettingsInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
@@ -130,7 +134,9 @@ export class CompositionSettingsContextImpl
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<CompositionSettingsInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: CompositionSettingsInstance) => any
+  ): Promise<CompositionSettingsInstance> {
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
@@ -244,7 +250,11 @@ export class CompositionSettingsInstance {
     params: CompositionSettingsContextCreateOptions,
     callback?: (error: Error | null, item?: CompositionSettingsInstance) => any
   ): Promise<CompositionSettingsInstance>;
-  create(params: any, callback?: any): Promise<CompositionSettingsInstance> {
+
+  create(
+    params?: any,
+    callback?: (error: Error | null, item?: CompositionSettingsInstance) => any
+  ): Promise<CompositionSettingsInstance> {
     return this._proxy.create(params, callback);
   }
 

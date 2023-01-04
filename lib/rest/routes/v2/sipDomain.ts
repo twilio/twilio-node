@@ -62,7 +62,6 @@ export interface SipDomainContext {
     params: SipDomainContextUpdateOptions,
     callback?: (error: Error | null, item?: SipDomainInstance) => any
   ): Promise<SipDomainInstance>;
-  update(params?: any, callback?: any): Promise<SipDomainInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -88,7 +87,9 @@ export class SipDomainContextImpl implements SipDomainContext {
     this._uri = `/SipDomains/${sipDomain}`;
   }
 
-  fetch(callback?: any): Promise<SipDomainInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: SipDomainInstance) => any
+  ): Promise<SipDomainInstance> {
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
@@ -112,9 +113,17 @@ export class SipDomainContextImpl implements SipDomainContext {
     return operationPromise;
   }
 
-  update(params?: any, callback?: any): Promise<SipDomainInstance> {
+  update(
+    params?:
+      | SipDomainContextUpdateOptions
+      | ((error: Error | null, item?: SipDomainInstance) => any),
+    callback?: (error: Error | null, item?: SipDomainInstance) => any
+  ): Promise<SipDomainInstance> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (
+        error: Error | null,
+        item?: SipDomainInstance
+      ) => any;
       params = {};
     } else {
       params = params || {};
@@ -254,7 +263,11 @@ export class SipDomainInstance {
     params: SipDomainContextUpdateOptions,
     callback?: (error: Error | null, item?: SipDomainInstance) => any
   ): Promise<SipDomainInstance>;
-  update(params?: any, callback?: any): Promise<SipDomainInstance> {
+
+  update(
+    params?: any,
+    callback?: (error: Error | null, item?: SipDomainInstance) => any
+  ): Promise<SipDomainInstance> {
     return this._proxy.update(params, callback);
   }
 

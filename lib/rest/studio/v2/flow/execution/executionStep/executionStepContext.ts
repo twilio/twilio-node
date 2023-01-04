@@ -71,7 +71,9 @@ export class ExecutionStepContextContextImpl
     this._uri = `/Flows/${flowSid}/Executions/${executionSid}/Steps/${stepSid}/Context`;
   }
 
-  fetch(callback?: any): Promise<ExecutionStepContextInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: ExecutionStepContextInstance) => any
+  ): Promise<ExecutionStepContextInstance> {
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({

@@ -112,7 +112,9 @@ export class RegulationContextImpl implements RegulationContext {
     this._uri = `/RegulatoryCompliance/Regulations/${sid}`;
   }
 
-  fetch(callback?: any): Promise<RegulationInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: RegulationInstance) => any
+  ): Promise<RegulationInstance> {
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
@@ -274,71 +276,28 @@ export interface RegulationListInstance {
    * If a function is passed as the first argument, it will be used as the callback
    * function.
    *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (item: RegulationInstance, done: (err?: Error) => void) => void
-  ): void;
-  /**
-   * Streams RegulationInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
    * @param { RegulationListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: RegulationListInstanceEachOptions,
     callback?: (item: RegulationInstance, done: (err?: Error) => void) => void
   ): void;
-  each(params?: any, callback?: any): void;
+  each(
+    params: RegulationListInstanceEachOptions,
+    callback?: (item: RegulationInstance, done: (err?: Error) => void) => void
+  ): void;
   /**
    * Retrieve a single target page of RegulationInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: RegulationPage) => any
-  ): Promise<RegulationPage>;
-  /**
-   * Retrieve a single target page of RegulationInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: RegulationPage) => any
   ): Promise<RegulationPage>;
-  getPage(params?: any, callback?: any): Promise<RegulationPage>;
-  /**
-   * Lists RegulationInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: RegulationInstance[]) => any
-  ): Promise<RegulationInstance[]>;
   /**
    * Lists RegulationInstance records from the API as a list.
    *
@@ -349,23 +308,12 @@ export interface RegulationListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: RegulationListInstanceOptions,
     callback?: (error: Error | null, items: RegulationInstance[]) => any
   ): Promise<RegulationInstance[]>;
-  list(params?: any, callback?: any): Promise<RegulationInstance[]>;
-  /**
-   * Retrieve a single page of RegulationInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: RegulationPage) => any
-  ): Promise<RegulationPage>;
+  list(
+    params: RegulationListInstanceOptions,
+    callback?: (error: Error | null, items: RegulationInstance[]) => any
+  ): Promise<RegulationInstance[]>;
   /**
    * Retrieve a single page of RegulationInstance records from the API.
    *
@@ -378,10 +326,12 @@ export interface RegulationListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
+    callback?: (error: Error | null, items: RegulationPage) => any
+  ): Promise<RegulationPage>;
+  page(
     params: RegulationListInstancePageOptions,
     callback?: (error: Error | null, items: RegulationPage) => any
   ): Promise<RegulationPage>;
-  page(params?: any, callback?: any): Promise<RegulationPage>;
 
   /**
    * Provide a user-friendly representation
@@ -402,11 +352,13 @@ export function RegulationListInstance(version: V2): RegulationListInstance {
   instance._uri = `/RegulatoryCompliance/Regulations`;
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | RegulationListInstancePageOptions
+      | ((error: Error | null, item?: RegulationPage) => any),
+    callback?: (error: Error | null, item?: RegulationPage) => any
   ): Promise<RegulationPage> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (error: Error | null, item?: RegulationPage) => any;
       params = {};
     } else {
       params = params || {};
@@ -422,7 +374,7 @@ export function RegulationListInstance(version: V2): RegulationListInstance {
       data["NumberType"] = params["numberType"];
     if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
@@ -450,8 +402,8 @@ export function RegulationListInstance(version: V2): RegulationListInstance {
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: RegulationPage) => any
   ): Promise<RegulationPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",

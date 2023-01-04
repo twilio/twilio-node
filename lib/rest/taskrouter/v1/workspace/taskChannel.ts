@@ -122,7 +122,6 @@ export interface TaskChannelContext {
     params: TaskChannelContextUpdateOptions,
     callback?: (error: Error | null, item?: TaskChannelInstance) => any
   ): Promise<TaskChannelInstance>;
-  update(params?: any, callback?: any): Promise<TaskChannelInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -153,7 +152,9 @@ export class TaskChannelContextImpl implements TaskChannelContext {
     this._uri = `/Workspaces/${workspaceSid}/TaskChannels/${sid}`;
   }
 
-  remove(callback?: any): Promise<boolean> {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
@@ -168,7 +169,9 @@ export class TaskChannelContextImpl implements TaskChannelContext {
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<TaskChannelInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: TaskChannelInstance) => any
+  ): Promise<TaskChannelInstance> {
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
@@ -193,9 +196,17 @@ export class TaskChannelContextImpl implements TaskChannelContext {
     return operationPromise;
   }
 
-  update(params?: any, callback?: any): Promise<TaskChannelInstance> {
+  update(
+    params?:
+      | TaskChannelContextUpdateOptions
+      | ((error: Error | null, item?: TaskChannelInstance) => any),
+    callback?: (error: Error | null, item?: TaskChannelInstance) => any
+  ): Promise<TaskChannelInstance> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (
+        error: Error | null,
+        item?: TaskChannelInstance
+      ) => any;
       params = {};
     } else {
       params = params || {};
@@ -394,7 +405,11 @@ export class TaskChannelInstance {
     params: TaskChannelContextUpdateOptions,
     callback?: (error: Error | null, item?: TaskChannelInstance) => any
   ): Promise<TaskChannelInstance>;
-  update(params?: any, callback?: any): Promise<TaskChannelInstance> {
+
+  update(
+    params?: any,
+    callback?: (error: Error | null, item?: TaskChannelInstance) => any
+  ): Promise<TaskChannelInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -447,25 +462,7 @@ export interface TaskChannelListInstance {
     params: TaskChannelListInstanceCreateOptions,
     callback?: (error: Error | null, item?: TaskChannelInstance) => any
   ): Promise<TaskChannelInstance>;
-  create(params: any, callback?: any): Promise<TaskChannelInstance>;
 
-  /**
-   * Streams TaskChannelInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (item: TaskChannelInstance, done: (err?: Error) => void) => void
-  ): void;
   /**
    * Streams TaskChannelInstance records from the API.
    *
@@ -482,50 +479,24 @@ export interface TaskChannelListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: TaskChannelListInstanceEachOptions,
     callback?: (item: TaskChannelInstance, done: (err?: Error) => void) => void
   ): void;
-  each(params?: any, callback?: any): void;
+  each(
+    params: TaskChannelListInstanceEachOptions,
+    callback?: (item: TaskChannelInstance, done: (err?: Error) => void) => void
+  ): void;
   /**
    * Retrieve a single target page of TaskChannelInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: TaskChannelPage) => any
-  ): Promise<TaskChannelPage>;
-  /**
-   * Retrieve a single target page of TaskChannelInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: TaskChannelPage) => any
   ): Promise<TaskChannelPage>;
-  getPage(params?: any, callback?: any): Promise<TaskChannelPage>;
-  /**
-   * Lists TaskChannelInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: TaskChannelInstance[]) => any
-  ): Promise<TaskChannelInstance[]>;
   /**
    * Lists TaskChannelInstance records from the API as a list.
    *
@@ -536,23 +507,12 @@ export interface TaskChannelListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: TaskChannelListInstanceOptions,
     callback?: (error: Error | null, items: TaskChannelInstance[]) => any
   ): Promise<TaskChannelInstance[]>;
-  list(params?: any, callback?: any): Promise<TaskChannelInstance[]>;
-  /**
-   * Retrieve a single page of TaskChannelInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: TaskChannelPage) => any
-  ): Promise<TaskChannelPage>;
+  list(
+    params: TaskChannelListInstanceOptions,
+    callback?: (error: Error | null, items: TaskChannelInstance[]) => any
+  ): Promise<TaskChannelInstance[]>;
   /**
    * Retrieve a single page of TaskChannelInstance records from the API.
    *
@@ -565,10 +525,12 @@ export interface TaskChannelListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
+    callback?: (error: Error | null, items: TaskChannelPage) => any
+  ): Promise<TaskChannelPage>;
+  page(
     params: TaskChannelListInstancePageOptions,
     callback?: (error: Error | null, items: TaskChannelPage) => any
   ): Promise<TaskChannelPage>;
-  page(params?: any, callback?: any): Promise<TaskChannelPage>;
 
   /**
    * Provide a user-friendly representation
@@ -596,8 +558,8 @@ export function TaskChannelListInstance(
   instance._uri = `/Workspaces/${workspaceSid}/TaskChannels`;
 
   instance.create = function create(
-    params: any,
-    callback?: any
+    params: TaskChannelListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: TaskChannelInstance) => any
   ): Promise<TaskChannelInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -652,11 +614,13 @@ export function TaskChannelListInstance(
   };
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | TaskChannelListInstancePageOptions
+      | ((error: Error | null, item?: TaskChannelPage) => any),
+    callback?: (error: Error | null, item?: TaskChannelPage) => any
   ): Promise<TaskChannelPage> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (error: Error | null, item?: TaskChannelPage) => any;
       params = {};
     } else {
       params = params || {};
@@ -666,7 +630,7 @@ export function TaskChannelListInstance(
 
     if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
@@ -694,8 +658,8 @@ export function TaskChannelListInstance(
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: TaskChannelPage) => any
   ): Promise<TaskChannelPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",

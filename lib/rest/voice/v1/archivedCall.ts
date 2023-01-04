@@ -59,7 +59,9 @@ export class ArchivedCallContextImpl implements ArchivedCallContext {
     this._uri = `/Archives/${date}/Calls/${sid}`;
   }
 
-  remove(callback?: any): Promise<boolean> {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.remove({

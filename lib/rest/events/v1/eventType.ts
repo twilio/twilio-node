@@ -98,7 +98,9 @@ export class EventTypeContextImpl implements EventTypeContext {
     this._uri = `/Types/${type}`;
   }
 
-  fetch(callback?: any): Promise<EventTypeInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: EventTypeInstance) => any
+  ): Promise<EventTypeInstance> {
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
@@ -260,71 +262,28 @@ export interface EventTypeListInstance {
    * If a function is passed as the first argument, it will be used as the callback
    * function.
    *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (item: EventTypeInstance, done: (err?: Error) => void) => void
-  ): void;
-  /**
-   * Streams EventTypeInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
    * @param { EventTypeListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: EventTypeListInstanceEachOptions,
     callback?: (item: EventTypeInstance, done: (err?: Error) => void) => void
   ): void;
-  each(params?: any, callback?: any): void;
+  each(
+    params: EventTypeListInstanceEachOptions,
+    callback?: (item: EventTypeInstance, done: (err?: Error) => void) => void
+  ): void;
   /**
    * Retrieve a single target page of EventTypeInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: EventTypePage) => any
-  ): Promise<EventTypePage>;
-  /**
-   * Retrieve a single target page of EventTypeInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: EventTypePage) => any
   ): Promise<EventTypePage>;
-  getPage(params?: any, callback?: any): Promise<EventTypePage>;
-  /**
-   * Lists EventTypeInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: EventTypeInstance[]) => any
-  ): Promise<EventTypeInstance[]>;
   /**
    * Lists EventTypeInstance records from the API as a list.
    *
@@ -335,23 +294,12 @@ export interface EventTypeListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: EventTypeListInstanceOptions,
     callback?: (error: Error | null, items: EventTypeInstance[]) => any
   ): Promise<EventTypeInstance[]>;
-  list(params?: any, callback?: any): Promise<EventTypeInstance[]>;
-  /**
-   * Retrieve a single page of EventTypeInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: EventTypePage) => any
-  ): Promise<EventTypePage>;
+  list(
+    params: EventTypeListInstanceOptions,
+    callback?: (error: Error | null, items: EventTypeInstance[]) => any
+  ): Promise<EventTypeInstance[]>;
   /**
    * Retrieve a single page of EventTypeInstance records from the API.
    *
@@ -364,10 +312,12 @@ export interface EventTypeListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
+    callback?: (error: Error | null, items: EventTypePage) => any
+  ): Promise<EventTypePage>;
+  page(
     params: EventTypeListInstancePageOptions,
     callback?: (error: Error | null, items: EventTypePage) => any
   ): Promise<EventTypePage>;
-  page(params?: any, callback?: any): Promise<EventTypePage>;
 
   /**
    * Provide a user-friendly representation
@@ -388,11 +338,13 @@ export function EventTypeListInstance(version: V1): EventTypeListInstance {
   instance._uri = `/Types`;
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | EventTypeListInstancePageOptions
+      | ((error: Error | null, item?: EventTypePage) => any),
+    callback?: (error: Error | null, item?: EventTypePage) => any
   ): Promise<EventTypePage> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (error: Error | null, item?: EventTypePage) => any;
       params = {};
     } else {
       params = params || {};
@@ -403,7 +355,7 @@ export function EventTypeListInstance(version: V1): EventTypeListInstance {
     if (params["schemaId"] !== undefined) data["SchemaId"] = params["schemaId"];
     if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
@@ -431,8 +383,8 @@ export function EventTypeListInstance(version: V1): EventTypeListInstance {
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: EventTypePage) => any
   ): Promise<EventTypePage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",

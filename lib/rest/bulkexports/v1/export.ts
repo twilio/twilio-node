@@ -76,7 +76,9 @@ export class ExportContextImpl implements ExportContext {
     return this._exportCustomJobs;
   }
 
-  fetch(callback?: any): Promise<ExportInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: ExportInstance) => any
+  ): Promise<ExportInstance> {
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({

@@ -138,7 +138,6 @@ export interface WebhookContext {
     params: WebhookContextUpdateOptions,
     callback?: (error: Error | null, item?: WebhookInstance) => any
   ): Promise<WebhookInstance>;
-  update(params?: any, callback?: any): Promise<WebhookInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -169,7 +168,9 @@ export class WebhookContextImpl implements WebhookContext {
     this._uri = `/Services/${serviceSid}/Webhooks/${sid}`;
   }
 
-  remove(callback?: any): Promise<boolean> {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
@@ -184,7 +185,9 @@ export class WebhookContextImpl implements WebhookContext {
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<WebhookInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: WebhookInstance) => any
+  ): Promise<WebhookInstance> {
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
@@ -209,9 +212,14 @@ export class WebhookContextImpl implements WebhookContext {
     return operationPromise;
   }
 
-  update(params?: any, callback?: any): Promise<WebhookInstance> {
+  update(
+    params?:
+      | WebhookContextUpdateOptions
+      | ((error: Error | null, item?: WebhookInstance) => any),
+    callback?: (error: Error | null, item?: WebhookInstance) => any
+  ): Promise<WebhookInstance> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (error: Error | null, item?: WebhookInstance) => any;
       params = {};
     } else {
       params = params || {};
@@ -415,7 +423,11 @@ export class WebhookInstance {
     params: WebhookContextUpdateOptions,
     callback?: (error: Error | null, item?: WebhookInstance) => any
   ): Promise<WebhookInstance>;
-  update(params?: any, callback?: any): Promise<WebhookInstance> {
+
+  update(
+    params?: any,
+    callback?: (error: Error | null, item?: WebhookInstance) => any
+  ): Promise<WebhookInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -470,25 +482,7 @@ export interface WebhookListInstance {
     params: WebhookListInstanceCreateOptions,
     callback?: (error: Error | null, item?: WebhookInstance) => any
   ): Promise<WebhookInstance>;
-  create(params: any, callback?: any): Promise<WebhookInstance>;
 
-  /**
-   * Streams WebhookInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (item: WebhookInstance, done: (err?: Error) => void) => void
-  ): void;
   /**
    * Streams WebhookInstance records from the API.
    *
@@ -505,50 +499,24 @@ export interface WebhookListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: WebhookListInstanceEachOptions,
     callback?: (item: WebhookInstance, done: (err?: Error) => void) => void
   ): void;
-  each(params?: any, callback?: any): void;
+  each(
+    params: WebhookListInstanceEachOptions,
+    callback?: (item: WebhookInstance, done: (err?: Error) => void) => void
+  ): void;
   /**
    * Retrieve a single target page of WebhookInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: WebhookPage) => any
-  ): Promise<WebhookPage>;
-  /**
-   * Retrieve a single target page of WebhookInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: WebhookPage) => any
   ): Promise<WebhookPage>;
-  getPage(params?: any, callback?: any): Promise<WebhookPage>;
-  /**
-   * Lists WebhookInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: WebhookInstance[]) => any
-  ): Promise<WebhookInstance[]>;
   /**
    * Lists WebhookInstance records from the API as a list.
    *
@@ -559,23 +527,12 @@ export interface WebhookListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: WebhookListInstanceOptions,
     callback?: (error: Error | null, items: WebhookInstance[]) => any
   ): Promise<WebhookInstance[]>;
-  list(params?: any, callback?: any): Promise<WebhookInstance[]>;
-  /**
-   * Retrieve a single page of WebhookInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: WebhookPage) => any
-  ): Promise<WebhookPage>;
+  list(
+    params: WebhookListInstanceOptions,
+    callback?: (error: Error | null, items: WebhookInstance[]) => any
+  ): Promise<WebhookInstance[]>;
   /**
    * Retrieve a single page of WebhookInstance records from the API.
    *
@@ -588,10 +545,12 @@ export interface WebhookListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
+    callback?: (error: Error | null, items: WebhookPage) => any
+  ): Promise<WebhookPage>;
+  page(
     params: WebhookListInstancePageOptions,
     callback?: (error: Error | null, items: WebhookPage) => any
   ): Promise<WebhookPage>;
-  page(params?: any, callback?: any): Promise<WebhookPage>;
 
   /**
    * Provide a user-friendly representation
@@ -619,8 +578,8 @@ export function WebhookListInstance(
   instance._uri = `/Services/${serviceSid}/Webhooks`;
 
   instance.create = function create(
-    params: any,
-    callback?: any
+    params: WebhookListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: WebhookInstance) => any
   ): Promise<WebhookInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -679,11 +638,13 @@ export function WebhookListInstance(
   };
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | WebhookListInstancePageOptions
+      | ((error: Error | null, item?: WebhookPage) => any),
+    callback?: (error: Error | null, item?: WebhookPage) => any
   ): Promise<WebhookPage> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (error: Error | null, item?: WebhookPage) => any;
       params = {};
     } else {
       params = params || {};
@@ -693,7 +654,7 @@ export function WebhookListInstance(
 
     if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
@@ -721,8 +682,8 @@ export function WebhookListInstance(
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: WebhookPage) => any
   ): Promise<WebhookPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",

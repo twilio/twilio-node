@@ -74,7 +74,12 @@ export class FunctionVersionContentContextImpl
     this._uri = `/Services/${serviceSid}/Functions/${functionSid}/Versions/${sid}/Content`;
   }
 
-  fetch(callback?: any): Promise<FunctionVersionContentInstance> {
+  fetch(
+    callback?: (
+      error: Error | null,
+      item?: FunctionVersionContentInstance
+    ) => any
+  ): Promise<FunctionVersionContentInstance> {
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({

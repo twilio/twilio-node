@@ -57,7 +57,6 @@ export interface UsAppToPersonUsecaseListInstance {
     params: UsAppToPersonUsecaseListInstanceFetchOptions,
     callback?: (error: Error | null, item?: UsAppToPersonUsecaseInstance) => any
   ): Promise<UsAppToPersonUsecaseInstance>;
-  fetch(params?: any, callback?: any): Promise<UsAppToPersonUsecaseInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -81,11 +80,16 @@ export function UsAppToPersonUsecaseListInstance(
   instance._uri = `/Services/${messagingServiceSid}/Compliance/Usa2p/Usecases`;
 
   instance.fetch = function fetch(
-    params?: any,
-    callback?: any
+    params?:
+      | UsAppToPersonUsecaseListInstanceFetchOptions
+      | ((error: Error | null, item?: UsAppToPersonUsecaseInstance) => any),
+    callback?: (error: Error | null, item?: UsAppToPersonUsecaseInstance) => any
   ): Promise<UsAppToPersonUsecaseInstance> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (
+        error: Error | null,
+        item?: UsAppToPersonUsecaseInstance
+      ) => any;
       params = {};
     } else {
       params = params || {};

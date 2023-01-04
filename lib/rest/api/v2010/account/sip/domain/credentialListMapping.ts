@@ -133,7 +133,9 @@ export class CredentialListMappingContextImpl
     this._uri = `/Accounts/${accountSid}/SIP/Domains/${domainSid}/CredentialListMappings/${sid}.json`;
   }
 
-  remove(callback?: any): Promise<boolean> {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
@@ -148,7 +150,12 @@ export class CredentialListMappingContextImpl
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<CredentialListMappingInstance> {
+  fetch(
+    callback?: (
+      error: Error | null,
+      item?: CredentialListMappingInstance
+    ) => any
+  ): Promise<CredentialListMappingInstance> {
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
@@ -344,28 +351,7 @@ export interface CredentialListMappingListInstance {
       item?: CredentialListMappingInstance
     ) => any
   ): Promise<CredentialListMappingInstance>;
-  create(params: any, callback?: any): Promise<CredentialListMappingInstance>;
 
-  /**
-   * Streams CredentialListMappingInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (
-      item: CredentialListMappingInstance,
-      done: (err?: Error) => void
-    ) => void
-  ): void;
   /**
    * Streams CredentialListMappingInstance records from the API.
    *
@@ -382,56 +368,30 @@ export interface CredentialListMappingListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: CredentialListMappingListInstanceEachOptions,
     callback?: (
       item: CredentialListMappingInstance,
       done: (err?: Error) => void
     ) => void
   ): void;
-  each(params?: any, callback?: any): void;
+  each(
+    params: CredentialListMappingListInstanceEachOptions,
+    callback?: (
+      item: CredentialListMappingInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
   /**
    * Retrieve a single target page of CredentialListMappingInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: CredentialListMappingPage) => any
-  ): Promise<CredentialListMappingPage>;
-  /**
-   * Retrieve a single target page of CredentialListMappingInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: CredentialListMappingPage) => any
   ): Promise<CredentialListMappingPage>;
-  getPage(params?: any, callback?: any): Promise<CredentialListMappingPage>;
-  /**
-   * Lists CredentialListMappingInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (
-      error: Error | null,
-      items: CredentialListMappingInstance[]
-    ) => any
-  ): Promise<CredentialListMappingInstance[]>;
   /**
    * Lists CredentialListMappingInstance records from the API as a list.
    *
@@ -442,26 +402,18 @@ export interface CredentialListMappingListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: CredentialListMappingListInstanceOptions,
     callback?: (
       error: Error | null,
       items: CredentialListMappingInstance[]
     ) => any
   ): Promise<CredentialListMappingInstance[]>;
-  list(params?: any, callback?: any): Promise<CredentialListMappingInstance[]>;
-  /**
-   * Retrieve a single page of CredentialListMappingInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: CredentialListMappingPage) => any
-  ): Promise<CredentialListMappingPage>;
+  list(
+    params: CredentialListMappingListInstanceOptions,
+    callback?: (
+      error: Error | null,
+      items: CredentialListMappingInstance[]
+    ) => any
+  ): Promise<CredentialListMappingInstance[]>;
   /**
    * Retrieve a single page of CredentialListMappingInstance records from the API.
    *
@@ -474,10 +426,12 @@ export interface CredentialListMappingListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
+    callback?: (error: Error | null, items: CredentialListMappingPage) => any
+  ): Promise<CredentialListMappingPage>;
+  page(
     params: CredentialListMappingListInstancePageOptions,
     callback?: (error: Error | null, items: CredentialListMappingPage) => any
   ): Promise<CredentialListMappingPage>;
-  page(params?: any, callback?: any): Promise<CredentialListMappingPage>;
 
   /**
    * Provide a user-friendly representation
@@ -516,8 +470,11 @@ export function CredentialListMappingListInstance(
   instance._uri = `/Accounts/${accountSid}/SIP/Domains/${domainSid}/CredentialListMappings.json`;
 
   instance.create = function create(
-    params: any,
-    callback?: any
+    params: CredentialListMappingListInstanceCreateOptions,
+    callback?: (
+      error: Error | null,
+      item?: CredentialListMappingInstance
+    ) => any
   ): Promise<CredentialListMappingInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -565,11 +522,16 @@ export function CredentialListMappingListInstance(
   };
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | CredentialListMappingListInstancePageOptions
+      | ((error: Error | null, item?: CredentialListMappingPage) => any),
+    callback?: (error: Error | null, item?: CredentialListMappingPage) => any
   ): Promise<CredentialListMappingPage> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (
+        error: Error | null,
+        item?: CredentialListMappingPage
+      ) => any;
       params = {};
     } else {
       params = params || {};
@@ -579,7 +541,7 @@ export function CredentialListMappingListInstance(
 
     if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
@@ -611,8 +573,8 @@ export function CredentialListMappingListInstance(
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: CredentialListMappingPage) => any
   ): Promise<CredentialListMappingPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",

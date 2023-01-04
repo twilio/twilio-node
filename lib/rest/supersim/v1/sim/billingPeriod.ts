@@ -79,77 +79,34 @@ export interface BillingPeriodListInstance {
    * If a function is passed as the first argument, it will be used as the callback
    * function.
    *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (
-      item: BillingPeriodInstance,
-      done: (err?: Error) => void
-    ) => void
-  ): void;
-  /**
-   * Streams BillingPeriodInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
    * @param { BillingPeriodListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: BillingPeriodListInstanceEachOptions,
     callback?: (
       item: BillingPeriodInstance,
       done: (err?: Error) => void
     ) => void
   ): void;
-  each(params?: any, callback?: any): void;
+  each(
+    params: BillingPeriodListInstanceEachOptions,
+    callback?: (
+      item: BillingPeriodInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
   /**
    * Retrieve a single target page of BillingPeriodInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: BillingPeriodPage) => any
-  ): Promise<BillingPeriodPage>;
-  /**
-   * Retrieve a single target page of BillingPeriodInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: BillingPeriodPage) => any
   ): Promise<BillingPeriodPage>;
-  getPage(params?: any, callback?: any): Promise<BillingPeriodPage>;
-  /**
-   * Lists BillingPeriodInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: BillingPeriodInstance[]) => any
-  ): Promise<BillingPeriodInstance[]>;
   /**
    * Lists BillingPeriodInstance records from the API as a list.
    *
@@ -160,23 +117,12 @@ export interface BillingPeriodListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: BillingPeriodListInstanceOptions,
     callback?: (error: Error | null, items: BillingPeriodInstance[]) => any
   ): Promise<BillingPeriodInstance[]>;
-  list(params?: any, callback?: any): Promise<BillingPeriodInstance[]>;
-  /**
-   * Retrieve a single page of BillingPeriodInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: BillingPeriodPage) => any
-  ): Promise<BillingPeriodPage>;
+  list(
+    params: BillingPeriodListInstanceOptions,
+    callback?: (error: Error | null, items: BillingPeriodInstance[]) => any
+  ): Promise<BillingPeriodInstance[]>;
   /**
    * Retrieve a single page of BillingPeriodInstance records from the API.
    *
@@ -189,10 +135,12 @@ export interface BillingPeriodListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
+    callback?: (error: Error | null, items: BillingPeriodPage) => any
+  ): Promise<BillingPeriodPage>;
+  page(
     params: BillingPeriodListInstancePageOptions,
     callback?: (error: Error | null, items: BillingPeriodPage) => any
   ): Promise<BillingPeriodPage>;
-  page(params?: any, callback?: any): Promise<BillingPeriodPage>;
 
   /**
    * Provide a user-friendly representation
@@ -216,11 +164,16 @@ export function BillingPeriodListInstance(
   instance._uri = `/Sims/${simSid}/BillingPeriods`;
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | BillingPeriodListInstancePageOptions
+      | ((error: Error | null, item?: BillingPeriodPage) => any),
+    callback?: (error: Error | null, item?: BillingPeriodPage) => any
   ): Promise<BillingPeriodPage> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (
+        error: Error | null,
+        item?: BillingPeriodPage
+      ) => any;
       params = {};
     } else {
       params = params || {};
@@ -230,7 +183,7 @@ export function BillingPeriodListInstance(
 
     if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
@@ -258,8 +211,8 @@ export function BillingPeriodListInstance(
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: BillingPeriodPage) => any
   ): Promise<BillingPeriodPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",

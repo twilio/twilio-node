@@ -139,7 +139,6 @@ export interface SessionContext {
     params: SessionContextUpdateOptions,
     callback?: (error: Error | null, item?: SessionInstance) => any
   ): Promise<SessionInstance>;
-  update(params?: any, callback?: any): Promise<SessionInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -195,7 +194,9 @@ export class SessionContextImpl implements SessionContext {
     return this._participants;
   }
 
-  remove(callback?: any): Promise<boolean> {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
@@ -210,7 +211,9 @@ export class SessionContextImpl implements SessionContext {
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<SessionInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: SessionInstance) => any
+  ): Promise<SessionInstance> {
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
@@ -235,9 +238,14 @@ export class SessionContextImpl implements SessionContext {
     return operationPromise;
   }
 
-  update(params?: any, callback?: any): Promise<SessionInstance> {
+  update(
+    params?:
+      | SessionContextUpdateOptions
+      | ((error: Error | null, item?: SessionInstance) => any),
+    callback?: (error: Error | null, item?: SessionInstance) => any
+  ): Promise<SessionInstance> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (error: Error | null, item?: SessionInstance) => any;
       params = {};
     } else {
       params = params || {};
@@ -466,7 +474,11 @@ export class SessionInstance {
     params: SessionContextUpdateOptions,
     callback?: (error: Error | null, item?: SessionInstance) => any
   ): Promise<SessionInstance>;
-  update(params?: any, callback?: any): Promise<SessionInstance> {
+
+  update(
+    params?: any,
+    callback?: (error: Error | null, item?: SessionInstance) => any
+  ): Promise<SessionInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -549,25 +561,7 @@ export interface SessionListInstance {
     params: SessionListInstanceCreateOptions,
     callback?: (error: Error | null, item?: SessionInstance) => any
   ): Promise<SessionInstance>;
-  create(params?: any, callback?: any): Promise<SessionInstance>;
 
-  /**
-   * Streams SessionInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (item: SessionInstance, done: (err?: Error) => void) => void
-  ): void;
   /**
    * Streams SessionInstance records from the API.
    *
@@ -584,50 +578,24 @@ export interface SessionListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: SessionListInstanceEachOptions,
     callback?: (item: SessionInstance, done: (err?: Error) => void) => void
   ): void;
-  each(params?: any, callback?: any): void;
+  each(
+    params: SessionListInstanceEachOptions,
+    callback?: (item: SessionInstance, done: (err?: Error) => void) => void
+  ): void;
   /**
    * Retrieve a single target page of SessionInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: SessionPage) => any
-  ): Promise<SessionPage>;
-  /**
-   * Retrieve a single target page of SessionInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: SessionPage) => any
   ): Promise<SessionPage>;
-  getPage(params?: any, callback?: any): Promise<SessionPage>;
-  /**
-   * Lists SessionInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: SessionInstance[]) => any
-  ): Promise<SessionInstance[]>;
   /**
    * Lists SessionInstance records from the API as a list.
    *
@@ -638,23 +606,12 @@ export interface SessionListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: SessionListInstanceOptions,
     callback?: (error: Error | null, items: SessionInstance[]) => any
   ): Promise<SessionInstance[]>;
-  list(params?: any, callback?: any): Promise<SessionInstance[]>;
-  /**
-   * Retrieve a single page of SessionInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: SessionPage) => any
-  ): Promise<SessionPage>;
+  list(
+    params: SessionListInstanceOptions,
+    callback?: (error: Error | null, items: SessionInstance[]) => any
+  ): Promise<SessionInstance[]>;
   /**
    * Retrieve a single page of SessionInstance records from the API.
    *
@@ -667,10 +624,12 @@ export interface SessionListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
+    callback?: (error: Error | null, items: SessionPage) => any
+  ): Promise<SessionPage>;
+  page(
     params: SessionListInstancePageOptions,
     callback?: (error: Error | null, items: SessionPage) => any
   ): Promise<SessionPage>;
-  page(params?: any, callback?: any): Promise<SessionPage>;
 
   /**
    * Provide a user-friendly representation
@@ -698,11 +657,13 @@ export function SessionListInstance(
   instance._uri = `/Services/${serviceSid}/Sessions`;
 
   instance.create = function create(
-    params?: any,
-    callback?: any
+    params?:
+      | SessionListInstanceCreateOptions
+      | ((error: Error | null, item?: SessionInstance) => any),
+    callback?: (error: Error | null, item?: SessionInstance) => any
   ): Promise<SessionInstance> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (error: Error | null, item?: SessionInstance) => any;
       params = {};
     } else {
       params = params || {};
@@ -750,11 +711,13 @@ export function SessionListInstance(
   };
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | SessionListInstancePageOptions
+      | ((error: Error | null, item?: SessionPage) => any),
+    callback?: (error: Error | null, item?: SessionPage) => any
   ): Promise<SessionPage> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (error: Error | null, item?: SessionPage) => any;
       params = {};
     } else {
       params = params || {};
@@ -764,7 +727,7 @@ export function SessionListInstance(
 
     if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
@@ -792,8 +755,8 @@ export function SessionListInstance(
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: SessionPage) => any
   ): Promise<SessionPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",

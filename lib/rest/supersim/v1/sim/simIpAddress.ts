@@ -79,71 +79,28 @@ export interface SimIpAddressListInstance {
    * If a function is passed as the first argument, it will be used as the callback
    * function.
    *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (item: SimIpAddressInstance, done: (err?: Error) => void) => void
-  ): void;
-  /**
-   * Streams SimIpAddressInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
    * @param { SimIpAddressListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: SimIpAddressListInstanceEachOptions,
     callback?: (item: SimIpAddressInstance, done: (err?: Error) => void) => void
   ): void;
-  each(params?: any, callback?: any): void;
+  each(
+    params: SimIpAddressListInstanceEachOptions,
+    callback?: (item: SimIpAddressInstance, done: (err?: Error) => void) => void
+  ): void;
   /**
    * Retrieve a single target page of SimIpAddressInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: SimIpAddressPage) => any
-  ): Promise<SimIpAddressPage>;
-  /**
-   * Retrieve a single target page of SimIpAddressInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: SimIpAddressPage) => any
   ): Promise<SimIpAddressPage>;
-  getPage(params?: any, callback?: any): Promise<SimIpAddressPage>;
-  /**
-   * Lists SimIpAddressInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: SimIpAddressInstance[]) => any
-  ): Promise<SimIpAddressInstance[]>;
   /**
    * Lists SimIpAddressInstance records from the API as a list.
    *
@@ -154,23 +111,12 @@ export interface SimIpAddressListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: SimIpAddressListInstanceOptions,
     callback?: (error: Error | null, items: SimIpAddressInstance[]) => any
   ): Promise<SimIpAddressInstance[]>;
-  list(params?: any, callback?: any): Promise<SimIpAddressInstance[]>;
-  /**
-   * Retrieve a single page of SimIpAddressInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: SimIpAddressPage) => any
-  ): Promise<SimIpAddressPage>;
+  list(
+    params: SimIpAddressListInstanceOptions,
+    callback?: (error: Error | null, items: SimIpAddressInstance[]) => any
+  ): Promise<SimIpAddressInstance[]>;
   /**
    * Retrieve a single page of SimIpAddressInstance records from the API.
    *
@@ -183,10 +129,12 @@ export interface SimIpAddressListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
+    callback?: (error: Error | null, items: SimIpAddressPage) => any
+  ): Promise<SimIpAddressPage>;
+  page(
     params: SimIpAddressListInstancePageOptions,
     callback?: (error: Error | null, items: SimIpAddressPage) => any
   ): Promise<SimIpAddressPage>;
-  page(params?: any, callback?: any): Promise<SimIpAddressPage>;
 
   /**
    * Provide a user-friendly representation
@@ -210,11 +158,16 @@ export function SimIpAddressListInstance(
   instance._uri = `/Sims/${simSid}/IpAddresses`;
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | SimIpAddressListInstancePageOptions
+      | ((error: Error | null, item?: SimIpAddressPage) => any),
+    callback?: (error: Error | null, item?: SimIpAddressPage) => any
   ): Promise<SimIpAddressPage> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (
+        error: Error | null,
+        item?: SimIpAddressPage
+      ) => any;
       params = {};
     } else {
       params = params || {};
@@ -224,7 +177,7 @@ export function SimIpAddressListInstance(
 
     if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
@@ -252,8 +205,8 @@ export function SimIpAddressListInstance(
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: SimIpAddressPage) => any
   ): Promise<SimIpAddressPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",

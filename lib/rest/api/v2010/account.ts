@@ -172,7 +172,6 @@ export interface AccountContext {
     params: AccountContextUpdateOptions,
     callback?: (error: Error | null, item?: AccountInstance) => any
   ): Promise<AccountInstance>;
-  update(params?: any, callback?: any): Promise<AccountInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -383,7 +382,9 @@ export class AccountContextImpl implements AccountContext {
     return this._validationRequests;
   }
 
-  fetch(callback?: any): Promise<AccountInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: AccountInstance) => any
+  ): Promise<AccountInstance> {
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
@@ -403,9 +404,14 @@ export class AccountContextImpl implements AccountContext {
     return operationPromise;
   }
 
-  update(params?: any, callback?: any): Promise<AccountInstance> {
+  update(
+    params?:
+      | AccountContextUpdateOptions
+      | ((error: Error | null, item?: AccountInstance) => any),
+    callback?: (error: Error | null, item?: AccountInstance) => any
+  ): Promise<AccountInstance> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (error: Error | null, item?: AccountInstance) => any;
       params = {};
     } else {
       params = params || {};
@@ -572,7 +578,11 @@ export class AccountInstance {
     params: AccountContextUpdateOptions,
     callback?: (error: Error | null, item?: AccountInstance) => any
   ): Promise<AccountInstance>;
-  update(params?: any, callback?: any): Promise<AccountInstance> {
+
+  update(
+    params?: any,
+    callback?: (error: Error | null, item?: AccountInstance) => any
+  ): Promise<AccountInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -801,25 +811,7 @@ export interface AccountListInstance {
     params: AccountListInstanceCreateOptions,
     callback?: (error: Error | null, item?: AccountInstance) => any
   ): Promise<AccountInstance>;
-  create(params?: any, callback?: any): Promise<AccountInstance>;
 
-  /**
-   * Streams AccountInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (item: AccountInstance, done: (err?: Error) => void) => void
-  ): void;
   /**
    * Streams AccountInstance records from the API.
    *
@@ -836,50 +828,24 @@ export interface AccountListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: AccountListInstanceEachOptions,
     callback?: (item: AccountInstance, done: (err?: Error) => void) => void
   ): void;
-  each(params?: any, callback?: any): void;
+  each(
+    params: AccountListInstanceEachOptions,
+    callback?: (item: AccountInstance, done: (err?: Error) => void) => void
+  ): void;
   /**
    * Retrieve a single target page of AccountInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: AccountPage) => any
-  ): Promise<AccountPage>;
-  /**
-   * Retrieve a single target page of AccountInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: AccountPage) => any
   ): Promise<AccountPage>;
-  getPage(params?: any, callback?: any): Promise<AccountPage>;
-  /**
-   * Lists AccountInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: AccountInstance[]) => any
-  ): Promise<AccountInstance[]>;
   /**
    * Lists AccountInstance records from the API as a list.
    *
@@ -890,23 +856,12 @@ export interface AccountListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: AccountListInstanceOptions,
     callback?: (error: Error | null, items: AccountInstance[]) => any
   ): Promise<AccountInstance[]>;
-  list(params?: any, callback?: any): Promise<AccountInstance[]>;
-  /**
-   * Retrieve a single page of AccountInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: AccountPage) => any
-  ): Promise<AccountPage>;
+  list(
+    params: AccountListInstanceOptions,
+    callback?: (error: Error | null, items: AccountInstance[]) => any
+  ): Promise<AccountInstance[]>;
   /**
    * Retrieve a single page of AccountInstance records from the API.
    *
@@ -919,10 +874,12 @@ export interface AccountListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
+    callback?: (error: Error | null, items: AccountPage) => any
+  ): Promise<AccountPage>;
+  page(
     params: AccountListInstancePageOptions,
     callback?: (error: Error | null, items: AccountPage) => any
   ): Promise<AccountPage>;
-  page(params?: any, callback?: any): Promise<AccountPage>;
 
   /**
    * Provide a user-friendly representation
@@ -943,11 +900,13 @@ export function AccountListInstance(version: V2010): AccountListInstance {
   instance._uri = `/Accounts.json`;
 
   instance.create = function create(
-    params?: any,
-    callback?: any
+    params?:
+      | AccountListInstanceCreateOptions
+      | ((error: Error | null, item?: AccountInstance) => any),
+    callback?: (error: Error | null, item?: AccountInstance) => any
   ): Promise<AccountInstance> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (error: Error | null, item?: AccountInstance) => any;
       params = {};
     } else {
       params = params || {};
@@ -981,11 +940,13 @@ export function AccountListInstance(version: V2010): AccountListInstance {
   };
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | AccountListInstancePageOptions
+      | ((error: Error | null, item?: AccountPage) => any),
+    callback?: (error: Error | null, item?: AccountPage) => any
   ): Promise<AccountPage> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (error: Error | null, item?: AccountPage) => any;
       params = {};
     } else {
       params = params || {};
@@ -998,7 +959,7 @@ export function AccountListInstance(version: V2010): AccountListInstance {
     if (params["status"] !== undefined) data["Status"] = params["status"];
     if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
@@ -1026,8 +987,8 @@ export function AccountListInstance(version: V2010): AccountListInstance {
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: AccountPage) => any
   ): Promise<AccountPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",

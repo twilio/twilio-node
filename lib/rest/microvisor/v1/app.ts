@@ -103,7 +103,9 @@ export class AppContextImpl implements AppContext {
     this._uri = `/Apps/${sid}`;
   }
 
-  remove(callback?: any): Promise<boolean> {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
@@ -118,7 +120,9 @@ export class AppContextImpl implements AppContext {
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<AppInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: AppInstance) => any
+  ): Promise<AppInstance> {
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
@@ -287,71 +291,28 @@ export interface AppListInstance {
    * If a function is passed as the first argument, it will be used as the callback
    * function.
    *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (item: AppInstance, done: (err?: Error) => void) => void
-  ): void;
-  /**
-   * Streams AppInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
    * @param { AppListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: AppListInstanceEachOptions,
     callback?: (item: AppInstance, done: (err?: Error) => void) => void
   ): void;
-  each(params?: any, callback?: any): void;
+  each(
+    params: AppListInstanceEachOptions,
+    callback?: (item: AppInstance, done: (err?: Error) => void) => void
+  ): void;
   /**
    * Retrieve a single target page of AppInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: AppPage) => any
-  ): Promise<AppPage>;
-  /**
-   * Retrieve a single target page of AppInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: AppPage) => any
   ): Promise<AppPage>;
-  getPage(params?: any, callback?: any): Promise<AppPage>;
-  /**
-   * Lists AppInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: AppInstance[]) => any
-  ): Promise<AppInstance[]>;
   /**
    * Lists AppInstance records from the API as a list.
    *
@@ -362,23 +323,12 @@ export interface AppListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: AppListInstanceOptions,
     callback?: (error: Error | null, items: AppInstance[]) => any
   ): Promise<AppInstance[]>;
-  list(params?: any, callback?: any): Promise<AppInstance[]>;
-  /**
-   * Retrieve a single page of AppInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: AppPage) => any
-  ): Promise<AppPage>;
+  list(
+    params: AppListInstanceOptions,
+    callback?: (error: Error | null, items: AppInstance[]) => any
+  ): Promise<AppInstance[]>;
   /**
    * Retrieve a single page of AppInstance records from the API.
    *
@@ -391,10 +341,12 @@ export interface AppListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
+    callback?: (error: Error | null, items: AppPage) => any
+  ): Promise<AppPage>;
+  page(
     params: AppListInstancePageOptions,
     callback?: (error: Error | null, items: AppPage) => any
   ): Promise<AppPage>;
-  page(params?: any, callback?: any): Promise<AppPage>;
 
   /**
    * Provide a user-friendly representation
@@ -415,11 +367,13 @@ export function AppListInstance(version: V1): AppListInstance {
   instance._uri = `/Apps`;
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | AppListInstancePageOptions
+      | ((error: Error | null, item?: AppPage) => any),
+    callback?: (error: Error | null, item?: AppPage) => any
   ): Promise<AppPage> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (error: Error | null, item?: AppPage) => any;
       params = {};
     } else {
       params = params || {};
@@ -429,7 +383,7 @@ export function AppListInstance(version: V1): AppListInstance {
 
     if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
@@ -456,8 +410,8 @@ export function AppListInstance(version: V1): AppListInstance {
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: AppPage) => any
   ): Promise<AppPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",

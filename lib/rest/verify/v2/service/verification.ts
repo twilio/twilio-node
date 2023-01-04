@@ -44,7 +44,7 @@ export interface VerificationListInstanceCreateOptions {
   customMessage?: string;
   /** The digits to send after a phone call is answered, for example, to dial an extension. For more information, see the Programmable Voice documentation of [sendDigits](https://www.twilio.com/docs/voice/twiml/number#attributes-sendDigits). */
   sendDigits?: string;
-  /** Locale will automatically resolve based on phone number country code for SMS, WhatsApp, and call channel verifications. It will fallback to English or the template’s default translation if the selected translation is not available. This parameter will override the automatic locale resolution. [See supported languages and more information here](https://www.twilio.com/docs/verify/supported-languages). */
+  /** Locale will automatically resolve based on phone number country code for SMS, WhatsApp and call channel verifications. This parameter will override the automatic locale. [See supported languages and more information here](https://www.twilio.com/docs/verify/supported-languages). */
   locale?: string;
   /** A pre-generated code to use for verification. The code can be between 4 and 10 characters, inclusive. */
   customCode?: string;
@@ -88,7 +88,6 @@ export interface VerificationContext {
     params: VerificationContextUpdateOptions,
     callback?: (error: Error | null, item?: VerificationInstance) => any
   ): Promise<VerificationInstance>;
-  update(params: any, callback?: any): Promise<VerificationInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -119,7 +118,9 @@ export class VerificationContextImpl implements VerificationContext {
     this._uri = `/Services/${serviceSid}/Verifications/${sid}`;
   }
 
-  fetch(callback?: any): Promise<VerificationInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: VerificationInstance) => any
+  ): Promise<VerificationInstance> {
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
@@ -144,7 +145,12 @@ export class VerificationContextImpl implements VerificationContext {
     return operationPromise;
   }
 
-  update(params: any, callback?: any): Promise<VerificationInstance> {
+  update(
+    params:
+      | VerificationContextUpdateOptions
+      | ((error: Error | null, item?: VerificationInstance) => any),
+    callback?: (error: Error | null, item?: VerificationInstance) => any
+  ): Promise<VerificationInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
@@ -343,7 +349,11 @@ export class VerificationInstance {
     params: VerificationContextUpdateOptions,
     callback?: (error: Error | null, item?: VerificationInstance) => any
   ): Promise<VerificationInstance>;
-  update(params: any, callback?: any): Promise<VerificationInstance> {
+
+  update(
+    params?: any,
+    callback?: (error: Error | null, item?: VerificationInstance) => any
+  ): Promise<VerificationInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -401,7 +411,6 @@ export interface VerificationListInstance {
     params: VerificationListInstanceCreateOptions,
     callback?: (error: Error | null, item?: VerificationInstance) => any
   ): Promise<VerificationInstance>;
-  create(params: any, callback?: any): Promise<VerificationInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -429,8 +438,8 @@ export function VerificationListInstance(
   instance._uri = `/Services/${serviceSid}/Verifications`;
 
   instance.create = function create(
-    params: any,
-    callback?: any
+    params: VerificationListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: VerificationInstance) => any
   ): Promise<VerificationInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');

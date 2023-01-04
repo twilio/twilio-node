@@ -98,71 +98,28 @@ export interface MetricListInstance {
    * If a function is passed as the first argument, it will be used as the callback
    * function.
    *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (item: MetricInstance, done: (err?: Error) => void) => void
-  ): void;
-  /**
-   * Streams MetricInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
    * @param { MetricListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: MetricListInstanceEachOptions,
     callback?: (item: MetricInstance, done: (err?: Error) => void) => void
   ): void;
-  each(params?: any, callback?: any): void;
+  each(
+    params: MetricListInstanceEachOptions,
+    callback?: (item: MetricInstance, done: (err?: Error) => void) => void
+  ): void;
   /**
    * Retrieve a single target page of MetricInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: MetricPage) => any
-  ): Promise<MetricPage>;
-  /**
-   * Retrieve a single target page of MetricInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: MetricPage) => any
   ): Promise<MetricPage>;
-  getPage(params?: any, callback?: any): Promise<MetricPage>;
-  /**
-   * Lists MetricInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: MetricInstance[]) => any
-  ): Promise<MetricInstance[]>;
   /**
    * Lists MetricInstance records from the API as a list.
    *
@@ -173,23 +130,12 @@ export interface MetricListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: MetricListInstanceOptions,
     callback?: (error: Error | null, items: MetricInstance[]) => any
   ): Promise<MetricInstance[]>;
-  list(params?: any, callback?: any): Promise<MetricInstance[]>;
-  /**
-   * Retrieve a single page of MetricInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: MetricPage) => any
-  ): Promise<MetricPage>;
+  list(
+    params: MetricListInstanceOptions,
+    callback?: (error: Error | null, items: MetricInstance[]) => any
+  ): Promise<MetricInstance[]>;
   /**
    * Retrieve a single page of MetricInstance records from the API.
    *
@@ -202,10 +148,12 @@ export interface MetricListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
+    callback?: (error: Error | null, items: MetricPage) => any
+  ): Promise<MetricPage>;
+  page(
     params: MetricListInstancePageOptions,
     callback?: (error: Error | null, items: MetricPage) => any
   ): Promise<MetricPage>;
-  page(params?: any, callback?: any): Promise<MetricPage>;
 
   /**
    * Provide a user-friendly representation
@@ -229,11 +177,13 @@ export function MetricListInstance(
   instance._uri = `/Voice/${callSid}/Metrics`;
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | MetricListInstancePageOptions
+      | ((error: Error | null, item?: MetricPage) => any),
+    callback?: (error: Error | null, item?: MetricPage) => any
   ): Promise<MetricPage> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (error: Error | null, item?: MetricPage) => any;
       params = {};
     } else {
       params = params || {};
@@ -246,7 +196,7 @@ export function MetricListInstance(
       data["Direction"] = params["direction"];
     if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
@@ -273,8 +223,8 @@ export function MetricListInstance(
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: MetricPage) => any
   ): Promise<MetricPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",

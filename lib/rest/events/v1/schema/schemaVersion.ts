@@ -97,7 +97,9 @@ export class SchemaVersionContextImpl implements SchemaVersionContext {
     this._uri = `/Schemas/${id}/Versions/${schemaVersion}`;
   }
 
-  fetch(callback?: any): Promise<SchemaVersionInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: SchemaVersionInstance) => any
+  ): Promise<SchemaVersionInstance> {
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
@@ -253,77 +255,34 @@ export interface SchemaVersionListInstance {
    * If a function is passed as the first argument, it will be used as the callback
    * function.
    *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (
-      item: SchemaVersionInstance,
-      done: (err?: Error) => void
-    ) => void
-  ): void;
-  /**
-   * Streams SchemaVersionInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
    * @param { SchemaVersionListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: SchemaVersionListInstanceEachOptions,
     callback?: (
       item: SchemaVersionInstance,
       done: (err?: Error) => void
     ) => void
   ): void;
-  each(params?: any, callback?: any): void;
+  each(
+    params: SchemaVersionListInstanceEachOptions,
+    callback?: (
+      item: SchemaVersionInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
   /**
    * Retrieve a single target page of SchemaVersionInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: SchemaVersionPage) => any
-  ): Promise<SchemaVersionPage>;
-  /**
-   * Retrieve a single target page of SchemaVersionInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: SchemaVersionPage) => any
   ): Promise<SchemaVersionPage>;
-  getPage(params?: any, callback?: any): Promise<SchemaVersionPage>;
-  /**
-   * Lists SchemaVersionInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: SchemaVersionInstance[]) => any
-  ): Promise<SchemaVersionInstance[]>;
   /**
    * Lists SchemaVersionInstance records from the API as a list.
    *
@@ -334,23 +293,12 @@ export interface SchemaVersionListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: SchemaVersionListInstanceOptions,
     callback?: (error: Error | null, items: SchemaVersionInstance[]) => any
   ): Promise<SchemaVersionInstance[]>;
-  list(params?: any, callback?: any): Promise<SchemaVersionInstance[]>;
-  /**
-   * Retrieve a single page of SchemaVersionInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: SchemaVersionPage) => any
-  ): Promise<SchemaVersionPage>;
+  list(
+    params: SchemaVersionListInstanceOptions,
+    callback?: (error: Error | null, items: SchemaVersionInstance[]) => any
+  ): Promise<SchemaVersionInstance[]>;
   /**
    * Retrieve a single page of SchemaVersionInstance records from the API.
    *
@@ -363,10 +311,12 @@ export interface SchemaVersionListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
+    callback?: (error: Error | null, items: SchemaVersionPage) => any
+  ): Promise<SchemaVersionPage>;
+  page(
     params: SchemaVersionListInstancePageOptions,
     callback?: (error: Error | null, items: SchemaVersionPage) => any
   ): Promise<SchemaVersionPage>;
-  page(params?: any, callback?: any): Promise<SchemaVersionPage>;
 
   /**
    * Provide a user-friendly representation
@@ -395,11 +345,16 @@ export function SchemaVersionListInstance(
   instance._uri = `/Schemas/${id}/Versions`;
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | SchemaVersionListInstancePageOptions
+      | ((error: Error | null, item?: SchemaVersionPage) => any),
+    callback?: (error: Error | null, item?: SchemaVersionPage) => any
   ): Promise<SchemaVersionPage> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (
+        error: Error | null,
+        item?: SchemaVersionPage
+      ) => any;
       params = {};
     } else {
       params = params || {};
@@ -409,7 +364,7 @@ export function SchemaVersionListInstance(
 
     if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
@@ -437,8 +392,8 @@ export function SchemaVersionListInstance(
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: SchemaVersionPage) => any
   ): Promise<SchemaVersionPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",

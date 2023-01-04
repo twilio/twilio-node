@@ -69,7 +69,9 @@ export class StepContextContextImpl implements StepContextContext {
     this._uri = `/Flows/${flowSid}/Engagements/${engagementSid}/Steps/${stepSid}/Context`;
   }
 
-  fetch(callback?: any): Promise<StepContextInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: StepContextInstance) => any
+  ): Promise<StepContextInstance> {
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({

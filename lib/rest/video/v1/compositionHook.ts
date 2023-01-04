@@ -171,7 +171,6 @@ export interface CompositionHookContext {
     params: CompositionHookContextUpdateOptions,
     callback?: (error: Error | null, item?: CompositionHookInstance) => any
   ): Promise<CompositionHookInstance>;
-  update(params: any, callback?: any): Promise<CompositionHookInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -197,7 +196,9 @@ export class CompositionHookContextImpl implements CompositionHookContext {
     this._uri = `/CompositionHooks/${sid}`;
   }
 
-  remove(callback?: any): Promise<boolean> {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
@@ -212,7 +213,9 @@ export class CompositionHookContextImpl implements CompositionHookContext {
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<CompositionHookInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: CompositionHookInstance) => any
+  ): Promise<CompositionHookInstance> {
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
@@ -236,7 +239,12 @@ export class CompositionHookContextImpl implements CompositionHookContext {
     return operationPromise;
   }
 
-  update(params: any, callback?: any): Promise<CompositionHookInstance> {
+  update(
+    params:
+      | CompositionHookContextUpdateOptions
+      | ((error: Error | null, item?: CompositionHookInstance) => any),
+    callback?: (error: Error | null, item?: CompositionHookInstance) => any
+  ): Promise<CompositionHookInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
@@ -475,7 +483,11 @@ export class CompositionHookInstance {
     params: CompositionHookContextUpdateOptions,
     callback?: (error: Error | null, item?: CompositionHookInstance) => any
   ): Promise<CompositionHookInstance>;
-  update(params: any, callback?: any): Promise<CompositionHookInstance> {
+
+  update(
+    params?: any,
+    callback?: (error: Error | null, item?: CompositionHookInstance) => any
+  ): Promise<CompositionHookInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -531,28 +543,7 @@ export interface CompositionHookListInstance {
     params: CompositionHookListInstanceCreateOptions,
     callback?: (error: Error | null, item?: CompositionHookInstance) => any
   ): Promise<CompositionHookInstance>;
-  create(params: any, callback?: any): Promise<CompositionHookInstance>;
 
-  /**
-   * Streams CompositionHookInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (
-      item: CompositionHookInstance,
-      done: (err?: Error) => void
-    ) => void
-  ): void;
   /**
    * Streams CompositionHookInstance records from the API.
    *
@@ -569,53 +560,30 @@ export interface CompositionHookListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: CompositionHookListInstanceEachOptions,
     callback?: (
       item: CompositionHookInstance,
       done: (err?: Error) => void
     ) => void
   ): void;
-  each(params?: any, callback?: any): void;
+  each(
+    params: CompositionHookListInstanceEachOptions,
+    callback?: (
+      item: CompositionHookInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
   /**
    * Retrieve a single target page of CompositionHookInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: CompositionHookPage) => any
-  ): Promise<CompositionHookPage>;
-  /**
-   * Retrieve a single target page of CompositionHookInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: CompositionHookPage) => any
   ): Promise<CompositionHookPage>;
-  getPage(params?: any, callback?: any): Promise<CompositionHookPage>;
-  /**
-   * Lists CompositionHookInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: CompositionHookInstance[]) => any
-  ): Promise<CompositionHookInstance[]>;
   /**
    * Lists CompositionHookInstance records from the API as a list.
    *
@@ -626,23 +594,12 @@ export interface CompositionHookListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: CompositionHookListInstanceOptions,
     callback?: (error: Error | null, items: CompositionHookInstance[]) => any
   ): Promise<CompositionHookInstance[]>;
-  list(params?: any, callback?: any): Promise<CompositionHookInstance[]>;
-  /**
-   * Retrieve a single page of CompositionHookInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: CompositionHookPage) => any
-  ): Promise<CompositionHookPage>;
+  list(
+    params: CompositionHookListInstanceOptions,
+    callback?: (error: Error | null, items: CompositionHookInstance[]) => any
+  ): Promise<CompositionHookInstance[]>;
   /**
    * Retrieve a single page of CompositionHookInstance records from the API.
    *
@@ -655,10 +612,12 @@ export interface CompositionHookListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
+    callback?: (error: Error | null, items: CompositionHookPage) => any
+  ): Promise<CompositionHookPage>;
+  page(
     params: CompositionHookListInstancePageOptions,
     callback?: (error: Error | null, items: CompositionHookPage) => any
   ): Promise<CompositionHookPage>;
-  page(params?: any, callback?: any): Promise<CompositionHookPage>;
 
   /**
    * Provide a user-friendly representation
@@ -681,8 +640,8 @@ export function CompositionHookListInstance(
   instance._uri = `/CompositionHooks`;
 
   instance.create = function create(
-    params: any,
-    callback?: any
+    params: CompositionHookListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: CompositionHookInstance) => any
   ): Promise<CompositionHookInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -742,11 +701,16 @@ export function CompositionHookListInstance(
   };
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | CompositionHookListInstancePageOptions
+      | ((error: Error | null, item?: CompositionHookPage) => any),
+    callback?: (error: Error | null, item?: CompositionHookPage) => any
   ): Promise<CompositionHookPage> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (
+        error: Error | null,
+        item?: CompositionHookPage
+      ) => any;
       params = {};
     } else {
       params = params || {};
@@ -768,7 +732,7 @@ export function CompositionHookListInstance(
       data["FriendlyName"] = params["friendlyName"];
     if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
@@ -796,8 +760,8 @@ export function CompositionHookListInstance(
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: CompositionHookPage) => any
   ): Promise<CompositionHookPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",

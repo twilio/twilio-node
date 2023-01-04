@@ -109,7 +109,9 @@ export class AssetVersionContextImpl implements AssetVersionContext {
     this._uri = `/Services/${serviceSid}/Assets/${assetSid}/Versions/${sid}`;
   }
 
-  fetch(callback?: any): Promise<AssetVersionInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: AssetVersionInstance) => any
+  ): Promise<AssetVersionInstance> {
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
@@ -290,71 +292,28 @@ export interface AssetVersionListInstance {
    * If a function is passed as the first argument, it will be used as the callback
    * function.
    *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (item: AssetVersionInstance, done: (err?: Error) => void) => void
-  ): void;
-  /**
-   * Streams AssetVersionInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
    * @param { AssetVersionListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: AssetVersionListInstanceEachOptions,
     callback?: (item: AssetVersionInstance, done: (err?: Error) => void) => void
   ): void;
-  each(params?: any, callback?: any): void;
+  each(
+    params: AssetVersionListInstanceEachOptions,
+    callback?: (item: AssetVersionInstance, done: (err?: Error) => void) => void
+  ): void;
   /**
    * Retrieve a single target page of AssetVersionInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: AssetVersionPage) => any
-  ): Promise<AssetVersionPage>;
-  /**
-   * Retrieve a single target page of AssetVersionInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: AssetVersionPage) => any
   ): Promise<AssetVersionPage>;
-  getPage(params?: any, callback?: any): Promise<AssetVersionPage>;
-  /**
-   * Lists AssetVersionInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: AssetVersionInstance[]) => any
-  ): Promise<AssetVersionInstance[]>;
   /**
    * Lists AssetVersionInstance records from the API as a list.
    *
@@ -365,23 +324,12 @@ export interface AssetVersionListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: AssetVersionListInstanceOptions,
     callback?: (error: Error | null, items: AssetVersionInstance[]) => any
   ): Promise<AssetVersionInstance[]>;
-  list(params?: any, callback?: any): Promise<AssetVersionInstance[]>;
-  /**
-   * Retrieve a single page of AssetVersionInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: AssetVersionPage) => any
-  ): Promise<AssetVersionPage>;
+  list(
+    params: AssetVersionListInstanceOptions,
+    callback?: (error: Error | null, items: AssetVersionInstance[]) => any
+  ): Promise<AssetVersionInstance[]>;
   /**
    * Retrieve a single page of AssetVersionInstance records from the API.
    *
@@ -394,10 +342,12 @@ export interface AssetVersionListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
+    callback?: (error: Error | null, items: AssetVersionPage) => any
+  ): Promise<AssetVersionPage>;
+  page(
     params: AssetVersionListInstancePageOptions,
     callback?: (error: Error | null, items: AssetVersionPage) => any
   ): Promise<AssetVersionPage>;
-  page(params?: any, callback?: any): Promise<AssetVersionPage>;
 
   /**
    * Provide a user-friendly representation
@@ -430,11 +380,16 @@ export function AssetVersionListInstance(
   instance._uri = `/Services/${serviceSid}/Assets/${assetSid}/Versions`;
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | AssetVersionListInstancePageOptions
+      | ((error: Error | null, item?: AssetVersionPage) => any),
+    callback?: (error: Error | null, item?: AssetVersionPage) => any
   ): Promise<AssetVersionPage> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (
+        error: Error | null,
+        item?: AssetVersionPage
+      ) => any;
       params = {};
     } else {
       params = params || {};
@@ -444,7 +399,7 @@ export function AssetVersionListInstance(
 
     if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
@@ -472,8 +427,8 @@ export function AssetVersionListInstance(
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: AssetVersionPage) => any
   ): Promise<AssetVersionPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",

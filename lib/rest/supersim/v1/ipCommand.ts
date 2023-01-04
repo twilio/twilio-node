@@ -32,7 +32,7 @@ type IpCommandStatus = "queued" | "sent" | "received" | "failed";
 export interface IpCommandListInstanceCreateOptions {
   /** The `sid` or `unique_name` of the [Super SIM](https://www.twilio.com/docs/iot/supersim/api/sim-resource) to send the IP Command to. */
   sim: string;
-  /** The data that will be sent to the device. The payload cannot exceed 1300 bytes. If the PayloadType is set to text, the payload is encoded in UTF-8. If PayloadType is set to binary, the payload is encoded in Base64. */
+  /** The payload to be delivered to the device. */
   payload: string;
   /** The device port to which the IP Command will be sent. */
   devicePort: number;
@@ -139,7 +139,9 @@ export class IpCommandContextImpl implements IpCommandContext {
     this._uri = `/IpCommands/${sid}`;
   }
 
-  fetch(callback?: any): Promise<IpCommandInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: IpCommandInstance) => any
+  ): Promise<IpCommandInstance> {
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
@@ -333,25 +335,7 @@ export interface IpCommandListInstance {
     params: IpCommandListInstanceCreateOptions,
     callback?: (error: Error | null, item?: IpCommandInstance) => any
   ): Promise<IpCommandInstance>;
-  create(params: any, callback?: any): Promise<IpCommandInstance>;
 
-  /**
-   * Streams IpCommandInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (item: IpCommandInstance, done: (err?: Error) => void) => void
-  ): void;
   /**
    * Streams IpCommandInstance records from the API.
    *
@@ -368,50 +352,24 @@ export interface IpCommandListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: IpCommandListInstanceEachOptions,
     callback?: (item: IpCommandInstance, done: (err?: Error) => void) => void
   ): void;
-  each(params?: any, callback?: any): void;
+  each(
+    params: IpCommandListInstanceEachOptions,
+    callback?: (item: IpCommandInstance, done: (err?: Error) => void) => void
+  ): void;
   /**
    * Retrieve a single target page of IpCommandInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: IpCommandPage) => any
-  ): Promise<IpCommandPage>;
-  /**
-   * Retrieve a single target page of IpCommandInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: IpCommandPage) => any
   ): Promise<IpCommandPage>;
-  getPage(params?: any, callback?: any): Promise<IpCommandPage>;
-  /**
-   * Lists IpCommandInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: IpCommandInstance[]) => any
-  ): Promise<IpCommandInstance[]>;
   /**
    * Lists IpCommandInstance records from the API as a list.
    *
@@ -422,23 +380,12 @@ export interface IpCommandListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: IpCommandListInstanceOptions,
     callback?: (error: Error | null, items: IpCommandInstance[]) => any
   ): Promise<IpCommandInstance[]>;
-  list(params?: any, callback?: any): Promise<IpCommandInstance[]>;
-  /**
-   * Retrieve a single page of IpCommandInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: IpCommandPage) => any
-  ): Promise<IpCommandPage>;
+  list(
+    params: IpCommandListInstanceOptions,
+    callback?: (error: Error | null, items: IpCommandInstance[]) => any
+  ): Promise<IpCommandInstance[]>;
   /**
    * Retrieve a single page of IpCommandInstance records from the API.
    *
@@ -451,10 +398,12 @@ export interface IpCommandListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
+    callback?: (error: Error | null, items: IpCommandPage) => any
+  ): Promise<IpCommandPage>;
+  page(
     params: IpCommandListInstancePageOptions,
     callback?: (error: Error | null, items: IpCommandPage) => any
   ): Promise<IpCommandPage>;
-  page(params?: any, callback?: any): Promise<IpCommandPage>;
 
   /**
    * Provide a user-friendly representation
@@ -475,8 +424,8 @@ export function IpCommandListInstance(version: V1): IpCommandListInstance {
   instance._uri = `/IpCommands`;
 
   instance.create = function create(
-    params: any,
-    callback?: any
+    params: IpCommandListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: IpCommandInstance) => any
   ): Promise<IpCommandInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -531,11 +480,13 @@ export function IpCommandListInstance(version: V1): IpCommandListInstance {
   };
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | IpCommandListInstancePageOptions
+      | ((error: Error | null, item?: IpCommandPage) => any),
+    callback?: (error: Error | null, item?: IpCommandPage) => any
   ): Promise<IpCommandPage> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (error: Error | null, item?: IpCommandPage) => any;
       params = {};
     } else {
       params = params || {};
@@ -550,7 +501,7 @@ export function IpCommandListInstance(version: V1): IpCommandListInstance {
       data["Direction"] = params["direction"];
     if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
@@ -578,8 +529,8 @@ export function IpCommandListInstance(version: V1): IpCommandListInstance {
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: IpCommandPage) => any
   ): Promise<IpCommandPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",

@@ -147,7 +147,6 @@ export interface WorkflowContext {
     params: WorkflowContextUpdateOptions,
     callback?: (error: Error | null, item?: WorkflowInstance) => any
   ): Promise<WorkflowInstance>;
-  update(params?: any, callback?: any): Promise<WorkflowInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -215,7 +214,9 @@ export class WorkflowContextImpl implements WorkflowContext {
     return this._statistics;
   }
 
-  remove(callback?: any): Promise<boolean> {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
@@ -230,7 +231,9 @@ export class WorkflowContextImpl implements WorkflowContext {
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<WorkflowInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: WorkflowInstance) => any
+  ): Promise<WorkflowInstance> {
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
@@ -255,9 +258,17 @@ export class WorkflowContextImpl implements WorkflowContext {
     return operationPromise;
   }
 
-  update(params?: any, callback?: any): Promise<WorkflowInstance> {
+  update(
+    params?:
+      | WorkflowContextUpdateOptions
+      | ((error: Error | null, item?: WorkflowInstance) => any),
+    callback?: (error: Error | null, item?: WorkflowInstance) => any
+  ): Promise<WorkflowInstance> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (
+        error: Error | null,
+        item?: WorkflowInstance
+      ) => any;
       params = {};
     } else {
       params = params || {};
@@ -484,7 +495,11 @@ export class WorkflowInstance {
     params: WorkflowContextUpdateOptions,
     callback?: (error: Error | null, item?: WorkflowInstance) => any
   ): Promise<WorkflowInstance>;
-  update(params?: any, callback?: any): Promise<WorkflowInstance> {
+
+  update(
+    params?: any,
+    callback?: (error: Error | null, item?: WorkflowInstance) => any
+  ): Promise<WorkflowInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -561,25 +576,7 @@ export interface WorkflowListInstance {
     params: WorkflowListInstanceCreateOptions,
     callback?: (error: Error | null, item?: WorkflowInstance) => any
   ): Promise<WorkflowInstance>;
-  create(params: any, callback?: any): Promise<WorkflowInstance>;
 
-  /**
-   * Streams WorkflowInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (item: WorkflowInstance, done: (err?: Error) => void) => void
-  ): void;
   /**
    * Streams WorkflowInstance records from the API.
    *
@@ -596,50 +593,24 @@ export interface WorkflowListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: WorkflowListInstanceEachOptions,
     callback?: (item: WorkflowInstance, done: (err?: Error) => void) => void
   ): void;
-  each(params?: any, callback?: any): void;
+  each(
+    params: WorkflowListInstanceEachOptions,
+    callback?: (item: WorkflowInstance, done: (err?: Error) => void) => void
+  ): void;
   /**
    * Retrieve a single target page of WorkflowInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: WorkflowPage) => any
-  ): Promise<WorkflowPage>;
-  /**
-   * Retrieve a single target page of WorkflowInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: WorkflowPage) => any
   ): Promise<WorkflowPage>;
-  getPage(params?: any, callback?: any): Promise<WorkflowPage>;
-  /**
-   * Lists WorkflowInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: WorkflowInstance[]) => any
-  ): Promise<WorkflowInstance[]>;
   /**
    * Lists WorkflowInstance records from the API as a list.
    *
@@ -650,23 +621,12 @@ export interface WorkflowListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: WorkflowListInstanceOptions,
     callback?: (error: Error | null, items: WorkflowInstance[]) => any
   ): Promise<WorkflowInstance[]>;
-  list(params?: any, callback?: any): Promise<WorkflowInstance[]>;
-  /**
-   * Retrieve a single page of WorkflowInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: WorkflowPage) => any
-  ): Promise<WorkflowPage>;
+  list(
+    params: WorkflowListInstanceOptions,
+    callback?: (error: Error | null, items: WorkflowInstance[]) => any
+  ): Promise<WorkflowInstance[]>;
   /**
    * Retrieve a single page of WorkflowInstance records from the API.
    *
@@ -679,10 +639,12 @@ export interface WorkflowListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
+    callback?: (error: Error | null, items: WorkflowPage) => any
+  ): Promise<WorkflowPage>;
+  page(
     params: WorkflowListInstancePageOptions,
     callback?: (error: Error | null, items: WorkflowPage) => any
   ): Promise<WorkflowPage>;
-  page(params?: any, callback?: any): Promise<WorkflowPage>;
 
   /**
    * Provide a user-friendly representation
@@ -710,8 +672,8 @@ export function WorkflowListInstance(
   instance._uri = `/Workspaces/${workspaceSid}/Workflows`;
 
   instance.create = function create(
-    params: any,
-    callback?: any
+    params: WorkflowListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: WorkflowInstance) => any
   ): Promise<WorkflowInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -774,11 +736,13 @@ export function WorkflowListInstance(
   };
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | WorkflowListInstancePageOptions
+      | ((error: Error | null, item?: WorkflowPage) => any),
+    callback?: (error: Error | null, item?: WorkflowPage) => any
   ): Promise<WorkflowPage> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (error: Error | null, item?: WorkflowPage) => any;
       params = {};
     } else {
       params = params || {};
@@ -790,7 +754,7 @@ export function WorkflowListInstance(
       data["FriendlyName"] = params["friendlyName"];
     if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
@@ -818,8 +782,8 @@ export function WorkflowListInstance(
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: WorkflowPage) => any
   ): Promise<WorkflowPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",

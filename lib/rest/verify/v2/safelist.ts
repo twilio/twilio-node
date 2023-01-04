@@ -73,7 +73,9 @@ export class SafelistContextImpl implements SafelistContext {
     this._uri = `/SafeList/Numbers/${phoneNumber}`;
   }
 
-  remove(callback?: any): Promise<boolean> {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
@@ -88,7 +90,9 @@ export class SafelistContextImpl implements SafelistContext {
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<SafelistInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: SafelistInstance) => any
+  ): Promise<SafelistInstance> {
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
@@ -236,7 +240,6 @@ export interface SafelistListInstance {
     params: SafelistListInstanceCreateOptions,
     callback?: (error: Error | null, item?: SafelistInstance) => any
   ): Promise<SafelistInstance>;
-  create(params: any, callback?: any): Promise<SafelistInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -258,8 +261,8 @@ export function SafelistListInstance(version: V2): SafelistListInstance {
   instance._uri = `/SafeList/Numbers`;
 
   instance.create = function create(
-    params: any,
-    callback?: any
+    params: SafelistListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: SafelistInstance) => any
   ): Promise<SafelistInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');

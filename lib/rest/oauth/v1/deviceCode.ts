@@ -49,7 +49,6 @@ export interface DeviceCodeListInstance {
     params: DeviceCodeListInstanceCreateOptions,
     callback?: (error: Error | null, item?: DeviceCodeInstance) => any
   ): Promise<DeviceCodeInstance>;
-  create(params: any, callback?: any): Promise<DeviceCodeInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -66,8 +65,8 @@ export function DeviceCodeListInstance(version: V1): DeviceCodeListInstance {
   instance._uri = `/device/code`;
 
   instance.create = function create(
-    params: any,
-    callback?: any
+    params: DeviceCodeListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: DeviceCodeInstance) => any
   ): Promise<DeviceCodeInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');

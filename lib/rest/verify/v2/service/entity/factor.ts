@@ -130,7 +130,6 @@ export interface FactorContext {
     params: FactorContextUpdateOptions,
     callback?: (error: Error | null, item?: FactorInstance) => any
   ): Promise<FactorInstance>;
-  update(params?: any, callback?: any): Promise<FactorInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -171,7 +170,9 @@ export class FactorContextImpl implements FactorContext {
     this._uri = `/Services/${serviceSid}/Entities/${identity}/Factors/${sid}`;
   }
 
-  remove(callback?: any): Promise<boolean> {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
@@ -186,7 +187,9 @@ export class FactorContextImpl implements FactorContext {
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<FactorInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: FactorInstance) => any
+  ): Promise<FactorInstance> {
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
@@ -212,9 +215,14 @@ export class FactorContextImpl implements FactorContext {
     return operationPromise;
   }
 
-  update(params?: any, callback?: any): Promise<FactorInstance> {
+  update(
+    params?:
+      | FactorContextUpdateOptions
+      | ((error: Error | null, item?: FactorInstance) => any),
+    callback?: (error: Error | null, item?: FactorInstance) => any
+  ): Promise<FactorInstance> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (error: Error | null, item?: FactorInstance) => any;
       params = {};
     } else {
       params = params || {};
@@ -441,7 +449,11 @@ export class FactorInstance {
     params: FactorContextUpdateOptions,
     callback?: (error: Error | null, item?: FactorInstance) => any
   ): Promise<FactorInstance>;
-  update(params?: any, callback?: any): Promise<FactorInstance> {
+
+  update(
+    params?: any,
+    callback?: (error: Error | null, item?: FactorInstance) => any
+  ): Promise<FactorInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -498,71 +510,28 @@ export interface FactorListInstance {
    * If a function is passed as the first argument, it will be used as the callback
    * function.
    *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (item: FactorInstance, done: (err?: Error) => void) => void
-  ): void;
-  /**
-   * Streams FactorInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
    * @param { FactorListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: FactorListInstanceEachOptions,
     callback?: (item: FactorInstance, done: (err?: Error) => void) => void
   ): void;
-  each(params?: any, callback?: any): void;
+  each(
+    params: FactorListInstanceEachOptions,
+    callback?: (item: FactorInstance, done: (err?: Error) => void) => void
+  ): void;
   /**
    * Retrieve a single target page of FactorInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: FactorPage) => any
-  ): Promise<FactorPage>;
-  /**
-   * Retrieve a single target page of FactorInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: FactorPage) => any
   ): Promise<FactorPage>;
-  getPage(params?: any, callback?: any): Promise<FactorPage>;
-  /**
-   * Lists FactorInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: FactorInstance[]) => any
-  ): Promise<FactorInstance[]>;
   /**
    * Lists FactorInstance records from the API as a list.
    *
@@ -573,23 +542,12 @@ export interface FactorListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: FactorListInstanceOptions,
     callback?: (error: Error | null, items: FactorInstance[]) => any
   ): Promise<FactorInstance[]>;
-  list(params?: any, callback?: any): Promise<FactorInstance[]>;
-  /**
-   * Retrieve a single page of FactorInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: FactorPage) => any
-  ): Promise<FactorPage>;
+  list(
+    params: FactorListInstanceOptions,
+    callback?: (error: Error | null, items: FactorInstance[]) => any
+  ): Promise<FactorInstance[]>;
   /**
    * Retrieve a single page of FactorInstance records from the API.
    *
@@ -602,10 +560,12 @@ export interface FactorListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
+    callback?: (error: Error | null, items: FactorPage) => any
+  ): Promise<FactorPage>;
+  page(
     params: FactorListInstancePageOptions,
     callback?: (error: Error | null, items: FactorPage) => any
   ): Promise<FactorPage>;
-  page(params?: any, callback?: any): Promise<FactorPage>;
 
   /**
    * Provide a user-friendly representation
@@ -638,11 +598,13 @@ export function FactorListInstance(
   instance._uri = `/Services/${serviceSid}/Entities/${identity}/Factors`;
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | FactorListInstancePageOptions
+      | ((error: Error | null, item?: FactorPage) => any),
+    callback?: (error: Error | null, item?: FactorPage) => any
   ): Promise<FactorPage> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (error: Error | null, item?: FactorPage) => any;
       params = {};
     } else {
       params = params || {};
@@ -652,7 +614,7 @@ export function FactorListInstance(
 
     if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
@@ -679,8 +641,8 @@ export function FactorListInstance(
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: FactorPage) => any
   ): Promise<FactorPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",

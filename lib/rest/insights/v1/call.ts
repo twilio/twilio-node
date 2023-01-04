@@ -94,7 +94,9 @@ export class CallContextImpl implements CallContext {
     return this._metrics;
   }
 
-  fetch(callback?: any): Promise<CallInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: CallInstance) => any
+  ): Promise<CallInstance> {
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({

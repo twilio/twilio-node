@@ -57,7 +57,6 @@ export interface WorkflowStatisticsContext {
     params: WorkflowStatisticsContextFetchOptions,
     callback?: (error: Error | null, item?: WorkflowStatisticsInstance) => any
   ): Promise<WorkflowStatisticsInstance>;
-  fetch(params?: any, callback?: any): Promise<WorkflowStatisticsInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -94,9 +93,17 @@ export class WorkflowStatisticsContextImpl
     this._uri = `/Workspaces/${workspaceSid}/Workflows/${workflowSid}/Statistics`;
   }
 
-  fetch(params?: any, callback?: any): Promise<WorkflowStatisticsInstance> {
+  fetch(
+    params?:
+      | WorkflowStatisticsContextFetchOptions
+      | ((error: Error | null, item?: WorkflowStatisticsInstance) => any),
+    callback?: (error: Error | null, item?: WorkflowStatisticsInstance) => any
+  ): Promise<WorkflowStatisticsInstance> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (
+        error: Error | null,
+        item?: WorkflowStatisticsInstance
+      ) => any;
       params = {};
     } else {
       params = params || {};
@@ -245,7 +252,11 @@ export class WorkflowStatisticsInstance {
     params: WorkflowStatisticsContextFetchOptions,
     callback?: (error: Error | null, item?: WorkflowStatisticsInstance) => any
   ): Promise<WorkflowStatisticsInstance>;
-  fetch(params?: any, callback?: any): Promise<WorkflowStatisticsInstance> {
+
+  fetch(
+    params?: any,
+    callback?: (error: Error | null, item?: WorkflowStatisticsInstance) => any
+  ): Promise<WorkflowStatisticsInstance> {
     return this._proxy.fetch(params, callback);
   }
 

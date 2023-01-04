@@ -128,7 +128,6 @@ export interface SyncMapItemContext {
     params: SyncMapItemContextRemoveOptions,
     callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean>;
-  remove(params?: any, callback?: any): Promise<boolean>;
 
   /**
    * Fetch a SyncMapItemInstance
@@ -153,7 +152,6 @@ export interface SyncMapItemContext {
     params: SyncMapItemContextUpdateOptions,
     callback?: (error: Error | null, item?: SyncMapItemInstance) => any
   ): Promise<SyncMapItemInstance>;
-  update(params: any, callback?: any): Promise<SyncMapItemInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -194,9 +192,14 @@ export class SyncMapItemContextImpl implements SyncMapItemContext {
     this._uri = `/Services/${serviceSid}/Maps/${mapSid}/Items/${key}`;
   }
 
-  remove(params?: any, callback?: any): Promise<boolean> {
+  remove(
+    params?:
+      | SyncMapItemContextRemoveOptions
+      | ((error: Error | null, item?: boolean) => any),
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (error: Error | null, item?: boolean) => any;
       params = {};
     } else {
       params = params || {};
@@ -224,7 +227,9 @@ export class SyncMapItemContextImpl implements SyncMapItemContext {
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<SyncMapItemInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: SyncMapItemInstance) => any
+  ): Promise<SyncMapItemInstance> {
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
@@ -250,7 +255,12 @@ export class SyncMapItemContextImpl implements SyncMapItemContext {
     return operationPromise;
   }
 
-  update(params: any, callback?: any): Promise<SyncMapItemInstance> {
+  update(
+    params:
+      | SyncMapItemContextUpdateOptions
+      | ((error: Error | null, item?: SyncMapItemInstance) => any),
+    callback?: (error: Error | null, item?: SyncMapItemInstance) => any
+  ): Promise<SyncMapItemInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
@@ -396,7 +406,11 @@ export class SyncMapItemInstance {
     params: SyncMapItemContextRemoveOptions,
     callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean>;
-  remove(params?: any, callback?: any): Promise<boolean> {
+
+  remove(
+    params?: any,
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     return this._proxy.remove(params, callback);
   }
 
@@ -425,7 +439,11 @@ export class SyncMapItemInstance {
     params: SyncMapItemContextUpdateOptions,
     callback?: (error: Error | null, item?: SyncMapItemInstance) => any
   ): Promise<SyncMapItemInstance>;
-  update(params: any, callback?: any): Promise<SyncMapItemInstance> {
+
+  update(
+    params?: any,
+    callback?: (error: Error | null, item?: SyncMapItemInstance) => any
+  ): Promise<SyncMapItemInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -479,25 +497,7 @@ export interface SyncMapItemListInstance {
     params: SyncMapItemListInstanceCreateOptions,
     callback?: (error: Error | null, item?: SyncMapItemInstance) => any
   ): Promise<SyncMapItemInstance>;
-  create(params: any, callback?: any): Promise<SyncMapItemInstance>;
 
-  /**
-   * Streams SyncMapItemInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (item: SyncMapItemInstance, done: (err?: Error) => void) => void
-  ): void;
   /**
    * Streams SyncMapItemInstance records from the API.
    *
@@ -514,50 +514,24 @@ export interface SyncMapItemListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: SyncMapItemListInstanceEachOptions,
     callback?: (item: SyncMapItemInstance, done: (err?: Error) => void) => void
   ): void;
-  each(params?: any, callback?: any): void;
+  each(
+    params: SyncMapItemListInstanceEachOptions,
+    callback?: (item: SyncMapItemInstance, done: (err?: Error) => void) => void
+  ): void;
   /**
    * Retrieve a single target page of SyncMapItemInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: SyncMapItemPage) => any
-  ): Promise<SyncMapItemPage>;
-  /**
-   * Retrieve a single target page of SyncMapItemInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: SyncMapItemPage) => any
   ): Promise<SyncMapItemPage>;
-  getPage(params?: any, callback?: any): Promise<SyncMapItemPage>;
-  /**
-   * Lists SyncMapItemInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: SyncMapItemInstance[]) => any
-  ): Promise<SyncMapItemInstance[]>;
   /**
    * Lists SyncMapItemInstance records from the API as a list.
    *
@@ -568,23 +542,12 @@ export interface SyncMapItemListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: SyncMapItemListInstanceOptions,
     callback?: (error: Error | null, items: SyncMapItemInstance[]) => any
   ): Promise<SyncMapItemInstance[]>;
-  list(params?: any, callback?: any): Promise<SyncMapItemInstance[]>;
-  /**
-   * Retrieve a single page of SyncMapItemInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: SyncMapItemPage) => any
-  ): Promise<SyncMapItemPage>;
+  list(
+    params: SyncMapItemListInstanceOptions,
+    callback?: (error: Error | null, items: SyncMapItemInstance[]) => any
+  ): Promise<SyncMapItemInstance[]>;
   /**
    * Retrieve a single page of SyncMapItemInstance records from the API.
    *
@@ -597,10 +560,12 @@ export interface SyncMapItemListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
+    callback?: (error: Error | null, items: SyncMapItemPage) => any
+  ): Promise<SyncMapItemPage>;
+  page(
     params: SyncMapItemListInstancePageOptions,
     callback?: (error: Error | null, items: SyncMapItemPage) => any
   ): Promise<SyncMapItemPage>;
-  page(params?: any, callback?: any): Promise<SyncMapItemPage>;
 
   /**
    * Provide a user-friendly representation
@@ -633,8 +598,8 @@ export function SyncMapItemListInstance(
   instance._uri = `/Services/${serviceSid}/Maps/${mapSid}/Items`;
 
   instance.create = function create(
-    params: any,
-    callback?: any
+    params: SyncMapItemListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: SyncMapItemInstance) => any
   ): Promise<SyncMapItemInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -683,11 +648,13 @@ export function SyncMapItemListInstance(
   };
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | SyncMapItemListInstancePageOptions
+      | ((error: Error | null, item?: SyncMapItemPage) => any),
+    callback?: (error: Error | null, item?: SyncMapItemPage) => any
   ): Promise<SyncMapItemPage> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (error: Error | null, item?: SyncMapItemPage) => any;
       params = {};
     } else {
       params = params || {};
@@ -700,7 +667,7 @@ export function SyncMapItemListInstance(
     if (params["bounds"] !== undefined) data["Bounds"] = params["bounds"];
     if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
@@ -728,8 +695,8 @@ export function SyncMapItemListInstance(
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: SyncMapItemPage) => any
   ): Promise<SyncMapItemPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",

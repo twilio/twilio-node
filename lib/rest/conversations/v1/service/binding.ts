@@ -122,7 +122,9 @@ export class BindingContextImpl implements BindingContext {
     this._uri = `/Services/${chatServiceSid}/Bindings/${sid}`;
   }
 
-  remove(callback?: any): Promise<boolean> {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
@@ -137,7 +139,9 @@ export class BindingContextImpl implements BindingContext {
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<BindingInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: BindingInstance) => any
+  ): Promise<BindingInstance> {
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
@@ -348,71 +352,28 @@ export interface BindingListInstance {
    * If a function is passed as the first argument, it will be used as the callback
    * function.
    *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (item: BindingInstance, done: (err?: Error) => void) => void
-  ): void;
-  /**
-   * Streams BindingInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
    * @param { BindingListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: BindingListInstanceEachOptions,
     callback?: (item: BindingInstance, done: (err?: Error) => void) => void
   ): void;
-  each(params?: any, callback?: any): void;
+  each(
+    params: BindingListInstanceEachOptions,
+    callback?: (item: BindingInstance, done: (err?: Error) => void) => void
+  ): void;
   /**
    * Retrieve a single target page of BindingInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: BindingPage) => any
-  ): Promise<BindingPage>;
-  /**
-   * Retrieve a single target page of BindingInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: BindingPage) => any
   ): Promise<BindingPage>;
-  getPage(params?: any, callback?: any): Promise<BindingPage>;
-  /**
-   * Lists BindingInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: BindingInstance[]) => any
-  ): Promise<BindingInstance[]>;
   /**
    * Lists BindingInstance records from the API as a list.
    *
@@ -423,23 +384,12 @@ export interface BindingListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: BindingListInstanceOptions,
     callback?: (error: Error | null, items: BindingInstance[]) => any
   ): Promise<BindingInstance[]>;
-  list(params?: any, callback?: any): Promise<BindingInstance[]>;
-  /**
-   * Retrieve a single page of BindingInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: BindingPage) => any
-  ): Promise<BindingPage>;
+  list(
+    params: BindingListInstanceOptions,
+    callback?: (error: Error | null, items: BindingInstance[]) => any
+  ): Promise<BindingInstance[]>;
   /**
    * Retrieve a single page of BindingInstance records from the API.
    *
@@ -452,10 +402,12 @@ export interface BindingListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
+    callback?: (error: Error | null, items: BindingPage) => any
+  ): Promise<BindingPage>;
+  page(
     params: BindingListInstancePageOptions,
     callback?: (error: Error | null, items: BindingPage) => any
   ): Promise<BindingPage>;
-  page(params?: any, callback?: any): Promise<BindingPage>;
 
   /**
    * Provide a user-friendly representation
@@ -483,11 +435,13 @@ export function BindingListInstance(
   instance._uri = `/Services/${chatServiceSid}/Bindings`;
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | BindingListInstancePageOptions
+      | ((error: Error | null, item?: BindingPage) => any),
+    callback?: (error: Error | null, item?: BindingPage) => any
   ): Promise<BindingPage> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (error: Error | null, item?: BindingPage) => any;
       params = {};
     } else {
       params = params || {};
@@ -501,7 +455,7 @@ export function BindingListInstance(
       data["Identity"] = serialize.map(params["identity"], (e) => e);
     if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
@@ -529,8 +483,8 @@ export function BindingListInstance(
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: BindingPage) => any
   ): Promise<BindingPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",

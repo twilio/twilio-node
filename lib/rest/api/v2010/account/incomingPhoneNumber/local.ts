@@ -171,25 +171,7 @@ export interface LocalListInstance {
     params: LocalListInstanceCreateOptions,
     callback?: (error: Error | null, item?: LocalInstance) => any
   ): Promise<LocalInstance>;
-  create(params: any, callback?: any): Promise<LocalInstance>;
 
-  /**
-   * Streams LocalInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (item: LocalInstance, done: (err?: Error) => void) => void
-  ): void;
   /**
    * Streams LocalInstance records from the API.
    *
@@ -206,50 +188,24 @@ export interface LocalListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: LocalListInstanceEachOptions,
     callback?: (item: LocalInstance, done: (err?: Error) => void) => void
   ): void;
-  each(params?: any, callback?: any): void;
+  each(
+    params: LocalListInstanceEachOptions,
+    callback?: (item: LocalInstance, done: (err?: Error) => void) => void
+  ): void;
   /**
    * Retrieve a single target page of LocalInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: LocalPage) => any
-  ): Promise<LocalPage>;
-  /**
-   * Retrieve a single target page of LocalInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: LocalPage) => any
   ): Promise<LocalPage>;
-  getPage(params?: any, callback?: any): Promise<LocalPage>;
-  /**
-   * Lists LocalInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: LocalInstance[]) => any
-  ): Promise<LocalInstance[]>;
   /**
    * Lists LocalInstance records from the API as a list.
    *
@@ -260,23 +216,12 @@ export interface LocalListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: LocalListInstanceOptions,
     callback?: (error: Error | null, items: LocalInstance[]) => any
   ): Promise<LocalInstance[]>;
-  list(params?: any, callback?: any): Promise<LocalInstance[]>;
-  /**
-   * Retrieve a single page of LocalInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: LocalPage) => any
-  ): Promise<LocalPage>;
+  list(
+    params: LocalListInstanceOptions,
+    callback?: (error: Error | null, items: LocalInstance[]) => any
+  ): Promise<LocalInstance[]>;
   /**
    * Retrieve a single page of LocalInstance records from the API.
    *
@@ -289,10 +234,12 @@ export interface LocalListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
+    callback?: (error: Error | null, items: LocalPage) => any
+  ): Promise<LocalPage>;
+  page(
     params: LocalListInstancePageOptions,
     callback?: (error: Error | null, items: LocalPage) => any
   ): Promise<LocalPage>;
-  page(params?: any, callback?: any): Promise<LocalPage>;
 
   /**
    * Provide a user-friendly representation
@@ -316,8 +263,8 @@ export function LocalListInstance(
   instance._uri = `/Accounts/${accountSid}/IncomingPhoneNumbers/Local.json`;
 
   instance.create = function create(
-    params: any,
-    callback?: any
+    params: LocalListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: LocalInstance) => any
   ): Promise<LocalInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -402,11 +349,13 @@ export function LocalListInstance(
   };
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | LocalListInstancePageOptions
+      | ((error: Error | null, item?: LocalPage) => any),
+    callback?: (error: Error | null, item?: LocalPage) => any
   ): Promise<LocalPage> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (error: Error | null, item?: LocalPage) => any;
       params = {};
     } else {
       params = params || {};
@@ -423,7 +372,7 @@ export function LocalListInstance(
     if (params["origin"] !== undefined) data["Origin"] = params["origin"];
     if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
@@ -450,8 +399,8 @@ export function LocalListInstance(
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: LocalPage) => any
   ): Promise<LocalPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",

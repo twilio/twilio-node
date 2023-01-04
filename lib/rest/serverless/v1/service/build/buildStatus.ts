@@ -61,7 +61,9 @@ export class BuildStatusContextImpl implements BuildStatusContext {
     this._uri = `/Services/${serviceSid}/Builds/${sid}/Status`;
   }
 
-  fetch(callback?: any): Promise<BuildStatusInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: BuildStatusInstance) => any
+  ): Promise<BuildStatusInstance> {
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({

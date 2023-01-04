@@ -57,7 +57,6 @@ export interface WorkspaceStatisticsContext {
     params: WorkspaceStatisticsContextFetchOptions,
     callback?: (error: Error | null, item?: WorkspaceStatisticsInstance) => any
   ): Promise<WorkspaceStatisticsInstance>;
-  fetch(params?: any, callback?: any): Promise<WorkspaceStatisticsInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -85,9 +84,17 @@ export class WorkspaceStatisticsContextImpl
     this._uri = `/Workspaces/${workspaceSid}/Statistics`;
   }
 
-  fetch(params?: any, callback?: any): Promise<WorkspaceStatisticsInstance> {
+  fetch(
+    params?:
+      | WorkspaceStatisticsContextFetchOptions
+      | ((error: Error | null, item?: WorkspaceStatisticsInstance) => any),
+    callback?: (error: Error | null, item?: WorkspaceStatisticsInstance) => any
+  ): Promise<WorkspaceStatisticsInstance> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (
+        error: Error | null,
+        item?: WorkspaceStatisticsInstance
+      ) => any;
       params = {};
     } else {
       params = params || {};
@@ -227,7 +234,11 @@ export class WorkspaceStatisticsInstance {
     params: WorkspaceStatisticsContextFetchOptions,
     callback?: (error: Error | null, item?: WorkspaceStatisticsInstance) => any
   ): Promise<WorkspaceStatisticsInstance>;
-  fetch(params?: any, callback?: any): Promise<WorkspaceStatisticsInstance> {
+
+  fetch(
+    params?: any,
+    callback?: (error: Error | null, item?: WorkspaceStatisticsInstance) => any
+  ): Promise<WorkspaceStatisticsInstance> {
     return this._proxy.fetch(params, callback);
   }
 

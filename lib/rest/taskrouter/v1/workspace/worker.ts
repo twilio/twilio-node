@@ -172,7 +172,6 @@ export interface WorkerContext {
     params: WorkerContextRemoveOptions,
     callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean>;
-  remove(params?: any, callback?: any): Promise<boolean>;
 
   /**
    * Fetch a WorkerInstance
@@ -207,7 +206,6 @@ export interface WorkerContext {
     params: WorkerContextUpdateOptions,
     callback?: (error: Error | null, item?: WorkerInstance) => any
   ): Promise<WorkerInstance>;
-  update(params?: any, callback?: any): Promise<WorkerInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -275,9 +273,14 @@ export class WorkerContextImpl implements WorkerContext {
     return this._statistics;
   }
 
-  remove(params?: any, callback?: any): Promise<boolean> {
+  remove(
+    params?:
+      | WorkerContextRemoveOptions
+      | ((error: Error | null, item?: boolean) => any),
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (error: Error | null, item?: boolean) => any;
       params = {};
     } else {
       params = params || {};
@@ -305,7 +308,9 @@ export class WorkerContextImpl implements WorkerContext {
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<WorkerInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: WorkerInstance) => any
+  ): Promise<WorkerInstance> {
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
@@ -330,9 +335,14 @@ export class WorkerContextImpl implements WorkerContext {
     return operationPromise;
   }
 
-  update(params?: any, callback?: any): Promise<WorkerInstance> {
+  update(
+    params?:
+      | WorkerContextUpdateOptions
+      | ((error: Error | null, item?: WorkerInstance) => any),
+    callback?: (error: Error | null, item?: WorkerInstance) => any
+  ): Promise<WorkerInstance> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (error: Error | null, item?: WorkerInstance) => any;
       params = {};
     } else {
       params = params || {};
@@ -531,7 +541,11 @@ export class WorkerInstance {
     params: WorkerContextRemoveOptions,
     callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean>;
-  remove(params?: any, callback?: any): Promise<boolean> {
+
+  remove(
+    params?: any,
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     return this._proxy.remove(params, callback);
   }
 
@@ -570,7 +584,11 @@ export class WorkerInstance {
     params: WorkerContextUpdateOptions,
     callback?: (error: Error | null, item?: WorkerInstance) => any
   ): Promise<WorkerInstance>;
-  update(params?: any, callback?: any): Promise<WorkerInstance> {
+
+  update(
+    params?: any,
+    callback?: (error: Error | null, item?: WorkerInstance) => any
+  ): Promise<WorkerInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -654,25 +672,7 @@ export interface WorkerListInstance {
     params: WorkerListInstanceCreateOptions,
     callback?: (error: Error | null, item?: WorkerInstance) => any
   ): Promise<WorkerInstance>;
-  create(params: any, callback?: any): Promise<WorkerInstance>;
 
-  /**
-   * Streams WorkerInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (item: WorkerInstance, done: (err?: Error) => void) => void
-  ): void;
   /**
    * Streams WorkerInstance records from the API.
    *
@@ -689,50 +689,24 @@ export interface WorkerListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: WorkerListInstanceEachOptions,
     callback?: (item: WorkerInstance, done: (err?: Error) => void) => void
   ): void;
-  each(params?: any, callback?: any): void;
+  each(
+    params: WorkerListInstanceEachOptions,
+    callback?: (item: WorkerInstance, done: (err?: Error) => void) => void
+  ): void;
   /**
    * Retrieve a single target page of WorkerInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: WorkerPage) => any
-  ): Promise<WorkerPage>;
-  /**
-   * Retrieve a single target page of WorkerInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: WorkerPage) => any
   ): Promise<WorkerPage>;
-  getPage(params?: any, callback?: any): Promise<WorkerPage>;
-  /**
-   * Lists WorkerInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: WorkerInstance[]) => any
-  ): Promise<WorkerInstance[]>;
   /**
    * Lists WorkerInstance records from the API as a list.
    *
@@ -743,23 +717,12 @@ export interface WorkerListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: WorkerListInstanceOptions,
     callback?: (error: Error | null, items: WorkerInstance[]) => any
   ): Promise<WorkerInstance[]>;
-  list(params?: any, callback?: any): Promise<WorkerInstance[]>;
-  /**
-   * Retrieve a single page of WorkerInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: WorkerPage) => any
-  ): Promise<WorkerPage>;
+  list(
+    params: WorkerListInstanceOptions,
+    callback?: (error: Error | null, items: WorkerInstance[]) => any
+  ): Promise<WorkerInstance[]>;
   /**
    * Retrieve a single page of WorkerInstance records from the API.
    *
@@ -772,10 +735,12 @@ export interface WorkerListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
+    callback?: (error: Error | null, items: WorkerPage) => any
+  ): Promise<WorkerPage>;
+  page(
     params: WorkerListInstancePageOptions,
     callback?: (error: Error | null, items: WorkerPage) => any
   ): Promise<WorkerPage>;
-  page(params?: any, callback?: any): Promise<WorkerPage>;
 
   /**
    * Provide a user-friendly representation
@@ -840,8 +805,8 @@ export function WorkerListInstance(
   });
 
   instance.create = function create(
-    params: any,
-    callback?: any
+    params: WorkerListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: WorkerInstance) => any
   ): Promise<WorkerInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -890,11 +855,13 @@ export function WorkerListInstance(
   };
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | WorkerListInstancePageOptions
+      | ((error: Error | null, item?: WorkerPage) => any),
+    callback?: (error: Error | null, item?: WorkerPage) => any
   ): Promise<WorkerPage> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (error: Error | null, item?: WorkerPage) => any;
       params = {};
     } else {
       params = params || {};
@@ -919,7 +886,7 @@ export function WorkerListInstance(
     if (params["ordering"] !== undefined) data["Ordering"] = params["ordering"];
     if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
@@ -946,8 +913,8 @@ export function WorkerListInstance(
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: WorkerPage) => any
   ): Promise<WorkerPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",

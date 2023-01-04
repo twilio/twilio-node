@@ -127,7 +127,9 @@ export class FieldContextImpl implements FieldContext {
     this._uri = `/Assistants/${assistantSid}/Tasks/${taskSid}/Fields/${sid}`;
   }
 
-  remove(callback?: any): Promise<boolean> {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
@@ -142,7 +144,9 @@ export class FieldContextImpl implements FieldContext {
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<FieldInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: FieldInstance) => any
+  ): Promise<FieldInstance> {
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
@@ -346,25 +350,7 @@ export interface FieldListInstance {
     params: FieldListInstanceCreateOptions,
     callback?: (error: Error | null, item?: FieldInstance) => any
   ): Promise<FieldInstance>;
-  create(params: any, callback?: any): Promise<FieldInstance>;
 
-  /**
-   * Streams FieldInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (item: FieldInstance, done: (err?: Error) => void) => void
-  ): void;
   /**
    * Streams FieldInstance records from the API.
    *
@@ -381,50 +367,24 @@ export interface FieldListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: FieldListInstanceEachOptions,
     callback?: (item: FieldInstance, done: (err?: Error) => void) => void
   ): void;
-  each(params?: any, callback?: any): void;
+  each(
+    params: FieldListInstanceEachOptions,
+    callback?: (item: FieldInstance, done: (err?: Error) => void) => void
+  ): void;
   /**
    * Retrieve a single target page of FieldInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: FieldPage) => any
-  ): Promise<FieldPage>;
-  /**
-   * Retrieve a single target page of FieldInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: FieldPage) => any
   ): Promise<FieldPage>;
-  getPage(params?: any, callback?: any): Promise<FieldPage>;
-  /**
-   * Lists FieldInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: FieldInstance[]) => any
-  ): Promise<FieldInstance[]>;
   /**
    * Lists FieldInstance records from the API as a list.
    *
@@ -435,23 +395,12 @@ export interface FieldListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: FieldListInstanceOptions,
     callback?: (error: Error | null, items: FieldInstance[]) => any
   ): Promise<FieldInstance[]>;
-  list(params?: any, callback?: any): Promise<FieldInstance[]>;
-  /**
-   * Retrieve a single page of FieldInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: FieldPage) => any
-  ): Promise<FieldPage>;
+  list(
+    params: FieldListInstanceOptions,
+    callback?: (error: Error | null, items: FieldInstance[]) => any
+  ): Promise<FieldInstance[]>;
   /**
    * Retrieve a single page of FieldInstance records from the API.
    *
@@ -464,10 +413,12 @@ export interface FieldListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
+    callback?: (error: Error | null, items: FieldPage) => any
+  ): Promise<FieldPage>;
+  page(
     params: FieldListInstancePageOptions,
     callback?: (error: Error | null, items: FieldPage) => any
   ): Promise<FieldPage>;
-  page(params?: any, callback?: any): Promise<FieldPage>;
 
   /**
    * Provide a user-friendly representation
@@ -500,8 +451,8 @@ export function FieldListInstance(
   instance._uri = `/Assistants/${assistantSid}/Tasks/${taskSid}/Fields`;
 
   instance.create = function create(
-    params: any,
-    callback?: any
+    params: FieldListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: FieldInstance) => any
   ): Promise<FieldInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -550,11 +501,13 @@ export function FieldListInstance(
   };
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | FieldListInstancePageOptions
+      | ((error: Error | null, item?: FieldPage) => any),
+    callback?: (error: Error | null, item?: FieldPage) => any
   ): Promise<FieldPage> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (error: Error | null, item?: FieldPage) => any;
       params = {};
     } else {
       params = params || {};
@@ -564,7 +517,7 @@ export function FieldListInstance(
 
     if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
@@ -591,8 +544,8 @@ export function FieldListInstance(
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: FieldPage) => any
   ): Promise<FieldPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",

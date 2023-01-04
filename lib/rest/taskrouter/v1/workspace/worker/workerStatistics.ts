@@ -55,7 +55,6 @@ export interface WorkerStatisticsContext {
     params: WorkerStatisticsContextFetchOptions,
     callback?: (error: Error | null, item?: WorkerStatisticsInstance) => any
   ): Promise<WorkerStatisticsInstance>;
-  fetch(params?: any, callback?: any): Promise<WorkerStatisticsInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -86,9 +85,17 @@ export class WorkerStatisticsContextImpl implements WorkerStatisticsContext {
     this._uri = `/Workspaces/${workspaceSid}/Workers/${workerSid}/Statistics`;
   }
 
-  fetch(params?: any, callback?: any): Promise<WorkerStatisticsInstance> {
+  fetch(
+    params?:
+      | WorkerStatisticsContextFetchOptions
+      | ((error: Error | null, item?: WorkerStatisticsInstance) => any),
+    callback?: (error: Error | null, item?: WorkerStatisticsInstance) => any
+  ): Promise<WorkerStatisticsInstance> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (
+        error: Error | null,
+        item?: WorkerStatisticsInstance
+      ) => any;
       params = {};
     } else {
       params = params || {};
@@ -229,7 +236,11 @@ export class WorkerStatisticsInstance {
     params: WorkerStatisticsContextFetchOptions,
     callback?: (error: Error | null, item?: WorkerStatisticsInstance) => any
   ): Promise<WorkerStatisticsInstance>;
-  fetch(params?: any, callback?: any): Promise<WorkerStatisticsInstance> {
+
+  fetch(
+    params?: any,
+    callback?: (error: Error | null, item?: WorkerStatisticsInstance) => any
+  ): Promise<WorkerStatisticsInstance> {
     return this._proxy.fetch(params, callback);
   }
 

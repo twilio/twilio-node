@@ -82,7 +82,6 @@ export interface NewFactorListInstance {
     params: NewFactorListInstanceCreateOptions,
     callback?: (error: Error | null, item?: NewFactorInstance) => any
   ): Promise<NewFactorInstance>;
-  create(params: any, callback?: any): Promise<NewFactorInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -111,8 +110,8 @@ export function NewFactorListInstance(
   instance._uri = `/Services/${serviceSid}/Entities/${identity}/Factors`;
 
   instance.create = function create(
-    params: any,
-    callback?: any
+    params: NewFactorListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: NewFactorInstance) => any
   ): Promise<NewFactorInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');

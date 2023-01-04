@@ -60,7 +60,6 @@ export interface StyleSheetContext {
     params: StyleSheetContextUpdateOptions,
     callback?: (error: Error | null, item?: StyleSheetInstance) => any
   ): Promise<StyleSheetInstance>;
-  update(params?: any, callback?: any): Promise<StyleSheetInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -86,7 +85,9 @@ export class StyleSheetContextImpl implements StyleSheetContext {
     this._uri = `/Assistants/${assistantSid}/StyleSheet`;
   }
 
-  fetch(callback?: any): Promise<StyleSheetInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: StyleSheetInstance) => any
+  ): Promise<StyleSheetInstance> {
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
@@ -110,9 +111,17 @@ export class StyleSheetContextImpl implements StyleSheetContext {
     return operationPromise;
   }
 
-  update(params?: any, callback?: any): Promise<StyleSheetInstance> {
+  update(
+    params?:
+      | StyleSheetContextUpdateOptions
+      | ((error: Error | null, item?: StyleSheetInstance) => any),
+    callback?: (error: Error | null, item?: StyleSheetInstance) => any
+  ): Promise<StyleSheetInstance> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (
+        error: Error | null,
+        item?: StyleSheetInstance
+      ) => any;
       params = {};
     } else {
       params = params || {};
@@ -247,7 +256,11 @@ export class StyleSheetInstance {
     params: StyleSheetContextUpdateOptions,
     callback?: (error: Error | null, item?: StyleSheetInstance) => any
   ): Promise<StyleSheetInstance>;
-  update(params?: any, callback?: any): Promise<StyleSheetInstance> {
+
+  update(
+    params?: any,
+    callback?: (error: Error | null, item?: StyleSheetInstance) => any
+  ): Promise<StyleSheetInstance> {
     return this._proxy.update(params, callback);
   }
 

@@ -110,7 +110,9 @@ export class AlertContextImpl implements AlertContext {
     this._uri = `/Alerts/${sid}`;
   }
 
-  fetch(callback?: any): Promise<AlertInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: AlertInstance) => any
+  ): Promise<AlertInstance> {
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
@@ -358,71 +360,28 @@ export interface AlertListInstance {
    * If a function is passed as the first argument, it will be used as the callback
    * function.
    *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (item: AlertInstance, done: (err?: Error) => void) => void
-  ): void;
-  /**
-   * Streams AlertInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
    * @param { AlertListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: AlertListInstanceEachOptions,
     callback?: (item: AlertInstance, done: (err?: Error) => void) => void
   ): void;
-  each(params?: any, callback?: any): void;
+  each(
+    params: AlertListInstanceEachOptions,
+    callback?: (item: AlertInstance, done: (err?: Error) => void) => void
+  ): void;
   /**
    * Retrieve a single target page of AlertInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: AlertPage) => any
-  ): Promise<AlertPage>;
-  /**
-   * Retrieve a single target page of AlertInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: AlertPage) => any
   ): Promise<AlertPage>;
-  getPage(params?: any, callback?: any): Promise<AlertPage>;
-  /**
-   * Lists AlertInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: AlertInstance[]) => any
-  ): Promise<AlertInstance[]>;
   /**
    * Lists AlertInstance records from the API as a list.
    *
@@ -433,23 +392,12 @@ export interface AlertListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: AlertListInstanceOptions,
     callback?: (error: Error | null, items: AlertInstance[]) => any
   ): Promise<AlertInstance[]>;
-  list(params?: any, callback?: any): Promise<AlertInstance[]>;
-  /**
-   * Retrieve a single page of AlertInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: AlertPage) => any
-  ): Promise<AlertPage>;
+  list(
+    params: AlertListInstanceOptions,
+    callback?: (error: Error | null, items: AlertInstance[]) => any
+  ): Promise<AlertInstance[]>;
   /**
    * Retrieve a single page of AlertInstance records from the API.
    *
@@ -462,10 +410,12 @@ export interface AlertListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
+    callback?: (error: Error | null, items: AlertPage) => any
+  ): Promise<AlertPage>;
+  page(
     params: AlertListInstancePageOptions,
     callback?: (error: Error | null, items: AlertPage) => any
   ): Promise<AlertPage>;
-  page(params?: any, callback?: any): Promise<AlertPage>;
 
   /**
    * Provide a user-friendly representation
@@ -486,11 +436,13 @@ export function AlertListInstance(version: V1): AlertListInstance {
   instance._uri = `/Alerts`;
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | AlertListInstancePageOptions
+      | ((error: Error | null, item?: AlertPage) => any),
+    callback?: (error: Error | null, item?: AlertPage) => any
   ): Promise<AlertPage> {
     if (typeof params === "function") {
-      callback = params;
+      callback = params as (error: Error | null, item?: AlertPage) => any;
       params = {};
     } else {
       params = params || {};
@@ -505,7 +457,7 @@ export function AlertListInstance(version: V1): AlertListInstance {
       data["EndDate"] = serialize.iso8601DateTime(params["endDate"]);
     if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
@@ -532,8 +484,8 @@ export function AlertListInstance(version: V1): AlertListInstance {
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: AlertPage) => any
   ): Promise<AlertPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",
