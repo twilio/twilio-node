@@ -20,10 +20,9 @@ import { isValidPathParam } from "../../../base/utility";
 
 /**
  * Options to pass to update a DomainCertsInstance
- *
- * @property { string } tlsCert Contains the full TLS certificate and private for this domain in PEM format: https://en.wikipedia.org/wiki/Privacy-Enhanced_Mail. Twilio uses this information to process HTTPS traffic sent to your domain.
  */
 export interface DomainCertsContextUpdateOptions {
+  /** Contains the full TLS certificate and private for this domain in PEM format: https://en.wikipedia.org/wiki/Privacy-Enhanced_Mail. Twilio uses this information to process HTTPS traffic sent to your domain. */
   tlsCert: string;
 }
 
@@ -31,9 +30,9 @@ export interface DomainCertsContext {
   /**
    * Remove a DomainCertsInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -42,9 +41,9 @@ export interface DomainCertsContext {
   /**
    * Fetch a DomainCertsInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed DomainCertsInstance
+   * @returns Resolves to processed DomainCertsInstance
    */
   fetch(
     callback?: (error: Error | null, item?: DomainCertsInstance) => any
@@ -53,10 +52,10 @@ export interface DomainCertsContext {
   /**
    * Update a DomainCertsInstance
    *
-   * @param { DomainCertsContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed DomainCertsInstance
+   * @returns Resolves to processed DomainCertsInstance
    */
   update(
     params: DomainCertsContextUpdateOptions,
@@ -253,9 +252,9 @@ export class DomainCertsInstance {
   /**
    * Remove a DomainCertsInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -266,9 +265,9 @@ export class DomainCertsInstance {
   /**
    * Fetch a DomainCertsInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed DomainCertsInstance
+   * @returns Resolves to processed DomainCertsInstance
    */
   fetch(
     callback?: (error: Error | null, item?: DomainCertsInstance) => any
@@ -279,10 +278,10 @@ export class DomainCertsInstance {
   /**
    * Update a DomainCertsInstance
    *
-   * @param { DomainCertsContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed DomainCertsInstance
+   * @returns Resolves to processed DomainCertsInstance
    */
   update(
     params: DomainCertsContextUpdateOptions,

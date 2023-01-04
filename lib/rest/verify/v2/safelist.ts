@@ -20,10 +20,9 @@ import { isValidPathParam } from "../../../base/utility";
 
 /**
  * Options to pass to create a SafelistInstance
- *
- * @property { string } phoneNumber The phone number to be added in SafeList. Phone numbers must be in [E.164 format](https://www.twilio.com/docs/glossary/what-e164).
  */
 export interface SafelistListInstanceCreateOptions {
+  /** The phone number to be added in SafeList. Phone numbers must be in [E.164 format](https://www.twilio.com/docs/glossary/what-e164). */
   phoneNumber: string;
 }
 
@@ -31,9 +30,9 @@ export interface SafelistContext {
   /**
    * Remove a SafelistInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -42,9 +41,9 @@ export interface SafelistContext {
   /**
    * Fetch a SafelistInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SafelistInstance
+   * @returns Resolves to processed SafelistInstance
    */
   fetch(
     callback?: (error: Error | null, item?: SafelistInstance) => any
@@ -172,9 +171,9 @@ export class SafelistInstance {
   /**
    * Remove a SafelistInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -185,9 +184,9 @@ export class SafelistInstance {
   /**
    * Fetch a SafelistInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SafelistInstance
+   * @returns Resolves to processed SafelistInstance
    */
   fetch(
     callback?: (error: Error | null, item?: SafelistInstance) => any
@@ -220,10 +219,10 @@ export interface SafelistListInstance {
   /**
    * Create a SafelistInstance
    *
-   * @param { SafelistListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SafelistInstance
+   * @returns Resolves to processed SafelistInstance
    */
   create(
     params: SafelistListInstanceCreateOptions,

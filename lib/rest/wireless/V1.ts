@@ -23,37 +23,40 @@ export default class V1 extends Version {
   /**
    * Initialize the V1 version of Wireless
    *
-   * @property { Twilio.Wireless.V1.CommandListInstance } commands - commands resource
-   * @property { Twilio.Wireless.V1.RatePlanListInstance } ratePlans - ratePlans resource
-   * @property { Twilio.Wireless.V1.SimListInstance } sims - sims resource
-   * @property { Twilio.Wireless.V1.UsageRecordListInstance } usageRecords - usageRecords resource
-   *
-   * @param { Twilio.Wireless } domain - The Twilio domain
+   * @param domain - The Twilio (Twilio.Wireless) domain
    */
   constructor(domain: WirelessBase) {
     super(domain, "v1");
   }
 
+  /** commands - { Twilio.Wireless.V1.CommandListInstance } resource */
   protected _commands?: CommandListInstance;
+  /** ratePlans - { Twilio.Wireless.V1.RatePlanListInstance } resource */
   protected _ratePlans?: RatePlanListInstance;
+  /** sims - { Twilio.Wireless.V1.SimListInstance } resource */
   protected _sims?: SimListInstance;
+  /** usageRecords - { Twilio.Wireless.V1.UsageRecordListInstance } resource */
   protected _usageRecords?: UsageRecordListInstance;
 
+  /** Getter for commands resource */
   get commands(): CommandListInstance {
     this._commands = this._commands || CommandListInstance(this);
     return this._commands;
   }
 
+  /** Getter for ratePlans resource */
   get ratePlans(): RatePlanListInstance {
     this._ratePlans = this._ratePlans || RatePlanListInstance(this);
     return this._ratePlans;
   }
 
+  /** Getter for sims resource */
   get sims(): SimListInstance {
     this._sims = this._sims || SimListInstance(this);
     return this._sims;
   }
 
+  /** Getter for usageRecords resource */
   get usageRecords(): UsageRecordListInstance {
     this._usageRecords = this._usageRecords || UsageRecordListInstance(this);
     return this._usageRecords;

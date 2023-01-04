@@ -22,9 +22,9 @@ export interface ApprovalFetchContext {
   /**
    * Fetch a ApprovalFetchInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ApprovalFetchInstance
+   * @returns Resolves to processed ApprovalFetchInstance
    */
   fetch(
     callback?: (error: Error | null, item?: ApprovalFetchInstance) => any
@@ -140,9 +140,9 @@ export class ApprovalFetchInstance {
   /**
    * Fetch a ApprovalFetchInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ApprovalFetchInstance
+   * @returns Resolves to processed ApprovalFetchInstance
    */
   fetch(
     callback?: (error: Error | null, item?: ApprovalFetchInstance) => any

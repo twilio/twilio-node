@@ -31,9 +31,9 @@ export interface CallContext {
   /**
    * Fetch a CallInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed CallInstance
+   * @returns Resolves to processed CallInstance
    */
   fetch(
     callback?: (error: Error | null, item?: CallInstance) => any
@@ -160,9 +160,9 @@ export class CallInstance {
   /**
    * Fetch a CallInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed CallInstance
+   * @returns Resolves to processed CallInstance
    */
   fetch(
     callback?: (error: Error | null, item?: CallInstance) => any

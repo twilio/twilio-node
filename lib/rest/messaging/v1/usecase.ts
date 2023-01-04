@@ -22,9 +22,9 @@ export interface UsecaseListInstance {
   /**
    * Fetch a UsecaseInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed UsecaseInstance
+   * @returns Resolves to processed UsecaseInstance
    */
   fetch(
     callback?: (error: Error | null, item?: UsecaseInstance) => any

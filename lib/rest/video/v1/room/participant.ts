@@ -28,80 +28,68 @@ type RoomParticipantStatus = "connected" | "disconnected";
 
 /**
  * Options to pass to update a ParticipantInstance
- *
- * @property { RoomParticipantStatus } [status]
  */
 export interface ParticipantContextUpdateOptions {
+  /**  */
   status?: RoomParticipantStatus;
 }
 /**
  * Options to pass to each
- *
- * @property { RoomParticipantStatus } [status] Read only the participants with this status. Can be: `connected` or `disconnected`. For `in-progress` Rooms the default Status is `connected`, for `completed` Rooms only `disconnected` Participants are returned.
- * @property { string } [identity] Read only the Participants with this [User](https://www.twilio.com/docs/chat/rest/user-resource) `identity` value.
- * @property { Date } [dateCreatedAfter] Read only Participants that started after this date in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601#UTC) format.
- * @property { Date } [dateCreatedBefore] Read only Participants that started before this date in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601#UTC) format.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface ParticipantListInstanceEachOptions {
+  /** Read only the participants with this status. Can be: `connected` or `disconnected`. For `in-progress` Rooms the default Status is `connected`, for `completed` Rooms only `disconnected` Participants are returned. */
   status?: RoomParticipantStatus;
+  /** Read only the Participants with this [User](https://www.twilio.com/docs/chat/rest/user-resource) `identity` value. */
   identity?: string;
+  /** Read only Participants that started after this date in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601#UTC) format. */
   dateCreatedAfter?: Date;
+  /** Read only Participants that started before this date in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601#UTC) format. */
   dateCreatedBefore?: Date;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: ParticipantInstance, done: (err?: Error) => void) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { RoomParticipantStatus } [status] Read only the participants with this status. Can be: `connected` or `disconnected`. For `in-progress` Rooms the default Status is `connected`, for `completed` Rooms only `disconnected` Participants are returned.
- * @property { string } [identity] Read only the Participants with this [User](https://www.twilio.com/docs/chat/rest/user-resource) `identity` value.
- * @property { Date } [dateCreatedAfter] Read only Participants that started after this date in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601#UTC) format.
- * @property { Date } [dateCreatedBefore] Read only Participants that started before this date in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601#UTC) format.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface ParticipantListInstanceOptions {
+  /** Read only the participants with this status. Can be: `connected` or `disconnected`. For `in-progress` Rooms the default Status is `connected`, for `completed` Rooms only `disconnected` Participants are returned. */
   status?: RoomParticipantStatus;
+  /** Read only the Participants with this [User](https://www.twilio.com/docs/chat/rest/user-resource) `identity` value. */
   identity?: string;
+  /** Read only Participants that started after this date in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601#UTC) format. */
   dateCreatedAfter?: Date;
+  /** Read only Participants that started before this date in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601#UTC) format. */
   dateCreatedBefore?: Date;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { RoomParticipantStatus } [status] Read only the participants with this status. Can be: `connected` or `disconnected`. For `in-progress` Rooms the default Status is `connected`, for `completed` Rooms only `disconnected` Participants are returned.
- * @property { string } [identity] Read only the Participants with this [User](https://www.twilio.com/docs/chat/rest/user-resource) `identity` value.
- * @property { Date } [dateCreatedAfter] Read only Participants that started after this date in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601#UTC) format.
- * @property { Date } [dateCreatedBefore] Read only Participants that started before this date in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601#UTC) format.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface ParticipantListInstancePageOptions {
+  /** Read only the participants with this status. Can be: `connected` or `disconnected`. For `in-progress` Rooms the default Status is `connected`, for `completed` Rooms only `disconnected` Participants are returned. */
   status?: RoomParticipantStatus;
+  /** Read only the Participants with this [User](https://www.twilio.com/docs/chat/rest/user-resource) `identity` value. */
   identity?: string;
+  /** Read only Participants that started after this date in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601#UTC) format. */
   dateCreatedAfter?: Date;
+  /** Read only Participants that started before this date in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601#UTC) format. */
   dateCreatedBefore?: Date;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
@@ -114,9 +102,9 @@ export interface ParticipantContext {
   /**
    * Fetch a ParticipantInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ParticipantInstance
+   * @returns Resolves to processed ParticipantInstance
    */
   fetch(
     callback?: (error: Error | null, item?: ParticipantInstance) => any
@@ -125,9 +113,9 @@ export interface ParticipantContext {
   /**
    * Update a ParticipantInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ParticipantInstance
+   * @returns Resolves to processed ParticipantInstance
    */
   update(
     callback?: (error: Error | null, item?: ParticipantInstance) => any
@@ -135,10 +123,10 @@ export interface ParticipantContext {
   /**
    * Update a ParticipantInstance
    *
-   * @param { ParticipantContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ParticipantInstance
+   * @returns Resolves to processed ParticipantInstance
    */
   update(
     params: ParticipantContextUpdateOptions,
@@ -407,9 +395,9 @@ export class ParticipantInstance {
   /**
    * Fetch a ParticipantInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ParticipantInstance
+   * @returns Resolves to processed ParticipantInstance
    */
   fetch(
     callback?: (error: Error | null, item?: ParticipantInstance) => any
@@ -420,9 +408,9 @@ export class ParticipantInstance {
   /**
    * Update a ParticipantInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ParticipantInstance
+   * @returns Resolves to processed ParticipantInstance
    */
   update(
     callback?: (error: Error | null, item?: ParticipantInstance) => any
@@ -430,10 +418,10 @@ export class ParticipantInstance {
   /**
    * Update a ParticipantInstance
    *
-   * @param { ParticipantContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ParticipantInstance
+   * @returns Resolves to processed ParticipantInstance
    */
   update(
     params: ParticipantContextUpdateOptions,

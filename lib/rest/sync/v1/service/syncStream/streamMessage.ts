@@ -20,10 +20,9 @@ import { isValidPathParam } from "../../../../../base/utility";
 
 /**
  * Options to pass to create a StreamMessageInstance
- *
- * @property { any } data A JSON string that represents an arbitrary, schema-less object that makes up the Stream Message body. Can be up to 4 KiB in length.
  */
 export interface StreamMessageListInstanceCreateOptions {
+  /** A JSON string that represents an arbitrary, schema-less object that makes up the Stream Message body. Can be up to 4 KiB in length. */
   data: any;
 }
 
@@ -31,10 +30,10 @@ export interface StreamMessageListInstance {
   /**
    * Create a StreamMessageInstance
    *
-   * @param { StreamMessageListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed StreamMessageInstance
+   * @returns Resolves to processed StreamMessageInstance
    */
   create(
     params: StreamMessageListInstanceCreateOptions,

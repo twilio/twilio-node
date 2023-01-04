@@ -21,23 +21,24 @@ export default class V2010 extends Version {
   /**
    * Initialize the V2010 version of Api
    *
-   * @property { Twilio.Api.V2010.AccountListInstance } accounts - accounts resource
-   * @property { Twilio.Api.V2010.AccountContext } account - account resource
-   *
-   * @param { Twilio.Api } domain - The Twilio domain
+   * @param domain - The Twilio (Twilio.Api) domain
    */
   constructor(domain: ApiBase) {
     super(domain, "2010-04-01");
   }
 
+  /** accounts - { Twilio.Api.V2010.AccountListInstance } resource */
   protected _accounts?: AccountListInstance;
+  /** account - { Twilio.Api.V2010.AccountContext } resource */
   protected _account?: AccountContext;
 
+  /** Getter for accounts resource */
   get accounts(): AccountListInstance {
     this._accounts = this._accounts || AccountListInstance(this);
     return this._accounts;
   }
 
+  /** Getter for account resource */
   get account(): AccountContext {
     this._account =
       this._account || AccountListInstance(this)(this.domain.twilio.accountSid);

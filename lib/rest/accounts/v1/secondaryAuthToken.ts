@@ -22,9 +22,9 @@ export interface SecondaryAuthTokenContext {
   /**
    * Create a SecondaryAuthTokenInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SecondaryAuthTokenInstance
+   * @returns Resolves to processed SecondaryAuthTokenInstance
    */
   create(
     callback?: (error: Error | null, item?: SecondaryAuthTokenInstance) => any
@@ -33,9 +33,9 @@ export interface SecondaryAuthTokenContext {
   /**
    * Remove a SecondaryAuthTokenInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -161,9 +161,9 @@ export class SecondaryAuthTokenInstance {
   /**
    * Create a SecondaryAuthTokenInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SecondaryAuthTokenInstance
+   * @returns Resolves to processed SecondaryAuthTokenInstance
    */
   create(
     callback?: (error: Error | null, item?: SecondaryAuthTokenInstance) => any
@@ -174,9 +174,9 @@ export class SecondaryAuthTokenInstance {
   /**
    * Remove a SecondaryAuthTokenInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any

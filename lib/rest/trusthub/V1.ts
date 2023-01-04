@@ -26,61 +26,67 @@ export default class V1 extends Version {
   /**
    * Initialize the V1 version of Trusthub
    *
-   * @property { Twilio.Trusthub.V1.CustomerProfilesListInstance } customerProfiles - customerProfiles resource
-   * @property { Twilio.Trusthub.V1.EndUserListInstance } endUsers - endUsers resource
-   * @property { Twilio.Trusthub.V1.EndUserTypeListInstance } endUserTypes - endUserTypes resource
-   * @property { Twilio.Trusthub.V1.PoliciesListInstance } policies - policies resource
-   * @property { Twilio.Trusthub.V1.SupportingDocumentListInstance } supportingDocuments - supportingDocuments resource
-   * @property { Twilio.Trusthub.V1.SupportingDocumentTypeListInstance } supportingDocumentTypes - supportingDocumentTypes resource
-   * @property { Twilio.Trusthub.V1.TrustProductsListInstance } trustProducts - trustProducts resource
-   *
-   * @param { Twilio.Trusthub } domain - The Twilio domain
+   * @param domain - The Twilio (Twilio.Trusthub) domain
    */
   constructor(domain: TrusthubBase) {
     super(domain, "v1");
   }
 
+  /** customerProfiles - { Twilio.Trusthub.V1.CustomerProfilesListInstance } resource */
   protected _customerProfiles?: CustomerProfilesListInstance;
+  /** endUsers - { Twilio.Trusthub.V1.EndUserListInstance } resource */
   protected _endUsers?: EndUserListInstance;
+  /** endUserTypes - { Twilio.Trusthub.V1.EndUserTypeListInstance } resource */
   protected _endUserTypes?: EndUserTypeListInstance;
+  /** policies - { Twilio.Trusthub.V1.PoliciesListInstance } resource */
   protected _policies?: PoliciesListInstance;
+  /** supportingDocuments - { Twilio.Trusthub.V1.SupportingDocumentListInstance } resource */
   protected _supportingDocuments?: SupportingDocumentListInstance;
+  /** supportingDocumentTypes - { Twilio.Trusthub.V1.SupportingDocumentTypeListInstance } resource */
   protected _supportingDocumentTypes?: SupportingDocumentTypeListInstance;
+  /** trustProducts - { Twilio.Trusthub.V1.TrustProductsListInstance } resource */
   protected _trustProducts?: TrustProductsListInstance;
 
+  /** Getter for customerProfiles resource */
   get customerProfiles(): CustomerProfilesListInstance {
     this._customerProfiles =
       this._customerProfiles || CustomerProfilesListInstance(this);
     return this._customerProfiles;
   }
 
+  /** Getter for endUsers resource */
   get endUsers(): EndUserListInstance {
     this._endUsers = this._endUsers || EndUserListInstance(this);
     return this._endUsers;
   }
 
+  /** Getter for endUserTypes resource */
   get endUserTypes(): EndUserTypeListInstance {
     this._endUserTypes = this._endUserTypes || EndUserTypeListInstance(this);
     return this._endUserTypes;
   }
 
+  /** Getter for policies resource */
   get policies(): PoliciesListInstance {
     this._policies = this._policies || PoliciesListInstance(this);
     return this._policies;
   }
 
+  /** Getter for supportingDocuments resource */
   get supportingDocuments(): SupportingDocumentListInstance {
     this._supportingDocuments =
       this._supportingDocuments || SupportingDocumentListInstance(this);
     return this._supportingDocuments;
   }
 
+  /** Getter for supportingDocumentTypes resource */
   get supportingDocumentTypes(): SupportingDocumentTypeListInstance {
     this._supportingDocumentTypes =
       this._supportingDocumentTypes || SupportingDocumentTypeListInstance(this);
     return this._supportingDocumentTypes;
   }
 
+  /** Getter for trustProducts resource */
   get trustProducts(): TrustProductsListInstance {
     this._trustProducts =
       this._trustProducts || TrustProductsListInstance(this);

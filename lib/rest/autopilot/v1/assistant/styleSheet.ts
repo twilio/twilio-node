@@ -20,10 +20,9 @@ import { isValidPathParam } from "../../../../base/utility";
 
 /**
  * Options to pass to update a StyleSheetInstance
- *
- * @property { any } [styleSheet] The JSON string that describes the style sheet object.
  */
 export interface StyleSheetContextUpdateOptions {
+  /** The JSON string that describes the style sheet object. */
   styleSheet?: any;
 }
 
@@ -31,9 +30,9 @@ export interface StyleSheetContext {
   /**
    * Fetch a StyleSheetInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed StyleSheetInstance
+   * @returns Resolves to processed StyleSheetInstance
    */
   fetch(
     callback?: (error: Error | null, item?: StyleSheetInstance) => any
@@ -42,9 +41,9 @@ export interface StyleSheetContext {
   /**
    * Update a StyleSheetInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed StyleSheetInstance
+   * @returns Resolves to processed StyleSheetInstance
    */
   update(
     callback?: (error: Error | null, item?: StyleSheetInstance) => any
@@ -52,10 +51,10 @@ export interface StyleSheetContext {
   /**
    * Update a StyleSheetInstance
    *
-   * @param { StyleSheetContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed StyleSheetInstance
+   * @returns Resolves to processed StyleSheetInstance
    */
   update(
     params: StyleSheetContextUpdateOptions,
@@ -217,9 +216,9 @@ export class StyleSheetInstance {
   /**
    * Fetch a StyleSheetInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed StyleSheetInstance
+   * @returns Resolves to processed StyleSheetInstance
    */
   fetch(
     callback?: (error: Error | null, item?: StyleSheetInstance) => any
@@ -230,9 +229,9 @@ export class StyleSheetInstance {
   /**
    * Update a StyleSheetInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed StyleSheetInstance
+   * @returns Resolves to processed StyleSheetInstance
    */
   update(
     callback?: (error: Error | null, item?: StyleSheetInstance) => any
@@ -240,10 +239,10 @@ export class StyleSheetInstance {
   /**
    * Update a StyleSheetInstance
    *
-   * @param { StyleSheetContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed StyleSheetInstance
+   * @returns Resolves to processed StyleSheetInstance
    */
   update(
     params: StyleSheetContextUpdateOptions,

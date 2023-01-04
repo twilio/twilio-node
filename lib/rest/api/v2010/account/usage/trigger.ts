@@ -273,99 +273,86 @@ type UsageTriggerUsageCategory =
 
 /**
  * Options to pass to update a TriggerInstance
- *
- * @property { string } [callbackMethod] The HTTP method we should use to call `callback_url`. Can be: `GET` or `POST` and the default is `POST`.
- * @property { string } [callbackUrl] The URL we should call using `callback_method` when the trigger fires.
- * @property { string } [friendlyName] A descriptive string that you create to describe the resource. It can be up to 64 characters long.
  */
 export interface TriggerContextUpdateOptions {
+  /** The HTTP method we should use to call `callback_url`. Can be: `GET` or `POST` and the default is `POST`. */
   callbackMethod?: string;
+  /** The URL we should call using `callback_method` when the trigger fires. */
   callbackUrl?: string;
+  /** A descriptive string that you create to describe the resource. It can be up to 64 characters long. */
   friendlyName?: string;
 }
 
 /**
  * Options to pass to create a TriggerInstance
- *
- * @property { string } callbackUrl The URL we should call using `callback_method` when the trigger fires.
- * @property { string } triggerValue The usage value at which the trigger should fire.  For convenience, you can use an offset value such as `+30` to specify a trigger_value that is 30 units more than the current usage value. Be sure to urlencode a `+` as `%2B`.
- * @property { UsageTriggerUsageCategory } usageCategory
- * @property { string } [callbackMethod] The HTTP method we should use to call `callback_url`. Can be: `GET` or `POST` and the default is `POST`.
- * @property { string } [friendlyName] A descriptive string that you create to describe the resource. It can be up to 64 characters long.
- * @property { UsageTriggerRecurring } [recurring]
- * @property { UsageTriggerTriggerField } [triggerBy]
  */
 export interface TriggerListInstanceCreateOptions {
+  /** The URL we should call using `callback_method` when the trigger fires. */
   callbackUrl: string;
+  /** The usage value at which the trigger should fire.  For convenience, you can use an offset value such as `+30` to specify a trigger_value that is 30 units more than the current usage value. Be sure to urlencode a `+` as `%2B`. */
   triggerValue: string;
+  /**  */
   usageCategory: UsageTriggerUsageCategory;
+  /** The HTTP method we should use to call `callback_url`. Can be: `GET` or `POST` and the default is `POST`. */
   callbackMethod?: string;
+  /** A descriptive string that you create to describe the resource. It can be up to 64 characters long. */
   friendlyName?: string;
+  /**  */
   recurring?: UsageTriggerRecurring;
+  /**  */
   triggerBy?: UsageTriggerTriggerField;
 }
 /**
  * Options to pass to each
- *
- * @property { UsageTriggerRecurring } [recurring] The frequency of recurring UsageTriggers to read. Can be: `daily`, `monthly`, or `yearly` to read recurring UsageTriggers. An empty value or a value of `alltime` reads non-recurring UsageTriggers.
- * @property { UsageTriggerTriggerField } [triggerBy] The trigger field of the UsageTriggers to read.  Can be: `count`, `usage`, or `price` as described in the [UsageRecords documentation](https://www.twilio.com/docs/usage/api/usage-record#usage-count-price).
- * @property { UsageTriggerUsageCategory } [usageCategory] The usage category of the UsageTriggers to read. Must be a supported [usage categories](https://www.twilio.com/docs/usage/api/usage-record#usage-categories).
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface TriggerListInstanceEachOptions {
+  /** The frequency of recurring UsageTriggers to read. Can be: `daily`, `monthly`, or `yearly` to read recurring UsageTriggers. An empty value or a value of `alltime` reads non-recurring UsageTriggers. */
   recurring?: UsageTriggerRecurring;
+  /** The trigger field of the UsageTriggers to read.  Can be: `count`, `usage`, or `price` as described in the [UsageRecords documentation](https://www.twilio.com/docs/usage/api/usage-record#usage-count-price). */
   triggerBy?: UsageTriggerTriggerField;
+  /** The usage category of the UsageTriggers to read. Must be a supported [usage categories](https://www.twilio.com/docs/usage/api/usage-record#usage-categories). */
   usageCategory?: UsageTriggerUsageCategory;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: TriggerInstance, done: (err?: Error) => void) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { UsageTriggerRecurring } [recurring] The frequency of recurring UsageTriggers to read. Can be: `daily`, `monthly`, or `yearly` to read recurring UsageTriggers. An empty value or a value of `alltime` reads non-recurring UsageTriggers.
- * @property { UsageTriggerTriggerField } [triggerBy] The trigger field of the UsageTriggers to read.  Can be: `count`, `usage`, or `price` as described in the [UsageRecords documentation](https://www.twilio.com/docs/usage/api/usage-record#usage-count-price).
- * @property { UsageTriggerUsageCategory } [usageCategory] The usage category of the UsageTriggers to read. Must be a supported [usage categories](https://www.twilio.com/docs/usage/api/usage-record#usage-categories).
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface TriggerListInstanceOptions {
+  /** The frequency of recurring UsageTriggers to read. Can be: `daily`, `monthly`, or `yearly` to read recurring UsageTriggers. An empty value or a value of `alltime` reads non-recurring UsageTriggers. */
   recurring?: UsageTriggerRecurring;
+  /** The trigger field of the UsageTriggers to read.  Can be: `count`, `usage`, or `price` as described in the [UsageRecords documentation](https://www.twilio.com/docs/usage/api/usage-record#usage-count-price). */
   triggerBy?: UsageTriggerTriggerField;
+  /** The usage category of the UsageTriggers to read. Must be a supported [usage categories](https://www.twilio.com/docs/usage/api/usage-record#usage-categories). */
   usageCategory?: UsageTriggerUsageCategory;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { UsageTriggerRecurring } [recurring] The frequency of recurring UsageTriggers to read. Can be: `daily`, `monthly`, or `yearly` to read recurring UsageTriggers. An empty value or a value of `alltime` reads non-recurring UsageTriggers.
- * @property { UsageTriggerTriggerField } [triggerBy] The trigger field of the UsageTriggers to read.  Can be: `count`, `usage`, or `price` as described in the [UsageRecords documentation](https://www.twilio.com/docs/usage/api/usage-record#usage-count-price).
- * @property { UsageTriggerUsageCategory } [usageCategory] The usage category of the UsageTriggers to read. Must be a supported [usage categories](https://www.twilio.com/docs/usage/api/usage-record#usage-categories).
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface TriggerListInstancePageOptions {
+  /** The frequency of recurring UsageTriggers to read. Can be: `daily`, `monthly`, or `yearly` to read recurring UsageTriggers. An empty value or a value of `alltime` reads non-recurring UsageTriggers. */
   recurring?: UsageTriggerRecurring;
+  /** The trigger field of the UsageTriggers to read.  Can be: `count`, `usage`, or `price` as described in the [UsageRecords documentation](https://www.twilio.com/docs/usage/api/usage-record#usage-count-price). */
   triggerBy?: UsageTriggerTriggerField;
+  /** The usage category of the UsageTriggers to read. Must be a supported [usage categories](https://www.twilio.com/docs/usage/api/usage-record#usage-categories). */
   usageCategory?: UsageTriggerUsageCategory;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
@@ -373,9 +360,9 @@ export interface TriggerContext {
   /**
    * Remove a TriggerInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -384,9 +371,9 @@ export interface TriggerContext {
   /**
    * Fetch a TriggerInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed TriggerInstance
+   * @returns Resolves to processed TriggerInstance
    */
   fetch(
     callback?: (error: Error | null, item?: TriggerInstance) => any
@@ -395,9 +382,9 @@ export interface TriggerContext {
   /**
    * Update a TriggerInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed TriggerInstance
+   * @returns Resolves to processed TriggerInstance
    */
   update(
     callback?: (error: Error | null, item?: TriggerInstance) => any
@@ -405,10 +392,10 @@ export interface TriggerContext {
   /**
    * Update a TriggerInstance
    *
-   * @param { TriggerContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed TriggerInstance
+   * @returns Resolves to processed TriggerInstance
    */
   update(
     params: TriggerContextUpdateOptions,
@@ -673,9 +660,9 @@ export class TriggerInstance {
   /**
    * Remove a TriggerInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -686,9 +673,9 @@ export class TriggerInstance {
   /**
    * Fetch a TriggerInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed TriggerInstance
+   * @returns Resolves to processed TriggerInstance
    */
   fetch(
     callback?: (error: Error | null, item?: TriggerInstance) => any
@@ -699,9 +686,9 @@ export class TriggerInstance {
   /**
    * Update a TriggerInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed TriggerInstance
+   * @returns Resolves to processed TriggerInstance
    */
   update(
     callback?: (error: Error | null, item?: TriggerInstance) => any
@@ -709,10 +696,10 @@ export class TriggerInstance {
   /**
    * Update a TriggerInstance
    *
-   * @param { TriggerContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed TriggerInstance
+   * @returns Resolves to processed TriggerInstance
    */
   update(
     params: TriggerContextUpdateOptions,
@@ -760,10 +747,10 @@ export interface TriggerListInstance {
   /**
    * Create a TriggerInstance
    *
-   * @param { TriggerListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed TriggerInstance
+   * @returns Resolves to processed TriggerInstance
    */
   create(
     params: TriggerListInstanceCreateOptions,

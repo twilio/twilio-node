@@ -24,14 +24,13 @@ type ChannelWebhookEnabledType = "true" | "false";
 
 /**
  * Options to pass to update a ChannelInstance
- *
- * @property { ChannelWebhookEnabledType } [xTwilioWebhookEnabled] The X-Twilio-Webhook-Enabled HTTP request header
- * @property { ChannelChannelType } [type]
- * @property { string } [messagingServiceSid] The unique ID of the [Messaging Service](https://www.twilio.com/docs/sms/services/api) this channel belongs to.
  */
 export interface ChannelContextUpdateOptions {
+  /** The X-Twilio-Webhook-Enabled HTTP request header */
   xTwilioWebhookEnabled?: ChannelWebhookEnabledType;
+  /**  */
   type?: ChannelChannelType;
+  /** The unique ID of the [Messaging Service](https://www.twilio.com/docs/sms/services/api) this channel belongs to. */
   messagingServiceSid?: string;
 }
 
@@ -39,9 +38,9 @@ export interface ChannelContext {
   /**
    * Update a ChannelInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ChannelInstance
+   * @returns Resolves to processed ChannelInstance
    */
   update(
     callback?: (error: Error | null, item?: ChannelInstance) => any
@@ -49,10 +48,10 @@ export interface ChannelContext {
   /**
    * Update a ChannelInstance
    *
-   * @param { ChannelContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ChannelInstance
+   * @returns Resolves to processed ChannelInstance
    */
   update(
     params: ChannelContextUpdateOptions,
@@ -265,9 +264,9 @@ export class ChannelInstance {
   /**
    * Update a ChannelInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ChannelInstance
+   * @returns Resolves to processed ChannelInstance
    */
   update(
     callback?: (error: Error | null, item?: ChannelInstance) => any
@@ -275,10 +274,10 @@ export class ChannelInstance {
   /**
    * Update a ChannelInstance
    *
-   * @param { ChannelContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ChannelInstance
+   * @returns Resolves to processed ChannelInstance
    */
   update(
     params: ChannelContextUpdateOptions,

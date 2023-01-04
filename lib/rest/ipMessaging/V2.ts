@@ -21,23 +21,24 @@ export default class V2 extends Version {
   /**
    * Initialize the V2 version of IpMessaging
    *
-   * @property { Twilio.IpMessaging.V2.CredentialListInstance } credentials - credentials resource
-   * @property { Twilio.IpMessaging.V2.ServiceListInstance } services - services resource
-   *
-   * @param { Twilio.IpMessaging } domain - The Twilio domain
+   * @param domain - The Twilio (Twilio.IpMessaging) domain
    */
   constructor(domain: IpMessagingBase) {
     super(domain, "v2");
   }
 
+  /** credentials - { Twilio.IpMessaging.V2.CredentialListInstance } resource */
   protected _credentials?: CredentialListInstance;
+  /** services - { Twilio.IpMessaging.V2.ServiceListInstance } resource */
   protected _services?: ServiceListInstance;
 
+  /** Getter for credentials resource */
   get credentials(): CredentialListInstance {
     this._credentials = this._credentials || CredentialListInstance(this);
     return this._credentials;
   }
 
+  /** Getter for services resource */
   get services(): ServiceListInstance {
     this._services = this._services || ServiceListInstance(this);
     return this._services;

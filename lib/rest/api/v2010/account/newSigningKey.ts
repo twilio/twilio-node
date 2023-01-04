@@ -20,10 +20,9 @@ import { isValidPathParam } from "../../../../base/utility";
 
 /**
  * Options to pass to create a NewSigningKeyInstance
- *
- * @property { string } [friendlyName] A descriptive string that you create to describe the resource. It can be up to 64 characters long.
  */
 export interface NewSigningKeyListInstanceCreateOptions {
+  /** A descriptive string that you create to describe the resource. It can be up to 64 characters long. */
   friendlyName?: string;
 }
 
@@ -31,9 +30,9 @@ export interface NewSigningKeyListInstance {
   /**
    * Create a NewSigningKeyInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed NewSigningKeyInstance
+   * @returns Resolves to processed NewSigningKeyInstance
    */
   create(
     callback?: (error: Error | null, item?: NewSigningKeyInstance) => any
@@ -41,10 +40,10 @@ export interface NewSigningKeyListInstance {
   /**
    * Create a NewSigningKeyInstance
    *
-   * @param { NewSigningKeyListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed NewSigningKeyInstance
+   * @returns Resolves to processed NewSigningKeyInstance
    */
   create(
     params: NewSigningKeyListInstanceCreateOptions,

@@ -31,117 +31,104 @@ type RoomVideoCodec = "VP8" | "H264";
 
 /**
  * Options to pass to update a RoomInstance
- *
- * @property { RoomRoomStatus } status
  */
 export interface RoomContextUpdateOptions {
+  /**  */
   status: RoomRoomStatus;
 }
 
 /**
  * Options to pass to create a RoomInstance
- *
- * @property { boolean } [enableTurn] Deprecated, now always considered to be true.
- * @property { RoomRoomType } [type]
- * @property { string } [uniqueName] An application-defined string that uniquely identifies the resource. It can be used as a `room_sid` in place of the resource\\\'s `sid` in the URL to address the resource, assuming it does not contain any [reserved characters](https://tools.ietf.org/html/rfc3986#section-2.2) that would need to be URL encoded. This value is unique for `in-progress` rooms. SDK clients can use this name to connect to the room. REST API clients can use this name in place of the Room SID to interact with the room as long as the room is `in-progress`.
- * @property { string } [statusCallback] The URL we should call using the `status_callback_method` to send status information to your application on every room event. See [Status Callbacks](https://www.twilio.com/docs/video/api/status-callbacks) for more info.
- * @property { string } [statusCallbackMethod] The HTTP method we should use to call `status_callback`. Can be `POST` or `GET`.
- * @property { number } [maxParticipants] The maximum number of concurrent Participants allowed in the room. Peer-to-peer rooms can have up to 10 Participants. Small Group rooms can have up to 4 Participants. Group rooms can have up to 50 Participants.
- * @property { boolean } [recordParticipantsOnConnect] Whether to start recording when Participants connect. ***This feature is not available in `peer-to-peer` rooms.***
- * @property { Array<RoomVideoCodec> } [videoCodecs] An array of the video codecs that are supported when publishing a track in the room.  Can be: `VP8` and `H264`.  ***This feature is not available in `peer-to-peer` rooms***
- * @property { string } [mediaRegion] The region for the media server in Group Rooms.  Can be: one of the [available Media Regions](https://www.twilio.com/docs/video/ip-address-whitelisting#group-rooms-media-servers). ***This feature is not available in `peer-to-peer` rooms.***
- * @property { any } [recordingRules] A collection of Recording Rules that describe how to include or exclude matching tracks for recording
- * @property { boolean } [audioOnly] When set to true, indicates that the participants in the room will only publish audio. No video tracks will be allowed. Group rooms only.
- * @property { number } [maxParticipantDuration] The maximum number of seconds a Participant can be connected to the room. The maximum possible value is 86400 seconds (24 hours). The default is 14400 seconds (4 hours).
- * @property { number } [emptyRoomTimeout] Configures how long (in minutes) a room will remain active after last participant leaves. Valid values range from 1 to 60 minutes (no fractions).
- * @property { number } [unusedRoomTimeout] Configures how long (in minutes) a room will remain active if no one joins. Valid values range from 1 to 60 minutes (no fractions).
- * @property { boolean } [largeRoom] When set to true, indicated that this is the large room.
  */
 export interface RoomListInstanceCreateOptions {
+  /** Deprecated, now always considered to be true. */
   enableTurn?: boolean;
+  /**  */
   type?: RoomRoomType;
+  /** An application-defined string that uniquely identifies the resource. It can be used as a `room_sid` in place of the resource\\\'s `sid` in the URL to address the resource, assuming it does not contain any [reserved characters](https://tools.ietf.org/html/rfc3986#section-2.2) that would need to be URL encoded. This value is unique for `in-progress` rooms. SDK clients can use this name to connect to the room. REST API clients can use this name in place of the Room SID to interact with the room as long as the room is `in-progress`. */
   uniqueName?: string;
+  /** The URL we should call using the `status_callback_method` to send status information to your application on every room event. See [Status Callbacks](https://www.twilio.com/docs/video/api/status-callbacks) for more info. */
   statusCallback?: string;
+  /** The HTTP method we should use to call `status_callback`. Can be `POST` or `GET`. */
   statusCallbackMethod?: string;
+  /** The maximum number of concurrent Participants allowed in the room. Peer-to-peer rooms can have up to 10 Participants. Small Group rooms can have up to 4 Participants. Group rooms can have up to 50 Participants. */
   maxParticipants?: number;
+  /** Whether to start recording when Participants connect. ***This feature is not available in `peer-to-peer` rooms.*** */
   recordParticipantsOnConnect?: boolean;
+  /** An array of the video codecs that are supported when publishing a track in the room.  Can be: `VP8` and `H264`.  ***This feature is not available in `peer-to-peer` rooms*** */
   videoCodecs?: Array<RoomVideoCodec>;
+  /** The region for the media server in Group Rooms.  Can be: one of the [available Media Regions](https://www.twilio.com/docs/video/ip-address-whitelisting#group-rooms-media-servers). ***This feature is not available in `peer-to-peer` rooms.*** */
   mediaRegion?: string;
+  /** A collection of Recording Rules that describe how to include or exclude matching tracks for recording */
   recordingRules?: any;
+  /** When set to true, indicates that the participants in the room will only publish audio. No video tracks will be allowed. Group rooms only. */
   audioOnly?: boolean;
+  /** The maximum number of seconds a Participant can be connected to the room. The maximum possible value is 86400 seconds (24 hours). The default is 14400 seconds (4 hours). */
   maxParticipantDuration?: number;
+  /** Configures how long (in minutes) a room will remain active after last participant leaves. Valid values range from 1 to 60 minutes (no fractions). */
   emptyRoomTimeout?: number;
+  /** Configures how long (in minutes) a room will remain active if no one joins. Valid values range from 1 to 60 minutes (no fractions). */
   unusedRoomTimeout?: number;
+  /** When set to true, indicated that this is the large room. */
   largeRoom?: boolean;
 }
 /**
  * Options to pass to each
- *
- * @property { RoomRoomStatus } [status] Read only the rooms with this status. Can be: `in-progress` (default) or `completed`
- * @property { string } [uniqueName] Read only rooms with the this `unique_name`.
- * @property { Date } [dateCreatedAfter] Read only rooms that started on or after this date, given as `YYYY-MM-DD`.
- * @property { Date } [dateCreatedBefore] Read only rooms that started before this date, given as `YYYY-MM-DD`.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface RoomListInstanceEachOptions {
+  /** Read only the rooms with this status. Can be: `in-progress` (default) or `completed` */
   status?: RoomRoomStatus;
+  /** Read only rooms with the this `unique_name`. */
   uniqueName?: string;
+  /** Read only rooms that started on or after this date, given as `YYYY-MM-DD`. */
   dateCreatedAfter?: Date;
+  /** Read only rooms that started before this date, given as `YYYY-MM-DD`. */
   dateCreatedBefore?: Date;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: RoomInstance, done: (err?: Error) => void) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { RoomRoomStatus } [status] Read only the rooms with this status. Can be: `in-progress` (default) or `completed`
- * @property { string } [uniqueName] Read only rooms with the this `unique_name`.
- * @property { Date } [dateCreatedAfter] Read only rooms that started on or after this date, given as `YYYY-MM-DD`.
- * @property { Date } [dateCreatedBefore] Read only rooms that started before this date, given as `YYYY-MM-DD`.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface RoomListInstanceOptions {
+  /** Read only the rooms with this status. Can be: `in-progress` (default) or `completed` */
   status?: RoomRoomStatus;
+  /** Read only rooms with the this `unique_name`. */
   uniqueName?: string;
+  /** Read only rooms that started on or after this date, given as `YYYY-MM-DD`. */
   dateCreatedAfter?: Date;
+  /** Read only rooms that started before this date, given as `YYYY-MM-DD`. */
   dateCreatedBefore?: Date;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { RoomRoomStatus } [status] Read only the rooms with this status. Can be: `in-progress` (default) or `completed`
- * @property { string } [uniqueName] Read only rooms with the this `unique_name`.
- * @property { Date } [dateCreatedAfter] Read only rooms that started on or after this date, given as `YYYY-MM-DD`.
- * @property { Date } [dateCreatedBefore] Read only rooms that started before this date, given as `YYYY-MM-DD`.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface RoomListInstancePageOptions {
+  /** Read only the rooms with this status. Can be: `in-progress` (default) or `completed` */
   status?: RoomRoomStatus;
+  /** Read only rooms with the this `unique_name`. */
   uniqueName?: string;
+  /** Read only rooms that started on or after this date, given as `YYYY-MM-DD`. */
   dateCreatedAfter?: Date;
+  /** Read only rooms that started before this date, given as `YYYY-MM-DD`. */
   dateCreatedBefore?: Date;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
@@ -153,9 +140,9 @@ export interface RoomContext {
   /**
    * Fetch a RoomInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed RoomInstance
+   * @returns Resolves to processed RoomInstance
    */
   fetch(
     callback?: (error: Error | null, item?: RoomInstance) => any
@@ -164,10 +151,10 @@ export interface RoomContext {
   /**
    * Update a RoomInstance
    *
-   * @param { RoomContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed RoomInstance
+   * @returns Resolves to processed RoomInstance
    */
   update(
     params: RoomContextUpdateOptions,
@@ -469,9 +456,9 @@ export class RoomInstance {
   /**
    * Fetch a RoomInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed RoomInstance
+   * @returns Resolves to processed RoomInstance
    */
   fetch(
     callback?: (error: Error | null, item?: RoomInstance) => any
@@ -482,10 +469,10 @@ export class RoomInstance {
   /**
    * Update a RoomInstance
    *
-   * @param { RoomContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed RoomInstance
+   * @returns Resolves to processed RoomInstance
    */
   update(
     params: RoomContextUpdateOptions,
@@ -562,9 +549,9 @@ export interface RoomListInstance {
   /**
    * Create a RoomInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed RoomInstance
+   * @returns Resolves to processed RoomInstance
    */
   create(
     callback?: (error: Error | null, item?: RoomInstance) => any
@@ -572,10 +559,10 @@ export interface RoomListInstance {
   /**
    * Create a RoomInstance
    *
-   * @param { RoomListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed RoomInstance
+   * @returns Resolves to processed RoomInstance
    */
   create(
     params: RoomListInstanceCreateOptions,

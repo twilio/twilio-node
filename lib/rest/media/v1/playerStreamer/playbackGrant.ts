@@ -20,12 +20,11 @@ import { isValidPathParam } from "../../../../base/utility";
 
 /**
  * Options to pass to create a PlaybackGrantInstance
- *
- * @property { number } [ttl] The time to live of the PlaybackGrant. Default value is 15 seconds. Maximum value is 60 seconds.
- * @property { string } [accessControlAllowOrigin] The full origin URL where the livestream can be streamed. If this is not provided, it can be streamed from any domain.
  */
 export interface PlaybackGrantContextCreateOptions {
+  /** The time to live of the PlaybackGrant. Default value is 15 seconds. Maximum value is 60 seconds. */
   ttl?: number;
+  /** The full origin URL where the livestream can be streamed. If this is not provided, it can be streamed from any domain. */
   accessControlAllowOrigin?: string;
 }
 
@@ -33,9 +32,9 @@ export interface PlaybackGrantContext {
   /**
    * Create a PlaybackGrantInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed PlaybackGrantInstance
+   * @returns Resolves to processed PlaybackGrantInstance
    */
   create(
     callback?: (error: Error | null, item?: PlaybackGrantInstance) => any
@@ -43,10 +42,10 @@ export interface PlaybackGrantContext {
   /**
    * Create a PlaybackGrantInstance
    *
-   * @param { PlaybackGrantContextCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed PlaybackGrantInstance
+   * @returns Resolves to processed PlaybackGrantInstance
    */
   create(
     params: PlaybackGrantContextCreateOptions,
@@ -57,9 +56,9 @@ export interface PlaybackGrantContext {
   /**
    * Fetch a PlaybackGrantInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed PlaybackGrantInstance
+   * @returns Resolves to processed PlaybackGrantInstance
    */
   fetch(
     callback?: (error: Error | null, item?: PlaybackGrantInstance) => any
@@ -218,9 +217,9 @@ export class PlaybackGrantInstance {
   /**
    * Create a PlaybackGrantInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed PlaybackGrantInstance
+   * @returns Resolves to processed PlaybackGrantInstance
    */
   create(
     callback?: (error: Error | null, item?: PlaybackGrantInstance) => any
@@ -228,10 +227,10 @@ export class PlaybackGrantInstance {
   /**
    * Create a PlaybackGrantInstance
    *
-   * @param { PlaybackGrantContextCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed PlaybackGrantInstance
+   * @returns Resolves to processed PlaybackGrantInstance
    */
   create(
     params: PlaybackGrantContextCreateOptions,
@@ -244,9 +243,9 @@ export class PlaybackGrantInstance {
   /**
    * Fetch a PlaybackGrantInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed PlaybackGrantInstance
+   * @returns Resolves to processed PlaybackGrantInstance
    */
   fetch(
     callback?: (error: Error | null, item?: PlaybackGrantInstance) => any

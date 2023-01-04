@@ -23,65 +23,52 @@ import { FunctionVersionListInstance } from "./function/functionVersion";
 
 /**
  * Options to pass to update a FunctionInstance
- *
- * @property { string } friendlyName A descriptive string that you create to describe the Function resource. It can be a maximum of 255 characters.
  */
 export interface FunctionContextUpdateOptions {
+  /** A descriptive string that you create to describe the Function resource. It can be a maximum of 255 characters. */
   friendlyName: string;
 }
 
 /**
  * Options to pass to create a FunctionInstance
- *
- * @property { string } friendlyName A descriptive string that you create to describe the Function resource. It can be a maximum of 255 characters.
  */
 export interface FunctionListInstanceCreateOptions {
+  /** A descriptive string that you create to describe the Function resource. It can be a maximum of 255 characters. */
   friendlyName: string;
 }
 /**
  * Options to pass to each
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface FunctionListInstanceEachOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: FunctionInstance, done: (err?: Error) => void) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface FunctionListInstanceOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface FunctionListInstancePageOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
@@ -91,9 +78,9 @@ export interface FunctionContext {
   /**
    * Remove a FunctionInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -102,9 +89,9 @@ export interface FunctionContext {
   /**
    * Fetch a FunctionInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed FunctionInstance
+   * @returns Resolves to processed FunctionInstance
    */
   fetch(
     callback?: (error: Error | null, item?: FunctionInstance) => any
@@ -113,10 +100,10 @@ export interface FunctionContext {
   /**
    * Update a FunctionInstance
    *
-   * @param { FunctionContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed FunctionInstance
+   * @returns Resolves to processed FunctionInstance
    */
   update(
     params: FunctionContextUpdateOptions,
@@ -346,9 +333,9 @@ export class FunctionInstance {
   /**
    * Remove a FunctionInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -359,9 +346,9 @@ export class FunctionInstance {
   /**
    * Fetch a FunctionInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed FunctionInstance
+   * @returns Resolves to processed FunctionInstance
    */
   fetch(
     callback?: (error: Error | null, item?: FunctionInstance) => any
@@ -372,10 +359,10 @@ export class FunctionInstance {
   /**
    * Update a FunctionInstance
    *
-   * @param { FunctionContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed FunctionInstance
+   * @returns Resolves to processed FunctionInstance
    */
   update(
     params: FunctionContextUpdateOptions,
@@ -422,10 +409,10 @@ export interface FunctionListInstance {
   /**
    * Create a FunctionInstance
    *
-   * @param { FunctionListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed FunctionInstance
+   * @returns Resolves to processed FunctionInstance
    */
   create(
     params: FunctionListInstanceCreateOptions,

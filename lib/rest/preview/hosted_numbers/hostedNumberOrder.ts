@@ -36,148 +36,135 @@ type HostedNumberOrderVerificationType = "phone-call" | "phone-bill";
 
 /**
  * Options to pass to update a HostedNumberOrderInstance
- *
- * @property { string } [friendlyName] A 64 character string that is a human readable text that describes this resource.
- * @property { string } [uniqueName] Provides a unique and addressable name to be assigned to this HostedNumberOrder, assigned by the developer, to be optionally used in addition to SID.
- * @property { string } [email] Email of the owner of this phone number that is being hosted.
- * @property { Array<string> } [ccEmails] Optional. A list of emails that LOA document for this HostedNumberOrder will be carbon copied to.
- * @property { HostedNumberOrderStatus } [status]
- * @property { string } [verificationCode] A verification code that is given to the user via a phone call to the phone number that is being hosted.
- * @property { HostedNumberOrderVerificationType } [verificationType]
- * @property { string } [verificationDocumentSid] Optional. The unique sid identifier of the Identity Document that represents the document for verifying ownership of the number to be hosted. Required when VerificationType is phone-bill.
- * @property { string } [extension] Digits to dial after connecting the verification call.
- * @property { number } [callDelay] The number of seconds, between 0 and 60, to delay before initiating the verification call. Defaults to 0.
  */
 export interface HostedNumberOrderContextUpdateOptions {
+  /** A 64 character string that is a human readable text that describes this resource. */
   friendlyName?: string;
+  /** Provides a unique and addressable name to be assigned to this HostedNumberOrder, assigned by the developer, to be optionally used in addition to SID. */
   uniqueName?: string;
+  /** Email of the owner of this phone number that is being hosted. */
   email?: string;
+  /** Optional. A list of emails that LOA document for this HostedNumberOrder will be carbon copied to. */
   ccEmails?: Array<string>;
+  /**  */
   status?: HostedNumberOrderStatus;
+  /** A verification code that is given to the user via a phone call to the phone number that is being hosted. */
   verificationCode?: string;
+  /**  */
   verificationType?: HostedNumberOrderVerificationType;
+  /** Optional. The unique sid identifier of the Identity Document that represents the document for verifying ownership of the number to be hosted. Required when VerificationType is phone-bill. */
   verificationDocumentSid?: string;
+  /** Digits to dial after connecting the verification call. */
   extension?: string;
+  /** The number of seconds, between 0 and 60, to delay before initiating the verification call. Defaults to 0. */
   callDelay?: number;
 }
 
 /**
  * Options to pass to create a HostedNumberOrderInstance
- *
- * @property { string } phoneNumber The number to host in [+E.164](https://en.wikipedia.org/wiki/E.164) format
- * @property { boolean } smsCapability Used to specify that the SMS capability will be hosted on Twilio\\\'s platform.
- * @property { string } [accountSid] This defaults to the AccountSid of the authorization the user is using. This can be provided to specify a subaccount to add the HostedNumberOrder to.
- * @property { string } [friendlyName] A 64 character string that is a human readable text that describes this resource.
- * @property { string } [uniqueName] Optional. Provides a unique and addressable name to be assigned to this HostedNumberOrder, assigned by the developer, to be optionally used in addition to SID.
- * @property { Array<string> } [ccEmails] Optional. A list of emails that the LOA document for this HostedNumberOrder will be carbon copied to.
- * @property { string } [smsUrl] The URL that Twilio should request when somebody sends an SMS to the phone number. This will be copied onto the IncomingPhoneNumber resource.
- * @property { string } [smsMethod] The HTTP method that should be used to request the SmsUrl. Must be either `GET` or `POST`.  This will be copied onto the IncomingPhoneNumber resource.
- * @property { string } [smsFallbackUrl] A URL that Twilio will request if an error occurs requesting or executing the TwiML defined by SmsUrl. This will be copied onto the IncomingPhoneNumber resource.
- * @property { string } [smsFallbackMethod] The HTTP method that should be used to request the SmsFallbackUrl. Must be either `GET` or `POST`. This will be copied onto the IncomingPhoneNumber resource.
- * @property { string } [statusCallbackUrl] Optional. The Status Callback URL attached to the IncomingPhoneNumber resource.
- * @property { string } [statusCallbackMethod] Optional. The Status Callback Method attached to the IncomingPhoneNumber resource.
- * @property { string } [smsApplicationSid] Optional. The 34 character sid of the application Twilio should use to handle SMS messages sent to this number. If a `SmsApplicationSid` is present, Twilio will ignore all of the SMS urls above and use those set on the application.
- * @property { string } [addressSid] Optional. A 34 character string that uniquely identifies the Address resource that represents the address of the owner of this phone number.
- * @property { string } [email] Optional. Email of the owner of this phone number that is being hosted.
- * @property { HostedNumberOrderVerificationType } [verificationType]
- * @property { string } [verificationDocumentSid] Optional. The unique sid identifier of the Identity Document that represents the document for verifying ownership of the number to be hosted. Required when VerificationType is phone-bill.
  */
 export interface HostedNumberOrderListInstanceCreateOptions {
+  /** The number to host in [+E.164](https://en.wikipedia.org/wiki/E.164) format */
   phoneNumber: string;
+  /** Used to specify that the SMS capability will be hosted on Twilio\\\'s platform. */
   smsCapability: boolean;
+  /** This defaults to the AccountSid of the authorization the user is using. This can be provided to specify a subaccount to add the HostedNumberOrder to. */
   accountSid?: string;
+  /** A 64 character string that is a human readable text that describes this resource. */
   friendlyName?: string;
+  /** Optional. Provides a unique and addressable name to be assigned to this HostedNumberOrder, assigned by the developer, to be optionally used in addition to SID. */
   uniqueName?: string;
+  /** Optional. A list of emails that the LOA document for this HostedNumberOrder will be carbon copied to. */
   ccEmails?: Array<string>;
+  /** The URL that Twilio should request when somebody sends an SMS to the phone number. This will be copied onto the IncomingPhoneNumber resource. */
   smsUrl?: string;
+  /** The HTTP method that should be used to request the SmsUrl. Must be either `GET` or `POST`.  This will be copied onto the IncomingPhoneNumber resource. */
   smsMethod?: string;
+  /** A URL that Twilio will request if an error occurs requesting or executing the TwiML defined by SmsUrl. This will be copied onto the IncomingPhoneNumber resource. */
   smsFallbackUrl?: string;
+  /** The HTTP method that should be used to request the SmsFallbackUrl. Must be either `GET` or `POST`. This will be copied onto the IncomingPhoneNumber resource. */
   smsFallbackMethod?: string;
+  /** Optional. The Status Callback URL attached to the IncomingPhoneNumber resource. */
   statusCallbackUrl?: string;
+  /** Optional. The Status Callback Method attached to the IncomingPhoneNumber resource. */
   statusCallbackMethod?: string;
+  /** Optional. The 34 character sid of the application Twilio should use to handle SMS messages sent to this number. If a `SmsApplicationSid` is present, Twilio will ignore all of the SMS urls above and use those set on the application. */
   smsApplicationSid?: string;
+  /** Optional. A 34 character string that uniquely identifies the Address resource that represents the address of the owner of this phone number. */
   addressSid?: string;
+  /** Optional. Email of the owner of this phone number that is being hosted. */
   email?: string;
+  /**  */
   verificationType?: HostedNumberOrderVerificationType;
+  /** Optional. The unique sid identifier of the Identity Document that represents the document for verifying ownership of the number to be hosted. Required when VerificationType is phone-bill. */
   verificationDocumentSid?: string;
 }
 /**
  * Options to pass to each
- *
- * @property { HostedNumberOrderStatus } [status] The Status of this HostedNumberOrder. One of `received`, `pending-verification`, `verified`, `pending-loa`, `carrier-processing`, `testing`, `completed`, `failed`, or `action-required`.
- * @property { string } [phoneNumber] An E164 formatted phone number hosted by this HostedNumberOrder.
- * @property { string } [incomingPhoneNumberSid] A 34 character string that uniquely identifies the IncomingPhoneNumber resource created by this HostedNumberOrder.
- * @property { string } [friendlyName] A human readable description of this resource, up to 64 characters.
- * @property { string } [uniqueName] Provides a unique and addressable name to be assigned to this HostedNumberOrder, assigned by the developer, to be optionally used in addition to SID.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface HostedNumberOrderListInstanceEachOptions {
+  /** The Status of this HostedNumberOrder. One of `received`, `pending-verification`, `verified`, `pending-loa`, `carrier-processing`, `testing`, `completed`, `failed`, or `action-required`. */
   status?: HostedNumberOrderStatus;
+  /** An E164 formatted phone number hosted by this HostedNumberOrder. */
   phoneNumber?: string;
+  /** A 34 character string that uniquely identifies the IncomingPhoneNumber resource created by this HostedNumberOrder. */
   incomingPhoneNumberSid?: string;
+  /** A human readable description of this resource, up to 64 characters. */
   friendlyName?: string;
+  /** Provides a unique and addressable name to be assigned to this HostedNumberOrder, assigned by the developer, to be optionally used in addition to SID. */
   uniqueName?: string;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (
     item: HostedNumberOrderInstance,
     done: (err?: Error) => void
   ) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { HostedNumberOrderStatus } [status] The Status of this HostedNumberOrder. One of `received`, `pending-verification`, `verified`, `pending-loa`, `carrier-processing`, `testing`, `completed`, `failed`, or `action-required`.
- * @property { string } [phoneNumber] An E164 formatted phone number hosted by this HostedNumberOrder.
- * @property { string } [incomingPhoneNumberSid] A 34 character string that uniquely identifies the IncomingPhoneNumber resource created by this HostedNumberOrder.
- * @property { string } [friendlyName] A human readable description of this resource, up to 64 characters.
- * @property { string } [uniqueName] Provides a unique and addressable name to be assigned to this HostedNumberOrder, assigned by the developer, to be optionally used in addition to SID.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface HostedNumberOrderListInstanceOptions {
+  /** The Status of this HostedNumberOrder. One of `received`, `pending-verification`, `verified`, `pending-loa`, `carrier-processing`, `testing`, `completed`, `failed`, or `action-required`. */
   status?: HostedNumberOrderStatus;
+  /** An E164 formatted phone number hosted by this HostedNumberOrder. */
   phoneNumber?: string;
+  /** A 34 character string that uniquely identifies the IncomingPhoneNumber resource created by this HostedNumberOrder. */
   incomingPhoneNumberSid?: string;
+  /** A human readable description of this resource, up to 64 characters. */
   friendlyName?: string;
+  /** Provides a unique and addressable name to be assigned to this HostedNumberOrder, assigned by the developer, to be optionally used in addition to SID. */
   uniqueName?: string;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { HostedNumberOrderStatus } [status] The Status of this HostedNumberOrder. One of `received`, `pending-verification`, `verified`, `pending-loa`, `carrier-processing`, `testing`, `completed`, `failed`, or `action-required`.
- * @property { string } [phoneNumber] An E164 formatted phone number hosted by this HostedNumberOrder.
- * @property { string } [incomingPhoneNumberSid] A 34 character string that uniquely identifies the IncomingPhoneNumber resource created by this HostedNumberOrder.
- * @property { string } [friendlyName] A human readable description of this resource, up to 64 characters.
- * @property { string } [uniqueName] Provides a unique and addressable name to be assigned to this HostedNumberOrder, assigned by the developer, to be optionally used in addition to SID.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface HostedNumberOrderListInstancePageOptions {
+  /** The Status of this HostedNumberOrder. One of `received`, `pending-verification`, `verified`, `pending-loa`, `carrier-processing`, `testing`, `completed`, `failed`, or `action-required`. */
   status?: HostedNumberOrderStatus;
+  /** An E164 formatted phone number hosted by this HostedNumberOrder. */
   phoneNumber?: string;
+  /** A 34 character string that uniquely identifies the IncomingPhoneNumber resource created by this HostedNumberOrder. */
   incomingPhoneNumberSid?: string;
+  /** A human readable description of this resource, up to 64 characters. */
   friendlyName?: string;
+  /** Provides a unique and addressable name to be assigned to this HostedNumberOrder, assigned by the developer, to be optionally used in addition to SID. */
   uniqueName?: string;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
@@ -185,9 +172,9 @@ export interface HostedNumberOrderContext {
   /**
    * Remove a HostedNumberOrderInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -196,9 +183,9 @@ export interface HostedNumberOrderContext {
   /**
    * Fetch a HostedNumberOrderInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed HostedNumberOrderInstance
+   * @returns Resolves to processed HostedNumberOrderInstance
    */
   fetch(
     callback?: (error: Error | null, item?: HostedNumberOrderInstance) => any
@@ -207,9 +194,9 @@ export interface HostedNumberOrderContext {
   /**
    * Update a HostedNumberOrderInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed HostedNumberOrderInstance
+   * @returns Resolves to processed HostedNumberOrderInstance
    */
   update(
     callback?: (error: Error | null, item?: HostedNumberOrderInstance) => any
@@ -217,10 +204,10 @@ export interface HostedNumberOrderContext {
   /**
    * Update a HostedNumberOrderInstance
    *
-   * @param { HostedNumberOrderContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed HostedNumberOrderInstance
+   * @returns Resolves to processed HostedNumberOrderInstance
    */
   update(
     params: HostedNumberOrderContextUpdateOptions,
@@ -521,9 +508,9 @@ export class HostedNumberOrderInstance {
   /**
    * Remove a HostedNumberOrderInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -534,9 +521,9 @@ export class HostedNumberOrderInstance {
   /**
    * Fetch a HostedNumberOrderInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed HostedNumberOrderInstance
+   * @returns Resolves to processed HostedNumberOrderInstance
    */
   fetch(
     callback?: (error: Error | null, item?: HostedNumberOrderInstance) => any
@@ -547,9 +534,9 @@ export class HostedNumberOrderInstance {
   /**
    * Update a HostedNumberOrderInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed HostedNumberOrderInstance
+   * @returns Resolves to processed HostedNumberOrderInstance
    */
   update(
     callback?: (error: Error | null, item?: HostedNumberOrderInstance) => any
@@ -557,10 +544,10 @@ export class HostedNumberOrderInstance {
   /**
    * Update a HostedNumberOrderInstance
    *
-   * @param { HostedNumberOrderContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed HostedNumberOrderInstance
+   * @returns Resolves to processed HostedNumberOrderInstance
    */
   update(
     params: HostedNumberOrderContextUpdateOptions,
@@ -615,10 +602,10 @@ export interface HostedNumberOrderListInstance {
   /**
    * Create a HostedNumberOrderInstance
    *
-   * @param { HostedNumberOrderListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed HostedNumberOrderInstance
+   * @returns Resolves to processed HostedNumberOrderInstance
    */
   create(
     params: HostedNumberOrderListInstanceCreateOptions,

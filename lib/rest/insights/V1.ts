@@ -24,45 +24,49 @@ export default class V1 extends Version {
   /**
    * Initialize the V1 version of Insights
    *
-   * @property { Twilio.Insights.V1.CallListInstance } calls - calls resource
-   * @property { Twilio.Insights.V1.CallSummariesListInstance } callSummaries - callSummaries resource
-   * @property { Twilio.Insights.V1.ConferenceListInstance } conferences - conferences resource
-   * @property { Twilio.Insights.V1.RoomListInstance } rooms - rooms resource
-   * @property { Twilio.Insights.V1.SettingListInstance } settings - settings resource
-   *
-   * @param { Twilio.Insights } domain - The Twilio domain
+   * @param domain - The Twilio (Twilio.Insights) domain
    */
   constructor(domain: InsightsBase) {
     super(domain, "v1");
   }
 
+  /** calls - { Twilio.Insights.V1.CallListInstance } resource */
   protected _calls?: CallListInstance;
+  /** callSummaries - { Twilio.Insights.V1.CallSummariesListInstance } resource */
   protected _callSummaries?: CallSummariesListInstance;
+  /** conferences - { Twilio.Insights.V1.ConferenceListInstance } resource */
   protected _conferences?: ConferenceListInstance;
+  /** rooms - { Twilio.Insights.V1.RoomListInstance } resource */
   protected _rooms?: RoomListInstance;
+  /** settings - { Twilio.Insights.V1.SettingListInstance } resource */
   protected _settings?: SettingListInstance;
 
+  /** Getter for calls resource */
   get calls(): CallListInstance {
     this._calls = this._calls || CallListInstance(this);
     return this._calls;
   }
 
+  /** Getter for callSummaries resource */
   get callSummaries(): CallSummariesListInstance {
     this._callSummaries =
       this._callSummaries || CallSummariesListInstance(this);
     return this._callSummaries;
   }
 
+  /** Getter for conferences resource */
   get conferences(): ConferenceListInstance {
     this._conferences = this._conferences || ConferenceListInstance(this);
     return this._conferences;
   }
 
+  /** Getter for rooms resource */
   get rooms(): RoomListInstance {
     this._rooms = this._rooms || RoomListInstance(this);
     return this._rooms;
   }
 
+  /** Getter for settings resource */
   get settings(): SettingListInstance {
     this._settings = this._settings || SettingListInstance(this);
     return this._settings;

@@ -25,9 +25,9 @@ export interface SchemaContext {
   /**
    * Fetch a SchemaInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SchemaInstance
+   * @returns Resolves to processed SchemaInstance
    */
   fetch(
     callback?: (error: Error | null, item?: SchemaInstance) => any
@@ -155,9 +155,9 @@ export class SchemaInstance {
   /**
    * Fetch a SchemaInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SchemaInstance
+   * @returns Resolves to processed SchemaInstance
    */
   fetch(
     callback?: (error: Error | null, item?: SchemaInstance) => any

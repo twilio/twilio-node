@@ -25,52 +25,57 @@ export default class V2 extends Version {
   /**
    * Initialize the V2 version of Verify
    *
-   * @property { Twilio.Verify.V2.FormListInstance } forms - forms resource
-   * @property { Twilio.Verify.V2.SafelistListInstance } safelist - safelist resource
-   * @property { Twilio.Verify.V2.ServiceListInstance } services - services resource
-   * @property { Twilio.Verify.V2.TemplateListInstance } templates - templates resource
-   * @property { Twilio.Verify.V2.VerificationAttemptListInstance } verificationAttempts - verificationAttempts resource
-   * @property { Twilio.Verify.V2.VerificationAttemptsSummaryListInstance } verificationAttemptsSummary - verificationAttemptsSummary resource
-   *
-   * @param { Twilio.Verify } domain - The Twilio domain
+   * @param domain - The Twilio (Twilio.Verify) domain
    */
   constructor(domain: VerifyBase) {
     super(domain, "v2");
   }
 
+  /** forms - { Twilio.Verify.V2.FormListInstance } resource */
   protected _forms?: FormListInstance;
+  /** safelist - { Twilio.Verify.V2.SafelistListInstance } resource */
   protected _safelist?: SafelistListInstance;
+  /** services - { Twilio.Verify.V2.ServiceListInstance } resource */
   protected _services?: ServiceListInstance;
+  /** templates - { Twilio.Verify.V2.TemplateListInstance } resource */
   protected _templates?: TemplateListInstance;
+  /** verificationAttempts - { Twilio.Verify.V2.VerificationAttemptListInstance } resource */
   protected _verificationAttempts?: VerificationAttemptListInstance;
+  /** verificationAttemptsSummary - { Twilio.Verify.V2.VerificationAttemptsSummaryListInstance } resource */
   protected _verificationAttemptsSummary?: VerificationAttemptsSummaryListInstance;
 
+  /** Getter for forms resource */
   get forms(): FormListInstance {
     this._forms = this._forms || FormListInstance(this);
     return this._forms;
   }
 
+  /** Getter for safelist resource */
   get safelist(): SafelistListInstance {
     this._safelist = this._safelist || SafelistListInstance(this);
     return this._safelist;
   }
 
+  /** Getter for services resource */
   get services(): ServiceListInstance {
     this._services = this._services || ServiceListInstance(this);
     return this._services;
   }
 
+  /** Getter for templates resource */
   get templates(): TemplateListInstance {
     this._templates = this._templates || TemplateListInstance(this);
     return this._templates;
   }
 
+  /** Getter for verificationAttempts resource */
   get verificationAttempts(): VerificationAttemptListInstance {
     this._verificationAttempts =
       this._verificationAttempts || VerificationAttemptListInstance(this);
     return this._verificationAttempts;
   }
 
+  /** Getter for verificationAttemptsSummary resource */
   get verificationAttemptsSummary(): VerificationAttemptsSummaryListInstance {
     this._verificationAttemptsSummary =
       this._verificationAttemptsSummary ||

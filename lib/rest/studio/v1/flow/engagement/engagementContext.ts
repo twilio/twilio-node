@@ -22,9 +22,9 @@ export interface EngagementContextContext {
   /**
    * Fetch a EngagementContextInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed EngagementContextInstance
+   * @returns Resolves to processed EngagementContextInstance
    */
   fetch(
     callback?: (error: Error | null, item?: EngagementContextInstance) => any
@@ -161,9 +161,9 @@ export class EngagementContextInstance {
   /**
    * Fetch a EngagementContextInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed EngagementContextInstance
+   * @returns Resolves to processed EngagementContextInstance
    */
   fetch(
     callback?: (error: Error | null, item?: EngagementContextInstance) => any

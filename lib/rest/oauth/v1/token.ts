@@ -20,24 +20,23 @@ import { isValidPathParam } from "../../../base/utility";
 
 /**
  * Options to pass to create a TokenInstance
- *
- * @property { string } grantType Grant type is a credential representing resource owner\\\'s authorization which can be used by client to obtain access token.
- * @property { string } clientSid A 34 character string that uniquely identifies this OAuth App.
- * @property { string } [clientSecret] The credential for confidential OAuth App.
- * @property { string } [code] JWT token related to the authorization code grant type.
- * @property { string } [codeVerifier] A code which is generation cryptographically.
- * @property { string } [deviceCode] JWT token related to the device code grant type.
- * @property { string } [refreshToken] JWT token related to the refresh token grant type.
- * @property { string } [deviceId] The Id of the device associated with the token (refresh token).
  */
 export interface TokenListInstanceCreateOptions {
+  /** Grant type is a credential representing resource owner\\\'s authorization which can be used by client to obtain access token. */
   grantType: string;
+  /** A 34 character string that uniquely identifies this OAuth App. */
   clientSid: string;
+  /** The credential for confidential OAuth App. */
   clientSecret?: string;
+  /** JWT token related to the authorization code grant type. */
   code?: string;
+  /** A code which is generation cryptographically. */
   codeVerifier?: string;
+  /** JWT token related to the device code grant type. */
   deviceCode?: string;
+  /** JWT token related to the refresh token grant type. */
   refreshToken?: string;
+  /** The Id of the device associated with the token (refresh token). */
   deviceId?: string;
 }
 
@@ -45,10 +44,10 @@ export interface TokenListInstance {
   /**
    * Create a TokenInstance
    *
-   * @param { TokenListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed TokenInstance
+   * @returns Resolves to processed TokenInstance
    */
   create(
     params: TokenListInstanceCreateOptions,

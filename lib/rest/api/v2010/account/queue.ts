@@ -23,69 +23,56 @@ import { MemberListInstance } from "./queue/member";
 
 /**
  * Options to pass to update a QueueInstance
- *
- * @property { string } [friendlyName] A descriptive string that you created to describe this resource. It can be up to 64 characters long.
- * @property { number } [maxSize] The maximum number of calls allowed to be in the queue. The default is 100. The maximum is 5000.
  */
 export interface QueueContextUpdateOptions {
+  /** A descriptive string that you created to describe this resource. It can be up to 64 characters long. */
   friendlyName?: string;
+  /** The maximum number of calls allowed to be in the queue. The default is 100. The maximum is 5000. */
   maxSize?: number;
 }
 
 /**
  * Options to pass to create a QueueInstance
- *
- * @property { string } friendlyName A descriptive string that you created to describe this resource. It can be up to 64 characters long.
- * @property { number } [maxSize] The maximum number of calls allowed to be in the queue. The default is 100. The maximum is 5000.
  */
 export interface QueueListInstanceCreateOptions {
+  /** A descriptive string that you created to describe this resource. It can be up to 64 characters long. */
   friendlyName: string;
+  /** The maximum number of calls allowed to be in the queue. The default is 100. The maximum is 5000. */
   maxSize?: number;
 }
 /**
  * Options to pass to each
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface QueueListInstanceEachOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: QueueInstance, done: (err?: Error) => void) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface QueueListInstanceOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface QueueListInstancePageOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
@@ -95,9 +82,9 @@ export interface QueueContext {
   /**
    * Remove a QueueInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -106,9 +93,9 @@ export interface QueueContext {
   /**
    * Fetch a QueueInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed QueueInstance
+   * @returns Resolves to processed QueueInstance
    */
   fetch(
     callback?: (error: Error | null, item?: QueueInstance) => any
@@ -117,9 +104,9 @@ export interface QueueContext {
   /**
    * Update a QueueInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed QueueInstance
+   * @returns Resolves to processed QueueInstance
    */
   update(
     callback?: (error: Error | null, item?: QueueInstance) => any
@@ -127,10 +114,10 @@ export interface QueueContext {
   /**
    * Update a QueueInstance
    *
-   * @param { QueueContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed QueueInstance
+   * @returns Resolves to processed QueueInstance
    */
   update(
     params: QueueContextUpdateOptions,
@@ -364,9 +351,9 @@ export class QueueInstance {
   /**
    * Remove a QueueInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -377,9 +364,9 @@ export class QueueInstance {
   /**
    * Fetch a QueueInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed QueueInstance
+   * @returns Resolves to processed QueueInstance
    */
   fetch(
     callback?: (error: Error | null, item?: QueueInstance) => any
@@ -390,9 +377,9 @@ export class QueueInstance {
   /**
    * Update a QueueInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed QueueInstance
+   * @returns Resolves to processed QueueInstance
    */
   update(
     callback?: (error: Error | null, item?: QueueInstance) => any
@@ -400,10 +387,10 @@ export class QueueInstance {
   /**
    * Update a QueueInstance
    *
-   * @param { QueueContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed QueueInstance
+   * @returns Resolves to processed QueueInstance
    */
   update(
     params: QueueContextUpdateOptions,
@@ -451,10 +438,10 @@ export interface QueueListInstance {
   /**
    * Create a QueueInstance
    *
-   * @param { QueueListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed QueueInstance
+   * @returns Resolves to processed QueueInstance
    */
   create(
     params: QueueListInstanceCreateOptions,

@@ -20,12 +20,11 @@ import { isValidPathParam } from "../../../base/utility";
 
 /**
  * Options to pass to update a SipDomainInstance
- *
- * @property { string } [voiceRegion]
- * @property { string } [friendlyName]
  */
 export interface SipDomainContextUpdateOptions {
+  /**  */
   voiceRegion?: string;
+  /**  */
   friendlyName?: string;
 }
 
@@ -33,9 +32,9 @@ export interface SipDomainContext {
   /**
    * Fetch a SipDomainInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SipDomainInstance
+   * @returns Resolves to processed SipDomainInstance
    */
   fetch(
     callback?: (error: Error | null, item?: SipDomainInstance) => any
@@ -44,9 +43,9 @@ export interface SipDomainContext {
   /**
    * Update a SipDomainInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SipDomainInstance
+   * @returns Resolves to processed SipDomainInstance
    */
   update(
     callback?: (error: Error | null, item?: SipDomainInstance) => any
@@ -54,10 +53,10 @@ export interface SipDomainContext {
   /**
    * Update a SipDomainInstance
    *
-   * @param { SipDomainContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SipDomainInstance
+   * @returns Resolves to processed SipDomainInstance
    */
   update(
     params: SipDomainContextUpdateOptions,
@@ -221,9 +220,9 @@ export class SipDomainInstance {
   /**
    * Fetch a SipDomainInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SipDomainInstance
+   * @returns Resolves to processed SipDomainInstance
    */
   fetch(
     callback?: (error: Error | null, item?: SipDomainInstance) => any
@@ -234,9 +233,9 @@ export class SipDomainInstance {
   /**
    * Update a SipDomainInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SipDomainInstance
+   * @returns Resolves to processed SipDomainInstance
    */
   update(
     callback?: (error: Error | null, item?: SipDomainInstance) => any
@@ -244,10 +243,10 @@ export class SipDomainInstance {
   /**
    * Update a SipDomainInstance
    *
-   * @param { SipDomainContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SipDomainInstance
+   * @returns Resolves to processed SipDomainInstance
    */
   update(
     params: SipDomainContextUpdateOptions,

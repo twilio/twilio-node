@@ -26,79 +26,66 @@ type UserWebhookEnabledType = "true" | "false";
 
 /**
  * Options to pass to update a UserInstance
- *
- * @property { UserWebhookEnabledType } [xTwilioWebhookEnabled] The X-Twilio-Webhook-Enabled HTTP request header
- * @property { string } [roleSid] The SID of the [Role](https://www.twilio.com/docs/chat/rest/role-resource) to assign to the User.
- * @property { string } [attributes] A valid JSON string that contains application-specific data.
- * @property { string } [friendlyName] A descriptive string that you create to describe the resource. It is often used for display purposes.
  */
 export interface UserContextUpdateOptions {
+  /** The X-Twilio-Webhook-Enabled HTTP request header */
   xTwilioWebhookEnabled?: UserWebhookEnabledType;
+  /** The SID of the [Role](https://www.twilio.com/docs/chat/rest/role-resource) to assign to the User. */
   roleSid?: string;
+  /** A valid JSON string that contains application-specific data. */
   attributes?: string;
+  /** A descriptive string that you create to describe the resource. It is often used for display purposes. */
   friendlyName?: string;
 }
 
 /**
  * Options to pass to create a UserInstance
- *
- * @property { string } identity The `identity` value that uniquely identifies the new resource\\\'s [User](https://www.twilio.com/docs/chat/rest/user-resource) within the [Service](https://www.twilio.com/docs/chat/rest/service-resource). This value is often a username or email address. See the Identity documentation for more info.
- * @property { UserWebhookEnabledType } [xTwilioWebhookEnabled] The X-Twilio-Webhook-Enabled HTTP request header
- * @property { string } [roleSid] The SID of the [Role](https://www.twilio.com/docs/chat/rest/role-resource) to assign to the new User.
- * @property { string } [attributes] A valid JSON string that contains application-specific data.
- * @property { string } [friendlyName] A descriptive string that you create to describe the new resource. This value is often used for display purposes.
  */
 export interface UserListInstanceCreateOptions {
+  /** The `identity` value that uniquely identifies the new resource\\\'s [User](https://www.twilio.com/docs/chat/rest/user-resource) within the [Service](https://www.twilio.com/docs/chat/rest/service-resource). This value is often a username or email address. See the Identity documentation for more info. */
   identity: string;
+  /** The X-Twilio-Webhook-Enabled HTTP request header */
   xTwilioWebhookEnabled?: UserWebhookEnabledType;
+  /** The SID of the [Role](https://www.twilio.com/docs/chat/rest/role-resource) to assign to the new User. */
   roleSid?: string;
+  /** A valid JSON string that contains application-specific data. */
   attributes?: string;
+  /** A descriptive string that you create to describe the new resource. This value is often used for display purposes. */
   friendlyName?: string;
 }
 /**
  * Options to pass to each
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface UserListInstanceEachOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: UserInstance, done: (err?: Error) => void) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface UserListInstanceOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface UserListInstancePageOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
@@ -109,9 +96,9 @@ export interface UserContext {
   /**
    * Remove a UserInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -120,9 +107,9 @@ export interface UserContext {
   /**
    * Fetch a UserInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed UserInstance
+   * @returns Resolves to processed UserInstance
    */
   fetch(
     callback?: (error: Error | null, item?: UserInstance) => any
@@ -131,9 +118,9 @@ export interface UserContext {
   /**
    * Update a UserInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed UserInstance
+   * @returns Resolves to processed UserInstance
    */
   update(
     callback?: (error: Error | null, item?: UserInstance) => any
@@ -141,10 +128,10 @@ export interface UserContext {
   /**
    * Update a UserInstance
    *
-   * @param { UserContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed UserInstance
+   * @returns Resolves to processed UserInstance
    */
   update(
     params: UserContextUpdateOptions,
@@ -426,9 +413,9 @@ export class UserInstance {
   /**
    * Remove a UserInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -439,9 +426,9 @@ export class UserInstance {
   /**
    * Fetch a UserInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed UserInstance
+   * @returns Resolves to processed UserInstance
    */
   fetch(
     callback?: (error: Error | null, item?: UserInstance) => any
@@ -452,9 +439,9 @@ export class UserInstance {
   /**
    * Update a UserInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed UserInstance
+   * @returns Resolves to processed UserInstance
    */
   update(
     callback?: (error: Error | null, item?: UserInstance) => any
@@ -462,10 +449,10 @@ export class UserInstance {
   /**
    * Update a UserInstance
    *
-   * @param { UserContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed UserInstance
+   * @returns Resolves to processed UserInstance
    */
   update(
     params: UserContextUpdateOptions,
@@ -525,10 +512,10 @@ export interface UserListInstance {
   /**
    * Create a UserInstance
    *
-   * @param { UserListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed UserInstance
+   * @returns Resolves to processed UserInstance
    */
   create(
     params: UserListInstanceCreateOptions,

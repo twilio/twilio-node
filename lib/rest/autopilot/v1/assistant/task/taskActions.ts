@@ -20,10 +20,9 @@ import { isValidPathParam } from "../../../../../base/utility";
 
 /**
  * Options to pass to update a TaskActionsInstance
- *
- * @property { any } [actions] The JSON string that specifies the [actions](https://www.twilio.com/docs/autopilot/actions) that instruct the Assistant on how to perform the task.
  */
 export interface TaskActionsContextUpdateOptions {
+  /** The JSON string that specifies the [actions](https://www.twilio.com/docs/autopilot/actions) that instruct the Assistant on how to perform the task. */
   actions?: any;
 }
 
@@ -31,9 +30,9 @@ export interface TaskActionsContext {
   /**
    * Fetch a TaskActionsInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed TaskActionsInstance
+   * @returns Resolves to processed TaskActionsInstance
    */
   fetch(
     callback?: (error: Error | null, item?: TaskActionsInstance) => any
@@ -42,9 +41,9 @@ export interface TaskActionsContext {
   /**
    * Update a TaskActionsInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed TaskActionsInstance
+   * @returns Resolves to processed TaskActionsInstance
    */
   update(
     callback?: (error: Error | null, item?: TaskActionsInstance) => any
@@ -52,10 +51,10 @@ export interface TaskActionsContext {
   /**
    * Update a TaskActionsInstance
    *
-   * @param { TaskActionsContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed TaskActionsInstance
+   * @returns Resolves to processed TaskActionsInstance
    */
   update(
     params: TaskActionsContextUpdateOptions,
@@ -235,9 +234,9 @@ export class TaskActionsInstance {
   /**
    * Fetch a TaskActionsInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed TaskActionsInstance
+   * @returns Resolves to processed TaskActionsInstance
    */
   fetch(
     callback?: (error: Error | null, item?: TaskActionsInstance) => any
@@ -248,9 +247,9 @@ export class TaskActionsInstance {
   /**
    * Update a TaskActionsInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed TaskActionsInstance
+   * @returns Resolves to processed TaskActionsInstance
    */
   update(
     callback?: (error: Error | null, item?: TaskActionsInstance) => any
@@ -258,10 +257,10 @@ export class TaskActionsInstance {
   /**
    * Update a TaskActionsInstance
    *
-   * @param { TaskActionsContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed TaskActionsInstance
+   * @returns Resolves to processed TaskActionsInstance
    */
   update(
     params: TaskActionsContextUpdateOptions,

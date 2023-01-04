@@ -24,108 +24,94 @@ type ServiceConversationParticipantWebhookEnabledType = "true" | "false";
 
 /**
  * Options to pass to remove a ParticipantInstance
- *
- * @property { ServiceConversationParticipantWebhookEnabledType } [xTwilioWebhookEnabled] The X-Twilio-Webhook-Enabled HTTP request header
  */
 export interface ParticipantContextRemoveOptions {
+  /** The X-Twilio-Webhook-Enabled HTTP request header */
   xTwilioWebhookEnabled?: ServiceConversationParticipantWebhookEnabledType;
 }
 
 /**
  * Options to pass to update a ParticipantInstance
- *
- * @property { ServiceConversationParticipantWebhookEnabledType } [xTwilioWebhookEnabled] The X-Twilio-Webhook-Enabled HTTP request header
- * @property { Date } [dateCreated] The date that this resource was created.
- * @property { Date } [dateUpdated] The date that this resource was last updated.
- * @property { string } [identity] A unique string identifier for the conversation participant as [Conversation User](https://www.twilio.com/docs/conversations/api/user-resource). This parameter is non-null if (and only if) the participant is using the Conversation SDK to communicate. Limited to 256 characters.
- * @property { string } [attributes] An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
- * @property { string } [roleSid] The SID of a conversation-level [Role](https://www.twilio.com/docs/conversations/api/role-resource) to assign to the participant.
- * @property { string } [messagingBinding.proxyAddress] The address of the Twilio phone number that the participant is in contact with. \\\'null\\\' value will remove it.
- * @property { string } [messagingBinding.projectedAddress] The address of the Twilio phone number that is used in Group MMS. \\\'null\\\' value will remove it.
- * @property { number } [lastReadMessageIndex] Index of last “read” message in the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for the Participant.
- * @property { string } [lastReadTimestamp] Timestamp of last “read” message in the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for the Participant.
  */
 export interface ParticipantContextUpdateOptions {
+  /** The X-Twilio-Webhook-Enabled HTTP request header */
   xTwilioWebhookEnabled?: ServiceConversationParticipantWebhookEnabledType;
+  /** The date that this resource was created. */
   dateCreated?: Date;
+  /** The date that this resource was last updated. */
   dateUpdated?: Date;
+  /** A unique string identifier for the conversation participant as [Conversation User](https://www.twilio.com/docs/conversations/api/user-resource). This parameter is non-null if (and only if) the participant is using the Conversation SDK to communicate. Limited to 256 characters. */
   identity?: string;
+  /** An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned. */
   attributes?: string;
+  /** The SID of a conversation-level [Role](https://www.twilio.com/docs/conversations/api/role-resource) to assign to the participant. */
   roleSid?: string;
+  /** The address of the Twilio phone number that the participant is in contact with. \\\'null\\\' value will remove it. */
   "messagingBinding.proxyAddress"?: string;
+  /** The address of the Twilio phone number that is used in Group MMS. \\\'null\\\' value will remove it. */
   "messagingBinding.projectedAddress"?: string;
+  /** Index of last “read” message in the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for the Participant. */
   lastReadMessageIndex?: number;
+  /** Timestamp of last “read” message in the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for the Participant. */
   lastReadTimestamp?: string;
 }
 
 /**
  * Options to pass to create a ParticipantInstance
- *
- * @property { ServiceConversationParticipantWebhookEnabledType } [xTwilioWebhookEnabled] The X-Twilio-Webhook-Enabled HTTP request header
- * @property { string } [identity] A unique string identifier for the conversation participant as [Conversation User](https://www.twilio.com/docs/conversations/api/user-resource). This parameter is non-null if (and only if) the participant is using the Conversation SDK to communicate. Limited to 256 characters.
- * @property { string } [messagingBinding.address] The address of the participant\\\'s device, e.g. a phone or WhatsApp number. Together with the Proxy address, this determines a participant uniquely. This field (with proxy_address) is only null when the participant is interacting from an SDK endpoint (see the \\\'identity\\\' field).
- * @property { string } [messagingBinding.proxyAddress] The address of the Twilio phone number (or WhatsApp number) that the participant is in contact with. This field, together with participant address, is only null when the participant is interacting from an SDK endpoint (see the \\\'identity\\\' field).
- * @property { Date } [dateCreated] The date that this resource was created.
- * @property { Date } [dateUpdated] The date that this resource was last updated.
- * @property { string } [attributes] An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
- * @property { string } [messagingBinding.projectedAddress] The address of the Twilio phone number that is used in Group MMS. Communication mask for the Conversation participant with Identity.
- * @property { string } [roleSid] The SID of a conversation-level [Role](https://www.twilio.com/docs/conversations/api/role-resource) to assign to the participant.
  */
 export interface ParticipantListInstanceCreateOptions {
+  /** The X-Twilio-Webhook-Enabled HTTP request header */
   xTwilioWebhookEnabled?: ServiceConversationParticipantWebhookEnabledType;
+  /** A unique string identifier for the conversation participant as [Conversation User](https://www.twilio.com/docs/conversations/api/user-resource). This parameter is non-null if (and only if) the participant is using the Conversation SDK to communicate. Limited to 256 characters. */
   identity?: string;
+  /** The address of the participant\\\'s device, e.g. a phone or WhatsApp number. Together with the Proxy address, this determines a participant uniquely. This field (with proxy_address) is only null when the participant is interacting from an SDK endpoint (see the \\\'identity\\\' field). */
   "messagingBinding.address"?: string;
+  /** The address of the Twilio phone number (or WhatsApp number) that the participant is in contact with. This field, together with participant address, is only null when the participant is interacting from an SDK endpoint (see the \\\'identity\\\' field). */
   "messagingBinding.proxyAddress"?: string;
+  /** The date that this resource was created. */
   dateCreated?: Date;
+  /** The date that this resource was last updated. */
   dateUpdated?: Date;
+  /** An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned. */
   attributes?: string;
+  /** The address of the Twilio phone number that is used in Group MMS. Communication mask for the Conversation participant with Identity. */
   "messagingBinding.projectedAddress"?: string;
+  /** The SID of a conversation-level [Role](https://www.twilio.com/docs/conversations/api/role-resource) to assign to the participant. */
   roleSid?: string;
 }
 /**
  * Options to pass to each
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface ParticipantListInstanceEachOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: ParticipantInstance, done: (err?: Error) => void) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface ParticipantListInstanceOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface ParticipantListInstancePageOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
@@ -133,9 +119,9 @@ export interface ParticipantContext {
   /**
    * Remove a ParticipantInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -143,10 +129,10 @@ export interface ParticipantContext {
   /**
    * Remove a ParticipantInstance
    *
-   * @param { ParticipantContextRemoveOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ParticipantInstance
+   * @returns Resolves to processed ParticipantInstance
    */
   remove(
     params: ParticipantContextRemoveOptions,
@@ -157,9 +143,9 @@ export interface ParticipantContext {
   /**
    * Fetch a ParticipantInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ParticipantInstance
+   * @returns Resolves to processed ParticipantInstance
    */
   fetch(
     callback?: (error: Error | null, item?: ParticipantInstance) => any
@@ -168,9 +154,9 @@ export interface ParticipantContext {
   /**
    * Update a ParticipantInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ParticipantInstance
+   * @returns Resolves to processed ParticipantInstance
    */
   update(
     callback?: (error: Error | null, item?: ParticipantInstance) => any
@@ -178,10 +164,10 @@ export interface ParticipantContext {
   /**
    * Update a ParticipantInstance
    *
-   * @param { ParticipantContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ParticipantInstance
+   * @returns Resolves to processed ParticipantInstance
    */
   update(
     params: ParticipantContextUpdateOptions,
@@ -474,9 +460,9 @@ export class ParticipantInstance {
   /**
    * Remove a ParticipantInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -484,10 +470,10 @@ export class ParticipantInstance {
   /**
    * Remove a ParticipantInstance
    *
-   * @param { ParticipantContextRemoveOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ParticipantInstance
+   * @returns Resolves to processed ParticipantInstance
    */
   remove(
     params: ParticipantContextRemoveOptions,
@@ -500,9 +486,9 @@ export class ParticipantInstance {
   /**
    * Fetch a ParticipantInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ParticipantInstance
+   * @returns Resolves to processed ParticipantInstance
    */
   fetch(
     callback?: (error: Error | null, item?: ParticipantInstance) => any
@@ -513,9 +499,9 @@ export class ParticipantInstance {
   /**
    * Update a ParticipantInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ParticipantInstance
+   * @returns Resolves to processed ParticipantInstance
    */
   update(
     callback?: (error: Error | null, item?: ParticipantInstance) => any
@@ -523,10 +509,10 @@ export class ParticipantInstance {
   /**
    * Update a ParticipantInstance
    *
-   * @param { ParticipantContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ParticipantInstance
+   * @returns Resolves to processed ParticipantInstance
    */
   update(
     params: ParticipantContextUpdateOptions,
@@ -571,9 +557,9 @@ export interface ParticipantListInstance {
   /**
    * Create a ParticipantInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ParticipantInstance
+   * @returns Resolves to processed ParticipantInstance
    */
   create(
     callback?: (error: Error | null, item?: ParticipantInstance) => any
@@ -581,10 +567,10 @@ export interface ParticipantListInstance {
   /**
    * Create a ParticipantInstance
    *
-   * @param { ParticipantListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ParticipantInstance
+   * @returns Resolves to processed ParticipantInstance
    */
   create(
     params: ParticipantListInstanceCreateOptions,

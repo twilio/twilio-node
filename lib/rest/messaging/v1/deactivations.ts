@@ -20,10 +20,9 @@ import { isValidPathParam } from "../../../base/utility";
 
 /**
  * Options to pass to fetch a DeactivationsInstance
- *
- * @property { Date } [date] The request will return a list of all United States Phone Numbers that were deactivated on the day specified by this parameter. This date should be specified in YYYY-MM-DD format.
  */
 export interface DeactivationsContextFetchOptions {
+  /** The request will return a list of all United States Phone Numbers that were deactivated on the day specified by this parameter. This date should be specified in YYYY-MM-DD format. */
   date?: Date;
 }
 
@@ -31,9 +30,9 @@ export interface DeactivationsContext {
   /**
    * Fetch a DeactivationsInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed DeactivationsInstance
+   * @returns Resolves to processed DeactivationsInstance
    */
   fetch(
     callback?: (error: Error | null, item?: DeactivationsInstance) => any
@@ -41,10 +40,10 @@ export interface DeactivationsContext {
   /**
    * Fetch a DeactivationsInstance
    *
-   * @param { DeactivationsContextFetchOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed DeactivationsInstance
+   * @returns Resolves to processed DeactivationsInstance
    */
   fetch(
     params: DeactivationsContextFetchOptions,
@@ -148,9 +147,9 @@ export class DeactivationsInstance {
   /**
    * Fetch a DeactivationsInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed DeactivationsInstance
+   * @returns Resolves to processed DeactivationsInstance
    */
   fetch(
     callback?: (error: Error | null, item?: DeactivationsInstance) => any
@@ -158,10 +157,10 @@ export class DeactivationsInstance {
   /**
    * Fetch a DeactivationsInstance
    *
-   * @param { DeactivationsContextFetchOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed DeactivationsInstance
+   * @returns Resolves to processed DeactivationsInstance
    */
   fetch(
     params: DeactivationsContextFetchOptions,

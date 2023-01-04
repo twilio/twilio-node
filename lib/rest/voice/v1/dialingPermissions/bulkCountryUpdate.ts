@@ -20,10 +20,9 @@ import { isValidPathParam } from "../../../../base/utility";
 
 /**
  * Options to pass to create a BulkCountryUpdateInstance
- *
- * @property { string } updateRequest URL encoded JSON array of update objects. example : `[ { \\\"iso_code\\\": \\\"GB\\\", \\\"low_risk_numbers_enabled\\\": \\\"true\\\", \\\"high_risk_special_numbers_enabled\\\":\\\"true\\\", \\\"high_risk_tollfraud_numbers_enabled\\\": \\\"false\\\" } ]`
  */
 export interface BulkCountryUpdateListInstanceCreateOptions {
+  /** URL encoded JSON array of update objects. example : `[ { \\\"iso_code\\\": \\\"GB\\\", \\\"low_risk_numbers_enabled\\\": \\\"true\\\", \\\"high_risk_special_numbers_enabled\\\":\\\"true\\\", \\\"high_risk_tollfraud_numbers_enabled\\\": \\\"false\\\" } ]` */
   updateRequest: string;
 }
 
@@ -31,10 +30,10 @@ export interface BulkCountryUpdateListInstance {
   /**
    * Create a BulkCountryUpdateInstance
    *
-   * @param { BulkCountryUpdateListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed BulkCountryUpdateInstance
+   * @returns Resolves to processed BulkCountryUpdateInstance
    */
   create(
     params: BulkCountryUpdateListInstanceCreateOptions,

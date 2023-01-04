@@ -26,87 +26,74 @@ type ChannelWebhookType = "webhook" | "trigger" | "studio";
 
 /**
  * Options to pass to update a WebhookInstance
- *
- * @property { string } [configuration.url] The URL of the webhook to call using the `configuration.method`.
- * @property { ChannelWebhookMethod } [configuration.method]
- * @property { Array<string> } [configuration.filters] The events that cause us to call the Channel Webhook. Used when `type` is `webhook`. This parameter takes only one event. To specify more than one event, repeat this parameter for each event. For the list of possible events, see [Webhook Event Triggers](https://www.twilio.com/docs/chat/webhook-events#webhook-event-trigger).
- * @property { Array<string> } [configuration.triggers] A string that will cause us to call the webhook when it is present in a message body. This parameter takes only one trigger string. To specify more than one, repeat this parameter for each trigger string up to a total of 5 trigger strings. Used only when `type` = `trigger`.
- * @property { string } [configuration.flowSid] The SID of the Studio [Flow](https://www.twilio.com/docs/studio/rest-api/flow) to call when an event in `configuration.filters` occurs. Used only when `type` = `studio`.
- * @property { number } [configuration.retryCount] The number of times to retry the webhook if the first attempt fails. Can be an integer between 0 and 3, inclusive, and the default is 0.
  */
 export interface WebhookContextUpdateOptions {
+  /** The URL of the webhook to call using the `configuration.method`. */
   "configuration.url"?: string;
+  /**  */
   "configuration.method"?: ChannelWebhookMethod;
+  /** The events that cause us to call the Channel Webhook. Used when `type` is `webhook`. This parameter takes only one event. To specify more than one event, repeat this parameter for each event. For the list of possible events, see [Webhook Event Triggers](https://www.twilio.com/docs/chat/webhook-events#webhook-event-trigger). */
   "configuration.filters"?: Array<string>;
+  /** A string that will cause us to call the webhook when it is present in a message body. This parameter takes only one trigger string. To specify more than one, repeat this parameter for each trigger string up to a total of 5 trigger strings. Used only when `type` = `trigger`. */
   "configuration.triggers"?: Array<string>;
+  /** The SID of the Studio [Flow](https://www.twilio.com/docs/studio/rest-api/flow) to call when an event in `configuration.filters` occurs. Used only when `type` = `studio`. */
   "configuration.flowSid"?: string;
+  /** The number of times to retry the webhook if the first attempt fails. Can be an integer between 0 and 3, inclusive, and the default is 0. */
   "configuration.retryCount"?: number;
 }
 
 /**
  * Options to pass to create a WebhookInstance
- *
- * @property { ChannelWebhookType } type
- * @property { string } [configuration.url] The URL of the webhook to call using the `configuration.method`.
- * @property { ChannelWebhookMethod } [configuration.method]
- * @property { Array<string> } [configuration.filters] The events that cause us to call the Channel Webhook. Used when `type` is `webhook`. This parameter takes only one event. To specify more than one event, repeat this parameter for each event. For the list of possible events, see [Webhook Event Triggers](https://www.twilio.com/docs/chat/webhook-events#webhook-event-trigger).
- * @property { Array<string> } [configuration.triggers] A string that will cause us to call the webhook when it is present in a message body. This parameter takes only one trigger string. To specify more than one, repeat this parameter for each trigger string up to a total of 5 trigger strings. Used only when `type` = `trigger`.
- * @property { string } [configuration.flowSid] The SID of the Studio [Flow](https://www.twilio.com/docs/studio/rest-api/flow) to call when an event in `configuration.filters` occurs. Used only when `type` is `studio`.
- * @property { number } [configuration.retryCount] The number of times to retry the webhook if the first attempt fails. Can be an integer between 0 and 3, inclusive, and the default is 0.
  */
 export interface WebhookListInstanceCreateOptions {
+  /**  */
   type: ChannelWebhookType;
+  /** The URL of the webhook to call using the `configuration.method`. */
   "configuration.url"?: string;
+  /**  */
   "configuration.method"?: ChannelWebhookMethod;
+  /** The events that cause us to call the Channel Webhook. Used when `type` is `webhook`. This parameter takes only one event. To specify more than one event, repeat this parameter for each event. For the list of possible events, see [Webhook Event Triggers](https://www.twilio.com/docs/chat/webhook-events#webhook-event-trigger). */
   "configuration.filters"?: Array<string>;
+  /** A string that will cause us to call the webhook when it is present in a message body. This parameter takes only one trigger string. To specify more than one, repeat this parameter for each trigger string up to a total of 5 trigger strings. Used only when `type` = `trigger`. */
   "configuration.triggers"?: Array<string>;
+  /** The SID of the Studio [Flow](https://www.twilio.com/docs/studio/rest-api/flow) to call when an event in `configuration.filters` occurs. Used only when `type` is `studio`. */
   "configuration.flowSid"?: string;
+  /** The number of times to retry the webhook if the first attempt fails. Can be an integer between 0 and 3, inclusive, and the default is 0. */
   "configuration.retryCount"?: number;
 }
 /**
  * Options to pass to each
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface WebhookListInstanceEachOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: WebhookInstance, done: (err?: Error) => void) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface WebhookListInstanceOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface WebhookListInstancePageOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
@@ -114,9 +101,9 @@ export interface WebhookContext {
   /**
    * Remove a WebhookInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -125,9 +112,9 @@ export interface WebhookContext {
   /**
    * Fetch a WebhookInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed WebhookInstance
+   * @returns Resolves to processed WebhookInstance
    */
   fetch(
     callback?: (error: Error | null, item?: WebhookInstance) => any
@@ -136,9 +123,9 @@ export interface WebhookContext {
   /**
    * Update a WebhookInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed WebhookInstance
+   * @returns Resolves to processed WebhookInstance
    */
   update(
     callback?: (error: Error | null, item?: WebhookInstance) => any
@@ -146,10 +133,10 @@ export interface WebhookContext {
   /**
    * Update a WebhookInstance
    *
-   * @param { WebhookContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed WebhookInstance
+   * @returns Resolves to processed WebhookInstance
    */
   update(
     params: WebhookContextUpdateOptions,
@@ -399,9 +386,9 @@ export class WebhookInstance {
   /**
    * Remove a WebhookInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -412,9 +399,9 @@ export class WebhookInstance {
   /**
    * Fetch a WebhookInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed WebhookInstance
+   * @returns Resolves to processed WebhookInstance
    */
   fetch(
     callback?: (error: Error | null, item?: WebhookInstance) => any
@@ -425,9 +412,9 @@ export class WebhookInstance {
   /**
    * Update a WebhookInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed WebhookInstance
+   * @returns Resolves to processed WebhookInstance
    */
   update(
     callback?: (error: Error | null, item?: WebhookInstance) => any
@@ -435,10 +422,10 @@ export class WebhookInstance {
   /**
    * Update a WebhookInstance
    *
-   * @param { WebhookContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed WebhookInstance
+   * @returns Resolves to processed WebhookInstance
    */
   update(
     params: WebhookContextUpdateOptions,
@@ -479,10 +466,10 @@ export interface WebhookListInstance {
   /**
    * Create a WebhookInstance
    *
-   * @param { WebhookListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed WebhookInstance
+   * @returns Resolves to processed WebhookInstance
    */
   create(
     params: WebhookListInstanceCreateOptions,

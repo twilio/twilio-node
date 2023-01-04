@@ -22,9 +22,9 @@ export interface FunctionVersionContentContext {
   /**
    * Fetch a FunctionVersionContentInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed FunctionVersionContentInstance
+   * @returns Resolves to processed FunctionVersionContentInstance
    */
   fetch(
     callback?: (
@@ -183,9 +183,9 @@ export class FunctionVersionContentInstance {
   /**
    * Fetch a FunctionVersionContentInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed FunctionVersionContentInstance
+   * @returns Resolves to processed FunctionVersionContentInstance
    */
   fetch(
     callback?: (

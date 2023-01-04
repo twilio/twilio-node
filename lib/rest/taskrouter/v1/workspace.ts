@@ -34,93 +34,80 @@ type WorkspaceQueueOrder = "FIFO" | "LIFO";
 
 /**
  * Options to pass to update a WorkspaceInstance
- *
- * @property { string } [defaultActivitySid] The SID of the Activity that will be used when new Workers are created in the Workspace.
- * @property { string } [eventCallbackUrl] The URL we should call when an event occurs. See [Workspace Events](https://www.twilio.com/docs/taskrouter/api/event) for more information. This parameter supports Twilio\\\'s [Webhooks (HTTP callbacks) Connection Overrides](https://www.twilio.com/docs/usage/webhooks/webhooks-connection-overrides).
- * @property { string } [eventsFilter] The list of Workspace events for which to call event_callback_url. For example if `EventsFilter=task.created,task.canceled,worker.activity.update`, then TaskRouter will call event_callback_url only when a task is created, canceled, or a Worker activity is updated.
- * @property { string } [friendlyName] A descriptive string that you create to describe the Workspace resource. For example: `Sales Call Center` or `Customer Support Team`.
- * @property { boolean } [multiTaskEnabled] Whether to enable multi-tasking. Can be: `true` to enable multi-tasking, or `false` to disable it. However, all workspaces should be maintained as multi-tasking. There is no default when omitting this parameter. A multi-tasking Workspace can\\\'t be updated to single-tasking unless it is not a Flex Project and another (legacy) single-tasking Workspace exists. Multi-tasking allows Workers to handle multiple Tasks simultaneously. In multi-tasking mode, each Worker can receive parallel reservations up to the per-channel maximums defined in the Workers section. In single-tasking mode (legacy mode), each Worker will only receive a new reservation when the previous task is completed. Learn more at [Multitasking](https://www.twilio.com/docs/taskrouter/multitasking).
- * @property { string } [timeoutActivitySid] The SID of the Activity that will be assigned to a Worker when a Task reservation times out without a response.
- * @property { WorkspaceQueueOrder } [prioritizeQueueOrder]
  */
 export interface WorkspaceContextUpdateOptions {
+  /** The SID of the Activity that will be used when new Workers are created in the Workspace. */
   defaultActivitySid?: string;
+  /** The URL we should call when an event occurs. See [Workspace Events](https://www.twilio.com/docs/taskrouter/api/event) for more information. This parameter supports Twilio\\\'s [Webhooks (HTTP callbacks) Connection Overrides](https://www.twilio.com/docs/usage/webhooks/webhooks-connection-overrides). */
   eventCallbackUrl?: string;
+  /** The list of Workspace events for which to call event_callback_url. For example if `EventsFilter=task.created,task.canceled,worker.activity.update`, then TaskRouter will call event_callback_url only when a task is created, canceled, or a Worker activity is updated. */
   eventsFilter?: string;
+  /** A descriptive string that you create to describe the Workspace resource. For example: `Sales Call Center` or `Customer Support Team`. */
   friendlyName?: string;
+  /** Whether to enable multi-tasking. Can be: `true` to enable multi-tasking, or `false` to disable it. However, all workspaces should be maintained as multi-tasking. There is no default when omitting this parameter. A multi-tasking Workspace can\\\'t be updated to single-tasking unless it is not a Flex Project and another (legacy) single-tasking Workspace exists. Multi-tasking allows Workers to handle multiple Tasks simultaneously. In multi-tasking mode, each Worker can receive parallel reservations up to the per-channel maximums defined in the Workers section. In single-tasking mode (legacy mode), each Worker will only receive a new reservation when the previous task is completed. Learn more at [Multitasking](https://www.twilio.com/docs/taskrouter/multitasking). */
   multiTaskEnabled?: boolean;
+  /** The SID of the Activity that will be assigned to a Worker when a Task reservation times out without a response. */
   timeoutActivitySid?: string;
+  /**  */
   prioritizeQueueOrder?: WorkspaceQueueOrder;
 }
 
 /**
  * Options to pass to create a WorkspaceInstance
- *
- * @property { string } friendlyName A descriptive string that you create to describe the Workspace resource. It can be up to 64 characters long. For example: `Customer Support` or `2014 Election Campaign`.
- * @property { string } [eventCallbackUrl] The URL we should call when an event occurs. If provided, the Workspace will publish events to this URL, for example, to collect data for reporting. See [Workspace Events](https://www.twilio.com/docs/taskrouter/api/event) for more information. This parameter supports Twilio\\\'s [Webhooks (HTTP callbacks) Connection Overrides](https://www.twilio.com/docs/usage/webhooks/webhooks-connection-overrides).
- * @property { string } [eventsFilter] The list of Workspace events for which to call event_callback_url. For example, if `EventsFilter=task.created, task.canceled, worker.activity.update`, then TaskRouter will call event_callback_url only when a task is created, canceled, or a Worker activity is updated.
- * @property { boolean } [multiTaskEnabled] Whether to enable multi-tasking. Can be: `true` to enable multi-tasking, or `false` to disable it. However, all workspaces should be created as multi-tasking. The default is `true`. Multi-tasking allows Workers to handle multiple Tasks simultaneously. When enabled (`true`), each Worker can receive parallel reservations up to the per-channel maximums defined in the Workers section. In single-tasking mode (legacy mode), each Worker will only receive a new reservation when the previous task is completed. Learn more at [Multitasking](https://www.twilio.com/docs/taskrouter/multitasking).
- * @property { string } [template] An available template name. Can be: `NONE` or `FIFO` and the default is `NONE`. Pre-configures the Workspace with the Workflow and Activities specified in the template. `NONE` will create a Workspace with only a set of default activities. `FIFO` will configure TaskRouter with a set of default activities and a single TaskQueue for first-in, first-out distribution, which can be useful when you are getting started with TaskRouter.
- * @property { WorkspaceQueueOrder } [prioritizeQueueOrder]
  */
 export interface WorkspaceListInstanceCreateOptions {
+  /** A descriptive string that you create to describe the Workspace resource. It can be up to 64 characters long. For example: `Customer Support` or `2014 Election Campaign`. */
   friendlyName: string;
+  /** The URL we should call when an event occurs. If provided, the Workspace will publish events to this URL, for example, to collect data for reporting. See [Workspace Events](https://www.twilio.com/docs/taskrouter/api/event) for more information. This parameter supports Twilio\\\'s [Webhooks (HTTP callbacks) Connection Overrides](https://www.twilio.com/docs/usage/webhooks/webhooks-connection-overrides). */
   eventCallbackUrl?: string;
+  /** The list of Workspace events for which to call event_callback_url. For example, if `EventsFilter=task.created, task.canceled, worker.activity.update`, then TaskRouter will call event_callback_url only when a task is created, canceled, or a Worker activity is updated. */
   eventsFilter?: string;
+  /** Whether to enable multi-tasking. Can be: `true` to enable multi-tasking, or `false` to disable it. However, all workspaces should be created as multi-tasking. The default is `true`. Multi-tasking allows Workers to handle multiple Tasks simultaneously. When enabled (`true`), each Worker can receive parallel reservations up to the per-channel maximums defined in the Workers section. In single-tasking mode (legacy mode), each Worker will only receive a new reservation when the previous task is completed. Learn more at [Multitasking](https://www.twilio.com/docs/taskrouter/multitasking). */
   multiTaskEnabled?: boolean;
+  /** An available template name. Can be: `NONE` or `FIFO` and the default is `NONE`. Pre-configures the Workspace with the Workflow and Activities specified in the template. `NONE` will create a Workspace with only a set of default activities. `FIFO` will configure TaskRouter with a set of default activities and a single TaskQueue for first-in, first-out distribution, which can be useful when you are getting started with TaskRouter. */
   template?: string;
+  /**  */
   prioritizeQueueOrder?: WorkspaceQueueOrder;
 }
 /**
  * Options to pass to each
- *
- * @property { string } [friendlyName] The `friendly_name` of the Workspace resources to read. For example `Customer Support` or `2014 Election Campaign`.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface WorkspaceListInstanceEachOptions {
+  /** The `friendly_name` of the Workspace resources to read. For example `Customer Support` or `2014 Election Campaign`. */
   friendlyName?: string;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: WorkspaceInstance, done: (err?: Error) => void) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { string } [friendlyName] The `friendly_name` of the Workspace resources to read. For example `Customer Support` or `2014 Election Campaign`.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface WorkspaceListInstanceOptions {
+  /** The `friendly_name` of the Workspace resources to read. For example `Customer Support` or `2014 Election Campaign`. */
   friendlyName?: string;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { string } [friendlyName] The `friendly_name` of the Workspace resources to read. For example `Customer Support` or `2014 Election Campaign`.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface WorkspaceListInstancePageOptions {
+  /** The `friendly_name` of the Workspace resources to read. For example `Customer Support` or `2014 Election Campaign`. */
   friendlyName?: string;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
@@ -139,9 +126,9 @@ export interface WorkspaceContext {
   /**
    * Remove a WorkspaceInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -150,9 +137,9 @@ export interface WorkspaceContext {
   /**
    * Fetch a WorkspaceInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed WorkspaceInstance
+   * @returns Resolves to processed WorkspaceInstance
    */
   fetch(
     callback?: (error: Error | null, item?: WorkspaceInstance) => any
@@ -161,9 +148,9 @@ export interface WorkspaceContext {
   /**
    * Update a WorkspaceInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed WorkspaceInstance
+   * @returns Resolves to processed WorkspaceInstance
    */
   update(
     callback?: (error: Error | null, item?: WorkspaceInstance) => any
@@ -171,10 +158,10 @@ export interface WorkspaceContext {
   /**
    * Update a WorkspaceInstance
    *
-   * @param { WorkspaceContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed WorkspaceInstance
+   * @returns Resolves to processed WorkspaceInstance
    */
   update(
     params: WorkspaceContextUpdateOptions,
@@ -503,9 +490,9 @@ export class WorkspaceInstance {
   /**
    * Remove a WorkspaceInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -516,9 +503,9 @@ export class WorkspaceInstance {
   /**
    * Fetch a WorkspaceInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed WorkspaceInstance
+   * @returns Resolves to processed WorkspaceInstance
    */
   fetch(
     callback?: (error: Error | null, item?: WorkspaceInstance) => any
@@ -529,9 +516,9 @@ export class WorkspaceInstance {
   /**
    * Update a WorkspaceInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed WorkspaceInstance
+   * @returns Resolves to processed WorkspaceInstance
    */
   update(
     callback?: (error: Error | null, item?: WorkspaceInstance) => any
@@ -539,10 +526,10 @@ export class WorkspaceInstance {
   /**
    * Update a WorkspaceInstance
    *
-   * @param { WorkspaceContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed WorkspaceInstance
+   * @returns Resolves to processed WorkspaceInstance
    */
   update(
     params: WorkspaceContextUpdateOptions,
@@ -659,10 +646,10 @@ export interface WorkspaceListInstance {
   /**
    * Create a WorkspaceInstance
    *
-   * @param { WorkspaceListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed WorkspaceInstance
+   * @returns Resolves to processed WorkspaceInstance
    */
   create(
     params: WorkspaceListInstanceCreateOptions,

@@ -20,10 +20,9 @@ import { isValidPathParam } from "../../../../base/utility";
 
 /**
  * Options to pass to update a SettingsInstance
- *
- * @property { boolean } [dialingPermissionsInheritance] `true` for the sub-account to inherit voice dialing permissions from the Master Project; otherwise `false`.
  */
 export interface SettingsContextUpdateOptions {
+  /** `true` for the sub-account to inherit voice dialing permissions from the Master Project; otherwise `false`. */
   dialingPermissionsInheritance?: boolean;
 }
 
@@ -31,9 +30,9 @@ export interface SettingsContext {
   /**
    * Fetch a SettingsInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SettingsInstance
+   * @returns Resolves to processed SettingsInstance
    */
   fetch(
     callback?: (error: Error | null, item?: SettingsInstance) => any
@@ -42,9 +41,9 @@ export interface SettingsContext {
   /**
    * Update a SettingsInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SettingsInstance
+   * @returns Resolves to processed SettingsInstance
    */
   update(
     callback?: (error: Error | null, item?: SettingsInstance) => any
@@ -52,10 +51,10 @@ export interface SettingsContext {
   /**
    * Update a SettingsInstance
    *
-   * @param { SettingsContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SettingsInstance
+   * @returns Resolves to processed SettingsInstance
    */
   update(
     params: SettingsContextUpdateOptions,
@@ -186,9 +185,9 @@ export class SettingsInstance {
   /**
    * Fetch a SettingsInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SettingsInstance
+   * @returns Resolves to processed SettingsInstance
    */
   fetch(
     callback?: (error: Error | null, item?: SettingsInstance) => any
@@ -199,9 +198,9 @@ export class SettingsInstance {
   /**
    * Update a SettingsInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SettingsInstance
+   * @returns Resolves to processed SettingsInstance
    */
   update(
     callback?: (error: Error | null, item?: SettingsInstance) => any
@@ -209,10 +208,10 @@ export class SettingsInstance {
   /**
    * Update a SettingsInstance
    *
-   * @param { SettingsContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SettingsInstance
+   * @returns Resolves to processed SettingsInstance
    */
   update(
     params: SettingsContextUpdateOptions,

@@ -35,10 +35,9 @@ export class PricingV2VoiceVoiceNumberOutboundCallPrices {
 
 /**
  * Options to pass to fetch a NumberInstance
- *
- * @property { string } [originationNumber] The origination phone number, in [E.164](https://www.twilio.com/docs/glossary/what-e164) format, for which to fetch the origin-based voice pricing information. E.164 format consists of a + followed by the country code and subscriber number.
  */
 export interface NumberContextFetchOptions {
+  /** The origination phone number, in [E.164](https://www.twilio.com/docs/glossary/what-e164) format, for which to fetch the origin-based voice pricing information. E.164 format consists of a + followed by the country code and subscriber number. */
   originationNumber?: string;
 }
 
@@ -46,9 +45,9 @@ export interface NumberContext {
   /**
    * Fetch a NumberInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed NumberInstance
+   * @returns Resolves to processed NumberInstance
    */
   fetch(
     callback?: (error: Error | null, item?: NumberInstance) => any
@@ -56,10 +55,10 @@ export interface NumberContext {
   /**
    * Fetch a NumberInstance
    *
-   * @param { NumberContextFetchOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed NumberInstance
+   * @returns Resolves to processed NumberInstance
    */
   fetch(
     params: NumberContextFetchOptions,
@@ -220,9 +219,9 @@ export class NumberInstance {
   /**
    * Fetch a NumberInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed NumberInstance
+   * @returns Resolves to processed NumberInstance
    */
   fetch(
     callback?: (error: Error | null, item?: NumberInstance) => any
@@ -230,10 +229,10 @@ export class NumberInstance {
   /**
    * Fetch a NumberInstance
    *
-   * @param { NumberContextFetchOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed NumberInstance
+   * @returns Resolves to processed NumberInstance
    */
   fetch(
     params: NumberContextFetchOptions,

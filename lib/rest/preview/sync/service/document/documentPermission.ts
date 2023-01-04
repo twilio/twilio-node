@@ -22,63 +22,51 @@ import { isValidPathParam } from "../../../../../base/utility";
 
 /**
  * Options to pass to update a DocumentPermissionInstance
- *
- * @property { boolean } read Boolean flag specifying whether the identity can read the Sync Document.
- * @property { boolean } write Boolean flag specifying whether the identity can update the Sync Document.
- * @property { boolean } manage Boolean flag specifying whether the identity can delete the Sync Document.
  */
 export interface DocumentPermissionContextUpdateOptions {
+  /** Boolean flag specifying whether the identity can read the Sync Document. */
   read: boolean;
+  /** Boolean flag specifying whether the identity can update the Sync Document. */
   write: boolean;
+  /** Boolean flag specifying whether the identity can delete the Sync Document. */
   manage: boolean;
 }
 /**
  * Options to pass to each
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface DocumentPermissionListInstanceEachOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (
     item: DocumentPermissionInstance,
     done: (err?: Error) => void
   ) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface DocumentPermissionListInstanceOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface DocumentPermissionListInstancePageOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
@@ -86,9 +74,9 @@ export interface DocumentPermissionContext {
   /**
    * Remove a DocumentPermissionInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -97,9 +85,9 @@ export interface DocumentPermissionContext {
   /**
    * Fetch a DocumentPermissionInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed DocumentPermissionInstance
+   * @returns Resolves to processed DocumentPermissionInstance
    */
   fetch(
     callback?: (error: Error | null, item?: DocumentPermissionInstance) => any
@@ -108,10 +96,10 @@ export interface DocumentPermissionContext {
   /**
    * Update a DocumentPermissionInstance
    *
-   * @param { DocumentPermissionContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed DocumentPermissionInstance
+   * @returns Resolves to processed DocumentPermissionInstance
    */
   update(
     params: DocumentPermissionContextUpdateOptions,
@@ -357,9 +345,9 @@ export class DocumentPermissionInstance {
   /**
    * Remove a DocumentPermissionInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -370,9 +358,9 @@ export class DocumentPermissionInstance {
   /**
    * Fetch a DocumentPermissionInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed DocumentPermissionInstance
+   * @returns Resolves to processed DocumentPermissionInstance
    */
   fetch(
     callback?: (error: Error | null, item?: DocumentPermissionInstance) => any
@@ -383,10 +371,10 @@ export class DocumentPermissionInstance {
   /**
    * Update a DocumentPermissionInstance
    *
-   * @param { DocumentPermissionContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed DocumentPermissionInstance
+   * @returns Resolves to processed DocumentPermissionInstance
    */
   update(
     params: DocumentPermissionContextUpdateOptions,

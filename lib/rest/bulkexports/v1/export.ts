@@ -28,9 +28,9 @@ export interface ExportContext {
   /**
    * Fetch a ExportInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ExportInstance
+   * @returns Resolves to processed ExportInstance
    */
   fetch(
     callback?: (error: Error | null, item?: ExportInstance) => any
@@ -160,9 +160,9 @@ export class ExportInstance {
   /**
    * Fetch a ExportInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ExportInstance
+   * @returns Resolves to processed ExportInstance
    */
   fetch(
     callback?: (error: Error | null, item?: ExportInstance) => any

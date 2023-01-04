@@ -23,69 +23,56 @@ import { FieldValueListInstance } from "./fieldType/fieldValue";
 
 /**
  * Options to pass to update a FieldTypeInstance
- *
- * @property { string } [friendlyName] A user-provided string that identifies this resource. It is non-unique and can up to 255 characters long.
- * @property { string } [uniqueName] A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
  */
 export interface FieldTypeContextUpdateOptions {
+  /** A user-provided string that identifies this resource. It is non-unique and can up to 255 characters long. */
   friendlyName?: string;
+  /** A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long. */
   uniqueName?: string;
 }
 
 /**
  * Options to pass to create a FieldTypeInstance
- *
- * @property { string } uniqueName A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
- * @property { string } [friendlyName] A user-provided string that identifies this resource. It is non-unique and can up to 255 characters long.
  */
 export interface FieldTypeListInstanceCreateOptions {
+  /** A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long. */
   uniqueName: string;
+  /** A user-provided string that identifies this resource. It is non-unique and can up to 255 characters long. */
   friendlyName?: string;
 }
 /**
  * Options to pass to each
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface FieldTypeListInstanceEachOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: FieldTypeInstance, done: (err?: Error) => void) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface FieldTypeListInstanceOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface FieldTypeListInstancePageOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
@@ -95,9 +82,9 @@ export interface FieldTypeContext {
   /**
    * Remove a FieldTypeInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -106,9 +93,9 @@ export interface FieldTypeContext {
   /**
    * Fetch a FieldTypeInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed FieldTypeInstance
+   * @returns Resolves to processed FieldTypeInstance
    */
   fetch(
     callback?: (error: Error | null, item?: FieldTypeInstance) => any
@@ -117,9 +104,9 @@ export interface FieldTypeContext {
   /**
    * Update a FieldTypeInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed FieldTypeInstance
+   * @returns Resolves to processed FieldTypeInstance
    */
   update(
     callback?: (error: Error | null, item?: FieldTypeInstance) => any
@@ -127,10 +114,10 @@ export interface FieldTypeContext {
   /**
    * Update a FieldTypeInstance
    *
-   * @param { FieldTypeContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed FieldTypeInstance
+   * @returns Resolves to processed FieldTypeInstance
    */
   update(
     params: FieldTypeContextUpdateOptions,
@@ -363,9 +350,9 @@ export class FieldTypeInstance {
   /**
    * Remove a FieldTypeInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -376,9 +363,9 @@ export class FieldTypeInstance {
   /**
    * Fetch a FieldTypeInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed FieldTypeInstance
+   * @returns Resolves to processed FieldTypeInstance
    */
   fetch(
     callback?: (error: Error | null, item?: FieldTypeInstance) => any
@@ -389,9 +376,9 @@ export class FieldTypeInstance {
   /**
    * Update a FieldTypeInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed FieldTypeInstance
+   * @returns Resolves to processed FieldTypeInstance
    */
   update(
     callback?: (error: Error | null, item?: FieldTypeInstance) => any
@@ -399,10 +386,10 @@ export class FieldTypeInstance {
   /**
    * Update a FieldTypeInstance
    *
-   * @param { FieldTypeContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed FieldTypeInstance
+   * @returns Resolves to processed FieldTypeInstance
    */
   update(
     params: FieldTypeContextUpdateOptions,
@@ -450,10 +437,10 @@ export interface FieldTypeListInstance {
   /**
    * Create a FieldTypeInstance
    *
-   * @param { FieldTypeListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed FieldTypeInstance
+   * @returns Resolves to processed FieldTypeInstance
    */
   create(
     params: FieldTypeListInstanceCreateOptions,

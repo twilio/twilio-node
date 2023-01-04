@@ -22,60 +22,48 @@ import { isValidPathParam } from "../../../base/utility";
 
 /**
  * Options to pass to update a DeviceInstance
- *
- * @property { string } [uniqueName] A unique and addressable name to be assigned to this Device by the developer. It may be used in place of the Device SID.
- * @property { string } [targetApp] The SID or unique name of the App to be targeted to the Device.
- * @property { boolean } [loggingEnabled] A Boolean flag specifying whether to enable application logging. Logs will be enabled or extended for 24 hours.
  */
 export interface DeviceContextUpdateOptions {
+  /** A unique and addressable name to be assigned to this Device by the developer. It may be used in place of the Device SID. */
   uniqueName?: string;
+  /** The SID or unique name of the App to be targeted to the Device. */
   targetApp?: string;
+  /** A Boolean flag specifying whether to enable application logging. Logs will be enabled or extended for 24 hours. */
   loggingEnabled?: boolean;
 }
 /**
  * Options to pass to each
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface DeviceListInstanceEachOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: DeviceInstance, done: (err?: Error) => void) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface DeviceListInstanceOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface DeviceListInstancePageOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
@@ -83,9 +71,9 @@ export interface DeviceContext {
   /**
    * Fetch a DeviceInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed DeviceInstance
+   * @returns Resolves to processed DeviceInstance
    */
   fetch(
     callback?: (error: Error | null, item?: DeviceInstance) => any
@@ -94,9 +82,9 @@ export interface DeviceContext {
   /**
    * Update a DeviceInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed DeviceInstance
+   * @returns Resolves to processed DeviceInstance
    */
   update(
     callback?: (error: Error | null, item?: DeviceInstance) => any
@@ -104,10 +92,10 @@ export interface DeviceContext {
   /**
    * Update a DeviceInstance
    *
-   * @param { DeviceContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed DeviceInstance
+   * @returns Resolves to processed DeviceInstance
    */
   update(
     params: DeviceContextUpdateOptions,
@@ -292,9 +280,9 @@ export class DeviceInstance {
   /**
    * Fetch a DeviceInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed DeviceInstance
+   * @returns Resolves to processed DeviceInstance
    */
   fetch(
     callback?: (error: Error | null, item?: DeviceInstance) => any
@@ -305,9 +293,9 @@ export class DeviceInstance {
   /**
    * Update a DeviceInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed DeviceInstance
+   * @returns Resolves to processed DeviceInstance
    */
   update(
     callback?: (error: Error | null, item?: DeviceInstance) => any
@@ -315,10 +303,10 @@ export class DeviceInstance {
   /**
    * Update a DeviceInstance
    *
-   * @param { DeviceContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed DeviceInstance
+   * @returns Resolves to processed DeviceInstance
    */
   update(
     params: DeviceContextUpdateOptions,

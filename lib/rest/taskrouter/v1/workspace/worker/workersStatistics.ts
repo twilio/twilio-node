@@ -20,22 +20,21 @@ import { isValidPathParam } from "../../../../../base/utility";
 
 /**
  * Options to pass to fetch a WorkersStatisticsInstance
- *
- * @property { number } [minutes] Only calculate statistics since this many minutes in the past. The default 15 minutes. This is helpful for displaying statistics for the last 15 minutes, 240 minutes (4 hours), and 480 minutes (8 hours) to see trends.
- * @property { Date } [startDate] Only calculate statistics from this date and time and later, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
- * @property { Date } [endDate] Only calculate statistics from this date and time and earlier, specified in GMT as an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time.
- * @property { string } [taskQueueSid] The SID of the TaskQueue for which to fetch Worker statistics.
- * @property { string } [taskQueueName] The `friendly_name` of the TaskQueue for which to fetch Worker statistics.
- * @property { string } [friendlyName] Only include Workers with `friendly_name` values that match this parameter.
- * @property { string } [taskChannel] Only calculate statistics on this TaskChannel. Can be the TaskChannel\'s SID or its `unique_name`, such as `voice`, `sms`, or `default`.
  */
 export interface WorkersStatisticsContextFetchOptions {
+  /** Only calculate statistics since this many minutes in the past. The default 15 minutes. This is helpful for displaying statistics for the last 15 minutes, 240 minutes (4 hours), and 480 minutes (8 hours) to see trends. */
   minutes?: number;
+  /** Only calculate statistics from this date and time and later, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. */
   startDate?: Date;
+  /** Only calculate statistics from this date and time and earlier, specified in GMT as an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time. */
   endDate?: Date;
+  /** The SID of the TaskQueue for which to fetch Worker statistics. */
   taskQueueSid?: string;
+  /** The `friendly_name` of the TaskQueue for which to fetch Worker statistics. */
   taskQueueName?: string;
+  /** Only include Workers with `friendly_name` values that match this parameter. */
   friendlyName?: string;
+  /** Only calculate statistics on this TaskChannel. Can be the TaskChannel\'s SID or its `unique_name`, such as `voice`, `sms`, or `default`. */
   taskChannel?: string;
 }
 
@@ -43,9 +42,9 @@ export interface WorkersStatisticsContext {
   /**
    * Fetch a WorkersStatisticsInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed WorkersStatisticsInstance
+   * @returns Resolves to processed WorkersStatisticsInstance
    */
   fetch(
     callback?: (error: Error | null, item?: WorkersStatisticsInstance) => any
@@ -53,10 +52,10 @@ export interface WorkersStatisticsContext {
   /**
    * Fetch a WorkersStatisticsInstance
    *
-   * @param { WorkersStatisticsContextFetchOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed WorkersStatisticsInstance
+   * @returns Resolves to processed WorkersStatisticsInstance
    */
   fetch(
     params: WorkersStatisticsContextFetchOptions,
@@ -214,9 +213,9 @@ export class WorkersStatisticsInstance {
   /**
    * Fetch a WorkersStatisticsInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed WorkersStatisticsInstance
+   * @returns Resolves to processed WorkersStatisticsInstance
    */
   fetch(
     callback?: (error: Error | null, item?: WorkersStatisticsInstance) => any
@@ -224,10 +223,10 @@ export class WorkersStatisticsInstance {
   /**
    * Fetch a WorkersStatisticsInstance
    *
-   * @param { WorkersStatisticsContextFetchOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed WorkersStatisticsInstance
+   * @returns Resolves to processed WorkersStatisticsInstance
    */
   fetch(
     params: WorkersStatisticsContextFetchOptions,

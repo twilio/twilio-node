@@ -22,127 +22,114 @@ import { isValidPathParam } from "../../../../base/utility";
 
 /**
  * Options to pass to update a ApplicationInstance
- *
- * @property { string } [friendlyName] A descriptive string that you create to describe the resource. It can be up to 64 characters long.
- * @property { string } [apiVersion] The API version to use to start a new TwiML session. Can be: `2010-04-01` or `2008-08-01`. The default value is your account\\\'s default API version.
- * @property { string } [voiceUrl] The URL we should call when the phone number assigned to this application receives a call.
- * @property { string } [voiceMethod] The HTTP method we should use to call `voice_url`. Can be: `GET` or `POST`.
- * @property { string } [voiceFallbackUrl] The URL that we should call when an error occurs retrieving or executing the TwiML requested by `url`.
- * @property { string } [voiceFallbackMethod] The HTTP method we should use to call `voice_fallback_url`. Can be: `GET` or `POST`.
- * @property { string } [statusCallback] The URL we should call using the `status_callback_method` to send status information to your application.
- * @property { string } [statusCallbackMethod] The HTTP method we should use to call `status_callback`. Can be: `GET` or `POST`.
- * @property { boolean } [voiceCallerIdLookup] Whether we should look up the caller\\\'s caller-ID name from the CNAM database (additional charges apply). Can be: `true` or `false`.
- * @property { string } [smsUrl] The URL we should call when the phone number receives an incoming SMS message.
- * @property { string } [smsMethod] The HTTP method we should use to call `sms_url`. Can be: `GET` or `POST`.
- * @property { string } [smsFallbackUrl] The URL that we should call when an error occurs while retrieving or executing the TwiML from `sms_url`.
- * @property { string } [smsFallbackMethod] The HTTP method we should use to call `sms_fallback_url`. Can be: `GET` or `POST`.
- * @property { string } [smsStatusCallback] Same as message_status_callback: The URL we should call using a POST method to send status information about SMS messages sent by the application. Deprecated, included for backwards compatibility.
- * @property { string } [messageStatusCallback] The URL we should call using a POST method to send message status information to your application.
  */
 export interface ApplicationContextUpdateOptions {
+  /** A descriptive string that you create to describe the resource. It can be up to 64 characters long. */
   friendlyName?: string;
+  /** The API version to use to start a new TwiML session. Can be: `2010-04-01` or `2008-08-01`. The default value is your account\\\'s default API version. */
   apiVersion?: string;
+  /** The URL we should call when the phone number assigned to this application receives a call. */
   voiceUrl?: string;
+  /** The HTTP method we should use to call `voice_url`. Can be: `GET` or `POST`. */
   voiceMethod?: string;
+  /** The URL that we should call when an error occurs retrieving or executing the TwiML requested by `url`. */
   voiceFallbackUrl?: string;
+  /** The HTTP method we should use to call `voice_fallback_url`. Can be: `GET` or `POST`. */
   voiceFallbackMethod?: string;
+  /** The URL we should call using the `status_callback_method` to send status information to your application. */
   statusCallback?: string;
+  /** The HTTP method we should use to call `status_callback`. Can be: `GET` or `POST`. */
   statusCallbackMethod?: string;
+  /** Whether we should look up the caller\\\'s caller-ID name from the CNAM database (additional charges apply). Can be: `true` or `false`. */
   voiceCallerIdLookup?: boolean;
+  /** The URL we should call when the phone number receives an incoming SMS message. */
   smsUrl?: string;
+  /** The HTTP method we should use to call `sms_url`. Can be: `GET` or `POST`. */
   smsMethod?: string;
+  /** The URL that we should call when an error occurs while retrieving or executing the TwiML from `sms_url`. */
   smsFallbackUrl?: string;
+  /** The HTTP method we should use to call `sms_fallback_url`. Can be: `GET` or `POST`. */
   smsFallbackMethod?: string;
+  /** Same as message_status_callback: The URL we should call using a POST method to send status information about SMS messages sent by the application. Deprecated, included for backwards compatibility. */
   smsStatusCallback?: string;
+  /** The URL we should call using a POST method to send message status information to your application. */
   messageStatusCallback?: string;
 }
 
 /**
  * Options to pass to create a ApplicationInstance
- *
- * @property { string } [apiVersion] The API version to use to start a new TwiML session. Can be: `2010-04-01` or `2008-08-01`. The default value is the account\\\'s default API version.
- * @property { string } [voiceUrl] The URL we should call when the phone number assigned to this application receives a call.
- * @property { string } [voiceMethod] The HTTP method we should use to call `voice_url`. Can be: `GET` or `POST`.
- * @property { string } [voiceFallbackUrl] The URL that we should call when an error occurs retrieving or executing the TwiML requested by `url`.
- * @property { string } [voiceFallbackMethod] The HTTP method we should use to call `voice_fallback_url`. Can be: `GET` or `POST`.
- * @property { string } [statusCallback] The URL we should call using the `status_callback_method` to send status information to your application.
- * @property { string } [statusCallbackMethod] The HTTP method we should use to call `status_callback`. Can be: `GET` or `POST`.
- * @property { boolean } [voiceCallerIdLookup] Whether we should look up the caller\\\'s caller-ID name from the CNAM database (additional charges apply). Can be: `true` or `false`.
- * @property { string } [smsUrl] The URL we should call when the phone number receives an incoming SMS message.
- * @property { string } [smsMethod] The HTTP method we should use to call `sms_url`. Can be: `GET` or `POST`.
- * @property { string } [smsFallbackUrl] The URL that we should call when an error occurs while retrieving or executing the TwiML from `sms_url`.
- * @property { string } [smsFallbackMethod] The HTTP method we should use to call `sms_fallback_url`. Can be: `GET` or `POST`.
- * @property { string } [smsStatusCallback] The URL we should call using a POST method to send status information about SMS messages sent by the application.
- * @property { string } [messageStatusCallback] The URL we should call using a POST method to send message status information to your application.
- * @property { string } [friendlyName] A descriptive string that you create to describe the new application. It can be up to 64 characters long.
  */
 export interface ApplicationListInstanceCreateOptions {
+  /** The API version to use to start a new TwiML session. Can be: `2010-04-01` or `2008-08-01`. The default value is the account\\\'s default API version. */
   apiVersion?: string;
+  /** The URL we should call when the phone number assigned to this application receives a call. */
   voiceUrl?: string;
+  /** The HTTP method we should use to call `voice_url`. Can be: `GET` or `POST`. */
   voiceMethod?: string;
+  /** The URL that we should call when an error occurs retrieving or executing the TwiML requested by `url`. */
   voiceFallbackUrl?: string;
+  /** The HTTP method we should use to call `voice_fallback_url`. Can be: `GET` or `POST`. */
   voiceFallbackMethod?: string;
+  /** The URL we should call using the `status_callback_method` to send status information to your application. */
   statusCallback?: string;
+  /** The HTTP method we should use to call `status_callback`. Can be: `GET` or `POST`. */
   statusCallbackMethod?: string;
+  /** Whether we should look up the caller\\\'s caller-ID name from the CNAM database (additional charges apply). Can be: `true` or `false`. */
   voiceCallerIdLookup?: boolean;
+  /** The URL we should call when the phone number receives an incoming SMS message. */
   smsUrl?: string;
+  /** The HTTP method we should use to call `sms_url`. Can be: `GET` or `POST`. */
   smsMethod?: string;
+  /** The URL that we should call when an error occurs while retrieving or executing the TwiML from `sms_url`. */
   smsFallbackUrl?: string;
+  /** The HTTP method we should use to call `sms_fallback_url`. Can be: `GET` or `POST`. */
   smsFallbackMethod?: string;
+  /** The URL we should call using a POST method to send status information about SMS messages sent by the application. */
   smsStatusCallback?: string;
+  /** The URL we should call using a POST method to send message status information to your application. */
   messageStatusCallback?: string;
+  /** A descriptive string that you create to describe the new application. It can be up to 64 characters long. */
   friendlyName?: string;
 }
 /**
  * Options to pass to each
- *
- * @property { string } [friendlyName] The string that identifies the Application resources to read.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface ApplicationListInstanceEachOptions {
+  /** The string that identifies the Application resources to read. */
   friendlyName?: string;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: ApplicationInstance, done: (err?: Error) => void) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { string } [friendlyName] The string that identifies the Application resources to read.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface ApplicationListInstanceOptions {
+  /** The string that identifies the Application resources to read. */
   friendlyName?: string;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { string } [friendlyName] The string that identifies the Application resources to read.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface ApplicationListInstancePageOptions {
+  /** The string that identifies the Application resources to read. */
   friendlyName?: string;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
@@ -150,9 +137,9 @@ export interface ApplicationContext {
   /**
    * Remove a ApplicationInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -161,9 +148,9 @@ export interface ApplicationContext {
   /**
    * Fetch a ApplicationInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ApplicationInstance
+   * @returns Resolves to processed ApplicationInstance
    */
   fetch(
     callback?: (error: Error | null, item?: ApplicationInstance) => any
@@ -172,9 +159,9 @@ export interface ApplicationContext {
   /**
    * Update a ApplicationInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ApplicationInstance
+   * @returns Resolves to processed ApplicationInstance
    */
   update(
     callback?: (error: Error | null, item?: ApplicationInstance) => any
@@ -182,10 +169,10 @@ export interface ApplicationContext {
   /**
    * Update a ApplicationInstance
    *
-   * @param { ApplicationContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ApplicationInstance
+   * @returns Resolves to processed ApplicationInstance
    */
   update(
     params: ApplicationContextUpdateOptions,
@@ -535,9 +522,9 @@ export class ApplicationInstance {
   /**
    * Remove a ApplicationInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -548,9 +535,9 @@ export class ApplicationInstance {
   /**
    * Fetch a ApplicationInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ApplicationInstance
+   * @returns Resolves to processed ApplicationInstance
    */
   fetch(
     callback?: (error: Error | null, item?: ApplicationInstance) => any
@@ -561,9 +548,9 @@ export class ApplicationInstance {
   /**
    * Update a ApplicationInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ApplicationInstance
+   * @returns Resolves to processed ApplicationInstance
    */
   update(
     callback?: (error: Error | null, item?: ApplicationInstance) => any
@@ -571,10 +558,10 @@ export class ApplicationInstance {
   /**
    * Update a ApplicationInstance
    *
-   * @param { ApplicationContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ApplicationInstance
+   * @returns Resolves to processed ApplicationInstance
    */
   update(
     params: ApplicationContextUpdateOptions,
@@ -626,9 +613,9 @@ export interface ApplicationListInstance {
   /**
    * Create a ApplicationInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ApplicationInstance
+   * @returns Resolves to processed ApplicationInstance
    */
   create(
     callback?: (error: Error | null, item?: ApplicationInstance) => any
@@ -636,10 +623,10 @@ export interface ApplicationListInstance {
   /**
    * Create a ApplicationInstance
    *
-   * @param { ApplicationListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ApplicationInstance
+   * @returns Resolves to processed ApplicationInstance
    */
   create(
     params: ApplicationListInstanceCreateOptions,

@@ -24,9 +24,9 @@ export interface FormContext {
   /**
    * Fetch a FormInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed FormInstance
+   * @returns Resolves to processed FormInstance
    */
   fetch(
     callback?: (error: Error | null, item?: FormInstance) => any
@@ -139,9 +139,9 @@ export class FormInstance {
   /**
    * Fetch a FormInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed FormInstance
+   * @returns Resolves to processed FormInstance
    */
   fetch(
     callback?: (error: Error | null, item?: FormInstance) => any

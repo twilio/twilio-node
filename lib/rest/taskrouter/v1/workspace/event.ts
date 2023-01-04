@@ -22,114 +22,103 @@ import { isValidPathParam } from "../../../../base/utility";
 
 /**
  * Options to pass to each
- *
- * @property { Date } [endDate] Only include Events that occurred on or before this date, specified in GMT as an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time.
- * @property { string } [eventType] The type of Events to read. Returns only Events of the type specified.
- * @property { number } [minutes] The period of events to read in minutes. Returns only Events that occurred since this many minutes in the past. The default is `15` minutes. Task Attributes for Events occuring more 43,200 minutes ago will be redacted.
- * @property { string } [reservationSid] The SID of the Reservation with the Events to read. Returns only Events that pertain to the specified Reservation.
- * @property { Date } [startDate] Only include Events from on or after this date and time, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. Task Attributes for Events older than 30 days will be redacted.
- * @property { string } [taskQueueSid] The SID of the TaskQueue with the Events to read. Returns only the Events that pertain to the specified TaskQueue.
- * @property { string } [taskSid] The SID of the Task with the Events to read. Returns only the Events that pertain to the specified Task.
- * @property { string } [workerSid] The SID of the Worker with the Events to read. Returns only the Events that pertain to the specified Worker.
- * @property { string } [workflowSid] The SID of the Workflow with the Events to read. Returns only the Events that pertain to the specified Workflow.
- * @property { string } [taskChannel] The TaskChannel with the Events to read. Returns only the Events that pertain to the specified TaskChannel.
- * @property { string } [sid] The SID of the Event resource to read.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface EventListInstanceEachOptions {
+  /** Only include Events that occurred on or before this date, specified in GMT as an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time. */
   endDate?: Date;
+  /** The type of Events to read. Returns only Events of the type specified. */
   eventType?: string;
+  /** The period of events to read in minutes. Returns only Events that occurred since this many minutes in the past. The default is `15` minutes. Task Attributes for Events occuring more 43,200 minutes ago will be redacted. */
   minutes?: number;
+  /** The SID of the Reservation with the Events to read. Returns only Events that pertain to the specified Reservation. */
   reservationSid?: string;
+  /** Only include Events from on or after this date and time, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. Task Attributes for Events older than 30 days will be redacted. */
   startDate?: Date;
+  /** The SID of the TaskQueue with the Events to read. Returns only the Events that pertain to the specified TaskQueue. */
   taskQueueSid?: string;
+  /** The SID of the Task with the Events to read. Returns only the Events that pertain to the specified Task. */
   taskSid?: string;
+  /** The SID of the Worker with the Events to read. Returns only the Events that pertain to the specified Worker. */
   workerSid?: string;
+  /** The SID of the Workflow with the Events to read. Returns only the Events that pertain to the specified Workflow. */
   workflowSid?: string;
+  /** The TaskChannel with the Events to read. Returns only the Events that pertain to the specified TaskChannel. */
   taskChannel?: string;
+  /** The SID of the Event resource to read. */
   sid?: string;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: EventInstance, done: (err?: Error) => void) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { Date } [endDate] Only include Events that occurred on or before this date, specified in GMT as an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time.
- * @property { string } [eventType] The type of Events to read. Returns only Events of the type specified.
- * @property { number } [minutes] The period of events to read in minutes. Returns only Events that occurred since this many minutes in the past. The default is `15` minutes. Task Attributes for Events occuring more 43,200 minutes ago will be redacted.
- * @property { string } [reservationSid] The SID of the Reservation with the Events to read. Returns only Events that pertain to the specified Reservation.
- * @property { Date } [startDate] Only include Events from on or after this date and time, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. Task Attributes for Events older than 30 days will be redacted.
- * @property { string } [taskQueueSid] The SID of the TaskQueue with the Events to read. Returns only the Events that pertain to the specified TaskQueue.
- * @property { string } [taskSid] The SID of the Task with the Events to read. Returns only the Events that pertain to the specified Task.
- * @property { string } [workerSid] The SID of the Worker with the Events to read. Returns only the Events that pertain to the specified Worker.
- * @property { string } [workflowSid] The SID of the Workflow with the Events to read. Returns only the Events that pertain to the specified Workflow.
- * @property { string } [taskChannel] The TaskChannel with the Events to read. Returns only the Events that pertain to the specified TaskChannel.
- * @property { string } [sid] The SID of the Event resource to read.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface EventListInstanceOptions {
+  /** Only include Events that occurred on or before this date, specified in GMT as an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time. */
   endDate?: Date;
+  /** The type of Events to read. Returns only Events of the type specified. */
   eventType?: string;
+  /** The period of events to read in minutes. Returns only Events that occurred since this many minutes in the past. The default is `15` minutes. Task Attributes for Events occuring more 43,200 minutes ago will be redacted. */
   minutes?: number;
+  /** The SID of the Reservation with the Events to read. Returns only Events that pertain to the specified Reservation. */
   reservationSid?: string;
+  /** Only include Events from on or after this date and time, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. Task Attributes for Events older than 30 days will be redacted. */
   startDate?: Date;
+  /** The SID of the TaskQueue with the Events to read. Returns only the Events that pertain to the specified TaskQueue. */
   taskQueueSid?: string;
+  /** The SID of the Task with the Events to read. Returns only the Events that pertain to the specified Task. */
   taskSid?: string;
+  /** The SID of the Worker with the Events to read. Returns only the Events that pertain to the specified Worker. */
   workerSid?: string;
+  /** The SID of the Workflow with the Events to read. Returns only the Events that pertain to the specified Workflow. */
   workflowSid?: string;
+  /** The TaskChannel with the Events to read. Returns only the Events that pertain to the specified TaskChannel. */
   taskChannel?: string;
+  /** The SID of the Event resource to read. */
   sid?: string;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { Date } [endDate] Only include Events that occurred on or before this date, specified in GMT as an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time.
- * @property { string } [eventType] The type of Events to read. Returns only Events of the type specified.
- * @property { number } [minutes] The period of events to read in minutes. Returns only Events that occurred since this many minutes in the past. The default is `15` minutes. Task Attributes for Events occuring more 43,200 minutes ago will be redacted.
- * @property { string } [reservationSid] The SID of the Reservation with the Events to read. Returns only Events that pertain to the specified Reservation.
- * @property { Date } [startDate] Only include Events from on or after this date and time, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. Task Attributes for Events older than 30 days will be redacted.
- * @property { string } [taskQueueSid] The SID of the TaskQueue with the Events to read. Returns only the Events that pertain to the specified TaskQueue.
- * @property { string } [taskSid] The SID of the Task with the Events to read. Returns only the Events that pertain to the specified Task.
- * @property { string } [workerSid] The SID of the Worker with the Events to read. Returns only the Events that pertain to the specified Worker.
- * @property { string } [workflowSid] The SID of the Workflow with the Events to read. Returns only the Events that pertain to the specified Workflow.
- * @property { string } [taskChannel] The TaskChannel with the Events to read. Returns only the Events that pertain to the specified TaskChannel.
- * @property { string } [sid] The SID of the Event resource to read.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface EventListInstancePageOptions {
+  /** Only include Events that occurred on or before this date, specified in GMT as an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time. */
   endDate?: Date;
+  /** The type of Events to read. Returns only Events of the type specified. */
   eventType?: string;
+  /** The period of events to read in minutes. Returns only Events that occurred since this many minutes in the past. The default is `15` minutes. Task Attributes for Events occuring more 43,200 minutes ago will be redacted. */
   minutes?: number;
+  /** The SID of the Reservation with the Events to read. Returns only Events that pertain to the specified Reservation. */
   reservationSid?: string;
+  /** Only include Events from on or after this date and time, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. Task Attributes for Events older than 30 days will be redacted. */
   startDate?: Date;
+  /** The SID of the TaskQueue with the Events to read. Returns only the Events that pertain to the specified TaskQueue. */
   taskQueueSid?: string;
+  /** The SID of the Task with the Events to read. Returns only the Events that pertain to the specified Task. */
   taskSid?: string;
+  /** The SID of the Worker with the Events to read. Returns only the Events that pertain to the specified Worker. */
   workerSid?: string;
+  /** The SID of the Workflow with the Events to read. Returns only the Events that pertain to the specified Workflow. */
   workflowSid?: string;
+  /** The TaskChannel with the Events to read. Returns only the Events that pertain to the specified TaskChannel. */
   taskChannel?: string;
+  /** The SID of the Event resource to read. */
   sid?: string;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
@@ -137,9 +126,9 @@ export interface EventContext {
   /**
    * Fetch a EventInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed EventInstance
+   * @returns Resolves to processed EventInstance
    */
   fetch(
     callback?: (error: Error | null, item?: EventInstance) => any
@@ -350,9 +339,9 @@ export class EventInstance {
   /**
    * Fetch a EventInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed EventInstance
+   * @returns Resolves to processed EventInstance
    */
   fetch(
     callback?: (error: Error | null, item?: EventInstance) => any

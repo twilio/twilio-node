@@ -26,77 +26,64 @@ import { TaskStatisticsListInstance } from "./task/taskStatistics";
 
 /**
  * Options to pass to update a TaskInstance
- *
- * @property { string } [friendlyName] A user-provided string that identifies this resource. It is non-unique and can up to 255 characters long.
- * @property { string } [uniqueName] A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
- * @property { any } [actions] A user-provided JSON object encoded as a string to specify the actions for this task. It is optional and non-unique.
- * @property { string } [actionsUrl] User-provided HTTP endpoint where from the assistant fetches actions
  */
 export interface TaskContextUpdateOptions {
+  /** A user-provided string that identifies this resource. It is non-unique and can up to 255 characters long. */
   friendlyName?: string;
+  /** A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long. */
   uniqueName?: string;
+  /** A user-provided JSON object encoded as a string to specify the actions for this task. It is optional and non-unique. */
   actions?: any;
+  /** User-provided HTTP endpoint where from the assistant fetches actions */
   actionsUrl?: string;
 }
 
 /**
  * Options to pass to create a TaskInstance
- *
- * @property { string } uniqueName A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
- * @property { string } [friendlyName] A user-provided string that identifies this resource. It is non-unique and can up to 255 characters long.
- * @property { any } [actions] A user-provided JSON object encoded as a string to specify the actions for this task. It is optional and non-unique.
- * @property { string } [actionsUrl] User-provided HTTP endpoint where from the assistant fetches actions
  */
 export interface TaskListInstanceCreateOptions {
+  /** A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long. */
   uniqueName: string;
+  /** A user-provided string that identifies this resource. It is non-unique and can up to 255 characters long. */
   friendlyName?: string;
+  /** A user-provided JSON object encoded as a string to specify the actions for this task. It is optional and non-unique. */
   actions?: any;
+  /** User-provided HTTP endpoint where from the assistant fetches actions */
   actionsUrl?: string;
 }
 /**
  * Options to pass to each
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface TaskListInstanceEachOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: TaskInstance, done: (err?: Error) => void) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface TaskListInstanceOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface TaskListInstancePageOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
@@ -109,9 +96,9 @@ export interface TaskContext {
   /**
    * Remove a TaskInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -120,9 +107,9 @@ export interface TaskContext {
   /**
    * Fetch a TaskInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed TaskInstance
+   * @returns Resolves to processed TaskInstance
    */
   fetch(
     callback?: (error: Error | null, item?: TaskInstance) => any
@@ -131,9 +118,9 @@ export interface TaskContext {
   /**
    * Update a TaskInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed TaskInstance
+   * @returns Resolves to processed TaskInstance
    */
   update(
     callback?: (error: Error | null, item?: TaskInstance) => any
@@ -141,10 +128,10 @@ export interface TaskContext {
   /**
    * Update a TaskInstance
    *
-   * @param { TaskContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed TaskInstance
+   * @returns Resolves to processed TaskInstance
    */
   update(
     params: TaskContextUpdateOptions,
@@ -423,9 +410,9 @@ export class TaskInstance {
   /**
    * Remove a TaskInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -436,9 +423,9 @@ export class TaskInstance {
   /**
    * Fetch a TaskInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed TaskInstance
+   * @returns Resolves to processed TaskInstance
    */
   fetch(
     callback?: (error: Error | null, item?: TaskInstance) => any
@@ -449,9 +436,9 @@ export class TaskInstance {
   /**
    * Update a TaskInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed TaskInstance
+   * @returns Resolves to processed TaskInstance
    */
   update(
     callback?: (error: Error | null, item?: TaskInstance) => any
@@ -459,10 +446,10 @@ export class TaskInstance {
   /**
    * Update a TaskInstance
    *
-   * @param { TaskContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed TaskInstance
+   * @returns Resolves to processed TaskInstance
    */
   update(
     params: TaskContextUpdateOptions,
@@ -532,10 +519,10 @@ export interface TaskListInstance {
   /**
    * Create a TaskInstance
    *
-   * @param { TaskListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed TaskInstance
+   * @returns Resolves to processed TaskInstance
    */
   create(
     params: TaskListInstanceCreateOptions,

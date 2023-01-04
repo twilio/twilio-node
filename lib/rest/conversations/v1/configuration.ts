@@ -21,16 +21,15 @@ import { WebhookListInstance } from "./configuration/webhook";
 
 /**
  * Options to pass to update a ConfigurationInstance
- *
- * @property { string } [defaultChatServiceSid] The SID of the default [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) to use when creating a conversation.
- * @property { string } [defaultMessagingServiceSid] The SID of the default [Messaging Service](https://www.twilio.com/docs/sms/services/api) to use when creating a conversation.
- * @property { string } [defaultInactiveTimer] Default ISO8601 duration when conversation will be switched to `inactive` state. Minimum value for this timer is 1 minute.
- * @property { string } [defaultClosedTimer] Default ISO8601 duration when conversation will be switched to `closed` state. Minimum value for this timer is 10 minutes.
  */
 export interface ConfigurationContextUpdateOptions {
+  /** The SID of the default [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) to use when creating a conversation. */
   defaultChatServiceSid?: string;
+  /** The SID of the default [Messaging Service](https://www.twilio.com/docs/sms/services/api) to use when creating a conversation. */
   defaultMessagingServiceSid?: string;
+  /** Default ISO8601 duration when conversation will be switched to `inactive` state. Minimum value for this timer is 1 minute. */
   defaultInactiveTimer?: string;
+  /** Default ISO8601 duration when conversation will be switched to `closed` state. Minimum value for this timer is 10 minutes. */
   defaultClosedTimer?: string;
 }
 
@@ -38,9 +37,9 @@ export interface ConfigurationContext {
   /**
    * Fetch a ConfigurationInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ConfigurationInstance
+   * @returns Resolves to processed ConfigurationInstance
    */
   fetch(
     callback?: (error: Error | null, item?: ConfigurationInstance) => any
@@ -49,9 +48,9 @@ export interface ConfigurationContext {
   /**
    * Update a ConfigurationInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ConfigurationInstance
+   * @returns Resolves to processed ConfigurationInstance
    */
   update(
     callback?: (error: Error | null, item?: ConfigurationInstance) => any
@@ -59,10 +58,10 @@ export interface ConfigurationContext {
   /**
    * Update a ConfigurationInstance
    *
-   * @param { ConfigurationContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ConfigurationInstance
+   * @returns Resolves to processed ConfigurationInstance
    */
   update(
     params: ConfigurationContextUpdateOptions,
@@ -227,9 +226,9 @@ export class ConfigurationInstance {
   /**
    * Fetch a ConfigurationInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ConfigurationInstance
+   * @returns Resolves to processed ConfigurationInstance
    */
   fetch(
     callback?: (error: Error | null, item?: ConfigurationInstance) => any
@@ -240,9 +239,9 @@ export class ConfigurationInstance {
   /**
    * Update a ConfigurationInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ConfigurationInstance
+   * @returns Resolves to processed ConfigurationInstance
    */
   update(
     callback?: (error: Error | null, item?: ConfigurationInstance) => any
@@ -250,10 +249,10 @@ export class ConfigurationInstance {
   /**
    * Update a ConfigurationInstance
    *
-   * @param { ConfigurationContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ConfigurationInstance
+   * @returns Resolves to processed ConfigurationInstance
    */
   update(
     params: ConfigurationContextUpdateOptions,

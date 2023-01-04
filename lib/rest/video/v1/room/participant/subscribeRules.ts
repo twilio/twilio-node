@@ -29,10 +29,9 @@ export class VideoV1RoomRoomParticipantRoomParticipantSubscribeRuleRules {
 
 /**
  * Options to pass to update a SubscribeRulesInstance
- *
- * @property { any } [rules] A JSON-encoded array of subscribe rules. See the [Specifying Subscribe Rules](https://www.twilio.com/docs/video/api/track-subscriptions#specifying-sr) section for further information.
  */
 export interface SubscribeRulesListInstanceUpdateOptions {
+  /** A JSON-encoded array of subscribe rules. See the [Specifying Subscribe Rules](https://www.twilio.com/docs/video/api/track-subscriptions#specifying-sr) section for further information. */
   rules?: any;
 }
 
@@ -40,9 +39,9 @@ export interface SubscribeRulesListInstance {
   /**
    * Fetch a SubscribeRulesInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SubscribeRulesInstance
+   * @returns Resolves to processed SubscribeRulesInstance
    */
   fetch(
     callback?: (error: Error | null, item?: SubscribeRulesInstance) => any
@@ -51,9 +50,9 @@ export interface SubscribeRulesListInstance {
   /**
    * Update a SubscribeRulesInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SubscribeRulesInstance
+   * @returns Resolves to processed SubscribeRulesInstance
    */
   update(
     callback?: (error: Error | null, item?: SubscribeRulesInstance) => any
@@ -61,10 +60,10 @@ export interface SubscribeRulesListInstance {
   /**
    * Update a SubscribeRulesInstance
    *
-   * @param { SubscribeRulesListInstanceUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SubscribeRulesInstance
+   * @returns Resolves to processed SubscribeRulesInstance
    */
   update(
     params: SubscribeRulesListInstanceUpdateOptions,

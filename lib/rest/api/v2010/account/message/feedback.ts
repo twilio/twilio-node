@@ -22,10 +22,9 @@ type MessageFeedbackOutcome = "confirmed" | "unconfirmed";
 
 /**
  * Options to pass to create a FeedbackInstance
- *
- * @property { MessageFeedbackOutcome } [outcome]
  */
 export interface FeedbackListInstanceCreateOptions {
+  /**  */
   outcome?: MessageFeedbackOutcome;
 }
 
@@ -33,9 +32,9 @@ export interface FeedbackListInstance {
   /**
    * Create a FeedbackInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed FeedbackInstance
+   * @returns Resolves to processed FeedbackInstance
    */
   create(
     callback?: (error: Error | null, item?: FeedbackInstance) => any
@@ -43,10 +42,10 @@ export interface FeedbackListInstance {
   /**
    * Create a FeedbackInstance
    *
-   * @param { FeedbackListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed FeedbackInstance
+   * @returns Resolves to processed FeedbackInstance
    */
   create(
     params: FeedbackListInstanceCreateOptions,

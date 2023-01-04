@@ -23,62 +23,50 @@ import { MessageInteractionListInstance } from "./participant/messageInteraction
 
 /**
  * Options to pass to create a ParticipantInstance
- *
- * @property { string } identifier The phone number of the Participant.
- * @property { string } [friendlyName] The string that you assigned to describe the participant. This value must be 255 characters or fewer. **This value should not have PII.**
- * @property { string } [proxyIdentifier] The proxy phone number to use for the Participant. If not specified, Proxy will select a number from the pool.
- * @property { string } [proxyIdentifierSid] The SID of the Proxy Identifier to assign to the Participant.
  */
 export interface ParticipantListInstanceCreateOptions {
+  /** The phone number of the Participant. */
   identifier: string;
+  /** The string that you assigned to describe the participant. This value must be 255 characters or fewer. **This value should not have PII.** */
   friendlyName?: string;
+  /** The proxy phone number to use for the Participant. If not specified, Proxy will select a number from the pool. */
   proxyIdentifier?: string;
+  /** The SID of the Proxy Identifier to assign to the Participant. */
   proxyIdentifierSid?: string;
 }
 /**
  * Options to pass to each
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface ParticipantListInstanceEachOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: ParticipantInstance, done: (err?: Error) => void) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface ParticipantListInstanceOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface ParticipantListInstancePageOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
@@ -88,9 +76,9 @@ export interface ParticipantContext {
   /**
    * Remove a ParticipantInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -99,9 +87,9 @@ export interface ParticipantContext {
   /**
    * Fetch a ParticipantInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ParticipantInstance
+   * @returns Resolves to processed ParticipantInstance
    */
   fetch(
     callback?: (error: Error | null, item?: ParticipantInstance) => any
@@ -329,9 +317,9 @@ export class ParticipantInstance {
   /**
    * Remove a ParticipantInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -342,9 +330,9 @@ export class ParticipantInstance {
   /**
    * Fetch a ParticipantInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ParticipantInstance
+   * @returns Resolves to processed ParticipantInstance
    */
   fetch(
     callback?: (error: Error | null, item?: ParticipantInstance) => any
@@ -394,10 +382,10 @@ export interface ParticipantListInstance {
   /**
    * Create a ParticipantInstance
    *
-   * @param { ParticipantListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ParticipantInstance
+   * @returns Resolves to processed ParticipantInstance
    */
   create(
     params: ParticipantListInstanceCreateOptions,

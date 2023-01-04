@@ -30,78 +30,66 @@ type EsimProfileStatus =
 
 /**
  * Options to pass to create a EsimProfileInstance
- *
- * @property { string } [callbackUrl] The URL we should call using the `callback_method` when the status of the eSIM Profile changes. At this stage of the eSIM Profile pilot, the a request to the URL will only be called when the ESimProfile resource changes from `reserving` to `available`.
- * @property { string } [callbackMethod] The HTTP method we should use to call `callback_url`. Can be: `GET` or `POST` and the default is POST.
- * @property { string } [eid] Identifier of the eUICC that will claim the eSIM Profile.
  */
 export interface EsimProfileListInstanceCreateOptions {
+  /** The URL we should call using the `callback_method` when the status of the eSIM Profile changes. At this stage of the eSIM Profile pilot, the a request to the URL will only be called when the ESimProfile resource changes from `reserving` to `available`. */
   callbackUrl?: string;
+  /** The HTTP method we should use to call `callback_url`. Can be: `GET` or `POST` and the default is POST. */
   callbackMethod?: string;
+  /** Identifier of the eUICC that will claim the eSIM Profile. */
   eid?: string;
 }
 /**
  * Options to pass to each
- *
- * @property { string } [eid] List the eSIM Profiles that have been associated with an EId.
- * @property { string } [simSid] Find the eSIM Profile resource related to a [Sim](https://www.twilio.com/docs/wireless/api/sim-resource) resource by providing the SIM SID. Will always return an array with either 1 or 0 records.
- * @property { EsimProfileStatus } [status] List the eSIM Profiles that are in a given status.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface EsimProfileListInstanceEachOptions {
+  /** List the eSIM Profiles that have been associated with an EId. */
   eid?: string;
+  /** Find the eSIM Profile resource related to a [Sim](https://www.twilio.com/docs/wireless/api/sim-resource) resource by providing the SIM SID. Will always return an array with either 1 or 0 records. */
   simSid?: string;
+  /** List the eSIM Profiles that are in a given status. */
   status?: EsimProfileStatus;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: EsimProfileInstance, done: (err?: Error) => void) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { string } [eid] List the eSIM Profiles that have been associated with an EId.
- * @property { string } [simSid] Find the eSIM Profile resource related to a [Sim](https://www.twilio.com/docs/wireless/api/sim-resource) resource by providing the SIM SID. Will always return an array with either 1 or 0 records.
- * @property { EsimProfileStatus } [status] List the eSIM Profiles that are in a given status.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface EsimProfileListInstanceOptions {
+  /** List the eSIM Profiles that have been associated with an EId. */
   eid?: string;
+  /** Find the eSIM Profile resource related to a [Sim](https://www.twilio.com/docs/wireless/api/sim-resource) resource by providing the SIM SID. Will always return an array with either 1 or 0 records. */
   simSid?: string;
+  /** List the eSIM Profiles that are in a given status. */
   status?: EsimProfileStatus;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { string } [eid] List the eSIM Profiles that have been associated with an EId.
- * @property { string } [simSid] Find the eSIM Profile resource related to a [Sim](https://www.twilio.com/docs/wireless/api/sim-resource) resource by providing the SIM SID. Will always return an array with either 1 or 0 records.
- * @property { EsimProfileStatus } [status] List the eSIM Profiles that are in a given status.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface EsimProfileListInstancePageOptions {
+  /** List the eSIM Profiles that have been associated with an EId. */
   eid?: string;
+  /** Find the eSIM Profile resource related to a [Sim](https://www.twilio.com/docs/wireless/api/sim-resource) resource by providing the SIM SID. Will always return an array with either 1 or 0 records. */
   simSid?: string;
+  /** List the eSIM Profiles that are in a given status. */
   status?: EsimProfileStatus;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
@@ -109,9 +97,9 @@ export interface EsimProfileContext {
   /**
    * Fetch a EsimProfileInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed EsimProfileInstance
+   * @returns Resolves to processed EsimProfileInstance
    */
   fetch(
     callback?: (error: Error | null, item?: EsimProfileInstance) => any
@@ -274,9 +262,9 @@ export class EsimProfileInstance {
   /**
    * Fetch a EsimProfileInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed EsimProfileInstance
+   * @returns Resolves to processed EsimProfileInstance
    */
   fetch(
     callback?: (error: Error | null, item?: EsimProfileInstance) => any
@@ -318,9 +306,9 @@ export interface EsimProfileListInstance {
   /**
    * Create a EsimProfileInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed EsimProfileInstance
+   * @returns Resolves to processed EsimProfileInstance
    */
   create(
     callback?: (error: Error | null, item?: EsimProfileInstance) => any
@@ -328,10 +316,10 @@ export interface EsimProfileListInstance {
   /**
    * Create a EsimProfileInstance
    *
-   * @param { EsimProfileListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed EsimProfileInstance
+   * @returns Resolves to processed EsimProfileInstance
    */
   create(
     params: EsimProfileListInstanceCreateOptions,

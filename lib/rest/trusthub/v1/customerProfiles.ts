@@ -32,98 +32,85 @@ type CustomerProfileStatus =
 
 /**
  * Options to pass to update a CustomerProfilesInstance
- *
- * @property { CustomerProfileStatus } [status]
- * @property { string } [statusCallback] The URL we call to inform your application of status changes.
- * @property { string } [friendlyName] The string that you assigned to describe the resource.
- * @property { string } [email] The email address that will receive updates when the Customer-Profile resource changes status.
  */
 export interface CustomerProfilesContextUpdateOptions {
+  /**  */
   status?: CustomerProfileStatus;
+  /** The URL we call to inform your application of status changes. */
   statusCallback?: string;
+  /** The string that you assigned to describe the resource. */
   friendlyName?: string;
+  /** The email address that will receive updates when the Customer-Profile resource changes status. */
   email?: string;
 }
 
 /**
  * Options to pass to create a CustomerProfilesInstance
- *
- * @property { string } friendlyName The string that you assigned to describe the resource.
- * @property { string } email The email address that will receive updates when the Customer-Profile resource changes status.
- * @property { string } policySid The unique string of a policy that is associated to the Customer-Profile resource.
- * @property { string } [statusCallback] The URL we call to inform your application of status changes.
  */
 export interface CustomerProfilesListInstanceCreateOptions {
+  /** The string that you assigned to describe the resource. */
   friendlyName: string;
+  /** The email address that will receive updates when the Customer-Profile resource changes status. */
   email: string;
+  /** The unique string of a policy that is associated to the Customer-Profile resource. */
   policySid: string;
+  /** The URL we call to inform your application of status changes. */
   statusCallback?: string;
 }
 /**
  * Options to pass to each
- *
- * @property { CustomerProfileStatus } [status] The verification status of the Customer-Profile resource.
- * @property { string } [friendlyName] The string that you assigned to describe the resource.
- * @property { string } [policySid] The unique string of a policy that is associated to the Customer-Profile resource.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface CustomerProfilesListInstanceEachOptions {
+  /** The verification status of the Customer-Profile resource. */
   status?: CustomerProfileStatus;
+  /** The string that you assigned to describe the resource. */
   friendlyName?: string;
+  /** The unique string of a policy that is associated to the Customer-Profile resource. */
   policySid?: string;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (
     item: CustomerProfilesInstance,
     done: (err?: Error) => void
   ) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { CustomerProfileStatus } [status] The verification status of the Customer-Profile resource.
- * @property { string } [friendlyName] The string that you assigned to describe the resource.
- * @property { string } [policySid] The unique string of a policy that is associated to the Customer-Profile resource.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface CustomerProfilesListInstanceOptions {
+  /** The verification status of the Customer-Profile resource. */
   status?: CustomerProfileStatus;
+  /** The string that you assigned to describe the resource. */
   friendlyName?: string;
+  /** The unique string of a policy that is associated to the Customer-Profile resource. */
   policySid?: string;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { CustomerProfileStatus } [status] The verification status of the Customer-Profile resource.
- * @property { string } [friendlyName] The string that you assigned to describe the resource.
- * @property { string } [policySid] The unique string of a policy that is associated to the Customer-Profile resource.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface CustomerProfilesListInstancePageOptions {
+  /** The verification status of the Customer-Profile resource. */
   status?: CustomerProfileStatus;
+  /** The string that you assigned to describe the resource. */
   friendlyName?: string;
+  /** The unique string of a policy that is associated to the Customer-Profile resource. */
   policySid?: string;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
@@ -135,9 +122,9 @@ export interface CustomerProfilesContext {
   /**
    * Remove a CustomerProfilesInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -146,9 +133,9 @@ export interface CustomerProfilesContext {
   /**
    * Fetch a CustomerProfilesInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed CustomerProfilesInstance
+   * @returns Resolves to processed CustomerProfilesInstance
    */
   fetch(
     callback?: (error: Error | null, item?: CustomerProfilesInstance) => any
@@ -157,9 +144,9 @@ export interface CustomerProfilesContext {
   /**
    * Update a CustomerProfilesInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed CustomerProfilesInstance
+   * @returns Resolves to processed CustomerProfilesInstance
    */
   update(
     callback?: (error: Error | null, item?: CustomerProfilesInstance) => any
@@ -167,10 +154,10 @@ export interface CustomerProfilesContext {
   /**
    * Update a CustomerProfilesInstance
    *
-   * @param { CustomerProfilesContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed CustomerProfilesInstance
+   * @returns Resolves to processed CustomerProfilesInstance
    */
   update(
     params: CustomerProfilesContextUpdateOptions,
@@ -431,9 +418,9 @@ export class CustomerProfilesInstance {
   /**
    * Remove a CustomerProfilesInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -444,9 +431,9 @@ export class CustomerProfilesInstance {
   /**
    * Fetch a CustomerProfilesInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed CustomerProfilesInstance
+   * @returns Resolves to processed CustomerProfilesInstance
    */
   fetch(
     callback?: (error: Error | null, item?: CustomerProfilesInstance) => any
@@ -457,9 +444,9 @@ export class CustomerProfilesInstance {
   /**
    * Update a CustomerProfilesInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed CustomerProfilesInstance
+   * @returns Resolves to processed CustomerProfilesInstance
    */
   update(
     callback?: (error: Error | null, item?: CustomerProfilesInstance) => any
@@ -467,10 +454,10 @@ export class CustomerProfilesInstance {
   /**
    * Update a CustomerProfilesInstance
    *
-   * @param { CustomerProfilesContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed CustomerProfilesInstance
+   * @returns Resolves to processed CustomerProfilesInstance
    */
   update(
     params: CustomerProfilesContextUpdateOptions,
@@ -535,10 +522,10 @@ export interface CustomerProfilesListInstance {
   /**
    * Create a CustomerProfilesInstance
    *
-   * @param { CustomerProfilesListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed CustomerProfilesInstance
+   * @returns Resolves to processed CustomerProfilesInstance
    */
   create(
     params: CustomerProfilesListInstanceCreateOptions,

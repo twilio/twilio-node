@@ -22,9 +22,9 @@ export interface JobContext {
   /**
    * Remove a JobInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -33,9 +33,9 @@ export interface JobContext {
   /**
    * Fetch a JobInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed JobInstance
+   * @returns Resolves to processed JobInstance
    */
   fetch(
     callback?: (error: Error | null, item?: JobInstance) => any
@@ -205,9 +205,9 @@ export class JobInstance {
   /**
    * Remove a JobInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -218,9 +218,9 @@ export class JobInstance {
   /**
    * Fetch a JobInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed JobInstance
+   * @returns Resolves to processed JobInstance
    */
   fetch(
     callback?: (error: Error | null, item?: JobInstance) => any

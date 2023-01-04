@@ -20,12 +20,11 @@ import { isValidPathParam } from "../../../../base/utility";
 
 /**
  * Options to pass to fetch a UsageInstance
- *
- * @property { string } [end]
- * @property { string } [start]
  */
 export interface UsageContextFetchOptions {
+  /**  */
   end?: string;
+  /**  */
   start?: string;
 }
 
@@ -33,9 +32,9 @@ export interface UsageContext {
   /**
    * Fetch a UsageInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed UsageInstance
+   * @returns Resolves to processed UsageInstance
    */
   fetch(
     callback?: (error: Error | null, item?: UsageInstance) => any
@@ -43,10 +42,10 @@ export interface UsageContext {
   /**
    * Fetch a UsageInstance
    *
-   * @param { UsageContextFetchOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed UsageInstance
+   * @returns Resolves to processed UsageInstance
    */
   fetch(
     params: UsageContextFetchOptions,
@@ -183,9 +182,9 @@ export class UsageInstance {
   /**
    * Fetch a UsageInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed UsageInstance
+   * @returns Resolves to processed UsageInstance
    */
   fetch(
     callback?: (error: Error | null, item?: UsageInstance) => any
@@ -193,10 +192,10 @@ export class UsageInstance {
   /**
    * Fetch a UsageInstance
    *
-   * @param { UsageContextFetchOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed UsageInstance
+   * @returns Resolves to processed UsageInstance
    */
   fetch(
     params: UsageContextFetchOptions,

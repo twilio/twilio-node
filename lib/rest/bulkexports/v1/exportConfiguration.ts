@@ -20,14 +20,13 @@ import { isValidPathParam } from "../../../base/utility";
 
 /**
  * Options to pass to update a ExportConfigurationInstance
- *
- * @property { boolean } [enabled] If true, Twilio will automatically generate every day\\\'s file when the day is over.
- * @property { string } [webhookUrl] Stores the URL destination for the method specified in webhook_method.
- * @property { string } [webhookMethod] Sets whether Twilio should call a webhook URL when the automatic generation is complete, using GET or POST. The actual destination is set in the webhook_url
  */
 export interface ExportConfigurationContextUpdateOptions {
+  /** If true, Twilio will automatically generate every day\\\'s file when the day is over. */
   enabled?: boolean;
+  /** Stores the URL destination for the method specified in webhook_method. */
   webhookUrl?: string;
+  /** Sets whether Twilio should call a webhook URL when the automatic generation is complete, using GET or POST. The actual destination is set in the webhook_url */
   webhookMethod?: string;
 }
 
@@ -35,9 +34,9 @@ export interface ExportConfigurationContext {
   /**
    * Fetch a ExportConfigurationInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ExportConfigurationInstance
+   * @returns Resolves to processed ExportConfigurationInstance
    */
   fetch(
     callback?: (error: Error | null, item?: ExportConfigurationInstance) => any
@@ -46,9 +45,9 @@ export interface ExportConfigurationContext {
   /**
    * Update a ExportConfigurationInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ExportConfigurationInstance
+   * @returns Resolves to processed ExportConfigurationInstance
    */
   update(
     callback?: (error: Error | null, item?: ExportConfigurationInstance) => any
@@ -56,10 +55,10 @@ export interface ExportConfigurationContext {
   /**
    * Update a ExportConfigurationInstance
    *
-   * @param { ExportConfigurationContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ExportConfigurationInstance
+   * @returns Resolves to processed ExportConfigurationInstance
    */
   update(
     params: ExportConfigurationContextUpdateOptions,
@@ -236,9 +235,9 @@ export class ExportConfigurationInstance {
   /**
    * Fetch a ExportConfigurationInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ExportConfigurationInstance
+   * @returns Resolves to processed ExportConfigurationInstance
    */
   fetch(
     callback?: (error: Error | null, item?: ExportConfigurationInstance) => any
@@ -249,9 +248,9 @@ export class ExportConfigurationInstance {
   /**
    * Update a ExportConfigurationInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ExportConfigurationInstance
+   * @returns Resolves to processed ExportConfigurationInstance
    */
   update(
     callback?: (error: Error | null, item?: ExportConfigurationInstance) => any
@@ -259,10 +258,10 @@ export class ExportConfigurationInstance {
   /**
    * Update a ExportConfigurationInstance
    *
-   * @param { ExportConfigurationContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ExportConfigurationInstance
+   * @returns Resolves to processed ExportConfigurationInstance
    */
   update(
     params: ExportConfigurationContextUpdateOptions,

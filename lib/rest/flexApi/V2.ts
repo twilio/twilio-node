@@ -20,16 +20,16 @@ export default class V2 extends Version {
   /**
    * Initialize the V2 version of FlexApi
    *
-   * @property { Twilio.FlexApi.V2.WebChannelsListInstance } webChannels - webChannels resource
-   *
-   * @param { Twilio.FlexApi } domain - The Twilio domain
+   * @param domain - The Twilio (Twilio.FlexApi) domain
    */
   constructor(domain: FlexApiBase) {
     super(domain, "v2");
   }
 
+  /** webChannels - { Twilio.FlexApi.V2.WebChannelsListInstance } resource */
   protected _webChannels?: WebChannelsListInstance;
 
+  /** Getter for webChannels resource */
   get webChannels(): WebChannelsListInstance {
     this._webChannels = this._webChannels || WebChannelsListInstance(this);
     return this._webChannels;

@@ -22,9 +22,9 @@ export interface SinkTestListInstance {
   /**
    * Create a SinkTestInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SinkTestInstance
+   * @returns Resolves to processed SinkTestInstance
    */
   create(
     callback?: (error: Error | null, item?: SinkTestInstance) => any

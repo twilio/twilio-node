@@ -20,10 +20,9 @@ import { isValidPathParam } from "../../../../base/utility";
 
 /**
  * Options to pass to fetch a UsAppToPersonUsecaseInstance
- *
- * @property { string } [brandRegistrationSid] The unique string to identify the A2P brand.
  */
 export interface UsAppToPersonUsecaseListInstanceFetchOptions {
+  /** The unique string to identify the A2P brand. */
   brandRegistrationSid?: string;
 }
 
@@ -31,9 +30,9 @@ export interface UsAppToPersonUsecaseListInstance {
   /**
    * Fetch a UsAppToPersonUsecaseInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed UsAppToPersonUsecaseInstance
+   * @returns Resolves to processed UsAppToPersonUsecaseInstance
    */
   fetch(
     callback?: (error: Error | null, item?: UsAppToPersonUsecaseInstance) => any
@@ -41,10 +40,10 @@ export interface UsAppToPersonUsecaseListInstance {
   /**
    * Fetch a UsAppToPersonUsecaseInstance
    *
-   * @param { UsAppToPersonUsecaseListInstanceFetchOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed UsAppToPersonUsecaseInstance
+   * @returns Resolves to processed UsAppToPersonUsecaseInstance
    */
   fetch(
     params: UsAppToPersonUsecaseListInstanceFetchOptions,

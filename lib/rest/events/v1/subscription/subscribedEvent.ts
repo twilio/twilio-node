@@ -22,70 +22,57 @@ import { isValidPathParam } from "../../../../base/utility";
 
 /**
  * Options to pass to update a SubscribedEventInstance
- *
- * @property { number } [schemaVersion] The schema version that the subscription should use.
  */
 export interface SubscribedEventContextUpdateOptions {
+  /** The schema version that the subscription should use. */
   schemaVersion?: number;
 }
 
 /**
  * Options to pass to create a SubscribedEventInstance
- *
- * @property { string } type Type of event being subscribed to.
- * @property { number } [schemaVersion] The schema version that the subscription should use.
  */
 export interface SubscribedEventListInstanceCreateOptions {
+  /** Type of event being subscribed to. */
   type: string;
+  /** The schema version that the subscription should use. */
   schemaVersion?: number;
 }
 /**
  * Options to pass to each
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface SubscribedEventListInstanceEachOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (
     item: SubscribedEventInstance,
     done: (err?: Error) => void
   ) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface SubscribedEventListInstanceOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface SubscribedEventListInstancePageOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
@@ -93,9 +80,9 @@ export interface SubscribedEventContext {
   /**
    * Remove a SubscribedEventInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -104,9 +91,9 @@ export interface SubscribedEventContext {
   /**
    * Fetch a SubscribedEventInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SubscribedEventInstance
+   * @returns Resolves to processed SubscribedEventInstance
    */
   fetch(
     callback?: (error: Error | null, item?: SubscribedEventInstance) => any
@@ -115,9 +102,9 @@ export interface SubscribedEventContext {
   /**
    * Update a SubscribedEventInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SubscribedEventInstance
+   * @returns Resolves to processed SubscribedEventInstance
    */
   update(
     callback?: (error: Error | null, item?: SubscribedEventInstance) => any
@@ -125,10 +112,10 @@ export interface SubscribedEventContext {
   /**
    * Update a SubscribedEventInstance
    *
-   * @param { SubscribedEventContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SubscribedEventInstance
+   * @returns Resolves to processed SubscribedEventInstance
    */
   update(
     params: SubscribedEventContextUpdateOptions,
@@ -324,9 +311,9 @@ export class SubscribedEventInstance {
   /**
    * Remove a SubscribedEventInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -337,9 +324,9 @@ export class SubscribedEventInstance {
   /**
    * Fetch a SubscribedEventInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SubscribedEventInstance
+   * @returns Resolves to processed SubscribedEventInstance
    */
   fetch(
     callback?: (error: Error | null, item?: SubscribedEventInstance) => any
@@ -350,9 +337,9 @@ export class SubscribedEventInstance {
   /**
    * Update a SubscribedEventInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SubscribedEventInstance
+   * @returns Resolves to processed SubscribedEventInstance
    */
   update(
     callback?: (error: Error | null, item?: SubscribedEventInstance) => any
@@ -360,10 +347,10 @@ export class SubscribedEventInstance {
   /**
    * Update a SubscribedEventInstance
    *
-   * @param { SubscribedEventContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SubscribedEventInstance
+   * @returns Resolves to processed SubscribedEventInstance
    */
   update(
     params: SubscribedEventContextUpdateOptions,
@@ -400,10 +387,10 @@ export interface SubscribedEventListInstance {
   /**
    * Create a SubscribedEventInstance
    *
-   * @param { SubscribedEventListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SubscribedEventInstance
+   * @returns Resolves to processed SubscribedEventInstance
    */
   create(
     params: SubscribedEventListInstanceCreateOptions,

@@ -22,16 +22,15 @@ type ServiceWebhookConfigurationMethod = "GET" | "POST";
 
 /**
  * Options to pass to update a WebhookInstance
- *
- * @property { string } [preWebhookUrl] The absolute url the pre-event webhook request should be sent to.
- * @property { string } [postWebhookUrl] The absolute url the post-event webhook request should be sent to.
- * @property { Array<string> } [filters] The list of events that your configured webhook targets will receive. Events not configured here will not fire. Possible values are `onParticipantAdd`, `onParticipantAdded`, `onDeliveryUpdated`, `onConversationUpdated`, `onConversationRemove`, `onParticipantRemove`, `onConversationUpdate`, `onMessageAdd`, `onMessageRemoved`, `onParticipantUpdated`, `onConversationAdded`, `onMessageAdded`, `onConversationAdd`, `onConversationRemoved`, `onParticipantUpdate`, `onMessageRemove`, `onMessageUpdated`, `onParticipantRemoved`, `onMessageUpdate` or `onConversationStateUpdated`.
- * @property { string } [method] The HTTP method to be used when sending a webhook request. One of `GET` or `POST`.
  */
 export interface WebhookContextUpdateOptions {
+  /** The absolute url the pre-event webhook request should be sent to. */
   preWebhookUrl?: string;
+  /** The absolute url the post-event webhook request should be sent to. */
   postWebhookUrl?: string;
+  /** The list of events that your configured webhook targets will receive. Events not configured here will not fire. Possible values are `onParticipantAdd`, `onParticipantAdded`, `onDeliveryUpdated`, `onConversationUpdated`, `onConversationRemove`, `onParticipantRemove`, `onConversationUpdate`, `onMessageAdd`, `onMessageRemoved`, `onParticipantUpdated`, `onConversationAdded`, `onMessageAdded`, `onConversationAdd`, `onConversationRemoved`, `onParticipantUpdate`, `onMessageRemove`, `onMessageUpdated`, `onParticipantRemoved`, `onMessageUpdate` or `onConversationStateUpdated`. */
   filters?: Array<string>;
+  /** The HTTP method to be used when sending a webhook request. One of `GET` or `POST`. */
   method?: string;
 }
 
@@ -39,9 +38,9 @@ export interface WebhookContext {
   /**
    * Fetch a WebhookInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed WebhookInstance
+   * @returns Resolves to processed WebhookInstance
    */
   fetch(
     callback?: (error: Error | null, item?: WebhookInstance) => any
@@ -50,9 +49,9 @@ export interface WebhookContext {
   /**
    * Update a WebhookInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed WebhookInstance
+   * @returns Resolves to processed WebhookInstance
    */
   update(
     callback?: (error: Error | null, item?: WebhookInstance) => any
@@ -60,10 +59,10 @@ export interface WebhookContext {
   /**
    * Update a WebhookInstance
    *
-   * @param { WebhookContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed WebhookInstance
+   * @returns Resolves to processed WebhookInstance
    */
   update(
     params: WebhookContextUpdateOptions,
@@ -245,9 +244,9 @@ export class WebhookInstance {
   /**
    * Fetch a WebhookInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed WebhookInstance
+   * @returns Resolves to processed WebhookInstance
    */
   fetch(
     callback?: (error: Error | null, item?: WebhookInstance) => any
@@ -258,9 +257,9 @@ export class WebhookInstance {
   /**
    * Update a WebhookInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed WebhookInstance
+   * @returns Resolves to processed WebhookInstance
    */
   update(
     callback?: (error: Error | null, item?: WebhookInstance) => any
@@ -268,10 +267,10 @@ export class WebhookInstance {
   /**
    * Update a WebhookInstance
    *
-   * @param { WebhookContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed WebhookInstance
+   * @returns Resolves to processed WebhookInstance
    */
   update(
     params: WebhookContextUpdateOptions,

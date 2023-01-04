@@ -20,16 +20,16 @@ export default class V2 extends Version {
   /**
    * Initialize the V2 version of Lookups
    *
-   * @property { Twilio.Lookups.V2.PhoneNumberListInstance } phoneNumbers - phoneNumbers resource
-   *
-   * @param { Twilio.Lookups } domain - The Twilio domain
+   * @param domain - The Twilio (Twilio.Lookups) domain
    */
   constructor(domain: LookupsBase) {
     super(domain, "v2");
   }
 
+  /** phoneNumbers - { Twilio.Lookups.V2.PhoneNumberListInstance } resource */
   protected _phoneNumbers?: PhoneNumberListInstance;
 
+  /** Getter for phoneNumbers resource */
   get phoneNumbers(): PhoneNumberListInstance {
     this._phoneNumbers = this._phoneNumbers || PhoneNumberListInstance(this);
     return this._phoneNumbers;

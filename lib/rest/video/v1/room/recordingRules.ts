@@ -28,10 +28,9 @@ export class VideoV1RoomRoomRecordingRuleRules {
 
 /**
  * Options to pass to update a RecordingRulesInstance
- *
- * @property { any } [rules] A JSON-encoded array of recording rules.
  */
 export interface RecordingRulesListInstanceUpdateOptions {
+  /** A JSON-encoded array of recording rules. */
   rules?: any;
 }
 
@@ -39,9 +38,9 @@ export interface RecordingRulesListInstance {
   /**
    * Fetch a RecordingRulesInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed RecordingRulesInstance
+   * @returns Resolves to processed RecordingRulesInstance
    */
   fetch(
     callback?: (error: Error | null, item?: RecordingRulesInstance) => any
@@ -50,9 +49,9 @@ export interface RecordingRulesListInstance {
   /**
    * Update a RecordingRulesInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed RecordingRulesInstance
+   * @returns Resolves to processed RecordingRulesInstance
    */
   update(
     callback?: (error: Error | null, item?: RecordingRulesInstance) => any
@@ -60,10 +59,10 @@ export interface RecordingRulesListInstance {
   /**
    * Update a RecordingRulesInstance
    *
-   * @param { RecordingRulesListInstanceUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed RecordingRulesInstance
+   * @returns Resolves to processed RecordingRulesInstance
    */
   update(
     params: RecordingRulesListInstanceUpdateOptions,

@@ -22,9 +22,9 @@ export interface TaskStatisticsContext {
   /**
    * Fetch a TaskStatisticsInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed TaskStatisticsInstance
+   * @returns Resolves to processed TaskStatisticsInstance
    */
   fetch(
     callback?: (error: Error | null, item?: TaskStatisticsInstance) => any
@@ -168,9 +168,9 @@ export class TaskStatisticsInstance {
   /**
    * Fetch a TaskStatisticsInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed TaskStatisticsInstance
+   * @returns Resolves to processed TaskStatisticsInstance
    */
   fetch(
     callback?: (error: Error | null, item?: TaskStatisticsInstance) => any

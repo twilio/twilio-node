@@ -23,84 +23,73 @@ import { HighriskSpecialPrefixListInstance } from "./country/highriskSpecialPref
 
 /**
  * Options to pass to each
- *
- * @property { string } [isoCode] Filter to retrieve the country permissions by specifying the [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)
- * @property { string } [continent] Filter to retrieve the country permissions by specifying the continent
- * @property { string } [countryCode] Filter the results by specified [country codes](https://www.itu.int/itudoc/itu-t/ob-lists/icc/e164_763.html)
- * @property { boolean } [lowRiskNumbersEnabled] Filter to retrieve the country permissions with dialing to low-risk numbers enabled. Can be: `true` or `false`.
- * @property { boolean } [highRiskSpecialNumbersEnabled] Filter to retrieve the country permissions with dialing to high-risk special service numbers enabled. Can be: `true` or `false`
- * @property { boolean } [highRiskTollfraudNumbersEnabled] Filter to retrieve the country permissions with dialing to high-risk [toll fraud](https://www.twilio.com/learn/voice-and-video/toll-fraud) numbers enabled. Can be: `true` or `false`.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface CountryListInstanceEachOptions {
+  /** Filter to retrieve the country permissions by specifying the [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) */
   isoCode?: string;
+  /** Filter to retrieve the country permissions by specifying the continent */
   continent?: string;
+  /** Filter the results by specified [country codes](https://www.itu.int/itudoc/itu-t/ob-lists/icc/e164_763.html) */
   countryCode?: string;
+  /** Filter to retrieve the country permissions with dialing to low-risk numbers enabled. Can be: `true` or `false`. */
   lowRiskNumbersEnabled?: boolean;
+  /** Filter to retrieve the country permissions with dialing to high-risk special service numbers enabled. Can be: `true` or `false` */
   highRiskSpecialNumbersEnabled?: boolean;
+  /** Filter to retrieve the country permissions with dialing to high-risk [toll fraud](https://www.twilio.com/learn/voice-and-video/toll-fraud) numbers enabled. Can be: `true` or `false`. */
   highRiskTollfraudNumbersEnabled?: boolean;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: CountryInstance, done: (err?: Error) => void) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { string } [isoCode] Filter to retrieve the country permissions by specifying the [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)
- * @property { string } [continent] Filter to retrieve the country permissions by specifying the continent
- * @property { string } [countryCode] Filter the results by specified [country codes](https://www.itu.int/itudoc/itu-t/ob-lists/icc/e164_763.html)
- * @property { boolean } [lowRiskNumbersEnabled] Filter to retrieve the country permissions with dialing to low-risk numbers enabled. Can be: `true` or `false`.
- * @property { boolean } [highRiskSpecialNumbersEnabled] Filter to retrieve the country permissions with dialing to high-risk special service numbers enabled. Can be: `true` or `false`
- * @property { boolean } [highRiskTollfraudNumbersEnabled] Filter to retrieve the country permissions with dialing to high-risk [toll fraud](https://www.twilio.com/learn/voice-and-video/toll-fraud) numbers enabled. Can be: `true` or `false`.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface CountryListInstanceOptions {
+  /** Filter to retrieve the country permissions by specifying the [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) */
   isoCode?: string;
+  /** Filter to retrieve the country permissions by specifying the continent */
   continent?: string;
+  /** Filter the results by specified [country codes](https://www.itu.int/itudoc/itu-t/ob-lists/icc/e164_763.html) */
   countryCode?: string;
+  /** Filter to retrieve the country permissions with dialing to low-risk numbers enabled. Can be: `true` or `false`. */
   lowRiskNumbersEnabled?: boolean;
+  /** Filter to retrieve the country permissions with dialing to high-risk special service numbers enabled. Can be: `true` or `false` */
   highRiskSpecialNumbersEnabled?: boolean;
+  /** Filter to retrieve the country permissions with dialing to high-risk [toll fraud](https://www.twilio.com/learn/voice-and-video/toll-fraud) numbers enabled. Can be: `true` or `false`. */
   highRiskTollfraudNumbersEnabled?: boolean;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { string } [isoCode] Filter to retrieve the country permissions by specifying the [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)
- * @property { string } [continent] Filter to retrieve the country permissions by specifying the continent
- * @property { string } [countryCode] Filter the results by specified [country codes](https://www.itu.int/itudoc/itu-t/ob-lists/icc/e164_763.html)
- * @property { boolean } [lowRiskNumbersEnabled] Filter to retrieve the country permissions with dialing to low-risk numbers enabled. Can be: `true` or `false`.
- * @property { boolean } [highRiskSpecialNumbersEnabled] Filter to retrieve the country permissions with dialing to high-risk special service numbers enabled. Can be: `true` or `false`
- * @property { boolean } [highRiskTollfraudNumbersEnabled] Filter to retrieve the country permissions with dialing to high-risk [toll fraud](https://www.twilio.com/learn/voice-and-video/toll-fraud) numbers enabled. Can be: `true` or `false`.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface CountryListInstancePageOptions {
+  /** Filter to retrieve the country permissions by specifying the [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) */
   isoCode?: string;
+  /** Filter to retrieve the country permissions by specifying the continent */
   continent?: string;
+  /** Filter the results by specified [country codes](https://www.itu.int/itudoc/itu-t/ob-lists/icc/e164_763.html) */
   countryCode?: string;
+  /** Filter to retrieve the country permissions with dialing to low-risk numbers enabled. Can be: `true` or `false`. */
   lowRiskNumbersEnabled?: boolean;
+  /** Filter to retrieve the country permissions with dialing to high-risk special service numbers enabled. Can be: `true` or `false` */
   highRiskSpecialNumbersEnabled?: boolean;
+  /** Filter to retrieve the country permissions with dialing to high-risk [toll fraud](https://www.twilio.com/learn/voice-and-video/toll-fraud) numbers enabled. Can be: `true` or `false`. */
   highRiskTollfraudNumbersEnabled?: boolean;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
@@ -110,9 +99,9 @@ export interface CountryContext {
   /**
    * Fetch a CountryInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed CountryInstance
+   * @returns Resolves to processed CountryInstance
    */
   fetch(
     callback?: (error: Error | null, item?: CountryInstance) => any
@@ -271,9 +260,9 @@ export class CountryInstance {
   /**
    * Fetch a CountryInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed CountryInstance
+   * @returns Resolves to processed CountryInstance
    */
   fetch(
     callback?: (error: Error | null, item?: CountryInstance) => any

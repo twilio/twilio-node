@@ -28,72 +28,60 @@ type FactorTotpAlgorithms = "sha1" | "sha256" | "sha512";
 
 /**
  * Options to pass to update a FactorInstance
- *
- * @property { string } [authPayload] The optional payload needed to verify the Factor for the first time. E.g. for a TOTP, the numeric code.
- * @property { string } [friendlyName] The new friendly name of this Factor. It can be up to 64 characters.
- * @property { string } [config.notificationToken] For APN, the device token. For FCM, the registration token. It is used to send the push notifications. Required when `factor_type` is `push`. If specified, this value must be between 32 and 255 characters long.
- * @property { string } [config.sdkVersion] The Verify Push SDK version used to configure the factor
- * @property { number } [config.timeStep] Defines how often, in seconds, are TOTP codes generated. i.e, a new TOTP code is generated every time_step seconds. Must be between 20 and 60 seconds, inclusive
- * @property { number } [config.skew] The number of time-steps, past and future, that are valid for validation of TOTP codes. Must be between 0 and 2, inclusive
- * @property { number } [config.codeLength] Number of digits for generated TOTP codes. Must be between 3 and 8, inclusive
- * @property { FactorTotpAlgorithms } [config.alg]
- * @property { string } [config.notificationPlatform] The transport technology used to generate the Notification Token. Can be `apn`, `fcm` or `none`.  Required when `factor_type` is `push`.
  */
 export interface FactorContextUpdateOptions {
+  /** The optional payload needed to verify the Factor for the first time. E.g. for a TOTP, the numeric code. */
   authPayload?: string;
+  /** The new friendly name of this Factor. It can be up to 64 characters. */
   friendlyName?: string;
+  /** For APN, the device token. For FCM, the registration token. It is used to send the push notifications. Required when `factor_type` is `push`. If specified, this value must be between 32 and 255 characters long. */
   "config.notificationToken"?: string;
+  /** The Verify Push SDK version used to configure the factor */
   "config.sdkVersion"?: string;
+  /** Defines how often, in seconds, are TOTP codes generated. i.e, a new TOTP code is generated every time_step seconds. Must be between 20 and 60 seconds, inclusive */
   "config.timeStep"?: number;
+  /** The number of time-steps, past and future, that are valid for validation of TOTP codes. Must be between 0 and 2, inclusive */
   "config.skew"?: number;
+  /** Number of digits for generated TOTP codes. Must be between 3 and 8, inclusive */
   "config.codeLength"?: number;
+  /**  */
   "config.alg"?: FactorTotpAlgorithms;
+  /** The transport technology used to generate the Notification Token. Can be `apn`, `fcm` or `none`.  Required when `factor_type` is `push`. */
   "config.notificationPlatform"?: string;
 }
 /**
  * Options to pass to each
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface FactorListInstanceEachOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: FactorInstance, done: (err?: Error) => void) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface FactorListInstanceOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface FactorListInstancePageOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
@@ -101,9 +89,9 @@ export interface FactorContext {
   /**
    * Remove a FactorInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -112,9 +100,9 @@ export interface FactorContext {
   /**
    * Fetch a FactorInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed FactorInstance
+   * @returns Resolves to processed FactorInstance
    */
   fetch(
     callback?: (error: Error | null, item?: FactorInstance) => any
@@ -123,9 +111,9 @@ export interface FactorContext {
   /**
    * Update a FactorInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed FactorInstance
+   * @returns Resolves to processed FactorInstance
    */
   update(
     callback?: (error: Error | null, item?: FactorInstance) => any
@@ -133,10 +121,10 @@ export interface FactorContext {
   /**
    * Update a FactorInstance
    *
-   * @param { FactorContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed FactorInstance
+   * @returns Resolves to processed FactorInstance
    */
   update(
     params: FactorContextUpdateOptions,
@@ -405,9 +393,9 @@ export class FactorInstance {
   /**
    * Remove a FactorInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -418,9 +406,9 @@ export class FactorInstance {
   /**
    * Fetch a FactorInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed FactorInstance
+   * @returns Resolves to processed FactorInstance
    */
   fetch(
     callback?: (error: Error | null, item?: FactorInstance) => any
@@ -431,9 +419,9 @@ export class FactorInstance {
   /**
    * Update a FactorInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed FactorInstance
+   * @returns Resolves to processed FactorInstance
    */
   update(
     callback?: (error: Error | null, item?: FactorInstance) => any
@@ -441,10 +429,10 @@ export class FactorInstance {
   /**
    * Update a FactorInstance
    *
-   * @param { FactorContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed FactorInstance
+   * @returns Resolves to processed FactorInstance
    */
   update(
     params: FactorContextUpdateOptions,

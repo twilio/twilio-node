@@ -20,18 +20,17 @@ import { isValidPathParam } from "../../../../../base/utility";
 
 /**
  * Options to pass to fetch a TaskQueueCumulativeStatisticsInstance
- *
- * @property { Date } [endDate] Only calculate statistics from this date and time and earlier, specified in GMT as an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time.
- * @property { number } [minutes] Only calculate statistics since this many minutes in the past. The default is 15 minutes.
- * @property { Date } [startDate] Only calculate statistics from this date and time and later, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
- * @property { string } [taskChannel] Only calculate cumulative statistics on this TaskChannel. Can be the TaskChannel\'s SID or its `unique_name`, such as `voice`, `sms`, or `default`.
- * @property { string } [splitByWaitTime] A comma separated list of values that describes the thresholds, in seconds, to calculate statistics on. For each threshold specified, the number of Tasks canceled and reservations accepted above and below the specified thresholds in seconds are computed. TaskRouter will calculate statistics on up to 10,000 Tasks/Reservations for any given threshold.
  */
 export interface TaskQueueCumulativeStatisticsContextFetchOptions {
+  /** Only calculate statistics from this date and time and earlier, specified in GMT as an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time. */
   endDate?: Date;
+  /** Only calculate statistics since this many minutes in the past. The default is 15 minutes. */
   minutes?: number;
+  /** Only calculate statistics from this date and time and later, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. */
   startDate?: Date;
+  /** Only calculate cumulative statistics on this TaskChannel. Can be the TaskChannel\'s SID or its `unique_name`, such as `voice`, `sms`, or `default`. */
   taskChannel?: string;
+  /** A comma separated list of values that describes the thresholds, in seconds, to calculate statistics on. For each threshold specified, the number of Tasks canceled and reservations accepted above and below the specified thresholds in seconds are computed. TaskRouter will calculate statistics on up to 10,000 Tasks/Reservations for any given threshold. */
   splitByWaitTime?: string;
 }
 
@@ -39,9 +38,9 @@ export interface TaskQueueCumulativeStatisticsContext {
   /**
    * Fetch a TaskQueueCumulativeStatisticsInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed TaskQueueCumulativeStatisticsInstance
+   * @returns Resolves to processed TaskQueueCumulativeStatisticsInstance
    */
   fetch(
     callback?: (
@@ -52,10 +51,10 @@ export interface TaskQueueCumulativeStatisticsContext {
   /**
    * Fetch a TaskQueueCumulativeStatisticsInstance
    *
-   * @param { TaskQueueCumulativeStatisticsContextFetchOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed TaskQueueCumulativeStatisticsInstance
+   * @returns Resolves to processed TaskQueueCumulativeStatisticsInstance
    */
   fetch(
     params: TaskQueueCumulativeStatisticsContextFetchOptions,
@@ -350,9 +349,9 @@ export class TaskQueueCumulativeStatisticsInstance {
   /**
    * Fetch a TaskQueueCumulativeStatisticsInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed TaskQueueCumulativeStatisticsInstance
+   * @returns Resolves to processed TaskQueueCumulativeStatisticsInstance
    */
   fetch(
     callback?: (
@@ -363,10 +362,10 @@ export class TaskQueueCumulativeStatisticsInstance {
   /**
    * Fetch a TaskQueueCumulativeStatisticsInstance
    *
-   * @param { TaskQueueCumulativeStatisticsContextFetchOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed TaskQueueCumulativeStatisticsInstance
+   * @returns Resolves to processed TaskQueueCumulativeStatisticsInstance
    */
   fetch(
     params: TaskQueueCumulativeStatisticsContextFetchOptions,

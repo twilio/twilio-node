@@ -29,12 +29,11 @@ type RecordingRecordingTrim = "trim-silence" | "do-not-trim";
 
 /**
  * Options to pass to update a RecordingInstance
- *
- * @property { RecordingRecordingMode } [mode]
- * @property { RecordingRecordingTrim } [trim]
  */
 export interface RecordingContextUpdateOptions {
+  /**  */
   mode?: RecordingRecordingMode;
+  /**  */
   trim?: RecordingRecordingTrim;
 }
 
@@ -42,9 +41,9 @@ export interface RecordingContext {
   /**
    * Fetch a RecordingInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed RecordingInstance
+   * @returns Resolves to processed RecordingInstance
    */
   fetch(
     callback?: (error: Error | null, item?: RecordingInstance) => any
@@ -53,9 +52,9 @@ export interface RecordingContext {
   /**
    * Update a RecordingInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed RecordingInstance
+   * @returns Resolves to processed RecordingInstance
    */
   update(
     callback?: (error: Error | null, item?: RecordingInstance) => any
@@ -63,10 +62,10 @@ export interface RecordingContext {
   /**
    * Update a RecordingInstance
    *
-   * @param { RecordingContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed RecordingInstance
+   * @returns Resolves to processed RecordingInstance
    */
   update(
     params: RecordingContextUpdateOptions,
@@ -210,9 +209,9 @@ export class RecordingInstance {
   /**
    * Fetch a RecordingInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed RecordingInstance
+   * @returns Resolves to processed RecordingInstance
    */
   fetch(
     callback?: (error: Error | null, item?: RecordingInstance) => any
@@ -223,9 +222,9 @@ export class RecordingInstance {
   /**
    * Update a RecordingInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed RecordingInstance
+   * @returns Resolves to processed RecordingInstance
    */
   update(
     callback?: (error: Error | null, item?: RecordingInstance) => any
@@ -233,10 +232,10 @@ export class RecordingInstance {
   /**
    * Update a RecordingInstance
    *
-   * @param { RecordingContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed RecordingInstance
+   * @returns Resolves to processed RecordingInstance
    */
   update(
     params: RecordingContextUpdateOptions,
