@@ -30,92 +30,80 @@ type BindingBindingType =
 
 /**
  * Options to pass to create a BindingInstance
- *
- * @property { string } identity The `identity` value that uniquely identifies the new resource\\\'s [User](https://www.twilio.com/docs/chat/rest/user-resource) within the [Service](https://www.twilio.com/docs/notify/api/service-resource). Up to 20 Bindings can be created for the same Identity in a given Service.
- * @property { BindingBindingType } bindingType
- * @property { string } address The channel-specific address. For APNS, the device token. For FCM and GCM, the registration token. For SMS, a phone number in E.164 format. For Facebook Messenger, the Messenger ID of the user or a phone number in E.164 format.
- * @property { Array<string> } [tag] A tag that can be used to select the Bindings to notify. Repeat this parameter to specify more than one tag, up to a total of 20 tags.
- * @property { string } [notificationProtocolVersion] The protocol version to use to send the notification. This defaults to the value of `default_xxxx_notification_protocol_version` for the protocol in the [Service](https://www.twilio.com/docs/notify/api/service-resource). The current version is `\\\"3\\\"` for `apn`, `fcm`, and `gcm` type Bindings. The parameter is not applicable to `sms` and `facebook-messenger` type Bindings as the data format is fixed.
- * @property { string } [credentialSid] The SID of the [Credential](https://www.twilio.com/docs/notify/api/credential-resource) resource to be used to send notifications to this Binding. If present, this overrides the Credential specified in the Service resource. Applies to only `apn`, `fcm`, and `gcm` type Bindings.
- * @property { string } [endpoint] Deprecated.
  */
 export interface BindingListInstanceCreateOptions {
+  /** The `identity` value that uniquely identifies the new resource\\\'s [User](https://www.twilio.com/docs/chat/rest/user-resource) within the [Service](https://www.twilio.com/docs/notify/api/service-resource). Up to 20 Bindings can be created for the same Identity in a given Service. */
   identity: string;
+  /**  */
   bindingType: BindingBindingType;
+  /** The channel-specific address. For APNS, the device token. For FCM and GCM, the registration token. For SMS, a phone number in E.164 format. For Facebook Messenger, the Messenger ID of the user or a phone number in E.164 format. */
   address: string;
+  /** A tag that can be used to select the Bindings to notify. Repeat this parameter to specify more than one tag, up to a total of 20 tags. */
   tag?: Array<string>;
+  /** The protocol version to use to send the notification. This defaults to the value of `default_xxxx_notification_protocol_version` for the protocol in the [Service](https://www.twilio.com/docs/notify/api/service-resource). The current version is `\\\"3\\\"` for `apn`, `fcm`, and `gcm` type Bindings. The parameter is not applicable to `sms` and `facebook-messenger` type Bindings as the data format is fixed. */
   notificationProtocolVersion?: string;
+  /** The SID of the [Credential](https://www.twilio.com/docs/notify/api/credential-resource) resource to be used to send notifications to this Binding. If present, this overrides the Credential specified in the Service resource. Applies to only `apn`, `fcm`, and `gcm` type Bindings. */
   credentialSid?: string;
+  /** Deprecated. */
   endpoint?: string;
 }
 /**
  * Options to pass to each
- *
- * @property { Date } [startDate] Only include usage that has occurred on or after this date. Specify the date in GMT and format as `YYYY-MM-DD`.
- * @property { Date } [endDate] Only include usage that occurred on or before this date. Specify the date in GMT and format as `YYYY-MM-DD`.
- * @property { Array<string> } [identity] The [User](https://www.twilio.com/docs/chat/rest/user-resource)\'s `identity` value of the resources to read.
- * @property { Array<string> } [tag] Only list Bindings that have all of the specified Tags. The following implicit tags are available: `all`, `apn`, `fcm`, `gcm`, `sms`, `facebook-messenger`. Up to 5 tags are allowed.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface BindingListInstanceEachOptions {
+  /** Only include usage that has occurred on or after this date. Specify the date in GMT and format as `YYYY-MM-DD`. */
   startDate?: Date;
+  /** Only include usage that occurred on or before this date. Specify the date in GMT and format as `YYYY-MM-DD`. */
   endDate?: Date;
+  /** The [User](https://www.twilio.com/docs/chat/rest/user-resource)\'s `identity` value of the resources to read. */
   identity?: Array<string>;
+  /** Only list Bindings that have all of the specified Tags. The following implicit tags are available: `all`, `apn`, `fcm`, `gcm`, `sms`, `facebook-messenger`. Up to 5 tags are allowed. */
   tag?: Array<string>;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: BindingInstance, done: (err?: Error) => void) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { Date } [startDate] Only include usage that has occurred on or after this date. Specify the date in GMT and format as `YYYY-MM-DD`.
- * @property { Date } [endDate] Only include usage that occurred on or before this date. Specify the date in GMT and format as `YYYY-MM-DD`.
- * @property { Array<string> } [identity] The [User](https://www.twilio.com/docs/chat/rest/user-resource)\'s `identity` value of the resources to read.
- * @property { Array<string> } [tag] Only list Bindings that have all of the specified Tags. The following implicit tags are available: `all`, `apn`, `fcm`, `gcm`, `sms`, `facebook-messenger`. Up to 5 tags are allowed.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface BindingListInstanceOptions {
+  /** Only include usage that has occurred on or after this date. Specify the date in GMT and format as `YYYY-MM-DD`. */
   startDate?: Date;
+  /** Only include usage that occurred on or before this date. Specify the date in GMT and format as `YYYY-MM-DD`. */
   endDate?: Date;
+  /** The [User](https://www.twilio.com/docs/chat/rest/user-resource)\'s `identity` value of the resources to read. */
   identity?: Array<string>;
+  /** Only list Bindings that have all of the specified Tags. The following implicit tags are available: `all`, `apn`, `fcm`, `gcm`, `sms`, `facebook-messenger`. Up to 5 tags are allowed. */
   tag?: Array<string>;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { Date } [startDate] Only include usage that has occurred on or after this date. Specify the date in GMT and format as `YYYY-MM-DD`.
- * @property { Date } [endDate] Only include usage that occurred on or before this date. Specify the date in GMT and format as `YYYY-MM-DD`.
- * @property { Array<string> } [identity] The [User](https://www.twilio.com/docs/chat/rest/user-resource)\'s `identity` value of the resources to read.
- * @property { Array<string> } [tag] Only list Bindings that have all of the specified Tags. The following implicit tags are available: `all`, `apn`, `fcm`, `gcm`, `sms`, `facebook-messenger`. Up to 5 tags are allowed.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface BindingListInstancePageOptions {
+  /** Only include usage that has occurred on or after this date. Specify the date in GMT and format as `YYYY-MM-DD`. */
   startDate?: Date;
+  /** Only include usage that occurred on or before this date. Specify the date in GMT and format as `YYYY-MM-DD`. */
   endDate?: Date;
+  /** The [User](https://www.twilio.com/docs/chat/rest/user-resource)\'s `identity` value of the resources to read. */
   identity?: Array<string>;
+  /** Only list Bindings that have all of the specified Tags. The following implicit tags are available: `all`, `apn`, `fcm`, `gcm`, `sms`, `facebook-messenger`. Up to 5 tags are allowed. */
   tag?: Array<string>;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
@@ -123,9 +111,9 @@ export interface BindingContext {
   /**
    * Remove a BindingInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -134,9 +122,9 @@ export interface BindingContext {
   /**
    * Fetch a BindingInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed BindingInstance
+   * @returns Resolves to processed BindingInstance
    */
   fetch(
     callback?: (error: Error | null, item?: BindingInstance) => any
@@ -345,9 +333,9 @@ export class BindingInstance {
   /**
    * Remove a BindingInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -358,9 +346,9 @@ export class BindingInstance {
   /**
    * Fetch a BindingInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed BindingInstance
+   * @returns Resolves to processed BindingInstance
    */
   fetch(
     callback?: (error: Error | null, item?: BindingInstance) => any
@@ -412,10 +400,10 @@ export interface BindingListInstance {
   /**
    * Create a BindingInstance
    *
-   * @param { BindingListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed BindingInstance
+   * @returns Resolves to processed BindingInstance
    */
   create(
     params: BindingListInstanceCreateOptions,

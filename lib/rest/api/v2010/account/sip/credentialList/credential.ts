@@ -22,67 +22,54 @@ import { isValidPathParam } from "../../../../../../base/utility";
 
 /**
  * Options to pass to update a CredentialInstance
- *
- * @property { string } [password] The password that the username will use when authenticating SIP requests. The password must be a minimum of 12 characters, contain at least 1 digit, and have mixed case. (eg `IWasAtSignal2018`)
  */
 export interface CredentialContextUpdateOptions {
+  /** The password that the username will use when authenticating SIP requests. The password must be a minimum of 12 characters, contain at least 1 digit, and have mixed case. (eg `IWasAtSignal2018`) */
   password?: string;
 }
 
 /**
  * Options to pass to create a CredentialInstance
- *
- * @property { string } username The username that will be passed when authenticating SIP requests. The username should be sent in response to Twilio\\\'s challenge of the initial INVITE. It can be up to 32 characters long.
- * @property { string } password The password that the username will use when authenticating SIP requests. The password must be a minimum of 12 characters, contain at least 1 digit, and have mixed case. (eg `IWasAtSignal2018`)
  */
 export interface CredentialListInstanceCreateOptions {
+  /** The username that will be passed when authenticating SIP requests. The username should be sent in response to Twilio\\\'s challenge of the initial INVITE. It can be up to 32 characters long. */
   username: string;
+  /** The password that the username will use when authenticating SIP requests. The password must be a minimum of 12 characters, contain at least 1 digit, and have mixed case. (eg `IWasAtSignal2018`) */
   password: string;
 }
 /**
  * Options to pass to each
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface CredentialListInstanceEachOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: CredentialInstance, done: (err?: Error) => void) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface CredentialListInstanceOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface CredentialListInstancePageOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
@@ -90,9 +77,9 @@ export interface CredentialContext {
   /**
    * Remove a CredentialInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -101,9 +88,9 @@ export interface CredentialContext {
   /**
    * Fetch a CredentialInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed CredentialInstance
+   * @returns Resolves to processed CredentialInstance
    */
   fetch(
     callback?: (error: Error | null, item?: CredentialInstance) => any
@@ -112,9 +99,9 @@ export interface CredentialContext {
   /**
    * Update a CredentialInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed CredentialInstance
+   * @returns Resolves to processed CredentialInstance
    */
   update(
     callback?: (error: Error | null, item?: CredentialInstance) => any
@@ -122,10 +109,10 @@ export interface CredentialContext {
   /**
    * Update a CredentialInstance
    *
-   * @param { CredentialContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed CredentialInstance
+   * @returns Resolves to processed CredentialInstance
    */
   update(
     params: CredentialContextUpdateOptions,
@@ -349,9 +336,9 @@ export class CredentialInstance {
   /**
    * Remove a CredentialInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -362,9 +349,9 @@ export class CredentialInstance {
   /**
    * Fetch a CredentialInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed CredentialInstance
+   * @returns Resolves to processed CredentialInstance
    */
   fetch(
     callback?: (error: Error | null, item?: CredentialInstance) => any
@@ -375,9 +362,9 @@ export class CredentialInstance {
   /**
    * Update a CredentialInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed CredentialInstance
+   * @returns Resolves to processed CredentialInstance
    */
   update(
     callback?: (error: Error | null, item?: CredentialInstance) => any
@@ -385,10 +372,10 @@ export class CredentialInstance {
   /**
    * Update a CredentialInstance
    *
-   * @param { CredentialContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed CredentialInstance
+   * @returns Resolves to processed CredentialInstance
    */
   update(
     params: CredentialContextUpdateOptions,
@@ -436,10 +423,10 @@ export interface CredentialListInstance {
   /**
    * Create a CredentialInstance
    *
-   * @param { CredentialListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed CredentialInstance
+   * @returns Resolves to processed CredentialInstance
    */
   create(
     params: CredentialListInstanceCreateOptions,

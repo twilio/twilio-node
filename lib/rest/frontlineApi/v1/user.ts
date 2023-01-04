@@ -22,16 +22,15 @@ type UserStateType = "active" | "deactivated";
 
 /**
  * Options to pass to update a UserInstance
- *
- * @property { string } [friendlyName] The string that you assigned to describe the User.
- * @property { string } [avatar] The avatar URL which will be shown in Frontline application.
- * @property { UserStateType } [state]
- * @property { boolean } [isAvailable] Whether the User is available for new conversations. Set to `false` to prevent User from receiving new inbound conversations if you are using [Pool Routing](https://www.twilio.com/docs/frontline/handle-incoming-conversations#3-pool-routing).
  */
 export interface UserContextUpdateOptions {
+  /** The string that you assigned to describe the User. */
   friendlyName?: string;
+  /** The avatar URL which will be shown in Frontline application. */
   avatar?: string;
+  /**  */
   state?: UserStateType;
+  /** Whether the User is available for new conversations. Set to `false` to prevent User from receiving new inbound conversations if you are using [Pool Routing](https://www.twilio.com/docs/frontline/handle-incoming-conversations#3-pool-routing). */
   isAvailable?: boolean;
 }
 
@@ -39,9 +38,9 @@ export interface UserContext {
   /**
    * Fetch a UserInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed UserInstance
+   * @returns Resolves to processed UserInstance
    */
   fetch(
     callback?: (error: Error | null, item?: UserInstance) => any
@@ -50,9 +49,9 @@ export interface UserContext {
   /**
    * Update a UserInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed UserInstance
+   * @returns Resolves to processed UserInstance
    */
   update(
     callback?: (error: Error | null, item?: UserInstance) => any
@@ -60,10 +59,10 @@ export interface UserContext {
   /**
    * Update a UserInstance
    *
-   * @param { UserContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed UserInstance
+   * @returns Resolves to processed UserInstance
    */
   update(
     params: UserContextUpdateOptions,
@@ -233,9 +232,9 @@ export class UserInstance {
   /**
    * Fetch a UserInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed UserInstance
+   * @returns Resolves to processed UserInstance
    */
   fetch(
     callback?: (error: Error | null, item?: UserInstance) => any
@@ -246,9 +245,9 @@ export class UserInstance {
   /**
    * Update a UserInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed UserInstance
+   * @returns Resolves to processed UserInstance
    */
   update(
     callback?: (error: Error | null, item?: UserInstance) => any
@@ -256,10 +255,10 @@ export class UserInstance {
   /**
    * Update a UserInstance
    *
-   * @param { UserContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed UserInstance
+   * @returns Resolves to processed UserInstance
    */
   update(
     params: UserContextUpdateOptions,

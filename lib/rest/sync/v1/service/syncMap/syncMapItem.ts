@@ -26,108 +26,94 @@ type SyncMapItemQueryResultOrder = "asc" | "desc";
 
 /**
  * Options to pass to remove a SyncMapItemInstance
- *
- * @property { string } [ifMatch] If provided, applies this mutation if (and only if) the “revision” field of this [map item] matches the provided value. This matches the semantics of (and is implemented with) the HTTP [If-Match header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match).
  */
 export interface SyncMapItemContextRemoveOptions {
+  /** If provided, applies this mutation if (and only if) the “revision” field of this [map item] matches the provided value. This matches the semantics of (and is implemented with) the HTTP [If-Match header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match). */
   ifMatch?: string;
 }
 
 /**
  * Options to pass to update a SyncMapItemInstance
- *
- * @property { string } [ifMatch] If provided, applies this mutation if (and only if) the “revision” field of this [map item] matches the provided value. This matches the semantics of (and is implemented with) the HTTP [If-Match header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match).
- * @property { any } [data] A JSON string that represents an arbitrary, schema-less object that the Map Item stores. Can be up to 16 KiB in length.
- * @property { number } [ttl] An alias for `item_ttl`. If both parameters are provided, this value is ignored.
- * @property { number } [itemTtl] How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Map Item expires (time-to-live) and is deleted.
- * @property { number } [collectionTtl] How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Map Item\\\'s parent Sync Map expires (time-to-live) and is deleted. This parameter can only be used when the Map Item\\\'s `data` or `ttl` is updated in the same request.
  */
 export interface SyncMapItemContextUpdateOptions {
+  /** If provided, applies this mutation if (and only if) the “revision” field of this [map item] matches the provided value. This matches the semantics of (and is implemented with) the HTTP [If-Match header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match). */
   ifMatch?: string;
+  /** A JSON string that represents an arbitrary, schema-less object that the Map Item stores. Can be up to 16 KiB in length. */
   data?: any;
+  /** An alias for `item_ttl`. If both parameters are provided, this value is ignored. */
   ttl?: number;
+  /** How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Map Item expires (time-to-live) and is deleted. */
   itemTtl?: number;
+  /** How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Map Item\\\'s parent Sync Map expires (time-to-live) and is deleted. This parameter can only be used when the Map Item\\\'s `data` or `ttl` is updated in the same request. */
   collectionTtl?: number;
 }
 
 /**
  * Options to pass to create a SyncMapItemInstance
- *
- * @property { string } key The unique, user-defined key for the Map Item. Can be up to 320 characters long.
- * @property { any } data A JSON string that represents an arbitrary, schema-less object that the Map Item stores. Can be up to 16 KiB in length.
- * @property { number } [ttl] An alias for `item_ttl`. If both parameters are provided, this value is ignored.
- * @property { number } [itemTtl] How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Map Item expires (time-to-live) and is deleted.
- * @property { number } [collectionTtl] How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Map Item\\\'s parent Sync Map expires (time-to-live) and is deleted.
  */
 export interface SyncMapItemListInstanceCreateOptions {
+  /** The unique, user-defined key for the Map Item. Can be up to 320 characters long. */
   key: string;
+  /** A JSON string that represents an arbitrary, schema-less object that the Map Item stores. Can be up to 16 KiB in length. */
   data: any;
+  /** An alias for `item_ttl`. If both parameters are provided, this value is ignored. */
   ttl?: number;
+  /** How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Map Item expires (time-to-live) and is deleted. */
   itemTtl?: number;
+  /** How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Map Item\\\'s parent Sync Map expires (time-to-live) and is deleted. */
   collectionTtl?: number;
 }
 /**
  * Options to pass to each
- *
- * @property { SyncMapItemQueryResultOrder } [order] How to order the Map Items returned by their `key` value. Can be: `asc` (ascending) or `desc` (descending) and the default is ascending. Map Items are [ordered lexicographically](https://en.wikipedia.org/wiki/Lexicographical_order) by Item key.
- * @property { string } [from] The `key` of the first Sync Map Item resource to read. See also `bounds`.
- * @property { SyncMapItemQueryFromBoundType } [bounds] Whether to include the Map Item referenced by the `from` parameter. Can be: `inclusive` to include the Map Item referenced by the `from` parameter or `exclusive` to start with the next Map Item. The default value is `inclusive`.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface SyncMapItemListInstanceEachOptions {
+  /** How to order the Map Items returned by their `key` value. Can be: `asc` (ascending) or `desc` (descending) and the default is ascending. Map Items are [ordered lexicographically](https://en.wikipedia.org/wiki/Lexicographical_order) by Item key. */
   order?: SyncMapItemQueryResultOrder;
+  /** The `key` of the first Sync Map Item resource to read. See also `bounds`. */
   from?: string;
+  /** Whether to include the Map Item referenced by the `from` parameter. Can be: `inclusive` to include the Map Item referenced by the `from` parameter or `exclusive` to start with the next Map Item. The default value is `inclusive`. */
   bounds?: SyncMapItemQueryFromBoundType;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: SyncMapItemInstance, done: (err?: Error) => void) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { SyncMapItemQueryResultOrder } [order] How to order the Map Items returned by their `key` value. Can be: `asc` (ascending) or `desc` (descending) and the default is ascending. Map Items are [ordered lexicographically](https://en.wikipedia.org/wiki/Lexicographical_order) by Item key.
- * @property { string } [from] The `key` of the first Sync Map Item resource to read. See also `bounds`.
- * @property { SyncMapItemQueryFromBoundType } [bounds] Whether to include the Map Item referenced by the `from` parameter. Can be: `inclusive` to include the Map Item referenced by the `from` parameter or `exclusive` to start with the next Map Item. The default value is `inclusive`.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface SyncMapItemListInstanceOptions {
+  /** How to order the Map Items returned by their `key` value. Can be: `asc` (ascending) or `desc` (descending) and the default is ascending. Map Items are [ordered lexicographically](https://en.wikipedia.org/wiki/Lexicographical_order) by Item key. */
   order?: SyncMapItemQueryResultOrder;
+  /** The `key` of the first Sync Map Item resource to read. See also `bounds`. */
   from?: string;
+  /** Whether to include the Map Item referenced by the `from` parameter. Can be: `inclusive` to include the Map Item referenced by the `from` parameter or `exclusive` to start with the next Map Item. The default value is `inclusive`. */
   bounds?: SyncMapItemQueryFromBoundType;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { SyncMapItemQueryResultOrder } [order] How to order the Map Items returned by their `key` value. Can be: `asc` (ascending) or `desc` (descending) and the default is ascending. Map Items are [ordered lexicographically](https://en.wikipedia.org/wiki/Lexicographical_order) by Item key.
- * @property { string } [from] The `key` of the first Sync Map Item resource to read. See also `bounds`.
- * @property { SyncMapItemQueryFromBoundType } [bounds] Whether to include the Map Item referenced by the `from` parameter. Can be: `inclusive` to include the Map Item referenced by the `from` parameter or `exclusive` to start with the next Map Item. The default value is `inclusive`.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface SyncMapItemListInstancePageOptions {
+  /** How to order the Map Items returned by their `key` value. Can be: `asc` (ascending) or `desc` (descending) and the default is ascending. Map Items are [ordered lexicographically](https://en.wikipedia.org/wiki/Lexicographical_order) by Item key. */
   order?: SyncMapItemQueryResultOrder;
+  /** The `key` of the first Sync Map Item resource to read. See also `bounds`. */
   from?: string;
+  /** Whether to include the Map Item referenced by the `from` parameter. Can be: `inclusive` to include the Map Item referenced by the `from` parameter or `exclusive` to start with the next Map Item. The default value is `inclusive`. */
   bounds?: SyncMapItemQueryFromBoundType;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
@@ -135,9 +121,9 @@ export interface SyncMapItemContext {
   /**
    * Remove a SyncMapItemInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -145,10 +131,10 @@ export interface SyncMapItemContext {
   /**
    * Remove a SyncMapItemInstance
    *
-   * @param { SyncMapItemContextRemoveOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SyncMapItemInstance
+   * @returns Resolves to processed SyncMapItemInstance
    */
   remove(
     params: SyncMapItemContextRemoveOptions,
@@ -159,9 +145,9 @@ export interface SyncMapItemContext {
   /**
    * Fetch a SyncMapItemInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SyncMapItemInstance
+   * @returns Resolves to processed SyncMapItemInstance
    */
   fetch(
     callback?: (error: Error | null, item?: SyncMapItemInstance) => any
@@ -170,9 +156,9 @@ export interface SyncMapItemContext {
   /**
    * Update a SyncMapItemInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SyncMapItemInstance
+   * @returns Resolves to processed SyncMapItemInstance
    */
   update(
     callback?: (error: Error | null, item?: SyncMapItemInstance) => any
@@ -180,10 +166,10 @@ export interface SyncMapItemContext {
   /**
    * Update a SyncMapItemInstance
    *
-   * @param { SyncMapItemContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SyncMapItemInstance
+   * @returns Resolves to processed SyncMapItemInstance
    */
   update(
     params: SyncMapItemContextUpdateOptions,
@@ -453,9 +439,9 @@ export class SyncMapItemInstance {
   /**
    * Remove a SyncMapItemInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -463,10 +449,10 @@ export class SyncMapItemInstance {
   /**
    * Remove a SyncMapItemInstance
    *
-   * @param { SyncMapItemContextRemoveOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SyncMapItemInstance
+   * @returns Resolves to processed SyncMapItemInstance
    */
   remove(
     params: SyncMapItemContextRemoveOptions,
@@ -479,9 +465,9 @@ export class SyncMapItemInstance {
   /**
    * Fetch a SyncMapItemInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SyncMapItemInstance
+   * @returns Resolves to processed SyncMapItemInstance
    */
   fetch(
     callback?: (error: Error | null, item?: SyncMapItemInstance) => any
@@ -492,9 +478,9 @@ export class SyncMapItemInstance {
   /**
    * Update a SyncMapItemInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SyncMapItemInstance
+   * @returns Resolves to processed SyncMapItemInstance
    */
   update(
     callback?: (error: Error | null, item?: SyncMapItemInstance) => any
@@ -502,10 +488,10 @@ export class SyncMapItemInstance {
   /**
    * Update a SyncMapItemInstance
    *
-   * @param { SyncMapItemContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SyncMapItemInstance
+   * @returns Resolves to processed SyncMapItemInstance
    */
   update(
     params: SyncMapItemContextUpdateOptions,
@@ -557,10 +543,10 @@ export interface SyncMapItemListInstance {
   /**
    * Create a SyncMapItemInstance
    *
-   * @param { SyncMapItemListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SyncMapItemInstance
+   * @returns Resolves to processed SyncMapItemInstance
    */
   create(
     params: SyncMapItemListInstanceCreateOptions,

@@ -20,20 +20,19 @@ import { isValidPathParam } from "../../../base/utility";
 
 /**
  * Options to pass to create a CompositionSettingsInstance
- *
- * @property { string } friendlyName A descriptive string that you create to describe the resource and show to the user in the console
- * @property { string } [awsCredentialsSid] The SID of the stored Credential resource.
- * @property { string } [encryptionKeySid] The SID of the Public Key resource to use for encryption.
- * @property { string } [awsS3Url] The URL of the AWS S3 bucket where the compositions should be stored. We only support DNS-compliant URLs like `https://documentation-example-twilio-bucket/compositions`, where `compositions` is the path in which you want the compositions to be stored. This URL accepts only URI-valid characters, as described in the <a href=\\\'https://tools.ietf.org/html/rfc3986#section-2\\\'>RFC 3986</a>.
- * @property { boolean } [awsStorageEnabled] Whether all compositions should be written to the `aws_s3_url`. When `false`, all compositions are stored in our cloud.
- * @property { boolean } [encryptionEnabled] Whether all compositions should be stored in an encrypted form. The default is `false`.
  */
 export interface CompositionSettingsContextCreateOptions {
+  /** A descriptive string that you create to describe the resource and show to the user in the console */
   friendlyName: string;
+  /** The SID of the stored Credential resource. */
   awsCredentialsSid?: string;
+  /** The SID of the Public Key resource to use for encryption. */
   encryptionKeySid?: string;
+  /** The URL of the AWS S3 bucket where the compositions should be stored. We only support DNS-compliant URLs like `https://documentation-example-twilio-bucket/compositions`, where `compositions` is the path in which you want the compositions to be stored. This URL accepts only URI-valid characters, as described in the <a href=\\\'https://tools.ietf.org/html/rfc3986#section-2\\\'>RFC 3986</a>. */
   awsS3Url?: string;
+  /** Whether all compositions should be written to the `aws_s3_url`. When `false`, all compositions are stored in our cloud. */
   awsStorageEnabled?: boolean;
+  /** Whether all compositions should be stored in an encrypted form. The default is `false`. */
   encryptionEnabled?: boolean;
 }
 
@@ -41,10 +40,10 @@ export interface CompositionSettingsContext {
   /**
    * Create a CompositionSettingsInstance
    *
-   * @param { CompositionSettingsContextCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed CompositionSettingsInstance
+   * @returns Resolves to processed CompositionSettingsInstance
    */
   create(
     params: CompositionSettingsContextCreateOptions,
@@ -55,9 +54,9 @@ export interface CompositionSettingsContext {
   /**
    * Fetch a CompositionSettingsInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed CompositionSettingsInstance
+   * @returns Resolves to processed CompositionSettingsInstance
    */
   fetch(
     callback?: (error: Error | null, item?: CompositionSettingsInstance) => any
@@ -236,10 +235,10 @@ export class CompositionSettingsInstance {
   /**
    * Create a CompositionSettingsInstance
    *
-   * @param { CompositionSettingsContextCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed CompositionSettingsInstance
+   * @returns Resolves to processed CompositionSettingsInstance
    */
   create(
     params: CompositionSettingsContextCreateOptions,
@@ -252,9 +251,9 @@ export class CompositionSettingsInstance {
   /**
    * Fetch a CompositionSettingsInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed CompositionSettingsInstance
+   * @returns Resolves to processed CompositionSettingsInstance
    */
   fetch(
     callback?: (error: Error | null, item?: CompositionSettingsInstance) => any

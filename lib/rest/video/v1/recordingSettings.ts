@@ -20,20 +20,19 @@ import { isValidPathParam } from "../../../base/utility";
 
 /**
  * Options to pass to create a RecordingSettingsInstance
- *
- * @property { string } friendlyName A descriptive string that you create to describe the resource and be shown to users in the console
- * @property { string } [awsCredentialsSid] The SID of the stored Credential resource.
- * @property { string } [encryptionKeySid] The SID of the Public Key resource to use for encryption.
- * @property { string } [awsS3Url] The URL of the AWS S3 bucket where the recordings should be stored. We only support DNS-compliant URLs like `https://documentation-example-twilio-bucket/recordings`, where `recordings` is the path in which you want the recordings to be stored. This URL accepts only URI-valid characters, as described in the <a href=\\\'https://tools.ietf.org/html/rfc3986#section-2\\\'>RFC 3986</a>.
- * @property { boolean } [awsStorageEnabled] Whether all recordings should be written to the `aws_s3_url`. When `false`, all recordings are stored in our cloud.
- * @property { boolean } [encryptionEnabled] Whether all recordings should be stored in an encrypted form. The default is `false`.
  */
 export interface RecordingSettingsContextCreateOptions {
+  /** A descriptive string that you create to describe the resource and be shown to users in the console */
   friendlyName: string;
+  /** The SID of the stored Credential resource. */
   awsCredentialsSid?: string;
+  /** The SID of the Public Key resource to use for encryption. */
   encryptionKeySid?: string;
+  /** The URL of the AWS S3 bucket where the recordings should be stored. We only support DNS-compliant URLs like `https://documentation-example-twilio-bucket/recordings`, where `recordings` is the path in which you want the recordings to be stored. This URL accepts only URI-valid characters, as described in the <a href=\\\'https://tools.ietf.org/html/rfc3986#section-2\\\'>RFC 3986</a>. */
   awsS3Url?: string;
+  /** Whether all recordings should be written to the `aws_s3_url`. When `false`, all recordings are stored in our cloud. */
   awsStorageEnabled?: boolean;
+  /** Whether all recordings should be stored in an encrypted form. The default is `false`. */
   encryptionEnabled?: boolean;
 }
 
@@ -41,10 +40,10 @@ export interface RecordingSettingsContext {
   /**
    * Create a RecordingSettingsInstance
    *
-   * @param { RecordingSettingsContextCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed RecordingSettingsInstance
+   * @returns Resolves to processed RecordingSettingsInstance
    */
   create(
     params: RecordingSettingsContextCreateOptions,
@@ -55,9 +54,9 @@ export interface RecordingSettingsContext {
   /**
    * Fetch a RecordingSettingsInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed RecordingSettingsInstance
+   * @returns Resolves to processed RecordingSettingsInstance
    */
   fetch(
     callback?: (error: Error | null, item?: RecordingSettingsInstance) => any
@@ -234,10 +233,10 @@ export class RecordingSettingsInstance {
   /**
    * Create a RecordingSettingsInstance
    *
-   * @param { RecordingSettingsContextCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed RecordingSettingsInstance
+   * @returns Resolves to processed RecordingSettingsInstance
    */
   create(
     params: RecordingSettingsContextCreateOptions,
@@ -250,9 +249,9 @@ export class RecordingSettingsInstance {
   /**
    * Fetch a RecordingSettingsInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed RecordingSettingsInstance
+   * @returns Resolves to processed RecordingSettingsInstance
    */
   fetch(
     callback?: (error: Error | null, item?: RecordingSettingsInstance) => any

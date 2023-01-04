@@ -28,90 +28,78 @@ type IpCommandStatus = "queued" | "sent" | "received" | "failed";
 
 /**
  * Options to pass to create a IpCommandInstance
- *
- * @property { string } sim The `sid` or `unique_name` of the [Super SIM](https://www.twilio.com/docs/iot/supersim/api/sim-resource) to send the IP Command to.
- * @property { string } payload The data that will be sent to the device. The payload cannot exceed 1300 bytes. If the PayloadType is set to text, the payload is encoded in UTF-8. If PayloadType is set to binary, the payload is encoded in Base64.
- * @property { number } devicePort The device port to which the IP Command will be sent.
- * @property { IpCommandPayloadType } [payloadType]
- * @property { string } [callbackUrl] The URL we should call using the `callback_method` after we have sent the IP Command.
- * @property { string } [callbackMethod] The HTTP method we should use to call `callback_url`. Can be `GET` or `POST`, and the default is `POST`.
  */
 export interface IpCommandListInstanceCreateOptions {
+  /** The `sid` or `unique_name` of the [Super SIM](https://www.twilio.com/docs/iot/supersim/api/sim-resource) to send the IP Command to. */
   sim: string;
+  /** The data that will be sent to the device. The payload cannot exceed 1300 bytes. If the PayloadType is set to text, the payload is encoded in UTF-8. If PayloadType is set to binary, the payload is encoded in Base64. */
   payload: string;
+  /** The device port to which the IP Command will be sent. */
   devicePort: number;
+  /**  */
   payloadType?: IpCommandPayloadType;
+  /** The URL we should call using the `callback_method` after we have sent the IP Command. */
   callbackUrl?: string;
+  /** The HTTP method we should use to call `callback_url`. Can be `GET` or `POST`, and the default is `POST`. */
   callbackMethod?: string;
 }
 /**
  * Options to pass to each
- *
- * @property { string } [sim] The SID or unique name of the Sim resource that IP Command was sent to or from.
- * @property { string } [simIccid] The ICCID of the Sim resource that IP Command was sent to or from.
- * @property { IpCommandStatus } [status] The status of the IP Command. Can be: `queued`, `sent`, `received` or `failed`. See the [IP Command Status Values](https://www.twilio.com/docs/wireless/api/ipcommand-resource#status-values) for a description of each.
- * @property { IpCommandDirection } [direction] The direction of the IP Command. Can be `to_sim` or `from_sim`. The value of `to_sim` is synonymous with the term `mobile terminated`, and `from_sim` is synonymous with the term `mobile originated`.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface IpCommandListInstanceEachOptions {
+  /** The SID or unique name of the Sim resource that IP Command was sent to or from. */
   sim?: string;
+  /** The ICCID of the Sim resource that IP Command was sent to or from. */
   simIccid?: string;
+  /** The status of the IP Command. Can be: `queued`, `sent`, `received` or `failed`. See the [IP Command Status Values](https://www.twilio.com/docs/wireless/api/ipcommand-resource#status-values) for a description of each. */
   status?: IpCommandStatus;
+  /** The direction of the IP Command. Can be `to_sim` or `from_sim`. The value of `to_sim` is synonymous with the term `mobile terminated`, and `from_sim` is synonymous with the term `mobile originated`. */
   direction?: IpCommandDirection;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: IpCommandInstance, done: (err?: Error) => void) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { string } [sim] The SID or unique name of the Sim resource that IP Command was sent to or from.
- * @property { string } [simIccid] The ICCID of the Sim resource that IP Command was sent to or from.
- * @property { IpCommandStatus } [status] The status of the IP Command. Can be: `queued`, `sent`, `received` or `failed`. See the [IP Command Status Values](https://www.twilio.com/docs/wireless/api/ipcommand-resource#status-values) for a description of each.
- * @property { IpCommandDirection } [direction] The direction of the IP Command. Can be `to_sim` or `from_sim`. The value of `to_sim` is synonymous with the term `mobile terminated`, and `from_sim` is synonymous with the term `mobile originated`.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface IpCommandListInstanceOptions {
+  /** The SID or unique name of the Sim resource that IP Command was sent to or from. */
   sim?: string;
+  /** The ICCID of the Sim resource that IP Command was sent to or from. */
   simIccid?: string;
+  /** The status of the IP Command. Can be: `queued`, `sent`, `received` or `failed`. See the [IP Command Status Values](https://www.twilio.com/docs/wireless/api/ipcommand-resource#status-values) for a description of each. */
   status?: IpCommandStatus;
+  /** The direction of the IP Command. Can be `to_sim` or `from_sim`. The value of `to_sim` is synonymous with the term `mobile terminated`, and `from_sim` is synonymous with the term `mobile originated`. */
   direction?: IpCommandDirection;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { string } [sim] The SID or unique name of the Sim resource that IP Command was sent to or from.
- * @property { string } [simIccid] The ICCID of the Sim resource that IP Command was sent to or from.
- * @property { IpCommandStatus } [status] The status of the IP Command. Can be: `queued`, `sent`, `received` or `failed`. See the [IP Command Status Values](https://www.twilio.com/docs/wireless/api/ipcommand-resource#status-values) for a description of each.
- * @property { IpCommandDirection } [direction] The direction of the IP Command. Can be `to_sim` or `from_sim`. The value of `to_sim` is synonymous with the term `mobile terminated`, and `from_sim` is synonymous with the term `mobile originated`.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface IpCommandListInstancePageOptions {
+  /** The SID or unique name of the Sim resource that IP Command was sent to or from. */
   sim?: string;
+  /** The ICCID of the Sim resource that IP Command was sent to or from. */
   simIccid?: string;
+  /** The status of the IP Command. Can be: `queued`, `sent`, `received` or `failed`. See the [IP Command Status Values](https://www.twilio.com/docs/wireless/api/ipcommand-resource#status-values) for a description of each. */
   status?: IpCommandStatus;
+  /** The direction of the IP Command. Can be `to_sim` or `from_sim`. The value of `to_sim` is synonymous with the term `mobile terminated`, and `from_sim` is synonymous with the term `mobile originated`. */
   direction?: IpCommandDirection;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
@@ -119,9 +107,9 @@ export interface IpCommandContext {
   /**
    * Fetch a IpCommandInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed IpCommandInstance
+   * @returns Resolves to processed IpCommandInstance
    */
   fetch(
     callback?: (error: Error | null, item?: IpCommandInstance) => any
@@ -285,9 +273,9 @@ export class IpCommandInstance {
   /**
    * Fetch a IpCommandInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed IpCommandInstance
+   * @returns Resolves to processed IpCommandInstance
    */
   fetch(
     callback?: (error: Error | null, item?: IpCommandInstance) => any
@@ -336,10 +324,10 @@ export interface IpCommandListInstance {
   /**
    * Create a IpCommandInstance
    *
-   * @param { IpCommandListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed IpCommandInstance
+   * @returns Resolves to processed IpCommandInstance
    */
   create(
     params: IpCommandListInstanceCreateOptions,

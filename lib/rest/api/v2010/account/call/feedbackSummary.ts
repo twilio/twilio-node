@@ -26,18 +26,17 @@ type CallFeedbackSummaryStatus =
 
 /**
  * Options to pass to create a FeedbackSummaryInstance
- *
- * @property { Date } startDate Only include feedback given on or after this date. Format is `YYYY-MM-DD` and specified in UTC.
- * @property { Date } endDate Only include feedback given on or before this date. Format is `YYYY-MM-DD` and specified in UTC.
- * @property { boolean } [includeSubaccounts] Whether to also include Feedback resources from all subaccounts. `true` includes feedback from all subaccounts and `false`, the default, includes feedback from only the specified account.
- * @property { string } [statusCallback] The URL that we will request when the feedback summary is complete.
- * @property { string } [statusCallbackMethod] The HTTP method (`GET` or `POST`) we use to make the request to the `StatusCallback` URL.
  */
 export interface FeedbackSummaryListInstanceCreateOptions {
+  /** Only include feedback given on or after this date. Format is `YYYY-MM-DD` and specified in UTC. */
   startDate: Date;
+  /** Only include feedback given on or before this date. Format is `YYYY-MM-DD` and specified in UTC. */
   endDate: Date;
+  /** Whether to also include Feedback resources from all subaccounts. `true` includes feedback from all subaccounts and `false`, the default, includes feedback from only the specified account. */
   includeSubaccounts?: boolean;
+  /** The URL that we will request when the feedback summary is complete. */
   statusCallback?: string;
+  /** The HTTP method (`GET` or `POST`) we use to make the request to the `StatusCallback` URL. */
   statusCallbackMethod?: string;
 }
 
@@ -45,9 +44,9 @@ export interface FeedbackSummaryContext {
   /**
    * Remove a FeedbackSummaryInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -56,9 +55,9 @@ export interface FeedbackSummaryContext {
   /**
    * Fetch a FeedbackSummaryInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed FeedbackSummaryInstance
+   * @returns Resolves to processed FeedbackSummaryInstance
    */
   fetch(
     callback?: (error: Error | null, item?: FeedbackSummaryInstance) => any
@@ -263,9 +262,9 @@ export class FeedbackSummaryInstance {
   /**
    * Remove a FeedbackSummaryInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -276,9 +275,9 @@ export class FeedbackSummaryInstance {
   /**
    * Fetch a FeedbackSummaryInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed FeedbackSummaryInstance
+   * @returns Resolves to processed FeedbackSummaryInstance
    */
   fetch(
     callback?: (error: Error | null, item?: FeedbackSummaryInstance) => any
@@ -330,10 +329,10 @@ export interface FeedbackSummaryListInstance {
   /**
    * Create a FeedbackSummaryInstance
    *
-   * @param { FeedbackSummaryListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed FeedbackSummaryInstance
+   * @returns Resolves to processed FeedbackSummaryInstance
    */
   create(
     params: FeedbackSummaryListInstanceCreateOptions,

@@ -28,81 +28,68 @@ type SinkStatus = "initialized" | "validating" | "active" | "failed";
 
 /**
  * Options to pass to update a SinkInstance
- *
- * @property { string } description A human readable description for the Sink **This value should not contain PII.**
  */
 export interface SinkContextUpdateOptions {
+  /** A human readable description for the Sink **This value should not contain PII.** */
   description: string;
 }
 
 /**
  * Options to pass to create a SinkInstance
- *
- * @property { string } description A human readable description for the Sink **This value should not contain PII.**
- * @property { any } sinkConfiguration The information required for Twilio to connect to the provided Sink encoded as JSON.
- * @property { SinkSinkType } sinkType
  */
 export interface SinkListInstanceCreateOptions {
+  /** A human readable description for the Sink **This value should not contain PII.** */
   description: string;
+  /** The information required for Twilio to connect to the provided Sink encoded as JSON. */
   sinkConfiguration: any;
+  /**  */
   sinkType: SinkSinkType;
 }
 /**
  * Options to pass to each
- *
- * @property { boolean } [inUse] A boolean query parameter filtering the results to return sinks used/not used by a subscription.
- * @property { string } [status] A String query parameter filtering the results by status `initialized`, `validating`, `active` or `failed`.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface SinkListInstanceEachOptions {
+  /** A boolean query parameter filtering the results to return sinks used/not used by a subscription. */
   inUse?: boolean;
+  /** A String query parameter filtering the results by status `initialized`, `validating`, `active` or `failed`. */
   status?: string;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: SinkInstance, done: (err?: Error) => void) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { boolean } [inUse] A boolean query parameter filtering the results to return sinks used/not used by a subscription.
- * @property { string } [status] A String query parameter filtering the results by status `initialized`, `validating`, `active` or `failed`.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface SinkListInstanceOptions {
+  /** A boolean query parameter filtering the results to return sinks used/not used by a subscription. */
   inUse?: boolean;
+  /** A String query parameter filtering the results by status `initialized`, `validating`, `active` or `failed`. */
   status?: string;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { boolean } [inUse] A boolean query parameter filtering the results to return sinks used/not used by a subscription.
- * @property { string } [status] A String query parameter filtering the results by status `initialized`, `validating`, `active` or `failed`.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface SinkListInstancePageOptions {
+  /** A boolean query parameter filtering the results to return sinks used/not used by a subscription. */
   inUse?: boolean;
+  /** A String query parameter filtering the results by status `initialized`, `validating`, `active` or `failed`. */
   status?: string;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
@@ -113,9 +100,9 @@ export interface SinkContext {
   /**
    * Remove a SinkInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -124,9 +111,9 @@ export interface SinkContext {
   /**
    * Fetch a SinkInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SinkInstance
+   * @returns Resolves to processed SinkInstance
    */
   fetch(
     callback?: (error: Error | null, item?: SinkInstance) => any
@@ -135,10 +122,10 @@ export interface SinkContext {
   /**
    * Update a SinkInstance
    *
-   * @param { SinkContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SinkInstance
+   * @returns Resolves to processed SinkInstance
    */
   update(
     params: SinkContextUpdateOptions,
@@ -346,9 +333,9 @@ export class SinkInstance {
   /**
    * Remove a SinkInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -359,9 +346,9 @@ export class SinkInstance {
   /**
    * Fetch a SinkInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SinkInstance
+   * @returns Resolves to processed SinkInstance
    */
   fetch(
     callback?: (error: Error | null, item?: SinkInstance) => any
@@ -372,10 +359,10 @@ export class SinkInstance {
   /**
    * Update a SinkInstance
    *
-   * @param { SinkContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SinkInstance
+   * @returns Resolves to processed SinkInstance
    */
   update(
     params: SinkContextUpdateOptions,
@@ -436,10 +423,10 @@ export interface SinkListInstance {
   /**
    * Create a SinkInstance
    *
-   * @param { SinkListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SinkInstance
+   * @returns Resolves to processed SinkInstance
    */
   create(
     params: SinkListInstanceCreateOptions,

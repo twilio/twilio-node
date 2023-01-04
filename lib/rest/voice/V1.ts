@@ -25,53 +25,58 @@ export default class V1 extends Version {
   /**
    * Initialize the V1 version of Voice
    *
-   * @property { Twilio.Voice.V1.ArchivedCallListInstance } archivedCalls - archivedCalls resource
-   * @property { Twilio.Voice.V1.ByocTrunkListInstance } byocTrunks - byocTrunks resource
-   * @property { Twilio.Voice.V1.ConnectionPolicyListInstance } connectionPolicies - connectionPolicies resource
-   * @property { Twilio.Voice.V1.DialingPermissionsListInstance } dialingPermissions - dialingPermissions resource
-   * @property { Twilio.Voice.V1.IpRecordListInstance } ipRecords - ipRecords resource
-   * @property { Twilio.Voice.V1.SourceIpMappingListInstance } sourceIpMappings - sourceIpMappings resource
-   *
-   * @param { Twilio.Voice } domain - The Twilio domain
+   * @param domain - The Twilio (Twilio.Voice) domain
    */
   constructor(domain: VoiceBase) {
     super(domain, "v1");
   }
 
+  /** archivedCalls - { Twilio.Voice.V1.ArchivedCallListInstance } resource */
   protected _archivedCalls?: ArchivedCallListInstance;
+  /** byocTrunks - { Twilio.Voice.V1.ByocTrunkListInstance } resource */
   protected _byocTrunks?: ByocTrunkListInstance;
+  /** connectionPolicies - { Twilio.Voice.V1.ConnectionPolicyListInstance } resource */
   protected _connectionPolicies?: ConnectionPolicyListInstance;
+  /** dialingPermissions - { Twilio.Voice.V1.DialingPermissionsListInstance } resource */
   protected _dialingPermissions?: DialingPermissionsListInstance;
+  /** ipRecords - { Twilio.Voice.V1.IpRecordListInstance } resource */
   protected _ipRecords?: IpRecordListInstance;
+  /** sourceIpMappings - { Twilio.Voice.V1.SourceIpMappingListInstance } resource */
   protected _sourceIpMappings?: SourceIpMappingListInstance;
 
+  /** Getter for archivedCalls resource */
   get archivedCalls(): ArchivedCallListInstance {
     this._archivedCalls = this._archivedCalls || ArchivedCallListInstance(this);
     return this._archivedCalls;
   }
 
+  /** Getter for byocTrunks resource */
   get byocTrunks(): ByocTrunkListInstance {
     this._byocTrunks = this._byocTrunks || ByocTrunkListInstance(this);
     return this._byocTrunks;
   }
 
+  /** Getter for connectionPolicies resource */
   get connectionPolicies(): ConnectionPolicyListInstance {
     this._connectionPolicies =
       this._connectionPolicies || ConnectionPolicyListInstance(this);
     return this._connectionPolicies;
   }
 
+  /** Getter for dialingPermissions resource */
   get dialingPermissions(): DialingPermissionsListInstance {
     this._dialingPermissions =
       this._dialingPermissions || DialingPermissionsListInstance(this);
     return this._dialingPermissions;
   }
 
+  /** Getter for ipRecords resource */
   get ipRecords(): IpRecordListInstance {
     this._ipRecords = this._ipRecords || IpRecordListInstance(this);
     return this._ipRecords;
   }
 
+  /** Getter for sourceIpMappings resource */
   get sourceIpMappings(): SourceIpMappingListInstance {
     this._sourceIpMappings =
       this._sourceIpMappings || SourceIpMappingListInstance(this);

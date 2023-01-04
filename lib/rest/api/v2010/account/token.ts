@@ -27,10 +27,9 @@ export class ApiV2010AccountTokenIceServers {
 
 /**
  * Options to pass to create a TokenInstance
- *
- * @property { number } [ttl] The duration in seconds for which the generated credentials are valid. The default value is 86400 (24 hours).
  */
 export interface TokenListInstanceCreateOptions {
+  /** The duration in seconds for which the generated credentials are valid. The default value is 86400 (24 hours). */
   ttl?: number;
 }
 
@@ -46,9 +45,9 @@ export interface TokenListInstance {
   /**
    * Create a TokenInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed TokenInstance
+   * @returns Resolves to processed TokenInstance
    */
   create(
     callback?: (error: Error | null, item?: TokenInstance) => any
@@ -56,10 +55,10 @@ export interface TokenListInstance {
   /**
    * Create a TokenInstance
    *
-   * @param { TokenListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed TokenInstance
+   * @returns Resolves to processed TokenInstance
    */
   create(
     params: TokenListInstanceCreateOptions,

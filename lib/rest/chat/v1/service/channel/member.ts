@@ -22,75 +22,62 @@ import { isValidPathParam } from "../../../../../base/utility";
 
 /**
  * Options to pass to update a MemberInstance
- *
- * @property { string } [roleSid] The SID of the [Role](https://www.twilio.com/docs/api/chat/rest/roles) to assign to the member. The default roles are those specified on the [Service](https://www.twilio.com/docs/chat/api/services).
- * @property { number } [lastConsumedMessageIndex] The index of the last [Message](https://www.twilio.com/docs/api/chat/rest/messages) that the Member has read within the [Channel](https://www.twilio.com/docs/api/chat/rest/channels).
  */
 export interface MemberContextUpdateOptions {
+  /** The SID of the [Role](https://www.twilio.com/docs/api/chat/rest/roles) to assign to the member. The default roles are those specified on the [Service](https://www.twilio.com/docs/chat/api/services). */
   roleSid?: string;
+  /** The index of the last [Message](https://www.twilio.com/docs/api/chat/rest/messages) that the Member has read within the [Channel](https://www.twilio.com/docs/api/chat/rest/channels). */
   lastConsumedMessageIndex?: number;
 }
 
 /**
  * Options to pass to create a MemberInstance
- *
- * @property { string } identity The `identity` value that uniquely identifies the new resource\\\'s [User](https://www.twilio.com/docs/api/chat/rest/v1/user) within the [Service](https://www.twilio.com/docs/api/chat/rest/services). See [access tokens](https://www.twilio.com/docs/api/chat/guides/create-tokens) for more details.
- * @property { string } [roleSid] The SID of the [Role](https://www.twilio.com/docs/api/chat/rest/roles) to assign to the member. The default roles are those specified on the [Service](https://www.twilio.com/docs/chat/api/services).
  */
 export interface MemberListInstanceCreateOptions {
+  /** The `identity` value that uniquely identifies the new resource\\\'s [User](https://www.twilio.com/docs/api/chat/rest/v1/user) within the [Service](https://www.twilio.com/docs/api/chat/rest/services). See [access tokens](https://www.twilio.com/docs/api/chat/guides/create-tokens) for more details. */
   identity: string;
+  /** The SID of the [Role](https://www.twilio.com/docs/api/chat/rest/roles) to assign to the member. The default roles are those specified on the [Service](https://www.twilio.com/docs/chat/api/services). */
   roleSid?: string;
 }
 /**
  * Options to pass to each
- *
- * @property { Array<string> } [identity] The [User](https://www.twilio.com/docs/api/chat/rest/v1/user)\'s `identity` value of the resources to read. See [access tokens](https://www.twilio.com/docs/api/chat/guides/create-tokens) for more details.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface MemberListInstanceEachOptions {
+  /** The [User](https://www.twilio.com/docs/api/chat/rest/v1/user)\'s `identity` value of the resources to read. See [access tokens](https://www.twilio.com/docs/api/chat/guides/create-tokens) for more details. */
   identity?: Array<string>;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: MemberInstance, done: (err?: Error) => void) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { Array<string> } [identity] The [User](https://www.twilio.com/docs/api/chat/rest/v1/user)\'s `identity` value of the resources to read. See [access tokens](https://www.twilio.com/docs/api/chat/guides/create-tokens) for more details.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface MemberListInstanceOptions {
+  /** The [User](https://www.twilio.com/docs/api/chat/rest/v1/user)\'s `identity` value of the resources to read. See [access tokens](https://www.twilio.com/docs/api/chat/guides/create-tokens) for more details. */
   identity?: Array<string>;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { Array<string> } [identity] The [User](https://www.twilio.com/docs/api/chat/rest/v1/user)\'s `identity` value of the resources to read. See [access tokens](https://www.twilio.com/docs/api/chat/guides/create-tokens) for more details.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface MemberListInstancePageOptions {
+  /** The [User](https://www.twilio.com/docs/api/chat/rest/v1/user)\'s `identity` value of the resources to read. See [access tokens](https://www.twilio.com/docs/api/chat/guides/create-tokens) for more details. */
   identity?: Array<string>;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
@@ -98,9 +85,9 @@ export interface MemberContext {
   /**
    * Remove a MemberInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -109,9 +96,9 @@ export interface MemberContext {
   /**
    * Fetch a MemberInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed MemberInstance
+   * @returns Resolves to processed MemberInstance
    */
   fetch(
     callback?: (error: Error | null, item?: MemberInstance) => any
@@ -120,9 +107,9 @@ export interface MemberContext {
   /**
    * Update a MemberInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed MemberInstance
+   * @returns Resolves to processed MemberInstance
    */
   update(
     callback?: (error: Error | null, item?: MemberInstance) => any
@@ -130,10 +117,10 @@ export interface MemberContext {
   /**
    * Update a MemberInstance
    *
-   * @param { MemberContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed MemberInstance
+   * @returns Resolves to processed MemberInstance
    */
   update(
     params: MemberContextUpdateOptions,
@@ -387,9 +374,9 @@ export class MemberInstance {
   /**
    * Remove a MemberInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -400,9 +387,9 @@ export class MemberInstance {
   /**
    * Fetch a MemberInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed MemberInstance
+   * @returns Resolves to processed MemberInstance
    */
   fetch(
     callback?: (error: Error | null, item?: MemberInstance) => any
@@ -413,9 +400,9 @@ export class MemberInstance {
   /**
    * Update a MemberInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed MemberInstance
+   * @returns Resolves to processed MemberInstance
    */
   update(
     callback?: (error: Error | null, item?: MemberInstance) => any
@@ -423,10 +410,10 @@ export class MemberInstance {
   /**
    * Update a MemberInstance
    *
-   * @param { MemberContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed MemberInstance
+   * @returns Resolves to processed MemberInstance
    */
   update(
     params: MemberContextUpdateOptions,
@@ -478,10 +465,10 @@ export interface MemberListInstance {
   /**
    * Create a MemberInstance
    *
-   * @param { MemberListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed MemberInstance
+   * @returns Resolves to processed MemberInstance
    */
   create(
     params: MemberListInstanceCreateOptions,

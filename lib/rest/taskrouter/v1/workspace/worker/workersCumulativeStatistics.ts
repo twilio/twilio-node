@@ -20,16 +20,15 @@ import { isValidPathParam } from "../../../../../base/utility";
 
 /**
  * Options to pass to fetch a WorkersCumulativeStatisticsInstance
- *
- * @property { Date } [endDate] Only calculate statistics from this date and time and earlier, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
- * @property { number } [minutes] Only calculate statistics since this many minutes in the past. The default 15 minutes. This is helpful for displaying statistics for the last 15 minutes, 240 minutes (4 hours), and 480 minutes (8 hours) to see trends.
- * @property { Date } [startDate] Only calculate statistics from this date and time and later, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
- * @property { string } [taskChannel] Only calculate cumulative statistics on this TaskChannel. Can be the TaskChannel\'s SID or its `unique_name`, such as `voice`, `sms`, or `default`.
  */
 export interface WorkersCumulativeStatisticsContextFetchOptions {
+  /** Only calculate statistics from this date and time and earlier, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. */
   endDate?: Date;
+  /** Only calculate statistics since this many minutes in the past. The default 15 minutes. This is helpful for displaying statistics for the last 15 minutes, 240 minutes (4 hours), and 480 minutes (8 hours) to see trends. */
   minutes?: number;
+  /** Only calculate statistics from this date and time and later, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. */
   startDate?: Date;
+  /** Only calculate cumulative statistics on this TaskChannel. Can be the TaskChannel\'s SID or its `unique_name`, such as `voice`, `sms`, or `default`. */
   taskChannel?: string;
 }
 
@@ -37,9 +36,9 @@ export interface WorkersCumulativeStatisticsContext {
   /**
    * Fetch a WorkersCumulativeStatisticsInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed WorkersCumulativeStatisticsInstance
+   * @returns Resolves to processed WorkersCumulativeStatisticsInstance
    */
   fetch(
     callback?: (
@@ -50,10 +49,10 @@ export interface WorkersCumulativeStatisticsContext {
   /**
    * Fetch a WorkersCumulativeStatisticsInstance
    *
-   * @param { WorkersCumulativeStatisticsContextFetchOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed WorkersCumulativeStatisticsInstance
+   * @returns Resolves to processed WorkersCumulativeStatisticsInstance
    */
   fetch(
     params: WorkersCumulativeStatisticsContextFetchOptions,
@@ -272,9 +271,9 @@ export class WorkersCumulativeStatisticsInstance {
   /**
    * Fetch a WorkersCumulativeStatisticsInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed WorkersCumulativeStatisticsInstance
+   * @returns Resolves to processed WorkersCumulativeStatisticsInstance
    */
   fetch(
     callback?: (
@@ -285,10 +284,10 @@ export class WorkersCumulativeStatisticsInstance {
   /**
    * Fetch a WorkersCumulativeStatisticsInstance
    *
-   * @param { WorkersCumulativeStatisticsContextFetchOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed WorkersCumulativeStatisticsInstance
+   * @returns Resolves to processed WorkersCumulativeStatisticsInstance
    */
   fetch(
     params: WorkersCumulativeStatisticsContextFetchOptions,

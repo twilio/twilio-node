@@ -24,66 +24,55 @@ type RegulationEndUserType = "individual" | "business";
 
 /**
  * Options to pass to each
- *
- * @property { RegulationEndUserType } [endUserType] The type of End User the regulation requires - can be `individual` or `business`.
- * @property { string } [isoCountry] The ISO country code of the phone number\'s country.
- * @property { string } [numberType] The type of phone number that the regulatory requiremnt is restricting.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface RegulationListInstanceEachOptions {
+  /** The type of End User the regulation requires - can be `individual` or `business`. */
   endUserType?: RegulationEndUserType;
+  /** The ISO country code of the phone number\'s country. */
   isoCountry?: string;
+  /** The type of phone number that the regulatory requiremnt is restricting. */
   numberType?: string;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: RegulationInstance, done: (err?: Error) => void) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { RegulationEndUserType } [endUserType] The type of End User the regulation requires - can be `individual` or `business`.
- * @property { string } [isoCountry] The ISO country code of the phone number\'s country.
- * @property { string } [numberType] The type of phone number that the regulatory requiremnt is restricting.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface RegulationListInstanceOptions {
+  /** The type of End User the regulation requires - can be `individual` or `business`. */
   endUserType?: RegulationEndUserType;
+  /** The ISO country code of the phone number\'s country. */
   isoCountry?: string;
+  /** The type of phone number that the regulatory requiremnt is restricting. */
   numberType?: string;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { RegulationEndUserType } [endUserType] The type of End User the regulation requires - can be `individual` or `business`.
- * @property { string } [isoCountry] The ISO country code of the phone number\'s country.
- * @property { string } [numberType] The type of phone number that the regulatory requiremnt is restricting.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface RegulationListInstancePageOptions {
+  /** The type of End User the regulation requires - can be `individual` or `business`. */
   endUserType?: RegulationEndUserType;
+  /** The ISO country code of the phone number\'s country. */
   isoCountry?: string;
+  /** The type of phone number that the regulatory requiremnt is restricting. */
   numberType?: string;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
@@ -91,9 +80,9 @@ export interface RegulationContext {
   /**
    * Fetch a RegulationInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed RegulationInstance
+   * @returns Resolves to processed RegulationInstance
    */
   fetch(
     callback?: (error: Error | null, item?: RegulationInstance) => any
@@ -231,9 +220,9 @@ export class RegulationInstance {
   /**
    * Fetch a RegulationInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed RegulationInstance
+   * @returns Resolves to processed RegulationInstance
    */
   fetch(
     callback?: (error: Error | null, item?: RegulationInstance) => any

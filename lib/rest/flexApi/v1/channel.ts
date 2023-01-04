@@ -22,74 +22,62 @@ import { isValidPathParam } from "../../../base/utility";
 
 /**
  * Options to pass to create a ChannelInstance
- *
- * @property { string } flexFlowSid The SID of the Flex Flow.
- * @property { string } identity The `identity` value that uniquely identifies the new resource\\\'s chat User.
- * @property { string } chatUserFriendlyName The chat participant\\\'s friendly name.
- * @property { string } chatFriendlyName The chat channel\\\'s friendly name.
- * @property { string } [target] The Target Contact Identity, for example the phone number of an SMS.
- * @property { string } [chatUniqueName] The chat channel\\\'s unique name.
- * @property { string } [preEngagementData] The pre-engagement data.
- * @property { string } [taskSid] The SID of the TaskRouter Task. Only valid when integration type is `task`. `null` for integration types `studio` & `external`
- * @property { string } [taskAttributes] The Task attributes to be added for the TaskRouter Task.
- * @property { boolean } [longLived] Whether to create the channel as long-lived.
  */
 export interface ChannelListInstanceCreateOptions {
+  /** The SID of the Flex Flow. */
   flexFlowSid: string;
+  /** The `identity` value that uniquely identifies the new resource\\\'s chat User. */
   identity: string;
+  /** The chat participant\\\'s friendly name. */
   chatUserFriendlyName: string;
+  /** The chat channel\\\'s friendly name. */
   chatFriendlyName: string;
+  /** The Target Contact Identity, for example the phone number of an SMS. */
   target?: string;
+  /** The chat channel\\\'s unique name. */
   chatUniqueName?: string;
+  /** The pre-engagement data. */
   preEngagementData?: string;
+  /** The SID of the TaskRouter Task. Only valid when integration type is `task`. `null` for integration types `studio` & `external` */
   taskSid?: string;
+  /** The Task attributes to be added for the TaskRouter Task. */
   taskAttributes?: string;
+  /** Whether to create the channel as long-lived. */
   longLived?: boolean;
 }
 /**
  * Options to pass to each
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface ChannelListInstanceEachOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: ChannelInstance, done: (err?: Error) => void) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface ChannelListInstanceOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface ChannelListInstancePageOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
@@ -97,9 +85,9 @@ export interface ChannelContext {
   /**
    * Remove a ChannelInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -108,9 +96,9 @@ export interface ChannelContext {
   /**
    * Fetch a ChannelInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ChannelInstance
+   * @returns Resolves to processed ChannelInstance
    */
   fetch(
     callback?: (error: Error | null, item?: ChannelInstance) => any
@@ -264,9 +252,9 @@ export class ChannelInstance {
   /**
    * Remove a ChannelInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -277,9 +265,9 @@ export class ChannelInstance {
   /**
    * Fetch a ChannelInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ChannelInstance
+   * @returns Resolves to processed ChannelInstance
    */
   fetch(
     callback?: (error: Error | null, item?: ChannelInstance) => any
@@ -323,10 +311,10 @@ export interface ChannelListInstance {
   /**
    * Create a ChannelInstance
    *
-   * @param { ChannelListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ChannelInstance
+   * @returns Resolves to processed ChannelInstance
    */
   create(
     params: ChannelListInstanceCreateOptions,

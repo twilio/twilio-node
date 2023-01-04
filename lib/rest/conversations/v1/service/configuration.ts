@@ -22,16 +22,15 @@ import { WebhookListInstance } from "./configuration/webhook";
 
 /**
  * Options to pass to update a ConfigurationInstance
- *
- * @property { string } [defaultConversationCreatorRoleSid] The conversation-level role assigned to a conversation creator when they join a new conversation. See the [Conversation Role](https://www.twilio.com/docs/conversations/api/role-resource) for more info about roles.
- * @property { string } [defaultConversationRoleSid] The conversation-level role assigned to users when they are added to a conversation. See the [Conversation Role](https://www.twilio.com/docs/conversations/api/role-resource) for more info about roles.
- * @property { string } [defaultChatServiceRoleSid] The service-level role assigned to users when they are added to the service. See the [Conversation Role](https://www.twilio.com/docs/conversations/api/role-resource) for more info about roles.
- * @property { boolean } [reachabilityEnabled] Whether the [Reachability Indicator](https://www.twilio.com/docs/chat/reachability-indicator) is enabled for this Conversations Service. The default is `false`.
  */
 export interface ConfigurationContextUpdateOptions {
+  /** The conversation-level role assigned to a conversation creator when they join a new conversation. See the [Conversation Role](https://www.twilio.com/docs/conversations/api/role-resource) for more info about roles. */
   defaultConversationCreatorRoleSid?: string;
+  /** The conversation-level role assigned to users when they are added to a conversation. See the [Conversation Role](https://www.twilio.com/docs/conversations/api/role-resource) for more info about roles. */
   defaultConversationRoleSid?: string;
+  /** The service-level role assigned to users when they are added to the service. See the [Conversation Role](https://www.twilio.com/docs/conversations/api/role-resource) for more info about roles. */
   defaultChatServiceRoleSid?: string;
+  /** Whether the [Reachability Indicator](https://www.twilio.com/docs/chat/reachability-indicator) is enabled for this Conversations Service. The default is `false`. */
   reachabilityEnabled?: boolean;
 }
 
@@ -39,9 +38,9 @@ export interface ConfigurationContext {
   /**
    * Fetch a ConfigurationInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ConfigurationInstance
+   * @returns Resolves to processed ConfigurationInstance
    */
   fetch(
     callback?: (error: Error | null, item?: ConfigurationInstance) => any
@@ -50,9 +49,9 @@ export interface ConfigurationContext {
   /**
    * Update a ConfigurationInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ConfigurationInstance
+   * @returns Resolves to processed ConfigurationInstance
    */
   update(
     callback?: (error: Error | null, item?: ConfigurationInstance) => any
@@ -60,10 +59,10 @@ export interface ConfigurationContext {
   /**
    * Update a ConfigurationInstance
    *
-   * @param { ConfigurationContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ConfigurationInstance
+   * @returns Resolves to processed ConfigurationInstance
    */
   update(
     params: ConfigurationContextUpdateOptions,
@@ -258,9 +257,9 @@ export class ConfigurationInstance {
   /**
    * Fetch a ConfigurationInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ConfigurationInstance
+   * @returns Resolves to processed ConfigurationInstance
    */
   fetch(
     callback?: (error: Error | null, item?: ConfigurationInstance) => any
@@ -271,9 +270,9 @@ export class ConfigurationInstance {
   /**
    * Update a ConfigurationInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ConfigurationInstance
+   * @returns Resolves to processed ConfigurationInstance
    */
   update(
     callback?: (error: Error | null, item?: ConfigurationInstance) => any
@@ -281,10 +280,10 @@ export class ConfigurationInstance {
   /**
    * Update a ConfigurationInstance
    *
-   * @param { ConfigurationContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ConfigurationInstance
+   * @returns Resolves to processed ConfigurationInstance
    */
   update(
     params: ConfigurationContextUpdateOptions,

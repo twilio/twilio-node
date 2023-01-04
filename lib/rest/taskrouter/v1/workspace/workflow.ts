@@ -25,89 +25,76 @@ import { WorkflowStatisticsListInstance } from "./workflow/workflowStatistics";
 
 /**
  * Options to pass to update a WorkflowInstance
- *
- * @property { string } [friendlyName] A descriptive string that you create to describe the Workflow resource. For example, `Inbound Call Workflow` or `2014 Outbound Campaign`.
- * @property { string } [assignmentCallbackUrl] The URL from your application that will process task assignment events. See [Handling Task Assignment Callback](https://www.twilio.com/docs/taskrouter/handle-assignment-callbacks) for more details.
- * @property { string } [fallbackAssignmentCallbackUrl] The URL that we should call when a call to the `assignment_callback_url` fails.
- * @property { string } [configuration] A JSON string that contains the rules to apply to the Workflow. See [Configuring Workflows](https://www.twilio.com/docs/taskrouter/workflow-configuration) for more information.
- * @property { number } [taskReservationTimeout] How long TaskRouter will wait for a confirmation response from your application after it assigns a Task to a Worker. Can be up to `86,400` (24 hours) and the default is `120`.
- * @property { string } [reEvaluateTasks] Whether or not to re-evaluate Tasks. The default is `false`, which means Tasks in the Workflow will not be processed through the assignment loop again.
  */
 export interface WorkflowContextUpdateOptions {
+  /** A descriptive string that you create to describe the Workflow resource. For example, `Inbound Call Workflow` or `2014 Outbound Campaign`. */
   friendlyName?: string;
+  /** The URL from your application that will process task assignment events. See [Handling Task Assignment Callback](https://www.twilio.com/docs/taskrouter/handle-assignment-callbacks) for more details. */
   assignmentCallbackUrl?: string;
+  /** The URL that we should call when a call to the `assignment_callback_url` fails. */
   fallbackAssignmentCallbackUrl?: string;
+  /** A JSON string that contains the rules to apply to the Workflow. See [Configuring Workflows](https://www.twilio.com/docs/taskrouter/workflow-configuration) for more information. */
   configuration?: string;
+  /** How long TaskRouter will wait for a confirmation response from your application after it assigns a Task to a Worker. Can be up to `86,400` (24 hours) and the default is `120`. */
   taskReservationTimeout?: number;
+  /** Whether or not to re-evaluate Tasks. The default is `false`, which means Tasks in the Workflow will not be processed through the assignment loop again. */
   reEvaluateTasks?: string;
 }
 
 /**
  * Options to pass to create a WorkflowInstance
- *
- * @property { string } friendlyName A descriptive string that you create to describe the Workflow resource. For example, `Inbound Call Workflow` or `2014 Outbound Campaign`.
- * @property { string } configuration A JSON string that contains the rules to apply to the Workflow. See [Configuring Workflows](https://www.twilio.com/docs/taskrouter/workflow-configuration) for more information.
- * @property { string } [assignmentCallbackUrl] The URL from your application that will process task assignment events. See [Handling Task Assignment Callback](https://www.twilio.com/docs/taskrouter/handle-assignment-callbacks) for more details.
- * @property { string } [fallbackAssignmentCallbackUrl] The URL that we should call when a call to the `assignment_callback_url` fails.
- * @property { number } [taskReservationTimeout] How long TaskRouter will wait for a confirmation response from your application after it assigns a Task to a Worker. Can be up to `86,400` (24 hours) and the default is `120`.
  */
 export interface WorkflowListInstanceCreateOptions {
+  /** A descriptive string that you create to describe the Workflow resource. For example, `Inbound Call Workflow` or `2014 Outbound Campaign`. */
   friendlyName: string;
+  /** A JSON string that contains the rules to apply to the Workflow. See [Configuring Workflows](https://www.twilio.com/docs/taskrouter/workflow-configuration) for more information. */
   configuration: string;
+  /** The URL from your application that will process task assignment events. See [Handling Task Assignment Callback](https://www.twilio.com/docs/taskrouter/handle-assignment-callbacks) for more details. */
   assignmentCallbackUrl?: string;
+  /** The URL that we should call when a call to the `assignment_callback_url` fails. */
   fallbackAssignmentCallbackUrl?: string;
+  /** How long TaskRouter will wait for a confirmation response from your application after it assigns a Task to a Worker. Can be up to `86,400` (24 hours) and the default is `120`. */
   taskReservationTimeout?: number;
 }
 /**
  * Options to pass to each
- *
- * @property { string } [friendlyName] The `friendly_name` of the Workflow resources to read.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface WorkflowListInstanceEachOptions {
+  /** The `friendly_name` of the Workflow resources to read. */
   friendlyName?: string;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: WorkflowInstance, done: (err?: Error) => void) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { string } [friendlyName] The `friendly_name` of the Workflow resources to read.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface WorkflowListInstanceOptions {
+  /** The `friendly_name` of the Workflow resources to read. */
   friendlyName?: string;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { string } [friendlyName] The `friendly_name` of the Workflow resources to read.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface WorkflowListInstancePageOptions {
+  /** The `friendly_name` of the Workflow resources to read. */
   friendlyName?: string;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
@@ -119,9 +106,9 @@ export interface WorkflowContext {
   /**
    * Remove a WorkflowInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -130,9 +117,9 @@ export interface WorkflowContext {
   /**
    * Fetch a WorkflowInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed WorkflowInstance
+   * @returns Resolves to processed WorkflowInstance
    */
   fetch(
     callback?: (error: Error | null, item?: WorkflowInstance) => any
@@ -141,9 +128,9 @@ export interface WorkflowContext {
   /**
    * Update a WorkflowInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed WorkflowInstance
+   * @returns Resolves to processed WorkflowInstance
    */
   update(
     callback?: (error: Error | null, item?: WorkflowInstance) => any
@@ -151,10 +138,10 @@ export interface WorkflowContext {
   /**
    * Update a WorkflowInstance
    *
-   * @param { WorkflowContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed WorkflowInstance
+   * @returns Resolves to processed WorkflowInstance
    */
   update(
     params: WorkflowContextUpdateOptions,
@@ -452,9 +439,9 @@ export class WorkflowInstance {
   /**
    * Remove a WorkflowInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -465,9 +452,9 @@ export class WorkflowInstance {
   /**
    * Fetch a WorkflowInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed WorkflowInstance
+   * @returns Resolves to processed WorkflowInstance
    */
   fetch(
     callback?: (error: Error | null, item?: WorkflowInstance) => any
@@ -478,9 +465,9 @@ export class WorkflowInstance {
   /**
    * Update a WorkflowInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed WorkflowInstance
+   * @returns Resolves to processed WorkflowInstance
    */
   update(
     callback?: (error: Error | null, item?: WorkflowInstance) => any
@@ -488,10 +475,10 @@ export class WorkflowInstance {
   /**
    * Update a WorkflowInstance
    *
-   * @param { WorkflowContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed WorkflowInstance
+   * @returns Resolves to processed WorkflowInstance
    */
   update(
     params: WorkflowContextUpdateOptions,
@@ -565,10 +552,10 @@ export interface WorkflowListInstance {
   /**
    * Create a WorkflowInstance
    *
-   * @param { WorkflowListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed WorkflowInstance
+   * @returns Resolves to processed WorkflowInstance
    */
   create(
     params: WorkflowListInstanceCreateOptions,

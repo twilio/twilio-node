@@ -20,20 +20,19 @@ import { isValidPathParam } from "../../../../base/utility";
 
 /**
  * Options to pass to create a ValidationRequestInstance
- *
- * @property { string } phoneNumber The phone number to verify in [E.164](https://www.twilio.com/docs/glossary/what-e164) format, which consists of a + followed by the country code and subscriber number.
- * @property { string } [friendlyName] A descriptive string that you create to describe the new caller ID resource. It can be up to 64 characters long. The default value is a formatted version of the phone number.
- * @property { number } [callDelay] The number of seconds to delay before initiating the verification call. Can be an integer between `0` and `60`, inclusive. The default is `0`.
- * @property { string } [extension] The digits to dial after connecting the verification call.
- * @property { string } [statusCallback] The URL we should call using the `status_callback_method` to send status information about the verification process to your application.
- * @property { string } [statusCallbackMethod] The HTTP method we should use to call `status_callback`. Can be: `GET` or `POST`, and the default is `POST`.
  */
 export interface ValidationRequestListInstanceCreateOptions {
+  /** The phone number to verify in [E.164](https://www.twilio.com/docs/glossary/what-e164) format, which consists of a + followed by the country code and subscriber number. */
   phoneNumber: string;
+  /** A descriptive string that you create to describe the new caller ID resource. It can be up to 64 characters long. The default value is a formatted version of the phone number. */
   friendlyName?: string;
+  /** The number of seconds to delay before initiating the verification call. Can be an integer between `0` and `60`, inclusive. The default is `0`. */
   callDelay?: number;
+  /** The digits to dial after connecting the verification call. */
   extension?: string;
+  /** The URL we should call using the `status_callback_method` to send status information about the verification process to your application. */
   statusCallback?: string;
+  /** The HTTP method we should use to call `status_callback`. Can be: `GET` or `POST`, and the default is `POST`. */
   statusCallbackMethod?: string;
 }
 
@@ -49,10 +48,10 @@ export interface ValidationRequestListInstance {
   /**
    * Create a ValidationRequestInstance
    *
-   * @param { ValidationRequestListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ValidationRequestInstance
+   * @returns Resolves to processed ValidationRequestInstance
    */
   create(
     params: ValidationRequestListInstanceCreateOptions,

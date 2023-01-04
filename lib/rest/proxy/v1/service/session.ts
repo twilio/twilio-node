@@ -28,79 +28,66 @@ type SessionStatus = "open" | "in-progress" | "closed" | "failed" | "unknown";
 
 /**
  * Options to pass to update a SessionInstance
- *
- * @property { Date } [dateExpiry] The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date when the Session should expire. If this is value is present, it overrides the `ttl` value.
- * @property { number } [ttl] The time, in seconds, when the session will expire. The time is measured from the last Session create or the Session\\\'s last Interaction.
- * @property { SessionStatus } [status]
  */
 export interface SessionContextUpdateOptions {
+  /** The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date when the Session should expire. If this is value is present, it overrides the `ttl` value. */
   dateExpiry?: Date;
+  /** The time, in seconds, when the session will expire. The time is measured from the last Session create or the Session\\\'s last Interaction. */
   ttl?: number;
+  /**  */
   status?: SessionStatus;
 }
 
 /**
  * Options to pass to create a SessionInstance
- *
- * @property { string } [uniqueName] An application-defined string that uniquely identifies the resource. This value must be 191 characters or fewer in length and be unique. **This value should not have PII.**
- * @property { Date } [dateExpiry] The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date when the Session should expire. If this is value is present, it overrides the `ttl` value.
- * @property { number } [ttl] The time, in seconds, when the session will expire. The time is measured from the last Session create or the Session\\\'s last Interaction.
- * @property { SessionMode } [mode]
- * @property { SessionStatus } [status]
- * @property { Array<any> } [participants] The Participant objects to include in the new session.
  */
 export interface SessionListInstanceCreateOptions {
+  /** An application-defined string that uniquely identifies the resource. This value must be 191 characters or fewer in length and be unique. **This value should not have PII.** */
   uniqueName?: string;
+  /** The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date when the Session should expire. If this is value is present, it overrides the `ttl` value. */
   dateExpiry?: Date;
+  /** The time, in seconds, when the session will expire. The time is measured from the last Session create or the Session\\\'s last Interaction. */
   ttl?: number;
+  /**  */
   mode?: SessionMode;
+  /**  */
   status?: SessionStatus;
+  /** The Participant objects to include in the new session. */
   participants?: Array<any>;
 }
 /**
  * Options to pass to each
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface SessionListInstanceEachOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: SessionInstance, done: (err?: Error) => void) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface SessionListInstanceOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface SessionListInstancePageOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
@@ -111,9 +98,9 @@ export interface SessionContext {
   /**
    * Remove a SessionInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -122,9 +109,9 @@ export interface SessionContext {
   /**
    * Fetch a SessionInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SessionInstance
+   * @returns Resolves to processed SessionInstance
    */
   fetch(
     callback?: (error: Error | null, item?: SessionInstance) => any
@@ -133,9 +120,9 @@ export interface SessionContext {
   /**
    * Update a SessionInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SessionInstance
+   * @returns Resolves to processed SessionInstance
    */
   update(
     callback?: (error: Error | null, item?: SessionInstance) => any
@@ -143,10 +130,10 @@ export interface SessionContext {
   /**
    * Update a SessionInstance
    *
-   * @param { SessionContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SessionInstance
+   * @returns Resolves to processed SessionInstance
    */
   update(
     params: SessionContextUpdateOptions,
@@ -434,9 +421,9 @@ export class SessionInstance {
   /**
    * Remove a SessionInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -447,9 +434,9 @@ export class SessionInstance {
   /**
    * Fetch a SessionInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SessionInstance
+   * @returns Resolves to processed SessionInstance
    */
   fetch(
     callback?: (error: Error | null, item?: SessionInstance) => any
@@ -460,9 +447,9 @@ export class SessionInstance {
   /**
    * Update a SessionInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SessionInstance
+   * @returns Resolves to processed SessionInstance
    */
   update(
     callback?: (error: Error | null, item?: SessionInstance) => any
@@ -470,10 +457,10 @@ export class SessionInstance {
   /**
    * Update a SessionInstance
    *
-   * @param { SessionContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SessionInstance
+   * @returns Resolves to processed SessionInstance
    */
   update(
     params: SessionContextUpdateOptions,
@@ -543,9 +530,9 @@ export interface SessionListInstance {
   /**
    * Create a SessionInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SessionInstance
+   * @returns Resolves to processed SessionInstance
    */
   create(
     callback?: (error: Error | null, item?: SessionInstance) => any
@@ -553,10 +540,10 @@ export interface SessionListInstance {
   /**
    * Create a SessionInstance
    *
-   * @param { SessionListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SessionInstance
+   * @returns Resolves to processed SessionInstance
    */
   create(
     params: SessionListInstanceCreateOptions,

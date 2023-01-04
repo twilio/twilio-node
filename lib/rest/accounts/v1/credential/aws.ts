@@ -22,69 +22,56 @@ import { isValidPathParam } from "../../../../base/utility";
 
 /**
  * Options to pass to update a AwsInstance
- *
- * @property { string } [friendlyName] A descriptive string that you create to describe the resource. It can be up to 64 characters long.
  */
 export interface AwsContextUpdateOptions {
+  /** A descriptive string that you create to describe the resource. It can be up to 64 characters long. */
   friendlyName?: string;
 }
 
 /**
  * Options to pass to create a AwsInstance
- *
- * @property { string } credentials A string that contains the AWS access credentials in the format `<AWS_ACCESS_KEY_ID>:<AWS_SECRET_ACCESS_KEY>`. For example, `AKIAIOSFODNN7EXAMPLE:wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY`
- * @property { string } [friendlyName] A descriptive string that you create to describe the resource. It can be up to 64 characters long.
- * @property { string } [accountSid] The SID of the Subaccount that this Credential should be associated with. Must be a valid Subaccount of the account issuing the request.
  */
 export interface AwsListInstanceCreateOptions {
+  /** A string that contains the AWS access credentials in the format `<AWS_ACCESS_KEY_ID>:<AWS_SECRET_ACCESS_KEY>`. For example, `AKIAIOSFODNN7EXAMPLE:wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY` */
   credentials: string;
+  /** A descriptive string that you create to describe the resource. It can be up to 64 characters long. */
   friendlyName?: string;
+  /** The SID of the Subaccount that this Credential should be associated with. Must be a valid Subaccount of the account issuing the request. */
   accountSid?: string;
 }
 /**
  * Options to pass to each
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface AwsListInstanceEachOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: AwsInstance, done: (err?: Error) => void) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface AwsListInstanceOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface AwsListInstancePageOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
@@ -92,9 +79,9 @@ export interface AwsContext {
   /**
    * Remove a AwsInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -103,9 +90,9 @@ export interface AwsContext {
   /**
    * Fetch a AwsInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed AwsInstance
+   * @returns Resolves to processed AwsInstance
    */
   fetch(
     callback?: (error: Error | null, item?: AwsInstance) => any
@@ -114,9 +101,9 @@ export interface AwsContext {
   /**
    * Update a AwsInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed AwsInstance
+   * @returns Resolves to processed AwsInstance
    */
   update(
     callback?: (error: Error | null, item?: AwsInstance) => any
@@ -124,10 +111,10 @@ export interface AwsContext {
   /**
    * Update a AwsInstance
    *
-   * @param { AwsContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed AwsInstance
+   * @returns Resolves to processed AwsInstance
    */
   update(
     params: AwsContextUpdateOptions,
@@ -307,9 +294,9 @@ export class AwsInstance {
   /**
    * Remove a AwsInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -320,9 +307,9 @@ export class AwsInstance {
   /**
    * Fetch a AwsInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed AwsInstance
+   * @returns Resolves to processed AwsInstance
    */
   fetch(
     callback?: (error: Error | null, item?: AwsInstance) => any
@@ -333,9 +320,9 @@ export class AwsInstance {
   /**
    * Update a AwsInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed AwsInstance
+   * @returns Resolves to processed AwsInstance
    */
   update(
     callback?: (error: Error | null, item?: AwsInstance) => any
@@ -343,10 +330,10 @@ export class AwsInstance {
   /**
    * Update a AwsInstance
    *
-   * @param { AwsContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed AwsInstance
+   * @returns Resolves to processed AwsInstance
    */
   update(
     params: AwsContextUpdateOptions,
@@ -390,10 +377,10 @@ export interface AwsListInstance {
   /**
    * Create a AwsInstance
    *
-   * @param { AwsListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed AwsInstance
+   * @returns Resolves to processed AwsInstance
    */
   create(
     params: AwsListInstanceCreateOptions,

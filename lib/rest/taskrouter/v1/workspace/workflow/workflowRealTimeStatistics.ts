@@ -20,10 +20,9 @@ import { isValidPathParam } from "../../../../../base/utility";
 
 /**
  * Options to pass to fetch a WorkflowRealTimeStatisticsInstance
- *
- * @property { string } [taskChannel] Only calculate real-time statistics on this TaskChannel. Can be the TaskChannel\'s SID or its `unique_name`, such as `voice`, `sms`, or `default`.
  */
 export interface WorkflowRealTimeStatisticsContextFetchOptions {
+  /** Only calculate real-time statistics on this TaskChannel. Can be the TaskChannel\'s SID or its `unique_name`, such as `voice`, `sms`, or `default`. */
   taskChannel?: string;
 }
 
@@ -31,9 +30,9 @@ export interface WorkflowRealTimeStatisticsContext {
   /**
    * Fetch a WorkflowRealTimeStatisticsInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed WorkflowRealTimeStatisticsInstance
+   * @returns Resolves to processed WorkflowRealTimeStatisticsInstance
    */
   fetch(
     callback?: (
@@ -44,10 +43,10 @@ export interface WorkflowRealTimeStatisticsContext {
   /**
    * Fetch a WorkflowRealTimeStatisticsInstance
    *
-   * @param { WorkflowRealTimeStatisticsContextFetchOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed WorkflowRealTimeStatisticsInstance
+   * @returns Resolves to processed WorkflowRealTimeStatisticsInstance
    */
   fetch(
     params: WorkflowRealTimeStatisticsContextFetchOptions,
@@ -245,9 +244,9 @@ export class WorkflowRealTimeStatisticsInstance {
   /**
    * Fetch a WorkflowRealTimeStatisticsInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed WorkflowRealTimeStatisticsInstance
+   * @returns Resolves to processed WorkflowRealTimeStatisticsInstance
    */
   fetch(
     callback?: (
@@ -258,10 +257,10 @@ export class WorkflowRealTimeStatisticsInstance {
   /**
    * Fetch a WorkflowRealTimeStatisticsInstance
    *
-   * @param { WorkflowRealTimeStatisticsContextFetchOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed WorkflowRealTimeStatisticsInstance
+   * @returns Resolves to processed WorkflowRealTimeStatisticsInstance
    */
   fetch(
     params: WorkflowRealTimeStatisticsContextFetchOptions,

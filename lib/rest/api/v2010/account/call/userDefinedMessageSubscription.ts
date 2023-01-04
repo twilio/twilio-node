@@ -20,14 +20,13 @@ import { isValidPathParam } from "../../../../../base/utility";
 
 /**
  * Options to pass to create a UserDefinedMessageSubscriptionInstance
- *
- * @property { string } callback The URL we should call using the `method` to send user defined events to your application. URLs must contain a valid hostname (underscores are not permitted).
- * @property { string } [idempotencyKey] A unique string value to identify API call. This should be a unique string value per API call and can be a randomly generated.
- * @property { string } [method] The HTTP method Twilio will use when requesting the above `Url`. Either `GET` or `POST`.
  */
 export interface UserDefinedMessageSubscriptionListInstanceCreateOptions {
+  /** The URL we should call using the `method` to send user defined events to your application. URLs must contain a valid hostname (underscores are not permitted). */
   callback: string;
+  /** A unique string value to identify API call. This should be a unique string value per API call and can be a randomly generated. */
   idempotencyKey?: string;
+  /** The HTTP method Twilio will use when requesting the above `Url`. Either `GET` or `POST`. */
   method?: string;
 }
 
@@ -35,9 +34,9 @@ export interface UserDefinedMessageSubscriptionContext {
   /**
    * Remove a UserDefinedMessageSubscriptionInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -180,9 +179,9 @@ export class UserDefinedMessageSubscriptionInstance {
   /**
    * Remove a UserDefinedMessageSubscriptionInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -226,10 +225,10 @@ export interface UserDefinedMessageSubscriptionListInstance {
   /**
    * Create a UserDefinedMessageSubscriptionInstance
    *
-   * @param { UserDefinedMessageSubscriptionListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed UserDefinedMessageSubscriptionInstance
+   * @returns Resolves to processed UserDefinedMessageSubscriptionInstance
    */
   create(
     params: UserDefinedMessageSubscriptionListInstanceCreateOptions,

@@ -27,69 +27,76 @@ export default class V1 extends Version {
   /**
    * Initialize the V1 version of Messaging
    *
-   * @property { Twilio.Messaging.V1.BrandRegistrationListInstance } brandRegistrations - brandRegistrations resource
-   * @property { Twilio.Messaging.V1.DeactivationsListInstance } deactivations - deactivations resource
-   * @property { Twilio.Messaging.V1.DomainCertsListInstance } domainCerts - domainCerts resource
-   * @property { Twilio.Messaging.V1.DomainConfigListInstance } domainConfig - domainConfig resource
-   * @property { Twilio.Messaging.V1.ExternalCampaignListInstance } externalCampaign - externalCampaign resource
-   * @property { Twilio.Messaging.V1.ServiceListInstance } services - services resource
-   * @property { Twilio.Messaging.V1.TollfreeVerificationListInstance } tollfreeVerifications - tollfreeVerifications resource
-   * @property { Twilio.Messaging.V1.UsecaseListInstance } usecases - usecases resource
-   *
-   * @param { Twilio.Messaging } domain - The Twilio domain
+   * @param domain - The Twilio (Twilio.Messaging) domain
    */
   constructor(domain: MessagingBase) {
     super(domain, "v1");
   }
 
+  /** brandRegistrations - { Twilio.Messaging.V1.BrandRegistrationListInstance } resource */
   protected _brandRegistrations?: BrandRegistrationListInstance;
+  /** deactivations - { Twilio.Messaging.V1.DeactivationsListInstance } resource */
   protected _deactivations?: DeactivationsListInstance;
+  /** domainCerts - { Twilio.Messaging.V1.DomainCertsListInstance } resource */
   protected _domainCerts?: DomainCertsListInstance;
+  /** domainConfig - { Twilio.Messaging.V1.DomainConfigListInstance } resource */
   protected _domainConfig?: DomainConfigListInstance;
+  /** externalCampaign - { Twilio.Messaging.V1.ExternalCampaignListInstance } resource */
   protected _externalCampaign?: ExternalCampaignListInstance;
+  /** services - { Twilio.Messaging.V1.ServiceListInstance } resource */
   protected _services?: ServiceListInstance;
+  /** tollfreeVerifications - { Twilio.Messaging.V1.TollfreeVerificationListInstance } resource */
   protected _tollfreeVerifications?: TollfreeVerificationListInstance;
+  /** usecases - { Twilio.Messaging.V1.UsecaseListInstance } resource */
   protected _usecases?: UsecaseListInstance;
 
+  /** Getter for brandRegistrations resource */
   get brandRegistrations(): BrandRegistrationListInstance {
     this._brandRegistrations =
       this._brandRegistrations || BrandRegistrationListInstance(this);
     return this._brandRegistrations;
   }
 
+  /** Getter for deactivations resource */
   get deactivations(): DeactivationsListInstance {
     this._deactivations =
       this._deactivations || DeactivationsListInstance(this);
     return this._deactivations;
   }
 
+  /** Getter for domainCerts resource */
   get domainCerts(): DomainCertsListInstance {
     this._domainCerts = this._domainCerts || DomainCertsListInstance(this);
     return this._domainCerts;
   }
 
+  /** Getter for domainConfig resource */
   get domainConfig(): DomainConfigListInstance {
     this._domainConfig = this._domainConfig || DomainConfigListInstance(this);
     return this._domainConfig;
   }
 
+  /** Getter for externalCampaign resource */
   get externalCampaign(): ExternalCampaignListInstance {
     this._externalCampaign =
       this._externalCampaign || ExternalCampaignListInstance(this);
     return this._externalCampaign;
   }
 
+  /** Getter for services resource */
   get services(): ServiceListInstance {
     this._services = this._services || ServiceListInstance(this);
     return this._services;
   }
 
+  /** Getter for tollfreeVerifications resource */
   get tollfreeVerifications(): TollfreeVerificationListInstance {
     this._tollfreeVerifications =
       this._tollfreeVerifications || TollfreeVerificationListInstance(this);
     return this._tollfreeVerifications;
   }
 
+  /** Getter for usecases resource */
   get usecases(): UsecaseListInstance {
     this._usecases = this._usecases || UsecaseListInstance(this);
     return this._usecases;

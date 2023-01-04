@@ -28,110 +28,97 @@ type ConfigurationAddressType = "sms" | "whatsapp" | "messenger" | "gbm";
 
 /**
  * Options to pass to update a AddressConfigurationInstance
- *
- * @property { string } [friendlyName] The human-readable name of this configuration, limited to 256 characters. Optional.
- * @property { boolean } [autoCreation.enabled] Enable/Disable auto-creating conversations for messages to this address
- * @property { ConfigurationAddressAutoCreationType } [autoCreation.type]
- * @property { string } [autoCreation.conversationServiceSid] Conversation Service for the auto-created conversation. If not set, the conversation is created in the default service.
- * @property { string } [autoCreation.webhookUrl] For type `webhook`, the url for the webhook request.
- * @property { ConfigurationAddressMethod } [autoCreation.webhookMethod]
- * @property { Array<string> } [autoCreation.webhookFilters] The list of events, firing webhook event for this Conversation. Values can be any of the following: `onMessageAdded`, `onMessageUpdated`, `onMessageRemoved`, `onConversationUpdated`, `onConversationStateUpdated`, `onConversationRemoved`, `onParticipantAdded`, `onParticipantUpdated`, `onParticipantRemoved`, `onDeliveryUpdated`
- * @property { string } [autoCreation.studioFlowSid] For type `studio`, the studio flow SID where the webhook should be sent to.
- * @property { number } [autoCreation.studioRetryCount] For type `studio`, number of times to retry the webhook request
  */
 export interface AddressConfigurationContextUpdateOptions {
+  /** The human-readable name of this configuration, limited to 256 characters. Optional. */
   friendlyName?: string;
+  /** Enable/Disable auto-creating conversations for messages to this address */
   "autoCreation.enabled"?: boolean;
+  /**  */
   "autoCreation.type"?: ConfigurationAddressAutoCreationType;
+  /** Conversation Service for the auto-created conversation. If not set, the conversation is created in the default service. */
   "autoCreation.conversationServiceSid"?: string;
+  /** For type `webhook`, the url for the webhook request. */
   "autoCreation.webhookUrl"?: string;
+  /**  */
   "autoCreation.webhookMethod"?: ConfigurationAddressMethod;
+  /** The list of events, firing webhook event for this Conversation. Values can be any of the following: `onMessageAdded`, `onMessageUpdated`, `onMessageRemoved`, `onConversationUpdated`, `onConversationStateUpdated`, `onConversationRemoved`, `onParticipantAdded`, `onParticipantUpdated`, `onParticipantRemoved`, `onDeliveryUpdated` */
   "autoCreation.webhookFilters"?: Array<string>;
+  /** For type `studio`, the studio flow SID where the webhook should be sent to. */
   "autoCreation.studioFlowSid"?: string;
+  /** For type `studio`, number of times to retry the webhook request */
   "autoCreation.studioRetryCount"?: number;
 }
 
 /**
  * Options to pass to create a AddressConfigurationInstance
- *
- * @property { ConfigurationAddressType } type
- * @property { string } address The unique address to be configured. The address can be a whatsapp address or phone number
- * @property { string } [friendlyName] The human-readable name of this configuration, limited to 256 characters. Optional.
- * @property { boolean } [autoCreation.enabled] Enable/Disable auto-creating conversations for messages to this address
- * @property { ConfigurationAddressAutoCreationType } [autoCreation.type]
- * @property { string } [autoCreation.conversationServiceSid] Conversation Service for the auto-created conversation. If not set, the conversation is created in the default service.
- * @property { string } [autoCreation.webhookUrl] For type `webhook`, the url for the webhook request.
- * @property { ConfigurationAddressMethod } [autoCreation.webhookMethod]
- * @property { Array<string> } [autoCreation.webhookFilters] The list of events, firing webhook event for this Conversation. Values can be any of the following: `onMessageAdded`, `onMessageUpdated`, `onMessageRemoved`, `onConversationUpdated`, `onConversationStateUpdated`, `onConversationRemoved`, `onParticipantAdded`, `onParticipantUpdated`, `onParticipantRemoved`, `onDeliveryUpdated`
- * @property { string } [autoCreation.studioFlowSid] For type `studio`, the studio flow SID where the webhook should be sent to.
- * @property { number } [autoCreation.studioRetryCount] For type `studio`, number of times to retry the webhook request
  */
 export interface AddressConfigurationListInstanceCreateOptions {
+  /**  */
   type: ConfigurationAddressType;
+  /** The unique address to be configured. The address can be a whatsapp address or phone number */
   address: string;
+  /** The human-readable name of this configuration, limited to 256 characters. Optional. */
   friendlyName?: string;
+  /** Enable/Disable auto-creating conversations for messages to this address */
   "autoCreation.enabled"?: boolean;
+  /**  */
   "autoCreation.type"?: ConfigurationAddressAutoCreationType;
+  /** Conversation Service for the auto-created conversation. If not set, the conversation is created in the default service. */
   "autoCreation.conversationServiceSid"?: string;
+  /** For type `webhook`, the url for the webhook request. */
   "autoCreation.webhookUrl"?: string;
+  /**  */
   "autoCreation.webhookMethod"?: ConfigurationAddressMethod;
+  /** The list of events, firing webhook event for this Conversation. Values can be any of the following: `onMessageAdded`, `onMessageUpdated`, `onMessageRemoved`, `onConversationUpdated`, `onConversationStateUpdated`, `onConversationRemoved`, `onParticipantAdded`, `onParticipantUpdated`, `onParticipantRemoved`, `onDeliveryUpdated` */
   "autoCreation.webhookFilters"?: Array<string>;
+  /** For type `studio`, the studio flow SID where the webhook should be sent to. */
   "autoCreation.studioFlowSid"?: string;
+  /** For type `studio`, number of times to retry the webhook request */
   "autoCreation.studioRetryCount"?: number;
 }
 /**
  * Options to pass to each
- *
- * @property { string } [type] Filter the address configurations by its type. This value can be one of: `whatsapp`, `sms`.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface AddressConfigurationListInstanceEachOptions {
+  /** Filter the address configurations by its type. This value can be one of: `whatsapp`, `sms`. */
   type?: string;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (
     item: AddressConfigurationInstance,
     done: (err?: Error) => void
   ) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { string } [type] Filter the address configurations by its type. This value can be one of: `whatsapp`, `sms`.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface AddressConfigurationListInstanceOptions {
+  /** Filter the address configurations by its type. This value can be one of: `whatsapp`, `sms`. */
   type?: string;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { string } [type] Filter the address configurations by its type. This value can be one of: `whatsapp`, `sms`.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface AddressConfigurationListInstancePageOptions {
+  /** Filter the address configurations by its type. This value can be one of: `whatsapp`, `sms`. */
   type?: string;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
@@ -139,9 +126,9 @@ export interface AddressConfigurationContext {
   /**
    * Remove a AddressConfigurationInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -150,9 +137,9 @@ export interface AddressConfigurationContext {
   /**
    * Fetch a AddressConfigurationInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed AddressConfigurationInstance
+   * @returns Resolves to processed AddressConfigurationInstance
    */
   fetch(
     callback?: (error: Error | null, item?: AddressConfigurationInstance) => any
@@ -161,9 +148,9 @@ export interface AddressConfigurationContext {
   /**
    * Update a AddressConfigurationInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed AddressConfigurationInstance
+   * @returns Resolves to processed AddressConfigurationInstance
    */
   update(
     callback?: (error: Error | null, item?: AddressConfigurationInstance) => any
@@ -171,10 +158,10 @@ export interface AddressConfigurationContext {
   /**
    * Update a AddressConfigurationInstance
    *
-   * @param { AddressConfigurationContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed AddressConfigurationInstance
+   * @returns Resolves to processed AddressConfigurationInstance
    */
   update(
     params: AddressConfigurationContextUpdateOptions,
@@ -410,9 +397,9 @@ export class AddressConfigurationInstance {
   /**
    * Remove a AddressConfigurationInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -423,9 +410,9 @@ export class AddressConfigurationInstance {
   /**
    * Fetch a AddressConfigurationInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed AddressConfigurationInstance
+   * @returns Resolves to processed AddressConfigurationInstance
    */
   fetch(
     callback?: (error: Error | null, item?: AddressConfigurationInstance) => any
@@ -436,9 +423,9 @@ export class AddressConfigurationInstance {
   /**
    * Update a AddressConfigurationInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed AddressConfigurationInstance
+   * @returns Resolves to processed AddressConfigurationInstance
    */
   update(
     callback?: (error: Error | null, item?: AddressConfigurationInstance) => any
@@ -446,10 +433,10 @@ export class AddressConfigurationInstance {
   /**
    * Update a AddressConfigurationInstance
    *
-   * @param { AddressConfigurationContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed AddressConfigurationInstance
+   * @returns Resolves to processed AddressConfigurationInstance
    */
   update(
     params: AddressConfigurationContextUpdateOptions,
@@ -496,10 +483,10 @@ export interface AddressConfigurationListInstance {
   /**
    * Create a AddressConfigurationInstance
    *
-   * @param { AddressConfigurationListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed AddressConfigurationInstance
+   * @returns Resolves to processed AddressConfigurationInstance
    */
   create(
     params: AddressConfigurationListInstanceCreateOptions,

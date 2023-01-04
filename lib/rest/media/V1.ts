@@ -22,32 +22,34 @@ export default class V1 extends Version {
   /**
    * Initialize the V1 version of Media
    *
-   * @property { Twilio.Media.V1.MediaProcessorListInstance } mediaProcessor - mediaProcessor resource
-   * @property { Twilio.Media.V1.MediaRecordingListInstance } mediaRecording - mediaRecording resource
-   * @property { Twilio.Media.V1.PlayerStreamerListInstance } playerStreamer - playerStreamer resource
-   *
-   * @param { Twilio.Media } domain - The Twilio domain
+   * @param domain - The Twilio (Twilio.Media) domain
    */
   constructor(domain: MediaBase) {
     super(domain, "v1");
   }
 
+  /** mediaProcessor - { Twilio.Media.V1.MediaProcessorListInstance } resource */
   protected _mediaProcessor?: MediaProcessorListInstance;
+  /** mediaRecording - { Twilio.Media.V1.MediaRecordingListInstance } resource */
   protected _mediaRecording?: MediaRecordingListInstance;
+  /** playerStreamer - { Twilio.Media.V1.PlayerStreamerListInstance } resource */
   protected _playerStreamer?: PlayerStreamerListInstance;
 
+  /** Getter for mediaProcessor resource */
   get mediaProcessor(): MediaProcessorListInstance {
     this._mediaProcessor =
       this._mediaProcessor || MediaProcessorListInstance(this);
     return this._mediaProcessor;
   }
 
+  /** Getter for mediaRecording resource */
   get mediaRecording(): MediaRecordingListInstance {
     this._mediaRecording =
       this._mediaRecording || MediaRecordingListInstance(this);
     return this._mediaRecording;
   }
 
+  /** Getter for playerStreamer resource */
   get playerStreamer(): PlayerStreamerListInstance {
     this._playerStreamer =
       this._playerStreamer || PlayerStreamerListInstance(this);

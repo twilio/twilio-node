@@ -24,89 +24,76 @@ type CredentialPushType = "apn" | "gcm" | "fcm";
 
 /**
  * Options to pass to update a CredentialInstance
- *
- * @property { CredentialPushType } [type]
- * @property { string } [friendlyName] A descriptive string that you create to describe the new resource. It can be up to 64 characters long.
- * @property { string } [certificate] [APN only] The URL encoded representation of the certificate. For example,  `-----BEGIN CERTIFICATE----- MIIFnTCCBIWgAwIBAgIIAjy9H849+E8wDQYJKoZIhvcNAQEF.....A== -----END CERTIFICATE-----`.
- * @property { string } [privateKey] [APN only] The URL encoded representation of the private key. For example, `-----BEGIN RSA PRIVATE KEY----- MIIEpQIBAAKCAQEAuyf/lNrH9ck8DmNyo3fG... -----END RSA PRIVATE KEY-----`.
- * @property { boolean } [sandbox] [APN only] Whether to send the credential to sandbox APNs. Can be `true` to send to sandbox APNs or `false` to send to production.
- * @property { string } [apiKey] [GCM only] The API key for the project that was obtained from the Google Developer console for your GCM Service application credential.
- * @property { string } [secret] [FCM only] The **Server key** of your project from the Firebase console, found under Settings / Cloud messaging.
  */
 export interface CredentialContextUpdateOptions {
+  /**  */
   type?: CredentialPushType;
+  /** A descriptive string that you create to describe the new resource. It can be up to 64 characters long. */
   friendlyName?: string;
+  /** [APN only] The URL encoded representation of the certificate. For example,  `-----BEGIN CERTIFICATE----- MIIFnTCCBIWgAwIBAgIIAjy9H849+E8wDQYJKoZIhvcNAQEF.....A== -----END CERTIFICATE-----`. */
   certificate?: string;
+  /** [APN only] The URL encoded representation of the private key. For example, `-----BEGIN RSA PRIVATE KEY----- MIIEpQIBAAKCAQEAuyf/lNrH9ck8DmNyo3fG... -----END RSA PRIVATE KEY-----`. */
   privateKey?: string;
+  /** [APN only] Whether to send the credential to sandbox APNs. Can be `true` to send to sandbox APNs or `false` to send to production. */
   sandbox?: boolean;
+  /** [GCM only] The API key for the project that was obtained from the Google Developer console for your GCM Service application credential. */
   apiKey?: string;
+  /** [FCM only] The **Server key** of your project from the Firebase console, found under Settings / Cloud messaging. */
   secret?: string;
 }
 
 /**
  * Options to pass to create a CredentialInstance
- *
- * @property { CredentialPushType } type
- * @property { string } [friendlyName] A descriptive string that you create to describe the new resource. It can be up to 64 characters long.
- * @property { string } [certificate] [APN only] The URL encoded representation of the certificate. For example,  `-----BEGIN CERTIFICATE----- MIIFnTCCBIWgAwIBAgIIAjy9H849+E8wDQYJKoZIhvcNAQEF.....A== -----END CERTIFICATE-----`.
- * @property { string } [privateKey] [APN only] The URL encoded representation of the private key. For example, `-----BEGIN RSA PRIVATE KEY----- MIIEpQIBAAKCAQEAuyf/lNrH9ck8DmNyo3fG... -----END RSA PRIVATE KEY-----`.
- * @property { boolean } [sandbox] [APN only] Whether to send the credential to sandbox APNs. Can be `true` to send to sandbox APNs or `false` to send to production.
- * @property { string } [apiKey] [GCM only] The API key for the project that was obtained from the Google Developer console for your GCM Service application credential.
- * @property { string } [secret] [FCM only] The **Server key** of your project from the Firebase console, found under Settings / Cloud messaging.
  */
 export interface CredentialListInstanceCreateOptions {
+  /**  */
   type: CredentialPushType;
+  /** A descriptive string that you create to describe the new resource. It can be up to 64 characters long. */
   friendlyName?: string;
+  /** [APN only] The URL encoded representation of the certificate. For example,  `-----BEGIN CERTIFICATE----- MIIFnTCCBIWgAwIBAgIIAjy9H849+E8wDQYJKoZIhvcNAQEF.....A== -----END CERTIFICATE-----`. */
   certificate?: string;
+  /** [APN only] The URL encoded representation of the private key. For example, `-----BEGIN RSA PRIVATE KEY----- MIIEpQIBAAKCAQEAuyf/lNrH9ck8DmNyo3fG... -----END RSA PRIVATE KEY-----`. */
   privateKey?: string;
+  /** [APN only] Whether to send the credential to sandbox APNs. Can be `true` to send to sandbox APNs or `false` to send to production. */
   sandbox?: boolean;
+  /** [GCM only] The API key for the project that was obtained from the Google Developer console for your GCM Service application credential. */
   apiKey?: string;
+  /** [FCM only] The **Server key** of your project from the Firebase console, found under Settings / Cloud messaging. */
   secret?: string;
 }
 /**
  * Options to pass to each
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface CredentialListInstanceEachOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: CredentialInstance, done: (err?: Error) => void) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface CredentialListInstanceOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface CredentialListInstancePageOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
@@ -114,9 +101,9 @@ export interface CredentialContext {
   /**
    * Remove a CredentialInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -125,9 +112,9 @@ export interface CredentialContext {
   /**
    * Fetch a CredentialInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed CredentialInstance
+   * @returns Resolves to processed CredentialInstance
    */
   fetch(
     callback?: (error: Error | null, item?: CredentialInstance) => any
@@ -136,9 +123,9 @@ export interface CredentialContext {
   /**
    * Update a CredentialInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed CredentialInstance
+   * @returns Resolves to processed CredentialInstance
    */
   update(
     callback?: (error: Error | null, item?: CredentialInstance) => any
@@ -146,10 +133,10 @@ export interface CredentialContext {
   /**
    * Update a CredentialInstance
    *
-   * @param { CredentialContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed CredentialInstance
+   * @returns Resolves to processed CredentialInstance
    */
   update(
     params: CredentialContextUpdateOptions,
@@ -360,9 +347,9 @@ export class CredentialInstance {
   /**
    * Remove a CredentialInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -373,9 +360,9 @@ export class CredentialInstance {
   /**
    * Fetch a CredentialInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed CredentialInstance
+   * @returns Resolves to processed CredentialInstance
    */
   fetch(
     callback?: (error: Error | null, item?: CredentialInstance) => any
@@ -386,9 +373,9 @@ export class CredentialInstance {
   /**
    * Update a CredentialInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed CredentialInstance
+   * @returns Resolves to processed CredentialInstance
    */
   update(
     callback?: (error: Error | null, item?: CredentialInstance) => any
@@ -396,10 +383,10 @@ export class CredentialInstance {
   /**
    * Update a CredentialInstance
    *
-   * @param { CredentialContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed CredentialInstance
+   * @returns Resolves to processed CredentialInstance
    */
   update(
     params: CredentialContextUpdateOptions,
@@ -445,10 +432,10 @@ export interface CredentialListInstance {
   /**
    * Create a CredentialInstance
    *
-   * @param { CredentialListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed CredentialInstance
+   * @returns Resolves to processed CredentialInstance
    */
   create(
     params: CredentialListInstanceCreateOptions,

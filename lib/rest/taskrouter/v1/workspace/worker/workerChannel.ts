@@ -22,58 +22,46 @@ import { isValidPathParam } from "../../../../../base/utility";
 
 /**
  * Options to pass to update a WorkerChannelInstance
- *
- * @property { number } [capacity] The total number of Tasks that the Worker should handle for the TaskChannel type. TaskRouter creates reservations for Tasks of this TaskChannel type up to the specified capacity. If the capacity is 0, no new reservations will be created.
- * @property { boolean } [available] Whether the WorkerChannel is available. Set to `false` to prevent the Worker from receiving any new Tasks of this TaskChannel type.
  */
 export interface WorkerChannelContextUpdateOptions {
+  /** The total number of Tasks that the Worker should handle for the TaskChannel type. TaskRouter creates reservations for Tasks of this TaskChannel type up to the specified capacity. If the capacity is 0, no new reservations will be created. */
   capacity?: number;
+  /** Whether the WorkerChannel is available. Set to `false` to prevent the Worker from receiving any new Tasks of this TaskChannel type. */
   available?: boolean;
 }
 /**
  * Options to pass to each
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface WorkerChannelListInstanceEachOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: WorkerChannelInstance, done: (err?: Error) => void) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface WorkerChannelListInstanceOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface WorkerChannelListInstancePageOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
@@ -81,9 +69,9 @@ export interface WorkerChannelContext {
   /**
    * Fetch a WorkerChannelInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed WorkerChannelInstance
+   * @returns Resolves to processed WorkerChannelInstance
    */
   fetch(
     callback?: (error: Error | null, item?: WorkerChannelInstance) => any
@@ -92,9 +80,9 @@ export interface WorkerChannelContext {
   /**
    * Update a WorkerChannelInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed WorkerChannelInstance
+   * @returns Resolves to processed WorkerChannelInstance
    */
   update(
     callback?: (error: Error | null, item?: WorkerChannelInstance) => any
@@ -102,10 +90,10 @@ export interface WorkerChannelContext {
   /**
    * Update a WorkerChannelInstance
    *
-   * @param { WorkerChannelContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed WorkerChannelInstance
+   * @returns Resolves to processed WorkerChannelInstance
    */
   update(
     params: WorkerChannelContextUpdateOptions,
@@ -354,9 +342,9 @@ export class WorkerChannelInstance {
   /**
    * Fetch a WorkerChannelInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed WorkerChannelInstance
+   * @returns Resolves to processed WorkerChannelInstance
    */
   fetch(
     callback?: (error: Error | null, item?: WorkerChannelInstance) => any
@@ -367,9 +355,9 @@ export class WorkerChannelInstance {
   /**
    * Update a WorkerChannelInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed WorkerChannelInstance
+   * @returns Resolves to processed WorkerChannelInstance
    */
   update(
     callback?: (error: Error | null, item?: WorkerChannelInstance) => any
@@ -377,10 +365,10 @@ export class WorkerChannelInstance {
   /**
    * Update a WorkerChannelInstance
    *
-   * @param { WorkerChannelContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed WorkerChannelInstance
+   * @returns Resolves to processed WorkerChannelInstance
    */
   update(
     params: WorkerChannelContextUpdateOptions,

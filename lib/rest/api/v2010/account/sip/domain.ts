@@ -25,113 +25,100 @@ import { IpAccessControlListMappingListInstance } from "./domain/ipAccessControl
 
 /**
  * Options to pass to update a DomainInstance
- *
- * @property { string } [friendlyName] A descriptive string that you created to describe the resource. It can be up to 64 characters long.
- * @property { string } [voiceFallbackMethod] The HTTP method we should use to call `voice_fallback_url`. Can be: `GET` or `POST`.
- * @property { string } [voiceFallbackUrl] The URL that we should call when an error occurs while retrieving or executing the TwiML requested by `voice_url`.
- * @property { string } [voiceMethod] The HTTP method we should use to call `voice_url`
- * @property { string } [voiceStatusCallbackMethod] The HTTP method we should use to call `voice_status_callback_url`. Can be: `GET` or `POST`.
- * @property { string } [voiceStatusCallbackUrl] The URL that we should call to pass status parameters (such as call ended) to your application.
- * @property { string } [voiceUrl] The URL we should call when the domain receives a call.
- * @property { boolean } [sipRegistration] Whether to allow SIP Endpoints to register with the domain to receive calls. Can be `true` or `false`. `true` allows SIP Endpoints to register with the domain to receive calls, `false` does not.
- * @property { string } [domainName] The unique address you reserve on Twilio to which you route your SIP traffic. Domain names can contain letters, digits, and \\\"-\\\" and must end with `sip.twilio.com`.
- * @property { boolean } [emergencyCallingEnabled] Whether emergency calling is enabled for the domain. If enabled, allows emergency calls on the domain from phone numbers with validated addresses.
- * @property { boolean } [secure] Whether secure SIP is enabled for the domain. If enabled, TLS will be enforced and SRTP will be negotiated on all incoming calls to this sip domain.
- * @property { string } [byocTrunkSid] The SID of the BYOC Trunk(Bring Your Own Carrier) resource that the Sip Domain will be associated with.
- * @property { string } [emergencyCallerSid] Whether an emergency caller sid is configured for the domain. If present, this phone number will be used as the callback for the emergency call.
  */
 export interface DomainContextUpdateOptions {
+  /** A descriptive string that you created to describe the resource. It can be up to 64 characters long. */
   friendlyName?: string;
+  /** The HTTP method we should use to call `voice_fallback_url`. Can be: `GET` or `POST`. */
   voiceFallbackMethod?: string;
+  /** The URL that we should call when an error occurs while retrieving or executing the TwiML requested by `voice_url`. */
   voiceFallbackUrl?: string;
+  /** The HTTP method we should use to call `voice_url` */
   voiceMethod?: string;
+  /** The HTTP method we should use to call `voice_status_callback_url`. Can be: `GET` or `POST`. */
   voiceStatusCallbackMethod?: string;
+  /** The URL that we should call to pass status parameters (such as call ended) to your application. */
   voiceStatusCallbackUrl?: string;
+  /** The URL we should call when the domain receives a call. */
   voiceUrl?: string;
+  /** Whether to allow SIP Endpoints to register with the domain to receive calls. Can be `true` or `false`. `true` allows SIP Endpoints to register with the domain to receive calls, `false` does not. */
   sipRegistration?: boolean;
+  /** The unique address you reserve on Twilio to which you route your SIP traffic. Domain names can contain letters, digits, and \\\"-\\\" and must end with `sip.twilio.com`. */
   domainName?: string;
+  /** Whether emergency calling is enabled for the domain. If enabled, allows emergency calls on the domain from phone numbers with validated addresses. */
   emergencyCallingEnabled?: boolean;
+  /** Whether secure SIP is enabled for the domain. If enabled, TLS will be enforced and SRTP will be negotiated on all incoming calls to this sip domain. */
   secure?: boolean;
+  /** The SID of the BYOC Trunk(Bring Your Own Carrier) resource that the Sip Domain will be associated with. */
   byocTrunkSid?: string;
+  /** Whether an emergency caller sid is configured for the domain. If present, this phone number will be used as the callback for the emergency call. */
   emergencyCallerSid?: string;
 }
 
 /**
  * Options to pass to create a DomainInstance
- *
- * @property { string } domainName The unique address you reserve on Twilio to which you route your SIP traffic. Domain names can contain letters, digits, and \\\"-\\\" and must end with `sip.twilio.com`.
- * @property { string } [friendlyName] A descriptive string that you created to describe the resource. It can be up to 64 characters long.
- * @property { string } [voiceUrl] The URL we should when the domain receives a call.
- * @property { string } [voiceMethod] The HTTP method we should use to call `voice_url`. Can be: `GET` or `POST`.
- * @property { string } [voiceFallbackUrl] The URL that we should call when an error occurs while retrieving or executing the TwiML from `voice_url`.
- * @property { string } [voiceFallbackMethod] The HTTP method we should use to call `voice_fallback_url`. Can be: `GET` or `POST`.
- * @property { string } [voiceStatusCallbackUrl] The URL that we should call to pass status parameters (such as call ended) to your application.
- * @property { string } [voiceStatusCallbackMethod] The HTTP method we should use to call `voice_status_callback_url`. Can be: `GET` or `POST`.
- * @property { boolean } [sipRegistration] Whether to allow SIP Endpoints to register with the domain to receive calls. Can be `true` or `false`. `true` allows SIP Endpoints to register with the domain to receive calls, `false` does not.
- * @property { boolean } [emergencyCallingEnabled] Whether emergency calling is enabled for the domain. If enabled, allows emergency calls on the domain from phone numbers with validated addresses.
- * @property { boolean } [secure] Whether secure SIP is enabled for the domain. If enabled, TLS will be enforced and SRTP will be negotiated on all incoming calls to this sip domain.
- * @property { string } [byocTrunkSid] The SID of the BYOC Trunk(Bring Your Own Carrier) resource that the Sip Domain will be associated with.
- * @property { string } [emergencyCallerSid] Whether an emergency caller sid is configured for the domain. If present, this phone number will be used as the callback for the emergency call.
  */
 export interface DomainListInstanceCreateOptions {
+  /** The unique address you reserve on Twilio to which you route your SIP traffic. Domain names can contain letters, digits, and \\\"-\\\" and must end with `sip.twilio.com`. */
   domainName: string;
+  /** A descriptive string that you created to describe the resource. It can be up to 64 characters long. */
   friendlyName?: string;
+  /** The URL we should when the domain receives a call. */
   voiceUrl?: string;
+  /** The HTTP method we should use to call `voice_url`. Can be: `GET` or `POST`. */
   voiceMethod?: string;
+  /** The URL that we should call when an error occurs while retrieving or executing the TwiML from `voice_url`. */
   voiceFallbackUrl?: string;
+  /** The HTTP method we should use to call `voice_fallback_url`. Can be: `GET` or `POST`. */
   voiceFallbackMethod?: string;
+  /** The URL that we should call to pass status parameters (such as call ended) to your application. */
   voiceStatusCallbackUrl?: string;
+  /** The HTTP method we should use to call `voice_status_callback_url`. Can be: `GET` or `POST`. */
   voiceStatusCallbackMethod?: string;
+  /** Whether to allow SIP Endpoints to register with the domain to receive calls. Can be `true` or `false`. `true` allows SIP Endpoints to register with the domain to receive calls, `false` does not. */
   sipRegistration?: boolean;
+  /** Whether emergency calling is enabled for the domain. If enabled, allows emergency calls on the domain from phone numbers with validated addresses. */
   emergencyCallingEnabled?: boolean;
+  /** Whether secure SIP is enabled for the domain. If enabled, TLS will be enforced and SRTP will be negotiated on all incoming calls to this sip domain. */
   secure?: boolean;
+  /** The SID of the BYOC Trunk(Bring Your Own Carrier) resource that the Sip Domain will be associated with. */
   byocTrunkSid?: string;
+  /** Whether an emergency caller sid is configured for the domain. If present, this phone number will be used as the callback for the emergency call. */
   emergencyCallerSid?: string;
 }
 /**
  * Options to pass to each
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface DomainListInstanceEachOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: DomainInstance, done: (err?: Error) => void) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface DomainListInstanceOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface DomainListInstancePageOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
@@ -143,9 +130,9 @@ export interface DomainContext {
   /**
    * Remove a DomainInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -154,9 +141,9 @@ export interface DomainContext {
   /**
    * Fetch a DomainInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed DomainInstance
+   * @returns Resolves to processed DomainInstance
    */
   fetch(
     callback?: (error: Error | null, item?: DomainInstance) => any
@@ -165,9 +152,9 @@ export interface DomainContext {
   /**
    * Update a DomainInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed DomainInstance
+   * @returns Resolves to processed DomainInstance
    */
   update(
     callback?: (error: Error | null, item?: DomainInstance) => any
@@ -175,10 +162,10 @@ export interface DomainContext {
   /**
    * Update a DomainInstance
    *
-   * @param { DomainContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed DomainInstance
+   * @returns Resolves to processed DomainInstance
    */
   update(
     params: DomainContextUpdateOptions,
@@ -557,9 +544,9 @@ export class DomainInstance {
   /**
    * Remove a DomainInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -570,9 +557,9 @@ export class DomainInstance {
   /**
    * Fetch a DomainInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed DomainInstance
+   * @returns Resolves to processed DomainInstance
    */
   fetch(
     callback?: (error: Error | null, item?: DomainInstance) => any
@@ -583,9 +570,9 @@ export class DomainInstance {
   /**
    * Update a DomainInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed DomainInstance
+   * @returns Resolves to processed DomainInstance
    */
   update(
     callback?: (error: Error | null, item?: DomainInstance) => any
@@ -593,10 +580,10 @@ export class DomainInstance {
   /**
    * Update a DomainInstance
    *
-   * @param { DomainContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed DomainInstance
+   * @returns Resolves to processed DomainInstance
    */
   update(
     params: DomainContextUpdateOptions,
@@ -678,10 +665,10 @@ export interface DomainListInstance {
   /**
    * Create a DomainInstance
    *
-   * @param { DomainListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed DomainInstance
+   * @returns Resolves to processed DomainInstance
    */
   create(
     params: DomainListInstanceCreateOptions,

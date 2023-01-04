@@ -25,171 +25,158 @@ import { UserListInstance } from "./service/user";
 
 /**
  * Options to pass to update a ServiceInstance
- *
- * @property { string } [friendlyName] A descriptive string that you create to describe the resource. It can be up to 64 characters long.
- * @property { string } [defaultServiceRoleSid] The service role assigned to users when they are added to the service. See the [Roles endpoint](https://www.twilio.com/docs/chat/api/roles) for more details.
- * @property { string } [defaultChannelRoleSid] The channel role assigned to users when they are added to a channel. See the [Roles endpoint](https://www.twilio.com/docs/chat/api/roles) for more details.
- * @property { string } [defaultChannelCreatorRoleSid] The channel role assigned to a channel creator when they join a new channel. See the [Roles endpoint](https://www.twilio.com/docs/chat/api/roles) for more details.
- * @property { boolean } [readStatusEnabled] Whether to enable the [Message Consumption Horizon](https://www.twilio.com/docs/chat/consumption-horizon) feature. The default is `true`.
- * @property { boolean } [reachabilityEnabled] Whether to enable the [Reachability Indicator](https://www.twilio.com/docs/chat/reachability-indicator) for this Service instance. The default is `false`.
- * @property { number } [typingIndicatorTimeout] How long in seconds after a `started typing` event until clients should assume that user is no longer typing, even if no `ended typing` message was received.  The default is 5 seconds.
- * @property { number } [consumptionReportInterval] DEPRECATED. The interval in seconds between consumption reports submission batches from client endpoints.
- * @property { boolean } [notifications.newMessage.enabled] Whether to send a notification when a new message is added to a channel. Can be: `true` or `false` and the default is `false`.
- * @property { string } [notifications.newMessage.template] The template to use to create the notification text displayed when a new message is added to a channel and `notifications.new_message.enabled` is `true`.
- * @property { boolean } [notifications.addedToChannel.enabled] Whether to send a notification when a member is added to a channel. Can be: `true` or `false` and the default is `false`.
- * @property { string } [notifications.addedToChannel.template] The template to use to create the notification text displayed when a member is added to a channel and `notifications.added_to_channel.enabled` is `true`.
- * @property { boolean } [notifications.removedFromChannel.enabled] Whether to send a notification to a user when they are removed from a channel. Can be: `true` or `false` and the default is `false`.
- * @property { string } [notifications.removedFromChannel.template] The template to use to create the notification text displayed to a user when they are removed from a channel and `notifications.removed_from_channel.enabled` is `true`.
- * @property { boolean } [notifications.invitedToChannel.enabled] Whether to send a notification when a user is invited to a channel. Can be: `true` or `false` and the default is `false`.
- * @property { string } [notifications.invitedToChannel.template] The template to use to create the notification text displayed when a user is invited to a channel and `notifications.invited_to_channel.enabled` is `true`.
- * @property { string } [preWebhookUrl] The URL for pre-event webhooks, which are called by using the `webhook_method`. See [Webhook Events](https://www.twilio.com/docs/api/chat/webhooks) for more details.
- * @property { string } [postWebhookUrl] The URL for post-event webhooks, which are called by using the `webhook_method`. See [Webhook Events](https://www.twilio.com/docs/api/chat/webhooks) for more details.
- * @property { string } [webhookMethod] The HTTP method to use for calls to the `pre_webhook_url` and `post_webhook_url` webhooks.  Can be: `POST` or `GET` and the default is `POST`. See [Webhook Events](https://www.twilio.com/docs/chat/webhook-events) for more details.
- * @property { Array<string> } [webhookFilters] The list of WebHook events that are enabled for this Service instance. See [Webhook Events](https://www.twilio.com/docs/chat/webhook-events) for more details.
- * @property { string } [webhooks.onMessageSend.url] The URL of the webhook to call in response to the `on_message_send` event using the `webhooks.on_message_send.method` HTTP method.
- * @property { string } [webhooks.onMessageSend.method] The HTTP method to use when calling the `webhooks.on_message_send.url`.
- * @property { string } [webhooks.onMessageUpdate.url] The URL of the webhook to call in response to the `on_message_update` event using the `webhooks.on_message_update.method` HTTP method.
- * @property { string } [webhooks.onMessageUpdate.method] The HTTP method to use when calling the `webhooks.on_message_update.url`.
- * @property { string } [webhooks.onMessageRemove.url] The URL of the webhook to call in response to the `on_message_remove` event using the `webhooks.on_message_remove.method` HTTP method.
- * @property { string } [webhooks.onMessageRemove.method] The HTTP method to use when calling the `webhooks.on_message_remove.url`.
- * @property { string } [webhooks.onChannelAdd.url] The URL of the webhook to call in response to the `on_channel_add` event using the `webhooks.on_channel_add.method` HTTP method.
- * @property { string } [webhooks.onChannelAdd.method] The HTTP method to use when calling the `webhooks.on_channel_add.url`.
- * @property { string } [webhooks.onChannelDestroy.url] The URL of the webhook to call in response to the `on_channel_destroy` event using the `webhooks.on_channel_destroy.method` HTTP method.
- * @property { string } [webhooks.onChannelDestroy.method] The HTTP method to use when calling the `webhooks.on_channel_destroy.url`.
- * @property { string } [webhooks.onChannelUpdate.url] The URL of the webhook to call in response to the `on_channel_update` event using the `webhooks.on_channel_update.method` HTTP method.
- * @property { string } [webhooks.onChannelUpdate.method] The HTTP method to use when calling the `webhooks.on_channel_update.url`.
- * @property { string } [webhooks.onMemberAdd.url] The URL of the webhook to call in response to the `on_member_add` event using the `webhooks.on_member_add.method` HTTP method.
- * @property { string } [webhooks.onMemberAdd.method] The HTTP method to use when calling the `webhooks.on_member_add.url`.
- * @property { string } [webhooks.onMemberRemove.url] The URL of the webhook to call in response to the `on_member_remove` event using the `webhooks.on_member_remove.method` HTTP method.
- * @property { string } [webhooks.onMemberRemove.method] The HTTP method to use when calling the `webhooks.on_member_remove.url`.
- * @property { string } [webhooks.onMessageSent.url] The URL of the webhook to call in response to the `on_message_sent` event using the `webhooks.on_message_sent.method` HTTP method.
- * @property { string } [webhooks.onMessageSent.method] The URL of the webhook to call in response to the `on_message_sent` event`.
- * @property { string } [webhooks.onMessageUpdated.url] The URL of the webhook to call in response to the `on_message_updated` event using the `webhooks.on_message_updated.method` HTTP method.
- * @property { string } [webhooks.onMessageUpdated.method] The HTTP method to use when calling the `webhooks.on_message_updated.url`.
- * @property { string } [webhooks.onMessageRemoved.url] The URL of the webhook to call in response to the `on_message_removed` event using the `webhooks.on_message_removed.method` HTTP method.
- * @property { string } [webhooks.onMessageRemoved.method] The HTTP method to use when calling the `webhooks.on_message_removed.url`.
- * @property { string } [webhooks.onChannelAdded.url] The URL of the webhook to call in response to the `on_channel_added` event using the `webhooks.on_channel_added.method` HTTP method.
- * @property { string } [webhooks.onChannelAdded.method] The URL of the webhook to call in response to the `on_channel_added` event`.
- * @property { string } [webhooks.onChannelDestroyed.url] The URL of the webhook to call in response to the `on_channel_added` event using the `webhooks.on_channel_destroyed.method` HTTP method.
- * @property { string } [webhooks.onChannelDestroyed.method] The HTTP method to use when calling the `webhooks.on_channel_destroyed.url`.
- * @property { string } [webhooks.onChannelUpdated.url] The URL of the webhook to call in response to the `on_channel_updated` event using the `webhooks.on_channel_updated.method` HTTP method.
- * @property { string } [webhooks.onChannelUpdated.method] The HTTP method to use when calling the `webhooks.on_channel_updated.url`.
- * @property { string } [webhooks.onMemberAdded.url] The URL of the webhook to call in response to the `on_channel_updated` event using the `webhooks.on_channel_updated.method` HTTP method.
- * @property { string } [webhooks.onMemberAdded.method] The HTTP method to use when calling the `webhooks.on_channel_updated.url`.
- * @property { string } [webhooks.onMemberRemoved.url] The URL of the webhook to call in response to the `on_member_removed` event using the `webhooks.on_member_removed.method` HTTP method.
- * @property { string } [webhooks.onMemberRemoved.method] The HTTP method to use when calling the `webhooks.on_member_removed.url`.
- * @property { number } [limits.channelMembers] The maximum number of Members that can be added to Channels within this Service. Can be up to 1,000.
- * @property { number } [limits.userChannels] The maximum number of Channels Users can be a Member of within this Service. Can be up to 1,000.
  */
 export interface ServiceContextUpdateOptions {
+  /** A descriptive string that you create to describe the resource. It can be up to 64 characters long. */
   friendlyName?: string;
+  /** The service role assigned to users when they are added to the service. See the [Roles endpoint](https://www.twilio.com/docs/chat/api/roles) for more details. */
   defaultServiceRoleSid?: string;
+  /** The channel role assigned to users when they are added to a channel. See the [Roles endpoint](https://www.twilio.com/docs/chat/api/roles) for more details. */
   defaultChannelRoleSid?: string;
+  /** The channel role assigned to a channel creator when they join a new channel. See the [Roles endpoint](https://www.twilio.com/docs/chat/api/roles) for more details. */
   defaultChannelCreatorRoleSid?: string;
+  /** Whether to enable the [Message Consumption Horizon](https://www.twilio.com/docs/chat/consumption-horizon) feature. The default is `true`. */
   readStatusEnabled?: boolean;
+  /** Whether to enable the [Reachability Indicator](https://www.twilio.com/docs/chat/reachability-indicator) for this Service instance. The default is `false`. */
   reachabilityEnabled?: boolean;
+  /** How long in seconds after a `started typing` event until clients should assume that user is no longer typing, even if no `ended typing` message was received.  The default is 5 seconds. */
   typingIndicatorTimeout?: number;
+  /** DEPRECATED. The interval in seconds between consumption reports submission batches from client endpoints. */
   consumptionReportInterval?: number;
+  /** Whether to send a notification when a new message is added to a channel. Can be: `true` or `false` and the default is `false`. */
   "notifications.newMessage.enabled"?: boolean;
+  /** The template to use to create the notification text displayed when a new message is added to a channel and `notifications.new_message.enabled` is `true`. */
   "notifications.newMessage.template"?: string;
+  /** Whether to send a notification when a member is added to a channel. Can be: `true` or `false` and the default is `false`. */
   "notifications.addedToChannel.enabled"?: boolean;
+  /** The template to use to create the notification text displayed when a member is added to a channel and `notifications.added_to_channel.enabled` is `true`. */
   "notifications.addedToChannel.template"?: string;
+  /** Whether to send a notification to a user when they are removed from a channel. Can be: `true` or `false` and the default is `false`. */
   "notifications.removedFromChannel.enabled"?: boolean;
+  /** The template to use to create the notification text displayed to a user when they are removed from a channel and `notifications.removed_from_channel.enabled` is `true`. */
   "notifications.removedFromChannel.template"?: string;
+  /** Whether to send a notification when a user is invited to a channel. Can be: `true` or `false` and the default is `false`. */
   "notifications.invitedToChannel.enabled"?: boolean;
+  /** The template to use to create the notification text displayed when a user is invited to a channel and `notifications.invited_to_channel.enabled` is `true`. */
   "notifications.invitedToChannel.template"?: string;
+  /** The URL for pre-event webhooks, which are called by using the `webhook_method`. See [Webhook Events](https://www.twilio.com/docs/api/chat/webhooks) for more details. */
   preWebhookUrl?: string;
+  /** The URL for post-event webhooks, which are called by using the `webhook_method`. See [Webhook Events](https://www.twilio.com/docs/api/chat/webhooks) for more details. */
   postWebhookUrl?: string;
+  /** The HTTP method to use for calls to the `pre_webhook_url` and `post_webhook_url` webhooks.  Can be: `POST` or `GET` and the default is `POST`. See [Webhook Events](https://www.twilio.com/docs/chat/webhook-events) for more details. */
   webhookMethod?: string;
+  /** The list of WebHook events that are enabled for this Service instance. See [Webhook Events](https://www.twilio.com/docs/chat/webhook-events) for more details. */
   webhookFilters?: Array<string>;
+  /** The URL of the webhook to call in response to the `on_message_send` event using the `webhooks.on_message_send.method` HTTP method. */
   "webhooks.onMessageSend.url"?: string;
+  /** The HTTP method to use when calling the `webhooks.on_message_send.url`. */
   "webhooks.onMessageSend.method"?: string;
+  /** The URL of the webhook to call in response to the `on_message_update` event using the `webhooks.on_message_update.method` HTTP method. */
   "webhooks.onMessageUpdate.url"?: string;
+  /** The HTTP method to use when calling the `webhooks.on_message_update.url`. */
   "webhooks.onMessageUpdate.method"?: string;
+  /** The URL of the webhook to call in response to the `on_message_remove` event using the `webhooks.on_message_remove.method` HTTP method. */
   "webhooks.onMessageRemove.url"?: string;
+  /** The HTTP method to use when calling the `webhooks.on_message_remove.url`. */
   "webhooks.onMessageRemove.method"?: string;
+  /** The URL of the webhook to call in response to the `on_channel_add` event using the `webhooks.on_channel_add.method` HTTP method. */
   "webhooks.onChannelAdd.url"?: string;
+  /** The HTTP method to use when calling the `webhooks.on_channel_add.url`. */
   "webhooks.onChannelAdd.method"?: string;
+  /** The URL of the webhook to call in response to the `on_channel_destroy` event using the `webhooks.on_channel_destroy.method` HTTP method. */
   "webhooks.onChannelDestroy.url"?: string;
+  /** The HTTP method to use when calling the `webhooks.on_channel_destroy.url`. */
   "webhooks.onChannelDestroy.method"?: string;
+  /** The URL of the webhook to call in response to the `on_channel_update` event using the `webhooks.on_channel_update.method` HTTP method. */
   "webhooks.onChannelUpdate.url"?: string;
+  /** The HTTP method to use when calling the `webhooks.on_channel_update.url`. */
   "webhooks.onChannelUpdate.method"?: string;
+  /** The URL of the webhook to call in response to the `on_member_add` event using the `webhooks.on_member_add.method` HTTP method. */
   "webhooks.onMemberAdd.url"?: string;
+  /** The HTTP method to use when calling the `webhooks.on_member_add.url`. */
   "webhooks.onMemberAdd.method"?: string;
+  /** The URL of the webhook to call in response to the `on_member_remove` event using the `webhooks.on_member_remove.method` HTTP method. */
   "webhooks.onMemberRemove.url"?: string;
+  /** The HTTP method to use when calling the `webhooks.on_member_remove.url`. */
   "webhooks.onMemberRemove.method"?: string;
+  /** The URL of the webhook to call in response to the `on_message_sent` event using the `webhooks.on_message_sent.method` HTTP method. */
   "webhooks.onMessageSent.url"?: string;
+  /** The URL of the webhook to call in response to the `on_message_sent` event`. */
   "webhooks.onMessageSent.method"?: string;
+  /** The URL of the webhook to call in response to the `on_message_updated` event using the `webhooks.on_message_updated.method` HTTP method. */
   "webhooks.onMessageUpdated.url"?: string;
+  /** The HTTP method to use when calling the `webhooks.on_message_updated.url`. */
   "webhooks.onMessageUpdated.method"?: string;
+  /** The URL of the webhook to call in response to the `on_message_removed` event using the `webhooks.on_message_removed.method` HTTP method. */
   "webhooks.onMessageRemoved.url"?: string;
+  /** The HTTP method to use when calling the `webhooks.on_message_removed.url`. */
   "webhooks.onMessageRemoved.method"?: string;
+  /** The URL of the webhook to call in response to the `on_channel_added` event using the `webhooks.on_channel_added.method` HTTP method. */
   "webhooks.onChannelAdded.url"?: string;
+  /** The URL of the webhook to call in response to the `on_channel_added` event`. */
   "webhooks.onChannelAdded.method"?: string;
+  /** The URL of the webhook to call in response to the `on_channel_added` event using the `webhooks.on_channel_destroyed.method` HTTP method. */
   "webhooks.onChannelDestroyed.url"?: string;
+  /** The HTTP method to use when calling the `webhooks.on_channel_destroyed.url`. */
   "webhooks.onChannelDestroyed.method"?: string;
+  /** The URL of the webhook to call in response to the `on_channel_updated` event using the `webhooks.on_channel_updated.method` HTTP method. */
   "webhooks.onChannelUpdated.url"?: string;
+  /** The HTTP method to use when calling the `webhooks.on_channel_updated.url`. */
   "webhooks.onChannelUpdated.method"?: string;
+  /** The URL of the webhook to call in response to the `on_channel_updated` event using the `webhooks.on_channel_updated.method` HTTP method. */
   "webhooks.onMemberAdded.url"?: string;
+  /** The HTTP method to use when calling the `webhooks.on_channel_updated.url`. */
   "webhooks.onMemberAdded.method"?: string;
+  /** The URL of the webhook to call in response to the `on_member_removed` event using the `webhooks.on_member_removed.method` HTTP method. */
   "webhooks.onMemberRemoved.url"?: string;
+  /** The HTTP method to use when calling the `webhooks.on_member_removed.url`. */
   "webhooks.onMemberRemoved.method"?: string;
+  /** The maximum number of Members that can be added to Channels within this Service. Can be up to 1,000. */
   "limits.channelMembers"?: number;
+  /** The maximum number of Channels Users can be a Member of within this Service. Can be up to 1,000. */
   "limits.userChannels"?: number;
 }
 
 /**
  * Options to pass to create a ServiceInstance
- *
- * @property { string } friendlyName A descriptive string that you create to describe the resource. It can be up to 64 characters long.
  */
 export interface ServiceListInstanceCreateOptions {
+  /** A descriptive string that you create to describe the resource. It can be up to 64 characters long. */
   friendlyName: string;
 }
 /**
  * Options to pass to each
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface ServiceListInstanceEachOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: ServiceInstance, done: (err?: Error) => void) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface ServiceListInstanceOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface ServiceListInstancePageOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
@@ -201,9 +188,9 @@ export interface ServiceContext {
   /**
    * Remove a ServiceInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -212,9 +199,9 @@ export interface ServiceContext {
   /**
    * Fetch a ServiceInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ServiceInstance
+   * @returns Resolves to processed ServiceInstance
    */
   fetch(
     callback?: (error: Error | null, item?: ServiceInstance) => any
@@ -223,9 +210,9 @@ export interface ServiceContext {
   /**
    * Update a ServiceInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ServiceInstance
+   * @returns Resolves to processed ServiceInstance
    */
   update(
     callback?: (error: Error | null, item?: ServiceInstance) => any
@@ -233,10 +220,10 @@ export interface ServiceContext {
   /**
    * Update a ServiceInstance
    *
-   * @param { ServiceContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ServiceInstance
+   * @returns Resolves to processed ServiceInstance
    */
   update(
     params: ServiceContextUpdateOptions,
@@ -685,9 +672,9 @@ export class ServiceInstance {
   /**
    * Remove a ServiceInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -698,9 +685,9 @@ export class ServiceInstance {
   /**
    * Fetch a ServiceInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ServiceInstance
+   * @returns Resolves to processed ServiceInstance
    */
   fetch(
     callback?: (error: Error | null, item?: ServiceInstance) => any
@@ -711,9 +698,9 @@ export class ServiceInstance {
   /**
    * Update a ServiceInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ServiceInstance
+   * @returns Resolves to processed ServiceInstance
    */
   update(
     callback?: (error: Error | null, item?: ServiceInstance) => any
@@ -721,10 +708,10 @@ export class ServiceInstance {
   /**
    * Update a ServiceInstance
    *
-   * @param { ServiceContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ServiceInstance
+   * @returns Resolves to processed ServiceInstance
    */
   update(
     params: ServiceContextUpdateOptions,
@@ -804,10 +791,10 @@ export interface ServiceListInstance {
   /**
    * Create a ServiceInstance
    *
-   * @param { ServiceListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ServiceInstance
+   * @returns Resolves to processed ServiceInstance
    */
   create(
     params: ServiceListInstanceCreateOptions,

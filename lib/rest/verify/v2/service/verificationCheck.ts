@@ -22,18 +22,17 @@ type VerificationCheckChannel = "sms" | "call" | "email" | "whatsapp" | "sna";
 
 /**
  * Options to pass to create a VerificationCheckInstance
- *
- * @property { string } [code] The 4-10 character string being verified.
- * @property { string } [to] The phone number or [email](https://www.twilio.com/docs/verify/email) to verify. Either this parameter or the `verification_sid` must be specified. Phone numbers must be in [E.164 format](https://www.twilio.com/docs/glossary/what-e164).
- * @property { string } [verificationSid] A SID that uniquely identifies the Verification Check. Either this parameter or the `to` phone number/[email](https://www.twilio.com/docs/verify/email) must be specified.
- * @property { string } [amount] The amount of the associated PSD2 compliant transaction. Requires the PSD2 Service flag enabled.
- * @property { string } [payee] The payee of the associated PSD2 compliant transaction. Requires the PSD2 Service flag enabled.
  */
 export interface VerificationCheckListInstanceCreateOptions {
+  /** The 4-10 character string being verified. */
   code?: string;
+  /** The phone number or [email](https://www.twilio.com/docs/verify/email) to verify. Either this parameter or the `verification_sid` must be specified. Phone numbers must be in [E.164 format](https://www.twilio.com/docs/glossary/what-e164). */
   to?: string;
+  /** A SID that uniquely identifies the Verification Check. Either this parameter or the `to` phone number/[email](https://www.twilio.com/docs/verify/email) must be specified. */
   verificationSid?: string;
+  /** The amount of the associated PSD2 compliant transaction. Requires the PSD2 Service flag enabled. */
   amount?: string;
+  /** The payee of the associated PSD2 compliant transaction. Requires the PSD2 Service flag enabled. */
   payee?: string;
 }
 
@@ -49,9 +48,9 @@ export interface VerificationCheckListInstance {
   /**
    * Create a VerificationCheckInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed VerificationCheckInstance
+   * @returns Resolves to processed VerificationCheckInstance
    */
   create(
     callback?: (error: Error | null, item?: VerificationCheckInstance) => any
@@ -59,10 +58,10 @@ export interface VerificationCheckListInstance {
   /**
    * Create a VerificationCheckInstance
    *
-   * @param { VerificationCheckListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed VerificationCheckInstance
+   * @returns Resolves to processed VerificationCheckInstance
    */
   create(
     params: VerificationCheckListInstanceCreateOptions,

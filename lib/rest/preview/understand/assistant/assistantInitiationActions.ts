@@ -20,10 +20,9 @@ import { isValidPathParam } from "../../../../base/utility";
 
 /**
  * Options to pass to update a AssistantInitiationActionsInstance
- *
- * @property { any } [initiationActions]
  */
 export interface AssistantInitiationActionsContextUpdateOptions {
+  /**  */
   initiationActions?: any;
 }
 
@@ -31,9 +30,9 @@ export interface AssistantInitiationActionsContext {
   /**
    * Fetch a AssistantInitiationActionsInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed AssistantInitiationActionsInstance
+   * @returns Resolves to processed AssistantInitiationActionsInstance
    */
   fetch(
     callback?: (
@@ -45,9 +44,9 @@ export interface AssistantInitiationActionsContext {
   /**
    * Update a AssistantInitiationActionsInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed AssistantInitiationActionsInstance
+   * @returns Resolves to processed AssistantInitiationActionsInstance
    */
   update(
     callback?: (
@@ -58,10 +57,10 @@ export interface AssistantInitiationActionsContext {
   /**
    * Update a AssistantInitiationActionsInstance
    *
-   * @param { AssistantInitiationActionsContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed AssistantInitiationActionsInstance
+   * @returns Resolves to processed AssistantInitiationActionsInstance
    */
   update(
     params: AssistantInitiationActionsContextUpdateOptions,
@@ -228,9 +227,9 @@ export class AssistantInitiationActionsInstance {
   /**
    * Fetch a AssistantInitiationActionsInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed AssistantInitiationActionsInstance
+   * @returns Resolves to processed AssistantInitiationActionsInstance
    */
   fetch(
     callback?: (
@@ -244,9 +243,9 @@ export class AssistantInitiationActionsInstance {
   /**
    * Update a AssistantInitiationActionsInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed AssistantInitiationActionsInstance
+   * @returns Resolves to processed AssistantInitiationActionsInstance
    */
   update(
     callback?: (
@@ -257,10 +256,10 @@ export class AssistantInitiationActionsInstance {
   /**
    * Update a AssistantInitiationActionsInstance
    *
-   * @param { AssistantInitiationActionsContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed AssistantInitiationActionsInstance
+   * @returns Resolves to processed AssistantInitiationActionsInstance
    */
   update(
     params: AssistantInitiationActionsContextUpdateOptions,

@@ -24,99 +24,86 @@ type FleetDataMetering = "payg";
 
 /**
  * Options to pass to update a FleetInstance
- *
- * @property { string } [uniqueName] An application-defined string that uniquely identifies the resource. It can be used in place of the resource\\\'s `sid` in the URL to address the resource.
- * @property { string } [networkAccessProfile] The SID or unique name of the Network Access Profile that will control which cellular networks the Fleet\\\'s SIMs can connect to.
- * @property { string } [ipCommandsUrl] The URL that will receive a webhook when a Super SIM in the Fleet is used to send an IP Command from your device to a special IP address. Your server should respond with an HTTP status code in the 200 range; any response body will be ignored.
- * @property { string } [ipCommandsMethod] A string representing the HTTP method to use when making a request to `ip_commands_url`. Can be one of `POST` or `GET`. Defaults to `POST`.
- * @property { string } [smsCommandsUrl] The URL that will receive a webhook when a Super SIM in the Fleet is used to send an SMS from your device to the SMS Commands number. Your server should respond with an HTTP status code in the 200 range; any response body will be ignored.
- * @property { string } [smsCommandsMethod] A string representing the HTTP method to use when making a request to `sms_commands_url`. Can be one of `POST` or `GET`. Defaults to `POST`.
- * @property { number } [dataLimit] The total data usage (download and upload combined) in Megabytes that each Super SIM assigned to the Fleet can consume during a billing period (normally one month). Value must be between 1MB (1) and 2TB (2,000,000). Defaults to 1GB (1,000).
  */
 export interface FleetContextUpdateOptions {
+  /** An application-defined string that uniquely identifies the resource. It can be used in place of the resource\\\'s `sid` in the URL to address the resource. */
   uniqueName?: string;
+  /** The SID or unique name of the Network Access Profile that will control which cellular networks the Fleet\\\'s SIMs can connect to. */
   networkAccessProfile?: string;
+  /** The URL that will receive a webhook when a Super SIM in the Fleet is used to send an IP Command from your device to a special IP address. Your server should respond with an HTTP status code in the 200 range; any response body will be ignored. */
   ipCommandsUrl?: string;
+  /** A string representing the HTTP method to use when making a request to `ip_commands_url`. Can be one of `POST` or `GET`. Defaults to `POST`. */
   ipCommandsMethod?: string;
+  /** The URL that will receive a webhook when a Super SIM in the Fleet is used to send an SMS from your device to the SMS Commands number. Your server should respond with an HTTP status code in the 200 range; any response body will be ignored. */
   smsCommandsUrl?: string;
+  /** A string representing the HTTP method to use when making a request to `sms_commands_url`. Can be one of `POST` or `GET`. Defaults to `POST`. */
   smsCommandsMethod?: string;
+  /** The total data usage (download and upload combined) in Megabytes that each Super SIM assigned to the Fleet can consume during a billing period (normally one month). Value must be between 1MB (1) and 2TB (2,000,000). Defaults to 1GB (1,000). */
   dataLimit?: number;
 }
 
 /**
  * Options to pass to create a FleetInstance
- *
- * @property { string } networkAccessProfile The SID or unique name of the Network Access Profile that will control which cellular networks the Fleet\\\'s SIMs can connect to.
- * @property { string } [uniqueName] An application-defined string that uniquely identifies the resource. It can be used in place of the resource\\\'s `sid` in the URL to address the resource.
- * @property { boolean } [dataEnabled] Defines whether SIMs in the Fleet are capable of using 2G/3G/4G/LTE/CAT-M data connectivity. Defaults to `true`.
- * @property { number } [dataLimit] The total data usage (download and upload combined) in Megabytes that each Super SIM assigned to the Fleet can consume during a billing period (normally one month). Value must be between 1MB (1) and 2TB (2,000,000). Defaults to 1GB (1,000).
- * @property { string } [ipCommandsUrl] The URL that will receive a webhook when a Super SIM in the Fleet is used to send an IP Command from your device to a special IP address. Your server should respond with an HTTP status code in the 200 range; any response body will be ignored.
- * @property { string } [ipCommandsMethod] A string representing the HTTP method to use when making a request to `ip_commands_url`. Can be one of `POST` or `GET`. Defaults to `POST`.
- * @property { boolean } [smsCommandsEnabled] Defines whether SIMs in the Fleet are capable of sending and receiving machine-to-machine SMS via Commands. Defaults to `true`.
- * @property { string } [smsCommandsUrl] The URL that will receive a webhook when a Super SIM in the Fleet is used to send an SMS from your device to the SMS Commands number. Your server should respond with an HTTP status code in the 200 range; any response body will be ignored.
- * @property { string } [smsCommandsMethod] A string representing the HTTP method to use when making a request to `sms_commands_url`. Can be one of `POST` or `GET`. Defaults to `POST`.
  */
 export interface FleetListInstanceCreateOptions {
+  /** The SID or unique name of the Network Access Profile that will control which cellular networks the Fleet\\\'s SIMs can connect to. */
   networkAccessProfile: string;
+  /** An application-defined string that uniquely identifies the resource. It can be used in place of the resource\\\'s `sid` in the URL to address the resource. */
   uniqueName?: string;
+  /** Defines whether SIMs in the Fleet are capable of using 2G/3G/4G/LTE/CAT-M data connectivity. Defaults to `true`. */
   dataEnabled?: boolean;
+  /** The total data usage (download and upload combined) in Megabytes that each Super SIM assigned to the Fleet can consume during a billing period (normally one month). Value must be between 1MB (1) and 2TB (2,000,000). Defaults to 1GB (1,000). */
   dataLimit?: number;
+  /** The URL that will receive a webhook when a Super SIM in the Fleet is used to send an IP Command from your device to a special IP address. Your server should respond with an HTTP status code in the 200 range; any response body will be ignored. */
   ipCommandsUrl?: string;
+  /** A string representing the HTTP method to use when making a request to `ip_commands_url`. Can be one of `POST` or `GET`. Defaults to `POST`. */
   ipCommandsMethod?: string;
+  /** Defines whether SIMs in the Fleet are capable of sending and receiving machine-to-machine SMS via Commands. Defaults to `true`. */
   smsCommandsEnabled?: boolean;
+  /** The URL that will receive a webhook when a Super SIM in the Fleet is used to send an SMS from your device to the SMS Commands number. Your server should respond with an HTTP status code in the 200 range; any response body will be ignored. */
   smsCommandsUrl?: string;
+  /** A string representing the HTTP method to use when making a request to `sms_commands_url`. Can be one of `POST` or `GET`. Defaults to `POST`. */
   smsCommandsMethod?: string;
 }
 /**
  * Options to pass to each
- *
- * @property { string } [networkAccessProfile] The SID or unique name of the Network Access Profile that controls which cellular networks the Fleet\'s SIMs can connect to.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface FleetListInstanceEachOptions {
+  /** The SID or unique name of the Network Access Profile that controls which cellular networks the Fleet\'s SIMs can connect to. */
   networkAccessProfile?: string;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: FleetInstance, done: (err?: Error) => void) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { string } [networkAccessProfile] The SID or unique name of the Network Access Profile that controls which cellular networks the Fleet\'s SIMs can connect to.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface FleetListInstanceOptions {
+  /** The SID or unique name of the Network Access Profile that controls which cellular networks the Fleet\'s SIMs can connect to. */
   networkAccessProfile?: string;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { string } [networkAccessProfile] The SID or unique name of the Network Access Profile that controls which cellular networks the Fleet\'s SIMs can connect to.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface FleetListInstancePageOptions {
+  /** The SID or unique name of the Network Access Profile that controls which cellular networks the Fleet\'s SIMs can connect to. */
   networkAccessProfile?: string;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
@@ -124,9 +111,9 @@ export interface FleetContext {
   /**
    * Fetch a FleetInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed FleetInstance
+   * @returns Resolves to processed FleetInstance
    */
   fetch(
     callback?: (error: Error | null, item?: FleetInstance) => any
@@ -135,9 +122,9 @@ export interface FleetContext {
   /**
    * Update a FleetInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed FleetInstance
+   * @returns Resolves to processed FleetInstance
    */
   update(
     callback?: (error: Error | null, item?: FleetInstance) => any
@@ -145,10 +132,10 @@ export interface FleetContext {
   /**
    * Update a FleetInstance
    *
-   * @param { FleetContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed FleetInstance
+   * @returns Resolves to processed FleetInstance
    */
   update(
     params: FleetContextUpdateOptions,
@@ -391,9 +378,9 @@ export class FleetInstance {
   /**
    * Fetch a FleetInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed FleetInstance
+   * @returns Resolves to processed FleetInstance
    */
   fetch(
     callback?: (error: Error | null, item?: FleetInstance) => any
@@ -404,9 +391,9 @@ export class FleetInstance {
   /**
    * Update a FleetInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed FleetInstance
+   * @returns Resolves to processed FleetInstance
    */
   update(
     callback?: (error: Error | null, item?: FleetInstance) => any
@@ -414,10 +401,10 @@ export class FleetInstance {
   /**
    * Update a FleetInstance
    *
-   * @param { FleetContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed FleetInstance
+   * @returns Resolves to processed FleetInstance
    */
   update(
     params: FleetContextUpdateOptions,
@@ -470,10 +457,10 @@ export interface FleetListInstance {
   /**
    * Create a FleetInstance
    *
-   * @param { FleetListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed FleetInstance
+   * @returns Resolves to processed FleetInstance
    */
   create(
     params: FleetListInstanceCreateOptions,

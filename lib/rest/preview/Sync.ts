@@ -20,16 +20,16 @@ export default class Sync extends Version {
   /**
    * Initialize the Sync version of Preview
    *
-   * @property { Twilio.Preview.Sync.ServiceListInstance } services - services resource
-   *
-   * @param { Twilio.Preview } domain - The Twilio domain
+   * @param domain - The Twilio (Twilio.Preview) domain
    */
   constructor(domain: PreviewBase) {
     super(domain, "Sync");
   }
 
+  /** services - { Twilio.Preview.Sync.ServiceListInstance } resource */
   protected _services?: ServiceListInstance;
 
+  /** Getter for services resource */
   get services(): ServiceListInstance {
     this._services = this._services || ServiceListInstance(this);
     return this._services;

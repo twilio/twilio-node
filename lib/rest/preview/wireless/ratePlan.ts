@@ -22,85 +22,72 @@ import { isValidPathParam } from "../../../base/utility";
 
 /**
  * Options to pass to update a RatePlanInstance
- *
- * @property { string } [uniqueName]
- * @property { string } [friendlyName]
  */
 export interface RatePlanContextUpdateOptions {
+  /**  */
   uniqueName?: string;
+  /**  */
   friendlyName?: string;
 }
 
 /**
  * Options to pass to create a RatePlanInstance
- *
- * @property { string } [uniqueName]
- * @property { string } [friendlyName]
- * @property { boolean } [dataEnabled]
- * @property { number } [dataLimit]
- * @property { string } [dataMetering]
- * @property { boolean } [messagingEnabled]
- * @property { boolean } [voiceEnabled]
- * @property { boolean } [commandsEnabled]
- * @property { boolean } [nationalRoamingEnabled]
- * @property { Array<string> } [internationalRoaming]
  */
 export interface RatePlanListInstanceCreateOptions {
+  /**  */
   uniqueName?: string;
+  /**  */
   friendlyName?: string;
+  /**  */
   dataEnabled?: boolean;
+  /**  */
   dataLimit?: number;
+  /**  */
   dataMetering?: string;
+  /**  */
   messagingEnabled?: boolean;
+  /**  */
   voiceEnabled?: boolean;
+  /**  */
   commandsEnabled?: boolean;
+  /**  */
   nationalRoamingEnabled?: boolean;
+  /**  */
   internationalRoaming?: Array<string>;
 }
 /**
  * Options to pass to each
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface RatePlanListInstanceEachOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: RatePlanInstance, done: (err?: Error) => void) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface RatePlanListInstanceOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface RatePlanListInstancePageOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
@@ -108,9 +95,9 @@ export interface RatePlanContext {
   /**
    * Remove a RatePlanInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -119,9 +106,9 @@ export interface RatePlanContext {
   /**
    * Fetch a RatePlanInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed RatePlanInstance
+   * @returns Resolves to processed RatePlanInstance
    */
   fetch(
     callback?: (error: Error | null, item?: RatePlanInstance) => any
@@ -130,9 +117,9 @@ export interface RatePlanContext {
   /**
    * Update a RatePlanInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed RatePlanInstance
+   * @returns Resolves to processed RatePlanInstance
    */
   update(
     callback?: (error: Error | null, item?: RatePlanInstance) => any
@@ -140,10 +127,10 @@ export interface RatePlanContext {
   /**
    * Update a RatePlanInstance
    *
-   * @param { RatePlanContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed RatePlanInstance
+   * @returns Resolves to processed RatePlanInstance
    */
   update(
     params: RatePlanContextUpdateOptions,
@@ -336,9 +323,9 @@ export class RatePlanInstance {
   /**
    * Remove a RatePlanInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -349,9 +336,9 @@ export class RatePlanInstance {
   /**
    * Fetch a RatePlanInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed RatePlanInstance
+   * @returns Resolves to processed RatePlanInstance
    */
   fetch(
     callback?: (error: Error | null, item?: RatePlanInstance) => any
@@ -362,9 +349,9 @@ export class RatePlanInstance {
   /**
    * Update a RatePlanInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed RatePlanInstance
+   * @returns Resolves to processed RatePlanInstance
    */
   update(
     callback?: (error: Error | null, item?: RatePlanInstance) => any
@@ -372,10 +359,10 @@ export class RatePlanInstance {
   /**
    * Update a RatePlanInstance
    *
-   * @param { RatePlanContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed RatePlanInstance
+   * @returns Resolves to processed RatePlanInstance
    */
   update(
     params: RatePlanContextUpdateOptions,
@@ -427,9 +414,9 @@ export interface RatePlanListInstance {
   /**
    * Create a RatePlanInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed RatePlanInstance
+   * @returns Resolves to processed RatePlanInstance
    */
   create(
     callback?: (error: Error | null, item?: RatePlanInstance) => any
@@ -437,10 +424,10 @@ export interface RatePlanListInstance {
   /**
    * Create a RatePlanInstance
    *
-   * @param { RatePlanListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed RatePlanInstance
+   * @returns Resolves to processed RatePlanInstance
    */
   create(
     params: RatePlanListInstanceCreateOptions,

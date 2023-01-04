@@ -20,10 +20,9 @@ import { isValidPathParam } from "../../../../../../base/utility";
 
 /**
  * Options to pass to create a NotificationInstance
- *
- * @property { number } [ttl] How long, in seconds, the notification is valid. Can be an integer between 0 and 300. Default is 300. Delivery is attempted until the TTL elapses, even if the device is offline. 0 means that the notification delivery is attempted immediately, only once, and is not stored for future delivery.
  */
 export interface NotificationListInstanceCreateOptions {
+  /** How long, in seconds, the notification is valid. Can be an integer between 0 and 300. Default is 300. Delivery is attempted until the TTL elapses, even if the device is offline. 0 means that the notification delivery is attempted immediately, only once, and is not stored for future delivery. */
   ttl?: number;
 }
 
@@ -41,9 +40,9 @@ export interface NotificationListInstance {
   /**
    * Create a NotificationInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed NotificationInstance
+   * @returns Resolves to processed NotificationInstance
    */
   create(
     callback?: (error: Error | null, item?: NotificationInstance) => any
@@ -51,10 +50,10 @@ export interface NotificationListInstance {
   /**
    * Create a NotificationInstance
    *
-   * @param { NotificationListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed NotificationInstance
+   * @returns Resolves to processed NotificationInstance
    */
   create(
     params: NotificationListInstanceCreateOptions,

@@ -30,93 +30,80 @@ import { TaskListInstance } from "./assistant/task";
 
 /**
  * Options to pass to update a AssistantInstance
- *
- * @property { string } [friendlyName] A text description for the Assistant. It is non-unique and can up to 255 characters long.
- * @property { boolean } [logQueries] A boolean that specifies whether queries should be logged for 30 days further training. If false, no queries will be stored, if true, queries will be stored for 30 days and deleted thereafter. Defaults to true if no value is provided.
- * @property { string } [uniqueName] A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
- * @property { string } [callbackUrl] A user-provided URL to send event callbacks to.
- * @property { string } [callbackEvents] Space-separated list of callback events that will trigger callbacks.
- * @property { any } [fallbackActions] The JSON actions to be executed when the user\\\'s input is not recognized as matching any Task.
- * @property { any } [initiationActions] The JSON actions to be executed on inbound phone calls when the Assistant has to say something first.
- * @property { any } [styleSheet] The JSON object that holds the style sheet for the assistant
  */
 export interface AssistantContextUpdateOptions {
+  /** A text description for the Assistant. It is non-unique and can up to 255 characters long. */
   friendlyName?: string;
+  /** A boolean that specifies whether queries should be logged for 30 days further training. If false, no queries will be stored, if true, queries will be stored for 30 days and deleted thereafter. Defaults to true if no value is provided. */
   logQueries?: boolean;
+  /** A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long. */
   uniqueName?: string;
+  /** A user-provided URL to send event callbacks to. */
   callbackUrl?: string;
+  /** Space-separated list of callback events that will trigger callbacks. */
   callbackEvents?: string;
+  /** The JSON actions to be executed when the user\\\'s input is not recognized as matching any Task. */
   fallbackActions?: any;
+  /** The JSON actions to be executed on inbound phone calls when the Assistant has to say something first. */
   initiationActions?: any;
+  /** The JSON object that holds the style sheet for the assistant */
   styleSheet?: any;
 }
 
 /**
  * Options to pass to create a AssistantInstance
- *
- * @property { string } [friendlyName] A text description for the Assistant. It is non-unique and can up to 255 characters long.
- * @property { boolean } [logQueries] A boolean that specifies whether queries should be logged for 30 days further training. If false, no queries will be stored, if true, queries will be stored for 30 days and deleted thereafter. Defaults to true if no value is provided.
- * @property { string } [uniqueName] A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
- * @property { string } [callbackUrl] A user-provided URL to send event callbacks to.
- * @property { string } [callbackEvents] Space-separated list of callback events that will trigger callbacks.
- * @property { any } [fallbackActions] The JSON actions to be executed when the user\\\'s input is not recognized as matching any Task.
- * @property { any } [initiationActions] The JSON actions to be executed on inbound phone calls when the Assistant has to say something first.
- * @property { any } [styleSheet] The JSON object that holds the style sheet for the assistant
  */
 export interface AssistantListInstanceCreateOptions {
+  /** A text description for the Assistant. It is non-unique and can up to 255 characters long. */
   friendlyName?: string;
+  /** A boolean that specifies whether queries should be logged for 30 days further training. If false, no queries will be stored, if true, queries will be stored for 30 days and deleted thereafter. Defaults to true if no value is provided. */
   logQueries?: boolean;
+  /** A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long. */
   uniqueName?: string;
+  /** A user-provided URL to send event callbacks to. */
   callbackUrl?: string;
+  /** Space-separated list of callback events that will trigger callbacks. */
   callbackEvents?: string;
+  /** The JSON actions to be executed when the user\\\'s input is not recognized as matching any Task. */
   fallbackActions?: any;
+  /** The JSON actions to be executed on inbound phone calls when the Assistant has to say something first. */
   initiationActions?: any;
+  /** The JSON object that holds the style sheet for the assistant */
   styleSheet?: any;
 }
 /**
  * Options to pass to each
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface AssistantListInstanceEachOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: AssistantInstance, done: (err?: Error) => void) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface AssistantListInstanceOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface AssistantListInstancePageOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
@@ -133,9 +120,9 @@ export interface AssistantContext {
   /**
    * Remove a AssistantInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -144,9 +131,9 @@ export interface AssistantContext {
   /**
    * Fetch a AssistantInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed AssistantInstance
+   * @returns Resolves to processed AssistantInstance
    */
   fetch(
     callback?: (error: Error | null, item?: AssistantInstance) => any
@@ -155,9 +142,9 @@ export interface AssistantContext {
   /**
    * Update a AssistantInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed AssistantInstance
+   * @returns Resolves to processed AssistantInstance
    */
   update(
     callback?: (error: Error | null, item?: AssistantInstance) => any
@@ -165,10 +152,10 @@ export interface AssistantContext {
   /**
    * Update a AssistantInstance
    *
-   * @param { AssistantContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed AssistantInstance
+   * @returns Resolves to processed AssistantInstance
    */
   update(
     params: AssistantContextUpdateOptions,
@@ -460,9 +447,9 @@ export class AssistantInstance {
   /**
    * Remove a AssistantInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -473,9 +460,9 @@ export class AssistantInstance {
   /**
    * Fetch a AssistantInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed AssistantInstance
+   * @returns Resolves to processed AssistantInstance
    */
   fetch(
     callback?: (error: Error | null, item?: AssistantInstance) => any
@@ -486,9 +473,9 @@ export class AssistantInstance {
   /**
    * Update a AssistantInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed AssistantInstance
+   * @returns Resolves to processed AssistantInstance
    */
   update(
     callback?: (error: Error | null, item?: AssistantInstance) => any
@@ -496,10 +483,10 @@ export class AssistantInstance {
   /**
    * Update a AssistantInstance
    *
-   * @param { AssistantContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed AssistantInstance
+   * @returns Resolves to processed AssistantInstance
    */
   update(
     params: AssistantContextUpdateOptions,
@@ -605,9 +592,9 @@ export interface AssistantListInstance {
   /**
    * Create a AssistantInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed AssistantInstance
+   * @returns Resolves to processed AssistantInstance
    */
   create(
     callback?: (error: Error | null, item?: AssistantInstance) => any
@@ -615,10 +602,10 @@ export interface AssistantListInstance {
   /**
    * Create a AssistantInstance
    *
-   * @param { AssistantListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed AssistantInstance
+   * @returns Resolves to processed AssistantInstance
    */
   create(
     params: AssistantListInstanceCreateOptions,

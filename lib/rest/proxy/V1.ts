@@ -20,16 +20,16 @@ export default class V1 extends Version {
   /**
    * Initialize the V1 version of Proxy
    *
-   * @property { Twilio.Proxy.V1.ServiceListInstance } services - services resource
-   *
-   * @param { Twilio.Proxy } domain - The Twilio domain
+   * @param domain - The Twilio (Twilio.Proxy) domain
    */
   constructor(domain: ProxyBase) {
     super(domain, "v1");
   }
 
+  /** services - { Twilio.Proxy.V1.ServiceListInstance } resource */
   protected _services?: ServiceListInstance;
 
+  /** Getter for services resource */
   get services(): ServiceListInstance {
     this._services = this._services || ServiceListInstance(this);
     return this._services;

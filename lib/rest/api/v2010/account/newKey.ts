@@ -20,10 +20,9 @@ import { isValidPathParam } from "../../../../base/utility";
 
 /**
  * Options to pass to create a NewKeyInstance
- *
- * @property { string } [friendlyName] A descriptive string that you create to describe the resource. It can be up to 64 characters long.
  */
 export interface NewKeyListInstanceCreateOptions {
+  /** A descriptive string that you create to describe the resource. It can be up to 64 characters long. */
   friendlyName?: string;
 }
 
@@ -39,9 +38,9 @@ export interface NewKeyListInstance {
   /**
    * Create a NewKeyInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed NewKeyInstance
+   * @returns Resolves to processed NewKeyInstance
    */
   create(
     callback?: (error: Error | null, item?: NewKeyInstance) => any
@@ -49,10 +48,10 @@ export interface NewKeyListInstance {
   /**
    * Create a NewKeyInstance
    *
-   * @param { NewKeyListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed NewKeyInstance
+   * @returns Resolves to processed NewKeyInstance
    */
   create(
     params: NewKeyListInstanceCreateOptions,

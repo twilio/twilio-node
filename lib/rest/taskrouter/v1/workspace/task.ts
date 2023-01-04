@@ -31,146 +31,132 @@ type TaskStatus =
 
 /**
  * Options to pass to remove a TaskInstance
- *
- * @property { string } [ifMatch] If provided, deletes this Task if (and only if) the [ETag](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/ETag) header of the Task matches the provided value. This matches the semantics of (and is implemented with) the HTTP [If-Match header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match).
  */
 export interface TaskContextRemoveOptions {
+  /** If provided, deletes this Task if (and only if) the [ETag](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/ETag) header of the Task matches the provided value. This matches the semantics of (and is implemented with) the HTTP [If-Match header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match). */
   ifMatch?: string;
 }
 
 /**
  * Options to pass to update a TaskInstance
- *
- * @property { string } [ifMatch] If provided, applies this mutation if (and only if) the [ETag](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/ETag) header of the Task matches the provided value. This matches the semantics of (and is implemented with) the HTTP [If-Match header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match).
- * @property { string } [attributes] The JSON string that describes the custom attributes of the task.
- * @property { TaskStatus } [assignmentStatus]
- * @property { string } [reason] The reason that the Task was canceled or completed. This parameter is required only if the Task is canceled or completed. Setting this value queues the task for deletion and logs the reason.
- * @property { number } [priority] The Task\\\'s new priority value. When supplied, the Task takes on the specified priority unless it matches a Workflow Target with a Priority set. Value can be 0 to 2^31^ (2,147,483,647).
- * @property { string } [taskChannel] When MultiTasking is enabled, specify the TaskChannel with the task to update. Can be the TaskChannel\\\'s SID or its `unique_name`, such as `voice`, `sms`, or `default`.
  */
 export interface TaskContextUpdateOptions {
+  /** If provided, applies this mutation if (and only if) the [ETag](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/ETag) header of the Task matches the provided value. This matches the semantics of (and is implemented with) the HTTP [If-Match header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match). */
   ifMatch?: string;
+  /** The JSON string that describes the custom attributes of the task. */
   attributes?: string;
+  /**  */
   assignmentStatus?: TaskStatus;
+  /** The reason that the Task was canceled or completed. This parameter is required only if the Task is canceled or completed. Setting this value queues the task for deletion and logs the reason. */
   reason?: string;
+  /** The Task\\\'s new priority value. When supplied, the Task takes on the specified priority unless it matches a Workflow Target with a Priority set. Value can be 0 to 2^31^ (2,147,483,647). */
   priority?: number;
+  /** When MultiTasking is enabled, specify the TaskChannel with the task to update. Can be the TaskChannel\\\'s SID or its `unique_name`, such as `voice`, `sms`, or `default`. */
   taskChannel?: string;
 }
 
 /**
  * Options to pass to create a TaskInstance
- *
- * @property { number } [timeout] The amount of time in seconds the new task can live before being assigned. Can be up to a maximum of 2 weeks (1,209,600 seconds). The default value is 24 hours (86,400 seconds). On timeout, the `task.canceled` event will fire with description `Task TTL Exceeded`.
- * @property { number } [priority] The priority to assign the new task and override the default. When supplied, the new Task will have this priority unless it matches a Workflow Target with a Priority set. When not supplied, the new Task will have the priority of the matching Workflow Target. Value can be 0 to 2^31^ (2,147,483,647).
- * @property { string } [taskChannel] When MultiTasking is enabled, specify the TaskChannel by passing either its `unique_name` or `sid`. Default value is `default`.
- * @property { string } [workflowSid] The SID of the Workflow that you would like to handle routing for the new Task. If there is only one Workflow defined for the Workspace that you are posting the new task to, this parameter is optional.
- * @property { string } [attributes] A URL-encoded JSON string with the attributes of the new task. This value is passed to the Workflow\\\'s `assignment_callback_url` when the Task is assigned to a Worker. For example: `{ \\\"task_type\\\": \\\"call\\\", \\\"twilio_call_sid\\\": \\\"CAxxx\\\", \\\"customer_ticket_number\\\": \\\"12345\\\" }`.
  */
 export interface TaskListInstanceCreateOptions {
+  /** The amount of time in seconds the new task can live before being assigned. Can be up to a maximum of 2 weeks (1,209,600 seconds). The default value is 24 hours (86,400 seconds). On timeout, the `task.canceled` event will fire with description `Task TTL Exceeded`. */
   timeout?: number;
+  /** The priority to assign the new task and override the default. When supplied, the new Task will have this priority unless it matches a Workflow Target with a Priority set. When not supplied, the new Task will have the priority of the matching Workflow Target. Value can be 0 to 2^31^ (2,147,483,647). */
   priority?: number;
+  /** When MultiTasking is enabled, specify the TaskChannel by passing either its `unique_name` or `sid`. Default value is `default`. */
   taskChannel?: string;
+  /** The SID of the Workflow that you would like to handle routing for the new Task. If there is only one Workflow defined for the Workspace that you are posting the new task to, this parameter is optional. */
   workflowSid?: string;
+  /** A URL-encoded JSON string with the attributes of the new task. This value is passed to the Workflow\\\'s `assignment_callback_url` when the Task is assigned to a Worker. For example: `{ \\\"task_type\\\": \\\"call\\\", \\\"twilio_call_sid\\\": \\\"CAxxx\\\", \\\"customer_ticket_number\\\": \\\"12345\\\" }`. */
   attributes?: string;
 }
 /**
  * Options to pass to each
- *
- * @property { number } [priority] The priority value of the Tasks to read. Returns the list of all Tasks in the Workspace with the specified priority.
- * @property { Array<string> } [assignmentStatus] The `assignment_status` of the Tasks you want to read. Can be: `pending`, `reserved`, `assigned`, `canceled`, `wrapping`, or `completed`. Returns all Tasks in the Workspace with the specified `assignment_status`.
- * @property { string } [workflowSid] The SID of the Workflow with the Tasks to read. Returns the Tasks controlled by the Workflow identified by this SID.
- * @property { string } [workflowName] The friendly name of the Workflow with the Tasks to read. Returns the Tasks controlled by the Workflow identified by this friendly name.
- * @property { string } [taskQueueSid] The SID of the TaskQueue with the Tasks to read. Returns the Tasks waiting in the TaskQueue identified by this SID.
- * @property { string } [taskQueueName] The `friendly_name` of the TaskQueue with the Tasks to read. Returns the Tasks waiting in the TaskQueue identified by this friendly name.
- * @property { string } [evaluateTaskAttributes] The attributes of the Tasks to read. Returns the Tasks that match the attributes specified in this parameter.
- * @property { string } [ordering] How to order the returned Task resources. y default, Tasks are sorted by ascending DateCreated. This value is specified as: `Attribute:Order`, where `Attribute` can be either `Priority` or `DateCreated` and `Order` can be either `asc` or `desc`. For example, `Priority:desc` returns Tasks ordered in descending order of their Priority. Multiple sort orders can be specified in a comma-separated list such as `Priority:desc,DateCreated:asc`, which returns the Tasks in descending Priority order and ascending DateCreated Order.
- * @property { boolean } [hasAddons] Whether to read Tasks with addons. If `true`, returns only Tasks with addons. If `false`, returns only Tasks without addons.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface TaskListInstanceEachOptions {
+  /** The priority value of the Tasks to read. Returns the list of all Tasks in the Workspace with the specified priority. */
   priority?: number;
+  /** The `assignment_status` of the Tasks you want to read. Can be: `pending`, `reserved`, `assigned`, `canceled`, `wrapping`, or `completed`. Returns all Tasks in the Workspace with the specified `assignment_status`. */
   assignmentStatus?: Array<string>;
+  /** The SID of the Workflow with the Tasks to read. Returns the Tasks controlled by the Workflow identified by this SID. */
   workflowSid?: string;
+  /** The friendly name of the Workflow with the Tasks to read. Returns the Tasks controlled by the Workflow identified by this friendly name. */
   workflowName?: string;
+  /** The SID of the TaskQueue with the Tasks to read. Returns the Tasks waiting in the TaskQueue identified by this SID. */
   taskQueueSid?: string;
+  /** The `friendly_name` of the TaskQueue with the Tasks to read. Returns the Tasks waiting in the TaskQueue identified by this friendly name. */
   taskQueueName?: string;
+  /** The attributes of the Tasks to read. Returns the Tasks that match the attributes specified in this parameter. */
   evaluateTaskAttributes?: string;
+  /** How to order the returned Task resources. y default, Tasks are sorted by ascending DateCreated. This value is specified as: `Attribute:Order`, where `Attribute` can be either `Priority` or `DateCreated` and `Order` can be either `asc` or `desc`. For example, `Priority:desc` returns Tasks ordered in descending order of their Priority. Multiple sort orders can be specified in a comma-separated list such as `Priority:desc,DateCreated:asc`, which returns the Tasks in descending Priority order and ascending DateCreated Order. */
   ordering?: string;
+  /** Whether to read Tasks with addons. If `true`, returns only Tasks with addons. If `false`, returns only Tasks without addons. */
   hasAddons?: boolean;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: TaskInstance, done: (err?: Error) => void) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { number } [priority] The priority value of the Tasks to read. Returns the list of all Tasks in the Workspace with the specified priority.
- * @property { Array<string> } [assignmentStatus] The `assignment_status` of the Tasks you want to read. Can be: `pending`, `reserved`, `assigned`, `canceled`, `wrapping`, or `completed`. Returns all Tasks in the Workspace with the specified `assignment_status`.
- * @property { string } [workflowSid] The SID of the Workflow with the Tasks to read. Returns the Tasks controlled by the Workflow identified by this SID.
- * @property { string } [workflowName] The friendly name of the Workflow with the Tasks to read. Returns the Tasks controlled by the Workflow identified by this friendly name.
- * @property { string } [taskQueueSid] The SID of the TaskQueue with the Tasks to read. Returns the Tasks waiting in the TaskQueue identified by this SID.
- * @property { string } [taskQueueName] The `friendly_name` of the TaskQueue with the Tasks to read. Returns the Tasks waiting in the TaskQueue identified by this friendly name.
- * @property { string } [evaluateTaskAttributes] The attributes of the Tasks to read. Returns the Tasks that match the attributes specified in this parameter.
- * @property { string } [ordering] How to order the returned Task resources. y default, Tasks are sorted by ascending DateCreated. This value is specified as: `Attribute:Order`, where `Attribute` can be either `Priority` or `DateCreated` and `Order` can be either `asc` or `desc`. For example, `Priority:desc` returns Tasks ordered in descending order of their Priority. Multiple sort orders can be specified in a comma-separated list such as `Priority:desc,DateCreated:asc`, which returns the Tasks in descending Priority order and ascending DateCreated Order.
- * @property { boolean } [hasAddons] Whether to read Tasks with addons. If `true`, returns only Tasks with addons. If `false`, returns only Tasks without addons.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface TaskListInstanceOptions {
+  /** The priority value of the Tasks to read. Returns the list of all Tasks in the Workspace with the specified priority. */
   priority?: number;
+  /** The `assignment_status` of the Tasks you want to read. Can be: `pending`, `reserved`, `assigned`, `canceled`, `wrapping`, or `completed`. Returns all Tasks in the Workspace with the specified `assignment_status`. */
   assignmentStatus?: Array<string>;
+  /** The SID of the Workflow with the Tasks to read. Returns the Tasks controlled by the Workflow identified by this SID. */
   workflowSid?: string;
+  /** The friendly name of the Workflow with the Tasks to read. Returns the Tasks controlled by the Workflow identified by this friendly name. */
   workflowName?: string;
+  /** The SID of the TaskQueue with the Tasks to read. Returns the Tasks waiting in the TaskQueue identified by this SID. */
   taskQueueSid?: string;
+  /** The `friendly_name` of the TaskQueue with the Tasks to read. Returns the Tasks waiting in the TaskQueue identified by this friendly name. */
   taskQueueName?: string;
+  /** The attributes of the Tasks to read. Returns the Tasks that match the attributes specified in this parameter. */
   evaluateTaskAttributes?: string;
+  /** How to order the returned Task resources. y default, Tasks are sorted by ascending DateCreated. This value is specified as: `Attribute:Order`, where `Attribute` can be either `Priority` or `DateCreated` and `Order` can be either `asc` or `desc`. For example, `Priority:desc` returns Tasks ordered in descending order of their Priority. Multiple sort orders can be specified in a comma-separated list such as `Priority:desc,DateCreated:asc`, which returns the Tasks in descending Priority order and ascending DateCreated Order. */
   ordering?: string;
+  /** Whether to read Tasks with addons. If `true`, returns only Tasks with addons. If `false`, returns only Tasks without addons. */
   hasAddons?: boolean;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { number } [priority] The priority value of the Tasks to read. Returns the list of all Tasks in the Workspace with the specified priority.
- * @property { Array<string> } [assignmentStatus] The `assignment_status` of the Tasks you want to read. Can be: `pending`, `reserved`, `assigned`, `canceled`, `wrapping`, or `completed`. Returns all Tasks in the Workspace with the specified `assignment_status`.
- * @property { string } [workflowSid] The SID of the Workflow with the Tasks to read. Returns the Tasks controlled by the Workflow identified by this SID.
- * @property { string } [workflowName] The friendly name of the Workflow with the Tasks to read. Returns the Tasks controlled by the Workflow identified by this friendly name.
- * @property { string } [taskQueueSid] The SID of the TaskQueue with the Tasks to read. Returns the Tasks waiting in the TaskQueue identified by this SID.
- * @property { string } [taskQueueName] The `friendly_name` of the TaskQueue with the Tasks to read. Returns the Tasks waiting in the TaskQueue identified by this friendly name.
- * @property { string } [evaluateTaskAttributes] The attributes of the Tasks to read. Returns the Tasks that match the attributes specified in this parameter.
- * @property { string } [ordering] How to order the returned Task resources. y default, Tasks are sorted by ascending DateCreated. This value is specified as: `Attribute:Order`, where `Attribute` can be either `Priority` or `DateCreated` and `Order` can be either `asc` or `desc`. For example, `Priority:desc` returns Tasks ordered in descending order of their Priority. Multiple sort orders can be specified in a comma-separated list such as `Priority:desc,DateCreated:asc`, which returns the Tasks in descending Priority order and ascending DateCreated Order.
- * @property { boolean } [hasAddons] Whether to read Tasks with addons. If `true`, returns only Tasks with addons. If `false`, returns only Tasks without addons.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface TaskListInstancePageOptions {
+  /** The priority value of the Tasks to read. Returns the list of all Tasks in the Workspace with the specified priority. */
   priority?: number;
+  /** The `assignment_status` of the Tasks you want to read. Can be: `pending`, `reserved`, `assigned`, `canceled`, `wrapping`, or `completed`. Returns all Tasks in the Workspace with the specified `assignment_status`. */
   assignmentStatus?: Array<string>;
+  /** The SID of the Workflow with the Tasks to read. Returns the Tasks controlled by the Workflow identified by this SID. */
   workflowSid?: string;
+  /** The friendly name of the Workflow with the Tasks to read. Returns the Tasks controlled by the Workflow identified by this friendly name. */
   workflowName?: string;
+  /** The SID of the TaskQueue with the Tasks to read. Returns the Tasks waiting in the TaskQueue identified by this SID. */
   taskQueueSid?: string;
+  /** The `friendly_name` of the TaskQueue with the Tasks to read. Returns the Tasks waiting in the TaskQueue identified by this friendly name. */
   taskQueueName?: string;
+  /** The attributes of the Tasks to read. Returns the Tasks that match the attributes specified in this parameter. */
   evaluateTaskAttributes?: string;
+  /** How to order the returned Task resources. y default, Tasks are sorted by ascending DateCreated. This value is specified as: `Attribute:Order`, where `Attribute` can be either `Priority` or `DateCreated` and `Order` can be either `asc` or `desc`. For example, `Priority:desc` returns Tasks ordered in descending order of their Priority. Multiple sort orders can be specified in a comma-separated list such as `Priority:desc,DateCreated:asc`, which returns the Tasks in descending Priority order and ascending DateCreated Order. */
   ordering?: string;
+  /** Whether to read Tasks with addons. If `true`, returns only Tasks with addons. If `false`, returns only Tasks without addons. */
   hasAddons?: boolean;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
@@ -180,9 +166,9 @@ export interface TaskContext {
   /**
    * Remove a TaskInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -190,10 +176,10 @@ export interface TaskContext {
   /**
    * Remove a TaskInstance
    *
-   * @param { TaskContextRemoveOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed TaskInstance
+   * @returns Resolves to processed TaskInstance
    */
   remove(
     params: TaskContextRemoveOptions,
@@ -204,9 +190,9 @@ export interface TaskContext {
   /**
    * Fetch a TaskInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed TaskInstance
+   * @returns Resolves to processed TaskInstance
    */
   fetch(
     callback?: (error: Error | null, item?: TaskInstance) => any
@@ -215,9 +201,9 @@ export interface TaskContext {
   /**
    * Update a TaskInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed TaskInstance
+   * @returns Resolves to processed TaskInstance
    */
   update(
     callback?: (error: Error | null, item?: TaskInstance) => any
@@ -225,10 +211,10 @@ export interface TaskContext {
   /**
    * Update a TaskInstance
    *
-   * @param { TaskContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed TaskInstance
+   * @returns Resolves to processed TaskInstance
    */
   update(
     params: TaskContextUpdateOptions,
@@ -558,9 +544,9 @@ export class TaskInstance {
   /**
    * Remove a TaskInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -568,10 +554,10 @@ export class TaskInstance {
   /**
    * Remove a TaskInstance
    *
-   * @param { TaskContextRemoveOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed TaskInstance
+   * @returns Resolves to processed TaskInstance
    */
   remove(
     params: TaskContextRemoveOptions,
@@ -584,9 +570,9 @@ export class TaskInstance {
   /**
    * Fetch a TaskInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed TaskInstance
+   * @returns Resolves to processed TaskInstance
    */
   fetch(
     callback?: (error: Error | null, item?: TaskInstance) => any
@@ -597,9 +583,9 @@ export class TaskInstance {
   /**
    * Update a TaskInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed TaskInstance
+   * @returns Resolves to processed TaskInstance
    */
   update(
     callback?: (error: Error | null, item?: TaskInstance) => any
@@ -607,10 +593,10 @@ export class TaskInstance {
   /**
    * Update a TaskInstance
    *
-   * @param { TaskContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed TaskInstance
+   * @returns Resolves to processed TaskInstance
    */
   update(
     params: TaskContextUpdateOptions,
@@ -678,9 +664,9 @@ export interface TaskListInstance {
   /**
    * Create a TaskInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed TaskInstance
+   * @returns Resolves to processed TaskInstance
    */
   create(
     callback?: (error: Error | null, item?: TaskInstance) => any
@@ -688,10 +674,10 @@ export interface TaskListInstance {
   /**
    * Create a TaskInstance
    *
-   * @param { TaskListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed TaskInstance
+   * @returns Resolves to processed TaskInstance
    */
   create(
     params: TaskListInstanceCreateOptions,

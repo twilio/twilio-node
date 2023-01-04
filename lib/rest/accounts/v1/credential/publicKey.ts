@@ -22,69 +22,56 @@ import { isValidPathParam } from "../../../../base/utility";
 
 /**
  * Options to pass to update a PublicKeyInstance
- *
- * @property { string } [friendlyName] A descriptive string that you create to describe the resource. It can be up to 64 characters long.
  */
 export interface PublicKeyContextUpdateOptions {
+  /** A descriptive string that you create to describe the resource. It can be up to 64 characters long. */
   friendlyName?: string;
 }
 
 /**
  * Options to pass to create a PublicKeyInstance
- *
- * @property { string } publicKey A URL encoded representation of the public key. For example, `-----BEGIN PUBLIC KEY-----MIIBIjANB.pa9xQIDAQAB-----END PUBLIC KEY-----`
- * @property { string } [friendlyName] A descriptive string that you create to describe the resource. It can be up to 64 characters long.
- * @property { string } [accountSid] The SID of the Subaccount that this Credential should be associated with. Must be a valid Subaccount of the account issuing the request
  */
 export interface PublicKeyListInstanceCreateOptions {
+  /** A URL encoded representation of the public key. For example, `-----BEGIN PUBLIC KEY-----MIIBIjANB.pa9xQIDAQAB-----END PUBLIC KEY-----` */
   publicKey: string;
+  /** A descriptive string that you create to describe the resource. It can be up to 64 characters long. */
   friendlyName?: string;
+  /** The SID of the Subaccount that this Credential should be associated with. Must be a valid Subaccount of the account issuing the request */
   accountSid?: string;
 }
 /**
  * Options to pass to each
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface PublicKeyListInstanceEachOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: PublicKeyInstance, done: (err?: Error) => void) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface PublicKeyListInstanceOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface PublicKeyListInstancePageOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
@@ -92,9 +79,9 @@ export interface PublicKeyContext {
   /**
    * Remove a PublicKeyInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -103,9 +90,9 @@ export interface PublicKeyContext {
   /**
    * Fetch a PublicKeyInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed PublicKeyInstance
+   * @returns Resolves to processed PublicKeyInstance
    */
   fetch(
     callback?: (error: Error | null, item?: PublicKeyInstance) => any
@@ -114,9 +101,9 @@ export interface PublicKeyContext {
   /**
    * Update a PublicKeyInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed PublicKeyInstance
+   * @returns Resolves to processed PublicKeyInstance
    */
   update(
     callback?: (error: Error | null, item?: PublicKeyInstance) => any
@@ -124,10 +111,10 @@ export interface PublicKeyContext {
   /**
    * Update a PublicKeyInstance
    *
-   * @param { PublicKeyContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed PublicKeyInstance
+   * @returns Resolves to processed PublicKeyInstance
    */
   update(
     params: PublicKeyContextUpdateOptions,
@@ -312,9 +299,9 @@ export class PublicKeyInstance {
   /**
    * Remove a PublicKeyInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -325,9 +312,9 @@ export class PublicKeyInstance {
   /**
    * Fetch a PublicKeyInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed PublicKeyInstance
+   * @returns Resolves to processed PublicKeyInstance
    */
   fetch(
     callback?: (error: Error | null, item?: PublicKeyInstance) => any
@@ -338,9 +325,9 @@ export class PublicKeyInstance {
   /**
    * Update a PublicKeyInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed PublicKeyInstance
+   * @returns Resolves to processed PublicKeyInstance
    */
   update(
     callback?: (error: Error | null, item?: PublicKeyInstance) => any
@@ -348,10 +335,10 @@ export class PublicKeyInstance {
   /**
    * Update a PublicKeyInstance
    *
-   * @param { PublicKeyContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed PublicKeyInstance
+   * @returns Resolves to processed PublicKeyInstance
    */
   update(
     params: PublicKeyContextUpdateOptions,
@@ -395,10 +382,10 @@ export interface PublicKeyListInstance {
   /**
    * Create a PublicKeyInstance
    *
-   * @param { PublicKeyListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed PublicKeyInstance
+   * @returns Resolves to processed PublicKeyInstance
    */
   create(
     params: PublicKeyListInstanceCreateOptions,

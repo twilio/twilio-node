@@ -30,106 +30,92 @@ type ChannelWebhookEnabledType = "true" | "false";
 
 /**
  * Options to pass to remove a ChannelInstance
- *
- * @property { ChannelWebhookEnabledType } [xTwilioWebhookEnabled] The X-Twilio-Webhook-Enabled HTTP request header
  */
 export interface ChannelContextRemoveOptions {
+  /** The X-Twilio-Webhook-Enabled HTTP request header */
   xTwilioWebhookEnabled?: ChannelWebhookEnabledType;
 }
 
 /**
  * Options to pass to update a ChannelInstance
- *
- * @property { ChannelWebhookEnabledType } [xTwilioWebhookEnabled] The X-Twilio-Webhook-Enabled HTTP request header
- * @property { string } [friendlyName] A descriptive string that you create to describe the resource. It can be up to 256 characters long.
- * @property { string } [uniqueName] An application-defined string that uniquely identifies the resource. It can be used to address the resource in place of the resource\\\'s `sid` in the URL. This value must be 256 characters or less in length and unique within the Service.
- * @property { string } [attributes] A valid JSON string that contains application-specific data.
- * @property { Date } [dateCreated] The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format, to assign to the resource as the date it was created. The default value is the current time set by the Chat service.  Note that this should only be used in cases where a Channel is being recreated from a backup/separate source.
- * @property { Date } [dateUpdated] The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format, to assign to the resource as the date it was last updated.
- * @property { string } [createdBy] The `identity` of the User that created the channel. Default is: `system`.
  */
 export interface ChannelContextUpdateOptions {
+  /** The X-Twilio-Webhook-Enabled HTTP request header */
   xTwilioWebhookEnabled?: ChannelWebhookEnabledType;
+  /** A descriptive string that you create to describe the resource. It can be up to 256 characters long. */
   friendlyName?: string;
+  /** An application-defined string that uniquely identifies the resource. It can be used to address the resource in place of the resource\\\'s `sid` in the URL. This value must be 256 characters or less in length and unique within the Service. */
   uniqueName?: string;
+  /** A valid JSON string that contains application-specific data. */
   attributes?: string;
+  /** The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format, to assign to the resource as the date it was created. The default value is the current time set by the Chat service.  Note that this should only be used in cases where a Channel is being recreated from a backup/separate source. */
   dateCreated?: Date;
+  /** The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format, to assign to the resource as the date it was last updated. */
   dateUpdated?: Date;
+  /** The `identity` of the User that created the channel. Default is: `system`. */
   createdBy?: string;
 }
 
 /**
  * Options to pass to create a ChannelInstance
- *
- * @property { ChannelWebhookEnabledType } [xTwilioWebhookEnabled] The X-Twilio-Webhook-Enabled HTTP request header
- * @property { string } [friendlyName] A descriptive string that you create to describe the new resource. It can be up to 64 characters long.
- * @property { string } [uniqueName] An application-defined string that uniquely identifies the resource. It can be used to address the resource in place of the Channel resource\\\'s `sid` in the URL. This value must be 64 characters or less in length and be unique within the Service.
- * @property { string } [attributes] A valid JSON string that contains application-specific data.
- * @property { ChannelChannelType } [type]
- * @property { Date } [dateCreated] The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format, to assign to the resource as the date it was created. The default value is the current time set by the Chat service.  Note that this should only be used in cases where a Channel is being recreated from a backup/separate source.
- * @property { Date } [dateUpdated] The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format, to assign to the resource as the date it was last updated. The default value is `null`. Note that this parameter should only be used in cases where a Channel is being recreated from a backup/separate source  and where a Message was previously updated.
- * @property { string } [createdBy] The `identity` of the User that created the channel. Default is: `system`.
  */
 export interface ChannelListInstanceCreateOptions {
+  /** The X-Twilio-Webhook-Enabled HTTP request header */
   xTwilioWebhookEnabled?: ChannelWebhookEnabledType;
+  /** A descriptive string that you create to describe the new resource. It can be up to 64 characters long. */
   friendlyName?: string;
+  /** An application-defined string that uniquely identifies the resource. It can be used to address the resource in place of the Channel resource\\\'s `sid` in the URL. This value must be 64 characters or less in length and be unique within the Service. */
   uniqueName?: string;
+  /** A valid JSON string that contains application-specific data. */
   attributes?: string;
+  /**  */
   type?: ChannelChannelType;
+  /** The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format, to assign to the resource as the date it was created. The default value is the current time set by the Chat service.  Note that this should only be used in cases where a Channel is being recreated from a backup/separate source. */
   dateCreated?: Date;
+  /** The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format, to assign to the resource as the date it was last updated. The default value is `null`. Note that this parameter should only be used in cases where a Channel is being recreated from a backup/separate source  and where a Message was previously updated. */
   dateUpdated?: Date;
+  /** The `identity` of the User that created the channel. Default is: `system`. */
   createdBy?: string;
 }
 /**
  * Options to pass to each
- *
- * @property { Array<ChannelChannelType> } [type] The visibility of the Channels to read. Can be: `public` or `private` and defaults to `public`.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface ChannelListInstanceEachOptions {
+  /** The visibility of the Channels to read. Can be: `public` or `private` and defaults to `public`. */
   type?: Array<ChannelChannelType>;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: ChannelInstance, done: (err?: Error) => void) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { Array<ChannelChannelType> } [type] The visibility of the Channels to read. Can be: `public` or `private` and defaults to `public`.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface ChannelListInstanceOptions {
+  /** The visibility of the Channels to read. Can be: `public` or `private` and defaults to `public`. */
   type?: Array<ChannelChannelType>;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { Array<ChannelChannelType> } [type] The visibility of the Channels to read. Can be: `public` or `private` and defaults to `public`.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface ChannelListInstancePageOptions {
+  /** The visibility of the Channels to read. Can be: `public` or `private` and defaults to `public`. */
   type?: Array<ChannelChannelType>;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
@@ -142,9 +128,9 @@ export interface ChannelContext {
   /**
    * Remove a ChannelInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -152,10 +138,10 @@ export interface ChannelContext {
   /**
    * Remove a ChannelInstance
    *
-   * @param { ChannelContextRemoveOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ChannelInstance
+   * @returns Resolves to processed ChannelInstance
    */
   remove(
     params: ChannelContextRemoveOptions,
@@ -166,9 +152,9 @@ export interface ChannelContext {
   /**
    * Fetch a ChannelInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ChannelInstance
+   * @returns Resolves to processed ChannelInstance
    */
   fetch(
     callback?: (error: Error | null, item?: ChannelInstance) => any
@@ -177,9 +163,9 @@ export interface ChannelContext {
   /**
    * Update a ChannelInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ChannelInstance
+   * @returns Resolves to processed ChannelInstance
    */
   update(
     callback?: (error: Error | null, item?: ChannelInstance) => any
@@ -187,10 +173,10 @@ export interface ChannelContext {
   /**
    * Update a ChannelInstance
    *
-   * @param { ChannelContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ChannelInstance
+   * @returns Resolves to processed ChannelInstance
    */
   update(
     params: ChannelContextUpdateOptions,
@@ -516,9 +502,9 @@ export class ChannelInstance {
   /**
    * Remove a ChannelInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -526,10 +512,10 @@ export class ChannelInstance {
   /**
    * Remove a ChannelInstance
    *
-   * @param { ChannelContextRemoveOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ChannelInstance
+   * @returns Resolves to processed ChannelInstance
    */
   remove(
     params: ChannelContextRemoveOptions,
@@ -542,9 +528,9 @@ export class ChannelInstance {
   /**
    * Fetch a ChannelInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ChannelInstance
+   * @returns Resolves to processed ChannelInstance
    */
   fetch(
     callback?: (error: Error | null, item?: ChannelInstance) => any
@@ -555,9 +541,9 @@ export class ChannelInstance {
   /**
    * Update a ChannelInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ChannelInstance
+   * @returns Resolves to processed ChannelInstance
    */
   update(
     callback?: (error: Error | null, item?: ChannelInstance) => any
@@ -565,10 +551,10 @@ export class ChannelInstance {
   /**
    * Update a ChannelInstance
    *
-   * @param { ChannelContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ChannelInstance
+   * @returns Resolves to processed ChannelInstance
    */
   update(
     params: ChannelContextUpdateOptions,
@@ -650,9 +636,9 @@ export interface ChannelListInstance {
   /**
    * Create a ChannelInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ChannelInstance
+   * @returns Resolves to processed ChannelInstance
    */
   create(
     callback?: (error: Error | null, item?: ChannelInstance) => any
@@ -660,10 +646,10 @@ export interface ChannelListInstance {
   /**
    * Create a ChannelInstance
    *
-   * @param { ChannelListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ChannelInstance
+   * @returns Resolves to processed ChannelInstance
    */
   create(
     params: ChannelListInstanceCreateOptions,

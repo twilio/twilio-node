@@ -26,20 +26,19 @@ type VerificationAttemptsSummaryChannels =
 
 /**
  * Options to pass to fetch a VerificationAttemptsSummaryInstance
- *
- * @property { string } [verifyServiceSid] Filter used to consider only Verification Attempts of the given verify service on the summary aggregation.
- * @property { Date } [dateCreatedAfter] Datetime filter used to consider only Verification Attempts created after this datetime on the summary aggregation. Given as GMT in RFC 2822 format.
- * @property { Date } [dateCreatedBefore] Datetime filter used to consider only Verification Attempts created before this datetime on the summary aggregation. Given as GMT in RFC 2822 format.
- * @property { string } [country] Filter used to consider only Verification Attempts sent to the specified destination country on the summary aggregation.
- * @property { VerificationAttemptsSummaryChannels } [channel] Filter Verification Attempts considered on the summary aggregation by communication channel. Valid values are `SMS` and `CALL`
- * @property { string } [destinationPrefix] Filter the Verification Attempts considered on the summary aggregation by Destination prefix. It is the prefix of a phone number in E.164 format.
  */
 export interface VerificationAttemptsSummaryContextFetchOptions {
+  /** Filter used to consider only Verification Attempts of the given verify service on the summary aggregation. */
   verifyServiceSid?: string;
+  /** Datetime filter used to consider only Verification Attempts created after this datetime on the summary aggregation. Given as GMT in RFC 2822 format. */
   dateCreatedAfter?: Date;
+  /** Datetime filter used to consider only Verification Attempts created before this datetime on the summary aggregation. Given as GMT in RFC 2822 format. */
   dateCreatedBefore?: Date;
+  /** Filter used to consider only Verification Attempts sent to the specified destination country on the summary aggregation. */
   country?: string;
+  /** Filter Verification Attempts considered on the summary aggregation by communication channel. Valid values are `SMS` and `CALL` */
   channel?: VerificationAttemptsSummaryChannels;
+  /** Filter the Verification Attempts considered on the summary aggregation by Destination prefix. It is the prefix of a phone number in E.164 format. */
   destinationPrefix?: string;
 }
 
@@ -47,9 +46,9 @@ export interface VerificationAttemptsSummaryContext {
   /**
    * Fetch a VerificationAttemptsSummaryInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed VerificationAttemptsSummaryInstance
+   * @returns Resolves to processed VerificationAttemptsSummaryInstance
    */
   fetch(
     callback?: (
@@ -60,10 +59,10 @@ export interface VerificationAttemptsSummaryContext {
   /**
    * Fetch a VerificationAttemptsSummaryInstance
    *
-   * @param { VerificationAttemptsSummaryContextFetchOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed VerificationAttemptsSummaryInstance
+   * @returns Resolves to processed VerificationAttemptsSummaryInstance
    */
   fetch(
     params: VerificationAttemptsSummaryContextFetchOptions,
@@ -218,9 +217,9 @@ export class VerificationAttemptsSummaryInstance {
   /**
    * Fetch a VerificationAttemptsSummaryInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed VerificationAttemptsSummaryInstance
+   * @returns Resolves to processed VerificationAttemptsSummaryInstance
    */
   fetch(
     callback?: (
@@ -231,10 +230,10 @@ export class VerificationAttemptsSummaryInstance {
   /**
    * Fetch a VerificationAttemptsSummaryInstance
    *
-   * @param { VerificationAttemptsSummaryContextFetchOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed VerificationAttemptsSummaryInstance
+   * @returns Resolves to processed VerificationAttemptsSummaryInstance
    */
   fetch(
     params: VerificationAttemptsSummaryContextFetchOptions,
