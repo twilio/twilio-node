@@ -41,7 +41,6 @@
     "eslint": "^7.28.0",
     "express": "^4.17.1",
     "jest": "^28.1.0",
-    "jsdoc": "^3.6.7",
     "jshint": "^2.11.0",
     "localtunnel": "^2.0.2",
     "mock-fs": "^4.12.0",
@@ -49,7 +48,8 @@
     "node-mocks-http": "^1.8.1",
     "prettier": "^2.7.1",
     "ts-jest": "^28.0.3",
-    "typescript": "^4.7.2"
+    "typescript": "^4.7.2",
+    "typedoc": "^0.23.21"
   },
   "scripts": {
     "test": "npm run test:javascript",
@@ -61,12 +61,12 @@
     "build": "tsc && cp package.json dist/",
     "check": "npm run jshint && npm run jscs",
     "ci": "npm run test && npm run nsp && npm run prettier-check",
-    "jsdoc": "jsdoc -r lib -d docs",
     "nsp": "npm audit --production",
     "prettier": "prettier --write .",
     "prettier-check": "prettier --check .",
     "cluster": "jest ./cluster_test.spec.ts --coverage",
-    "webhook-test": "jest ./webhook_cluster_test.spec.ts --coverage"
+    "webhook-test": "jest ./webhook_cluster_test.spec.ts --coverage",
+    "typedoc": "typedoc --entryPointStrategy expand lib --out docs --logLevel Error"
   },
   "files": [
     "dist"

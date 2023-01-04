@@ -20,7 +20,7 @@ coverage
 config.js
 .idea
 
-### jsdoc dir ###
+### typedoc dir ###
 docs
 
 ### ide / editors ###

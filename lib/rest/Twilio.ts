@@ -10,6 +10,65 @@
  */
 
 import { BaseTwilio, ClientOpts } from "../base/BaseTwilio";
+import Accounts from "./Accounts";
+import Api from "./Api";
+import Autopilot from "./Autopilot";
+import Bulkexports from "./Bulkexports";
+import Chat from "./Chat";
+import Content from "./Content";
+import Conversations from "./Conversations";
+import Events from "./Events";
+import FlexApi from "./FlexApi";
+import FrontlineApi from "./FrontlineApi";
+import Insights from "./Insights";
+import IpMessaging from "./IpMessaging";
+import Lookups from "./Lookups";
+import Media from "./Media";
+import Messaging from "./Messaging";
+import Microvisor from "./Microvisor";
+import Monitor from "./Monitor";
+import Notify from "./Notify";
+import Numbers from "./Numbers";
+import Oauth from "./Oauth";
+import Preview from "./Preview";
+import Pricing from "./Pricing";
+import Proxy from "./Proxy";
+import Routes from "./Routes";
+import Serverless from "./Serverless";
+import Studio from "./Studio";
+import Supersim from "./Supersim";
+import Sync from "./Sync";
+import Taskrouter from "./Taskrouter";
+import Trunking from "./Trunking";
+import Trusthub from "./Trusthub";
+import Verify from "./Verify";
+import Video from "./Video";
+import Voice from "./Voice";
+import Wireless from "./Wireless";
+import { AddressListInstance } from "./api/v2010/account/address";
+import { ApplicationListInstance } from "./api/v2010/account/application";
+import { AuthorizedConnectAppListInstance } from "./api/v2010/account/authorizedConnectApp";
+import { AvailablePhoneNumberCountryListInstance } from "./api/v2010/account/availablePhoneNumberCountry";
+import { BalanceListInstance } from "./api/v2010/account/balance";
+import { CallListInstance } from "./api/v2010/account/call";
+import { ConferenceListInstance } from "./api/v2010/account/conference";
+import { ConnectAppListInstance } from "./api/v2010/account/connectApp";
+import { IncomingPhoneNumberListInstance } from "./api/v2010/account/incomingPhoneNumber";
+import { KeyListInstance } from "./api/v2010/account/key";
+import { MessageListInstance } from "./api/v2010/account/message";
+import { NewKeyListInstance } from "./api/v2010/account/newKey";
+import { NewSigningKeyListInstance } from "./api/v2010/account/newSigningKey";
+import { NotificationListInstance } from "./api/v2010/account/notification";
+import { OutgoingCallerIdListInstance } from "./api/v2010/account/outgoingCallerId";
+import { QueueListInstance } from "./api/v2010/account/queue";
+import { RecordingListInstance } from "./api/v2010/account/recording";
+import { ShortCodeListInstance } from "./api/v2010/account/shortCode";
+import { SigningKeyListInstance } from "./api/v2010/account/signingKey";
+import { SipListInstance } from "./api/v2010/account/sip";
+import { TokenListInstance } from "./api/v2010/account/token";
+import { TranscriptionListInstance } from "./api/v2010/account/transcription";
+import { UsageListInstance } from "./api/v2010/account/usage";
+import { ValidationRequestListInstance } from "./api/v2010/account/validationRequest";
 
 /* jshint ignore:start */
 /**
@@ -19,75 +78,75 @@ import { BaseTwilio, ClientOpts } from "../base/BaseTwilio";
 
 class Twilio extends BaseTwilio {
   /** (Twilio.Accounts) - accounts domain */
-  _accounts: any;
+  _accounts: Accounts;
   /** (Twilio.Api) - api domain */
-  _api: any;
+  _api: Api;
   /** (Twilio.Autopilot) - autopilot domain */
-  _autopilot: any;
+  _autopilot: Autopilot;
   /** (Twilio.Bulkexports) - bulkexports domain */
-  _bulkexports: any;
+  _bulkexports: Bulkexports;
   /** (Twilio.Chat) - chat domain */
-  _chat: any;
+  _chat: Chat;
   /** (Twilio.Content) - content domain */
-  _content: any;
+  _content: Content;
   /** (Twilio.Conversations) - conversations domain */
-  _conversations: any;
+  _conversations: Conversations;
   /** (Twilio.Events) - events domain */
-  _events: any;
+  _events: Events;
   /** (Twilio.FlexApi) - flexApi domain */
-  _flexApi: any;
+  _flexApi: FlexApi;
   /** (Twilio.FrontlineApi) - frontlineApi domain */
-  _frontlineApi: any;
+  _frontlineApi: FrontlineApi;
   /** (Twilio.Insights) - insights domain */
-  _insights: any;
+  _insights: Insights;
   /** (Twilio.IpMessaging) - ipMessaging domain */
-  _ipMessaging: any;
+  _ipMessaging: IpMessaging;
   /** (Twilio.Lookups) - lookups domain */
-  _lookups: any;
+  _lookups: Lookups;
   /** (Twilio.Media) - media domain */
-  _media: any;
+  _media: Media;
   /** (Twilio.Messaging) - messaging domain */
-  _messaging: any;
+  _messaging: Messaging;
   /** (Twilio.Microvisor) - microvisor domain */
-  _microvisor: any;
+  _microvisor: Microvisor;
   /** (Twilio.Monitor) - monitor domain */
-  _monitor: any;
+  _monitor: Monitor;
   /** (Twilio.Notify) - notify domain */
-  _notify: any;
+  _notify: Notify;
   /** (Twilio.Numbers) - numbers domain */
-  _numbers: any;
+  _numbers: Numbers;
   /** (Twilio.Oauth) - oauth domain */
-  _oauth: any;
+  _oauth: Oauth;
   /** (Twilio.Preview) - preview domain */
-  _preview: any;
+  _preview: Preview;
   /** (Twilio.Pricing) - pricing domain */
-  _pricing: any;
+  _pricing: Pricing;
   /** (Twilio.Proxy) - proxy domain */
-  _proxy: any;
+  _proxy: Proxy;
   /** (Twilio.Routes) - routes domain */
-  _routes: any;
+  _routes: Routes;
   /** (Twilio.Serverless) - serverless domain */
-  _serverless: any;
+  _serverless: Serverless;
   /** (Twilio.Studio) - studio domain */
-  _studio: any;
+  _studio: Studio;
   /** (Twilio.Supersim) - supersim domain */
-  _supersim: any;
+  _supersim: Supersim;
   /** (Twilio.Sync) - sync domain */
-  _sync: any;
+  _sync: Sync;
   /** (Twilio.Taskrouter) - taskrouter domain */
-  _taskrouter: any;
+  _taskrouter: Taskrouter;
   /** (Twilio.Trunking) - trunking domain */
-  _trunking: any;
+  _trunking: Trunking;
   /** (Twilio.Trusthub) - trusthub domain */
-  _trusthub: any;
+  _trusthub: Trusthub;
   /** (Twilio.Verify) - verify domain */
-  _verify: any;
+  _verify: Verify;
   /** (Twilio.Video) - video domain */
-  _video: any;
+  _video: Video;
   /** (Twilio.Voice) - voice domain */
-  _voice: any;
+  _voice: Voice;
   /** (Twilio.Wireless) - wireless domain */
-  _wireless: any;
+  _wireless: Wireless;
 
   /* jshint ignore:start */
   /**
@@ -146,7 +205,7 @@ class Twilio extends BaseTwilio {
 
   //Domains
   /** Getter for (Twilio.Accounts) domain */
-  get accounts() {
+  get accounts(): Accounts {
     if (!this._accounts) {
       const Accounts = require("./Accounts"); /* jshint ignore:line */
       this._accounts = new Accounts(this);
@@ -154,7 +213,7 @@ class Twilio extends BaseTwilio {
     return this._accounts;
   }
   /** Getter for (Twilio.Api) domain */
-  get api() {
+  get api(): Api {
     if (!this._api) {
       const Api = require("./Api"); /* jshint ignore:line */
       this._api = new Api(this);
@@ -162,7 +221,7 @@ class Twilio extends BaseTwilio {
     return this._api;
   }
   /** Getter for (Twilio.Autopilot) domain */
-  get autopilot() {
+  get autopilot(): Autopilot {
     if (!this._autopilot) {
       const Autopilot = require("./Autopilot"); /* jshint ignore:line */
       this._autopilot = new Autopilot(this);
@@ -170,7 +229,7 @@ class Twilio extends BaseTwilio {
     return this._autopilot;
   }
   /** Getter for (Twilio.Bulkexports) domain */
-  get bulkexports() {
+  get bulkexports(): Bulkexports {
     if (!this._bulkexports) {
       const Bulkexports = require("./Bulkexports"); /* jshint ignore:line */
       this._bulkexports = new Bulkexports(this);
@@ -178,7 +237,7 @@ class Twilio extends BaseTwilio {
     return this._bulkexports;
   }
   /** Getter for (Twilio.Chat) domain */
-  get chat() {
+  get chat(): Chat {
     if (!this._chat) {
       const Chat = require("./Chat"); /* jshint ignore:line */
       this._chat = new Chat(this);
@@ -186,7 +245,7 @@ class Twilio extends BaseTwilio {
     return this._chat;
   }
   /** Getter for (Twilio.Content) domain */
-  get content() {
+  get content(): Content {
     if (!this._content) {
       const Content = require("./Content"); /* jshint ignore:line */
       this._content = new Content(this);
@@ -194,7 +253,7 @@ class Twilio extends BaseTwilio {
     return this._content;
   }
   /** Getter for (Twilio.Conversations) domain */
-  get conversations() {
+  get conversations(): Conversations {
     if (!this._conversations) {
       const Conversations = require("./Conversations"); /* jshint ignore:line */
       this._conversations = new Conversations(this);
@@ -202,7 +261,7 @@ class Twilio extends BaseTwilio {
     return this._conversations;
   }
   /** Getter for (Twilio.Events) domain */
-  get events() {
+  get events(): Events {
     if (!this._events) {
       const Events = require("./Events"); /* jshint ignore:line */
       this._events = new Events(this);
@@ -210,7 +269,7 @@ class Twilio extends BaseTwilio {
     return this._events;
   }
   /** Getter for (Twilio.FlexApi) domain */
-  get flexApi() {
+  get flexApi(): FlexApi {
     if (!this._flexApi) {
       const FlexApi = require("./FlexApi"); /* jshint ignore:line */
       this._flexApi = new FlexApi(this);
@@ -218,7 +277,7 @@ class Twilio extends BaseTwilio {
     return this._flexApi;
   }
   /** Getter for (Twilio.FrontlineApi) domain */
-  get frontlineApi() {
+  get frontlineApi(): FrontlineApi {
     if (!this._frontlineApi) {
       const FrontlineApi = require("./FrontlineApi"); /* jshint ignore:line */
       this._frontlineApi = new FrontlineApi(this);
@@ -226,7 +285,7 @@ class Twilio extends BaseTwilio {
     return this._frontlineApi;
   }
   /** Getter for (Twilio.Insights) domain */
-  get insights() {
+  get insights(): Insights {
     if (!this._insights) {
       const Insights = require("./Insights"); /* jshint ignore:line */
       this._insights = new Insights(this);
@@ -234,7 +293,7 @@ class Twilio extends BaseTwilio {
     return this._insights;
   }
   /** Getter for (Twilio.IpMessaging) domain */
-  get ipMessaging() {
+  get ipMessaging(): IpMessaging {
     if (!this._ipMessaging) {
       const IpMessaging = require("./IpMessaging"); /* jshint ignore:line */
       this._ipMessaging = new IpMessaging(this);
@@ -242,7 +301,7 @@ class Twilio extends BaseTwilio {
     return this._ipMessaging;
   }
   /** Getter for (Twilio.Lookups) domain */
-  get lookups() {
+  get lookups(): Lookups {
     if (!this._lookups) {
       const Lookups = require("./Lookups"); /* jshint ignore:line */
       this._lookups = new Lookups(this);
@@ -250,7 +309,7 @@ class Twilio extends BaseTwilio {
     return this._lookups;
   }
   /** Getter for (Twilio.Media) domain */
-  get media() {
+  get media(): Media {
     if (!this._media) {
       const Media = require("./Media"); /* jshint ignore:line */
       this._media = new Media(this);
@@ -258,7 +317,7 @@ class Twilio extends BaseTwilio {
     return this._media;
   }
   /** Getter for (Twilio.Messaging) domain */
-  get messaging() {
+  get messaging(): Messaging {
     if (!this._messaging) {
       const Messaging = require("./Messaging"); /* jshint ignore:line */
       this._messaging = new Messaging(this);
@@ -266,7 +325,7 @@ class Twilio extends BaseTwilio {
     return this._messaging;
   }
   /** Getter for (Twilio.Microvisor) domain */
-  get microvisor() {
+  get microvisor(): Microvisor {
     if (!this._microvisor) {
       const Microvisor = require("./Microvisor"); /* jshint ignore:line */
       this._microvisor = new Microvisor(this);
@@ -274,7 +333,7 @@ class Twilio extends BaseTwilio {
     return this._microvisor;
   }
   /** Getter for (Twilio.Monitor) domain */
-  get monitor() {
+  get monitor(): Monitor {
     if (!this._monitor) {
       const Monitor = require("./Monitor"); /* jshint ignore:line */
       this._monitor = new Monitor(this);
@@ -282,7 +341,7 @@ class Twilio extends BaseTwilio {
     return this._monitor;
   }
   /** Getter for (Twilio.Notify) domain */
-  get notify() {
+  get notify(): Notify {
     if (!this._notify) {
       const Notify = require("./Notify"); /* jshint ignore:line */
       this._notify = new Notify(this);
@@ -290,7 +349,7 @@ class Twilio extends BaseTwilio {
     return this._notify;
   }
   /** Getter for (Twilio.Numbers) domain */
-  get numbers() {
+  get numbers(): Numbers {
     if (!this._numbers) {
       const Numbers = require("./Numbers"); /* jshint ignore:line */
       this._numbers = new Numbers(this);
@@ -298,7 +357,7 @@ class Twilio extends BaseTwilio {
     return this._numbers;
   }
   /** Getter for (Twilio.Oauth) domain */
-  get oauth() {
+  get oauth(): Oauth {
     if (!this._oauth) {
       const Oauth = require("./Oauth"); /* jshint ignore:line */
       this._oauth = new Oauth(this);
@@ -306,7 +365,7 @@ class Twilio extends BaseTwilio {
     return this._oauth;
   }
   /** Getter for (Twilio.Preview) domain */
-  get preview() {
+  get preview(): Preview {
     if (!this._preview) {
       const Preview = require("./Preview"); /* jshint ignore:line */
       this._preview = new Preview(this);
@@ -314,7 +373,7 @@ class Twilio extends BaseTwilio {
     return this._preview;
   }
   /** Getter for (Twilio.Pricing) domain */
-  get pricing() {
+  get pricing(): Pricing {
     if (!this._pricing) {
       const Pricing = require("./Pricing"); /* jshint ignore:line */
       this._pricing = new Pricing(this);
@@ -322,7 +381,7 @@ class Twilio extends BaseTwilio {
     return this._pricing;
   }
   /** Getter for (Twilio.Proxy) domain */
-  get proxy() {
+  get proxy(): Proxy {
     if (!this._proxy) {
       const Proxy = require("./Proxy"); /* jshint ignore:line */
       this._proxy = new Proxy(this);
@@ -330,7 +389,7 @@ class Twilio extends BaseTwilio {
     return this._proxy;
   }
   /** Getter for (Twilio.Routes) domain */
-  get routes() {
+  get routes(): Routes {
     if (!this._routes) {
       const Routes = require("./Routes"); /* jshint ignore:line */
       this._routes = new Routes(this);
@@ -338,7 +397,7 @@ class Twilio extends BaseTwilio {
     return this._routes;
   }
   /** Getter for (Twilio.Serverless) domain */
-  get serverless() {
+  get serverless(): Serverless {
     if (!this._serverless) {
       const Serverless = require("./Serverless"); /* jshint ignore:line */
       this._serverless = new Serverless(this);
@@ -346,7 +405,7 @@ class Twilio extends BaseTwilio {
     return this._serverless;
   }
   /** Getter for (Twilio.Studio) domain */
-  get studio() {
+  get studio(): Studio {
     if (!this._studio) {
       const Studio = require("./Studio"); /* jshint ignore:line */
       this._studio = new Studio(this);
@@ -354,7 +413,7 @@ class Twilio extends BaseTwilio {
     return this._studio;
   }
   /** Getter for (Twilio.Supersim) domain */
-  get supersim() {
+  get supersim(): Supersim {
     if (!this._supersim) {
       const Supersim = require("./Supersim"); /* jshint ignore:line */
       this._supersim = new Supersim(this);
@@ -362,7 +421,7 @@ class Twilio extends BaseTwilio {
     return this._supersim;
   }
   /** Getter for (Twilio.Sync) domain */
-  get sync() {
+  get sync(): Sync {
     if (!this._sync) {
       const Sync = require("./Sync"); /* jshint ignore:line */
       this._sync = new Sync(this);
@@ -370,7 +429,7 @@ class Twilio extends BaseTwilio {
     return this._sync;
   }
   /** Getter for (Twilio.Taskrouter) domain */
-  get taskrouter() {
+  get taskrouter(): Taskrouter {
     if (!this._taskrouter) {
       const Taskrouter = require("./Taskrouter"); /* jshint ignore:line */
       this._taskrouter = new Taskrouter(this);
@@ -378,7 +437,7 @@ class Twilio extends BaseTwilio {
     return this._taskrouter;
   }
   /** Getter for (Twilio.Trunking) domain */
-  get trunking() {
+  get trunking(): Trunking {
     if (!this._trunking) {
       const Trunking = require("./Trunking"); /* jshint ignore:line */
       this._trunking = new Trunking(this);
@@ -386,7 +445,7 @@ class Twilio extends BaseTwilio {
     return this._trunking;
   }
   /** Getter for (Twilio.Trusthub) domain */
-  get trusthub() {
+  get trusthub(): Trusthub {
     if (!this._trusthub) {
       const Trusthub = require("./Trusthub"); /* jshint ignore:line */
       this._trusthub = new Trusthub(this);
@@ -394,7 +453,7 @@ class Twilio extends BaseTwilio {
     return this._trusthub;
   }
   /** Getter for (Twilio.Verify) domain */
-  get verify() {
+  get verify(): Verify {
     if (!this._verify) {
       const Verify = require("./Verify"); /* jshint ignore:line */
       this._verify = new Verify(this);
@@ -402,7 +461,7 @@ class Twilio extends BaseTwilio {
     return this._verify;
   }
   /** Getter for (Twilio.Video) domain */
-  get video() {
+  get video(): Video {
     if (!this._video) {
       const Video = require("./Video"); /* jshint ignore:line */
       this._video = new Video(this);
@@ -410,7 +469,7 @@ class Twilio extends BaseTwilio {
     return this._video;
   }
   /** Getter for (Twilio.Voice) domain */
-  get voice() {
+  get voice(): Voice {
     if (!this._voice) {
       const Voice = require("./Voice"); /* jshint ignore:line */
       this._voice = new Voice(this);
@@ -418,7 +477,7 @@ class Twilio extends BaseTwilio {
     return this._voice;
   }
   /** Getter for (Twilio.Wireless) domain */
-  get wireless() {
+  get wireless(): Wireless {
     if (!this._wireless) {
       const Wireless = require("./Wireless"); /* jshint ignore:line */
       this._wireless = new Wireless(this);
@@ -426,100 +485,100 @@ class Twilio extends BaseTwilio {
     return this._wireless;
   }
 
-  /** Getter for (Twilio.Api.V2010.AccountContext.AddressesList) addresses resource */
-  get addresses() {
+  /** Getter for (Twilio.Api.V2010.AccountContext.AddressListInstance) addresses resource */
+  get addresses(): AddressListInstance {
     return this.api.v2010.account.addresses;
   }
-  /** Getter for (Twilio.Api.V2010.AccountContext.ApplicationsList) applications resource */
-  get applications() {
+  /** Getter for (Twilio.Api.V2010.AccountContext.ApplicationListInstance) applications resource */
+  get applications(): ApplicationListInstance {
     return this.api.v2010.account.applications;
   }
-  /** Getter for (Twilio.Api.V2010.AccountContext.AuthorizedConnectAppsList) authorizedConnectApps resource */
-  get authorizedConnectApps() {
+  /** Getter for (Twilio.Api.V2010.AccountContext.AuthorizedConnectAppListInstance) authorizedConnectApps resource */
+  get authorizedConnectApps(): AuthorizedConnectAppListInstance {
     return this.api.v2010.account.authorizedConnectApps;
   }
-  /** Getter for (Twilio.Api.V2010.AccountContext.AvailablePhoneNumbersList) availablePhoneNumbers resource */
-  get availablePhoneNumbers() {
+  /** Getter for (Twilio.Api.V2010.AccountContext.AvailablePhoneNumberCountryListInstance) availablePhoneNumbers resource */
+  get availablePhoneNumbers(): AvailablePhoneNumberCountryListInstance {
     return this.api.v2010.account.availablePhoneNumbers;
   }
-  /** Getter for (Twilio.Api.V2010.AccountContext.BalanceList) balance resource */
-  get balance() {
+  /** Getter for (Twilio.Api.V2010.AccountContext.BalanceListInstance) balance resource */
+  get balance(): BalanceListInstance {
     return this.api.v2010.account.balance;
   }
-  /** Getter for (Twilio.Api.V2010.AccountContext.CallsList) calls resource */
-  get calls() {
+  /** Getter for (Twilio.Api.V2010.AccountContext.CallListInstance) calls resource */
+  get calls(): CallListInstance {
     return this.api.v2010.account.calls;
   }
-  /** Getter for (Twilio.Api.V2010.AccountContext.ConferencesList) conferences resource */
-  get conferences() {
+  /** Getter for (Twilio.Api.V2010.AccountContext.ConferenceListInstance) conferences resource */
+  get conferences(): ConferenceListInstance {
     return this.api.v2010.account.conferences;
   }
-  /** Getter for (Twilio.Api.V2010.AccountContext.ConnectAppsList) connectApps resource */
-  get connectApps() {
+  /** Getter for (Twilio.Api.V2010.AccountContext.ConnectAppListInstance) connectApps resource */
+  get connectApps(): ConnectAppListInstance {
     return this.api.v2010.account.connectApps;
   }
-  /** Getter for (Twilio.Api.V2010.AccountContext.IncomingPhoneNumbersList) incomingPhoneNumbers resource */
-  get incomingPhoneNumbers() {
+  /** Getter for (Twilio.Api.V2010.AccountContext.IncomingPhoneNumberListInstance) incomingPhoneNumbers resource */
+  get incomingPhoneNumbers(): IncomingPhoneNumberListInstance {
     return this.api.v2010.account.incomingPhoneNumbers;
   }
-  /** Getter for (Twilio.Api.V2010.AccountContext.KeysList) keys resource */
-  get keys() {
+  /** Getter for (Twilio.Api.V2010.AccountContext.KeyListInstance) keys resource */
+  get keys(): KeyListInstance {
     return this.api.v2010.account.keys;
   }
-  /** Getter for (Twilio.Api.V2010.AccountContext.MessagesList) messages resource */
-  get messages() {
+  /** Getter for (Twilio.Api.V2010.AccountContext.MessageListInstance) messages resource */
+  get messages(): MessageListInstance {
     return this.api.v2010.account.messages;
   }
-  /** Getter for (Twilio.Api.V2010.AccountContext.NewKeysList) newKeys resource */
-  get newKeys() {
+  /** Getter for (Twilio.Api.V2010.AccountContext.NewKeyListInstance) newKeys resource */
+  get newKeys(): NewKeyListInstance {
     return this.api.v2010.account.newKeys;
   }
-  /** Getter for (Twilio.Api.V2010.AccountContext.NewSigningKeysList) newSigningKeys resource */
-  get newSigningKeys() {
+  /** Getter for (Twilio.Api.V2010.AccountContext.NewSigningKeyListInstance) newSigningKeys resource */
+  get newSigningKeys(): NewSigningKeyListInstance {
     return this.api.v2010.account.newSigningKeys;
   }
-  /** Getter for (Twilio.Api.V2010.AccountContext.NotificationsList) notifications resource */
-  get notifications() {
+  /** Getter for (Twilio.Api.V2010.AccountContext.NotificationListInstance) notifications resource */
+  get notifications(): NotificationListInstance {
     return this.api.v2010.account.notifications;
   }
-  /** Getter for (Twilio.Api.V2010.AccountContext.OutgoingCallerIdsList) outgoingCallerIds resource */
-  get outgoingCallerIds() {
+  /** Getter for (Twilio.Api.V2010.AccountContext.OutgoingCallerIdListInstance) outgoingCallerIds resource */
+  get outgoingCallerIds(): OutgoingCallerIdListInstance {
     return this.api.v2010.account.outgoingCallerIds;
   }
-  /** Getter for (Twilio.Api.V2010.AccountContext.QueuesList) queues resource */
-  get queues() {
+  /** Getter for (Twilio.Api.V2010.AccountContext.QueueListInstance) queues resource */
+  get queues(): QueueListInstance {
     return this.api.v2010.account.queues;
   }
-  /** Getter for (Twilio.Api.V2010.AccountContext.RecordingsList) recordings resource */
-  get recordings() {
+  /** Getter for (Twilio.Api.V2010.AccountContext.RecordingListInstance) recordings resource */
+  get recordings(): RecordingListInstance {
     return this.api.v2010.account.recordings;
   }
-  /** Getter for (Twilio.Api.V2010.AccountContext.ShortCodesList) shortCodes resource */
-  get shortCodes() {
+  /** Getter for (Twilio.Api.V2010.AccountContext.ShortCodeListInstance) shortCodes resource */
+  get shortCodes(): ShortCodeListInstance {
     return this.api.v2010.account.shortCodes;
   }
-  /** Getter for (Twilio.Api.V2010.AccountContext.SigningKeysList) signingKeys resource */
-  get signingKeys() {
+  /** Getter for (Twilio.Api.V2010.AccountContext.SigningKeyListInstance) signingKeys resource */
+  get signingKeys(): SigningKeyListInstance {
     return this.api.v2010.account.signingKeys;
   }
-  /** Getter for (Twilio.Api.V2010.AccountContext.SipList) sip resource */
-  get sip() {
+  /** Getter for (Twilio.Api.V2010.AccountContext.SipListInstance) sip resource */
+  get sip(): SipListInstance {
     return this.api.v2010.account.sip;
   }
-  /** Getter for (Twilio.Api.V2010.AccountContext.TokensList) tokens resource */
-  get tokens() {
+  /** Getter for (Twilio.Api.V2010.AccountContext.TokenListInstance) tokens resource */
+  get tokens(): TokenListInstance {
     return this.api.v2010.account.tokens;
   }
-  /** Getter for (Twilio.Api.V2010.AccountContext.TranscriptionsList) transcriptions resource */
-  get transcriptions() {
+  /** Getter for (Twilio.Api.V2010.AccountContext.TranscriptionListInstance) transcriptions resource */
+  get transcriptions(): TranscriptionListInstance {
     return this.api.v2010.account.transcriptions;
   }
-  /** Getter for (Twilio.Api.V2010.AccountContext.UsageList) usage resource */
-  get usage() {
+  /** Getter for (Twilio.Api.V2010.AccountContext.UsageListInstance) usage resource */
+  get usage(): UsageListInstance {
     return this.api.v2010.account.usage;
   }
-  /** Getter for (Twilio.Api.V2010.AccountContext.ValidationRequestsList) validationRequests resource */
-  get validationRequests() {
+  /** Getter for (Twilio.Api.V2010.AccountContext.ValidationRequestListInstance) validationRequests resource */
+  get validationRequests(): ValidationRequestListInstance {
     return this.api.v2010.account.validationRequests;
   }
 }
