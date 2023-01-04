@@ -710,7 +710,7 @@ export function RecordingListInstance(
     if (params["recordingStatusCallbackEvent"] !== undefined)
       data["RecordingStatusCallbackEvent"] = serialize.map(
         params["recordingStatusCallbackEvent"],
-        (e) => e
+        (e: string) => e
       );
     if (params["recordingStatusCallback"] !== undefined)
       data["RecordingStatusCallback"] = params["recordingStatusCallback"];

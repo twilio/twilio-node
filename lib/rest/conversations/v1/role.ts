@@ -184,7 +184,7 @@ export class RoleContextImpl implements RoleContext {
 
     let data: any = {};
 
-    data["Permission"] = serialize.map(params["permission"], (e) => e);
+    data["Permission"] = serialize.map(params["permission"], (e: string) => e);
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
@@ -556,7 +556,7 @@ export function RoleListInstance(version: V1): RoleListInstance {
 
     data["Type"] = params["type"];
 
-    data["Permission"] = serialize.map(params["permission"], (e) => e);
+    data["Permission"] = serialize.map(params["permission"], (e: string) => e);
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";

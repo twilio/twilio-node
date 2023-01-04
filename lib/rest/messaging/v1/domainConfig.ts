@@ -124,7 +124,7 @@ export class DomainConfigContextImpl implements DomainConfigContext {
 
     data["MessagingServiceSids"] = serialize.map(
       params["messagingServiceSids"],
-      (e) => e
+      (e: string) => e
     );
     if (params["fallbackUrl"] !== undefined)
       data["FallbackUrl"] = params["fallbackUrl"];

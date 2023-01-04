@@ -897,7 +897,7 @@ export function TaskListInstance(
     if (params["assignmentStatus"] !== undefined)
       data["AssignmentStatus"] = serialize.map(
         params["assignmentStatus"],
-        (e) => e
+        (e: string) => e
       );
     if (params["workflowSid"] !== undefined)
       data["WorkflowSid"] = params["workflowSid"];

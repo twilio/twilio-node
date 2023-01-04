@@ -363,7 +363,7 @@ export class ReservationContextImpl implements ReservationContext {
     if (params["statusCallbackEvent"] !== undefined)
       data["StatusCallbackEvent"] = serialize.map(
         params["statusCallbackEvent"],
-        (e) => e
+        (e: TaskReservationCallStatus) => e
       );
     if (params["timeout"] !== undefined) data["Timeout"] = params["timeout"];
     if (params["record"] !== undefined)
@@ -394,7 +394,7 @@ export class ReservationContextImpl implements ReservationContext {
     if (params["conferenceStatusCallbackEvent"] !== undefined)
       data["ConferenceStatusCallbackEvent"] = serialize.map(
         params["conferenceStatusCallbackEvent"],
-        (e) => e
+        (e: TaskReservationConferenceEvent) => e
       );
     if (params["conferenceRecord"] !== undefined)
       data["ConferenceRecord"] = params["conferenceRecord"];
@@ -421,7 +421,7 @@ export class ReservationContextImpl implements ReservationContext {
     if (params["dequeueStatusCallbackEvent"] !== undefined)
       data["DequeueStatusCallbackEvent"] = serialize.map(
         params["dequeueStatusCallbackEvent"],
-        (e) => e
+        (e: string) => e
       );
     if (params["postWorkActivitySid"] !== undefined)
       data["PostWorkActivitySid"] = params["postWorkActivitySid"];
