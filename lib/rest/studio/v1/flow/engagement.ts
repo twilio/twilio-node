@@ -26,60 +26,48 @@ type EngagementStatus = "active" | "ended";
 
 /**
  * Options to pass to create a EngagementInstance
- *
- * @property { string } to The Contact phone number to start a Studio Flow Engagement, available as variable `{{contact.channel.address}}`.
- * @property { string } from The Twilio phone number to send messages or initiate calls from during the Flow Engagement. Available as variable `{{flow.channel.address}}`
- * @property { any } [parameters] A JSON string we will add to your flow\\\'s context and that you can access as variables inside your flow. For example, if you pass in `Parameters={\\\'name\\\':\\\'Zeke\\\'}` then inside a widget you can reference the variable `{{flow.data.name}}` which will return the string \\\'Zeke\\\'. Note: the JSON value must explicitly be passed as a string, not as a hash object. Depending on your particular HTTP library, you may need to add quotes or URL encode your JSON string.
  */
 export interface EngagementListInstanceCreateOptions {
+  /** The Contact phone number to start a Studio Flow Engagement, available as variable `{{contact.channel.address}}`. */
   to: string;
+  /** The Twilio phone number to send messages or initiate calls from during the Flow Engagement. Available as variable `{{flow.channel.address}}` */
   from: string;
+  /** A JSON string we will add to your flow\\\'s context and that you can access as variables inside your flow. For example, if you pass in `Parameters={\\\'name\\\':\\\'Zeke\\\'}` then inside a widget you can reference the variable `{{flow.data.name}}` which will return the string \\\'Zeke\\\'. Note: the JSON value must explicitly be passed as a string, not as a hash object. Depending on your particular HTTP library, you may need to add quotes or URL encode your JSON string. */
   parameters?: any;
 }
 /**
  * Options to pass to each
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface EngagementListInstanceEachOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: EngagementInstance, done: (err?: Error) => void) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface EngagementListInstanceOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface EngagementListInstancePageOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
@@ -90,9 +78,9 @@ export interface EngagementContext {
   /**
    * Remove a EngagementInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -101,9 +89,9 @@ export interface EngagementContext {
   /**
    * Fetch a EngagementInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed EngagementInstance
+   * @returns Resolves to processed EngagementInstance
    */
   fetch(
     callback?: (error: Error | null, item?: EngagementInstance) => any
@@ -117,8 +105,8 @@ export interface EngagementContext {
 }
 
 export interface EngagementContextSolution {
-  flowSid?: string;
-  sid?: string;
+  flowSid: string;
+  sid: string;
 }
 
 export class EngagementContextImpl implements EngagementContext {
@@ -166,13 +154,14 @@ export class EngagementContextImpl implements EngagementContext {
   remove(
     callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -182,9 +171,10 @@ export class EngagementContextImpl implements EngagementContext {
   fetch(
     callback?: (error: Error | null, item?: EngagementInstance) => any
   ): Promise<EngagementInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -193,12 +183,12 @@ export class EngagementContextImpl implements EngagementContext {
         new EngagementInstance(
           operationVersion,
           payload,
-          this._solution.flowSid,
-          this._solution.sid
+          instance._solution.flowSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -224,17 +214,17 @@ interface EngagementPayload extends TwilioResponsePayload {
 }
 
 interface EngagementResource {
-  sid?: string | null;
-  account_sid?: string | null;
-  flow_sid?: string | null;
-  contact_sid?: string | null;
-  contact_channel_address?: string | null;
-  context?: any | null;
-  status?: EngagementStatus;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  url?: string | null;
-  links?: object | null;
+  sid: string;
+  account_sid: string;
+  flow_sid: string;
+  contact_sid: string;
+  contact_channel_address: string;
+  context: any;
+  status: EngagementStatus;
+  date_created: Date;
+  date_updated: Date;
+  url: string;
+  links: object;
 }
 
 export class EngagementInstance {
@@ -265,44 +255,44 @@ export class EngagementInstance {
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The SID of the Flow
    */
-  flowSid?: string | null;
+  flowSid: string;
   /**
    * The SID of the Contact
    */
-  contactSid?: string | null;
+  contactSid: string;
   /**
    * The phone number, SIP address or Client identifier that triggered this Engagement
    */
-  contactChannelAddress?: string | null;
+  contactChannelAddress: string;
   /**
    * The current state of the execution flow
    */
-  context?: any | null;
-  status?: EngagementStatus;
+  context: any;
+  status: EngagementStatus;
   /**
    * The ISO 8601 date and time in GMT when the Engagement was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The ISO 8601 date and time in GMT when the Engagement was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The absolute URL of the resource
    */
-  url?: string | null;
+  url: string;
   /**
    * The URLs of the Engagement\'s nested resources
    */
-  links?: object | null;
+  links: object;
 
   private get _proxy(): EngagementContext {
     this._context =
@@ -318,9 +308,9 @@ export class EngagementInstance {
   /**
    * Remove a EngagementInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -331,9 +321,9 @@ export class EngagementInstance {
   /**
    * Fetch a EngagementInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed EngagementInstance
+   * @returns Resolves to processed EngagementInstance
    */
   fetch(
     callback?: (error: Error | null, item?: EngagementInstance) => any
@@ -381,17 +371,25 @@ export class EngagementInstance {
   }
 }
 
+export interface EngagementSolution {
+  flowSid: string;
+}
+
 export interface EngagementListInstance {
+  _version: V1;
+  _solution: EngagementSolution;
+  _uri: string;
+
   (sid: string): EngagementContext;
   get(sid: string): EngagementContext;
 
   /**
    * Create a EngagementInstance
    *
-   * @param { EngagementListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed EngagementInstance
+   * @returns Resolves to processed EngagementInstance
    */
   create(
     params: EngagementListInstanceCreateOptions,
@@ -474,17 +472,6 @@ export interface EngagementListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface EngagementSolution {
-  flowSid?: string;
-}
-
-interface EngagementListInstanceImpl extends EngagementListInstance {}
-class EngagementListInstanceImpl implements EngagementListInstance {
-  _version?: V1;
-  _solution?: EngagementSolution;
-  _uri?: string;
-}
-
 export function EngagementListInstance(
   version: V1,
   flowSid: string
@@ -493,7 +480,7 @@ export function EngagementListInstance(
     throw new Error("Parameter 'flowSid' is not valid.");
   }
 
-  const instance = ((sid) => instance.get(sid)) as EngagementListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as EngagementListInstance;
 
   instance.get = function get(sid): EngagementContext {
     return new EngagementContextImpl(version, flowSid, sid);
@@ -532,7 +519,7 @@ export function EngagementListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -543,11 +530,11 @@ export function EngagementListInstance(
         new EngagementInstance(
           operationVersion,
           payload,
-          this._solution.flowSid
+          instance._solution.flowSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -578,17 +565,18 @@ export function EngagementListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new EngagementPage(operationVersion, payload, this._solution)
+      (payload) =>
+        new EngagementPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -601,30 +589,28 @@ export function EngagementListInstance(
     targetUrl: string,
     callback?: (error: Error | null, items: EngagementPage) => any
   ): Promise<EngagementPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new EngagementPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new EngagementPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

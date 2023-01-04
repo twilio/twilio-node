@@ -22,55 +22,52 @@ import { isValidPathParam } from "../../../../../base/utility";
 
 /**
  * Options to pass to each
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface HighriskSpecialPrefixListInstanceEachOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (
     item: HighriskSpecialPrefixInstance,
     done: (err?: Error) => void
   ) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface HighriskSpecialPrefixListInstanceOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface HighriskSpecialPrefixListInstancePageOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
+export interface HighriskSpecialPrefixSolution {
+  isoCode: string;
+}
+
 export interface HighriskSpecialPrefixListInstance {
+  _version: V1;
+  _solution: HighriskSpecialPrefixSolution;
+  _uri: string;
+
   /**
    * Streams HighriskSpecialPrefixInstance records from the API.
    *
@@ -159,20 +156,6 @@ export interface HighriskSpecialPrefixListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface HighriskSpecialPrefixSolution {
-  isoCode?: string;
-}
-
-interface HighriskSpecialPrefixListInstanceImpl
-  extends HighriskSpecialPrefixListInstance {}
-class HighriskSpecialPrefixListInstanceImpl
-  implements HighriskSpecialPrefixListInstance
-{
-  _version?: V1;
-  _solution?: HighriskSpecialPrefixSolution;
-  _uri?: string;
-}
-
 export function HighriskSpecialPrefixListInstance(
   version: V1,
   isoCode: string
@@ -181,7 +164,7 @@ export function HighriskSpecialPrefixListInstance(
     throw new Error("Parameter 'isoCode' is not valid.");
   }
 
-  const instance = {} as HighriskSpecialPrefixListInstanceImpl;
+  const instance = {} as HighriskSpecialPrefixListInstance;
 
   instance._version = version;
   instance._solution = { isoCode };
@@ -214,7 +197,7 @@ export function HighriskSpecialPrefixListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
@@ -222,10 +205,14 @@ export function HighriskSpecialPrefixListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new HighriskSpecialPrefixPage(operationVersion, payload, this._solution)
+        new HighriskSpecialPrefixPage(
+          operationVersion,
+          payload,
+          instance._solution
+        )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -238,31 +225,32 @@ export function HighriskSpecialPrefixListInstance(
     targetUrl: string,
     callback?: (error: Error | null, items: HighriskSpecialPrefixPage) => any
   ): Promise<HighriskSpecialPrefixPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
+    let pagePromise = operationPromise.then(
       (payload) =>
-        new HighriskSpecialPrefixPage(this._version, payload, this._solution)
+        new HighriskSpecialPrefixPage(
+          instance._version,
+          payload,
+          instance._solution
+        )
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;
@@ -273,7 +261,7 @@ interface HighriskSpecialPrefixPayload extends TwilioResponsePayload {
 }
 
 interface HighriskSpecialPrefixResource {
-  prefix?: string | null;
+  prefix: string;
 }
 
 export class HighriskSpecialPrefixInstance {
@@ -288,7 +276,7 @@ export class HighriskSpecialPrefixInstance {
   /**
    * A prefix that includes the E.164 assigned country code
    */
-  prefix?: string | null;
+  prefix: string;
 
   /**
    * Provide a user-friendly representation

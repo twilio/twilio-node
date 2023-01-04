@@ -21,16 +21,15 @@ import { WebhookListInstance } from "./configuration/webhook";
 
 /**
  * Options to pass to update a ConfigurationInstance
- *
- * @property { string } [defaultChatServiceSid] The SID of the default [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) to use when creating a conversation.
- * @property { string } [defaultMessagingServiceSid] The SID of the default [Messaging Service](https://www.twilio.com/docs/sms/services/api) to use when creating a conversation.
- * @property { string } [defaultInactiveTimer] Default ISO8601 duration when conversation will be switched to `inactive` state. Minimum value for this timer is 1 minute.
- * @property { string } [defaultClosedTimer] Default ISO8601 duration when conversation will be switched to `closed` state. Minimum value for this timer is 10 minutes.
  */
 export interface ConfigurationContextUpdateOptions {
+  /** The SID of the default [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) to use when creating a conversation. */
   defaultChatServiceSid?: string;
+  /** The SID of the default [Messaging Service](https://www.twilio.com/docs/sms/services/api) to use when creating a conversation. */
   defaultMessagingServiceSid?: string;
+  /** Default ISO8601 duration when conversation will be switched to `inactive` state. Minimum value for this timer is 1 minute. */
   defaultInactiveTimer?: string;
+  /** Default ISO8601 duration when conversation will be switched to `closed` state. Minimum value for this timer is 10 minutes. */
   defaultClosedTimer?: string;
 }
 
@@ -38,9 +37,9 @@ export interface ConfigurationContext {
   /**
    * Fetch a ConfigurationInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ConfigurationInstance
+   * @returns Resolves to processed ConfigurationInstance
    */
   fetch(
     callback?: (error: Error | null, item?: ConfigurationInstance) => any
@@ -49,9 +48,9 @@ export interface ConfigurationContext {
   /**
    * Update a ConfigurationInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ConfigurationInstance
+   * @returns Resolves to processed ConfigurationInstance
    */
   update(
     callback?: (error: Error | null, item?: ConfigurationInstance) => any
@@ -59,10 +58,10 @@ export interface ConfigurationContext {
   /**
    * Update a ConfigurationInstance
    *
-   * @param { ConfigurationContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ConfigurationInstance
+   * @returns Resolves to processed ConfigurationInstance
    */
   update(
     params: ConfigurationContextUpdateOptions,
@@ -90,9 +89,10 @@ export class ConfigurationContextImpl implements ConfigurationContext {
   fetch(
     callback?: (error: Error | null, item?: ConfigurationInstance) => any
   ): Promise<ConfigurationInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -100,7 +100,7 @@ export class ConfigurationContextImpl implements ConfigurationContext {
       (payload) => new ConfigurationInstance(operationVersion, payload)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -137,9 +137,10 @@ export class ConfigurationContextImpl implements ConfigurationContext {
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -149,7 +150,7 @@ export class ConfigurationContextImpl implements ConfigurationContext {
       (payload) => new ConfigurationInstance(operationVersion, payload)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -173,13 +174,13 @@ export class ConfigurationContextImpl implements ConfigurationContext {
 interface ConfigurationPayload extends ConfigurationResource {}
 
 interface ConfigurationResource {
-  account_sid?: string | null;
-  default_chat_service_sid?: string | null;
-  default_messaging_service_sid?: string | null;
-  default_inactive_timer?: string | null;
-  default_closed_timer?: string | null;
-  url?: string | null;
-  links?: object | null;
+  account_sid: string;
+  default_chat_service_sid: string;
+  default_messaging_service_sid: string;
+  default_inactive_timer: string;
+  default_closed_timer: string;
+  url: string;
+  links: object;
 }
 
 export class ConfigurationInstance {
@@ -201,31 +202,31 @@ export class ConfigurationInstance {
   /**
    * The SID of the Account responsible for this configuration.
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The SID of the default Conversation Service that every new conversation is associated with.
    */
-  defaultChatServiceSid?: string | null;
+  defaultChatServiceSid: string;
   /**
    * The SID of the default Messaging Service that every new conversation is associated with.
    */
-  defaultMessagingServiceSid?: string | null;
+  defaultMessagingServiceSid: string;
   /**
    * Default ISO8601 duration when conversation will be switched to `inactive` state.
    */
-  defaultInactiveTimer?: string | null;
+  defaultInactiveTimer: string;
   /**
    * Default ISO8601 duration when conversation will be switched to `closed` state.
    */
-  defaultClosedTimer?: string | null;
+  defaultClosedTimer: string;
   /**
    * An absolute URL for this global configuration.
    */
-  url?: string | null;
+  url: string;
   /**
    * Absolute URLs to access the webhook and default service configurations.
    */
-  links?: object | null;
+  links: object;
 
   private get _proxy(): ConfigurationContext {
     this._context =
@@ -236,9 +237,9 @@ export class ConfigurationInstance {
   /**
    * Fetch a ConfigurationInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ConfigurationInstance
+   * @returns Resolves to processed ConfigurationInstance
    */
   fetch(
     callback?: (error: Error | null, item?: ConfigurationInstance) => any
@@ -249,9 +250,9 @@ export class ConfigurationInstance {
   /**
    * Update a ConfigurationInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ConfigurationInstance
+   * @returns Resolves to processed ConfigurationInstance
    */
   update(
     callback?: (error: Error | null, item?: ConfigurationInstance) => any
@@ -259,10 +260,10 @@ export class ConfigurationInstance {
   /**
    * Update a ConfigurationInstance
    *
-   * @param { ConfigurationContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ConfigurationInstance
+   * @returns Resolves to processed ConfigurationInstance
    */
   update(
     params: ConfigurationContextUpdateOptions,
@@ -298,10 +299,17 @@ export class ConfigurationInstance {
   }
 }
 
+export interface ConfigurationSolution {}
+
 export interface ConfigurationListInstance {
+  _version: V1;
+  _solution: ConfigurationSolution;
+  _uri: string;
+
   (): ConfigurationContext;
   get(): ConfigurationContext;
 
+  _webhooks?: WebhookListInstance;
   webhooks: WebhookListInstance;
 
   /**
@@ -311,21 +319,10 @@ export interface ConfigurationListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface ConfigurationSolution {}
-
-interface ConfigurationListInstanceImpl extends ConfigurationListInstance {}
-class ConfigurationListInstanceImpl implements ConfigurationListInstance {
-  _version?: V1;
-  _solution?: ConfigurationSolution;
-  _uri?: string;
-
-  _webhooks?: WebhookListInstance;
-}
-
 export function ConfigurationListInstance(
   version: V1
 ): ConfigurationListInstance {
-  const instance = (() => instance.get()) as ConfigurationListInstanceImpl;
+  const instance = (() => instance.get()) as ConfigurationListInstance;
 
   instance.get = function get(): ConfigurationContext {
     return new ConfigurationContextImpl(version);
@@ -337,22 +334,22 @@ export function ConfigurationListInstance(
 
   Object.defineProperty(instance, "webhooks", {
     get: function webhooks() {
-      if (!this._webhooks) {
-        this._webhooks = WebhookListInstance(this._version);
+      if (!instance._webhooks) {
+        instance._webhooks = WebhookListInstance(instance._version);
       }
-      return this._webhooks;
+      return instance._webhooks;
     },
   });
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

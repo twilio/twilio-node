@@ -22,56 +22,44 @@ import { isValidPathParam } from "../../../../base/utility";
 
 /**
  * Options to pass to update a KeyInstance
- *
- * @property { string } [friendlyName] A descriptive string that you create to describe the resource. It can be up to 64 characters long.
  */
 export interface KeyContextUpdateOptions {
+  /** A descriptive string that you create to describe the resource. It can be up to 64 characters long. */
   friendlyName?: string;
 }
 /**
  * Options to pass to each
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface KeyListInstanceEachOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: KeyInstance, done: (err?: Error) => void) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface KeyListInstanceOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface KeyListInstancePageOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
@@ -79,9 +67,9 @@ export interface KeyContext {
   /**
    * Remove a KeyInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -90,9 +78,9 @@ export interface KeyContext {
   /**
    * Fetch a KeyInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed KeyInstance
+   * @returns Resolves to processed KeyInstance
    */
   fetch(
     callback?: (error: Error | null, item?: KeyInstance) => any
@@ -101,9 +89,9 @@ export interface KeyContext {
   /**
    * Update a KeyInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed KeyInstance
+   * @returns Resolves to processed KeyInstance
    */
   update(
     callback?: (error: Error | null, item?: KeyInstance) => any
@@ -111,10 +99,10 @@ export interface KeyContext {
   /**
    * Update a KeyInstance
    *
-   * @param { KeyContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed KeyInstance
+   * @returns Resolves to processed KeyInstance
    */
   update(
     params: KeyContextUpdateOptions,
@@ -129,8 +117,8 @@ export interface KeyContext {
 }
 
 export interface KeyContextSolution {
-  accountSid?: string;
-  sid?: string;
+  accountSid: string;
+  sid: string;
 }
 
 export class KeyContextImpl implements KeyContext {
@@ -153,13 +141,14 @@ export class KeyContextImpl implements KeyContext {
   remove(
     callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -169,9 +158,10 @@ export class KeyContextImpl implements KeyContext {
   fetch(
     callback?: (error: Error | null, item?: KeyInstance) => any
   ): Promise<KeyInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -180,12 +170,12 @@ export class KeyContextImpl implements KeyContext {
         new KeyInstance(
           operationVersion,
           payload,
-          this._solution.accountSid,
-          this._solution.sid
+          instance._solution.accountSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -213,9 +203,10 @@ export class KeyContextImpl implements KeyContext {
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -226,12 +217,12 @@ export class KeyContextImpl implements KeyContext {
         new KeyInstance(
           operationVersion,
           payload,
-          this._solution.accountSid,
-          this._solution.sid
+          instance._solution.accountSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -257,10 +248,10 @@ interface KeyPayload extends TwilioResponsePayload {
 }
 
 interface KeyResource {
-  sid?: string | null;
-  friendly_name?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
+  sid: string;
+  friendly_name: string;
+  date_created: Date;
+  date_updated: Date;
 }
 
 export class KeyInstance {
@@ -284,19 +275,19 @@ export class KeyInstance {
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The string that you assigned to describe the resource
    */
-  friendlyName?: string | null;
+  friendlyName: string;
   /**
    * The RFC 2822 date and time in GMT that the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The RFC 2822 date and time in GMT that the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
 
   private get _proxy(): KeyContext {
     this._context =
@@ -312,9 +303,9 @@ export class KeyInstance {
   /**
    * Remove a KeyInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -325,9 +316,9 @@ export class KeyInstance {
   /**
    * Fetch a KeyInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed KeyInstance
+   * @returns Resolves to processed KeyInstance
    */
   fetch(
     callback?: (error: Error | null, item?: KeyInstance) => any
@@ -338,9 +329,9 @@ export class KeyInstance {
   /**
    * Update a KeyInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed KeyInstance
+   * @returns Resolves to processed KeyInstance
    */
   update(
     callback?: (error: Error | null, item?: KeyInstance) => any
@@ -348,10 +339,10 @@ export class KeyInstance {
   /**
    * Update a KeyInstance
    *
-   * @param { KeyContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed KeyInstance
+   * @returns Resolves to processed KeyInstance
    */
   update(
     params: KeyContextUpdateOptions,
@@ -384,7 +375,15 @@ export class KeyInstance {
   }
 }
 
+export interface KeySolution {
+  accountSid: string;
+}
+
 export interface KeyListInstance {
+  _version: V2010;
+  _solution: KeySolution;
+  _uri: string;
+
   (sid: string): KeyContext;
   get(sid: string): KeyContext;
 
@@ -464,17 +463,6 @@ export interface KeyListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface KeySolution {
-  accountSid?: string;
-}
-
-interface KeyListInstanceImpl extends KeyListInstance {}
-class KeyListInstanceImpl implements KeyListInstance {
-  _version?: V2010;
-  _solution?: KeySolution;
-  _uri?: string;
-}
-
 export function KeyListInstance(
   version: V2010,
   accountSid: string
@@ -483,7 +471,7 @@ export function KeyListInstance(
     throw new Error("Parameter 'accountSid' is not valid.");
   }
 
-  const instance = ((sid) => instance.get(sid)) as KeyListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as KeyListInstance;
 
   instance.get = function get(sid): KeyContext {
     return new KeyContextImpl(version, accountSid, sid);
@@ -517,17 +505,17 @@ export function KeyListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new KeyPage(operationVersion, payload, this._solution)
+      (payload) => new KeyPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -540,30 +528,27 @@ export function KeyListInstance(
     targetUrl: string,
     callback?: (error: Error | null, items: KeyPage) => any
   ): Promise<KeyPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new KeyPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) => new KeyPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

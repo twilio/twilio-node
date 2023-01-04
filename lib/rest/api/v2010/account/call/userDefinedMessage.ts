@@ -20,23 +20,31 @@ import { isValidPathParam } from "../../../../../base/utility";
 
 /**
  * Options to pass to create a UserDefinedMessageInstance
- *
- * @property { string } content The User Defined Message in the form of URL-encoded JSON string.
- * @property { string } [idempotencyKey] A unique string value to identify API call. This should be a unique string value per API call and can be a randomly generated.
  */
 export interface UserDefinedMessageListInstanceCreateOptions {
+  /** The User Defined Message in the form of URL-encoded JSON string. */
   content: string;
+  /** A unique string value to identify API call. This should be a unique string value per API call and can be a randomly generated. */
   idempotencyKey?: string;
 }
 
+export interface UserDefinedMessageSolution {
+  accountSid: string;
+  callSid: string;
+}
+
 export interface UserDefinedMessageListInstance {
+  _version: V2010;
+  _solution: UserDefinedMessageSolution;
+  _uri: string;
+
   /**
    * Create a UserDefinedMessageInstance
    *
-   * @param { UserDefinedMessageListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed UserDefinedMessageInstance
+   * @returns Resolves to processed UserDefinedMessageInstance
    */
   create(
     params: UserDefinedMessageListInstanceCreateOptions,
@@ -48,21 +56,6 @@ export interface UserDefinedMessageListInstance {
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export interface UserDefinedMessageSolution {
-  accountSid?: string;
-  callSid?: string;
-}
-
-interface UserDefinedMessageListInstanceImpl
-  extends UserDefinedMessageListInstance {}
-class UserDefinedMessageListInstanceImpl
-  implements UserDefinedMessageListInstance
-{
-  _version?: V2010;
-  _solution?: UserDefinedMessageSolution;
-  _uri?: string;
 }
 
 export function UserDefinedMessageListInstance(
@@ -78,7 +71,7 @@ export function UserDefinedMessageListInstance(
     throw new Error("Parameter 'callSid' is not valid.");
   }
 
-  const instance = {} as UserDefinedMessageListInstanceImpl;
+  const instance = {} as UserDefinedMessageListInstance;
 
   instance._version = version;
   instance._solution = { accountSid, callSid };
@@ -107,7 +100,7 @@ export function UserDefinedMessageListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -118,12 +111,12 @@ export function UserDefinedMessageListInstance(
         new UserDefinedMessageInstance(
           operationVersion,
           payload,
-          this._solution.accountSid,
-          this._solution.callSid
+          instance._solution.accountSid,
+          instance._solution.callSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -131,14 +124,14 @@ export function UserDefinedMessageListInstance(
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;
@@ -147,10 +140,10 @@ export function UserDefinedMessageListInstance(
 interface UserDefinedMessagePayload extends UserDefinedMessageResource {}
 
 interface UserDefinedMessageResource {
-  account_sid?: string | null;
-  call_sid?: string | null;
-  sid?: string | null;
-  date_created?: Date | null;
+  account_sid: string;
+  call_sid: string;
+  sid: string;
+  date_created: Date;
 }
 
 export class UserDefinedMessageInstance {
@@ -169,19 +162,19 @@ export class UserDefinedMessageInstance {
   /**
    * Account SID.
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * Call SID.
    */
-  callSid?: string | null;
+  callSid: string;
   /**
    * User Defined Message SID.
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The date this User Defined Message was created.
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
 
   /**
    * Provide a user-friendly representation

@@ -20,10 +20,9 @@ import { isValidPathParam } from "../../../../../base/utility";
 
 /**
  * Options to pass to fetch a TaskQueueRealTimeStatisticsInstance
- *
- * @property { string } [taskChannel] The TaskChannel for which to fetch statistics. Can be the TaskChannel\'s SID or its `unique_name`, such as `voice`, `sms`, or `default`.
  */
 export interface TaskQueueRealTimeStatisticsContextFetchOptions {
+  /** The TaskChannel for which to fetch statistics. Can be the TaskChannel\'s SID or its `unique_name`, such as `voice`, `sms`, or `default`. */
   taskChannel?: string;
 }
 
@@ -31,9 +30,9 @@ export interface TaskQueueRealTimeStatisticsContext {
   /**
    * Fetch a TaskQueueRealTimeStatisticsInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed TaskQueueRealTimeStatisticsInstance
+   * @returns Resolves to processed TaskQueueRealTimeStatisticsInstance
    */
   fetch(
     callback?: (
@@ -44,10 +43,10 @@ export interface TaskQueueRealTimeStatisticsContext {
   /**
    * Fetch a TaskQueueRealTimeStatisticsInstance
    *
-   * @param { TaskQueueRealTimeStatisticsContextFetchOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed TaskQueueRealTimeStatisticsInstance
+   * @returns Resolves to processed TaskQueueRealTimeStatisticsInstance
    */
   fetch(
     params: TaskQueueRealTimeStatisticsContextFetchOptions,
@@ -65,8 +64,8 @@ export interface TaskQueueRealTimeStatisticsContext {
 }
 
 export interface TaskQueueRealTimeStatisticsContextSolution {
-  workspaceSid?: string;
-  taskQueueSid?: string;
+  workspaceSid: string;
+  taskQueueSid: string;
 }
 
 export class TaskQueueRealTimeStatisticsContextImpl
@@ -121,9 +120,10 @@ export class TaskQueueRealTimeStatisticsContextImpl
 
     const headers: any = {};
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
@@ -134,12 +134,12 @@ export class TaskQueueRealTimeStatisticsContextImpl
         new TaskQueueRealTimeStatisticsInstance(
           operationVersion,
           payload,
-          this._solution.workspaceSid,
-          this._solution.taskQueueSid
+          instance._solution.workspaceSid,
+          instance._solution.taskQueueSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -164,20 +164,20 @@ interface TaskQueueRealTimeStatisticsPayload
   extends TaskQueueRealTimeStatisticsResource {}
 
 interface TaskQueueRealTimeStatisticsResource {
-  account_sid?: string | null;
-  activity_statistics?: Array<any> | null;
-  longest_task_waiting_age?: number | null;
-  longest_task_waiting_sid?: string | null;
-  longest_relative_task_age_in_queue?: number | null;
-  longest_relative_task_sid_in_queue?: string | null;
-  task_queue_sid?: string | null;
-  tasks_by_priority?: any | null;
-  tasks_by_status?: any | null;
-  total_available_workers?: number | null;
-  total_eligible_workers?: number | null;
-  total_tasks?: number | null;
-  workspace_sid?: string | null;
-  url?: string | null;
+  account_sid: string;
+  activity_statistics: Array<any>;
+  longest_task_waiting_age: number;
+  longest_task_waiting_sid: string;
+  longest_relative_task_age_in_queue: number;
+  longest_relative_task_sid_in_queue: string;
+  task_queue_sid: string;
+  tasks_by_priority: any;
+  tasks_by_status: any;
+  total_available_workers: number;
+  total_eligible_workers: number;
+  total_tasks: number;
+  workspace_sid: string;
+  url: string;
 }
 
 export class TaskQueueRealTimeStatisticsInstance {
@@ -220,59 +220,59 @@ export class TaskQueueRealTimeStatisticsInstance {
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The number of current Workers by Activity
    */
-  activityStatistics?: Array<any> | null;
+  activityStatistics: Array<any>;
   /**
    * The age of the longest waiting Task
    */
-  longestTaskWaitingAge?: number | null;
+  longestTaskWaitingAge: number;
   /**
    * The SID of the longest waiting Task
    */
-  longestTaskWaitingSid?: string | null;
+  longestTaskWaitingSid: string;
   /**
    * The relative age in the TaskQueue for the longest waiting Task.
    */
-  longestRelativeTaskAgeInQueue?: number | null;
+  longestRelativeTaskAgeInQueue: number;
   /**
    * The SID of the Task waiting in the TaskQueue the longest.
    */
-  longestRelativeTaskSidInQueue?: string | null;
+  longestRelativeTaskSidInQueue: string;
   /**
    * The SID of the TaskQueue from which these statistics were calculated
    */
-  taskQueueSid?: string | null;
+  taskQueueSid: string;
   /**
    * The number of Tasks by priority
    */
-  tasksByPriority?: any | null;
+  tasksByPriority: any;
   /**
    * The number of Tasks by their current status
    */
-  tasksByStatus?: any | null;
+  tasksByStatus: any;
   /**
    * The total number of Workers available for Tasks in the TaskQueue
    */
-  totalAvailableWorkers?: number | null;
+  totalAvailableWorkers: number;
   /**
    * The total number of Workers eligible for Tasks in the TaskQueue, independent of their Activity state
    */
-  totalEligibleWorkers?: number | null;
+  totalEligibleWorkers: number;
   /**
    * The total number of Tasks
    */
-  totalTasks?: number | null;
+  totalTasks: number;
   /**
    * The SID of the Workspace that contains the TaskQueue
    */
-  workspaceSid?: string | null;
+  workspaceSid: string;
   /**
    * The absolute URL of the TaskQueue statistics resource
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): TaskQueueRealTimeStatisticsContext {
     this._context =
@@ -288,9 +288,9 @@ export class TaskQueueRealTimeStatisticsInstance {
   /**
    * Fetch a TaskQueueRealTimeStatisticsInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed TaskQueueRealTimeStatisticsInstance
+   * @returns Resolves to processed TaskQueueRealTimeStatisticsInstance
    */
   fetch(
     callback?: (
@@ -301,10 +301,10 @@ export class TaskQueueRealTimeStatisticsInstance {
   /**
    * Fetch a TaskQueueRealTimeStatisticsInstance
    *
-   * @param { TaskQueueRealTimeStatisticsContextFetchOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed TaskQueueRealTimeStatisticsInstance
+   * @returns Resolves to processed TaskQueueRealTimeStatisticsInstance
    */
   fetch(
     params: TaskQueueRealTimeStatisticsContextFetchOptions,
@@ -353,7 +353,16 @@ export class TaskQueueRealTimeStatisticsInstance {
   }
 }
 
+export interface TaskQueueRealTimeStatisticsSolution {
+  workspaceSid: string;
+  taskQueueSid: string;
+}
+
 export interface TaskQueueRealTimeStatisticsListInstance {
+  _version: V1;
+  _solution: TaskQueueRealTimeStatisticsSolution;
+  _uri: string;
+
   (): TaskQueueRealTimeStatisticsContext;
   get(): TaskQueueRealTimeStatisticsContext;
 
@@ -362,21 +371,6 @@ export interface TaskQueueRealTimeStatisticsListInstance {
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export interface TaskQueueRealTimeStatisticsSolution {
-  workspaceSid?: string;
-  taskQueueSid?: string;
-}
-
-interface TaskQueueRealTimeStatisticsListInstanceImpl
-  extends TaskQueueRealTimeStatisticsListInstance {}
-class TaskQueueRealTimeStatisticsListInstanceImpl
-  implements TaskQueueRealTimeStatisticsListInstance
-{
-  _version?: V1;
-  _solution?: TaskQueueRealTimeStatisticsSolution;
-  _uri?: string;
 }
 
 export function TaskQueueRealTimeStatisticsListInstance(
@@ -393,7 +387,7 @@ export function TaskQueueRealTimeStatisticsListInstance(
   }
 
   const instance = (() =>
-    instance.get()) as TaskQueueRealTimeStatisticsListInstanceImpl;
+    instance.get()) as TaskQueueRealTimeStatisticsListInstance;
 
   instance.get = function get(): TaskQueueRealTimeStatisticsContext {
     return new TaskQueueRealTimeStatisticsContextImpl(
@@ -408,14 +402,14 @@ export function TaskQueueRealTimeStatisticsListInstance(
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

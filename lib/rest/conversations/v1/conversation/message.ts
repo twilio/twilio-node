@@ -27,102 +27,88 @@ type ConversationMessageWebhookEnabledType = "true" | "false";
 
 /**
  * Options to pass to remove a MessageInstance
- *
- * @property { ConversationMessageWebhookEnabledType } [xTwilioWebhookEnabled] The X-Twilio-Webhook-Enabled HTTP request header
  */
 export interface MessageContextRemoveOptions {
+  /** The X-Twilio-Webhook-Enabled HTTP request header */
   xTwilioWebhookEnabled?: ConversationMessageWebhookEnabledType;
 }
 
 /**
  * Options to pass to update a MessageInstance
- *
- * @property { ConversationMessageWebhookEnabledType } [xTwilioWebhookEnabled] The X-Twilio-Webhook-Enabled HTTP request header
- * @property { string } [author] The channel specific identifier of the message\\\'s author. Defaults to `system`.
- * @property { string } [body] The content of the message, can be up to 1,600 characters long.
- * @property { Date } [dateCreated] The date that this resource was created.
- * @property { Date } [dateUpdated] The date that this resource was last updated. `null` if the message has not been edited.
- * @property { string } [attributes] A string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
  */
 export interface MessageContextUpdateOptions {
+  /** The X-Twilio-Webhook-Enabled HTTP request header */
   xTwilioWebhookEnabled?: ConversationMessageWebhookEnabledType;
+  /** The channel specific identifier of the message\\\'s author. Defaults to `system`. */
   author?: string;
+  /** The content of the message, can be up to 1,600 characters long. */
   body?: string;
+  /** The date that this resource was created. */
   dateCreated?: Date;
+  /** The date that this resource was last updated. `null` if the message has not been edited. */
   dateUpdated?: Date;
+  /** A string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned. */
   attributes?: string;
 }
 
 /**
  * Options to pass to create a MessageInstance
- *
- * @property { ConversationMessageWebhookEnabledType } [xTwilioWebhookEnabled] The X-Twilio-Webhook-Enabled HTTP request header
- * @property { string } [author] The channel specific identifier of the message\\\'s author. Defaults to `system`.
- * @property { string } [body] The content of the message, can be up to 1,600 characters long.
- * @property { Date } [dateCreated] The date that this resource was created.
- * @property { Date } [dateUpdated] The date that this resource was last updated. `null` if the message has not been edited.
- * @property { string } [attributes] A string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
- * @property { string } [mediaSid] The Media SID to be attached to the new Message.
  */
 export interface MessageListInstanceCreateOptions {
+  /** The X-Twilio-Webhook-Enabled HTTP request header */
   xTwilioWebhookEnabled?: ConversationMessageWebhookEnabledType;
+  /** The channel specific identifier of the message\\\'s author. Defaults to `system`. */
   author?: string;
+  /** The content of the message, can be up to 1,600 characters long. */
   body?: string;
+  /** The date that this resource was created. */
   dateCreated?: Date;
+  /** The date that this resource was last updated. `null` if the message has not been edited. */
   dateUpdated?: Date;
+  /** A string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned. */
   attributes?: string;
+  /** The Media SID to be attached to the new Message. */
   mediaSid?: string;
 }
 /**
  * Options to pass to each
- *
- * @property { ConversationMessageOrderType } [order] The sort order of the returned messages. Can be: `asc` (ascending) or `desc` (descending), with `asc` as the default.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface MessageListInstanceEachOptions {
+  /** The sort order of the returned messages. Can be: `asc` (ascending) or `desc` (descending), with `asc` as the default. */
   order?: ConversationMessageOrderType;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: MessageInstance, done: (err?: Error) => void) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { ConversationMessageOrderType } [order] The sort order of the returned messages. Can be: `asc` (ascending) or `desc` (descending), with `asc` as the default.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface MessageListInstanceOptions {
+  /** The sort order of the returned messages. Can be: `asc` (ascending) or `desc` (descending), with `asc` as the default. */
   order?: ConversationMessageOrderType;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { ConversationMessageOrderType } [order] The sort order of the returned messages. Can be: `asc` (ascending) or `desc` (descending), with `asc` as the default.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface MessageListInstancePageOptions {
+  /** The sort order of the returned messages. Can be: `asc` (ascending) or `desc` (descending), with `asc` as the default. */
   order?: ConversationMessageOrderType;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
@@ -132,9 +118,9 @@ export interface MessageContext {
   /**
    * Remove a MessageInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -142,10 +128,10 @@ export interface MessageContext {
   /**
    * Remove a MessageInstance
    *
-   * @param { MessageContextRemoveOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed MessageInstance
+   * @returns Resolves to processed MessageInstance
    */
   remove(
     params: MessageContextRemoveOptions,
@@ -155,9 +141,9 @@ export interface MessageContext {
   /**
    * Fetch a MessageInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed MessageInstance
+   * @returns Resolves to processed MessageInstance
    */
   fetch(
     callback?: (error: Error | null, item?: MessageInstance) => any
@@ -166,9 +152,9 @@ export interface MessageContext {
   /**
    * Update a MessageInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed MessageInstance
+   * @returns Resolves to processed MessageInstance
    */
   update(
     callback?: (error: Error | null, item?: MessageInstance) => any
@@ -176,10 +162,10 @@ export interface MessageContext {
   /**
    * Update a MessageInstance
    *
-   * @param { MessageContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed MessageInstance
+   * @returns Resolves to processed MessageInstance
    */
   update(
     params: MessageContextUpdateOptions,
@@ -194,8 +180,8 @@ export interface MessageContext {
 }
 
 export interface MessageContextSolution {
-  conversationSid?: string;
-  sid?: string;
+  conversationSid: string;
+  sid: string;
 }
 
 export class MessageContextImpl implements MessageContext {
@@ -247,15 +233,16 @@ export class MessageContextImpl implements MessageContext {
     if (params["xTwilioWebhookEnabled"] !== undefined)
       headers["X-Twilio-Webhook-Enabled"] = params["xTwilioWebhookEnabled"];
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
         params: data,
         headers,
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -265,9 +252,10 @@ export class MessageContextImpl implements MessageContext {
   fetch(
     callback?: (error: Error | null, item?: MessageInstance) => any
   ): Promise<MessageInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -276,12 +264,12 @@ export class MessageContextImpl implements MessageContext {
         new MessageInstance(
           operationVersion,
           payload,
-          this._solution.conversationSid,
-          this._solution.sid
+          instance._solution.conversationSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -317,9 +305,10 @@ export class MessageContextImpl implements MessageContext {
     if (params["xTwilioWebhookEnabled"] !== undefined)
       headers["X-Twilio-Webhook-Enabled"] = params["xTwilioWebhookEnabled"];
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -330,12 +319,12 @@ export class MessageContextImpl implements MessageContext {
         new MessageInstance(
           operationVersion,
           payload,
-          this._solution.conversationSid,
-          this._solution.sid
+          instance._solution.conversationSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -361,20 +350,20 @@ interface MessagePayload extends TwilioResponsePayload {
 }
 
 interface MessageResource {
-  account_sid?: string | null;
-  conversation_sid?: string | null;
-  sid?: string | null;
-  index?: number | null;
-  author?: string | null;
-  body?: string | null;
-  media?: Array<any> | null;
-  attributes?: string | null;
-  participant_sid?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  url?: string | null;
-  delivery?: any | null;
-  links?: object | null;
+  account_sid: string;
+  conversation_sid: string;
+  sid: string;
+  index: number;
+  author: string;
+  body: string;
+  media: Array<any>;
+  attributes: string;
+  participant_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  url: string;
+  delivery: any;
+  links: object;
 }
 
 export class MessageInstance {
@@ -408,59 +397,59 @@ export class MessageInstance {
   /**
    * The unique ID of the Account responsible for this message.
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The unique ID of the Conversation for this message.
    */
-  conversationSid?: string | null;
+  conversationSid: string;
   /**
    * A 34 character string that uniquely identifies this resource.
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The index of the message within the Conversation.
    */
-  index?: number | null;
+  index: number;
   /**
    * The channel specific identifier of the message\'s author.
    */
-  author?: string | null;
+  author: string;
   /**
    * The content of the message.
    */
-  body?: string | null;
+  body: string;
   /**
    * An array of objects that describe the Message\'s media if attached, otherwise, null.
    */
-  media?: Array<any> | null;
+  media: Array<any>;
   /**
    * A string metadata field you can use to store any data you wish.
    */
-  attributes?: string | null;
+  attributes: string;
   /**
    * The unique ID of messages\'s author participant.
    */
-  participantSid?: string | null;
+  participantSid: string;
   /**
    * The date that this resource was created.
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The date that this resource was last updated.
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * An absolute API URL for this message.
    */
-  url?: string | null;
+  url: string;
   /**
    * An object that contains the summary of delivery statuses for the message to non-chat participants.
    */
-  delivery?: any | null;
+  delivery: any;
   /**
    * Absolute URL to access the receipts of this message.
    */
-  links?: object | null;
+  links: object;
 
   private get _proxy(): MessageContext {
     this._context =
@@ -476,9 +465,9 @@ export class MessageInstance {
   /**
    * Remove a MessageInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -486,10 +475,10 @@ export class MessageInstance {
   /**
    * Remove a MessageInstance
    *
-   * @param { MessageContextRemoveOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed MessageInstance
+   * @returns Resolves to processed MessageInstance
    */
   remove(
     params: MessageContextRemoveOptions,
@@ -506,9 +495,9 @@ export class MessageInstance {
   /**
    * Fetch a MessageInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed MessageInstance
+   * @returns Resolves to processed MessageInstance
    */
   fetch(
     callback?: (error: Error | null, item?: MessageInstance) => any
@@ -519,9 +508,9 @@ export class MessageInstance {
   /**
    * Update a MessageInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed MessageInstance
+   * @returns Resolves to processed MessageInstance
    */
   update(
     callback?: (error: Error | null, item?: MessageInstance) => any
@@ -529,10 +518,10 @@ export class MessageInstance {
   /**
    * Update a MessageInstance
    *
-   * @param { MessageContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed MessageInstance
+   * @returns Resolves to processed MessageInstance
    */
   update(
     params: MessageContextUpdateOptions,
@@ -582,16 +571,24 @@ export class MessageInstance {
   }
 }
 
+export interface MessageSolution {
+  conversationSid: string;
+}
+
 export interface MessageListInstance {
+  _version: V1;
+  _solution: MessageSolution;
+  _uri: string;
+
   (sid: string): MessageContext;
   get(sid: string): MessageContext;
 
   /**
    * Create a MessageInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed MessageInstance
+   * @returns Resolves to processed MessageInstance
    */
   create(
     callback?: (error: Error | null, item?: MessageInstance) => any
@@ -599,10 +596,10 @@ export interface MessageListInstance {
   /**
    * Create a MessageInstance
    *
-   * @param { MessageListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed MessageInstance
+   * @returns Resolves to processed MessageInstance
    */
   create(
     params: MessageListInstanceCreateOptions,
@@ -685,17 +682,6 @@ export interface MessageListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface MessageSolution {
-  conversationSid?: string;
-}
-
-interface MessageListInstanceImpl extends MessageListInstance {}
-class MessageListInstanceImpl implements MessageListInstance {
-  _version?: V1;
-  _solution?: MessageSolution;
-  _uri?: string;
-}
-
 export function MessageListInstance(
   version: V1,
   conversationSid: string
@@ -704,7 +690,7 @@ export function MessageListInstance(
     throw new Error("Parameter 'conversationSid' is not valid.");
   }
 
-  const instance = ((sid) => instance.get(sid)) as MessageListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as MessageListInstance;
 
   instance.get = function get(sid): MessageContext {
     return new MessageContextImpl(version, conversationSid, sid);
@@ -746,7 +732,7 @@ export function MessageListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -757,11 +743,11 @@ export function MessageListInstance(
         new MessageInstance(
           operationVersion,
           payload,
-          this._solution.conversationSid
+          instance._solution.conversationSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -793,17 +779,18 @@ export function MessageListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new MessagePage(operationVersion, payload, this._solution)
+      (payload) =>
+        new MessagePage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -816,30 +803,28 @@ export function MessageListInstance(
     targetUrl: string,
     callback?: (error: Error | null, items: MessagePage) => any
   ): Promise<MessagePage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new MessagePage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new MessagePage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

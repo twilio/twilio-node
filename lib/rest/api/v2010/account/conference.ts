@@ -35,108 +35,96 @@ type ConferenceUpdateStatus = "completed";
 
 /**
  * Options to pass to update a ConferenceInstance
- *
- * @property { ConferenceUpdateStatus } [status]
- * @property { string } [announceUrl] The URL we should call to announce something into the conference. The URL may return an MP3 file, a WAV file, or a TwiML document that contains `<Play>`, `<Say>`, `<Pause>`, or `<Redirect>` verbs.
- * @property { string } [announceMethod] The HTTP method used to call `announce_url`. Can be: `GET` or `POST` and the default is `POST`
  */
 export interface ConferenceContextUpdateOptions {
+  /**  */
   status?: ConferenceUpdateStatus;
+  /** The URL we should call to announce something into the conference. The URL may return an MP3 file, a WAV file, or a TwiML document that contains `<Play>`, `<Say>`, `<Pause>`, or `<Redirect>` verbs. */
   announceUrl?: string;
+  /** The HTTP method used to call `announce_url`. Can be: `GET` or `POST` and the default is `POST` */
   announceMethod?: string;
 }
 /**
  * Options to pass to each
- *
- * @property { Date } [dateCreated] The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that started on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify  conferences that started on or after midnight on a date, use `>=YYYY-MM-DD`.
- * @property { Date } [dateCreatedBefore] The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that started on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify  conferences that started on or after midnight on a date, use `>=YYYY-MM-DD`.
- * @property { Date } [dateCreatedAfter] The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that started on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify  conferences that started on or after midnight on a date, use `>=YYYY-MM-DD`.
- * @property { Date } [dateUpdated] The `date_updated` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that were last updated on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify conferences that were last updated on or after midnight on a given date, use  `>=YYYY-MM-DD`.
- * @property { Date } [dateUpdatedBefore] The `date_updated` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that were last updated on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify conferences that were last updated on or after midnight on a given date, use  `>=YYYY-MM-DD`.
- * @property { Date } [dateUpdatedAfter] The `date_updated` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that were last updated on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify conferences that were last updated on or after midnight on a given date, use  `>=YYYY-MM-DD`.
- * @property { string } [friendlyName] The string that identifies the Conference resources to read.
- * @property { ConferenceStatus } [status] The status of the resources to read. Can be: `init`, `in-progress`, or `completed`.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface ConferenceListInstanceEachOptions {
+  /** The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that started on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify  conferences that started on or after midnight on a date, use `>=YYYY-MM-DD`. */
   dateCreated?: Date;
+  /** The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that started on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify  conferences that started on or after midnight on a date, use `>=YYYY-MM-DD`. */
   dateCreatedBefore?: Date;
+  /** The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that started on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify  conferences that started on or after midnight on a date, use `>=YYYY-MM-DD`. */
   dateCreatedAfter?: Date;
+  /** The `date_updated` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that were last updated on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify conferences that were last updated on or after midnight on a given date, use  `>=YYYY-MM-DD`. */
   dateUpdated?: Date;
+  /** The `date_updated` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that were last updated on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify conferences that were last updated on or after midnight on a given date, use  `>=YYYY-MM-DD`. */
   dateUpdatedBefore?: Date;
+  /** The `date_updated` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that were last updated on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify conferences that were last updated on or after midnight on a given date, use  `>=YYYY-MM-DD`. */
   dateUpdatedAfter?: Date;
+  /** The string that identifies the Conference resources to read. */
   friendlyName?: string;
+  /** The status of the resources to read. Can be: `init`, `in-progress`, or `completed`. */
   status?: ConferenceStatus;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: ConferenceInstance, done: (err?: Error) => void) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { Date } [dateCreated] The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that started on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify  conferences that started on or after midnight on a date, use `>=YYYY-MM-DD`.
- * @property { Date } [dateCreatedBefore] The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that started on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify  conferences that started on or after midnight on a date, use `>=YYYY-MM-DD`.
- * @property { Date } [dateCreatedAfter] The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that started on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify  conferences that started on or after midnight on a date, use `>=YYYY-MM-DD`.
- * @property { Date } [dateUpdated] The `date_updated` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that were last updated on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify conferences that were last updated on or after midnight on a given date, use  `>=YYYY-MM-DD`.
- * @property { Date } [dateUpdatedBefore] The `date_updated` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that were last updated on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify conferences that were last updated on or after midnight on a given date, use  `>=YYYY-MM-DD`.
- * @property { Date } [dateUpdatedAfter] The `date_updated` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that were last updated on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify conferences that were last updated on or after midnight on a given date, use  `>=YYYY-MM-DD`.
- * @property { string } [friendlyName] The string that identifies the Conference resources to read.
- * @property { ConferenceStatus } [status] The status of the resources to read. Can be: `init`, `in-progress`, or `completed`.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface ConferenceListInstanceOptions {
+  /** The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that started on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify  conferences that started on or after midnight on a date, use `>=YYYY-MM-DD`. */
   dateCreated?: Date;
+  /** The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that started on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify  conferences that started on or after midnight on a date, use `>=YYYY-MM-DD`. */
   dateCreatedBefore?: Date;
+  /** The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that started on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify  conferences that started on or after midnight on a date, use `>=YYYY-MM-DD`. */
   dateCreatedAfter?: Date;
+  /** The `date_updated` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that were last updated on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify conferences that were last updated on or after midnight on a given date, use  `>=YYYY-MM-DD`. */
   dateUpdated?: Date;
+  /** The `date_updated` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that were last updated on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify conferences that were last updated on or after midnight on a given date, use  `>=YYYY-MM-DD`. */
   dateUpdatedBefore?: Date;
+  /** The `date_updated` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that were last updated on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify conferences that were last updated on or after midnight on a given date, use  `>=YYYY-MM-DD`. */
   dateUpdatedAfter?: Date;
+  /** The string that identifies the Conference resources to read. */
   friendlyName?: string;
+  /** The status of the resources to read. Can be: `init`, `in-progress`, or `completed`. */
   status?: ConferenceStatus;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { Date } [dateCreated] The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that started on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify  conferences that started on or after midnight on a date, use `>=YYYY-MM-DD`.
- * @property { Date } [dateCreatedBefore] The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that started on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify  conferences that started on or after midnight on a date, use `>=YYYY-MM-DD`.
- * @property { Date } [dateCreatedAfter] The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that started on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify  conferences that started on or after midnight on a date, use `>=YYYY-MM-DD`.
- * @property { Date } [dateUpdated] The `date_updated` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that were last updated on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify conferences that were last updated on or after midnight on a given date, use  `>=YYYY-MM-DD`.
- * @property { Date } [dateUpdatedBefore] The `date_updated` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that were last updated on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify conferences that were last updated on or after midnight on a given date, use  `>=YYYY-MM-DD`.
- * @property { Date } [dateUpdatedAfter] The `date_updated` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that were last updated on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify conferences that were last updated on or after midnight on a given date, use  `>=YYYY-MM-DD`.
- * @property { string } [friendlyName] The string that identifies the Conference resources to read.
- * @property { ConferenceStatus } [status] The status of the resources to read. Can be: `init`, `in-progress`, or `completed`.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface ConferenceListInstancePageOptions {
+  /** The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that started on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify  conferences that started on or after midnight on a date, use `>=YYYY-MM-DD`. */
   dateCreated?: Date;
+  /** The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that started on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify  conferences that started on or after midnight on a date, use `>=YYYY-MM-DD`. */
   dateCreatedBefore?: Date;
+  /** The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that started on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify  conferences that started on or after midnight on a date, use `>=YYYY-MM-DD`. */
   dateCreatedAfter?: Date;
+  /** The `date_updated` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that were last updated on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify conferences that were last updated on or after midnight on a given date, use  `>=YYYY-MM-DD`. */
   dateUpdated?: Date;
+  /** The `date_updated` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that were last updated on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify conferences that were last updated on or after midnight on a given date, use  `>=YYYY-MM-DD`. */
   dateUpdatedBefore?: Date;
+  /** The `date_updated` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that were last updated on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify conferences that were last updated on or after midnight on a given date, use  `>=YYYY-MM-DD`. */
   dateUpdatedAfter?: Date;
+  /** The string that identifies the Conference resources to read. */
   friendlyName?: string;
+  /** The status of the resources to read. Can be: `init`, `in-progress`, or `completed`. */
   status?: ConferenceStatus;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
@@ -147,9 +135,9 @@ export interface ConferenceContext {
   /**
    * Fetch a ConferenceInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ConferenceInstance
+   * @returns Resolves to processed ConferenceInstance
    */
   fetch(
     callback?: (error: Error | null, item?: ConferenceInstance) => any
@@ -158,9 +146,9 @@ export interface ConferenceContext {
   /**
    * Update a ConferenceInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ConferenceInstance
+   * @returns Resolves to processed ConferenceInstance
    */
   update(
     callback?: (error: Error | null, item?: ConferenceInstance) => any
@@ -168,10 +156,10 @@ export interface ConferenceContext {
   /**
    * Update a ConferenceInstance
    *
-   * @param { ConferenceContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ConferenceInstance
+   * @returns Resolves to processed ConferenceInstance
    */
   update(
     params: ConferenceContextUpdateOptions,
@@ -186,8 +174,8 @@ export interface ConferenceContext {
 }
 
 export interface ConferenceContextSolution {
-  accountSid?: string;
-  sid?: string;
+  accountSid: string;
+  sid: string;
 }
 
 export class ConferenceContextImpl implements ConferenceContext {
@@ -235,9 +223,10 @@ export class ConferenceContextImpl implements ConferenceContext {
   fetch(
     callback?: (error: Error | null, item?: ConferenceInstance) => any
   ): Promise<ConferenceInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -246,12 +235,12 @@ export class ConferenceContextImpl implements ConferenceContext {
         new ConferenceInstance(
           operationVersion,
           payload,
-          this._solution.accountSid,
-          this._solution.sid
+          instance._solution.accountSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -285,9 +274,10 @@ export class ConferenceContextImpl implements ConferenceContext {
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -298,12 +288,12 @@ export class ConferenceContextImpl implements ConferenceContext {
         new ConferenceInstance(
           operationVersion,
           payload,
-          this._solution.accountSid,
-          this._solution.sid
+          instance._solution.accountSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -329,18 +319,18 @@ interface ConferencePayload extends TwilioResponsePayload {
 }
 
 interface ConferenceResource {
-  account_sid?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  api_version?: string | null;
-  friendly_name?: string | null;
-  region?: string | null;
-  sid?: string | null;
-  status?: ConferenceStatus;
-  uri?: string | null;
-  subresource_uris?: object | null;
-  reason_conference_ended?: ConferenceReasonConferenceEnded;
-  call_sid_ending_conference?: string | null;
+  account_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  api_version: string;
+  friendly_name: string;
+  region: string;
+  sid: string;
+  status: ConferenceStatus;
+  uri: string;
+  subresource_uris: object;
+  reason_conference_ended: ConferenceReasonConferenceEnded;
+  call_sid_ending_conference: string;
 }
 
 export class ConferenceInstance {
@@ -372,45 +362,45 @@ export class ConferenceInstance {
   /**
    * The SID of the Account that created this resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The RFC 2822 date and time in GMT that this resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The RFC 2822 date and time in GMT that this resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The API version used to create this conference
    */
-  apiVersion?: string | null;
+  apiVersion: string;
   /**
    * A string that you assigned to describe this conference room
    */
-  friendlyName?: string | null;
+  friendlyName: string;
   /**
    * A string that represents the Twilio Region where the conference was mixed
    */
-  region?: string | null;
+  region: string;
   /**
    * The unique string that identifies this resource
    */
-  sid?: string | null;
-  status?: ConferenceStatus;
+  sid: string;
+  status: ConferenceStatus;
   /**
    * The URI of this resource, relative to `https://api.twilio.com`
    */
-  uri?: string | null;
+  uri: string;
   /**
    * A list of related resources identified by their relative URIs
    */
-  subresourceUris?: object | null;
-  reasonConferenceEnded?: ConferenceReasonConferenceEnded;
+  subresourceUris: object;
+  reasonConferenceEnded: ConferenceReasonConferenceEnded;
   /**
    * The call SID that caused the conference to end
    */
-  callSidEndingConference?: string | null;
+  callSidEndingConference: string;
 
   private get _proxy(): ConferenceContext {
     this._context =
@@ -426,9 +416,9 @@ export class ConferenceInstance {
   /**
    * Fetch a ConferenceInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ConferenceInstance
+   * @returns Resolves to processed ConferenceInstance
    */
   fetch(
     callback?: (error: Error | null, item?: ConferenceInstance) => any
@@ -439,9 +429,9 @@ export class ConferenceInstance {
   /**
    * Update a ConferenceInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ConferenceInstance
+   * @returns Resolves to processed ConferenceInstance
    */
   update(
     callback?: (error: Error | null, item?: ConferenceInstance) => any
@@ -449,10 +439,10 @@ export class ConferenceInstance {
   /**
    * Update a ConferenceInstance
    *
-   * @param { ConferenceContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ConferenceInstance
+   * @returns Resolves to processed ConferenceInstance
    */
   update(
     params: ConferenceContextUpdateOptions,
@@ -507,7 +497,15 @@ export class ConferenceInstance {
   }
 }
 
+export interface ConferenceSolution {
+  accountSid: string;
+}
+
 export interface ConferenceListInstance {
+  _version: V2010;
+  _solution: ConferenceSolution;
+  _uri: string;
+
   (sid: string): ConferenceContext;
   get(sid: string): ConferenceContext;
 
@@ -587,17 +585,6 @@ export interface ConferenceListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface ConferenceSolution {
-  accountSid?: string;
-}
-
-interface ConferenceListInstanceImpl extends ConferenceListInstance {}
-class ConferenceListInstanceImpl implements ConferenceListInstance {
-  _version?: V2010;
-  _solution?: ConferenceSolution;
-  _uri?: string;
-}
-
 export function ConferenceListInstance(
   version: V2010,
   accountSid: string
@@ -606,7 +593,7 @@ export function ConferenceListInstance(
     throw new Error("Parameter 'accountSid' is not valid.");
   }
 
-  const instance = ((sid) => instance.get(sid)) as ConferenceListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as ConferenceListInstance;
 
   instance.get = function get(sid): ConferenceContext {
     return new ConferenceContextImpl(version, accountSid, sid);
@@ -655,17 +642,18 @@ export function ConferenceListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new ConferencePage(operationVersion, payload, this._solution)
+      (payload) =>
+        new ConferencePage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -678,30 +666,28 @@ export function ConferenceListInstance(
     targetUrl: string,
     callback?: (error: Error | null, items: ConferencePage) => any
   ): Promise<ConferencePage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new ConferencePage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new ConferencePage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

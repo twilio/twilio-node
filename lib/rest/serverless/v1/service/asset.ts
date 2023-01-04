@@ -23,65 +23,52 @@ import { AssetVersionListInstance } from "./asset/assetVersion";
 
 /**
  * Options to pass to update a AssetInstance
- *
- * @property { string } friendlyName A descriptive string that you create to describe the Asset resource. It can be a maximum of 255 characters.
  */
 export interface AssetContextUpdateOptions {
+  /** A descriptive string that you create to describe the Asset resource. It can be a maximum of 255 characters. */
   friendlyName: string;
 }
 
 /**
  * Options to pass to create a AssetInstance
- *
- * @property { string } friendlyName A descriptive string that you create to describe the Asset resource. It can be a maximum of 255 characters.
  */
 export interface AssetListInstanceCreateOptions {
+  /** A descriptive string that you create to describe the Asset resource. It can be a maximum of 255 characters. */
   friendlyName: string;
 }
 /**
  * Options to pass to each
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface AssetListInstanceEachOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: AssetInstance, done: (err?: Error) => void) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface AssetListInstanceOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface AssetListInstancePageOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
@@ -91,9 +78,9 @@ export interface AssetContext {
   /**
    * Remove a AssetInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -102,9 +89,9 @@ export interface AssetContext {
   /**
    * Fetch a AssetInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed AssetInstance
+   * @returns Resolves to processed AssetInstance
    */
   fetch(
     callback?: (error: Error | null, item?: AssetInstance) => any
@@ -113,10 +100,10 @@ export interface AssetContext {
   /**
    * Update a AssetInstance
    *
-   * @param { AssetContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed AssetInstance
+   * @returns Resolves to processed AssetInstance
    */
   update(
     params: AssetContextUpdateOptions,
@@ -131,8 +118,8 @@ export interface AssetContext {
 }
 
 export interface AssetContextSolution {
-  serviceSid?: string;
-  sid?: string;
+  serviceSid: string;
+  sid: string;
 }
 
 export class AssetContextImpl implements AssetContext {
@@ -168,13 +155,14 @@ export class AssetContextImpl implements AssetContext {
   remove(
     callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -184,9 +172,10 @@ export class AssetContextImpl implements AssetContext {
   fetch(
     callback?: (error: Error | null, item?: AssetInstance) => any
   ): Promise<AssetInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -195,12 +184,12 @@ export class AssetContextImpl implements AssetContext {
         new AssetInstance(
           operationVersion,
           payload,
-          this._solution.serviceSid,
-          this._solution.sid
+          instance._solution.serviceSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -231,9 +220,10 @@ export class AssetContextImpl implements AssetContext {
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -244,12 +234,12 @@ export class AssetContextImpl implements AssetContext {
         new AssetInstance(
           operationVersion,
           payload,
-          this._solution.serviceSid,
-          this._solution.sid
+          instance._solution.serviceSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -275,14 +265,14 @@ interface AssetPayload extends TwilioResponsePayload {
 }
 
 interface AssetResource {
-  sid?: string | null;
-  account_sid?: string | null;
-  service_sid?: string | null;
-  friendly_name?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  url?: string | null;
-  links?: object | null;
+  sid: string;
+  account_sid: string;
+  service_sid: string;
+  friendly_name: string;
+  date_created: Date;
+  date_updated: Date;
+  url: string;
+  links: object;
 }
 
 export class AssetInstance {
@@ -310,35 +300,35 @@ export class AssetInstance {
   /**
    * The unique string that identifies the Asset resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The SID of the Account that created the Asset resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The SID of the Service that the Asset resource is associated with
    */
-  serviceSid?: string | null;
+  serviceSid: string;
   /**
    * The string that you assigned to describe the Asset resource
    */
-  friendlyName?: string | null;
+  friendlyName: string;
   /**
    * The ISO 8601 date and time in GMT when the Asset resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The ISO 8601 date and time in GMT when the Asset resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The absolute URL of the Asset resource
    */
-  url?: string | null;
+  url: string;
   /**
    * The URLs of the Asset resource\'s nested resources
    */
-  links?: object | null;
+  links: object;
 
   private get _proxy(): AssetContext {
     this._context =
@@ -354,9 +344,9 @@ export class AssetInstance {
   /**
    * Remove a AssetInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -367,9 +357,9 @@ export class AssetInstance {
   /**
    * Fetch a AssetInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed AssetInstance
+   * @returns Resolves to processed AssetInstance
    */
   fetch(
     callback?: (error: Error | null, item?: AssetInstance) => any
@@ -380,10 +370,10 @@ export class AssetInstance {
   /**
    * Update a AssetInstance
    *
-   * @param { AssetContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed AssetInstance
+   * @returns Resolves to processed AssetInstance
    */
   update(
     params: AssetContextUpdateOptions,
@@ -427,17 +417,25 @@ export class AssetInstance {
   }
 }
 
+export interface AssetSolution {
+  serviceSid: string;
+}
+
 export interface AssetListInstance {
+  _version: V1;
+  _solution: AssetSolution;
+  _uri: string;
+
   (sid: string): AssetContext;
   get(sid: string): AssetContext;
 
   /**
    * Create a AssetInstance
    *
-   * @param { AssetListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed AssetInstance
+   * @returns Resolves to processed AssetInstance
    */
   create(
     params: AssetListInstanceCreateOptions,
@@ -520,17 +518,6 @@ export interface AssetListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface AssetSolution {
-  serviceSid?: string;
-}
-
-interface AssetListInstanceImpl extends AssetListInstance {}
-class AssetListInstanceImpl implements AssetListInstance {
-  _version?: V1;
-  _solution?: AssetSolution;
-  _uri?: string;
-}
-
 export function AssetListInstance(
   version: V1,
   serviceSid: string
@@ -539,7 +526,7 @@ export function AssetListInstance(
     throw new Error("Parameter 'serviceSid' is not valid.");
   }
 
-  const instance = ((sid) => instance.get(sid)) as AssetListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as AssetListInstance;
 
   instance.get = function get(sid): AssetContext {
     return new AssetContextImpl(version, serviceSid, sid);
@@ -573,7 +560,7 @@ export function AssetListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -581,10 +568,14 @@ export function AssetListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new AssetInstance(operationVersion, payload, this._solution.serviceSid)
+        new AssetInstance(
+          operationVersion,
+          payload,
+          instance._solution.serviceSid
+        )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -615,17 +606,17 @@ export function AssetListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new AssetPage(operationVersion, payload, this._solution)
+      (payload) => new AssetPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -638,30 +629,27 @@ export function AssetListInstance(
     targetUrl: string,
     callback?: (error: Error | null, items: AssetPage) => any
   ): Promise<AssetPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new AssetPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) => new AssetPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

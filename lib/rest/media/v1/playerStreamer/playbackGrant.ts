@@ -20,12 +20,11 @@ import { isValidPathParam } from "../../../../base/utility";
 
 /**
  * Options to pass to create a PlaybackGrantInstance
- *
- * @property { number } [ttl] The time to live of the PlaybackGrant. Default value is 15 seconds. Maximum value is 60 seconds.
- * @property { string } [accessControlAllowOrigin] The full origin URL where the livestream can be streamed. If this is not provided, it can be streamed from any domain.
  */
 export interface PlaybackGrantContextCreateOptions {
+  /** The time to live of the PlaybackGrant. Default value is 15 seconds. Maximum value is 60 seconds. */
   ttl?: number;
+  /** The full origin URL where the livestream can be streamed. If this is not provided, it can be streamed from any domain. */
   accessControlAllowOrigin?: string;
 }
 
@@ -33,9 +32,9 @@ export interface PlaybackGrantContext {
   /**
    * Create a PlaybackGrantInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed PlaybackGrantInstance
+   * @returns Resolves to processed PlaybackGrantInstance
    */
   create(
     callback?: (error: Error | null, item?: PlaybackGrantInstance) => any
@@ -43,10 +42,10 @@ export interface PlaybackGrantContext {
   /**
    * Create a PlaybackGrantInstance
    *
-   * @param { PlaybackGrantContextCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed PlaybackGrantInstance
+   * @returns Resolves to processed PlaybackGrantInstance
    */
   create(
     params: PlaybackGrantContextCreateOptions,
@@ -56,9 +55,9 @@ export interface PlaybackGrantContext {
   /**
    * Fetch a PlaybackGrantInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed PlaybackGrantInstance
+   * @returns Resolves to processed PlaybackGrantInstance
    */
   fetch(
     callback?: (error: Error | null, item?: PlaybackGrantInstance) => any
@@ -72,7 +71,7 @@ export interface PlaybackGrantContext {
 }
 
 export interface PlaybackGrantContextSolution {
-  sid?: string;
+  sid: string;
 }
 
 export class PlaybackGrantContextImpl implements PlaybackGrantContext {
@@ -113,9 +112,10 @@ export class PlaybackGrantContextImpl implements PlaybackGrantContext {
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -123,10 +123,14 @@ export class PlaybackGrantContextImpl implements PlaybackGrantContext {
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new PlaybackGrantInstance(operationVersion, payload, this._solution.sid)
+        new PlaybackGrantInstance(
+          operationVersion,
+          payload,
+          instance._solution.sid
+        )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -136,18 +140,23 @@ export class PlaybackGrantContextImpl implements PlaybackGrantContext {
   fetch(
     callback?: (error: Error | null, item?: PlaybackGrantInstance) => any
   ): Promise<PlaybackGrantInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new PlaybackGrantInstance(operationVersion, payload, this._solution.sid)
+        new PlaybackGrantInstance(
+          operationVersion,
+          payload,
+          instance._solution.sid
+        )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -171,11 +180,11 @@ export class PlaybackGrantContextImpl implements PlaybackGrantContext {
 interface PlaybackGrantPayload extends PlaybackGrantResource {}
 
 interface PlaybackGrantResource {
-  sid?: string | null;
-  url?: string | null;
-  account_sid?: string | null;
-  date_created?: Date | null;
-  grant?: any | null;
+  sid: string;
+  url: string;
+  account_sid: string;
+  date_created: Date;
+  grant: any;
 }
 
 export class PlaybackGrantInstance {
@@ -199,23 +208,23 @@ export class PlaybackGrantInstance {
   /**
    * The unique string that identifies the PlayerStreamer associated with this PlaybackGrant.
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The absolute URL of the resource
    */
-  url?: string | null;
+  url: string;
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The ISO 8601 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The grant that authorizes the player sdk to connect to the livestream
    */
-  grant?: any | null;
+  grant: any;
 
   private get _proxy(): PlaybackGrantContext {
     this._context =
@@ -227,9 +236,9 @@ export class PlaybackGrantInstance {
   /**
    * Create a PlaybackGrantInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed PlaybackGrantInstance
+   * @returns Resolves to processed PlaybackGrantInstance
    */
   create(
     callback?: (error: Error | null, item?: PlaybackGrantInstance) => any
@@ -237,10 +246,10 @@ export class PlaybackGrantInstance {
   /**
    * Create a PlaybackGrantInstance
    *
-   * @param { PlaybackGrantContextCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed PlaybackGrantInstance
+   * @returns Resolves to processed PlaybackGrantInstance
    */
   create(
     params: PlaybackGrantContextCreateOptions,
@@ -257,9 +266,9 @@ export class PlaybackGrantInstance {
   /**
    * Fetch a PlaybackGrantInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed PlaybackGrantInstance
+   * @returns Resolves to processed PlaybackGrantInstance
    */
   fetch(
     callback?: (error: Error | null, item?: PlaybackGrantInstance) => any
@@ -287,7 +296,15 @@ export class PlaybackGrantInstance {
   }
 }
 
+export interface PlaybackGrantSolution {
+  sid: string;
+}
+
 export interface PlaybackGrantListInstance {
+  _version: V1;
+  _solution: PlaybackGrantSolution;
+  _uri: string;
+
   (): PlaybackGrantContext;
   get(): PlaybackGrantContext;
 
@@ -298,17 +315,6 @@ export interface PlaybackGrantListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface PlaybackGrantSolution {
-  sid?: string;
-}
-
-interface PlaybackGrantListInstanceImpl extends PlaybackGrantListInstance {}
-class PlaybackGrantListInstanceImpl implements PlaybackGrantListInstance {
-  _version?: V1;
-  _solution?: PlaybackGrantSolution;
-  _uri?: string;
-}
-
 export function PlaybackGrantListInstance(
   version: V1,
   sid: string
@@ -317,7 +323,7 @@ export function PlaybackGrantListInstance(
     throw new Error("Parameter 'sid' is not valid.");
   }
 
-  const instance = (() => instance.get()) as PlaybackGrantListInstanceImpl;
+  const instance = (() => instance.get()) as PlaybackGrantListInstance;
 
   instance.get = function get(): PlaybackGrantContext {
     return new PlaybackGrantContextImpl(version, sid);
@@ -328,14 +334,14 @@ export function PlaybackGrantListInstance(
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

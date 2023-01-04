@@ -31,93 +31,80 @@ type TrunkTransferSetting = "disable-all" | "enable-all" | "sip-only";
 
 /**
  * Options to pass to update a TrunkInstance
- *
- * @property { string } [friendlyName] A descriptive string that you create to describe the resource. It can be up to 64 characters long.
- * @property { string } [domainName] The unique address you reserve on Twilio to which you route your SIP traffic. Domain names can contain letters, digits, and `-` and must end with `pstn.twilio.com`. See [Termination Settings](https://www.twilio.com/docs/sip-trunking#termination) for more information.
- * @property { string } [disasterRecoveryUrl] The URL we should call using the `disaster_recovery_method` if an error occurs while sending SIP traffic towards the configured Origination URL. We retrieve TwiML from the URL and execute the instructions like any other normal TwiML call. See [Disaster Recovery](https://www.twilio.com/docs/sip-trunking#disaster-recovery) for more information.
- * @property { string } [disasterRecoveryMethod] The HTTP method we should use to call the `disaster_recovery_url`. Can be: `GET` or `POST`.
- * @property { TrunkTransferSetting } [transferMode]
- * @property { boolean } [secure] Whether Secure Trunking is enabled for the trunk. If enabled, all calls going through the trunk will be secure using SRTP for media and TLS for signaling. If disabled, then RTP will be used for media. See [Secure Trunking](https://www.twilio.com/docs/sip-trunking#securetrunking) for more information.
- * @property { boolean } [cnamLookupEnabled] Whether Caller ID Name (CNAM) lookup should be enabled for the trunk. If enabled, all inbound calls to the SIP Trunk from the United States and Canada automatically perform a CNAM Lookup and display Caller ID data on your phone. See [CNAM Lookups](https://www.twilio.com/docs/sip-trunking#CNAM) for more information.
- * @property { TrunkTransferCallerId } [transferCallerId]
  */
 export interface TrunkContextUpdateOptions {
+  /** A descriptive string that you create to describe the resource. It can be up to 64 characters long. */
   friendlyName?: string;
+  /** The unique address you reserve on Twilio to which you route your SIP traffic. Domain names can contain letters, digits, and `-` and must end with `pstn.twilio.com`. See [Termination Settings](https://www.twilio.com/docs/sip-trunking#termination) for more information. */
   domainName?: string;
+  /** The URL we should call using the `disaster_recovery_method` if an error occurs while sending SIP traffic towards the configured Origination URL. We retrieve TwiML from the URL and execute the instructions like any other normal TwiML call. See [Disaster Recovery](https://www.twilio.com/docs/sip-trunking#disaster-recovery) for more information. */
   disasterRecoveryUrl?: string;
+  /** The HTTP method we should use to call the `disaster_recovery_url`. Can be: `GET` or `POST`. */
   disasterRecoveryMethod?: string;
+  /**  */
   transferMode?: TrunkTransferSetting;
+  /** Whether Secure Trunking is enabled for the trunk. If enabled, all calls going through the trunk will be secure using SRTP for media and TLS for signaling. If disabled, then RTP will be used for media. See [Secure Trunking](https://www.twilio.com/docs/sip-trunking#securetrunking) for more information. */
   secure?: boolean;
+  /** Whether Caller ID Name (CNAM) lookup should be enabled for the trunk. If enabled, all inbound calls to the SIP Trunk from the United States and Canada automatically perform a CNAM Lookup and display Caller ID data on your phone. See [CNAM Lookups](https://www.twilio.com/docs/sip-trunking#CNAM) for more information. */
   cnamLookupEnabled?: boolean;
+  /**  */
   transferCallerId?: TrunkTransferCallerId;
 }
 
 /**
  * Options to pass to create a TrunkInstance
- *
- * @property { string } [friendlyName] A descriptive string that you create to describe the resource. It can be up to 64 characters long.
- * @property { string } [domainName] The unique address you reserve on Twilio to which you route your SIP traffic. Domain names can contain letters, digits, and `-` and must end with `pstn.twilio.com`. See [Termination Settings](https://www.twilio.com/docs/sip-trunking#termination) for more information.
- * @property { string } [disasterRecoveryUrl] The URL we should call using the `disaster_recovery_method` if an error occurs while sending SIP traffic towards the configured Origination URL. We retrieve TwiML from the URL and execute the instructions like any other normal TwiML call. See [Disaster Recovery](https://www.twilio.com/docs/sip-trunking#disaster-recovery) for more information.
- * @property { string } [disasterRecoveryMethod] The HTTP method we should use to call the `disaster_recovery_url`. Can be: `GET` or `POST`.
- * @property { TrunkTransferSetting } [transferMode]
- * @property { boolean } [secure] Whether Secure Trunking is enabled for the trunk. If enabled, all calls going through the trunk will be secure using SRTP for media and TLS for signaling. If disabled, then RTP will be used for media. See [Secure Trunking](https://www.twilio.com/docs/sip-trunking#securetrunking) for more information.
- * @property { boolean } [cnamLookupEnabled] Whether Caller ID Name (CNAM) lookup should be enabled for the trunk. If enabled, all inbound calls to the SIP Trunk from the United States and Canada automatically perform a CNAM Lookup and display Caller ID data on your phone. See [CNAM Lookups](https://www.twilio.com/docs/sip-trunking#CNAM) for more information.
- * @property { TrunkTransferCallerId } [transferCallerId]
  */
 export interface TrunkListInstanceCreateOptions {
+  /** A descriptive string that you create to describe the resource. It can be up to 64 characters long. */
   friendlyName?: string;
+  /** The unique address you reserve on Twilio to which you route your SIP traffic. Domain names can contain letters, digits, and `-` and must end with `pstn.twilio.com`. See [Termination Settings](https://www.twilio.com/docs/sip-trunking#termination) for more information. */
   domainName?: string;
+  /** The URL we should call using the `disaster_recovery_method` if an error occurs while sending SIP traffic towards the configured Origination URL. We retrieve TwiML from the URL and execute the instructions like any other normal TwiML call. See [Disaster Recovery](https://www.twilio.com/docs/sip-trunking#disaster-recovery) for more information. */
   disasterRecoveryUrl?: string;
+  /** The HTTP method we should use to call the `disaster_recovery_url`. Can be: `GET` or `POST`. */
   disasterRecoveryMethod?: string;
+  /**  */
   transferMode?: TrunkTransferSetting;
+  /** Whether Secure Trunking is enabled for the trunk. If enabled, all calls going through the trunk will be secure using SRTP for media and TLS for signaling. If disabled, then RTP will be used for media. See [Secure Trunking](https://www.twilio.com/docs/sip-trunking#securetrunking) for more information. */
   secure?: boolean;
+  /** Whether Caller ID Name (CNAM) lookup should be enabled for the trunk. If enabled, all inbound calls to the SIP Trunk from the United States and Canada automatically perform a CNAM Lookup and display Caller ID data on your phone. See [CNAM Lookups](https://www.twilio.com/docs/sip-trunking#CNAM) for more information. */
   cnamLookupEnabled?: boolean;
+  /**  */
   transferCallerId?: TrunkTransferCallerId;
 }
 /**
  * Options to pass to each
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface TrunkListInstanceEachOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: TrunkInstance, done: (err?: Error) => void) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface TrunkListInstanceOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface TrunkListInstancePageOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
@@ -131,9 +118,9 @@ export interface TrunkContext {
   /**
    * Remove a TrunkInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -142,9 +129,9 @@ export interface TrunkContext {
   /**
    * Fetch a TrunkInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed TrunkInstance
+   * @returns Resolves to processed TrunkInstance
    */
   fetch(
     callback?: (error: Error | null, item?: TrunkInstance) => any
@@ -153,9 +140,9 @@ export interface TrunkContext {
   /**
    * Update a TrunkInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed TrunkInstance
+   * @returns Resolves to processed TrunkInstance
    */
   update(
     callback?: (error: Error | null, item?: TrunkInstance) => any
@@ -163,10 +150,10 @@ export interface TrunkContext {
   /**
    * Update a TrunkInstance
    *
-   * @param { TrunkContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed TrunkInstance
+   * @returns Resolves to processed TrunkInstance
    */
   update(
     params: TrunkContextUpdateOptions,
@@ -181,7 +168,7 @@ export interface TrunkContext {
 }
 
 export interface TrunkContextSolution {
-  sid?: string;
+  sid: string;
 }
 
 export class TrunkContextImpl implements TrunkContext {
@@ -241,13 +228,14 @@ export class TrunkContextImpl implements TrunkContext {
   remove(
     callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -257,18 +245,19 @@ export class TrunkContextImpl implements TrunkContext {
   fetch(
     callback?: (error: Error | null, item?: TrunkInstance) => any
   ): Promise<TrunkInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new TrunkInstance(operationVersion, payload, this._solution.sid)
+        new TrunkInstance(operationVersion, payload, instance._solution.sid)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -310,9 +299,10 @@ export class TrunkContextImpl implements TrunkContext {
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -320,10 +310,10 @@ export class TrunkContextImpl implements TrunkContext {
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new TrunkInstance(operationVersion, payload, this._solution.sid)
+        new TrunkInstance(operationVersion, payload, instance._solution.sid)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -357,23 +347,23 @@ interface TrunkPayload extends TwilioResponsePayload {
 }
 
 interface TrunkResource {
-  account_sid?: string | null;
-  domain_name?: string | null;
-  disaster_recovery_method?: TrunkDisasterRecoveryMethod;
-  disaster_recovery_url?: string | null;
-  friendly_name?: string | null;
-  secure?: boolean | null;
-  recording?: any | null;
-  transfer_mode?: TrunkTransferSetting;
-  transfer_caller_id?: TrunkTransferCallerId;
-  cnam_lookup_enabled?: boolean | null;
-  auth_type?: string | null;
-  auth_type_set?: Array<string> | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  sid?: string | null;
-  url?: string | null;
-  links?: object | null;
+  account_sid: string;
+  domain_name: string;
+  disaster_recovery_method: TrunkDisasterRecoveryMethod;
+  disaster_recovery_url: string;
+  friendly_name: string;
+  secure: boolean;
+  recording: any;
+  transfer_mode: TrunkTransferSetting;
+  transfer_caller_id: TrunkTransferCallerId;
+  cnam_lookup_enabled: boolean;
+  auth_type: string;
+  auth_type_set: Array<string>;
+  date_created: Date;
+  date_updated: Date;
+  sid: string;
+  url: string;
+  links: object;
 }
 
 export class TrunkInstance {
@@ -405,65 +395,65 @@ export class TrunkInstance {
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The unique address you reserve on Twilio to which you route your SIP traffic
    */
-  domainName?: string | null;
+  domainName: string;
   /**
    * The HTTP method we use to call the disaster_recovery_url
    */
-  disasterRecoveryMethod?: TrunkDisasterRecoveryMethod;
+  disasterRecoveryMethod: TrunkDisasterRecoveryMethod;
   /**
    * The HTTP URL that we call if an error occurs while sending SIP traffic towards your configured Origination URL
    */
-  disasterRecoveryUrl?: string | null;
+  disasterRecoveryUrl: string;
   /**
    * The string that you assigned to describe the resource
    */
-  friendlyName?: string | null;
+  friendlyName: string;
   /**
    * Whether Secure Trunking is enabled for the trunk
    */
-  secure?: boolean | null;
+  secure: boolean;
   /**
    * The recording settings for the trunk
    */
-  recording?: any | null;
-  transferMode?: TrunkTransferSetting;
-  transferCallerId?: TrunkTransferCallerId;
+  recording: any;
+  transferMode: TrunkTransferSetting;
+  transferCallerId: TrunkTransferCallerId;
   /**
    * Whether Caller ID Name (CNAM) lookup is enabled for the trunk
    */
-  cnamLookupEnabled?: boolean | null;
+  cnamLookupEnabled: boolean;
   /**
    * The types of authentication mapped to the domain
    */
-  authType?: string | null;
+  authType: string;
   /**
    * Reserved
    */
-  authTypeSet?: Array<string> | null;
+  authTypeSet: Array<string>;
   /**
    * The RFC 2822 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The RFC 2822 date and time in GMT when the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The absolute URL of the resource
    */
-  url?: string | null;
+  url: string;
   /**
    * The URLs of related resources
    */
-  links?: object | null;
+  links: object;
 
   private get _proxy(): TrunkContext {
     this._context =
@@ -474,9 +464,9 @@ export class TrunkInstance {
   /**
    * Remove a TrunkInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -487,9 +477,9 @@ export class TrunkInstance {
   /**
    * Fetch a TrunkInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed TrunkInstance
+   * @returns Resolves to processed TrunkInstance
    */
   fetch(
     callback?: (error: Error | null, item?: TrunkInstance) => any
@@ -500,9 +490,9 @@ export class TrunkInstance {
   /**
    * Update a TrunkInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed TrunkInstance
+   * @returns Resolves to processed TrunkInstance
    */
   update(
     callback?: (error: Error | null, item?: TrunkInstance) => any
@@ -510,10 +500,10 @@ export class TrunkInstance {
   /**
    * Update a TrunkInstance
    *
-   * @param { TrunkContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed TrunkInstance
+   * @returns Resolves to processed TrunkInstance
    */
   update(
     params: TrunkContextUpdateOptions,
@@ -594,16 +584,22 @@ export class TrunkInstance {
   }
 }
 
+export interface TrunkSolution {}
+
 export interface TrunkListInstance {
+  _version: V1;
+  _solution: TrunkSolution;
+  _uri: string;
+
   (sid: string): TrunkContext;
   get(sid: string): TrunkContext;
 
   /**
    * Create a TrunkInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed TrunkInstance
+   * @returns Resolves to processed TrunkInstance
    */
   create(
     callback?: (error: Error | null, item?: TrunkInstance) => any
@@ -611,10 +607,10 @@ export interface TrunkListInstance {
   /**
    * Create a TrunkInstance
    *
-   * @param { TrunkListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed TrunkInstance
+   * @returns Resolves to processed TrunkInstance
    */
   create(
     params: TrunkListInstanceCreateOptions,
@@ -697,17 +693,8 @@ export interface TrunkListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface TrunkSolution {}
-
-interface TrunkListInstanceImpl extends TrunkListInstance {}
-class TrunkListInstanceImpl implements TrunkListInstance {
-  _version?: V1;
-  _solution?: TrunkSolution;
-  _uri?: string;
-}
-
 export function TrunkListInstance(version: V1): TrunkListInstance {
-  const instance = ((sid) => instance.get(sid)) as TrunkListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as TrunkListInstance;
 
   instance.get = function get(sid): TrunkContext {
     return new TrunkContextImpl(version, sid);
@@ -754,7 +741,7 @@ export function TrunkListInstance(version: V1): TrunkListInstance {
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -764,7 +751,7 @@ export function TrunkListInstance(version: V1): TrunkListInstance {
       (payload) => new TrunkInstance(operationVersion, payload)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -795,17 +782,17 @@ export function TrunkListInstance(version: V1): TrunkListInstance {
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new TrunkPage(operationVersion, payload, this._solution)
+      (payload) => new TrunkPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -818,30 +805,27 @@ export function TrunkListInstance(version: V1): TrunkListInstance {
     targetUrl: string,
     callback?: (error: Error | null, items: TrunkPage) => any
   ): Promise<TrunkPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new TrunkPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) => new TrunkPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

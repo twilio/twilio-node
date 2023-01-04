@@ -23,51 +23,40 @@ import { AvailableAddOnExtensionListInstance } from "./availableAddOn/availableA
 
 /**
  * Options to pass to each
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface AvailableAddOnListInstanceEachOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (
     item: AvailableAddOnInstance,
     done: (err?: Error) => void
   ) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface AvailableAddOnListInstanceOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface AvailableAddOnListInstancePageOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
@@ -77,9 +66,9 @@ export interface AvailableAddOnContext {
   /**
    * Fetch a AvailableAddOnInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed AvailableAddOnInstance
+   * @returns Resolves to processed AvailableAddOnInstance
    */
   fetch(
     callback?: (error: Error | null, item?: AvailableAddOnInstance) => any
@@ -93,7 +82,7 @@ export interface AvailableAddOnContext {
 }
 
 export interface AvailableAddOnContextSolution {
-  sid?: string;
+  sid: string;
 }
 
 export class AvailableAddOnContextImpl implements AvailableAddOnContext {
@@ -121,9 +110,10 @@ export class AvailableAddOnContextImpl implements AvailableAddOnContext {
   fetch(
     callback?: (error: Error | null, item?: AvailableAddOnInstance) => any
   ): Promise<AvailableAddOnInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -132,11 +122,11 @@ export class AvailableAddOnContextImpl implements AvailableAddOnContext {
         new AvailableAddOnInstance(
           operationVersion,
           payload,
-          this._solution.sid
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -162,13 +152,13 @@ interface AvailableAddOnPayload extends TwilioResponsePayload {
 }
 
 interface AvailableAddOnResource {
-  sid?: string | null;
-  friendly_name?: string | null;
-  description?: string | null;
-  pricing_type?: string | null;
-  configuration_schema?: any | null;
-  url?: string | null;
-  links?: object | null;
+  sid: string;
+  friendly_name: string;
+  description: string;
+  pricing_type: string;
+  configuration_schema: any;
+  url: string;
+  links: object;
 }
 
 export class AvailableAddOnInstance {
@@ -194,31 +184,31 @@ export class AvailableAddOnInstance {
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The string that you assigned to describe the resource
    */
-  friendlyName?: string | null;
+  friendlyName: string;
   /**
    * A short description of the Add-on\'s functionality
    */
-  description?: string | null;
+  description: string;
   /**
    * How customers are charged for using this Add-on
    */
-  pricingType?: string | null;
+  pricingType: string;
   /**
    * The JSON object with the configuration that must be provided when installing a given Add-on
    */
-  configurationSchema?: any | null;
+  configurationSchema: any;
   /**
    * The absolute URL of the resource
    */
-  url?: string | null;
+  url: string;
   /**
    * The URLs of related resources
    */
-  links?: object | null;
+  links: object;
 
   private get _proxy(): AvailableAddOnContext {
     this._context =
@@ -230,9 +220,9 @@ export class AvailableAddOnInstance {
   /**
    * Fetch a AvailableAddOnInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed AvailableAddOnInstance
+   * @returns Resolves to processed AvailableAddOnInstance
    */
   fetch(
     callback?: (error: Error | null, item?: AvailableAddOnInstance) => any
@@ -269,7 +259,13 @@ export class AvailableAddOnInstance {
   }
 }
 
+export interface AvailableAddOnSolution {}
+
 export interface AvailableAddOnListInstance {
+  _version: Marketplace;
+  _solution: AvailableAddOnSolution;
+  _uri: string;
+
   (sid: string): AvailableAddOnContext;
   get(sid: string): AvailableAddOnContext;
 
@@ -355,20 +351,10 @@ export interface AvailableAddOnListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface AvailableAddOnSolution {}
-
-interface AvailableAddOnListInstanceImpl extends AvailableAddOnListInstance {}
-class AvailableAddOnListInstanceImpl implements AvailableAddOnListInstance {
-  _version?: Marketplace;
-  _solution?: AvailableAddOnSolution;
-  _uri?: string;
-}
-
 export function AvailableAddOnListInstance(
   version: Marketplace
 ): AvailableAddOnListInstance {
-  const instance = ((sid) =>
-    instance.get(sid)) as AvailableAddOnListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as AvailableAddOnListInstance;
 
   instance.get = function get(sid): AvailableAddOnContext {
     return new AvailableAddOnContextImpl(version, sid);
@@ -405,7 +391,7 @@ export function AvailableAddOnListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
@@ -413,10 +399,10 @@ export function AvailableAddOnListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new AvailableAddOnPage(operationVersion, payload, this._solution)
+        new AvailableAddOnPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -429,31 +415,28 @@ export function AvailableAddOnListInstance(
     targetUrl: string,
     callback?: (error: Error | null, items: AvailableAddOnPage) => any
   ): Promise<AvailableAddOnPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
+    let pagePromise = operationPromise.then(
       (payload) =>
-        new AvailableAddOnPage(this._version, payload, this._solution)
+        new AvailableAddOnPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

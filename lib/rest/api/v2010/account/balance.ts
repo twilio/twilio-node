@@ -18,13 +18,21 @@ const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
 
+export interface BalanceSolution {
+  accountSid: string;
+}
+
 export interface BalanceListInstance {
+  _version: V2010;
+  _solution: BalanceSolution;
+  _uri: string;
+
   /**
    * Fetch a BalanceInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed BalanceInstance
+   * @returns Resolves to processed BalanceInstance
    */
   fetch(
     callback?: (error: Error | null, item?: BalanceInstance) => any
@@ -37,17 +45,6 @@ export interface BalanceListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface BalanceSolution {
-  accountSid?: string;
-}
-
-interface BalanceListInstanceImpl extends BalanceListInstance {}
-class BalanceListInstanceImpl implements BalanceListInstance {
-  _version?: V2010;
-  _solution?: BalanceSolution;
-  _uri?: string;
-}
-
 export function BalanceListInstance(
   version: V2010,
   accountSid: string
@@ -56,7 +53,7 @@ export function BalanceListInstance(
     throw new Error("Parameter 'accountSid' is not valid.");
   }
 
-  const instance = {} as BalanceListInstanceImpl;
+  const instance = {} as BalanceListInstance;
 
   instance._version = version;
   instance._solution = { accountSid };
@@ -67,7 +64,7 @@ export function BalanceListInstance(
   ): Promise<BalanceInstance> {
     let operationVersion = version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -76,11 +73,11 @@ export function BalanceListInstance(
         new BalanceInstance(
           operationVersion,
           payload,
-          this._solution.accountSid
+          instance._solution.accountSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -88,14 +85,14 @@ export function BalanceListInstance(
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;
@@ -104,9 +101,9 @@ export function BalanceListInstance(
 interface BalancePayload extends BalanceResource {}
 
 interface BalanceResource {
-  account_sid?: string | null;
-  balance?: string | null;
-  currency?: string | null;
+  account_sid: string;
+  balance: string;
+  currency: string;
 }
 
 export class BalanceInstance {
@@ -123,15 +120,15 @@ export class BalanceInstance {
   /**
    * Account Sid.
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * Account balance
    */
-  balance?: string | null;
+  balance: string;
   /**
    * Currency units
    */
-  currency?: string | null;
+  currency: string;
 
   /**
    * Provide a user-friendly representation

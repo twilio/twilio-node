@@ -20,18 +20,17 @@ import { isValidPathParam } from "../../../../../base/utility";
 
 /**
  * Options to pass to fetch a TaskQueueStatisticsInstance
- *
- * @property { Date } [endDate] Only calculate statistics from this date and time and earlier, specified in GMT as an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time.
- * @property { number } [minutes] Only calculate statistics since this many minutes in the past. The default is 15 minutes.
- * @property { Date } [startDate] Only calculate statistics from this date and time and later, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
- * @property { string } [taskChannel] Only calculate real-time and cumulative statistics for the specified TaskChannel. Can be the TaskChannel\'s SID or its `unique_name`, such as `voice`, `sms`, or `default`.
- * @property { string } [splitByWaitTime] A comma separated list of values that describes the thresholds, in seconds, to calculate statistics on. For each threshold specified, the number of Tasks canceled and reservations accepted above and below the specified thresholds in seconds are computed.
  */
 export interface TaskQueueStatisticsContextFetchOptions {
+  /** Only calculate statistics from this date and time and earlier, specified in GMT as an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time. */
   endDate?: Date;
+  /** Only calculate statistics since this many minutes in the past. The default is 15 minutes. */
   minutes?: number;
+  /** Only calculate statistics from this date and time and later, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. */
   startDate?: Date;
+  /** Only calculate real-time and cumulative statistics for the specified TaskChannel. Can be the TaskChannel\'s SID or its `unique_name`, such as `voice`, `sms`, or `default`. */
   taskChannel?: string;
+  /** A comma separated list of values that describes the thresholds, in seconds, to calculate statistics on. For each threshold specified, the number of Tasks canceled and reservations accepted above and below the specified thresholds in seconds are computed. */
   splitByWaitTime?: string;
 }
 
@@ -39,9 +38,9 @@ export interface TaskQueueStatisticsContext {
   /**
    * Fetch a TaskQueueStatisticsInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed TaskQueueStatisticsInstance
+   * @returns Resolves to processed TaskQueueStatisticsInstance
    */
   fetch(
     callback?: (error: Error | null, item?: TaskQueueStatisticsInstance) => any
@@ -49,10 +48,10 @@ export interface TaskQueueStatisticsContext {
   /**
    * Fetch a TaskQueueStatisticsInstance
    *
-   * @param { TaskQueueStatisticsContextFetchOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed TaskQueueStatisticsInstance
+   * @returns Resolves to processed TaskQueueStatisticsInstance
    */
   fetch(
     params: TaskQueueStatisticsContextFetchOptions,
@@ -67,8 +66,8 @@ export interface TaskQueueStatisticsContext {
 }
 
 export interface TaskQueueStatisticsContextSolution {
-  workspaceSid?: string;
-  taskQueueSid?: string;
+  workspaceSid: string;
+  taskQueueSid: string;
 }
 
 export class TaskQueueStatisticsContextImpl
@@ -124,9 +123,10 @@ export class TaskQueueStatisticsContextImpl
 
     const headers: any = {};
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
@@ -137,12 +137,12 @@ export class TaskQueueStatisticsContextImpl
         new TaskQueueStatisticsInstance(
           operationVersion,
           payload,
-          this._solution.workspaceSid,
-          this._solution.taskQueueSid
+          instance._solution.workspaceSid,
+          instance._solution.taskQueueSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -166,12 +166,12 @@ export class TaskQueueStatisticsContextImpl
 interface TaskQueueStatisticsPayload extends TaskQueueStatisticsResource {}
 
 interface TaskQueueStatisticsResource {
-  account_sid?: string | null;
-  cumulative?: any | null;
-  realtime?: any | null;
-  task_queue_sid?: string | null;
-  workspace_sid?: string | null;
-  url?: string | null;
+  account_sid: string;
+  cumulative: any;
+  realtime: any;
+  task_queue_sid: string;
+  workspace_sid: string;
+  url: string;
 }
 
 export class TaskQueueStatisticsInstance {
@@ -197,27 +197,27 @@ export class TaskQueueStatisticsInstance {
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * An object that contains the cumulative statistics for the TaskQueue
    */
-  cumulative?: any | null;
+  cumulative: any;
   /**
    * An object that contains the real-time statistics for the TaskQueue
    */
-  realtime?: any | null;
+  realtime: any;
   /**
    * The SID of the TaskQueue from which these statistics were calculated
    */
-  taskQueueSid?: string | null;
+  taskQueueSid: string;
   /**
    * The SID of the Workspace that contains the TaskQueue
    */
-  workspaceSid?: string | null;
+  workspaceSid: string;
   /**
    * The absolute URL of the TaskQueue statistics resource
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): TaskQueueStatisticsContext {
     this._context =
@@ -233,9 +233,9 @@ export class TaskQueueStatisticsInstance {
   /**
    * Fetch a TaskQueueStatisticsInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed TaskQueueStatisticsInstance
+   * @returns Resolves to processed TaskQueueStatisticsInstance
    */
   fetch(
     callback?: (error: Error | null, item?: TaskQueueStatisticsInstance) => any
@@ -243,10 +243,10 @@ export class TaskQueueStatisticsInstance {
   /**
    * Fetch a TaskQueueStatisticsInstance
    *
-   * @param { TaskQueueStatisticsContextFetchOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed TaskQueueStatisticsInstance
+   * @returns Resolves to processed TaskQueueStatisticsInstance
    */
   fetch(
     params: TaskQueueStatisticsContextFetchOptions,
@@ -281,7 +281,16 @@ export class TaskQueueStatisticsInstance {
   }
 }
 
+export interface TaskQueueStatisticsSolution {
+  workspaceSid: string;
+  taskQueueSid: string;
+}
+
 export interface TaskQueueStatisticsListInstance {
+  _version: V1;
+  _solution: TaskQueueStatisticsSolution;
+  _uri: string;
+
   (): TaskQueueStatisticsContext;
   get(): TaskQueueStatisticsContext;
 
@@ -290,21 +299,6 @@ export interface TaskQueueStatisticsListInstance {
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export interface TaskQueueStatisticsSolution {
-  workspaceSid?: string;
-  taskQueueSid?: string;
-}
-
-interface TaskQueueStatisticsListInstanceImpl
-  extends TaskQueueStatisticsListInstance {}
-class TaskQueueStatisticsListInstanceImpl
-  implements TaskQueueStatisticsListInstance
-{
-  _version?: V1;
-  _solution?: TaskQueueStatisticsSolution;
-  _uri?: string;
 }
 
 export function TaskQueueStatisticsListInstance(
@@ -320,8 +314,7 @@ export function TaskQueueStatisticsListInstance(
     throw new Error("Parameter 'taskQueueSid' is not valid.");
   }
 
-  const instance = (() =>
-    instance.get()) as TaskQueueStatisticsListInstanceImpl;
+  const instance = (() => instance.get()) as TaskQueueStatisticsListInstance;
 
   instance.get = function get(): TaskQueueStatisticsContext {
     return new TaskQueueStatisticsContextImpl(
@@ -336,14 +329,14 @@ export function TaskQueueStatisticsListInstance(
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

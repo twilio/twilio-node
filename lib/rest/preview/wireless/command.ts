@@ -22,92 +22,80 @@ import { isValidPathParam } from "../../../base/utility";
 
 /**
  * Options to pass to create a CommandInstance
- *
- * @property { string } command
- * @property { string } [device]
- * @property { string } [sim]
- * @property { string } [callbackMethod]
- * @property { string } [callbackUrl]
- * @property { string } [commandMode]
- * @property { string } [includeSid]
  */
 export interface CommandListInstanceCreateOptions {
+  /**  */
   command: string;
+  /**  */
   device?: string;
+  /**  */
   sim?: string;
+  /**  */
   callbackMethod?: string;
+  /**  */
   callbackUrl?: string;
+  /**  */
   commandMode?: string;
+  /**  */
   includeSid?: string;
 }
 /**
  * Options to pass to each
- *
- * @property { string } [device]
- * @property { string } [sim]
- * @property { string } [status]
- * @property { string } [direction]
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface CommandListInstanceEachOptions {
+  /**  */
   device?: string;
+  /**  */
   sim?: string;
+  /**  */
   status?: string;
+  /**  */
   direction?: string;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: CommandInstance, done: (err?: Error) => void) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { string } [device]
- * @property { string } [sim]
- * @property { string } [status]
- * @property { string } [direction]
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface CommandListInstanceOptions {
+  /**  */
   device?: string;
+  /**  */
   sim?: string;
+  /**  */
   status?: string;
+  /**  */
   direction?: string;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { string } [device]
- * @property { string } [sim]
- * @property { string } [status]
- * @property { string } [direction]
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface CommandListInstancePageOptions {
+  /**  */
   device?: string;
+  /**  */
   sim?: string;
+  /**  */
   status?: string;
+  /**  */
   direction?: string;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
@@ -115,9 +103,9 @@ export interface CommandContext {
   /**
    * Fetch a CommandInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed CommandInstance
+   * @returns Resolves to processed CommandInstance
    */
   fetch(
     callback?: (error: Error | null, item?: CommandInstance) => any
@@ -131,7 +119,7 @@ export interface CommandContext {
 }
 
 export interface CommandContextSolution {
-  sid?: string;
+  sid: string;
 }
 
 export class CommandContextImpl implements CommandContext {
@@ -150,18 +138,19 @@ export class CommandContextImpl implements CommandContext {
   fetch(
     callback?: (error: Error | null, item?: CommandInstance) => any
   ): Promise<CommandInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new CommandInstance(operationVersion, payload, this._solution.sid)
+        new CommandInstance(operationVersion, payload, instance._solution.sid)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -187,17 +176,17 @@ interface CommandPayload extends TwilioResponsePayload {
 }
 
 interface CommandResource {
-  sid?: string | null;
-  account_sid?: string | null;
-  device_sid?: string | null;
-  sim_sid?: string | null;
-  command?: string | null;
-  command_mode?: string | null;
-  status?: string | null;
-  direction?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  url?: string | null;
+  sid: string;
+  account_sid: string;
+  device_sid: string;
+  sim_sid: string;
+  command: string;
+  command_mode: string;
+  status: string;
+  direction: string;
+  date_created: Date;
+  date_updated: Date;
+  url: string;
 }
 
 export class CommandInstance {
@@ -224,17 +213,17 @@ export class CommandInstance {
     this._solution = { sid: sid || this.sid };
   }
 
-  sid?: string | null;
-  accountSid?: string | null;
-  deviceSid?: string | null;
-  simSid?: string | null;
-  command?: string | null;
-  commandMode?: string | null;
-  status?: string | null;
-  direction?: string | null;
-  dateCreated?: Date | null;
-  dateUpdated?: Date | null;
-  url?: string | null;
+  sid: string;
+  accountSid: string;
+  deviceSid: string;
+  simSid: string;
+  command: string;
+  commandMode: string;
+  status: string;
+  direction: string;
+  dateCreated: Date;
+  dateUpdated: Date;
+  url: string;
 
   private get _proxy(): CommandContext {
     this._context =
@@ -246,9 +235,9 @@ export class CommandInstance {
   /**
    * Fetch a CommandInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed CommandInstance
+   * @returns Resolves to processed CommandInstance
    */
   fetch(
     callback?: (error: Error | null, item?: CommandInstance) => any
@@ -282,17 +271,23 @@ export class CommandInstance {
   }
 }
 
+export interface CommandSolution {}
+
 export interface CommandListInstance {
+  _version: Wireless;
+  _solution: CommandSolution;
+  _uri: string;
+
   (sid: string): CommandContext;
   get(sid: string): CommandContext;
 
   /**
    * Create a CommandInstance
    *
-   * @param { CommandListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed CommandInstance
+   * @returns Resolves to processed CommandInstance
    */
   create(
     params: CommandListInstanceCreateOptions,
@@ -375,17 +370,8 @@ export interface CommandListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface CommandSolution {}
-
-interface CommandListInstanceImpl extends CommandListInstance {}
-class CommandListInstanceImpl implements CommandListInstance {
-  _version?: Wireless;
-  _solution?: CommandSolution;
-  _uri?: string;
-}
-
 export function CommandListInstance(version: Wireless): CommandListInstance {
-  const instance = ((sid) => instance.get(sid)) as CommandListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as CommandListInstance;
 
   instance.get = function get(sid): CommandContext {
     return new CommandContextImpl(version, sid);
@@ -426,7 +412,7 @@ export function CommandListInstance(version: Wireless): CommandListInstance {
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -436,7 +422,7 @@ export function CommandListInstance(version: Wireless): CommandListInstance {
       (payload) => new CommandInstance(operationVersion, payload)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -472,17 +458,18 @@ export function CommandListInstance(version: Wireless): CommandListInstance {
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new CommandPage(operationVersion, payload, this._solution)
+      (payload) =>
+        new CommandPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -495,30 +482,28 @@ export function CommandListInstance(version: Wireless): CommandListInstance {
     targetUrl: string,
     callback?: (error: Error | null, items: CommandPage) => any
   ): Promise<CommandPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new CommandPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new CommandPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

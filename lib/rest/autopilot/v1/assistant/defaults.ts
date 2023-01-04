@@ -20,10 +20,9 @@ import { isValidPathParam } from "../../../../base/utility";
 
 /**
  * Options to pass to update a DefaultsInstance
- *
- * @property { any } [defaults] A JSON string that describes the default task links for the `assistant_initiation`, `collect`, and `fallback` situations.
  */
 export interface DefaultsContextUpdateOptions {
+  /** A JSON string that describes the default task links for the `assistant_initiation`, `collect`, and `fallback` situations. */
   defaults?: any;
 }
 
@@ -31,9 +30,9 @@ export interface DefaultsContext {
   /**
    * Fetch a DefaultsInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed DefaultsInstance
+   * @returns Resolves to processed DefaultsInstance
    */
   fetch(
     callback?: (error: Error | null, item?: DefaultsInstance) => any
@@ -42,9 +41,9 @@ export interface DefaultsContext {
   /**
    * Update a DefaultsInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed DefaultsInstance
+   * @returns Resolves to processed DefaultsInstance
    */
   update(
     callback?: (error: Error | null, item?: DefaultsInstance) => any
@@ -52,10 +51,10 @@ export interface DefaultsContext {
   /**
    * Update a DefaultsInstance
    *
-   * @param { DefaultsContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed DefaultsInstance
+   * @returns Resolves to processed DefaultsInstance
    */
   update(
     params: DefaultsContextUpdateOptions,
@@ -70,7 +69,7 @@ export interface DefaultsContext {
 }
 
 export interface DefaultsContextSolution {
-  assistantSid?: string;
+  assistantSid: string;
 }
 
 export class DefaultsContextImpl implements DefaultsContext {
@@ -89,9 +88,10 @@ export class DefaultsContextImpl implements DefaultsContext {
   fetch(
     callback?: (error: Error | null, item?: DefaultsInstance) => any
   ): Promise<DefaultsInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -100,11 +100,11 @@ export class DefaultsContextImpl implements DefaultsContext {
         new DefaultsInstance(
           operationVersion,
           payload,
-          this._solution.assistantSid
+          instance._solution.assistantSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -135,9 +135,10 @@ export class DefaultsContextImpl implements DefaultsContext {
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -148,11 +149,11 @@ export class DefaultsContextImpl implements DefaultsContext {
         new DefaultsInstance(
           operationVersion,
           payload,
-          this._solution.assistantSid
+          instance._solution.assistantSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -176,10 +177,10 @@ export class DefaultsContextImpl implements DefaultsContext {
 interface DefaultsPayload extends DefaultsResource {}
 
 interface DefaultsResource {
-  account_sid?: string | null;
-  assistant_sid?: string | null;
-  url?: string | null;
-  data?: any | null;
+  account_sid: string;
+  assistant_sid: string;
+  url: string;
+  data: any;
 }
 
 export class DefaultsInstance {
@@ -202,19 +203,19 @@ export class DefaultsInstance {
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The SID of the Assistant that is the parent of the resource
    */
-  assistantSid?: string | null;
+  assistantSid: string;
   /**
    * The absolute URL of the Defaults resource
    */
-  url?: string | null;
+  url: string;
   /**
    * The JSON string that describes the default task links
    */
-  data?: any | null;
+  data: any;
 
   private get _proxy(): DefaultsContext {
     this._context =
@@ -226,9 +227,9 @@ export class DefaultsInstance {
   /**
    * Fetch a DefaultsInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed DefaultsInstance
+   * @returns Resolves to processed DefaultsInstance
    */
   fetch(
     callback?: (error: Error | null, item?: DefaultsInstance) => any
@@ -239,9 +240,9 @@ export class DefaultsInstance {
   /**
    * Update a DefaultsInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed DefaultsInstance
+   * @returns Resolves to processed DefaultsInstance
    */
   update(
     callback?: (error: Error | null, item?: DefaultsInstance) => any
@@ -249,10 +250,10 @@ export class DefaultsInstance {
   /**
    * Update a DefaultsInstance
    *
-   * @param { DefaultsContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed DefaultsInstance
+   * @returns Resolves to processed DefaultsInstance
    */
   update(
     params: DefaultsContextUpdateOptions,
@@ -285,7 +286,15 @@ export class DefaultsInstance {
   }
 }
 
+export interface DefaultsSolution {
+  assistantSid: string;
+}
+
 export interface DefaultsListInstance {
+  _version: V1;
+  _solution: DefaultsSolution;
+  _uri: string;
+
   (): DefaultsContext;
   get(): DefaultsContext;
 
@@ -296,17 +305,6 @@ export interface DefaultsListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface DefaultsSolution {
-  assistantSid?: string;
-}
-
-interface DefaultsListInstanceImpl extends DefaultsListInstance {}
-class DefaultsListInstanceImpl implements DefaultsListInstance {
-  _version?: V1;
-  _solution?: DefaultsSolution;
-  _uri?: string;
-}
-
 export function DefaultsListInstance(
   version: V1,
   assistantSid: string
@@ -315,7 +313,7 @@ export function DefaultsListInstance(
     throw new Error("Parameter 'assistantSid' is not valid.");
   }
 
-  const instance = (() => instance.get()) as DefaultsListInstanceImpl;
+  const instance = (() => instance.get()) as DefaultsListInstance;
 
   instance.get = function get(): DefaultsContext {
     return new DefaultsContextImpl(version, assistantSid);
@@ -326,14 +324,14 @@ export function DefaultsListInstance(
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

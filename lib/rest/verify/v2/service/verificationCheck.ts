@@ -22,28 +22,35 @@ type VerificationCheckChannel = "sms" | "call" | "email" | "whatsapp" | "sna";
 
 /**
  * Options to pass to create a VerificationCheckInstance
- *
- * @property { string } [code] The 4-10 character string being verified.
- * @property { string } [to] The phone number or [email](https://www.twilio.com/docs/verify/email) to verify. Either this parameter or the `verification_sid` must be specified. Phone numbers must be in [E.164 format](https://www.twilio.com/docs/glossary/what-e164).
- * @property { string } [verificationSid] A SID that uniquely identifies the Verification Check. Either this parameter or the `to` phone number/[email](https://www.twilio.com/docs/verify/email) must be specified.
- * @property { string } [amount] The amount of the associated PSD2 compliant transaction. Requires the PSD2 Service flag enabled.
- * @property { string } [payee] The payee of the associated PSD2 compliant transaction. Requires the PSD2 Service flag enabled.
  */
 export interface VerificationCheckListInstanceCreateOptions {
+  /** The 4-10 character string being verified. */
   code?: string;
+  /** The phone number or [email](https://www.twilio.com/docs/verify/email) to verify. Either this parameter or the `verification_sid` must be specified. Phone numbers must be in [E.164 format](https://www.twilio.com/docs/glossary/what-e164). */
   to?: string;
+  /** A SID that uniquely identifies the Verification Check. Either this parameter or the `to` phone number/[email](https://www.twilio.com/docs/verify/email) must be specified. */
   verificationSid?: string;
+  /** The amount of the associated PSD2 compliant transaction. Requires the PSD2 Service flag enabled. */
   amount?: string;
+  /** The payee of the associated PSD2 compliant transaction. Requires the PSD2 Service flag enabled. */
   payee?: string;
 }
 
+export interface VerificationCheckSolution {
+  serviceSid: string;
+}
+
 export interface VerificationCheckListInstance {
+  _version: V2;
+  _solution: VerificationCheckSolution;
+  _uri: string;
+
   /**
    * Create a VerificationCheckInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed VerificationCheckInstance
+   * @returns Resolves to processed VerificationCheckInstance
    */
   create(
     callback?: (error: Error | null, item?: VerificationCheckInstance) => any
@@ -51,10 +58,10 @@ export interface VerificationCheckListInstance {
   /**
    * Create a VerificationCheckInstance
    *
-   * @param { VerificationCheckListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed VerificationCheckInstance
+   * @returns Resolves to processed VerificationCheckInstance
    */
   create(
     params: VerificationCheckListInstanceCreateOptions,
@@ -68,20 +75,6 @@ export interface VerificationCheckListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface VerificationCheckSolution {
-  serviceSid?: string;
-}
-
-interface VerificationCheckListInstanceImpl
-  extends VerificationCheckListInstance {}
-class VerificationCheckListInstanceImpl
-  implements VerificationCheckListInstance
-{
-  _version?: V2;
-  _solution?: VerificationCheckSolution;
-  _uri?: string;
-}
-
 export function VerificationCheckListInstance(
   version: V2,
   serviceSid: string
@@ -90,7 +83,7 @@ export function VerificationCheckListInstance(
     throw new Error("Parameter 'serviceSid' is not valid.");
   }
 
-  const instance = {} as VerificationCheckListInstanceImpl;
+  const instance = {} as VerificationCheckListInstance;
 
   instance._version = version;
   instance._solution = { serviceSid };
@@ -126,7 +119,7 @@ export function VerificationCheckListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -137,11 +130,11 @@ export function VerificationCheckListInstance(
         new VerificationCheckInstance(
           operationVersion,
           payload,
-          this._solution.serviceSid
+          instance._solution.serviceSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -149,14 +142,14 @@ export function VerificationCheckListInstance(
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;
@@ -165,18 +158,18 @@ export function VerificationCheckListInstance(
 interface VerificationCheckPayload extends VerificationCheckResource {}
 
 interface VerificationCheckResource {
-  sid?: string | null;
-  service_sid?: string | null;
-  account_sid?: string | null;
-  to?: string | null;
-  channel?: VerificationCheckChannel;
-  status?: string | null;
-  valid?: boolean | null;
-  amount?: string | null;
-  payee?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  sna_attempts_error_codes?: Array<any> | null;
+  sid: string;
+  service_sid: string;
+  account_sid: string;
+  to: string;
+  channel: VerificationCheckChannel;
+  status: string;
+  valid: boolean;
+  amount: string;
+  payee: string;
+  date_created: Date;
+  date_updated: Date;
+  sna_attempts_error_codes: Array<any>;
 }
 
 export class VerificationCheckInstance {
@@ -202,48 +195,48 @@ export class VerificationCheckInstance {
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The SID of the Service that the resource is associated with
    */
-  serviceSid?: string | null;
+  serviceSid: string;
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The phone number or email being verified
    */
-  to?: string | null;
-  channel?: VerificationCheckChannel;
+  to: string;
+  channel: VerificationCheckChannel;
   /**
    * The status of the verification resource
    */
-  status?: string | null;
+  status: string;
   /**
    * Whether the verification was successful
    */
-  valid?: boolean | null;
+  valid: boolean;
   /**
    * The amount of the associated PSD2 compliant transaction.
    */
-  amount?: string | null;
+  amount: string;
   /**
    * The payee of the associated PSD2 compliant transaction
    */
-  payee?: string | null;
+  payee: string;
   /**
    * The ISO 8601 date and time in GMT when the Verification Check resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The ISO 8601 date and time in GMT when the Verification Check resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * List of error codes as a result of attempting a verification using the `sna` channel.
    */
-  snaAttemptsErrorCodes?: Array<any> | null;
+  snaAttemptsErrorCodes: Array<any>;
 
   /**
    * Provide a user-friendly representation

@@ -23,84 +23,73 @@ import { HighriskSpecialPrefixListInstance } from "./country/highriskSpecialPref
 
 /**
  * Options to pass to each
- *
- * @property { string } [isoCode] Filter to retrieve the country permissions by specifying the [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)
- * @property { string } [continent] Filter to retrieve the country permissions by specifying the continent
- * @property { string } [countryCode] Filter the results by specified [country codes](https://www.itu.int/itudoc/itu-t/ob-lists/icc/e164_763.html)
- * @property { boolean } [lowRiskNumbersEnabled] Filter to retrieve the country permissions with dialing to low-risk numbers enabled. Can be: `true` or `false`.
- * @property { boolean } [highRiskSpecialNumbersEnabled] Filter to retrieve the country permissions with dialing to high-risk special service numbers enabled. Can be: `true` or `false`
- * @property { boolean } [highRiskTollfraudNumbersEnabled] Filter to retrieve the country permissions with dialing to high-risk [toll fraud](https://www.twilio.com/learn/voice-and-video/toll-fraud) numbers enabled. Can be: `true` or `false`.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface CountryListInstanceEachOptions {
+  /** Filter to retrieve the country permissions by specifying the [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) */
   isoCode?: string;
+  /** Filter to retrieve the country permissions by specifying the continent */
   continent?: string;
+  /** Filter the results by specified [country codes](https://www.itu.int/itudoc/itu-t/ob-lists/icc/e164_763.html) */
   countryCode?: string;
+  /** Filter to retrieve the country permissions with dialing to low-risk numbers enabled. Can be: `true` or `false`. */
   lowRiskNumbersEnabled?: boolean;
+  /** Filter to retrieve the country permissions with dialing to high-risk special service numbers enabled. Can be: `true` or `false` */
   highRiskSpecialNumbersEnabled?: boolean;
+  /** Filter to retrieve the country permissions with dialing to high-risk [toll fraud](https://www.twilio.com/learn/voice-and-video/toll-fraud) numbers enabled. Can be: `true` or `false`. */
   highRiskTollfraudNumbersEnabled?: boolean;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: CountryInstance, done: (err?: Error) => void) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { string } [isoCode] Filter to retrieve the country permissions by specifying the [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)
- * @property { string } [continent] Filter to retrieve the country permissions by specifying the continent
- * @property { string } [countryCode] Filter the results by specified [country codes](https://www.itu.int/itudoc/itu-t/ob-lists/icc/e164_763.html)
- * @property { boolean } [lowRiskNumbersEnabled] Filter to retrieve the country permissions with dialing to low-risk numbers enabled. Can be: `true` or `false`.
- * @property { boolean } [highRiskSpecialNumbersEnabled] Filter to retrieve the country permissions with dialing to high-risk special service numbers enabled. Can be: `true` or `false`
- * @property { boolean } [highRiskTollfraudNumbersEnabled] Filter to retrieve the country permissions with dialing to high-risk [toll fraud](https://www.twilio.com/learn/voice-and-video/toll-fraud) numbers enabled. Can be: `true` or `false`.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface CountryListInstanceOptions {
+  /** Filter to retrieve the country permissions by specifying the [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) */
   isoCode?: string;
+  /** Filter to retrieve the country permissions by specifying the continent */
   continent?: string;
+  /** Filter the results by specified [country codes](https://www.itu.int/itudoc/itu-t/ob-lists/icc/e164_763.html) */
   countryCode?: string;
+  /** Filter to retrieve the country permissions with dialing to low-risk numbers enabled. Can be: `true` or `false`. */
   lowRiskNumbersEnabled?: boolean;
+  /** Filter to retrieve the country permissions with dialing to high-risk special service numbers enabled. Can be: `true` or `false` */
   highRiskSpecialNumbersEnabled?: boolean;
+  /** Filter to retrieve the country permissions with dialing to high-risk [toll fraud](https://www.twilio.com/learn/voice-and-video/toll-fraud) numbers enabled. Can be: `true` or `false`. */
   highRiskTollfraudNumbersEnabled?: boolean;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { string } [isoCode] Filter to retrieve the country permissions by specifying the [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)
- * @property { string } [continent] Filter to retrieve the country permissions by specifying the continent
- * @property { string } [countryCode] Filter the results by specified [country codes](https://www.itu.int/itudoc/itu-t/ob-lists/icc/e164_763.html)
- * @property { boolean } [lowRiskNumbersEnabled] Filter to retrieve the country permissions with dialing to low-risk numbers enabled. Can be: `true` or `false`.
- * @property { boolean } [highRiskSpecialNumbersEnabled] Filter to retrieve the country permissions with dialing to high-risk special service numbers enabled. Can be: `true` or `false`
- * @property { boolean } [highRiskTollfraudNumbersEnabled] Filter to retrieve the country permissions with dialing to high-risk [toll fraud](https://www.twilio.com/learn/voice-and-video/toll-fraud) numbers enabled. Can be: `true` or `false`.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface CountryListInstancePageOptions {
+  /** Filter to retrieve the country permissions by specifying the [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) */
   isoCode?: string;
+  /** Filter to retrieve the country permissions by specifying the continent */
   continent?: string;
+  /** Filter the results by specified [country codes](https://www.itu.int/itudoc/itu-t/ob-lists/icc/e164_763.html) */
   countryCode?: string;
+  /** Filter to retrieve the country permissions with dialing to low-risk numbers enabled. Can be: `true` or `false`. */
   lowRiskNumbersEnabled?: boolean;
+  /** Filter to retrieve the country permissions with dialing to high-risk special service numbers enabled. Can be: `true` or `false` */
   highRiskSpecialNumbersEnabled?: boolean;
+  /** Filter to retrieve the country permissions with dialing to high-risk [toll fraud](https://www.twilio.com/learn/voice-and-video/toll-fraud) numbers enabled. Can be: `true` or `false`. */
   highRiskTollfraudNumbersEnabled?: boolean;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
@@ -110,9 +99,9 @@ export interface CountryContext {
   /**
    * Fetch a CountryInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed CountryInstance
+   * @returns Resolves to processed CountryInstance
    */
   fetch(
     callback?: (error: Error | null, item?: CountryInstance) => any
@@ -126,7 +115,7 @@ export interface CountryContext {
 }
 
 export interface CountryContextSolution {
-  isoCode?: string;
+  isoCode: string;
 }
 
 export class CountryContextImpl implements CountryContext {
@@ -154,18 +143,23 @@ export class CountryContextImpl implements CountryContext {
   fetch(
     callback?: (error: Error | null, item?: CountryInstance) => any
   ): Promise<CountryInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new CountryInstance(operationVersion, payload, this._solution.isoCode)
+        new CountryInstance(
+          operationVersion,
+          payload,
+          instance._solution.isoCode
+        )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -191,15 +185,15 @@ interface CountryPayload extends TwilioResponsePayload {
 }
 
 interface CountryResource {
-  iso_code?: string | null;
-  name?: string | null;
-  continent?: string | null;
-  country_codes?: Array<string> | null;
-  low_risk_numbers_enabled?: boolean | null;
-  high_risk_special_numbers_enabled?: boolean | null;
-  high_risk_tollfraud_numbers_enabled?: boolean | null;
-  url?: string | null;
-  links?: object | null;
+  iso_code: string;
+  name: string;
+  continent: string;
+  country_codes: Array<string>;
+  low_risk_numbers_enabled: boolean;
+  high_risk_special_numbers_enabled: boolean;
+  high_risk_tollfraud_numbers_enabled: boolean;
+  url: string;
+  links: object;
 }
 
 export class CountryInstance {
@@ -229,39 +223,39 @@ export class CountryInstance {
   /**
    * The ISO country code
    */
-  isoCode?: string | null;
+  isoCode: string;
   /**
    * The name of the country
    */
-  name?: string | null;
+  name: string;
   /**
    * The name of the continent in which the country is located
    */
-  continent?: string | null;
+  continent: string;
   /**
    * The E.164 assigned country codes(s)
    */
-  countryCodes?: Array<string> | null;
+  countryCodes: Array<string>;
   /**
    * Whether dialing to low-risk numbers is enabled
    */
-  lowRiskNumbersEnabled?: boolean | null;
+  lowRiskNumbersEnabled: boolean;
   /**
    * Whether dialing to high-risk special services numbers is enabled
    */
-  highRiskSpecialNumbersEnabled?: boolean | null;
+  highRiskSpecialNumbersEnabled: boolean;
   /**
    * Whether dialing to high-risk toll fraud numbers is enabled, else `false`
    */
-  highRiskTollfraudNumbersEnabled?: boolean | null;
+  highRiskTollfraudNumbersEnabled: boolean;
   /**
    * The absolute URL of this resource
    */
-  url?: string | null;
+  url: string;
   /**
    * A list of URLs related to this resource
    */
-  links?: object | null;
+  links: object;
 
   private get _proxy(): CountryContext {
     this._context =
@@ -273,9 +267,9 @@ export class CountryInstance {
   /**
    * Fetch a CountryInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed CountryInstance
+   * @returns Resolves to processed CountryInstance
    */
   fetch(
     callback?: (error: Error | null, item?: CountryInstance) => any
@@ -314,7 +308,13 @@ export class CountryInstance {
   }
 }
 
+export interface CountrySolution {}
+
 export interface CountryListInstance {
+  _version: V1;
+  _solution: CountrySolution;
+  _uri: string;
+
   (isoCode: string): CountryContext;
   get(isoCode: string): CountryContext;
 
@@ -394,18 +394,8 @@ export interface CountryListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface CountrySolution {}
-
-interface CountryListInstanceImpl extends CountryListInstance {}
-class CountryListInstanceImpl implements CountryListInstance {
-  _version?: V1;
-  _solution?: CountrySolution;
-  _uri?: string;
-}
-
 export function CountryListInstance(version: V1): CountryListInstance {
-  const instance = ((isoCode) =>
-    instance.get(isoCode)) as CountryListInstanceImpl;
+  const instance = ((isoCode) => instance.get(isoCode)) as CountryListInstance;
 
   instance.get = function get(isoCode): CountryContext {
     return new CountryContextImpl(version, isoCode);
@@ -456,17 +446,18 @@ export function CountryListInstance(version: V1): CountryListInstance {
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new CountryPage(operationVersion, payload, this._solution)
+      (payload) =>
+        new CountryPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -479,30 +470,28 @@ export function CountryListInstance(version: V1): CountryListInstance {
     targetUrl: string,
     callback?: (error: Error | null, items: CountryPage) => any
   ): Promise<CountryPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new CountryPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new CountryPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

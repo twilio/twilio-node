@@ -28,32 +28,31 @@ type PhoneNumberValidationError =
 
 /**
  * Options to pass to fetch a PhoneNumberInstance
- *
- * @property { string } [fields] A comma-separated list of fields to return. Possible values are caller_name, sim_swap, call_forwarding, live_activity, line_type_intelligence, identity_match.
- * @property { string } [countryCode] The [country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) used if the phone number provided is in national format.
- * @property { string } [firstName] User’s first name. This query parameter is only used (optionally) for identity_match package requests.
- * @property { string } [lastName] User’s last name. This query parameter is only used (optionally) for identity_match package requests.
- * @property { string } [addressLine1] User’s first address line. This query parameter is only used (optionally) for identity_match package requests.
- * @property { string } [addressLine2] User’s second address line. This query parameter is only used (optionally) for identity_match package requests.
- * @property { string } [city] User’s city. This query parameter is only used (optionally) for identity_match package requests.
- * @property { string } [state] User’s country subdivision, such as state, province, or locality. This query parameter is only used (optionally) for identity_match package requests.
- * @property { string } [postalCode] User’s postal zip code. This query parameter is only used (optionally) for identity_match package requests.
- * @property { string } [addressCountryCode] User’s country, up to two characters. This query parameter is only used (optionally) for identity_match package requests.
- * @property { string } [nationalId] User’s national ID, such as SSN or Passport ID. This query parameter is only used (optionally) for identity_match package requests.
- * @property { string } [dateOfBirth] User’s date of birth, in YYYYMMDD format. This query parameter is only used (optionally) for identity_match package requests.
  */
 export interface PhoneNumberContextFetchOptions {
+  /** A comma-separated list of fields to return. Possible values are caller_name, sim_swap, call_forwarding, live_activity, line_type_intelligence, identity_match. */
   fields?: string;
+  /** The [country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) used if the phone number provided is in national format. */
   countryCode?: string;
+  /** User’s first name. This query parameter is only used (optionally) for identity_match package requests. */
   firstName?: string;
+  /** User’s last name. This query parameter is only used (optionally) for identity_match package requests. */
   lastName?: string;
+  /** User’s first address line. This query parameter is only used (optionally) for identity_match package requests. */
   addressLine1?: string;
+  /** User’s second address line. This query parameter is only used (optionally) for identity_match package requests. */
   addressLine2?: string;
+  /** User’s city. This query parameter is only used (optionally) for identity_match package requests. */
   city?: string;
+  /** User’s country subdivision, such as state, province, or locality. This query parameter is only used (optionally) for identity_match package requests. */
   state?: string;
+  /** User’s postal zip code. This query parameter is only used (optionally) for identity_match package requests. */
   postalCode?: string;
+  /** User’s country, up to two characters. This query parameter is only used (optionally) for identity_match package requests. */
   addressCountryCode?: string;
+  /** User’s national ID, such as SSN or Passport ID. This query parameter is only used (optionally) for identity_match package requests. */
   nationalId?: string;
+  /** User’s date of birth, in YYYYMMDD format. This query parameter is only used (optionally) for identity_match package requests. */
   dateOfBirth?: string;
 }
 
@@ -61,9 +60,9 @@ export interface PhoneNumberContext {
   /**
    * Fetch a PhoneNumberInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed PhoneNumberInstance
+   * @returns Resolves to processed PhoneNumberInstance
    */
   fetch(
     callback?: (error: Error | null, item?: PhoneNumberInstance) => any
@@ -71,10 +70,10 @@ export interface PhoneNumberContext {
   /**
    * Fetch a PhoneNumberInstance
    *
-   * @param { PhoneNumberContextFetchOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed PhoneNumberInstance
+   * @returns Resolves to processed PhoneNumberInstance
    */
   fetch(
     params: PhoneNumberContextFetchOptions,
@@ -89,7 +88,7 @@ export interface PhoneNumberContext {
 }
 
 export interface PhoneNumberContextSolution {
-  phoneNumber?: string;
+  phoneNumber: string;
 }
 
 export class PhoneNumberContextImpl implements PhoneNumberContext {
@@ -146,9 +145,10 @@ export class PhoneNumberContextImpl implements PhoneNumberContext {
 
     const headers: any = {};
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
@@ -159,11 +159,11 @@ export class PhoneNumberContextImpl implements PhoneNumberContext {
         new PhoneNumberInstance(
           operationVersion,
           payload,
-          this._solution.phoneNumber
+          instance._solution.phoneNumber
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -187,19 +187,19 @@ export class PhoneNumberContextImpl implements PhoneNumberContext {
 interface PhoneNumberPayload extends PhoneNumberResource {}
 
 interface PhoneNumberResource {
-  calling_country_code?: string | null;
-  country_code?: string | null;
-  phone_number?: string | null;
-  national_format?: string | null;
-  valid?: boolean | null;
-  validation_errors?: Array<PhoneNumberValidationError> | null;
-  caller_name?: any | null;
-  sim_swap?: any | null;
-  call_forwarding?: any | null;
-  live_activity?: any | null;
-  line_type_intelligence?: any | null;
-  identity_match?: any | null;
-  url?: string | null;
+  calling_country_code: string;
+  country_code: string;
+  phone_number: string;
+  national_format: string;
+  valid: boolean;
+  validation_errors: Array<PhoneNumberValidationError>;
+  caller_name: any;
+  sim_swap: any;
+  call_forwarding: any;
+  live_activity: any;
+  line_type_intelligence: any;
+  identity_match: any;
+  url: string;
 }
 
 export class PhoneNumberInstance {
@@ -231,55 +231,55 @@ export class PhoneNumberInstance {
   /**
    * International dialing prefix
    */
-  callingCountryCode?: string | null;
+  callingCountryCode: string;
   /**
    * Phone number\'s ISO country code
    */
-  countryCode?: string | null;
+  countryCode: string;
   /**
    * Phone number in E.164 format
    */
-  phoneNumber?: string | null;
+  phoneNumber: string;
   /**
    * Phone number in national format
    */
-  nationalFormat?: string | null;
+  nationalFormat: string;
   /**
    * Boolean which indicates if the phone number is valid
    */
-  valid?: boolean | null;
+  valid: boolean;
   /**
    * Contains reasons why a phone number is invalid
    */
-  validationErrors?: Array<PhoneNumberValidationError> | null;
+  validationErrors: Array<PhoneNumberValidationError>;
   /**
    * An object that contains caller name information
    */
-  callerName?: any | null;
+  callerName: any;
   /**
    * An object that contains SIM swap information
    */
-  simSwap?: any | null;
+  simSwap: any;
   /**
    * An object that contains call forwarding status information
    */
-  callForwarding?: any | null;
+  callForwarding: any;
   /**
    * An object that contains live activity information
    */
-  liveActivity?: any | null;
+  liveActivity: any;
   /**
    * An object that contains line type information
    */
-  lineTypeIntelligence?: any | null;
+  lineTypeIntelligence: any;
   /**
    * An object that contains identity match information
    */
-  identityMatch?: any | null;
+  identityMatch: any;
   /**
    * The absolute URL of the resource
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): PhoneNumberContext {
     this._context =
@@ -291,9 +291,9 @@ export class PhoneNumberInstance {
   /**
    * Fetch a PhoneNumberInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed PhoneNumberInstance
+   * @returns Resolves to processed PhoneNumberInstance
    */
   fetch(
     callback?: (error: Error | null, item?: PhoneNumberInstance) => any
@@ -301,10 +301,10 @@ export class PhoneNumberInstance {
   /**
    * Fetch a PhoneNumberInstance
    *
-   * @param { PhoneNumberContextFetchOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed PhoneNumberInstance
+   * @returns Resolves to processed PhoneNumberInstance
    */
   fetch(
     params: PhoneNumberContextFetchOptions,
@@ -346,7 +346,13 @@ export class PhoneNumberInstance {
   }
 }
 
+export interface PhoneNumberSolution {}
+
 export interface PhoneNumberListInstance {
+  _version: V2;
+  _solution: PhoneNumberSolution;
+  _uri: string;
+
   (phoneNumber: string): PhoneNumberContext;
   get(phoneNumber: string): PhoneNumberContext;
 
@@ -357,18 +363,9 @@ export interface PhoneNumberListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface PhoneNumberSolution {}
-
-interface PhoneNumberListInstanceImpl extends PhoneNumberListInstance {}
-class PhoneNumberListInstanceImpl implements PhoneNumberListInstance {
-  _version?: V2;
-  _solution?: PhoneNumberSolution;
-  _uri?: string;
-}
-
 export function PhoneNumberListInstance(version: V2): PhoneNumberListInstance {
   const instance = ((phoneNumber) =>
-    instance.get(phoneNumber)) as PhoneNumberListInstanceImpl;
+    instance.get(phoneNumber)) as PhoneNumberListInstance;
 
   instance.get = function get(phoneNumber): PhoneNumberContext {
     return new PhoneNumberContextImpl(version, phoneNumber);
@@ -379,14 +376,14 @@ export function PhoneNumberListInstance(version: V2): PhoneNumberListInstance {
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

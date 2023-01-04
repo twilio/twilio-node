@@ -22,9 +22,9 @@ export interface DialogueContext {
   /**
    * Fetch a DialogueInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed DialogueInstance
+   * @returns Resolves to processed DialogueInstance
    */
   fetch(
     callback?: (error: Error | null, item?: DialogueInstance) => any
@@ -38,8 +38,8 @@ export interface DialogueContext {
 }
 
 export interface DialogueContextSolution {
-  assistantSid?: string;
-  sid?: string;
+  assistantSid: string;
+  sid: string;
 }
 
 export class DialogueContextImpl implements DialogueContext {
@@ -62,9 +62,10 @@ export class DialogueContextImpl implements DialogueContext {
   fetch(
     callback?: (error: Error | null, item?: DialogueInstance) => any
   ): Promise<DialogueInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -73,12 +74,12 @@ export class DialogueContextImpl implements DialogueContext {
         new DialogueInstance(
           operationVersion,
           payload,
-          this._solution.assistantSid,
-          this._solution.sid
+          instance._solution.assistantSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -102,11 +103,11 @@ export class DialogueContextImpl implements DialogueContext {
 interface DialoguePayload extends DialogueResource {}
 
 interface DialogueResource {
-  account_sid?: string | null;
-  assistant_sid?: string | null;
-  sid?: string | null;
-  data?: any | null;
-  url?: string | null;
+  account_sid: string;
+  assistant_sid: string;
+  sid: string;
+  data: any;
+  url: string;
 }
 
 export class DialogueInstance {
@@ -131,23 +132,23 @@ export class DialogueInstance {
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The SID of the Assistant that is the parent of the resource
    */
-  assistantSid?: string | null;
+  assistantSid: string;
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The JSON string that describes the dialogue session object
    */
-  data?: any | null;
+  data: any;
   /**
    * The absolute URL of the Dialogue resource
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): DialogueContext {
     this._context =
@@ -163,9 +164,9 @@ export class DialogueInstance {
   /**
    * Fetch a DialogueInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed DialogueInstance
+   * @returns Resolves to processed DialogueInstance
    */
   fetch(
     callback?: (error: Error | null, item?: DialogueInstance) => any
@@ -193,7 +194,15 @@ export class DialogueInstance {
   }
 }
 
+export interface DialogueSolution {
+  assistantSid: string;
+}
+
 export interface DialogueListInstance {
+  _version: V1;
+  _solution: DialogueSolution;
+  _uri: string;
+
   (sid: string): DialogueContext;
   get(sid: string): DialogueContext;
 
@@ -204,17 +213,6 @@ export interface DialogueListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface DialogueSolution {
-  assistantSid?: string;
-}
-
-interface DialogueListInstanceImpl extends DialogueListInstance {}
-class DialogueListInstanceImpl implements DialogueListInstance {
-  _version?: V1;
-  _solution?: DialogueSolution;
-  _uri?: string;
-}
-
 export function DialogueListInstance(
   version: V1,
   assistantSid: string
@@ -223,7 +221,7 @@ export function DialogueListInstance(
     throw new Error("Parameter 'assistantSid' is not valid.");
   }
 
-  const instance = ((sid) => instance.get(sid)) as DialogueListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as DialogueListInstance;
 
   instance.get = function get(sid): DialogueContext {
     return new DialogueContextImpl(version, assistantSid, sid);
@@ -234,14 +232,14 @@ export function DialogueListInstance(
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

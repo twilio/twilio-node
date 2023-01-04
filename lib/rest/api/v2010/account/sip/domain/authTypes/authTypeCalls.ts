@@ -20,8 +20,19 @@ import { isValidPathParam } from "../../../../../../../base/utility";
 import { AuthCallsCredentialListMappingListInstance } from "./authTypeCalls/authCallsCredentialListMapping";
 import { AuthCallsIpAccessControlListMappingListInstance } from "./authTypeCalls/authCallsIpAccessControlListMapping";
 
+export interface AuthTypeCallsSolution {
+  accountSid: string;
+  domainSid: string;
+}
+
 export interface AuthTypeCallsListInstance {
+  _version: V2010;
+  _solution: AuthTypeCallsSolution;
+  _uri: string;
+
+  _credentialListMappings?: AuthCallsCredentialListMappingListInstance;
   credentialListMappings: AuthCallsCredentialListMappingListInstance;
+  _ipAccessControlListMappings?: AuthCallsIpAccessControlListMappingListInstance;
   ipAccessControlListMappings: AuthCallsIpAccessControlListMappingListInstance;
 
   /**
@@ -29,21 +40,6 @@ export interface AuthTypeCallsListInstance {
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export interface AuthTypeCallsSolution {
-  accountSid?: string;
-  domainSid?: string;
-}
-
-interface AuthTypeCallsListInstanceImpl extends AuthTypeCallsListInstance {}
-class AuthTypeCallsListInstanceImpl implements AuthTypeCallsListInstance {
-  _version?: V2010;
-  _solution?: AuthTypeCallsSolution;
-  _uri?: string;
-
-  _credentialListMappings?: AuthCallsCredentialListMappingListInstance;
-  _ipAccessControlListMappings?: AuthCallsIpAccessControlListMappingListInstance;
 }
 
 export function AuthTypeCallsListInstance(
@@ -59,7 +55,7 @@ export function AuthTypeCallsListInstance(
     throw new Error("Parameter 'domainSid' is not valid.");
   }
 
-  const instance = {} as AuthTypeCallsListInstanceImpl;
+  const instance = {} as AuthTypeCallsListInstance;
 
   instance._version = version;
   instance._solution = { accountSid, domainSid };
@@ -67,41 +63,41 @@ export function AuthTypeCallsListInstance(
 
   Object.defineProperty(instance, "credentialListMappings", {
     get: function credentialListMappings() {
-      if (!this._credentialListMappings) {
-        this._credentialListMappings =
+      if (!instance._credentialListMappings) {
+        instance._credentialListMappings =
           AuthCallsCredentialListMappingListInstance(
-            this._version,
-            this._solution.accountSid,
-            this._solution.domainSid
+            instance._version,
+            instance._solution.accountSid,
+            instance._solution.domainSid
           );
       }
-      return this._credentialListMappings;
+      return instance._credentialListMappings;
     },
   });
 
   Object.defineProperty(instance, "ipAccessControlListMappings", {
     get: function ipAccessControlListMappings() {
-      if (!this._ipAccessControlListMappings) {
-        this._ipAccessControlListMappings =
+      if (!instance._ipAccessControlListMappings) {
+        instance._ipAccessControlListMappings =
           AuthCallsIpAccessControlListMappingListInstance(
-            this._version,
-            this._solution.accountSid,
-            this._solution.domainSid
+            instance._version,
+            instance._solution.accountSid,
+            instance._solution.domainSid
           );
       }
-      return this._ipAccessControlListMappings;
+      return instance._ipAccessControlListMappings;
     },
   });
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

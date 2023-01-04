@@ -20,8 +20,19 @@ import { isValidPathParam } from "../../../../../../base/utility";
 import { AuthTypeCallsListInstance } from "./authTypes/authTypeCalls";
 import { AuthTypeRegistrationsListInstance } from "./authTypes/authTypeRegistrations";
 
+export interface AuthTypesSolution {
+  accountSid: string;
+  domainSid: string;
+}
+
 export interface AuthTypesListInstance {
+  _version: V2010;
+  _solution: AuthTypesSolution;
+  _uri: string;
+
+  _calls?: AuthTypeCallsListInstance;
   calls: AuthTypeCallsListInstance;
+  _registrations?: AuthTypeRegistrationsListInstance;
   registrations: AuthTypeRegistrationsListInstance;
 
   /**
@@ -29,21 +40,6 @@ export interface AuthTypesListInstance {
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export interface AuthTypesSolution {
-  accountSid?: string;
-  domainSid?: string;
-}
-
-interface AuthTypesListInstanceImpl extends AuthTypesListInstance {}
-class AuthTypesListInstanceImpl implements AuthTypesListInstance {
-  _version?: V2010;
-  _solution?: AuthTypesSolution;
-  _uri?: string;
-
-  _calls?: AuthTypeCallsListInstance;
-  _registrations?: AuthTypeRegistrationsListInstance;
 }
 
 export function AuthTypesListInstance(
@@ -59,7 +55,7 @@ export function AuthTypesListInstance(
     throw new Error("Parameter 'domainSid' is not valid.");
   }
 
-  const instance = {} as AuthTypesListInstanceImpl;
+  const instance = {} as AuthTypesListInstance;
 
   instance._version = version;
   instance._solution = { accountSid, domainSid };
@@ -67,39 +63,39 @@ export function AuthTypesListInstance(
 
   Object.defineProperty(instance, "calls", {
     get: function calls() {
-      if (!this._calls) {
-        this._calls = AuthTypeCallsListInstance(
-          this._version,
-          this._solution.accountSid,
-          this._solution.domainSid
+      if (!instance._calls) {
+        instance._calls = AuthTypeCallsListInstance(
+          instance._version,
+          instance._solution.accountSid,
+          instance._solution.domainSid
         );
       }
-      return this._calls;
+      return instance._calls;
     },
   });
 
   Object.defineProperty(instance, "registrations", {
     get: function registrations() {
-      if (!this._registrations) {
-        this._registrations = AuthTypeRegistrationsListInstance(
-          this._version,
-          this._solution.accountSid,
-          this._solution.domainSid
+      if (!instance._registrations) {
+        instance._registrations = AuthTypeRegistrationsListInstance(
+          instance._version,
+          instance._solution.accountSid,
+          instance._solution.domainSid
         );
       }
-      return this._registrations;
+      return instance._registrations;
     },
   });
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

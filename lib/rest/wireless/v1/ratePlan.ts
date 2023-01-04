@@ -22,87 +22,74 @@ import { isValidPathParam } from "../../../base/utility";
 
 /**
  * Options to pass to update a RatePlanInstance
- *
- * @property { string } [uniqueName] An application-defined string that uniquely identifies the resource. It can be used in place of the resource\\\'s `sid` in the URL to address the resource.
- * @property { string } [friendlyName] A descriptive string that you create to describe the resource. It does not have to be unique.
  */
 export interface RatePlanContextUpdateOptions {
+  /** An application-defined string that uniquely identifies the resource. It can be used in place of the resource\\\'s `sid` in the URL to address the resource. */
   uniqueName?: string;
+  /** A descriptive string that you create to describe the resource. It does not have to be unique. */
   friendlyName?: string;
 }
 
 /**
  * Options to pass to create a RatePlanInstance
- *
- * @property { string } [uniqueName] An application-defined string that uniquely identifies the resource. It can be used in place of the resource\\\'s `sid` in the URL to address the resource.
- * @property { string } [friendlyName] A descriptive string that you create to describe the resource. It does not have to be unique.
- * @property { boolean } [dataEnabled] Whether SIMs can use GPRS/3G/4G/LTE data connectivity.
- * @property { number } [dataLimit] The total data usage (download and upload combined) in Megabytes that the Network allows during one month on the home network (T-Mobile USA). The metering period begins the day of activation and ends on the same day in the following month. Can be up to 2TB and the default value is `1000`.
- * @property { string } [dataMetering] The model used to meter data usage. Can be: `payg` and `quota-1`, `quota-10`, and `quota-50`. Learn more about the available [data metering models](https://www.twilio.com/docs/wireless/api/rateplan-resource#payg-vs-quota-data-plans).
- * @property { boolean } [messagingEnabled] Whether SIMs can make, send, and receive SMS using [Commands](https://www.twilio.com/docs/wireless/api/command-resource).
- * @property { boolean } [voiceEnabled] Deprecated.
- * @property { boolean } [nationalRoamingEnabled] Whether SIMs can roam on networks other than the home network (T-Mobile USA) in the United States. See [national roaming](https://www.twilio.com/docs/wireless/api/rateplan-resource#national-roaming).
- * @property { Array<string> } [internationalRoaming] The list of services that SIMs capable of using GPRS/3G/4G/LTE data connectivity can use outside of the United States. Can contain: `data` and `messaging`.
- * @property { number } [nationalRoamingDataLimit] The total data usage (download and upload combined) in Megabytes that the Network allows during one month on non-home networks in the United States. The metering period begins the day of activation and ends on the same day in the following month. Can be up to 2TB. See [national roaming](https://www.twilio.com/docs/wireless/api/rateplan-resource#national-roaming) for more info.
- * @property { number } [internationalRoamingDataLimit] The total data usage (download and upload combined) in Megabytes that the Network allows during one month when roaming outside the United States. Can be up to 2TB.
  */
 export interface RatePlanListInstanceCreateOptions {
+  /** An application-defined string that uniquely identifies the resource. It can be used in place of the resource\\\'s `sid` in the URL to address the resource. */
   uniqueName?: string;
+  /** A descriptive string that you create to describe the resource. It does not have to be unique. */
   friendlyName?: string;
+  /** Whether SIMs can use GPRS/3G/4G/LTE data connectivity. */
   dataEnabled?: boolean;
+  /** The total data usage (download and upload combined) in Megabytes that the Network allows during one month on the home network (T-Mobile USA). The metering period begins the day of activation and ends on the same day in the following month. Can be up to 2TB and the default value is `1000`. */
   dataLimit?: number;
+  /** The model used to meter data usage. Can be: `payg` and `quota-1`, `quota-10`, and `quota-50`. Learn more about the available [data metering models](https://www.twilio.com/docs/wireless/api/rateplan-resource#payg-vs-quota-data-plans). */
   dataMetering?: string;
+  /** Whether SIMs can make, send, and receive SMS using [Commands](https://www.twilio.com/docs/wireless/api/command-resource). */
   messagingEnabled?: boolean;
+  /** Deprecated. */
   voiceEnabled?: boolean;
+  /** Whether SIMs can roam on networks other than the home network (T-Mobile USA) in the United States. See [national roaming](https://www.twilio.com/docs/wireless/api/rateplan-resource#national-roaming). */
   nationalRoamingEnabled?: boolean;
+  /** The list of services that SIMs capable of using GPRS/3G/4G/LTE data connectivity can use outside of the United States. Can contain: `data` and `messaging`. */
   internationalRoaming?: Array<string>;
+  /** The total data usage (download and upload combined) in Megabytes that the Network allows during one month on non-home networks in the United States. The metering period begins the day of activation and ends on the same day in the following month. Can be up to 2TB. See [national roaming](https://www.twilio.com/docs/wireless/api/rateplan-resource#national-roaming) for more info. */
   nationalRoamingDataLimit?: number;
+  /** The total data usage (download and upload combined) in Megabytes that the Network allows during one month when roaming outside the United States. Can be up to 2TB. */
   internationalRoamingDataLimit?: number;
 }
 /**
  * Options to pass to each
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface RatePlanListInstanceEachOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: RatePlanInstance, done: (err?: Error) => void) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface RatePlanListInstanceOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface RatePlanListInstancePageOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
@@ -110,9 +97,9 @@ export interface RatePlanContext {
   /**
    * Remove a RatePlanInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -121,9 +108,9 @@ export interface RatePlanContext {
   /**
    * Fetch a RatePlanInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed RatePlanInstance
+   * @returns Resolves to processed RatePlanInstance
    */
   fetch(
     callback?: (error: Error | null, item?: RatePlanInstance) => any
@@ -132,9 +119,9 @@ export interface RatePlanContext {
   /**
    * Update a RatePlanInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed RatePlanInstance
+   * @returns Resolves to processed RatePlanInstance
    */
   update(
     callback?: (error: Error | null, item?: RatePlanInstance) => any
@@ -142,10 +129,10 @@ export interface RatePlanContext {
   /**
    * Update a RatePlanInstance
    *
-   * @param { RatePlanContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed RatePlanInstance
+   * @returns Resolves to processed RatePlanInstance
    */
   update(
     params: RatePlanContextUpdateOptions,
@@ -160,7 +147,7 @@ export interface RatePlanContext {
 }
 
 export interface RatePlanContextSolution {
-  sid?: string;
+  sid: string;
 }
 
 export class RatePlanContextImpl implements RatePlanContext {
@@ -179,13 +166,14 @@ export class RatePlanContextImpl implements RatePlanContext {
   remove(
     callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -195,18 +183,19 @@ export class RatePlanContextImpl implements RatePlanContext {
   fetch(
     callback?: (error: Error | null, item?: RatePlanInstance) => any
   ): Promise<RatePlanInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new RatePlanInstance(operationVersion, payload, this._solution.sid)
+        new RatePlanInstance(operationVersion, payload, instance._solution.sid)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -239,9 +228,10 @@ export class RatePlanContextImpl implements RatePlanContext {
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -249,10 +239,10 @@ export class RatePlanContextImpl implements RatePlanContext {
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new RatePlanInstance(operationVersion, payload, this._solution.sid)
+        new RatePlanInstance(operationVersion, payload, instance._solution.sid)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -278,22 +268,22 @@ interface RatePlanPayload extends TwilioResponsePayload {
 }
 
 interface RatePlanResource {
-  sid?: string | null;
-  unique_name?: string | null;
-  account_sid?: string | null;
-  friendly_name?: string | null;
-  data_enabled?: boolean | null;
-  data_metering?: string | null;
-  data_limit?: number | null;
-  messaging_enabled?: boolean | null;
-  voice_enabled?: boolean | null;
-  national_roaming_enabled?: boolean | null;
-  national_roaming_data_limit?: number | null;
-  international_roaming?: Array<string> | null;
-  international_roaming_data_limit?: number | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  url?: string | null;
+  sid: string;
+  unique_name: string;
+  account_sid: string;
+  friendly_name: string;
+  data_enabled: boolean;
+  data_metering: string;
+  data_limit: number;
+  messaging_enabled: boolean;
+  voice_enabled: boolean;
+  national_roaming_enabled: boolean;
+  national_roaming_data_limit: number;
+  international_roaming: Array<string>;
+  international_roaming_data_limit: number;
+  date_created: Date;
+  date_updated: Date;
+  url: string;
 }
 
 export class RatePlanInstance {
@@ -328,67 +318,67 @@ export class RatePlanInstance {
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * An application-defined string that uniquely identifies the resource
    */
-  uniqueName?: string | null;
+  uniqueName: string;
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The string that you assigned to describe the resource
    */
-  friendlyName?: string | null;
+  friendlyName: string;
   /**
    * Whether SIMs can use GPRS/3G/4G/LTE data connectivity
    */
-  dataEnabled?: boolean | null;
+  dataEnabled: boolean;
   /**
    * The model used to meter data usage
    */
-  dataMetering?: string | null;
+  dataMetering: string;
   /**
    * The total data usage in Megabytes that the Network allows during one month on the home network
    */
-  dataLimit?: number | null;
+  dataLimit: number;
   /**
    * Whether SIMs can make, send, and receive SMS using Commands
    */
-  messagingEnabled?: boolean | null;
+  messagingEnabled: boolean;
   /**
    * Deprecated. Whether SIMs can make and receive voice calls
    */
-  voiceEnabled?: boolean | null;
+  voiceEnabled: boolean;
   /**
    * Whether SIMs can roam on networks other than the home network in the United States
    */
-  nationalRoamingEnabled?: boolean | null;
+  nationalRoamingEnabled: boolean;
   /**
    * The total data usage in Megabytes that the Network allows during one month on non-home networks in the United States
    */
-  nationalRoamingDataLimit?: number | null;
+  nationalRoamingDataLimit: number;
   /**
    * The services that SIMs capable of using GPRS/3G/4G/LTE data connectivity can use outside of the United States
    */
-  internationalRoaming?: Array<string> | null;
+  internationalRoaming: Array<string>;
   /**
    * The total data usage (download and upload combined) in Megabytes that the Network allows during one month when roaming outside the United States
    */
-  internationalRoamingDataLimit?: number | null;
+  internationalRoamingDataLimit: number;
   /**
    * The date when the resource was created, given as GMT in ISO 8601 format
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The date when the resource was last updated, given as GMT in ISO 8601 format
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The absolute URL of the resource
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): RatePlanContext {
     this._context =
@@ -400,9 +390,9 @@ export class RatePlanInstance {
   /**
    * Remove a RatePlanInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -413,9 +403,9 @@ export class RatePlanInstance {
   /**
    * Fetch a RatePlanInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed RatePlanInstance
+   * @returns Resolves to processed RatePlanInstance
    */
   fetch(
     callback?: (error: Error | null, item?: RatePlanInstance) => any
@@ -426,9 +416,9 @@ export class RatePlanInstance {
   /**
    * Update a RatePlanInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed RatePlanInstance
+   * @returns Resolves to processed RatePlanInstance
    */
   update(
     callback?: (error: Error | null, item?: RatePlanInstance) => any
@@ -436,10 +426,10 @@ export class RatePlanInstance {
   /**
    * Update a RatePlanInstance
    *
-   * @param { RatePlanContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed RatePlanInstance
+   * @returns Resolves to processed RatePlanInstance
    */
   update(
     params: RatePlanContextUpdateOptions,
@@ -484,16 +474,22 @@ export class RatePlanInstance {
   }
 }
 
+export interface RatePlanSolution {}
+
 export interface RatePlanListInstance {
+  _version: V1;
+  _solution: RatePlanSolution;
+  _uri: string;
+
   (sid: string): RatePlanContext;
   get(sid: string): RatePlanContext;
 
   /**
    * Create a RatePlanInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed RatePlanInstance
+   * @returns Resolves to processed RatePlanInstance
    */
   create(
     callback?: (error: Error | null, item?: RatePlanInstance) => any
@@ -501,10 +497,10 @@ export interface RatePlanListInstance {
   /**
    * Create a RatePlanInstance
    *
-   * @param { RatePlanListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed RatePlanInstance
+   * @returns Resolves to processed RatePlanInstance
    */
   create(
     params: RatePlanListInstanceCreateOptions,
@@ -587,17 +583,8 @@ export interface RatePlanListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface RatePlanSolution {}
-
-interface RatePlanListInstanceImpl extends RatePlanListInstance {}
-class RatePlanListInstanceImpl implements RatePlanListInstance {
-  _version?: V1;
-  _solution?: RatePlanSolution;
-  _uri?: string;
-}
-
 export function RatePlanListInstance(version: V1): RatePlanListInstance {
-  const instance = ((sid) => instance.get(sid)) as RatePlanListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as RatePlanListInstance;
 
   instance.get = function get(sid): RatePlanContext {
     return new RatePlanContextImpl(version, sid);
@@ -659,7 +646,7 @@ export function RatePlanListInstance(version: V1): RatePlanListInstance {
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -669,7 +656,7 @@ export function RatePlanListInstance(version: V1): RatePlanListInstance {
       (payload) => new RatePlanInstance(operationVersion, payload)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -700,17 +687,18 @@ export function RatePlanListInstance(version: V1): RatePlanListInstance {
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new RatePlanPage(operationVersion, payload, this._solution)
+      (payload) =>
+        new RatePlanPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -723,30 +711,28 @@ export function RatePlanListInstance(version: V1): RatePlanListInstance {
     targetUrl: string,
     callback?: (error: Error | null, items: RatePlanPage) => any
   ): Promise<RatePlanPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new RatePlanPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new RatePlanPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

@@ -26,18 +26,17 @@ type CallFeedbackSummaryStatus =
 
 /**
  * Options to pass to create a FeedbackSummaryInstance
- *
- * @property { Date } startDate Only include feedback given on or after this date. Format is `YYYY-MM-DD` and specified in UTC.
- * @property { Date } endDate Only include feedback given on or before this date. Format is `YYYY-MM-DD` and specified in UTC.
- * @property { boolean } [includeSubaccounts] Whether to also include Feedback resources from all subaccounts. `true` includes feedback from all subaccounts and `false`, the default, includes feedback from only the specified account.
- * @property { string } [statusCallback] The URL that we will request when the feedback summary is complete.
- * @property { string } [statusCallbackMethod] The HTTP method (`GET` or `POST`) we use to make the request to the `StatusCallback` URL.
  */
 export interface FeedbackSummaryListInstanceCreateOptions {
+  /** Only include feedback given on or after this date. Format is `YYYY-MM-DD` and specified in UTC. */
   startDate: Date;
+  /** Only include feedback given on or before this date. Format is `YYYY-MM-DD` and specified in UTC. */
   endDate: Date;
+  /** Whether to also include Feedback resources from all subaccounts. `true` includes feedback from all subaccounts and `false`, the default, includes feedback from only the specified account. */
   includeSubaccounts?: boolean;
+  /** The URL that we will request when the feedback summary is complete. */
   statusCallback?: string;
+  /** The HTTP method (`GET` or `POST`) we use to make the request to the `StatusCallback` URL. */
   statusCallbackMethod?: string;
 }
 
@@ -45,9 +44,9 @@ export interface FeedbackSummaryContext {
   /**
    * Remove a FeedbackSummaryInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -56,9 +55,9 @@ export interface FeedbackSummaryContext {
   /**
    * Fetch a FeedbackSummaryInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed FeedbackSummaryInstance
+   * @returns Resolves to processed FeedbackSummaryInstance
    */
   fetch(
     callback?: (error: Error | null, item?: FeedbackSummaryInstance) => any
@@ -72,8 +71,8 @@ export interface FeedbackSummaryContext {
 }
 
 export interface FeedbackSummaryContextSolution {
-  accountSid?: string;
-  sid?: string;
+  accountSid: string;
+  sid: string;
 }
 
 export class FeedbackSummaryContextImpl implements FeedbackSummaryContext {
@@ -96,13 +95,14 @@ export class FeedbackSummaryContextImpl implements FeedbackSummaryContext {
   remove(
     callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -112,9 +112,10 @@ export class FeedbackSummaryContextImpl implements FeedbackSummaryContext {
   fetch(
     callback?: (error: Error | null, item?: FeedbackSummaryInstance) => any
   ): Promise<FeedbackSummaryInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -123,12 +124,12 @@ export class FeedbackSummaryContextImpl implements FeedbackSummaryContext {
         new FeedbackSummaryInstance(
           operationVersion,
           payload,
-          this._solution.accountSid,
-          this._solution.sid
+          instance._solution.accountSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -152,20 +153,20 @@ export class FeedbackSummaryContextImpl implements FeedbackSummaryContext {
 interface FeedbackSummaryPayload extends FeedbackSummaryResource {}
 
 interface FeedbackSummaryResource {
-  account_sid?: string | null;
-  call_count?: number | null;
-  call_feedback_count?: number | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  end_date?: Date | null;
-  include_subaccounts?: boolean | null;
-  issues?: Array<any> | null;
-  quality_score_average?: number | null;
-  quality_score_median?: number | null;
-  quality_score_standard_deviation?: number | null;
-  sid?: string | null;
-  start_date?: Date | null;
-  status?: CallFeedbackSummaryStatus;
+  account_sid: string;
+  call_count: number;
+  call_feedback_count: number;
+  date_created: Date;
+  date_updated: Date;
+  end_date: Date;
+  include_subaccounts: boolean;
+  issues: Array<any>;
+  quality_score_average: number;
+  quality_score_median: number;
+  quality_score_standard_deviation: number;
+  sid: string;
+  start_date: Date;
+  status: CallFeedbackSummaryStatus;
 }
 
 export class FeedbackSummaryInstance {
@@ -200,56 +201,56 @@ export class FeedbackSummaryInstance {
   /**
    * The unique sid that identifies this account
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The total number of calls
    */
-  callCount?: number | null;
+  callCount: number;
   /**
    * The total number of calls with a feedback entry
    */
-  callFeedbackCount?: number | null;
+  callFeedbackCount: number;
   /**
    * The date this resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The date this resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The latest feedback entry date in the summary
    */
-  endDate?: Date | null;
+  endDate: Date;
   /**
    * Whether the feedback summary includes subaccounts
    */
-  includeSubaccounts?: boolean | null;
+  includeSubaccounts: boolean;
   /**
    * Issues experienced during the call
    */
-  issues?: Array<any> | null;
+  issues: Array<any>;
   /**
    * The average QualityScore of the feedback entries
    */
-  qualityScoreAverage?: number | null;
+  qualityScoreAverage: number;
   /**
    * The median QualityScore of the feedback entries
    */
-  qualityScoreMedian?: number | null;
+  qualityScoreMedian: number;
   /**
    * The standard deviation of the quality scores
    */
-  qualityScoreStandardDeviation?: number | null;
+  qualityScoreStandardDeviation: number;
   /**
    * A string that uniquely identifies this feedback entry
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The earliest feedback entry date in the summary
    */
-  startDate?: Date | null;
-  status?: CallFeedbackSummaryStatus;
+  startDate: Date;
+  status: CallFeedbackSummaryStatus;
 
   private get _proxy(): FeedbackSummaryContext {
     this._context =
@@ -265,9 +266,9 @@ export class FeedbackSummaryInstance {
   /**
    * Remove a FeedbackSummaryInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -278,9 +279,9 @@ export class FeedbackSummaryInstance {
   /**
    * Fetch a FeedbackSummaryInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed FeedbackSummaryInstance
+   * @returns Resolves to processed FeedbackSummaryInstance
    */
   fetch(
     callback?: (error: Error | null, item?: FeedbackSummaryInstance) => any
@@ -317,17 +318,25 @@ export class FeedbackSummaryInstance {
   }
 }
 
+export interface FeedbackSummarySolution {
+  accountSid: string;
+}
+
 export interface FeedbackSummaryListInstance {
+  _version: V2010;
+  _solution: FeedbackSummarySolution;
+  _uri: string;
+
   (sid: string): FeedbackSummaryContext;
   get(sid: string): FeedbackSummaryContext;
 
   /**
    * Create a FeedbackSummaryInstance
    *
-   * @param { FeedbackSummaryListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed FeedbackSummaryInstance
+   * @returns Resolves to processed FeedbackSummaryInstance
    */
   create(
     params: FeedbackSummaryListInstanceCreateOptions,
@@ -341,17 +350,6 @@ export interface FeedbackSummaryListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface FeedbackSummarySolution {
-  accountSid?: string;
-}
-
-interface FeedbackSummaryListInstanceImpl extends FeedbackSummaryListInstance {}
-class FeedbackSummaryListInstanceImpl implements FeedbackSummaryListInstance {
-  _version?: V2010;
-  _solution?: FeedbackSummarySolution;
-  _uri?: string;
-}
-
 export function FeedbackSummaryListInstance(
   version: V2010,
   accountSid: string
@@ -360,8 +358,7 @@ export function FeedbackSummaryListInstance(
     throw new Error("Parameter 'accountSid' is not valid.");
   }
 
-  const instance = ((sid) =>
-    instance.get(sid)) as FeedbackSummaryListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as FeedbackSummaryListInstance;
 
   instance.get = function get(sid): FeedbackSummaryContext {
     return new FeedbackSummaryContextImpl(version, accountSid, sid);
@@ -404,7 +401,7 @@ export function FeedbackSummaryListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -415,11 +412,11 @@ export function FeedbackSummaryListInstance(
         new FeedbackSummaryInstance(
           operationVersion,
           payload,
-          this._solution.accountSid
+          instance._solution.accountSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -427,14 +424,14 @@ export function FeedbackSummaryListInstance(
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

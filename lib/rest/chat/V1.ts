@@ -21,23 +21,24 @@ export default class V1 extends Version {
   /**
    * Initialize the V1 version of Chat
    *
-   * @property { Twilio.Chat.V1.CredentialListInstance } credentials - credentials resource
-   * @property { Twilio.Chat.V1.ServiceListInstance } services - services resource
-   *
-   * @param { Twilio.Chat } domain - The Twilio domain
+   * @param domain - The Twilio (Twilio.Chat) domain
    */
   constructor(domain: ChatBase) {
     super(domain, "v1");
   }
 
+  /** credentials - { Twilio.Chat.V1.CredentialListInstance } resource */
   protected _credentials?: CredentialListInstance;
+  /** services - { Twilio.Chat.V1.ServiceListInstance } resource */
   protected _services?: ServiceListInstance;
 
+  /** Getter for credentials resource */
   get credentials(): CredentialListInstance {
     this._credentials = this._credentials || CredentialListInstance(this);
     return this._credentials;
   }
 
+  /** Getter for services resource */
   get services(): ServiceListInstance {
     this._services = this._services || ServiceListInstance(this);
     return this._services;

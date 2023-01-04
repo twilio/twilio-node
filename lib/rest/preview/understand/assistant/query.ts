@@ -22,93 +22,80 @@ import { isValidPathParam } from "../../../../base/utility";
 
 /**
  * Options to pass to update a QueryInstance
- *
- * @property { string } [sampleSid] An optional reference to the Sample created from this query.
- * @property { string } [status] A string that described the query status. The values can be: pending_review, reviewed, discarded
  */
 export interface QueryContextUpdateOptions {
+  /** An optional reference to the Sample created from this query. */
   sampleSid?: string;
+  /** A string that described the query status. The values can be: pending_review, reviewed, discarded */
   status?: string;
 }
 
 /**
  * Options to pass to create a QueryInstance
- *
- * @property { string } language An ISO language-country string of the sample.
- * @property { string } query A user-provided string that uniquely identifies this resource as an alternative to the sid. It can be up to 2048 characters long.
- * @property { string } [tasks] Constraints the query to a set of tasks. Useful when you need to constrain the paths the user can take. Tasks should be comma separated *task-unique-name-1*, *task-unique-name-2*
- * @property { string } [modelBuild] The Model Build Sid or unique name of the Model Build to be queried.
- * @property { string } [field] Constraints the query to a given Field with an task. Useful when you know the Field you are expecting. It accepts one field in the format *task-unique-name-1*:*field-unique-name*
  */
 export interface QueryListInstanceCreateOptions {
+  /** An ISO language-country string of the sample. */
   language: string;
+  /** A user-provided string that uniquely identifies this resource as an alternative to the sid. It can be up to 2048 characters long. */
   query: string;
+  /** Constraints the query to a set of tasks. Useful when you need to constrain the paths the user can take. Tasks should be comma separated *task-unique-name-1*, *task-unique-name-2* */
   tasks?: string;
+  /** The Model Build Sid or unique name of the Model Build to be queried. */
   modelBuild?: string;
+  /** Constraints the query to a given Field with an task. Useful when you know the Field you are expecting. It accepts one field in the format *task-unique-name-1*:*field-unique-name* */
   field?: string;
 }
 /**
  * Options to pass to each
- *
- * @property { string } [language] An ISO language-country string of the sample.
- * @property { string } [modelBuild] The Model Build Sid or unique name of the Model Build to be queried.
- * @property { string } [status] A string that described the query status. The values can be: pending_review, reviewed, discarded
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface QueryListInstanceEachOptions {
+  /** An ISO language-country string of the sample. */
   language?: string;
+  /** The Model Build Sid or unique name of the Model Build to be queried. */
   modelBuild?: string;
+  /** A string that described the query status. The values can be: pending_review, reviewed, discarded */
   status?: string;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: QueryInstance, done: (err?: Error) => void) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { string } [language] An ISO language-country string of the sample.
- * @property { string } [modelBuild] The Model Build Sid or unique name of the Model Build to be queried.
- * @property { string } [status] A string that described the query status. The values can be: pending_review, reviewed, discarded
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface QueryListInstanceOptions {
+  /** An ISO language-country string of the sample. */
   language?: string;
+  /** The Model Build Sid or unique name of the Model Build to be queried. */
   modelBuild?: string;
+  /** A string that described the query status. The values can be: pending_review, reviewed, discarded */
   status?: string;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { string } [language] An ISO language-country string of the sample.
- * @property { string } [modelBuild] The Model Build Sid or unique name of the Model Build to be queried.
- * @property { string } [status] A string that described the query status. The values can be: pending_review, reviewed, discarded
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface QueryListInstancePageOptions {
+  /** An ISO language-country string of the sample. */
   language?: string;
+  /** The Model Build Sid or unique name of the Model Build to be queried. */
   modelBuild?: string;
+  /** A string that described the query status. The values can be: pending_review, reviewed, discarded */
   status?: string;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
@@ -116,9 +103,9 @@ export interface QueryContext {
   /**
    * Remove a QueryInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -127,9 +114,9 @@ export interface QueryContext {
   /**
    * Fetch a QueryInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed QueryInstance
+   * @returns Resolves to processed QueryInstance
    */
   fetch(
     callback?: (error: Error | null, item?: QueryInstance) => any
@@ -138,9 +125,9 @@ export interface QueryContext {
   /**
    * Update a QueryInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed QueryInstance
+   * @returns Resolves to processed QueryInstance
    */
   update(
     callback?: (error: Error | null, item?: QueryInstance) => any
@@ -148,10 +135,10 @@ export interface QueryContext {
   /**
    * Update a QueryInstance
    *
-   * @param { QueryContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed QueryInstance
+   * @returns Resolves to processed QueryInstance
    */
   update(
     params: QueryContextUpdateOptions,
@@ -166,8 +153,8 @@ export interface QueryContext {
 }
 
 export interface QueryContextSolution {
-  assistantSid?: string;
-  sid?: string;
+  assistantSid: string;
+  sid: string;
 }
 
 export class QueryContextImpl implements QueryContext {
@@ -194,13 +181,14 @@ export class QueryContextImpl implements QueryContext {
   remove(
     callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -210,9 +198,10 @@ export class QueryContextImpl implements QueryContext {
   fetch(
     callback?: (error: Error | null, item?: QueryInstance) => any
   ): Promise<QueryInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -221,12 +210,12 @@ export class QueryContextImpl implements QueryContext {
         new QueryInstance(
           operationVersion,
           payload,
-          this._solution.assistantSid,
-          this._solution.sid
+          instance._solution.assistantSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -255,9 +244,10 @@ export class QueryContextImpl implements QueryContext {
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -268,12 +258,12 @@ export class QueryContextImpl implements QueryContext {
         new QueryInstance(
           operationVersion,
           payload,
-          this._solution.assistantSid,
-          this._solution.sid
+          instance._solution.assistantSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -299,19 +289,19 @@ interface QueryPayload extends TwilioResponsePayload {
 }
 
 interface QueryResource {
-  account_sid?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  results?: any | null;
-  language?: string | null;
-  model_build_sid?: string | null;
-  query?: string | null;
-  sample_sid?: string | null;
-  assistant_sid?: string | null;
-  sid?: string | null;
-  status?: string | null;
-  url?: string | null;
-  source_channel?: string | null;
+  account_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  results: any;
+  language: string;
+  model_build_sid: string;
+  query: string;
+  sample_sid: string;
+  assistant_sid: string;
+  sid: string;
+  status: string;
+  url: string;
+  source_channel: string;
 }
 
 export class QueryInstance {
@@ -344,52 +334,52 @@ export class QueryInstance {
   /**
    * The unique ID of the Account that created this Query.
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The date that this resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The date that this resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The natural language analysis results which include the Task recognized, the confidence score and a list of identified Fields.
    */
-  results?: any | null;
+  results: any;
   /**
    * An ISO language-country string of the sample.
    */
-  language?: string | null;
+  language: string;
   /**
    * The unique ID of the Model Build queried.
    */
-  modelBuildSid?: string | null;
+  modelBuildSid: string;
   /**
    * The end-user\'s natural language input.
    */
-  query?: string | null;
+  query: string;
   /**
    * An optional reference to the Sample created from this query.
    */
-  sampleSid?: string | null;
+  sampleSid: string;
   /**
    * The unique ID of the parent Assistant.
    */
-  assistantSid?: string | null;
+  assistantSid: string;
   /**
    * A 34 character string that uniquely identifies this resource.
    */
-  sid?: string | null;
+  sid: string;
   /**
    * A string that described the query status. The values can be: pending_review, reviewed, discarded
    */
-  status?: string | null;
-  url?: string | null;
+  status: string;
+  url: string;
   /**
    * The communication channel where this end-user input came from
    */
-  sourceChannel?: string | null;
+  sourceChannel: string;
 
   private get _proxy(): QueryContext {
     this._context =
@@ -405,9 +395,9 @@ export class QueryInstance {
   /**
    * Remove a QueryInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -418,9 +408,9 @@ export class QueryInstance {
   /**
    * Fetch a QueryInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed QueryInstance
+   * @returns Resolves to processed QueryInstance
    */
   fetch(
     callback?: (error: Error | null, item?: QueryInstance) => any
@@ -431,9 +421,9 @@ export class QueryInstance {
   /**
    * Update a QueryInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed QueryInstance
+   * @returns Resolves to processed QueryInstance
    */
   update(
     callback?: (error: Error | null, item?: QueryInstance) => any
@@ -441,10 +431,10 @@ export class QueryInstance {
   /**
    * Update a QueryInstance
    *
-   * @param { QueryContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed QueryInstance
+   * @returns Resolves to processed QueryInstance
    */
   update(
     params: QueryContextUpdateOptions,
@@ -486,17 +476,25 @@ export class QueryInstance {
   }
 }
 
+export interface QuerySolution {
+  assistantSid: string;
+}
+
 export interface QueryListInstance {
+  _version: Understand;
+  _solution: QuerySolution;
+  _uri: string;
+
   (sid: string): QueryContext;
   get(sid: string): QueryContext;
 
   /**
    * Create a QueryInstance
    *
-   * @param { QueryListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed QueryInstance
+   * @returns Resolves to processed QueryInstance
    */
   create(
     params: QueryListInstanceCreateOptions,
@@ -579,17 +577,6 @@ export interface QueryListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface QuerySolution {
-  assistantSid?: string;
-}
-
-interface QueryListInstanceImpl extends QueryListInstance {}
-class QueryListInstanceImpl implements QueryListInstance {
-  _version?: Understand;
-  _solution?: QuerySolution;
-  _uri?: string;
-}
-
 export function QueryListInstance(
   version: Understand,
   assistantSid: string
@@ -598,7 +585,7 @@ export function QueryListInstance(
     throw new Error("Parameter 'assistantSid' is not valid.");
   }
 
-  const instance = ((sid) => instance.get(sid)) as QueryListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as QueryListInstance;
 
   instance.get = function get(sid): QueryContext {
     return new QueryContextImpl(version, assistantSid, sid);
@@ -639,7 +626,7 @@ export function QueryListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -650,11 +637,11 @@ export function QueryListInstance(
         new QueryInstance(
           operationVersion,
           payload,
-          this._solution.assistantSid
+          instance._solution.assistantSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -689,17 +676,17 @@ export function QueryListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new QueryPage(operationVersion, payload, this._solution)
+      (payload) => new QueryPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -712,30 +699,27 @@ export function QueryListInstance(
     targetUrl: string,
     callback?: (error: Error | null, items: QueryPage) => any
   ): Promise<QueryPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new QueryPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) => new QueryPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

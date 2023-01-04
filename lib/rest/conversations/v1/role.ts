@@ -24,69 +24,56 @@ type RoleRoleType = "conversation" | "service";
 
 /**
  * Options to pass to update a RoleInstance
- *
- * @property { Array<string> } permission A permission that you grant to the role. Only one permission can be granted per parameter. To assign more than one permission, repeat this parameter for each permission value. Note that the update action replaces all previously assigned permissions with those defined in the update action. To remove a permission, do not include it in the subsequent update action. The values for this parameter depend on the role\\\'s `type`.
  */
 export interface RoleContextUpdateOptions {
+  /** A permission that you grant to the role. Only one permission can be granted per parameter. To assign more than one permission, repeat this parameter for each permission value. Note that the update action replaces all previously assigned permissions with those defined in the update action. To remove a permission, do not include it in the subsequent update action. The values for this parameter depend on the role\\\'s `type`. */
   permission: Array<string>;
 }
 
 /**
  * Options to pass to create a RoleInstance
- *
- * @property { string } friendlyName A descriptive string that you create to describe the new resource. It can be up to 64 characters long.
- * @property { RoleRoleType } type
- * @property { Array<string> } permission A permission that you grant to the new role. Only one permission can be granted per parameter. To assign more than one permission, repeat this parameter for each permission value. The values for this parameter depend on the role\\\'s `type`.
  */
 export interface RoleListInstanceCreateOptions {
+  /** A descriptive string that you create to describe the new resource. It can be up to 64 characters long. */
   friendlyName: string;
+  /**  */
   type: RoleRoleType;
+  /** A permission that you grant to the new role. Only one permission can be granted per parameter. To assign more than one permission, repeat this parameter for each permission value. The values for this parameter depend on the role\\\'s `type`. */
   permission: Array<string>;
 }
 /**
  * Options to pass to each
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface RoleListInstanceEachOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: RoleInstance, done: (err?: Error) => void) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface RoleListInstanceOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface RoleListInstancePageOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
@@ -94,9 +81,9 @@ export interface RoleContext {
   /**
    * Remove a RoleInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -105,9 +92,9 @@ export interface RoleContext {
   /**
    * Fetch a RoleInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed RoleInstance
+   * @returns Resolves to processed RoleInstance
    */
   fetch(
     callback?: (error: Error | null, item?: RoleInstance) => any
@@ -116,10 +103,10 @@ export interface RoleContext {
   /**
    * Update a RoleInstance
    *
-   * @param { RoleContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed RoleInstance
+   * @returns Resolves to processed RoleInstance
    */
   update(
     params: RoleContextUpdateOptions,
@@ -134,7 +121,7 @@ export interface RoleContext {
 }
 
 export interface RoleContextSolution {
-  sid?: string;
+  sid: string;
 }
 
 export class RoleContextImpl implements RoleContext {
@@ -153,13 +140,14 @@ export class RoleContextImpl implements RoleContext {
   remove(
     callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -169,18 +157,19 @@ export class RoleContextImpl implements RoleContext {
   fetch(
     callback?: (error: Error | null, item?: RoleInstance) => any
   ): Promise<RoleInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new RoleInstance(operationVersion, payload, this._solution.sid)
+        new RoleInstance(operationVersion, payload, instance._solution.sid)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -208,9 +197,10 @@ export class RoleContextImpl implements RoleContext {
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -218,10 +208,10 @@ export class RoleContextImpl implements RoleContext {
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new RoleInstance(operationVersion, payload, this._solution.sid)
+        new RoleInstance(operationVersion, payload, instance._solution.sid)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -247,15 +237,15 @@ interface RolePayload extends TwilioResponsePayload {
 }
 
 interface RoleResource {
-  sid?: string | null;
-  account_sid?: string | null;
-  chat_service_sid?: string | null;
-  friendly_name?: string | null;
-  type?: RoleRoleType;
-  permissions?: Array<string> | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  url?: string | null;
+  sid: string;
+  account_sid: string;
+  chat_service_sid: string;
+  friendly_name: string;
+  type: RoleRoleType;
+  permissions: Array<string>;
+  date_created: Date;
+  date_updated: Date;
+  url: string;
 }
 
 export class RoleInstance {
@@ -279,36 +269,36 @@ export class RoleInstance {
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The SID of the Conversation Service that the resource is associated with
    */
-  chatServiceSid?: string | null;
+  chatServiceSid: string;
   /**
    * The string that you assigned to describe the resource
    */
-  friendlyName?: string | null;
-  type?: RoleRoleType;
+  friendlyName: string;
+  type: RoleRoleType;
   /**
    * An array of the permissions the role has been granted
    */
-  permissions?: Array<string> | null;
+  permissions: Array<string>;
   /**
    * The ISO 8601 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The ISO 8601 date and time in GMT when the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * An absolute URL for this user role.
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): RoleContext {
     this._context =
@@ -319,9 +309,9 @@ export class RoleInstance {
   /**
    * Remove a RoleInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -332,9 +322,9 @@ export class RoleInstance {
   /**
    * Fetch a RoleInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed RoleInstance
+   * @returns Resolves to processed RoleInstance
    */
   fetch(
     callback?: (error: Error | null, item?: RoleInstance) => any
@@ -345,10 +335,10 @@ export class RoleInstance {
   /**
    * Update a RoleInstance
    *
-   * @param { RoleContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed RoleInstance
+   * @returns Resolves to processed RoleInstance
    */
   update(
     params: RoleContextUpdateOptions,
@@ -386,17 +376,23 @@ export class RoleInstance {
   }
 }
 
+export interface RoleSolution {}
+
 export interface RoleListInstance {
+  _version: V1;
+  _solution: RoleSolution;
+  _uri: string;
+
   (sid: string): RoleContext;
   get(sid: string): RoleContext;
 
   /**
    * Create a RoleInstance
    *
-   * @param { RoleListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed RoleInstance
+   * @returns Resolves to processed RoleInstance
    */
   create(
     params: RoleListInstanceCreateOptions,
@@ -479,17 +475,8 @@ export interface RoleListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface RoleSolution {}
-
-interface RoleListInstanceImpl extends RoleListInstance {}
-class RoleListInstanceImpl implements RoleListInstance {
-  _version?: V1;
-  _solution?: RoleSolution;
-  _uri?: string;
-}
-
 export function RoleListInstance(version: V1): RoleListInstance {
-  const instance = ((sid) => instance.get(sid)) as RoleListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as RoleListInstance;
 
   instance.get = function get(sid): RoleContext {
     return new RoleContextImpl(version, sid);
@@ -535,7 +522,7 @@ export function RoleListInstance(version: V1): RoleListInstance {
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -545,7 +532,7 @@ export function RoleListInstance(version: V1): RoleListInstance {
       (payload) => new RoleInstance(operationVersion, payload)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -576,17 +563,17 @@ export function RoleListInstance(version: V1): RoleListInstance {
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new RolePage(operationVersion, payload, this._solution)
+      (payload) => new RolePage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -599,30 +586,27 @@ export function RoleListInstance(version: V1): RoleListInstance {
     targetUrl: string,
     callback?: (error: Error | null, items: RolePage) => any
   ): Promise<RolePage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new RolePage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) => new RolePage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

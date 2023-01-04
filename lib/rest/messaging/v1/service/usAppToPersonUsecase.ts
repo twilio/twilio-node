@@ -20,20 +20,27 @@ import { isValidPathParam } from "../../../../base/utility";
 
 /**
  * Options to pass to fetch a UsAppToPersonUsecaseInstance
- *
- * @property { string } [brandRegistrationSid] The unique string to identify the A2P brand.
  */
 export interface UsAppToPersonUsecaseListInstanceFetchOptions {
+  /** The unique string to identify the A2P brand. */
   brandRegistrationSid?: string;
 }
 
+export interface UsAppToPersonUsecaseSolution {
+  messagingServiceSid: string;
+}
+
 export interface UsAppToPersonUsecaseListInstance {
+  _version: V1;
+  _solution: UsAppToPersonUsecaseSolution;
+  _uri: string;
+
   /**
    * Fetch a UsAppToPersonUsecaseInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed UsAppToPersonUsecaseInstance
+   * @returns Resolves to processed UsAppToPersonUsecaseInstance
    */
   fetch(
     callback?: (error: Error | null, item?: UsAppToPersonUsecaseInstance) => any
@@ -41,10 +48,10 @@ export interface UsAppToPersonUsecaseListInstance {
   /**
    * Fetch a UsAppToPersonUsecaseInstance
    *
-   * @param { UsAppToPersonUsecaseListInstanceFetchOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed UsAppToPersonUsecaseInstance
+   * @returns Resolves to processed UsAppToPersonUsecaseInstance
    */
   fetch(
     params: UsAppToPersonUsecaseListInstanceFetchOptions,
@@ -58,20 +65,6 @@ export interface UsAppToPersonUsecaseListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface UsAppToPersonUsecaseSolution {
-  messagingServiceSid?: string;
-}
-
-interface UsAppToPersonUsecaseListInstanceImpl
-  extends UsAppToPersonUsecaseListInstance {}
-class UsAppToPersonUsecaseListInstanceImpl
-  implements UsAppToPersonUsecaseListInstance
-{
-  _version?: V1;
-  _solution?: UsAppToPersonUsecaseSolution;
-  _uri?: string;
-}
-
 export function UsAppToPersonUsecaseListInstance(
   version: V1,
   messagingServiceSid: string
@@ -80,7 +73,7 @@ export function UsAppToPersonUsecaseListInstance(
     throw new Error("Parameter 'messagingServiceSid' is not valid.");
   }
 
-  const instance = {} as UsAppToPersonUsecaseListInstanceImpl;
+  const instance = {} as UsAppToPersonUsecaseListInstance;
 
   instance._version = version;
   instance._solution = { messagingServiceSid };
@@ -111,7 +104,7 @@ export function UsAppToPersonUsecaseListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
@@ -122,11 +115,11 @@ export function UsAppToPersonUsecaseListInstance(
         new UsAppToPersonUsecaseInstance(
           operationVersion,
           payload,
-          this._solution.messagingServiceSid
+          instance._solution.messagingServiceSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -134,14 +127,14 @@ export function UsAppToPersonUsecaseListInstance(
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;
@@ -150,7 +143,7 @@ export function UsAppToPersonUsecaseListInstance(
 interface UsAppToPersonUsecasePayload extends UsAppToPersonUsecaseResource {}
 
 interface UsAppToPersonUsecaseResource {
-  us_app_to_person_usecases?: Array<any> | null;
+  us_app_to_person_usecases: Array<any>;
 }
 
 export class UsAppToPersonUsecaseInstance {
@@ -165,7 +158,7 @@ export class UsAppToPersonUsecaseInstance {
   /**
    * Human readable A2P Use Case details
    */
-  usAppToPersonUsecases?: Array<any> | null;
+  usAppToPersonUsecases: Array<any>;
 
   /**
    * Provide a user-friendly representation

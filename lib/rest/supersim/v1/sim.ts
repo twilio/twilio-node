@@ -28,95 +28,82 @@ type SimStatusUpdate = "ready" | "active" | "inactive";
 
 /**
  * Options to pass to update a SimInstance
- *
- * @property { string } [uniqueName] An application-defined string that uniquely identifies the resource. It can be used in place of the resource\\\'s `sid` in the URL to address the resource.
- * @property { SimStatusUpdate } [status]
- * @property { string } [fleet] The SID or unique name of the Fleet to which the SIM resource should be assigned.
- * @property { string } [callbackUrl] The URL we should call using the `callback_method` after an asynchronous update has finished.
- * @property { string } [callbackMethod] The HTTP method we should use to call `callback_url`. Can be: `GET` or `POST` and the default is POST.
- * @property { string } [accountSid] The SID of the Account to which the Sim resource should belong. The Account SID can only be that of the requesting Account or that of a Subaccount of the requesting Account. Only valid when the Sim resource\\\'s status is new.
  */
 export interface SimContextUpdateOptions {
+  /** An application-defined string that uniquely identifies the resource. It can be used in place of the resource\\\'s `sid` in the URL to address the resource. */
   uniqueName?: string;
+  /**  */
   status?: SimStatusUpdate;
+  /** The SID or unique name of the Fleet to which the SIM resource should be assigned. */
   fleet?: string;
+  /** The URL we should call using the `callback_method` after an asynchronous update has finished. */
   callbackUrl?: string;
+  /** The HTTP method we should use to call `callback_url`. Can be: `GET` or `POST` and the default is POST. */
   callbackMethod?: string;
+  /** The SID of the Account to which the Sim resource should belong. The Account SID can only be that of the requesting Account or that of a Subaccount of the requesting Account. Only valid when the Sim resource\\\'s status is new. */
   accountSid?: string;
 }
 
 /**
  * Options to pass to create a SimInstance
- *
- * @property { string } iccid The [ICCID](https://en.wikipedia.org/wiki/Subscriber_identity_module#ICCID) of the Super SIM to be added to your Account.
- * @property { string } registrationCode The 10-digit code required to claim the Super SIM for your Account.
  */
 export interface SimListInstanceCreateOptions {
+  /** The [ICCID](https://en.wikipedia.org/wiki/Subscriber_identity_module#ICCID) of the Super SIM to be added to your Account. */
   iccid: string;
+  /** The 10-digit code required to claim the Super SIM for your Account. */
   registrationCode: string;
 }
 /**
  * Options to pass to each
- *
- * @property { SimStatus } [status] The status of the Sim resources to read. Can be `new`, `ready`, `active`, `inactive`, or `scheduled`.
- * @property { string } [fleet] The SID or unique name of the Fleet to which a list of Sims are assigned.
- * @property { string } [iccid] The [ICCID](https://en.wikipedia.org/wiki/Subscriber_identity_module#ICCID) associated with a Super SIM to filter the list by. Passing this parameter will always return a list containing zero or one SIMs.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface SimListInstanceEachOptions {
+  /** The status of the Sim resources to read. Can be `new`, `ready`, `active`, `inactive`, or `scheduled`. */
   status?: SimStatus;
+  /** The SID or unique name of the Fleet to which a list of Sims are assigned. */
   fleet?: string;
+  /** The [ICCID](https://en.wikipedia.org/wiki/Subscriber_identity_module#ICCID) associated with a Super SIM to filter the list by. Passing this parameter will always return a list containing zero or one SIMs. */
   iccid?: string;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: SimInstance, done: (err?: Error) => void) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { SimStatus } [status] The status of the Sim resources to read. Can be `new`, `ready`, `active`, `inactive`, or `scheduled`.
- * @property { string } [fleet] The SID or unique name of the Fleet to which a list of Sims are assigned.
- * @property { string } [iccid] The [ICCID](https://en.wikipedia.org/wiki/Subscriber_identity_module#ICCID) associated with a Super SIM to filter the list by. Passing this parameter will always return a list containing zero or one SIMs.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface SimListInstanceOptions {
+  /** The status of the Sim resources to read. Can be `new`, `ready`, `active`, `inactive`, or `scheduled`. */
   status?: SimStatus;
+  /** The SID or unique name of the Fleet to which a list of Sims are assigned. */
   fleet?: string;
+  /** The [ICCID](https://en.wikipedia.org/wiki/Subscriber_identity_module#ICCID) associated with a Super SIM to filter the list by. Passing this parameter will always return a list containing zero or one SIMs. */
   iccid?: string;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { SimStatus } [status] The status of the Sim resources to read. Can be `new`, `ready`, `active`, `inactive`, or `scheduled`.
- * @property { string } [fleet] The SID or unique name of the Fleet to which a list of Sims are assigned.
- * @property { string } [iccid] The [ICCID](https://en.wikipedia.org/wiki/Subscriber_identity_module#ICCID) associated with a Super SIM to filter the list by. Passing this parameter will always return a list containing zero or one SIMs.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface SimListInstancePageOptions {
+  /** The status of the Sim resources to read. Can be `new`, `ready`, `active`, `inactive`, or `scheduled`. */
   status?: SimStatus;
+  /** The SID or unique name of the Fleet to which a list of Sims are assigned. */
   fleet?: string;
+  /** The [ICCID](https://en.wikipedia.org/wiki/Subscriber_identity_module#ICCID) associated with a Super SIM to filter the list by. Passing this parameter will always return a list containing zero or one SIMs. */
   iccid?: string;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
@@ -127,9 +114,9 @@ export interface SimContext {
   /**
    * Fetch a SimInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SimInstance
+   * @returns Resolves to processed SimInstance
    */
   fetch(
     callback?: (error: Error | null, item?: SimInstance) => any
@@ -138,9 +125,9 @@ export interface SimContext {
   /**
    * Update a SimInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SimInstance
+   * @returns Resolves to processed SimInstance
    */
   update(
     callback?: (error: Error | null, item?: SimInstance) => any
@@ -148,10 +135,10 @@ export interface SimContext {
   /**
    * Update a SimInstance
    *
-   * @param { SimContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SimInstance
+   * @returns Resolves to processed SimInstance
    */
   update(
     params: SimContextUpdateOptions,
@@ -166,7 +153,7 @@ export interface SimContext {
 }
 
 export interface SimContextSolution {
-  sid?: string;
+  sid: string;
 }
 
 export class SimContextImpl implements SimContext {
@@ -202,18 +189,19 @@ export class SimContextImpl implements SimContext {
   fetch(
     callback?: (error: Error | null, item?: SimInstance) => any
   ): Promise<SimInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new SimInstance(operationVersion, payload, this._solution.sid)
+        new SimInstance(operationVersion, payload, instance._solution.sid)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -249,9 +237,10 @@ export class SimContextImpl implements SimContext {
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -259,10 +248,10 @@ export class SimContextImpl implements SimContext {
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new SimInstance(operationVersion, payload, this._solution.sid)
+        new SimInstance(operationVersion, payload, instance._solution.sid)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -288,16 +277,16 @@ interface SimPayload extends TwilioResponsePayload {
 }
 
 interface SimResource {
-  sid?: string | null;
-  unique_name?: string | null;
-  account_sid?: string | null;
-  iccid?: string | null;
-  status?: SimStatus;
-  fleet_sid?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  url?: string | null;
-  links?: object | null;
+  sid: string;
+  unique_name: string;
+  account_sid: string;
+  iccid: string;
+  status: SimStatus;
+  fleet_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  url: string;
+  links: object;
 }
 
 export class SimInstance {
@@ -322,37 +311,37 @@ export class SimInstance {
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * An application-defined string that uniquely identifies the resource
    */
-  uniqueName?: string | null;
+  uniqueName: string;
   /**
    * The SID of the Account that the Super SIM belongs to
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The ICCID associated with the SIM
    */
-  iccid?: string | null;
-  status?: SimStatus;
+  iccid: string;
+  status: SimStatus;
   /**
    * The unique ID of the Fleet configured for this SIM
    */
-  fleetSid?: string | null;
+  fleetSid: string;
   /**
    * The ISO 8601 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The ISO 8601 date and time in GMT when the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The absolute URL of the Sim Resource
    */
-  url?: string | null;
-  links?: object | null;
+  url: string;
+  links: object;
 
   private get _proxy(): SimContext {
     this._context =
@@ -363,9 +352,9 @@ export class SimInstance {
   /**
    * Fetch a SimInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SimInstance
+   * @returns Resolves to processed SimInstance
    */
   fetch(
     callback?: (error: Error | null, item?: SimInstance) => any
@@ -376,9 +365,9 @@ export class SimInstance {
   /**
    * Update a SimInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SimInstance
+   * @returns Resolves to processed SimInstance
    */
   update(
     callback?: (error: Error | null, item?: SimInstance) => any
@@ -386,10 +375,10 @@ export class SimInstance {
   /**
    * Update a SimInstance
    *
-   * @param { SimContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SimInstance
+   * @returns Resolves to processed SimInstance
    */
   update(
     params: SimContextUpdateOptions,
@@ -442,17 +431,23 @@ export class SimInstance {
   }
 }
 
+export interface SimSolution {}
+
 export interface SimListInstance {
+  _version: V1;
+  _solution: SimSolution;
+  _uri: string;
+
   (sid: string): SimContext;
   get(sid: string): SimContext;
 
   /**
    * Create a SimInstance
    *
-   * @param { SimListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SimInstance
+   * @returns Resolves to processed SimInstance
    */
   create(
     params: SimListInstanceCreateOptions,
@@ -535,17 +530,8 @@ export interface SimListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface SimSolution {}
-
-interface SimListInstanceImpl extends SimListInstance {}
-class SimListInstanceImpl implements SimListInstance {
-  _version?: V1;
-  _solution?: SimSolution;
-  _uri?: string;
-}
-
 export function SimListInstance(version: V1): SimListInstance {
-  const instance = ((sid) => instance.get(sid)) as SimListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as SimListInstance;
 
   instance.get = function get(sid): SimContext {
     return new SimContextImpl(version, sid);
@@ -587,7 +573,7 @@ export function SimListInstance(version: V1): SimListInstance {
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -597,7 +583,7 @@ export function SimListInstance(version: V1): SimListInstance {
       (payload) => new SimInstance(operationVersion, payload)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -631,17 +617,17 @@ export function SimListInstance(version: V1): SimListInstance {
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new SimPage(operationVersion, payload, this._solution)
+      (payload) => new SimPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -654,30 +640,27 @@ export function SimListInstance(version: V1): SimListInstance {
     targetUrl: string,
     callback?: (error: Error | null, items: SimPage) => any
   ): Promise<SimPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new SimPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) => new SimPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

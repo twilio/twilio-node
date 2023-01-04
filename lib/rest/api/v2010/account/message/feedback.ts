@@ -22,20 +22,28 @@ type MessageFeedbackOutcome = "confirmed" | "unconfirmed";
 
 /**
  * Options to pass to create a FeedbackInstance
- *
- * @property { MessageFeedbackOutcome } [outcome]
  */
 export interface FeedbackListInstanceCreateOptions {
+  /**  */
   outcome?: MessageFeedbackOutcome;
 }
 
+export interface FeedbackSolution {
+  accountSid: string;
+  messageSid: string;
+}
+
 export interface FeedbackListInstance {
+  _version: V2010;
+  _solution: FeedbackSolution;
+  _uri: string;
+
   /**
    * Create a FeedbackInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed FeedbackInstance
+   * @returns Resolves to processed FeedbackInstance
    */
   create(
     callback?: (error: Error | null, item?: FeedbackInstance) => any
@@ -43,10 +51,10 @@ export interface FeedbackListInstance {
   /**
    * Create a FeedbackInstance
    *
-   * @param { FeedbackListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed FeedbackInstance
+   * @returns Resolves to processed FeedbackInstance
    */
   create(
     params: FeedbackListInstanceCreateOptions,
@@ -58,18 +66,6 @@ export interface FeedbackListInstance {
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export interface FeedbackSolution {
-  accountSid?: string;
-  messageSid?: string;
-}
-
-interface FeedbackListInstanceImpl extends FeedbackListInstance {}
-class FeedbackListInstanceImpl implements FeedbackListInstance {
-  _version?: V2010;
-  _solution?: FeedbackSolution;
-  _uri?: string;
 }
 
 export function FeedbackListInstance(
@@ -85,7 +81,7 @@ export function FeedbackListInstance(
     throw new Error("Parameter 'messageSid' is not valid.");
   }
 
-  const instance = {} as FeedbackListInstanceImpl;
+  const instance = {} as FeedbackListInstance;
 
   instance._version = version;
   instance._solution = { accountSid, messageSid };
@@ -116,7 +112,7 @@ export function FeedbackListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -127,12 +123,12 @@ export function FeedbackListInstance(
         new FeedbackInstance(
           operationVersion,
           payload,
-          this._solution.accountSid,
-          this._solution.messageSid
+          instance._solution.accountSid,
+          instance._solution.messageSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -140,14 +136,14 @@ export function FeedbackListInstance(
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;
@@ -156,12 +152,12 @@ export function FeedbackListInstance(
 interface FeedbackPayload extends FeedbackResource {}
 
 interface FeedbackResource {
-  account_sid?: string | null;
-  message_sid?: string | null;
-  outcome?: MessageFeedbackOutcome;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  uri?: string | null;
+  account_sid: string;
+  message_sid: string;
+  outcome: MessageFeedbackOutcome;
+  date_created: Date;
+  date_updated: Date;
+  uri: string;
 }
 
 export class FeedbackInstance {
@@ -182,24 +178,24 @@ export class FeedbackInstance {
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The SID of the Message resource for which the feedback was provided
    */
-  messageSid?: string | null;
-  outcome?: MessageFeedbackOutcome;
+  messageSid: string;
+  outcome: MessageFeedbackOutcome;
   /**
    * The RFC 2822 date and time in GMT that the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The RFC 2822 date and time in GMT that the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The URI of the resource, relative to `https://api.twilio.com`
    */
-  uri?: string | null;
+  uri: string;
 
   /**
    * Provide a user-friendly representation

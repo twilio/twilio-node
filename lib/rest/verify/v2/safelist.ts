@@ -20,10 +20,9 @@ import { isValidPathParam } from "../../../base/utility";
 
 /**
  * Options to pass to create a SafelistInstance
- *
- * @property { string } phoneNumber The phone number to be added in SafeList. Phone numbers must be in [E.164 format](https://www.twilio.com/docs/glossary/what-e164).
  */
 export interface SafelistListInstanceCreateOptions {
+  /** The phone number to be added in SafeList. Phone numbers must be in [E.164 format](https://www.twilio.com/docs/glossary/what-e164). */
   phoneNumber: string;
 }
 
@@ -31,9 +30,9 @@ export interface SafelistContext {
   /**
    * Remove a SafelistInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -42,9 +41,9 @@ export interface SafelistContext {
   /**
    * Fetch a SafelistInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SafelistInstance
+   * @returns Resolves to processed SafelistInstance
    */
   fetch(
     callback?: (error: Error | null, item?: SafelistInstance) => any
@@ -58,7 +57,7 @@ export interface SafelistContext {
 }
 
 export interface SafelistContextSolution {
-  phoneNumber?: string;
+  phoneNumber: string;
 }
 
 export class SafelistContextImpl implements SafelistContext {
@@ -77,13 +76,14 @@ export class SafelistContextImpl implements SafelistContext {
   remove(
     callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -93,9 +93,10 @@ export class SafelistContextImpl implements SafelistContext {
   fetch(
     callback?: (error: Error | null, item?: SafelistInstance) => any
   ): Promise<SafelistInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -104,11 +105,11 @@ export class SafelistContextImpl implements SafelistContext {
         new SafelistInstance(
           operationVersion,
           payload,
-          this._solution.phoneNumber
+          instance._solution.phoneNumber
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -132,9 +133,9 @@ export class SafelistContextImpl implements SafelistContext {
 interface SafelistPayload extends SafelistResource {}
 
 interface SafelistResource {
-  sid?: string | null;
-  phone_number?: string | null;
-  url?: string | null;
+  sid: string;
+  phone_number: string;
+  url: string;
 }
 
 export class SafelistInstance {
@@ -156,15 +157,15 @@ export class SafelistInstance {
   /**
    * The unique string that identifies the resource.
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The phone number in SafeList.
    */
-  phoneNumber?: string | null;
+  phoneNumber: string;
   /**
    * The absolute URL of the SafeList resource.
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): SafelistContext {
     this._context =
@@ -176,9 +177,9 @@ export class SafelistInstance {
   /**
    * Remove a SafelistInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -189,9 +190,9 @@ export class SafelistInstance {
   /**
    * Fetch a SafelistInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SafelistInstance
+   * @returns Resolves to processed SafelistInstance
    */
   fetch(
     callback?: (error: Error | null, item?: SafelistInstance) => any
@@ -217,17 +218,23 @@ export class SafelistInstance {
   }
 }
 
+export interface SafelistSolution {}
+
 export interface SafelistListInstance {
+  _version: V2;
+  _solution: SafelistSolution;
+  _uri: string;
+
   (phoneNumber: string): SafelistContext;
   get(phoneNumber: string): SafelistContext;
 
   /**
    * Create a SafelistInstance
    *
-   * @param { SafelistListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SafelistInstance
+   * @returns Resolves to processed SafelistInstance
    */
   create(
     params: SafelistListInstanceCreateOptions,
@@ -241,18 +248,9 @@ export interface SafelistListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface SafelistSolution {}
-
-interface SafelistListInstanceImpl extends SafelistListInstance {}
-class SafelistListInstanceImpl implements SafelistListInstance {
-  _version?: V2;
-  _solution?: SafelistSolution;
-  _uri?: string;
-}
-
 export function SafelistListInstance(version: V2): SafelistListInstance {
   const instance = ((phoneNumber) =>
-    instance.get(phoneNumber)) as SafelistListInstanceImpl;
+    instance.get(phoneNumber)) as SafelistListInstance;
 
   instance.get = function get(phoneNumber): SafelistContext {
     return new SafelistContextImpl(version, phoneNumber);
@@ -283,7 +281,7 @@ export function SafelistListInstance(version: V2): SafelistListInstance {
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -293,7 +291,7 @@ export function SafelistListInstance(version: V2): SafelistListInstance {
       (payload) => new SafelistInstance(operationVersion, payload)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -301,14 +299,14 @@ export function SafelistListInstance(version: V2): SafelistListInstance {
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

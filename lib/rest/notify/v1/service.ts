@@ -24,123 +24,110 @@ import { NotificationListInstance } from "./service/notification";
 
 /**
  * Options to pass to update a ServiceInstance
- *
- * @property { string } [friendlyName] A descriptive string that you create to describe the resource. It can be up to 64 characters long.
- * @property { string } [apnCredentialSid] The SID of the [Credential](https://www.twilio.com/docs/notify/api/credential-resource) to use for APN Bindings.
- * @property { string } [gcmCredentialSid] The SID of the [Credential](https://www.twilio.com/docs/notify/api/credential-resource) to use for GCM Bindings.
- * @property { string } [messagingServiceSid] The SID of the [Messaging Service](https://www.twilio.com/docs/sms/send-messages#messaging-services) to use for SMS Bindings. This parameter must be set in order to send SMS notifications.
- * @property { string } [facebookMessengerPageId] Deprecated.
- * @property { string } [defaultApnNotificationProtocolVersion] The protocol version to use for sending APNS notifications. Can be overridden on a Binding by Binding basis when creating a [Binding](https://www.twilio.com/docs/notify/api/binding-resource) resource.
- * @property { string } [defaultGcmNotificationProtocolVersion] The protocol version to use for sending GCM notifications. Can be overridden on a Binding by Binding basis when creating a [Binding](https://www.twilio.com/docs/notify/api/binding-resource) resource.
- * @property { string } [fcmCredentialSid] The SID of the [Credential](https://www.twilio.com/docs/notify/api/credential-resource) to use for FCM Bindings.
- * @property { string } [defaultFcmNotificationProtocolVersion] The protocol version to use for sending FCM notifications. Can be overridden on a Binding by Binding basis when creating a [Binding](https://www.twilio.com/docs/notify/api/binding-resource) resource.
- * @property { boolean } [logEnabled] Whether to log notifications. Can be: `true` or `false` and the default is `true`.
- * @property { string } [alexaSkillId] Deprecated.
- * @property { string } [defaultAlexaNotificationProtocolVersion] Deprecated.
- * @property { string } [deliveryCallbackUrl] URL to send delivery status callback.
- * @property { boolean } [deliveryCallbackEnabled] Callback configuration that enables delivery callbacks, default false
  */
 export interface ServiceContextUpdateOptions {
+  /** A descriptive string that you create to describe the resource. It can be up to 64 characters long. */
   friendlyName?: string;
+  /** The SID of the [Credential](https://www.twilio.com/docs/notify/api/credential-resource) to use for APN Bindings. */
   apnCredentialSid?: string;
+  /** The SID of the [Credential](https://www.twilio.com/docs/notify/api/credential-resource) to use for GCM Bindings. */
   gcmCredentialSid?: string;
+  /** The SID of the [Messaging Service](https://www.twilio.com/docs/sms/send-messages#messaging-services) to use for SMS Bindings. This parameter must be set in order to send SMS notifications. */
   messagingServiceSid?: string;
+  /** Deprecated. */
   facebookMessengerPageId?: string;
+  /** The protocol version to use for sending APNS notifications. Can be overridden on a Binding by Binding basis when creating a [Binding](https://www.twilio.com/docs/notify/api/binding-resource) resource. */
   defaultApnNotificationProtocolVersion?: string;
+  /** The protocol version to use for sending GCM notifications. Can be overridden on a Binding by Binding basis when creating a [Binding](https://www.twilio.com/docs/notify/api/binding-resource) resource. */
   defaultGcmNotificationProtocolVersion?: string;
+  /** The SID of the [Credential](https://www.twilio.com/docs/notify/api/credential-resource) to use for FCM Bindings. */
   fcmCredentialSid?: string;
+  /** The protocol version to use for sending FCM notifications. Can be overridden on a Binding by Binding basis when creating a [Binding](https://www.twilio.com/docs/notify/api/binding-resource) resource. */
   defaultFcmNotificationProtocolVersion?: string;
+  /** Whether to log notifications. Can be: `true` or `false` and the default is `true`. */
   logEnabled?: boolean;
+  /** Deprecated. */
   alexaSkillId?: string;
+  /** Deprecated. */
   defaultAlexaNotificationProtocolVersion?: string;
+  /** URL to send delivery status callback. */
   deliveryCallbackUrl?: string;
+  /** Callback configuration that enables delivery callbacks, default false */
   deliveryCallbackEnabled?: boolean;
 }
 
 /**
  * Options to pass to create a ServiceInstance
- *
- * @property { string } [friendlyName] A descriptive string that you create to describe the resource. It can be up to 64 characters long.
- * @property { string } [apnCredentialSid] The SID of the [Credential](https://www.twilio.com/docs/notify/api/credential-resource) to use for APN Bindings.
- * @property { string } [gcmCredentialSid] The SID of the [Credential](https://www.twilio.com/docs/notify/api/credential-resource) to use for GCM Bindings.
- * @property { string } [messagingServiceSid] The SID of the [Messaging Service](https://www.twilio.com/docs/sms/send-messages#messaging-services) to use for SMS Bindings. This parameter must be set in order to send SMS notifications.
- * @property { string } [facebookMessengerPageId] Deprecated.
- * @property { string } [defaultApnNotificationProtocolVersion] The protocol version to use for sending APNS notifications. Can be overridden on a Binding by Binding basis when creating a [Binding](https://www.twilio.com/docs/notify/api/binding-resource) resource.
- * @property { string } [defaultGcmNotificationProtocolVersion] The protocol version to use for sending GCM notifications. Can be overridden on a Binding by Binding basis when creating a [Binding](https://www.twilio.com/docs/notify/api/binding-resource) resource.
- * @property { string } [fcmCredentialSid] The SID of the [Credential](https://www.twilio.com/docs/notify/api/credential-resource) to use for FCM Bindings.
- * @property { string } [defaultFcmNotificationProtocolVersion] The protocol version to use for sending FCM notifications. Can be overridden on a Binding by Binding basis when creating a [Binding](https://www.twilio.com/docs/notify/api/binding-resource) resource.
- * @property { boolean } [logEnabled] Whether to log notifications. Can be: `true` or `false` and the default is `true`.
- * @property { string } [alexaSkillId] Deprecated.
- * @property { string } [defaultAlexaNotificationProtocolVersion] Deprecated.
- * @property { string } [deliveryCallbackUrl] URL to send delivery status callback.
- * @property { boolean } [deliveryCallbackEnabled] Callback configuration that enables delivery callbacks, default false
  */
 export interface ServiceListInstanceCreateOptions {
+  /** A descriptive string that you create to describe the resource. It can be up to 64 characters long. */
   friendlyName?: string;
+  /** The SID of the [Credential](https://www.twilio.com/docs/notify/api/credential-resource) to use for APN Bindings. */
   apnCredentialSid?: string;
+  /** The SID of the [Credential](https://www.twilio.com/docs/notify/api/credential-resource) to use for GCM Bindings. */
   gcmCredentialSid?: string;
+  /** The SID of the [Messaging Service](https://www.twilio.com/docs/sms/send-messages#messaging-services) to use for SMS Bindings. This parameter must be set in order to send SMS notifications. */
   messagingServiceSid?: string;
+  /** Deprecated. */
   facebookMessengerPageId?: string;
+  /** The protocol version to use for sending APNS notifications. Can be overridden on a Binding by Binding basis when creating a [Binding](https://www.twilio.com/docs/notify/api/binding-resource) resource. */
   defaultApnNotificationProtocolVersion?: string;
+  /** The protocol version to use for sending GCM notifications. Can be overridden on a Binding by Binding basis when creating a [Binding](https://www.twilio.com/docs/notify/api/binding-resource) resource. */
   defaultGcmNotificationProtocolVersion?: string;
+  /** The SID of the [Credential](https://www.twilio.com/docs/notify/api/credential-resource) to use for FCM Bindings. */
   fcmCredentialSid?: string;
+  /** The protocol version to use for sending FCM notifications. Can be overridden on a Binding by Binding basis when creating a [Binding](https://www.twilio.com/docs/notify/api/binding-resource) resource. */
   defaultFcmNotificationProtocolVersion?: string;
+  /** Whether to log notifications. Can be: `true` or `false` and the default is `true`. */
   logEnabled?: boolean;
+  /** Deprecated. */
   alexaSkillId?: string;
+  /** Deprecated. */
   defaultAlexaNotificationProtocolVersion?: string;
+  /** URL to send delivery status callback. */
   deliveryCallbackUrl?: string;
+  /** Callback configuration that enables delivery callbacks, default false */
   deliveryCallbackEnabled?: boolean;
 }
 /**
  * Options to pass to each
- *
- * @property { string } [friendlyName] The string that identifies the Service resources to read.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface ServiceListInstanceEachOptions {
+  /** The string that identifies the Service resources to read. */
   friendlyName?: string;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: ServiceInstance, done: (err?: Error) => void) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { string } [friendlyName] The string that identifies the Service resources to read.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface ServiceListInstanceOptions {
+  /** The string that identifies the Service resources to read. */
   friendlyName?: string;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { string } [friendlyName] The string that identifies the Service resources to read.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface ServiceListInstancePageOptions {
+  /** The string that identifies the Service resources to read. */
   friendlyName?: string;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
@@ -151,9 +138,9 @@ export interface ServiceContext {
   /**
    * Remove a ServiceInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -162,9 +149,9 @@ export interface ServiceContext {
   /**
    * Fetch a ServiceInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ServiceInstance
+   * @returns Resolves to processed ServiceInstance
    */
   fetch(
     callback?: (error: Error | null, item?: ServiceInstance) => any
@@ -173,9 +160,9 @@ export interface ServiceContext {
   /**
    * Update a ServiceInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ServiceInstance
+   * @returns Resolves to processed ServiceInstance
    */
   update(
     callback?: (error: Error | null, item?: ServiceInstance) => any
@@ -183,10 +170,10 @@ export interface ServiceContext {
   /**
    * Update a ServiceInstance
    *
-   * @param { ServiceContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ServiceInstance
+   * @returns Resolves to processed ServiceInstance
    */
   update(
     params: ServiceContextUpdateOptions,
@@ -201,7 +188,7 @@ export interface ServiceContext {
 }
 
 export interface ServiceContextSolution {
-  sid?: string;
+  sid: string;
 }
 
 export class ServiceContextImpl implements ServiceContext {
@@ -236,13 +223,14 @@ export class ServiceContextImpl implements ServiceContext {
   remove(
     callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -252,18 +240,19 @@ export class ServiceContextImpl implements ServiceContext {
   fetch(
     callback?: (error: Error | null, item?: ServiceInstance) => any
   ): Promise<ServiceInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new ServiceInstance(operationVersion, payload, this._solution.sid)
+        new ServiceInstance(operationVersion, payload, instance._solution.sid)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -323,9 +312,10 @@ export class ServiceContextImpl implements ServiceContext {
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -333,10 +323,10 @@ export class ServiceContextImpl implements ServiceContext {
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new ServiceInstance(operationVersion, payload, this._solution.sid)
+        new ServiceInstance(operationVersion, payload, instance._solution.sid)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -362,26 +352,26 @@ interface ServicePayload extends TwilioResponsePayload {
 }
 
 interface ServiceResource {
-  sid?: string | null;
-  account_sid?: string | null;
-  friendly_name?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  apn_credential_sid?: string | null;
-  gcm_credential_sid?: string | null;
-  fcm_credential_sid?: string | null;
-  messaging_service_sid?: string | null;
-  facebook_messenger_page_id?: string | null;
-  default_apn_notification_protocol_version?: string | null;
-  default_gcm_notification_protocol_version?: string | null;
-  default_fcm_notification_protocol_version?: string | null;
-  log_enabled?: boolean | null;
-  url?: string | null;
-  links?: object | null;
-  alexa_skill_id?: string | null;
-  default_alexa_notification_protocol_version?: string | null;
-  delivery_callback_url?: string | null;
-  delivery_callback_enabled?: boolean | null;
+  sid: string;
+  account_sid: string;
+  friendly_name: string;
+  date_created: Date;
+  date_updated: Date;
+  apn_credential_sid: string;
+  gcm_credential_sid: string;
+  fcm_credential_sid: string;
+  messaging_service_sid: string;
+  facebook_messenger_page_id: string;
+  default_apn_notification_protocol_version: string;
+  default_gcm_notification_protocol_version: string;
+  default_fcm_notification_protocol_version: string;
+  log_enabled: boolean;
+  url: string;
+  links: object;
+  alexa_skill_id: string;
+  default_alexa_notification_protocol_version: string;
+  delivery_callback_url: string;
+  delivery_callback_enabled: boolean;
 }
 
 export class ServiceInstance {
@@ -420,83 +410,83 @@ export class ServiceInstance {
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The string that you assigned to describe the resource
    */
-  friendlyName?: string | null;
+  friendlyName: string;
   /**
    * The RFC 2822 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The RFC 2822 date and time in GMT when the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The SID of the Credential to use for APN Bindings
    */
-  apnCredentialSid?: string | null;
+  apnCredentialSid: string;
   /**
    * The SID of the Credential to use for GCM Bindings
    */
-  gcmCredentialSid?: string | null;
+  gcmCredentialSid: string;
   /**
    * The SID of the Credential to use for FCM Bindings
    */
-  fcmCredentialSid?: string | null;
+  fcmCredentialSid: string;
   /**
    * The SID of the Messaging Service to use for SMS Bindings
    */
-  messagingServiceSid?: string | null;
+  messagingServiceSid: string;
   /**
    * Deprecated
    */
-  facebookMessengerPageId?: string | null;
+  facebookMessengerPageId: string;
   /**
    * The protocol version to use for sending APNS notifications
    */
-  defaultApnNotificationProtocolVersion?: string | null;
+  defaultApnNotificationProtocolVersion: string;
   /**
    * The protocol version to use for sending GCM notifications
    */
-  defaultGcmNotificationProtocolVersion?: string | null;
+  defaultGcmNotificationProtocolVersion: string;
   /**
    * The protocol version to use for sending FCM notifications
    */
-  defaultFcmNotificationProtocolVersion?: string | null;
+  defaultFcmNotificationProtocolVersion: string;
   /**
    * Whether to log notifications
    */
-  logEnabled?: boolean | null;
+  logEnabled: boolean;
   /**
    * The absolute URL of the Service resource
    */
-  url?: string | null;
+  url: string;
   /**
    * The URLs of the resources related to the service
    */
-  links?: object | null;
+  links: object;
   /**
    * Deprecated
    */
-  alexaSkillId?: string | null;
+  alexaSkillId: string;
   /**
    * Deprecated
    */
-  defaultAlexaNotificationProtocolVersion?: string | null;
+  defaultAlexaNotificationProtocolVersion: string;
   /**
    * Webhook URL
    */
-  deliveryCallbackUrl?: string | null;
+  deliveryCallbackUrl: string;
   /**
    * Enable delivery callbacks
    */
-  deliveryCallbackEnabled?: boolean | null;
+  deliveryCallbackEnabled: boolean;
 
   private get _proxy(): ServiceContext {
     this._context =
@@ -508,9 +498,9 @@ export class ServiceInstance {
   /**
    * Remove a ServiceInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -521,9 +511,9 @@ export class ServiceInstance {
   /**
    * Fetch a ServiceInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ServiceInstance
+   * @returns Resolves to processed ServiceInstance
    */
   fetch(
     callback?: (error: Error | null, item?: ServiceInstance) => any
@@ -534,9 +524,9 @@ export class ServiceInstance {
   /**
    * Update a ServiceInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ServiceInstance
+   * @returns Resolves to processed ServiceInstance
    */
   update(
     callback?: (error: Error | null, item?: ServiceInstance) => any
@@ -544,10 +534,10 @@ export class ServiceInstance {
   /**
    * Update a ServiceInstance
    *
-   * @param { ServiceContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ServiceInstance
+   * @returns Resolves to processed ServiceInstance
    */
   update(
     params: ServiceContextUpdateOptions,
@@ -614,16 +604,22 @@ export class ServiceInstance {
   }
 }
 
+export interface ServiceSolution {}
+
 export interface ServiceListInstance {
+  _version: V1;
+  _solution: ServiceSolution;
+  _uri: string;
+
   (sid: string): ServiceContext;
   get(sid: string): ServiceContext;
 
   /**
    * Create a ServiceInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ServiceInstance
+   * @returns Resolves to processed ServiceInstance
    */
   create(
     callback?: (error: Error | null, item?: ServiceInstance) => any
@@ -631,10 +627,10 @@ export interface ServiceListInstance {
   /**
    * Create a ServiceInstance
    *
-   * @param { ServiceListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ServiceInstance
+   * @returns Resolves to processed ServiceInstance
    */
   create(
     params: ServiceListInstanceCreateOptions,
@@ -717,17 +713,8 @@ export interface ServiceListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface ServiceSolution {}
-
-interface ServiceListInstanceImpl extends ServiceListInstance {}
-class ServiceListInstanceImpl implements ServiceListInstance {
-  _version?: V1;
-  _solution?: ServiceSolution;
-  _uri?: string;
-}
-
 export function ServiceListInstance(version: V1): ServiceListInstance {
-  const instance = ((sid) => instance.get(sid)) as ServiceListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as ServiceListInstance;
 
   instance.get = function get(sid): ServiceContext {
     return new ServiceContextImpl(version, sid);
@@ -792,7 +779,7 @@ export function ServiceListInstance(version: V1): ServiceListInstance {
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -802,7 +789,7 @@ export function ServiceListInstance(version: V1): ServiceListInstance {
       (payload) => new ServiceInstance(operationVersion, payload)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -835,17 +822,18 @@ export function ServiceListInstance(version: V1): ServiceListInstance {
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new ServicePage(operationVersion, payload, this._solution)
+      (payload) =>
+        new ServicePage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -858,30 +846,28 @@ export function ServiceListInstance(version: V1): ServiceListInstance {
     targetUrl: string,
     callback?: (error: Error | null, items: ServicePage) => any
   ): Promise<ServicePage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new ServicePage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new ServicePage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

@@ -24,64 +24,52 @@ type BrandVettingVettingProvider = "campaign-verify";
 
 /**
  * Options to pass to create a BrandVettingInstance
- *
- * @property { BrandVettingVettingProvider } vettingProvider
- * @property { string } [vettingId] The unique ID of the vetting
  */
 export interface BrandVettingListInstanceCreateOptions {
+  /**  */
   vettingProvider: BrandVettingVettingProvider;
+  /** The unique ID of the vetting */
   vettingId?: string;
 }
 /**
  * Options to pass to each
- *
- * @property { BrandVettingVettingProvider } [vettingProvider] The third-party provider of the vettings to read
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface BrandVettingListInstanceEachOptions {
+  /** The third-party provider of the vettings to read */
   vettingProvider?: BrandVettingVettingProvider;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: BrandVettingInstance, done: (err?: Error) => void) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { BrandVettingVettingProvider } [vettingProvider] The third-party provider of the vettings to read
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface BrandVettingListInstanceOptions {
+  /** The third-party provider of the vettings to read */
   vettingProvider?: BrandVettingVettingProvider;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { BrandVettingVettingProvider } [vettingProvider] The third-party provider of the vettings to read
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface BrandVettingListInstancePageOptions {
+  /** The third-party provider of the vettings to read */
   vettingProvider?: BrandVettingVettingProvider;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
@@ -89,9 +77,9 @@ export interface BrandVettingContext {
   /**
    * Fetch a BrandVettingInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed BrandVettingInstance
+   * @returns Resolves to processed BrandVettingInstance
    */
   fetch(
     callback?: (error: Error | null, item?: BrandVettingInstance) => any
@@ -105,8 +93,8 @@ export interface BrandVettingContext {
 }
 
 export interface BrandVettingContextSolution {
-  brandSid?: string;
-  brandVettingSid?: string;
+  brandSid: string;
+  brandVettingSid: string;
 }
 
 export class BrandVettingContextImpl implements BrandVettingContext {
@@ -133,9 +121,10 @@ export class BrandVettingContextImpl implements BrandVettingContext {
   fetch(
     callback?: (error: Error | null, item?: BrandVettingInstance) => any
   ): Promise<BrandVettingInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -144,12 +133,12 @@ export class BrandVettingContextImpl implements BrandVettingContext {
         new BrandVettingInstance(
           operationVersion,
           payload,
-          this._solution.brandSid,
-          this._solution.brandVettingSid
+          instance._solution.brandSid,
+          instance._solution.brandVettingSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -175,16 +164,16 @@ interface BrandVettingPayload extends TwilioResponsePayload {
 }
 
 interface BrandVettingResource {
-  account_sid?: string | null;
-  brand_sid?: string | null;
-  brand_vetting_sid?: string | null;
-  date_updated?: Date | null;
-  date_created?: Date | null;
-  vetting_id?: string | null;
-  vetting_class?: string | null;
-  vetting_status?: string | null;
-  vetting_provider?: BrandVettingVettingProvider;
-  url?: string | null;
+  account_sid: string;
+  brand_sid: string;
+  brand_vetting_sid: string;
+  date_updated: Date;
+  date_created: Date;
+  vetting_id: string;
+  vetting_class: string;
+  vetting_status: string;
+  vetting_provider: BrandVettingVettingProvider;
+  url: string;
 }
 
 export class BrandVettingInstance {
@@ -217,40 +206,40 @@ export class BrandVettingInstance {
   /**
    * The SID of the Account that created the vetting
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * A2P BrandRegistration Sid
    */
-  brandSid?: string | null;
+  brandSid: string;
   /**
    * SID for third-party vetting record
    */
-  brandVettingSid?: string | null;
+  brandVettingSid: string;
   /**
    * The ISO 8601 date and time in GMT when the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The ISO 8601 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The unique ID of the vetting
    */
-  vettingId?: string | null;
+  vettingId: string;
   /**
    * The type of vetting
    */
-  vettingClass?: string | null;
+  vettingClass: string;
   /**
    * Status of vetting attempt
    */
-  vettingStatus?: string | null;
-  vettingProvider?: BrandVettingVettingProvider;
+  vettingStatus: string;
+  vettingProvider: BrandVettingVettingProvider;
   /**
    * The absolute URL of the Brand Vetting
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): BrandVettingContext {
     this._context =
@@ -266,9 +255,9 @@ export class BrandVettingInstance {
   /**
    * Fetch a BrandVettingInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed BrandVettingInstance
+   * @returns Resolves to processed BrandVettingInstance
    */
   fetch(
     callback?: (error: Error | null, item?: BrandVettingInstance) => any
@@ -301,17 +290,25 @@ export class BrandVettingInstance {
   }
 }
 
+export interface BrandVettingSolution {
+  brandSid: string;
+}
+
 export interface BrandVettingListInstance {
+  _version: V1;
+  _solution: BrandVettingSolution;
+  _uri: string;
+
   (brandVettingSid: string): BrandVettingContext;
   get(brandVettingSid: string): BrandVettingContext;
 
   /**
    * Create a BrandVettingInstance
    *
-   * @param { BrandVettingListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed BrandVettingInstance
+   * @returns Resolves to processed BrandVettingInstance
    */
   create(
     params: BrandVettingListInstanceCreateOptions,
@@ -394,17 +391,6 @@ export interface BrandVettingListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface BrandVettingSolution {
-  brandSid?: string;
-}
-
-interface BrandVettingListInstanceImpl extends BrandVettingListInstance {}
-class BrandVettingListInstanceImpl implements BrandVettingListInstance {
-  _version?: V1;
-  _solution?: BrandVettingSolution;
-  _uri?: string;
-}
-
 export function BrandVettingListInstance(
   version: V1,
   brandSid: string
@@ -414,7 +400,7 @@ export function BrandVettingListInstance(
   }
 
   const instance = ((brandVettingSid) =>
-    instance.get(brandVettingSid)) as BrandVettingListInstanceImpl;
+    instance.get(brandVettingSid)) as BrandVettingListInstance;
 
   instance.get = function get(brandVettingSid): BrandVettingContext {
     return new BrandVettingContextImpl(version, brandSid, brandVettingSid);
@@ -452,7 +438,7 @@ export function BrandVettingListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -463,11 +449,11 @@ export function BrandVettingListInstance(
         new BrandVettingInstance(
           operationVersion,
           payload,
-          this._solution.brandSid
+          instance._solution.brandSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -503,7 +489,7 @@ export function BrandVettingListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
@@ -511,10 +497,10 @@ export function BrandVettingListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new BrandVettingPage(operationVersion, payload, this._solution)
+        new BrandVettingPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -527,30 +513,28 @@ export function BrandVettingListInstance(
     targetUrl: string,
     callback?: (error: Error | null, items: BrandVettingPage) => any
   ): Promise<BrandVettingPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new BrandVettingPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new BrandVettingPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

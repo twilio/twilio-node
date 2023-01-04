@@ -24,71 +24,58 @@ import { SyncMapPermissionListInstance } from "./syncMap/syncMapPermission";
 
 /**
  * Options to pass to update a SyncMapInstance
- *
- * @property { number } [ttl] An alias for `collection_ttl`. If both parameters are provided, this value is ignored.
- * @property { number } [collectionTtl] How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Sync Map expires (time-to-live) and is deleted.
  */
 export interface SyncMapContextUpdateOptions {
+  /** An alias for `collection_ttl`. If both parameters are provided, this value is ignored. */
   ttl?: number;
+  /** How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Sync Map expires (time-to-live) and is deleted. */
   collectionTtl?: number;
 }
 
 /**
  * Options to pass to create a SyncMapInstance
- *
- * @property { string } [uniqueName] An application-defined string that uniquely identifies the resource. It can be used as an alternative to the `sid` in the URL path to address the resource.
- * @property { number } [ttl] An alias for `collection_ttl`. If both parameters are provided, this value is ignored.
- * @property { number } [collectionTtl] How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Sync Map expires (time-to-live) and is deleted.
  */
 export interface SyncMapListInstanceCreateOptions {
+  /** An application-defined string that uniquely identifies the resource. It can be used as an alternative to the `sid` in the URL path to address the resource. */
   uniqueName?: string;
+  /** An alias for `collection_ttl`. If both parameters are provided, this value is ignored. */
   ttl?: number;
+  /** How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Sync Map expires (time-to-live) and is deleted. */
   collectionTtl?: number;
 }
 /**
  * Options to pass to each
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface SyncMapListInstanceEachOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: SyncMapInstance, done: (err?: Error) => void) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface SyncMapListInstanceOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface SyncMapListInstancePageOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
@@ -99,9 +86,9 @@ export interface SyncMapContext {
   /**
    * Remove a SyncMapInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -110,9 +97,9 @@ export interface SyncMapContext {
   /**
    * Fetch a SyncMapInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SyncMapInstance
+   * @returns Resolves to processed SyncMapInstance
    */
   fetch(
     callback?: (error: Error | null, item?: SyncMapInstance) => any
@@ -121,9 +108,9 @@ export interface SyncMapContext {
   /**
    * Update a SyncMapInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SyncMapInstance
+   * @returns Resolves to processed SyncMapInstance
    */
   update(
     callback?: (error: Error | null, item?: SyncMapInstance) => any
@@ -131,10 +118,10 @@ export interface SyncMapContext {
   /**
    * Update a SyncMapInstance
    *
-   * @param { SyncMapContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SyncMapInstance
+   * @returns Resolves to processed SyncMapInstance
    */
   update(
     params: SyncMapContextUpdateOptions,
@@ -149,8 +136,8 @@ export interface SyncMapContext {
 }
 
 export interface SyncMapContextSolution {
-  serviceSid?: string;
-  sid?: string;
+  serviceSid: string;
+  sid: string;
 }
 
 export class SyncMapContextImpl implements SyncMapContext {
@@ -198,13 +185,14 @@ export class SyncMapContextImpl implements SyncMapContext {
   remove(
     callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -214,9 +202,10 @@ export class SyncMapContextImpl implements SyncMapContext {
   fetch(
     callback?: (error: Error | null, item?: SyncMapInstance) => any
   ): Promise<SyncMapInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -225,12 +214,12 @@ export class SyncMapContextImpl implements SyncMapContext {
         new SyncMapInstance(
           operationVersion,
           payload,
-          this._solution.serviceSid,
-          this._solution.sid
+          instance._solution.serviceSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -259,9 +248,10 @@ export class SyncMapContextImpl implements SyncMapContext {
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -272,12 +262,12 @@ export class SyncMapContextImpl implements SyncMapContext {
         new SyncMapInstance(
           operationVersion,
           payload,
-          this._solution.serviceSid,
-          this._solution.sid
+          instance._solution.serviceSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -303,17 +293,17 @@ interface SyncMapPayload extends TwilioResponsePayload {
 }
 
 interface SyncMapResource {
-  sid?: string | null;
-  unique_name?: string | null;
-  account_sid?: string | null;
-  service_sid?: string | null;
-  url?: string | null;
-  links?: object | null;
-  revision?: string | null;
-  date_expires?: Date | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  created_by?: string | null;
+  sid: string;
+  unique_name: string;
+  account_sid: string;
+  service_sid: string;
+  url: string;
+  links: object;
+  revision: string;
+  date_expires: Date;
+  date_created: Date;
+  date_updated: Date;
+  created_by: string;
 }
 
 export class SyncMapInstance {
@@ -344,47 +334,47 @@ export class SyncMapInstance {
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * An application-defined string that uniquely identifies the resource
    */
-  uniqueName?: string | null;
+  uniqueName: string;
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The SID of the Sync Service that the resource is associated with
    */
-  serviceSid?: string | null;
+  serviceSid: string;
   /**
    * The absolute URL of the Sync Map resource
    */
-  url?: string | null;
+  url: string;
   /**
    * The URLs of the Sync Map\'s nested resources
    */
-  links?: object | null;
+  links: object;
   /**
    * The current revision of the Sync Map, represented as a string
    */
-  revision?: string | null;
+  revision: string;
   /**
    * The ISO 8601 date and time in GMT when the Sync Map expires
    */
-  dateExpires?: Date | null;
+  dateExpires: Date;
   /**
    * The ISO 8601 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The ISO 8601 date and time in GMT when the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The identity of the Sync Map\'s creator
    */
-  createdBy?: string | null;
+  createdBy: string;
 
   private get _proxy(): SyncMapContext {
     this._context =
@@ -400,9 +390,9 @@ export class SyncMapInstance {
   /**
    * Remove a SyncMapInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -413,9 +403,9 @@ export class SyncMapInstance {
   /**
    * Fetch a SyncMapInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SyncMapInstance
+   * @returns Resolves to processed SyncMapInstance
    */
   fetch(
     callback?: (error: Error | null, item?: SyncMapInstance) => any
@@ -426,9 +416,9 @@ export class SyncMapInstance {
   /**
    * Update a SyncMapInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SyncMapInstance
+   * @returns Resolves to processed SyncMapInstance
    */
   update(
     callback?: (error: Error | null, item?: SyncMapInstance) => any
@@ -436,10 +426,10 @@ export class SyncMapInstance {
   /**
    * Update a SyncMapInstance
    *
-   * @param { SyncMapContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SyncMapInstance
+   * @returns Resolves to processed SyncMapInstance
    */
   update(
     params: SyncMapContextUpdateOptions,
@@ -493,16 +483,24 @@ export class SyncMapInstance {
   }
 }
 
+export interface SyncMapSolution {
+  serviceSid: string;
+}
+
 export interface SyncMapListInstance {
+  _version: V1;
+  _solution: SyncMapSolution;
+  _uri: string;
+
   (sid: string): SyncMapContext;
   get(sid: string): SyncMapContext;
 
   /**
    * Create a SyncMapInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SyncMapInstance
+   * @returns Resolves to processed SyncMapInstance
    */
   create(
     callback?: (error: Error | null, item?: SyncMapInstance) => any
@@ -510,10 +508,10 @@ export interface SyncMapListInstance {
   /**
    * Create a SyncMapInstance
    *
-   * @param { SyncMapListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SyncMapInstance
+   * @returns Resolves to processed SyncMapInstance
    */
   create(
     params: SyncMapListInstanceCreateOptions,
@@ -596,17 +594,6 @@ export interface SyncMapListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface SyncMapSolution {
-  serviceSid?: string;
-}
-
-interface SyncMapListInstanceImpl extends SyncMapListInstance {}
-class SyncMapListInstanceImpl implements SyncMapListInstance {
-  _version?: V1;
-  _solution?: SyncMapSolution;
-  _uri?: string;
-}
-
 export function SyncMapListInstance(
   version: V1,
   serviceSid: string
@@ -615,7 +602,7 @@ export function SyncMapListInstance(
     throw new Error("Parameter 'serviceSid' is not valid.");
   }
 
-  const instance = ((sid) => instance.get(sid)) as SyncMapListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as SyncMapListInstance;
 
   instance.get = function get(sid): SyncMapContext {
     return new SyncMapContextImpl(version, serviceSid, sid);
@@ -651,7 +638,7 @@ export function SyncMapListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -662,11 +649,11 @@ export function SyncMapListInstance(
         new SyncMapInstance(
           operationVersion,
           payload,
-          this._solution.serviceSid
+          instance._solution.serviceSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -697,17 +684,18 @@ export function SyncMapListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new SyncMapPage(operationVersion, payload, this._solution)
+      (payload) =>
+        new SyncMapPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -720,30 +708,28 @@ export function SyncMapListInstance(
     targetUrl: string,
     callback?: (error: Error | null, items: SyncMapPage) => any
   ): Promise<SyncMapPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new SyncMapPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new SyncMapPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

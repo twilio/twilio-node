@@ -22,16 +22,15 @@ type ServiceWebhookConfigurationMethod = "GET" | "POST";
 
 /**
  * Options to pass to update a WebhookInstance
- *
- * @property { string } [preWebhookUrl] The absolute url the pre-event webhook request should be sent to.
- * @property { string } [postWebhookUrl] The absolute url the post-event webhook request should be sent to.
- * @property { Array<string> } [filters] The list of events that your configured webhook targets will receive. Events not configured here will not fire. Possible values are `onParticipantAdd`, `onParticipantAdded`, `onDeliveryUpdated`, `onConversationUpdated`, `onConversationRemove`, `onParticipantRemove`, `onConversationUpdate`, `onMessageAdd`, `onMessageRemoved`, `onParticipantUpdated`, `onConversationAdded`, `onMessageAdded`, `onConversationAdd`, `onConversationRemoved`, `onParticipantUpdate`, `onMessageRemove`, `onMessageUpdated`, `onParticipantRemoved`, `onMessageUpdate` or `onConversationStateUpdated`.
- * @property { string } [method] The HTTP method to be used when sending a webhook request. One of `GET` or `POST`.
  */
 export interface WebhookContextUpdateOptions {
+  /** The absolute url the pre-event webhook request should be sent to. */
   preWebhookUrl?: string;
+  /** The absolute url the post-event webhook request should be sent to. */
   postWebhookUrl?: string;
+  /** The list of events that your configured webhook targets will receive. Events not configured here will not fire. Possible values are `onParticipantAdd`, `onParticipantAdded`, `onDeliveryUpdated`, `onConversationUpdated`, `onConversationRemove`, `onParticipantRemove`, `onConversationUpdate`, `onMessageAdd`, `onMessageRemoved`, `onParticipantUpdated`, `onConversationAdded`, `onMessageAdded`, `onConversationAdd`, `onConversationRemoved`, `onParticipantUpdate`, `onMessageRemove`, `onMessageUpdated`, `onParticipantRemoved`, `onMessageUpdate` or `onConversationStateUpdated`. */
   filters?: Array<string>;
+  /** The HTTP method to be used when sending a webhook request. One of `GET` or `POST`. */
   method?: string;
 }
 
@@ -39,9 +38,9 @@ export interface WebhookContext {
   /**
    * Fetch a WebhookInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed WebhookInstance
+   * @returns Resolves to processed WebhookInstance
    */
   fetch(
     callback?: (error: Error | null, item?: WebhookInstance) => any
@@ -50,9 +49,9 @@ export interface WebhookContext {
   /**
    * Update a WebhookInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed WebhookInstance
+   * @returns Resolves to processed WebhookInstance
    */
   update(
     callback?: (error: Error | null, item?: WebhookInstance) => any
@@ -60,10 +59,10 @@ export interface WebhookContext {
   /**
    * Update a WebhookInstance
    *
-   * @param { WebhookContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed WebhookInstance
+   * @returns Resolves to processed WebhookInstance
    */
   update(
     params: WebhookContextUpdateOptions,
@@ -78,7 +77,7 @@ export interface WebhookContext {
 }
 
 export interface WebhookContextSolution {
-  chatServiceSid?: string;
+  chatServiceSid: string;
 }
 
 export class WebhookContextImpl implements WebhookContext {
@@ -97,9 +96,10 @@ export class WebhookContextImpl implements WebhookContext {
   fetch(
     callback?: (error: Error | null, item?: WebhookInstance) => any
   ): Promise<WebhookInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -108,11 +108,11 @@ export class WebhookContextImpl implements WebhookContext {
         new WebhookInstance(
           operationVersion,
           payload,
-          this._solution.chatServiceSid
+          instance._solution.chatServiceSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -145,9 +145,10 @@ export class WebhookContextImpl implements WebhookContext {
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -158,11 +159,11 @@ export class WebhookContextImpl implements WebhookContext {
         new WebhookInstance(
           operationVersion,
           payload,
-          this._solution.chatServiceSid
+          instance._solution.chatServiceSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -186,13 +187,13 @@ export class WebhookContextImpl implements WebhookContext {
 interface WebhookPayload extends WebhookResource {}
 
 interface WebhookResource {
-  account_sid?: string | null;
-  chat_service_sid?: string | null;
-  pre_webhook_url?: string | null;
-  post_webhook_url?: string | null;
-  filters?: Array<string> | null;
-  method?: ServiceWebhookConfigurationMethod;
-  url?: string | null;
+  account_sid: string;
+  chat_service_sid: string;
+  pre_webhook_url: string;
+  post_webhook_url: string;
+  filters: Array<string>;
+  method: ServiceWebhookConfigurationMethod;
+  url: string;
 }
 
 export class WebhookInstance {
@@ -218,28 +219,28 @@ export class WebhookInstance {
   /**
    * The unique ID of the Account responsible for this service.
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The unique ID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) this conversation belongs to.
    */
-  chatServiceSid?: string | null;
+  chatServiceSid: string;
   /**
    * The absolute url the pre-event webhook request should be sent to.
    */
-  preWebhookUrl?: string | null;
+  preWebhookUrl: string;
   /**
    * The absolute url the post-event webhook request should be sent to.
    */
-  postWebhookUrl?: string | null;
+  postWebhookUrl: string;
   /**
    * The list of events that your configured webhook targets will receive. Events not configured here will not fire.
    */
-  filters?: Array<string> | null;
-  method?: ServiceWebhookConfigurationMethod;
+  filters: Array<string>;
+  method: ServiceWebhookConfigurationMethod;
   /**
    * An absolute URL for this webhook.
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): WebhookContext {
     this._context =
@@ -251,9 +252,9 @@ export class WebhookInstance {
   /**
    * Fetch a WebhookInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed WebhookInstance
+   * @returns Resolves to processed WebhookInstance
    */
   fetch(
     callback?: (error: Error | null, item?: WebhookInstance) => any
@@ -264,9 +265,9 @@ export class WebhookInstance {
   /**
    * Update a WebhookInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed WebhookInstance
+   * @returns Resolves to processed WebhookInstance
    */
   update(
     callback?: (error: Error | null, item?: WebhookInstance) => any
@@ -274,10 +275,10 @@ export class WebhookInstance {
   /**
    * Update a WebhookInstance
    *
-   * @param { WebhookContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed WebhookInstance
+   * @returns Resolves to processed WebhookInstance
    */
   update(
     params: WebhookContextUpdateOptions,
@@ -313,7 +314,15 @@ export class WebhookInstance {
   }
 }
 
+export interface WebhookSolution {
+  chatServiceSid: string;
+}
+
 export interface WebhookListInstance {
+  _version: V1;
+  _solution: WebhookSolution;
+  _uri: string;
+
   (): WebhookContext;
   get(): WebhookContext;
 
@@ -324,17 +333,6 @@ export interface WebhookListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface WebhookSolution {
-  chatServiceSid?: string;
-}
-
-interface WebhookListInstanceImpl extends WebhookListInstance {}
-class WebhookListInstanceImpl implements WebhookListInstance {
-  _version?: V1;
-  _solution?: WebhookSolution;
-  _uri?: string;
-}
-
 export function WebhookListInstance(
   version: V1,
   chatServiceSid: string
@@ -343,7 +341,7 @@ export function WebhookListInstance(
     throw new Error("Parameter 'chatServiceSid' is not valid.");
   }
 
-  const instance = (() => instance.get()) as WebhookListInstanceImpl;
+  const instance = (() => instance.get()) as WebhookListInstance;
 
   instance.get = function get(): WebhookContext {
     return new WebhookContextImpl(version, chatServiceSid);
@@ -354,14 +352,14 @@ export function WebhookListInstance(
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

@@ -20,16 +20,15 @@ import { isValidPathParam } from "../../../base/utility";
 
 /**
  * Options to pass to fetch a PhoneNumberInstance
- *
- * @property { string } [countryCode] The [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the phone number to fetch. This is used to specify the country when the phone number is provided in a national format.
- * @property { Array<string> } [type] The type of information to return. Can be: `carrier` or `caller-name`. The default is null.  Carrier information costs $0.005 per phone number looked up.  Caller Name information is currently available only in the US and costs $0.01 per phone number looked up.  To retrieve both types on information, specify this parameter twice; once with `carrier` and once with `caller-name` as the value.
- * @property { Array<string> } [addOns] The `unique_name` of an Add-on you would like to invoke. Can be the `unique_name` of an Add-on that is installed on your account. You can specify multiple instances of this parameter to invoke multiple Add-ons. For more information about  Add-ons, see the [Add-ons documentation](https://www.twilio.com/docs/add-ons).
- * @property { object } [addOnsData] Data specific to the add-on you would like to invoke. The content and format of this value depends on the add-on.
  */
 export interface PhoneNumberContextFetchOptions {
+  /** The [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the phone number to fetch. This is used to specify the country when the phone number is provided in a national format. */
   countryCode?: string;
+  /** The type of information to return. Can be: `carrier` or `caller-name`. The default is null.  Carrier information costs $0.005 per phone number looked up.  Caller Name information is currently available only in the US and costs $0.01 per phone number looked up.  To retrieve both types on information, specify this parameter twice; once with `carrier` and once with `caller-name` as the value. */
   type?: Array<string>;
+  /** The `unique_name` of an Add-on you would like to invoke. Can be the `unique_name` of an Add-on that is installed on your account. You can specify multiple instances of this parameter to invoke multiple Add-ons. For more information about  Add-ons, see the [Add-ons documentation](https://www.twilio.com/docs/add-ons). */
   addOns?: Array<string>;
+  /** Data specific to the add-on you would like to invoke. The content and format of this value depends on the add-on. */
   addOnsData?: object;
 }
 
@@ -37,9 +36,9 @@ export interface PhoneNumberContext {
   /**
    * Fetch a PhoneNumberInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed PhoneNumberInstance
+   * @returns Resolves to processed PhoneNumberInstance
    */
   fetch(
     callback?: (error: Error | null, item?: PhoneNumberInstance) => any
@@ -47,10 +46,10 @@ export interface PhoneNumberContext {
   /**
    * Fetch a PhoneNumberInstance
    *
-   * @param { PhoneNumberContextFetchOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed PhoneNumberInstance
+   * @returns Resolves to processed PhoneNumberInstance
    */
   fetch(
     params: PhoneNumberContextFetchOptions,
@@ -65,7 +64,7 @@ export interface PhoneNumberContext {
 }
 
 export interface PhoneNumberContextSolution {
-  phoneNumber?: string;
+  phoneNumber: string;
 }
 
 export class PhoneNumberContextImpl implements PhoneNumberContext {
@@ -113,9 +112,10 @@ export class PhoneNumberContextImpl implements PhoneNumberContext {
 
     const headers: any = {};
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
@@ -126,11 +126,11 @@ export class PhoneNumberContextImpl implements PhoneNumberContext {
         new PhoneNumberInstance(
           operationVersion,
           payload,
-          this._solution.phoneNumber
+          instance._solution.phoneNumber
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -154,13 +154,13 @@ export class PhoneNumberContextImpl implements PhoneNumberContext {
 interface PhoneNumberPayload extends PhoneNumberResource {}
 
 interface PhoneNumberResource {
-  caller_name?: any | null;
-  country_code?: string | null;
-  phone_number?: string | null;
-  national_format?: string | null;
-  carrier?: any | null;
-  add_ons?: any | null;
-  url?: string | null;
+  caller_name: any;
+  country_code: string;
+  phone_number: string;
+  national_format: string;
+  carrier: any;
+  add_ons: any;
+  url: string;
 }
 
 export class PhoneNumberInstance {
@@ -186,31 +186,31 @@ export class PhoneNumberInstance {
   /**
    * The name of the phone number\'s owner
    */
-  callerName?: any | null;
+  callerName: any;
   /**
    * The ISO country code for the phone number
    */
-  countryCode?: string | null;
+  countryCode: string;
   /**
    * The phone number in E.164 format
    */
-  phoneNumber?: string | null;
+  phoneNumber: string;
   /**
    * The phone number, in national format
    */
-  nationalFormat?: string | null;
+  nationalFormat: string;
   /**
    * The telecom company that provides the phone number
    */
-  carrier?: any | null;
+  carrier: any;
   /**
    * A JSON string with the results of the Add-ons you specified
    */
-  addOns?: any | null;
+  addOns: any;
   /**
    * The absolute URL of the resource
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): PhoneNumberContext {
     this._context =
@@ -222,9 +222,9 @@ export class PhoneNumberInstance {
   /**
    * Fetch a PhoneNumberInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed PhoneNumberInstance
+   * @returns Resolves to processed PhoneNumberInstance
    */
   fetch(
     callback?: (error: Error | null, item?: PhoneNumberInstance) => any
@@ -232,10 +232,10 @@ export class PhoneNumberInstance {
   /**
    * Fetch a PhoneNumberInstance
    *
-   * @param { PhoneNumberContextFetchOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed PhoneNumberInstance
+   * @returns Resolves to processed PhoneNumberInstance
    */
   fetch(
     params: PhoneNumberContextFetchOptions,
@@ -271,7 +271,13 @@ export class PhoneNumberInstance {
   }
 }
 
+export interface PhoneNumberSolution {}
+
 export interface PhoneNumberListInstance {
+  _version: V1;
+  _solution: PhoneNumberSolution;
+  _uri: string;
+
   (phoneNumber: string): PhoneNumberContext;
   get(phoneNumber: string): PhoneNumberContext;
 
@@ -282,18 +288,9 @@ export interface PhoneNumberListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface PhoneNumberSolution {}
-
-interface PhoneNumberListInstanceImpl extends PhoneNumberListInstance {}
-class PhoneNumberListInstanceImpl implements PhoneNumberListInstance {
-  _version?: V1;
-  _solution?: PhoneNumberSolution;
-  _uri?: string;
-}
-
 export function PhoneNumberListInstance(version: V1): PhoneNumberListInstance {
   const instance = ((phoneNumber) =>
-    instance.get(phoneNumber)) as PhoneNumberListInstanceImpl;
+    instance.get(phoneNumber)) as PhoneNumberListInstance;
 
   instance.get = function get(phoneNumber): PhoneNumberContext {
     return new PhoneNumberContextImpl(version, phoneNumber);
@@ -304,14 +301,14 @@ export function PhoneNumberListInstance(version: V1): PhoneNumberListInstance {
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

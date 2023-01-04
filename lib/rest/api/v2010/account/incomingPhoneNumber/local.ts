@@ -41,135 +41,131 @@ type IncomingPhoneNumberLocalVoiceReceiveMode = "voice" | "fax";
 
 /**
  * Options to pass to create a LocalInstance
- *
- * @property { string } phoneNumber The phone number to purchase specified in [E.164](https://www.twilio.com/docs/glossary/what-e164) format.  E.164 phone numbers consist of a + followed by the country code and subscriber number without punctuation characters. For example, +14155551234.
- * @property { string } [apiVersion] The API version to use for incoming calls made to the new phone number. The default is `2010-04-01`.
- * @property { string } [friendlyName] A descriptive string that you created to describe the new phone number. It can be up to 64 characters long. By default, this is a formatted version of the phone number.
- * @property { string } [smsApplicationSid] The SID of the application that should handle SMS messages sent to the new phone number. If an `sms_application_sid` is present, we ignore all of the `sms_*_url` urls and use those set on the application.
- * @property { string } [smsFallbackMethod] The HTTP method that we should use to call `sms_fallback_url`. Can be: `GET` or `POST` and defaults to `POST`.
- * @property { string } [smsFallbackUrl] The URL that we should call when an error occurs while requesting or executing the TwiML defined by `sms_url`.
- * @property { string } [smsMethod] The HTTP method that we should use to call `sms_url`. Can be: `GET` or `POST` and defaults to `POST`.
- * @property { string } [smsUrl] The URL we should call when the new phone number receives an incoming SMS message.
- * @property { string } [statusCallback] The URL we should call using the `status_callback_method` to send status information to your application.
- * @property { string } [statusCallbackMethod] The HTTP method we should use to call `status_callback`. Can be: `GET` or `POST` and defaults to `POST`.
- * @property { string } [voiceApplicationSid] The SID of the application we should use to handle calls to the new phone number. If a `voice_application_sid` is present, we ignore all of the voice urls and use only those set on the application. Setting a `voice_application_sid` will automatically delete your `trunk_sid` and vice versa.
- * @property { boolean } [voiceCallerIdLookup] Whether to lookup the caller\\\'s name from the CNAM database and post it to your app. Can be: `true` or `false` and defaults to `false`.
- * @property { string } [voiceFallbackMethod] The HTTP method that we should use to call `voice_fallback_url`. Can be: `GET` or `POST` and defaults to `POST`.
- * @property { string } [voiceFallbackUrl] The URL that we should call when an error occurs retrieving or executing the TwiML requested by `url`.
- * @property { string } [voiceMethod] The HTTP method that we should use to call `voice_url`. Can be: `GET` or `POST` and defaults to `POST`.
- * @property { string } [voiceUrl] The URL that we should call to answer a call to the new phone number. The `voice_url` will not be called if a `voice_application_sid` or a `trunk_sid` is set.
- * @property { string } [identitySid] The SID of the Identity resource that we should associate with the new phone number. Some regions require an identity to meet local regulations.
- * @property { string } [addressSid] The SID of the Address resource we should associate with the new phone number. Some regions require addresses to meet local regulations.
- * @property { IncomingPhoneNumberLocalEmergencyStatus } [emergencyStatus]
- * @property { string } [emergencyAddressSid] The SID of the emergency address configuration to use for emergency calling from the new phone number.
- * @property { string } [trunkSid] The SID of the Trunk we should use to handle calls to the new phone number. If a `trunk_sid` is present, we ignore all of the voice urls and voice applications and use only those set on the Trunk. Setting a `trunk_sid` will automatically delete your `voice_application_sid` and vice versa.
- * @property { IncomingPhoneNumberLocalVoiceReceiveMode } [voiceReceiveMode]
- * @property { string } [bundleSid] The SID of the Bundle resource that you associate with the phone number. Some regions require a Bundle to meet local Regulations.
  */
 export interface LocalListInstanceCreateOptions {
+  /** The phone number to purchase specified in [E.164](https://www.twilio.com/docs/glossary/what-e164) format.  E.164 phone numbers consist of a + followed by the country code and subscriber number without punctuation characters. For example, +14155551234. */
   phoneNumber: string;
+  /** The API version to use for incoming calls made to the new phone number. The default is `2010-04-01`. */
   apiVersion?: string;
+  /** A descriptive string that you created to describe the new phone number. It can be up to 64 characters long. By default, this is a formatted version of the phone number. */
   friendlyName?: string;
+  /** The SID of the application that should handle SMS messages sent to the new phone number. If an `sms_application_sid` is present, we ignore all of the `sms_*_url` urls and use those set on the application. */
   smsApplicationSid?: string;
+  /** The HTTP method that we should use to call `sms_fallback_url`. Can be: `GET` or `POST` and defaults to `POST`. */
   smsFallbackMethod?: string;
+  /** The URL that we should call when an error occurs while requesting or executing the TwiML defined by `sms_url`. */
   smsFallbackUrl?: string;
+  /** The HTTP method that we should use to call `sms_url`. Can be: `GET` or `POST` and defaults to `POST`. */
   smsMethod?: string;
+  /** The URL we should call when the new phone number receives an incoming SMS message. */
   smsUrl?: string;
+  /** The URL we should call using the `status_callback_method` to send status information to your application. */
   statusCallback?: string;
+  /** The HTTP method we should use to call `status_callback`. Can be: `GET` or `POST` and defaults to `POST`. */
   statusCallbackMethod?: string;
+  /** The SID of the application we should use to handle calls to the new phone number. If a `voice_application_sid` is present, we ignore all of the voice urls and use only those set on the application. Setting a `voice_application_sid` will automatically delete your `trunk_sid` and vice versa. */
   voiceApplicationSid?: string;
+  /** Whether to lookup the caller\\\'s name from the CNAM database and post it to your app. Can be: `true` or `false` and defaults to `false`. */
   voiceCallerIdLookup?: boolean;
+  /** The HTTP method that we should use to call `voice_fallback_url`. Can be: `GET` or `POST` and defaults to `POST`. */
   voiceFallbackMethod?: string;
+  /** The URL that we should call when an error occurs retrieving or executing the TwiML requested by `url`. */
   voiceFallbackUrl?: string;
+  /** The HTTP method that we should use to call `voice_url`. Can be: `GET` or `POST` and defaults to `POST`. */
   voiceMethod?: string;
+  /** The URL that we should call to answer a call to the new phone number. The `voice_url` will not be called if a `voice_application_sid` or a `trunk_sid` is set. */
   voiceUrl?: string;
+  /** The SID of the Identity resource that we should associate with the new phone number. Some regions require an identity to meet local regulations. */
   identitySid?: string;
+  /** The SID of the Address resource we should associate with the new phone number. Some regions require addresses to meet local regulations. */
   addressSid?: string;
+  /**  */
   emergencyStatus?: IncomingPhoneNumberLocalEmergencyStatus;
+  /** The SID of the emergency address configuration to use for emergency calling from the new phone number. */
   emergencyAddressSid?: string;
+  /** The SID of the Trunk we should use to handle calls to the new phone number. If a `trunk_sid` is present, we ignore all of the voice urls and voice applications and use only those set on the Trunk. Setting a `trunk_sid` will automatically delete your `voice_application_sid` and vice versa. */
   trunkSid?: string;
+  /**  */
   voiceReceiveMode?: IncomingPhoneNumberLocalVoiceReceiveMode;
+  /** The SID of the Bundle resource that you associate with the phone number. Some regions require a Bundle to meet local Regulations. */
   bundleSid?: string;
 }
 /**
  * Options to pass to each
- *
- * @property { boolean } [beta] Whether to include phone numbers new to the Twilio platform. Can be: `true` or `false` and the default is `true`.
- * @property { string } [friendlyName] A string that identifies the resources to read.
- * @property { string } [phoneNumber] The phone numbers of the IncomingPhoneNumber resources to read. You can specify partial numbers and use \'*\' as a wildcard for any digit.
- * @property { string } [origin] Whether to include phone numbers based on their origin. Can be: `twilio` or `hosted`. By default, phone numbers of all origin are included.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface LocalListInstanceEachOptions {
+  /** Whether to include phone numbers new to the Twilio platform. Can be: `true` or `false` and the default is `true`. */
   beta?: boolean;
+  /** A string that identifies the resources to read. */
   friendlyName?: string;
+  /** The phone numbers of the IncomingPhoneNumber resources to read. You can specify partial numbers and use \'*\' as a wildcard for any digit. */
   phoneNumber?: string;
+  /** Whether to include phone numbers based on their origin. Can be: `twilio` or `hosted`. By default, phone numbers of all origin are included. */
   origin?: string;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: LocalInstance, done: (err?: Error) => void) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { boolean } [beta] Whether to include phone numbers new to the Twilio platform. Can be: `true` or `false` and the default is `true`.
- * @property { string } [friendlyName] A string that identifies the resources to read.
- * @property { string } [phoneNumber] The phone numbers of the IncomingPhoneNumber resources to read. You can specify partial numbers and use \'*\' as a wildcard for any digit.
- * @property { string } [origin] Whether to include phone numbers based on their origin. Can be: `twilio` or `hosted`. By default, phone numbers of all origin are included.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface LocalListInstanceOptions {
+  /** Whether to include phone numbers new to the Twilio platform. Can be: `true` or `false` and the default is `true`. */
   beta?: boolean;
+  /** A string that identifies the resources to read. */
   friendlyName?: string;
+  /** The phone numbers of the IncomingPhoneNumber resources to read. You can specify partial numbers and use \'*\' as a wildcard for any digit. */
   phoneNumber?: string;
+  /** Whether to include phone numbers based on their origin. Can be: `twilio` or `hosted`. By default, phone numbers of all origin are included. */
   origin?: string;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { boolean } [beta] Whether to include phone numbers new to the Twilio platform. Can be: `true` or `false` and the default is `true`.
- * @property { string } [friendlyName] A string that identifies the resources to read.
- * @property { string } [phoneNumber] The phone numbers of the IncomingPhoneNumber resources to read. You can specify partial numbers and use \'*\' as a wildcard for any digit.
- * @property { string } [origin] Whether to include phone numbers based on their origin. Can be: `twilio` or `hosted`. By default, phone numbers of all origin are included.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface LocalListInstancePageOptions {
+  /** Whether to include phone numbers new to the Twilio platform. Can be: `true` or `false` and the default is `true`. */
   beta?: boolean;
+  /** A string that identifies the resources to read. */
   friendlyName?: string;
+  /** The phone numbers of the IncomingPhoneNumber resources to read. You can specify partial numbers and use \'*\' as a wildcard for any digit. */
   phoneNumber?: string;
+  /** Whether to include phone numbers based on their origin. Can be: `twilio` or `hosted`. By default, phone numbers of all origin are included. */
   origin?: string;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
+export interface LocalSolution {
+  accountSid: string;
+}
+
 export interface LocalListInstance {
+  _version: V2010;
+  _solution: LocalSolution;
+  _uri: string;
+
   /**
    * Create a LocalInstance
    *
-   * @param { LocalListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed LocalInstance
+   * @returns Resolves to processed LocalInstance
    */
   create(
     params: LocalListInstanceCreateOptions,
@@ -252,17 +248,6 @@ export interface LocalListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface LocalSolution {
-  accountSid?: string;
-}
-
-interface LocalListInstanceImpl extends LocalListInstance {}
-class LocalListInstanceImpl implements LocalListInstance {
-  _version?: V2010;
-  _solution?: LocalSolution;
-  _uri?: string;
-}
-
 export function LocalListInstance(
   version: V2010,
   accountSid: string
@@ -271,7 +256,7 @@ export function LocalListInstance(
     throw new Error("Parameter 'accountSid' is not valid.");
   }
 
-  const instance = {} as LocalListInstanceImpl;
+  const instance = {} as LocalListInstance;
 
   instance._version = version;
   instance._solution = { accountSid };
@@ -341,7 +326,7 @@ export function LocalListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -349,10 +334,14 @@ export function LocalListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new LocalInstance(operationVersion, payload, this._solution.accountSid)
+        new LocalInstance(
+          operationVersion,
+          payload,
+          instance._solution.accountSid
+        )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -390,17 +379,17 @@ export function LocalListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new LocalPage(operationVersion, payload, this._solution)
+      (payload) => new LocalPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -413,30 +402,27 @@ export function LocalListInstance(
     targetUrl: string,
     callback?: (error: Error | null, items: LocalPage) => any
   ): Promise<LocalPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new LocalPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) => new LocalPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;
@@ -482,40 +468,40 @@ interface LocalPayload extends TwilioResponsePayload {
 }
 
 interface LocalResource {
-  account_sid?: string | null;
-  address_sid?: string | null;
-  address_requirements?: IncomingPhoneNumberLocalAddressRequirement;
-  api_version?: string | null;
-  beta?: boolean | null;
-  capabilities?: PhoneNumberCapabilities | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  friendly_name?: string | null;
-  identity_sid?: string | null;
-  phone_number?: string | null;
-  origin?: string | null;
-  sid?: string | null;
-  sms_application_sid?: string | null;
-  sms_fallback_method?: LocalSmsFallbackMethod;
-  sms_fallback_url?: string | null;
-  sms_method?: LocalSmsMethod;
-  sms_url?: string | null;
-  status_callback?: string | null;
-  status_callback_method?: LocalStatusCallbackMethod;
-  trunk_sid?: string | null;
-  uri?: string | null;
-  voice_receive_mode?: IncomingPhoneNumberLocalVoiceReceiveMode;
-  voice_application_sid?: string | null;
-  voice_caller_id_lookup?: boolean | null;
-  voice_fallback_method?: LocalVoiceFallbackMethod;
-  voice_fallback_url?: string | null;
-  voice_method?: LocalVoiceMethod;
-  voice_url?: string | null;
-  emergency_status?: IncomingPhoneNumberLocalEmergencyStatus;
-  emergency_address_sid?: string | null;
-  emergency_address_status?: IncomingPhoneNumberLocalEmergencyAddressStatus;
-  bundle_sid?: string | null;
-  status?: string | null;
+  account_sid: string;
+  address_sid: string;
+  address_requirements: IncomingPhoneNumberLocalAddressRequirement;
+  api_version: string;
+  beta: boolean;
+  capabilities: PhoneNumberCapabilities;
+  date_created: Date;
+  date_updated: Date;
+  friendly_name: string;
+  identity_sid: string;
+  phone_number: string;
+  origin: string;
+  sid: string;
+  sms_application_sid: string;
+  sms_fallback_method: LocalSmsFallbackMethod;
+  sms_fallback_url: string;
+  sms_method: LocalSmsMethod;
+  sms_url: string;
+  status_callback: string;
+  status_callback_method: LocalStatusCallbackMethod;
+  trunk_sid: string;
+  uri: string;
+  voice_receive_mode: IncomingPhoneNumberLocalVoiceReceiveMode;
+  voice_application_sid: string;
+  voice_caller_id_lookup: boolean;
+  voice_fallback_method: LocalVoiceFallbackMethod;
+  voice_fallback_url: string;
+  voice_method: LocalVoiceMethod;
+  voice_url: string;
+  emergency_status: IncomingPhoneNumberLocalEmergencyStatus;
+  emergency_address_sid: string;
+  emergency_address_status: IncomingPhoneNumberLocalEmergencyAddressStatus;
+  bundle_sid: string;
+  status: string;
 }
 
 export class LocalInstance {
@@ -563,121 +549,121 @@ export class LocalInstance {
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The SID of the Address resource associated with the phone number
    */
-  addressSid?: string | null;
-  addressRequirements?: IncomingPhoneNumberLocalAddressRequirement;
+  addressSid: string;
+  addressRequirements: IncomingPhoneNumberLocalAddressRequirement;
   /**
    * The API version used to start a new TwiML session
    */
-  apiVersion?: string | null;
+  apiVersion: string;
   /**
    * Whether the phone number is new to the Twilio platform
    */
-  beta?: boolean | null;
-  capabilities?: PhoneNumberCapabilities | null;
+  beta: boolean;
+  capabilities: PhoneNumberCapabilities;
   /**
    * The RFC 2822 date and time in GMT that the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The RFC 2822 date and time in GMT that the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The string that you assigned to describe the resource
    */
-  friendlyName?: string | null;
+  friendlyName: string;
   /**
    * The SID of the Identity resource associated with number
    */
-  identitySid?: string | null;
+  identitySid: string;
   /**
    * The phone number in E.164 format
    */
-  phoneNumber?: string | null;
+  phoneNumber: string;
   /**
    * The phone number\'s origin. Can be twilio or hosted.
    */
-  origin?: string | null;
+  origin: string;
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The SID of the Application resource to handle SMS messages
    */
-  smsApplicationSid?: string | null;
+  smsApplicationSid: string;
   /**
    * The HTTP method used with sms_fallback_url
    */
-  smsFallbackMethod?: LocalSmsFallbackMethod;
+  smsFallbackMethod: LocalSmsFallbackMethod;
   /**
    * The URL that we call when an error occurs while retrieving or executing the TwiML
    */
-  smsFallbackUrl?: string | null;
+  smsFallbackUrl: string;
   /**
    * The HTTP method to use with sms_url
    */
-  smsMethod?: LocalSmsMethod;
+  smsMethod: LocalSmsMethod;
   /**
    * The URL we call when the phone number receives an incoming SMS message
    */
-  smsUrl?: string | null;
+  smsUrl: string;
   /**
    * The URL to send status information to your application
    */
-  statusCallback?: string | null;
+  statusCallback: string;
   /**
    * The HTTP method we use to call status_callback
    */
-  statusCallbackMethod?: LocalStatusCallbackMethod;
+  statusCallbackMethod: LocalStatusCallbackMethod;
   /**
    * The SID of the Trunk that handles calls to the phone number
    */
-  trunkSid?: string | null;
+  trunkSid: string;
   /**
    * The URI of the resource, relative to `https://api.twilio.com`
    */
-  uri?: string | null;
-  voiceReceiveMode?: IncomingPhoneNumberLocalVoiceReceiveMode;
+  uri: string;
+  voiceReceiveMode: IncomingPhoneNumberLocalVoiceReceiveMode;
   /**
    * The SID of the application that handles calls to the phone number
    */
-  voiceApplicationSid?: string | null;
+  voiceApplicationSid: string;
   /**
    * Whether to lookup the caller\'s name
    */
-  voiceCallerIdLookup?: boolean | null;
+  voiceCallerIdLookup: boolean;
   /**
    * The HTTP method used with voice_fallback_url
    */
-  voiceFallbackMethod?: LocalVoiceFallbackMethod;
+  voiceFallbackMethod: LocalVoiceFallbackMethod;
   /**
    * The URL we call when an error occurs in TwiML
    */
-  voiceFallbackUrl?: string | null;
+  voiceFallbackUrl: string;
   /**
    * The HTTP method used with the voice_url
    */
-  voiceMethod?: LocalVoiceMethod;
+  voiceMethod: LocalVoiceMethod;
   /**
    * The URL we call when this phone number receives a call
    */
-  voiceUrl?: string | null;
-  emergencyStatus?: IncomingPhoneNumberLocalEmergencyStatus;
+  voiceUrl: string;
+  emergencyStatus: IncomingPhoneNumberLocalEmergencyStatus;
   /**
    * The emergency address configuration to use for emergency calling
    */
-  emergencyAddressSid?: string | null;
-  emergencyAddressStatus?: IncomingPhoneNumberLocalEmergencyAddressStatus;
+  emergencyAddressSid: string;
+  emergencyAddressStatus: IncomingPhoneNumberLocalEmergencyAddressStatus;
   /**
    * The SID of the Bundle resource associated with number
    */
-  bundleSid?: string | null;
-  status?: string | null;
+  bundleSid: string;
+  status: string;
 
   /**
    * Provide a user-friendly representation

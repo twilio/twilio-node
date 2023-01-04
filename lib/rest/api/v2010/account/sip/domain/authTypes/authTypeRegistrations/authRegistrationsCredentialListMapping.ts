@@ -22,59 +22,47 @@ import { isValidPathParam } from "../../../../../../../../base/utility";
 
 /**
  * Options to pass to create a AuthRegistrationsCredentialListMappingInstance
- *
- * @property { string } credentialListSid The SID of the CredentialList resource to map to the SIP domain.
  */
 export interface AuthRegistrationsCredentialListMappingListInstanceCreateOptions {
+  /** The SID of the CredentialList resource to map to the SIP domain. */
   credentialListSid: string;
 }
 /**
  * Options to pass to each
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface AuthRegistrationsCredentialListMappingListInstanceEachOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (
     item: AuthRegistrationsCredentialListMappingInstance,
     done: (err?: Error) => void
   ) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface AuthRegistrationsCredentialListMappingListInstanceOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface AuthRegistrationsCredentialListMappingListInstancePageOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
@@ -82,9 +70,9 @@ export interface AuthRegistrationsCredentialListMappingContext {
   /**
    * Remove a AuthRegistrationsCredentialListMappingInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -93,9 +81,9 @@ export interface AuthRegistrationsCredentialListMappingContext {
   /**
    * Fetch a AuthRegistrationsCredentialListMappingInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed AuthRegistrationsCredentialListMappingInstance
+   * @returns Resolves to processed AuthRegistrationsCredentialListMappingInstance
    */
   fetch(
     callback?: (
@@ -112,9 +100,9 @@ export interface AuthRegistrationsCredentialListMappingContext {
 }
 
 export interface AuthRegistrationsCredentialListMappingContextSolution {
-  accountSid?: string;
-  domainSid?: string;
-  sid?: string;
+  accountSid: string;
+  domainSid: string;
+  sid: string;
 }
 
 export class AuthRegistrationsCredentialListMappingContextImpl
@@ -148,13 +136,14 @@ export class AuthRegistrationsCredentialListMappingContextImpl
   remove(
     callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -167,9 +156,10 @@ export class AuthRegistrationsCredentialListMappingContextImpl
       item?: AuthRegistrationsCredentialListMappingInstance
     ) => any
   ): Promise<AuthRegistrationsCredentialListMappingInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -178,13 +168,13 @@ export class AuthRegistrationsCredentialListMappingContextImpl
         new AuthRegistrationsCredentialListMappingInstance(
           operationVersion,
           payload,
-          this._solution.accountSid,
-          this._solution.domainSid,
-          this._solution.sid
+          instance._solution.accountSid,
+          instance._solution.domainSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -211,11 +201,11 @@ interface AuthRegistrationsCredentialListMappingPayload
 }
 
 interface AuthRegistrationsCredentialListMappingResource {
-  account_sid?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  friendly_name?: string | null;
-  sid?: string | null;
+  account_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  friendly_name: string;
+  sid: string;
 }
 
 export class AuthRegistrationsCredentialListMappingInstance {
@@ -241,23 +231,23 @@ export class AuthRegistrationsCredentialListMappingInstance {
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The RFC 2822 date and time in GMT that the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The RFC 2822 date and time in GMT that the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The string that you assigned to describe the resource
    */
-  friendlyName?: string | null;
+  friendlyName: string;
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
 
   private get _proxy(): AuthRegistrationsCredentialListMappingContext {
     this._context =
@@ -274,9 +264,9 @@ export class AuthRegistrationsCredentialListMappingInstance {
   /**
    * Remove a AuthRegistrationsCredentialListMappingInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -287,9 +277,9 @@ export class AuthRegistrationsCredentialListMappingInstance {
   /**
    * Fetch a AuthRegistrationsCredentialListMappingInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed AuthRegistrationsCredentialListMappingInstance
+   * @returns Resolves to processed AuthRegistrationsCredentialListMappingInstance
    */
   fetch(
     callback?: (
@@ -320,17 +310,26 @@ export class AuthRegistrationsCredentialListMappingInstance {
   }
 }
 
+export interface AuthRegistrationsCredentialListMappingSolution {
+  accountSid: string;
+  domainSid: string;
+}
+
 export interface AuthRegistrationsCredentialListMappingListInstance {
+  _version: V2010;
+  _solution: AuthRegistrationsCredentialListMappingSolution;
+  _uri: string;
+
   (sid: string): AuthRegistrationsCredentialListMappingContext;
   get(sid: string): AuthRegistrationsCredentialListMappingContext;
 
   /**
    * Create a AuthRegistrationsCredentialListMappingInstance
    *
-   * @param { AuthRegistrationsCredentialListMappingListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed AuthRegistrationsCredentialListMappingInstance
+   * @returns Resolves to processed AuthRegistrationsCredentialListMappingInstance
    */
   create(
     params: AuthRegistrationsCredentialListMappingListInstanceCreateOptions,
@@ -437,21 +436,6 @@ export interface AuthRegistrationsCredentialListMappingListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface AuthRegistrationsCredentialListMappingSolution {
-  accountSid?: string;
-  domainSid?: string;
-}
-
-interface AuthRegistrationsCredentialListMappingListInstanceImpl
-  extends AuthRegistrationsCredentialListMappingListInstance {}
-class AuthRegistrationsCredentialListMappingListInstanceImpl
-  implements AuthRegistrationsCredentialListMappingListInstance
-{
-  _version?: V2010;
-  _solution?: AuthRegistrationsCredentialListMappingSolution;
-  _uri?: string;
-}
-
 export function AuthRegistrationsCredentialListMappingListInstance(
   version: V2010,
   accountSid: string,
@@ -466,9 +450,7 @@ export function AuthRegistrationsCredentialListMappingListInstance(
   }
 
   const instance = ((sid) =>
-    instance.get(
-      sid
-    )) as AuthRegistrationsCredentialListMappingListInstanceImpl;
+    instance.get(sid)) as AuthRegistrationsCredentialListMappingListInstance;
 
   instance.get = function get(
     sid
@@ -514,7 +496,7 @@ export function AuthRegistrationsCredentialListMappingListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -525,12 +507,12 @@ export function AuthRegistrationsCredentialListMappingListInstance(
         new AuthRegistrationsCredentialListMappingInstance(
           operationVersion,
           payload,
-          this._solution.accountSid,
-          this._solution.domainSid
+          instance._solution.accountSid,
+          instance._solution.domainSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -570,7 +552,7 @@ export function AuthRegistrationsCredentialListMappingListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
@@ -581,11 +563,11 @@ export function AuthRegistrationsCredentialListMappingListInstance(
         new AuthRegistrationsCredentialListMappingPage(
           operationVersion,
           payload,
-          this._solution
+          instance._solution
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -601,35 +583,32 @@ export function AuthRegistrationsCredentialListMappingListInstance(
       items: AuthRegistrationsCredentialListMappingPage
     ) => any
   ): Promise<AuthRegistrationsCredentialListMappingPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
+    let pagePromise = operationPromise.then(
       (payload) =>
         new AuthRegistrationsCredentialListMappingPage(
-          this._version,
+          instance._version,
           payload,
-          this._solution
+          instance._solution
         )
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

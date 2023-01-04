@@ -24,48 +24,37 @@ type RecordingTranscriptionStatus = "in-progress" | "completed" | "failed";
 
 /**
  * Options to pass to each
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface TranscriptionListInstanceEachOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: TranscriptionInstance, done: (err?: Error) => void) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface TranscriptionListInstanceOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface TranscriptionListInstancePageOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
@@ -73,9 +62,9 @@ export interface TranscriptionContext {
   /**
    * Remove a TranscriptionInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -84,9 +73,9 @@ export interface TranscriptionContext {
   /**
    * Fetch a TranscriptionInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed TranscriptionInstance
+   * @returns Resolves to processed TranscriptionInstance
    */
   fetch(
     callback?: (error: Error | null, item?: TranscriptionInstance) => any
@@ -100,9 +89,9 @@ export interface TranscriptionContext {
 }
 
 export interface TranscriptionContextSolution {
-  accountSid?: string;
-  recordingSid?: string;
-  sid?: string;
+  accountSid: string;
+  recordingSid: string;
+  sid: string;
 }
 
 export class TranscriptionContextImpl implements TranscriptionContext {
@@ -134,13 +123,14 @@ export class TranscriptionContextImpl implements TranscriptionContext {
   remove(
     callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -150,9 +140,10 @@ export class TranscriptionContextImpl implements TranscriptionContext {
   fetch(
     callback?: (error: Error | null, item?: TranscriptionInstance) => any
   ): Promise<TranscriptionInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -161,13 +152,13 @@ export class TranscriptionContextImpl implements TranscriptionContext {
         new TranscriptionInstance(
           operationVersion,
           payload,
-          this._solution.accountSid,
-          this._solution.recordingSid,
-          this._solution.sid
+          instance._solution.accountSid,
+          instance._solution.recordingSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -193,19 +184,19 @@ interface TranscriptionPayload extends TwilioResponsePayload {
 }
 
 interface TranscriptionResource {
-  account_sid?: string | null;
-  api_version?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  duration?: string | null;
-  price?: number | null;
-  price_unit?: string | null;
-  recording_sid?: string | null;
-  sid?: string | null;
-  status?: RecordingTranscriptionStatus;
-  transcription_text?: string | null;
-  type?: string | null;
-  uri?: string | null;
+  account_sid: string;
+  api_version: string;
+  date_created: Date;
+  date_updated: Date;
+  duration: string;
+  price: number;
+  price_unit: string;
+  recording_sid: string;
+  sid: string;
+  status: RecordingTranscriptionStatus;
+  transcription_text: string;
+  type: string;
+  uri: string;
 }
 
 export class TranscriptionInstance {
@@ -239,52 +230,52 @@ export class TranscriptionInstance {
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The API version used to create the transcription
    */
-  apiVersion?: string | null;
+  apiVersion: string;
   /**
    * The RFC 2822 date and time in GMT that the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The RFC 2822 date and time in GMT that the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The duration of the transcribed audio in seconds.
    */
-  duration?: string | null;
+  duration: string;
   /**
    * The charge for the transcription
    */
-  price?: number | null;
+  price: number;
   /**
    * The currency in which price is measured
    */
-  priceUnit?: string | null;
+  priceUnit: string;
   /**
    * The SID that identifies the transcription\'s recording
    */
-  recordingSid?: string | null;
+  recordingSid: string;
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
-  status?: RecordingTranscriptionStatus;
+  sid: string;
+  status: RecordingTranscriptionStatus;
   /**
    * The text content of the transcription.
    */
-  transcriptionText?: string | null;
+  transcriptionText: string;
   /**
    * The transcription type
    */
-  type?: string | null;
+  type: string;
   /**
    * The URI of the resource, relative to `https://api.twilio.com`
    */
-  uri?: string | null;
+  uri: string;
 
   private get _proxy(): TranscriptionContext {
     this._context =
@@ -301,9 +292,9 @@ export class TranscriptionInstance {
   /**
    * Remove a TranscriptionInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -314,9 +305,9 @@ export class TranscriptionInstance {
   /**
    * Fetch a TranscriptionInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed TranscriptionInstance
+   * @returns Resolves to processed TranscriptionInstance
    */
   fetch(
     callback?: (error: Error | null, item?: TranscriptionInstance) => any
@@ -352,7 +343,16 @@ export class TranscriptionInstance {
   }
 }
 
+export interface TranscriptionSolution {
+  accountSid: string;
+  recordingSid: string;
+}
+
 export interface TranscriptionListInstance {
+  _version: V2010;
+  _solution: TranscriptionSolution;
+  _uri: string;
+
   (sid: string): TranscriptionContext;
   get(sid: string): TranscriptionContext;
 
@@ -438,18 +438,6 @@ export interface TranscriptionListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface TranscriptionSolution {
-  accountSid?: string;
-  recordingSid?: string;
-}
-
-interface TranscriptionListInstanceImpl extends TranscriptionListInstance {}
-class TranscriptionListInstanceImpl implements TranscriptionListInstance {
-  _version?: V2010;
-  _solution?: TranscriptionSolution;
-  _uri?: string;
-}
-
 export function TranscriptionListInstance(
   version: V2010,
   accountSid: string,
@@ -463,8 +451,7 @@ export function TranscriptionListInstance(
     throw new Error("Parameter 'recordingSid' is not valid.");
   }
 
-  const instance = ((sid) =>
-    instance.get(sid)) as TranscriptionListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as TranscriptionListInstance;
 
   instance.get = function get(sid): TranscriptionContext {
     return new TranscriptionContextImpl(version, accountSid, recordingSid, sid);
@@ -501,7 +488,7 @@ export function TranscriptionListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
@@ -509,10 +496,10 @@ export function TranscriptionListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new TranscriptionPage(operationVersion, payload, this._solution)
+        new TranscriptionPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -525,30 +512,28 @@ export function TranscriptionListInstance(
     targetUrl: string,
     callback?: (error: Error | null, items: TranscriptionPage) => any
   ): Promise<TranscriptionPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new TranscriptionPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new TranscriptionPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

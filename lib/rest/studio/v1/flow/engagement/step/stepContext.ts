@@ -22,9 +22,9 @@ export interface StepContextContext {
   /**
    * Fetch a StepContextInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed StepContextInstance
+   * @returns Resolves to processed StepContextInstance
    */
   fetch(
     callback?: (error: Error | null, item?: StepContextInstance) => any
@@ -38,9 +38,9 @@ export interface StepContextContext {
 }
 
 export interface StepContextContextSolution {
-  flowSid?: string;
-  engagementSid?: string;
-  stepSid?: string;
+  flowSid: string;
+  engagementSid: string;
+  stepSid: string;
 }
 
 export class StepContextContextImpl implements StepContextContext {
@@ -72,9 +72,10 @@ export class StepContextContextImpl implements StepContextContext {
   fetch(
     callback?: (error: Error | null, item?: StepContextInstance) => any
   ): Promise<StepContextInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -83,13 +84,13 @@ export class StepContextContextImpl implements StepContextContext {
         new StepContextInstance(
           operationVersion,
           payload,
-          this._solution.flowSid,
-          this._solution.engagementSid,
-          this._solution.stepSid
+          instance._solution.flowSid,
+          instance._solution.engagementSid,
+          instance._solution.stepSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -113,12 +114,12 @@ export class StepContextContextImpl implements StepContextContext {
 interface StepContextPayload extends StepContextResource {}
 
 interface StepContextResource {
-  account_sid?: string | null;
-  context?: any | null;
-  engagement_sid?: string | null;
-  flow_sid?: string | null;
-  step_sid?: string | null;
-  url?: string | null;
+  account_sid: string;
+  context: any;
+  engagement_sid: string;
+  flow_sid: string;
+  step_sid: string;
+  url: string;
 }
 
 export class StepContextInstance {
@@ -145,27 +146,27 @@ export class StepContextInstance {
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The current state of the flow
    */
-  context?: any | null;
+  context: any;
   /**
    * The SID of the Engagement
    */
-  engagementSid?: string | null;
+  engagementSid: string;
   /**
    * The SID of the Flow
    */
-  flowSid?: string | null;
+  flowSid: string;
   /**
    * Step SID
    */
-  stepSid?: string | null;
+  stepSid: string;
   /**
    * The absolute URL of the resource
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): StepContextContext {
     this._context =
@@ -182,9 +183,9 @@ export class StepContextInstance {
   /**
    * Fetch a StepContextInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed StepContextInstance
+   * @returns Resolves to processed StepContextInstance
    */
   fetch(
     callback?: (error: Error | null, item?: StepContextInstance) => any
@@ -213,7 +214,17 @@ export class StepContextInstance {
   }
 }
 
+export interface StepContextSolution {
+  flowSid: string;
+  engagementSid: string;
+  stepSid: string;
+}
+
 export interface StepContextListInstance {
+  _version: V1;
+  _solution: StepContextSolution;
+  _uri: string;
+
   (): StepContextContext;
   get(): StepContextContext;
 
@@ -222,19 +233,6 @@ export interface StepContextListInstance {
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export interface StepContextSolution {
-  flowSid?: string;
-  engagementSid?: string;
-  stepSid?: string;
-}
-
-interface StepContextListInstanceImpl extends StepContextListInstance {}
-class StepContextListInstanceImpl implements StepContextListInstance {
-  _version?: V1;
-  _solution?: StepContextSolution;
-  _uri?: string;
 }
 
 export function StepContextListInstance(
@@ -255,7 +253,7 @@ export function StepContextListInstance(
     throw new Error("Parameter 'stepSid' is not valid.");
   }
 
-  const instance = (() => instance.get()) as StepContextListInstanceImpl;
+  const instance = (() => instance.get()) as StepContextListInstance;
 
   instance.get = function get(): StepContextContext {
     return new StepContextContextImpl(version, flowSid, engagementSid, stepSid);
@@ -266,14 +264,14 @@ export function StepContextListInstance(
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

@@ -42,92 +42,80 @@ type RecordingStatus =
 
 /**
  * Options to pass to fetch a RecordingInstance
- *
- * @property { boolean } [includeSoftDeleted] A boolean parameter indicating whether to retrieve soft deleted recordings or not. Recordings metadata are kept after deletion for a retention period of 40 days.
  */
 export interface RecordingContextFetchOptions {
+  /** A boolean parameter indicating whether to retrieve soft deleted recordings or not. Recordings metadata are kept after deletion for a retention period of 40 days. */
   includeSoftDeleted?: boolean;
 }
 /**
  * Options to pass to each
- *
- * @property { Date } [dateCreated] Only include recordings that were created on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read recordings that were created on this date. You can also specify an inequality, such as `DateCreated<=YYYY-MM-DD`, to read recordings that were created on or before midnight of this date, and `DateCreated>=YYYY-MM-DD` to read recordings that were created on or after midnight of this date.
- * @property { Date } [dateCreatedBefore] Only include recordings that were created on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read recordings that were created on this date. You can also specify an inequality, such as `DateCreated<=YYYY-MM-DD`, to read recordings that were created on or before midnight of this date, and `DateCreated>=YYYY-MM-DD` to read recordings that were created on or after midnight of this date.
- * @property { Date } [dateCreatedAfter] Only include recordings that were created on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read recordings that were created on this date. You can also specify an inequality, such as `DateCreated<=YYYY-MM-DD`, to read recordings that were created on or before midnight of this date, and `DateCreated>=YYYY-MM-DD` to read recordings that were created on or after midnight of this date.
- * @property { string } [callSid] The [Call](https://www.twilio.com/docs/voice/api/call-resource) SID of the resources to read.
- * @property { string } [conferenceSid] The Conference SID that identifies the conference associated with the recording to read.
- * @property { boolean } [includeSoftDeleted] A boolean parameter indicating whether to retrieve soft deleted recordings or not. Recordings metadata are kept after deletion for a retention period of 40 days.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface RecordingListInstanceEachOptions {
+  /** Only include recordings that were created on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read recordings that were created on this date. You can also specify an inequality, such as `DateCreated<=YYYY-MM-DD`, to read recordings that were created on or before midnight of this date, and `DateCreated>=YYYY-MM-DD` to read recordings that were created on or after midnight of this date. */
   dateCreated?: Date;
+  /** Only include recordings that were created on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read recordings that were created on this date. You can also specify an inequality, such as `DateCreated<=YYYY-MM-DD`, to read recordings that were created on or before midnight of this date, and `DateCreated>=YYYY-MM-DD` to read recordings that were created on or after midnight of this date. */
   dateCreatedBefore?: Date;
+  /** Only include recordings that were created on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read recordings that were created on this date. You can also specify an inequality, such as `DateCreated<=YYYY-MM-DD`, to read recordings that were created on or before midnight of this date, and `DateCreated>=YYYY-MM-DD` to read recordings that were created on or after midnight of this date. */
   dateCreatedAfter?: Date;
+  /** The [Call](https://www.twilio.com/docs/voice/api/call-resource) SID of the resources to read. */
   callSid?: string;
+  /** The Conference SID that identifies the conference associated with the recording to read. */
   conferenceSid?: string;
+  /** A boolean parameter indicating whether to retrieve soft deleted recordings or not. Recordings metadata are kept after deletion for a retention period of 40 days. */
   includeSoftDeleted?: boolean;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: RecordingInstance, done: (err?: Error) => void) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { Date } [dateCreated] Only include recordings that were created on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read recordings that were created on this date. You can also specify an inequality, such as `DateCreated<=YYYY-MM-DD`, to read recordings that were created on or before midnight of this date, and `DateCreated>=YYYY-MM-DD` to read recordings that were created on or after midnight of this date.
- * @property { Date } [dateCreatedBefore] Only include recordings that were created on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read recordings that were created on this date. You can also specify an inequality, such as `DateCreated<=YYYY-MM-DD`, to read recordings that were created on or before midnight of this date, and `DateCreated>=YYYY-MM-DD` to read recordings that were created on or after midnight of this date.
- * @property { Date } [dateCreatedAfter] Only include recordings that were created on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read recordings that were created on this date. You can also specify an inequality, such as `DateCreated<=YYYY-MM-DD`, to read recordings that were created on or before midnight of this date, and `DateCreated>=YYYY-MM-DD` to read recordings that were created on or after midnight of this date.
- * @property { string } [callSid] The [Call](https://www.twilio.com/docs/voice/api/call-resource) SID of the resources to read.
- * @property { string } [conferenceSid] The Conference SID that identifies the conference associated with the recording to read.
- * @property { boolean } [includeSoftDeleted] A boolean parameter indicating whether to retrieve soft deleted recordings or not. Recordings metadata are kept after deletion for a retention period of 40 days.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface RecordingListInstanceOptions {
+  /** Only include recordings that were created on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read recordings that were created on this date. You can also specify an inequality, such as `DateCreated<=YYYY-MM-DD`, to read recordings that were created on or before midnight of this date, and `DateCreated>=YYYY-MM-DD` to read recordings that were created on or after midnight of this date. */
   dateCreated?: Date;
+  /** Only include recordings that were created on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read recordings that were created on this date. You can also specify an inequality, such as `DateCreated<=YYYY-MM-DD`, to read recordings that were created on or before midnight of this date, and `DateCreated>=YYYY-MM-DD` to read recordings that were created on or after midnight of this date. */
   dateCreatedBefore?: Date;
+  /** Only include recordings that were created on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read recordings that were created on this date. You can also specify an inequality, such as `DateCreated<=YYYY-MM-DD`, to read recordings that were created on or before midnight of this date, and `DateCreated>=YYYY-MM-DD` to read recordings that were created on or after midnight of this date. */
   dateCreatedAfter?: Date;
+  /** The [Call](https://www.twilio.com/docs/voice/api/call-resource) SID of the resources to read. */
   callSid?: string;
+  /** The Conference SID that identifies the conference associated with the recording to read. */
   conferenceSid?: string;
+  /** A boolean parameter indicating whether to retrieve soft deleted recordings or not. Recordings metadata are kept after deletion for a retention period of 40 days. */
   includeSoftDeleted?: boolean;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { Date } [dateCreated] Only include recordings that were created on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read recordings that were created on this date. You can also specify an inequality, such as `DateCreated<=YYYY-MM-DD`, to read recordings that were created on or before midnight of this date, and `DateCreated>=YYYY-MM-DD` to read recordings that were created on or after midnight of this date.
- * @property { Date } [dateCreatedBefore] Only include recordings that were created on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read recordings that were created on this date. You can also specify an inequality, such as `DateCreated<=YYYY-MM-DD`, to read recordings that were created on or before midnight of this date, and `DateCreated>=YYYY-MM-DD` to read recordings that were created on or after midnight of this date.
- * @property { Date } [dateCreatedAfter] Only include recordings that were created on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read recordings that were created on this date. You can also specify an inequality, such as `DateCreated<=YYYY-MM-DD`, to read recordings that were created on or before midnight of this date, and `DateCreated>=YYYY-MM-DD` to read recordings that were created on or after midnight of this date.
- * @property { string } [callSid] The [Call](https://www.twilio.com/docs/voice/api/call-resource) SID of the resources to read.
- * @property { string } [conferenceSid] The Conference SID that identifies the conference associated with the recording to read.
- * @property { boolean } [includeSoftDeleted] A boolean parameter indicating whether to retrieve soft deleted recordings or not. Recordings metadata are kept after deletion for a retention period of 40 days.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface RecordingListInstancePageOptions {
+  /** Only include recordings that were created on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read recordings that were created on this date. You can also specify an inequality, such as `DateCreated<=YYYY-MM-DD`, to read recordings that were created on or before midnight of this date, and `DateCreated>=YYYY-MM-DD` to read recordings that were created on or after midnight of this date. */
   dateCreated?: Date;
+  /** Only include recordings that were created on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read recordings that were created on this date. You can also specify an inequality, such as `DateCreated<=YYYY-MM-DD`, to read recordings that were created on or before midnight of this date, and `DateCreated>=YYYY-MM-DD` to read recordings that were created on or after midnight of this date. */
   dateCreatedBefore?: Date;
+  /** Only include recordings that were created on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read recordings that were created on this date. You can also specify an inequality, such as `DateCreated<=YYYY-MM-DD`, to read recordings that were created on or before midnight of this date, and `DateCreated>=YYYY-MM-DD` to read recordings that were created on or after midnight of this date. */
   dateCreatedAfter?: Date;
+  /** The [Call](https://www.twilio.com/docs/voice/api/call-resource) SID of the resources to read. */
   callSid?: string;
+  /** The Conference SID that identifies the conference associated with the recording to read. */
   conferenceSid?: string;
+  /** A boolean parameter indicating whether to retrieve soft deleted recordings or not. Recordings metadata are kept after deletion for a retention period of 40 days. */
   includeSoftDeleted?: boolean;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
@@ -138,9 +126,9 @@ export interface RecordingContext {
   /**
    * Remove a RecordingInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -149,9 +137,9 @@ export interface RecordingContext {
   /**
    * Fetch a RecordingInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed RecordingInstance
+   * @returns Resolves to processed RecordingInstance
    */
   fetch(
     callback?: (error: Error | null, item?: RecordingInstance) => any
@@ -159,10 +147,10 @@ export interface RecordingContext {
   /**
    * Fetch a RecordingInstance
    *
-   * @param { RecordingContextFetchOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed RecordingInstance
+   * @returns Resolves to processed RecordingInstance
    */
   fetch(
     params: RecordingContextFetchOptions,
@@ -177,8 +165,8 @@ export interface RecordingContext {
 }
 
 export interface RecordingContextSolution {
-  accountSid?: string;
-  sid?: string;
+  accountSid: string;
+  sid: string;
 }
 
 export class RecordingContextImpl implements RecordingContext {
@@ -226,13 +214,14 @@ export class RecordingContextImpl implements RecordingContext {
   remove(
     callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -262,9 +251,10 @@ export class RecordingContextImpl implements RecordingContext {
 
     const headers: any = {};
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
@@ -275,12 +265,12 @@ export class RecordingContextImpl implements RecordingContext {
         new RecordingInstance(
           operationVersion,
           payload,
-          this._solution.accountSid,
-          this._solution.sid
+          instance._solution.accountSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -306,25 +296,25 @@ interface RecordingPayload extends TwilioResponsePayload {
 }
 
 interface RecordingResource {
-  account_sid?: string | null;
-  api_version?: string | null;
-  call_sid?: string | null;
-  conference_sid?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  start_time?: Date | null;
-  duration?: string | null;
-  sid?: string | null;
-  price?: string | null;
-  price_unit?: string | null;
-  status?: RecordingStatus;
-  channels?: number | null;
-  source?: RecordingSource;
-  error_code?: number | null;
-  uri?: string | null;
-  encryption_details?: any | null;
-  subresource_uris?: object | null;
-  media_url?: string | null;
+  account_sid: string;
+  api_version: string;
+  call_sid: string;
+  conference_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  start_time: Date;
+  duration: string;
+  sid: string;
+  price: string;
+  price_unit: string;
+  status: RecordingStatus;
+  channels: number;
+  source: RecordingSource;
+  error_code: number;
+  uri: string;
+  encryption_details: any;
+  subresource_uris: object;
+  media_url: string;
 }
 
 export class RecordingInstance {
@@ -363,73 +353,73 @@ export class RecordingInstance {
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The API version used during the recording.
    */
-  apiVersion?: string | null;
+  apiVersion: string;
   /**
    * The SID of the Call the resource is associated with
    */
-  callSid?: string | null;
+  callSid: string;
   /**
    * The unique ID for the conference associated with the recording.
    */
-  conferenceSid?: string | null;
+  conferenceSid: string;
   /**
    * The RFC 2822 date and time in GMT that the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The RFC 2822 date and time in GMT that the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The start time of the recording, given in RFC 2822 format
    */
-  startTime?: Date | null;
+  startTime: Date;
   /**
    * The length of the recording in seconds.
    */
-  duration?: string | null;
+  duration: string;
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The one-time cost of creating the recording.
    */
-  price?: string | null;
+  price: string;
   /**
    * The currency used in the price property.
    */
-  priceUnit?: string | null;
-  status?: RecordingStatus;
+  priceUnit: string;
+  status: RecordingStatus;
   /**
    * The number of channels in the final recording file as an integer.
    */
-  channels?: number | null;
-  source?: RecordingSource;
+  channels: number;
+  source: RecordingSource;
   /**
    * More information about why the recording is missing, if status is `absent`.
    */
-  errorCode?: number | null;
+  errorCode: number;
   /**
    * The URI of the resource, relative to `https://api.twilio.com`
    */
-  uri?: string | null;
+  uri: string;
   /**
    * How to decrypt the recording.
    */
-  encryptionDetails?: any | null;
+  encryptionDetails: any;
   /**
    * A list of related resources identified by their relative URIs
    */
-  subresourceUris?: object | null;
+  subresourceUris: object;
   /**
    * The URL of the media file.
    */
-  mediaUrl?: string | null;
+  mediaUrl: string;
 
   private get _proxy(): RecordingContext {
     this._context =
@@ -445,9 +435,9 @@ export class RecordingInstance {
   /**
    * Remove a RecordingInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -458,9 +448,9 @@ export class RecordingInstance {
   /**
    * Fetch a RecordingInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed RecordingInstance
+   * @returns Resolves to processed RecordingInstance
    */
   fetch(
     callback?: (error: Error | null, item?: RecordingInstance) => any
@@ -468,10 +458,10 @@ export class RecordingInstance {
   /**
    * Fetch a RecordingInstance
    *
-   * @param { RecordingContextFetchOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed RecordingInstance
+   * @returns Resolves to processed RecordingInstance
    */
   fetch(
     params: RecordingContextFetchOptions,
@@ -533,7 +523,15 @@ export class RecordingInstance {
   }
 }
 
+export interface RecordingSolution {
+  accountSid: string;
+}
+
 export interface RecordingListInstance {
+  _version: V2010;
+  _solution: RecordingSolution;
+  _uri: string;
+
   (sid: string): RecordingContext;
   get(sid: string): RecordingContext;
 
@@ -613,17 +611,6 @@ export interface RecordingListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface RecordingSolution {
-  accountSid?: string;
-}
-
-interface RecordingListInstanceImpl extends RecordingListInstance {}
-class RecordingListInstanceImpl implements RecordingListInstance {
-  _version?: V2010;
-  _solution?: RecordingSolution;
-  _uri?: string;
-}
-
 export function RecordingListInstance(
   version: V2010,
   accountSid: string
@@ -632,7 +619,7 @@ export function RecordingListInstance(
     throw new Error("Parameter 'accountSid' is not valid.");
   }
 
-  const instance = ((sid) => instance.get(sid)) as RecordingListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as RecordingListInstance;
 
   instance.get = function get(sid): RecordingContext {
     return new RecordingContextImpl(version, accountSid, sid);
@@ -681,17 +668,18 @@ export function RecordingListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new RecordingPage(operationVersion, payload, this._solution)
+      (payload) =>
+        new RecordingPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -704,30 +692,28 @@ export function RecordingListInstance(
     targetUrl: string,
     callback?: (error: Error | null, items: RecordingPage) => any
   ): Promise<RecordingPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new RecordingPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new RecordingPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

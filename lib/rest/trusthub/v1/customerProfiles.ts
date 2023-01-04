@@ -32,98 +32,85 @@ type CustomerProfileStatus =
 
 /**
  * Options to pass to update a CustomerProfilesInstance
- *
- * @property { CustomerProfileStatus } [status]
- * @property { string } [statusCallback] The URL we call to inform your application of status changes.
- * @property { string } [friendlyName] The string that you assigned to describe the resource.
- * @property { string } [email] The email address that will receive updates when the Customer-Profile resource changes status.
  */
 export interface CustomerProfilesContextUpdateOptions {
+  /**  */
   status?: CustomerProfileStatus;
+  /** The URL we call to inform your application of status changes. */
   statusCallback?: string;
+  /** The string that you assigned to describe the resource. */
   friendlyName?: string;
+  /** The email address that will receive updates when the Customer-Profile resource changes status. */
   email?: string;
 }
 
 /**
  * Options to pass to create a CustomerProfilesInstance
- *
- * @property { string } friendlyName The string that you assigned to describe the resource.
- * @property { string } email The email address that will receive updates when the Customer-Profile resource changes status.
- * @property { string } policySid The unique string of a policy that is associated to the Customer-Profile resource.
- * @property { string } [statusCallback] The URL we call to inform your application of status changes.
  */
 export interface CustomerProfilesListInstanceCreateOptions {
+  /** The string that you assigned to describe the resource. */
   friendlyName: string;
+  /** The email address that will receive updates when the Customer-Profile resource changes status. */
   email: string;
+  /** The unique string of a policy that is associated to the Customer-Profile resource. */
   policySid: string;
+  /** The URL we call to inform your application of status changes. */
   statusCallback?: string;
 }
 /**
  * Options to pass to each
- *
- * @property { CustomerProfileStatus } [status] The verification status of the Customer-Profile resource.
- * @property { string } [friendlyName] The string that you assigned to describe the resource.
- * @property { string } [policySid] The unique string of a policy that is associated to the Customer-Profile resource.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface CustomerProfilesListInstanceEachOptions {
+  /** The verification status of the Customer-Profile resource. */
   status?: CustomerProfileStatus;
+  /** The string that you assigned to describe the resource. */
   friendlyName?: string;
+  /** The unique string of a policy that is associated to the Customer-Profile resource. */
   policySid?: string;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (
     item: CustomerProfilesInstance,
     done: (err?: Error) => void
   ) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { CustomerProfileStatus } [status] The verification status of the Customer-Profile resource.
- * @property { string } [friendlyName] The string that you assigned to describe the resource.
- * @property { string } [policySid] The unique string of a policy that is associated to the Customer-Profile resource.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface CustomerProfilesListInstanceOptions {
+  /** The verification status of the Customer-Profile resource. */
   status?: CustomerProfileStatus;
+  /** The string that you assigned to describe the resource. */
   friendlyName?: string;
+  /** The unique string of a policy that is associated to the Customer-Profile resource. */
   policySid?: string;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { CustomerProfileStatus } [status] The verification status of the Customer-Profile resource.
- * @property { string } [friendlyName] The string that you assigned to describe the resource.
- * @property { string } [policySid] The unique string of a policy that is associated to the Customer-Profile resource.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface CustomerProfilesListInstancePageOptions {
+  /** The verification status of the Customer-Profile resource. */
   status?: CustomerProfileStatus;
+  /** The string that you assigned to describe the resource. */
   friendlyName?: string;
+  /** The unique string of a policy that is associated to the Customer-Profile resource. */
   policySid?: string;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
@@ -135,9 +122,9 @@ export interface CustomerProfilesContext {
   /**
    * Remove a CustomerProfilesInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -146,9 +133,9 @@ export interface CustomerProfilesContext {
   /**
    * Fetch a CustomerProfilesInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed CustomerProfilesInstance
+   * @returns Resolves to processed CustomerProfilesInstance
    */
   fetch(
     callback?: (error: Error | null, item?: CustomerProfilesInstance) => any
@@ -157,9 +144,9 @@ export interface CustomerProfilesContext {
   /**
    * Update a CustomerProfilesInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed CustomerProfilesInstance
+   * @returns Resolves to processed CustomerProfilesInstance
    */
   update(
     callback?: (error: Error | null, item?: CustomerProfilesInstance) => any
@@ -167,10 +154,10 @@ export interface CustomerProfilesContext {
   /**
    * Update a CustomerProfilesInstance
    *
-   * @param { CustomerProfilesContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed CustomerProfilesInstance
+   * @returns Resolves to processed CustomerProfilesInstance
    */
   update(
     params: CustomerProfilesContextUpdateOptions,
@@ -185,7 +172,7 @@ export interface CustomerProfilesContext {
 }
 
 export interface CustomerProfilesContextSolution {
-  sid?: string;
+  sid: string;
 }
 
 export class CustomerProfilesContextImpl implements CustomerProfilesContext {
@@ -238,13 +225,14 @@ export class CustomerProfilesContextImpl implements CustomerProfilesContext {
   remove(
     callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -254,9 +242,10 @@ export class CustomerProfilesContextImpl implements CustomerProfilesContext {
   fetch(
     callback?: (error: Error | null, item?: CustomerProfilesInstance) => any
   ): Promise<CustomerProfilesInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -265,11 +254,11 @@ export class CustomerProfilesContextImpl implements CustomerProfilesContext {
         new CustomerProfilesInstance(
           operationVersion,
           payload,
-          this._solution.sid
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -304,9 +293,10 @@ export class CustomerProfilesContextImpl implements CustomerProfilesContext {
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -317,11 +307,11 @@ export class CustomerProfilesContextImpl implements CustomerProfilesContext {
         new CustomerProfilesInstance(
           operationVersion,
           payload,
-          this._solution.sid
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -347,18 +337,18 @@ interface CustomerProfilesPayload extends TwilioResponsePayload {
 }
 
 interface CustomerProfilesResource {
-  sid?: string | null;
-  account_sid?: string | null;
-  policy_sid?: string | null;
-  friendly_name?: string | null;
-  status?: CustomerProfileStatus;
-  valid_until?: Date | null;
-  email?: string | null;
-  status_callback?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  url?: string | null;
-  links?: object | null;
+  sid: string;
+  account_sid: string;
+  policy_sid: string;
+  friendly_name: string;
+  status: CustomerProfileStatus;
+  valid_until: Date;
+  email: string;
+  status_callback: string;
+  date_created: Date;
+  date_updated: Date;
+  url: string;
+  links: object;
 }
 
 export class CustomerProfilesInstance {
@@ -389,48 +379,48 @@ export class CustomerProfilesInstance {
   /**
    * The unique string that identifies the resource.
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The unique string of a policy.
    */
-  policySid?: string | null;
+  policySid: string;
   /**
    * The string that you assigned to describe the resource
    */
-  friendlyName?: string | null;
-  status?: CustomerProfileStatus;
+  friendlyName: string;
+  status: CustomerProfileStatus;
   /**
    * The ISO 8601 date and time in GMT when the resource will be valid until.
    */
-  validUntil?: Date | null;
+  validUntil: Date;
   /**
    * The email address
    */
-  email?: string | null;
+  email: string;
   /**
    * The URL we call to inform your application of status changes.
    */
-  statusCallback?: string | null;
+  statusCallback: string;
   /**
    * The ISO 8601 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The ISO 8601 date and time in GMT when the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The absolute URL of the Customer-Profile resource
    */
-  url?: string | null;
+  url: string;
   /**
    * The URLs of the Assigned Items of the Customer-Profile resource
    */
-  links?: object | null;
+  links: object;
 
   private get _proxy(): CustomerProfilesContext {
     this._context =
@@ -442,9 +432,9 @@ export class CustomerProfilesInstance {
   /**
    * Remove a CustomerProfilesInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -455,9 +445,9 @@ export class CustomerProfilesInstance {
   /**
    * Fetch a CustomerProfilesInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed CustomerProfilesInstance
+   * @returns Resolves to processed CustomerProfilesInstance
    */
   fetch(
     callback?: (error: Error | null, item?: CustomerProfilesInstance) => any
@@ -468,9 +458,9 @@ export class CustomerProfilesInstance {
   /**
    * Update a CustomerProfilesInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed CustomerProfilesInstance
+   * @returns Resolves to processed CustomerProfilesInstance
    */
   update(
     callback?: (error: Error | null, item?: CustomerProfilesInstance) => any
@@ -478,10 +468,10 @@ export class CustomerProfilesInstance {
   /**
    * Update a CustomerProfilesInstance
    *
-   * @param { CustomerProfilesContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed CustomerProfilesInstance
+   * @returns Resolves to processed CustomerProfilesInstance
    */
   update(
     params: CustomerProfilesContextUpdateOptions,
@@ -543,17 +533,23 @@ export class CustomerProfilesInstance {
   }
 }
 
+export interface CustomerProfilesSolution {}
+
 export interface CustomerProfilesListInstance {
+  _version: V1;
+  _solution: CustomerProfilesSolution;
+  _uri: string;
+
   (sid: string): CustomerProfilesContext;
   get(sid: string): CustomerProfilesContext;
 
   /**
    * Create a CustomerProfilesInstance
    *
-   * @param { CustomerProfilesListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed CustomerProfilesInstance
+   * @returns Resolves to processed CustomerProfilesInstance
    */
   create(
     params: CustomerProfilesListInstanceCreateOptions,
@@ -642,21 +638,10 @@ export interface CustomerProfilesListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface CustomerProfilesSolution {}
-
-interface CustomerProfilesListInstanceImpl
-  extends CustomerProfilesListInstance {}
-class CustomerProfilesListInstanceImpl implements CustomerProfilesListInstance {
-  _version?: V1;
-  _solution?: CustomerProfilesSolution;
-  _uri?: string;
-}
-
 export function CustomerProfilesListInstance(
   version: V1
 ): CustomerProfilesListInstance {
-  const instance = ((sid) =>
-    instance.get(sid)) as CustomerProfilesListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as CustomerProfilesListInstance;
 
   instance.get = function get(sid): CustomerProfilesContext {
     return new CustomerProfilesContextImpl(version, sid);
@@ -704,7 +689,7 @@ export function CustomerProfilesListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -714,7 +699,7 @@ export function CustomerProfilesListInstance(
       (payload) => new CustomerProfilesInstance(operationVersion, payload)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -753,7 +738,7 @@ export function CustomerProfilesListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
@@ -761,10 +746,10 @@ export function CustomerProfilesListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new CustomerProfilesPage(operationVersion, payload, this._solution)
+        new CustomerProfilesPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -777,31 +762,28 @@ export function CustomerProfilesListInstance(
     targetUrl: string,
     callback?: (error: Error | null, items: CustomerProfilesPage) => any
   ): Promise<CustomerProfilesPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
+    let pagePromise = operationPromise.then(
       (payload) =>
-        new CustomerProfilesPage(this._version, payload, this._solution)
+        new CustomerProfilesPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

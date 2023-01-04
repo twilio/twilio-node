@@ -22,9 +22,9 @@ export interface OauthContext {
   /**
    * Fetch a OauthInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed OauthInstance
+   * @returns Resolves to processed OauthInstance
    */
   fetch(
     callback?: (error: Error | null, item?: OauthInstance) => any
@@ -51,9 +51,10 @@ export class OauthContextImpl implements OauthContext {
   fetch(
     callback?: (error: Error | null, item?: OauthInstance) => any
   ): Promise<OauthInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -61,7 +62,7 @@ export class OauthContextImpl implements OauthContext {
       (payload) => new OauthInstance(operationVersion, payload)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -85,8 +86,8 @@ export class OauthContextImpl implements OauthContext {
 interface OauthPayload extends OauthResource {}
 
 interface OauthResource {
-  keys?: any | null;
-  url?: string | null;
+  keys: any;
+  url: string;
 }
 
 export class OauthInstance {
@@ -103,8 +104,8 @@ export class OauthInstance {
   /**
    * A collection of certificates
    */
-  keys?: any | null;
-  url?: string | null;
+  keys: any;
+  url: string;
 
   private get _proxy(): OauthContext {
     this._context = this._context || new OauthContextImpl(this._version);
@@ -114,9 +115,9 @@ export class OauthInstance {
   /**
    * Fetch a OauthInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed OauthInstance
+   * @returns Resolves to processed OauthInstance
    */
   fetch(
     callback?: (error: Error | null, item?: OauthInstance) => any
@@ -141,7 +142,13 @@ export class OauthInstance {
   }
 }
 
+export interface OauthSolution {}
+
 export interface OauthListInstance {
+  _version: V1;
+  _solution: OauthSolution;
+  _uri: string;
+
   (): OauthContext;
   get(): OauthContext;
 
@@ -152,17 +159,8 @@ export interface OauthListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface OauthSolution {}
-
-interface OauthListInstanceImpl extends OauthListInstance {}
-class OauthListInstanceImpl implements OauthListInstance {
-  _version?: V1;
-  _solution?: OauthSolution;
-  _uri?: string;
-}
-
 export function OauthListInstance(version: V1): OauthListInstance {
-  const instance = (() => instance.get()) as OauthListInstanceImpl;
+  const instance = (() => instance.get()) as OauthListInstance;
 
   instance.get = function get(): OauthContext {
     return new OauthContextImpl(version);
@@ -173,14 +171,14 @@ export function OauthListInstance(version: V1): OauthListInstance {
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

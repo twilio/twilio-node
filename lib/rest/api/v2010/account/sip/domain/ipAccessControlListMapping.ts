@@ -22,59 +22,47 @@ import { isValidPathParam } from "../../../../../../base/utility";
 
 /**
  * Options to pass to create a IpAccessControlListMappingInstance
- *
- * @property { string } ipAccessControlListSid The unique id of the IP access control list to map to the SIP domain.
  */
 export interface IpAccessControlListMappingListInstanceCreateOptions {
+  /** The unique id of the IP access control list to map to the SIP domain. */
   ipAccessControlListSid: string;
 }
 /**
  * Options to pass to each
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface IpAccessControlListMappingListInstanceEachOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (
     item: IpAccessControlListMappingInstance,
     done: (err?: Error) => void
   ) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface IpAccessControlListMappingListInstanceOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface IpAccessControlListMappingListInstancePageOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
@@ -82,9 +70,9 @@ export interface IpAccessControlListMappingContext {
   /**
    * Remove a IpAccessControlListMappingInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -93,9 +81,9 @@ export interface IpAccessControlListMappingContext {
   /**
    * Fetch a IpAccessControlListMappingInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed IpAccessControlListMappingInstance
+   * @returns Resolves to processed IpAccessControlListMappingInstance
    */
   fetch(
     callback?: (
@@ -112,9 +100,9 @@ export interface IpAccessControlListMappingContext {
 }
 
 export interface IpAccessControlListMappingContextSolution {
-  accountSid?: string;
-  domainSid?: string;
-  sid?: string;
+  accountSid: string;
+  domainSid: string;
+  sid: string;
 }
 
 export class IpAccessControlListMappingContextImpl
@@ -148,13 +136,14 @@ export class IpAccessControlListMappingContextImpl
   remove(
     callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -167,9 +156,10 @@ export class IpAccessControlListMappingContextImpl
       item?: IpAccessControlListMappingInstance
     ) => any
   ): Promise<IpAccessControlListMappingInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -178,13 +168,13 @@ export class IpAccessControlListMappingContextImpl
         new IpAccessControlListMappingInstance(
           operationVersion,
           payload,
-          this._solution.accountSid,
-          this._solution.domainSid,
-          this._solution.sid
+          instance._solution.accountSid,
+          instance._solution.domainSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -210,13 +200,13 @@ interface IpAccessControlListMappingPayload extends TwilioResponsePayload {
 }
 
 interface IpAccessControlListMappingResource {
-  account_sid?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  domain_sid?: string | null;
-  friendly_name?: string | null;
-  sid?: string | null;
-  uri?: string | null;
+  account_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  domain_sid: string;
+  friendly_name: string;
+  sid: string;
+  uri: string;
 }
 
 export class IpAccessControlListMappingInstance {
@@ -244,31 +234,31 @@ export class IpAccessControlListMappingInstance {
   /**
    * The unique id of the Account that is responsible for this resource.
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The date that this resource was created, given as GMT in RFC 2822 format.
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The date that this resource was last updated, given as GMT in RFC 2822 format.
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The unique string that identifies the SipDomain resource.
    */
-  domainSid?: string | null;
+  domainSid: string;
   /**
    * A human readable descriptive text for this resource, up to 64 characters long.
    */
-  friendlyName?: string | null;
+  friendlyName: string;
   /**
    * A 34 character string that uniquely identifies this resource.
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The URI for this resource, relative to https://api.twilio.com
    */
-  uri?: string | null;
+  uri: string;
 
   private get _proxy(): IpAccessControlListMappingContext {
     this._context =
@@ -285,9 +275,9 @@ export class IpAccessControlListMappingInstance {
   /**
    * Remove a IpAccessControlListMappingInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -298,9 +288,9 @@ export class IpAccessControlListMappingInstance {
   /**
    * Fetch a IpAccessControlListMappingInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed IpAccessControlListMappingInstance
+   * @returns Resolves to processed IpAccessControlListMappingInstance
    */
   fetch(
     callback?: (
@@ -333,17 +323,26 @@ export class IpAccessControlListMappingInstance {
   }
 }
 
+export interface IpAccessControlListMappingSolution {
+  accountSid: string;
+  domainSid: string;
+}
+
 export interface IpAccessControlListMappingListInstance {
+  _version: V2010;
+  _solution: IpAccessControlListMappingSolution;
+  _uri: string;
+
   (sid: string): IpAccessControlListMappingContext;
   get(sid: string): IpAccessControlListMappingContext;
 
   /**
    * Create a IpAccessControlListMappingInstance
    *
-   * @param { IpAccessControlListMappingListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed IpAccessControlListMappingInstance
+   * @returns Resolves to processed IpAccessControlListMappingInstance
    */
   create(
     params: IpAccessControlListMappingListInstanceCreateOptions,
@@ -450,21 +449,6 @@ export interface IpAccessControlListMappingListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface IpAccessControlListMappingSolution {
-  accountSid?: string;
-  domainSid?: string;
-}
-
-interface IpAccessControlListMappingListInstanceImpl
-  extends IpAccessControlListMappingListInstance {}
-class IpAccessControlListMappingListInstanceImpl
-  implements IpAccessControlListMappingListInstance
-{
-  _version?: V2010;
-  _solution?: IpAccessControlListMappingSolution;
-  _uri?: string;
-}
-
 export function IpAccessControlListMappingListInstance(
   version: V2010,
   accountSid: string,
@@ -479,7 +463,7 @@ export function IpAccessControlListMappingListInstance(
   }
 
   const instance = ((sid) =>
-    instance.get(sid)) as IpAccessControlListMappingListInstanceImpl;
+    instance.get(sid)) as IpAccessControlListMappingListInstance;
 
   instance.get = function get(sid): IpAccessControlListMappingContext {
     return new IpAccessControlListMappingContextImpl(
@@ -523,7 +507,7 @@ export function IpAccessControlListMappingListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -534,12 +518,12 @@ export function IpAccessControlListMappingListInstance(
         new IpAccessControlListMappingInstance(
           operationVersion,
           payload,
-          this._solution.accountSid,
-          this._solution.domainSid
+          instance._solution.accountSid,
+          instance._solution.domainSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -576,7 +560,7 @@ export function IpAccessControlListMappingListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
@@ -587,11 +571,11 @@ export function IpAccessControlListMappingListInstance(
         new IpAccessControlListMappingPage(
           operationVersion,
           payload,
-          this._solution
+          instance._solution
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -607,35 +591,32 @@ export function IpAccessControlListMappingListInstance(
       items: IpAccessControlListMappingPage
     ) => any
   ): Promise<IpAccessControlListMappingPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
+    let pagePromise = operationPromise.then(
       (payload) =>
         new IpAccessControlListMappingPage(
-          this._version,
+          instance._version,
           payload,
-          this._solution
+          instance._solution
         )
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

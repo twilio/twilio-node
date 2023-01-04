@@ -22,80 +22,76 @@ import { isValidPathParam } from "../../../../base/utility";
 
 /**
  * Options to pass to create a ExportCustomJobInstance
- *
- * @property { string } startDay The start day for the custom export specified as a string in the format of yyyy-mm-dd
- * @property { string } endDay The end day for the custom export specified as a string in the format of yyyy-mm-dd. End day is inclusive and must be 2 days earlier than the current UTC day.
- * @property { string } friendlyName The friendly name specified when creating the job
- * @property { string } [webhookUrl] The optional webhook url called on completion of the job. If this is supplied, `WebhookMethod` must also be supplied. If you set neither webhook nor email, you will have to check your job\\\'s status manually.
- * @property { string } [webhookMethod] This is the method used to call the webhook on completion of the job. If this is supplied, `WebhookUrl` must also be supplied.
- * @property { string } [email] The optional email to send the completion notification to. You can set both webhook, and email, or one or the other. If you set neither, the job will run but you will have to query to determine your job\\\'s status.
  */
 export interface ExportCustomJobListInstanceCreateOptions {
+  /** The start day for the custom export specified as a string in the format of yyyy-mm-dd */
   startDay: string;
+  /** The end day for the custom export specified as a string in the format of yyyy-mm-dd. End day is inclusive and must be 2 days earlier than the current UTC day. */
   endDay: string;
+  /** The friendly name specified when creating the job */
   friendlyName: string;
+  /** The optional webhook url called on completion of the job. If this is supplied, `WebhookMethod` must also be supplied. If you set neither webhook nor email, you will have to check your job\\\'s status manually. */
   webhookUrl?: string;
+  /** This is the method used to call the webhook on completion of the job. If this is supplied, `WebhookUrl` must also be supplied. */
   webhookMethod?: string;
+  /** The optional email to send the completion notification to. You can set both webhook, and email, or one or the other. If you set neither, the job will run but you will have to query to determine your job\\\'s status. */
   email?: string;
 }
 /**
  * Options to pass to each
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface ExportCustomJobListInstanceEachOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (
     item: ExportCustomJobInstance,
     done: (err?: Error) => void
   ) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface ExportCustomJobListInstanceOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface ExportCustomJobListInstancePageOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
+export interface ExportCustomJobSolution {
+  resourceType: string;
+}
+
 export interface ExportCustomJobListInstance {
+  _version: V1;
+  _solution: ExportCustomJobSolution;
+  _uri: string;
+
   /**
    * Create a ExportCustomJobInstance
    *
-   * @param { ExportCustomJobListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ExportCustomJobInstance
+   * @returns Resolves to processed ExportCustomJobInstance
    */
   create(
     params: ExportCustomJobListInstanceCreateOptions,
@@ -184,17 +180,6 @@ export interface ExportCustomJobListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface ExportCustomJobSolution {
-  resourceType?: string;
-}
-
-interface ExportCustomJobListInstanceImpl extends ExportCustomJobListInstance {}
-class ExportCustomJobListInstanceImpl implements ExportCustomJobListInstance {
-  _version?: V1;
-  _solution?: ExportCustomJobSolution;
-  _uri?: string;
-}
-
 export function ExportCustomJobListInstance(
   version: V1,
   resourceType: string
@@ -203,7 +188,7 @@ export function ExportCustomJobListInstance(
     throw new Error("Parameter 'resourceType' is not valid.");
   }
 
-  const instance = {} as ExportCustomJobListInstanceImpl;
+  const instance = {} as ExportCustomJobListInstance;
 
   instance._version = version;
   instance._solution = { resourceType };
@@ -250,7 +235,7 @@ export function ExportCustomJobListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -261,11 +246,11 @@ export function ExportCustomJobListInstance(
         new ExportCustomJobInstance(
           operationVersion,
           payload,
-          this._solution.resourceType
+          instance._solution.resourceType
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -299,7 +284,7 @@ export function ExportCustomJobListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
@@ -307,10 +292,10 @@ export function ExportCustomJobListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new ExportCustomJobPage(operationVersion, payload, this._solution)
+        new ExportCustomJobPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -323,31 +308,28 @@ export function ExportCustomJobListInstance(
     targetUrl: string,
     callback?: (error: Error | null, items: ExportCustomJobPage) => any
   ): Promise<ExportCustomJobPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
+    let pagePromise = operationPromise.then(
       (payload) =>
-        new ExportCustomJobPage(this._version, payload, this._solution)
+        new ExportCustomJobPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;
@@ -358,17 +340,17 @@ interface ExportCustomJobPayload extends TwilioResponsePayload {
 }
 
 interface ExportCustomJobResource {
-  friendly_name?: string | null;
-  resource_type?: string | null;
-  start_day?: string | null;
-  end_day?: string | null;
-  webhook_url?: string | null;
-  webhook_method?: string | null;
-  email?: string | null;
-  job_sid?: string | null;
-  details?: any | null;
-  job_queue_position?: string | null;
-  estimated_completion_time?: string | null;
+  friendly_name: string;
+  resource_type: string;
+  start_day: string;
+  end_day: string;
+  webhook_url: string;
+  webhook_method: string;
+  email: string;
+  job_sid: string;
+  details: any;
+  job_queue_position: string;
+  estimated_completion_time: string;
 }
 
 export class ExportCustomJobInstance {
@@ -393,47 +375,47 @@ export class ExportCustomJobInstance {
   /**
    * The friendly name specified when creating the job
    */
-  friendlyName?: string | null;
+  friendlyName: string;
   /**
    * The type of communication – Messages, Calls, Conferences, and Participants
    */
-  resourceType?: string | null;
+  resourceType: string;
   /**
    * The start day for the custom export specified as a string in the format of yyyy-MM-dd
    */
-  startDay?: string | null;
+  startDay: string;
   /**
    * The end day for the custom export specified as a string in the format of yyyy-MM-dd. This will be the last day exported. For instance, to export a single day, choose the same day for start and end day. To export the first 4 days of July, you would set the start date to 2020-07-01 and the end date to 2020-07-04. The end date must be the UTC day before yesterday.
    */
-  endDay?: string | null;
+  endDay: string;
   /**
    * The optional webhook url called on completion
    */
-  webhookUrl?: string | null;
+  webhookUrl: string;
   /**
    * This is the method used to call the webhook
    */
-  webhookMethod?: string | null;
+  webhookMethod: string;
   /**
    * The optional email to send the completion notification to
    */
-  email?: string | null;
+  email: string;
   /**
    * The unique job_sid returned when the custom export was created. This can be used to look up the status of the job.
    */
-  jobSid?: string | null;
+  jobSid: string;
   /**
    * The details of a job state which is an object that contains a `status` string, a day count integer, and list of days in the job
    */
-  details?: any | null;
+  details: any;
   /**
    * This is the job position from the 1st in line. Your queue position will never increase. As jobs ahead of yours in the queue are processed, the queue position number will decrease
    */
-  jobQueuePosition?: string | null;
+  jobQueuePosition: string;
   /**
    * this is the time estimated until your job is complete. This is calculated each time you request the job list. The time is calculated based on the current rate of job completion (which may vary) and your job queue position
    */
-  estimatedCompletionTime?: string | null;
+  estimatedCompletionTime: string;
 
   /**
    * Provide a user-friendly representation

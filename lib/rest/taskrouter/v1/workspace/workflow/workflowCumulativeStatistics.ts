@@ -20,18 +20,17 @@ import { isValidPathParam } from "../../../../../base/utility";
 
 /**
  * Options to pass to fetch a WorkflowCumulativeStatisticsInstance
- *
- * @property { Date } [endDate] Only include usage that occurred on or before this date, specified in GMT as an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time.
- * @property { number } [minutes] Only calculate statistics since this many minutes in the past. The default 15 minutes. This is helpful for displaying statistics for the last 15 minutes, 240 minutes (4 hours), and 480 minutes (8 hours) to see trends.
- * @property { Date } [startDate] Only calculate statistics from this date and time and later, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
- * @property { string } [taskChannel] Only calculate cumulative statistics on this TaskChannel. Can be the TaskChannel\'s SID or its `unique_name`, such as `voice`, `sms`, or `default`.
- * @property { string } [splitByWaitTime] A comma separated list of values that describes the thresholds, in seconds, to calculate statistics on. For each threshold specified, the number of Tasks canceled and reservations accepted above and below the specified thresholds in seconds are computed. For example, `5,30` would show splits of Tasks that were canceled or accepted before and after 5 seconds and before and after 30 seconds. This can be used to show short abandoned Tasks or Tasks that failed to meet an SLA. TaskRouter will calculate statistics on up to 10,000 Tasks for any given threshold.
  */
 export interface WorkflowCumulativeStatisticsContextFetchOptions {
+  /** Only include usage that occurred on or before this date, specified in GMT as an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time. */
   endDate?: Date;
+  /** Only calculate statistics since this many minutes in the past. The default 15 minutes. This is helpful for displaying statistics for the last 15 minutes, 240 minutes (4 hours), and 480 minutes (8 hours) to see trends. */
   minutes?: number;
+  /** Only calculate statistics from this date and time and later, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. */
   startDate?: Date;
+  /** Only calculate cumulative statistics on this TaskChannel. Can be the TaskChannel\'s SID or its `unique_name`, such as `voice`, `sms`, or `default`. */
   taskChannel?: string;
+  /** A comma separated list of values that describes the thresholds, in seconds, to calculate statistics on. For each threshold specified, the number of Tasks canceled and reservations accepted above and below the specified thresholds in seconds are computed. For example, `5,30` would show splits of Tasks that were canceled or accepted before and after 5 seconds and before and after 30 seconds. This can be used to show short abandoned Tasks or Tasks that failed to meet an SLA. TaskRouter will calculate statistics on up to 10,000 Tasks for any given threshold. */
   splitByWaitTime?: string;
 }
 
@@ -39,9 +38,9 @@ export interface WorkflowCumulativeStatisticsContext {
   /**
    * Fetch a WorkflowCumulativeStatisticsInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed WorkflowCumulativeStatisticsInstance
+   * @returns Resolves to processed WorkflowCumulativeStatisticsInstance
    */
   fetch(
     callback?: (
@@ -52,10 +51,10 @@ export interface WorkflowCumulativeStatisticsContext {
   /**
    * Fetch a WorkflowCumulativeStatisticsInstance
    *
-   * @param { WorkflowCumulativeStatisticsContextFetchOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed WorkflowCumulativeStatisticsInstance
+   * @returns Resolves to processed WorkflowCumulativeStatisticsInstance
    */
   fetch(
     params: WorkflowCumulativeStatisticsContextFetchOptions,
@@ -73,8 +72,8 @@ export interface WorkflowCumulativeStatisticsContext {
 }
 
 export interface WorkflowCumulativeStatisticsContextSolution {
-  workspaceSid?: string;
-  workflowSid?: string;
+  workspaceSid: string;
+  workflowSid: string;
 }
 
 export class WorkflowCumulativeStatisticsContextImpl
@@ -136,9 +135,10 @@ export class WorkflowCumulativeStatisticsContextImpl
 
     const headers: any = {};
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
@@ -149,12 +149,12 @@ export class WorkflowCumulativeStatisticsContextImpl
         new WorkflowCumulativeStatisticsInstance(
           operationVersion,
           payload,
-          this._solution.workspaceSid,
-          this._solution.workflowSid
+          instance._solution.workspaceSid,
+          instance._solution.workflowSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -179,28 +179,28 @@ interface WorkflowCumulativeStatisticsPayload
   extends WorkflowCumulativeStatisticsResource {}
 
 interface WorkflowCumulativeStatisticsResource {
-  account_sid?: string | null;
-  avg_task_acceptance_time?: number | null;
-  start_time?: Date | null;
-  end_time?: Date | null;
-  reservations_created?: number | null;
-  reservations_accepted?: number | null;
-  reservations_rejected?: number | null;
-  reservations_timed_out?: number | null;
-  reservations_canceled?: number | null;
-  reservations_rescinded?: number | null;
-  split_by_wait_time?: any | null;
-  wait_duration_until_accepted?: any | null;
-  wait_duration_until_canceled?: any | null;
-  tasks_canceled?: number | null;
-  tasks_completed?: number | null;
-  tasks_entered?: number | null;
-  tasks_deleted?: number | null;
-  tasks_moved?: number | null;
-  tasks_timed_out_in_workflow?: number | null;
-  workflow_sid?: string | null;
-  workspace_sid?: string | null;
-  url?: string | null;
+  account_sid: string;
+  avg_task_acceptance_time: number;
+  start_time: Date;
+  end_time: Date;
+  reservations_created: number;
+  reservations_accepted: number;
+  reservations_rejected: number;
+  reservations_timed_out: number;
+  reservations_canceled: number;
+  reservations_rescinded: number;
+  split_by_wait_time: any;
+  wait_duration_until_accepted: any;
+  wait_duration_until_canceled: any;
+  tasks_canceled: number;
+  tasks_completed: number;
+  tasks_entered: number;
+  tasks_deleted: number;
+  tasks_moved: number;
+  tasks_timed_out_in_workflow: number;
+  workflow_sid: string;
+  workspace_sid: string;
+  url: string;
 }
 
 export class WorkflowCumulativeStatisticsInstance {
@@ -258,91 +258,91 @@ export class WorkflowCumulativeStatisticsInstance {
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The average time in seconds between Task creation and acceptance
    */
-  avgTaskAcceptanceTime?: number | null;
+  avgTaskAcceptanceTime: number;
   /**
    * The beginning of the interval during which these statistics were calculated
    */
-  startTime?: Date | null;
+  startTime: Date;
   /**
    * The end of the interval during which these statistics were calculated
    */
-  endTime?: Date | null;
+  endTime: Date;
   /**
    * The total number of Reservations that were created for Workers
    */
-  reservationsCreated?: number | null;
+  reservationsCreated: number;
   /**
    * The total number of Reservations accepted by Workers
    */
-  reservationsAccepted?: number | null;
+  reservationsAccepted: number;
   /**
    * The total number of Reservations that were rejected
    */
-  reservationsRejected?: number | null;
+  reservationsRejected: number;
   /**
    * The total number of Reservations that were timed out
    */
-  reservationsTimedOut?: number | null;
+  reservationsTimedOut: number;
   /**
    * The total number of Reservations that were canceled
    */
-  reservationsCanceled?: number | null;
+  reservationsCanceled: number;
   /**
    * The total number of Reservations that were rescinded
    */
-  reservationsRescinded?: number | null;
+  reservationsRescinded: number;
   /**
    * A list of objects that describe the Tasks canceled and reservations accepted above and below the specified thresholds
    */
-  splitByWaitTime?: any | null;
+  splitByWaitTime: any;
   /**
    * The wait duration statistics for Tasks that were accepted
    */
-  waitDurationUntilAccepted?: any | null;
+  waitDurationUntilAccepted: any;
   /**
    * The wait duration statistics for Tasks that were canceled
    */
-  waitDurationUntilCanceled?: any | null;
+  waitDurationUntilCanceled: any;
   /**
    * The total number of Tasks that were canceled
    */
-  tasksCanceled?: number | null;
+  tasksCanceled: number;
   /**
    * The total number of Tasks that were completed
    */
-  tasksCompleted?: number | null;
+  tasksCompleted: number;
   /**
    * The total number of Tasks that entered the Workflow
    */
-  tasksEntered?: number | null;
+  tasksEntered: number;
   /**
    * The total number of Tasks that were deleted
    */
-  tasksDeleted?: number | null;
+  tasksDeleted: number;
   /**
    * The total number of Tasks that were moved from one queue to another
    */
-  tasksMoved?: number | null;
+  tasksMoved: number;
   /**
    * The total number of Tasks that were timed out of their Workflows
    */
-  tasksTimedOutInWorkflow?: number | null;
+  tasksTimedOutInWorkflow: number;
   /**
    * Returns the list of Tasks that are being controlled by the Workflow with the specified Sid value
    */
-  workflowSid?: string | null;
+  workflowSid: string;
   /**
    * The SID of the Workspace that contains the Workflow.
    */
-  workspaceSid?: string | null;
+  workspaceSid: string;
   /**
    * The absolute URL of the Workflow statistics resource
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): WorkflowCumulativeStatisticsContext {
     this._context =
@@ -358,9 +358,9 @@ export class WorkflowCumulativeStatisticsInstance {
   /**
    * Fetch a WorkflowCumulativeStatisticsInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed WorkflowCumulativeStatisticsInstance
+   * @returns Resolves to processed WorkflowCumulativeStatisticsInstance
    */
   fetch(
     callback?: (
@@ -371,10 +371,10 @@ export class WorkflowCumulativeStatisticsInstance {
   /**
    * Fetch a WorkflowCumulativeStatisticsInstance
    *
-   * @param { WorkflowCumulativeStatisticsContextFetchOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed WorkflowCumulativeStatisticsInstance
+   * @returns Resolves to processed WorkflowCumulativeStatisticsInstance
    */
   fetch(
     params: WorkflowCumulativeStatisticsContextFetchOptions,
@@ -431,7 +431,16 @@ export class WorkflowCumulativeStatisticsInstance {
   }
 }
 
+export interface WorkflowCumulativeStatisticsSolution {
+  workspaceSid: string;
+  workflowSid: string;
+}
+
 export interface WorkflowCumulativeStatisticsListInstance {
+  _version: V1;
+  _solution: WorkflowCumulativeStatisticsSolution;
+  _uri: string;
+
   (): WorkflowCumulativeStatisticsContext;
   get(): WorkflowCumulativeStatisticsContext;
 
@@ -440,21 +449,6 @@ export interface WorkflowCumulativeStatisticsListInstance {
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export interface WorkflowCumulativeStatisticsSolution {
-  workspaceSid?: string;
-  workflowSid?: string;
-}
-
-interface WorkflowCumulativeStatisticsListInstanceImpl
-  extends WorkflowCumulativeStatisticsListInstance {}
-class WorkflowCumulativeStatisticsListInstanceImpl
-  implements WorkflowCumulativeStatisticsListInstance
-{
-  _version?: V1;
-  _solution?: WorkflowCumulativeStatisticsSolution;
-  _uri?: string;
 }
 
 export function WorkflowCumulativeStatisticsListInstance(
@@ -471,7 +465,7 @@ export function WorkflowCumulativeStatisticsListInstance(
   }
 
   const instance = (() =>
-    instance.get()) as WorkflowCumulativeStatisticsListInstanceImpl;
+    instance.get()) as WorkflowCumulativeStatisticsListInstance;
 
   instance.get = function get(): WorkflowCumulativeStatisticsContext {
     return new WorkflowCumulativeStatisticsContextImpl(
@@ -486,14 +480,14 @@ export function WorkflowCumulativeStatisticsListInstance(
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

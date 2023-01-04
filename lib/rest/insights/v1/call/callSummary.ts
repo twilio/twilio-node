@@ -43,10 +43,9 @@ type SummaryProcessingState = "complete" | "partial";
 
 /**
  * Options to pass to fetch a CallSummaryInstance
- *
- * @property { SummaryProcessingState } [processingState]
  */
 export interface CallSummaryContextFetchOptions {
+  /**  */
   processingState?: SummaryProcessingState;
 }
 
@@ -54,9 +53,9 @@ export interface CallSummaryContext {
   /**
    * Fetch a CallSummaryInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed CallSummaryInstance
+   * @returns Resolves to processed CallSummaryInstance
    */
   fetch(
     callback?: (error: Error | null, item?: CallSummaryInstance) => any
@@ -64,10 +63,10 @@ export interface CallSummaryContext {
   /**
    * Fetch a CallSummaryInstance
    *
-   * @param { CallSummaryContextFetchOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed CallSummaryInstance
+   * @returns Resolves to processed CallSummaryInstance
    */
   fetch(
     params: CallSummaryContextFetchOptions,
@@ -82,7 +81,7 @@ export interface CallSummaryContext {
 }
 
 export interface CallSummaryContextSolution {
-  callSid?: string;
+  callSid: string;
 }
 
 export class CallSummaryContextImpl implements CallSummaryContext {
@@ -121,9 +120,10 @@ export class CallSummaryContextImpl implements CallSummaryContext {
 
     const headers: any = {};
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
@@ -134,11 +134,11 @@ export class CallSummaryContextImpl implements CallSummaryContext {
         new CallSummaryInstance(
           operationVersion,
           payload,
-          this._solution.callSid
+          instance._solution.callSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -162,29 +162,29 @@ export class CallSummaryContextImpl implements CallSummaryContext {
 interface CallSummaryPayload extends CallSummaryResource {}
 
 interface CallSummaryResource {
-  account_sid?: string | null;
-  call_sid?: string | null;
-  call_type?: SummaryCallType;
-  call_state?: SummaryCallState;
-  answered_by?: SummaryAnsweredBy;
-  processing_state?: SummaryProcessingState;
-  created_time?: Date | null;
-  start_time?: Date | null;
-  end_time?: Date | null;
-  duration?: number | null;
-  connect_duration?: number | null;
-  from?: any | null;
-  to?: any | null;
-  carrier_edge?: any | null;
-  client_edge?: any | null;
-  sdk_edge?: any | null;
-  sip_edge?: any | null;
-  tags?: Array<string> | null;
-  url?: string | null;
-  attributes?: any | null;
-  properties?: any | null;
-  trust?: any | null;
-  annotation?: any | null;
+  account_sid: string;
+  call_sid: string;
+  call_type: SummaryCallType;
+  call_state: SummaryCallState;
+  answered_by: SummaryAnsweredBy;
+  processing_state: SummaryProcessingState;
+  created_time: Date;
+  start_time: Date;
+  end_time: Date;
+  duration: number;
+  connect_duration: number;
+  from: any;
+  to: any;
+  carrier_edge: any;
+  client_edge: any;
+  sdk_edge: any;
+  sip_edge: any;
+  tags: Array<string>;
+  url: string;
+  attributes: any;
+  properties: any;
+  trust: any;
+  annotation: any;
 }
 
 export class CallSummaryInstance {
@@ -223,29 +223,29 @@ export class CallSummaryInstance {
     this._solution = { callSid };
   }
 
-  accountSid?: string | null;
-  callSid?: string | null;
-  callType?: SummaryCallType;
-  callState?: SummaryCallState;
-  answeredBy?: SummaryAnsweredBy;
-  processingState?: SummaryProcessingState;
-  createdTime?: Date | null;
-  startTime?: Date | null;
-  endTime?: Date | null;
-  duration?: number | null;
-  connectDuration?: number | null;
-  from?: any | null;
-  to?: any | null;
-  carrierEdge?: any | null;
-  clientEdge?: any | null;
-  sdkEdge?: any | null;
-  sipEdge?: any | null;
-  tags?: Array<string> | null;
-  url?: string | null;
-  attributes?: any | null;
-  properties?: any | null;
-  trust?: any | null;
-  annotation?: any | null;
+  accountSid: string;
+  callSid: string;
+  callType: SummaryCallType;
+  callState: SummaryCallState;
+  answeredBy: SummaryAnsweredBy;
+  processingState: SummaryProcessingState;
+  createdTime: Date;
+  startTime: Date;
+  endTime: Date;
+  duration: number;
+  connectDuration: number;
+  from: any;
+  to: any;
+  carrierEdge: any;
+  clientEdge: any;
+  sdkEdge: any;
+  sipEdge: any;
+  tags: Array<string>;
+  url: string;
+  attributes: any;
+  properties: any;
+  trust: any;
+  annotation: any;
 
   private get _proxy(): CallSummaryContext {
     this._context =
@@ -257,9 +257,9 @@ export class CallSummaryInstance {
   /**
    * Fetch a CallSummaryInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed CallSummaryInstance
+   * @returns Resolves to processed CallSummaryInstance
    */
   fetch(
     callback?: (error: Error | null, item?: CallSummaryInstance) => any
@@ -267,10 +267,10 @@ export class CallSummaryInstance {
   /**
    * Fetch a CallSummaryInstance
    *
-   * @param { CallSummaryContextFetchOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed CallSummaryInstance
+   * @returns Resolves to processed CallSummaryInstance
    */
   fetch(
     params: CallSummaryContextFetchOptions,
@@ -322,7 +322,15 @@ export class CallSummaryInstance {
   }
 }
 
+export interface CallSummarySolution {
+  callSid: string;
+}
+
 export interface CallSummaryListInstance {
+  _version: V1;
+  _solution: CallSummarySolution;
+  _uri: string;
+
   (): CallSummaryContext;
   get(): CallSummaryContext;
 
@@ -333,17 +341,6 @@ export interface CallSummaryListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface CallSummarySolution {
-  callSid?: string;
-}
-
-interface CallSummaryListInstanceImpl extends CallSummaryListInstance {}
-class CallSummaryListInstanceImpl implements CallSummaryListInstance {
-  _version?: V1;
-  _solution?: CallSummarySolution;
-  _uri?: string;
-}
-
 export function CallSummaryListInstance(
   version: V1,
   callSid: string
@@ -352,7 +349,7 @@ export function CallSummaryListInstance(
     throw new Error("Parameter 'callSid' is not valid.");
   }
 
-  const instance = (() => instance.get()) as CallSummaryListInstanceImpl;
+  const instance = (() => instance.get()) as CallSummaryListInstance;
 
   instance.get = function get(): CallSummaryContext {
     return new CallSummaryContextImpl(version, callSid);
@@ -363,14 +360,14 @@ export function CallSummaryListInstance(
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

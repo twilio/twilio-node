@@ -22,9 +22,9 @@ export interface SecondaryAuthTokenContext {
   /**
    * Create a SecondaryAuthTokenInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SecondaryAuthTokenInstance
+   * @returns Resolves to processed SecondaryAuthTokenInstance
    */
   create(
     callback?: (error: Error | null, item?: SecondaryAuthTokenInstance) => any
@@ -33,9 +33,9 @@ export interface SecondaryAuthTokenContext {
   /**
    * Remove a SecondaryAuthTokenInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -64,9 +64,10 @@ export class SecondaryAuthTokenContextImpl
   create(
     callback?: (error: Error | null, item?: SecondaryAuthTokenInstance) => any
   ): Promise<SecondaryAuthTokenInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
       });
 
@@ -74,7 +75,7 @@ export class SecondaryAuthTokenContextImpl
       (payload) => new SecondaryAuthTokenInstance(operationVersion, payload)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -84,13 +85,14 @@ export class SecondaryAuthTokenContextImpl
   remove(
     callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -114,11 +116,11 @@ export class SecondaryAuthTokenContextImpl
 interface SecondaryAuthTokenPayload extends SecondaryAuthTokenResource {}
 
 interface SecondaryAuthTokenResource {
-  account_sid?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  secondary_auth_token?: string | null;
-  url?: string | null;
+  account_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  secondary_auth_token: string;
+  url: string;
 }
 
 export class SecondaryAuthTokenInstance {
@@ -138,23 +140,23 @@ export class SecondaryAuthTokenInstance {
   /**
    * The SID of the Account that the secondary Auth Token was created for
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The ISO 8601 formatted date and time in UTC when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The ISO 8601 formatted date and time in UTC when the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The generated secondary Auth Token
    */
-  secondaryAuthToken?: string | null;
+  secondaryAuthToken: string;
   /**
    * The URI for this resource, relative to `https://accounts.twilio.com`
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): SecondaryAuthTokenContext {
     this._context =
@@ -165,9 +167,9 @@ export class SecondaryAuthTokenInstance {
   /**
    * Create a SecondaryAuthTokenInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SecondaryAuthTokenInstance
+   * @returns Resolves to processed SecondaryAuthTokenInstance
    */
   create(
     callback?: (error: Error | null, item?: SecondaryAuthTokenInstance) => any
@@ -178,9 +180,9 @@ export class SecondaryAuthTokenInstance {
   /**
    * Remove a SecondaryAuthTokenInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -208,7 +210,13 @@ export class SecondaryAuthTokenInstance {
   }
 }
 
+export interface SecondaryAuthTokenSolution {}
+
 export interface SecondaryAuthTokenListInstance {
+  _version: V1;
+  _solution: SecondaryAuthTokenSolution;
+  _uri: string;
+
   (): SecondaryAuthTokenContext;
   get(): SecondaryAuthTokenContext;
 
@@ -219,22 +227,10 @@ export interface SecondaryAuthTokenListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface SecondaryAuthTokenSolution {}
-
-interface SecondaryAuthTokenListInstanceImpl
-  extends SecondaryAuthTokenListInstance {}
-class SecondaryAuthTokenListInstanceImpl
-  implements SecondaryAuthTokenListInstance
-{
-  _version?: V1;
-  _solution?: SecondaryAuthTokenSolution;
-  _uri?: string;
-}
-
 export function SecondaryAuthTokenListInstance(
   version: V1
 ): SecondaryAuthTokenListInstance {
-  const instance = (() => instance.get()) as SecondaryAuthTokenListInstanceImpl;
+  const instance = (() => instance.get()) as SecondaryAuthTokenListInstance;
 
   instance.get = function get(): SecondaryAuthTokenContext {
     return new SecondaryAuthTokenContextImpl(version);
@@ -245,14 +241,14 @@ export function SecondaryAuthTokenListInstance(
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

@@ -23,48 +23,37 @@ import { ExecutionStepContextListInstance } from "./executionStep/executionStepC
 
 /**
  * Options to pass to each
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface ExecutionStepListInstanceEachOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: ExecutionStepInstance, done: (err?: Error) => void) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface ExecutionStepListInstanceOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface ExecutionStepListInstancePageOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
@@ -74,9 +63,9 @@ export interface ExecutionStepContext {
   /**
    * Fetch a ExecutionStepInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ExecutionStepInstance
+   * @returns Resolves to processed ExecutionStepInstance
    */
   fetch(
     callback?: (error: Error | null, item?: ExecutionStepInstance) => any
@@ -90,9 +79,9 @@ export interface ExecutionStepContext {
 }
 
 export interface ExecutionStepContextSolution {
-  flowSid?: string;
-  executionSid?: string;
-  sid?: string;
+  flowSid: string;
+  executionSid: string;
+  sid: string;
 }
 
 export class ExecutionStepContextImpl implements ExecutionStepContext {
@@ -138,9 +127,10 @@ export class ExecutionStepContextImpl implements ExecutionStepContext {
   fetch(
     callback?: (error: Error | null, item?: ExecutionStepInstance) => any
   ): Promise<ExecutionStepInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -149,13 +139,13 @@ export class ExecutionStepContextImpl implements ExecutionStepContext {
         new ExecutionStepInstance(
           operationVersion,
           payload,
-          this._solution.flowSid,
-          this._solution.executionSid,
-          this._solution.sid
+          instance._solution.flowSid,
+          instance._solution.executionSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -181,18 +171,18 @@ interface ExecutionStepPayload extends TwilioResponsePayload {
 }
 
 interface ExecutionStepResource {
-  sid?: string | null;
-  account_sid?: string | null;
-  flow_sid?: string | null;
-  execution_sid?: string | null;
-  name?: string | null;
-  context?: any | null;
-  transitioned_from?: string | null;
-  transitioned_to?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  url?: string | null;
-  links?: object | null;
+  sid: string;
+  account_sid: string;
+  flow_sid: string;
+  execution_sid: string;
+  name: string;
+  context: any;
+  transitioned_from: string;
+  transitioned_to: string;
+  date_created: Date;
+  date_updated: Date;
+  url: string;
+  links: object;
 }
 
 export class ExecutionStepInstance {
@@ -225,51 +215,51 @@ export class ExecutionStepInstance {
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The SID of the Flow
    */
-  flowSid?: string | null;
+  flowSid: string;
   /**
    * The SID of the Execution
    */
-  executionSid?: string | null;
+  executionSid: string;
   /**
    * The event that caused the Flow to transition to the Step
    */
-  name?: string | null;
+  name: string;
   /**
    * The current state of the flow
    */
-  context?: any | null;
+  context: any;
   /**
    * The Widget that preceded the Widget for the Step
    */
-  transitionedFrom?: string | null;
+  transitionedFrom: string;
   /**
    * The Widget that will follow the Widget for the Step
    */
-  transitionedTo?: string | null;
+  transitionedTo: string;
   /**
    * The ISO 8601 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The ISO 8601 date and time in GMT when the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The absolute URL of the resource
    */
-  url?: string | null;
+  url: string;
   /**
    * The URLs of related resources
    */
-  links?: object | null;
+  links: object;
 
   private get _proxy(): ExecutionStepContext {
     this._context =
@@ -286,9 +276,9 @@ export class ExecutionStepInstance {
   /**
    * Fetch a ExecutionStepInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ExecutionStepInstance
+   * @returns Resolves to processed ExecutionStepInstance
    */
   fetch(
     callback?: (error: Error | null, item?: ExecutionStepInstance) => any
@@ -330,7 +320,16 @@ export class ExecutionStepInstance {
   }
 }
 
+export interface ExecutionStepSolution {
+  flowSid: string;
+  executionSid: string;
+}
+
 export interface ExecutionStepListInstance {
+  _version: V2;
+  _solution: ExecutionStepSolution;
+  _uri: string;
+
   (sid: string): ExecutionStepContext;
   get(sid: string): ExecutionStepContext;
 
@@ -416,18 +415,6 @@ export interface ExecutionStepListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface ExecutionStepSolution {
-  flowSid?: string;
-  executionSid?: string;
-}
-
-interface ExecutionStepListInstanceImpl extends ExecutionStepListInstance {}
-class ExecutionStepListInstanceImpl implements ExecutionStepListInstance {
-  _version?: V2;
-  _solution?: ExecutionStepSolution;
-  _uri?: string;
-}
-
 export function ExecutionStepListInstance(
   version: V2,
   flowSid: string,
@@ -441,8 +428,7 @@ export function ExecutionStepListInstance(
     throw new Error("Parameter 'executionSid' is not valid.");
   }
 
-  const instance = ((sid) =>
-    instance.get(sid)) as ExecutionStepListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as ExecutionStepListInstance;
 
   instance.get = function get(sid): ExecutionStepContext {
     return new ExecutionStepContextImpl(version, flowSid, executionSid, sid);
@@ -479,7 +465,7 @@ export function ExecutionStepListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
@@ -487,10 +473,10 @@ export function ExecutionStepListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new ExecutionStepPage(operationVersion, payload, this._solution)
+        new ExecutionStepPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -503,30 +489,28 @@ export function ExecutionStepListInstance(
     targetUrl: string,
     callback?: (error: Error | null, items: ExecutionStepPage) => any
   ): Promise<ExecutionStepPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new ExecutionStepPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new ExecutionStepPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

@@ -25,9 +25,9 @@ export interface SchemaContext {
   /**
    * Fetch a SchemaInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SchemaInstance
+   * @returns Resolves to processed SchemaInstance
    */
   fetch(
     callback?: (error: Error | null, item?: SchemaInstance) => any
@@ -41,7 +41,7 @@ export interface SchemaContext {
 }
 
 export interface SchemaContextSolution {
-  id?: string;
+  id: string;
 }
 
 export class SchemaContextImpl implements SchemaContext {
@@ -69,18 +69,19 @@ export class SchemaContextImpl implements SchemaContext {
   fetch(
     callback?: (error: Error | null, item?: SchemaInstance) => any
   ): Promise<SchemaInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new SchemaInstance(operationVersion, payload, this._solution.id)
+        new SchemaInstance(operationVersion, payload, instance._solution.id)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -104,11 +105,11 @@ export class SchemaContextImpl implements SchemaContext {
 interface SchemaPayload extends SchemaResource {}
 
 interface SchemaResource {
-  id?: string | null;
-  url?: string | null;
-  links?: object | null;
-  latest_version_date_created?: Date | null;
-  latest_version?: number | null;
+  id: string;
+  url: string;
+  links: object;
+  latest_version_date_created: Date;
+  latest_version: number;
 }
 
 export class SchemaInstance {
@@ -130,23 +131,23 @@ export class SchemaInstance {
   /**
    * Schema Identifier.
    */
-  id?: string | null;
+  id: string;
   /**
    * The URL of this resource.
    */
-  url?: string | null;
+  url: string;
   /**
    * Nested resource URLs.
    */
-  links?: object | null;
+  links: object;
   /**
    * The date that the latest schema version was created.
    */
-  latestVersionDateCreated?: Date | null;
+  latestVersionDateCreated: Date;
   /**
    * Latest schema version.
    */
-  latestVersion?: number | null;
+  latestVersion: number;
 
   private get _proxy(): SchemaContext {
     this._context =
@@ -157,9 +158,9 @@ export class SchemaInstance {
   /**
    * Fetch a SchemaInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SchemaInstance
+   * @returns Resolves to processed SchemaInstance
    */
   fetch(
     callback?: (error: Error | null, item?: SchemaInstance) => any
@@ -194,7 +195,13 @@ export class SchemaInstance {
   }
 }
 
+export interface SchemaSolution {}
+
 export interface SchemaListInstance {
+  _version: V1;
+  _solution: SchemaSolution;
+  _uri: string;
+
   (id: string): SchemaContext;
   get(id: string): SchemaContext;
 
@@ -205,17 +212,8 @@ export interface SchemaListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface SchemaSolution {}
-
-interface SchemaListInstanceImpl extends SchemaListInstance {}
-class SchemaListInstanceImpl implements SchemaListInstance {
-  _version?: V1;
-  _solution?: SchemaSolution;
-  _uri?: string;
-}
-
 export function SchemaListInstance(version: V1): SchemaListInstance {
-  const instance = ((id) => instance.get(id)) as SchemaListInstanceImpl;
+  const instance = ((id) => instance.get(id)) as SchemaListInstance;
 
   instance.get = function get(id): SchemaContext {
     return new SchemaContextImpl(version, id);
@@ -226,14 +224,14 @@ export function SchemaListInstance(version: V1): SchemaListInstance {
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

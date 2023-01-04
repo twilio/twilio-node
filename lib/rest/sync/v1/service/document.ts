@@ -23,73 +23,60 @@ import { DocumentPermissionListInstance } from "./document/documentPermission";
 
 /**
  * Options to pass to update a DocumentInstance
- *
- * @property { string } [ifMatch] The If-Match HTTP request header
- * @property { any } [data] A JSON string that represents an arbitrary, schema-less object that the Sync Document stores. Can be up to 16 KiB in length.
- * @property { number } [ttl] How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Sync Document expires and is deleted (time-to-live).
  */
 export interface DocumentContextUpdateOptions {
+  /** The If-Match HTTP request header */
   ifMatch?: string;
+  /** A JSON string that represents an arbitrary, schema-less object that the Sync Document stores. Can be up to 16 KiB in length. */
   data?: any;
+  /** How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Sync Document expires and is deleted (time-to-live). */
   ttl?: number;
 }
 
 /**
  * Options to pass to create a DocumentInstance
- *
- * @property { string } [uniqueName] An application-defined string that uniquely identifies the Sync Document
- * @property { any } [data] A JSON string that represents an arbitrary, schema-less object that the Sync Document stores. Can be up to 16 KiB in length.
- * @property { number } [ttl] How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Sync Document expires and is deleted (the Sync Document\\\'s time-to-live).
  */
 export interface DocumentListInstanceCreateOptions {
+  /** An application-defined string that uniquely identifies the Sync Document */
   uniqueName?: string;
+  /** A JSON string that represents an arbitrary, schema-less object that the Sync Document stores. Can be up to 16 KiB in length. */
   data?: any;
+  /** How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Sync Document expires and is deleted (the Sync Document\\\'s time-to-live). */
   ttl?: number;
 }
 /**
  * Options to pass to each
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface DocumentListInstanceEachOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: DocumentInstance, done: (err?: Error) => void) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface DocumentListInstanceOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface DocumentListInstancePageOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
@@ -99,9 +86,9 @@ export interface DocumentContext {
   /**
    * Remove a DocumentInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -110,9 +97,9 @@ export interface DocumentContext {
   /**
    * Fetch a DocumentInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed DocumentInstance
+   * @returns Resolves to processed DocumentInstance
    */
   fetch(
     callback?: (error: Error | null, item?: DocumentInstance) => any
@@ -121,9 +108,9 @@ export interface DocumentContext {
   /**
    * Update a DocumentInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed DocumentInstance
+   * @returns Resolves to processed DocumentInstance
    */
   update(
     callback?: (error: Error | null, item?: DocumentInstance) => any
@@ -131,10 +118,10 @@ export interface DocumentContext {
   /**
    * Update a DocumentInstance
    *
-   * @param { DocumentContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed DocumentInstance
+   * @returns Resolves to processed DocumentInstance
    */
   update(
     params: DocumentContextUpdateOptions,
@@ -149,8 +136,8 @@ export interface DocumentContext {
 }
 
 export interface DocumentContextSolution {
-  serviceSid?: string;
-  sid?: string;
+  serviceSid: string;
+  sid: string;
 }
 
 export class DocumentContextImpl implements DocumentContext {
@@ -186,13 +173,14 @@ export class DocumentContextImpl implements DocumentContext {
   remove(
     callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -202,9 +190,10 @@ export class DocumentContextImpl implements DocumentContext {
   fetch(
     callback?: (error: Error | null, item?: DocumentInstance) => any
   ): Promise<DocumentInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -213,12 +202,12 @@ export class DocumentContextImpl implements DocumentContext {
         new DocumentInstance(
           operationVersion,
           payload,
-          this._solution.serviceSid,
-          this._solution.sid
+          instance._solution.serviceSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -252,9 +241,10 @@ export class DocumentContextImpl implements DocumentContext {
     if (params["ifMatch"] !== undefined)
       headers["If-Match"] = params["ifMatch"];
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -265,12 +255,12 @@ export class DocumentContextImpl implements DocumentContext {
         new DocumentInstance(
           operationVersion,
           payload,
-          this._solution.serviceSid,
-          this._solution.sid
+          instance._solution.serviceSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -296,18 +286,18 @@ interface DocumentPayload extends TwilioResponsePayload {
 }
 
 interface DocumentResource {
-  sid?: string | null;
-  unique_name?: string | null;
-  account_sid?: string | null;
-  service_sid?: string | null;
-  url?: string | null;
-  links?: object | null;
-  revision?: string | null;
-  data?: any | null;
-  date_expires?: Date | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  created_by?: string | null;
+  sid: string;
+  unique_name: string;
+  account_sid: string;
+  service_sid: string;
+  url: string;
+  links: object;
+  revision: string;
+  data: any;
+  date_expires: Date;
+  date_created: Date;
+  date_updated: Date;
+  created_by: string;
 }
 
 export class DocumentInstance {
@@ -339,51 +329,51 @@ export class DocumentInstance {
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * An application-defined string that uniquely identifies the resource
    */
-  uniqueName?: string | null;
+  uniqueName: string;
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The SID of the Sync Service that the resource is associated with
    */
-  serviceSid?: string | null;
+  serviceSid: string;
   /**
    * The absolute URL of the Document resource
    */
-  url?: string | null;
+  url: string;
   /**
    * The URLs of resources related to the Sync Document
    */
-  links?: object | null;
+  links: object;
   /**
    * The current revision of the Sync Document, represented by a string identifier
    */
-  revision?: string | null;
+  revision: string;
   /**
    * An arbitrary, schema-less object that the Sync Document stores
    */
-  data?: any | null;
+  data: any;
   /**
    * The ISO 8601 date and time in GMT when the Sync Document expires
    */
-  dateExpires?: Date | null;
+  dateExpires: Date;
   /**
    * The ISO 8601 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The ISO 8601 date and time in GMT when the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The identity of the Sync Document\'s creator
    */
-  createdBy?: string | null;
+  createdBy: string;
 
   private get _proxy(): DocumentContext {
     this._context =
@@ -399,9 +389,9 @@ export class DocumentInstance {
   /**
    * Remove a DocumentInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -412,9 +402,9 @@ export class DocumentInstance {
   /**
    * Fetch a DocumentInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed DocumentInstance
+   * @returns Resolves to processed DocumentInstance
    */
   fetch(
     callback?: (error: Error | null, item?: DocumentInstance) => any
@@ -425,9 +415,9 @@ export class DocumentInstance {
   /**
    * Update a DocumentInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed DocumentInstance
+   * @returns Resolves to processed DocumentInstance
    */
   update(
     callback?: (error: Error | null, item?: DocumentInstance) => any
@@ -435,10 +425,10 @@ export class DocumentInstance {
   /**
    * Update a DocumentInstance
    *
-   * @param { DocumentContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed DocumentInstance
+   * @returns Resolves to processed DocumentInstance
    */
   update(
     params: DocumentContextUpdateOptions,
@@ -486,16 +476,24 @@ export class DocumentInstance {
   }
 }
 
+export interface DocumentSolution {
+  serviceSid: string;
+}
+
 export interface DocumentListInstance {
+  _version: V1;
+  _solution: DocumentSolution;
+  _uri: string;
+
   (sid: string): DocumentContext;
   get(sid: string): DocumentContext;
 
   /**
    * Create a DocumentInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed DocumentInstance
+   * @returns Resolves to processed DocumentInstance
    */
   create(
     callback?: (error: Error | null, item?: DocumentInstance) => any
@@ -503,10 +501,10 @@ export interface DocumentListInstance {
   /**
    * Create a DocumentInstance
    *
-   * @param { DocumentListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed DocumentInstance
+   * @returns Resolves to processed DocumentInstance
    */
   create(
     params: DocumentListInstanceCreateOptions,
@@ -589,17 +587,6 @@ export interface DocumentListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface DocumentSolution {
-  serviceSid?: string;
-}
-
-interface DocumentListInstanceImpl extends DocumentListInstance {}
-class DocumentListInstanceImpl implements DocumentListInstance {
-  _version?: V1;
-  _solution?: DocumentSolution;
-  _uri?: string;
-}
-
 export function DocumentListInstance(
   version: V1,
   serviceSid: string
@@ -608,7 +595,7 @@ export function DocumentListInstance(
     throw new Error("Parameter 'serviceSid' is not valid.");
   }
 
-  const instance = ((sid) => instance.get(sid)) as DocumentListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as DocumentListInstance;
 
   instance.get = function get(sid): DocumentContext {
     return new DocumentContextImpl(version, serviceSid, sid);
@@ -647,7 +634,7 @@ export function DocumentListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -658,11 +645,11 @@ export function DocumentListInstance(
         new DocumentInstance(
           operationVersion,
           payload,
-          this._solution.serviceSid
+          instance._solution.serviceSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -693,17 +680,18 @@ export function DocumentListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new DocumentPage(operationVersion, payload, this._solution)
+      (payload) =>
+        new DocumentPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -716,30 +704,28 @@ export function DocumentListInstance(
     targetUrl: string,
     callback?: (error: Error | null, items: DocumentPage) => any
   ): Promise<DocumentPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new DocumentPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new DocumentPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

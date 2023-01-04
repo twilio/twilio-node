@@ -31,64 +31,61 @@ type MetricTwilioEdge =
 
 /**
  * Options to pass to each
- *
- * @property { MetricTwilioEdge } [edge]
- * @property { MetricStreamDirection } [direction]
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface MetricListInstanceEachOptions {
+  /**  */
   edge?: MetricTwilioEdge;
+  /**  */
   direction?: MetricStreamDirection;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: MetricInstance, done: (err?: Error) => void) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { MetricTwilioEdge } [edge]
- * @property { MetricStreamDirection } [direction]
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface MetricListInstanceOptions {
+  /**  */
   edge?: MetricTwilioEdge;
+  /**  */
   direction?: MetricStreamDirection;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { MetricTwilioEdge } [edge]
- * @property { MetricStreamDirection } [direction]
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface MetricListInstancePageOptions {
+  /**  */
   edge?: MetricTwilioEdge;
+  /**  */
   direction?: MetricStreamDirection;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
+export interface MetricSolution {
+  callSid: string;
+}
+
 export interface MetricListInstance {
+  _version: V1;
+  _solution: MetricSolution;
+  _uri: string;
+
   /**
    * Streams MetricInstance records from the API.
    *
@@ -165,17 +162,6 @@ export interface MetricListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface MetricSolution {
-  callSid?: string;
-}
-
-interface MetricListInstanceImpl extends MetricListInstance {}
-class MetricListInstanceImpl implements MetricListInstance {
-  _version?: V1;
-  _solution?: MetricSolution;
-  _uri?: string;
-}
-
 export function MetricListInstance(
   version: V1,
   callSid: string
@@ -184,7 +170,7 @@ export function MetricListInstance(
     throw new Error("Parameter 'callSid' is not valid.");
   }
 
-  const instance = {} as MetricListInstanceImpl;
+  const instance = {} as MetricListInstance;
 
   instance._version = version;
   instance._solution = { callSid };
@@ -217,17 +203,17 @@ export function MetricListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new MetricPage(operationVersion, payload, this._solution)
+      (payload) => new MetricPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -240,30 +226,28 @@ export function MetricListInstance(
     targetUrl: string,
     callback?: (error: Error | null, items: MetricPage) => any
   ): Promise<MetricPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new MetricPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new MetricPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;
@@ -274,15 +258,15 @@ interface MetricPayload extends TwilioResponsePayload {
 }
 
 interface MetricResource {
-  timestamp?: string | null;
-  call_sid?: string | null;
-  account_sid?: string | null;
-  edge?: MetricTwilioEdge;
-  direction?: MetricStreamDirection;
-  carrier_edge?: any | null;
-  sip_edge?: any | null;
-  sdk_edge?: any | null;
-  client_edge?: any | null;
+  timestamp: string;
+  call_sid: string;
+  account_sid: string;
+  edge: MetricTwilioEdge;
+  direction: MetricStreamDirection;
+  carrier_edge: any;
+  sip_edge: any;
+  sdk_edge: any;
+  client_edge: any;
 }
 
 export class MetricInstance {
@@ -302,15 +286,15 @@ export class MetricInstance {
     this.clientEdge = payload.client_edge;
   }
 
-  timestamp?: string | null;
-  callSid?: string | null;
-  accountSid?: string | null;
-  edge?: MetricTwilioEdge;
-  direction?: MetricStreamDirection;
-  carrierEdge?: any | null;
-  sipEdge?: any | null;
-  sdkEdge?: any | null;
-  clientEdge?: any | null;
+  timestamp: string;
+  callSid: string;
+  accountSid: string;
+  edge: MetricTwilioEdge;
+  direction: MetricStreamDirection;
+  carrierEdge: any;
+  sipEdge: any;
+  sdkEdge: any;
+  clientEdge: any;
 
   /**
    * Provide a user-friendly representation

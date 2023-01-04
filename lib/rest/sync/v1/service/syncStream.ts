@@ -23,67 +23,54 @@ import { StreamMessageListInstance } from "./syncStream/streamMessage";
 
 /**
  * Options to pass to update a SyncStreamInstance
- *
- * @property { number } [ttl] How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Stream expires and is deleted (time-to-live).
  */
 export interface SyncStreamContextUpdateOptions {
+  /** How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Stream expires and is deleted (time-to-live). */
   ttl?: number;
 }
 
 /**
  * Options to pass to create a SyncStreamInstance
- *
- * @property { string } [uniqueName] An application-defined string that uniquely identifies the resource. This value must be unique within its Service and it can be up to 320 characters long. The `unique_name` value can be used as an alternative to the `sid` in the URL path to address the resource.
- * @property { number } [ttl] How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Stream expires and is deleted (time-to-live).
  */
 export interface SyncStreamListInstanceCreateOptions {
+  /** An application-defined string that uniquely identifies the resource. This value must be unique within its Service and it can be up to 320 characters long. The `unique_name` value can be used as an alternative to the `sid` in the URL path to address the resource. */
   uniqueName?: string;
+  /** How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Stream expires and is deleted (time-to-live). */
   ttl?: number;
 }
 /**
  * Options to pass to each
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface SyncStreamListInstanceEachOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: SyncStreamInstance, done: (err?: Error) => void) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface SyncStreamListInstanceOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface SyncStreamListInstancePageOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
@@ -93,9 +80,9 @@ export interface SyncStreamContext {
   /**
    * Remove a SyncStreamInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -104,9 +91,9 @@ export interface SyncStreamContext {
   /**
    * Fetch a SyncStreamInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SyncStreamInstance
+   * @returns Resolves to processed SyncStreamInstance
    */
   fetch(
     callback?: (error: Error | null, item?: SyncStreamInstance) => any
@@ -115,9 +102,9 @@ export interface SyncStreamContext {
   /**
    * Update a SyncStreamInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SyncStreamInstance
+   * @returns Resolves to processed SyncStreamInstance
    */
   update(
     callback?: (error: Error | null, item?: SyncStreamInstance) => any
@@ -125,10 +112,10 @@ export interface SyncStreamContext {
   /**
    * Update a SyncStreamInstance
    *
-   * @param { SyncStreamContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SyncStreamInstance
+   * @returns Resolves to processed SyncStreamInstance
    */
   update(
     params: SyncStreamContextUpdateOptions,
@@ -143,8 +130,8 @@ export interface SyncStreamContext {
 }
 
 export interface SyncStreamContextSolution {
-  serviceSid?: string;
-  sid?: string;
+  serviceSid: string;
+  sid: string;
 }
 
 export class SyncStreamContextImpl implements SyncStreamContext {
@@ -180,13 +167,14 @@ export class SyncStreamContextImpl implements SyncStreamContext {
   remove(
     callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -196,9 +184,10 @@ export class SyncStreamContextImpl implements SyncStreamContext {
   fetch(
     callback?: (error: Error | null, item?: SyncStreamInstance) => any
   ): Promise<SyncStreamInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -207,12 +196,12 @@ export class SyncStreamContextImpl implements SyncStreamContext {
         new SyncStreamInstance(
           operationVersion,
           payload,
-          this._solution.serviceSid,
-          this._solution.sid
+          instance._solution.serviceSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -242,9 +231,10 @@ export class SyncStreamContextImpl implements SyncStreamContext {
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -255,12 +245,12 @@ export class SyncStreamContextImpl implements SyncStreamContext {
         new SyncStreamInstance(
           operationVersion,
           payload,
-          this._solution.serviceSid,
-          this._solution.sid
+          instance._solution.serviceSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -286,16 +276,16 @@ interface SyncStreamPayload extends TwilioResponsePayload {
 }
 
 interface SyncStreamResource {
-  sid?: string | null;
-  unique_name?: string | null;
-  account_sid?: string | null;
-  service_sid?: string | null;
-  url?: string | null;
-  links?: object | null;
-  date_expires?: Date | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  created_by?: string | null;
+  sid: string;
+  unique_name: string;
+  account_sid: string;
+  service_sid: string;
+  url: string;
+  links: object;
+  date_expires: Date;
+  date_created: Date;
+  date_updated: Date;
+  created_by: string;
 }
 
 export class SyncStreamInstance {
@@ -325,43 +315,43 @@ export class SyncStreamInstance {
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * An application-defined string that uniquely identifies the resource
    */
-  uniqueName?: string | null;
+  uniqueName: string;
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The SID of the Sync Service that the resource is associated with
    */
-  serviceSid?: string | null;
+  serviceSid: string;
   /**
    * The absolute URL of the Message Stream resource
    */
-  url?: string | null;
+  url: string;
   /**
    * The URLs of the Stream\'s nested resources
    */
-  links?: object | null;
+  links: object;
   /**
    * The ISO 8601 date and time in GMT when the Message Stream expires
    */
-  dateExpires?: Date | null;
+  dateExpires: Date;
   /**
    * The ISO 8601 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The ISO 8601 date and time in GMT when the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The Identity of the Stream\'s creator
    */
-  createdBy?: string | null;
+  createdBy: string;
 
   private get _proxy(): SyncStreamContext {
     this._context =
@@ -377,9 +367,9 @@ export class SyncStreamInstance {
   /**
    * Remove a SyncStreamInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -390,9 +380,9 @@ export class SyncStreamInstance {
   /**
    * Fetch a SyncStreamInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SyncStreamInstance
+   * @returns Resolves to processed SyncStreamInstance
    */
   fetch(
     callback?: (error: Error | null, item?: SyncStreamInstance) => any
@@ -403,9 +393,9 @@ export class SyncStreamInstance {
   /**
    * Update a SyncStreamInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SyncStreamInstance
+   * @returns Resolves to processed SyncStreamInstance
    */
   update(
     callback?: (error: Error | null, item?: SyncStreamInstance) => any
@@ -413,10 +403,10 @@ export class SyncStreamInstance {
   /**
    * Update a SyncStreamInstance
    *
-   * @param { SyncStreamContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SyncStreamInstance
+   * @returns Resolves to processed SyncStreamInstance
    */
   update(
     params: SyncStreamContextUpdateOptions,
@@ -462,16 +452,24 @@ export class SyncStreamInstance {
   }
 }
 
+export interface SyncStreamSolution {
+  serviceSid: string;
+}
+
 export interface SyncStreamListInstance {
+  _version: V1;
+  _solution: SyncStreamSolution;
+  _uri: string;
+
   (sid: string): SyncStreamContext;
   get(sid: string): SyncStreamContext;
 
   /**
    * Create a SyncStreamInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SyncStreamInstance
+   * @returns Resolves to processed SyncStreamInstance
    */
   create(
     callback?: (error: Error | null, item?: SyncStreamInstance) => any
@@ -479,10 +477,10 @@ export interface SyncStreamListInstance {
   /**
    * Create a SyncStreamInstance
    *
-   * @param { SyncStreamListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SyncStreamInstance
+   * @returns Resolves to processed SyncStreamInstance
    */
   create(
     params: SyncStreamListInstanceCreateOptions,
@@ -565,17 +563,6 @@ export interface SyncStreamListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface SyncStreamSolution {
-  serviceSid?: string;
-}
-
-interface SyncStreamListInstanceImpl extends SyncStreamListInstance {}
-class SyncStreamListInstanceImpl implements SyncStreamListInstance {
-  _version?: V1;
-  _solution?: SyncStreamSolution;
-  _uri?: string;
-}
-
 export function SyncStreamListInstance(
   version: V1,
   serviceSid: string
@@ -584,7 +571,7 @@ export function SyncStreamListInstance(
     throw new Error("Parameter 'serviceSid' is not valid.");
   }
 
-  const instance = ((sid) => instance.get(sid)) as SyncStreamListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as SyncStreamListInstance;
 
   instance.get = function get(sid): SyncStreamContext {
     return new SyncStreamContextImpl(version, serviceSid, sid);
@@ -621,7 +608,7 @@ export function SyncStreamListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -632,11 +619,11 @@ export function SyncStreamListInstance(
         new SyncStreamInstance(
           operationVersion,
           payload,
-          this._solution.serviceSid
+          instance._solution.serviceSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -667,17 +654,18 @@ export function SyncStreamListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new SyncStreamPage(operationVersion, payload, this._solution)
+      (payload) =>
+        new SyncStreamPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -690,30 +678,28 @@ export function SyncStreamListInstance(
     targetUrl: string,
     callback?: (error: Error | null, items: SyncStreamPage) => any
   ): Promise<SyncStreamPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new SyncStreamPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new SyncStreamPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

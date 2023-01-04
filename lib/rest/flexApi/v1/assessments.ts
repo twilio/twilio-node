@@ -22,9 +22,9 @@ export interface AssessmentsContext {
   /**
    * Create a AssessmentsInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed AssessmentsInstance
+   * @returns Resolves to processed AssessmentsInstance
    */
   create(
     callback?: (error: Error | null, item?: AssessmentsInstance) => any
@@ -51,9 +51,10 @@ export class AssessmentsContextImpl implements AssessmentsContext {
   create(
     callback?: (error: Error | null, item?: AssessmentsInstance) => any
   ): Promise<AssessmentsInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
       });
 
@@ -61,7 +62,7 @@ export class AssessmentsContextImpl implements AssessmentsContext {
       (payload) => new AssessmentsInstance(operationVersion, payload)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -85,7 +86,7 @@ export class AssessmentsContextImpl implements AssessmentsContext {
 interface AssessmentsPayload extends AssessmentsResource {}
 
 interface AssessmentsResource {
-  url?: string | null;
+  url: string;
 }
 
 export class AssessmentsInstance {
@@ -101,7 +102,7 @@ export class AssessmentsInstance {
   /**
    * The URL of this resource.
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): AssessmentsContext {
     this._context = this._context || new AssessmentsContextImpl(this._version);
@@ -111,9 +112,9 @@ export class AssessmentsInstance {
   /**
    * Create a AssessmentsInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed AssessmentsInstance
+   * @returns Resolves to processed AssessmentsInstance
    */
   create(
     callback?: (error: Error | null, item?: AssessmentsInstance) => any
@@ -137,7 +138,13 @@ export class AssessmentsInstance {
   }
 }
 
+export interface AssessmentsSolution {}
+
 export interface AssessmentsListInstance {
+  _version: V1;
+  _solution: AssessmentsSolution;
+  _uri: string;
+
   (): AssessmentsContext;
   get(): AssessmentsContext;
 
@@ -148,17 +155,8 @@ export interface AssessmentsListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface AssessmentsSolution {}
-
-interface AssessmentsListInstanceImpl extends AssessmentsListInstance {}
-class AssessmentsListInstanceImpl implements AssessmentsListInstance {
-  _version?: V1;
-  _solution?: AssessmentsSolution;
-  _uri?: string;
-}
-
 export function AssessmentsListInstance(version: V1): AssessmentsListInstance {
-  const instance = (() => instance.get()) as AssessmentsListInstanceImpl;
+  const instance = (() => instance.get()) as AssessmentsListInstance;
 
   instance.get = function get(): AssessmentsContext {
     return new AssessmentsContextImpl(version);
@@ -169,14 +167,14 @@ export function AssessmentsListInstance(version: V1): AssessmentsListInstance {
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

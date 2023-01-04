@@ -36,120 +36,108 @@ type SimStatus =
 
 /**
  * Options to pass to update a SimInstance
- *
- * @property { string } [uniqueName] An application-defined string that uniquely identifies the resource. It can be used in place of the `sid` in the URL path to address the resource.
- * @property { string } [callbackMethod] The HTTP method we should use to call `callback_url`. Can be: `POST` or `GET`. The default is `POST`.
- * @property { string } [callbackUrl] The URL we should call using the `callback_url` when the SIM has finished updating. When the SIM transitions from `new` to `ready` or from any status to `deactivated`, we call this URL when the status changes to an intermediate status (`ready` or `deactivated`) and again when the status changes to its final status (`active` or `canceled`).
- * @property { string } [friendlyName] A descriptive string that you create to describe the Sim resource. It does not need to be unique.
- * @property { string } [ratePlan] The SID or unique name of the [RatePlan resource](https://www.twilio.com/docs/wireless/api/rateplan-resource) to which the Sim resource should be assigned.
- * @property { SimStatus } [status]
- * @property { string } [commandsCallbackMethod] The HTTP method we should use to call `commands_callback_url`. Can be: `POST` or `GET`. The default is `POST`.
- * @property { string } [commandsCallbackUrl] The URL we should call using the `commands_callback_method` when the SIM sends a [Command](https://www.twilio.com/docs/wireless/api/command-resource). Your server should respond with an HTTP status code in the 200 range; any response body is ignored.
- * @property { string } [smsFallbackMethod] The HTTP method we should use to call `sms_fallback_url`. Can be: `GET` or `POST`. Default is `POST`.
- * @property { string } [smsFallbackUrl] The URL we should call using the `sms_fallback_method` when an error occurs while retrieving or executing the TwiML requested from `sms_url`.
- * @property { string } [smsMethod] The HTTP method we should use to call `sms_url`. Can be: `GET` or `POST`. Default is `POST`.
- * @property { string } [smsUrl] The URL we should call using the `sms_method` when the SIM-connected device sends an SMS message that is not a [Command](https://www.twilio.com/docs/wireless/api/command-resource).
- * @property { string } [voiceFallbackMethod] Deprecated.
- * @property { string } [voiceFallbackUrl] Deprecated.
- * @property { string } [voiceMethod] Deprecated.
- * @property { string } [voiceUrl] Deprecated.
- * @property { SimResetStatus } [resetStatus]
- * @property { string } [accountSid] The SID of the [Account](https://www.twilio.com/docs/iam/api/account) to which the Sim resource should belong. The Account SID can only be that of the requesting Account or that of a [Subaccount](https://www.twilio.com/docs/iam/api/subaccounts) of the requesting Account. Only valid when the Sim resource\\\'s status is `new`. For more information, see the [Move SIMs between Subaccounts documentation](https://www.twilio.com/docs/wireless/api/sim-resource#move-sims-between-subaccounts).
  */
 export interface SimContextUpdateOptions {
+  /** An application-defined string that uniquely identifies the resource. It can be used in place of the `sid` in the URL path to address the resource. */
   uniqueName?: string;
+  /** The HTTP method we should use to call `callback_url`. Can be: `POST` or `GET`. The default is `POST`. */
   callbackMethod?: string;
+  /** The URL we should call using the `callback_url` when the SIM has finished updating. When the SIM transitions from `new` to `ready` or from any status to `deactivated`, we call this URL when the status changes to an intermediate status (`ready` or `deactivated`) and again when the status changes to its final status (`active` or `canceled`). */
   callbackUrl?: string;
+  /** A descriptive string that you create to describe the Sim resource. It does not need to be unique. */
   friendlyName?: string;
+  /** The SID or unique name of the [RatePlan resource](https://www.twilio.com/docs/wireless/api/rateplan-resource) to which the Sim resource should be assigned. */
   ratePlan?: string;
+  /**  */
   status?: SimStatus;
+  /** The HTTP method we should use to call `commands_callback_url`. Can be: `POST` or `GET`. The default is `POST`. */
   commandsCallbackMethod?: string;
+  /** The URL we should call using the `commands_callback_method` when the SIM sends a [Command](https://www.twilio.com/docs/wireless/api/command-resource). Your server should respond with an HTTP status code in the 200 range; any response body is ignored. */
   commandsCallbackUrl?: string;
+  /** The HTTP method we should use to call `sms_fallback_url`. Can be: `GET` or `POST`. Default is `POST`. */
   smsFallbackMethod?: string;
+  /** The URL we should call using the `sms_fallback_method` when an error occurs while retrieving or executing the TwiML requested from `sms_url`. */
   smsFallbackUrl?: string;
+  /** The HTTP method we should use to call `sms_url`. Can be: `GET` or `POST`. Default is `POST`. */
   smsMethod?: string;
+  /** The URL we should call using the `sms_method` when the SIM-connected device sends an SMS message that is not a [Command](https://www.twilio.com/docs/wireless/api/command-resource). */
   smsUrl?: string;
+  /** Deprecated. */
   voiceFallbackMethod?: string;
+  /** Deprecated. */
   voiceFallbackUrl?: string;
+  /** Deprecated. */
   voiceMethod?: string;
+  /** Deprecated. */
   voiceUrl?: string;
+  /**  */
   resetStatus?: SimResetStatus;
+  /** The SID of the [Account](https://www.twilio.com/docs/iam/api/account) to which the Sim resource should belong. The Account SID can only be that of the requesting Account or that of a [Subaccount](https://www.twilio.com/docs/iam/api/subaccounts) of the requesting Account. Only valid when the Sim resource\\\'s status is `new`. For more information, see the [Move SIMs between Subaccounts documentation](https://www.twilio.com/docs/wireless/api/sim-resource#move-sims-between-subaccounts). */
   accountSid?: string;
 }
 /**
  * Options to pass to each
- *
- * @property { SimStatus } [status] Only return Sim resources with this status.
- * @property { string } [iccid] Only return Sim resources with this ICCID. This will return a list with a maximum size of 1.
- * @property { string } [ratePlan] The SID or unique name of a [RatePlan resource](https://www.twilio.com/docs/wireless/api/rateplan-resource). Only return Sim resources assigned to this RatePlan resource.
- * @property { string } [eId] Deprecated.
- * @property { string } [simRegistrationCode] Only return Sim resources with this registration code. This will return a list with a maximum size of 1.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface SimListInstanceEachOptions {
+  /** Only return Sim resources with this status. */
   status?: SimStatus;
+  /** Only return Sim resources with this ICCID. This will return a list with a maximum size of 1. */
   iccid?: string;
+  /** The SID or unique name of a [RatePlan resource](https://www.twilio.com/docs/wireless/api/rateplan-resource). Only return Sim resources assigned to this RatePlan resource. */
   ratePlan?: string;
+  /** Deprecated. */
   eId?: string;
+  /** Only return Sim resources with this registration code. This will return a list with a maximum size of 1. */
   simRegistrationCode?: string;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: SimInstance, done: (err?: Error) => void) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { SimStatus } [status] Only return Sim resources with this status.
- * @property { string } [iccid] Only return Sim resources with this ICCID. This will return a list with a maximum size of 1.
- * @property { string } [ratePlan] The SID or unique name of a [RatePlan resource](https://www.twilio.com/docs/wireless/api/rateplan-resource). Only return Sim resources assigned to this RatePlan resource.
- * @property { string } [eId] Deprecated.
- * @property { string } [simRegistrationCode] Only return Sim resources with this registration code. This will return a list with a maximum size of 1.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface SimListInstanceOptions {
+  /** Only return Sim resources with this status. */
   status?: SimStatus;
+  /** Only return Sim resources with this ICCID. This will return a list with a maximum size of 1. */
   iccid?: string;
+  /** The SID or unique name of a [RatePlan resource](https://www.twilio.com/docs/wireless/api/rateplan-resource). Only return Sim resources assigned to this RatePlan resource. */
   ratePlan?: string;
+  /** Deprecated. */
   eId?: string;
+  /** Only return Sim resources with this registration code. This will return a list with a maximum size of 1. */
   simRegistrationCode?: string;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { SimStatus } [status] Only return Sim resources with this status.
- * @property { string } [iccid] Only return Sim resources with this ICCID. This will return a list with a maximum size of 1.
- * @property { string } [ratePlan] The SID or unique name of a [RatePlan resource](https://www.twilio.com/docs/wireless/api/rateplan-resource). Only return Sim resources assigned to this RatePlan resource.
- * @property { string } [eId] Deprecated.
- * @property { string } [simRegistrationCode] Only return Sim resources with this registration code. This will return a list with a maximum size of 1.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface SimListInstancePageOptions {
+  /** Only return Sim resources with this status. */
   status?: SimStatus;
+  /** Only return Sim resources with this ICCID. This will return a list with a maximum size of 1. */
   iccid?: string;
+  /** The SID or unique name of a [RatePlan resource](https://www.twilio.com/docs/wireless/api/rateplan-resource). Only return Sim resources assigned to this RatePlan resource. */
   ratePlan?: string;
+  /** Deprecated. */
   eId?: string;
+  /** Only return Sim resources with this registration code. This will return a list with a maximum size of 1. */
   simRegistrationCode?: string;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
@@ -160,9 +148,9 @@ export interface SimContext {
   /**
    * Remove a SimInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -171,9 +159,9 @@ export interface SimContext {
   /**
    * Fetch a SimInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SimInstance
+   * @returns Resolves to processed SimInstance
    */
   fetch(
     callback?: (error: Error | null, item?: SimInstance) => any
@@ -182,9 +170,9 @@ export interface SimContext {
   /**
    * Update a SimInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SimInstance
+   * @returns Resolves to processed SimInstance
    */
   update(
     callback?: (error: Error | null, item?: SimInstance) => any
@@ -192,10 +180,10 @@ export interface SimContext {
   /**
    * Update a SimInstance
    *
-   * @param { SimContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SimInstance
+   * @returns Resolves to processed SimInstance
    */
   update(
     params: SimContextUpdateOptions,
@@ -210,7 +198,7 @@ export interface SimContext {
 }
 
 export interface SimContextSolution {
-  sid?: string;
+  sid: string;
 }
 
 export class SimContextImpl implements SimContext {
@@ -246,13 +234,14 @@ export class SimContextImpl implements SimContext {
   remove(
     callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -262,18 +251,19 @@ export class SimContextImpl implements SimContext {
   fetch(
     callback?: (error: Error | null, item?: SimInstance) => any
   ): Promise<SimInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new SimInstance(operationVersion, payload, this._solution.sid)
+        new SimInstance(operationVersion, payload, instance._solution.sid)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -331,9 +321,10 @@ export class SimContextImpl implements SimContext {
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -341,10 +332,10 @@ export class SimContextImpl implements SimContext {
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new SimInstance(operationVersion, payload, this._solution.sid)
+        new SimInstance(operationVersion, payload, instance._solution.sid)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -400,30 +391,30 @@ interface SimPayload extends TwilioResponsePayload {
 }
 
 interface SimResource {
-  sid?: string | null;
-  unique_name?: string | null;
-  account_sid?: string | null;
-  rate_plan_sid?: string | null;
-  friendly_name?: string | null;
-  iccid?: string | null;
-  e_id?: string | null;
-  status?: SimStatus;
-  reset_status?: SimResetStatus;
-  commands_callback_url?: string | null;
-  commands_callback_method?: SimCommandsCallbackMethod;
-  sms_fallback_method?: SimSmsFallbackMethod;
-  sms_fallback_url?: string | null;
-  sms_method?: SimSmsMethod;
-  sms_url?: string | null;
-  voice_fallback_method?: SimVoiceFallbackMethod;
-  voice_fallback_url?: string | null;
-  voice_method?: SimVoiceMethod;
-  voice_url?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  url?: string | null;
-  links?: object | null;
-  ip_address?: string | null;
+  sid: string;
+  unique_name: string;
+  account_sid: string;
+  rate_plan_sid: string;
+  friendly_name: string;
+  iccid: string;
+  e_id: string;
+  status: SimStatus;
+  reset_status: SimResetStatus;
+  commands_callback_url: string;
+  commands_callback_method: SimCommandsCallbackMethod;
+  sms_fallback_method: SimSmsFallbackMethod;
+  sms_fallback_url: string;
+  sms_method: SimSmsMethod;
+  sms_url: string;
+  voice_fallback_method: SimVoiceFallbackMethod;
+  voice_fallback_url: string;
+  voice_method: SimVoiceMethod;
+  voice_url: string;
+  date_created: Date;
+  date_updated: Date;
+  url: string;
+  links: object;
+  ip_address: string;
 }
 
 export class SimInstance {
@@ -462,93 +453,93 @@ export class SimInstance {
   /**
    * The unique string that identifies the Sim resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * An application-defined string that uniquely identifies the resource
    */
-  uniqueName?: string | null;
+  uniqueName: string;
   /**
    * The SID of the Account to which the Sim resource belongs
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The SID of the RatePlan resource to which the Sim resource is assigned.
    */
-  ratePlanSid?: string | null;
+  ratePlanSid: string;
   /**
    * The string that you assigned to describe the Sim resource
    */
-  friendlyName?: string | null;
+  friendlyName: string;
   /**
    * The ICCID associated with the SIM
    */
-  iccid?: string | null;
+  iccid: string;
   /**
    * Deprecated
    */
-  eId?: string | null;
-  status?: SimStatus;
-  resetStatus?: SimResetStatus;
+  eId: string;
+  status: SimStatus;
+  resetStatus: SimResetStatus;
   /**
    * The URL we call when the SIM originates a machine-to-machine Command
    */
-  commandsCallbackUrl?: string | null;
+  commandsCallbackUrl: string;
   /**
    * The HTTP method we use to call commands_callback_url
    */
-  commandsCallbackMethod?: SimCommandsCallbackMethod;
+  commandsCallbackMethod: SimCommandsCallbackMethod;
   /**
    * Deprecated
    */
-  smsFallbackMethod?: SimSmsFallbackMethod;
+  smsFallbackMethod: SimSmsFallbackMethod;
   /**
    * Deprecated
    */
-  smsFallbackUrl?: string | null;
+  smsFallbackUrl: string;
   /**
    * Deprecated
    */
-  smsMethod?: SimSmsMethod;
+  smsMethod: SimSmsMethod;
   /**
    * Deprecated
    */
-  smsUrl?: string | null;
+  smsUrl: string;
   /**
    * Deprecated. The HTTP method we use to call voice_fallback_url
    */
-  voiceFallbackMethod?: SimVoiceFallbackMethod;
+  voiceFallbackMethod: SimVoiceFallbackMethod;
   /**
    * Deprecated. The URL we call when an error occurs while retrieving or executing the TwiML requested from voice_url
    */
-  voiceFallbackUrl?: string | null;
+  voiceFallbackUrl: string;
   /**
    * Deprecated. The HTTP method we use to call voice_url
    */
-  voiceMethod?: SimVoiceMethod;
+  voiceMethod: SimVoiceMethod;
   /**
    * Deprecated. The URL we call when the SIM-connected device makes a voice call
    */
-  voiceUrl?: string | null;
+  voiceUrl: string;
   /**
    * The ISO 8601 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The ISO 8601 date and time in GMT when the Sim resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The absolute URL of the resource
    */
-  url?: string | null;
+  url: string;
   /**
    * The URLs of related subresources
    */
-  links?: object | null;
+  links: object;
   /**
    * Deprecated
    */
-  ipAddress?: string | null;
+  ipAddress: string;
 
   private get _proxy(): SimContext {
     this._context =
@@ -559,9 +550,9 @@ export class SimInstance {
   /**
    * Remove a SimInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -572,9 +563,9 @@ export class SimInstance {
   /**
    * Fetch a SimInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SimInstance
+   * @returns Resolves to processed SimInstance
    */
   fetch(
     callback?: (error: Error | null, item?: SimInstance) => any
@@ -585,9 +576,9 @@ export class SimInstance {
   /**
    * Update a SimInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SimInstance
+   * @returns Resolves to processed SimInstance
    */
   update(
     callback?: (error: Error | null, item?: SimInstance) => any
@@ -595,10 +586,10 @@ export class SimInstance {
   /**
    * Update a SimInstance
    *
-   * @param { SimContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SimInstance
+   * @returns Resolves to processed SimInstance
    */
   update(
     params: SimContextUpdateOptions,
@@ -665,7 +656,13 @@ export class SimInstance {
   }
 }
 
+export interface SimSolution {}
+
 export interface SimListInstance {
+  _version: V1;
+  _solution: SimSolution;
+  _uri: string;
+
   (sid: string): SimContext;
   get(sid: string): SimContext;
 
@@ -745,17 +742,8 @@ export interface SimListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface SimSolution {}
-
-interface SimListInstanceImpl extends SimListInstance {}
-class SimListInstanceImpl implements SimListInstance {
-  _version?: V1;
-  _solution?: SimSolution;
-  _uri?: string;
-}
-
 export function SimListInstance(version: V1): SimListInstance {
-  const instance = ((sid) => instance.get(sid)) as SimListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as SimListInstance;
 
   instance.get = function get(sid): SimContext {
     return new SimContextImpl(version, sid);
@@ -795,17 +783,17 @@ export function SimListInstance(version: V1): SimListInstance {
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new SimPage(operationVersion, payload, this._solution)
+      (payload) => new SimPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -818,30 +806,27 @@ export function SimListInstance(version: V1): SimListInstance {
     targetUrl: string,
     callback?: (error: Error | null, items: SimPage) => any
   ): Promise<SimPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new SimPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) => new SimPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

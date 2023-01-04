@@ -24,9 +24,9 @@ export interface AnonymizeContext {
   /**
    * Update a AnonymizeInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed AnonymizeInstance
+   * @returns Resolves to processed AnonymizeInstance
    */
   update(
     callback?: (error: Error | null, item?: AnonymizeInstance) => any
@@ -40,8 +40,8 @@ export interface AnonymizeContext {
 }
 
 export interface AnonymizeContextSolution {
-  roomSid?: string;
-  sid?: string;
+  roomSid: string;
+  sid: string;
 }
 
 export class AnonymizeContextImpl implements AnonymizeContext {
@@ -64,9 +64,10 @@ export class AnonymizeContextImpl implements AnonymizeContext {
   update(
     callback?: (error: Error | null, item?: AnonymizeInstance) => any
   ): Promise<AnonymizeInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
       });
 
@@ -75,12 +76,12 @@ export class AnonymizeContextImpl implements AnonymizeContext {
         new AnonymizeInstance(
           operationVersion,
           payload,
-          this._solution.roomSid,
-          this._solution.sid
+          instance._solution.roomSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -104,17 +105,17 @@ export class AnonymizeContextImpl implements AnonymizeContext {
 interface AnonymizePayload extends AnonymizeResource {}
 
 interface AnonymizeResource {
-  sid?: string | null;
-  room_sid?: string | null;
-  account_sid?: string | null;
-  status?: RoomParticipantAnonymizeStatus;
-  identity?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  start_time?: Date | null;
-  end_time?: Date | null;
-  duration?: number | null;
-  url?: string | null;
+  sid: string;
+  room_sid: string;
+  account_sid: string;
+  status: RoomParticipantAnonymizeStatus;
+  identity: string;
+  date_created: Date;
+  date_updated: Date;
+  start_time: Date;
+  end_time: Date;
+  duration: number;
+  url: string;
 }
 
 export class AnonymizeInstance {
@@ -145,44 +146,44 @@ export class AnonymizeInstance {
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The SID of the participant\'s room
    */
-  roomSid?: string | null;
+  roomSid: string;
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
-  status?: RoomParticipantAnonymizeStatus;
+  accountSid: string;
+  status: RoomParticipantAnonymizeStatus;
   /**
    * The SID of the participant
    */
-  identity?: string | null;
+  identity: string;
   /**
    * The ISO 8601 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The ISO 8601 date and time in GMT when the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The time of participant connected to the room in ISO 8601 format
    */
-  startTime?: Date | null;
+  startTime: Date;
   /**
    * The time when the participant disconnected from the room in ISO 8601 format
    */
-  endTime?: Date | null;
+  endTime: Date;
   /**
    * Duration of time in seconds the participant was connected
    */
-  duration?: number | null;
+  duration: number;
   /**
    * The absolute URL of the resource
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): AnonymizeContext {
     this._context =
@@ -198,9 +199,9 @@ export class AnonymizeInstance {
   /**
    * Update a AnonymizeInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed AnonymizeInstance
+   * @returns Resolves to processed AnonymizeInstance
    */
   update(
     callback?: (error: Error | null, item?: AnonymizeInstance) => any
@@ -234,7 +235,16 @@ export class AnonymizeInstance {
   }
 }
 
+export interface AnonymizeSolution {
+  roomSid: string;
+  sid: string;
+}
+
 export interface AnonymizeListInstance {
+  _version: V1;
+  _solution: AnonymizeSolution;
+  _uri: string;
+
   (): AnonymizeContext;
   get(): AnonymizeContext;
 
@@ -243,18 +253,6 @@ export interface AnonymizeListInstance {
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export interface AnonymizeSolution {
-  roomSid?: string;
-  sid?: string;
-}
-
-interface AnonymizeListInstanceImpl extends AnonymizeListInstance {}
-class AnonymizeListInstanceImpl implements AnonymizeListInstance {
-  _version?: V1;
-  _solution?: AnonymizeSolution;
-  _uri?: string;
 }
 
 export function AnonymizeListInstance(
@@ -270,7 +268,7 @@ export function AnonymizeListInstance(
     throw new Error("Parameter 'sid' is not valid.");
   }
 
-  const instance = (() => instance.get()) as AnonymizeListInstanceImpl;
+  const instance = (() => instance.get()) as AnonymizeListInstance;
 
   instance.get = function get(): AnonymizeContext {
     return new AnonymizeContextImpl(version, roomSid, sid);
@@ -281,14 +279,14 @@ export function AnonymizeListInstance(
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

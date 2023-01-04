@@ -22,59 +22,47 @@ import { isValidPathParam } from "../../../../base/utility";
 
 /**
  * Options to pass to create a NetworkAccessProfileNetworkInstance
- *
- * @property { string } network The SID of the Network resource to be added to the Network Access Profile resource.
  */
 export interface NetworkAccessProfileNetworkListInstanceCreateOptions {
+  /** The SID of the Network resource to be added to the Network Access Profile resource. */
   network: string;
 }
 /**
  * Options to pass to each
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface NetworkAccessProfileNetworkListInstanceEachOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (
     item: NetworkAccessProfileNetworkInstance,
     done: (err?: Error) => void
   ) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface NetworkAccessProfileNetworkListInstanceOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface NetworkAccessProfileNetworkListInstancePageOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
@@ -82,9 +70,9 @@ export interface NetworkAccessProfileNetworkContext {
   /**
    * Remove a NetworkAccessProfileNetworkInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -93,9 +81,9 @@ export interface NetworkAccessProfileNetworkContext {
   /**
    * Fetch a NetworkAccessProfileNetworkInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed NetworkAccessProfileNetworkInstance
+   * @returns Resolves to processed NetworkAccessProfileNetworkInstance
    */
   fetch(
     callback?: (
@@ -112,8 +100,8 @@ export interface NetworkAccessProfileNetworkContext {
 }
 
 export interface NetworkAccessProfileNetworkContextSolution {
-  networkAccessProfileSid?: string;
-  sid?: string;
+  networkAccessProfileSid: string;
+  sid: string;
 }
 
 export class NetworkAccessProfileNetworkContextImpl
@@ -142,13 +130,14 @@ export class NetworkAccessProfileNetworkContextImpl
   remove(
     callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -161,9 +150,10 @@ export class NetworkAccessProfileNetworkContextImpl
       item?: NetworkAccessProfileNetworkInstance
     ) => any
   ): Promise<NetworkAccessProfileNetworkInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -172,12 +162,12 @@ export class NetworkAccessProfileNetworkContextImpl
         new NetworkAccessProfileNetworkInstance(
           operationVersion,
           payload,
-          this._solution.networkAccessProfileSid,
-          this._solution.sid
+          instance._solution.networkAccessProfileSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -203,12 +193,12 @@ interface NetworkAccessProfileNetworkPayload extends TwilioResponsePayload {
 }
 
 interface NetworkAccessProfileNetworkResource {
-  sid?: string | null;
-  network_access_profile_sid?: string | null;
-  friendly_name?: string | null;
-  iso_country?: string | null;
-  identifiers?: Array<any> | null;
-  url?: string | null;
+  sid: string;
+  network_access_profile_sid: string;
+  friendly_name: string;
+  iso_country: string;
+  identifiers: Array<any>;
+  url: string;
 }
 
 export class NetworkAccessProfileNetworkInstance {
@@ -234,27 +224,27 @@ export class NetworkAccessProfileNetworkInstance {
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The unique string that identifies the Network Access Profile resource
    */
-  networkAccessProfileSid?: string | null;
+  networkAccessProfileSid: string;
   /**
    * A human readable identifier of this resource
    */
-  friendlyName?: string | null;
+  friendlyName: string;
   /**
    * The ISO country code of the Network resource
    */
-  isoCountry?: string | null;
+  isoCountry: string;
   /**
    * The MCC/MNCs included in the resource
    */
-  identifiers?: Array<any> | null;
+  identifiers: Array<any>;
   /**
    * The absolute URL of the resource
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): NetworkAccessProfileNetworkContext {
     this._context =
@@ -270,9 +260,9 @@ export class NetworkAccessProfileNetworkInstance {
   /**
    * Remove a NetworkAccessProfileNetworkInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -283,9 +273,9 @@ export class NetworkAccessProfileNetworkInstance {
   /**
    * Fetch a NetworkAccessProfileNetworkInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed NetworkAccessProfileNetworkInstance
+   * @returns Resolves to processed NetworkAccessProfileNetworkInstance
    */
   fetch(
     callback?: (
@@ -317,17 +307,25 @@ export class NetworkAccessProfileNetworkInstance {
   }
 }
 
+export interface NetworkAccessProfileNetworkSolution {
+  networkAccessProfileSid: string;
+}
+
 export interface NetworkAccessProfileNetworkListInstance {
+  _version: V1;
+  _solution: NetworkAccessProfileNetworkSolution;
+  _uri: string;
+
   (sid: string): NetworkAccessProfileNetworkContext;
   get(sid: string): NetworkAccessProfileNetworkContext;
 
   /**
    * Create a NetworkAccessProfileNetworkInstance
    *
-   * @param { NetworkAccessProfileNetworkListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed NetworkAccessProfileNetworkInstance
+   * @returns Resolves to processed NetworkAccessProfileNetworkInstance
    */
   create(
     params: NetworkAccessProfileNetworkListInstanceCreateOptions,
@@ -434,20 +432,6 @@ export interface NetworkAccessProfileNetworkListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface NetworkAccessProfileNetworkSolution {
-  networkAccessProfileSid?: string;
-}
-
-interface NetworkAccessProfileNetworkListInstanceImpl
-  extends NetworkAccessProfileNetworkListInstance {}
-class NetworkAccessProfileNetworkListInstanceImpl
-  implements NetworkAccessProfileNetworkListInstance
-{
-  _version?: V1;
-  _solution?: NetworkAccessProfileNetworkSolution;
-  _uri?: string;
-}
-
 export function NetworkAccessProfileNetworkListInstance(
   version: V1,
   networkAccessProfileSid: string
@@ -457,7 +441,7 @@ export function NetworkAccessProfileNetworkListInstance(
   }
 
   const instance = ((sid) =>
-    instance.get(sid)) as NetworkAccessProfileNetworkListInstanceImpl;
+    instance.get(sid)) as NetworkAccessProfileNetworkListInstance;
 
   instance.get = function get(sid): NetworkAccessProfileNetworkContext {
     return new NetworkAccessProfileNetworkContextImpl(
@@ -495,7 +479,7 @@ export function NetworkAccessProfileNetworkListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -506,11 +490,11 @@ export function NetworkAccessProfileNetworkListInstance(
         new NetworkAccessProfileNetworkInstance(
           operationVersion,
           payload,
-          this._solution.networkAccessProfileSid
+          instance._solution.networkAccessProfileSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -547,7 +531,7 @@ export function NetworkAccessProfileNetworkListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
@@ -558,11 +542,11 @@ export function NetworkAccessProfileNetworkListInstance(
         new NetworkAccessProfileNetworkPage(
           operationVersion,
           payload,
-          this._solution
+          instance._solution
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -578,35 +562,32 @@ export function NetworkAccessProfileNetworkListInstance(
       items: NetworkAccessProfileNetworkPage
     ) => any
   ): Promise<NetworkAccessProfileNetworkPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
+    let pagePromise = operationPromise.then(
       (payload) =>
         new NetworkAccessProfileNetworkPage(
-          this._version,
+          instance._version,
           payload,
-          this._solution
+          instance._solution
         )
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

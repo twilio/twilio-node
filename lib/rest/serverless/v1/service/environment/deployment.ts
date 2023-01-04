@@ -22,56 +22,44 @@ import { isValidPathParam } from "../../../../../base/utility";
 
 /**
  * Options to pass to create a DeploymentInstance
- *
- * @property { string } [buildSid] The SID of the Build for the Deployment.
  */
 export interface DeploymentListInstanceCreateOptions {
+  /** The SID of the Build for the Deployment. */
   buildSid?: string;
 }
 /**
  * Options to pass to each
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface DeploymentListInstanceEachOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: DeploymentInstance, done: (err?: Error) => void) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface DeploymentListInstanceOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface DeploymentListInstancePageOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
@@ -79,9 +67,9 @@ export interface DeploymentContext {
   /**
    * Fetch a DeploymentInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed DeploymentInstance
+   * @returns Resolves to processed DeploymentInstance
    */
   fetch(
     callback?: (error: Error | null, item?: DeploymentInstance) => any
@@ -95,9 +83,9 @@ export interface DeploymentContext {
 }
 
 export interface DeploymentContextSolution {
-  serviceSid?: string;
-  environmentSid?: string;
-  sid?: string;
+  serviceSid: string;
+  environmentSid: string;
+  sid: string;
 }
 
 export class DeploymentContextImpl implements DeploymentContext {
@@ -129,9 +117,10 @@ export class DeploymentContextImpl implements DeploymentContext {
   fetch(
     callback?: (error: Error | null, item?: DeploymentInstance) => any
   ): Promise<DeploymentInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -140,13 +129,13 @@ export class DeploymentContextImpl implements DeploymentContext {
         new DeploymentInstance(
           operationVersion,
           payload,
-          this._solution.serviceSid,
-          this._solution.environmentSid,
-          this._solution.sid
+          instance._solution.serviceSid,
+          instance._solution.environmentSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -172,14 +161,14 @@ interface DeploymentPayload extends TwilioResponsePayload {
 }
 
 interface DeploymentResource {
-  sid?: string | null;
-  account_sid?: string | null;
-  service_sid?: string | null;
-  environment_sid?: string | null;
-  build_sid?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  url?: string | null;
+  sid: string;
+  account_sid: string;
+  service_sid: string;
+  environment_sid: string;
+  build_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  url: string;
 }
 
 export class DeploymentInstance {
@@ -208,35 +197,35 @@ export class DeploymentInstance {
   /**
    * The unique string that identifies the Deployment resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The SID of the Account that created the Deployment resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The SID of the Service that the Deployment resource is associated with
    */
-  serviceSid?: string | null;
+  serviceSid: string;
   /**
    * The SID of the Environment for the Deployment
    */
-  environmentSid?: string | null;
+  environmentSid: string;
   /**
    * The SID of the Build for the deployment
    */
-  buildSid?: string | null;
+  buildSid: string;
   /**
    * The ISO 8601 date and time in GMT when the Deployment resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The ISO 8601 date and time in GMT when the Deployment resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The absolute URL of the Deployment resource
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): DeploymentContext {
     this._context =
@@ -253,9 +242,9 @@ export class DeploymentInstance {
   /**
    * Fetch a DeploymentInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed DeploymentInstance
+   * @returns Resolves to processed DeploymentInstance
    */
   fetch(
     callback?: (error: Error | null, item?: DeploymentInstance) => any
@@ -286,16 +275,25 @@ export class DeploymentInstance {
   }
 }
 
+export interface DeploymentSolution {
+  serviceSid: string;
+  environmentSid: string;
+}
+
 export interface DeploymentListInstance {
+  _version: V1;
+  _solution: DeploymentSolution;
+  _uri: string;
+
   (sid: string): DeploymentContext;
   get(sid: string): DeploymentContext;
 
   /**
    * Create a DeploymentInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed DeploymentInstance
+   * @returns Resolves to processed DeploymentInstance
    */
   create(
     callback?: (error: Error | null, item?: DeploymentInstance) => any
@@ -303,10 +301,10 @@ export interface DeploymentListInstance {
   /**
    * Create a DeploymentInstance
    *
-   * @param { DeploymentListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed DeploymentInstance
+   * @returns Resolves to processed DeploymentInstance
    */
   create(
     params: DeploymentListInstanceCreateOptions,
@@ -389,18 +387,6 @@ export interface DeploymentListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface DeploymentSolution {
-  serviceSid?: string;
-  environmentSid?: string;
-}
-
-interface DeploymentListInstanceImpl extends DeploymentListInstance {}
-class DeploymentListInstanceImpl implements DeploymentListInstance {
-  _version?: V1;
-  _solution?: DeploymentSolution;
-  _uri?: string;
-}
-
 export function DeploymentListInstance(
   version: V1,
   serviceSid: string,
@@ -414,7 +400,7 @@ export function DeploymentListInstance(
     throw new Error("Parameter 'environmentSid' is not valid.");
   }
 
-  const instance = ((sid) => instance.get(sid)) as DeploymentListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as DeploymentListInstance;
 
   instance.get = function get(sid): DeploymentContext {
     return new DeploymentContextImpl(version, serviceSid, environmentSid, sid);
@@ -449,7 +435,7 @@ export function DeploymentListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -460,12 +446,12 @@ export function DeploymentListInstance(
         new DeploymentInstance(
           operationVersion,
           payload,
-          this._solution.serviceSid,
-          this._solution.environmentSid
+          instance._solution.serviceSid,
+          instance._solution.environmentSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -496,17 +482,18 @@ export function DeploymentListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new DeploymentPage(operationVersion, payload, this._solution)
+      (payload) =>
+        new DeploymentPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -519,30 +506,28 @@ export function DeploymentListInstance(
     targetUrl: string,
     callback?: (error: Error | null, items: DeploymentPage) => any
   ): Promise<DeploymentPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new DeploymentPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new DeploymentPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

@@ -24,45 +24,43 @@ type VerificationStatus = "canceled" | "approved";
 
 /**
  * Options to pass to update a VerificationInstance
- *
- * @property { VerificationStatus } status
  */
 export interface VerificationContextUpdateOptions {
+  /**  */
   status: VerificationStatus;
 }
 
 /**
  * Options to pass to create a VerificationInstance
- *
- * @property { string } to The phone number or [email](https://www.twilio.com/docs/verify/email) to verify. Phone numbers must be in [E.164 format](https://www.twilio.com/docs/glossary/what-e164).
- * @property { string } channel The verification method to use. One of: [`email`](https://www.twilio.com/docs/verify/email), `sms`, `whatsapp`, `call`, or `sna`.
- * @property { string } [customFriendlyName] A custom user defined friendly name that overwrites the existing one in the verification message
- * @property { string } [customMessage] The text of a custom message to use for the verification.
- * @property { string } [sendDigits] The digits to send after a phone call is answered, for example, to dial an extension. For more information, see the Programmable Voice documentation of [sendDigits](https://www.twilio.com/docs/voice/twiml/number#attributes-sendDigits).
- * @property { string } [locale] Locale will automatically resolve based on phone number country code for SMS, WhatsApp and call channel verifications. This parameter will override the automatic locale. [See supported languages and more information here](https://www.twilio.com/docs/verify/supported-languages).
- * @property { string } [customCode] A pre-generated code to use for verification. The code can be between 4 and 10 characters, inclusive.
- * @property { string } [amount] The amount of the associated PSD2 compliant transaction. Requires the PSD2 Service flag enabled.
- * @property { string } [payee] The payee of the associated PSD2 compliant transaction. Requires the PSD2 Service flag enabled.
- * @property { any } [rateLimits] The custom key-value pairs of Programmable Rate Limits. Keys correspond to `unique_name` fields defined when [creating your Rate Limit](https://www.twilio.com/docs/verify/api/service-rate-limits). Associated value pairs represent values in the request that you are rate limiting on. You may include multiple Rate Limit values in each request.
- * @property { any } [channelConfiguration] [`email`](https://www.twilio.com/docs/verify/email) channel configuration in json format. The fields \\\'from\\\' and \\\'from_name\\\' are optional but if included the \\\'from\\\' field must have a valid email address.
- * @property { string } [appHash] Your [App Hash](https://developers.google.com/identity/sms-retriever/verify#computing_your_apps_hash_string) to be appended at the end of your verification SMS body. Applies only to SMS. Example SMS body: `<#> Your AppName verification code is: 1234 He42w354ol9`.
- * @property { string } [templateSid] The message [template](https://www.twilio.com/docs/verify/api/templates). If provided, will override the default template for the Service. SMS and Voice channels only.
- * @property { string } [templateCustomSubstitutions] A stringified JSON object in which the keys are the template\\\'s special variables and the values are the variables substitutions.
  */
 export interface VerificationListInstanceCreateOptions {
+  /** The phone number or [email](https://www.twilio.com/docs/verify/email) to verify. Phone numbers must be in [E.164 format](https://www.twilio.com/docs/glossary/what-e164). */
   to: string;
+  /** The verification method to use. One of: [`email`](https://www.twilio.com/docs/verify/email), `sms`, `whatsapp`, `call`, or `sna`. */
   channel: string;
+  /** A custom user defined friendly name that overwrites the existing one in the verification message */
   customFriendlyName?: string;
+  /** The text of a custom message to use for the verification. */
   customMessage?: string;
+  /** The digits to send after a phone call is answered, for example, to dial an extension. For more information, see the Programmable Voice documentation of [sendDigits](https://www.twilio.com/docs/voice/twiml/number#attributes-sendDigits). */
   sendDigits?: string;
+  /** Locale will automatically resolve based on phone number country code for SMS, WhatsApp and call channel verifications. This parameter will override the automatic locale. [See supported languages and more information here](https://www.twilio.com/docs/verify/supported-languages). */
   locale?: string;
+  /** A pre-generated code to use for verification. The code can be between 4 and 10 characters, inclusive. */
   customCode?: string;
+  /** The amount of the associated PSD2 compliant transaction. Requires the PSD2 Service flag enabled. */
   amount?: string;
+  /** The payee of the associated PSD2 compliant transaction. Requires the PSD2 Service flag enabled. */
   payee?: string;
+  /** The custom key-value pairs of Programmable Rate Limits. Keys correspond to `unique_name` fields defined when [creating your Rate Limit](https://www.twilio.com/docs/verify/api/service-rate-limits). Associated value pairs represent values in the request that you are rate limiting on. You may include multiple Rate Limit values in each request. */
   rateLimits?: any;
+  /** [`email`](https://www.twilio.com/docs/verify/email) channel configuration in json format. The fields \\\'from\\\' and \\\'from_name\\\' are optional but if included the \\\'from\\\' field must have a valid email address. */
   channelConfiguration?: any;
+  /** Your [App Hash](https://developers.google.com/identity/sms-retriever/verify#computing_your_apps_hash_string) to be appended at the end of your verification SMS body. Applies only to SMS. Example SMS body: `<#> Your AppName verification code is: 1234 He42w354ol9`. */
   appHash?: string;
+  /** The message [template](https://www.twilio.com/docs/verify/api/templates). If provided, will override the default template for the Service. SMS and Voice channels only. */
   templateSid?: string;
+  /** A stringified JSON object in which the keys are the template\\\'s special variables and the values are the variables substitutions. */
   templateCustomSubstitutions?: string;
 }
 
@@ -70,9 +68,9 @@ export interface VerificationContext {
   /**
    * Fetch a VerificationInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed VerificationInstance
+   * @returns Resolves to processed VerificationInstance
    */
   fetch(
     callback?: (error: Error | null, item?: VerificationInstance) => any
@@ -81,10 +79,10 @@ export interface VerificationContext {
   /**
    * Update a VerificationInstance
    *
-   * @param { VerificationContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed VerificationInstance
+   * @returns Resolves to processed VerificationInstance
    */
   update(
     params: VerificationContextUpdateOptions,
@@ -99,8 +97,8 @@ export interface VerificationContext {
 }
 
 export interface VerificationContextSolution {
-  serviceSid?: string;
-  sid?: string;
+  serviceSid: string;
+  sid: string;
 }
 
 export class VerificationContextImpl implements VerificationContext {
@@ -123,9 +121,10 @@ export class VerificationContextImpl implements VerificationContext {
   fetch(
     callback?: (error: Error | null, item?: VerificationInstance) => any
   ): Promise<VerificationInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -134,12 +133,12 @@ export class VerificationContextImpl implements VerificationContext {
         new VerificationInstance(
           operationVersion,
           payload,
-          this._solution.serviceSid,
-          this._solution.sid
+          instance._solution.serviceSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -167,9 +166,10 @@ export class VerificationContextImpl implements VerificationContext {
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -180,12 +180,12 @@ export class VerificationContextImpl implements VerificationContext {
         new VerificationInstance(
           operationVersion,
           payload,
-          this._solution.serviceSid,
-          this._solution.sid
+          instance._solution.serviceSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -209,21 +209,21 @@ export class VerificationContextImpl implements VerificationContext {
 interface VerificationPayload extends VerificationResource {}
 
 interface VerificationResource {
-  sid?: string | null;
-  service_sid?: string | null;
-  account_sid?: string | null;
-  to?: string | null;
-  channel?: VerificationChannel;
-  status?: string | null;
-  valid?: boolean | null;
-  lookup?: any | null;
-  amount?: string | null;
-  payee?: string | null;
-  send_code_attempts?: Array<any> | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  sna?: any | null;
-  url?: string | null;
+  sid: string;
+  service_sid: string;
+  account_sid: string;
+  to: string;
+  channel: VerificationChannel;
+  status: string;
+  valid: boolean;
+  lookup: any;
+  amount: string;
+  payee: string;
+  send_code_attempts: Array<any>;
+  date_created: Date;
+  date_updated: Date;
+  sna: any;
+  url: string;
 }
 
 export class VerificationInstance {
@@ -258,60 +258,60 @@ export class VerificationInstance {
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The SID of the Service that the resource is associated with
    */
-  serviceSid?: string | null;
+  serviceSid: string;
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The phone number or email being verified
    */
-  to?: string | null;
-  channel?: VerificationChannel;
+  to: string;
+  channel: VerificationChannel;
   /**
    * The status of the verification resource
    */
-  status?: string | null;
+  status: string;
   /**
    * Whether the verification was successful
    */
-  valid?: boolean | null;
+  valid: boolean;
   /**
    * Information about the phone number being verified
    */
-  lookup?: any | null;
+  lookup: any;
   /**
    * The amount of the associated PSD2 compliant transaction.
    */
-  amount?: string | null;
+  amount: string;
   /**
    * The payee of the associated PSD2 compliant transaction
    */
-  payee?: string | null;
+  payee: string;
   /**
    * An array of verification attempt objects.
    */
-  sendCodeAttempts?: Array<any> | null;
+  sendCodeAttempts: Array<any>;
   /**
    * The RFC 2822 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The RFC 2822 date and time in GMT when the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The set of fields used for a silent network auth (`sna`) verification
    */
-  sna?: any | null;
+  sna: any;
   /**
    * The absolute URL of the Verification resource
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): VerificationContext {
     this._context =
@@ -327,9 +327,9 @@ export class VerificationInstance {
   /**
    * Fetch a VerificationInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed VerificationInstance
+   * @returns Resolves to processed VerificationInstance
    */
   fetch(
     callback?: (error: Error | null, item?: VerificationInstance) => any
@@ -340,10 +340,10 @@ export class VerificationInstance {
   /**
    * Update a VerificationInstance
    *
-   * @param { VerificationContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed VerificationInstance
+   * @returns Resolves to processed VerificationInstance
    */
   update(
     params: VerificationContextUpdateOptions,
@@ -387,17 +387,25 @@ export class VerificationInstance {
   }
 }
 
+export interface VerificationSolution {
+  serviceSid: string;
+}
+
 export interface VerificationListInstance {
+  _version: V2;
+  _solution: VerificationSolution;
+  _uri: string;
+
   (sid: string): VerificationContext;
   get(sid: string): VerificationContext;
 
   /**
    * Create a VerificationInstance
    *
-   * @param { VerificationListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed VerificationInstance
+   * @returns Resolves to processed VerificationInstance
    */
   create(
     params: VerificationListInstanceCreateOptions,
@@ -411,17 +419,6 @@ export interface VerificationListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface VerificationSolution {
-  serviceSid?: string;
-}
-
-interface VerificationListInstanceImpl extends VerificationListInstance {}
-class VerificationListInstanceImpl implements VerificationListInstance {
-  _version?: V2;
-  _solution?: VerificationSolution;
-  _uri?: string;
-}
-
 export function VerificationListInstance(
   version: V2,
   serviceSid: string
@@ -430,7 +427,7 @@ export function VerificationListInstance(
     throw new Error("Parameter 'serviceSid' is not valid.");
   }
 
-  const instance = ((sid) => instance.get(sid)) as VerificationListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as VerificationListInstance;
 
   instance.get = function get(sid): VerificationContext {
     return new VerificationContextImpl(version, serviceSid, sid);
@@ -490,7 +487,7 @@ export function VerificationListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -501,11 +498,11 @@ export function VerificationListInstance(
         new VerificationInstance(
           operationVersion,
           payload,
-          this._solution.serviceSid
+          instance._solution.serviceSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -513,14 +510,14 @@ export function VerificationListInstance(
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

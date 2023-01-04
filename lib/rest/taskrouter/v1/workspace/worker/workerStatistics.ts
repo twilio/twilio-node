@@ -20,16 +20,15 @@ import { isValidPathParam } from "../../../../../base/utility";
 
 /**
  * Options to pass to fetch a WorkerStatisticsInstance
- *
- * @property { number } [minutes] Only calculate statistics since this many minutes in the past. The default 15 minutes. This is helpful for displaying statistics for the last 15 minutes, 240 minutes (4 hours), and 480 minutes (8 hours) to see trends.
- * @property { Date } [startDate] Only calculate statistics from this date and time and later, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
- * @property { Date } [endDate] Only include usage that occurred on or before this date, specified in GMT as an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time.
- * @property { string } [taskChannel] Only calculate statistics on this TaskChannel. Can be the TaskChannel\'s SID or its `unique_name`, such as `voice`, `sms`, or `default`.
  */
 export interface WorkerStatisticsContextFetchOptions {
+  /** Only calculate statistics since this many minutes in the past. The default 15 minutes. This is helpful for displaying statistics for the last 15 minutes, 240 minutes (4 hours), and 480 minutes (8 hours) to see trends. */
   minutes?: number;
+  /** Only calculate statistics from this date and time and later, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. */
   startDate?: Date;
+  /** Only include usage that occurred on or before this date, specified in GMT as an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time. */
   endDate?: Date;
+  /** Only calculate statistics on this TaskChannel. Can be the TaskChannel\'s SID or its `unique_name`, such as `voice`, `sms`, or `default`. */
   taskChannel?: string;
 }
 
@@ -37,9 +36,9 @@ export interface WorkerStatisticsContext {
   /**
    * Fetch a WorkerStatisticsInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed WorkerStatisticsInstance
+   * @returns Resolves to processed WorkerStatisticsInstance
    */
   fetch(
     callback?: (error: Error | null, item?: WorkerStatisticsInstance) => any
@@ -47,10 +46,10 @@ export interface WorkerStatisticsContext {
   /**
    * Fetch a WorkerStatisticsInstance
    *
-   * @param { WorkerStatisticsContextFetchOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed WorkerStatisticsInstance
+   * @returns Resolves to processed WorkerStatisticsInstance
    */
   fetch(
     params: WorkerStatisticsContextFetchOptions,
@@ -65,8 +64,8 @@ export interface WorkerStatisticsContext {
 }
 
 export interface WorkerStatisticsContextSolution {
-  workspaceSid?: string;
-  workerSid?: string;
+  workspaceSid: string;
+  workerSid: string;
 }
 
 export class WorkerStatisticsContextImpl implements WorkerStatisticsContext {
@@ -114,9 +113,10 @@ export class WorkerStatisticsContextImpl implements WorkerStatisticsContext {
 
     const headers: any = {};
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
@@ -127,12 +127,12 @@ export class WorkerStatisticsContextImpl implements WorkerStatisticsContext {
         new WorkerStatisticsInstance(
           operationVersion,
           payload,
-          this._solution.workspaceSid,
-          this._solution.workerSid
+          instance._solution.workspaceSid,
+          instance._solution.workerSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -156,11 +156,11 @@ export class WorkerStatisticsContextImpl implements WorkerStatisticsContext {
 interface WorkerStatisticsPayload extends WorkerStatisticsResource {}
 
 interface WorkerStatisticsResource {
-  account_sid?: string | null;
-  cumulative?: any | null;
-  worker_sid?: string | null;
-  workspace_sid?: string | null;
-  url?: string | null;
+  account_sid: string;
+  cumulative: any;
+  worker_sid: string;
+  workspace_sid: string;
+  url: string;
 }
 
 export class WorkerStatisticsInstance {
@@ -185,23 +185,23 @@ export class WorkerStatisticsInstance {
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * An object that contains the cumulative statistics for the Worker
    */
-  cumulative?: any | null;
+  cumulative: any;
   /**
    * The SID of the Worker that contains the WorkerChannel
    */
-  workerSid?: string | null;
+  workerSid: string;
   /**
    * The SID of the Workspace that contains the WorkerChannel
    */
-  workspaceSid?: string | null;
+  workspaceSid: string;
   /**
    * The absolute URL of the WorkerChannel statistics resource
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): WorkerStatisticsContext {
     this._context =
@@ -217,9 +217,9 @@ export class WorkerStatisticsInstance {
   /**
    * Fetch a WorkerStatisticsInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed WorkerStatisticsInstance
+   * @returns Resolves to processed WorkerStatisticsInstance
    */
   fetch(
     callback?: (error: Error | null, item?: WorkerStatisticsInstance) => any
@@ -227,10 +227,10 @@ export class WorkerStatisticsInstance {
   /**
    * Fetch a WorkerStatisticsInstance
    *
-   * @param { WorkerStatisticsContextFetchOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed WorkerStatisticsInstance
+   * @returns Resolves to processed WorkerStatisticsInstance
    */
   fetch(
     params: WorkerStatisticsContextFetchOptions,
@@ -264,7 +264,16 @@ export class WorkerStatisticsInstance {
   }
 }
 
+export interface WorkerStatisticsSolution {
+  workspaceSid: string;
+  workerSid: string;
+}
+
 export interface WorkerStatisticsListInstance {
+  _version: V1;
+  _solution: WorkerStatisticsSolution;
+  _uri: string;
+
   (): WorkerStatisticsContext;
   get(): WorkerStatisticsContext;
 
@@ -273,19 +282,6 @@ export interface WorkerStatisticsListInstance {
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export interface WorkerStatisticsSolution {
-  workspaceSid?: string;
-  workerSid?: string;
-}
-
-interface WorkerStatisticsListInstanceImpl
-  extends WorkerStatisticsListInstance {}
-class WorkerStatisticsListInstanceImpl implements WorkerStatisticsListInstance {
-  _version?: V1;
-  _solution?: WorkerStatisticsSolution;
-  _uri?: string;
 }
 
 export function WorkerStatisticsListInstance(
@@ -301,7 +297,7 @@ export function WorkerStatisticsListInstance(
     throw new Error("Parameter 'workerSid' is not valid.");
   }
 
-  const instance = (() => instance.get()) as WorkerStatisticsListInstanceImpl;
+  const instance = (() => instance.get()) as WorkerStatisticsListInstance;
 
   instance.get = function get(): WorkerStatisticsContext {
     return new WorkerStatisticsContextImpl(version, workspaceSid, workerSid);
@@ -312,14 +308,14 @@ export function WorkerStatisticsListInstance(
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

@@ -20,10 +20,9 @@ import { isValidPathParam } from "../../../../../base/utility";
 
 /**
  * Options to pass to fetch a WorkersRealTimeStatisticsInstance
- *
- * @property { string } [taskChannel] Only calculate real-time statistics on this TaskChannel. Can be the TaskChannel\'s SID or its `unique_name`, such as `voice`, `sms`, or `default`.
  */
 export interface WorkersRealTimeStatisticsContextFetchOptions {
+  /** Only calculate real-time statistics on this TaskChannel. Can be the TaskChannel\'s SID or its `unique_name`, such as `voice`, `sms`, or `default`. */
   taskChannel?: string;
 }
 
@@ -31,9 +30,9 @@ export interface WorkersRealTimeStatisticsContext {
   /**
    * Fetch a WorkersRealTimeStatisticsInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed WorkersRealTimeStatisticsInstance
+   * @returns Resolves to processed WorkersRealTimeStatisticsInstance
    */
   fetch(
     callback?: (
@@ -44,10 +43,10 @@ export interface WorkersRealTimeStatisticsContext {
   /**
    * Fetch a WorkersRealTimeStatisticsInstance
    *
-   * @param { WorkersRealTimeStatisticsContextFetchOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed WorkersRealTimeStatisticsInstance
+   * @returns Resolves to processed WorkersRealTimeStatisticsInstance
    */
   fetch(
     params: WorkersRealTimeStatisticsContextFetchOptions,
@@ -65,7 +64,7 @@ export interface WorkersRealTimeStatisticsContext {
 }
 
 export interface WorkersRealTimeStatisticsContextSolution {
-  workspaceSid?: string;
+  workspaceSid: string;
 }
 
 export class WorkersRealTimeStatisticsContextImpl
@@ -112,9 +111,10 @@ export class WorkersRealTimeStatisticsContextImpl
 
     const headers: any = {};
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
@@ -125,11 +125,11 @@ export class WorkersRealTimeStatisticsContextImpl
         new WorkersRealTimeStatisticsInstance(
           operationVersion,
           payload,
-          this._solution.workspaceSid
+          instance._solution.workspaceSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -154,11 +154,11 @@ interface WorkersRealTimeStatisticsPayload
   extends WorkersRealTimeStatisticsResource {}
 
 interface WorkersRealTimeStatisticsResource {
-  account_sid?: string | null;
-  activity_statistics?: Array<any> | null;
-  total_workers?: number | null;
-  workspace_sid?: string | null;
-  url?: string | null;
+  account_sid: string;
+  activity_statistics: Array<any>;
+  total_workers: number;
+  workspace_sid: string;
+  url: string;
 }
 
 export class WorkersRealTimeStatisticsInstance {
@@ -182,23 +182,23 @@ export class WorkersRealTimeStatisticsInstance {
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The number of current Workers by Activity
    */
-  activityStatistics?: Array<any> | null;
+  activityStatistics: Array<any>;
   /**
    * The total number of Workers
    */
-  totalWorkers?: number | null;
+  totalWorkers: number;
   /**
    * The SID of the Workspace that contains the Workers
    */
-  workspaceSid?: string | null;
+  workspaceSid: string;
   /**
    * The absolute URL of the Workers statistics resource
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): WorkersRealTimeStatisticsContext {
     this._context =
@@ -213,9 +213,9 @@ export class WorkersRealTimeStatisticsInstance {
   /**
    * Fetch a WorkersRealTimeStatisticsInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed WorkersRealTimeStatisticsInstance
+   * @returns Resolves to processed WorkersRealTimeStatisticsInstance
    */
   fetch(
     callback?: (
@@ -226,10 +226,10 @@ export class WorkersRealTimeStatisticsInstance {
   /**
    * Fetch a WorkersRealTimeStatisticsInstance
    *
-   * @param { WorkersRealTimeStatisticsContextFetchOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed WorkersRealTimeStatisticsInstance
+   * @returns Resolves to processed WorkersRealTimeStatisticsInstance
    */
   fetch(
     params: WorkersRealTimeStatisticsContextFetchOptions,
@@ -269,7 +269,15 @@ export class WorkersRealTimeStatisticsInstance {
   }
 }
 
+export interface WorkersRealTimeStatisticsSolution {
+  workspaceSid: string;
+}
+
 export interface WorkersRealTimeStatisticsListInstance {
+  _version: V1;
+  _solution: WorkersRealTimeStatisticsSolution;
+  _uri: string;
+
   (): WorkersRealTimeStatisticsContext;
   get(): WorkersRealTimeStatisticsContext;
 
@@ -278,20 +286,6 @@ export interface WorkersRealTimeStatisticsListInstance {
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export interface WorkersRealTimeStatisticsSolution {
-  workspaceSid?: string;
-}
-
-interface WorkersRealTimeStatisticsListInstanceImpl
-  extends WorkersRealTimeStatisticsListInstance {}
-class WorkersRealTimeStatisticsListInstanceImpl
-  implements WorkersRealTimeStatisticsListInstance
-{
-  _version?: V1;
-  _solution?: WorkersRealTimeStatisticsSolution;
-  _uri?: string;
 }
 
 export function WorkersRealTimeStatisticsListInstance(
@@ -303,7 +297,7 @@ export function WorkersRealTimeStatisticsListInstance(
   }
 
   const instance = (() =>
-    instance.get()) as WorkersRealTimeStatisticsListInstanceImpl;
+    instance.get()) as WorkersRealTimeStatisticsListInstance;
 
   instance.get = function get(): WorkersRealTimeStatisticsContext {
     return new WorkersRealTimeStatisticsContextImpl(version, workspaceSid);
@@ -314,14 +308,14 @@ export function WorkersRealTimeStatisticsListInstance(
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

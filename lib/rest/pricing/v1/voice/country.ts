@@ -35,48 +35,37 @@ export class PricingV1VoiceVoiceCountryInstanceOutboundPrefixPrices {
 
 /**
  * Options to pass to each
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface CountryListInstanceEachOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: CountryInstance, done: (err?: Error) => void) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface CountryListInstanceOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface CountryListInstancePageOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
@@ -84,9 +73,9 @@ export interface CountryContext {
   /**
    * Fetch a CountryInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed CountryInstance
+   * @returns Resolves to processed CountryInstance
    */
   fetch(
     callback?: (error: Error | null, item?: CountryInstance) => any
@@ -100,7 +89,7 @@ export interface CountryContext {
 }
 
 export interface CountryContextSolution {
-  isoCountry?: string;
+  isoCountry: string;
 }
 
 export class CountryContextImpl implements CountryContext {
@@ -119,9 +108,10 @@ export class CountryContextImpl implements CountryContext {
   fetch(
     callback?: (error: Error | null, item?: CountryInstance) => any
   ): Promise<CountryInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -130,11 +120,11 @@ export class CountryContextImpl implements CountryContext {
         new CountryInstance(
           operationVersion,
           payload,
-          this._solution.isoCountry
+          instance._solution.isoCountry
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -160,12 +150,12 @@ interface CountryPayload extends TwilioResponsePayload {
 }
 
 interface CountryResource {
-  country?: string | null;
-  iso_country?: string | null;
-  outbound_prefix_prices?: Array<PricingV1VoiceVoiceCountryInstanceOutboundPrefixPrices> | null;
-  inbound_call_prices?: Array<PricingV1VoiceVoiceCountryInstanceInboundCallPrices> | null;
-  price_unit?: string | null;
-  url?: string | null;
+  country: string;
+  iso_country: string;
+  outbound_prefix_prices: Array<PricingV1VoiceVoiceCountryInstanceOutboundPrefixPrices>;
+  inbound_call_prices: Array<PricingV1VoiceVoiceCountryInstanceInboundCallPrices>;
+  price_unit: string;
+  url: string;
 }
 
 export class CountryInstance {
@@ -190,27 +180,27 @@ export class CountryInstance {
   /**
    * The name of the country
    */
-  country?: string | null;
+  country: string;
   /**
    * The ISO country code
    */
-  isoCountry?: string | null;
+  isoCountry: string;
   /**
    * The list of OutboundPrefixPrice records
    */
-  outboundPrefixPrices?: Array<PricingV1VoiceVoiceCountryInstanceOutboundPrefixPrices> | null;
+  outboundPrefixPrices: Array<PricingV1VoiceVoiceCountryInstanceOutboundPrefixPrices>;
   /**
    * The list of InboundCallPrice records
    */
-  inboundCallPrices?: Array<PricingV1VoiceVoiceCountryInstanceInboundCallPrices> | null;
+  inboundCallPrices: Array<PricingV1VoiceVoiceCountryInstanceInboundCallPrices>;
   /**
    * The currency in which prices are measured, in ISO 4127 format (e.g. usd, eur, jpy)
    */
-  priceUnit?: string | null;
+  priceUnit: string;
   /**
    * The absolute URL of the resource
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): CountryContext {
     this._context =
@@ -222,9 +212,9 @@ export class CountryInstance {
   /**
    * Fetch a CountryInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed CountryInstance
+   * @returns Resolves to processed CountryInstance
    */
   fetch(
     callback?: (error: Error | null, item?: CountryInstance) => any
@@ -253,7 +243,13 @@ export class CountryInstance {
   }
 }
 
+export interface CountrySolution {}
+
 export interface CountryListInstance {
+  _version: V1;
+  _solution: CountrySolution;
+  _uri: string;
+
   (isoCountry: string): CountryContext;
   get(isoCountry: string): CountryContext;
 
@@ -333,18 +329,9 @@ export interface CountryListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface CountrySolution {}
-
-interface CountryListInstanceImpl extends CountryListInstance {}
-class CountryListInstanceImpl implements CountryListInstance {
-  _version?: V1;
-  _solution?: CountrySolution;
-  _uri?: string;
-}
-
 export function CountryListInstance(version: V1): CountryListInstance {
   const instance = ((isoCountry) =>
-    instance.get(isoCountry)) as CountryListInstanceImpl;
+    instance.get(isoCountry)) as CountryListInstance;
 
   instance.get = function get(isoCountry): CountryContext {
     return new CountryContextImpl(version, isoCountry);
@@ -378,17 +365,18 @@ export function CountryListInstance(version: V1): CountryListInstance {
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new CountryPage(operationVersion, payload, this._solution)
+      (payload) =>
+        new CountryPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -401,30 +389,28 @@ export function CountryListInstance(version: V1): CountryListInstance {
     targetUrl: string,
     callback?: (error: Error | null, items: CountryPage) => any
   ): Promise<CountryPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new CountryPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new CountryPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;
