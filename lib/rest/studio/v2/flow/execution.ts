@@ -26,81 +26,68 @@ type ExecutionStatus = "active" | "ended";
 
 /**
  * Options to pass to update a ExecutionInstance
- *
- * @property { ExecutionStatus } status
  */
 export interface ExecutionContextUpdateOptions {
+  /**  */
   status: ExecutionStatus;
 }
 
 /**
  * Options to pass to create a ExecutionInstance
- *
- * @property { string } to The Contact phone number to start a Studio Flow Execution, available as variable `{{contact.channel.address}}`.
- * @property { string } from The Twilio phone number to send messages or initiate calls from during the Flow\\\'s Execution. Available as variable `{{flow.channel.address}}`. For SMS, this can also be a Messaging Service SID.
- * @property { any } [parameters] JSON data that will be added to the Flow\\\'s context and that can be accessed as variables inside your Flow. For example, if you pass in `Parameters={\\\"name\\\":\\\"Zeke\\\"}`, a widget in your Flow can reference the variable `{{flow.data.name}}`, which returns \\\"Zeke\\\". Note: the JSON value must explicitly be passed as a string, not as a hash object. Depending on your particular HTTP library, you may need to add quotes or URL encode the JSON string.
  */
 export interface ExecutionListInstanceCreateOptions {
+  /** The Contact phone number to start a Studio Flow Execution, available as variable `{{contact.channel.address}}`. */
   to: string;
+  /** The Twilio phone number to send messages or initiate calls from during the Flow\\\'s Execution. Available as variable `{{flow.channel.address}}`. For SMS, this can also be a Messaging Service SID. */
   from: string;
+  /** JSON data that will be added to the Flow\\\'s context and that can be accessed as variables inside your Flow. For example, if you pass in `Parameters={\\\"name\\\":\\\"Zeke\\\"}`, a widget in your Flow can reference the variable `{{flow.data.name}}`, which returns \\\"Zeke\\\". Note: the JSON value must explicitly be passed as a string, not as a hash object. Depending on your particular HTTP library, you may need to add quotes or URL encode the JSON string. */
   parameters?: any;
 }
 /**
  * Options to pass to each
- *
- * @property { Date } [dateCreatedFrom] Only show Execution resources starting on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time, given as `YYYY-MM-DDThh:mm:ss-hh:mm`.
- * @property { Date } [dateCreatedTo] Only show Execution resources starting before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time, given as `YYYY-MM-DDThh:mm:ss-hh:mm`.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface ExecutionListInstanceEachOptions {
+  /** Only show Execution resources starting on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time, given as `YYYY-MM-DDThh:mm:ss-hh:mm`. */
   dateCreatedFrom?: Date;
+  /** Only show Execution resources starting before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time, given as `YYYY-MM-DDThh:mm:ss-hh:mm`. */
   dateCreatedTo?: Date;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: ExecutionInstance, done: (err?: Error) => void) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { Date } [dateCreatedFrom] Only show Execution resources starting on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time, given as `YYYY-MM-DDThh:mm:ss-hh:mm`.
- * @property { Date } [dateCreatedTo] Only show Execution resources starting before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time, given as `YYYY-MM-DDThh:mm:ss-hh:mm`.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface ExecutionListInstanceOptions {
+  /** Only show Execution resources starting on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time, given as `YYYY-MM-DDThh:mm:ss-hh:mm`. */
   dateCreatedFrom?: Date;
+  /** Only show Execution resources starting before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time, given as `YYYY-MM-DDThh:mm:ss-hh:mm`. */
   dateCreatedTo?: Date;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { Date } [dateCreatedFrom] Only show Execution resources starting on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time, given as `YYYY-MM-DDThh:mm:ss-hh:mm`.
- * @property { Date } [dateCreatedTo] Only show Execution resources starting before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time, given as `YYYY-MM-DDThh:mm:ss-hh:mm`.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface ExecutionListInstancePageOptions {
+  /** Only show Execution resources starting on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time, given as `YYYY-MM-DDThh:mm:ss-hh:mm`. */
   dateCreatedFrom?: Date;
+  /** Only show Execution resources starting before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time, given as `YYYY-MM-DDThh:mm:ss-hh:mm`. */
   dateCreatedTo?: Date;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
@@ -111,9 +98,9 @@ export interface ExecutionContext {
   /**
    * Remove a ExecutionInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -122,9 +109,9 @@ export interface ExecutionContext {
   /**
    * Fetch a ExecutionInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ExecutionInstance
+   * @returns Resolves to processed ExecutionInstance
    */
   fetch(
     callback?: (error: Error | null, item?: ExecutionInstance) => any
@@ -133,10 +120,10 @@ export interface ExecutionContext {
   /**
    * Update a ExecutionInstance
    *
-   * @param { ExecutionContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ExecutionInstance
+   * @returns Resolves to processed ExecutionInstance
    */
   update(
     params: ExecutionContextUpdateOptions,
@@ -152,8 +139,8 @@ export interface ExecutionContext {
 }
 
 export interface ExecutionContextSolution {
-  flowSid?: string;
-  sid?: string;
+  flowSid: string;
+  sid: string;
 }
 
 export class ExecutionContextImpl implements ExecutionContext {
@@ -199,13 +186,14 @@ export class ExecutionContextImpl implements ExecutionContext {
   }
 
   remove(callback?: any): Promise<boolean> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -213,9 +201,10 @@ export class ExecutionContextImpl implements ExecutionContext {
   }
 
   fetch(callback?: any): Promise<ExecutionInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -224,12 +213,12 @@ export class ExecutionContextImpl implements ExecutionContext {
         new ExecutionInstance(
           operationVersion,
           payload,
-          this._solution.flowSid,
-          this._solution.sid
+          instance._solution.flowSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -252,9 +241,10 @@ export class ExecutionContextImpl implements ExecutionContext {
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -265,12 +255,12 @@ export class ExecutionContextImpl implements ExecutionContext {
         new ExecutionInstance(
           operationVersion,
           payload,
-          this._solution.flowSid,
-          this._solution.sid
+          instance._solution.flowSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -296,16 +286,16 @@ interface ExecutionPayload extends TwilioResponsePayload {
 }
 
 interface ExecutionResource {
-  sid?: string | null;
-  account_sid?: string | null;
-  flow_sid?: string | null;
-  contact_channel_address?: string | null;
-  context?: any | null;
-  status?: ExecutionStatus;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  url?: string | null;
-  links?: object | null;
+  sid: string;
+  account_sid: string;
+  flow_sid: string;
+  contact_channel_address: string;
+  context: any;
+  status: ExecutionStatus;
+  date_created: Date;
+  date_updated: Date;
+  url: string;
+  links: object;
 }
 
 export class ExecutionInstance {
@@ -335,40 +325,40 @@ export class ExecutionInstance {
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The SID of the Flow
    */
-  flowSid?: string | null;
+  flowSid: string;
   /**
    * The phone number, SIP address or Client identifier that triggered the Execution
    */
-  contactChannelAddress?: string | null;
+  contactChannelAddress: string;
   /**
    * The current state of the flow
    */
-  context?: any | null;
-  status?: ExecutionStatus;
+  context: any;
+  status: ExecutionStatus;
   /**
    * The ISO 8601 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The ISO 8601 date and time in GMT when the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The absolute URL of the resource
    */
-  url?: string | null;
+  url: string;
   /**
    * Nested resource URLs
    */
-  links?: object | null;
+  links: object;
 
   private get _proxy(): ExecutionContext {
     this._context =
@@ -384,9 +374,9 @@ export class ExecutionInstance {
   /**
    * Remove a ExecutionInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -397,9 +387,9 @@ export class ExecutionInstance {
   /**
    * Fetch a ExecutionInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ExecutionInstance
+   * @returns Resolves to processed ExecutionInstance
    */
   fetch(
     callback?: (error: Error | null, item?: ExecutionInstance) => any
@@ -410,10 +400,10 @@ export class ExecutionInstance {
   /**
    * Update a ExecutionInstance
    *
-   * @param { ExecutionContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ExecutionInstance
+   * @returns Resolves to processed ExecutionInstance
    */
   update(
     params: ExecutionContextUpdateOptions,
@@ -462,17 +452,25 @@ export class ExecutionInstance {
   }
 }
 
+export interface ExecutionSolution {
+  flowSid: string;
+}
+
 export interface ExecutionListInstance {
+  _version: V2;
+  _solution: ExecutionSolution;
+  _uri: string;
+
   (sid: string): ExecutionContext;
   get(sid: string): ExecutionContext;
 
   /**
    * Create a ExecutionInstance
    *
-   * @param { ExecutionListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ExecutionInstance
+   * @returns Resolves to processed ExecutionInstance
    */
   create(
     params: ExecutionListInstanceCreateOptions,
@@ -608,17 +606,6 @@ export interface ExecutionListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface ExecutionSolution {
-  flowSid?: string;
-}
-
-interface ExecutionListInstanceImpl extends ExecutionListInstance {}
-class ExecutionListInstanceImpl implements ExecutionListInstance {
-  _version?: V2;
-  _solution?: ExecutionSolution;
-  _uri?: string;
-}
-
 export function ExecutionListInstance(
   version: V2,
   flowSid: string
@@ -627,7 +614,7 @@ export function ExecutionListInstance(
     throw new Error("Parameter 'flowSid' is not valid.");
   }
 
-  const instance = ((sid) => instance.get(sid)) as ExecutionListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as ExecutionListInstance;
 
   instance.get = function get(sid): ExecutionContext {
     return new ExecutionContextImpl(version, flowSid, sid);
@@ -666,7 +653,7 @@ export function ExecutionListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -674,10 +661,14 @@ export function ExecutionListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new ExecutionInstance(operationVersion, payload, this._solution.flowSid)
+        new ExecutionInstance(
+          operationVersion,
+          payload,
+          instance._solution.flowSid
+        )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -714,17 +705,18 @@ export function ExecutionListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new ExecutionPage(operationVersion, payload, this._solution)
+      (payload) =>
+        new ExecutionPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -737,30 +729,28 @@ export function ExecutionListInstance(
     targetUrl?: any,
     callback?: any
   ): Promise<ExecutionPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new ExecutionPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new ExecutionPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

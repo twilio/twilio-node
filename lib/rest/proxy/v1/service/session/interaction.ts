@@ -47,48 +47,37 @@ type InteractionType = "message" | "voice" | "unknown";
 
 /**
  * Options to pass to each
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface InteractionListInstanceEachOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: InteractionInstance, done: (err?: Error) => void) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface InteractionListInstanceOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface InteractionListInstancePageOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
@@ -96,9 +85,9 @@ export interface InteractionContext {
   /**
    * Remove a InteractionInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -107,9 +96,9 @@ export interface InteractionContext {
   /**
    * Fetch a InteractionInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed InteractionInstance
+   * @returns Resolves to processed InteractionInstance
    */
   fetch(
     callback?: (error: Error | null, item?: InteractionInstance) => any
@@ -123,9 +112,9 @@ export interface InteractionContext {
 }
 
 export interface InteractionContextSolution {
-  serviceSid?: string;
-  sessionSid?: string;
-  sid?: string;
+  serviceSid: string;
+  sessionSid: string;
+  sid: string;
 }
 
 export class InteractionContextImpl implements InteractionContext {
@@ -155,13 +144,14 @@ export class InteractionContextImpl implements InteractionContext {
   }
 
   remove(callback?: any): Promise<boolean> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -169,9 +159,10 @@ export class InteractionContextImpl implements InteractionContext {
   }
 
   fetch(callback?: any): Promise<InteractionInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -180,13 +171,13 @@ export class InteractionContextImpl implements InteractionContext {
         new InteractionInstance(
           operationVersion,
           payload,
-          this._solution.serviceSid,
-          this._solution.sessionSid,
-          this._solution.sid
+          instance._solution.serviceSid,
+          instance._solution.sessionSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -212,25 +203,25 @@ interface InteractionPayload extends TwilioResponsePayload {
 }
 
 interface InteractionResource {
-  sid?: string | null;
-  session_sid?: string | null;
-  service_sid?: string | null;
-  account_sid?: string | null;
-  data?: string | null;
-  type?: InteractionType;
-  inbound_participant_sid?: string | null;
-  inbound_resource_sid?: string | null;
-  inbound_resource_status?: InteractionResourceStatus;
-  inbound_resource_type?: string | null;
-  inbound_resource_url?: string | null;
-  outbound_participant_sid?: string | null;
-  outbound_resource_sid?: string | null;
-  outbound_resource_status?: InteractionResourceStatus;
-  outbound_resource_type?: string | null;
-  outbound_resource_url?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  url?: string | null;
+  sid: string;
+  session_sid: string;
+  service_sid: string;
+  account_sid: string;
+  data: string;
+  type: InteractionType;
+  inbound_participant_sid: string;
+  inbound_resource_sid: string;
+  inbound_resource_status: InteractionResourceStatus;
+  inbound_resource_type: string;
+  inbound_resource_url: string;
+  outbound_participant_sid: string;
+  outbound_resource_sid: string;
+  outbound_resource_status: InteractionResourceStatus;
+  outbound_resource_type: string;
+  outbound_resource_url: string;
+  date_created: Date;
+  date_updated: Date;
+  url: string;
 }
 
 export class InteractionInstance {
@@ -270,70 +261,70 @@ export class InteractionInstance {
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The SID of the resource\'s parent Session
    */
-  sessionSid?: string | null;
+  sessionSid: string;
   /**
    * The SID of the resource\'s parent Service
    */
-  serviceSid?: string | null;
+  serviceSid: string;
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * A JSON string that includes the message body of message interactions
    */
-  data?: string | null;
-  type?: InteractionType;
+  data: string;
+  type: InteractionType;
   /**
    * The SID of the inbound Participant resource
    */
-  inboundParticipantSid?: string | null;
+  inboundParticipantSid: string;
   /**
    * The SID of the inbound resource
    */
-  inboundResourceSid?: string | null;
-  inboundResourceStatus?: InteractionResourceStatus;
+  inboundResourceSid: string;
+  inboundResourceStatus: InteractionResourceStatus;
   /**
    * The inbound resource type
    */
-  inboundResourceType?: string | null;
+  inboundResourceType: string;
   /**
    * The URL of the Twilio inbound resource
    */
-  inboundResourceUrl?: string | null;
+  inboundResourceUrl: string;
   /**
    * The SID of the outbound Participant
    */
-  outboundParticipantSid?: string | null;
+  outboundParticipantSid: string;
   /**
    * The SID of the outbound resource
    */
-  outboundResourceSid?: string | null;
-  outboundResourceStatus?: InteractionResourceStatus;
+  outboundResourceSid: string;
+  outboundResourceStatus: InteractionResourceStatus;
   /**
    * The outbound resource type
    */
-  outboundResourceType?: string | null;
+  outboundResourceType: string;
   /**
    * The URL of the Twilio outbound resource
    */
-  outboundResourceUrl?: string | null;
+  outboundResourceUrl: string;
   /**
    * The ISO 8601 date and time in GMT when the Interaction was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The ISO 8601 date and time in GMT when the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The absolute URL of the Interaction resource
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): InteractionContext {
     this._context =
@@ -350,9 +341,9 @@ export class InteractionInstance {
   /**
    * Remove a InteractionInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -363,9 +354,9 @@ export class InteractionInstance {
   /**
    * Fetch a InteractionInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed InteractionInstance
+   * @returns Resolves to processed InteractionInstance
    */
   fetch(
     callback?: (error: Error | null, item?: InteractionInstance) => any
@@ -407,7 +398,16 @@ export class InteractionInstance {
   }
 }
 
+export interface InteractionSolution {
+  serviceSid: string;
+  sessionSid: string;
+}
+
 export interface InteractionListInstance {
+  _version: V1;
+  _solution: InteractionSolution;
+  _uri: string;
+
   (sid: string): InteractionContext;
   get(sid: string): InteractionContext;
 
@@ -539,18 +539,6 @@ export interface InteractionListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface InteractionSolution {
-  serviceSid?: string;
-  sessionSid?: string;
-}
-
-interface InteractionListInstanceImpl extends InteractionListInstance {}
-class InteractionListInstanceImpl implements InteractionListInstance {
-  _version?: V1;
-  _solution?: InteractionSolution;
-  _uri?: string;
-}
-
 export function InteractionListInstance(
   version: V1,
   serviceSid: string,
@@ -564,7 +552,7 @@ export function InteractionListInstance(
     throw new Error("Parameter 'sessionSid' is not valid.");
   }
 
-  const instance = ((sid) => instance.get(sid)) as InteractionListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as InteractionListInstance;
 
   instance.get = function get(sid): InteractionContext {
     return new InteractionContextImpl(version, serviceSid, sessionSid, sid);
@@ -596,7 +584,7 @@ export function InteractionListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
@@ -604,10 +592,10 @@ export function InteractionListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new InteractionPage(operationVersion, payload, this._solution)
+        new InteractionPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -620,30 +608,28 @@ export function InteractionListInstance(
     targetUrl?: any,
     callback?: any
   ): Promise<InteractionPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new InteractionPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new InteractionPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

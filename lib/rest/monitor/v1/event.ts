@@ -22,84 +22,73 @@ import { isValidPathParam } from "../../../base/utility";
 
 /**
  * Options to pass to each
- *
- * @property { string } [actorSid] Only include events initiated by this Actor. Useful for auditing actions taken by specific users or API credentials.
- * @property { string } [eventType] Only include events of this [Event Type](https://www.twilio.com/docs/usage/monitor-events#event-types).
- * @property { string } [resourceSid] Only include events that refer to this resource. Useful for discovering the history of a specific resource.
- * @property { string } [sourceIpAddress] Only include events that originated from this IP address. Useful for tracking suspicious activity originating from the API or the Twilio Console.
- * @property { Date } [startDate] Only include events that occurred on or after this date. Specify the date in GMT and [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
- * @property { Date } [endDate] Only include events that occurred on or before this date. Specify the date in GMT and [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface EventListInstanceEachOptions {
+  /** Only include events initiated by this Actor. Useful for auditing actions taken by specific users or API credentials. */
   actorSid?: string;
+  /** Only include events of this [Event Type](https://www.twilio.com/docs/usage/monitor-events#event-types). */
   eventType?: string;
+  /** Only include events that refer to this resource. Useful for discovering the history of a specific resource. */
   resourceSid?: string;
+  /** Only include events that originated from this IP address. Useful for tracking suspicious activity originating from the API or the Twilio Console. */
   sourceIpAddress?: string;
+  /** Only include events that occurred on or after this date. Specify the date in GMT and [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. */
   startDate?: Date;
+  /** Only include events that occurred on or before this date. Specify the date in GMT and [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. */
   endDate?: Date;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: EventInstance, done: (err?: Error) => void) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { string } [actorSid] Only include events initiated by this Actor. Useful for auditing actions taken by specific users or API credentials.
- * @property { string } [eventType] Only include events of this [Event Type](https://www.twilio.com/docs/usage/monitor-events#event-types).
- * @property { string } [resourceSid] Only include events that refer to this resource. Useful for discovering the history of a specific resource.
- * @property { string } [sourceIpAddress] Only include events that originated from this IP address. Useful for tracking suspicious activity originating from the API or the Twilio Console.
- * @property { Date } [startDate] Only include events that occurred on or after this date. Specify the date in GMT and [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
- * @property { Date } [endDate] Only include events that occurred on or before this date. Specify the date in GMT and [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface EventListInstanceOptions {
+  /** Only include events initiated by this Actor. Useful for auditing actions taken by specific users or API credentials. */
   actorSid?: string;
+  /** Only include events of this [Event Type](https://www.twilio.com/docs/usage/monitor-events#event-types). */
   eventType?: string;
+  /** Only include events that refer to this resource. Useful for discovering the history of a specific resource. */
   resourceSid?: string;
+  /** Only include events that originated from this IP address. Useful for tracking suspicious activity originating from the API or the Twilio Console. */
   sourceIpAddress?: string;
+  /** Only include events that occurred on or after this date. Specify the date in GMT and [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. */
   startDate?: Date;
+  /** Only include events that occurred on or before this date. Specify the date in GMT and [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. */
   endDate?: Date;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { string } [actorSid] Only include events initiated by this Actor. Useful for auditing actions taken by specific users or API credentials.
- * @property { string } [eventType] Only include events of this [Event Type](https://www.twilio.com/docs/usage/monitor-events#event-types).
- * @property { string } [resourceSid] Only include events that refer to this resource. Useful for discovering the history of a specific resource.
- * @property { string } [sourceIpAddress] Only include events that originated from this IP address. Useful for tracking suspicious activity originating from the API or the Twilio Console.
- * @property { Date } [startDate] Only include events that occurred on or after this date. Specify the date in GMT and [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
- * @property { Date } [endDate] Only include events that occurred on or before this date. Specify the date in GMT and [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface EventListInstancePageOptions {
+  /** Only include events initiated by this Actor. Useful for auditing actions taken by specific users or API credentials. */
   actorSid?: string;
+  /** Only include events of this [Event Type](https://www.twilio.com/docs/usage/monitor-events#event-types). */
   eventType?: string;
+  /** Only include events that refer to this resource. Useful for discovering the history of a specific resource. */
   resourceSid?: string;
+  /** Only include events that originated from this IP address. Useful for tracking suspicious activity originating from the API or the Twilio Console. */
   sourceIpAddress?: string;
+  /** Only include events that occurred on or after this date. Specify the date in GMT and [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. */
   startDate?: Date;
+  /** Only include events that occurred on or before this date. Specify the date in GMT and [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. */
   endDate?: Date;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
@@ -107,9 +96,9 @@ export interface EventContext {
   /**
    * Fetch a EventInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed EventInstance
+   * @returns Resolves to processed EventInstance
    */
   fetch(
     callback?: (error: Error | null, item?: EventInstance) => any
@@ -123,7 +112,7 @@ export interface EventContext {
 }
 
 export interface EventContextSolution {
-  sid?: string;
+  sid: string;
 }
 
 export class EventContextImpl implements EventContext {
@@ -140,18 +129,19 @@ export class EventContextImpl implements EventContext {
   }
 
   fetch(callback?: any): Promise<EventInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new EventInstance(operationVersion, payload, this._solution.sid)
+        new EventInstance(operationVersion, payload, instance._solution.sid)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -177,20 +167,20 @@ interface EventPayload extends TwilioResponsePayload {
 }
 
 interface EventResource {
-  account_sid?: string | null;
-  actor_sid?: string | null;
-  actor_type?: string | null;
-  description?: string | null;
-  event_data?: any | null;
-  event_date?: Date | null;
-  event_type?: string | null;
-  resource_sid?: string | null;
-  resource_type?: string | null;
-  sid?: string | null;
-  source?: string | null;
-  source_ip_address?: string | null;
-  url?: string | null;
-  links?: object | null;
+  account_sid: string;
+  actor_sid: string;
+  actor_type: string;
+  description: string;
+  event_data: any;
+  event_date: Date;
+  event_type: string;
+  resource_sid: string;
+  resource_type: string;
+  sid: string;
+  source: string;
+  source_ip_address: string;
+  url: string;
+  links: object;
 }
 
 export class EventInstance {
@@ -219,59 +209,59 @@ export class EventInstance {
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The SID of the actor that caused the event, if available
    */
-  actorSid?: string | null;
+  actorSid: string;
   /**
    * The type of actor that caused the event
    */
-  actorType?: string | null;
+  actorType: string;
   /**
    * A description of the event
    */
-  description?: string | null;
+  description: string;
   /**
    * A JSON string that represents an object with additional data about the event
    */
-  eventData?: any | null;
+  eventData: any;
   /**
    * The ISO 8601 date and time in GMT when the event was recorded
    */
-  eventDate?: Date | null;
+  eventDate: Date;
   /**
    * The event\'s type
    */
-  eventType?: string | null;
+  eventType: string;
   /**
    * The SID of the resource that was affected
    */
-  resourceSid?: string | null;
+  resourceSid: string;
   /**
    * The type of resource that was affected
    */
-  resourceType?: string | null;
+  resourceType: string;
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The originating system or interface that caused the event
    */
-  source?: string | null;
+  source: string;
   /**
    * The IP address of the source
    */
-  sourceIpAddress?: string | null;
+  sourceIpAddress: string;
   /**
    * The absolute URL of the resource that was affected
    */
-  url?: string | null;
+  url: string;
   /**
    * The absolute URLs of related resources
    */
-  links?: object | null;
+  links: object;
 
   private get _proxy(): EventContext {
     this._context =
@@ -282,9 +272,9 @@ export class EventInstance {
   /**
    * Fetch a EventInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed EventInstance
+   * @returns Resolves to processed EventInstance
    */
   fetch(
     callback?: (error: Error | null, item?: EventInstance) => any
@@ -321,7 +311,13 @@ export class EventInstance {
   }
 }
 
+export interface EventSolution {}
+
 export interface EventListInstance {
+  _version: V1;
+  _solution: EventSolution;
+  _uri: string;
+
   (sid: string): EventContext;
   get(sid: string): EventContext;
 
@@ -453,17 +449,8 @@ export interface EventListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface EventSolution {}
-
-interface EventListInstanceImpl extends EventListInstance {}
-class EventListInstanceImpl implements EventListInstance {
-  _version?: V1;
-  _solution?: EventSolution;
-  _uri?: string;
-}
-
 export function EventListInstance(version: V1): EventListInstance {
-  const instance = ((sid) => instance.get(sid)) as EventListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as EventListInstance;
 
   instance.get = function get(sid): EventContext {
     return new EventContextImpl(version, sid);
@@ -506,17 +493,17 @@ export function EventListInstance(version: V1): EventListInstance {
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new EventPage(operationVersion, payload, this._solution)
+      (payload) => new EventPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -529,30 +516,27 @@ export function EventListInstance(version: V1): EventListInstance {
     targetUrl?: any,
     callback?: any
   ): Promise<EventPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new EventPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) => new EventPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

@@ -20,12 +20,11 @@ import { isValidPathParam } from "../../../base/utility";
 
 /**
  * Options to pass to update a PhoneNumberInstance
- *
- * @property { string } [voiceRegion] The Inbound Processing Region used for this phone number for voice
- * @property { string } [friendlyName] A human readable description of this resource, up to 64 characters.
  */
 export interface PhoneNumberContextUpdateOptions {
+  /** The Inbound Processing Region used for this phone number for voice */
   voiceRegion?: string;
+  /** A human readable description of this resource, up to 64 characters. */
   friendlyName?: string;
 }
 
@@ -33,9 +32,9 @@ export interface PhoneNumberContext {
   /**
    * Fetch a PhoneNumberInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed PhoneNumberInstance
+   * @returns Resolves to processed PhoneNumberInstance
    */
   fetch(
     callback?: (error: Error | null, item?: PhoneNumberInstance) => any
@@ -44,9 +43,9 @@ export interface PhoneNumberContext {
   /**
    * Update a PhoneNumberInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed PhoneNumberInstance
+   * @returns Resolves to processed PhoneNumberInstance
    */
   update(
     callback?: (error: Error | null, item?: PhoneNumberInstance) => any
@@ -54,10 +53,10 @@ export interface PhoneNumberContext {
   /**
    * Update a PhoneNumberInstance
    *
-   * @param { PhoneNumberContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed PhoneNumberInstance
+   * @returns Resolves to processed PhoneNumberInstance
    */
   update(
     params: PhoneNumberContextUpdateOptions,
@@ -73,7 +72,7 @@ export interface PhoneNumberContext {
 }
 
 export interface PhoneNumberContextSolution {
-  phoneNumber?: string;
+  phoneNumber: string;
 }
 
 export class PhoneNumberContextImpl implements PhoneNumberContext {
@@ -90,9 +89,10 @@ export class PhoneNumberContextImpl implements PhoneNumberContext {
   }
 
   fetch(callback?: any): Promise<PhoneNumberInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -101,11 +101,11 @@ export class PhoneNumberContextImpl implements PhoneNumberContext {
         new PhoneNumberInstance(
           operationVersion,
           payload,
-          this._solution.phoneNumber
+          instance._solution.phoneNumber
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -130,9 +130,10 @@ export class PhoneNumberContextImpl implements PhoneNumberContext {
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -143,11 +144,11 @@ export class PhoneNumberContextImpl implements PhoneNumberContext {
         new PhoneNumberInstance(
           operationVersion,
           payload,
-          this._solution.phoneNumber
+          instance._solution.phoneNumber
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -171,14 +172,14 @@ export class PhoneNumberContextImpl implements PhoneNumberContext {
 interface PhoneNumberPayload extends PhoneNumberResource {}
 
 interface PhoneNumberResource {
-  phone_number?: string | null;
-  url?: string | null;
-  sid?: string | null;
-  account_sid?: string | null;
-  friendly_name?: string | null;
-  voice_region?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
+  phone_number: string;
+  url: string;
+  sid: string;
+  account_sid: string;
+  friendly_name: string;
+  voice_region: string;
+  date_created: Date;
+  date_updated: Date;
 }
 
 export class PhoneNumberInstance {
@@ -205,35 +206,35 @@ export class PhoneNumberInstance {
   /**
    * The phone number
    */
-  phoneNumber?: string | null;
+  phoneNumber: string;
   /**
    * The absolute URL of the resource
    */
-  url?: string | null;
+  url: string;
   /**
    * A string that uniquely identifies the Inbound Processing Region assignments for this phone number.
    */
-  sid?: string | null;
+  sid: string;
   /**
    * Account Sid.
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * A human readable description of the Inbound Processing Region assignments for this phone number.
    */
-  friendlyName?: string | null;
+  friendlyName: string;
   /**
    * The Inbound Processing Region used for this phone number for voice.
    */
-  voiceRegion?: string | null;
+  voiceRegion: string;
   /**
    * The date that this phone number was assigned an Inbound Processing Region.
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The date that the Inbound Processing Region was updated for this phone number.
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
 
   private get _proxy(): PhoneNumberContext {
     this._context =
@@ -245,9 +246,9 @@ export class PhoneNumberInstance {
   /**
    * Fetch a PhoneNumberInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed PhoneNumberInstance
+   * @returns Resolves to processed PhoneNumberInstance
    */
   fetch(
     callback?: (error: Error | null, item?: PhoneNumberInstance) => any
@@ -258,9 +259,9 @@ export class PhoneNumberInstance {
   /**
    * Update a PhoneNumberInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed PhoneNumberInstance
+   * @returns Resolves to processed PhoneNumberInstance
    */
   update(
     callback?: (error: Error | null, item?: PhoneNumberInstance) => any
@@ -268,10 +269,10 @@ export class PhoneNumberInstance {
   /**
    * Update a PhoneNumberInstance
    *
-   * @param { PhoneNumberContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed PhoneNumberInstance
+   * @returns Resolves to processed PhoneNumberInstance
    */
   update(
     params: PhoneNumberContextUpdateOptions,
@@ -304,7 +305,13 @@ export class PhoneNumberInstance {
   }
 }
 
+export interface PhoneNumberSolution {}
+
 export interface PhoneNumberListInstance {
+  _version: V2;
+  _solution: PhoneNumberSolution;
+  _uri: string;
+
   (phoneNumber: string): PhoneNumberContext;
   get(phoneNumber: string): PhoneNumberContext;
 
@@ -315,18 +322,9 @@ export interface PhoneNumberListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface PhoneNumberSolution {}
-
-interface PhoneNumberListInstanceImpl extends PhoneNumberListInstance {}
-class PhoneNumberListInstanceImpl implements PhoneNumberListInstance {
-  _version?: V2;
-  _solution?: PhoneNumberSolution;
-  _uri?: string;
-}
-
 export function PhoneNumberListInstance(version: V2): PhoneNumberListInstance {
   const instance = ((phoneNumber) =>
-    instance.get(phoneNumber)) as PhoneNumberListInstanceImpl;
+    instance.get(phoneNumber)) as PhoneNumberListInstance;
 
   instance.get = function get(phoneNumber): PhoneNumberContext {
     return new PhoneNumberContextImpl(version, phoneNumber);
@@ -337,14 +335,14 @@ export function PhoneNumberListInstance(version: V2): PhoneNumberListInstance {
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

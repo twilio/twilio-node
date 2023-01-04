@@ -37,10 +37,9 @@ export class PricingV2TrunkingNumberOriginatingCallPrice {
 
 /**
  * Options to pass to fetch a NumberInstance
- *
- * @property { string } [originationNumber] The origination phone number, in [E.164](https://www.twilio.com/docs/glossary/what-e164) format, for which to fetch the origin-based voice pricing information. E.164 format consists of a + followed by the country code and subscriber number.
  */
 export interface NumberContextFetchOptions {
+  /** The origination phone number, in [E.164](https://www.twilio.com/docs/glossary/what-e164) format, for which to fetch the origin-based voice pricing information. E.164 format consists of a + followed by the country code and subscriber number. */
   originationNumber?: string;
 }
 
@@ -48,9 +47,9 @@ export interface NumberContext {
   /**
    * Fetch a NumberInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed NumberInstance
+   * @returns Resolves to processed NumberInstance
    */
   fetch(
     callback?: (error: Error | null, item?: NumberInstance) => any
@@ -58,10 +57,10 @@ export interface NumberContext {
   /**
    * Fetch a NumberInstance
    *
-   * @param { NumberContextFetchOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed NumberInstance
+   * @returns Resolves to processed NumberInstance
    */
   fetch(
     params: NumberContextFetchOptions,
@@ -77,7 +76,7 @@ export interface NumberContext {
 }
 
 export interface NumberContextSolution {
-  destinationNumber?: string;
+  destinationNumber: string;
 }
 
 export class NumberContextImpl implements NumberContext {
@@ -108,9 +107,10 @@ export class NumberContextImpl implements NumberContext {
 
     const headers: any = {};
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
@@ -121,11 +121,11 @@ export class NumberContextImpl implements NumberContext {
         new NumberInstance(
           operationVersion,
           payload,
-          this._solution.destinationNumber
+          instance._solution.destinationNumber
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -149,14 +149,14 @@ export class NumberContextImpl implements NumberContext {
 interface NumberPayload extends NumberResource {}
 
 interface NumberResource {
-  destination_number?: string | null;
-  origination_number?: string | null;
-  country?: string | null;
-  iso_country?: string | null;
-  terminating_prefix_prices?: Array<PricingV2TrunkingCountryInstanceTerminatingPrefixPrices> | null;
-  originating_call_price?: PricingV2TrunkingNumberOriginatingCallPrice | null;
-  price_unit?: string | null;
-  url?: string | null;
+  destination_number: string;
+  origination_number: string;
+  country: string;
+  iso_country: string;
+  terminating_prefix_prices: Array<PricingV2TrunkingCountryInstanceTerminatingPrefixPrices>;
+  originating_call_price: PricingV2TrunkingNumberOriginatingCallPrice;
+  price_unit: string;
+  url: string;
 }
 
 export class NumberInstance {
@@ -185,29 +185,29 @@ export class NumberInstance {
   /**
    * The destination phone number, in E.164 format
    */
-  destinationNumber?: string | null;
+  destinationNumber: string;
   /**
    * The origination phone number, in E.164 format
    */
-  originationNumber?: string | null;
+  originationNumber: string;
   /**
    * The name of the country
    */
-  country?: string | null;
+  country: string;
   /**
    * The ISO country code
    */
-  isoCountry?: string | null;
-  terminatingPrefixPrices?: Array<PricingV2TrunkingCountryInstanceTerminatingPrefixPrices> | null;
-  originatingCallPrice?: PricingV2TrunkingNumberOriginatingCallPrice | null;
+  isoCountry: string;
+  terminatingPrefixPrices: Array<PricingV2TrunkingCountryInstanceTerminatingPrefixPrices>;
+  originatingCallPrice: PricingV2TrunkingNumberOriginatingCallPrice;
   /**
    * The currency in which prices are measured, in ISO 4127 format (e.g. usd, eur, jpy)
    */
-  priceUnit?: string | null;
+  priceUnit: string;
   /**
    * The absolute URL of the resource
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): NumberContext {
     this._context =
@@ -219,9 +219,9 @@ export class NumberInstance {
   /**
    * Fetch a NumberInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed NumberInstance
+   * @returns Resolves to processed NumberInstance
    */
   fetch(
     callback?: (error: Error | null, item?: NumberInstance) => any
@@ -229,10 +229,10 @@ export class NumberInstance {
   /**
    * Fetch a NumberInstance
    *
-   * @param { NumberContextFetchOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed NumberInstance
+   * @returns Resolves to processed NumberInstance
    */
   fetch(
     params: NumberContextFetchOptions,
@@ -265,7 +265,13 @@ export class NumberInstance {
   }
 }
 
+export interface NumberSolution {}
+
 export interface NumberListInstance {
+  _version: V2;
+  _solution: NumberSolution;
+  _uri: string;
+
   (destinationNumber: string): NumberContext;
   get(destinationNumber: string): NumberContext;
 
@@ -276,18 +282,9 @@ export interface NumberListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface NumberSolution {}
-
-interface NumberListInstanceImpl extends NumberListInstance {}
-class NumberListInstanceImpl implements NumberListInstance {
-  _version?: V2;
-  _solution?: NumberSolution;
-  _uri?: string;
-}
-
 export function NumberListInstance(version: V2): NumberListInstance {
   const instance = ((destinationNumber) =>
-    instance.get(destinationNumber)) as NumberListInstanceImpl;
+    instance.get(destinationNumber)) as NumberListInstance;
 
   instance.get = function get(destinationNumber): NumberContext {
     return new NumberContextImpl(version, destinationNumber);
@@ -298,14 +295,14 @@ export function NumberListInstance(version: V2): NumberListInstance {
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

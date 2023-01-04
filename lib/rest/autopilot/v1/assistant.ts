@@ -30,91 +30,78 @@ import { WebhookListInstance } from "./assistant/webhook";
 
 /**
  * Options to pass to update a AssistantInstance
- *
- * @property { string } [friendlyName] A descriptive string that you create to describe the resource. It is not unique and can be up to 255 characters long.
- * @property { boolean } [logQueries] Whether queries should be logged and kept after training. Can be: `true` or `false` and defaults to `true`. If `true`, queries are stored for 30 days, and then deleted. If `false`, no queries are stored.
- * @property { string } [uniqueName] An application-defined string that uniquely identifies the resource. It can be used as an alternative to the `sid` in the URL path to address the resource. The first 64 characters must be unique.
- * @property { string } [callbackUrl] Reserved.
- * @property { string } [callbackEvents] Reserved.
- * @property { any } [styleSheet] The JSON string that defines the Assistant\\\'s [style sheet](https://www.twilio.com/docs/autopilot/api/assistant/stylesheet)
- * @property { any } [defaults] A JSON object that defines the Assistant\\\'s [default tasks](https://www.twilio.com/docs/autopilot/api/assistant/defaults) for various scenarios, including initiation actions and fallback tasks.
- * @property { string } [developmentStage] A string describing the state of the assistant.
  */
 export interface AssistantContextUpdateOptions {
+  /** A descriptive string that you create to describe the resource. It is not unique and can be up to 255 characters long. */
   friendlyName?: string;
+  /** Whether queries should be logged and kept after training. Can be: `true` or `false` and defaults to `true`. If `true`, queries are stored for 30 days, and then deleted. If `false`, no queries are stored. */
   logQueries?: boolean;
+  /** An application-defined string that uniquely identifies the resource. It can be used as an alternative to the `sid` in the URL path to address the resource. The first 64 characters must be unique. */
   uniqueName?: string;
+  /** Reserved. */
   callbackUrl?: string;
+  /** Reserved. */
   callbackEvents?: string;
+  /** The JSON string that defines the Assistant\\\'s [style sheet](https://www.twilio.com/docs/autopilot/api/assistant/stylesheet) */
   styleSheet?: any;
+  /** A JSON object that defines the Assistant\\\'s [default tasks](https://www.twilio.com/docs/autopilot/api/assistant/defaults) for various scenarios, including initiation actions and fallback tasks. */
   defaults?: any;
+  /** A string describing the state of the assistant. */
   developmentStage?: string;
 }
 
 /**
  * Options to pass to create a AssistantInstance
- *
- * @property { string } [friendlyName] A descriptive string that you create to describe the new resource. It is not unique and can be up to 255 characters long.
- * @property { boolean } [logQueries] Whether queries should be logged and kept after training. Can be: `true` or `false` and defaults to `true`. If `true`, queries are stored for 30 days, and then deleted. If `false`, no queries are stored.
- * @property { string } [uniqueName] An application-defined string that uniquely identifies the new resource. It can be used as an alternative to the `sid` in the URL path to address the resource. The first 64 characters must be unique.
- * @property { string } [callbackUrl] Reserved.
- * @property { string } [callbackEvents] Reserved.
- * @property { any } [styleSheet] The JSON string that defines the Assistant\\\'s [style sheet](https://www.twilio.com/docs/autopilot/api/assistant/stylesheet)
- * @property { any } [defaults] A JSON object that defines the Assistant\\\'s [default tasks](https://www.twilio.com/docs/autopilot/api/assistant/defaults) for various scenarios, including initiation actions and fallback tasks.
  */
 export interface AssistantListInstanceCreateOptions {
+  /** A descriptive string that you create to describe the new resource. It is not unique and can be up to 255 characters long. */
   friendlyName?: string;
+  /** Whether queries should be logged and kept after training. Can be: `true` or `false` and defaults to `true`. If `true`, queries are stored for 30 days, and then deleted. If `false`, no queries are stored. */
   logQueries?: boolean;
+  /** An application-defined string that uniquely identifies the new resource. It can be used as an alternative to the `sid` in the URL path to address the resource. The first 64 characters must be unique. */
   uniqueName?: string;
+  /** Reserved. */
   callbackUrl?: string;
+  /** Reserved. */
   callbackEvents?: string;
+  /** The JSON string that defines the Assistant\\\'s [style sheet](https://www.twilio.com/docs/autopilot/api/assistant/stylesheet) */
   styleSheet?: any;
+  /** A JSON object that defines the Assistant\\\'s [default tasks](https://www.twilio.com/docs/autopilot/api/assistant/defaults) for various scenarios, including initiation actions and fallback tasks. */
   defaults?: any;
 }
 /**
  * Options to pass to each
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface AssistantListInstanceEachOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: AssistantInstance, done: (err?: Error) => void) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface AssistantListInstanceOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface AssistantListInstancePageOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
@@ -131,9 +118,9 @@ export interface AssistantContext {
   /**
    * Remove a AssistantInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -142,9 +129,9 @@ export interface AssistantContext {
   /**
    * Fetch a AssistantInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed AssistantInstance
+   * @returns Resolves to processed AssistantInstance
    */
   fetch(
     callback?: (error: Error | null, item?: AssistantInstance) => any
@@ -153,9 +140,9 @@ export interface AssistantContext {
   /**
    * Update a AssistantInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed AssistantInstance
+   * @returns Resolves to processed AssistantInstance
    */
   update(
     callback?: (error: Error | null, item?: AssistantInstance) => any
@@ -163,10 +150,10 @@ export interface AssistantContext {
   /**
    * Update a AssistantInstance
    *
-   * @param { AssistantContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed AssistantInstance
+   * @returns Resolves to processed AssistantInstance
    */
   update(
     params: AssistantContextUpdateOptions,
@@ -182,7 +169,7 @@ export interface AssistantContext {
 }
 
 export interface AssistantContextSolution {
-  sid?: string;
+  sid: string;
 }
 
 export class AssistantContextImpl implements AssistantContext {
@@ -260,13 +247,14 @@ export class AssistantContextImpl implements AssistantContext {
   }
 
   remove(callback?: any): Promise<boolean> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -274,18 +262,19 @@ export class AssistantContextImpl implements AssistantContext {
   }
 
   fetch(callback?: any): Promise<AssistantInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new AssistantInstance(operationVersion, payload, this._solution.sid)
+        new AssistantInstance(operationVersion, payload, instance._solution.sid)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -322,9 +311,10 @@ export class AssistantContextImpl implements AssistantContext {
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -332,10 +322,10 @@ export class AssistantContextImpl implements AssistantContext {
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new AssistantInstance(operationVersion, payload, this._solution.sid)
+        new AssistantInstance(operationVersion, payload, instance._solution.sid)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -361,20 +351,20 @@ interface AssistantPayload extends TwilioResponsePayload {
 }
 
 interface AssistantResource {
-  account_sid?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  friendly_name?: string | null;
-  latest_model_build_sid?: string | null;
-  links?: object | null;
-  log_queries?: boolean | null;
-  development_stage?: string | null;
-  needs_model_build?: boolean | null;
-  sid?: string | null;
-  unique_name?: string | null;
-  url?: string | null;
-  callback_url?: string | null;
-  callback_events?: string | null;
+  account_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  friendly_name: string;
+  latest_model_build_sid: string;
+  links: object;
+  log_queries: boolean;
+  development_stage: string;
+  needs_model_build: boolean;
+  sid: string;
+  unique_name: string;
+  url: string;
+  callback_url: string;
+  callback_events: string;
 }
 
 export class AssistantInstance {
@@ -407,59 +397,59 @@ export class AssistantInstance {
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The RFC 2822 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The RFC 2822 date and time in GMT when the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The string that you assigned to describe the resource
    */
-  friendlyName?: string | null;
+  friendlyName: string;
   /**
    * Reserved
    */
-  latestModelBuildSid?: string | null;
+  latestModelBuildSid: string;
   /**
    * A list of the URLs of the Assistant\'s related resources
    */
-  links?: object | null;
+  links: object;
   /**
    * Whether queries should be logged and kept after training
    */
-  logQueries?: boolean | null;
+  logQueries: boolean;
   /**
    * A string describing the state of the assistant.
    */
-  developmentStage?: string | null;
+  developmentStage: string;
   /**
    * Whether model needs to be rebuilt
    */
-  needsModelBuild?: boolean | null;
+  needsModelBuild: boolean;
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * An application-defined string that uniquely identifies the resource
    */
-  uniqueName?: string | null;
+  uniqueName: string;
   /**
    * The absolute URL of the Assistant resource
    */
-  url?: string | null;
+  url: string;
   /**
    * Reserved
    */
-  callbackUrl?: string | null;
+  callbackUrl: string;
   /**
    * Reserved
    */
-  callbackEvents?: string | null;
+  callbackEvents: string;
 
   private get _proxy(): AssistantContext {
     this._context =
@@ -471,9 +461,9 @@ export class AssistantInstance {
   /**
    * Remove a AssistantInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -484,9 +474,9 @@ export class AssistantInstance {
   /**
    * Fetch a AssistantInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed AssistantInstance
+   * @returns Resolves to processed AssistantInstance
    */
   fetch(
     callback?: (error: Error | null, item?: AssistantInstance) => any
@@ -497,9 +487,9 @@ export class AssistantInstance {
   /**
    * Update a AssistantInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed AssistantInstance
+   * @returns Resolves to processed AssistantInstance
    */
   update(
     callback?: (error: Error | null, item?: AssistantInstance) => any
@@ -507,10 +497,10 @@ export class AssistantInstance {
   /**
    * Update a AssistantInstance
    *
-   * @param { AssistantContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed AssistantInstance
+   * @returns Resolves to processed AssistantInstance
    */
   update(
     params: AssistantContextUpdateOptions,
@@ -605,16 +595,22 @@ export class AssistantInstance {
   }
 }
 
+export interface AssistantSolution {}
+
 export interface AssistantListInstance {
+  _version: V1;
+  _solution: AssistantSolution;
+  _uri: string;
+
   (sid: string): AssistantContext;
   get(sid: string): AssistantContext;
 
   /**
    * Create a AssistantInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed AssistantInstance
+   * @returns Resolves to processed AssistantInstance
    */
   create(
     callback?: (error: Error | null, item?: AssistantInstance) => any
@@ -622,10 +618,10 @@ export interface AssistantListInstance {
   /**
    * Create a AssistantInstance
    *
-   * @param { AssistantListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed AssistantInstance
+   * @returns Resolves to processed AssistantInstance
    */
   create(
     params: AssistantListInstanceCreateOptions,
@@ -761,17 +757,8 @@ export interface AssistantListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface AssistantSolution {}
-
-interface AssistantListInstanceImpl extends AssistantListInstance {}
-class AssistantListInstanceImpl implements AssistantListInstance {
-  _version?: V1;
-  _solution?: AssistantSolution;
-  _uri?: string;
-}
-
 export function AssistantListInstance(version: V1): AssistantListInstance {
-  const instance = ((sid) => instance.get(sid)) as AssistantListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as AssistantListInstance;
 
   instance.get = function get(sid): AssistantContext {
     return new AssistantContextImpl(version, sid);
@@ -814,7 +801,7 @@ export function AssistantListInstance(version: V1): AssistantListInstance {
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -824,7 +811,7 @@ export function AssistantListInstance(version: V1): AssistantListInstance {
       (payload) => new AssistantInstance(operationVersion, payload)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -853,17 +840,18 @@ export function AssistantListInstance(version: V1): AssistantListInstance {
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new AssistantPage(operationVersion, payload, this._solution)
+      (payload) =>
+        new AssistantPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -876,30 +864,28 @@ export function AssistantListInstance(version: V1): AssistantListInstance {
     targetUrl?: any,
     callback?: any
   ): Promise<AssistantPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new AssistantPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new AssistantPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

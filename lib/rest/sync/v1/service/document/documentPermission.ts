@@ -22,63 +22,51 @@ import { isValidPathParam } from "../../../../../base/utility";
 
 /**
  * Options to pass to update a DocumentPermissionInstance
- *
- * @property { boolean } read Whether the identity can read the Sync Document. Default value is `false`.
- * @property { boolean } write Whether the identity can update the Sync Document. Default value is `false`.
- * @property { boolean } manage Whether the identity can delete the Sync Document. Default value is `false`.
  */
 export interface DocumentPermissionContextUpdateOptions {
+  /** Whether the identity can read the Sync Document. Default value is `false`. */
   read: boolean;
+  /** Whether the identity can update the Sync Document. Default value is `false`. */
   write: boolean;
+  /** Whether the identity can delete the Sync Document. Default value is `false`. */
   manage: boolean;
 }
 /**
  * Options to pass to each
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface DocumentPermissionListInstanceEachOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (
     item: DocumentPermissionInstance,
     done: (err?: Error) => void
   ) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface DocumentPermissionListInstanceOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface DocumentPermissionListInstancePageOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
@@ -86,9 +74,9 @@ export interface DocumentPermissionContext {
   /**
    * Remove a DocumentPermissionInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -97,9 +85,9 @@ export interface DocumentPermissionContext {
   /**
    * Fetch a DocumentPermissionInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed DocumentPermissionInstance
+   * @returns Resolves to processed DocumentPermissionInstance
    */
   fetch(
     callback?: (error: Error | null, item?: DocumentPermissionInstance) => any
@@ -108,10 +96,10 @@ export interface DocumentPermissionContext {
   /**
    * Update a DocumentPermissionInstance
    *
-   * @param { DocumentPermissionContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed DocumentPermissionInstance
+   * @returns Resolves to processed DocumentPermissionInstance
    */
   update(
     params: DocumentPermissionContextUpdateOptions,
@@ -127,9 +115,9 @@ export interface DocumentPermissionContext {
 }
 
 export interface DocumentPermissionContextSolution {
-  serviceSid?: string;
-  documentSid?: string;
-  identity?: string;
+  serviceSid: string;
+  documentSid: string;
+  identity: string;
 }
 
 export class DocumentPermissionContextImpl
@@ -161,13 +149,14 @@ export class DocumentPermissionContextImpl
   }
 
   remove(callback?: any): Promise<boolean> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -175,9 +164,10 @@ export class DocumentPermissionContextImpl
   }
 
   fetch(callback?: any): Promise<DocumentPermissionInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -186,13 +176,13 @@ export class DocumentPermissionContextImpl
         new DocumentPermissionInstance(
           operationVersion,
           payload,
-          this._solution.serviceSid,
-          this._solution.documentSid,
-          this._solution.identity
+          instance._solution.serviceSid,
+          instance._solution.documentSid,
+          instance._solution.identity
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -227,9 +217,10 @@ export class DocumentPermissionContextImpl
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -240,13 +231,13 @@ export class DocumentPermissionContextImpl
         new DocumentPermissionInstance(
           operationVersion,
           payload,
-          this._solution.serviceSid,
-          this._solution.documentSid,
-          this._solution.identity
+          instance._solution.serviceSid,
+          instance._solution.documentSid,
+          instance._solution.identity
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -272,14 +263,14 @@ interface DocumentPermissionPayload extends TwilioResponsePayload {
 }
 
 interface DocumentPermissionResource {
-  account_sid?: string | null;
-  service_sid?: string | null;
-  document_sid?: string | null;
-  identity?: string | null;
-  read?: boolean | null;
-  write?: boolean | null;
-  manage?: boolean | null;
-  url?: string | null;
+  account_sid: string;
+  service_sid: string;
+  document_sid: string;
+  identity: string;
+  read: boolean;
+  write: boolean;
+  manage: boolean;
+  url: string;
 }
 
 export class DocumentPermissionInstance {
@@ -312,35 +303,35 @@ export class DocumentPermissionInstance {
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The SID of the Sync Service that the resource is associated with
    */
-  serviceSid?: string | null;
+  serviceSid: string;
   /**
    * The Sync Document SID
    */
-  documentSid?: string | null;
+  documentSid: string;
   /**
    * The identity of the user to whom the Sync Document Permission applies
    */
-  identity?: string | null;
+  identity: string;
   /**
    * Read access
    */
-  read?: boolean | null;
+  read: boolean;
   /**
    * Write access
    */
-  write?: boolean | null;
+  write: boolean;
   /**
    * Manage access
    */
-  manage?: boolean | null;
+  manage: boolean;
   /**
    * The absolute URL of the Sync Document Permission resource
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): DocumentPermissionContext {
     this._context =
@@ -357,9 +348,9 @@ export class DocumentPermissionInstance {
   /**
    * Remove a DocumentPermissionInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -370,9 +361,9 @@ export class DocumentPermissionInstance {
   /**
    * Fetch a DocumentPermissionInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed DocumentPermissionInstance
+   * @returns Resolves to processed DocumentPermissionInstance
    */
   fetch(
     callback?: (error: Error | null, item?: DocumentPermissionInstance) => any
@@ -383,10 +374,10 @@ export class DocumentPermissionInstance {
   /**
    * Update a DocumentPermissionInstance
    *
-   * @param { DocumentPermissionContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed DocumentPermissionInstance
+   * @returns Resolves to processed DocumentPermissionInstance
    */
   update(
     params: DocumentPermissionContextUpdateOptions,
@@ -419,7 +410,16 @@ export class DocumentPermissionInstance {
   }
 }
 
+export interface DocumentPermissionSolution {
+  serviceSid: string;
+  documentSid: string;
+}
+
 export interface DocumentPermissionListInstance {
+  _version: V1;
+  _solution: DocumentPermissionSolution;
+  _uri: string;
+
   (identity: string): DocumentPermissionContext;
   get(identity: string): DocumentPermissionContext;
 
@@ -557,21 +557,6 @@ export interface DocumentPermissionListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface DocumentPermissionSolution {
-  serviceSid?: string;
-  documentSid?: string;
-}
-
-interface DocumentPermissionListInstanceImpl
-  extends DocumentPermissionListInstance {}
-class DocumentPermissionListInstanceImpl
-  implements DocumentPermissionListInstance
-{
-  _version?: V1;
-  _solution?: DocumentPermissionSolution;
-  _uri?: string;
-}
-
 export function DocumentPermissionListInstance(
   version: V1,
   serviceSid: string,
@@ -586,7 +571,7 @@ export function DocumentPermissionListInstance(
   }
 
   const instance = ((identity) =>
-    instance.get(identity)) as DocumentPermissionListInstanceImpl;
+    instance.get(identity)) as DocumentPermissionListInstance;
 
   instance.get = function get(identity): DocumentPermissionContext {
     return new DocumentPermissionContextImpl(
@@ -623,7 +608,7 @@ export function DocumentPermissionListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
@@ -631,10 +616,14 @@ export function DocumentPermissionListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new DocumentPermissionPage(operationVersion, payload, this._solution)
+        new DocumentPermissionPage(
+          operationVersion,
+          payload,
+          instance._solution
+        )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -647,31 +636,32 @@ export function DocumentPermissionListInstance(
     targetUrl?: any,
     callback?: any
   ): Promise<DocumentPermissionPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
+    let pagePromise = operationPromise.then(
       (payload) =>
-        new DocumentPermissionPage(this._version, payload, this._solution)
+        new DocumentPermissionPage(
+          instance._version,
+          payload,
+          instance._solution
+        )
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

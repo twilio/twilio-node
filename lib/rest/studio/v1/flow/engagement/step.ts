@@ -23,48 +23,37 @@ import { StepContextListInstance } from "./step/stepContext";
 
 /**
  * Options to pass to each
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface StepListInstanceEachOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: StepInstance, done: (err?: Error) => void) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface StepListInstanceOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface StepListInstancePageOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
@@ -74,9 +63,9 @@ export interface StepContext {
   /**
    * Fetch a StepInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed StepInstance
+   * @returns Resolves to processed StepInstance
    */
   fetch(
     callback?: (error: Error | null, item?: StepInstance) => any
@@ -90,9 +79,9 @@ export interface StepContext {
 }
 
 export interface StepContextSolution {
-  flowSid?: string;
-  engagementSid?: string;
-  sid?: string;
+  flowSid: string;
+  engagementSid: string;
+  sid: string;
 }
 
 export class StepContextImpl implements StepContext {
@@ -136,9 +125,10 @@ export class StepContextImpl implements StepContext {
   }
 
   fetch(callback?: any): Promise<StepInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -147,13 +137,13 @@ export class StepContextImpl implements StepContext {
         new StepInstance(
           operationVersion,
           payload,
-          this._solution.flowSid,
-          this._solution.engagementSid,
-          this._solution.sid
+          instance._solution.flowSid,
+          instance._solution.engagementSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -179,18 +169,18 @@ interface StepPayload extends TwilioResponsePayload {
 }
 
 interface StepResource {
-  sid?: string | null;
-  account_sid?: string | null;
-  flow_sid?: string | null;
-  engagement_sid?: string | null;
-  name?: string | null;
-  context?: any | null;
-  transitioned_from?: string | null;
-  transitioned_to?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  url?: string | null;
-  links?: object | null;
+  sid: string;
+  account_sid: string;
+  flow_sid: string;
+  engagement_sid: string;
+  name: string;
+  context: any;
+  transitioned_from: string;
+  transitioned_to: string;
+  date_created: Date;
+  date_updated: Date;
+  url: string;
+  links: object;
 }
 
 export class StepInstance {
@@ -223,51 +213,51 @@ export class StepInstance {
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The SID of the Flow
    */
-  flowSid?: string | null;
+  flowSid: string;
   /**
    * The SID of the Engagement
    */
-  engagementSid?: string | null;
+  engagementSid: string;
   /**
    * The event that caused the Flow to transition to the Step
    */
-  name?: string | null;
+  name: string;
   /**
    * The current state of the flow
    */
-  context?: any | null;
+  context: any;
   /**
    * The Widget that preceded the Widget for the Step
    */
-  transitionedFrom?: string | null;
+  transitionedFrom: string;
   /**
    * The Widget that will follow the Widget for the Step
    */
-  transitionedTo?: string | null;
+  transitionedTo: string;
   /**
    * The ISO 8601 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The ISO 8601 date and time in GMT when the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The absolute URL of the resource
    */
-  url?: string | null;
+  url: string;
   /**
    * The URLs of related resources
    */
-  links?: object | null;
+  links: object;
 
   private get _proxy(): StepContext {
     this._context =
@@ -284,9 +274,9 @@ export class StepInstance {
   /**
    * Fetch a StepInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed StepInstance
+   * @returns Resolves to processed StepInstance
    */
   fetch(
     callback?: (error: Error | null, item?: StepInstance) => any
@@ -328,7 +318,16 @@ export class StepInstance {
   }
 }
 
+export interface StepSolution {
+  flowSid: string;
+  engagementSid: string;
+}
+
 export interface StepListInstance {
+  _version: V1;
+  _solution: StepSolution;
+  _uri: string;
+
   (sid: string): StepContext;
   get(sid: string): StepContext;
 
@@ -460,18 +459,6 @@ export interface StepListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface StepSolution {
-  flowSid?: string;
-  engagementSid?: string;
-}
-
-interface StepListInstanceImpl extends StepListInstance {}
-class StepListInstanceImpl implements StepListInstance {
-  _version?: V1;
-  _solution?: StepSolution;
-  _uri?: string;
-}
-
 export function StepListInstance(
   version: V1,
   flowSid: string,
@@ -485,7 +472,7 @@ export function StepListInstance(
     throw new Error("Parameter 'engagementSid' is not valid.");
   }
 
-  const instance = ((sid) => instance.get(sid)) as StepListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as StepListInstance;
 
   instance.get = function get(sid): StepContext {
     return new StepContextImpl(version, flowSid, engagementSid, sid);
@@ -517,17 +504,17 @@ export function StepListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new StepPage(operationVersion, payload, this._solution)
+      (payload) => new StepPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -540,30 +527,27 @@ export function StepListInstance(
     targetUrl?: any,
     callback?: any
   ): Promise<StepPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new StepPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) => new StepPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

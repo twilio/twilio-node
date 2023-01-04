@@ -20,16 +20,16 @@ export default class V1 extends Version {
   /**
    * Initialize the V1 version of Trunking
    *
-   * @property { Twilio.Trunking.V1.TrunkListInstance } trunks - trunks resource
-   *
-   * @param { Twilio.Trunking } domain - The Twilio domain
+   * @param domain - The Twilio (Twilio.Trunking) domain
    */
   constructor(domain: TrunkingBase) {
     super(domain, "v1");
   }
 
+  /** trunks - { Twilio.Trunking.V1.TrunkListInstance } resource */
   protected _trunks?: TrunkListInstance;
 
+  /** Getter for trunks resource */
   get trunks(): TrunkListInstance {
     this._trunks = this._trunks || TrunkListInstance(this);
     return this._trunks;

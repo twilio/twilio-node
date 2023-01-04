@@ -20,16 +20,16 @@ export default class V1 extends Version {
   /**
    * Initialize the V1 version of FrontlineApi
    *
-   * @property { Twilio.FrontlineApi.V1.UserListInstance } users - users resource
-   *
-   * @param { Twilio.FrontlineApi } domain - The Twilio domain
+   * @param domain - The Twilio (Twilio.FrontlineApi) domain
    */
   constructor(domain: FrontlineApiBase) {
     super(domain, "v1");
   }
 
+  /** users - { Twilio.FrontlineApi.V1.UserListInstance } resource */
   protected _users?: UserListInstance;
 
+  /** Getter for users resource */
   get users(): UserListInstance {
     this._users = this._users || UserListInstance(this);
     return this._users;

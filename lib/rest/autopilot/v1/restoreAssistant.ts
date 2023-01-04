@@ -20,21 +20,26 @@ import { isValidPathParam } from "../../../base/utility";
 
 /**
  * Options to pass to update a RestoreAssistantInstance
- *
- * @property { string } assistant The Twilio-provided string that uniquely identifies the Assistant resource to restore.
  */
 export interface RestoreAssistantListInstanceUpdateOptions {
+  /** The Twilio-provided string that uniquely identifies the Assistant resource to restore. */
   assistant: string;
 }
 
+export interface RestoreAssistantSolution {}
+
 export interface RestoreAssistantListInstance {
+  _version: V1;
+  _solution: RestoreAssistantSolution;
+  _uri: string;
+
   /**
    * Update a RestoreAssistantInstance
    *
-   * @param { RestoreAssistantListInstanceUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed RestoreAssistantInstance
+   * @returns Resolves to processed RestoreAssistantInstance
    */
   update(
     params: RestoreAssistantListInstanceUpdateOptions,
@@ -49,20 +54,10 @@ export interface RestoreAssistantListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface RestoreAssistantSolution {}
-
-interface RestoreAssistantListInstanceImpl
-  extends RestoreAssistantListInstance {}
-class RestoreAssistantListInstanceImpl implements RestoreAssistantListInstance {
-  _version?: V1;
-  _solution?: RestoreAssistantSolution;
-  _uri?: string;
-}
-
 export function RestoreAssistantListInstance(
   version: V1
 ): RestoreAssistantListInstance {
-  const instance = {} as RestoreAssistantListInstanceImpl;
+  const instance = {} as RestoreAssistantListInstance;
 
   instance._version = version;
   instance._solution = {};
@@ -89,7 +84,7 @@ export function RestoreAssistantListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -99,7 +94,7 @@ export function RestoreAssistantListInstance(
       (payload) => new RestoreAssistantInstance(operationVersion, payload)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -107,14 +102,14 @@ export function RestoreAssistantListInstance(
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;
@@ -123,18 +118,18 @@ export function RestoreAssistantListInstance(
 interface RestoreAssistantPayload extends RestoreAssistantResource {}
 
 interface RestoreAssistantResource {
-  account_sid?: string | null;
-  sid?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  unique_name?: string | null;
-  friendly_name?: string | null;
-  needs_model_build?: boolean | null;
-  latest_model_build_sid?: string | null;
-  log_queries?: boolean | null;
-  development_stage?: string | null;
-  callback_url?: string | null;
-  callback_events?: string | null;
+  account_sid: string;
+  sid: string;
+  date_created: Date;
+  date_updated: Date;
+  unique_name: string;
+  friendly_name: string;
+  needs_model_build: boolean;
+  latest_model_build_sid: string;
+  log_queries: boolean;
+  development_stage: string;
+  callback_url: string;
+  callback_events: string;
 }
 
 export class RestoreAssistantInstance {
@@ -156,51 +151,51 @@ export class RestoreAssistantInstance {
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The RFC 2822 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The RFC 2822 date and time in GMT when the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * An application-defined string that uniquely identifies the resource
    */
-  uniqueName?: string | null;
+  uniqueName: string;
   /**
    * The string that you assigned to describe the resource
    */
-  friendlyName?: string | null;
+  friendlyName: string;
   /**
    * Whether model needs to be rebuilt
    */
-  needsModelBuild?: boolean | null;
+  needsModelBuild: boolean;
   /**
    * Reserved
    */
-  latestModelBuildSid?: string | null;
+  latestModelBuildSid: string;
   /**
    * Whether queries should be logged and kept after training
    */
-  logQueries?: boolean | null;
+  logQueries: boolean;
   /**
    * A string describing the state of the assistant.
    */
-  developmentStage?: string | null;
+  developmentStage: string;
   /**
    * Reserved
    */
-  callbackUrl?: string | null;
+  callbackUrl: string;
   /**
    * Reserved
    */
-  callbackEvents?: string | null;
+  callbackEvents: string;
 
   /**
    * Provide a user-friendly representation

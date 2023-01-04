@@ -22,54 +22,61 @@ type NotificationPriority = "high" | "low";
 
 /**
  * Options to pass to create a NotificationInstance
- *
- * @property { string } [body] The notification text. For FCM and GCM, translates to `data.twi_body`. For APNS, translates to `aps.alert.body`. For SMS, translates to `body`. SMS requires either this `body` value, or `media_urls` attribute defined in the `sms` parameter of the notification.
- * @property { NotificationPriority } [priority]
- * @property { number } [ttl] How long, in seconds, the notification is valid. Can be an integer between 0 and 2,419,200, which is 4 weeks, the default and the maximum supported time to live (TTL). Delivery should be attempted if the device is offline until the TTL elapses. Zero means that the notification delivery is attempted immediately, only once, and is not stored for future delivery. SMS does not support this property.
- * @property { string } [title] The notification title. For FCM and GCM, this translates to the `data.twi_title` value. For APNS, this translates to the `aps.alert.title` value. SMS does not support this property. This field is not visible on iOS phones and tablets but appears on Apple Watch and Android devices.
- * @property { string } [sound] The name of the sound to be played for the notification. For FCM and GCM, this Translates to `data.twi_sound`.  For APNS, this translates to `aps.sound`.  SMS does not support this property.
- * @property { string } [action] The actions to display for the notification. For APNS, translates to the `aps.category` value. For GCM, translates to the `data.twi_action` value. For SMS, this parameter is not supported and is omitted from deliveries to those channels.
- * @property { any } [data] The custom key-value pairs of the notification\\\'s payload. For FCM and GCM, this value translates to `data` in the FCM and GCM payloads. FCM and GCM [reserve certain keys](https://firebase.google.com/docs/cloud-messaging/http-server-ref) that cannot be used in those channels. For APNS, attributes of `data` are inserted into the APNS payload as custom properties outside of the `aps` dictionary. In all channels, we reserve keys that start with `twi_` for future use. Custom keys that start with `twi_` are not allowed and are rejected as 400 Bad request with no delivery attempted. For SMS, this parameter is not supported and is omitted from deliveries to those channels.
- * @property { any } [apn] The APNS-specific payload that overrides corresponding attributes in the generic payload for APNS Bindings. This property maps to the APNS `Payload` item, therefore the `aps` key must be used to change standard attributes. Adds custom key-value pairs to the root of the dictionary. See the [APNS documentation](https://developer.apple.com/library/content/documentation/NetworkingInternet/Conceptual/RemoteNotificationsPG/CommunicatingwithAPNs.html) for more details. We reserve keys that start with `twi_` for future use. Custom keys that start with `twi_` are not allowed.
- * @property { any } [gcm] The GCM-specific payload that overrides corresponding attributes in the generic payload for GCM Bindings.  This property maps to the root JSON dictionary. See the [GCM documentation](https://firebase.google.com/docs/cloud-messaging/http-server-ref) for more details. Target parameters `to`, `registration_ids`, and `notification_key` are not allowed. We reserve keys that start with `twi_` for future use. Custom keys that start with `twi_` are not allowed. GCM also [reserves certain keys](https://firebase.google.com/docs/cloud-messaging/http-server-ref).
- * @property { any } [sms] The SMS-specific payload that overrides corresponding attributes in the generic payload for SMS Bindings.  Each attribute in this value maps to the corresponding `form` parameter of the Twilio [Message](https://www.twilio.com/docs/sms/send-messages) resource.  These parameters of the Message resource are supported in snake case format: `body`, `media_urls`, `status_callback`, and `max_price`.  The `status_callback` parameter overrides the corresponding parameter in the messaging service, if configured. The `media_urls` property expects a JSON array.
- * @property { any } [facebookMessenger] Deprecated.
- * @property { any } [fcm] The FCM-specific payload that overrides corresponding attributes in the generic payload for FCM Bindings. This property maps to the root JSON dictionary. See the [FCM documentation](https://firebase.google.com/docs/cloud-messaging/http-server-ref#downstream) for more details. Target parameters `to`, `registration_ids`, `condition`, and `notification_key` are not allowed in this parameter. We reserve keys that start with `twi_` for future use. Custom keys that start with `twi_` are not allowed. FCM also [reserves certain keys](https://firebase.google.com/docs/cloud-messaging/http-server-ref), which cannot be used in that channel.
- * @property { Array<string> } [segment] The Segment resource is deprecated. Use the `tag` parameter, instead.
- * @property { any } [alexa] Deprecated.
- * @property { Array<string> } [toBinding] The destination address specified as a JSON string.  Multiple `to_binding` parameters can be included but the total size of the request entity should not exceed 1MB. This is typically sufficient for 10,000 phone numbers.
- * @property { string } [deliveryCallbackUrl] URL to send webhooks.
- * @property { Array<string> } [identity] The `identity` value that uniquely identifies the new resource\\\'s [User](https://www.twilio.com/docs/chat/rest/user-resource) within the [Service](https://www.twilio.com/docs/notify/api/service-resource). Delivery will be attempted only to Bindings with an Identity in this list. No more than 20 items are allowed in this list.
- * @property { Array<string> } [tag] A tag that selects the Bindings to notify. Repeat this parameter to specify more than one tag, up to a total of 5 tags. The implicit tag `all` is available to notify all Bindings in a Service instance. Similarly, the implicit tags `apn`, `fcm`, `gcm`, `sms` and `facebook-messenger` are available to notify all Bindings in a specific channel.
  */
 export interface NotificationListInstanceCreateOptions {
+  /** The notification text. For FCM and GCM, translates to `data.twi_body`. For APNS, translates to `aps.alert.body`. For SMS, translates to `body`. SMS requires either this `body` value, or `media_urls` attribute defined in the `sms` parameter of the notification. */
   body?: string;
+  /**  */
   priority?: NotificationPriority;
+  /** How long, in seconds, the notification is valid. Can be an integer between 0 and 2,419,200, which is 4 weeks, the default and the maximum supported time to live (TTL). Delivery should be attempted if the device is offline until the TTL elapses. Zero means that the notification delivery is attempted immediately, only once, and is not stored for future delivery. SMS does not support this property. */
   ttl?: number;
+  /** The notification title. For FCM and GCM, this translates to the `data.twi_title` value. For APNS, this translates to the `aps.alert.title` value. SMS does not support this property. This field is not visible on iOS phones and tablets but appears on Apple Watch and Android devices. */
   title?: string;
+  /** The name of the sound to be played for the notification. For FCM and GCM, this Translates to `data.twi_sound`.  For APNS, this translates to `aps.sound`.  SMS does not support this property. */
   sound?: string;
+  /** The actions to display for the notification. For APNS, translates to the `aps.category` value. For GCM, translates to the `data.twi_action` value. For SMS, this parameter is not supported and is omitted from deliveries to those channels. */
   action?: string;
+  /** The custom key-value pairs of the notification\\\'s payload. For FCM and GCM, this value translates to `data` in the FCM and GCM payloads. FCM and GCM [reserve certain keys](https://firebase.google.com/docs/cloud-messaging/http-server-ref) that cannot be used in those channels. For APNS, attributes of `data` are inserted into the APNS payload as custom properties outside of the `aps` dictionary. In all channels, we reserve keys that start with `twi_` for future use. Custom keys that start with `twi_` are not allowed and are rejected as 400 Bad request with no delivery attempted. For SMS, this parameter is not supported and is omitted from deliveries to those channels. */
   data?: any;
+  /** The APNS-specific payload that overrides corresponding attributes in the generic payload for APNS Bindings. This property maps to the APNS `Payload` item, therefore the `aps` key must be used to change standard attributes. Adds custom key-value pairs to the root of the dictionary. See the [APNS documentation](https://developer.apple.com/library/content/documentation/NetworkingInternet/Conceptual/RemoteNotificationsPG/CommunicatingwithAPNs.html) for more details. We reserve keys that start with `twi_` for future use. Custom keys that start with `twi_` are not allowed. */
   apn?: any;
+  /** The GCM-specific payload that overrides corresponding attributes in the generic payload for GCM Bindings.  This property maps to the root JSON dictionary. See the [GCM documentation](https://firebase.google.com/docs/cloud-messaging/http-server-ref) for more details. Target parameters `to`, `registration_ids`, and `notification_key` are not allowed. We reserve keys that start with `twi_` for future use. Custom keys that start with `twi_` are not allowed. GCM also [reserves certain keys](https://firebase.google.com/docs/cloud-messaging/http-server-ref). */
   gcm?: any;
+  /** The SMS-specific payload that overrides corresponding attributes in the generic payload for SMS Bindings.  Each attribute in this value maps to the corresponding `form` parameter of the Twilio [Message](https://www.twilio.com/docs/sms/send-messages) resource.  These parameters of the Message resource are supported in snake case format: `body`, `media_urls`, `status_callback`, and `max_price`.  The `status_callback` parameter overrides the corresponding parameter in the messaging service, if configured. The `media_urls` property expects a JSON array. */
   sms?: any;
+  /** Deprecated. */
   facebookMessenger?: any;
+  /** The FCM-specific payload that overrides corresponding attributes in the generic payload for FCM Bindings. This property maps to the root JSON dictionary. See the [FCM documentation](https://firebase.google.com/docs/cloud-messaging/http-server-ref#downstream) for more details. Target parameters `to`, `registration_ids`, `condition`, and `notification_key` are not allowed in this parameter. We reserve keys that start with `twi_` for future use. Custom keys that start with `twi_` are not allowed. FCM also [reserves certain keys](https://firebase.google.com/docs/cloud-messaging/http-server-ref), which cannot be used in that channel. */
   fcm?: any;
+  /** The Segment resource is deprecated. Use the `tag` parameter, instead. */
   segment?: Array<string>;
+  /** Deprecated. */
   alexa?: any;
+  /** The destination address specified as a JSON string.  Multiple `to_binding` parameters can be included but the total size of the request entity should not exceed 1MB. This is typically sufficient for 10,000 phone numbers. */
   toBinding?: Array<string>;
+  /** URL to send webhooks. */
   deliveryCallbackUrl?: string;
+  /** The `identity` value that uniquely identifies the new resource\\\'s [User](https://www.twilio.com/docs/chat/rest/user-resource) within the [Service](https://www.twilio.com/docs/notify/api/service-resource). Delivery will be attempted only to Bindings with an Identity in this list. No more than 20 items are allowed in this list. */
   identity?: Array<string>;
+  /** A tag that selects the Bindings to notify. Repeat this parameter to specify more than one tag, up to a total of 5 tags. The implicit tag `all` is available to notify all Bindings in a Service instance. Similarly, the implicit tags `apn`, `fcm`, `gcm`, `sms` and `facebook-messenger` are available to notify all Bindings in a specific channel. */
   tag?: Array<string>;
 }
 
+export interface NotificationSolution {
+  serviceSid: string;
+}
+
 export interface NotificationListInstance {
+  _version: V1;
+  _solution: NotificationSolution;
+  _uri: string;
+
   /**
    * Create a NotificationInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed NotificationInstance
+   * @returns Resolves to processed NotificationInstance
    */
   create(
     callback?: (error: Error | null, item?: NotificationInstance) => any
@@ -77,10 +84,10 @@ export interface NotificationListInstance {
   /**
    * Create a NotificationInstance
    *
-   * @param { NotificationListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed NotificationInstance
+   * @returns Resolves to processed NotificationInstance
    */
   create(
     params: NotificationListInstanceCreateOptions,
@@ -95,17 +102,6 @@ export interface NotificationListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface NotificationSolution {
-  serviceSid?: string;
-}
-
-interface NotificationListInstanceImpl extends NotificationListInstance {}
-class NotificationListInstanceImpl implements NotificationListInstance {
-  _version?: V1;
-  _solution?: NotificationSolution;
-  _uri?: string;
-}
-
 export function NotificationListInstance(
   version: V1,
   serviceSid: string
@@ -114,7 +110,7 @@ export function NotificationListInstance(
     throw new Error("Parameter 'serviceSid' is not valid.");
   }
 
-  const instance = {} as NotificationListInstanceImpl;
+  const instance = {} as NotificationListInstance;
 
   instance._version = version;
   instance._solution = { serviceSid };
@@ -169,7 +165,7 @@ export function NotificationListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -180,11 +176,11 @@ export function NotificationListInstance(
         new NotificationInstance(
           operationVersion,
           payload,
-          this._solution.serviceSid
+          instance._solution.serviceSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -192,14 +188,14 @@ export function NotificationListInstance(
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;
@@ -208,26 +204,26 @@ export function NotificationListInstance(
 interface NotificationPayload extends NotificationResource {}
 
 interface NotificationResource {
-  sid?: string | null;
-  account_sid?: string | null;
-  service_sid?: string | null;
-  date_created?: Date | null;
-  identities?: Array<string> | null;
-  tags?: Array<string> | null;
-  segments?: Array<string> | null;
-  priority?: NotificationPriority;
-  ttl?: number | null;
-  title?: string | null;
-  body?: string | null;
-  sound?: string | null;
-  action?: string | null;
-  data?: any | null;
-  apn?: any | null;
-  gcm?: any | null;
-  fcm?: any | null;
-  sms?: any | null;
-  facebook_messenger?: any | null;
-  alexa?: any | null;
+  sid: string;
+  account_sid: string;
+  service_sid: string;
+  date_created: Date;
+  identities: Array<string>;
+  tags: Array<string>;
+  segments: Array<string>;
+  priority: NotificationPriority;
+  ttl: number;
+  title: string;
+  body: string;
+  sound: string;
+  action: string;
+  data: any;
+  apn: any;
+  gcm: any;
+  fcm: any;
+  sms: any;
+  facebook_messenger: any;
+  alexa: any;
 }
 
 export class NotificationInstance {
@@ -261,80 +257,80 @@ export class NotificationInstance {
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The SID of the Service that the resource is associated with
    */
-  serviceSid?: string | null;
+  serviceSid: string;
   /**
    * The RFC 2822 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The list of identity values of the Users to notify
    */
-  identities?: Array<string> | null;
+  identities: Array<string>;
   /**
    * The tags that select the Bindings to notify
    */
-  tags?: Array<string> | null;
+  tags: Array<string>;
   /**
    * The list of Segments to notify
    */
-  segments?: Array<string> | null;
-  priority?: NotificationPriority;
+  segments: Array<string>;
+  priority: NotificationPriority;
   /**
    * How long, in seconds, the notification is valid
    */
-  ttl?: number | null;
+  ttl: number;
   /**
    * The notification title
    */
-  title?: string | null;
+  title: string;
   /**
    * The notification body text
    */
-  body?: string | null;
+  body: string;
   /**
    * The name of the sound to be played for the notification
    */
-  sound?: string | null;
+  sound: string;
   /**
    * The actions to display for the notification
    */
-  action?: string | null;
+  action: string;
   /**
    * The custom key-value pairs of the notification\'s payload
    */
-  data?: any | null;
+  data: any;
   /**
    * The APNS-specific payload that overrides corresponding attributes in a generic payload for APNS Bindings
    */
-  apn?: any | null;
+  apn: any;
   /**
    * The GCM-specific payload that overrides corresponding attributes in generic payload for GCM Bindings
    */
-  gcm?: any | null;
+  gcm: any;
   /**
    * The FCM-specific payload that overrides corresponding attributes in generic payload for FCM Bindings
    */
-  fcm?: any | null;
+  fcm: any;
   /**
    * The SMS-specific payload that overrides corresponding attributes in generic payload for SMS Bindings
    */
-  sms?: any | null;
+  sms: any;
   /**
    * Deprecated
    */
-  facebookMessenger?: any | null;
+  facebookMessenger: any;
   /**
    * Deprecated
    */
-  alexa?: any | null;
+  alexa: any;
 
   /**
    * Provide a user-friendly representation

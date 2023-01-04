@@ -26,106 +26,92 @@ type SyncListItemQueryResultOrder = "asc" | "desc";
 
 /**
  * Options to pass to remove a SyncListItemInstance
- *
- * @property { string } [ifMatch] If provided, applies this mutation if (and only if) the “revision” field of this [map item] matches the provided value. This matches the semantics of (and is implemented with) the HTTP [If-Match header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match).
  */
 export interface SyncListItemContextRemoveOptions {
+  /** If provided, applies this mutation if (and only if) the “revision” field of this [map item] matches the provided value. This matches the semantics of (and is implemented with) the HTTP [If-Match header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match). */
   ifMatch?: string;
 }
 
 /**
  * Options to pass to update a SyncListItemInstance
- *
- * @property { string } [ifMatch] If provided, applies this mutation if (and only if) the “revision” field of this [map item] matches the provided value. This matches the semantics of (and is implemented with) the HTTP [If-Match header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match).
- * @property { any } [data] A JSON string that represents an arbitrary, schema-less object that the List Item stores. Can be up to 16 KiB in length.
- * @property { number } [ttl] An alias for `item_ttl`. If both parameters are provided, this value is ignored.
- * @property { number } [itemTtl] How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the List Item expires (time-to-live) and is deleted.
- * @property { number } [collectionTtl] How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the List Item\\\'s parent Sync List expires (time-to-live) and is deleted. This parameter can only be used when the List Item\\\'s `data` or `ttl` is updated in the same request.
  */
 export interface SyncListItemContextUpdateOptions {
+  /** If provided, applies this mutation if (and only if) the “revision” field of this [map item] matches the provided value. This matches the semantics of (and is implemented with) the HTTP [If-Match header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match). */
   ifMatch?: string;
+  /** A JSON string that represents an arbitrary, schema-less object that the List Item stores. Can be up to 16 KiB in length. */
   data?: any;
+  /** An alias for `item_ttl`. If both parameters are provided, this value is ignored. */
   ttl?: number;
+  /** How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the List Item expires (time-to-live) and is deleted. */
   itemTtl?: number;
+  /** How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the List Item\\\'s parent Sync List expires (time-to-live) and is deleted. This parameter can only be used when the List Item\\\'s `data` or `ttl` is updated in the same request. */
   collectionTtl?: number;
 }
 
 /**
  * Options to pass to create a SyncListItemInstance
- *
- * @property { any } data A JSON string that represents an arbitrary, schema-less object that the List Item stores. Can be up to 16 KiB in length.
- * @property { number } [ttl] An alias for `item_ttl`. If both parameters are provided, this value is ignored.
- * @property { number } [itemTtl] How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the List Item expires (time-to-live) and is deleted.
- * @property { number } [collectionTtl] How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the List Item\\\'s parent Sync List expires (time-to-live) and is deleted.
  */
 export interface SyncListItemListInstanceCreateOptions {
+  /** A JSON string that represents an arbitrary, schema-less object that the List Item stores. Can be up to 16 KiB in length. */
   data: any;
+  /** An alias for `item_ttl`. If both parameters are provided, this value is ignored. */
   ttl?: number;
+  /** How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the List Item expires (time-to-live) and is deleted. */
   itemTtl?: number;
+  /** How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the List Item\\\'s parent Sync List expires (time-to-live) and is deleted. */
   collectionTtl?: number;
 }
 /**
  * Options to pass to each
- *
- * @property { SyncListItemQueryResultOrder } [order] How to order the List Items returned by their `index` value. Can be: `asc` (ascending) or `desc` (descending) and the default is ascending.
- * @property { string } [from] The `index` of the first Sync List Item resource to read. See also `bounds`.
- * @property { SyncListItemQueryFromBoundType } [bounds] Whether to include the List Item referenced by the `from` parameter. Can be: `inclusive` to include the List Item referenced by the `from` parameter or `exclusive` to start with the next List Item. The default value is `inclusive`.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface SyncListItemListInstanceEachOptions {
+  /** How to order the List Items returned by their `index` value. Can be: `asc` (ascending) or `desc` (descending) and the default is ascending. */
   order?: SyncListItemQueryResultOrder;
+  /** The `index` of the first Sync List Item resource to read. See also `bounds`. */
   from?: string;
+  /** Whether to include the List Item referenced by the `from` parameter. Can be: `inclusive` to include the List Item referenced by the `from` parameter or `exclusive` to start with the next List Item. The default value is `inclusive`. */
   bounds?: SyncListItemQueryFromBoundType;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: SyncListItemInstance, done: (err?: Error) => void) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { SyncListItemQueryResultOrder } [order] How to order the List Items returned by their `index` value. Can be: `asc` (ascending) or `desc` (descending) and the default is ascending.
- * @property { string } [from] The `index` of the first Sync List Item resource to read. See also `bounds`.
- * @property { SyncListItemQueryFromBoundType } [bounds] Whether to include the List Item referenced by the `from` parameter. Can be: `inclusive` to include the List Item referenced by the `from` parameter or `exclusive` to start with the next List Item. The default value is `inclusive`.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface SyncListItemListInstanceOptions {
+  /** How to order the List Items returned by their `index` value. Can be: `asc` (ascending) or `desc` (descending) and the default is ascending. */
   order?: SyncListItemQueryResultOrder;
+  /** The `index` of the first Sync List Item resource to read. See also `bounds`. */
   from?: string;
+  /** Whether to include the List Item referenced by the `from` parameter. Can be: `inclusive` to include the List Item referenced by the `from` parameter or `exclusive` to start with the next List Item. The default value is `inclusive`. */
   bounds?: SyncListItemQueryFromBoundType;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { SyncListItemQueryResultOrder } [order] How to order the List Items returned by their `index` value. Can be: `asc` (ascending) or `desc` (descending) and the default is ascending.
- * @property { string } [from] The `index` of the first Sync List Item resource to read. See also `bounds`.
- * @property { SyncListItemQueryFromBoundType } [bounds] Whether to include the List Item referenced by the `from` parameter. Can be: `inclusive` to include the List Item referenced by the `from` parameter or `exclusive` to start with the next List Item. The default value is `inclusive`.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface SyncListItemListInstancePageOptions {
+  /** How to order the List Items returned by their `index` value. Can be: `asc` (ascending) or `desc` (descending) and the default is ascending. */
   order?: SyncListItemQueryResultOrder;
+  /** The `index` of the first Sync List Item resource to read. See also `bounds`. */
   from?: string;
+  /** Whether to include the List Item referenced by the `from` parameter. Can be: `inclusive` to include the List Item referenced by the `from` parameter or `exclusive` to start with the next List Item. The default value is `inclusive`. */
   bounds?: SyncListItemQueryFromBoundType;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
@@ -133,9 +119,9 @@ export interface SyncListItemContext {
   /**
    * Remove a SyncListItemInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -143,10 +129,10 @@ export interface SyncListItemContext {
   /**
    * Remove a SyncListItemInstance
    *
-   * @param { SyncListItemContextRemoveOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SyncListItemInstance
+   * @returns Resolves to processed SyncListItemInstance
    */
   remove(
     params: SyncListItemContextRemoveOptions,
@@ -157,9 +143,9 @@ export interface SyncListItemContext {
   /**
    * Fetch a SyncListItemInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SyncListItemInstance
+   * @returns Resolves to processed SyncListItemInstance
    */
   fetch(
     callback?: (error: Error | null, item?: SyncListItemInstance) => any
@@ -168,9 +154,9 @@ export interface SyncListItemContext {
   /**
    * Update a SyncListItemInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SyncListItemInstance
+   * @returns Resolves to processed SyncListItemInstance
    */
   update(
     callback?: (error: Error | null, item?: SyncListItemInstance) => any
@@ -178,10 +164,10 @@ export interface SyncListItemContext {
   /**
    * Update a SyncListItemInstance
    *
-   * @param { SyncListItemContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SyncListItemInstance
+   * @returns Resolves to processed SyncListItemInstance
    */
   update(
     params: SyncListItemContextUpdateOptions,
@@ -197,9 +183,9 @@ export interface SyncListItemContext {
 }
 
 export interface SyncListItemContextSolution {
-  serviceSid?: string;
-  listSid?: string;
-  index?: number;
+  serviceSid: string;
+  listSid: string;
+  index: number;
 }
 
 export class SyncListItemContextImpl implements SyncListItemContext {
@@ -242,15 +228,16 @@ export class SyncListItemContextImpl implements SyncListItemContext {
     if (params["ifMatch"] !== undefined)
       headers["If-Match"] = params["ifMatch"];
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
         params: data,
         headers,
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -258,9 +245,10 @@ export class SyncListItemContextImpl implements SyncListItemContext {
   }
 
   fetch(callback?: any): Promise<SyncListItemInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -269,13 +257,13 @@ export class SyncListItemContextImpl implements SyncListItemContext {
         new SyncListItemInstance(
           operationVersion,
           payload,
-          this._solution.serviceSid,
-          this._solution.listSid,
-          this._solution.index
+          instance._solution.serviceSid,
+          instance._solution.listSid,
+          instance._solution.index
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -304,9 +292,10 @@ export class SyncListItemContextImpl implements SyncListItemContext {
     if (params["ifMatch"] !== undefined)
       headers["If-Match"] = params["ifMatch"];
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -317,13 +306,13 @@ export class SyncListItemContextImpl implements SyncListItemContext {
         new SyncListItemInstance(
           operationVersion,
           payload,
-          this._solution.serviceSid,
-          this._solution.listSid,
-          this._solution.index
+          instance._solution.serviceSid,
+          instance._solution.listSid,
+          instance._solution.index
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -349,17 +338,17 @@ interface SyncListItemPayload extends TwilioResponsePayload {
 }
 
 interface SyncListItemResource {
-  index?: number | null;
-  account_sid?: string | null;
-  service_sid?: string | null;
-  list_sid?: string | null;
-  url?: string | null;
-  revision?: string | null;
-  data?: any | null;
-  date_expires?: Date | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  created_by?: string | null;
+  index: number;
+  account_sid: string;
+  service_sid: string;
+  list_sid: string;
+  url: string;
+  revision: string;
+  data: any;
+  date_expires: Date;
+  date_created: Date;
+  date_updated: Date;
+  created_by: string;
 }
 
 export class SyncListItemInstance {
@@ -391,47 +380,47 @@ export class SyncListItemInstance {
   /**
    * The automatically generated index of the List Item
    */
-  index?: number | null;
+  index: number;
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The SID of the Sync Service that the resource is associated with
    */
-  serviceSid?: string | null;
+  serviceSid: string;
   /**
    * The SID of the Sync List that contains the List Item
    */
-  listSid?: string | null;
+  listSid: string;
   /**
    * The absolute URL of the List Item resource
    */
-  url?: string | null;
+  url: string;
   /**
    * The current revision of the item, represented as a string
    */
-  revision?: string | null;
+  revision: string;
   /**
    * An arbitrary, schema-less object that the List Item stores
    */
-  data?: any | null;
+  data: any;
   /**
    * The ISO 8601 date and time in GMT when the List Item expires
    */
-  dateExpires?: Date | null;
+  dateExpires: Date;
   /**
    * The ISO 8601 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The ISO 8601 date and time in GMT when the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The identity of the List Item\'s creator
    */
-  createdBy?: string | null;
+  createdBy: string;
 
   private get _proxy(): SyncListItemContext {
     this._context =
@@ -448,9 +437,9 @@ export class SyncListItemInstance {
   /**
    * Remove a SyncListItemInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -458,10 +447,10 @@ export class SyncListItemInstance {
   /**
    * Remove a SyncListItemInstance
    *
-   * @param { SyncListItemContextRemoveOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SyncListItemInstance
+   * @returns Resolves to processed SyncListItemInstance
    */
   remove(
     params: SyncListItemContextRemoveOptions,
@@ -474,9 +463,9 @@ export class SyncListItemInstance {
   /**
    * Fetch a SyncListItemInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SyncListItemInstance
+   * @returns Resolves to processed SyncListItemInstance
    */
   fetch(
     callback?: (error: Error | null, item?: SyncListItemInstance) => any
@@ -487,9 +476,9 @@ export class SyncListItemInstance {
   /**
    * Update a SyncListItemInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SyncListItemInstance
+   * @returns Resolves to processed SyncListItemInstance
    */
   update(
     callback?: (error: Error | null, item?: SyncListItemInstance) => any
@@ -497,10 +486,10 @@ export class SyncListItemInstance {
   /**
    * Update a SyncListItemInstance
    *
-   * @param { SyncListItemContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SyncListItemInstance
+   * @returns Resolves to processed SyncListItemInstance
    */
   update(
     params: SyncListItemContextUpdateOptions,
@@ -536,17 +525,26 @@ export class SyncListItemInstance {
   }
 }
 
+export interface SyncListItemSolution {
+  serviceSid: string;
+  listSid: string;
+}
+
 export interface SyncListItemListInstance {
+  _version: V1;
+  _solution: SyncListItemSolution;
+  _uri: string;
+
   (index: number): SyncListItemContext;
   get(index: number): SyncListItemContext;
 
   /**
    * Create a SyncListItemInstance
    *
-   * @param { SyncListItemListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SyncListItemInstance
+   * @returns Resolves to processed SyncListItemInstance
    */
   create(
     params: SyncListItemListInstanceCreateOptions,
@@ -682,18 +680,6 @@ export interface SyncListItemListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface SyncListItemSolution {
-  serviceSid?: string;
-  listSid?: string;
-}
-
-interface SyncListItemListInstanceImpl extends SyncListItemListInstance {}
-class SyncListItemListInstanceImpl implements SyncListItemListInstance {
-  _version?: V1;
-  _solution?: SyncListItemSolution;
-  _uri?: string;
-}
-
 export function SyncListItemListInstance(
   version: V1,
   serviceSid: string,
@@ -707,8 +693,7 @@ export function SyncListItemListInstance(
     throw new Error("Parameter 'listSid' is not valid.");
   }
 
-  const instance = ((index) =>
-    instance.get(index)) as SyncListItemListInstanceImpl;
+  const instance = ((index) => instance.get(index)) as SyncListItemListInstance;
 
   instance.get = function get(index): SyncListItemContext {
     return new SyncListItemContextImpl(version, serviceSid, listSid, index);
@@ -743,7 +728,7 @@ export function SyncListItemListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -754,12 +739,12 @@ export function SyncListItemListInstance(
         new SyncListItemInstance(
           operationVersion,
           payload,
-          this._solution.serviceSid,
-          this._solution.listSid
+          instance._solution.serviceSid,
+          instance._solution.listSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -791,7 +776,7 @@ export function SyncListItemListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
@@ -799,10 +784,10 @@ export function SyncListItemListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new SyncListItemPage(operationVersion, payload, this._solution)
+        new SyncListItemPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -815,30 +800,28 @@ export function SyncListItemListInstance(
     targetUrl?: any,
     callback?: any
   ): Promise<SyncListItemPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new SyncListItemPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new SyncListItemPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

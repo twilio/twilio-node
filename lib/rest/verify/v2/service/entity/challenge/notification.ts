@@ -20,20 +20,29 @@ import { isValidPathParam } from "../../../../../../base/utility";
 
 /**
  * Options to pass to create a NotificationInstance
- *
- * @property { number } [ttl] How long, in seconds, the notification is valid. Can be an integer between 0 and 300. Default is 300. Delivery is attempted until the TTL elapses, even if the device is offline. 0 means that the notification delivery is attempted immediately, only once, and is not stored for future delivery.
  */
 export interface NotificationListInstanceCreateOptions {
+  /** How long, in seconds, the notification is valid. Can be an integer between 0 and 300. Default is 300. Delivery is attempted until the TTL elapses, even if the device is offline. 0 means that the notification delivery is attempted immediately, only once, and is not stored for future delivery. */
   ttl?: number;
 }
 
+export interface NotificationSolution {
+  serviceSid: string;
+  identity: string;
+  challengeSid: string;
+}
+
 export interface NotificationListInstance {
+  _version: V2;
+  _solution: NotificationSolution;
+  _uri: string;
+
   /**
    * Create a NotificationInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed NotificationInstance
+   * @returns Resolves to processed NotificationInstance
    */
   create(
     callback?: (error: Error | null, item?: NotificationInstance) => any
@@ -41,10 +50,10 @@ export interface NotificationListInstance {
   /**
    * Create a NotificationInstance
    *
-   * @param { NotificationListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed NotificationInstance
+   * @returns Resolves to processed NotificationInstance
    */
   create(
     params: NotificationListInstanceCreateOptions,
@@ -57,19 +66,6 @@ export interface NotificationListInstance {
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export interface NotificationSolution {
-  serviceSid?: string;
-  identity?: string;
-  challengeSid?: string;
-}
-
-interface NotificationListInstanceImpl extends NotificationListInstance {}
-class NotificationListInstanceImpl implements NotificationListInstance {
-  _version?: V2;
-  _solution?: NotificationSolution;
-  _uri?: string;
 }
 
 export function NotificationListInstance(
@@ -90,7 +86,7 @@ export function NotificationListInstance(
     throw new Error("Parameter 'challengeSid' is not valid.");
   }
 
-  const instance = {} as NotificationListInstanceImpl;
+  const instance = {} as NotificationListInstance;
 
   instance._version = version;
   instance._solution = { serviceSid, identity, challengeSid };
@@ -116,7 +112,7 @@ export function NotificationListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -127,13 +123,13 @@ export function NotificationListInstance(
         new NotificationInstance(
           operationVersion,
           payload,
-          this._solution.serviceSid,
-          this._solution.identity,
-          this._solution.challengeSid
+          instance._solution.serviceSid,
+          instance._solution.identity,
+          instance._solution.challengeSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -141,14 +137,14 @@ export function NotificationListInstance(
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;
@@ -157,15 +153,15 @@ export function NotificationListInstance(
 interface NotificationPayload extends NotificationResource {}
 
 interface NotificationResource {
-  sid?: string | null;
-  account_sid?: string | null;
-  service_sid?: string | null;
-  entity_sid?: string | null;
-  identity?: string | null;
-  challenge_sid?: string | null;
-  priority?: string | null;
-  ttl?: number | null;
-  date_created?: Date | null;
+  sid: string;
+  account_sid: string;
+  service_sid: string;
+  entity_sid: string;
+  identity: string;
+  challenge_sid: string;
+  priority: string;
+  ttl: number;
+  date_created: Date;
 }
 
 export class NotificationInstance {
@@ -190,39 +186,39 @@ export class NotificationInstance {
   /**
    * A string that uniquely identifies this Notification.
    */
-  sid?: string | null;
+  sid: string;
   /**
    * Account Sid.
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * Service Sid.
    */
-  serviceSid?: string | null;
+  serviceSid: string;
   /**
    * Entity Sid.
    */
-  entitySid?: string | null;
+  entitySid: string;
   /**
    * Unique external identifier of the Entity
    */
-  identity?: string | null;
+  identity: string;
   /**
    * Challenge Sid.
    */
-  challengeSid?: string | null;
+  challengeSid: string;
   /**
    * The priority of the notification.
    */
-  priority?: string | null;
+  priority: string;
   /**
    * How long, in seconds, the notification is valid.
    */
-  ttl?: number | null;
+  ttl: number;
   /**
    * The date this Notification was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
 
   /**
    * Provide a user-friendly representation

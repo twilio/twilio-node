@@ -23,37 +23,40 @@ export default class V1 extends Version {
   /**
    * Initialize the V1 version of Events
    *
-   * @property { Twilio.Events.V1.EventTypeListInstance } eventTypes - eventTypes resource
-   * @property { Twilio.Events.V1.SchemaListInstance } schemas - schemas resource
-   * @property { Twilio.Events.V1.SinkListInstance } sinks - sinks resource
-   * @property { Twilio.Events.V1.SubscriptionListInstance } subscriptions - subscriptions resource
-   *
-   * @param { Twilio.Events } domain - The Twilio domain
+   * @param domain - The Twilio (Twilio.Events) domain
    */
   constructor(domain: EventsBase) {
     super(domain, "v1");
   }
 
+  /** eventTypes - { Twilio.Events.V1.EventTypeListInstance } resource */
   protected _eventTypes?: EventTypeListInstance;
+  /** schemas - { Twilio.Events.V1.SchemaListInstance } resource */
   protected _schemas?: SchemaListInstance;
+  /** sinks - { Twilio.Events.V1.SinkListInstance } resource */
   protected _sinks?: SinkListInstance;
+  /** subscriptions - { Twilio.Events.V1.SubscriptionListInstance } resource */
   protected _subscriptions?: SubscriptionListInstance;
 
+  /** Getter for eventTypes resource */
   get eventTypes(): EventTypeListInstance {
     this._eventTypes = this._eventTypes || EventTypeListInstance(this);
     return this._eventTypes;
   }
 
+  /** Getter for schemas resource */
   get schemas(): SchemaListInstance {
     this._schemas = this._schemas || SchemaListInstance(this);
     return this._schemas;
   }
 
+  /** Getter for sinks resource */
   get sinks(): SinkListInstance {
     this._sinks = this._sinks || SinkListInstance(this);
     return this._sinks;
   }
 
+  /** Getter for subscriptions resource */
   get subscriptions(): SubscriptionListInstance {
     this._subscriptions = this._subscriptions || SubscriptionListInstance(this);
     return this._subscriptions;

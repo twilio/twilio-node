@@ -29,51 +29,40 @@ import { VoipListInstance } from "./availablePhoneNumberCountry/voip";
 
 /**
  * Options to pass to each
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface AvailablePhoneNumberCountryListInstanceEachOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (
     item: AvailablePhoneNumberCountryInstance,
     done: (err?: Error) => void
   ) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface AvailablePhoneNumberCountryListInstanceOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface AvailablePhoneNumberCountryListInstancePageOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
@@ -89,9 +78,9 @@ export interface AvailablePhoneNumberCountryContext {
   /**
    * Fetch a AvailablePhoneNumberCountryInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed AvailablePhoneNumberCountryInstance
+   * @returns Resolves to processed AvailablePhoneNumberCountryInstance
    */
   fetch(
     callback?: (
@@ -108,8 +97,8 @@ export interface AvailablePhoneNumberCountryContext {
 }
 
 export interface AvailablePhoneNumberCountryContextSolution {
-  accountSid?: string;
-  countryCode?: string;
+  accountSid: string;
+  countryCode: string;
 }
 
 export class AvailablePhoneNumberCountryContextImpl
@@ -221,9 +210,10 @@ export class AvailablePhoneNumberCountryContextImpl
   }
 
   fetch(callback?: any): Promise<AvailablePhoneNumberCountryInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -232,12 +222,12 @@ export class AvailablePhoneNumberCountryContextImpl
         new AvailablePhoneNumberCountryInstance(
           operationVersion,
           payload,
-          this._solution.accountSid,
-          this._solution.countryCode
+          instance._solution.accountSid,
+          instance._solution.countryCode
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -263,11 +253,11 @@ interface AvailablePhoneNumberCountryPayload extends TwilioResponsePayload {
 }
 
 interface AvailablePhoneNumberCountryResource {
-  country_code?: string | null;
-  country?: string | null;
-  uri?: string | null;
-  beta?: boolean | null;
-  subresource_uris?: object | null;
+  country_code: string;
+  country: string;
+  uri: string;
+  beta: boolean;
+  subresource_uris: object;
 }
 
 export class AvailablePhoneNumberCountryInstance {
@@ -295,23 +285,23 @@ export class AvailablePhoneNumberCountryInstance {
   /**
    * The ISO-3166-1 country code of the country.
    */
-  countryCode?: string | null;
+  countryCode: string;
   /**
    * The name of the country
    */
-  country?: string | null;
+  country: string;
   /**
    * The URI of the Country resource, relative to `https://api.twilio.com`
    */
-  uri?: string | null;
+  uri: string;
   /**
    * Whether all phone numbers available in the country are new to the Twilio platform.
    */
-  beta?: boolean | null;
+  beta: boolean;
   /**
    * A list of related resources identified by their relative URIs
    */
-  subresourceUris?: object | null;
+  subresourceUris: object;
 
   private get _proxy(): AvailablePhoneNumberCountryContext {
     this._context =
@@ -327,9 +317,9 @@ export class AvailablePhoneNumberCountryInstance {
   /**
    * Fetch a AvailablePhoneNumberCountryInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed AvailablePhoneNumberCountryInstance
+   * @returns Resolves to processed AvailablePhoneNumberCountryInstance
    */
   fetch(
     callback?: (
@@ -409,7 +399,15 @@ export class AvailablePhoneNumberCountryInstance {
   }
 }
 
+export interface AvailablePhoneNumberCountrySolution {
+  accountSid: string;
+}
+
 export interface AvailablePhoneNumberCountryListInstance {
+  _version: V2010;
+  _solution: AvailablePhoneNumberCountrySolution;
+  _uri: string;
+
   (countryCode: string): AvailablePhoneNumberCountryContext;
   get(countryCode: string): AvailablePhoneNumberCountryContext;
 
@@ -571,20 +569,6 @@ export interface AvailablePhoneNumberCountryListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface AvailablePhoneNumberCountrySolution {
-  accountSid?: string;
-}
-
-interface AvailablePhoneNumberCountryListInstanceImpl
-  extends AvailablePhoneNumberCountryListInstance {}
-class AvailablePhoneNumberCountryListInstanceImpl
-  implements AvailablePhoneNumberCountryListInstance
-{
-  _version?: V2010;
-  _solution?: AvailablePhoneNumberCountrySolution;
-  _uri?: string;
-}
-
 export function AvailablePhoneNumberCountryListInstance(
   version: V2010,
   accountSid: string
@@ -594,7 +578,7 @@ export function AvailablePhoneNumberCountryListInstance(
   }
 
   const instance = ((countryCode) =>
-    instance.get(countryCode)) as AvailablePhoneNumberCountryListInstanceImpl;
+    instance.get(countryCode)) as AvailablePhoneNumberCountryListInstance;
 
   instance.get = function get(countryCode): AvailablePhoneNumberCountryContext {
     return new AvailablePhoneNumberCountryContextImpl(
@@ -630,7 +614,7 @@ export function AvailablePhoneNumberCountryListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
@@ -641,11 +625,11 @@ export function AvailablePhoneNumberCountryListInstance(
         new AvailablePhoneNumberCountryPage(
           operationVersion,
           payload,
-          this._solution
+          instance._solution
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -658,35 +642,32 @@ export function AvailablePhoneNumberCountryListInstance(
     targetUrl?: any,
     callback?: any
   ): Promise<AvailablePhoneNumberCountryPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
+    let pagePromise = operationPromise.then(
       (payload) =>
         new AvailablePhoneNumberCountryPage(
-          this._version,
+          instance._version,
           payload,
-          this._solution
+          instance._solution
         )
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

@@ -23,117 +23,104 @@ import { DependentPhoneNumberListInstance } from "./address/dependentPhoneNumber
 
 /**
  * Options to pass to update a AddressInstance
- *
- * @property { string } [friendlyName] A descriptive string that you create to describe the address. It can be up to 64 characters long.
- * @property { string } [customerName] The name to associate with the address.
- * @property { string } [street] The number and street address of the address.
- * @property { string } [city] The city of the address.
- * @property { string } [region] The state or region of the address.
- * @property { string } [postalCode] The postal code of the address.
- * @property { boolean } [emergencyEnabled] Whether to enable emergency calling on the address. Can be: `true` or `false`.
- * @property { boolean } [autoCorrectAddress] Whether we should automatically correct the address. Can be: `true` or `false` and the default is `true`. If empty or `true`, we will correct the address you provide if necessary. If `false`, we won\\\'t alter the address you provide.
- * @property { string } [streetSecondary] The additional number and street address of the address.
  */
 export interface AddressContextUpdateOptions {
+  /** A descriptive string that you create to describe the address. It can be up to 64 characters long. */
   friendlyName?: string;
+  /** The name to associate with the address. */
   customerName?: string;
+  /** The number and street address of the address. */
   street?: string;
+  /** The city of the address. */
   city?: string;
+  /** The state or region of the address. */
   region?: string;
+  /** The postal code of the address. */
   postalCode?: string;
+  /** Whether to enable emergency calling on the address. Can be: `true` or `false`. */
   emergencyEnabled?: boolean;
+  /** Whether we should automatically correct the address. Can be: `true` or `false` and the default is `true`. If empty or `true`, we will correct the address you provide if necessary. If `false`, we won\\\'t alter the address you provide. */
   autoCorrectAddress?: boolean;
+  /** The additional number and street address of the address. */
   streetSecondary?: string;
 }
 
 /**
  * Options to pass to create a AddressInstance
- *
- * @property { string } customerName The name to associate with the new address.
- * @property { string } street The number and street address of the new address.
- * @property { string } city The city of the new address.
- * @property { string } region The state or region of the new address.
- * @property { string } postalCode The postal code of the new address.
- * @property { string } isoCountry The ISO country code of the new address.
- * @property { string } [friendlyName] A descriptive string that you create to describe the new address. It can be up to 64 characters long.
- * @property { boolean } [emergencyEnabled] Whether to enable emergency calling on the new address. Can be: `true` or `false`.
- * @property { boolean } [autoCorrectAddress] Whether we should automatically correct the address. Can be: `true` or `false` and the default is `true`. If empty or `true`, we will correct the address you provide if necessary. If `false`, we won\\\'t alter the address you provide.
- * @property { string } [streetSecondary] The additional number and street address of the address.
  */
 export interface AddressListInstanceCreateOptions {
+  /** The name to associate with the new address. */
   customerName: string;
+  /** The number and street address of the new address. */
   street: string;
+  /** The city of the new address. */
   city: string;
+  /** The state or region of the new address. */
   region: string;
+  /** The postal code of the new address. */
   postalCode: string;
+  /** The ISO country code of the new address. */
   isoCountry: string;
+  /** A descriptive string that you create to describe the new address. It can be up to 64 characters long. */
   friendlyName?: string;
+  /** Whether to enable emergency calling on the new address. Can be: `true` or `false`. */
   emergencyEnabled?: boolean;
+  /** Whether we should automatically correct the address. Can be: `true` or `false` and the default is `true`. If empty or `true`, we will correct the address you provide if necessary. If `false`, we won\\\'t alter the address you provide. */
   autoCorrectAddress?: boolean;
+  /** The additional number and street address of the address. */
   streetSecondary?: string;
 }
 /**
  * Options to pass to each
- *
- * @property { string } [customerName] The `customer_name` of the Address resources to read.
- * @property { string } [friendlyName] The string that identifies the Address resources to read.
- * @property { string } [isoCountry] The ISO country code of the Address resources to read.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface AddressListInstanceEachOptions {
+  /** The `customer_name` of the Address resources to read. */
   customerName?: string;
+  /** The string that identifies the Address resources to read. */
   friendlyName?: string;
+  /** The ISO country code of the Address resources to read. */
   isoCountry?: string;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: AddressInstance, done: (err?: Error) => void) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { string } [customerName] The `customer_name` of the Address resources to read.
- * @property { string } [friendlyName] The string that identifies the Address resources to read.
- * @property { string } [isoCountry] The ISO country code of the Address resources to read.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface AddressListInstanceOptions {
+  /** The `customer_name` of the Address resources to read. */
   customerName?: string;
+  /** The string that identifies the Address resources to read. */
   friendlyName?: string;
+  /** The ISO country code of the Address resources to read. */
   isoCountry?: string;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { string } [customerName] The `customer_name` of the Address resources to read.
- * @property { string } [friendlyName] The string that identifies the Address resources to read.
- * @property { string } [isoCountry] The ISO country code of the Address resources to read.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface AddressListInstancePageOptions {
+  /** The `customer_name` of the Address resources to read. */
   customerName?: string;
+  /** The string that identifies the Address resources to read. */
   friendlyName?: string;
+  /** The ISO country code of the Address resources to read. */
   isoCountry?: string;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
@@ -143,9 +130,9 @@ export interface AddressContext {
   /**
    * Remove a AddressInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -154,9 +141,9 @@ export interface AddressContext {
   /**
    * Fetch a AddressInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed AddressInstance
+   * @returns Resolves to processed AddressInstance
    */
   fetch(
     callback?: (error: Error | null, item?: AddressInstance) => any
@@ -165,9 +152,9 @@ export interface AddressContext {
   /**
    * Update a AddressInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed AddressInstance
+   * @returns Resolves to processed AddressInstance
    */
   update(
     callback?: (error: Error | null, item?: AddressInstance) => any
@@ -175,10 +162,10 @@ export interface AddressContext {
   /**
    * Update a AddressInstance
    *
-   * @param { AddressContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed AddressInstance
+   * @returns Resolves to processed AddressInstance
    */
   update(
     params: AddressContextUpdateOptions,
@@ -194,8 +181,8 @@ export interface AddressContext {
 }
 
 export interface AddressContextSolution {
-  accountSid?: string;
-  sid?: string;
+  accountSid: string;
+  sid: string;
 }
 
 export class AddressContextImpl implements AddressContext {
@@ -229,13 +216,14 @@ export class AddressContextImpl implements AddressContext {
   }
 
   remove(callback?: any): Promise<boolean> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -243,9 +231,10 @@ export class AddressContextImpl implements AddressContext {
   }
 
   fetch(callback?: any): Promise<AddressInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -254,12 +243,12 @@ export class AddressContextImpl implements AddressContext {
         new AddressInstance(
           operationVersion,
           payload,
-          this._solution.accountSid,
-          this._solution.sid
+          instance._solution.accountSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -295,9 +284,10 @@ export class AddressContextImpl implements AddressContext {
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -308,12 +298,12 @@ export class AddressContextImpl implements AddressContext {
         new AddressInstance(
           operationVersion,
           payload,
-          this._solution.accountSid,
-          this._solution.sid
+          instance._solution.accountSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -339,22 +329,22 @@ interface AddressPayload extends TwilioResponsePayload {
 }
 
 interface AddressResource {
-  account_sid?: string | null;
-  city?: string | null;
-  customer_name?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  friendly_name?: string | null;
-  iso_country?: string | null;
-  postal_code?: string | null;
-  region?: string | null;
-  sid?: string | null;
-  street?: string | null;
-  uri?: string | null;
-  emergency_enabled?: boolean | null;
-  validated?: boolean | null;
-  verified?: boolean | null;
-  street_secondary?: string | null;
+  account_sid: string;
+  city: string;
+  customer_name: string;
+  date_created: Date;
+  date_updated: Date;
+  friendly_name: string;
+  iso_country: string;
+  postal_code: string;
+  region: string;
+  sid: string;
+  street: string;
+  uri: string;
+  emergency_enabled: boolean;
+  validated: boolean;
+  verified: boolean;
+  street_secondary: string;
 }
 
 export class AddressInstance {
@@ -390,67 +380,67 @@ export class AddressInstance {
   /**
    * The SID of the Account that is responsible for the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The city in which the address is located
    */
-  city?: string | null;
+  city: string;
   /**
    * The name associated with the address
    */
-  customerName?: string | null;
+  customerName: string;
   /**
    * The RFC 2822 date and time in GMT that the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The RFC 2822 date and time in GMT that the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The string that you assigned to describe the resource
    */
-  friendlyName?: string | null;
+  friendlyName: string;
   /**
    * The ISO country code of the address
    */
-  isoCountry?: string | null;
+  isoCountry: string;
   /**
    * The postal code of the address
    */
-  postalCode?: string | null;
+  postalCode: string;
   /**
    * The state or region of the address
    */
-  region?: string | null;
+  region: string;
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The number and street address of the address
    */
-  street?: string | null;
+  street: string;
   /**
    * The URI of the resource, relative to `https://api.twilio.com`
    */
-  uri?: string | null;
+  uri: string;
   /**
    * Whether emergency calling has been enabled on this number
    */
-  emergencyEnabled?: boolean | null;
+  emergencyEnabled: boolean;
   /**
    * Whether the address has been validated to comply with local regulation
    */
-  validated?: boolean | null;
+  validated: boolean;
   /**
    * Whether the address has been verified to comply with regulation
    */
-  verified?: boolean | null;
+  verified: boolean;
   /**
    * The additional number and street address of the address
    */
-  streetSecondary?: string | null;
+  streetSecondary: string;
 
   private get _proxy(): AddressContext {
     this._context =
@@ -466,9 +456,9 @@ export class AddressInstance {
   /**
    * Remove a AddressInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -479,9 +469,9 @@ export class AddressInstance {
   /**
    * Fetch a AddressInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed AddressInstance
+   * @returns Resolves to processed AddressInstance
    */
   fetch(
     callback?: (error: Error | null, item?: AddressInstance) => any
@@ -492,9 +482,9 @@ export class AddressInstance {
   /**
    * Update a AddressInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed AddressInstance
+   * @returns Resolves to processed AddressInstance
    */
   update(
     callback?: (error: Error | null, item?: AddressInstance) => any
@@ -502,10 +492,10 @@ export class AddressInstance {
   /**
    * Update a AddressInstance
    *
-   * @param { AddressContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed AddressInstance
+   * @returns Resolves to processed AddressInstance
    */
   update(
     params: AddressContextUpdateOptions,
@@ -553,17 +543,25 @@ export class AddressInstance {
   }
 }
 
+export interface AddressSolution {
+  accountSid: string;
+}
+
 export interface AddressListInstance {
+  _version: V2010;
+  _solution: AddressSolution;
+  _uri: string;
+
   (sid: string): AddressContext;
   get(sid: string): AddressContext;
 
   /**
    * Create a AddressInstance
    *
-   * @param { AddressListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed AddressInstance
+   * @returns Resolves to processed AddressInstance
    */
   create(
     params: AddressListInstanceCreateOptions,
@@ -699,17 +697,6 @@ export interface AddressListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface AddressSolution {
-  accountSid?: string;
-}
-
-interface AddressListInstanceImpl extends AddressListInstance {}
-class AddressListInstanceImpl implements AddressListInstance {
-  _version?: V2010;
-  _solution?: AddressSolution;
-  _uri?: string;
-}
-
 export function AddressListInstance(
   version: V2010,
   accountSid: string
@@ -718,7 +705,7 @@ export function AddressListInstance(
     throw new Error("Parameter 'accountSid' is not valid.");
   }
 
-  const instance = ((sid) => instance.get(sid)) as AddressListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as AddressListInstance;
 
   instance.get = function get(sid): AddressContext {
     return new AddressContextImpl(version, accountSid, sid);
@@ -790,7 +777,7 @@ export function AddressListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -801,11 +788,11 @@ export function AddressListInstance(
         new AddressInstance(
           operationVersion,
           payload,
-          this._solution.accountSid
+          instance._solution.accountSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -840,17 +827,18 @@ export function AddressListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new AddressPage(operationVersion, payload, this._solution)
+      (payload) =>
+        new AddressPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -863,30 +851,28 @@ export function AddressListInstance(
     targetUrl?: any,
     callback?: any
   ): Promise<AddressPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new AddressPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new AddressPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

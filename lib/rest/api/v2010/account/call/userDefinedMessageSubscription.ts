@@ -20,14 +20,13 @@ import { isValidPathParam } from "../../../../../base/utility";
 
 /**
  * Options to pass to create a UserDefinedMessageSubscriptionInstance
- *
- * @property { string } callback The URL we should call using the `method` to send user defined events to your application. URLs must contain a valid hostname (underscores are not permitted).
- * @property { string } [idempotencyKey] A unique string value to identify API call. This should be a unique string value per API call and can be a randomly generated.
- * @property { string } [method] The HTTP method Twilio will use when requesting the above `Url`. Either `GET` or `POST`.
  */
 export interface UserDefinedMessageSubscriptionListInstanceCreateOptions {
+  /** The URL we should call using the `method` to send user defined events to your application. URLs must contain a valid hostname (underscores are not permitted). */
   callback: string;
+  /** A unique string value to identify API call. This should be a unique string value per API call and can be a randomly generated. */
   idempotencyKey?: string;
+  /** The HTTP method Twilio will use when requesting the above `Url`. Either `GET` or `POST`. */
   method?: string;
 }
 
@@ -35,9 +34,9 @@ export interface UserDefinedMessageSubscriptionContext {
   /**
    * Remove a UserDefinedMessageSubscriptionInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -51,9 +50,9 @@ export interface UserDefinedMessageSubscriptionContext {
 }
 
 export interface UserDefinedMessageSubscriptionContextSolution {
-  accountSid?: string;
-  callSid?: string;
-  sid?: string;
+  accountSid: string;
+  callSid: string;
+  sid: string;
 }
 
 export class UserDefinedMessageSubscriptionContextImpl
@@ -85,13 +84,14 @@ export class UserDefinedMessageSubscriptionContextImpl
   }
 
   remove(callback?: any): Promise<boolean> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -116,11 +116,11 @@ interface UserDefinedMessageSubscriptionPayload
   extends UserDefinedMessageSubscriptionResource {}
 
 interface UserDefinedMessageSubscriptionResource {
-  account_sid?: string | null;
-  call_sid?: string | null;
-  sid?: string | null;
-  date_created?: Date | null;
-  uri?: string | null;
+  account_sid: string;
+  call_sid: string;
+  sid: string;
+  date_created: Date;
+  uri: string;
 }
 
 export class UserDefinedMessageSubscriptionInstance {
@@ -146,23 +146,23 @@ export class UserDefinedMessageSubscriptionInstance {
   /**
    * Account SID.
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * Call SID.
    */
-  callSid?: string | null;
+  callSid: string;
   /**
    * User Defined Message Subscription SID.
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The date this User Defined Message Subscription was created.
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The URI of the User Defined Message Subscription Resource, relative to `https://api.twilio.com`.
    */
-  uri?: string | null;
+  uri: string;
 
   private get _proxy(): UserDefinedMessageSubscriptionContext {
     this._context =
@@ -179,9 +179,9 @@ export class UserDefinedMessageSubscriptionInstance {
   /**
    * Remove a UserDefinedMessageSubscriptionInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -209,17 +209,26 @@ export class UserDefinedMessageSubscriptionInstance {
   }
 }
 
+export interface UserDefinedMessageSubscriptionSolution {
+  accountSid: string;
+  callSid: string;
+}
+
 export interface UserDefinedMessageSubscriptionListInstance {
+  _version: V2010;
+  _solution: UserDefinedMessageSubscriptionSolution;
+  _uri: string;
+
   (sid: string): UserDefinedMessageSubscriptionContext;
   get(sid: string): UserDefinedMessageSubscriptionContext;
 
   /**
    * Create a UserDefinedMessageSubscriptionInstance
    *
-   * @param { UserDefinedMessageSubscriptionListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed UserDefinedMessageSubscriptionInstance
+   * @returns Resolves to processed UserDefinedMessageSubscriptionInstance
    */
   create(
     params: UserDefinedMessageSubscriptionListInstanceCreateOptions,
@@ -240,21 +249,6 @@ export interface UserDefinedMessageSubscriptionListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface UserDefinedMessageSubscriptionSolution {
-  accountSid?: string;
-  callSid?: string;
-}
-
-interface UserDefinedMessageSubscriptionListInstanceImpl
-  extends UserDefinedMessageSubscriptionListInstance {}
-class UserDefinedMessageSubscriptionListInstanceImpl
-  implements UserDefinedMessageSubscriptionListInstance
-{
-  _version?: V2010;
-  _solution?: UserDefinedMessageSubscriptionSolution;
-  _uri?: string;
-}
-
 export function UserDefinedMessageSubscriptionListInstance(
   version: V2010,
   accountSid: string,
@@ -269,7 +263,7 @@ export function UserDefinedMessageSubscriptionListInstance(
   }
 
   const instance = ((sid) =>
-    instance.get(sid)) as UserDefinedMessageSubscriptionListInstanceImpl;
+    instance.get(sid)) as UserDefinedMessageSubscriptionListInstance;
 
   instance.get = function get(sid): UserDefinedMessageSubscriptionContext {
     return new UserDefinedMessageSubscriptionContextImpl(
@@ -308,7 +302,7 @@ export function UserDefinedMessageSubscriptionListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -319,12 +313,12 @@ export function UserDefinedMessageSubscriptionListInstance(
         new UserDefinedMessageSubscriptionInstance(
           operationVersion,
           payload,
-          this._solution.accountSid,
-          this._solution.callSid
+          instance._solution.accountSid,
+          instance._solution.callSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -332,14 +326,14 @@ export function UserDefinedMessageSubscriptionListInstance(
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

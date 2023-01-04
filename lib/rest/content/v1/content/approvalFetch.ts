@@ -22,9 +22,9 @@ export interface ApprovalFetchContext {
   /**
    * Fetch a ApprovalFetchInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ApprovalFetchInstance
+   * @returns Resolves to processed ApprovalFetchInstance
    */
   fetch(
     callback?: (error: Error | null, item?: ApprovalFetchInstance) => any
@@ -38,7 +38,7 @@ export interface ApprovalFetchContext {
 }
 
 export interface ApprovalFetchContextSolution {
-  sid?: string;
+  sid: string;
 }
 
 export class ApprovalFetchContextImpl implements ApprovalFetchContext {
@@ -55,18 +55,23 @@ export class ApprovalFetchContextImpl implements ApprovalFetchContext {
   }
 
   fetch(callback?: any): Promise<ApprovalFetchInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new ApprovalFetchInstance(operationVersion, payload, this._solution.sid)
+        new ApprovalFetchInstance(
+          operationVersion,
+          payload,
+          instance._solution.sid
+        )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -90,10 +95,10 @@ export class ApprovalFetchContextImpl implements ApprovalFetchContext {
 interface ApprovalFetchPayload extends ApprovalFetchResource {}
 
 interface ApprovalFetchResource {
-  sid?: string | null;
-  account_sid?: string | null;
-  whatsapp?: any | null;
-  url?: string | null;
+  sid: string;
+  account_sid: string;
+  whatsapp: any;
+  url: string;
 }
 
 export class ApprovalFetchInstance {
@@ -116,19 +121,19 @@ export class ApprovalFetchInstance {
   /**
    * The unique string that identifies the Content resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The SID of the Account that created the Content resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * Contains the whatsapp approval information for the Content resource
    */
-  whatsapp?: any | null;
+  whatsapp: any;
   /**
    * The URL of the resource, relative to `https://content.twilio.com`
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): ApprovalFetchContext {
     this._context =
@@ -140,9 +145,9 @@ export class ApprovalFetchInstance {
   /**
    * Fetch a ApprovalFetchInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ApprovalFetchInstance
+   * @returns Resolves to processed ApprovalFetchInstance
    */
   fetch(
     callback?: (error: Error | null, item?: ApprovalFetchInstance) => any
@@ -169,7 +174,15 @@ export class ApprovalFetchInstance {
   }
 }
 
+export interface ApprovalFetchSolution {
+  sid: string;
+}
+
 export interface ApprovalFetchListInstance {
+  _version: V1;
+  _solution: ApprovalFetchSolution;
+  _uri: string;
+
   (): ApprovalFetchContext;
   get(): ApprovalFetchContext;
 
@@ -180,17 +193,6 @@ export interface ApprovalFetchListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface ApprovalFetchSolution {
-  sid?: string;
-}
-
-interface ApprovalFetchListInstanceImpl extends ApprovalFetchListInstance {}
-class ApprovalFetchListInstanceImpl implements ApprovalFetchListInstance {
-  _version?: V1;
-  _solution?: ApprovalFetchSolution;
-  _uri?: string;
-}
-
 export function ApprovalFetchListInstance(
   version: V1,
   sid: string
@@ -199,7 +201,7 @@ export function ApprovalFetchListInstance(
     throw new Error("Parameter 'sid' is not valid.");
   }
 
-  const instance = (() => instance.get()) as ApprovalFetchListInstanceImpl;
+  const instance = (() => instance.get()) as ApprovalFetchListInstance;
 
   instance.get = function get(): ApprovalFetchContext {
     return new ApprovalFetchContextImpl(version, sid);
@@ -210,14 +212,14 @@ export function ApprovalFetchListInstance(
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

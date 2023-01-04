@@ -28,134 +28,120 @@ import { WorkersStatisticsListInstance } from "./worker/workersStatistics";
 
 /**
  * Options to pass to remove a WorkerInstance
- *
- * @property { string } [ifMatch] The If-Match HTTP request header
  */
 export interface WorkerContextRemoveOptions {
+  /** The If-Match HTTP request header */
   ifMatch?: string;
 }
 
 /**
  * Options to pass to update a WorkerInstance
- *
- * @property { string } [ifMatch] The If-Match HTTP request header
- * @property { string } [activitySid] The SID of a valid Activity that will describe the Worker\\\'s initial state. See [Activities](https://www.twilio.com/docs/taskrouter/api/activity) for more information.
- * @property { string } [attributes] The JSON string that describes the Worker. For example: `{ \\\"email\\\": \\\"Bob@example.com\\\", \\\"phone\\\": \\\"+5095551234\\\" }`. This data is passed to the `assignment_callback_url` when TaskRouter assigns a Task to the Worker. Defaults to {}.
- * @property { string } [friendlyName] A descriptive string that you create to describe the Worker. It can be up to 64 characters long.
- * @property { boolean } [rejectPendingReservations] Whether to reject the Worker\\\'s pending reservations. This option is only valid if the Worker\\\'s new [Activity](https://www.twilio.com/docs/taskrouter/api/activity) resource has its `availability` property set to `False`.
  */
 export interface WorkerContextUpdateOptions {
+  /** The If-Match HTTP request header */
   ifMatch?: string;
+  /** The SID of a valid Activity that will describe the Worker\\\'s initial state. See [Activities](https://www.twilio.com/docs/taskrouter/api/activity) for more information. */
   activitySid?: string;
+  /** The JSON string that describes the Worker. For example: `{ \\\"email\\\": \\\"Bob@example.com\\\", \\\"phone\\\": \\\"+5095551234\\\" }`. This data is passed to the `assignment_callback_url` when TaskRouter assigns a Task to the Worker. Defaults to {}. */
   attributes?: string;
+  /** A descriptive string that you create to describe the Worker. It can be up to 64 characters long. */
   friendlyName?: string;
+  /** Whether to reject the Worker\\\'s pending reservations. This option is only valid if the Worker\\\'s new [Activity](https://www.twilio.com/docs/taskrouter/api/activity) resource has its `availability` property set to `False`. */
   rejectPendingReservations?: boolean;
 }
 
 /**
  * Options to pass to create a WorkerInstance
- *
- * @property { string } friendlyName A descriptive string that you create to describe the new Worker. It can be up to 64 characters long.
- * @property { string } [activitySid] The SID of a valid Activity that will describe the new Worker\\\'s initial state. See [Activities](https://www.twilio.com/docs/taskrouter/api/activity) for more information. If not provided, the new Worker\\\'s initial state is the `default_activity_sid` configured on the Workspace.
- * @property { string } [attributes] A valid JSON string that describes the new Worker. For example: `{ \\\"email\\\": \\\"Bob@example.com\\\", \\\"phone\\\": \\\"+5095551234\\\" }`. This data is passed to the `assignment_callback_url` when TaskRouter assigns a Task to the Worker. Defaults to {}.
  */
 export interface WorkerListInstanceCreateOptions {
+  /** A descriptive string that you create to describe the new Worker. It can be up to 64 characters long. */
   friendlyName: string;
+  /** The SID of a valid Activity that will describe the new Worker\\\'s initial state. See [Activities](https://www.twilio.com/docs/taskrouter/api/activity) for more information. If not provided, the new Worker\\\'s initial state is the `default_activity_sid` configured on the Workspace. */
   activitySid?: string;
+  /** A valid JSON string that describes the new Worker. For example: `{ \\\"email\\\": \\\"Bob@example.com\\\", \\\"phone\\\": \\\"+5095551234\\\" }`. This data is passed to the `assignment_callback_url` when TaskRouter assigns a Task to the Worker. Defaults to {}. */
   attributes?: string;
 }
 /**
  * Options to pass to each
- *
- * @property { string } [activityName] The `activity_name` of the Worker resources to read.
- * @property { string } [activitySid] The `activity_sid` of the Worker resources to read.
- * @property { string } [available] Whether to return only Worker resources that are available or unavailable. Can be `true`, `1`, or `yes` to return Worker resources that are available, and `false`, or any value returns the Worker resources that are not available.
- * @property { string } [friendlyName] The `friendly_name` of the Worker resources to read.
- * @property { string } [targetWorkersExpression] Filter by Workers that would match an expression on a TaskQueue. This is helpful for debugging which Workers would match a potential queue.
- * @property { string } [taskQueueName] The `friendly_name` of the TaskQueue that the Workers to read are eligible for.
- * @property { string } [taskQueueSid] The SID of the TaskQueue that the Workers to read are eligible for.
- * @property { string } [ordering] Sorting parameter for Workers
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface WorkerListInstanceEachOptions {
+  /** The `activity_name` of the Worker resources to read. */
   activityName?: string;
+  /** The `activity_sid` of the Worker resources to read. */
   activitySid?: string;
+  /** Whether to return only Worker resources that are available or unavailable. Can be `true`, `1`, or `yes` to return Worker resources that are available, and `false`, or any value returns the Worker resources that are not available. */
   available?: string;
+  /** The `friendly_name` of the Worker resources to read. */
   friendlyName?: string;
+  /** Filter by Workers that would match an expression on a TaskQueue. This is helpful for debugging which Workers would match a potential queue. */
   targetWorkersExpression?: string;
+  /** The `friendly_name` of the TaskQueue that the Workers to read are eligible for. */
   taskQueueName?: string;
+  /** The SID of the TaskQueue that the Workers to read are eligible for. */
   taskQueueSid?: string;
+  /** Sorting parameter for Workers */
   ordering?: string;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: WorkerInstance, done: (err?: Error) => void) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { string } [activityName] The `activity_name` of the Worker resources to read.
- * @property { string } [activitySid] The `activity_sid` of the Worker resources to read.
- * @property { string } [available] Whether to return only Worker resources that are available or unavailable. Can be `true`, `1`, or `yes` to return Worker resources that are available, and `false`, or any value returns the Worker resources that are not available.
- * @property { string } [friendlyName] The `friendly_name` of the Worker resources to read.
- * @property { string } [targetWorkersExpression] Filter by Workers that would match an expression on a TaskQueue. This is helpful for debugging which Workers would match a potential queue.
- * @property { string } [taskQueueName] The `friendly_name` of the TaskQueue that the Workers to read are eligible for.
- * @property { string } [taskQueueSid] The SID of the TaskQueue that the Workers to read are eligible for.
- * @property { string } [ordering] Sorting parameter for Workers
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface WorkerListInstanceOptions {
+  /** The `activity_name` of the Worker resources to read. */
   activityName?: string;
+  /** The `activity_sid` of the Worker resources to read. */
   activitySid?: string;
+  /** Whether to return only Worker resources that are available or unavailable. Can be `true`, `1`, or `yes` to return Worker resources that are available, and `false`, or any value returns the Worker resources that are not available. */
   available?: string;
+  /** The `friendly_name` of the Worker resources to read. */
   friendlyName?: string;
+  /** Filter by Workers that would match an expression on a TaskQueue. This is helpful for debugging which Workers would match a potential queue. */
   targetWorkersExpression?: string;
+  /** The `friendly_name` of the TaskQueue that the Workers to read are eligible for. */
   taskQueueName?: string;
+  /** The SID of the TaskQueue that the Workers to read are eligible for. */
   taskQueueSid?: string;
+  /** Sorting parameter for Workers */
   ordering?: string;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { string } [activityName] The `activity_name` of the Worker resources to read.
- * @property { string } [activitySid] The `activity_sid` of the Worker resources to read.
- * @property { string } [available] Whether to return only Worker resources that are available or unavailable. Can be `true`, `1`, or `yes` to return Worker resources that are available, and `false`, or any value returns the Worker resources that are not available.
- * @property { string } [friendlyName] The `friendly_name` of the Worker resources to read.
- * @property { string } [targetWorkersExpression] Filter by Workers that would match an expression on a TaskQueue. This is helpful for debugging which Workers would match a potential queue.
- * @property { string } [taskQueueName] The `friendly_name` of the TaskQueue that the Workers to read are eligible for.
- * @property { string } [taskQueueSid] The SID of the TaskQueue that the Workers to read are eligible for.
- * @property { string } [ordering] Sorting parameter for Workers
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface WorkerListInstancePageOptions {
+  /** The `activity_name` of the Worker resources to read. */
   activityName?: string;
+  /** The `activity_sid` of the Worker resources to read. */
   activitySid?: string;
+  /** Whether to return only Worker resources that are available or unavailable. Can be `true`, `1`, or `yes` to return Worker resources that are available, and `false`, or any value returns the Worker resources that are not available. */
   available?: string;
+  /** The `friendly_name` of the Worker resources to read. */
   friendlyName?: string;
+  /** Filter by Workers that would match an expression on a TaskQueue. This is helpful for debugging which Workers would match a potential queue. */
   targetWorkersExpression?: string;
+  /** The `friendly_name` of the TaskQueue that the Workers to read are eligible for. */
   taskQueueName?: string;
+  /** The SID of the TaskQueue that the Workers to read are eligible for. */
   taskQueueSid?: string;
+  /** Sorting parameter for Workers */
   ordering?: string;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
@@ -167,9 +153,9 @@ export interface WorkerContext {
   /**
    * Remove a WorkerInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -177,10 +163,10 @@ export interface WorkerContext {
   /**
    * Remove a WorkerInstance
    *
-   * @param { WorkerContextRemoveOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed WorkerInstance
+   * @returns Resolves to processed WorkerInstance
    */
   remove(
     params: WorkerContextRemoveOptions,
@@ -191,9 +177,9 @@ export interface WorkerContext {
   /**
    * Fetch a WorkerInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed WorkerInstance
+   * @returns Resolves to processed WorkerInstance
    */
   fetch(
     callback?: (error: Error | null, item?: WorkerInstance) => any
@@ -202,9 +188,9 @@ export interface WorkerContext {
   /**
    * Update a WorkerInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed WorkerInstance
+   * @returns Resolves to processed WorkerInstance
    */
   update(
     callback?: (error: Error | null, item?: WorkerInstance) => any
@@ -212,10 +198,10 @@ export interface WorkerContext {
   /**
    * Update a WorkerInstance
    *
-   * @param { WorkerContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed WorkerInstance
+   * @returns Resolves to processed WorkerInstance
    */
   update(
     params: WorkerContextUpdateOptions,
@@ -231,8 +217,8 @@ export interface WorkerContext {
 }
 
 export interface WorkerContextSolution {
-  workspaceSid?: string;
-  sid?: string;
+  workspaceSid: string;
+  sid: string;
 }
 
 export class WorkerContextImpl implements WorkerContext {
@@ -303,15 +289,16 @@ export class WorkerContextImpl implements WorkerContext {
     if (params["ifMatch"] !== undefined)
       headers["If-Match"] = params["ifMatch"];
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
         params: data,
         headers,
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -319,9 +306,10 @@ export class WorkerContextImpl implements WorkerContext {
   }
 
   fetch(callback?: any): Promise<WorkerInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -330,12 +318,12 @@ export class WorkerContextImpl implements WorkerContext {
         new WorkerInstance(
           operationVersion,
           payload,
-          this._solution.workspaceSid,
-          this._solution.sid
+          instance._solution.workspaceSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -368,9 +356,10 @@ export class WorkerContextImpl implements WorkerContext {
     if (params["ifMatch"] !== undefined)
       headers["If-Match"] = params["ifMatch"];
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -381,12 +370,12 @@ export class WorkerContextImpl implements WorkerContext {
         new WorkerInstance(
           operationVersion,
           payload,
-          this._solution.workspaceSid,
-          this._solution.sid
+          instance._solution.workspaceSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -412,19 +401,19 @@ interface WorkerPayload extends TwilioResponsePayload {
 }
 
 interface WorkerResource {
-  account_sid?: string | null;
-  activity_name?: string | null;
-  activity_sid?: string | null;
-  attributes?: string | null;
-  available?: boolean | null;
-  date_created?: Date | null;
-  date_status_changed?: Date | null;
-  date_updated?: Date | null;
-  friendly_name?: string | null;
-  sid?: string | null;
-  workspace_sid?: string | null;
-  url?: string | null;
-  links?: object | null;
+  account_sid: string;
+  activity_name: string;
+  activity_sid: string;
+  attributes: string;
+  available: boolean;
+  date_created: Date;
+  date_status_changed: Date;
+  date_updated: Date;
+  friendly_name: string;
+  sid: string;
+  workspace_sid: string;
+  url: string;
+  links: object;
 }
 
 export class WorkerInstance {
@@ -459,55 +448,55 @@ export class WorkerInstance {
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The friendly_name of the Worker\'s current Activity
    */
-  activityName?: string | null;
+  activityName: string;
   /**
    * The SID of the Worker\'s current Activity
    */
-  activitySid?: string | null;
+  activitySid: string;
   /**
    * The JSON string that describes the Worker
    */
-  attributes?: string | null;
+  attributes: string;
   /**
    * Whether the Worker is available to perform tasks
    */
-  available?: boolean | null;
+  available: boolean;
   /**
    * The ISO 8601 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The date and time in GMT of the last change to the Worker\'s activity
    */
-  dateStatusChanged?: Date | null;
+  dateStatusChanged: Date;
   /**
    * The ISO 8601 date and time in GMT when the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The string that you assigned to describe the resource
    */
-  friendlyName?: string | null;
+  friendlyName: string;
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The SID of the Workspace that contains the Worker
    */
-  workspaceSid?: string | null;
+  workspaceSid: string;
   /**
    * The absolute URL of the Worker resource
    */
-  url?: string | null;
+  url: string;
   /**
    * The URLs of related resources
    */
-  links?: object | null;
+  links: object;
 
   private get _proxy(): WorkerContext {
     this._context =
@@ -523,9 +512,9 @@ export class WorkerInstance {
   /**
    * Remove a WorkerInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -533,10 +522,10 @@ export class WorkerInstance {
   /**
    * Remove a WorkerInstance
    *
-   * @param { WorkerContextRemoveOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed WorkerInstance
+   * @returns Resolves to processed WorkerInstance
    */
   remove(
     params: WorkerContextRemoveOptions,
@@ -549,9 +538,9 @@ export class WorkerInstance {
   /**
    * Fetch a WorkerInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed WorkerInstance
+   * @returns Resolves to processed WorkerInstance
    */
   fetch(
     callback?: (error: Error | null, item?: WorkerInstance) => any
@@ -562,9 +551,9 @@ export class WorkerInstance {
   /**
    * Update a WorkerInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed WorkerInstance
+   * @returns Resolves to processed WorkerInstance
    */
   update(
     callback?: (error: Error | null, item?: WorkerInstance) => any
@@ -572,10 +561,10 @@ export class WorkerInstance {
   /**
    * Update a WorkerInstance
    *
-   * @param { WorkerContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed WorkerInstance
+   * @returns Resolves to processed WorkerInstance
    */
   update(
     params: WorkerContextUpdateOptions,
@@ -634,21 +623,32 @@ export class WorkerInstance {
   }
 }
 
+export interface WorkerSolution {
+  workspaceSid: string;
+}
+
 export interface WorkerListInstance {
+  _version: V1;
+  _solution: WorkerSolution;
+  _uri: string;
+
   (sid: string): WorkerContext;
   get(sid: string): WorkerContext;
 
+  _cumulativeStatistics?: WorkersCumulativeStatisticsListInstance;
   cumulativeStatistics: WorkersCumulativeStatisticsListInstance;
+  _realTimeStatistics?: WorkersRealTimeStatisticsListInstance;
   realTimeStatistics: WorkersRealTimeStatisticsListInstance;
+  _statistics?: WorkersStatisticsListInstance;
   statistics: WorkersStatisticsListInstance;
 
   /**
    * Create a WorkerInstance
    *
-   * @param { WorkerListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed WorkerInstance
+   * @returns Resolves to processed WorkerInstance
    */
   create(
     params: WorkerListInstanceCreateOptions,
@@ -784,21 +784,6 @@ export interface WorkerListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface WorkerSolution {
-  workspaceSid?: string;
-}
-
-interface WorkerListInstanceImpl extends WorkerListInstance {}
-class WorkerListInstanceImpl implements WorkerListInstance {
-  _version?: V1;
-  _solution?: WorkerSolution;
-  _uri?: string;
-
-  _cumulativeStatistics?: WorkersCumulativeStatisticsListInstance;
-  _realTimeStatistics?: WorkersRealTimeStatisticsListInstance;
-  _statistics?: WorkersStatisticsListInstance;
-}
-
 export function WorkerListInstance(
   version: V1,
   workspaceSid: string
@@ -807,7 +792,7 @@ export function WorkerListInstance(
     throw new Error("Parameter 'workspaceSid' is not valid.");
   }
 
-  const instance = ((sid) => instance.get(sid)) as WorkerListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as WorkerListInstance;
 
   instance.get = function get(sid): WorkerContext {
     return new WorkerContextImpl(version, workspaceSid, sid);
@@ -819,37 +804,38 @@ export function WorkerListInstance(
 
   Object.defineProperty(instance, "cumulativeStatistics", {
     get: function cumulativeStatistics() {
-      if (!this._cumulativeStatistics) {
-        this._cumulativeStatistics = WorkersCumulativeStatisticsListInstance(
-          this._version,
-          this._solution.workspaceSid
-        );
+      if (!instance._cumulativeStatistics) {
+        instance._cumulativeStatistics =
+          WorkersCumulativeStatisticsListInstance(
+            instance._version,
+            instance._solution.workspaceSid
+          );
       }
-      return this._cumulativeStatistics;
+      return instance._cumulativeStatistics;
     },
   });
 
   Object.defineProperty(instance, "realTimeStatistics", {
     get: function realTimeStatistics() {
-      if (!this._realTimeStatistics) {
-        this._realTimeStatistics = WorkersRealTimeStatisticsListInstance(
-          this._version,
-          this._solution.workspaceSid
+      if (!instance._realTimeStatistics) {
+        instance._realTimeStatistics = WorkersRealTimeStatisticsListInstance(
+          instance._version,
+          instance._solution.workspaceSid
         );
       }
-      return this._realTimeStatistics;
+      return instance._realTimeStatistics;
     },
   });
 
   Object.defineProperty(instance, "statistics", {
     get: function statistics() {
-      if (!this._statistics) {
-        this._statistics = WorkersStatisticsListInstance(
-          this._version,
-          this._solution.workspaceSid
+      if (!instance._statistics) {
+        instance._statistics = WorkersStatisticsListInstance(
+          instance._version,
+          instance._solution.workspaceSid
         );
       }
-      return this._statistics;
+      return instance._statistics;
     },
   });
 
@@ -881,7 +867,7 @@ export function WorkerListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -892,11 +878,11 @@ export function WorkerListInstance(
         new WorkerInstance(
           operationVersion,
           payload,
-          this._solution.workspaceSid
+          instance._solution.workspaceSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -940,17 +926,17 @@ export function WorkerListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new WorkerPage(operationVersion, payload, this._solution)
+      (payload) => new WorkerPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -963,30 +949,28 @@ export function WorkerListInstance(
     targetUrl?: any,
     callback?: any
   ): Promise<WorkerPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new WorkerPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new WorkerPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

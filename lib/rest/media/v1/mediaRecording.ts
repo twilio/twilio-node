@@ -28,75 +28,64 @@ type MediaRecordingStatus = "processing" | "completed" | "deleted" | "failed";
 
 /**
  * Options to pass to each
- *
- * @property { MediaRecordingOrder } [order] The sort order of the list by `date_created`. Can be: `asc` (ascending) or `desc` (descending) with `desc` as the default.
- * @property { MediaRecordingStatus } [status] Status to filter by, with possible values `processing`, `completed`, `deleted`, or `failed`.
- * @property { string } [processorSid] SID of a MediaProcessor to filter by.
- * @property { string } [sourceSid] SID of a MediaRecording source to filter by.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface MediaRecordingListInstanceEachOptions {
+  /** The sort order of the list by `date_created`. Can be: `asc` (ascending) or `desc` (descending) with `desc` as the default. */
   order?: MediaRecordingOrder;
+  /** Status to filter by, with possible values `processing`, `completed`, `deleted`, or `failed`. */
   status?: MediaRecordingStatus;
+  /** SID of a MediaProcessor to filter by. */
   processorSid?: string;
+  /** SID of a MediaRecording source to filter by. */
   sourceSid?: string;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (
     item: MediaRecordingInstance,
     done: (err?: Error) => void
   ) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { MediaRecordingOrder } [order] The sort order of the list by `date_created`. Can be: `asc` (ascending) or `desc` (descending) with `desc` as the default.
- * @property { MediaRecordingStatus } [status] Status to filter by, with possible values `processing`, `completed`, `deleted`, or `failed`.
- * @property { string } [processorSid] SID of a MediaProcessor to filter by.
- * @property { string } [sourceSid] SID of a MediaRecording source to filter by.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface MediaRecordingListInstanceOptions {
+  /** The sort order of the list by `date_created`. Can be: `asc` (ascending) or `desc` (descending) with `desc` as the default. */
   order?: MediaRecordingOrder;
+  /** Status to filter by, with possible values `processing`, `completed`, `deleted`, or `failed`. */
   status?: MediaRecordingStatus;
+  /** SID of a MediaProcessor to filter by. */
   processorSid?: string;
+  /** SID of a MediaRecording source to filter by. */
   sourceSid?: string;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { MediaRecordingOrder } [order] The sort order of the list by `date_created`. Can be: `asc` (ascending) or `desc` (descending) with `desc` as the default.
- * @property { MediaRecordingStatus } [status] Status to filter by, with possible values `processing`, `completed`, `deleted`, or `failed`.
- * @property { string } [processorSid] SID of a MediaProcessor to filter by.
- * @property { string } [sourceSid] SID of a MediaRecording source to filter by.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface MediaRecordingListInstancePageOptions {
+  /** The sort order of the list by `date_created`. Can be: `asc` (ascending) or `desc` (descending) with `desc` as the default. */
   order?: MediaRecordingOrder;
+  /** Status to filter by, with possible values `processing`, `completed`, `deleted`, or `failed`. */
   status?: MediaRecordingStatus;
+  /** SID of a MediaProcessor to filter by. */
   processorSid?: string;
+  /** SID of a MediaRecording source to filter by. */
   sourceSid?: string;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
@@ -104,9 +93,9 @@ export interface MediaRecordingContext {
   /**
    * Remove a MediaRecordingInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -115,9 +104,9 @@ export interface MediaRecordingContext {
   /**
    * Fetch a MediaRecordingInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed MediaRecordingInstance
+   * @returns Resolves to processed MediaRecordingInstance
    */
   fetch(
     callback?: (error: Error | null, item?: MediaRecordingInstance) => any
@@ -131,7 +120,7 @@ export interface MediaRecordingContext {
 }
 
 export interface MediaRecordingContextSolution {
-  sid?: string;
+  sid: string;
 }
 
 export class MediaRecordingContextImpl implements MediaRecordingContext {
@@ -148,13 +137,14 @@ export class MediaRecordingContextImpl implements MediaRecordingContext {
   }
 
   remove(callback?: any): Promise<boolean> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -162,9 +152,10 @@ export class MediaRecordingContextImpl implements MediaRecordingContext {
   }
 
   fetch(callback?: any): Promise<MediaRecordingInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -173,11 +164,11 @@ export class MediaRecordingContextImpl implements MediaRecordingContext {
         new MediaRecordingInstance(
           operationVersion,
           payload,
-          this._solution.sid
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -211,21 +202,21 @@ interface MediaRecordingPayload extends TwilioResponsePayload {
 }
 
 interface MediaRecordingResource {
-  account_sid?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  duration?: number | null;
-  format?: MediaRecordingFormat;
-  links?: object | null;
-  processor_sid?: string | null;
-  resolution?: string | null;
-  source_sid?: string | null;
-  sid?: string | null;
-  media_size?: number | null;
-  status?: MediaRecordingStatus;
-  status_callback?: string | null;
-  status_callback_method?: MediaRecordingStatusCallbackMethod;
-  url?: string | null;
+  account_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  duration: number;
+  format: MediaRecordingFormat;
+  links: object;
+  processor_sid: string;
+  resolution: string;
+  source_sid: string;
+  sid: string;
+  media_size: number;
+  status: MediaRecordingStatus;
+  status_callback: string;
+  status_callback_method: MediaRecordingStatusCallbackMethod;
+  url: string;
 }
 
 export class MediaRecordingInstance {
@@ -259,57 +250,57 @@ export class MediaRecordingInstance {
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The ISO 8601 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The ISO 8601 date and time in GMT when the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The duration of the MediaRecording
    */
-  duration?: number | null;
-  format?: MediaRecordingFormat;
+  duration: number;
+  format: MediaRecordingFormat;
   /**
    * The URLs of related resources
    */
-  links?: object | null;
+  links: object;
   /**
    * The SID of the MediaProcessor
    */
-  processorSid?: string | null;
+  processorSid: string;
   /**
    * The dimensions of the video image in pixels
    */
-  resolution?: string | null;
+  resolution: string;
   /**
    * The SID of the resource that generated the original media
    */
-  sourceSid?: string | null;
+  sourceSid: string;
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The size of the recording media
    */
-  mediaSize?: number | null;
-  status?: MediaRecordingStatus;
+  mediaSize: number;
+  status: MediaRecordingStatus;
   /**
    * The URL to which Twilio will send MediaRecording event updates
    */
-  statusCallback?: string | null;
+  statusCallback: string;
   /**
    * The HTTP method Twilio should use to call the `status_callback` URL
    */
-  statusCallbackMethod?: MediaRecordingStatusCallbackMethod;
+  statusCallbackMethod: MediaRecordingStatusCallbackMethod;
   /**
    * The absolute URL of the resource
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): MediaRecordingContext {
     this._context =
@@ -321,9 +312,9 @@ export class MediaRecordingInstance {
   /**
    * Remove a MediaRecordingInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -334,9 +325,9 @@ export class MediaRecordingInstance {
   /**
    * Fetch a MediaRecordingInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed MediaRecordingInstance
+   * @returns Resolves to processed MediaRecordingInstance
    */
   fetch(
     callback?: (error: Error | null, item?: MediaRecordingInstance) => any
@@ -374,7 +365,13 @@ export class MediaRecordingInstance {
   }
 }
 
+export interface MediaRecordingSolution {}
+
 export interface MediaRecordingListInstance {
+  _version: V1;
+  _solution: MediaRecordingSolution;
+  _uri: string;
+
   (sid: string): MediaRecordingContext;
   get(sid: string): MediaRecordingContext;
 
@@ -512,20 +509,10 @@ export interface MediaRecordingListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface MediaRecordingSolution {}
-
-interface MediaRecordingListInstanceImpl extends MediaRecordingListInstance {}
-class MediaRecordingListInstanceImpl implements MediaRecordingListInstance {
-  _version?: V1;
-  _solution?: MediaRecordingSolution;
-  _uri?: string;
-}
-
 export function MediaRecordingListInstance(
   version: V1
 ): MediaRecordingListInstance {
-  const instance = ((sid) =>
-    instance.get(sid)) as MediaRecordingListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as MediaRecordingListInstance;
 
   instance.get = function get(sid): MediaRecordingContext {
     return new MediaRecordingContextImpl(version, sid);
@@ -563,7 +550,7 @@ export function MediaRecordingListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
@@ -571,10 +558,10 @@ export function MediaRecordingListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new MediaRecordingPage(operationVersion, payload, this._solution)
+        new MediaRecordingPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -587,31 +574,28 @@ export function MediaRecordingListInstance(
     targetUrl?: any,
     callback?: any
   ): Promise<MediaRecordingPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
+    let pagePromise = operationPromise.then(
       (payload) =>
-        new MediaRecordingPage(this._version, payload, this._solution)
+        new MediaRecordingPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

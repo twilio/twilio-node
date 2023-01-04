@@ -36,25 +36,13 @@ export interface RequestOpts {
 /* jshint ignore:start */
 /**
  * Parent class for Twilio Client that implements request & validation logic
- *
- * @constructor BaseTwilio
- *
- * @param {string} username -
- *          The username used for authentication. This is normally account sid, but if using key/secret auth will be
- *          the api key sid.
- * @param {string} password -
- *          The password used for authentication. This is normally auth token, but if using key/secret auth will be
- *          the secret.
- * @param {ClientOpts} [opts] - The options argument
- *
- * @returns {BaseTwilio} A new instance of BaseTwilio
  */
 /* jshint ignore:end */
 
 export class BaseTwilio {
-  username?: string;
-  password?: string;
-  accountSid?: string;
+  username: string;
+  password: string;
+  accountSid: string;
   opts?: ClientOpts;
   env?: NodeJS.ProcessEnv;
   edge?: string;
@@ -63,11 +51,37 @@ export class BaseTwilio {
   userAgentExtensions?: string[];
   _httpClient?: RequestClient;
 
+  /* jshint ignore:start */
+  /**
+   * Create a BaseTwilio instance
+   *
+   * @param username -
+   *          The username used for authentication. This is normally account sid, but if using key/secret auth will be
+   *          the api key sid.
+   * @param password -
+   *          The password used for authentication. This is normally auth token, but if using key/secret auth will be
+   *          the secret.
+   * @param opts - The options argument
+   *
+   * @returns A new instance of BaseTwilio
+   */
+  /* jshint ignore:end */
+
   constructor(username?: string, password?: string, opts?: ClientOpts) {
     this.opts = opts || {};
     this.env = this.opts.env || process.env;
-    this.username = username || this.env.TWILIO_ACCOUNT_SID;
-    this.password = password || this.env.TWILIO_AUTH_TOKEN;
+    this.username =
+      username ||
+      this.env.TWILIO_ACCOUNT_SID ||
+      (() => {
+        throw new Error("username is required");
+      })();
+    this.password =
+      password ||
+      this.env.TWILIO_AUTH_TOKEN ||
+      (() => {
+        throw new Error("password is required");
+      })();
     this.accountSid = this.opts.accountSid || this.username;
     this.edge = this.opts.edge || this.env.TWILIO_EDGE;
     this.region = this.opts.region || this.env.TWILIO_REGION;
@@ -79,16 +93,8 @@ export class BaseTwilio {
       this._httpClient = this.httpClient;
     }
 
-    if (!this.username) {
-      throw new Error("username is required");
-    }
-
-    if (!this.password) {
-      throw new Error("password is required");
-    }
-
-    if (!this.accountSid?.startsWith("AC")) {
-      const apiKeyMsg = this.accountSid?.startsWith("SK")
+    if (!this.accountSid.startsWith("AC")) {
+      const apiKeyMsg = this.accountSid.startsWith("SK")
         ? ". The given SID indicates an API Key which requires the accountSid to be passed as an additional option"
         : "";
 
@@ -108,14 +114,11 @@ export class BaseTwilio {
    * Makes a request to the Twilio API using the configured http client.
    * Authentication information is automatically added if none is provided.
    *
-   * @function request
-   * @memberof BaseTwilio#
-   *
-   * @param {RequestOpts} opts - The options argument
+   * @param opts - The options argument
    */
   /* jshint ignore:end */
 
-  request(opts: RequestOpts) {
+  request(opts: RequestOpts): Promise<any> {
     opts = opts || {};
 
     if (!opts.method) {
@@ -177,12 +180,9 @@ export class BaseTwilio {
   /**
    * Adds a region and/or edge to a given hostname
    *
-   * @function getHostname
-   * @memberof BaseTwilio#
-   *
-   * @param {string} hostname - A URI hostname (e.g. api.twilio.com)
-   * @param {string | undefined} targetEdge - The targeted edge location (e.g. sydney)
-   * @param {string | undefined} targetRegion - The targeted region location (e.g. au1)
+   * @param hostname - A URI hostname (e.g. api.twilio.com)
+   * @param targetEdge - The targeted edge location (e.g. sydney)
+   * @param targetRegion - The targeted region location (e.g. au1)
    */
   /* jshint ignore:end */
 
@@ -213,10 +213,8 @@ export class BaseTwilio {
   /**
    * Validates that a request to the new SSL certificate is successful.
    *
-   * @throws {RestException} if the request fails
+   * @throws RestException if the request fails
    *
-   * @function validateSslCert
-   * @memberof BaseTwilio#
    */
   /* jshint ignore:end */
 

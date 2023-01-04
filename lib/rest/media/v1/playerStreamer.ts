@@ -35,86 +35,73 @@ type PlayerStreamerUpdateStatus = "ended";
 
 /**
  * Options to pass to update a PlayerStreamerInstance
- *
- * @property { PlayerStreamerUpdateStatus } status
  */
 export interface PlayerStreamerContextUpdateOptions {
+  /**  */
   status: PlayerStreamerUpdateStatus;
 }
 
 /**
  * Options to pass to create a PlayerStreamerInstance
- *
- * @property { boolean } [video] Specifies whether the PlayerStreamer is configured to stream video. Defaults to `true`.
- * @property { string } [statusCallback] The URL to which Twilio will send asynchronous webhook requests for every PlayerStreamer event. See [Status Callbacks](/docs/live/status-callbacks) for more details.
- * @property { string } [statusCallbackMethod] The HTTP method Twilio should use to call the `status_callback` URL. Can be `POST` or `GET` and the default is `POST`.
- * @property { number } [maxDuration] The maximum time, in seconds, that the PlayerStreamer is active (`created` or `started`) before automatically ends. The default value is 300 seconds, and the maximum value is 90000 seconds. Once this maximum duration is reached, Twilio will end the PlayerStreamer, regardless of whether media is still streaming.
  */
 export interface PlayerStreamerListInstanceCreateOptions {
+  /** Specifies whether the PlayerStreamer is configured to stream video. Defaults to `true`. */
   video?: boolean;
+  /** The URL to which Twilio will send asynchronous webhook requests for every PlayerStreamer event. See [Status Callbacks](/docs/live/status-callbacks) for more details. */
   statusCallback?: string;
+  /** The HTTP method Twilio should use to call the `status_callback` URL. Can be `POST` or `GET` and the default is `POST`. */
   statusCallbackMethod?: string;
+  /** The maximum time, in seconds, that the PlayerStreamer is active (`created` or `started`) before automatically ends. The default value is 300 seconds, and the maximum value is 90000 seconds. Once this maximum duration is reached, Twilio will end the PlayerStreamer, regardless of whether media is still streaming. */
   maxDuration?: number;
 }
 /**
  * Options to pass to each
- *
- * @property { PlayerStreamerOrder } [order] The sort order of the list by `date_created`. Can be: `asc` (ascending) or `desc` (descending) with `desc` as the default.
- * @property { PlayerStreamerStatus } [status] Status to filter by, with possible values `created`, `started`, `ended`, or `failed`.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface PlayerStreamerListInstanceEachOptions {
+  /** The sort order of the list by `date_created`. Can be: `asc` (ascending) or `desc` (descending) with `desc` as the default. */
   order?: PlayerStreamerOrder;
+  /** Status to filter by, with possible values `created`, `started`, `ended`, or `failed`. */
   status?: PlayerStreamerStatus;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (
     item: PlayerStreamerInstance,
     done: (err?: Error) => void
   ) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { PlayerStreamerOrder } [order] The sort order of the list by `date_created`. Can be: `asc` (ascending) or `desc` (descending) with `desc` as the default.
- * @property { PlayerStreamerStatus } [status] Status to filter by, with possible values `created`, `started`, `ended`, or `failed`.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface PlayerStreamerListInstanceOptions {
+  /** The sort order of the list by `date_created`. Can be: `asc` (ascending) or `desc` (descending) with `desc` as the default. */
   order?: PlayerStreamerOrder;
+  /** Status to filter by, with possible values `created`, `started`, `ended`, or `failed`. */
   status?: PlayerStreamerStatus;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { PlayerStreamerOrder } [order] The sort order of the list by `date_created`. Can be: `asc` (ascending) or `desc` (descending) with `desc` as the default.
- * @property { PlayerStreamerStatus } [status] Status to filter by, with possible values `created`, `started`, `ended`, or `failed`.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface PlayerStreamerListInstancePageOptions {
+  /** The sort order of the list by `date_created`. Can be: `asc` (ascending) or `desc` (descending) with `desc` as the default. */
   order?: PlayerStreamerOrder;
+  /** Status to filter by, with possible values `created`, `started`, `ended`, or `failed`. */
   status?: PlayerStreamerStatus;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
@@ -124,9 +111,9 @@ export interface PlayerStreamerContext {
   /**
    * Fetch a PlayerStreamerInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed PlayerStreamerInstance
+   * @returns Resolves to processed PlayerStreamerInstance
    */
   fetch(
     callback?: (error: Error | null, item?: PlayerStreamerInstance) => any
@@ -135,10 +122,10 @@ export interface PlayerStreamerContext {
   /**
    * Update a PlayerStreamerInstance
    *
-   * @param { PlayerStreamerContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed PlayerStreamerInstance
+   * @returns Resolves to processed PlayerStreamerInstance
    */
   update(
     params: PlayerStreamerContextUpdateOptions,
@@ -154,7 +141,7 @@ export interface PlayerStreamerContext {
 }
 
 export interface PlayerStreamerContextSolution {
-  sid?: string;
+  sid: string;
 }
 
 export class PlayerStreamerContextImpl implements PlayerStreamerContext {
@@ -180,9 +167,10 @@ export class PlayerStreamerContextImpl implements PlayerStreamerContext {
   }
 
   fetch(callback?: any): Promise<PlayerStreamerInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -191,11 +179,11 @@ export class PlayerStreamerContextImpl implements PlayerStreamerContext {
         new PlayerStreamerInstance(
           operationVersion,
           payload,
-          this._solution.sid
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -218,9 +206,10 @@ export class PlayerStreamerContextImpl implements PlayerStreamerContext {
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -231,11 +220,11 @@ export class PlayerStreamerContextImpl implements PlayerStreamerContext {
         new PlayerStreamerInstance(
           operationVersion,
           payload,
-          this._solution.sid
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -269,18 +258,18 @@ interface PlayerStreamerPayload extends TwilioResponsePayload {
 }
 
 interface PlayerStreamerResource {
-  account_sid?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  video?: boolean | null;
-  links?: object | null;
-  sid?: string | null;
-  status?: PlayerStreamerStatus;
-  url?: string | null;
-  status_callback?: string | null;
-  status_callback_method?: PlayerStreamerStatusCallbackMethod;
-  ended_reason?: PlayerStreamerEndedReason;
-  max_duration?: number | null;
+  account_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  video: boolean;
+  links: object;
+  sid: string;
+  status: PlayerStreamerStatus;
+  url: string;
+  status_callback: string;
+  status_callback_method: PlayerStreamerStatusCallbackMethod;
+  ended_reason: PlayerStreamerEndedReason;
+  max_duration: number;
 }
 
 export class PlayerStreamerInstance {
@@ -311,45 +300,45 @@ export class PlayerStreamerInstance {
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The ISO 8601 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The ISO 8601 date and time in GMT when the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * Whether the PlayerStreamer is configured to stream video
    */
-  video?: boolean | null;
+  video: boolean;
   /**
    * The URLs of related resources
    */
-  links?: object | null;
+  links: object;
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
-  status?: PlayerStreamerStatus;
+  sid: string;
+  status: PlayerStreamerStatus;
   /**
    * The absolute URL of the resource
    */
-  url?: string | null;
+  url: string;
   /**
    * The URL to which Twilio will send PlayerStreamer event updates
    */
-  statusCallback?: string | null;
+  statusCallback: string;
   /**
    * The HTTP method Twilio should use to call the `status_callback` URL
    */
-  statusCallbackMethod?: PlayerStreamerStatusCallbackMethod;
-  endedReason?: PlayerStreamerEndedReason;
+  statusCallbackMethod: PlayerStreamerStatusCallbackMethod;
+  endedReason: PlayerStreamerEndedReason;
   /**
    * Maximum PlayerStreamer duration in seconds
    */
-  maxDuration?: number | null;
+  maxDuration: number;
 
   private get _proxy(): PlayerStreamerContext {
     this._context =
@@ -361,9 +350,9 @@ export class PlayerStreamerInstance {
   /**
    * Fetch a PlayerStreamerInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed PlayerStreamerInstance
+   * @returns Resolves to processed PlayerStreamerInstance
    */
   fetch(
     callback?: (error: Error | null, item?: PlayerStreamerInstance) => any
@@ -374,10 +363,10 @@ export class PlayerStreamerInstance {
   /**
    * Update a PlayerStreamerInstance
    *
-   * @param { PlayerStreamerContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed PlayerStreamerInstance
+   * @returns Resolves to processed PlayerStreamerInstance
    */
   update(
     params: PlayerStreamerContextUpdateOptions,
@@ -421,16 +410,22 @@ export class PlayerStreamerInstance {
   }
 }
 
+export interface PlayerStreamerSolution {}
+
 export interface PlayerStreamerListInstance {
+  _version: V1;
+  _solution: PlayerStreamerSolution;
+  _uri: string;
+
   (sid: string): PlayerStreamerContext;
   get(sid: string): PlayerStreamerContext;
 
   /**
    * Create a PlayerStreamerInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed PlayerStreamerInstance
+   * @returns Resolves to processed PlayerStreamerInstance
    */
   create(
     callback?: (error: Error | null, item?: PlayerStreamerInstance) => any
@@ -438,10 +433,10 @@ export interface PlayerStreamerListInstance {
   /**
    * Create a PlayerStreamerInstance
    *
-   * @param { PlayerStreamerListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed PlayerStreamerInstance
+   * @returns Resolves to processed PlayerStreamerInstance
    */
   create(
     params: PlayerStreamerListInstanceCreateOptions,
@@ -583,20 +578,10 @@ export interface PlayerStreamerListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface PlayerStreamerSolution {}
-
-interface PlayerStreamerListInstanceImpl extends PlayerStreamerListInstance {}
-class PlayerStreamerListInstanceImpl implements PlayerStreamerListInstance {
-  _version?: V1;
-  _solution?: PlayerStreamerSolution;
-  _uri?: string;
-}
-
 export function PlayerStreamerListInstance(
   version: V1
 ): PlayerStreamerListInstance {
-  const instance = ((sid) =>
-    instance.get(sid)) as PlayerStreamerListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as PlayerStreamerListInstance;
 
   instance.get = function get(sid): PlayerStreamerContext {
     return new PlayerStreamerContextImpl(version, sid);
@@ -633,7 +618,7 @@ export function PlayerStreamerListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -643,7 +628,7 @@ export function PlayerStreamerListInstance(
       (payload) => new PlayerStreamerInstance(operationVersion, payload)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -674,7 +659,7 @@ export function PlayerStreamerListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
@@ -682,10 +667,10 @@ export function PlayerStreamerListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new PlayerStreamerPage(operationVersion, payload, this._solution)
+        new PlayerStreamerPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -698,31 +683,28 @@ export function PlayerStreamerListInstance(
     targetUrl?: any,
     callback?: any
   ): Promise<PlayerStreamerPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
+    let pagePromise = operationPromise.then(
       (payload) =>
-        new PlayerStreamerPage(this._version, payload, this._solution)
+        new PlayerStreamerPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

@@ -20,8 +20,16 @@ import { isValidPathParam } from "../../../base/utility";
 import { AwsListInstance } from "./credential/aws";
 import { PublicKeyListInstance } from "./credential/publicKey";
 
+export interface CredentialSolution {}
+
 export interface CredentialListInstance {
+  _version: V1;
+  _solution: CredentialSolution;
+  _uri: string;
+
+  _aws?: AwsListInstance;
   aws: AwsListInstance;
+  _publicKey?: PublicKeyListInstance;
   publicKey: PublicKeyListInstance;
 
   /**
@@ -31,20 +39,8 @@ export interface CredentialListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface CredentialSolution {}
-
-interface CredentialListInstanceImpl extends CredentialListInstance {}
-class CredentialListInstanceImpl implements CredentialListInstance {
-  _version?: V1;
-  _solution?: CredentialSolution;
-  _uri?: string;
-
-  _aws?: AwsListInstance;
-  _publicKey?: PublicKeyListInstance;
-}
-
 export function CredentialListInstance(version: V1): CredentialListInstance {
-  const instance = {} as CredentialListInstanceImpl;
+  const instance = {} as CredentialListInstance;
 
   instance._version = version;
   instance._solution = {};
@@ -52,31 +48,31 @@ export function CredentialListInstance(version: V1): CredentialListInstance {
 
   Object.defineProperty(instance, "aws", {
     get: function aws() {
-      if (!this._aws) {
-        this._aws = AwsListInstance(this._version);
+      if (!instance._aws) {
+        instance._aws = AwsListInstance(instance._version);
       }
-      return this._aws;
+      return instance._aws;
     },
   });
 
   Object.defineProperty(instance, "publicKey", {
     get: function publicKey() {
-      if (!this._publicKey) {
-        this._publicKey = PublicKeyListInstance(this._version);
+      if (!instance._publicKey) {
+        instance._publicKey = PublicKeyListInstance(instance._version);
       }
-      return this._publicKey;
+      return instance._publicKey;
     },
   });
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

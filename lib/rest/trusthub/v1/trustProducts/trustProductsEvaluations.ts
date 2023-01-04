@@ -24,59 +24,47 @@ type TrustProductEvaluationStatus = "compliant" | "noncompliant";
 
 /**
  * Options to pass to create a TrustProductsEvaluationsInstance
- *
- * @property { string } policySid The unique string of a policy that is associated to the customer_profile resource.
  */
 export interface TrustProductsEvaluationsListInstanceCreateOptions {
+  /** The unique string of a policy that is associated to the customer_profile resource. */
   policySid: string;
 }
 /**
  * Options to pass to each
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface TrustProductsEvaluationsListInstanceEachOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (
     item: TrustProductsEvaluationsInstance,
     done: (err?: Error) => void
   ) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface TrustProductsEvaluationsListInstanceOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface TrustProductsEvaluationsListInstancePageOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
@@ -84,9 +72,9 @@ export interface TrustProductsEvaluationsContext {
   /**
    * Fetch a TrustProductsEvaluationsInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed TrustProductsEvaluationsInstance
+   * @returns Resolves to processed TrustProductsEvaluationsInstance
    */
   fetch(
     callback?: (
@@ -103,8 +91,8 @@ export interface TrustProductsEvaluationsContext {
 }
 
 export interface TrustProductsEvaluationsContextSolution {
-  trustProductSid?: string;
-  sid?: string;
+  trustProductSid: string;
+  sid: string;
 }
 
 export class TrustProductsEvaluationsContextImpl
@@ -127,9 +115,10 @@ export class TrustProductsEvaluationsContextImpl
   }
 
   fetch(callback?: any): Promise<TrustProductsEvaluationsInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -138,12 +127,12 @@ export class TrustProductsEvaluationsContextImpl
         new TrustProductsEvaluationsInstance(
           operationVersion,
           payload,
-          this._solution.trustProductSid,
-          this._solution.sid
+          instance._solution.trustProductSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -169,14 +158,14 @@ interface TrustProductsEvaluationsPayload extends TwilioResponsePayload {
 }
 
 interface TrustProductsEvaluationsResource {
-  sid?: string | null;
-  account_sid?: string | null;
-  policy_sid?: string | null;
-  trust_product_sid?: string | null;
-  status?: TrustProductEvaluationStatus;
-  results?: Array<any> | null;
-  date_created?: Date | null;
-  url?: string | null;
+  sid: string;
+  account_sid: string;
+  policy_sid: string;
+  trust_product_sid: string;
+  status: TrustProductEvaluationStatus;
+  results: Array<any>;
+  date_created: Date;
+  url: string;
 }
 
 export class TrustProductsEvaluationsInstance {
@@ -204,26 +193,26 @@ export class TrustProductsEvaluationsInstance {
   /**
    * The unique string that identifies the Evaluation resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The unique string of a policy
    */
-  policySid?: string | null;
+  policySid: string;
   /**
    * The unique string that identifies the resource
    */
-  trustProductSid?: string | null;
-  status?: TrustProductEvaluationStatus;
+  trustProductSid: string;
+  status: TrustProductEvaluationStatus;
   /**
    * The results of the Evaluation resource
    */
-  results?: Array<any> | null;
-  dateCreated?: Date | null;
-  url?: string | null;
+  results: Array<any>;
+  dateCreated: Date;
+  url: string;
 
   private get _proxy(): TrustProductsEvaluationsContext {
     this._context =
@@ -239,9 +228,9 @@ export class TrustProductsEvaluationsInstance {
   /**
    * Fetch a TrustProductsEvaluationsInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed TrustProductsEvaluationsInstance
+   * @returns Resolves to processed TrustProductsEvaluationsInstance
    */
   fetch(
     callback?: (
@@ -275,17 +264,25 @@ export class TrustProductsEvaluationsInstance {
   }
 }
 
+export interface TrustProductsEvaluationsSolution {
+  trustProductSid: string;
+}
+
 export interface TrustProductsEvaluationsListInstance {
+  _version: V1;
+  _solution: TrustProductsEvaluationsSolution;
+  _uri: string;
+
   (sid: string): TrustProductsEvaluationsContext;
   get(sid: string): TrustProductsEvaluationsContext;
 
   /**
    * Create a TrustProductsEvaluationsInstance
    *
-   * @param { TrustProductsEvaluationsListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed TrustProductsEvaluationsInstance
+   * @returns Resolves to processed TrustProductsEvaluationsInstance
    */
   create(
     params: TrustProductsEvaluationsListInstanceCreateOptions,
@@ -442,20 +439,6 @@ export interface TrustProductsEvaluationsListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface TrustProductsEvaluationsSolution {
-  trustProductSid?: string;
-}
-
-interface TrustProductsEvaluationsListInstanceImpl
-  extends TrustProductsEvaluationsListInstance {}
-class TrustProductsEvaluationsListInstanceImpl
-  implements TrustProductsEvaluationsListInstance
-{
-  _version?: V1;
-  _solution?: TrustProductsEvaluationsSolution;
-  _uri?: string;
-}
-
 export function TrustProductsEvaluationsListInstance(
   version: V1,
   trustProductSid: string
@@ -465,7 +448,7 @@ export function TrustProductsEvaluationsListInstance(
   }
 
   const instance = ((sid) =>
-    instance.get(sid)) as TrustProductsEvaluationsListInstanceImpl;
+    instance.get(sid)) as TrustProductsEvaluationsListInstance;
 
   instance.get = function get(sid): TrustProductsEvaluationsContext {
     return new TrustProductsEvaluationsContextImpl(
@@ -500,7 +483,7 @@ export function TrustProductsEvaluationsListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -511,11 +494,11 @@ export function TrustProductsEvaluationsListInstance(
         new TrustProductsEvaluationsInstance(
           operationVersion,
           payload,
-          this._solution.trustProductSid
+          instance._solution.trustProductSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -544,7 +527,7 @@ export function TrustProductsEvaluationsListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
@@ -555,11 +538,11 @@ export function TrustProductsEvaluationsListInstance(
         new TrustProductsEvaluationsPage(
           operationVersion,
           payload,
-          this._solution
+          instance._solution
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -572,31 +555,32 @@ export function TrustProductsEvaluationsListInstance(
     targetUrl?: any,
     callback?: any
   ): Promise<TrustProductsEvaluationsPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
+    let pagePromise = operationPromise.then(
       (payload) =>
-        new TrustProductsEvaluationsPage(this._version, payload, this._solution)
+        new TrustProductsEvaluationsPage(
+          instance._version,
+          payload,
+          instance._solution
+        )
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

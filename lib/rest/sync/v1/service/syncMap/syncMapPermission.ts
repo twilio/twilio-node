@@ -22,63 +22,51 @@ import { isValidPathParam } from "../../../../../base/utility";
 
 /**
  * Options to pass to update a SyncMapPermissionInstance
- *
- * @property { boolean } read Whether the identity can read the Sync Map and its Items. Default value is `false`.
- * @property { boolean } write Whether the identity can create, update, and delete Items in the Sync Map. Default value is `false`.
- * @property { boolean } manage Whether the identity can delete the Sync Map. Default value is `false`.
  */
 export interface SyncMapPermissionContextUpdateOptions {
+  /** Whether the identity can read the Sync Map and its Items. Default value is `false`. */
   read: boolean;
+  /** Whether the identity can create, update, and delete Items in the Sync Map. Default value is `false`. */
   write: boolean;
+  /** Whether the identity can delete the Sync Map. Default value is `false`. */
   manage: boolean;
 }
 /**
  * Options to pass to each
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface SyncMapPermissionListInstanceEachOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (
     item: SyncMapPermissionInstance,
     done: (err?: Error) => void
   ) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface SyncMapPermissionListInstanceOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface SyncMapPermissionListInstancePageOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
@@ -86,9 +74,9 @@ export interface SyncMapPermissionContext {
   /**
    * Remove a SyncMapPermissionInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -97,9 +85,9 @@ export interface SyncMapPermissionContext {
   /**
    * Fetch a SyncMapPermissionInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SyncMapPermissionInstance
+   * @returns Resolves to processed SyncMapPermissionInstance
    */
   fetch(
     callback?: (error: Error | null, item?: SyncMapPermissionInstance) => any
@@ -108,10 +96,10 @@ export interface SyncMapPermissionContext {
   /**
    * Update a SyncMapPermissionInstance
    *
-   * @param { SyncMapPermissionContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SyncMapPermissionInstance
+   * @returns Resolves to processed SyncMapPermissionInstance
    */
   update(
     params: SyncMapPermissionContextUpdateOptions,
@@ -127,9 +115,9 @@ export interface SyncMapPermissionContext {
 }
 
 export interface SyncMapPermissionContextSolution {
-  serviceSid?: string;
-  mapSid?: string;
-  identity?: string;
+  serviceSid: string;
+  mapSid: string;
+  identity: string;
 }
 
 export class SyncMapPermissionContextImpl implements SyncMapPermissionContext {
@@ -159,13 +147,14 @@ export class SyncMapPermissionContextImpl implements SyncMapPermissionContext {
   }
 
   remove(callback?: any): Promise<boolean> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -173,9 +162,10 @@ export class SyncMapPermissionContextImpl implements SyncMapPermissionContext {
   }
 
   fetch(callback?: any): Promise<SyncMapPermissionInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -184,13 +174,13 @@ export class SyncMapPermissionContextImpl implements SyncMapPermissionContext {
         new SyncMapPermissionInstance(
           operationVersion,
           payload,
-          this._solution.serviceSid,
-          this._solution.mapSid,
-          this._solution.identity
+          instance._solution.serviceSid,
+          instance._solution.mapSid,
+          instance._solution.identity
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -225,9 +215,10 @@ export class SyncMapPermissionContextImpl implements SyncMapPermissionContext {
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -238,13 +229,13 @@ export class SyncMapPermissionContextImpl implements SyncMapPermissionContext {
         new SyncMapPermissionInstance(
           operationVersion,
           payload,
-          this._solution.serviceSid,
-          this._solution.mapSid,
-          this._solution.identity
+          instance._solution.serviceSid,
+          instance._solution.mapSid,
+          instance._solution.identity
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -270,14 +261,14 @@ interface SyncMapPermissionPayload extends TwilioResponsePayload {
 }
 
 interface SyncMapPermissionResource {
-  account_sid?: string | null;
-  service_sid?: string | null;
-  map_sid?: string | null;
-  identity?: string | null;
-  read?: boolean | null;
-  write?: boolean | null;
-  manage?: boolean | null;
-  url?: string | null;
+  account_sid: string;
+  service_sid: string;
+  map_sid: string;
+  identity: string;
+  read: boolean;
+  write: boolean;
+  manage: boolean;
+  url: string;
 }
 
 export class SyncMapPermissionInstance {
@@ -310,35 +301,35 @@ export class SyncMapPermissionInstance {
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The SID of the Sync Service that the resource is associated with
    */
-  serviceSid?: string | null;
+  serviceSid: string;
   /**
    * Sync Map SID
    */
-  mapSid?: string | null;
+  mapSid: string;
   /**
    * The identity of the user to whom the Sync Document Permission applies
    */
-  identity?: string | null;
+  identity: string;
   /**
    * Read access
    */
-  read?: boolean | null;
+  read: boolean;
   /**
    * Write access
    */
-  write?: boolean | null;
+  write: boolean;
   /**
    * Manage access
    */
-  manage?: boolean | null;
+  manage: boolean;
   /**
    * The absolute URL of the Sync Map Permission resource
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): SyncMapPermissionContext {
     this._context =
@@ -355,9 +346,9 @@ export class SyncMapPermissionInstance {
   /**
    * Remove a SyncMapPermissionInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -368,9 +359,9 @@ export class SyncMapPermissionInstance {
   /**
    * Fetch a SyncMapPermissionInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SyncMapPermissionInstance
+   * @returns Resolves to processed SyncMapPermissionInstance
    */
   fetch(
     callback?: (error: Error | null, item?: SyncMapPermissionInstance) => any
@@ -381,10 +372,10 @@ export class SyncMapPermissionInstance {
   /**
    * Update a SyncMapPermissionInstance
    *
-   * @param { SyncMapPermissionContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SyncMapPermissionInstance
+   * @returns Resolves to processed SyncMapPermissionInstance
    */
   update(
     params: SyncMapPermissionContextUpdateOptions,
@@ -417,7 +408,16 @@ export class SyncMapPermissionInstance {
   }
 }
 
+export interface SyncMapPermissionSolution {
+  serviceSid: string;
+  mapSid: string;
+}
+
 export interface SyncMapPermissionListInstance {
+  _version: V1;
+  _solution: SyncMapPermissionSolution;
+  _uri: string;
+
   (identity: string): SyncMapPermissionContext;
   get(identity: string): SyncMapPermissionContext;
 
@@ -555,21 +555,6 @@ export interface SyncMapPermissionListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface SyncMapPermissionSolution {
-  serviceSid?: string;
-  mapSid?: string;
-}
-
-interface SyncMapPermissionListInstanceImpl
-  extends SyncMapPermissionListInstance {}
-class SyncMapPermissionListInstanceImpl
-  implements SyncMapPermissionListInstance
-{
-  _version?: V1;
-  _solution?: SyncMapPermissionSolution;
-  _uri?: string;
-}
-
 export function SyncMapPermissionListInstance(
   version: V1,
   serviceSid: string,
@@ -584,7 +569,7 @@ export function SyncMapPermissionListInstance(
   }
 
   const instance = ((identity) =>
-    instance.get(identity)) as SyncMapPermissionListInstanceImpl;
+    instance.get(identity)) as SyncMapPermissionListInstance;
 
   instance.get = function get(identity): SyncMapPermissionContext {
     return new SyncMapPermissionContextImpl(
@@ -621,7 +606,7 @@ export function SyncMapPermissionListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
@@ -629,10 +614,10 @@ export function SyncMapPermissionListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new SyncMapPermissionPage(operationVersion, payload, this._solution)
+        new SyncMapPermissionPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -645,31 +630,32 @@ export function SyncMapPermissionListInstance(
     targetUrl?: any,
     callback?: any
   ): Promise<SyncMapPermissionPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
+    let pagePromise = operationPromise.then(
       (payload) =>
-        new SyncMapPermissionPage(this._version, payload, this._solution)
+        new SyncMapPermissionPage(
+          instance._version,
+          payload,
+          instance._solution
+        )
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

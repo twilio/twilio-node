@@ -22,9 +22,9 @@ export interface OpenidDiscoveryContext {
   /**
    * Fetch a OpenidDiscoveryInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed OpenidDiscoveryInstance
+   * @returns Resolves to processed OpenidDiscoveryInstance
    */
   fetch(
     callback?: (error: Error | null, item?: OpenidDiscoveryInstance) => any
@@ -49,9 +49,10 @@ export class OpenidDiscoveryContextImpl implements OpenidDiscoveryContext {
   }
 
   fetch(callback?: any): Promise<OpenidDiscoveryInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -59,7 +60,7 @@ export class OpenidDiscoveryContextImpl implements OpenidDiscoveryContext {
       (payload) => new OpenidDiscoveryInstance(operationVersion, payload)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -83,19 +84,19 @@ export class OpenidDiscoveryContextImpl implements OpenidDiscoveryContext {
 interface OpenidDiscoveryPayload extends OpenidDiscoveryResource {}
 
 interface OpenidDiscoveryResource {
-  issuer?: string | null;
-  authorization_endpoint?: string | null;
-  device_authorization_endpoint?: string | null;
-  token_endpoint?: string | null;
-  userinfo_endpoint?: string | null;
-  revocation_endpoint?: string | null;
-  jwk_uri?: string | null;
-  response_type_supported?: Array<string> | null;
-  subject_type_supported?: Array<string> | null;
-  id_token_signing_alg_values_supported?: Array<string> | null;
-  scopes_supported?: Array<string> | null;
-  claims_supported?: Array<string> | null;
-  url?: string | null;
+  issuer: string;
+  authorization_endpoint: string;
+  device_authorization_endpoint: string;
+  token_endpoint: string;
+  userinfo_endpoint: string;
+  revocation_endpoint: string;
+  jwk_uri: string;
+  response_type_supported: Array<string>;
+  subject_type_supported: Array<string>;
+  id_token_signing_alg_values_supported: Array<string>;
+  scopes_supported: Array<string>;
+  claims_supported: Array<string>;
+  url: string;
 }
 
 export class OpenidDiscoveryInstance {
@@ -124,52 +125,52 @@ export class OpenidDiscoveryInstance {
   /**
    * The issuer URL
    */
-  issuer?: string | null;
+  issuer: string;
   /**
    * The URL of authorization endpoint
    */
-  authorizationEndpoint?: string | null;
+  authorizationEndpoint: string;
   /**
    * The URL of device code authorization endpoint
    */
-  deviceAuthorizationEndpoint?: string | null;
+  deviceAuthorizationEndpoint: string;
   /**
    * The URL of token endpoint
    */
-  tokenEndpoint?: string | null;
+  tokenEndpoint: string;
   /**
    * The URL of user info endpoint
    */
-  userinfoEndpoint?: string | null;
+  userinfoEndpoint: string;
   /**
    * The URL of revocation endpoint
    */
-  revocationEndpoint?: string | null;
+  revocationEndpoint: string;
   /**
    * The URL of public JWK endpoint
    */
-  jwkUri?: string | null;
+  jwkUri: string;
   /**
    * List of response type supported for identity token
    */
-  responseTypeSupported?: Array<string> | null;
+  responseTypeSupported: Array<string>;
   /**
    * List of subject supported for identity token
    */
-  subjectTypeSupported?: Array<string> | null;
+  subjectTypeSupported: Array<string>;
   /**
    * List of JWS signing algorithms supported for identity token
    */
-  idTokenSigningAlgValuesSupported?: Array<string> | null;
+  idTokenSigningAlgValuesSupported: Array<string>;
   /**
    * List of scopes supported identity token
    */
-  scopesSupported?: Array<string> | null;
+  scopesSupported: Array<string>;
   /**
    * List of claims supported for identity token
    */
-  claimsSupported?: Array<string> | null;
-  url?: string | null;
+  claimsSupported: Array<string>;
+  url: string;
 
   private get _proxy(): OpenidDiscoveryContext {
     this._context =
@@ -180,9 +181,9 @@ export class OpenidDiscoveryInstance {
   /**
    * Fetch a OpenidDiscoveryInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed OpenidDiscoveryInstance
+   * @returns Resolves to processed OpenidDiscoveryInstance
    */
   fetch(
     callback?: (error: Error | null, item?: OpenidDiscoveryInstance) => any
@@ -218,7 +219,13 @@ export class OpenidDiscoveryInstance {
   }
 }
 
+export interface OpenidDiscoverySolution {}
+
 export interface OpenidDiscoveryListInstance {
+  _version: V1;
+  _solution: OpenidDiscoverySolution;
+  _uri: string;
+
   (): OpenidDiscoveryContext;
   get(): OpenidDiscoveryContext;
 
@@ -229,19 +236,10 @@ export interface OpenidDiscoveryListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface OpenidDiscoverySolution {}
-
-interface OpenidDiscoveryListInstanceImpl extends OpenidDiscoveryListInstance {}
-class OpenidDiscoveryListInstanceImpl implements OpenidDiscoveryListInstance {
-  _version?: V1;
-  _solution?: OpenidDiscoverySolution;
-  _uri?: string;
-}
-
 export function OpenidDiscoveryListInstance(
   version: V1
 ): OpenidDiscoveryListInstance {
-  const instance = (() => instance.get()) as OpenidDiscoveryListInstanceImpl;
+  const instance = (() => instance.get()) as OpenidDiscoveryListInstance;
 
   instance.get = function get(): OpenidDiscoveryContext {
     return new OpenidDiscoveryContextImpl(version);
@@ -252,14 +250,14 @@ export function OpenidDiscoveryListInstance(
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

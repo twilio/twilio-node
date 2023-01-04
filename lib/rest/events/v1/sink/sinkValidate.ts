@@ -20,21 +20,28 @@ import { isValidPathParam } from "../../../../base/utility";
 
 /**
  * Options to pass to create a SinkValidateInstance
- *
- * @property { string } testId A 34 character string that uniquely identifies the test event for a Sink being validated.
  */
 export interface SinkValidateListInstanceCreateOptions {
+  /** A 34 character string that uniquely identifies the test event for a Sink being validated. */
   testId: string;
 }
 
+export interface SinkValidateSolution {
+  sid: string;
+}
+
 export interface SinkValidateListInstance {
+  _version: V1;
+  _solution: SinkValidateSolution;
+  _uri: string;
+
   /**
    * Create a SinkValidateInstance
    *
-   * @param { SinkValidateListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SinkValidateInstance
+   * @returns Resolves to processed SinkValidateInstance
    */
   create(
     params: SinkValidateListInstanceCreateOptions,
@@ -49,17 +56,6 @@ export interface SinkValidateListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface SinkValidateSolution {
-  sid?: string;
-}
-
-interface SinkValidateListInstanceImpl extends SinkValidateListInstance {}
-class SinkValidateListInstanceImpl implements SinkValidateListInstance {
-  _version?: V1;
-  _solution?: SinkValidateSolution;
-  _uri?: string;
-}
-
 export function SinkValidateListInstance(
   version: V1,
   sid: string
@@ -68,7 +64,7 @@ export function SinkValidateListInstance(
     throw new Error("Parameter 'sid' is not valid.");
   }
 
-  const instance = {} as SinkValidateListInstanceImpl;
+  const instance = {} as SinkValidateListInstance;
 
   instance._version = version;
   instance._solution = { sid };
@@ -95,7 +91,7 @@ export function SinkValidateListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -103,10 +99,14 @@ export function SinkValidateListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new SinkValidateInstance(operationVersion, payload, this._solution.sid)
+        new SinkValidateInstance(
+          operationVersion,
+          payload,
+          instance._solution.sid
+        )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -114,14 +114,14 @@ export function SinkValidateListInstance(
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;
@@ -130,7 +130,7 @@ export function SinkValidateListInstance(
 interface SinkValidatePayload extends SinkValidateResource {}
 
 interface SinkValidateResource {
-  result?: string | null;
+  result: string;
 }
 
 export class SinkValidateInstance {
@@ -145,7 +145,7 @@ export class SinkValidateInstance {
   /**
    * Feedback indicating whether the given Sink was validated.
    */
-  result?: string | null;
+  result: string;
 
   /**
    * Provide a user-friendly representation

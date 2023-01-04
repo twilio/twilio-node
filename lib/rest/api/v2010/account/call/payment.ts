@@ -39,55 +39,53 @@ type PaymentsTokenType = "one-time" | "reusable";
 
 /**
  * Options to pass to update a PaymentInstance
- *
- * @property { string } idempotencyKey A unique token that will be used to ensure that multiple API calls with the same information do not result in multiple transactions. This should be a unique string value per API call and can be a randomly generated.
- * @property { string } statusCallback Provide an absolute or relative URL to receive status updates regarding your Pay session. Read more about the [Update](https://www.twilio.com/docs/voice/api/payment-resource#statuscallback-update) and [Complete/Cancel](https://www.twilio.com/docs/voice/api/payment-resource#statuscallback-cancelcomplete) POST requests.
- * @property { PaymentsCapture } [capture]
- * @property { PaymentsStatus } [status]
  */
 export interface PaymentContextUpdateOptions {
+  /** A unique token that will be used to ensure that multiple API calls with the same information do not result in multiple transactions. This should be a unique string value per API call and can be a randomly generated. */
   idempotencyKey: string;
+  /** Provide an absolute or relative URL to receive status updates regarding your Pay session. Read more about the [Update](https://www.twilio.com/docs/voice/api/payment-resource#statuscallback-update) and [Complete/Cancel](https://www.twilio.com/docs/voice/api/payment-resource#statuscallback-cancelcomplete) POST requests. */
   statusCallback: string;
+  /**  */
   capture?: PaymentsCapture;
+  /**  */
   status?: PaymentsStatus;
 }
 
 /**
  * Options to pass to create a PaymentInstance
- *
- * @property { string } idempotencyKey A unique token that will be used to ensure that multiple API calls with the same information do not result in multiple transactions. This should be a unique string value per API call and can be a randomly generated.
- * @property { string } statusCallback Provide an absolute or relative URL to receive status updates regarding your Pay session. Read more about the [expected StatusCallback values](https://www.twilio.com/docs/voice/api/payment-resource#statuscallback)
- * @property { PaymentsBankAccountType } [bankAccountType]
- * @property { number } [chargeAmount] A positive decimal value less than 1,000,000 to charge against the credit card or bank account. Default currency can be overwritten with `currency` field. Leave blank or set to 0 to tokenize.
- * @property { string } [currency] The currency of the `charge_amount`, formatted as [ISO 4127](http://www.iso.org/iso/home/standards/currency_codes.htm) format. The default value is `USD` and all values allowed from the Pay Connector are accepted.
- * @property { string } [description] The description can be used to provide more details regarding the transaction. This information is submitted along with the payment details to the Payment Connector which are then posted on the transactions.
- * @property { string } [input] A list of inputs that should be accepted. Currently only `dtmf` is supported. All digits captured during a pay session are redacted from the logs.
- * @property { number } [minPostalCodeLength] A positive integer that is used to validate the length of the `PostalCode` inputted by the user. User must enter this many digits.
- * @property { any } [parameter] A single-level JSON object used to pass custom parameters to payment processors. (Required for ACH payments). The information that has to be included here depends on the <Pay> Connector. [Read more](https://www.twilio.com/console/voice/pay-connectors).
- * @property { string } [paymentConnector] This is the unique name corresponding to the Pay Connector installed in the Twilio Add-ons. Learn more about [<Pay> Connectors](https://www.twilio.com/console/voice/pay-connectors). The default value is `Default`.
- * @property { PaymentsPaymentMethod } [paymentMethod]
- * @property { boolean } [postalCode] Indicates whether the credit card postal code (zip code) is a required piece of payment information that must be provided by the caller. The default is `true`.
- * @property { boolean } [securityCode] Indicates whether the credit card security code is a required piece of payment information that must be provided by the caller. The default is `true`.
- * @property { number } [timeout] The number of seconds that <Pay> should wait for the caller to press a digit between each subsequent digit, after the first one, before moving on to validate the digits captured. The default is `5`, maximum is `600`.
- * @property { PaymentsTokenType } [tokenType]
- * @property { string } [validCardTypes] Credit card types separated by space that Pay should accept. The default value is `visa mastercard amex`
  */
 export interface PaymentListInstanceCreateOptions {
+  /** A unique token that will be used to ensure that multiple API calls with the same information do not result in multiple transactions. This should be a unique string value per API call and can be a randomly generated. */
   idempotencyKey: string;
+  /** Provide an absolute or relative URL to receive status updates regarding your Pay session. Read more about the [expected StatusCallback values](https://www.twilio.com/docs/voice/api/payment-resource#statuscallback) */
   statusCallback: string;
+  /**  */
   bankAccountType?: PaymentsBankAccountType;
+  /** A positive decimal value less than 1,000,000 to charge against the credit card or bank account. Default currency can be overwritten with `currency` field. Leave blank or set to 0 to tokenize. */
   chargeAmount?: number;
+  /** The currency of the `charge_amount`, formatted as [ISO 4127](http://www.iso.org/iso/home/standards/currency_codes.htm) format. The default value is `USD` and all values allowed from the Pay Connector are accepted. */
   currency?: string;
+  /** The description can be used to provide more details regarding the transaction. This information is submitted along with the payment details to the Payment Connector which are then posted on the transactions. */
   description?: string;
+  /** A list of inputs that should be accepted. Currently only `dtmf` is supported. All digits captured during a pay session are redacted from the logs. */
   input?: string;
+  /** A positive integer that is used to validate the length of the `PostalCode` inputted by the user. User must enter this many digits. */
   minPostalCodeLength?: number;
+  /** A single-level JSON object used to pass custom parameters to payment processors. (Required for ACH payments). The information that has to be included here depends on the <Pay> Connector. [Read more](https://www.twilio.com/console/voice/pay-connectors). */
   parameter?: any;
+  /** This is the unique name corresponding to the Pay Connector installed in the Twilio Add-ons. Learn more about [<Pay> Connectors](https://www.twilio.com/console/voice/pay-connectors). The default value is `Default`. */
   paymentConnector?: string;
+  /**  */
   paymentMethod?: PaymentsPaymentMethod;
+  /** Indicates whether the credit card postal code (zip code) is a required piece of payment information that must be provided by the caller. The default is `true`. */
   postalCode?: boolean;
+  /** Indicates whether the credit card security code is a required piece of payment information that must be provided by the caller. The default is `true`. */
   securityCode?: boolean;
+  /** The number of seconds that <Pay> should wait for the caller to press a digit between each subsequent digit, after the first one, before moving on to validate the digits captured. The default is `5`, maximum is `600`. */
   timeout?: number;
+  /**  */
   tokenType?: PaymentsTokenType;
+  /** Credit card types separated by space that Pay should accept. The default value is `visa mastercard amex` */
   validCardTypes?: string;
 }
 
@@ -95,10 +93,10 @@ export interface PaymentContext {
   /**
    * Update a PaymentInstance
    *
-   * @param { PaymentContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed PaymentInstance
+   * @returns Resolves to processed PaymentInstance
    */
   update(
     params: PaymentContextUpdateOptions,
@@ -114,9 +112,9 @@ export interface PaymentContext {
 }
 
 export interface PaymentContextSolution {
-  accountSid?: string;
-  callSid?: string;
-  sid?: string;
+  accountSid: string;
+  callSid: string;
+  sid: string;
 }
 
 export class PaymentContextImpl implements PaymentContext {
@@ -179,9 +177,10 @@ export class PaymentContextImpl implements PaymentContext {
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -192,13 +191,13 @@ export class PaymentContextImpl implements PaymentContext {
         new PaymentInstance(
           operationVersion,
           payload,
-          this._solution.accountSid,
-          this._solution.callSid,
-          this._solution.sid
+          instance._solution.accountSid,
+          instance._solution.callSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -222,12 +221,12 @@ export class PaymentContextImpl implements PaymentContext {
 interface PaymentPayload extends PaymentResource {}
 
 interface PaymentResource {
-  account_sid?: string | null;
-  call_sid?: string | null;
-  sid?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  uri?: string | null;
+  account_sid: string;
+  call_sid: string;
+  sid: string;
+  date_created: Date;
+  date_updated: Date;
+  uri: string;
 }
 
 export class PaymentInstance {
@@ -254,27 +253,27 @@ export class PaymentInstance {
   /**
    * The SID of the Account that created the Payments resource.
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The SID of the Call the resource is associated with.
    */
-  callSid?: string | null;
+  callSid: string;
   /**
    * The SID of the Payments resource.
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The RFC 2822 date and time in GMT that the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The RFC 2822 date and time in GMT that the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The URI of the resource, relative to `https://api.twilio.com`
    */
-  uri?: string | null;
+  uri: string;
 
   private get _proxy(): PaymentContext {
     this._context =
@@ -291,10 +290,10 @@ export class PaymentInstance {
   /**
    * Update a PaymentInstance
    *
-   * @param { PaymentContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed PaymentInstance
+   * @returns Resolves to processed PaymentInstance
    */
   update(
     params: PaymentContextUpdateOptions,
@@ -325,17 +324,26 @@ export class PaymentInstance {
   }
 }
 
+export interface PaymentSolution {
+  accountSid: string;
+  callSid: string;
+}
+
 export interface PaymentListInstance {
+  _version: V2010;
+  _solution: PaymentSolution;
+  _uri: string;
+
   (sid: string): PaymentContext;
   get(sid: string): PaymentContext;
 
   /**
    * Create a PaymentInstance
    *
-   * @param { PaymentListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed PaymentInstance
+   * @returns Resolves to processed PaymentInstance
    */
   create(
     params: PaymentListInstanceCreateOptions,
@@ -348,18 +356,6 @@ export interface PaymentListInstance {
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export interface PaymentSolution {
-  accountSid?: string;
-  callSid?: string;
-}
-
-interface PaymentListInstanceImpl extends PaymentListInstance {}
-class PaymentListInstanceImpl implements PaymentListInstance {
-  _version?: V2010;
-  _solution?: PaymentSolution;
-  _uri?: string;
 }
 
 export function PaymentListInstance(
@@ -375,7 +371,7 @@ export function PaymentListInstance(
     throw new Error("Parameter 'callSid' is not valid.");
   }
 
-  const instance = ((sid) => instance.get(sid)) as PaymentListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as PaymentListInstance;
 
   instance.get = function get(sid): PaymentContext {
     return new PaymentContextImpl(version, accountSid, callSid, sid);
@@ -447,7 +443,7 @@ export function PaymentListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -458,12 +454,12 @@ export function PaymentListInstance(
         new PaymentInstance(
           operationVersion,
           payload,
-          this._solution.accountSid,
-          this._solution.callSid
+          instance._solution.accountSid,
+          instance._solution.callSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -471,14 +467,14 @@ export function PaymentListInstance(
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

@@ -22,48 +22,37 @@ import { isValidPathParam } from "../../../../../../base/utility";
 
 /**
  * Options to pass to each
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface PayloadListInstanceEachOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: PayloadInstance, done: (err?: Error) => void) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface PayloadListInstanceOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface PayloadListInstancePageOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
@@ -71,9 +60,9 @@ export interface PayloadContext {
   /**
    * Remove a PayloadInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -82,9 +71,9 @@ export interface PayloadContext {
   /**
    * Fetch a PayloadInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed PayloadInstance
+   * @returns Resolves to processed PayloadInstance
    */
   fetch(
     callback?: (error: Error | null, item?: PayloadInstance) => any
@@ -98,10 +87,10 @@ export interface PayloadContext {
 }
 
 export interface PayloadContextSolution {
-  accountSid?: string;
-  referenceSid?: string;
-  addOnResultSid?: string;
-  sid?: string;
+  accountSid: string;
+  referenceSid: string;
+  addOnResultSid: string;
+  sid: string;
 }
 
 export class PayloadContextImpl implements PayloadContext {
@@ -136,13 +125,14 @@ export class PayloadContextImpl implements PayloadContext {
   }
 
   remove(callback?: any): Promise<boolean> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -150,9 +140,10 @@ export class PayloadContextImpl implements PayloadContext {
   }
 
   fetch(callback?: any): Promise<PayloadInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -161,14 +152,14 @@ export class PayloadContextImpl implements PayloadContext {
         new PayloadInstance(
           operationVersion,
           payload,
-          this._solution.accountSid,
-          this._solution.referenceSid,
-          this._solution.addOnResultSid,
-          this._solution.sid
+          instance._solution.accountSid,
+          instance._solution.referenceSid,
+          instance._solution.addOnResultSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -194,17 +185,17 @@ interface PayloadPayload extends TwilioResponsePayload {
 }
 
 interface PayloadResource {
-  sid?: string | null;
-  add_on_result_sid?: string | null;
-  account_sid?: string | null;
-  label?: string | null;
-  add_on_sid?: string | null;
-  add_on_configuration_sid?: string | null;
-  content_type?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  reference_sid?: string | null;
-  subresource_uris?: object | null;
+  sid: string;
+  add_on_result_sid: string;
+  account_sid: string;
+  label: string;
+  add_on_sid: string;
+  add_on_configuration_sid: string;
+  content_type: string;
+  date_created: Date;
+  date_updated: Date;
+  reference_sid: string;
+  subresource_uris: object;
 }
 
 export class PayloadInstance {
@@ -242,47 +233,47 @@ export class PayloadInstance {
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The SID of the AddOnResult to which the payload belongs
    */
-  addOnResultSid?: string | null;
+  addOnResultSid: string;
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The string that describes the payload
    */
-  label?: string | null;
+  label: string;
   /**
    * The SID of the Add-on to which the result belongs
    */
-  addOnSid?: string | null;
+  addOnSid: string;
   /**
    * The SID of the Add-on configuration
    */
-  addOnConfigurationSid?: string | null;
+  addOnConfigurationSid: string;
   /**
    * The MIME type of the payload
    */
-  contentType?: string | null;
+  contentType: string;
   /**
    * The RFC 2822 date and time in GMT that the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The RFC 2822 date and time in GMT that the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The SID of the recording to which the AddOnResult resource that contains the payload belongs
    */
-  referenceSid?: string | null;
+  referenceSid: string;
   /**
    * A list of related resources identified by their relative URIs
    */
-  subresourceUris?: object | null;
+  subresourceUris: object;
 
   private get _proxy(): PayloadContext {
     this._context =
@@ -300,9 +291,9 @@ export class PayloadInstance {
   /**
    * Remove a PayloadInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -313,9 +304,9 @@ export class PayloadInstance {
   /**
    * Fetch a PayloadInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed PayloadInstance
+   * @returns Resolves to processed PayloadInstance
    */
   fetch(
     callback?: (error: Error | null, item?: PayloadInstance) => any
@@ -349,7 +340,17 @@ export class PayloadInstance {
   }
 }
 
+export interface PayloadSolution {
+  accountSid: string;
+  referenceSid: string;
+  addOnResultSid: string;
+}
+
 export interface PayloadListInstance {
+  _version: V2010;
+  _solution: PayloadSolution;
+  _uri: string;
+
   (sid: string): PayloadContext;
   get(sid: string): PayloadContext;
 
@@ -481,19 +482,6 @@ export interface PayloadListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface PayloadSolution {
-  accountSid?: string;
-  referenceSid?: string;
-  addOnResultSid?: string;
-}
-
-interface PayloadListInstanceImpl extends PayloadListInstance {}
-class PayloadListInstanceImpl implements PayloadListInstance {
-  _version?: V2010;
-  _solution?: PayloadSolution;
-  _uri?: string;
-}
-
 export function PayloadListInstance(
   version: V2010,
   accountSid: string,
@@ -512,7 +500,7 @@ export function PayloadListInstance(
     throw new Error("Parameter 'addOnResultSid' is not valid.");
   }
 
-  const instance = ((sid) => instance.get(sid)) as PayloadListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as PayloadListInstance;
 
   instance.get = function get(sid): PayloadContext {
     return new PayloadContextImpl(
@@ -550,17 +538,18 @@ export function PayloadListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new PayloadPage(operationVersion, payload, this._solution)
+      (payload) =>
+        new PayloadPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -573,30 +562,28 @@ export function PayloadListInstance(
     targetUrl?: any,
     callback?: any
   ): Promise<PayloadPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new PayloadPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new PayloadPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

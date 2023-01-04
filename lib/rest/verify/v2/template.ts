@@ -22,58 +22,53 @@ import { isValidPathParam } from "../../../base/utility";
 
 /**
  * Options to pass to each
- *
- * @property { string } [friendlyName] String filter used to query templates with a given friendly name
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface TemplateListInstanceEachOptions {
+  /** String filter used to query templates with a given friendly name */
   friendlyName?: string;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: TemplateInstance, done: (err?: Error) => void) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { string } [friendlyName] String filter used to query templates with a given friendly name
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface TemplateListInstanceOptions {
+  /** String filter used to query templates with a given friendly name */
   friendlyName?: string;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { string } [friendlyName] String filter used to query templates with a given friendly name
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface TemplateListInstancePageOptions {
+  /** String filter used to query templates with a given friendly name */
   friendlyName?: string;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
+export interface TemplateSolution {}
+
 export interface TemplateListInstance {
+  _version: V2;
+  _solution: TemplateSolution;
+  _uri: string;
+
   /**
    * Streams TemplateInstance records from the API.
    *
@@ -202,17 +197,8 @@ export interface TemplateListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface TemplateSolution {}
-
-interface TemplateListInstanceImpl extends TemplateListInstance {}
-class TemplateListInstanceImpl implements TemplateListInstance {
-  _version?: V2;
-  _solution?: TemplateSolution;
-  _uri?: string;
-}
-
 export function TemplateListInstance(version: V2): TemplateListInstance {
-  const instance = {} as TemplateListInstanceImpl;
+  const instance = {} as TemplateListInstance;
 
   instance._version = version;
   instance._solution = {};
@@ -242,17 +228,18 @@ export function TemplateListInstance(version: V2): TemplateListInstance {
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new TemplatePage(operationVersion, payload, this._solution)
+      (payload) =>
+        new TemplatePage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -265,30 +252,28 @@ export function TemplateListInstance(version: V2): TemplateListInstance {
     targetUrl?: any,
     callback?: any
   ): Promise<TemplatePage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new TemplatePage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new TemplatePage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;
@@ -299,11 +284,11 @@ interface TemplatePayload extends TwilioResponsePayload {
 }
 
 interface TemplateResource {
-  sid?: string | null;
-  account_sid?: string | null;
-  friendly_name?: string | null;
-  channels?: Array<string> | null;
-  translations?: any | null;
+  sid: string;
+  account_sid: string;
+  friendly_name: string;
+  channels: Array<string>;
+  translations: any;
 }
 
 export class TemplateInstance {
@@ -318,23 +303,23 @@ export class TemplateInstance {
   /**
    * A string that uniquely identifies this Template
    */
-  sid?: string | null;
+  sid: string;
   /**
    * Account Sid
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * A string to describe the verification template
    */
-  friendlyName?: string | null;
+  friendlyName: string;
   /**
    * A list of channels that support the Template
    */
-  channels?: Array<string> | null;
+  channels: Array<string>;
   /**
    * Object with the template translations.
    */
-  translations?: any | null;
+  translations: any;
 
   /**
    * Provide a user-friendly representation
