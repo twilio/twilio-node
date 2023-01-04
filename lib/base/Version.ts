@@ -248,6 +248,7 @@ export default class Version {
       throw new Error("Callback function must be provided");
     }
     let done = false;
+    let doneCalled = false;
     let currentPage = 1;
     let currentResource = 0;
     let limits = {} as PageLimit;
@@ -259,9 +260,10 @@ export default class Version {
     }
     function onComplete(error?) {
       done = true;
-      if (typeof params.done === "function") {
+      if (typeof params.done === "function" && !doneCalled) {
         params.done(error);
       }
+      doneCalled = true;
     }
     function fetchNextPage(fn) {
       let promise = fn();
