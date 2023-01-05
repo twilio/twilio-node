@@ -272,15 +272,15 @@ export default class Version {
     let currentResource = 0;
     let limits = {} as PageLimit;
     let pPending = true;
-    let pResolve;
-    let pReject;
+    let pResolve: (value: void) => void;
+    let pReject: (reason?: any) => void;
     if (this._version instanceof Version) {
       limits = this._version.readLimits({
         limit: params.limit,
         pageSize: params.pageSize,
       });
     }
-    function onComplete(error?: Error) {
+    function onComplete(error?: any) {
       let unhandledError = error;
 
       done = true;
@@ -303,7 +303,7 @@ export default class Version {
         pPending = false;
       }
     }
-    function fetchNextPage(fn) {
+    function fetchNextPage(fn: () => Promise<any>) {
       let promise = fn();
       if (typeof promise === "undefined") {
         onComplete();
@@ -323,7 +323,9 @@ export default class Version {
             }
             currentResource++;
             try {
-              callback(instance, onComplete);
+              if (callback) {
+                callback(instance, onComplete);
+              }
             } catch (e) {
               throw e;
             }
@@ -331,7 +333,7 @@ export default class Version {
         } catch (e) {
           return onComplete(e);
         }
-        
+
         if (!done) {
           currentPage++;
           fetchNextPage(page.nextPage.bind(page));
