@@ -309,4 +309,28 @@ describe("create voice response TwiML", function () {
       '<?xml version="1.0" encoding="UTF-8"?><Response><Say><lang xml:lang="fr-FR">Bonjour!</lang></Say></Response>'
     );
   });
+
+  it("should contain comment", function () {
+    let actual = new VoiceResponse();
+    actual.comment("Hello World");
+    expect(actual.toString()).toEqual(
+      '<?xml version="1.0" encoding="UTF-8"?><Response><!-- Hello World --></Response>'
+    );
+  });
+
+  it("should contain comment before tag", function () {
+    let actual = new VoiceResponse();
+    actual.commentBefore("Hello World");
+    expect(actual.toString()).toEqual(
+      '<?xml version="1.0" encoding="UTF-8"?><!-- Hello World --><Response/>'
+    );
+  });
+
+  it("should contain comment after tag", function () {
+    let actual = new VoiceResponse();
+    actual.commentAfter("Hello World");
+    expect(actual.toString()).toEqual(
+      '<?xml version="1.0" encoding="UTF-8"?><Response/><!-- Hello World -->'
+    );
+  });
 });

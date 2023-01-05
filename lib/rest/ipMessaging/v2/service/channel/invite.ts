@@ -22,64 +22,52 @@ import { isValidPathParam } from "../../../../../base/utility";
 
 /**
  * Options to pass to create a InviteInstance
- *
- * @property { string } identity
- * @property { string } [roleSid]
  */
 export interface InviteListInstanceCreateOptions {
+  /**  */
   identity: string;
+  /**  */
   roleSid?: string;
 }
 /**
  * Options to pass to each
- *
- * @property { Array<string> } [identity]
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface InviteListInstanceEachOptions {
+  /**  */
   identity?: Array<string>;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: InviteInstance, done: (err?: Error) => void) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { Array<string> } [identity]
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface InviteListInstanceOptions {
+  /**  */
   identity?: Array<string>;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { Array<string> } [identity]
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface InviteListInstancePageOptions {
+  /**  */
   identity?: Array<string>;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
@@ -87,9 +75,9 @@ export interface InviteContext {
   /**
    * Remove a InviteInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -98,9 +86,9 @@ export interface InviteContext {
   /**
    * Fetch a InviteInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed InviteInstance
+   * @returns Resolves to processed InviteInstance
    */
   fetch(
     callback?: (error: Error | null, item?: InviteInstance) => any
@@ -114,9 +102,9 @@ export interface InviteContext {
 }
 
 export interface InviteContextSolution {
-  serviceSid?: string;
-  channelSid?: string;
-  sid?: string;
+  serviceSid: string;
+  channelSid: string;
+  sid: string;
 }
 
 export class InviteContextImpl implements InviteContext {
@@ -146,13 +134,14 @@ export class InviteContextImpl implements InviteContext {
   }
 
   remove(callback?: any): Promise<boolean> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -160,9 +149,10 @@ export class InviteContextImpl implements InviteContext {
   }
 
   fetch(callback?: any): Promise<InviteInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -171,13 +161,13 @@ export class InviteContextImpl implements InviteContext {
         new InviteInstance(
           operationVersion,
           payload,
-          this._solution.serviceSid,
-          this._solution.channelSid,
-          this._solution.sid
+          instance._solution.serviceSid,
+          instance._solution.channelSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -203,16 +193,16 @@ interface InvitePayload extends TwilioResponsePayload {
 }
 
 interface InviteResource {
-  sid?: string | null;
-  account_sid?: string | null;
-  channel_sid?: string | null;
-  service_sid?: string | null;
-  identity?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  role_sid?: string | null;
-  created_by?: string | null;
-  url?: string | null;
+  sid: string;
+  account_sid: string;
+  channel_sid: string;
+  service_sid: string;
+  identity: string;
+  date_created: Date;
+  date_updated: Date;
+  role_sid: string;
+  created_by: string;
+  url: string;
 }
 
 export class InviteInstance {
@@ -240,16 +230,16 @@ export class InviteInstance {
     this._solution = { serviceSid, channelSid, sid: sid || this.sid };
   }
 
-  sid?: string | null;
-  accountSid?: string | null;
-  channelSid?: string | null;
-  serviceSid?: string | null;
-  identity?: string | null;
-  dateCreated?: Date | null;
-  dateUpdated?: Date | null;
-  roleSid?: string | null;
-  createdBy?: string | null;
-  url?: string | null;
+  sid: string;
+  accountSid: string;
+  channelSid: string;
+  serviceSid: string;
+  identity: string;
+  dateCreated: Date;
+  dateUpdated: Date;
+  roleSid: string;
+  createdBy: string;
+  url: string;
 
   private get _proxy(): InviteContext {
     this._context =
@@ -266,9 +256,9 @@ export class InviteInstance {
   /**
    * Remove a InviteInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -279,9 +269,9 @@ export class InviteInstance {
   /**
    * Fetch a InviteInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed InviteInstance
+   * @returns Resolves to processed InviteInstance
    */
   fetch(
     callback?: (error: Error | null, item?: InviteInstance) => any
@@ -314,17 +304,26 @@ export class InviteInstance {
   }
 }
 
+export interface InviteSolution {
+  serviceSid: string;
+  channelSid: string;
+}
+
 export interface InviteListInstance {
+  _version: V2;
+  _solution: InviteSolution;
+  _uri: string;
+
   (sid: string): InviteContext;
   get(sid: string): InviteContext;
 
   /**
    * Create a InviteInstance
    *
-   * @param { InviteListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed InviteInstance
+   * @returns Resolves to processed InviteInstance
    */
   create(
     params: InviteListInstanceCreateOptions,
@@ -460,18 +459,6 @@ export interface InviteListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface InviteSolution {
-  serviceSid?: string;
-  channelSid?: string;
-}
-
-interface InviteListInstanceImpl extends InviteListInstance {}
-class InviteListInstanceImpl implements InviteListInstance {
-  _version?: V2;
-  _solution?: InviteSolution;
-  _uri?: string;
-}
-
 export function InviteListInstance(
   version: V2,
   serviceSid: string,
@@ -485,7 +472,7 @@ export function InviteListInstance(
     throw new Error("Parameter 'channelSid' is not valid.");
   }
 
-  const instance = ((sid) => instance.get(sid)) as InviteListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as InviteListInstance;
 
   instance.get = function get(sid): InviteContext {
     return new InviteContextImpl(version, serviceSid, channelSid, sid);
@@ -517,7 +504,7 @@ export function InviteListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -528,12 +515,12 @@ export function InviteListInstance(
         new InviteInstance(
           operationVersion,
           payload,
-          this._solution.serviceSid,
-          this._solution.channelSid
+          instance._solution.serviceSid,
+          instance._solution.channelSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -554,7 +541,7 @@ export function InviteListInstance(
     let data: any = {};
 
     if (params["identity"] !== undefined)
-      data["Identity"] = serialize.map(params["identity"], (e) => e);
+      data["Identity"] = serialize.map(params["identity"], (e: string) => e);
     if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
     if (params.page !== undefined) data["Page"] = params.pageNumber;
@@ -564,17 +551,17 @@ export function InviteListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new InvitePage(operationVersion, payload, this._solution)
+      (payload) => new InvitePage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -587,30 +574,28 @@ export function InviteListInstance(
     targetUrl?: any,
     callback?: any
   ): Promise<InvitePage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new InvitePage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new InvitePage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

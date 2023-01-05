@@ -22,69 +22,56 @@ import { isValidPathParam } from "../../../base/utility";
 
 /**
  * Options to pass to update a IpRecordInstance
- *
- * @property { string } [friendlyName] A descriptive string that you create to describe the resource. It is not unique and can be up to 255 characters long.
  */
 export interface IpRecordContextUpdateOptions {
+  /** A descriptive string that you create to describe the resource. It is not unique and can be up to 255 characters long. */
   friendlyName?: string;
 }
 
 /**
  * Options to pass to create a IpRecordInstance
- *
- * @property { string } ipAddress An IP address in dotted decimal notation, IPv4 only.
- * @property { string } [friendlyName] A descriptive string that you create to describe the resource. It is not unique and can be up to 255 characters long.
- * @property { number } [cidrPrefixLength] An integer representing the length of the [CIDR](https://tools.ietf.org/html/rfc4632) prefix to use with this IP address. By default the entire IP address is used, which for IPv4 is value 32.
  */
 export interface IpRecordListInstanceCreateOptions {
+  /** An IP address in dotted decimal notation, IPv4 only. */
   ipAddress: string;
+  /** A descriptive string that you create to describe the resource. It is not unique and can be up to 255 characters long. */
   friendlyName?: string;
+  /** An integer representing the length of the [CIDR](https://tools.ietf.org/html/rfc4632) prefix to use with this IP address. By default the entire IP address is used, which for IPv4 is value 32. */
   cidrPrefixLength?: number;
 }
 /**
  * Options to pass to each
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface IpRecordListInstanceEachOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: IpRecordInstance, done: (err?: Error) => void) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface IpRecordListInstanceOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface IpRecordListInstancePageOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
@@ -92,9 +79,9 @@ export interface IpRecordContext {
   /**
    * Remove a IpRecordInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -103,9 +90,9 @@ export interface IpRecordContext {
   /**
    * Fetch a IpRecordInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed IpRecordInstance
+   * @returns Resolves to processed IpRecordInstance
    */
   fetch(
     callback?: (error: Error | null, item?: IpRecordInstance) => any
@@ -114,9 +101,9 @@ export interface IpRecordContext {
   /**
    * Update a IpRecordInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed IpRecordInstance
+   * @returns Resolves to processed IpRecordInstance
    */
   update(
     callback?: (error: Error | null, item?: IpRecordInstance) => any
@@ -124,10 +111,10 @@ export interface IpRecordContext {
   /**
    * Update a IpRecordInstance
    *
-   * @param { IpRecordContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed IpRecordInstance
+   * @returns Resolves to processed IpRecordInstance
    */
   update(
     params: IpRecordContextUpdateOptions,
@@ -143,7 +130,7 @@ export interface IpRecordContext {
 }
 
 export interface IpRecordContextSolution {
-  sid?: string;
+  sid: string;
 }
 
 export class IpRecordContextImpl implements IpRecordContext {
@@ -160,13 +147,14 @@ export class IpRecordContextImpl implements IpRecordContext {
   }
 
   remove(callback?: any): Promise<boolean> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -174,18 +162,19 @@ export class IpRecordContextImpl implements IpRecordContext {
   }
 
   fetch(callback?: any): Promise<IpRecordInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new IpRecordInstance(operationVersion, payload, this._solution.sid)
+        new IpRecordInstance(operationVersion, payload, instance._solution.sid)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -208,9 +197,10 @@ export class IpRecordContextImpl implements IpRecordContext {
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -218,10 +208,10 @@ export class IpRecordContextImpl implements IpRecordContext {
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new IpRecordInstance(operationVersion, payload, this._solution.sid)
+        new IpRecordInstance(operationVersion, payload, instance._solution.sid)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -247,14 +237,14 @@ interface IpRecordPayload extends TwilioResponsePayload {
 }
 
 interface IpRecordResource {
-  account_sid?: string | null;
-  sid?: string | null;
-  friendly_name?: string | null;
-  ip_address?: string | null;
-  cidr_prefix_length?: number | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  url?: string | null;
+  account_sid: string;
+  sid: string;
+  friendly_name: string;
+  ip_address: string;
+  cidr_prefix_length: number;
+  date_created: Date;
+  date_updated: Date;
+  url: string;
 }
 
 export class IpRecordInstance {
@@ -277,35 +267,35 @@ export class IpRecordInstance {
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The string that you assigned to describe the resource
    */
-  friendlyName?: string | null;
+  friendlyName: string;
   /**
    * An IP address in dotted decimal notation, IPv4 only.
    */
-  ipAddress?: string | null;
+  ipAddress: string;
   /**
    * An integer representing the length of the [CIDR](https://tools.ietf.org/html/rfc4632) prefix to use with this IP address. By default the entire IP address is used, which for IPv4 is value 32.
    */
-  cidrPrefixLength?: number | null;
+  cidrPrefixLength: number;
   /**
    * The RFC 2822 date and time in GMT that the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The RFC 2822 date and time in GMT that the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The absolute URL of the resource
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): IpRecordContext {
     this._context =
@@ -317,9 +307,9 @@ export class IpRecordInstance {
   /**
    * Remove a IpRecordInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -330,9 +320,9 @@ export class IpRecordInstance {
   /**
    * Fetch a IpRecordInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed IpRecordInstance
+   * @returns Resolves to processed IpRecordInstance
    */
   fetch(
     callback?: (error: Error | null, item?: IpRecordInstance) => any
@@ -343,9 +333,9 @@ export class IpRecordInstance {
   /**
    * Update a IpRecordInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed IpRecordInstance
+   * @returns Resolves to processed IpRecordInstance
    */
   update(
     callback?: (error: Error | null, item?: IpRecordInstance) => any
@@ -353,10 +343,10 @@ export class IpRecordInstance {
   /**
    * Update a IpRecordInstance
    *
-   * @param { IpRecordContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed IpRecordInstance
+   * @returns Resolves to processed IpRecordInstance
    */
   update(
     params: IpRecordContextUpdateOptions,
@@ -389,17 +379,23 @@ export class IpRecordInstance {
   }
 }
 
+export interface IpRecordSolution {}
+
 export interface IpRecordListInstance {
+  _version: V1;
+  _solution: IpRecordSolution;
+  _uri: string;
+
   (sid: string): IpRecordContext;
   get(sid: string): IpRecordContext;
 
   /**
    * Create a IpRecordInstance
    *
-   * @param { IpRecordListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed IpRecordInstance
+   * @returns Resolves to processed IpRecordInstance
    */
   create(
     params: IpRecordListInstanceCreateOptions,
@@ -535,17 +531,8 @@ export interface IpRecordListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface IpRecordSolution {}
-
-interface IpRecordListInstanceImpl extends IpRecordListInstance {}
-class IpRecordListInstanceImpl implements IpRecordListInstance {
-  _version?: V1;
-  _solution?: IpRecordSolution;
-  _uri?: string;
-}
-
 export function IpRecordListInstance(version: V1): IpRecordListInstance {
-  const instance = ((sid) => instance.get(sid)) as IpRecordListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as IpRecordListInstance;
 
   instance.get = function get(sid): IpRecordContext {
     return new IpRecordContextImpl(version, sid);
@@ -580,7 +567,7 @@ export function IpRecordListInstance(version: V1): IpRecordListInstance {
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -590,7 +577,7 @@ export function IpRecordListInstance(version: V1): IpRecordListInstance {
       (payload) => new IpRecordInstance(operationVersion, payload)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -619,17 +606,18 @@ export function IpRecordListInstance(version: V1): IpRecordListInstance {
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new IpRecordPage(operationVersion, payload, this._solution)
+      (payload) =>
+        new IpRecordPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -642,30 +630,28 @@ export function IpRecordListInstance(version: V1): IpRecordListInstance {
     targetUrl?: any,
     callback?: any
   ): Promise<IpRecordPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new IpRecordPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new IpRecordPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

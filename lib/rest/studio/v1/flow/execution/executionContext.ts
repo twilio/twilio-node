@@ -22,9 +22,9 @@ export interface ExecutionContextContext {
   /**
    * Fetch a ExecutionContextInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ExecutionContextInstance
+   * @returns Resolves to processed ExecutionContextInstance
    */
   fetch(
     callback?: (error: Error | null, item?: ExecutionContextInstance) => any
@@ -38,8 +38,8 @@ export interface ExecutionContextContext {
 }
 
 export interface ExecutionContextContextSolution {
-  flowSid?: string;
-  executionSid?: string;
+  flowSid: string;
+  executionSid: string;
 }
 
 export class ExecutionContextContextImpl implements ExecutionContextContext {
@@ -60,9 +60,10 @@ export class ExecutionContextContextImpl implements ExecutionContextContext {
   }
 
   fetch(callback?: any): Promise<ExecutionContextInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -71,12 +72,12 @@ export class ExecutionContextContextImpl implements ExecutionContextContext {
         new ExecutionContextInstance(
           operationVersion,
           payload,
-          this._solution.flowSid,
-          this._solution.executionSid
+          instance._solution.flowSid,
+          instance._solution.executionSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -100,11 +101,11 @@ export class ExecutionContextContextImpl implements ExecutionContextContext {
 interface ExecutionContextPayload extends ExecutionContextResource {}
 
 interface ExecutionContextResource {
-  account_sid?: string | null;
-  context?: any | null;
-  flow_sid?: string | null;
-  execution_sid?: string | null;
-  url?: string | null;
+  account_sid: string;
+  context: any;
+  flow_sid: string;
+  execution_sid: string;
+  url: string;
 }
 
 export class ExecutionContextInstance {
@@ -129,23 +130,23 @@ export class ExecutionContextInstance {
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The current state of the flow
    */
-  context?: any | null;
+  context: any;
   /**
    * The SID of the Flow
    */
-  flowSid?: string | null;
+  flowSid: string;
   /**
    * The SID of the Execution
    */
-  executionSid?: string | null;
+  executionSid: string;
   /**
    * The absolute URL of the resource
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): ExecutionContextContext {
     this._context =
@@ -161,9 +162,9 @@ export class ExecutionContextInstance {
   /**
    * Fetch a ExecutionContextInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ExecutionContextInstance
+   * @returns Resolves to processed ExecutionContextInstance
    */
   fetch(
     callback?: (error: Error | null, item?: ExecutionContextInstance) => any
@@ -191,7 +192,16 @@ export class ExecutionContextInstance {
   }
 }
 
+export interface ExecutionContextSolution {
+  flowSid: string;
+  executionSid: string;
+}
+
 export interface ExecutionContextListInstance {
+  _version: V1;
+  _solution: ExecutionContextSolution;
+  _uri: string;
+
   (): ExecutionContextContext;
   get(): ExecutionContextContext;
 
@@ -200,19 +210,6 @@ export interface ExecutionContextListInstance {
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export interface ExecutionContextSolution {
-  flowSid?: string;
-  executionSid?: string;
-}
-
-interface ExecutionContextListInstanceImpl
-  extends ExecutionContextListInstance {}
-class ExecutionContextListInstanceImpl implements ExecutionContextListInstance {
-  _version?: V1;
-  _solution?: ExecutionContextSolution;
-  _uri?: string;
 }
 
 export function ExecutionContextListInstance(
@@ -228,7 +225,7 @@ export function ExecutionContextListInstance(
     throw new Error("Parameter 'executionSid' is not valid.");
   }
 
-  const instance = (() => instance.get()) as ExecutionContextListInstanceImpl;
+  const instance = (() => instance.get()) as ExecutionContextListInstance;
 
   instance.get = function get(): ExecutionContextContext {
     return new ExecutionContextContextImpl(version, flowSid, executionSid);
@@ -239,14 +236,14 @@ export function ExecutionContextListInstance(
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

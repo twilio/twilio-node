@@ -50,79 +50,66 @@ type AccountType = "Trial" | "Full";
 
 /**
  * Options to pass to update a AccountInstance
- *
- * @property { string } [friendlyName] Update the human-readable description of this Account
- * @property { AccountStatus } [status]
  */
 export interface AccountContextUpdateOptions {
+  /** Update the human-readable description of this Account */
   friendlyName?: string;
+  /**  */
   status?: AccountStatus;
 }
 
 /**
  * Options to pass to create a AccountInstance
- *
- * @property { string } [friendlyName] A human readable description of the account to create, defaults to `SubAccount Created at {YYYY-MM-DD HH:MM meridian}`
  */
 export interface AccountListInstanceCreateOptions {
+  /** A human readable description of the account to create, defaults to `SubAccount Created at {YYYY-MM-DD HH:MM meridian}` */
   friendlyName?: string;
 }
 /**
  * Options to pass to each
- *
- * @property { string } [friendlyName] Only return the Account resources with friendly names that exactly match this name.
- * @property { AccountStatus } [status] Only return Account resources with the given status. Can be `closed`, `suspended` or `active`.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface AccountListInstanceEachOptions {
+  /** Only return the Account resources with friendly names that exactly match this name. */
   friendlyName?: string;
+  /** Only return Account resources with the given status. Can be `closed`, `suspended` or `active`. */
   status?: AccountStatus;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: AccountInstance, done: (err?: Error) => void) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { string } [friendlyName] Only return the Account resources with friendly names that exactly match this name.
- * @property { AccountStatus } [status] Only return Account resources with the given status. Can be `closed`, `suspended` or `active`.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface AccountListInstanceOptions {
+  /** Only return the Account resources with friendly names that exactly match this name. */
   friendlyName?: string;
+  /** Only return Account resources with the given status. Can be `closed`, `suspended` or `active`. */
   status?: AccountStatus;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { string } [friendlyName] Only return the Account resources with friendly names that exactly match this name.
- * @property { AccountStatus } [status] Only return Account resources with the given status. Can be `closed`, `suspended` or `active`.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface AccountListInstancePageOptions {
+  /** Only return the Account resources with friendly names that exactly match this name. */
   friendlyName?: string;
+  /** Only return Account resources with the given status. Can be `closed`, `suspended` or `active`. */
   status?: AccountStatus;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
@@ -155,9 +142,9 @@ export interface AccountContext {
   /**
    * Fetch a AccountInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed AccountInstance
+   * @returns Resolves to processed AccountInstance
    */
   fetch(
     callback?: (error: Error | null, item?: AccountInstance) => any
@@ -166,9 +153,9 @@ export interface AccountContext {
   /**
    * Update a AccountInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed AccountInstance
+   * @returns Resolves to processed AccountInstance
    */
   update(
     callback?: (error: Error | null, item?: AccountInstance) => any
@@ -176,10 +163,10 @@ export interface AccountContext {
   /**
    * Update a AccountInstance
    *
-   * @param { AccountContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed AccountInstance
+   * @returns Resolves to processed AccountInstance
    */
   update(
     params: AccountContextUpdateOptions,
@@ -195,7 +182,7 @@ export interface AccountContext {
 }
 
 export interface AccountContextSolution {
-  sid?: string;
+  sid: string;
 }
 
 export class AccountContextImpl implements AccountContext {
@@ -397,18 +384,19 @@ export class AccountContextImpl implements AccountContext {
   }
 
   fetch(callback?: any): Promise<AccountInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new AccountInstance(operationVersion, payload, this._solution.sid)
+        new AccountInstance(operationVersion, payload, instance._solution.sid)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -432,9 +420,10 @@ export class AccountContextImpl implements AccountContext {
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -442,10 +431,10 @@ export class AccountContextImpl implements AccountContext {
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new AccountInstance(operationVersion, payload, this._solution.sid)
+        new AccountInstance(operationVersion, payload, instance._solution.sid)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -471,16 +460,16 @@ interface AccountPayload extends TwilioResponsePayload {
 }
 
 interface AccountResource {
-  auth_token?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  friendly_name?: string | null;
-  owner_account_sid?: string | null;
-  sid?: string | null;
-  status?: AccountStatus;
-  subresource_uris?: object | null;
-  type?: AccountType;
-  uri?: string | null;
+  auth_token: string;
+  date_created: Date;
+  date_updated: Date;
+  friendly_name: string;
+  owner_account_sid: string;
+  sid: string;
+  status: AccountStatus;
+  subresource_uris: object;
+  type: AccountType;
+  uri: string;
 }
 
 export class AccountInstance {
@@ -509,37 +498,37 @@ export class AccountInstance {
   /**
    * The authorization token for this account
    */
-  authToken?: string | null;
+  authToken: string;
   /**
    * The date this account was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The date this account was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * A human readable description of this account
    */
-  friendlyName?: string | null;
+  friendlyName: string;
   /**
    * The unique 34 character id representing the parent of this account
    */
-  ownerAccountSid?: string | null;
+  ownerAccountSid: string;
   /**
    * A 34 character string that uniquely identifies this resource.
    */
-  sid?: string | null;
-  status?: AccountStatus;
+  sid: string;
+  status: AccountStatus;
   /**
    * Account Instance Subresources
    */
-  subresourceUris?: object | null;
-  type?: AccountType;
+  subresourceUris: object;
+  type: AccountType;
   /**
    * The URI for this resource, relative to `https://api.twilio.com`
    */
-  uri?: string | null;
+  uri: string;
 
   private get _proxy(): AccountContext {
     this._context =
@@ -551,9 +540,9 @@ export class AccountInstance {
   /**
    * Fetch a AccountInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed AccountInstance
+   * @returns Resolves to processed AccountInstance
    */
   fetch(
     callback?: (error: Error | null, item?: AccountInstance) => any
@@ -564,9 +553,9 @@ export class AccountInstance {
   /**
    * Update a AccountInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed AccountInstance
+   * @returns Resolves to processed AccountInstance
    */
   update(
     callback?: (error: Error | null, item?: AccountInstance) => any
@@ -574,10 +563,10 @@ export class AccountInstance {
   /**
    * Update a AccountInstance
    *
-   * @param { AccountContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed AccountInstance
+   * @returns Resolves to processed AccountInstance
    */
   update(
     params: AccountContextUpdateOptions,
@@ -780,16 +769,22 @@ export class AccountInstance {
   }
 }
 
+export interface AccountSolution {}
+
 export interface AccountListInstance {
+  _version: V2010;
+  _solution: AccountSolution;
+  _uri: string;
+
   (sid: string): AccountContext;
   get(sid: string): AccountContext;
 
   /**
    * Create a AccountInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed AccountInstance
+   * @returns Resolves to processed AccountInstance
    */
   create(
     callback?: (error: Error | null, item?: AccountInstance) => any
@@ -797,10 +792,10 @@ export interface AccountListInstance {
   /**
    * Create a AccountInstance
    *
-   * @param { AccountListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed AccountInstance
+   * @returns Resolves to processed AccountInstance
    */
   create(
     params: AccountListInstanceCreateOptions,
@@ -936,17 +931,8 @@ export interface AccountListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface AccountSolution {}
-
-interface AccountListInstanceImpl extends AccountListInstance {}
-class AccountListInstanceImpl implements AccountListInstance {
-  _version?: V2010;
-  _solution?: AccountSolution;
-  _uri?: string;
-}
-
 export function AccountListInstance(version: V2010): AccountListInstance {
-  const instance = ((sid) => instance.get(sid)) as AccountListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as AccountListInstance;
 
   instance.get = function get(sid): AccountContext {
     return new AccountContextImpl(version, sid);
@@ -977,7 +963,7 @@ export function AccountListInstance(version: V2010): AccountListInstance {
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -987,7 +973,7 @@ export function AccountListInstance(version: V2010): AccountListInstance {
       (payload) => new AccountInstance(operationVersion, payload)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -1019,17 +1005,18 @@ export function AccountListInstance(version: V2010): AccountListInstance {
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new AccountPage(operationVersion, payload, this._solution)
+      (payload) =>
+        new AccountPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -1042,30 +1029,28 @@ export function AccountListInstance(version: V2010): AccountListInstance {
     targetUrl?: any,
     callback?: any
   ): Promise<AccountPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new AccountPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new AccountPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

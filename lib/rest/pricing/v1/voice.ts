@@ -20,8 +20,16 @@ import { isValidPathParam } from "../../../base/utility";
 import { CountryListInstance } from "./voice/country";
 import { NumberListInstance } from "./voice/number";
 
+export interface VoiceSolution {}
+
 export interface VoiceListInstance {
+  _version: V1;
+  _solution: VoiceSolution;
+  _uri: string;
+
+  _countries?: CountryListInstance;
   countries: CountryListInstance;
+  _numbers?: NumberListInstance;
   numbers: NumberListInstance;
 
   /**
@@ -31,20 +39,8 @@ export interface VoiceListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface VoiceSolution {}
-
-interface VoiceListInstanceImpl extends VoiceListInstance {}
-class VoiceListInstanceImpl implements VoiceListInstance {
-  _version?: V1;
-  _solution?: VoiceSolution;
-  _uri?: string;
-
-  _countries?: CountryListInstance;
-  _numbers?: NumberListInstance;
-}
-
 export function VoiceListInstance(version: V1): VoiceListInstance {
-  const instance = {} as VoiceListInstanceImpl;
+  const instance = {} as VoiceListInstance;
 
   instance._version = version;
   instance._solution = {};
@@ -52,31 +48,31 @@ export function VoiceListInstance(version: V1): VoiceListInstance {
 
   Object.defineProperty(instance, "countries", {
     get: function countries() {
-      if (!this._countries) {
-        this._countries = CountryListInstance(this._version);
+      if (!instance._countries) {
+        instance._countries = CountryListInstance(instance._version);
       }
-      return this._countries;
+      return instance._countries;
     },
   });
 
   Object.defineProperty(instance, "numbers", {
     get: function numbers() {
-      if (!this._numbers) {
-        this._numbers = NumberListInstance(this._version);
+      if (!instance._numbers) {
+        instance._numbers = NumberListInstance(instance._version);
       }
-      return this._numbers;
+      return instance._numbers;
     },
   });
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

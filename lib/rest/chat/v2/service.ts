@@ -26,125 +26,112 @@ import { UserListInstance } from "./service/user";
 
 /**
  * Options to pass to update a ServiceInstance
- *
- * @property { string } [friendlyName] A descriptive string that you create to describe the resource.
- * @property { string } [defaultServiceRoleSid] The service role assigned to users when they are added to the service. See the [Role resource](https://www.twilio.com/docs/chat/rest/role-resource) for more info about roles.
- * @property { string } [defaultChannelRoleSid] The channel role assigned to users when they are added to a channel. See the [Role resource](https://www.twilio.com/docs/chat/rest/role-resource) for more info about roles.
- * @property { string } [defaultChannelCreatorRoleSid] The channel role assigned to a channel creator when they join a new channel. See the [Role resource](https://www.twilio.com/docs/chat/rest/role-resource) for more info about roles.
- * @property { boolean } [readStatusEnabled] Whether to enable the [Message Consumption Horizon](https://www.twilio.com/docs/chat/consumption-horizon) feature. The default is `true`.
- * @property { boolean } [reachabilityEnabled] Whether to enable the [Reachability Indicator](https://www.twilio.com/docs/chat/reachability-indicator) for this Service instance. The default is `false`.
- * @property { number } [typingIndicatorTimeout] How long in seconds after a `started typing` event until clients should assume that user is no longer typing, even if no `ended typing` message was received.  The default is 5 seconds.
- * @property { number } [consumptionReportInterval] DEPRECATED. The interval in seconds between consumption reports submission batches from client endpoints.
- * @property { boolean } [notifications.newMessage.enabled] Whether to send a notification when a new message is added to a channel. The default is `false`.
- * @property { string } [notifications.newMessage.template] The template to use to create the notification text displayed when a new message is added to a channel and `notifications.new_message.enabled` is `true`.
- * @property { string } [notifications.newMessage.sound] The name of the sound to play when a new message is added to a channel and `notifications.new_message.enabled` is `true`.
- * @property { boolean } [notifications.newMessage.badgeCountEnabled] Whether the new message badge is enabled. The default is `false`.
- * @property { boolean } [notifications.addedToChannel.enabled] Whether to send a notification when a member is added to a channel. The default is `false`.
- * @property { string } [notifications.addedToChannel.template] The template to use to create the notification text displayed when a member is added to a channel and `notifications.added_to_channel.enabled` is `true`.
- * @property { string } [notifications.addedToChannel.sound] The name of the sound to play when a member is added to a channel and `notifications.added_to_channel.enabled` is `true`.
- * @property { boolean } [notifications.removedFromChannel.enabled] Whether to send a notification to a user when they are removed from a channel. The default is `false`.
- * @property { string } [notifications.removedFromChannel.template] The template to use to create the notification text displayed to a user when they are removed from a channel and `notifications.removed_from_channel.enabled` is `true`.
- * @property { string } [notifications.removedFromChannel.sound] The name of the sound to play to a user when they are removed from a channel and `notifications.removed_from_channel.enabled` is `true`.
- * @property { boolean } [notifications.invitedToChannel.enabled] Whether to send a notification when a user is invited to a channel. The default is `false`.
- * @property { string } [notifications.invitedToChannel.template] The template to use to create the notification text displayed when a user is invited to a channel and `notifications.invited_to_channel.enabled` is `true`.
- * @property { string } [notifications.invitedToChannel.sound] The name of the sound to play when a user is invited to a channel and `notifications.invited_to_channel.enabled` is `true`.
- * @property { string } [preWebhookUrl] The URL for pre-event webhooks, which are called by using the `webhook_method`. See [Webhook Events](https://www.twilio.com/docs/chat/webhook-events) for more details.
- * @property { string } [postWebhookUrl] The URL for post-event webhooks, which are called by using the `webhook_method`. See [Webhook Events](https://www.twilio.com/docs/chat/webhook-events) for more details.
- * @property { string } [webhookMethod] The HTTP method to use for calls to the `pre_webhook_url` and `post_webhook_url` webhooks.  Can be: `POST` or `GET` and the default is `POST`. See [Webhook Events](https://www.twilio.com/docs/chat/webhook-events) for more details.
- * @property { Array<string> } [webhookFilters] The list of webhook events that are enabled for this Service instance. See [Webhook Events](https://www.twilio.com/docs/chat/webhook-events) for more details.
- * @property { number } [limits.channelMembers] The maximum number of Members that can be added to Channels within this Service. Can be up to 1,000.
- * @property { number } [limits.userChannels] The maximum number of Channels Users can be a Member of within this Service. Can be up to 1,000.
- * @property { string } [media.compatibilityMessage] The message to send when a media message has no text. Can be used as placeholder message.
- * @property { number } [preWebhookRetryCount] The number of times to retry a call to the `pre_webhook_url` if the request times out (after 5 seconds) or it receives a 429, 503, or 504 HTTP response. Default retry count is 0 times, which means the call won\\\'t be retried.
- * @property { number } [postWebhookRetryCount] The number of times to retry a call to the `post_webhook_url` if the request times out (after 5 seconds) or it receives a 429, 503, or 504 HTTP response. The default is 0, which means the call won\\\'t be retried.
- * @property { boolean } [notifications.logEnabled] Whether to log notifications. The default is `false`.
  */
 export interface ServiceContextUpdateOptions {
+  /** A descriptive string that you create to describe the resource. */
   friendlyName?: string;
+  /** The service role assigned to users when they are added to the service. See the [Role resource](https://www.twilio.com/docs/chat/rest/role-resource) for more info about roles. */
   defaultServiceRoleSid?: string;
+  /** The channel role assigned to users when they are added to a channel. See the [Role resource](https://www.twilio.com/docs/chat/rest/role-resource) for more info about roles. */
   defaultChannelRoleSid?: string;
+  /** The channel role assigned to a channel creator when they join a new channel. See the [Role resource](https://www.twilio.com/docs/chat/rest/role-resource) for more info about roles. */
   defaultChannelCreatorRoleSid?: string;
+  /** Whether to enable the [Message Consumption Horizon](https://www.twilio.com/docs/chat/consumption-horizon) feature. The default is `true`. */
   readStatusEnabled?: boolean;
+  /** Whether to enable the [Reachability Indicator](https://www.twilio.com/docs/chat/reachability-indicator) for this Service instance. The default is `false`. */
   reachabilityEnabled?: boolean;
+  /** How long in seconds after a `started typing` event until clients should assume that user is no longer typing, even if no `ended typing` message was received.  The default is 5 seconds. */
   typingIndicatorTimeout?: number;
+  /** DEPRECATED. The interval in seconds between consumption reports submission batches from client endpoints. */
   consumptionReportInterval?: number;
+  /** Whether to send a notification when a new message is added to a channel. The default is `false`. */
   "notifications.newMessage.enabled"?: boolean;
+  /** The template to use to create the notification text displayed when a new message is added to a channel and `notifications.new_message.enabled` is `true`. */
   "notifications.newMessage.template"?: string;
+  /** The name of the sound to play when a new message is added to a channel and `notifications.new_message.enabled` is `true`. */
   "notifications.newMessage.sound"?: string;
+  /** Whether the new message badge is enabled. The default is `false`. */
   "notifications.newMessage.badgeCountEnabled"?: boolean;
+  /** Whether to send a notification when a member is added to a channel. The default is `false`. */
   "notifications.addedToChannel.enabled"?: boolean;
+  /** The template to use to create the notification text displayed when a member is added to a channel and `notifications.added_to_channel.enabled` is `true`. */
   "notifications.addedToChannel.template"?: string;
+  /** The name of the sound to play when a member is added to a channel and `notifications.added_to_channel.enabled` is `true`. */
   "notifications.addedToChannel.sound"?: string;
+  /** Whether to send a notification to a user when they are removed from a channel. The default is `false`. */
   "notifications.removedFromChannel.enabled"?: boolean;
+  /** The template to use to create the notification text displayed to a user when they are removed from a channel and `notifications.removed_from_channel.enabled` is `true`. */
   "notifications.removedFromChannel.template"?: string;
+  /** The name of the sound to play to a user when they are removed from a channel and `notifications.removed_from_channel.enabled` is `true`. */
   "notifications.removedFromChannel.sound"?: string;
+  /** Whether to send a notification when a user is invited to a channel. The default is `false`. */
   "notifications.invitedToChannel.enabled"?: boolean;
+  /** The template to use to create the notification text displayed when a user is invited to a channel and `notifications.invited_to_channel.enabled` is `true`. */
   "notifications.invitedToChannel.template"?: string;
+  /** The name of the sound to play when a user is invited to a channel and `notifications.invited_to_channel.enabled` is `true`. */
   "notifications.invitedToChannel.sound"?: string;
+  /** The URL for pre-event webhooks, which are called by using the `webhook_method`. See [Webhook Events](https://www.twilio.com/docs/chat/webhook-events) for more details. */
   preWebhookUrl?: string;
+  /** The URL for post-event webhooks, which are called by using the `webhook_method`. See [Webhook Events](https://www.twilio.com/docs/chat/webhook-events) for more details. */
   postWebhookUrl?: string;
+  /** The HTTP method to use for calls to the `pre_webhook_url` and `post_webhook_url` webhooks.  Can be: `POST` or `GET` and the default is `POST`. See [Webhook Events](https://www.twilio.com/docs/chat/webhook-events) for more details. */
   webhookMethod?: string;
+  /** The list of webhook events that are enabled for this Service instance. See [Webhook Events](https://www.twilio.com/docs/chat/webhook-events) for more details. */
   webhookFilters?: Array<string>;
+  /** The maximum number of Members that can be added to Channels within this Service. Can be up to 1,000. */
   "limits.channelMembers"?: number;
+  /** The maximum number of Channels Users can be a Member of within this Service. Can be up to 1,000. */
   "limits.userChannels"?: number;
+  /** The message to send when a media message has no text. Can be used as placeholder message. */
   "media.compatibilityMessage"?: string;
+  /** The number of times to retry a call to the `pre_webhook_url` if the request times out (after 5 seconds) or it receives a 429, 503, or 504 HTTP response. Default retry count is 0 times, which means the call won\\\'t be retried. */
   preWebhookRetryCount?: number;
+  /** The number of times to retry a call to the `post_webhook_url` if the request times out (after 5 seconds) or it receives a 429, 503, or 504 HTTP response. The default is 0, which means the call won\\\'t be retried. */
   postWebhookRetryCount?: number;
+  /** Whether to log notifications. The default is `false`. */
   "notifications.logEnabled"?: boolean;
 }
 
 /**
  * Options to pass to create a ServiceInstance
- *
- * @property { string } friendlyName A descriptive string that you create to describe the new resource.
  */
 export interface ServiceListInstanceCreateOptions {
+  /** A descriptive string that you create to describe the new resource. */
   friendlyName: string;
 }
 /**
  * Options to pass to each
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface ServiceListInstanceEachOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: ServiceInstance, done: (err?: Error) => void) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface ServiceListInstanceOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface ServiceListInstancePageOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
@@ -157,9 +144,9 @@ export interface ServiceContext {
   /**
    * Remove a ServiceInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -168,9 +155,9 @@ export interface ServiceContext {
   /**
    * Fetch a ServiceInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ServiceInstance
+   * @returns Resolves to processed ServiceInstance
    */
   fetch(
     callback?: (error: Error | null, item?: ServiceInstance) => any
@@ -179,9 +166,9 @@ export interface ServiceContext {
   /**
    * Update a ServiceInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ServiceInstance
+   * @returns Resolves to processed ServiceInstance
    */
   update(
     callback?: (error: Error | null, item?: ServiceInstance) => any
@@ -189,10 +176,10 @@ export interface ServiceContext {
   /**
    * Update a ServiceInstance
    *
-   * @param { ServiceContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ServiceInstance
+   * @returns Resolves to processed ServiceInstance
    */
   update(
     params: ServiceContextUpdateOptions,
@@ -208,7 +195,7 @@ export interface ServiceContext {
 }
 
 export interface ServiceContextSolution {
-  sid?: string;
+  sid: string;
 }
 
 export class ServiceContextImpl implements ServiceContext {
@@ -254,13 +241,14 @@ export class ServiceContextImpl implements ServiceContext {
   }
 
   remove(callback?: any): Promise<boolean> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -268,18 +256,19 @@ export class ServiceContextImpl implements ServiceContext {
   }
 
   fetch(callback?: any): Promise<ServiceInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new ServiceInstance(operationVersion, payload, this._solution.sid)
+        new ServiceInstance(operationVersion, payload, instance._solution.sid)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -368,7 +357,7 @@ export class ServiceContextImpl implements ServiceContext {
     if (params["webhookFilters"] !== undefined)
       data["WebhookFilters"] = serialize.map(
         params["webhookFilters"],
-        (e) => e
+        (e: string) => e
       );
     if (params["limits.channelMembers"] !== undefined)
       data["Limits.ChannelMembers"] = params["limits.channelMembers"];
@@ -388,9 +377,10 @@ export class ServiceContextImpl implements ServiceContext {
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -398,10 +388,10 @@ export class ServiceContextImpl implements ServiceContext {
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new ServiceInstance(operationVersion, payload, this._solution.sid)
+        new ServiceInstance(operationVersion, payload, instance._solution.sid)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -427,29 +417,29 @@ interface ServicePayload extends TwilioResponsePayload {
 }
 
 interface ServiceResource {
-  sid?: string | null;
-  account_sid?: string | null;
-  friendly_name?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  default_service_role_sid?: string | null;
-  default_channel_role_sid?: string | null;
-  default_channel_creator_role_sid?: string | null;
-  read_status_enabled?: boolean | null;
-  reachability_enabled?: boolean | null;
-  typing_indicator_timeout?: number | null;
-  consumption_report_interval?: number | null;
-  limits?: any | null;
-  pre_webhook_url?: string | null;
-  post_webhook_url?: string | null;
-  webhook_method?: string | null;
-  webhook_filters?: Array<string> | null;
-  pre_webhook_retry_count?: number | null;
-  post_webhook_retry_count?: number | null;
-  notifications?: any | null;
-  media?: any | null;
-  url?: string | null;
-  links?: object | null;
+  sid: string;
+  account_sid: string;
+  friendly_name: string;
+  date_created: Date;
+  date_updated: Date;
+  default_service_role_sid: string;
+  default_channel_role_sid: string;
+  default_channel_creator_role_sid: string;
+  read_status_enabled: boolean;
+  reachability_enabled: boolean;
+  typing_indicator_timeout: number;
+  consumption_report_interval: number;
+  limits: any;
+  pre_webhook_url: string;
+  post_webhook_url: string;
+  webhook_method: string;
+  webhook_filters: Array<string>;
+  pre_webhook_retry_count: number;
+  post_webhook_retry_count: number;
+  notifications: any;
+  media: any;
+  url: string;
+  links: object;
 }
 
 export class ServiceInstance {
@@ -496,95 +486,95 @@ export class ServiceInstance {
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The string that you assigned to describe the resource
    */
-  friendlyName?: string | null;
+  friendlyName: string;
   /**
    * The RFC 2822 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The RFC 2822 date and time in GMT when the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The service role assigned to users when they are added to the service
    */
-  defaultServiceRoleSid?: string | null;
+  defaultServiceRoleSid: string;
   /**
    * The channel role assigned to users when they are added to a channel
    */
-  defaultChannelRoleSid?: string | null;
+  defaultChannelRoleSid: string;
   /**
    * The channel role assigned to a channel creator when they join a new channel
    */
-  defaultChannelCreatorRoleSid?: string | null;
+  defaultChannelCreatorRoleSid: string;
   /**
    * Whether the Message Consumption Horizon feature is enabled
    */
-  readStatusEnabled?: boolean | null;
+  readStatusEnabled: boolean;
   /**
    * Whether the Reachability Indicator feature is enabled for this Service instance
    */
-  reachabilityEnabled?: boolean | null;
+  reachabilityEnabled: boolean;
   /**
    * How long in seconds to wait before assuming the user is no longer typing
    */
-  typingIndicatorTimeout?: number | null;
+  typingIndicatorTimeout: number;
   /**
    * DEPRECATED
    */
-  consumptionReportInterval?: number | null;
+  consumptionReportInterval: number;
   /**
    * An object that describes the limits of the service instance
    */
-  limits?: any | null;
+  limits: any;
   /**
    * The webhook URL for pre-event webhooks
    */
-  preWebhookUrl?: string | null;
+  preWebhookUrl: string;
   /**
    * The URL for post-event webhooks
    */
-  postWebhookUrl?: string | null;
+  postWebhookUrl: string;
   /**
    * The HTTP method  to use for both PRE and POST webhooks
    */
-  webhookMethod?: string | null;
+  webhookMethod: string;
   /**
    * The list of webhook events that are enabled for this Service instance
    */
-  webhookFilters?: Array<string> | null;
+  webhookFilters: Array<string>;
   /**
    * Count of times webhook will be retried in case of timeout or 429/503/504 HTTP responses
    */
-  preWebhookRetryCount?: number | null;
+  preWebhookRetryCount: number;
   /**
    * The number of times calls to the `post_webhook_url` will be retried
    */
-  postWebhookRetryCount?: number | null;
+  postWebhookRetryCount: number;
   /**
    * The notification configuration for the Service instance
    */
-  notifications?: any | null;
+  notifications: any;
   /**
    * The properties of the media that the service supports
    */
-  media?: any | null;
+  media: any;
   /**
    * The absolute URL of the Service resource
    */
-  url?: string | null;
+  url: string;
   /**
    * The absolute URLs of the Service\'s Channels, Roles, and Users
    */
-  links?: object | null;
+  links: object;
 
   private get _proxy(): ServiceContext {
     this._context =
@@ -596,9 +586,9 @@ export class ServiceInstance {
   /**
    * Remove a ServiceInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -609,9 +599,9 @@ export class ServiceInstance {
   /**
    * Fetch a ServiceInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ServiceInstance
+   * @returns Resolves to processed ServiceInstance
    */
   fetch(
     callback?: (error: Error | null, item?: ServiceInstance) => any
@@ -622,9 +612,9 @@ export class ServiceInstance {
   /**
    * Update a ServiceInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ServiceInstance
+   * @returns Resolves to processed ServiceInstance
    */
   update(
     callback?: (error: Error | null, item?: ServiceInstance) => any
@@ -632,10 +622,10 @@ export class ServiceInstance {
   /**
    * Update a ServiceInstance
    *
-   * @param { ServiceContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ServiceInstance
+   * @returns Resolves to processed ServiceInstance
    */
   update(
     params: ServiceContextUpdateOptions,
@@ -711,17 +701,23 @@ export class ServiceInstance {
   }
 }
 
+export interface ServiceSolution {}
+
 export interface ServiceListInstance {
+  _version: V2;
+  _solution: ServiceSolution;
+  _uri: string;
+
   (sid: string): ServiceContext;
   get(sid: string): ServiceContext;
 
   /**
    * Create a ServiceInstance
    *
-   * @param { ServiceListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ServiceInstance
+   * @returns Resolves to processed ServiceInstance
    */
   create(
     params: ServiceListInstanceCreateOptions,
@@ -857,17 +853,8 @@ export interface ServiceListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface ServiceSolution {}
-
-interface ServiceListInstanceImpl extends ServiceListInstance {}
-class ServiceListInstanceImpl implements ServiceListInstance {
-  _version?: V2;
-  _solution?: ServiceSolution;
-  _uri?: string;
-}
-
 export function ServiceListInstance(version: V2): ServiceListInstance {
-  const instance = ((sid) => instance.get(sid)) as ServiceListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as ServiceListInstance;
 
   instance.get = function get(sid): ServiceContext {
     return new ServiceContextImpl(version, sid);
@@ -901,7 +888,7 @@ export function ServiceListInstance(version: V2): ServiceListInstance {
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -911,7 +898,7 @@ export function ServiceListInstance(version: V2): ServiceListInstance {
       (payload) => new ServiceInstance(operationVersion, payload)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -940,17 +927,18 @@ export function ServiceListInstance(version: V2): ServiceListInstance {
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new ServicePage(operationVersion, payload, this._solution)
+      (payload) =>
+        new ServicePage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -963,30 +951,28 @@ export function ServiceListInstance(version: V2): ServiceListInstance {
     targetUrl?: any,
     callback?: any
   ): Promise<ServicePage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new ServicePage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new ServicePage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

@@ -17,10 +17,31 @@ class FaxResponse extends TwiML {
     this._propertyName = "response";
   }
   /**
-   * <Receive> TwiML Verb
+   * Comments in <Response>
    *
-   * @function receive
-   * @memberof FaxResponse
+   * @param comment - XML Comment
+   */
+  comment(comment: string): XMLElement {
+    return this.response.comment(comment);
+  }
+  /**
+   * Comments after <Response>
+   *
+   * @param comment - XML Comment
+   */
+  commentAfter(comment: string): XMLElement {
+    return this.response.commentAfter(comment);
+  }
+  /**
+   * Comments before <Response>
+   *
+   * @param comment - XML Comment
+   */
+  commentBefore(comment: string): XMLElement {
+    return this.response.commentBefore(comment);
+  }
+  /**
+   * <Receive> TwiML Verb
    *
    * @param attributes - TwiML attributes
    */
@@ -36,18 +57,17 @@ namespace FaxResponse {
 
   /**
    * Attributes to pass to receive
-   *
-   * @property action - Receive action URL
-   * @property mediaType - The media type used to store media in the fax media store
-   * @property method - Receive action URL method
-   * @property pageSize - What size to interpret received pages as
-   * @property storeMedia - Whether or not to store received media in the fax media store
    */
   export interface ReceiveAttributes {
+    /** action - Receive action URL */
     action?: string;
+    /** mediaType - The media type used to store media in the fax media store */
     mediaType?: ReceiveMediaType;
+    /** method - Receive action URL method */
     method?: string;
+    /** pageSize - What size to interpret received pages as */
     pageSize?: ReceivePageSize;
+    /** storeMedia - Whether or not to store received media in the fax media store */
     storeMedia?: boolean;
   }
 

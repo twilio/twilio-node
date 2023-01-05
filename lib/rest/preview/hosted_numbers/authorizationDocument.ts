@@ -30,102 +30,89 @@ type AuthorizationDocumentStatus =
 
 /**
  * Options to pass to update a AuthorizationDocumentInstance
- *
- * @property { Array<string> } [hostedNumberOrderSids] A list of HostedNumberOrder sids that this AuthorizationDocument will authorize for hosting phone number capabilities on Twilio\\\'s platform.
- * @property { string } [addressSid] A 34 character string that uniquely identifies the Address resource that is associated with this AuthorizationDocument.
- * @property { string } [email] Email that this AuthorizationDocument will be sent to for signing.
- * @property { Array<string> } [ccEmails] Email recipients who will be informed when an Authorization Document has been sent and signed
- * @property { AuthorizationDocumentStatus } [status]
- * @property { string } [contactTitle] The title of the person authorized to sign the Authorization Document for this phone number.
- * @property { string } [contactPhoneNumber] The contact phone number of the person authorized to sign the Authorization Document.
  */
 export interface AuthorizationDocumentContextUpdateOptions {
+  /** A list of HostedNumberOrder sids that this AuthorizationDocument will authorize for hosting phone number capabilities on Twilio\\\'s platform. */
   hostedNumberOrderSids?: Array<string>;
+  /** A 34 character string that uniquely identifies the Address resource that is associated with this AuthorizationDocument. */
   addressSid?: string;
+  /** Email that this AuthorizationDocument will be sent to for signing. */
   email?: string;
+  /** Email recipients who will be informed when an Authorization Document has been sent and signed */
   ccEmails?: Array<string>;
+  /**  */
   status?: AuthorizationDocumentStatus;
+  /** The title of the person authorized to sign the Authorization Document for this phone number. */
   contactTitle?: string;
+  /** The contact phone number of the person authorized to sign the Authorization Document. */
   contactPhoneNumber?: string;
 }
 
 /**
  * Options to pass to create a AuthorizationDocumentInstance
- *
- * @property { Array<string> } hostedNumberOrderSids A list of HostedNumberOrder sids that this AuthorizationDocument will authorize for hosting phone number capabilities on Twilio\\\'s platform.
- * @property { string } addressSid A 34 character string that uniquely identifies the Address resource that is associated with this AuthorizationDocument.
- * @property { string } email Email that this AuthorizationDocument will be sent to for signing.
- * @property { string } contactTitle The title of the person authorized to sign the Authorization Document for this phone number.
- * @property { string } contactPhoneNumber The contact phone number of the person authorized to sign the Authorization Document.
- * @property { Array<string> } [ccEmails] Email recipients who will be informed when an Authorization Document has been sent and signed.
  */
 export interface AuthorizationDocumentListInstanceCreateOptions {
+  /** A list of HostedNumberOrder sids that this AuthorizationDocument will authorize for hosting phone number capabilities on Twilio\\\'s platform. */
   hostedNumberOrderSids: Array<string>;
+  /** A 34 character string that uniquely identifies the Address resource that is associated with this AuthorizationDocument. */
   addressSid: string;
+  /** Email that this AuthorizationDocument will be sent to for signing. */
   email: string;
+  /** The title of the person authorized to sign the Authorization Document for this phone number. */
   contactTitle: string;
+  /** The contact phone number of the person authorized to sign the Authorization Document. */
   contactPhoneNumber: string;
+  /** Email recipients who will be informed when an Authorization Document has been sent and signed. */
   ccEmails?: Array<string>;
 }
 /**
  * Options to pass to each
- *
- * @property { string } [email] Email that this AuthorizationDocument will be sent to for signing.
- * @property { AuthorizationDocumentStatus } [status] Status of an instance resource. It can hold one of the values: 1. opened 2. signing, 3. signed LOA, 4. canceled, 5. failed. See the section entitled [Status Values](https://www.twilio.com/docs/api/phone-numbers/hosted-number-authorization-documents#status-values) for more information on each of these statuses.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface AuthorizationDocumentListInstanceEachOptions {
+  /** Email that this AuthorizationDocument will be sent to for signing. */
   email?: string;
+  /** Status of an instance resource. It can hold one of the values: 1. opened 2. signing, 3. signed LOA, 4. canceled, 5. failed. See the section entitled [Status Values](https://www.twilio.com/docs/api/phone-numbers/hosted-number-authorization-documents#status-values) for more information on each of these statuses. */
   status?: AuthorizationDocumentStatus;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (
     item: AuthorizationDocumentInstance,
     done: (err?: Error) => void
   ) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { string } [email] Email that this AuthorizationDocument will be sent to for signing.
- * @property { AuthorizationDocumentStatus } [status] Status of an instance resource. It can hold one of the values: 1. opened 2. signing, 3. signed LOA, 4. canceled, 5. failed. See the section entitled [Status Values](https://www.twilio.com/docs/api/phone-numbers/hosted-number-authorization-documents#status-values) for more information on each of these statuses.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface AuthorizationDocumentListInstanceOptions {
+  /** Email that this AuthorizationDocument will be sent to for signing. */
   email?: string;
+  /** Status of an instance resource. It can hold one of the values: 1. opened 2. signing, 3. signed LOA, 4. canceled, 5. failed. See the section entitled [Status Values](https://www.twilio.com/docs/api/phone-numbers/hosted-number-authorization-documents#status-values) for more information on each of these statuses. */
   status?: AuthorizationDocumentStatus;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { string } [email] Email that this AuthorizationDocument will be sent to for signing.
- * @property { AuthorizationDocumentStatus } [status] Status of an instance resource. It can hold one of the values: 1. opened 2. signing, 3. signed LOA, 4. canceled, 5. failed. See the section entitled [Status Values](https://www.twilio.com/docs/api/phone-numbers/hosted-number-authorization-documents#status-values) for more information on each of these statuses.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface AuthorizationDocumentListInstancePageOptions {
+  /** Email that this AuthorizationDocument will be sent to for signing. */
   email?: string;
+  /** Status of an instance resource. It can hold one of the values: 1. opened 2. signing, 3. signed LOA, 4. canceled, 5. failed. See the section entitled [Status Values](https://www.twilio.com/docs/api/phone-numbers/hosted-number-authorization-documents#status-values) for more information on each of these statuses. */
   status?: AuthorizationDocumentStatus;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
@@ -135,9 +122,9 @@ export interface AuthorizationDocumentContext {
   /**
    * Fetch a AuthorizationDocumentInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed AuthorizationDocumentInstance
+   * @returns Resolves to processed AuthorizationDocumentInstance
    */
   fetch(
     callback?: (
@@ -149,9 +136,9 @@ export interface AuthorizationDocumentContext {
   /**
    * Update a AuthorizationDocumentInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed AuthorizationDocumentInstance
+   * @returns Resolves to processed AuthorizationDocumentInstance
    */
   update(
     callback?: (
@@ -162,10 +149,10 @@ export interface AuthorizationDocumentContext {
   /**
    * Update a AuthorizationDocumentInstance
    *
-   * @param { AuthorizationDocumentContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed AuthorizationDocumentInstance
+   * @returns Resolves to processed AuthorizationDocumentInstance
    */
   update(
     params: AuthorizationDocumentContextUpdateOptions,
@@ -184,7 +171,7 @@ export interface AuthorizationDocumentContext {
 }
 
 export interface AuthorizationDocumentContextSolution {
-  sid?: string;
+  sid: string;
 }
 
 export class AuthorizationDocumentContextImpl
@@ -212,9 +199,10 @@ export class AuthorizationDocumentContextImpl
   }
 
   fetch(callback?: any): Promise<AuthorizationDocumentInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -223,11 +211,11 @@ export class AuthorizationDocumentContextImpl
         new AuthorizationDocumentInstance(
           operationVersion,
           payload,
-          this._solution.sid
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -247,13 +235,13 @@ export class AuthorizationDocumentContextImpl
     if (params["hostedNumberOrderSids"] !== undefined)
       data["HostedNumberOrderSids"] = serialize.map(
         params["hostedNumberOrderSids"],
-        (e) => e
+        (e: string) => e
       );
     if (params["addressSid"] !== undefined)
       data["AddressSid"] = params["addressSid"];
     if (params["email"] !== undefined) data["Email"] = params["email"];
     if (params["ccEmails"] !== undefined)
-      data["CcEmails"] = serialize.map(params["ccEmails"], (e) => e);
+      data["CcEmails"] = serialize.map(params["ccEmails"], (e: string) => e);
     if (params["status"] !== undefined) data["Status"] = params["status"];
     if (params["contactTitle"] !== undefined)
       data["ContactTitle"] = params["contactTitle"];
@@ -263,9 +251,10 @@ export class AuthorizationDocumentContextImpl
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -276,11 +265,11 @@ export class AuthorizationDocumentContextImpl
         new AuthorizationDocumentInstance(
           operationVersion,
           payload,
-          this._solution.sid
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -306,15 +295,15 @@ interface AuthorizationDocumentPayload extends TwilioResponsePayload {
 }
 
 interface AuthorizationDocumentResource {
-  sid?: string | null;
-  address_sid?: string | null;
-  status?: AuthorizationDocumentStatus;
-  email?: string | null;
-  cc_emails?: Array<string> | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  url?: string | null;
-  links?: object | null;
+  sid: string;
+  address_sid: string;
+  status: AuthorizationDocumentStatus;
+  email: string;
+  cc_emails: Array<string>;
+  date_created: Date;
+  date_updated: Date;
+  url: string;
+  links: object;
 }
 
 export class AuthorizationDocumentInstance {
@@ -342,30 +331,30 @@ export class AuthorizationDocumentInstance {
   /**
    * AuthorizationDocument sid.
    */
-  sid?: string | null;
+  sid: string;
   /**
    * Address sid.
    */
-  addressSid?: string | null;
-  status?: AuthorizationDocumentStatus;
+  addressSid: string;
+  status: AuthorizationDocumentStatus;
   /**
    * Email.
    */
-  email?: string | null;
+  email: string;
   /**
    * A list of emails.
    */
-  ccEmails?: Array<string> | null;
+  ccEmails: Array<string>;
   /**
    * The date this AuthorizationDocument was created.
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The date this AuthorizationDocument was updated.
    */
-  dateUpdated?: Date | null;
-  url?: string | null;
-  links?: object | null;
+  dateUpdated: Date;
+  url: string;
+  links: object;
 
   private get _proxy(): AuthorizationDocumentContext {
     this._context =
@@ -377,9 +366,9 @@ export class AuthorizationDocumentInstance {
   /**
    * Fetch a AuthorizationDocumentInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed AuthorizationDocumentInstance
+   * @returns Resolves to processed AuthorizationDocumentInstance
    */
   fetch(
     callback?: (
@@ -393,9 +382,9 @@ export class AuthorizationDocumentInstance {
   /**
    * Update a AuthorizationDocumentInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed AuthorizationDocumentInstance
+   * @returns Resolves to processed AuthorizationDocumentInstance
    */
   update(
     callback?: (
@@ -406,10 +395,10 @@ export class AuthorizationDocumentInstance {
   /**
    * Update a AuthorizationDocumentInstance
    *
-   * @param { AuthorizationDocumentContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed AuthorizationDocumentInstance
+   * @returns Resolves to processed AuthorizationDocumentInstance
    */
   update(
     params: AuthorizationDocumentContextUpdateOptions,
@@ -453,17 +442,23 @@ export class AuthorizationDocumentInstance {
   }
 }
 
+export interface AuthorizationDocumentSolution {}
+
 export interface AuthorizationDocumentListInstance {
+  _version: HostedNumbers;
+  _solution: AuthorizationDocumentSolution;
+  _uri: string;
+
   (sid: string): AuthorizationDocumentContext;
   get(sid: string): AuthorizationDocumentContext;
 
   /**
    * Create a AuthorizationDocumentInstance
    *
-   * @param { AuthorizationDocumentListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed AuthorizationDocumentInstance
+   * @returns Resolves to processed AuthorizationDocumentInstance
    */
   create(
     params: AuthorizationDocumentListInstanceCreateOptions,
@@ -614,23 +609,11 @@ export interface AuthorizationDocumentListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface AuthorizationDocumentSolution {}
-
-interface AuthorizationDocumentListInstanceImpl
-  extends AuthorizationDocumentListInstance {}
-class AuthorizationDocumentListInstanceImpl
-  implements AuthorizationDocumentListInstance
-{
-  _version?: HostedNumbers;
-  _solution?: AuthorizationDocumentSolution;
-  _uri?: string;
-}
-
 export function AuthorizationDocumentListInstance(
   version: HostedNumbers
 ): AuthorizationDocumentListInstance {
   const instance = ((sid) =>
-    instance.get(sid)) as AuthorizationDocumentListInstanceImpl;
+    instance.get(sid)) as AuthorizationDocumentListInstance;
 
   instance.get = function get(sid): AuthorizationDocumentContext {
     return new AuthorizationDocumentContextImpl(version, sid);
@@ -685,7 +668,7 @@ export function AuthorizationDocumentListInstance(
 
     data["HostedNumberOrderSids"] = serialize.map(
       params["hostedNumberOrderSids"],
-      (e) => e
+      (e: string) => e
     );
 
     data["AddressSid"] = params["addressSid"];
@@ -696,14 +679,14 @@ export function AuthorizationDocumentListInstance(
 
     data["ContactPhoneNumber"] = params["contactPhoneNumber"];
     if (params["ccEmails"] !== undefined)
-      data["CcEmails"] = serialize.map(params["ccEmails"], (e) => e);
+      data["CcEmails"] = serialize.map(params["ccEmails"], (e: string) => e);
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -713,7 +696,7 @@ export function AuthorizationDocumentListInstance(
       (payload) => new AuthorizationDocumentInstance(operationVersion, payload)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -744,7 +727,7 @@ export function AuthorizationDocumentListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
@@ -752,10 +735,14 @@ export function AuthorizationDocumentListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new AuthorizationDocumentPage(operationVersion, payload, this._solution)
+        new AuthorizationDocumentPage(
+          operationVersion,
+          payload,
+          instance._solution
+        )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -768,31 +755,32 @@ export function AuthorizationDocumentListInstance(
     targetUrl?: any,
     callback?: any
   ): Promise<AuthorizationDocumentPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
+    let pagePromise = operationPromise.then(
       (payload) =>
-        new AuthorizationDocumentPage(this._version, payload, this._solution)
+        new AuthorizationDocumentPage(
+          instance._version,
+          payload,
+          instance._solution
+        )
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

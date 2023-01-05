@@ -29,20 +29,28 @@ export class VideoV1RoomRoomParticipantRoomParticipantSubscribeRuleRules {
 
 /**
  * Options to pass to update a SubscribeRulesInstance
- *
- * @property { any } [rules] A JSON-encoded array of subscribe rules. See the [Specifying Subscribe Rules](https://www.twilio.com/docs/video/api/track-subscriptions#specifying-sr) section for further information.
  */
 export interface SubscribeRulesListInstanceUpdateOptions {
+  /** A JSON-encoded array of subscribe rules. See the [Specifying Subscribe Rules](https://www.twilio.com/docs/video/api/track-subscriptions#specifying-sr) section for further information. */
   rules?: any;
 }
 
+export interface SubscribeRulesSolution {
+  roomSid: string;
+  participantSid: string;
+}
+
 export interface SubscribeRulesListInstance {
+  _version: V1;
+  _solution: SubscribeRulesSolution;
+  _uri: string;
+
   /**
    * Fetch a SubscribeRulesInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SubscribeRulesInstance
+   * @returns Resolves to processed SubscribeRulesInstance
    */
   fetch(
     callback?: (error: Error | null, item?: SubscribeRulesInstance) => any
@@ -51,9 +59,9 @@ export interface SubscribeRulesListInstance {
   /**
    * Update a SubscribeRulesInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SubscribeRulesInstance
+   * @returns Resolves to processed SubscribeRulesInstance
    */
   update(
     callback?: (error: Error | null, item?: SubscribeRulesInstance) => any
@@ -61,10 +69,10 @@ export interface SubscribeRulesListInstance {
   /**
    * Update a SubscribeRulesInstance
    *
-   * @param { SubscribeRulesListInstanceUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SubscribeRulesInstance
+   * @returns Resolves to processed SubscribeRulesInstance
    */
   update(
     params: SubscribeRulesListInstanceUpdateOptions,
@@ -77,18 +85,6 @@ export interface SubscribeRulesListInstance {
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export interface SubscribeRulesSolution {
-  roomSid?: string;
-  participantSid?: string;
-}
-
-interface SubscribeRulesListInstanceImpl extends SubscribeRulesListInstance {}
-class SubscribeRulesListInstanceImpl implements SubscribeRulesListInstance {
-  _version?: V1;
-  _solution?: SubscribeRulesSolution;
-  _uri?: string;
 }
 
 export function SubscribeRulesListInstance(
@@ -104,7 +100,7 @@ export function SubscribeRulesListInstance(
     throw new Error("Parameter 'participantSid' is not valid.");
   }
 
-  const instance = {} as SubscribeRulesListInstanceImpl;
+  const instance = {} as SubscribeRulesListInstance;
 
   instance._version = version;
   instance._solution = { roomSid, participantSid };
@@ -115,7 +111,7 @@ export function SubscribeRulesListInstance(
   ): Promise<SubscribeRulesInstance> {
     let operationVersion = version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -124,12 +120,12 @@ export function SubscribeRulesListInstance(
         new SubscribeRulesInstance(
           operationVersion,
           payload,
-          this._solution.roomSid,
-          this._solution.participantSid
+          instance._solution.roomSid,
+          instance._solution.participantSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -157,7 +153,7 @@ export function SubscribeRulesListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -168,12 +164,12 @@ export function SubscribeRulesListInstance(
         new SubscribeRulesInstance(
           operationVersion,
           payload,
-          this._solution.roomSid,
-          this._solution.participantSid
+          instance._solution.roomSid,
+          instance._solution.participantSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -181,14 +177,14 @@ export function SubscribeRulesListInstance(
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;
@@ -197,11 +193,11 @@ export function SubscribeRulesListInstance(
 interface SubscribeRulesPayload extends SubscribeRulesResource {}
 
 interface SubscribeRulesResource {
-  participant_sid?: string | null;
-  room_sid?: string | null;
-  rules?: Array<VideoV1RoomRoomParticipantRoomParticipantSubscribeRuleRules> | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
+  participant_sid: string;
+  room_sid: string;
+  rules: Array<VideoV1RoomRoomParticipantRoomParticipantSubscribeRuleRules>;
+  date_created: Date;
+  date_updated: Date;
 }
 
 export class SubscribeRulesInstance {
@@ -221,23 +217,23 @@ export class SubscribeRulesInstance {
   /**
    * The SID of the Participant resource for the Subscribe Rules
    */
-  participantSid?: string | null;
+  participantSid: string;
   /**
    * The SID of the Room resource for the Subscribe Rules
    */
-  roomSid?: string | null;
+  roomSid: string;
   /**
    * A collection of Subscribe Rules that describe how to include or exclude matching tracks
    */
-  rules?: Array<VideoV1RoomRoomParticipantRoomParticipantSubscribeRuleRules> | null;
+  rules: Array<VideoV1RoomRoomParticipantRoomParticipantSubscribeRuleRules>;
   /**
    * The ISO 8601 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The ISO 8601 date and time in GMT when the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
 
   /**
    * Provide a user-friendly representation

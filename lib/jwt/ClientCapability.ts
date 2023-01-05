@@ -19,7 +19,6 @@ export interface ClientCapabilityOptions {
 }
 
 /**
- * @constructor
  * @param filters
  */
 export class EventStreamScope implements Scope {
@@ -48,7 +47,6 @@ export class EventStreamScope implements Scope {
 }
 
 /**
- * @constructor
  * @param clientName
  */
 export class IncomingClientScope implements Scope {
@@ -65,19 +63,18 @@ export class IncomingClientScope implements Scope {
   }
 }
 
-/**
- * @constructor
- * @param {object} options - ...
- * @param {string} options.applicationSid - the application sid
- * @param {string} [options.clientName] - the client name
- * @param {object} [options.params] - parameters
- */
 export class OutgoingClientScope implements Scope {
   scope: string = "scope:client:outgoing";
   applicationSid: string;
   clientName?: string;
   params?: object;
 
+  /**
+   * @param options - ...
+   * @param options.applicationSid - the application sid
+   * @param options.clientName - the client name
+   * @param options.params - parameters
+   */
   constructor(options: OutgoingClientScopeOptions) {
     if (!options) {
       throw new Error('Required parameter "options" missing.');
@@ -116,7 +113,6 @@ export class OutgoingClientScope implements Scope {
 }
 
 /**
- * @constructor
  * @param options
  */
 export default class ClientCapability {

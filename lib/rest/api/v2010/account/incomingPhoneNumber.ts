@@ -45,182 +45,169 @@ type IncomingPhoneNumberVoiceReceiveMode = "voice" | "fax";
 
 /**
  * Options to pass to update a IncomingPhoneNumberInstance
- *
- * @property { string } [accountSid] The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the IncomingPhoneNumber resource to update.  For more information, see [Exchanging Numbers Between Subaccounts](https://www.twilio.com/docs/iam/api/subaccounts#exchanging-numbers).
- * @property { string } [apiVersion] The API version to use for incoming calls made to the phone number. The default is `2010-04-01`.
- * @property { string } [friendlyName] A descriptive string that you created to describe this phone number. It can be up to 64 characters long. By default, this is a formatted version of the phone number.
- * @property { string } [smsApplicationSid] The SID of the application that should handle SMS messages sent to the number. If an `sms_application_sid` is present, we ignore all of the `sms_*_url` urls and use those set on the application.
- * @property { string } [smsFallbackMethod] The HTTP method that we should use to call `sms_fallback_url`. Can be: `GET` or `POST` and defaults to `POST`.
- * @property { string } [smsFallbackUrl] The URL that we should call when an error occurs while requesting or executing the TwiML defined by `sms_url`.
- * @property { string } [smsMethod] The HTTP method that we should use to call `sms_url`. Can be: `GET` or `POST` and defaults to `POST`.
- * @property { string } [smsUrl] The URL we should call when the phone number receives an incoming SMS message.
- * @property { string } [statusCallback] The URL we should call using the `status_callback_method` to send status information to your application.
- * @property { string } [statusCallbackMethod] The HTTP method we should use to call `status_callback`. Can be: `GET` or `POST` and defaults to `POST`.
- * @property { string } [voiceApplicationSid] The SID of the application we should use to handle phone calls to the phone number. If a `voice_application_sid` is present, we ignore all of the voice urls and use only those set on the application. Setting a `voice_application_sid` will automatically delete your `trunk_sid` and vice versa.
- * @property { boolean } [voiceCallerIdLookup] Whether to lookup the caller\\\'s name from the CNAM database and post it to your app. Can be: `true` or `false` and defaults to `false`.
- * @property { string } [voiceFallbackMethod] The HTTP method that we should use to call `voice_fallback_url`. Can be: `GET` or `POST` and defaults to `POST`.
- * @property { string } [voiceFallbackUrl] The URL that we should call when an error occurs retrieving or executing the TwiML requested by `url`.
- * @property { string } [voiceMethod] The HTTP method that we should use to call `voice_url`. Can be: `GET` or `POST` and defaults to `POST`.
- * @property { string } [voiceUrl] The URL that we should call to answer a call to the phone number. The `voice_url` will not be called if a `voice_application_sid` or a `trunk_sid` is set.
- * @property { IncomingPhoneNumberEmergencyStatus } [emergencyStatus]
- * @property { string } [emergencyAddressSid] The SID of the emergency address configuration to use for emergency calling from this phone number.
- * @property { string } [trunkSid] The SID of the Trunk we should use to handle phone calls to the phone number. If a `trunk_sid` is present, we ignore all of the voice urls and voice applications and use only those set on the Trunk. Setting a `trunk_sid` will automatically delete your `voice_application_sid` and vice versa.
- * @property { IncomingPhoneNumberVoiceReceiveMode } [voiceReceiveMode]
- * @property { string } [identitySid] The SID of the Identity resource that we should associate with the phone number. Some regions require an identity to meet local regulations.
- * @property { string } [addressSid] The SID of the Address resource we should associate with the phone number. Some regions require addresses to meet local regulations.
- * @property { string } [bundleSid] The SID of the Bundle resource that you associate with the phone number. Some regions require a Bundle to meet local Regulations.
  */
 export interface IncomingPhoneNumberContextUpdateOptions {
+  /** The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the IncomingPhoneNumber resource to update.  For more information, see [Exchanging Numbers Between Subaccounts](https://www.twilio.com/docs/iam/api/subaccounts#exchanging-numbers). */
   accountSid?: string;
+  /** The API version to use for incoming calls made to the phone number. The default is `2010-04-01`. */
   apiVersion?: string;
+  /** A descriptive string that you created to describe this phone number. It can be up to 64 characters long. By default, this is a formatted version of the phone number. */
   friendlyName?: string;
+  /** The SID of the application that should handle SMS messages sent to the number. If an `sms_application_sid` is present, we ignore all of the `sms_*_url` urls and use those set on the application. */
   smsApplicationSid?: string;
+  /** The HTTP method that we should use to call `sms_fallback_url`. Can be: `GET` or `POST` and defaults to `POST`. */
   smsFallbackMethod?: string;
+  /** The URL that we should call when an error occurs while requesting or executing the TwiML defined by `sms_url`. */
   smsFallbackUrl?: string;
+  /** The HTTP method that we should use to call `sms_url`. Can be: `GET` or `POST` and defaults to `POST`. */
   smsMethod?: string;
+  /** The URL we should call when the phone number receives an incoming SMS message. */
   smsUrl?: string;
+  /** The URL we should call using the `status_callback_method` to send status information to your application. */
   statusCallback?: string;
+  /** The HTTP method we should use to call `status_callback`. Can be: `GET` or `POST` and defaults to `POST`. */
   statusCallbackMethod?: string;
+  /** The SID of the application we should use to handle phone calls to the phone number. If a `voice_application_sid` is present, we ignore all of the voice urls and use only those set on the application. Setting a `voice_application_sid` will automatically delete your `trunk_sid` and vice versa. */
   voiceApplicationSid?: string;
+  /** Whether to lookup the caller\\\'s name from the CNAM database and post it to your app. Can be: `true` or `false` and defaults to `false`. */
   voiceCallerIdLookup?: boolean;
+  /** The HTTP method that we should use to call `voice_fallback_url`. Can be: `GET` or `POST` and defaults to `POST`. */
   voiceFallbackMethod?: string;
+  /** The URL that we should call when an error occurs retrieving or executing the TwiML requested by `url`. */
   voiceFallbackUrl?: string;
+  /** The HTTP method that we should use to call `voice_url`. Can be: `GET` or `POST` and defaults to `POST`. */
   voiceMethod?: string;
+  /** The URL that we should call to answer a call to the phone number. The `voice_url` will not be called if a `voice_application_sid` or a `trunk_sid` is set. */
   voiceUrl?: string;
+  /**  */
   emergencyStatus?: IncomingPhoneNumberEmergencyStatus;
+  /** The SID of the emergency address configuration to use for emergency calling from this phone number. */
   emergencyAddressSid?: string;
+  /** The SID of the Trunk we should use to handle phone calls to the phone number. If a `trunk_sid` is present, we ignore all of the voice urls and voice applications and use only those set on the Trunk. Setting a `trunk_sid` will automatically delete your `voice_application_sid` and vice versa. */
   trunkSid?: string;
+  /**  */
   voiceReceiveMode?: IncomingPhoneNumberVoiceReceiveMode;
+  /** The SID of the Identity resource that we should associate with the phone number. Some regions require an identity to meet local regulations. */
   identitySid?: string;
+  /** The SID of the Address resource we should associate with the phone number. Some regions require addresses to meet local regulations. */
   addressSid?: string;
+  /** The SID of the Bundle resource that you associate with the phone number. Some regions require a Bundle to meet local Regulations. */
   bundleSid?: string;
 }
 
 /**
  * Options to pass to create a IncomingPhoneNumberInstance
- *
- * @property { string } [apiVersion] The API version to use for incoming calls made to the new phone number. The default is `2010-04-01`.
- * @property { string } [friendlyName] A descriptive string that you created to describe the new phone number. It can be up to 64 characters long. By default, this is a formatted version of the new phone number.
- * @property { string } [smsApplicationSid] The SID of the application that should handle SMS messages sent to the new phone number. If an `sms_application_sid` is present, we ignore all of the `sms_*_url` urls and use those set on the application.
- * @property { string } [smsFallbackMethod] The HTTP method that we should use to call `sms_fallback_url`. Can be: `GET` or `POST` and defaults to `POST`.
- * @property { string } [smsFallbackUrl] The URL that we should call when an error occurs while requesting or executing the TwiML defined by `sms_url`.
- * @property { string } [smsMethod] The HTTP method that we should use to call `sms_url`. Can be: `GET` or `POST` and defaults to `POST`.
- * @property { string } [smsUrl] The URL we should call when the new phone number receives an incoming SMS message.
- * @property { string } [statusCallback] The URL we should call using the `status_callback_method` to send status information to your application.
- * @property { string } [statusCallbackMethod] The HTTP method we should use to call `status_callback`. Can be: `GET` or `POST` and defaults to `POST`.
- * @property { string } [voiceApplicationSid] The SID of the application we should use to handle calls to the new phone number. If a `voice_application_sid` is present, we ignore all of the voice urls and use only those set on the application. Setting a `voice_application_sid` will automatically delete your `trunk_sid` and vice versa.
- * @property { boolean } [voiceCallerIdLookup] Whether to lookup the caller\\\'s name from the CNAM database and post it to your app. Can be: `true` or `false` and defaults to `false`.
- * @property { string } [voiceFallbackMethod] The HTTP method that we should use to call `voice_fallback_url`. Can be: `GET` or `POST` and defaults to `POST`.
- * @property { string } [voiceFallbackUrl] The URL that we should call when an error occurs retrieving or executing the TwiML requested by `url`.
- * @property { string } [voiceMethod] The HTTP method that we should use to call `voice_url`. Can be: `GET` or `POST` and defaults to `POST`.
- * @property { string } [voiceUrl] The URL that we should call to answer a call to the new phone number. The `voice_url` will not be called if a `voice_application_sid` or a `trunk_sid` is set.
- * @property { IncomingPhoneNumberEmergencyStatus } [emergencyStatus]
- * @property { string } [emergencyAddressSid] The SID of the emergency address configuration to use for emergency calling from the new phone number.
- * @property { string } [trunkSid] The SID of the Trunk we should use to handle calls to the new phone number. If a `trunk_sid` is present, we ignore all of the voice urls and voice applications and use only those set on the Trunk. Setting a `trunk_sid` will automatically delete your `voice_application_sid` and vice versa.
- * @property { string } [identitySid] The SID of the Identity resource that we should associate with the new phone number. Some regions require an identity to meet local regulations.
- * @property { string } [addressSid] The SID of the Address resource we should associate with the new phone number. Some regions require addresses to meet local regulations.
- * @property { IncomingPhoneNumberVoiceReceiveMode } [voiceReceiveMode]
- * @property { string } [bundleSid] The SID of the Bundle resource that you associate with the phone number. Some regions require a Bundle to meet local Regulations.
- * @property { string } [phoneNumber] The phone number to purchase specified in [E.164](https://www.twilio.com/docs/glossary/what-e164) format.  E.164 phone numbers consist of a + followed by the country code and subscriber number without punctuation characters. For example, +14155551234.
- * @property { string } [areaCode] The desired area code for your new incoming phone number. Can be any three-digit, US or Canada area code. We will provision an available phone number within this area code for you. **You must provide an `area_code` or a `phone_number`.** (US and Canada only).
  */
 export interface IncomingPhoneNumberListInstanceCreateOptions {
+  /** The API version to use for incoming calls made to the new phone number. The default is `2010-04-01`. */
   apiVersion?: string;
+  /** A descriptive string that you created to describe the new phone number. It can be up to 64 characters long. By default, this is a formatted version of the new phone number. */
   friendlyName?: string;
+  /** The SID of the application that should handle SMS messages sent to the new phone number. If an `sms_application_sid` is present, we ignore all of the `sms_*_url` urls and use those set on the application. */
   smsApplicationSid?: string;
+  /** The HTTP method that we should use to call `sms_fallback_url`. Can be: `GET` or `POST` and defaults to `POST`. */
   smsFallbackMethod?: string;
+  /** The URL that we should call when an error occurs while requesting or executing the TwiML defined by `sms_url`. */
   smsFallbackUrl?: string;
+  /** The HTTP method that we should use to call `sms_url`. Can be: `GET` or `POST` and defaults to `POST`. */
   smsMethod?: string;
+  /** The URL we should call when the new phone number receives an incoming SMS message. */
   smsUrl?: string;
+  /** The URL we should call using the `status_callback_method` to send status information to your application. */
   statusCallback?: string;
+  /** The HTTP method we should use to call `status_callback`. Can be: `GET` or `POST` and defaults to `POST`. */
   statusCallbackMethod?: string;
+  /** The SID of the application we should use to handle calls to the new phone number. If a `voice_application_sid` is present, we ignore all of the voice urls and use only those set on the application. Setting a `voice_application_sid` will automatically delete your `trunk_sid` and vice versa. */
   voiceApplicationSid?: string;
+  /** Whether to lookup the caller\\\'s name from the CNAM database and post it to your app. Can be: `true` or `false` and defaults to `false`. */
   voiceCallerIdLookup?: boolean;
+  /** The HTTP method that we should use to call `voice_fallback_url`. Can be: `GET` or `POST` and defaults to `POST`. */
   voiceFallbackMethod?: string;
+  /** The URL that we should call when an error occurs retrieving or executing the TwiML requested by `url`. */
   voiceFallbackUrl?: string;
+  /** The HTTP method that we should use to call `voice_url`. Can be: `GET` or `POST` and defaults to `POST`. */
   voiceMethod?: string;
+  /** The URL that we should call to answer a call to the new phone number. The `voice_url` will not be called if a `voice_application_sid` or a `trunk_sid` is set. */
   voiceUrl?: string;
+  /**  */
   emergencyStatus?: IncomingPhoneNumberEmergencyStatus;
+  /** The SID of the emergency address configuration to use for emergency calling from the new phone number. */
   emergencyAddressSid?: string;
+  /** The SID of the Trunk we should use to handle calls to the new phone number. If a `trunk_sid` is present, we ignore all of the voice urls and voice applications and use only those set on the Trunk. Setting a `trunk_sid` will automatically delete your `voice_application_sid` and vice versa. */
   trunkSid?: string;
+  /** The SID of the Identity resource that we should associate with the new phone number. Some regions require an identity to meet local regulations. */
   identitySid?: string;
+  /** The SID of the Address resource we should associate with the new phone number. Some regions require addresses to meet local regulations. */
   addressSid?: string;
+  /**  */
   voiceReceiveMode?: IncomingPhoneNumberVoiceReceiveMode;
+  /** The SID of the Bundle resource that you associate with the phone number. Some regions require a Bundle to meet local Regulations. */
   bundleSid?: string;
+  /** The phone number to purchase specified in [E.164](https://www.twilio.com/docs/glossary/what-e164) format.  E.164 phone numbers consist of a + followed by the country code and subscriber number without punctuation characters. For example, +14155551234. */
   phoneNumber?: string;
+  /** The desired area code for your new incoming phone number. Can be any three-digit, US or Canada area code. We will provision an available phone number within this area code for you. **You must provide an `area_code` or a `phone_number`.** (US and Canada only). */
   areaCode?: string;
 }
 /**
  * Options to pass to each
- *
- * @property { boolean } [beta] Whether to include phone numbers new to the Twilio platform. Can be: `true` or `false` and the default is `true`.
- * @property { string } [friendlyName] A string that identifies the IncomingPhoneNumber resources to read.
- * @property { string } [phoneNumber] The phone numbers of the IncomingPhoneNumber resources to read. You can specify partial numbers and use \'*\' as a wildcard for any digit.
- * @property { string } [origin] Whether to include phone numbers based on their origin. Can be: `twilio` or `hosted`. By default, phone numbers of all origin are included.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface IncomingPhoneNumberListInstanceEachOptions {
+  /** Whether to include phone numbers new to the Twilio platform. Can be: `true` or `false` and the default is `true`. */
   beta?: boolean;
+  /** A string that identifies the IncomingPhoneNumber resources to read. */
   friendlyName?: string;
+  /** The phone numbers of the IncomingPhoneNumber resources to read. You can specify partial numbers and use \'*\' as a wildcard for any digit. */
   phoneNumber?: string;
+  /** Whether to include phone numbers based on their origin. Can be: `twilio` or `hosted`. By default, phone numbers of all origin are included. */
   origin?: string;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (
     item: IncomingPhoneNumberInstance,
     done: (err?: Error) => void
   ) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { boolean } [beta] Whether to include phone numbers new to the Twilio platform. Can be: `true` or `false` and the default is `true`.
- * @property { string } [friendlyName] A string that identifies the IncomingPhoneNumber resources to read.
- * @property { string } [phoneNumber] The phone numbers of the IncomingPhoneNumber resources to read. You can specify partial numbers and use \'*\' as a wildcard for any digit.
- * @property { string } [origin] Whether to include phone numbers based on their origin. Can be: `twilio` or `hosted`. By default, phone numbers of all origin are included.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface IncomingPhoneNumberListInstanceOptions {
+  /** Whether to include phone numbers new to the Twilio platform. Can be: `true` or `false` and the default is `true`. */
   beta?: boolean;
+  /** A string that identifies the IncomingPhoneNumber resources to read. */
   friendlyName?: string;
+  /** The phone numbers of the IncomingPhoneNumber resources to read. You can specify partial numbers and use \'*\' as a wildcard for any digit. */
   phoneNumber?: string;
+  /** Whether to include phone numbers based on their origin. Can be: `twilio` or `hosted`. By default, phone numbers of all origin are included. */
   origin?: string;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { boolean } [beta] Whether to include phone numbers new to the Twilio platform. Can be: `true` or `false` and the default is `true`.
- * @property { string } [friendlyName] A string that identifies the IncomingPhoneNumber resources to read.
- * @property { string } [phoneNumber] The phone numbers of the IncomingPhoneNumber resources to read. You can specify partial numbers and use \'*\' as a wildcard for any digit.
- * @property { string } [origin] Whether to include phone numbers based on their origin. Can be: `twilio` or `hosted`. By default, phone numbers of all origin are included.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface IncomingPhoneNumberListInstancePageOptions {
+  /** Whether to include phone numbers new to the Twilio platform. Can be: `true` or `false` and the default is `true`. */
   beta?: boolean;
+  /** A string that identifies the IncomingPhoneNumber resources to read. */
   friendlyName?: string;
+  /** The phone numbers of the IncomingPhoneNumber resources to read. You can specify partial numbers and use \'*\' as a wildcard for any digit. */
   phoneNumber?: string;
+  /** Whether to include phone numbers based on their origin. Can be: `twilio` or `hosted`. By default, phone numbers of all origin are included. */
   origin?: string;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
@@ -230,9 +217,9 @@ export interface IncomingPhoneNumberContext {
   /**
    * Remove a IncomingPhoneNumberInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -241,9 +228,9 @@ export interface IncomingPhoneNumberContext {
   /**
    * Fetch a IncomingPhoneNumberInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed IncomingPhoneNumberInstance
+   * @returns Resolves to processed IncomingPhoneNumberInstance
    */
   fetch(
     callback?: (error: Error | null, item?: IncomingPhoneNumberInstance) => any
@@ -252,9 +239,9 @@ export interface IncomingPhoneNumberContext {
   /**
    * Update a IncomingPhoneNumberInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed IncomingPhoneNumberInstance
+   * @returns Resolves to processed IncomingPhoneNumberInstance
    */
   update(
     callback?: (error: Error | null, item?: IncomingPhoneNumberInstance) => any
@@ -262,10 +249,10 @@ export interface IncomingPhoneNumberContext {
   /**
    * Update a IncomingPhoneNumberInstance
    *
-   * @param { IncomingPhoneNumberContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed IncomingPhoneNumberInstance
+   * @returns Resolves to processed IncomingPhoneNumberInstance
    */
   update(
     params: IncomingPhoneNumberContextUpdateOptions,
@@ -281,8 +268,8 @@ export interface IncomingPhoneNumberContext {
 }
 
 export interface IncomingPhoneNumberContextSolution {
-  accountSid?: string;
-  sid?: string;
+  accountSid: string;
+  sid: string;
 }
 
 export class IncomingPhoneNumberContextImpl
@@ -318,13 +305,14 @@ export class IncomingPhoneNumberContextImpl
   }
 
   remove(callback?: any): Promise<boolean> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -332,9 +320,10 @@ export class IncomingPhoneNumberContextImpl
   }
 
   fetch(callback?: any): Promise<IncomingPhoneNumberInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -343,12 +332,12 @@ export class IncomingPhoneNumberContextImpl
         new IncomingPhoneNumberInstance(
           operationVersion,
           payload,
-          this._solution.accountSid,
-          this._solution.sid
+          instance._solution.accountSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -414,9 +403,10 @@ export class IncomingPhoneNumberContextImpl
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -427,12 +417,12 @@ export class IncomingPhoneNumberContextImpl
         new IncomingPhoneNumberInstance(
           operationVersion,
           payload,
-          this._solution.accountSid,
-          this._solution.sid
+          instance._solution.accountSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -494,40 +484,40 @@ interface IncomingPhoneNumberPayload extends TwilioResponsePayload {
 }
 
 interface IncomingPhoneNumberResource {
-  account_sid?: string | null;
-  address_sid?: string | null;
-  address_requirements?: IncomingPhoneNumberAddressRequirement;
-  api_version?: string | null;
-  beta?: boolean | null;
-  capabilities?: PhoneNumberCapabilities | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  friendly_name?: string | null;
-  identity_sid?: string | null;
-  phone_number?: string | null;
-  origin?: string | null;
-  sid?: string | null;
-  sms_application_sid?: string | null;
-  sms_fallback_method?: IncomingPhoneNumberSmsFallbackMethod;
-  sms_fallback_url?: string | null;
-  sms_method?: IncomingPhoneNumberSmsMethod;
-  sms_url?: string | null;
-  status_callback?: string | null;
-  status_callback_method?: IncomingPhoneNumberStatusCallbackMethod;
-  trunk_sid?: string | null;
-  uri?: string | null;
-  voice_receive_mode?: IncomingPhoneNumberVoiceReceiveMode;
-  voice_application_sid?: string | null;
-  voice_caller_id_lookup?: boolean | null;
-  voice_fallback_method?: IncomingPhoneNumberVoiceFallbackMethod;
-  voice_fallback_url?: string | null;
-  voice_method?: IncomingPhoneNumberVoiceMethod;
-  voice_url?: string | null;
-  emergency_status?: IncomingPhoneNumberEmergencyStatus;
-  emergency_address_sid?: string | null;
-  emergency_address_status?: IncomingPhoneNumberEmergencyAddressStatus;
-  bundle_sid?: string | null;
-  status?: string | null;
+  account_sid: string;
+  address_sid: string;
+  address_requirements: IncomingPhoneNumberAddressRequirement;
+  api_version: string;
+  beta: boolean;
+  capabilities: PhoneNumberCapabilities;
+  date_created: Date;
+  date_updated: Date;
+  friendly_name: string;
+  identity_sid: string;
+  phone_number: string;
+  origin: string;
+  sid: string;
+  sms_application_sid: string;
+  sms_fallback_method: IncomingPhoneNumberSmsFallbackMethod;
+  sms_fallback_url: string;
+  sms_method: IncomingPhoneNumberSmsMethod;
+  sms_url: string;
+  status_callback: string;
+  status_callback_method: IncomingPhoneNumberStatusCallbackMethod;
+  trunk_sid: string;
+  uri: string;
+  voice_receive_mode: IncomingPhoneNumberVoiceReceiveMode;
+  voice_application_sid: string;
+  voice_caller_id_lookup: boolean;
+  voice_fallback_method: IncomingPhoneNumberVoiceFallbackMethod;
+  voice_fallback_url: string;
+  voice_method: IncomingPhoneNumberVoiceMethod;
+  voice_url: string;
+  emergency_status: IncomingPhoneNumberEmergencyStatus;
+  emergency_address_sid: string;
+  emergency_address_status: IncomingPhoneNumberEmergencyAddressStatus;
+  bundle_sid: string;
+  status: string;
 }
 
 export class IncomingPhoneNumberInstance {
@@ -581,121 +571,121 @@ export class IncomingPhoneNumberInstance {
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The SID of the Address resource associated with the phone number
    */
-  addressSid?: string | null;
-  addressRequirements?: IncomingPhoneNumberAddressRequirement;
+  addressSid: string;
+  addressRequirements: IncomingPhoneNumberAddressRequirement;
   /**
    * The API version used to start a new TwiML session
    */
-  apiVersion?: string | null;
+  apiVersion: string;
   /**
    * Whether the phone number is new to the Twilio platform
    */
-  beta?: boolean | null;
-  capabilities?: PhoneNumberCapabilities | null;
+  beta: boolean;
+  capabilities: PhoneNumberCapabilities;
   /**
    * The RFC 2822 date and time in GMT that the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The RFC 2822 date and time in GMT that the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The string that you assigned to describe the resource
    */
-  friendlyName?: string | null;
+  friendlyName: string;
   /**
    * The SID of the Identity resource associated with number
    */
-  identitySid?: string | null;
+  identitySid: string;
   /**
    * The phone number in E.164 format
    */
-  phoneNumber?: string | null;
+  phoneNumber: string;
   /**
    * The phone number\'s origin. Can be twilio or hosted.
    */
-  origin?: string | null;
+  origin: string;
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The SID of the application that handles SMS messages sent to the phone number
    */
-  smsApplicationSid?: string | null;
+  smsApplicationSid: string;
   /**
    * The HTTP method used with sms_fallback_url
    */
-  smsFallbackMethod?: IncomingPhoneNumberSmsFallbackMethod;
+  smsFallbackMethod: IncomingPhoneNumberSmsFallbackMethod;
   /**
    * The URL that we call when an error occurs while retrieving or executing the TwiML
    */
-  smsFallbackUrl?: string | null;
+  smsFallbackUrl: string;
   /**
    * The HTTP method to use with sms_url
    */
-  smsMethod?: IncomingPhoneNumberSmsMethod;
+  smsMethod: IncomingPhoneNumberSmsMethod;
   /**
    * The URL we call when the phone number receives an incoming SMS message
    */
-  smsUrl?: string | null;
+  smsUrl: string;
   /**
    * The URL to send status information to your application
    */
-  statusCallback?: string | null;
+  statusCallback: string;
   /**
    * The HTTP method we use to call status_callback
    */
-  statusCallbackMethod?: IncomingPhoneNumberStatusCallbackMethod;
+  statusCallbackMethod: IncomingPhoneNumberStatusCallbackMethod;
   /**
    * The SID of the Trunk that handles calls to the phone number
    */
-  trunkSid?: string | null;
+  trunkSid: string;
   /**
    * The URI of the resource, relative to `https://api.twilio.com`
    */
-  uri?: string | null;
-  voiceReceiveMode?: IncomingPhoneNumberVoiceReceiveMode;
+  uri: string;
+  voiceReceiveMode: IncomingPhoneNumberVoiceReceiveMode;
   /**
    * The SID of the application that handles calls to the phone number
    */
-  voiceApplicationSid?: string | null;
+  voiceApplicationSid: string;
   /**
    * Whether to lookup the caller\'s name
    */
-  voiceCallerIdLookup?: boolean | null;
+  voiceCallerIdLookup: boolean;
   /**
    * The HTTP method used with voice_fallback_url
    */
-  voiceFallbackMethod?: IncomingPhoneNumberVoiceFallbackMethod;
+  voiceFallbackMethod: IncomingPhoneNumberVoiceFallbackMethod;
   /**
    * The URL we call when an error occurs in TwiML
    */
-  voiceFallbackUrl?: string | null;
+  voiceFallbackUrl: string;
   /**
    * The HTTP method used with the voice_url
    */
-  voiceMethod?: IncomingPhoneNumberVoiceMethod;
+  voiceMethod: IncomingPhoneNumberVoiceMethod;
   /**
    * The URL we call when the phone number receives a call
    */
-  voiceUrl?: string | null;
-  emergencyStatus?: IncomingPhoneNumberEmergencyStatus;
+  voiceUrl: string;
+  emergencyStatus: IncomingPhoneNumberEmergencyStatus;
   /**
    * The emergency address configuration to use for emergency calling
    */
-  emergencyAddressSid?: string | null;
-  emergencyAddressStatus?: IncomingPhoneNumberEmergencyAddressStatus;
+  emergencyAddressSid: string;
+  emergencyAddressStatus: IncomingPhoneNumberEmergencyAddressStatus;
   /**
    * The SID of the Bundle resource associated with number
    */
-  bundleSid?: string | null;
-  status?: string | null;
+  bundleSid: string;
+  status: string;
 
   private get _proxy(): IncomingPhoneNumberContext {
     this._context =
@@ -711,9 +701,9 @@ export class IncomingPhoneNumberInstance {
   /**
    * Remove a IncomingPhoneNumberInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -724,9 +714,9 @@ export class IncomingPhoneNumberInstance {
   /**
    * Fetch a IncomingPhoneNumberInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed IncomingPhoneNumberInstance
+   * @returns Resolves to processed IncomingPhoneNumberInstance
    */
   fetch(
     callback?: (error: Error | null, item?: IncomingPhoneNumberInstance) => any
@@ -737,9 +727,9 @@ export class IncomingPhoneNumberInstance {
   /**
    * Update a IncomingPhoneNumberInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed IncomingPhoneNumberInstance
+   * @returns Resolves to processed IncomingPhoneNumberInstance
    */
   update(
     callback?: (error: Error | null, item?: IncomingPhoneNumberInstance) => any
@@ -747,10 +737,10 @@ export class IncomingPhoneNumberInstance {
   /**
    * Update a IncomingPhoneNumberInstance
    *
-   * @param { IncomingPhoneNumberContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed IncomingPhoneNumberInstance
+   * @returns Resolves to processed IncomingPhoneNumberInstance
    */
   update(
     params: IncomingPhoneNumberContextUpdateOptions,
@@ -816,20 +806,31 @@ export class IncomingPhoneNumberInstance {
   }
 }
 
+export interface IncomingPhoneNumberSolution {
+  accountSid: string;
+}
+
 export interface IncomingPhoneNumberListInstance {
+  _version: V2010;
+  _solution: IncomingPhoneNumberSolution;
+  _uri: string;
+
   (sid: string): IncomingPhoneNumberContext;
   get(sid: string): IncomingPhoneNumberContext;
 
+  _local?: LocalListInstance;
   local: LocalListInstance;
+  _mobile?: MobileListInstance;
   mobile: MobileListInstance;
+  _tollFree?: TollFreeListInstance;
   tollFree: TollFreeListInstance;
 
   /**
    * Create a IncomingPhoneNumberInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed IncomingPhoneNumberInstance
+   * @returns Resolves to processed IncomingPhoneNumberInstance
    */
   create(
     callback?: (error: Error | null, item?: IncomingPhoneNumberInstance) => any
@@ -837,10 +838,10 @@ export interface IncomingPhoneNumberListInstance {
   /**
    * Create a IncomingPhoneNumberInstance
    *
-   * @param { IncomingPhoneNumberListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed IncomingPhoneNumberInstance
+   * @returns Resolves to processed IncomingPhoneNumberInstance
    */
   create(
     params: IncomingPhoneNumberListInstanceCreateOptions,
@@ -988,24 +989,6 @@ export interface IncomingPhoneNumberListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface IncomingPhoneNumberSolution {
-  accountSid?: string;
-}
-
-interface IncomingPhoneNumberListInstanceImpl
-  extends IncomingPhoneNumberListInstance {}
-class IncomingPhoneNumberListInstanceImpl
-  implements IncomingPhoneNumberListInstance
-{
-  _version?: V2010;
-  _solution?: IncomingPhoneNumberSolution;
-  _uri?: string;
-
-  _local?: LocalListInstance;
-  _mobile?: MobileListInstance;
-  _tollFree?: TollFreeListInstance;
-}
-
 export function IncomingPhoneNumberListInstance(
   version: V2010,
   accountSid: string
@@ -1015,7 +998,7 @@ export function IncomingPhoneNumberListInstance(
   }
 
   const instance = ((sid) =>
-    instance.get(sid)) as IncomingPhoneNumberListInstanceImpl;
+    instance.get(sid)) as IncomingPhoneNumberListInstance;
 
   instance.get = function get(sid): IncomingPhoneNumberContext {
     return new IncomingPhoneNumberContextImpl(version, accountSid, sid);
@@ -1027,37 +1010,37 @@ export function IncomingPhoneNumberListInstance(
 
   Object.defineProperty(instance, "local", {
     get: function local() {
-      if (!this._local) {
-        this._local = LocalListInstance(
-          this._version,
-          this._solution.accountSid
+      if (!instance._local) {
+        instance._local = LocalListInstance(
+          instance._version,
+          instance._solution.accountSid
         );
       }
-      return this._local;
+      return instance._local;
     },
   });
 
   Object.defineProperty(instance, "mobile", {
     get: function mobile() {
-      if (!this._mobile) {
-        this._mobile = MobileListInstance(
-          this._version,
-          this._solution.accountSid
+      if (!instance._mobile) {
+        instance._mobile = MobileListInstance(
+          instance._version,
+          instance._solution.accountSid
         );
       }
-      return this._mobile;
+      return instance._mobile;
     },
   });
 
   Object.defineProperty(instance, "tollFree", {
     get: function tollFree() {
-      if (!this._tollFree) {
-        this._tollFree = TollFreeListInstance(
-          this._version,
-          this._solution.accountSid
+      if (!instance._tollFree) {
+        instance._tollFree = TollFreeListInstance(
+          instance._version,
+          instance._solution.accountSid
         );
       }
-      return this._tollFree;
+      return instance._tollFree;
     },
   });
 
@@ -1126,7 +1109,7 @@ export function IncomingPhoneNumberListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -1137,11 +1120,11 @@ export function IncomingPhoneNumberListInstance(
         new IncomingPhoneNumberInstance(
           operationVersion,
           payload,
-          this._solution.accountSid
+          instance._solution.accountSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -1177,7 +1160,7 @@ export function IncomingPhoneNumberListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
@@ -1185,10 +1168,14 @@ export function IncomingPhoneNumberListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new IncomingPhoneNumberPage(operationVersion, payload, this._solution)
+        new IncomingPhoneNumberPage(
+          operationVersion,
+          payload,
+          instance._solution
+        )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -1201,31 +1188,32 @@ export function IncomingPhoneNumberListInstance(
     targetUrl?: any,
     callback?: any
   ): Promise<IncomingPhoneNumberPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
+    let pagePromise = operationPromise.then(
       (payload) =>
-        new IncomingPhoneNumberPage(this._version, payload, this._solution)
+        new IncomingPhoneNumberPage(
+          instance._version,
+          payload,
+          instance._solution
+        )
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

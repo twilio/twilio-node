@@ -17,10 +17,31 @@ class MessagingResponse extends TwiML {
     this._propertyName = "response";
   }
   /**
-   * <Message> TwiML Verb
+   * Comments in <Response>
    *
-   * @function message
-   * @memberof MessagingResponse
+   * @param comment - XML Comment
+   */
+  comment(comment: string): XMLElement {
+    return this.response.comment(comment);
+  }
+  /**
+   * Comments after <Response>
+   *
+   * @param comment - XML Comment
+   */
+  commentAfter(comment: string): XMLElement {
+    return this.response.commentAfter(comment);
+  }
+  /**
+   * Comments before <Response>
+   *
+   * @param comment - XML Comment
+   */
+  commentBefore(comment: string): XMLElement {
+    return this.response.commentBefore(comment);
+  }
+  /**
+   * <Message> TwiML Verb
    *
    * @param attributes - TwiML attributes
    * @param body - Message Body
@@ -44,9 +65,6 @@ class MessagingResponse extends TwiML {
   }
   /**
    * <Redirect> TwiML Verb
-   *
-   * @function redirect
-   * @memberof MessagingResponse
    *
    * @param attributes - TwiML attributes
    * @param url - Redirect URL
@@ -73,27 +91,25 @@ class MessagingResponse extends TwiML {
 namespace MessagingResponse {
   /**
    * Attributes to pass to message
-   *
-   * @property action - Action URL
-   * @property from - Phone Number to send Message from
-   * @property method - Action URL Method
-   * @property statusCallback - Status callback URL. Deprecated in favor of action.
-   * @property to - Phone Number to send Message to
    */
   export interface MessageAttributes {
+    /** action - Action URL */
     action?: string;
+    /** from - Phone Number to send Message from */
     from?: string;
+    /** method - Action URL Method */
     method?: string;
+    /** statusCallback - Status callback URL. Deprecated in favor of action. */
     statusCallback?: string;
+    /** to - Phone Number to send Message to */
     to?: string;
   }
 
   /**
    * Attributes to pass to redirect
-   *
-   * @property method - Redirect URL method
    */
   export interface RedirectAttributes {
+    /** method - Redirect URL method */
     method?: string;
   }
 
@@ -134,9 +150,6 @@ namespace MessagingResponse {
     /**
      * <Body> TwiML Noun
      *
-     * @function body
-     * @memberof Message
-     *
      * @param attributes - TwiML attributes
      * @param message - Message Body
      */
@@ -156,9 +169,6 @@ namespace MessagingResponse {
     }
     /**
      * <Media> TwiML Noun
-     *
-     * @function media
-     * @memberof Message
      *
      * @param attributes - TwiML attributes
      * @param url - Media URL

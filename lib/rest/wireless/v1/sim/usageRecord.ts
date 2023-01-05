@@ -24,70 +24,67 @@ type UsageRecordGranularity = "hourly" | "daily" | "all";
 
 /**
  * Options to pass to each
- *
- * @property { Date } [end] Only include usage that occurred on or before this date, specified in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html). The default is the current time.
- * @property { Date } [start] Only include usage that has occurred on or after this date, specified in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html). The default is one month before the `end` parameter value.
- * @property { UsageRecordGranularity } [granularity] How to summarize the usage by time. Can be: `daily`, `hourly`, or `all`. The default is `all`. A value of `all` returns one Usage Record that describes the usage for the entire period.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface UsageRecordListInstanceEachOptions {
+  /** Only include usage that occurred on or before this date, specified in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html). The default is the current time. */
   end?: Date;
+  /** Only include usage that has occurred on or after this date, specified in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html). The default is one month before the `end` parameter value. */
   start?: Date;
+  /** How to summarize the usage by time. Can be: `daily`, `hourly`, or `all`. The default is `all`. A value of `all` returns one Usage Record that describes the usage for the entire period. */
   granularity?: UsageRecordGranularity;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: UsageRecordInstance, done: (err?: Error) => void) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { Date } [end] Only include usage that occurred on or before this date, specified in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html). The default is the current time.
- * @property { Date } [start] Only include usage that has occurred on or after this date, specified in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html). The default is one month before the `end` parameter value.
- * @property { UsageRecordGranularity } [granularity] How to summarize the usage by time. Can be: `daily`, `hourly`, or `all`. The default is `all`. A value of `all` returns one Usage Record that describes the usage for the entire period.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface UsageRecordListInstanceOptions {
+  /** Only include usage that occurred on or before this date, specified in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html). The default is the current time. */
   end?: Date;
+  /** Only include usage that has occurred on or after this date, specified in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html). The default is one month before the `end` parameter value. */
   start?: Date;
+  /** How to summarize the usage by time. Can be: `daily`, `hourly`, or `all`. The default is `all`. A value of `all` returns one Usage Record that describes the usage for the entire period. */
   granularity?: UsageRecordGranularity;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { Date } [end] Only include usage that occurred on or before this date, specified in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html). The default is the current time.
- * @property { Date } [start] Only include usage that has occurred on or after this date, specified in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html). The default is one month before the `end` parameter value.
- * @property { UsageRecordGranularity } [granularity] How to summarize the usage by time. Can be: `daily`, `hourly`, or `all`. The default is `all`. A value of `all` returns one Usage Record that describes the usage for the entire period.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface UsageRecordListInstancePageOptions {
+  /** Only include usage that occurred on or before this date, specified in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html). The default is the current time. */
   end?: Date;
+  /** Only include usage that has occurred on or after this date, specified in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html). The default is one month before the `end` parameter value. */
   start?: Date;
+  /** How to summarize the usage by time. Can be: `daily`, `hourly`, or `all`. The default is `all`. A value of `all` returns one Usage Record that describes the usage for the entire period. */
   granularity?: UsageRecordGranularity;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
+export interface UsageRecordSolution {
+  simSid: string;
+}
+
 export interface UsageRecordListInstance {
+  _version: V1;
+  _solution: UsageRecordSolution;
+  _uri: string;
+
   /**
    * Streams UsageRecordInstance records from the API.
    *
@@ -216,17 +213,6 @@ export interface UsageRecordListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface UsageRecordSolution {
-  simSid?: string;
-}
-
-interface UsageRecordListInstanceImpl extends UsageRecordListInstance {}
-class UsageRecordListInstanceImpl implements UsageRecordListInstance {
-  _version?: V1;
-  _solution?: UsageRecordSolution;
-  _uri?: string;
-}
-
 export function UsageRecordListInstance(
   version: V1,
   simSid: string
@@ -235,7 +221,7 @@ export function UsageRecordListInstance(
     throw new Error("Parameter 'simSid' is not valid.");
   }
 
-  const instance = {} as UsageRecordListInstanceImpl;
+  const instance = {} as UsageRecordListInstance;
 
   instance._version = version;
   instance._solution = { simSid };
@@ -269,7 +255,7 @@ export function UsageRecordListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
@@ -277,10 +263,10 @@ export function UsageRecordListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new UsageRecordPage(operationVersion, payload, this._solution)
+        new UsageRecordPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -293,30 +279,28 @@ export function UsageRecordListInstance(
     targetUrl?: any,
     callback?: any
   ): Promise<UsageRecordPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new UsageRecordPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new UsageRecordPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;
@@ -327,11 +311,11 @@ interface UsageRecordPayload extends TwilioResponsePayload {
 }
 
 interface UsageRecordResource {
-  sim_sid?: string | null;
-  account_sid?: string | null;
-  period?: any | null;
-  commands?: any | null;
-  data?: any | null;
+  sim_sid: string;
+  account_sid: string;
+  period: any;
+  commands: any;
+  data: any;
 }
 
 export class UsageRecordInstance {
@@ -350,23 +334,23 @@ export class UsageRecordInstance {
   /**
    * The SID of the Sim resource that this Usage Record is for
    */
-  simSid?: string | null;
+  simSid: string;
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The time period for which the usage is reported
    */
-  period?: any | null;
+  period: any;
   /**
    * An object that describes the SIM\'s usage of Commands during the specified period
    */
-  commands?: any | null;
+  commands: any;
   /**
    * An object that describes the SIM\'s data usage during the specified period
    */
-  data?: any | null;
+  data: any;
 
   /**
    * Provide a user-friendly representation

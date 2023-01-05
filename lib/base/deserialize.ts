@@ -12,62 +12,52 @@ export interface NumberParser {
  */
 
 /**
- * @function iso8601Date
- * @memberOf deserialize
- * @description parse a string into a Date object
+ * Parse a string into a Date object
  *
- * @param {string} s Date string in YYYY-MM-DD format
- * @return {(Date|string)} Date object, or the original date string if the argument is not a valid date
+ * @param s - Date string in YYYY-MM-DD format
+ * @returns Date object, or the original date string if the argument is not a valid date
  */
-export function iso8601Date(s) {
+export function iso8601Date(s: string) {
   return parseDate(s, "YYYY-MM-DD");
 }
 
 /**
- * @function iso8601DateTime
- * @memberOf deserialize
- * @description parse a string into a Date object
+ * Parse a string into a Date object
  *
- * @param {string} s Date string in YYYY-MM-DD[T]HH:mm:ss[Z] format
- * @return {(Date|string)} Date object, or the original date string if the argument is not a valid date
+ * @param s - Date string in YYYY-MM-DD[T]HH:mm:ss[Z] format
+ * @returns Date object, or the original date string if the argument is not a valid date
  */
-export function iso8601DateTime(s) {
+export function iso8601DateTime(s: string) {
   return parseDate(s, "YYYY-MM-DD[T]HH:mm:ss[Z]");
 }
 
 /**
- * @function rfc2822DateTime
- * @memberOf deserialize
- * @description parse a string into a Date object
+ * Parse a string into a Date object
  *
- * @param {string} s Date string in ddd, DD MMM YYYY HH:mm:ss [+0000] format
- * @return {(Date|string)} Date object, or the original date string if the argument is not a valid date
+ * @param s - Date string in ddd, DD MMM YYYY HH:mm:ss [+0000] format
+ * @returns Date object, or the original date string if the argument is not a valid date
  */
-export function rfc2822DateTime(s) {
+export function rfc2822DateTime(s: string) {
   return parseDate(s, "ddd, DD MMM YYYY HH:mm:ss [+0000]");
 }
 
 /**
- * @function decimal
- * @memberOf deserialize
- * @description parse a string into a decimal
+ * Parse a string into a decimal
  *
- * @param  {string} d Decimal value as string
- * @return {(number|string)} Number, or the original string if the argument is NaN
+ * @param d - Decimal value as string
+ * @returns Number, or the original string if the argument is NaN
  */
-export function decimal(d) {
+export function decimal(d: string) {
   return parseNumber(d, parseFloat);
 }
 
 /**
- * @function integer
- * @memberOf deserialize
- * @description parse a string into a integer
+ * Parse a string into a integer
  *
- * @param  {string} i Integer value as string
- * @return {(number|string)} Number, or the original string if the argument is NaN
+ * @param i - Integer value as string
+ * @returns Number, or the original string if the argument is NaN
  */
-export function integer(i) {
+export function integer(i: string) {
   return parseNumber(i, parseInt);
 }
 

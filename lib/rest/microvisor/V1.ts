@@ -21,23 +21,24 @@ export default class V1 extends Version {
   /**
    * Initialize the V1 version of Microvisor
    *
-   * @property { Twilio.Microvisor.V1.AppListInstance } apps - apps resource
-   * @property { Twilio.Microvisor.V1.DeviceListInstance } devices - devices resource
-   *
-   * @param { Twilio.Microvisor } domain - The Twilio domain
+   * @param domain - The Twilio (Twilio.Microvisor) domain
    */
   constructor(domain: MicrovisorBase) {
     super(domain, "v1");
   }
 
+  /** apps - { Twilio.Microvisor.V1.AppListInstance } resource */
   protected _apps?: AppListInstance;
+  /** devices - { Twilio.Microvisor.V1.DeviceListInstance } resource */
   protected _devices?: DeviceListInstance;
 
+  /** Getter for apps resource */
   get apps(): AppListInstance {
     this._apps = this._apps || AppListInstance(this);
     return this._apps;
   }
 
+  /** Getter for devices resource */
   get devices(): DeviceListInstance {
     this._devices = this._devices || DeviceListInstance(this);
     return this._devices;

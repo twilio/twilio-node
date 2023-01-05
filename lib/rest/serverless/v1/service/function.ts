@@ -23,65 +23,52 @@ import { FunctionVersionListInstance } from "./function/functionVersion";
 
 /**
  * Options to pass to update a FunctionInstance
- *
- * @property { string } friendlyName A descriptive string that you create to describe the Function resource. It can be a maximum of 255 characters.
  */
 export interface FunctionContextUpdateOptions {
+  /** A descriptive string that you create to describe the Function resource. It can be a maximum of 255 characters. */
   friendlyName: string;
 }
 
 /**
  * Options to pass to create a FunctionInstance
- *
- * @property { string } friendlyName A descriptive string that you create to describe the Function resource. It can be a maximum of 255 characters.
  */
 export interface FunctionListInstanceCreateOptions {
+  /** A descriptive string that you create to describe the Function resource. It can be a maximum of 255 characters. */
   friendlyName: string;
 }
 /**
  * Options to pass to each
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface FunctionListInstanceEachOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: FunctionInstance, done: (err?: Error) => void) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface FunctionListInstanceOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface FunctionListInstancePageOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
@@ -91,9 +78,9 @@ export interface FunctionContext {
   /**
    * Remove a FunctionInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -102,9 +89,9 @@ export interface FunctionContext {
   /**
    * Fetch a FunctionInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed FunctionInstance
+   * @returns Resolves to processed FunctionInstance
    */
   fetch(
     callback?: (error: Error | null, item?: FunctionInstance) => any
@@ -113,10 +100,10 @@ export interface FunctionContext {
   /**
    * Update a FunctionInstance
    *
-   * @param { FunctionContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed FunctionInstance
+   * @returns Resolves to processed FunctionInstance
    */
   update(
     params: FunctionContextUpdateOptions,
@@ -132,8 +119,8 @@ export interface FunctionContext {
 }
 
 export interface FunctionContextSolution {
-  serviceSid?: string;
-  sid?: string;
+  serviceSid: string;
+  sid: string;
 }
 
 export class FunctionContextImpl implements FunctionContext {
@@ -167,13 +154,14 @@ export class FunctionContextImpl implements FunctionContext {
   }
 
   remove(callback?: any): Promise<boolean> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -181,9 +169,10 @@ export class FunctionContextImpl implements FunctionContext {
   }
 
   fetch(callback?: any): Promise<FunctionInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -192,12 +181,12 @@ export class FunctionContextImpl implements FunctionContext {
         new FunctionInstance(
           operationVersion,
           payload,
-          this._solution.serviceSid,
-          this._solution.sid
+          instance._solution.serviceSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -223,9 +212,10 @@ export class FunctionContextImpl implements FunctionContext {
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -236,12 +226,12 @@ export class FunctionContextImpl implements FunctionContext {
         new FunctionInstance(
           operationVersion,
           payload,
-          this._solution.serviceSid,
-          this._solution.sid
+          instance._solution.serviceSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -267,14 +257,14 @@ interface FunctionPayload extends TwilioResponsePayload {
 }
 
 interface FunctionResource {
-  sid?: string | null;
-  account_sid?: string | null;
-  service_sid?: string | null;
-  friendly_name?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  url?: string | null;
-  links?: object | null;
+  sid: string;
+  account_sid: string;
+  service_sid: string;
+  friendly_name: string;
+  date_created: Date;
+  date_updated: Date;
+  url: string;
+  links: object;
 }
 
 export class FunctionInstance {
@@ -302,35 +292,35 @@ export class FunctionInstance {
   /**
    * The unique string that identifies the Function resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The SID of the Account that created the Function resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The SID of the Service that the Function resource is associated with
    */
-  serviceSid?: string | null;
+  serviceSid: string;
   /**
    * The string that you assigned to describe the Function resource
    */
-  friendlyName?: string | null;
+  friendlyName: string;
   /**
    * The ISO 8601 date and time in GMT when the Function resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The ISO 8601 date and time in GMT when the Function resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The absolute URL of the Function resource
    */
-  url?: string | null;
+  url: string;
   /**
    * The URLs of nested resources of the Function resource
    */
-  links?: object | null;
+  links: object;
 
   private get _proxy(): FunctionContext {
     this._context =
@@ -346,9 +336,9 @@ export class FunctionInstance {
   /**
    * Remove a FunctionInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -359,9 +349,9 @@ export class FunctionInstance {
   /**
    * Fetch a FunctionInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed FunctionInstance
+   * @returns Resolves to processed FunctionInstance
    */
   fetch(
     callback?: (error: Error | null, item?: FunctionInstance) => any
@@ -372,10 +362,10 @@ export class FunctionInstance {
   /**
    * Update a FunctionInstance
    *
-   * @param { FunctionContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed FunctionInstance
+   * @returns Resolves to processed FunctionInstance
    */
   update(
     params: FunctionContextUpdateOptions,
@@ -415,17 +405,25 @@ export class FunctionInstance {
   }
 }
 
+export interface FunctionSolution {
+  serviceSid: string;
+}
+
 export interface FunctionListInstance {
+  _version: V1;
+  _solution: FunctionSolution;
+  _uri: string;
+
   (sid: string): FunctionContext;
   get(sid: string): FunctionContext;
 
   /**
    * Create a FunctionInstance
    *
-   * @param { FunctionListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed FunctionInstance
+   * @returns Resolves to processed FunctionInstance
    */
   create(
     params: FunctionListInstanceCreateOptions,
@@ -561,17 +559,6 @@ export interface FunctionListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface FunctionSolution {
-  serviceSid?: string;
-}
-
-interface FunctionListInstanceImpl extends FunctionListInstance {}
-class FunctionListInstanceImpl implements FunctionListInstance {
-  _version?: V1;
-  _solution?: FunctionSolution;
-  _uri?: string;
-}
-
 export function FunctionListInstance(
   version: V1,
   serviceSid: string
@@ -580,7 +567,7 @@ export function FunctionListInstance(
     throw new Error("Parameter 'serviceSid' is not valid.");
   }
 
-  const instance = ((sid) => instance.get(sid)) as FunctionListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as FunctionListInstance;
 
   instance.get = function get(sid): FunctionContext {
     return new FunctionContextImpl(version, serviceSid, sid);
@@ -614,7 +601,7 @@ export function FunctionListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -625,11 +612,11 @@ export function FunctionListInstance(
         new FunctionInstance(
           operationVersion,
           payload,
-          this._solution.serviceSid
+          instance._solution.serviceSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -658,17 +645,18 @@ export function FunctionListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new FunctionPage(operationVersion, payload, this._solution)
+      (payload) =>
+        new FunctionPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -681,30 +669,28 @@ export function FunctionListInstance(
     targetUrl?: any,
     callback?: any
   ): Promise<FunctionPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new FunctionPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new FunctionPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

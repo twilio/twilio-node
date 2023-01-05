@@ -24,56 +24,44 @@ type PhoneNumberAddressRequirement = "none" | "any" | "local" | "foreign";
 
 /**
  * Options to pass to create a PhoneNumberInstance
- *
- * @property { string } phoneNumberSid The SID of the [Incoming Phone Number](https://www.twilio.com/docs/phone-numbers/api/incomingphonenumber-resource) that you want to associate with the trunk.
  */
 export interface PhoneNumberListInstanceCreateOptions {
+  /** The SID of the [Incoming Phone Number](https://www.twilio.com/docs/phone-numbers/api/incomingphonenumber-resource) that you want to associate with the trunk. */
   phoneNumberSid: string;
 }
 /**
  * Options to pass to each
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface PhoneNumberListInstanceEachOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: PhoneNumberInstance, done: (err?: Error) => void) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface PhoneNumberListInstanceOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface PhoneNumberListInstancePageOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
@@ -81,9 +69,9 @@ export interface PhoneNumberContext {
   /**
    * Remove a PhoneNumberInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -92,9 +80,9 @@ export interface PhoneNumberContext {
   /**
    * Fetch a PhoneNumberInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed PhoneNumberInstance
+   * @returns Resolves to processed PhoneNumberInstance
    */
   fetch(
     callback?: (error: Error | null, item?: PhoneNumberInstance) => any
@@ -108,8 +96,8 @@ export interface PhoneNumberContext {
 }
 
 export interface PhoneNumberContextSolution {
-  trunkSid?: string;
-  sid?: string;
+  trunkSid: string;
+  sid: string;
 }
 
 export class PhoneNumberContextImpl implements PhoneNumberContext {
@@ -130,13 +118,14 @@ export class PhoneNumberContextImpl implements PhoneNumberContext {
   }
 
   remove(callback?: any): Promise<boolean> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -144,9 +133,10 @@ export class PhoneNumberContextImpl implements PhoneNumberContext {
   }
 
   fetch(callback?: any): Promise<PhoneNumberInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -155,12 +145,12 @@ export class PhoneNumberContextImpl implements PhoneNumberContext {
         new PhoneNumberInstance(
           operationVersion,
           payload,
-          this._solution.trunkSid,
-          this._solution.sid
+          instance._solution.trunkSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -222,32 +212,32 @@ interface PhoneNumberPayload extends TwilioResponsePayload {
 }
 
 interface PhoneNumberResource {
-  account_sid?: string | null;
-  address_requirements?: PhoneNumberAddressRequirement;
-  api_version?: string | null;
-  beta?: boolean | null;
-  capabilities?: object | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  friendly_name?: string | null;
-  links?: object | null;
-  phone_number?: string | null;
-  sid?: string | null;
-  sms_application_sid?: string | null;
-  sms_fallback_method?: PhoneNumberSmsFallbackMethod;
-  sms_fallback_url?: string | null;
-  sms_method?: PhoneNumberSmsMethod;
-  sms_url?: string | null;
-  status_callback?: string | null;
-  status_callback_method?: PhoneNumberStatusCallbackMethod;
-  trunk_sid?: string | null;
-  url?: string | null;
-  voice_application_sid?: string | null;
-  voice_caller_id_lookup?: boolean | null;
-  voice_fallback_method?: PhoneNumberVoiceFallbackMethod;
-  voice_fallback_url?: string | null;
-  voice_method?: PhoneNumberVoiceMethod;
-  voice_url?: string | null;
+  account_sid: string;
+  address_requirements: PhoneNumberAddressRequirement;
+  api_version: string;
+  beta: boolean;
+  capabilities: object;
+  date_created: Date;
+  date_updated: Date;
+  friendly_name: string;
+  links: object;
+  phone_number: string;
+  sid: string;
+  sms_application_sid: string;
+  sms_fallback_method: PhoneNumberSmsFallbackMethod;
+  sms_fallback_url: string;
+  sms_method: PhoneNumberSmsMethod;
+  sms_url: string;
+  status_callback: string;
+  status_callback_method: PhoneNumberStatusCallbackMethod;
+  trunk_sid: string;
+  url: string;
+  voice_application_sid: string;
+  voice_caller_id_lookup: boolean;
+  voice_fallback_method: PhoneNumberVoiceFallbackMethod;
+  voice_fallback_url: string;
+  voice_method: PhoneNumberVoiceMethod;
+  voice_url: string;
 }
 
 export class PhoneNumberInstance {
@@ -293,104 +283,104 @@ export class PhoneNumberInstance {
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
-  addressRequirements?: PhoneNumberAddressRequirement;
+  accountSid: string;
+  addressRequirements: PhoneNumberAddressRequirement;
   /**
    * The API version used to start a new TwiML session
    */
-  apiVersion?: string | null;
+  apiVersion: string;
   /**
    * Whether the phone number is new to the Twilio platform
    */
-  beta?: boolean | null;
+  beta: boolean;
   /**
    * Indicate if a phone can receive calls or messages
    */
-  capabilities?: object | null;
+  capabilities: object;
   /**
    * The RFC 2822 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The RFC 2822 date and time in GMT when the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The string that you assigned to describe the resource
    */
-  friendlyName?: string | null;
+  friendlyName: string;
   /**
    * The URLs of related resources
    */
-  links?: object | null;
+  links: object;
   /**
    * The phone number in E.164 format
    */
-  phoneNumber?: string | null;
+  phoneNumber: string;
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The SID of the application that handles SMS messages sent to the phone number
    */
-  smsApplicationSid?: string | null;
+  smsApplicationSid: string;
   /**
    * The HTTP method used with sms_fallback_url
    */
-  smsFallbackMethod?: PhoneNumberSmsFallbackMethod;
+  smsFallbackMethod: PhoneNumberSmsFallbackMethod;
   /**
    * The URL that we call when an error occurs while retrieving or executing the TwiML
    */
-  smsFallbackUrl?: string | null;
+  smsFallbackUrl: string;
   /**
    * The HTTP method to use with sms_url
    */
-  smsMethod?: PhoneNumberSmsMethod;
+  smsMethod: PhoneNumberSmsMethod;
   /**
    * The URL we call when the phone number receives an incoming SMS message
    */
-  smsUrl?: string | null;
+  smsUrl: string;
   /**
    * The URL to send status information to your application
    */
-  statusCallback?: string | null;
+  statusCallback: string;
   /**
    * The HTTP method we use to call status_callback
    */
-  statusCallbackMethod?: PhoneNumberStatusCallbackMethod;
+  statusCallbackMethod: PhoneNumberStatusCallbackMethod;
   /**
    * The SID of the Trunk that handles calls to the phone number
    */
-  trunkSid?: string | null;
+  trunkSid: string;
   /**
    * The absolute URL of the resource
    */
-  url?: string | null;
+  url: string;
   /**
    * The SID of the application that handles calls to the phone number
    */
-  voiceApplicationSid?: string | null;
+  voiceApplicationSid: string;
   /**
    * Whether to lookup the caller\'s name
    */
-  voiceCallerIdLookup?: boolean | null;
+  voiceCallerIdLookup: boolean;
   /**
    * The HTTP method that we use to call voice_fallback_url
    */
-  voiceFallbackMethod?: PhoneNumberVoiceFallbackMethod;
+  voiceFallbackMethod: PhoneNumberVoiceFallbackMethod;
   /**
    * The URL we call when an error occurs in TwiML
    */
-  voiceFallbackUrl?: string | null;
+  voiceFallbackUrl: string;
   /**
    * The HTTP method used with the voice_url
    */
-  voiceMethod?: PhoneNumberVoiceMethod;
+  voiceMethod: PhoneNumberVoiceMethod;
   /**
    * The URL we call when the phone number receives a call
    */
-  voiceUrl?: string | null;
+  voiceUrl: string;
 
   private get _proxy(): PhoneNumberContext {
     this._context =
@@ -406,9 +396,9 @@ export class PhoneNumberInstance {
   /**
    * Remove a PhoneNumberInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -419,9 +409,9 @@ export class PhoneNumberInstance {
   /**
    * Fetch a PhoneNumberInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed PhoneNumberInstance
+   * @returns Resolves to processed PhoneNumberInstance
    */
   fetch(
     callback?: (error: Error | null, item?: PhoneNumberInstance) => any
@@ -470,17 +460,25 @@ export class PhoneNumberInstance {
   }
 }
 
+export interface PhoneNumberSolution {
+  trunkSid: string;
+}
+
 export interface PhoneNumberListInstance {
+  _version: V1;
+  _solution: PhoneNumberSolution;
+  _uri: string;
+
   (sid: string): PhoneNumberContext;
   get(sid: string): PhoneNumberContext;
 
   /**
    * Create a PhoneNumberInstance
    *
-   * @param { PhoneNumberListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed PhoneNumberInstance
+   * @returns Resolves to processed PhoneNumberInstance
    */
   create(
     params: PhoneNumberListInstanceCreateOptions,
@@ -616,17 +614,6 @@ export interface PhoneNumberListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface PhoneNumberSolution {
-  trunkSid?: string;
-}
-
-interface PhoneNumberListInstanceImpl extends PhoneNumberListInstance {}
-class PhoneNumberListInstanceImpl implements PhoneNumberListInstance {
-  _version?: V1;
-  _solution?: PhoneNumberSolution;
-  _uri?: string;
-}
-
 export function PhoneNumberListInstance(
   version: V1,
   trunkSid: string
@@ -635,7 +622,7 @@ export function PhoneNumberListInstance(
     throw new Error("Parameter 'trunkSid' is not valid.");
   }
 
-  const instance = ((sid) => instance.get(sid)) as PhoneNumberListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as PhoneNumberListInstance;
 
   instance.get = function get(sid): PhoneNumberContext {
     return new PhoneNumberContextImpl(version, trunkSid, sid);
@@ -671,7 +658,7 @@ export function PhoneNumberListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -682,11 +669,11 @@ export function PhoneNumberListInstance(
         new PhoneNumberInstance(
           operationVersion,
           payload,
-          this._solution.trunkSid
+          instance._solution.trunkSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -715,7 +702,7 @@ export function PhoneNumberListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
@@ -723,10 +710,10 @@ export function PhoneNumberListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new PhoneNumberPage(operationVersion, payload, this._solution)
+        new PhoneNumberPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -739,30 +726,28 @@ export function PhoneNumberListInstance(
     targetUrl?: any,
     callback?: any
   ): Promise<PhoneNumberPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new PhoneNumberPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new PhoneNumberPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

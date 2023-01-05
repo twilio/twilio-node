@@ -33,14 +33,6 @@ export interface PolicyPayload {
 
 /**
  * Create a new Policy
- *
- * @constructor
- * @param {object} options - ...
- * @param {string} [options.url] - Policy URL
- * @param {string} [options.method] - HTTP Method
- * @param {object} [options.queryFilter] - Request query filter allowances
- * @param {object} [options.postFilter] - Request post filter allowances
- * @param {boolean} [options.allowed] - Allow the policy
  */
 export class Policy {
   url?: string;
@@ -49,6 +41,16 @@ export class Policy {
   postFilter: object;
   allow: boolean;
 
+  /**
+   * Create a new Policy instance
+   *
+   * @param options - ...
+   * @param options.url - Policy URL
+   * @param options.method - HTTP Method
+   * @param options.queryFilter - Request query filter allowances
+   * @param options.postFilter - Request post filter allowances
+   * @param options.allowed - Allow the policy
+   */
   constructor(options?: PolicyOptions) {
     options = options || {};
     this.url = options.url;
@@ -69,17 +71,6 @@ export class Policy {
   }
 }
 
-/**
- * @constructor
- * @param {object} options - ...
- * @param {string} options.accountSid - account sid
- * @param {string} options.authToken - auth token
- * @param {string} options.workspaceSid - workspace sid
- * @param {string} options.channelId - taskrouter channel id
- * @param {string} [options.friendlyName] - friendly name for the jwt
- * @param {number} [options.ttl] - time to live
- * @param {string} [options.version] - taskrouter version
- */
 export default class TaskRouterCapability {
   accountSid: string;
   authToken: string;
@@ -90,6 +81,16 @@ export default class TaskRouterCapability {
   policies: Policy[];
   friendlyName?: string;
 
+  /**
+   * @param options - ...
+   * @param options.accountSid - account sid
+   * @param options.authToken - auth token
+   * @param options.workspaceSid - workspace sid
+   * @param options.channelId - taskrouter channel id
+   * @param options.friendlyName - friendly name for the jwt
+   * @param options.ttl - time to live
+   * @param options.version - taskrouter version
+   */
   constructor(options: TaskRouterCapabilityOptions) {
     if (!options) {
       throw new Error('Required parameter "options" missing.');

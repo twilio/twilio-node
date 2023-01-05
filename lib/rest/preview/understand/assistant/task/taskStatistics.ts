@@ -22,9 +22,9 @@ export interface TaskStatisticsContext {
   /**
    * Fetch a TaskStatisticsInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed TaskStatisticsInstance
+   * @returns Resolves to processed TaskStatisticsInstance
    */
   fetch(
     callback?: (error: Error | null, item?: TaskStatisticsInstance) => any
@@ -38,8 +38,8 @@ export interface TaskStatisticsContext {
 }
 
 export interface TaskStatisticsContextSolution {
-  assistantSid?: string;
-  taskSid?: string;
+  assistantSid: string;
+  taskSid: string;
 }
 
 export class TaskStatisticsContextImpl implements TaskStatisticsContext {
@@ -64,9 +64,10 @@ export class TaskStatisticsContextImpl implements TaskStatisticsContext {
   }
 
   fetch(callback?: any): Promise<TaskStatisticsInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -75,12 +76,12 @@ export class TaskStatisticsContextImpl implements TaskStatisticsContext {
         new TaskStatisticsInstance(
           operationVersion,
           payload,
-          this._solution.assistantSid,
-          this._solution.taskSid
+          instance._solution.assistantSid,
+          instance._solution.taskSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -104,12 +105,12 @@ export class TaskStatisticsContextImpl implements TaskStatisticsContext {
 interface TaskStatisticsPayload extends TaskStatisticsResource {}
 
 interface TaskStatisticsResource {
-  account_sid?: string | null;
-  assistant_sid?: string | null;
-  task_sid?: string | null;
-  samples_count?: number | null;
-  fields_count?: number | null;
-  url?: string | null;
+  account_sid: string;
+  assistant_sid: string;
+  task_sid: string;
+  samples_count: number;
+  fields_count: number;
+  url: string;
 }
 
 export class TaskStatisticsInstance {
@@ -135,24 +136,24 @@ export class TaskStatisticsInstance {
   /**
    * The unique ID of the Account that created this Field.
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The unique ID of the parent Assistant.
    */
-  assistantSid?: string | null;
+  assistantSid: string;
   /**
    * The unique ID of the Task associated with this Field.
    */
-  taskSid?: string | null;
+  taskSid: string;
   /**
    * The total number of Samples associated with this Task.
    */
-  samplesCount?: number | null;
+  samplesCount: number;
   /**
    * The total number of Fields associated with this Task.
    */
-  fieldsCount?: number | null;
-  url?: string | null;
+  fieldsCount: number;
+  url: string;
 
   private get _proxy(): TaskStatisticsContext {
     this._context =
@@ -168,9 +169,9 @@ export class TaskStatisticsInstance {
   /**
    * Fetch a TaskStatisticsInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed TaskStatisticsInstance
+   * @returns Resolves to processed TaskStatisticsInstance
    */
   fetch(
     callback?: (error: Error | null, item?: TaskStatisticsInstance) => any
@@ -199,7 +200,16 @@ export class TaskStatisticsInstance {
   }
 }
 
+export interface TaskStatisticsSolution {
+  assistantSid: string;
+  taskSid: string;
+}
+
 export interface TaskStatisticsListInstance {
+  _version: Understand;
+  _solution: TaskStatisticsSolution;
+  _uri: string;
+
   (): TaskStatisticsContext;
   get(): TaskStatisticsContext;
 
@@ -208,18 +218,6 @@ export interface TaskStatisticsListInstance {
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export interface TaskStatisticsSolution {
-  assistantSid?: string;
-  taskSid?: string;
-}
-
-interface TaskStatisticsListInstanceImpl extends TaskStatisticsListInstance {}
-class TaskStatisticsListInstanceImpl implements TaskStatisticsListInstance {
-  _version?: Understand;
-  _solution?: TaskStatisticsSolution;
-  _uri?: string;
 }
 
 export function TaskStatisticsListInstance(
@@ -235,7 +233,7 @@ export function TaskStatisticsListInstance(
     throw new Error("Parameter 'taskSid' is not valid.");
   }
 
-  const instance = (() => instance.get()) as TaskStatisticsListInstanceImpl;
+  const instance = (() => instance.get()) as TaskStatisticsListInstance;
 
   instance.get = function get(): TaskStatisticsContext {
     return new TaskStatisticsContextImpl(version, assistantSid, taskSid);
@@ -246,14 +244,14 @@ export function TaskStatisticsListInstance(
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

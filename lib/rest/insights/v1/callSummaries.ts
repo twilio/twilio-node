@@ -53,160 +53,155 @@ type CallSummariesSortBy = "start_time" | "end_time";
 
 /**
  * Options to pass to each
- *
- * @property { string } [from]
- * @property { string } [to]
- * @property { string } [fromCarrier]
- * @property { string } [toCarrier]
- * @property { string } [fromCountryCode]
- * @property { string } [toCountryCode]
- * @property { boolean } [branded]
- * @property { boolean } [verifiedCaller]
- * @property { boolean } [hasTag]
- * @property { string } [startTime]
- * @property { string } [endTime]
- * @property { string } [callType]
- * @property { string } [callState]
- * @property { string } [direction]
- * @property { CallSummariesProcessingStateRequest } [processingState]
- * @property { CallSummariesSortBy } [sortBy]
- * @property { string } [subaccount]
- * @property { boolean } [abnormalSession]
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface CallSummariesListInstanceEachOptions {
+  /**  */
   from?: string;
+  /**  */
   to?: string;
+  /**  */
   fromCarrier?: string;
+  /**  */
   toCarrier?: string;
+  /**  */
   fromCountryCode?: string;
+  /**  */
   toCountryCode?: string;
+  /**  */
   branded?: boolean;
+  /**  */
   verifiedCaller?: boolean;
+  /**  */
   hasTag?: boolean;
+  /**  */
   startTime?: string;
+  /**  */
   endTime?: string;
+  /**  */
   callType?: string;
+  /**  */
   callState?: string;
+  /**  */
   direction?: string;
+  /**  */
   processingState?: CallSummariesProcessingStateRequest;
+  /**  */
   sortBy?: CallSummariesSortBy;
+  /**  */
   subaccount?: string;
+  /**  */
   abnormalSession?: boolean;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: CallSummariesInstance, done: (err?: Error) => void) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { string } [from]
- * @property { string } [to]
- * @property { string } [fromCarrier]
- * @property { string } [toCarrier]
- * @property { string } [fromCountryCode]
- * @property { string } [toCountryCode]
- * @property { boolean } [branded]
- * @property { boolean } [verifiedCaller]
- * @property { boolean } [hasTag]
- * @property { string } [startTime]
- * @property { string } [endTime]
- * @property { string } [callType]
- * @property { string } [callState]
- * @property { string } [direction]
- * @property { CallSummariesProcessingStateRequest } [processingState]
- * @property { CallSummariesSortBy } [sortBy]
- * @property { string } [subaccount]
- * @property { boolean } [abnormalSession]
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface CallSummariesListInstanceOptions {
+  /**  */
   from?: string;
+  /**  */
   to?: string;
+  /**  */
   fromCarrier?: string;
+  /**  */
   toCarrier?: string;
+  /**  */
   fromCountryCode?: string;
+  /**  */
   toCountryCode?: string;
+  /**  */
   branded?: boolean;
+  /**  */
   verifiedCaller?: boolean;
+  /**  */
   hasTag?: boolean;
+  /**  */
   startTime?: string;
+  /**  */
   endTime?: string;
+  /**  */
   callType?: string;
+  /**  */
   callState?: string;
+  /**  */
   direction?: string;
+  /**  */
   processingState?: CallSummariesProcessingStateRequest;
+  /**  */
   sortBy?: CallSummariesSortBy;
+  /**  */
   subaccount?: string;
+  /**  */
   abnormalSession?: boolean;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { string } [from]
- * @property { string } [to]
- * @property { string } [fromCarrier]
- * @property { string } [toCarrier]
- * @property { string } [fromCountryCode]
- * @property { string } [toCountryCode]
- * @property { boolean } [branded]
- * @property { boolean } [verifiedCaller]
- * @property { boolean } [hasTag]
- * @property { string } [startTime]
- * @property { string } [endTime]
- * @property { string } [callType]
- * @property { string } [callState]
- * @property { string } [direction]
- * @property { CallSummariesProcessingStateRequest } [processingState]
- * @property { CallSummariesSortBy } [sortBy]
- * @property { string } [subaccount]
- * @property { boolean } [abnormalSession]
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface CallSummariesListInstancePageOptions {
+  /**  */
   from?: string;
+  /**  */
   to?: string;
+  /**  */
   fromCarrier?: string;
+  /**  */
   toCarrier?: string;
+  /**  */
   fromCountryCode?: string;
+  /**  */
   toCountryCode?: string;
+  /**  */
   branded?: boolean;
+  /**  */
   verifiedCaller?: boolean;
+  /**  */
   hasTag?: boolean;
+  /**  */
   startTime?: string;
+  /**  */
   endTime?: string;
+  /**  */
   callType?: string;
+  /**  */
   callState?: string;
+  /**  */
   direction?: string;
+  /**  */
   processingState?: CallSummariesProcessingStateRequest;
+  /**  */
   sortBy?: CallSummariesSortBy;
+  /**  */
   subaccount?: string;
+  /**  */
   abnormalSession?: boolean;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
+export interface CallSummariesSolution {}
+
 export interface CallSummariesListInstance {
+  _version: V1;
+  _solution: CallSummariesSolution;
+  _uri: string;
+
   /**
    * Streams CallSummariesInstance records from the API.
    *
@@ -341,19 +336,10 @@ export interface CallSummariesListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface CallSummariesSolution {}
-
-interface CallSummariesListInstanceImpl extends CallSummariesListInstance {}
-class CallSummariesListInstanceImpl implements CallSummariesListInstance {
-  _version?: V1;
-  _solution?: CallSummariesSolution;
-  _uri?: string;
-}
-
 export function CallSummariesListInstance(
   version: V1
 ): CallSummariesListInstance {
-  const instance = {} as CallSummariesListInstanceImpl;
+  const instance = {} as CallSummariesListInstance;
 
   instance._version = version;
   instance._solution = {};
@@ -412,7 +398,7 @@ export function CallSummariesListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
@@ -420,10 +406,10 @@ export function CallSummariesListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new CallSummariesPage(operationVersion, payload, this._solution)
+        new CallSummariesPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -436,30 +422,28 @@ export function CallSummariesListInstance(
     targetUrl?: any,
     callback?: any
   ): Promise<CallSummariesPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new CallSummariesPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new CallSummariesPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;
@@ -470,28 +454,28 @@ interface CallSummariesPayload extends TwilioResponsePayload {
 }
 
 interface CallSummariesResource {
-  account_sid?: string | null;
-  call_sid?: string | null;
-  answered_by?: CallSummariesAnsweredBy;
-  call_type?: CallSummariesCallType;
-  call_state?: CallSummariesCallState;
-  processing_state?: CallSummariesProcessingState;
-  created_time?: Date | null;
-  start_time?: Date | null;
-  end_time?: Date | null;
-  duration?: number | null;
-  connect_duration?: number | null;
-  from?: any | null;
-  to?: any | null;
-  carrier_edge?: any | null;
-  client_edge?: any | null;
-  sdk_edge?: any | null;
-  sip_edge?: any | null;
-  tags?: Array<string> | null;
-  url?: string | null;
-  attributes?: any | null;
-  properties?: any | null;
-  trust?: any | null;
+  account_sid: string;
+  call_sid: string;
+  answered_by: CallSummariesAnsweredBy;
+  call_type: CallSummariesCallType;
+  call_state: CallSummariesCallState;
+  processing_state: CallSummariesProcessingState;
+  created_time: Date;
+  start_time: Date;
+  end_time: Date;
+  duration: number;
+  connect_duration: number;
+  from: any;
+  to: any;
+  carrier_edge: any;
+  client_edge: any;
+  sdk_edge: any;
+  sip_edge: any;
+  tags: Array<string>;
+  url: string;
+  attributes: any;
+  properties: any;
+  trust: any;
 }
 
 export class CallSummariesInstance {
@@ -520,28 +504,28 @@ export class CallSummariesInstance {
     this.trust = payload.trust;
   }
 
-  accountSid?: string | null;
-  callSid?: string | null;
-  answeredBy?: CallSummariesAnsweredBy;
-  callType?: CallSummariesCallType;
-  callState?: CallSummariesCallState;
-  processingState?: CallSummariesProcessingState;
-  createdTime?: Date | null;
-  startTime?: Date | null;
-  endTime?: Date | null;
-  duration?: number | null;
-  connectDuration?: number | null;
-  from?: any | null;
-  to?: any | null;
-  carrierEdge?: any | null;
-  clientEdge?: any | null;
-  sdkEdge?: any | null;
-  sipEdge?: any | null;
-  tags?: Array<string> | null;
-  url?: string | null;
-  attributes?: any | null;
-  properties?: any | null;
-  trust?: any | null;
+  accountSid: string;
+  callSid: string;
+  answeredBy: CallSummariesAnsweredBy;
+  callType: CallSummariesCallType;
+  callState: CallSummariesCallState;
+  processingState: CallSummariesProcessingState;
+  createdTime: Date;
+  startTime: Date;
+  endTime: Date;
+  duration: number;
+  connectDuration: number;
+  from: any;
+  to: any;
+  carrierEdge: any;
+  clientEdge: any;
+  sdkEdge: any;
+  sipEdge: any;
+  tags: Array<string>;
+  url: string;
+  attributes: any;
+  properties: any;
+  trust: any;
 
   /**
    * Provide a user-friendly representation

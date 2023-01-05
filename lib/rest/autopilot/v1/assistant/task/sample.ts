@@ -22,79 +22,66 @@ import { isValidPathParam } from "../../../../../base/utility";
 
 /**
  * Options to pass to update a SampleInstance
- *
- * @property { string } [language] The [ISO language-country](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) string that specifies the language used for the sample. For example: `en-US`.
- * @property { string } [taggedText] The text example of how end users might express the task. The sample can contain [Field tag blocks](https://www.twilio.com/docs/autopilot/api/task-sample#field-tagging).
- * @property { string } [sourceChannel] The communication channel from which the sample was captured. Can be: `voice`, `sms`, `chat`, `alexa`, `google-assistant`, `slack`, or null if not included.
  */
 export interface SampleContextUpdateOptions {
+  /** The [ISO language-country](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) string that specifies the language used for the sample. For example: `en-US`. */
   language?: string;
+  /** The text example of how end users might express the task. The sample can contain [Field tag blocks](https://www.twilio.com/docs/autopilot/api/task-sample#field-tagging). */
   taggedText?: string;
+  /** The communication channel from which the sample was captured. Can be: `voice`, `sms`, `chat`, `alexa`, `google-assistant`, `slack`, or null if not included. */
   sourceChannel?: string;
 }
 
 /**
  * Options to pass to create a SampleInstance
- *
- * @property { string } language The [ISO language-country](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) string that specifies the language used for the new sample. For example: `en-US`.
- * @property { string } taggedText The text example of how end users might express the task. The sample can contain [Field tag blocks](https://www.twilio.com/docs/autopilot/api/task-sample#field-tagging).
- * @property { string } [sourceChannel] The communication channel from which the new sample was captured. Can be: `voice`, `sms`, `chat`, `alexa`, `google-assistant`, `slack`, or null if not included.
  */
 export interface SampleListInstanceCreateOptions {
+  /** The [ISO language-country](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) string that specifies the language used for the new sample. For example: `en-US`. */
   language: string;
+  /** The text example of how end users might express the task. The sample can contain [Field tag blocks](https://www.twilio.com/docs/autopilot/api/task-sample#field-tagging). */
   taggedText: string;
+  /** The communication channel from which the new sample was captured. Can be: `voice`, `sms`, `chat`, `alexa`, `google-assistant`, `slack`, or null if not included. */
   sourceChannel?: string;
 }
 /**
  * Options to pass to each
- *
- * @property { string } [language] The [ISO language-country](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) string that specifies the language used for the sample. For example: `en-US`.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface SampleListInstanceEachOptions {
+  /** The [ISO language-country](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) string that specifies the language used for the sample. For example: `en-US`. */
   language?: string;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: SampleInstance, done: (err?: Error) => void) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { string } [language] The [ISO language-country](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) string that specifies the language used for the sample. For example: `en-US`.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface SampleListInstanceOptions {
+  /** The [ISO language-country](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) string that specifies the language used for the sample. For example: `en-US`. */
   language?: string;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { string } [language] The [ISO language-country](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) string that specifies the language used for the sample. For example: `en-US`.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface SampleListInstancePageOptions {
+  /** The [ISO language-country](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) string that specifies the language used for the sample. For example: `en-US`. */
   language?: string;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
@@ -102,9 +89,9 @@ export interface SampleContext {
   /**
    * Remove a SampleInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -113,9 +100,9 @@ export interface SampleContext {
   /**
    * Fetch a SampleInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SampleInstance
+   * @returns Resolves to processed SampleInstance
    */
   fetch(
     callback?: (error: Error | null, item?: SampleInstance) => any
@@ -124,9 +111,9 @@ export interface SampleContext {
   /**
    * Update a SampleInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SampleInstance
+   * @returns Resolves to processed SampleInstance
    */
   update(
     callback?: (error: Error | null, item?: SampleInstance) => any
@@ -134,10 +121,10 @@ export interface SampleContext {
   /**
    * Update a SampleInstance
    *
-   * @param { SampleContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SampleInstance
+   * @returns Resolves to processed SampleInstance
    */
   update(
     params: SampleContextUpdateOptions,
@@ -153,9 +140,9 @@ export interface SampleContext {
 }
 
 export interface SampleContextSolution {
-  assistantSid?: string;
-  taskSid?: string;
-  sid?: string;
+  assistantSid: string;
+  taskSid: string;
+  sid: string;
 }
 
 export class SampleContextImpl implements SampleContext {
@@ -185,13 +172,14 @@ export class SampleContextImpl implements SampleContext {
   }
 
   remove(callback?: any): Promise<boolean> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -199,9 +187,10 @@ export class SampleContextImpl implements SampleContext {
   }
 
   fetch(callback?: any): Promise<SampleInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -210,13 +199,13 @@ export class SampleContextImpl implements SampleContext {
         new SampleInstance(
           operationVersion,
           payload,
-          this._solution.assistantSid,
-          this._solution.taskSid,
-          this._solution.sid
+          instance._solution.assistantSid,
+          instance._solution.taskSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -242,9 +231,10 @@ export class SampleContextImpl implements SampleContext {
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -255,13 +245,13 @@ export class SampleContextImpl implements SampleContext {
         new SampleInstance(
           operationVersion,
           payload,
-          this._solution.assistantSid,
-          this._solution.taskSid,
-          this._solution.sid
+          instance._solution.assistantSid,
+          instance._solution.taskSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -287,16 +277,16 @@ interface SamplePayload extends TwilioResponsePayload {
 }
 
 interface SampleResource {
-  account_sid?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  task_sid?: string | null;
-  language?: string | null;
-  assistant_sid?: string | null;
-  sid?: string | null;
-  tagged_text?: string | null;
-  url?: string | null;
-  source_channel?: string | null;
+  account_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  task_sid: string;
+  language: string;
+  assistant_sid: string;
+  sid: string;
+  tagged_text: string;
+  url: string;
+  source_channel: string;
 }
 
 export class SampleInstance {
@@ -327,43 +317,43 @@ export class SampleInstance {
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The RFC 2822 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The RFC 2822 date and time in GMT when the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The SID of the Task associated with the resource
    */
-  taskSid?: string | null;
+  taskSid: string;
   /**
    * An ISO language-country string that specifies the language used for the sample
    */
-  language?: string | null;
+  language: string;
   /**
    * The SID of the Assistant that is the parent of the Task associated with the resource
    */
-  assistantSid?: string | null;
+  assistantSid: string;
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The text example of how end users might express the task
    */
-  taggedText?: string | null;
+  taggedText: string;
   /**
    * The absolute URL of the Sample resource
    */
-  url?: string | null;
+  url: string;
   /**
    * The communication channel from which the sample was captured
    */
-  sourceChannel?: string | null;
+  sourceChannel: string;
 
   private get _proxy(): SampleContext {
     this._context =
@@ -380,9 +370,9 @@ export class SampleInstance {
   /**
    * Remove a SampleInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -393,9 +383,9 @@ export class SampleInstance {
   /**
    * Fetch a SampleInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SampleInstance
+   * @returns Resolves to processed SampleInstance
    */
   fetch(
     callback?: (error: Error | null, item?: SampleInstance) => any
@@ -406,9 +396,9 @@ export class SampleInstance {
   /**
    * Update a SampleInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SampleInstance
+   * @returns Resolves to processed SampleInstance
    */
   update(
     callback?: (error: Error | null, item?: SampleInstance) => any
@@ -416,10 +406,10 @@ export class SampleInstance {
   /**
    * Update a SampleInstance
    *
-   * @param { SampleContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SampleInstance
+   * @returns Resolves to processed SampleInstance
    */
   update(
     params: SampleContextUpdateOptions,
@@ -454,17 +444,26 @@ export class SampleInstance {
   }
 }
 
+export interface SampleSolution {
+  assistantSid: string;
+  taskSid: string;
+}
+
 export interface SampleListInstance {
+  _version: V1;
+  _solution: SampleSolution;
+  _uri: string;
+
   (sid: string): SampleContext;
   get(sid: string): SampleContext;
 
   /**
    * Create a SampleInstance
    *
-   * @param { SampleListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SampleInstance
+   * @returns Resolves to processed SampleInstance
    */
   create(
     params: SampleListInstanceCreateOptions,
@@ -600,18 +599,6 @@ export interface SampleListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface SampleSolution {
-  assistantSid?: string;
-  taskSid?: string;
-}
-
-interface SampleListInstanceImpl extends SampleListInstance {}
-class SampleListInstanceImpl implements SampleListInstance {
-  _version?: V1;
-  _solution?: SampleSolution;
-  _uri?: string;
-}
-
 export function SampleListInstance(
   version: V1,
   assistantSid: string,
@@ -625,7 +612,7 @@ export function SampleListInstance(
     throw new Error("Parameter 'taskSid' is not valid.");
   }
 
-  const instance = ((sid) => instance.get(sid)) as SampleListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as SampleListInstance;
 
   instance.get = function get(sid): SampleContext {
     return new SampleContextImpl(version, assistantSid, taskSid, sid);
@@ -664,7 +651,7 @@ export function SampleListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -675,12 +662,12 @@ export function SampleListInstance(
         new SampleInstance(
           operationVersion,
           payload,
-          this._solution.assistantSid,
-          this._solution.taskSid
+          instance._solution.assistantSid,
+          instance._solution.taskSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -710,17 +697,17 @@ export function SampleListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new SamplePage(operationVersion, payload, this._solution)
+      (payload) => new SamplePage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -733,30 +720,28 @@ export function SampleListInstance(
     targetUrl?: any,
     callback?: any
   ): Promise<SamplePage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new SamplePage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new SamplePage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

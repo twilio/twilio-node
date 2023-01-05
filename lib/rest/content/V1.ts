@@ -20,16 +20,16 @@ export default class V1 extends Version {
   /**
    * Initialize the V1 version of Content
    *
-   * @property { Twilio.Content.V1.ContentListInstance } contents - contents resource
-   *
-   * @param { Twilio.Content } domain - The Twilio domain
+   * @param domain - The Twilio (Twilio.Content) domain
    */
   constructor(domain: ContentBase) {
     super(domain, "v1");
   }
 
+  /** contents - { Twilio.Content.V1.ContentListInstance } resource */
   protected _contents?: ContentListInstance;
 
+  /** Getter for contents resource */
   get contents(): ContentListInstance {
     this._contents = this._contents || ContentListInstance(this);
     return this._contents;

@@ -30,92 +30,80 @@ type CommandTransport = "sms" | "ip";
 
 /**
  * Options to pass to create a CommandInstance
- *
- * @property { string } command The message body of the Command. Can be plain text in text mode or a Base64 encoded byte string in binary mode.
- * @property { string } [sim] The `sid` or `unique_name` of the [SIM](https://www.twilio.com/docs/wireless/api/sim-resource) to send the Command to.
- * @property { string } [callbackMethod] The HTTP method we use to call `callback_url`. Can be: `POST` or `GET`, and the default is `POST`.
- * @property { string } [callbackUrl] The URL we call using the `callback_url` when the Command has finished sending, whether the command was delivered or it failed.
- * @property { CommandCommandMode } [commandMode]
- * @property { string } [includeSid] Whether to include the SID of the command in the message body. Can be: `none`, `start`, or `end`, and the default behavior is `none`. When sending a Command to a SIM in text mode, we can automatically include the SID of the Command in the message body, which could be used to ensure that the device does not process the same Command more than once.  A value of `start` will prepend the message with the Command SID, and `end` will append it to the end, separating the Command SID from the message body with a space. The length of the Command SID is included in the 160 character limit so the SMS body must be 128 characters or less before the Command SID is included.
- * @property { boolean } [deliveryReceiptRequested] Whether to request delivery receipt from the recipient. For Commands that request delivery receipt, the Command state transitions to \\\'delivered\\\' once the server has received a delivery receipt from the device. The default value is `true`.
  */
 export interface CommandListInstanceCreateOptions {
+  /** The message body of the Command. Can be plain text in text mode or a Base64 encoded byte string in binary mode. */
   command: string;
+  /** The `sid` or `unique_name` of the [SIM](https://www.twilio.com/docs/wireless/api/sim-resource) to send the Command to. */
   sim?: string;
+  /** The HTTP method we use to call `callback_url`. Can be: `POST` or `GET`, and the default is `POST`. */
   callbackMethod?: string;
+  /** The URL we call using the `callback_url` when the Command has finished sending, whether the command was delivered or it failed. */
   callbackUrl?: string;
+  /**  */
   commandMode?: CommandCommandMode;
+  /** Whether to include the SID of the command in the message body. Can be: `none`, `start`, or `end`, and the default behavior is `none`. When sending a Command to a SIM in text mode, we can automatically include the SID of the Command in the message body, which could be used to ensure that the device does not process the same Command more than once.  A value of `start` will prepend the message with the Command SID, and `end` will append it to the end, separating the Command SID from the message body with a space. The length of the Command SID is included in the 160 character limit so the SMS body must be 128 characters or less before the Command SID is included. */
   includeSid?: string;
+  /** Whether to request delivery receipt from the recipient. For Commands that request delivery receipt, the Command state transitions to \\\'delivered\\\' once the server has received a delivery receipt from the device. The default value is `true`. */
   deliveryReceiptRequested?: boolean;
 }
 /**
  * Options to pass to each
- *
- * @property { string } [sim] The `sid` or `unique_name` of the [Sim resources](https://www.twilio.com/docs/wireless/api/sim-resource) to read.
- * @property { CommandStatus } [status] The status of the resources to read. Can be: `queued`, `sent`, `delivered`, `received`, or `failed`.
- * @property { CommandDirection } [direction] Only return Commands with this direction value.
- * @property { CommandTransport } [transport] Only return Commands with this transport value. Can be: `sms` or `ip`.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface CommandListInstanceEachOptions {
+  /** The `sid` or `unique_name` of the [Sim resources](https://www.twilio.com/docs/wireless/api/sim-resource) to read. */
   sim?: string;
+  /** The status of the resources to read. Can be: `queued`, `sent`, `delivered`, `received`, or `failed`. */
   status?: CommandStatus;
+  /** Only return Commands with this direction value. */
   direction?: CommandDirection;
+  /** Only return Commands with this transport value. Can be: `sms` or `ip`. */
   transport?: CommandTransport;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: CommandInstance, done: (err?: Error) => void) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { string } [sim] The `sid` or `unique_name` of the [Sim resources](https://www.twilio.com/docs/wireless/api/sim-resource) to read.
- * @property { CommandStatus } [status] The status of the resources to read. Can be: `queued`, `sent`, `delivered`, `received`, or `failed`.
- * @property { CommandDirection } [direction] Only return Commands with this direction value.
- * @property { CommandTransport } [transport] Only return Commands with this transport value. Can be: `sms` or `ip`.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface CommandListInstanceOptions {
+  /** The `sid` or `unique_name` of the [Sim resources](https://www.twilio.com/docs/wireless/api/sim-resource) to read. */
   sim?: string;
+  /** The status of the resources to read. Can be: `queued`, `sent`, `delivered`, `received`, or `failed`. */
   status?: CommandStatus;
+  /** Only return Commands with this direction value. */
   direction?: CommandDirection;
+  /** Only return Commands with this transport value. Can be: `sms` or `ip`. */
   transport?: CommandTransport;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { string } [sim] The `sid` or `unique_name` of the [Sim resources](https://www.twilio.com/docs/wireless/api/sim-resource) to read.
- * @property { CommandStatus } [status] The status of the resources to read. Can be: `queued`, `sent`, `delivered`, `received`, or `failed`.
- * @property { CommandDirection } [direction] Only return Commands with this direction value.
- * @property { CommandTransport } [transport] Only return Commands with this transport value. Can be: `sms` or `ip`.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface CommandListInstancePageOptions {
+  /** The `sid` or `unique_name` of the [Sim resources](https://www.twilio.com/docs/wireless/api/sim-resource) to read. */
   sim?: string;
+  /** The status of the resources to read. Can be: `queued`, `sent`, `delivered`, `received`, or `failed`. */
   status?: CommandStatus;
+  /** Only return Commands with this direction value. */
   direction?: CommandDirection;
+  /** Only return Commands with this transport value. Can be: `sms` or `ip`. */
   transport?: CommandTransport;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
@@ -123,9 +111,9 @@ export interface CommandContext {
   /**
    * Remove a CommandInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -134,9 +122,9 @@ export interface CommandContext {
   /**
    * Fetch a CommandInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed CommandInstance
+   * @returns Resolves to processed CommandInstance
    */
   fetch(
     callback?: (error: Error | null, item?: CommandInstance) => any
@@ -150,7 +138,7 @@ export interface CommandContext {
 }
 
 export interface CommandContextSolution {
-  sid?: string;
+  sid: string;
 }
 
 export class CommandContextImpl implements CommandContext {
@@ -167,13 +155,14 @@ export class CommandContextImpl implements CommandContext {
   }
 
   remove(callback?: any): Promise<boolean> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -181,18 +170,19 @@ export class CommandContextImpl implements CommandContext {
   }
 
   fetch(callback?: any): Promise<CommandInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new CommandInstance(operationVersion, payload, this._solution.sid)
+        new CommandInstance(operationVersion, payload, instance._solution.sid)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -218,18 +208,18 @@ interface CommandPayload extends TwilioResponsePayload {
 }
 
 interface CommandResource {
-  sid?: string | null;
-  account_sid?: string | null;
-  sim_sid?: string | null;
-  command?: string | null;
-  command_mode?: CommandCommandMode;
-  transport?: CommandTransport;
-  delivery_receipt_requested?: boolean | null;
-  status?: CommandStatus;
-  direction?: CommandDirection;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  url?: string | null;
+  sid: string;
+  account_sid: string;
+  sim_sid: string;
+  command: string;
+  command_mode: CommandCommandMode;
+  transport: CommandTransport;
+  delivery_receipt_requested: boolean;
+  status: CommandStatus;
+  direction: CommandDirection;
+  date_created: Date;
+  date_updated: Date;
+  url: string;
 }
 
 export class CommandInstance {
@@ -256,39 +246,39 @@ export class CommandInstance {
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The SID of the Sim resource that the Command was sent to or from
    */
-  simSid?: string | null;
+  simSid: string;
   /**
    * The message being sent to or from the SIM
    */
-  command?: string | null;
-  commandMode?: CommandCommandMode;
-  transport?: CommandTransport;
+  command: string;
+  commandMode: CommandCommandMode;
+  transport: CommandTransport;
   /**
    * Whether to request a delivery receipt
    */
-  deliveryReceiptRequested?: boolean | null;
-  status?: CommandStatus;
-  direction?: CommandDirection;
+  deliveryReceiptRequested: boolean;
+  status: CommandStatus;
+  direction: CommandDirection;
   /**
    * The ISO 8601 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The ISO 8601 date and time in GMT when the resource was last updated format
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The absolute URL of the resource
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): CommandContext {
     this._context =
@@ -300,9 +290,9 @@ export class CommandInstance {
   /**
    * Remove a CommandInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -313,9 +303,9 @@ export class CommandInstance {
   /**
    * Fetch a CommandInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed CommandInstance
+   * @returns Resolves to processed CommandInstance
    */
   fetch(
     callback?: (error: Error | null, item?: CommandInstance) => any
@@ -350,17 +340,23 @@ export class CommandInstance {
   }
 }
 
+export interface CommandSolution {}
+
 export interface CommandListInstance {
+  _version: V1;
+  _solution: CommandSolution;
+  _uri: string;
+
   (sid: string): CommandContext;
   get(sid: string): CommandContext;
 
   /**
    * Create a CommandInstance
    *
-   * @param { CommandListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed CommandInstance
+   * @returns Resolves to processed CommandInstance
    */
   create(
     params: CommandListInstanceCreateOptions,
@@ -496,17 +492,8 @@ export interface CommandListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface CommandSolution {}
-
-interface CommandListInstanceImpl extends CommandListInstance {}
-class CommandListInstanceImpl implements CommandListInstance {
-  _version?: V1;
-  _solution?: CommandSolution;
-  _uri?: string;
-}
-
 export function CommandListInstance(version: V1): CommandListInstance {
-  const instance = ((sid) => instance.get(sid)) as CommandListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as CommandListInstance;
 
   instance.get = function get(sid): CommandContext {
     return new CommandContextImpl(version, sid);
@@ -550,7 +537,7 @@ export function CommandListInstance(version: V1): CommandListInstance {
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -560,7 +547,7 @@ export function CommandListInstance(version: V1): CommandListInstance {
       (payload) => new CommandInstance(operationVersion, payload)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -595,17 +582,18 @@ export function CommandListInstance(version: V1): CommandListInstance {
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new CommandPage(operationVersion, payload, this._solution)
+      (payload) =>
+        new CommandPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -618,30 +606,28 @@ export function CommandListInstance(version: V1): CommandListInstance {
     targetUrl?: any,
     callback?: any
   ): Promise<CommandPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new CommandPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new CommandPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

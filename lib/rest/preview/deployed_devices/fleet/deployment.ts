@@ -22,69 +22,56 @@ import { isValidPathParam } from "../../../../base/utility";
 
 /**
  * Options to pass to update a DeploymentInstance
- *
- * @property { string } [friendlyName] Provides a human readable descriptive text for this Deployment, up to 64 characters long
- * @property { string } [syncServiceSid] Provides the unique string identifier of the Twilio Sync service instance that will be linked to and accessible by this Deployment.
  */
 export interface DeploymentContextUpdateOptions {
+  /** Provides a human readable descriptive text for this Deployment, up to 64 characters long */
   friendlyName?: string;
+  /** Provides the unique string identifier of the Twilio Sync service instance that will be linked to and accessible by this Deployment. */
   syncServiceSid?: string;
 }
 
 /**
  * Options to pass to create a DeploymentInstance
- *
- * @property { string } [friendlyName] Provides a human readable descriptive text for this Deployment, up to 256 characters long.
- * @property { string } [syncServiceSid] Provides the unique string identifier of the Twilio Sync service instance that will be linked to and accessible by this Deployment.
  */
 export interface DeploymentListInstanceCreateOptions {
+  /** Provides a human readable descriptive text for this Deployment, up to 256 characters long. */
   friendlyName?: string;
+  /** Provides the unique string identifier of the Twilio Sync service instance that will be linked to and accessible by this Deployment. */
   syncServiceSid?: string;
 }
 /**
  * Options to pass to each
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface DeploymentListInstanceEachOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: DeploymentInstance, done: (err?: Error) => void) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface DeploymentListInstanceOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface DeploymentListInstancePageOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
@@ -92,9 +79,9 @@ export interface DeploymentContext {
   /**
    * Remove a DeploymentInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -103,9 +90,9 @@ export interface DeploymentContext {
   /**
    * Fetch a DeploymentInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed DeploymentInstance
+   * @returns Resolves to processed DeploymentInstance
    */
   fetch(
     callback?: (error: Error | null, item?: DeploymentInstance) => any
@@ -114,9 +101,9 @@ export interface DeploymentContext {
   /**
    * Update a DeploymentInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed DeploymentInstance
+   * @returns Resolves to processed DeploymentInstance
    */
   update(
     callback?: (error: Error | null, item?: DeploymentInstance) => any
@@ -124,10 +111,10 @@ export interface DeploymentContext {
   /**
    * Update a DeploymentInstance
    *
-   * @param { DeploymentContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed DeploymentInstance
+   * @returns Resolves to processed DeploymentInstance
    */
   update(
     params: DeploymentContextUpdateOptions,
@@ -143,8 +130,8 @@ export interface DeploymentContext {
 }
 
 export interface DeploymentContextSolution {
-  fleetSid?: string;
-  sid?: string;
+  fleetSid: string;
+  sid: string;
 }
 
 export class DeploymentContextImpl implements DeploymentContext {
@@ -169,13 +156,14 @@ export class DeploymentContextImpl implements DeploymentContext {
   }
 
   remove(callback?: any): Promise<boolean> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -183,9 +171,10 @@ export class DeploymentContextImpl implements DeploymentContext {
   }
 
   fetch(callback?: any): Promise<DeploymentInstance> {
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -194,12 +183,12 @@ export class DeploymentContextImpl implements DeploymentContext {
         new DeploymentInstance(
           operationVersion,
           payload,
-          this._solution.fleetSid,
-          this._solution.sid
+          instance._solution.fleetSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -224,9 +213,10 @@ export class DeploymentContextImpl implements DeploymentContext {
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -237,12 +227,12 @@ export class DeploymentContextImpl implements DeploymentContext {
         new DeploymentInstance(
           operationVersion,
           payload,
-          this._solution.fleetSid,
-          this._solution.sid
+          instance._solution.fleetSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -268,14 +258,14 @@ interface DeploymentPayload extends TwilioResponsePayload {
 }
 
 interface DeploymentResource {
-  sid?: string | null;
-  url?: string | null;
-  friendly_name?: string | null;
-  fleet_sid?: string | null;
-  account_sid?: string | null;
-  sync_service_sid?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
+  sid: string;
+  url: string;
+  friendly_name: string;
+  fleet_sid: string;
+  account_sid: string;
+  sync_service_sid: string;
+  date_created: Date;
+  date_updated: Date;
 }
 
 export class DeploymentInstance {
@@ -303,35 +293,35 @@ export class DeploymentInstance {
   /**
    * A string that uniquely identifies this Deployment.
    */
-  sid?: string | null;
+  sid: string;
   /**
    * URL of this Deployment.
    */
-  url?: string | null;
+  url: string;
   /**
    * A human readable description for this Deployment
    */
-  friendlyName?: string | null;
+  friendlyName: string;
   /**
    * The unique identifier of the Fleet.
    */
-  fleetSid?: string | null;
+  fleetSid: string;
   /**
    * The unique SID that identifies this Account.
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The unique identifier of the Sync service instance.
    */
-  syncServiceSid?: string | null;
+  syncServiceSid: string;
   /**
    * The date this Deployment was created.
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The date this Deployment was updated.
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
 
   private get _proxy(): DeploymentContext {
     this._context =
@@ -347,9 +337,9 @@ export class DeploymentInstance {
   /**
    * Remove a DeploymentInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -360,9 +350,9 @@ export class DeploymentInstance {
   /**
    * Fetch a DeploymentInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed DeploymentInstance
+   * @returns Resolves to processed DeploymentInstance
    */
   fetch(
     callback?: (error: Error | null, item?: DeploymentInstance) => any
@@ -373,9 +363,9 @@ export class DeploymentInstance {
   /**
    * Update a DeploymentInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed DeploymentInstance
+   * @returns Resolves to processed DeploymentInstance
    */
   update(
     callback?: (error: Error | null, item?: DeploymentInstance) => any
@@ -383,10 +373,10 @@ export class DeploymentInstance {
   /**
    * Update a DeploymentInstance
    *
-   * @param { DeploymentContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed DeploymentInstance
+   * @returns Resolves to processed DeploymentInstance
    */
   update(
     params: DeploymentContextUpdateOptions,
@@ -419,16 +409,24 @@ export class DeploymentInstance {
   }
 }
 
+export interface DeploymentSolution {
+  fleetSid: string;
+}
+
 export interface DeploymentListInstance {
+  _version: DeployedDevices;
+  _solution: DeploymentSolution;
+  _uri: string;
+
   (sid: string): DeploymentContext;
   get(sid: string): DeploymentContext;
 
   /**
    * Create a DeploymentInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed DeploymentInstance
+   * @returns Resolves to processed DeploymentInstance
    */
   create(
     callback?: (error: Error | null, item?: DeploymentInstance) => any
@@ -436,10 +434,10 @@ export interface DeploymentListInstance {
   /**
    * Create a DeploymentInstance
    *
-   * @param { DeploymentListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed DeploymentInstance
+   * @returns Resolves to processed DeploymentInstance
    */
   create(
     params: DeploymentListInstanceCreateOptions,
@@ -575,17 +573,6 @@ export interface DeploymentListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface DeploymentSolution {
-  fleetSid?: string;
-}
-
-interface DeploymentListInstanceImpl extends DeploymentListInstance {}
-class DeploymentListInstanceImpl implements DeploymentListInstance {
-  _version?: DeployedDevices;
-  _solution?: DeploymentSolution;
-  _uri?: string;
-}
-
 export function DeploymentListInstance(
   version: DeployedDevices,
   fleetSid: string
@@ -594,7 +581,7 @@ export function DeploymentListInstance(
     throw new Error("Parameter 'fleetSid' is not valid.");
   }
 
-  const instance = ((sid) => instance.get(sid)) as DeploymentListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as DeploymentListInstance;
 
   instance.get = function get(sid): DeploymentContext {
     return new DeploymentContextImpl(version, fleetSid, sid);
@@ -627,7 +614,7 @@ export function DeploymentListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -638,11 +625,11 @@ export function DeploymentListInstance(
         new DeploymentInstance(
           operationVersion,
           payload,
-          this._solution.fleetSid
+          instance._solution.fleetSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -671,17 +658,18 @@ export function DeploymentListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new DeploymentPage(operationVersion, payload, this._solution)
+      (payload) =>
+        new DeploymentPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -694,30 +682,28 @@ export function DeploymentListInstance(
     targetUrl?: any,
     callback?: any
   ): Promise<DeploymentPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new DeploymentPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new DeploymentPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;
