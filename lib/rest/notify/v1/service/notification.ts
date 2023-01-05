@@ -149,17 +149,17 @@ export function NotificationListInstance(
     if (params["fcm"] !== undefined)
       data["Fcm"] = serialize.object(params["fcm"]);
     if (params["segment"] !== undefined)
-      data["Segment"] = serialize.map(params["segment"], (e) => e);
+      data["Segment"] = serialize.map(params["segment"], (e: string) => e);
     if (params["alexa"] !== undefined)
       data["Alexa"] = serialize.object(params["alexa"]);
     if (params["toBinding"] !== undefined)
-      data["ToBinding"] = serialize.map(params["toBinding"], (e) => e);
+      data["ToBinding"] = serialize.map(params["toBinding"], (e: string) => e);
     if (params["deliveryCallbackUrl"] !== undefined)
       data["DeliveryCallbackUrl"] = params["deliveryCallbackUrl"];
     if (params["identity"] !== undefined)
-      data["Identity"] = serialize.map(params["identity"], (e) => e);
+      data["Identity"] = serialize.map(params["identity"], (e: string) => e);
     if (params["tag"] !== undefined)
-      data["Tag"] = serialize.map(params["tag"], (e) => e);
+      data["Tag"] = serialize.map(params["tag"], (e: string) => e);
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";

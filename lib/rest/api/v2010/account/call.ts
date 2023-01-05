@@ -1059,7 +1059,7 @@ export function CallListInstance(
     if (params["statusCallbackEvent"] !== undefined)
       data["StatusCallbackEvent"] = serialize.map(
         params["statusCallbackEvent"],
-        (e) => e
+        (e: string) => e
       );
     if (params["statusCallbackMethod"] !== undefined)
       data["StatusCallbackMethod"] = params["statusCallbackMethod"];
@@ -1086,7 +1086,7 @@ export function CallListInstance(
     if (params["recordingStatusCallbackEvent"] !== undefined)
       data["RecordingStatusCallbackEvent"] = serialize.map(
         params["recordingStatusCallbackEvent"],
-        (e) => e
+        (e: string) => e
       );
     if (params["trim"] !== undefined) data["Trim"] = params["trim"];
     if (params["callerId"] !== undefined) data["CallerId"] = params["callerId"];

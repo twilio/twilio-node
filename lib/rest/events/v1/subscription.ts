@@ -569,7 +569,9 @@ export function SubscriptionListInstance(
 
     data["SinkSid"] = params["sinkSid"];
 
-    data["Types"] = serialize.map(params["types"], (e) => serialize.object(e));
+    data["Types"] = serialize.map(params["types"], (e: any) =>
+      serialize.object(e)
+    );
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";

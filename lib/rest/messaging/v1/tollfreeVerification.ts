@@ -704,14 +704,17 @@ export function TollfreeVerificationListInstance(
 
     data["UseCaseCategories"] = serialize.map(
       params["useCaseCategories"],
-      (e) => e
+      (e: string) => e
     );
 
     data["UseCaseSummary"] = params["useCaseSummary"];
 
     data["ProductionMessageSample"] = params["productionMessageSample"];
 
-    data["OptInImageUrls"] = serialize.map(params["optInImageUrls"], (e) => e);
+    data["OptInImageUrls"] = serialize.map(
+      params["optInImageUrls"],
+      (e: string) => e
+    );
 
     data["OptInType"] = params["optInType"];
 

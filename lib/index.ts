@@ -1,5 +1,3 @@
-"use strict";
-
 import Twilio from "./rest/Twilio";
 import * as webhooks from "./webhooks/webhooks";
 import RequestClient from "./base/RequestClient";

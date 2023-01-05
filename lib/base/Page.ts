@@ -1,5 +1,3 @@
-"use strict";
-
 import Version from "./Version";
 import Response from "../http/response";
 import RestException from "./RestException";

@@ -1,5 +1,3 @@
-"use strict";
-
 process.noDeprecation = true;
 
 import MessagingResponse from "../../../lib/twiml/MessagingResponse";

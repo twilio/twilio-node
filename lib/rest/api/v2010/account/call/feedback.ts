@@ -147,7 +147,10 @@ export class FeedbackContextImpl implements FeedbackContext {
     if (params["qualityScore"] !== undefined)
       data["QualityScore"] = params["qualityScore"];
     if (params["issue"] !== undefined)
-      data["Issue"] = serialize.map(params["issue"], (e) => e);
+      data["Issue"] = serialize.map(
+        params["issue"],
+        (e: CallFeedbackIssues) => e
+      );
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";

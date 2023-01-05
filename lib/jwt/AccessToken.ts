@@ -1,5 +1,3 @@
-"use strict";
-
 import jwt from "jsonwebtoken";
 
 export abstract class Grant<TOptions, TPayload, TKey> {

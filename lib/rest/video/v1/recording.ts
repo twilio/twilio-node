@@ -507,7 +507,10 @@ export function RecordingListInstance(version: V1): RecordingListInstance {
     if (params["sourceSid"] !== undefined)
       data["SourceSid"] = params["sourceSid"];
     if (params["groupingSid"] !== undefined)
-      data["GroupingSid"] = serialize.map(params["groupingSid"], (e) => e);
+      data["GroupingSid"] = serialize.map(
+        params["groupingSid"],
+        (e: string) => e
+      );
     if (params["dateCreatedAfter"] !== undefined)
       data["DateCreatedAfter"] = serialize.iso8601DateTime(
         params["dateCreatedAfter"]

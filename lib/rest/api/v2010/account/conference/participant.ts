@@ -787,7 +787,7 @@ export function ParticipantListInstance(
     if (params["statusCallbackEvent"] !== undefined)
       data["StatusCallbackEvent"] = serialize.map(
         params["statusCallbackEvent"],
-        (e) => e
+        (e: string) => e
       );
     if (params["label"] !== undefined) data["Label"] = params["label"];
     if (params["timeout"] !== undefined) data["Timeout"] = params["timeout"];
@@ -823,7 +823,7 @@ export function ParticipantListInstance(
     if (params["conferenceStatusCallbackEvent"] !== undefined)
       data["ConferenceStatusCallbackEvent"] = serialize.map(
         params["conferenceStatusCallbackEvent"],
-        (e) => e
+        (e: string) => e
       );
     if (params["recordingChannels"] !== undefined)
       data["RecordingChannels"] = params["recordingChannels"];
@@ -846,12 +846,12 @@ export function ParticipantListInstance(
     if (params["recordingStatusCallbackEvent"] !== undefined)
       data["RecordingStatusCallbackEvent"] = serialize.map(
         params["recordingStatusCallbackEvent"],
-        (e) => e
+        (e: string) => e
       );
     if (params["conferenceRecordingStatusCallbackEvent"] !== undefined)
       data["ConferenceRecordingStatusCallbackEvent"] = serialize.map(
         params["conferenceRecordingStatusCallbackEvent"],
-        (e) => e
+        (e: string) => e
       );
     if (params["coaching"] !== undefined)
       data["Coaching"] = serialize.bool(params["coaching"]);

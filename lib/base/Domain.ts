@@ -1,5 +1,3 @@
-"use strict";
-
 import { BaseTwilio, RequestOpts } from "./BaseTwilio";
 import { trim } from "./utility";
 

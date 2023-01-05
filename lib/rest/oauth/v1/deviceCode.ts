@@ -84,9 +84,9 @@ export function DeviceCodeListInstance(version: V1): DeviceCodeListInstance {
 
     data["ClientSid"] = params["clientSid"];
 
-    data["Scopes"] = serialize.map(params["scopes"], (e) => e);
+    data["Scopes"] = serialize.map(params["scopes"], (e: string) => e);
     if (params["audiences"] !== undefined)
-      data["Audiences"] = serialize.map(params["audiences"], (e) => e);
+      data["Audiences"] = serialize.map(params["audiences"], (e: string) => e);
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";

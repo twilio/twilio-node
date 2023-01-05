@@ -249,12 +249,12 @@ export class WebhookContextImpl implements WebhookContext {
     if (params["configuration.filters"] !== undefined)
       data["Configuration.Filters"] = serialize.map(
         params["configuration.filters"],
-        (e) => e
+        (e: string) => e
       );
     if (params["configuration.triggers"] !== undefined)
       data["Configuration.Triggers"] = serialize.map(
         params["configuration.triggers"],
-        (e) => e
+        (e: string) => e
       );
     if (params["configuration.flowSid"] !== undefined)
       data["Configuration.FlowSid"] = params["configuration.flowSid"];
@@ -594,12 +594,12 @@ export function WebhookListInstance(
     if (params["configuration.filters"] !== undefined)
       data["Configuration.Filters"] = serialize.map(
         params["configuration.filters"],
-        (e) => e
+        (e: string) => e
       );
     if (params["configuration.triggers"] !== undefined)
       data["Configuration.Triggers"] = serialize.map(
         params["configuration.triggers"],
-        (e) => e
+        (e: string) => e
       );
     if (params["configuration.flowSid"] !== undefined)
       data["Configuration.FlowSid"] = params["configuration.flowSid"];

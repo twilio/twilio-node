@@ -536,7 +536,7 @@ export function BindingListInstance(
 
     data["Address"] = params["address"];
     if (params["tag"] !== undefined)
-      data["Tag"] = serialize.map(params["tag"], (e) => e);
+      data["Tag"] = serialize.map(params["tag"], (e: string) => e);
     if (params["notificationProtocolVersion"] !== undefined)
       data["NotificationProtocolVersion"] =
         params["notificationProtocolVersion"];
@@ -591,9 +591,9 @@ export function BindingListInstance(
     if (params["endDate"] !== undefined)
       data["EndDate"] = serialize.iso8601Date(params["endDate"]);
     if (params["identity"] !== undefined)
-      data["Identity"] = serialize.map(params["identity"], (e) => e);
+      data["Identity"] = serialize.map(params["identity"], (e: string) => e);
     if (params["tag"] !== undefined)
-      data["Tag"] = serialize.map(params["tag"], (e) => e);
+      data["Tag"] = serialize.map(params["tag"], (e: string) => e);
     if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;

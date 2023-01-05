@@ -302,7 +302,7 @@ export class HostedNumberOrderContextImpl implements HostedNumberOrderContext {
       data["UniqueName"] = params["uniqueName"];
     if (params["email"] !== undefined) data["Email"] = params["email"];
     if (params["ccEmails"] !== undefined)
-      data["CcEmails"] = serialize.map(params["ccEmails"], (e) => e);
+      data["CcEmails"] = serialize.map(params["ccEmails"], (e: string) => e);
     if (params["status"] !== undefined) data["Status"] = params["status"];
     if (params["verificationCode"] !== undefined)
       data["VerificationCode"] = params["verificationCode"];
@@ -762,7 +762,7 @@ export function HostedNumberOrderListInstance(
     if (params["uniqueName"] !== undefined)
       data["UniqueName"] = params["uniqueName"];
     if (params["ccEmails"] !== undefined)
-      data["CcEmails"] = serialize.map(params["ccEmails"], (e) => e);
+      data["CcEmails"] = serialize.map(params["ccEmails"], (e: string) => e);
     if (params["smsUrl"] !== undefined) data["SmsUrl"] = params["smsUrl"];
     if (params["smsMethod"] !== undefined)
       data["SmsMethod"] = params["smsMethod"];

@@ -1,5 +1,3 @@
-"use strict";
-
 export default class Response<TPayload> {
   constructor(
     public statusCode: number,

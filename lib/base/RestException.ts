@@ -1,4 +1,3 @@
-"use strict";
 interface RestExceptionError {
   status: number;
   message: string;

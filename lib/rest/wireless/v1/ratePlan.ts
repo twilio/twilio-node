@@ -627,7 +627,7 @@ export function RatePlanListInstance(version: V1): RatePlanListInstance {
     if (params["internationalRoaming"] !== undefined)
       data["InternationalRoaming"] = serialize.map(
         params["internationalRoaming"],
-        (e) => e
+        (e: string) => e
       );
     if (params["nationalRoamingDataLimit"] !== undefined)
       data["NationalRoamingDataLimit"] = params["nationalRoamingDataLimit"];

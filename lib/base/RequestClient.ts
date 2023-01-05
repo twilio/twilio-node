@@ -1,5 +1,3 @@
-"use strict";
-
 import { HttpMethod } from "../interfaces";
 import axios, { AxiosInstance, AxiosRequestConfig } from "axios";
 import * as fs from "fs";

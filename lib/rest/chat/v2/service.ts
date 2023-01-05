@@ -365,7 +365,7 @@ export class ServiceContextImpl implements ServiceContext {
     if (params["webhookFilters"] !== undefined)
       data["WebhookFilters"] = serialize.map(
         params["webhookFilters"],
-        (e) => e
+        (e: string) => e
       );
     if (params["limits.channelMembers"] !== undefined)
       data["Limits.ChannelMembers"] = params["limits.channelMembers"];

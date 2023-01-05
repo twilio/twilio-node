@@ -1,5 +1,3 @@
-"use strict";
-
 import jwt from "jsonwebtoken";
 import qs from "querystring";
 

@@ -457,9 +457,12 @@ export function BindingListInstance(
     let data: any = {};
 
     if (params["bindingType"] !== undefined)
-      data["BindingType"] = serialize.map(params["bindingType"], (e) => e);
+      data["BindingType"] = serialize.map(
+        params["bindingType"],
+        (e: BindingBindingType) => e
+      );
     if (params["identity"] !== undefined)
-      data["Identity"] = serialize.map(params["identity"], (e) => e);
+      data["Identity"] = serialize.map(params["identity"], (e: string) => e);
     if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
