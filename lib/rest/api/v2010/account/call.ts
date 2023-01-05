@@ -578,7 +578,7 @@ interface CallResource {
   queue_time: string;
   trunk_sid: string;
   uri: string;
-  subresource_uris: object;
+  subresource_uris: Record<string, string>;
 }
 
 export class CallInstance {
@@ -721,7 +721,7 @@ export class CallInstance {
   /**
    * A list of related subresources identified by their relative URIs
    */
-  subresourceUris: object;
+  subresourceUris: Record<string, string>;
 
   private get _proxy(): CallContext {
     this._context =

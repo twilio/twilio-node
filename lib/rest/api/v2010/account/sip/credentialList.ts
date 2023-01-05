@@ -273,7 +273,7 @@ interface CredentialListResource {
   date_updated: Date;
   friendly_name: string;
   sid: string;
-  subresource_uris: object;
+  subresource_uris: Record<string, string>;
   uri: string;
 }
 
@@ -321,7 +321,7 @@ export class CredentialListInstance {
   /**
    * The list of credentials associated with this credential list.
    */
-  subresourceUris: object;
+  subresourceUris: Record<string, string>;
   /**
    * The URI for this resource
    */

@@ -270,7 +270,7 @@ interface InteractionChannelResource {
   error_code: number;
   error_message: string;
   url: string;
-  links: object;
+  links: Record<string, string>;
 }
 
 export class InteractionChannelInstance {
@@ -314,7 +314,7 @@ export class InteractionChannelInstance {
    */
   errorMessage: string;
   url: string;
-  links: object;
+  links: Record<string, string>;
 
   private get _proxy(): InteractionChannelContext {
     this._context =

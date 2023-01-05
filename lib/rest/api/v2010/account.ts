@@ -473,7 +473,7 @@ interface AccountResource {
   owner_account_sid: string;
   sid: string;
   status: AccountStatus;
-  subresource_uris: object;
+  subresource_uris: Record<string, string>;
   type: AccountType;
   uri: string;
 }
@@ -529,7 +529,7 @@ export class AccountInstance {
   /**
    * Account Instance Subresources
    */
-  subresourceUris: object;
+  subresourceUris: Record<string, string>;
   type: AccountType;
   /**
    * The URI for this resource, relative to `https://api.twilio.com`

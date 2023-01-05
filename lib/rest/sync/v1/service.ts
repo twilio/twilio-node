@@ -338,7 +338,7 @@ interface ServiceResource {
   acl_enabled: boolean;
   reachability_debouncing_enabled: boolean;
   reachability_debouncing_window: number;
-  links: object;
+  links: Record<string, string>;
 }
 
 export class ServiceInstance {
@@ -422,7 +422,7 @@ export class ServiceInstance {
   /**
    * The URLs of related resources
    */
-  links: object;
+  links: Record<string, string>;
 
   private get _proxy(): ServiceContext {
     this._context =

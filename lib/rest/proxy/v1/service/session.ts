@@ -321,7 +321,7 @@ interface SessionResource {
   date_created: Date;
   date_updated: Date;
   url: string;
-  links: object;
+  links: Record<string, string>;
 }
 
 export class SessionInstance {
@@ -413,7 +413,7 @@ export class SessionInstance {
   /**
    * The URLs of resources related to the Session
    */
-  links: object;
+  links: Record<string, string>;
 
   private get _proxy(): SessionContext {
     this._context =

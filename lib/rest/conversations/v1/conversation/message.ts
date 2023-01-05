@@ -363,7 +363,7 @@ interface MessageResource {
   date_updated: Date;
   url: string;
   delivery: any;
-  links: object;
+  links: Record<string, string>;
 }
 
 export class MessageInstance {
@@ -449,7 +449,7 @@ export class MessageInstance {
   /**
    * Absolute URL to access the receipts of this message.
    */
-  links: object;
+  links: Record<string, string>;
 
   private get _proxy(): MessageContext {
     this._context =

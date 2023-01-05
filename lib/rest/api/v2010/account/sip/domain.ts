@@ -410,7 +410,7 @@ interface DomainResource {
   voice_status_callback_method: DomainVoiceStatusCallbackMethod;
   voice_status_callback_url: string;
   voice_url: string;
-  subresource_uris: object;
+  subresource_uris: Record<string, string>;
   sip_registration: boolean;
   emergency_calling_enabled: boolean;
   secure: boolean;
@@ -516,7 +516,7 @@ export class DomainInstance {
   /**
    * A list mapping resources associated with the SIP Domain resource
    */
-  subresourceUris: object;
+  subresourceUris: Record<string, string>;
   /**
    * Whether SIP registration is allowed
    */

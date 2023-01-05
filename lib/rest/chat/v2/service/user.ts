@@ -319,7 +319,7 @@ interface UserResource {
   date_created: Date;
   date_updated: Date;
   joined_channels_count: number;
-  links: object;
+  links: Record<string, string>;
   url: string;
 }
 
@@ -404,7 +404,7 @@ export class UserInstance {
   /**
    * The absolute URLs of the Channel and Binding resources related to the user
    */
-  links: object;
+  links: Record<string, string>;
   /**
    * The absolute URL of the User resource
    */

@@ -522,7 +522,7 @@ interface DailyResource {
   price: number;
   price_unit: string;
   start_date: Date;
-  subresource_uris: object;
+  subresource_uris: Record<string, string>;
   uri: string;
   usage: string;
   usage_unit: string;
@@ -595,7 +595,7 @@ export class DailyInstance {
   /**
    * A list of related resources identified by their relative URIs
    */
-  subresourceUris: object;
+  subresourceUris: Record<string, string>;
   /**
    * The URI of the resource, relative to `https://api.twilio.com`
    */

@@ -250,7 +250,7 @@ interface UserChannelResource {
   status: UserChannelChannelStatus;
   last_consumed_message_index: number;
   unread_messages_count: number;
-  links: object;
+  links: Record<string, string>;
 }
 
 export class UserChannelInstance {
@@ -281,7 +281,7 @@ export class UserChannelInstance {
   status: UserChannelChannelStatus;
   lastConsumedMessageIndex: number;
   unreadMessagesCount: number;
-  links: object;
+  links: Record<string, string>;
 
   /**
    * Provide a user-friendly representation

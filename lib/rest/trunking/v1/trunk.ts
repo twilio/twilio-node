@@ -363,7 +363,7 @@ interface TrunkResource {
   date_updated: Date;
   sid: string;
   url: string;
-  links: object;
+  links: Record<string, string>;
 }
 
 export class TrunkInstance {
@@ -453,7 +453,7 @@ export class TrunkInstance {
   /**
    * The URLs of related resources
    */
-  links: object;
+  links: Record<string, string>;
 
   private get _proxy(): TrunkContext {
     this._context =

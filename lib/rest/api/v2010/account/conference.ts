@@ -325,7 +325,7 @@ interface ConferenceResource {
   sid: string;
   status: ConferenceStatus;
   uri: string;
-  subresource_uris: object;
+  subresource_uris: Record<string, string>;
   reason_conference_ended: ConferenceReasonConferenceEnded;
   call_sid_ending_conference: string;
 }
@@ -392,7 +392,7 @@ export class ConferenceInstance {
   /**
    * A list of related resources identified by their relative URIs
    */
-  subresourceUris: object;
+  subresourceUris: Record<string, string>;
   reasonConferenceEnded: ConferenceReasonConferenceEnded;
   /**
    * The call SID that caused the conference to end

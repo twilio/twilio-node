@@ -220,11 +220,11 @@ interface PhoneNumberResource {
   address_requirements: PhoneNumberAddressRequirement;
   api_version: string;
   beta: boolean;
-  capabilities: object;
+  capabilities: Record<string, string>;
   date_created: Date;
   date_updated: Date;
   friendly_name: string;
-  links: object;
+  links: Record<string, string>;
   phone_number: string;
   sid: string;
   sms_application_sid: string;
@@ -300,7 +300,7 @@ export class PhoneNumberInstance {
   /**
    * Indicate if a phone can receive calls or messages
    */
-  capabilities: object;
+  capabilities: Record<string, string>;
   /**
    * The RFC 2822 date and time in GMT when the resource was created
    */
@@ -316,7 +316,7 @@ export class PhoneNumberInstance {
   /**
    * The URLs of related resources
    */
-  links: object;
+  links: Record<string, string>;
   /**
    * The phone number in E.164 format
    */

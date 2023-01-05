@@ -345,7 +345,7 @@ interface CustomerProfilesResource {
   date_created: Date;
   date_updated: Date;
   url: string;
-  links: object;
+  links: Record<string, string>;
 }
 
 export class CustomerProfilesInstance {
@@ -417,7 +417,7 @@ export class CustomerProfilesInstance {
   /**
    * The URLs of the Assigned Items of the Customer-Profile resource
    */
-  links: object;
+  links: Record<string, string>;
 
   private get _proxy(): CustomerProfilesContext {
     this._context =

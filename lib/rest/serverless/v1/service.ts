@@ -305,7 +305,7 @@ interface ServiceResource {
   date_created: Date;
   date_updated: Date;
   url: string;
-  links: object;
+  links: Record<string, string>;
 }
 
 export class ServiceInstance {
@@ -371,7 +371,7 @@ export class ServiceInstance {
   /**
    * The URLs of the Service\'s nested resources
    */
-  links: object;
+  links: Record<string, string>;
 
   private get _proxy(): ServiceContext {
     this._context =

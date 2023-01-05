@@ -423,7 +423,7 @@ interface WorkerResource {
   sid: string;
   workspace_sid: string;
   url: string;
-  links: object;
+  links: Record<string, string>;
 }
 
 export class WorkerInstance {
@@ -506,7 +506,7 @@ export class WorkerInstance {
   /**
    * The URLs of related resources
    */
-  links: object;
+  links: Record<string, string>;
 
   private get _proxy(): WorkerContext {
     this._context =

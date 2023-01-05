@@ -218,7 +218,7 @@ interface AddOnResultResource {
   date_updated: Date;
   date_completed: Date;
   reference_sid: string;
-  subresource_uris: object;
+  subresource_uris: Record<string, string>;
 }
 
 export class AddOnResultInstance {
@@ -282,7 +282,7 @@ export class AddOnResultInstance {
   /**
    * A list of related resources identified by their relative URIs
    */
-  subresourceUris: object;
+  subresourceUris: Record<string, string>;
 
   private get _proxy(): AddOnResultContext {
     this._context =

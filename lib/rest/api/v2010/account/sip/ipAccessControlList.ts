@@ -275,7 +275,7 @@ interface IpAccessControlListResource {
   friendly_name: string;
   date_created: Date;
   date_updated: Date;
-  subresource_uris: object;
+  subresource_uris: Record<string, string>;
   uri: string;
 }
 
@@ -323,7 +323,7 @@ export class IpAccessControlListInstance {
   /**
    * The IP addresses associated with this resource.
    */
-  subresourceUris: object;
+  subresourceUris: Record<string, string>;
   /**
    * The URI for this resource
    */

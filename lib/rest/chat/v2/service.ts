@@ -447,7 +447,7 @@ interface ServiceResource {
   notifications: any;
   media: any;
   url: string;
-  links: object;
+  links: Record<string, string>;
 }
 
 export class ServiceInstance {
@@ -582,7 +582,7 @@ export class ServiceInstance {
   /**
    * The absolute URLs of the Service\'s Channels, Roles, and Users
    */
-  links: object;
+  links: Record<string, string>;
 
   private get _proxy(): ServiceContext {
     this._context =

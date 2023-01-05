@@ -367,7 +367,7 @@ interface ServiceResource {
   default_fcm_notification_protocol_version: string;
   log_enabled: boolean;
   url: string;
-  links: object;
+  links: Record<string, string>;
   alexa_skill_id: string;
   default_alexa_notification_protocol_version: string;
   delivery_callback_url: string;
@@ -470,7 +470,7 @@ export class ServiceInstance {
   /**
    * The URLs of the resources related to the service
    */
-  links: object;
+  links: Record<string, string>;
   /**
    * Deprecated
    */

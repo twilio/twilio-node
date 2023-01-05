@@ -221,7 +221,7 @@ interface DeviceResource {
   date_created: Date;
   date_updated: Date;
   url: string;
-  links: object;
+  links: Record<string, string>;
 }
 
 export class DeviceInstance {
@@ -277,7 +277,7 @@ export class DeviceInstance {
   /**
    * The absolute URLs of related resources
    */
-  links: object;
+  links: Record<string, string>;
 
   private get _proxy(): DeviceContext {
     this._context =

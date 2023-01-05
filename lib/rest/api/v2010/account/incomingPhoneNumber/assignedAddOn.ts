@@ -216,7 +216,7 @@ interface AssignedAddOnResource {
   date_created: Date;
   date_updated: Date;
   uri: string;
-  subresource_uris: object;
+  subresource_uris: Record<string, string>;
 }
 
 export class AssignedAddOnInstance {
@@ -288,7 +288,7 @@ export class AssignedAddOnInstance {
   /**
    * A list of related resources identified by their relative URIs
    */
-  subresourceUris: object;
+  subresourceUris: Record<string, string>;
 
   private get _proxy(): AssignedAddOnContext {
     this._context =

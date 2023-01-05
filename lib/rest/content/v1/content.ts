@@ -182,7 +182,7 @@ interface ContentResource {
   variables: any;
   types: any;
   url: string;
-  links: object;
+  links: Record<string, string>;
 }
 
 export class ContentInstance {
@@ -243,7 +243,7 @@ export class ContentInstance {
   /**
    * A list of links related to the Content resource
    */
-  links: object;
+  links: Record<string, string>;
 
   private get _proxy(): ContentContext {
     this._context =

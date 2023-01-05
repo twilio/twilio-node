@@ -297,7 +297,7 @@ interface FlowResource {
   date_updated: Date;
   webhook_url: string;
   url: string;
-  links: object;
+  links: Record<string, string>;
 }
 
 export class FlowInstance {
@@ -377,7 +377,7 @@ export class FlowInstance {
   /**
    * Nested resource URLs
    */
-  links: object;
+  links: Record<string, string>;
 
   private get _proxy(): FlowContext {
     this._context =

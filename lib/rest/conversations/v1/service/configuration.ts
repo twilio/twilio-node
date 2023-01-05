@@ -196,7 +196,7 @@ interface ConfigurationResource {
   default_conversation_role_sid: string;
   default_chat_service_role_sid: string;
   url: string;
-  links: object;
+  links: Record<string, string>;
   reachability_enabled: boolean;
 }
 
@@ -244,7 +244,7 @@ export class ConfigurationInstance {
   /**
    * Absolute URL to access the push notifications configuration of this service.
    */
-  links: object;
+  links: Record<string, string>;
   /**
    * Whether the Reachability Indicator feature is enabled for this Conversations Service
    */

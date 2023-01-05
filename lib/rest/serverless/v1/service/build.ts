@@ -215,7 +215,7 @@ interface BuildResource {
   date_created: Date;
   date_updated: Date;
   url: string;
-  links: object;
+  links: Record<string, string>;
 }
 
 export class BuildInstance {
@@ -282,7 +282,7 @@ export class BuildInstance {
    * The absolute URL of the Build resource
    */
   url: string;
-  links: object;
+  links: Record<string, string>;
 
   private get _proxy(): BuildContext {
     this._context =

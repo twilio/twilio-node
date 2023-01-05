@@ -293,7 +293,7 @@ interface FleetResource {
   default_deployment_sid: string;
   date_created: Date;
   date_updated: Date;
-  links: object;
+  links: Record<string, string>;
 }
 
 export class FleetInstance {
@@ -353,7 +353,7 @@ export class FleetInstance {
   /**
    * Nested resource URLs.
    */
-  links: object;
+  links: Record<string, string>;
 
   private get _proxy(): FleetContext {
     this._context =

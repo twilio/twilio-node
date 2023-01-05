@@ -234,7 +234,7 @@ interface EnvironmentResource {
   date_created: Date;
   date_updated: Date;
   url: string;
-  links: object;
+  links: Record<string, string>;
 }
 
 export class EnvironmentInstance {
@@ -305,7 +305,7 @@ export class EnvironmentInstance {
   /**
    * The URLs of the Environment resource\'s nested resources
    */
-  links: object;
+  links: Record<string, string>;
 
   private get _proxy(): EnvironmentContext {
     this._context =

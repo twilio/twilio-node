@@ -322,7 +322,7 @@ interface UserChannelResource {
   status: UserChannelChannelStatus;
   last_consumed_message_index: number;
   unread_messages_count: number;
-  links: object;
+  links: Record<string, string>;
   url: string;
   notification_level: UserChannelNotificationLevel;
 }
@@ -393,7 +393,7 @@ export class UserChannelInstance {
   /**
    * Absolute URLs to access the Members, Messages , Invites and, if it exists, the last Message for the Channel
    */
-  links: object;
+  links: Record<string, string>;
   /**
    * The absolute URL of the resource
    */

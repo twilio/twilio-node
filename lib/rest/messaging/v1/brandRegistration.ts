@@ -243,7 +243,7 @@ interface BrandRegistrationResource {
   tax_exempt_status: string;
   skip_automatic_sec_vet: boolean;
   mock: boolean;
-  links: object;
+  links: Record<string, string>;
 }
 
 export class BrandRegistrationInstance {
@@ -349,7 +349,7 @@ export class BrandRegistrationInstance {
    * A boolean that specifies whether brand should be a mock or not. If true, brand will be registered as a mock brand. Defaults to false if no value is provided.
    */
   mock: boolean;
-  links: object;
+  links: Record<string, string>;
 
   private get _proxy(): BrandRegistrationContext {
     this._context =

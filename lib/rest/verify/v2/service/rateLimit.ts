@@ -282,7 +282,7 @@ interface RateLimitResource {
   date_created: Date;
   date_updated: Date;
   url: string;
-  links: object;
+  links: Record<string, string>;
 }
 
 export class RateLimitInstance {
@@ -343,7 +343,7 @@ export class RateLimitInstance {
   /**
    * The URLs of related resources
    */
-  links: object;
+  links: Record<string, string>;
 
   private get _proxy(): RateLimitContext {
     this._context =

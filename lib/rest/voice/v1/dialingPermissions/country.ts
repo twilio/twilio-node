@@ -193,7 +193,7 @@ interface CountryResource {
   high_risk_special_numbers_enabled: boolean;
   high_risk_tollfraud_numbers_enabled: boolean;
   url: string;
-  links: object;
+  links: Record<string, string>;
 }
 
 export class CountryInstance {
@@ -255,7 +255,7 @@ export class CountryInstance {
   /**
    * A list of URLs related to this resource
    */
-  links: object;
+  links: Record<string, string>;
 
   private get _proxy(): CountryContext {
     this._context =

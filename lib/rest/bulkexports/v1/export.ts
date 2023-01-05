@@ -121,7 +121,7 @@ interface ExportPayload extends ExportResource {}
 interface ExportResource {
   resource_type: string;
   url: string;
-  links: object;
+  links: Record<string, string>;
 }
 
 export class ExportInstance {
@@ -151,7 +151,7 @@ export class ExportInstance {
   /**
    * Nested resource URLs.
    */
-  links: object;
+  links: Record<string, string>;
 
   private get _proxy(): ExportContext {
     this._context =

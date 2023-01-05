@@ -324,7 +324,7 @@ interface UserResource {
   date_created: Date;
   date_updated: Date;
   url: string;
-  links: object;
+  links: Record<string, string>;
 }
 
 export class UserInstance {
@@ -397,7 +397,7 @@ export class UserInstance {
    * An absolute URL for this user.
    */
   url: string;
-  links: object;
+  links: Record<string, string>;
 
   private get _proxy(): UserContext {
     this._context =

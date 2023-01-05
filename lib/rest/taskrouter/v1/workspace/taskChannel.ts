@@ -275,7 +275,7 @@ interface TaskChannelResource {
   workspace_sid: string;
   channel_optimized_routing: boolean;
   url: string;
-  links: object;
+  links: Record<string, string>;
 }
 
 export class TaskChannelInstance {
@@ -341,7 +341,7 @@ export class TaskChannelInstance {
   /**
    * The URLs of related resources
    */
-  links: object;
+  links: Record<string, string>;
 
   private get _proxy(): TaskChannelContext {
     this._context =

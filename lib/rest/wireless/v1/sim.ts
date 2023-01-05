@@ -413,7 +413,7 @@ interface SimResource {
   date_created: Date;
   date_updated: Date;
   url: string;
-  links: object;
+  links: Record<string, string>;
   ip_address: string;
 }
 
@@ -535,7 +535,7 @@ export class SimInstance {
   /**
    * The URLs of related subresources
    */
-  links: object;
+  links: Record<string, string>;
   /**
    * Deprecated
    */

@@ -396,7 +396,7 @@ interface BundleResource {
   date_created: Date;
   date_updated: Date;
   url: string;
-  links: object;
+  links: Record<string, string>;
 }
 
 export class BundleInstance {
@@ -464,7 +464,7 @@ export class BundleInstance {
   /**
    * The URLs of the Assigned Items of the Bundle resource
    */
-  links: object;
+  links: Record<string, string>;
 
   private get _proxy(): BundleContext {
     this._context =

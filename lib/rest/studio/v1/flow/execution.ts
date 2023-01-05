@@ -304,7 +304,7 @@ interface ExecutionResource {
   date_created: Date;
   date_updated: Date;
   url: string;
-  links: object;
+  links: Record<string, string>;
 }
 
 export class ExecutionInstance {
@@ -372,7 +372,7 @@ export class ExecutionInstance {
   /**
    * Nested resource URLs
    */
-  links: object;
+  links: Record<string, string>;
 
   private get _proxy(): ExecutionContext {
     this._context =

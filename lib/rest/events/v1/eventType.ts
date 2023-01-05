@@ -149,7 +149,7 @@ interface EventTypeResource {
   date_updated: Date;
   description: string;
   url: string;
-  links: object;
+  links: Record<string, string>;
 }
 
 export class EventTypeInstance {
@@ -196,7 +196,7 @@ export class EventTypeInstance {
    * The URL of this resource.
    */
   url: string;
-  links: object;
+  links: Record<string, string>;
 
   private get _proxy(): EventTypeContext {
     this._context =

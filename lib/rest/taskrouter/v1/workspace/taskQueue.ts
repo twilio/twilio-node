@@ -371,7 +371,7 @@ interface TaskQueueResource {
   task_order: TaskQueueTaskOrder;
   url: string;
   workspace_sid: string;
-  links: object;
+  links: Record<string, string>;
 }
 
 export class TaskQueueInstance {
@@ -459,7 +459,7 @@ export class TaskQueueInstance {
   /**
    * The URLs of related resources
    */
-  links: object;
+  links: Record<string, string>;
 
   private get _proxy(): TaskQueueContext {
     this._context =

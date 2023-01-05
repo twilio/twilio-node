@@ -184,7 +184,7 @@ interface FunctionVersionResource {
   visibility: FunctionVersionVisibility;
   date_created: Date;
   url: string;
-  links: object;
+  links: Record<string, string>;
 }
 
 export class FunctionVersionInstance {
@@ -240,7 +240,7 @@ export class FunctionVersionInstance {
    * The absolute URL of the Function Version resource
    */
   url: string;
-  links: object;
+  links: Record<string, string>;
 
   private get _proxy(): FunctionVersionContext {
     this._context =

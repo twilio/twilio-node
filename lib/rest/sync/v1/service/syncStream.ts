@@ -278,7 +278,7 @@ interface SyncStreamResource {
   account_sid: string;
   service_sid: string;
   url: string;
-  links: object;
+  links: Record<string, string>;
   date_expires: Date;
   date_created: Date;
   date_updated: Date;
@@ -332,7 +332,7 @@ export class SyncStreamInstance {
   /**
    * The URLs of the Stream\'s nested resources
    */
-  links: object;
+  links: Record<string, string>;
   /**
    * The ISO 8601 date and time in GMT when the Message Stream expires
    */

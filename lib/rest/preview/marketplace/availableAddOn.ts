@@ -158,7 +158,7 @@ interface AvailableAddOnResource {
   pricing_type: string;
   configuration_schema: any;
   url: string;
-  links: object;
+  links: Record<string, string>;
 }
 
 export class AvailableAddOnInstance {
@@ -208,7 +208,7 @@ export class AvailableAddOnInstance {
   /**
    * The URLs of related resources
    */
-  links: object;
+  links: Record<string, string>;
 
   private get _proxy(): AvailableAddOnContext {
     this._context =

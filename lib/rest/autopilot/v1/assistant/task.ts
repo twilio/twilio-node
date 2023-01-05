@@ -336,7 +336,7 @@ interface TaskResource {
   date_created: Date;
   date_updated: Date;
   friendly_name: string;
-  links: object;
+  links: Record<string, string>;
   assistant_sid: string;
   sid: string;
   unique_name: string;
@@ -387,7 +387,7 @@ export class TaskInstance {
   /**
    * A list of the URLs of related resources
    */
-  links: object;
+  links: Record<string, string>;
   /**
    * The SID of the Assistant that is the parent of the resource
    */

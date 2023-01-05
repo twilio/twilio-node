@@ -243,7 +243,7 @@ interface RoomResource {
   recording_enabled: boolean;
   edge_location: VideoRoomSummaryEdgeLocation;
   url: string;
-  links: object;
+  links: Record<string, string>;
 }
 
 export class RoomInstance {
@@ -369,7 +369,7 @@ export class RoomInstance {
   /**
    * Room subresources.
    */
-  links: object;
+  links: Record<string, string>;
 
   private get _proxy(): RoomContext {
     this._context =

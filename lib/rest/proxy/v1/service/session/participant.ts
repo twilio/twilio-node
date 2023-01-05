@@ -224,7 +224,7 @@ interface ParticipantResource {
   date_created: Date;
   date_updated: Date;
   url: string;
-  links: object;
+  links: Record<string, string>;
 }
 
 export class ParticipantInstance {
@@ -306,7 +306,7 @@ export class ParticipantInstance {
   /**
    * The URLs to resources related the participant
    */
-  links: object;
+  links: Record<string, string>;
 
   private get _proxy(): ParticipantContext {
     this._context =

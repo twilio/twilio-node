@@ -408,7 +408,7 @@ interface MessageResource {
   error_code: number;
   price_unit: string;
   api_version: string;
-  subresource_uris: object;
+  subresource_uris: Record<string, string>;
 }
 
 export class MessageInstance {
@@ -518,7 +518,7 @@ export class MessageInstance {
   /**
    * A list of related resources identified by their relative URIs
    */
-  subresourceUris: object;
+  subresourceUris: Record<string, string>;
 
   private get _proxy(): MessageContext {
     this._context =

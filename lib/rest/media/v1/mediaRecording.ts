@@ -211,7 +211,7 @@ interface MediaRecordingResource {
   date_updated: Date;
   duration: number;
   format: MediaRecordingFormat;
-  links: object;
+  links: Record<string, string>;
   processor_sid: string;
   resolution: string;
   source_sid: string;
@@ -271,7 +271,7 @@ export class MediaRecordingInstance {
   /**
    * The URLs of related resources
    */
-  links: object;
+  links: Record<string, string>;
   /**
    * The SID of the MediaProcessor
    */

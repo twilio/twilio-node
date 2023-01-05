@@ -402,7 +402,7 @@ interface WorkspaceResource {
   timeout_activity_sid: string;
   prioritize_queue_order: WorkspaceQueueOrder;
   url: string;
-  links: object;
+  links: Record<string, string>;
 }
 
 export class WorkspaceInstance {
@@ -489,7 +489,7 @@ export class WorkspaceInstance {
   /**
    * The URLs of related resources
    */
-  links: object;
+  links: Record<string, string>;
 
   private get _proxy(): WorkspaceContext {
     this._context =

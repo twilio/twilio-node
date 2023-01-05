@@ -268,7 +268,7 @@ interface PlayerStreamerResource {
   date_created: Date;
   date_updated: Date;
   video: boolean;
-  links: object;
+  links: Record<string, string>;
   sid: string;
   status: PlayerStreamerStatus;
   url: string;
@@ -322,7 +322,7 @@ export class PlayerStreamerInstance {
   /**
    * The URLs of related resources
    */
-  links: object;
+  links: Record<string, string>;
   /**
    * The unique string that identifies the resource
    */

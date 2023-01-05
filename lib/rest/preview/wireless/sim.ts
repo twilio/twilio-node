@@ -346,7 +346,7 @@ interface SimResource {
   date_created: Date;
   date_updated: Date;
   url: string;
-  links: object;
+  links: Record<string, string>;
 }
 
 export class SimInstance {
@@ -405,7 +405,7 @@ export class SimInstance {
   dateCreated: Date;
   dateUpdated: Date;
   url: string;
-  links: object;
+  links: Record<string, string>;
 
   private get _proxy(): SimContext {
     this._context =
