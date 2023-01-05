@@ -209,49 +209,7 @@ describe("each method", function () {
         limit: 1,
         done: () => {
           expect(mockCallback).toHaveBeenCalledTimes(1);
-          expect(typeof mockCallback.mock.calls[0][1]).toBe("function");
-          done();
-        },
-        callback: mockCallback,
-      });
-  });
-
-  it("should short-circuit foreach loop if user callback done argument is called", function (done) {
-    let mockCallback = jest.fn((instance, done) => {
-      done();
-    });
-    holodeck.mock(new Response(200, bodyOne));
-    holodeck.mock(new Response(200, bodyTwo));
-    holodeck.mock(new Response(200, bodyThree));
-
-    client.api.v2010
-      .accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
-      .messages.each({
-        limit: 3,
-        done: () => {
-          expect(mockCallback).toHaveBeenCalledTimes(1);
-          done();
-        },
-        callback: mockCallback,
-      });
-  });
-
-  it("should short-circuit foreach loop and pass an error if user callback done argument is called with an error", function (done) {
-    let mockError = new Error("An error occurred.");
-    let mockCallback = jest.fn((instance, done) => {
-      done(mockError);
-    });
-    holodeck.mock(new Response(200, bodyOne));
-    holodeck.mock(new Response(200, bodyTwo));
-    holodeck.mock(new Response(200, bodyThree));
-
-    client.api.v2010
-      .accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
-      .messages.each({
-        limit: 3,
-        done: (error) => {
-          expect(mockCallback).toHaveBeenCalledTimes(1);
-          expect(error).toBe(mockError);
+          expect(mockCallback.mock.calls[0][1]).toBeInstanceOf(Function);
           done();
         },
         callback: mockCallback,
@@ -280,35 +238,46 @@ describe("each method", function () {
       });
   });
 
-  it("should return a promise if user done function is not provided", function () {
+  it("should resolve promise after looping through each resource instance", function (done) {
     let mockCallback = jest.fn();
     holodeck.mock(new Response(200, bodyOne));
+    holodeck.mock(new Response(200, bodyTwo));
+    holodeck.mock(new Response(200, bodyThree));
 
-    let promise = client.api.v2010
+    client.api.v2010
       .accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
       .messages.each({
-        limit: 1,
         callback: mockCallback,
+      })
+      .then(() => {
+        expect(mockCallback).toHaveBeenCalledTimes(5);
+        done();
       });
-    expect(promise).toBeInstanceOf(Promise);
   });
 
-  it("should return undefined if user done function is provided", function () {
-    let mockCallback = jest.fn();
-    let mockDoneFn = jest.fn();
+  it("should resolve promise if an error occurs and user done function executes successfully", function (done) {
+    let mockCallback = jest.fn(() => {
+      throw new Error("An error occurred.");
+    });
+    let mockDone = jest.fn();
     holodeck.mock(new Response(200, bodyOne));
+    holodeck.mock(new Response(200, bodyTwo));
+    holodeck.mock(new Response(200, bodyThree));
 
-    let promise = client.api.v2010
+    client.api.v2010
       .accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
       .messages.each({
-        limit: 1,
-        done: mockDoneFn,
+        limit: 3,
         callback: mockCallback,
+        done: mockDone,
+      })
+      .then(() => {
+        expect(mockDone).toHaveBeenCalledTimes(1);
+        done();
       });
-    expect(promise).toBeUndefined();
   });
 
-  it("should reject promise with error if an error occurs", function (done) {
+  it("should reject promise with error if an error occurs and user done function is not provided", function (done) {
     let mockError = new Error("An error occurred.");
     let mockCallback = jest.fn(() => {
       throw mockError;
@@ -330,26 +299,13 @@ describe("each method", function () {
       });
   });
 
-  it("should resolve promise after looping through each resource instance", function (done) {
-    let mockCallback = jest.fn();
-    holodeck.mock(new Response(200, bodyOne));
-    holodeck.mock(new Response(200, bodyTwo));
-    holodeck.mock(new Response(200, bodyThree));
-
-    client.api.v2010
-      .accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
-      .messages.each({
-        callback: mockCallback,
-      })
-      .then(() => {
-        expect(mockCallback).toHaveBeenCalledTimes(5);
-        done();
-      });
-  });
-
-  it("should short-circuit foreach loop and resolve promise if user callback done argument is called", function (done) {
-    let mockCallback = jest.fn((instance, done) => {
-      done();
+  it("should reject promise with error if an error occurs in user done function", function (done) {
+    let mockCallback = jest.fn(() => {
+      throw new Error("An error occurred in callback fn.");
+    });
+    let mockError = new Error("An error occurred in done fn.");
+    let mockDone = jest.fn((error) => {
+      throw mockError;
     });
     holodeck.mock(new Response(200, bodyOne));
     holodeck.mock(new Response(200, bodyTwo));
@@ -358,15 +314,41 @@ describe("each method", function () {
     client.api.v2010
       .accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
       .messages.each({
+        limit: 3,
         callback: mockCallback,
+        done: mockDone,
       })
-      .then(() => {
-        expect(mockCallback).toHaveBeenCalledTimes(1);
+      .catch((e) => {
+        expect(mockDone).toHaveBeenCalledTimes(1);
+        expect(e).toBe(mockError);
         done();
       });
   });
 
-  it("should short-circuit foreach loop and reject promise if user callback done argument is called with an error", function (done) {
+  it("should short-circuit foreach loop if user callback done argument is called", function (done) {
+    let mockCallback = jest.fn((instance, done) => {
+      done();
+    });
+    let mockDone = jest.fn();
+    holodeck.mock(new Response(200, bodyOne));
+    holodeck.mock(new Response(200, bodyTwo));
+    holodeck.mock(new Response(200, bodyThree));
+
+    client.api.v2010
+      .accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+      .messages.each({
+        limit: 3,
+        callback: mockCallback,
+        done: mockDone,
+      })
+      .then(() => {
+        expect(mockCallback).toHaveBeenCalledTimes(1);
+        expect(mockDone).toHaveBeenCalledTimes(1);
+        done();
+      });
+  });
+
+  it("should short-circuit foreach loop and pass an error if user callback done argument is called with an error", function (done) {
     let mockError = new Error("An error occurred.");
     let mockCallback = jest.fn((instance, done) => {
       done(mockError);
@@ -378,12 +360,13 @@ describe("each method", function () {
     client.api.v2010
       .accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
       .messages.each({
+        limit: 3,
         callback: mockCallback,
-      })
-      .catch((e) => {
-        expect(mockCallback).toHaveBeenCalledTimes(1);
-        expect(e).toBe(mockError);
-        done();
+        done: (error) => {
+          expect(mockCallback).toHaveBeenCalledTimes(1);
+          expect(error).toBe(mockError);
+          done();
+        },
       });
   });
 });

@@ -238,20 +238,18 @@ export default class Version {
    *  record instance
    * @param {function} [params.done] Optional done function to call when all
    *  records are processed, the limit is reached, or an error occurs.
-   *  Receives an error argument if an error occurs. If done is not provided,
-   *  the each function will return a promise.
+   *  Receives an error argument if an error occurs.
    * @param {function} [callback] Callback function to call with each record.
-   *  Receives an onComplete function argument that will short-circuit the for-
-   *  each loop that may accept an error argument.
-   * @returns {undefined|Promise<undefined>} Returns undefined if a done
-   *  function is provided in the params. Returns a promise if a done function
-   *  is not provided. Promise resolves when all records processed or if the
-   *  limit is reached, and rejects with an error if an error occurs.
+   *  Receives a done function argument that will short-circuit the for-each
+   *  loop that may accept an error argument.
+   * @returns {Promise<void>} Returns a promise that resolves when all records
+   *  processed or if the limit is reached, and rejects with an error if an
+   *  error occurs and is not handled in the user provided done function.
    */
   each<T>(
     params?: any,
     callback?: (item: T, done: (err?: Error) => void) => void
-  ): Promise<undefined> | undefined {
+  ): Promise<void> {
     if (typeof params === "function") {
       callback = params;
       params = {};
@@ -269,7 +267,7 @@ export default class Version {
     let currentPage = 1;
     let currentResource = 0;
     let limits = {} as PageLimit;
-    let promise;
+    let pPending = true;
     let pResolve;
     let pReject;
     if (this._version instanceof Version) {
@@ -279,20 +277,26 @@ export default class Version {
       });
     }
     function onComplete(error?: Error) {
+      let unhandledError = error;
+
       done = true;
       if (typeof params.done === "function" && !doneCalled) {
-        params.done(error);
+        try {
+          params.done(unhandledError);
+          unhandledError = null;
+        } catch (e) {
+          unhandledError = e;
+        }
       }
       doneCalled = true;
-      if (typeof params.done === "function" && !doneCalled) {
-        params.done(error);
-      }
-      doneCalled = true;
-      if (error && typeof pReject === "function") {
-        return pReject(error);
-      }
-      if (!error && typeof pResolve === "function") {
-        return pResolve();
+
+      if (pPending) {
+        if (unhandledError) {
+          pReject(unhandledError);
+        } else {
+          pResolve();
+        }
+        pPending = false;
       }
     }
     function fetchNextPage(fn) {
@@ -334,17 +338,11 @@ export default class Version {
       promise.catch(onComplete);
     }
 
-    if (typeof params.done !== "function") {
-      promise = new Promise((resolve, reject) => {
-        pResolve = resolve;
-        pReject = reject;
-        fetchNextPage(this.page.bind(this, Object.assign(params, limits)));
-      });
-    } else {
+    return new Promise((resolve, reject) => {
+      pResolve = resolve;
+      pReject = reject;
       fetchNextPage(this.page.bind(this, Object.assign(params, limits)));
-    }
-
-    return promise;
+    });
   }
 
   list<T>(
