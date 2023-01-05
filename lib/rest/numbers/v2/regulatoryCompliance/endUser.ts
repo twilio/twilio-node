@@ -24,71 +24,58 @@ type EndUserType = "individual" | "business";
 
 /**
  * Options to pass to update a EndUserInstance
- *
- * @property { string } [friendlyName] The string that you assigned to describe the resource.
- * @property { any } [attributes] The set of parameters that are the attributes of the End User resource which are derived End User Types.
  */
 export interface EndUserContextUpdateOptions {
+  /** The string that you assigned to describe the resource. */
   friendlyName?: string;
+  /** The set of parameters that are the attributes of the End User resource which are derived End User Types. */
   attributes?: any;
 }
 
 /**
  * Options to pass to create a EndUserInstance
- *
- * @property { string } friendlyName The string that you assigned to describe the resource.
- * @property { EndUserType } type
- * @property { any } [attributes] The set of parameters that are the attributes of the End User resource which are derived End User Types.
  */
 export interface EndUserListInstanceCreateOptions {
+  /** The string that you assigned to describe the resource. */
   friendlyName: string;
+  /**  */
   type: EndUserType;
+  /** The set of parameters that are the attributes of the End User resource which are derived End User Types. */
   attributes?: any;
 }
 /**
  * Options to pass to each
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface EndUserListInstanceEachOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: EndUserInstance, done: (err?: Error) => void) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface EndUserListInstanceOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface EndUserListInstancePageOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
@@ -96,9 +83,9 @@ export interface EndUserContext {
   /**
    * Remove a EndUserInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -107,9 +94,9 @@ export interface EndUserContext {
   /**
    * Fetch a EndUserInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed EndUserInstance
+   * @returns Resolves to processed EndUserInstance
    */
   fetch(
     callback?: (error: Error | null, item?: EndUserInstance) => any
@@ -118,9 +105,9 @@ export interface EndUserContext {
   /**
    * Update a EndUserInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed EndUserInstance
+   * @returns Resolves to processed EndUserInstance
    */
   update(
     callback?: (error: Error | null, item?: EndUserInstance) => any
@@ -128,16 +115,15 @@ export interface EndUserContext {
   /**
    * Update a EndUserInstance
    *
-   * @param { EndUserContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed EndUserInstance
+   * @returns Resolves to processed EndUserInstance
    */
   update(
     params: EndUserContextUpdateOptions,
     callback?: (error: Error | null, item?: EndUserInstance) => any
   ): Promise<EndUserInstance>;
-  update(params?: any, callback?: any): Promise<EndUserInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -147,7 +133,7 @@ export interface EndUserContext {
 }
 
 export interface EndUserContextSolution {
-  sid?: string;
+  sid: string;
 }
 
 export class EndUserContextImpl implements EndUserContext {
@@ -163,41 +149,52 @@ export class EndUserContextImpl implements EndUserContext {
     this._uri = `/RegulatoryCompliance/EndUsers/${sid}`;
   }
 
-  remove(callback?: any): Promise<boolean> {
-    let operationVersion = this._version,
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<EndUserInstance> {
-    let operationVersion = this._version,
+  fetch(
+    callback?: (error: Error | null, item?: EndUserInstance) => any
+  ): Promise<EndUserInstance> {
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new EndUserInstance(operationVersion, payload, this._solution.sid)
+        new EndUserInstance(operationVersion, payload, instance._solution.sid)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
     return operationPromise;
   }
 
-  update(params?: any, callback?: any): Promise<EndUserInstance> {
-    if (typeof params === "function") {
+  update(
+    params?:
+      | EndUserContextUpdateOptions
+      | ((error: Error | null, item?: EndUserInstance) => any),
+    callback?: (error: Error | null, item?: EndUserInstance) => any
+  ): Promise<EndUserInstance> {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -214,9 +211,10 @@ export class EndUserContextImpl implements EndUserContext {
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -224,10 +222,10 @@ export class EndUserContextImpl implements EndUserContext {
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new EndUserInstance(operationVersion, payload, this._solution.sid)
+        new EndUserInstance(operationVersion, payload, instance._solution.sid)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -253,14 +251,14 @@ interface EndUserPayload extends TwilioResponsePayload {
 }
 
 interface EndUserResource {
-  sid?: string | null;
-  account_sid?: string | null;
-  friendly_name?: string | null;
-  type?: EndUserType;
-  attributes?: any | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  url?: string | null;
+  sid: string;
+  account_sid: string;
+  friendly_name: string;
+  type: EndUserType;
+  attributes: any;
+  date_created: Date;
+  date_updated: Date;
+  url: string;
 }
 
 export class EndUserInstance {
@@ -283,32 +281,32 @@ export class EndUserInstance {
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The string that you assigned to describe the resource
    */
-  friendlyName?: string | null;
-  type?: EndUserType;
+  friendlyName: string;
+  type: EndUserType;
   /**
    * The set of parameters that compose the End Users resource
    */
-  attributes?: any | null;
+  attributes: any;
   /**
    * The ISO 8601 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The ISO 8601 date and time in GMT when the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The absolute URL of the End User resource
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): EndUserContext {
     this._context =
@@ -320,9 +318,9 @@ export class EndUserInstance {
   /**
    * Remove a EndUserInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -333,9 +331,9 @@ export class EndUserInstance {
   /**
    * Fetch a EndUserInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed EndUserInstance
+   * @returns Resolves to processed EndUserInstance
    */
   fetch(
     callback?: (error: Error | null, item?: EndUserInstance) => any
@@ -346,9 +344,9 @@ export class EndUserInstance {
   /**
    * Update a EndUserInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed EndUserInstance
+   * @returns Resolves to processed EndUserInstance
    */
   update(
     callback?: (error: Error | null, item?: EndUserInstance) => any
@@ -356,16 +354,20 @@ export class EndUserInstance {
   /**
    * Update a EndUserInstance
    *
-   * @param { EndUserContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed EndUserInstance
+   * @returns Resolves to processed EndUserInstance
    */
   update(
     params: EndUserContextUpdateOptions,
     callback?: (error: Error | null, item?: EndUserInstance) => any
   ): Promise<EndUserInstance>;
-  update(params?: any, callback?: any): Promise<EndUserInstance> {
+
+  update(
+    params?: any,
+    callback?: (error: Error | null, item?: EndUserInstance) => any
+  ): Promise<EndUserInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -392,41 +394,29 @@ export class EndUserInstance {
   }
 }
 
+export interface EndUserSolution {}
+
 export interface EndUserListInstance {
+  _version: V2;
+  _solution: EndUserSolution;
+  _uri: string;
+
   (sid: string): EndUserContext;
   get(sid: string): EndUserContext;
 
   /**
    * Create a EndUserInstance
    *
-   * @param { EndUserListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed EndUserInstance
+   * @returns Resolves to processed EndUserInstance
    */
   create(
     params: EndUserListInstanceCreateOptions,
     callback?: (error: Error | null, item?: EndUserInstance) => any
   ): Promise<EndUserInstance>;
-  create(params: any, callback?: any): Promise<EndUserInstance>;
 
-  /**
-   * Streams EndUserInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (item: EndUserInstance, done: (err?: Error) => void) => void
-  ): void;
   /**
    * Streams EndUserInstance records from the API.
    *
@@ -443,50 +433,24 @@ export interface EndUserListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: EndUserListInstanceEachOptions,
     callback?: (item: EndUserInstance, done: (err?: Error) => void) => void
   ): void;
-  each(params?: any, callback?: any): void;
+  each(
+    params: EndUserListInstanceEachOptions,
+    callback?: (item: EndUserInstance, done: (err?: Error) => void) => void
+  ): void;
   /**
    * Retrieve a single target page of EndUserInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: EndUserPage) => any
-  ): Promise<EndUserPage>;
-  /**
-   * Retrieve a single target page of EndUserInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: EndUserPage) => any
   ): Promise<EndUserPage>;
-  getPage(params?: any, callback?: any): Promise<EndUserPage>;
-  /**
-   * Lists EndUserInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: EndUserInstance[]) => any
-  ): Promise<EndUserInstance[]>;
   /**
    * Lists EndUserInstance records from the API as a list.
    *
@@ -497,23 +461,12 @@ export interface EndUserListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: EndUserListInstanceOptions,
     callback?: (error: Error | null, items: EndUserInstance[]) => any
   ): Promise<EndUserInstance[]>;
-  list(params?: any, callback?: any): Promise<EndUserInstance[]>;
-  /**
-   * Retrieve a single page of EndUserInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: EndUserPage) => any
-  ): Promise<EndUserPage>;
+  list(
+    params: EndUserListInstanceOptions,
+    callback?: (error: Error | null, items: EndUserInstance[]) => any
+  ): Promise<EndUserInstance[]>;
   /**
    * Retrieve a single page of EndUserInstance records from the API.
    *
@@ -526,10 +479,12 @@ export interface EndUserListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
+    callback?: (error: Error | null, items: EndUserPage) => any
+  ): Promise<EndUserPage>;
+  page(
     params: EndUserListInstancePageOptions,
     callback?: (error: Error | null, items: EndUserPage) => any
   ): Promise<EndUserPage>;
-  page(params?: any, callback?: any): Promise<EndUserPage>;
 
   /**
    * Provide a user-friendly representation
@@ -538,17 +493,8 @@ export interface EndUserListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface EndUserSolution {}
-
-interface EndUserListInstanceImpl extends EndUserListInstance {}
-class EndUserListInstanceImpl implements EndUserListInstance {
-  _version?: V2;
-  _solution?: EndUserSolution;
-  _uri?: string;
-}
-
 export function EndUserListInstance(version: V2): EndUserListInstance {
-  const instance = ((sid) => instance.get(sid)) as EndUserListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as EndUserListInstance;
 
   instance.get = function get(sid): EndUserContext {
     return new EndUserContextImpl(version, sid);
@@ -559,8 +505,8 @@ export function EndUserListInstance(version: V2): EndUserListInstance {
   instance._uri = `/RegulatoryCompliance/EndUsers`;
 
   instance.create = function create(
-    params: any,
-    callback?: any
+    params: EndUserListInstanceCreateOptions,
+    callback?: (error: Error | null, items: EndUserInstance) => any
   ): Promise<EndUserInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -590,7 +536,7 @@ export function EndUserListInstance(version: V2): EndUserListInstance {
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -600,7 +546,7 @@ export function EndUserListInstance(version: V2): EndUserListInstance {
       (payload) => new EndUserInstance(operationVersion, payload)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -608,10 +554,12 @@ export function EndUserListInstance(version: V2): EndUserListInstance {
   };
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | EndUserListInstancePageOptions
+      | ((error: Error | null, items: EndUserPage) => any),
+    callback?: (error: Error | null, items: EndUserPage) => any
   ): Promise<EndUserPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -622,24 +570,25 @@ export function EndUserListInstance(version: V2): EndUserListInstance {
 
     if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new EndUserPage(operationVersion, payload, this._solution)
+      (payload) =>
+        new EndUserPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -649,33 +598,31 @@ export function EndUserListInstance(version: V2): EndUserListInstance {
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: EndUserPage) => any
   ): Promise<EndUserPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new EndUserPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new EndUserPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

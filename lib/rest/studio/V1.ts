@@ -20,16 +20,16 @@ export default class V1 extends Version {
   /**
    * Initialize the V1 version of Studio
    *
-   * @property { Twilio.Studio.V1.FlowListInstance } flows - flows resource
-   *
-   * @param { Twilio.Studio } domain - The Twilio domain
+   * @param domain - The Twilio (Twilio.Studio) domain
    */
   constructor(domain: StudioBase) {
     super(domain, "v1");
   }
 
+  /** flows - { Twilio.Studio.V1.FlowListInstance } resource */
   protected _flows?: FlowListInstance;
 
+  /** Getter for flows resource */
   get flows(): FlowListInstance {
     this._flows = this._flows || FlowListInstance(this);
     return this._flows;

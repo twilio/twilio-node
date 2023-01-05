@@ -269,93 +269,73 @@ type UsageRecordLastMonthCategory =
 
 /**
  * Options to pass to each
- *
- * @property { UsageRecordLastMonthCategory } [category] The [usage category](https://www.twilio.com/docs/usage/api/usage-record#usage-categories) of the UsageRecord resources to read. Only UsageRecord resources in the specified category are retrieved.
- * @property { Date } [startDate] Only include usage that has occurred on or after this date. Specify the date in GMT and format as `YYYY-MM-DD`. You can also specify offsets from the current date, such as: `-30days`, which will set the start date to be 30 days before the current date.
- * @property { Date } [endDate] Only include usage that occurred on or before this date. Specify the date in GMT and format as `YYYY-MM-DD`.  You can also specify offsets from the current date, such as: `+30days`, which will set the end date to 30 days from the current date.
- * @property { boolean } [includeSubaccounts] Whether to include usage from the master account and all its subaccounts. Can be: `true` (the default) to include usage from the master account and all subaccounts or `false` to retrieve usage from only the specified account.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface LastMonthListInstanceEachOptions {
+  /** The [usage category](https://www.twilio.com/docs/usage/api/usage-record#usage-categories) of the UsageRecord resources to read. Only UsageRecord resources in the specified category are retrieved. */
   category?: UsageRecordLastMonthCategory;
+  /** Only include usage that has occurred on or after this date. Specify the date in GMT and format as `YYYY-MM-DD`. You can also specify offsets from the current date, such as: `-30days`, which will set the start date to be 30 days before the current date. */
   startDate?: Date;
+  /** Only include usage that occurred on or before this date. Specify the date in GMT and format as `YYYY-MM-DD`.  You can also specify offsets from the current date, such as: `+30days`, which will set the end date to 30 days from the current date. */
   endDate?: Date;
+  /** Whether to include usage from the master account and all its subaccounts. Can be: `true` (the default) to include usage from the master account and all subaccounts or `false` to retrieve usage from only the specified account. */
   includeSubaccounts?: boolean;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: LastMonthInstance, done: (err?: Error) => void) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { UsageRecordLastMonthCategory } [category] The [usage category](https://www.twilio.com/docs/usage/api/usage-record#usage-categories) of the UsageRecord resources to read. Only UsageRecord resources in the specified category are retrieved.
- * @property { Date } [startDate] Only include usage that has occurred on or after this date. Specify the date in GMT and format as `YYYY-MM-DD`. You can also specify offsets from the current date, such as: `-30days`, which will set the start date to be 30 days before the current date.
- * @property { Date } [endDate] Only include usage that occurred on or before this date. Specify the date in GMT and format as `YYYY-MM-DD`.  You can also specify offsets from the current date, such as: `+30days`, which will set the end date to 30 days from the current date.
- * @property { boolean } [includeSubaccounts] Whether to include usage from the master account and all its subaccounts. Can be: `true` (the default) to include usage from the master account and all subaccounts or `false` to retrieve usage from only the specified account.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface LastMonthListInstanceOptions {
+  /** The [usage category](https://www.twilio.com/docs/usage/api/usage-record#usage-categories) of the UsageRecord resources to read. Only UsageRecord resources in the specified category are retrieved. */
   category?: UsageRecordLastMonthCategory;
+  /** Only include usage that has occurred on or after this date. Specify the date in GMT and format as `YYYY-MM-DD`. You can also specify offsets from the current date, such as: `-30days`, which will set the start date to be 30 days before the current date. */
   startDate?: Date;
+  /** Only include usage that occurred on or before this date. Specify the date in GMT and format as `YYYY-MM-DD`.  You can also specify offsets from the current date, such as: `+30days`, which will set the end date to 30 days from the current date. */
   endDate?: Date;
+  /** Whether to include usage from the master account and all its subaccounts. Can be: `true` (the default) to include usage from the master account and all subaccounts or `false` to retrieve usage from only the specified account. */
   includeSubaccounts?: boolean;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { UsageRecordLastMonthCategory } [category] The [usage category](https://www.twilio.com/docs/usage/api/usage-record#usage-categories) of the UsageRecord resources to read. Only UsageRecord resources in the specified category are retrieved.
- * @property { Date } [startDate] Only include usage that has occurred on or after this date. Specify the date in GMT and format as `YYYY-MM-DD`. You can also specify offsets from the current date, such as: `-30days`, which will set the start date to be 30 days before the current date.
- * @property { Date } [endDate] Only include usage that occurred on or before this date. Specify the date in GMT and format as `YYYY-MM-DD`.  You can also specify offsets from the current date, such as: `+30days`, which will set the end date to 30 days from the current date.
- * @property { boolean } [includeSubaccounts] Whether to include usage from the master account and all its subaccounts. Can be: `true` (the default) to include usage from the master account and all subaccounts or `false` to retrieve usage from only the specified account.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface LastMonthListInstancePageOptions {
+  /** The [usage category](https://www.twilio.com/docs/usage/api/usage-record#usage-categories) of the UsageRecord resources to read. Only UsageRecord resources in the specified category are retrieved. */
   category?: UsageRecordLastMonthCategory;
+  /** Only include usage that has occurred on or after this date. Specify the date in GMT and format as `YYYY-MM-DD`. You can also specify offsets from the current date, such as: `-30days`, which will set the start date to be 30 days before the current date. */
   startDate?: Date;
+  /** Only include usage that occurred on or before this date. Specify the date in GMT and format as `YYYY-MM-DD`.  You can also specify offsets from the current date, such as: `+30days`, which will set the end date to 30 days from the current date. */
   endDate?: Date;
+  /** Whether to include usage from the master account and all its subaccounts. Can be: `true` (the default) to include usage from the master account and all subaccounts or `false` to retrieve usage from only the specified account. */
   includeSubaccounts?: boolean;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
+export interface LastMonthSolution {
+  accountSid: string;
+}
+
 export interface LastMonthListInstance {
-  /**
-   * Streams LastMonthInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (item: LastMonthInstance, done: (err?: Error) => void) => void
-  ): void;
+  _version: V2010;
+  _solution: LastMonthSolution;
+  _uri: string;
+
   /**
    * Streams LastMonthInstance records from the API.
    *
@@ -372,50 +352,24 @@ export interface LastMonthListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: LastMonthListInstanceEachOptions,
     callback?: (item: LastMonthInstance, done: (err?: Error) => void) => void
   ): void;
-  each(params?: any, callback?: any): void;
+  each(
+    params: LastMonthListInstanceEachOptions,
+    callback?: (item: LastMonthInstance, done: (err?: Error) => void) => void
+  ): void;
   /**
    * Retrieve a single target page of LastMonthInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: LastMonthPage) => any
-  ): Promise<LastMonthPage>;
-  /**
-   * Retrieve a single target page of LastMonthInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: LastMonthPage) => any
   ): Promise<LastMonthPage>;
-  getPage(params?: any, callback?: any): Promise<LastMonthPage>;
-  /**
-   * Lists LastMonthInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: LastMonthInstance[]) => any
-  ): Promise<LastMonthInstance[]>;
   /**
    * Lists LastMonthInstance records from the API as a list.
    *
@@ -426,23 +380,12 @@ export interface LastMonthListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: LastMonthListInstanceOptions,
     callback?: (error: Error | null, items: LastMonthInstance[]) => any
   ): Promise<LastMonthInstance[]>;
-  list(params?: any, callback?: any): Promise<LastMonthInstance[]>;
-  /**
-   * Retrieve a single page of LastMonthInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: LastMonthPage) => any
-  ): Promise<LastMonthPage>;
+  list(
+    params: LastMonthListInstanceOptions,
+    callback?: (error: Error | null, items: LastMonthInstance[]) => any
+  ): Promise<LastMonthInstance[]>;
   /**
    * Retrieve a single page of LastMonthInstance records from the API.
    *
@@ -455,27 +398,18 @@ export interface LastMonthListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
+    callback?: (error: Error | null, items: LastMonthPage) => any
+  ): Promise<LastMonthPage>;
+  page(
     params: LastMonthListInstancePageOptions,
     callback?: (error: Error | null, items: LastMonthPage) => any
   ): Promise<LastMonthPage>;
-  page(params?: any, callback?: any): Promise<LastMonthPage>;
 
   /**
    * Provide a user-friendly representation
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export interface LastMonthSolution {
-  accountSid?: string;
-}
-
-interface LastMonthListInstanceImpl extends LastMonthListInstance {}
-class LastMonthListInstanceImpl implements LastMonthListInstance {
-  _version?: V2010;
-  _solution?: LastMonthSolution;
-  _uri?: string;
 }
 
 export function LastMonthListInstance(
@@ -486,17 +420,19 @@ export function LastMonthListInstance(
     throw new Error("Parameter 'accountSid' is not valid.");
   }
 
-  const instance = {} as LastMonthListInstanceImpl;
+  const instance = {} as LastMonthListInstance;
 
   instance._version = version;
   instance._solution = { accountSid };
   instance._uri = `/Accounts/${accountSid}/Usage/Records/LastMonth.json`;
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | LastMonthListInstancePageOptions
+      | ((error: Error | null, items: LastMonthPage) => any),
+    callback?: (error: Error | null, items: LastMonthPage) => any
   ): Promise<LastMonthPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -514,24 +450,25 @@ export function LastMonthListInstance(
       data["IncludeSubaccounts"] = serialize.bool(params["includeSubaccounts"]);
     if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new LastMonthPage(operationVersion, payload, this._solution)
+      (payload) =>
+        new LastMonthPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -541,33 +478,31 @@ export function LastMonthListInstance(
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: LastMonthPage) => any
   ): Promise<LastMonthPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new LastMonthPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new LastMonthPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;
@@ -578,21 +513,21 @@ interface LastMonthPayload extends TwilioResponsePayload {
 }
 
 interface LastMonthResource {
-  account_sid?: string | null;
-  api_version?: string | null;
-  as_of?: string | null;
-  category?: UsageRecordLastMonthCategory;
-  count?: string | null;
-  count_unit?: string | null;
-  description?: string | null;
-  end_date?: Date | null;
-  price?: number | null;
-  price_unit?: string | null;
-  start_date?: Date | null;
-  subresource_uris?: object | null;
-  uri?: string | null;
-  usage?: string | null;
-  usage_unit?: string | null;
+  account_sid: string;
+  api_version: string;
+  as_of: string;
+  category: UsageRecordLastMonthCategory;
+  count: string;
+  count_unit: string;
+  description: string;
+  end_date: Date;
+  price: number;
+  price_unit: string;
+  start_date: Date;
+  subresource_uris: Record<string, string>;
+  uri: string;
+  usage: string;
+  usage_unit: string;
 }
 
 export class LastMonthInstance {
@@ -621,60 +556,60 @@ export class LastMonthInstance {
   /**
    * The SID of the Account accrued the usage
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The API version used to create the resource
    */
-  apiVersion?: string | null;
+  apiVersion: string;
   /**
    * Usage records up to date as of this timestamp
    */
-  asOf?: string | null;
-  category?: UsageRecordLastMonthCategory;
+  asOf: string;
+  category: UsageRecordLastMonthCategory;
   /**
    * The number of usage events
    */
-  count?: string | null;
+  count: string;
   /**
    * The units in which count is measured
    */
-  countUnit?: string | null;
+  countUnit: string;
   /**
    * A plain-language description of the usage category
    */
-  description?: string | null;
+  description: string;
   /**
    * The last date for which usage is included in the UsageRecord
    */
-  endDate?: Date | null;
+  endDate: Date;
   /**
    * The total price of the usage
    */
-  price?: number | null;
+  price: number;
   /**
    * The currency in which `price` is measured
    */
-  priceUnit?: string | null;
+  priceUnit: string;
   /**
    * The first date for which usage is included in this UsageRecord
    */
-  startDate?: Date | null;
+  startDate: Date;
   /**
    * A list of related resources identified by their relative URIs
    */
-  subresourceUris?: object | null;
+  subresourceUris: Record<string, string>;
   /**
    * The URI of the resource, relative to `https://api.twilio.com`
    */
-  uri?: string | null;
+  uri: string;
   /**
    * The amount of usage
    */
-  usage?: string | null;
+  usage: string;
   /**
    * The units in which usage is measured
    */
-  usageUnit?: string | null;
+  usageUnit: string;
 
   /**
    * Provide a user-friendly representation

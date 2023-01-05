@@ -20,16 +20,15 @@ import { isValidPathParam } from "../../../base/utility";
 
 /**
  * Options to pass to update a DomainConfigInstance
- *
- * @property { Array<string> } messagingServiceSids A list of messagingServiceSids (with prefix MG)
- * @property { string } [fallbackUrl] Any requests we receive to this domain that do not match an existing shortened message will be redirected to the fallback url. These will likely be either expired messages, random misdirected traffic, or intentional scraping.
- * @property { string } [callbackUrl] URL to receive click events to your webhook whenever the recipients click on the shortened links
- * @property { string } [messagingServiceSidsAction] An action type for messaging_service_sids operation (ADD, DELETE, REPLACE)
  */
 export interface DomainConfigContextUpdateOptions {
+  /** A list of messagingServiceSids (with prefix MG) */
   messagingServiceSids: Array<string>;
+  /** Any requests we receive to this domain that do not match an existing shortened message will be redirected to the fallback url. These will likely be either expired messages, random misdirected traffic, or intentional scraping. */
   fallbackUrl?: string;
+  /** URL to receive click events to your webhook whenever the recipients click on the shortened links */
   callbackUrl?: string;
+  /** An action type for messaging_service_sids operation (ADD, DELETE, REPLACE) */
   messagingServiceSidsAction?: string;
 }
 
@@ -37,9 +36,9 @@ export interface DomainConfigContext {
   /**
    * Fetch a DomainConfigInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed DomainConfigInstance
+   * @returns Resolves to processed DomainConfigInstance
    */
   fetch(
     callback?: (error: Error | null, item?: DomainConfigInstance) => any
@@ -48,16 +47,15 @@ export interface DomainConfigContext {
   /**
    * Update a DomainConfigInstance
    *
-   * @param { DomainConfigContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed DomainConfigInstance
+   * @returns Resolves to processed DomainConfigInstance
    */
   update(
     params: DomainConfigContextUpdateOptions,
     callback?: (error: Error | null, item?: DomainConfigInstance) => any
   ): Promise<DomainConfigInstance>;
-  update(params: any, callback?: any): Promise<DomainConfigInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -67,7 +65,7 @@ export interface DomainConfigContext {
 }
 
 export interface DomainConfigContextSolution {
-  domainSid?: string;
+  domainSid: string;
 }
 
 export class DomainConfigContextImpl implements DomainConfigContext {
@@ -83,10 +81,13 @@ export class DomainConfigContextImpl implements DomainConfigContext {
     this._uri = `/LinkShortening/Domains/${domainSid}/Config`;
   }
 
-  fetch(callback?: any): Promise<DomainConfigInstance> {
-    let operationVersion = this._version,
+  fetch(
+    callback?: (error: Error | null, item?: DomainConfigInstance) => any
+  ): Promise<DomainConfigInstance> {
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -95,18 +96,23 @@ export class DomainConfigContextImpl implements DomainConfigContext {
         new DomainConfigInstance(
           operationVersion,
           payload,
-          this._solution.domainSid
+          instance._solution.domainSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
     return operationPromise;
   }
 
-  update(params: any, callback?: any): Promise<DomainConfigInstance> {
+  update(
+    params:
+      | DomainConfigContextUpdateOptions
+      | ((error: Error | null, item?: DomainConfigInstance) => any),
+    callback?: (error: Error | null, item?: DomainConfigInstance) => any
+  ): Promise<DomainConfigInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
@@ -124,7 +130,7 @@ export class DomainConfigContextImpl implements DomainConfigContext {
 
     data["MessagingServiceSids"] = serialize.map(
       params["messagingServiceSids"],
-      (e) => e
+      (e: string) => e
     );
     if (params["fallbackUrl"] !== undefined)
       data["FallbackUrl"] = params["fallbackUrl"];
@@ -136,9 +142,10 @@ export class DomainConfigContextImpl implements DomainConfigContext {
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -149,11 +156,11 @@ export class DomainConfigContextImpl implements DomainConfigContext {
         new DomainConfigInstance(
           operationVersion,
           payload,
-          this._solution.domainSid
+          instance._solution.domainSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -177,14 +184,14 @@ export class DomainConfigContextImpl implements DomainConfigContext {
 interface DomainConfigPayload extends DomainConfigResource {}
 
 interface DomainConfigResource {
-  domain_sid?: string | null;
-  config_sid?: string | null;
-  messaging_service_sids?: Array<string> | null;
-  fallback_url?: string | null;
-  callback_url?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  url?: string | null;
+  domain_sid: string;
+  config_sid: string;
+  messaging_service_sids: Array<string>;
+  fallback_url: string;
+  callback_url: string;
+  date_created: Date;
+  date_updated: Date;
+  url: string;
 }
 
 export class DomainConfigInstance {
@@ -211,32 +218,32 @@ export class DomainConfigInstance {
   /**
    * The unique string that we created to identify the Domain resource.
    */
-  domainSid?: string | null;
+  domainSid: string;
   /**
    * The unique string that we created to identify the Domain config (prefix ZK).
    */
-  configSid?: string | null;
+  configSid: string;
   /**
    * A list of messagingServiceSids (with prefix MG).
    */
-  messagingServiceSids?: Array<string> | null;
+  messagingServiceSids: Array<string>;
   /**
    * We will redirect requests to urls we are unable to identify to this url.
    */
-  fallbackUrl?: string | null;
+  fallbackUrl: string;
   /**
    * URL to receive click events to your webhook whenever the recipients click on the shortened links.
    */
-  callbackUrl?: string | null;
+  callbackUrl: string;
   /**
    * Date this Domain Config was created.
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * Date that this Domain Config was last updated.
    */
-  dateUpdated?: Date | null;
-  url?: string | null;
+  dateUpdated: Date;
+  url: string;
 
   private get _proxy(): DomainConfigContext {
     this._context =
@@ -248,9 +255,9 @@ export class DomainConfigInstance {
   /**
    * Fetch a DomainConfigInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed DomainConfigInstance
+   * @returns Resolves to processed DomainConfigInstance
    */
   fetch(
     callback?: (error: Error | null, item?: DomainConfigInstance) => any
@@ -261,16 +268,20 @@ export class DomainConfigInstance {
   /**
    * Update a DomainConfigInstance
    *
-   * @param { DomainConfigContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed DomainConfigInstance
+   * @returns Resolves to processed DomainConfigInstance
    */
   update(
     params: DomainConfigContextUpdateOptions,
     callback?: (error: Error | null, item?: DomainConfigInstance) => any
   ): Promise<DomainConfigInstance>;
-  update(params: any, callback?: any): Promise<DomainConfigInstance> {
+
+  update(
+    params?: any,
+    callback?: (error: Error | null, item?: DomainConfigInstance) => any
+  ): Promise<DomainConfigInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -297,7 +308,13 @@ export class DomainConfigInstance {
   }
 }
 
+export interface DomainConfigSolution {}
+
 export interface DomainConfigListInstance {
+  _version: V1;
+  _solution: DomainConfigSolution;
+  _uri: string;
+
   (domainSid: string): DomainConfigContext;
   get(domainSid: string): DomainConfigContext;
 
@@ -308,20 +325,11 @@ export interface DomainConfigListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface DomainConfigSolution {}
-
-interface DomainConfigListInstanceImpl extends DomainConfigListInstance {}
-class DomainConfigListInstanceImpl implements DomainConfigListInstance {
-  _version?: V1;
-  _solution?: DomainConfigSolution;
-  _uri?: string;
-}
-
 export function DomainConfigListInstance(
   version: V1
 ): DomainConfigListInstance {
   const instance = ((domainSid) =>
-    instance.get(domainSid)) as DomainConfigListInstanceImpl;
+    instance.get(domainSid)) as DomainConfigListInstance;
 
   instance.get = function get(domainSid): DomainConfigContext {
     return new DomainConfigContextImpl(version, domainSid);
@@ -332,14 +340,14 @@ export function DomainConfigListInstance(
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

@@ -20,10 +20,9 @@ import { isValidPathParam } from "../../../../base/utility";
 
 /**
  * Options to pass to update a AssistantFallbackActionsInstance
- *
- * @property { any } [fallbackActions]
  */
 export interface AssistantFallbackActionsContextUpdateOptions {
+  /**  */
   fallbackActions?: any;
 }
 
@@ -31,9 +30,9 @@ export interface AssistantFallbackActionsContext {
   /**
    * Fetch a AssistantFallbackActionsInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed AssistantFallbackActionsInstance
+   * @returns Resolves to processed AssistantFallbackActionsInstance
    */
   fetch(
     callback?: (
@@ -45,9 +44,9 @@ export interface AssistantFallbackActionsContext {
   /**
    * Update a AssistantFallbackActionsInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed AssistantFallbackActionsInstance
+   * @returns Resolves to processed AssistantFallbackActionsInstance
    */
   update(
     callback?: (
@@ -58,10 +57,10 @@ export interface AssistantFallbackActionsContext {
   /**
    * Update a AssistantFallbackActionsInstance
    *
-   * @param { AssistantFallbackActionsContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed AssistantFallbackActionsInstance
+   * @returns Resolves to processed AssistantFallbackActionsInstance
    */
   update(
     params: AssistantFallbackActionsContextUpdateOptions,
@@ -69,10 +68,6 @@ export interface AssistantFallbackActionsContext {
       error: Error | null,
       item?: AssistantFallbackActionsInstance
     ) => any
-  ): Promise<AssistantFallbackActionsInstance>;
-  update(
-    params?: any,
-    callback?: any
   ): Promise<AssistantFallbackActionsInstance>;
 
   /**
@@ -83,7 +78,7 @@ export interface AssistantFallbackActionsContext {
 }
 
 export interface AssistantFallbackActionsContextSolution {
-  assistantSid?: string;
+  assistantSid: string;
 }
 
 export class AssistantFallbackActionsContextImpl
@@ -101,10 +96,16 @@ export class AssistantFallbackActionsContextImpl
     this._uri = `/Assistants/${assistantSid}/FallbackActions`;
   }
 
-  fetch(callback?: any): Promise<AssistantFallbackActionsInstance> {
-    let operationVersion = this._version,
+  fetch(
+    callback?: (
+      error: Error | null,
+      item?: AssistantFallbackActionsInstance
+    ) => any
+  ): Promise<AssistantFallbackActionsInstance> {
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -113,11 +114,11 @@ export class AssistantFallbackActionsContextImpl
         new AssistantFallbackActionsInstance(
           operationVersion,
           payload,
-          this._solution.assistantSid
+          instance._solution.assistantSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -125,10 +126,15 @@ export class AssistantFallbackActionsContextImpl
   }
 
   update(
-    params?: any,
-    callback?: any
+    params?:
+      | AssistantFallbackActionsContextUpdateOptions
+      | ((error: Error | null, item?: AssistantFallbackActionsInstance) => any),
+    callback?: (
+      error: Error | null,
+      item?: AssistantFallbackActionsInstance
+    ) => any
   ): Promise<AssistantFallbackActionsInstance> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -143,9 +149,10 @@ export class AssistantFallbackActionsContextImpl
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -156,11 +163,11 @@ export class AssistantFallbackActionsContextImpl
         new AssistantFallbackActionsInstance(
           operationVersion,
           payload,
-          this._solution.assistantSid
+          instance._solution.assistantSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -185,10 +192,10 @@ interface AssistantFallbackActionsPayload
   extends AssistantFallbackActionsResource {}
 
 interface AssistantFallbackActionsResource {
-  account_sid?: string | null;
-  assistant_sid?: string | null;
-  url?: string | null;
-  data?: any | null;
+  account_sid: string;
+  assistant_sid: string;
+  url: string;
+  data: any;
 }
 
 export class AssistantFallbackActionsInstance {
@@ -208,10 +215,10 @@ export class AssistantFallbackActionsInstance {
     this._solution = { assistantSid };
   }
 
-  accountSid?: string | null;
-  assistantSid?: string | null;
-  url?: string | null;
-  data?: any | null;
+  accountSid: string;
+  assistantSid: string;
+  url: string;
+  data: any;
 
   private get _proxy(): AssistantFallbackActionsContext {
     this._context =
@@ -226,9 +233,9 @@ export class AssistantFallbackActionsInstance {
   /**
    * Fetch a AssistantFallbackActionsInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed AssistantFallbackActionsInstance
+   * @returns Resolves to processed AssistantFallbackActionsInstance
    */
   fetch(
     callback?: (
@@ -242,9 +249,9 @@ export class AssistantFallbackActionsInstance {
   /**
    * Update a AssistantFallbackActionsInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed AssistantFallbackActionsInstance
+   * @returns Resolves to processed AssistantFallbackActionsInstance
    */
   update(
     callback?: (
@@ -255,10 +262,10 @@ export class AssistantFallbackActionsInstance {
   /**
    * Update a AssistantFallbackActionsInstance
    *
-   * @param { AssistantFallbackActionsContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed AssistantFallbackActionsInstance
+   * @returns Resolves to processed AssistantFallbackActionsInstance
    */
   update(
     params: AssistantFallbackActionsContextUpdateOptions,
@@ -267,9 +274,13 @@ export class AssistantFallbackActionsInstance {
       item?: AssistantFallbackActionsInstance
     ) => any
   ): Promise<AssistantFallbackActionsInstance>;
+
   update(
     params?: any,
-    callback?: any
+    callback?: (
+      error: Error | null,
+      item?: AssistantFallbackActionsInstance
+    ) => any
   ): Promise<AssistantFallbackActionsInstance> {
     return this._proxy.update(params, callback);
   }
@@ -293,7 +304,15 @@ export class AssistantFallbackActionsInstance {
   }
 }
 
+export interface AssistantFallbackActionsSolution {
+  assistantSid: string;
+}
+
 export interface AssistantFallbackActionsListInstance {
+  _version: Understand;
+  _solution: AssistantFallbackActionsSolution;
+  _uri: string;
+
   (): AssistantFallbackActionsContext;
   get(): AssistantFallbackActionsContext;
 
@@ -302,20 +321,6 @@ export interface AssistantFallbackActionsListInstance {
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export interface AssistantFallbackActionsSolution {
-  assistantSid?: string;
-}
-
-interface AssistantFallbackActionsListInstanceImpl
-  extends AssistantFallbackActionsListInstance {}
-class AssistantFallbackActionsListInstanceImpl
-  implements AssistantFallbackActionsListInstance
-{
-  _version?: Understand;
-  _solution?: AssistantFallbackActionsSolution;
-  _uri?: string;
 }
 
 export function AssistantFallbackActionsListInstance(
@@ -327,7 +332,7 @@ export function AssistantFallbackActionsListInstance(
   }
 
   const instance = (() =>
-    instance.get()) as AssistantFallbackActionsListInstanceImpl;
+    instance.get()) as AssistantFallbackActionsListInstance;
 
   instance.get = function get(): AssistantFallbackActionsContext {
     return new AssistantFallbackActionsContextImpl(version, assistantSid);
@@ -338,14 +343,14 @@ export function AssistantFallbackActionsListInstance(
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

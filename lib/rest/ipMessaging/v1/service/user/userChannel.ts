@@ -24,69 +24,50 @@ type UserChannelChannelStatus = "joined" | "invited" | "not_participating";
 
 /**
  * Options to pass to each
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface UserChannelListInstanceEachOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: UserChannelInstance, done: (err?: Error) => void) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface UserChannelListInstanceOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface UserChannelListInstancePageOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
+export interface UserChannelSolution {
+  serviceSid: string;
+  userSid: string;
+}
+
 export interface UserChannelListInstance {
-  /**
-   * Streams UserChannelInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (item: UserChannelInstance, done: (err?: Error) => void) => void
-  ): void;
+  _version: V1;
+  _solution: UserChannelSolution;
+  _uri: string;
+
   /**
    * Streams UserChannelInstance records from the API.
    *
@@ -103,50 +84,24 @@ export interface UserChannelListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: UserChannelListInstanceEachOptions,
     callback?: (item: UserChannelInstance, done: (err?: Error) => void) => void
   ): void;
-  each(params?: any, callback?: any): void;
+  each(
+    params: UserChannelListInstanceEachOptions,
+    callback?: (item: UserChannelInstance, done: (err?: Error) => void) => void
+  ): void;
   /**
    * Retrieve a single target page of UserChannelInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: UserChannelPage) => any
-  ): Promise<UserChannelPage>;
-  /**
-   * Retrieve a single target page of UserChannelInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: UserChannelPage) => any
   ): Promise<UserChannelPage>;
-  getPage(params?: any, callback?: any): Promise<UserChannelPage>;
-  /**
-   * Lists UserChannelInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: UserChannelInstance[]) => any
-  ): Promise<UserChannelInstance[]>;
   /**
    * Lists UserChannelInstance records from the API as a list.
    *
@@ -157,23 +112,12 @@ export interface UserChannelListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: UserChannelListInstanceOptions,
     callback?: (error: Error | null, items: UserChannelInstance[]) => any
   ): Promise<UserChannelInstance[]>;
-  list(params?: any, callback?: any): Promise<UserChannelInstance[]>;
-  /**
-   * Retrieve a single page of UserChannelInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: UserChannelPage) => any
-  ): Promise<UserChannelPage>;
+  list(
+    params: UserChannelListInstanceOptions,
+    callback?: (error: Error | null, items: UserChannelInstance[]) => any
+  ): Promise<UserChannelInstance[]>;
   /**
    * Retrieve a single page of UserChannelInstance records from the API.
    *
@@ -186,28 +130,18 @@ export interface UserChannelListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
+    callback?: (error: Error | null, items: UserChannelPage) => any
+  ): Promise<UserChannelPage>;
+  page(
     params: UserChannelListInstancePageOptions,
     callback?: (error: Error | null, items: UserChannelPage) => any
   ): Promise<UserChannelPage>;
-  page(params?: any, callback?: any): Promise<UserChannelPage>;
 
   /**
    * Provide a user-friendly representation
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export interface UserChannelSolution {
-  serviceSid?: string;
-  userSid?: string;
-}
-
-interface UserChannelListInstanceImpl extends UserChannelListInstance {}
-class UserChannelListInstanceImpl implements UserChannelListInstance {
-  _version?: V1;
-  _solution?: UserChannelSolution;
-  _uri?: string;
 }
 
 export function UserChannelListInstance(
@@ -223,17 +157,19 @@ export function UserChannelListInstance(
     throw new Error("Parameter 'userSid' is not valid.");
   }
 
-  const instance = {} as UserChannelListInstanceImpl;
+  const instance = {} as UserChannelListInstance;
 
   instance._version = version;
   instance._solution = { serviceSid, userSid };
   instance._uri = `/Services/${serviceSid}/Users/${userSid}/Channels`;
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | UserChannelListInstancePageOptions
+      | ((error: Error | null, items: UserChannelPage) => any),
+    callback?: (error: Error | null, items: UserChannelPage) => any
   ): Promise<UserChannelPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -244,14 +180,14 @@ export function UserChannelListInstance(
 
     if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
@@ -259,10 +195,10 @@ export function UserChannelListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new UserChannelPage(operationVersion, payload, this._solution)
+        new UserChannelPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -272,33 +208,31 @@ export function UserChannelListInstance(
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: UserChannelPage) => any
   ): Promise<UserChannelPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new UserChannelPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new UserChannelPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;
@@ -309,14 +243,14 @@ interface UserChannelPayload extends TwilioResponsePayload {
 }
 
 interface UserChannelResource {
-  account_sid?: string | null;
-  service_sid?: string | null;
-  channel_sid?: string | null;
-  member_sid?: string | null;
-  status?: UserChannelChannelStatus;
-  last_consumed_message_index?: number | null;
-  unread_messages_count?: number | null;
-  links?: object | null;
+  account_sid: string;
+  service_sid: string;
+  channel_sid: string;
+  member_sid: string;
+  status: UserChannelChannelStatus;
+  last_consumed_message_index: number;
+  unread_messages_count: number;
+  links: Record<string, string>;
 }
 
 export class UserChannelInstance {
@@ -340,14 +274,14 @@ export class UserChannelInstance {
     this.links = payload.links;
   }
 
-  accountSid?: string | null;
-  serviceSid?: string | null;
-  channelSid?: string | null;
-  memberSid?: string | null;
-  status?: UserChannelChannelStatus;
-  lastConsumedMessageIndex?: number | null;
-  unreadMessagesCount?: number | null;
-  links?: object | null;
+  accountSid: string;
+  serviceSid: string;
+  channelSid: string;
+  memberSid: string;
+  status: UserChannelChannelStatus;
+  lastConsumedMessageIndex: number;
+  unreadMessagesCount: number;
+  links: Record<string, string>;
 
   /**
    * Provide a user-friendly representation

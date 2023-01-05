@@ -23,75 +23,62 @@ import { UserChannelListInstance } from "./user/userChannel";
 
 /**
  * Options to pass to update a UserInstance
- *
- * @property { string } [roleSid] The SID of the [Role](https://www.twilio.com/docs/api/chat/rest/roles) assigned to this user.
- * @property { string } [attributes] A valid JSON string that contains application-specific data.
- * @property { string } [friendlyName] A descriptive string that you create to describe the resource. It is often used for display purposes.
  */
 export interface UserContextUpdateOptions {
+  /** The SID of the [Role](https://www.twilio.com/docs/api/chat/rest/roles) assigned to this user. */
   roleSid?: string;
+  /** A valid JSON string that contains application-specific data. */
   attributes?: string;
+  /** A descriptive string that you create to describe the resource. It is often used for display purposes. */
   friendlyName?: string;
 }
 
 /**
  * Options to pass to create a UserInstance
- *
- * @property { string } identity The `identity` value that uniquely identifies the new resource\\\'s [User](https://www.twilio.com/docs/api/chat/rest/v1/user) within the [Service](https://www.twilio.com/docs/api/chat/rest/v1/service). This value is often a username or email address. See the Identity documentation for more details.
- * @property { string } [roleSid] The SID of the [Role](https://www.twilio.com/docs/api/chat/rest/roles) assigned to the new User.
- * @property { string } [attributes] A valid JSON string that contains application-specific data.
- * @property { string } [friendlyName] A descriptive string that you create to describe the new resource. This value is often used for display purposes.
  */
 export interface UserListInstanceCreateOptions {
+  /** The `identity` value that uniquely identifies the new resource\\\'s [User](https://www.twilio.com/docs/api/chat/rest/v1/user) within the [Service](https://www.twilio.com/docs/api/chat/rest/v1/service). This value is often a username or email address. See the Identity documentation for more details. */
   identity: string;
+  /** The SID of the [Role](https://www.twilio.com/docs/api/chat/rest/roles) assigned to the new User. */
   roleSid?: string;
+  /** A valid JSON string that contains application-specific data. */
   attributes?: string;
+  /** A descriptive string that you create to describe the new resource. This value is often used for display purposes. */
   friendlyName?: string;
 }
 /**
  * Options to pass to each
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface UserListInstanceEachOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: UserInstance, done: (err?: Error) => void) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface UserListInstanceOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface UserListInstancePageOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
@@ -101,9 +88,9 @@ export interface UserContext {
   /**
    * Remove a UserInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -112,9 +99,9 @@ export interface UserContext {
   /**
    * Fetch a UserInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed UserInstance
+   * @returns Resolves to processed UserInstance
    */
   fetch(
     callback?: (error: Error | null, item?: UserInstance) => any
@@ -123,9 +110,9 @@ export interface UserContext {
   /**
    * Update a UserInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed UserInstance
+   * @returns Resolves to processed UserInstance
    */
   update(
     callback?: (error: Error | null, item?: UserInstance) => any
@@ -133,16 +120,15 @@ export interface UserContext {
   /**
    * Update a UserInstance
    *
-   * @param { UserContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed UserInstance
+   * @returns Resolves to processed UserInstance
    */
   update(
     params: UserContextUpdateOptions,
     callback?: (error: Error | null, item?: UserInstance) => any
   ): Promise<UserInstance>;
-  update(params?: any, callback?: any): Promise<UserInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -152,8 +138,8 @@ export interface UserContext {
 }
 
 export interface UserContextSolution {
-  serviceSid?: string;
-  sid?: string;
+  serviceSid: string;
+  sid: string;
 }
 
 export class UserContextImpl implements UserContext {
@@ -186,24 +172,30 @@ export class UserContextImpl implements UserContext {
     return this._userChannels;
   }
 
-  remove(callback?: any): Promise<boolean> {
-    let operationVersion = this._version,
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<UserInstance> {
-    let operationVersion = this._version,
+  fetch(
+    callback?: (error: Error | null, item?: UserInstance) => any
+  ): Promise<UserInstance> {
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -212,20 +204,25 @@ export class UserContextImpl implements UserContext {
         new UserInstance(
           operationVersion,
           payload,
-          this._solution.serviceSid,
-          this._solution.sid
+          instance._solution.serviceSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
     return operationPromise;
   }
 
-  update(params?: any, callback?: any): Promise<UserInstance> {
-    if (typeof params === "function") {
+  update(
+    params?:
+      | UserContextUpdateOptions
+      | ((error: Error | null, item?: UserInstance) => any),
+    callback?: (error: Error | null, item?: UserInstance) => any
+  ): Promise<UserInstance> {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -243,9 +240,10 @@ export class UserContextImpl implements UserContext {
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -256,12 +254,12 @@ export class UserContextImpl implements UserContext {
         new UserInstance(
           operationVersion,
           payload,
-          this._solution.serviceSid,
-          this._solution.sid
+          instance._solution.serviceSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -287,20 +285,20 @@ interface UserPayload extends TwilioResponsePayload {
 }
 
 interface UserResource {
-  sid?: string | null;
-  account_sid?: string | null;
-  service_sid?: string | null;
-  attributes?: string | null;
-  friendly_name?: string | null;
-  role_sid?: string | null;
-  identity?: string | null;
-  is_online?: boolean | null;
-  is_notifiable?: boolean | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  joined_channels_count?: number | null;
-  links?: object | null;
-  url?: string | null;
+  sid: string;
+  account_sid: string;
+  service_sid: string;
+  attributes: string;
+  friendly_name: string;
+  role_sid: string;
+  identity: string;
+  is_online: boolean;
+  is_notifiable: boolean;
+  date_created: Date;
+  date_updated: Date;
+  joined_channels_count: number;
+  links: Record<string, string>;
+  url: string;
 }
 
 export class UserInstance {
@@ -336,59 +334,59 @@ export class UserInstance {
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The SID of the Service that the resource is associated with
    */
-  serviceSid?: string | null;
+  serviceSid: string;
   /**
    * The JSON string that stores application-specific data
    */
-  attributes?: string | null;
+  attributes: string;
   /**
    * The string that you assigned to describe the resource
    */
-  friendlyName?: string | null;
+  friendlyName: string;
   /**
    * The SID of the assigned to the user
    */
-  roleSid?: string | null;
+  roleSid: string;
   /**
    * The string that identifies the resource\'s User
    */
-  identity?: string | null;
+  identity: string;
   /**
    * Whether the User is actively connected to the Service instance and online
    */
-  isOnline?: boolean | null;
+  isOnline: boolean;
   /**
    * Whether the User has a potentially valid Push Notification registration for the Service instance
    */
-  isNotifiable?: boolean | null;
+  isNotifiable: boolean;
   /**
    * The RFC 2822 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The RFC 2822 date and time in GMT when the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The number of Channels this User is a Member of
    */
-  joinedChannelsCount?: number | null;
+  joinedChannelsCount: number;
   /**
    * The absolute URLs of the Channel and Binding resources related to the user
    */
-  links?: object | null;
+  links: Record<string, string>;
   /**
    * The absolute URL of the User resource
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): UserContext {
     this._context =
@@ -404,9 +402,9 @@ export class UserInstance {
   /**
    * Remove a UserInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -417,9 +415,9 @@ export class UserInstance {
   /**
    * Fetch a UserInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed UserInstance
+   * @returns Resolves to processed UserInstance
    */
   fetch(
     callback?: (error: Error | null, item?: UserInstance) => any
@@ -430,9 +428,9 @@ export class UserInstance {
   /**
    * Update a UserInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed UserInstance
+   * @returns Resolves to processed UserInstance
    */
   update(
     callback?: (error: Error | null, item?: UserInstance) => any
@@ -440,16 +438,20 @@ export class UserInstance {
   /**
    * Update a UserInstance
    *
-   * @param { UserContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed UserInstance
+   * @returns Resolves to processed UserInstance
    */
   update(
     params: UserContextUpdateOptions,
     callback?: (error: Error | null, item?: UserInstance) => any
   ): Promise<UserInstance>;
-  update(params?: any, callback?: any): Promise<UserInstance> {
+
+  update(
+    params?: any,
+    callback?: (error: Error | null, item?: UserInstance) => any
+  ): Promise<UserInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -489,41 +491,31 @@ export class UserInstance {
   }
 }
 
+export interface UserSolution {
+  serviceSid: string;
+}
+
 export interface UserListInstance {
+  _version: V1;
+  _solution: UserSolution;
+  _uri: string;
+
   (sid: string): UserContext;
   get(sid: string): UserContext;
 
   /**
    * Create a UserInstance
    *
-   * @param { UserListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed UserInstance
+   * @returns Resolves to processed UserInstance
    */
   create(
     params: UserListInstanceCreateOptions,
     callback?: (error: Error | null, item?: UserInstance) => any
   ): Promise<UserInstance>;
-  create(params: any, callback?: any): Promise<UserInstance>;
 
-  /**
-   * Streams UserInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (item: UserInstance, done: (err?: Error) => void) => void
-  ): void;
   /**
    * Streams UserInstance records from the API.
    *
@@ -540,50 +532,24 @@ export interface UserListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: UserListInstanceEachOptions,
     callback?: (item: UserInstance, done: (err?: Error) => void) => void
   ): void;
-  each(params?: any, callback?: any): void;
+  each(
+    params: UserListInstanceEachOptions,
+    callback?: (item: UserInstance, done: (err?: Error) => void) => void
+  ): void;
   /**
    * Retrieve a single target page of UserInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: UserPage) => any
-  ): Promise<UserPage>;
-  /**
-   * Retrieve a single target page of UserInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: UserPage) => any
   ): Promise<UserPage>;
-  getPage(params?: any, callback?: any): Promise<UserPage>;
-  /**
-   * Lists UserInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: UserInstance[]) => any
-  ): Promise<UserInstance[]>;
   /**
    * Lists UserInstance records from the API as a list.
    *
@@ -594,23 +560,12 @@ export interface UserListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: UserListInstanceOptions,
     callback?: (error: Error | null, items: UserInstance[]) => any
   ): Promise<UserInstance[]>;
-  list(params?: any, callback?: any): Promise<UserInstance[]>;
-  /**
-   * Retrieve a single page of UserInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: UserPage) => any
-  ): Promise<UserPage>;
+  list(
+    params: UserListInstanceOptions,
+    callback?: (error: Error | null, items: UserInstance[]) => any
+  ): Promise<UserInstance[]>;
   /**
    * Retrieve a single page of UserInstance records from the API.
    *
@@ -623,27 +578,18 @@ export interface UserListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
+    callback?: (error: Error | null, items: UserPage) => any
+  ): Promise<UserPage>;
+  page(
     params: UserListInstancePageOptions,
     callback?: (error: Error | null, items: UserPage) => any
   ): Promise<UserPage>;
-  page(params?: any, callback?: any): Promise<UserPage>;
 
   /**
    * Provide a user-friendly representation
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export interface UserSolution {
-  serviceSid?: string;
-}
-
-interface UserListInstanceImpl extends UserListInstance {}
-class UserListInstanceImpl implements UserListInstance {
-  _version?: V1;
-  _solution?: UserSolution;
-  _uri?: string;
 }
 
 export function UserListInstance(
@@ -654,7 +600,7 @@ export function UserListInstance(
     throw new Error("Parameter 'serviceSid' is not valid.");
   }
 
-  const instance = ((sid) => instance.get(sid)) as UserListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as UserListInstance;
 
   instance.get = function get(sid): UserContext {
     return new UserContextImpl(version, serviceSid, sid);
@@ -665,8 +611,8 @@ export function UserListInstance(
   instance._uri = `/Services/${serviceSid}/Users`;
 
   instance.create = function create(
-    params: any,
-    callback?: any
+    params: UserListInstanceCreateOptions,
+    callback?: (error: Error | null, items: UserInstance) => any
   ): Promise<UserInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -690,7 +636,7 @@ export function UserListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -698,10 +644,14 @@ export function UserListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new UserInstance(operationVersion, payload, this._solution.serviceSid)
+        new UserInstance(
+          operationVersion,
+          payload,
+          instance._solution.serviceSid
+        )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -709,10 +659,12 @@ export function UserListInstance(
   };
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | UserListInstancePageOptions
+      | ((error: Error | null, items: UserPage) => any),
+    callback?: (error: Error | null, items: UserPage) => any
   ): Promise<UserPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -723,24 +675,24 @@ export function UserListInstance(
 
     if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new UserPage(operationVersion, payload, this._solution)
+      (payload) => new UserPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -750,33 +702,30 @@ export function UserListInstance(
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: UserPage) => any
   ): Promise<UserPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new UserPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) => new UserPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

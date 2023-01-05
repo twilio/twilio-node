@@ -22,69 +22,49 @@ import { isValidPathParam } from "../../../../base/utility";
 
 /**
  * Options to pass to each
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface DataSessionListInstanceEachOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: DataSessionInstance, done: (err?: Error) => void) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface DataSessionListInstanceOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface DataSessionListInstancePageOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
+export interface DataSessionSolution {
+  simSid: string;
+}
+
 export interface DataSessionListInstance {
-  /**
-   * Streams DataSessionInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (item: DataSessionInstance, done: (err?: Error) => void) => void
-  ): void;
+  _version: V1;
+  _solution: DataSessionSolution;
+  _uri: string;
+
   /**
    * Streams DataSessionInstance records from the API.
    *
@@ -101,50 +81,24 @@ export interface DataSessionListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: DataSessionListInstanceEachOptions,
     callback?: (item: DataSessionInstance, done: (err?: Error) => void) => void
   ): void;
-  each(params?: any, callback?: any): void;
+  each(
+    params: DataSessionListInstanceEachOptions,
+    callback?: (item: DataSessionInstance, done: (err?: Error) => void) => void
+  ): void;
   /**
    * Retrieve a single target page of DataSessionInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: DataSessionPage) => any
-  ): Promise<DataSessionPage>;
-  /**
-   * Retrieve a single target page of DataSessionInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: DataSessionPage) => any
   ): Promise<DataSessionPage>;
-  getPage(params?: any, callback?: any): Promise<DataSessionPage>;
-  /**
-   * Lists DataSessionInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: DataSessionInstance[]) => any
-  ): Promise<DataSessionInstance[]>;
   /**
    * Lists DataSessionInstance records from the API as a list.
    *
@@ -155,23 +109,12 @@ export interface DataSessionListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: DataSessionListInstanceOptions,
     callback?: (error: Error | null, items: DataSessionInstance[]) => any
   ): Promise<DataSessionInstance[]>;
-  list(params?: any, callback?: any): Promise<DataSessionInstance[]>;
-  /**
-   * Retrieve a single page of DataSessionInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: DataSessionPage) => any
-  ): Promise<DataSessionPage>;
+  list(
+    params: DataSessionListInstanceOptions,
+    callback?: (error: Error | null, items: DataSessionInstance[]) => any
+  ): Promise<DataSessionInstance[]>;
   /**
    * Retrieve a single page of DataSessionInstance records from the API.
    *
@@ -184,27 +127,18 @@ export interface DataSessionListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
+    callback?: (error: Error | null, items: DataSessionPage) => any
+  ): Promise<DataSessionPage>;
+  page(
     params: DataSessionListInstancePageOptions,
     callback?: (error: Error | null, items: DataSessionPage) => any
   ): Promise<DataSessionPage>;
-  page(params?: any, callback?: any): Promise<DataSessionPage>;
 
   /**
    * Provide a user-friendly representation
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export interface DataSessionSolution {
-  simSid?: string;
-}
-
-interface DataSessionListInstanceImpl extends DataSessionListInstance {}
-class DataSessionListInstanceImpl implements DataSessionListInstance {
-  _version?: V1;
-  _solution?: DataSessionSolution;
-  _uri?: string;
 }
 
 export function DataSessionListInstance(
@@ -215,17 +149,19 @@ export function DataSessionListInstance(
     throw new Error("Parameter 'simSid' is not valid.");
   }
 
-  const instance = {} as DataSessionListInstanceImpl;
+  const instance = {} as DataSessionListInstance;
 
   instance._version = version;
   instance._solution = { simSid };
   instance._uri = `/Sims/${simSid}/DataSessions`;
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | DataSessionListInstancePageOptions
+      | ((error: Error | null, items: DataSessionPage) => any),
+    callback?: (error: Error | null, items: DataSessionPage) => any
   ): Promise<DataSessionPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -236,14 +172,14 @@ export function DataSessionListInstance(
 
     if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
@@ -251,10 +187,10 @@ export function DataSessionListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new DataSessionPage(operationVersion, payload, this._solution)
+        new DataSessionPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -264,33 +200,31 @@ export function DataSessionListInstance(
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: DataSessionPage) => any
   ): Promise<DataSessionPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new DataSessionPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new DataSessionPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;
@@ -301,22 +235,22 @@ interface DataSessionPayload extends TwilioResponsePayload {
 }
 
 interface DataSessionResource {
-  sid?: string | null;
-  sim_sid?: string | null;
-  account_sid?: string | null;
-  radio_link?: string | null;
-  operator_mcc?: string | null;
-  operator_mnc?: string | null;
-  operator_country?: string | null;
-  operator_name?: string | null;
-  cell_id?: string | null;
-  cell_location_estimate?: any | null;
-  packets_uploaded?: number | null;
-  packets_downloaded?: number | null;
-  last_updated?: Date | null;
-  start?: Date | null;
-  end?: Date | null;
-  imei?: string | null;
+  sid: string;
+  sim_sid: string;
+  account_sid: string;
+  radio_link: string;
+  operator_mcc: string;
+  operator_mnc: string;
+  operator_country: string;
+  operator_name: string;
+  cell_id: string;
+  cell_location_estimate: any;
+  packets_uploaded: number;
+  packets_downloaded: number;
+  last_updated: Date;
+  start: Date;
+  end: Date;
+  imei: string;
 }
 
 export class DataSessionInstance {
@@ -346,67 +280,67 @@ export class DataSessionInstance {
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The SID of the Sim resource that the Data Session is for
    */
-  simSid?: string | null;
+  simSid: string;
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The generation of wireless technology that the device was using
    */
-  radioLink?: string | null;
+  radioLink: string;
   /**
    * The \'mobile country code\' is the unique ID of the home country where the Data Session took place
    */
-  operatorMcc?: string | null;
+  operatorMcc: string;
   /**
    * The \'mobile network code\' is the unique ID specific to the mobile operator network where the Data Session took place
    */
-  operatorMnc?: string | null;
+  operatorMnc: string;
   /**
    * The three letter country code representing where the device\'s Data Session took place
    */
-  operatorCountry?: string | null;
+  operatorCountry: string;
   /**
    * The friendly name of the mobile operator network that the SIM-connected device is attached to
    */
-  operatorName?: string | null;
+  operatorName: string;
   /**
    * The unique ID of the cellular tower that the device was attached to at the moment when the Data Session was last updated
    */
-  cellId?: string | null;
+  cellId: string;
   /**
    * An object with the estimated location where the device\'s Data Session took place
    */
-  cellLocationEstimate?: any | null;
+  cellLocationEstimate: any;
   /**
    * The number of packets uploaded by the device between the start time and when the Data Session was last updated
    */
-  packetsUploaded?: number | null;
+  packetsUploaded: number;
   /**
    * The number of packets downloaded by the device between the start time and when the Data Session was last updated
    */
-  packetsDownloaded?: number | null;
+  packetsDownloaded: number;
   /**
    * The date that the resource was last updated, given as GMT in ISO 8601 format
    */
-  lastUpdated?: Date | null;
+  lastUpdated: Date;
   /**
    * The date that the Data Session started, given as GMT in ISO 8601 format
    */
-  start?: Date | null;
+  start: Date;
   /**
    * The date that the record ended, given as GMT in ISO 8601 format
    */
-  end?: Date | null;
+  end: Date;
   /**
    * The unique ID of the device using the SIM to connect
    */
-  imei?: string | null;
+  imei: string;
 
   /**
    * Provide a user-friendly representation

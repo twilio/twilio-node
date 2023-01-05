@@ -22,9 +22,9 @@ export interface AuthTokenPromotionContext {
   /**
    * Update a AuthTokenPromotionInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed AuthTokenPromotionInstance
+   * @returns Resolves to processed AuthTokenPromotionInstance
    */
   update(
     callback?: (error: Error | null, item?: AuthTokenPromotionInstance) => any
@@ -50,10 +50,13 @@ export class AuthTokenPromotionContextImpl
     this._uri = `/AuthTokens/Promote`;
   }
 
-  update(callback?: any): Promise<AuthTokenPromotionInstance> {
-    let operationVersion = this._version,
+  update(
+    callback?: (error: Error | null, item?: AuthTokenPromotionInstance) => any
+  ): Promise<AuthTokenPromotionInstance> {
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
       });
 
@@ -61,7 +64,7 @@ export class AuthTokenPromotionContextImpl
       (payload) => new AuthTokenPromotionInstance(operationVersion, payload)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -85,11 +88,11 @@ export class AuthTokenPromotionContextImpl
 interface AuthTokenPromotionPayload extends AuthTokenPromotionResource {}
 
 interface AuthTokenPromotionResource {
-  account_sid?: string | null;
-  auth_token?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  url?: string | null;
+  account_sid: string;
+  auth_token: string;
+  date_created: Date;
+  date_updated: Date;
+  url: string;
 }
 
 export class AuthTokenPromotionInstance {
@@ -109,23 +112,23 @@ export class AuthTokenPromotionInstance {
   /**
    * The SID of the Account that the secondary Auth Token was created for
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The promoted Auth Token
    */
-  authToken?: string | null;
+  authToken: string;
   /**
    * The ISO 8601 formatted date and time in UTC when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The ISO 8601 formatted date and time in UTC when the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The URI for this resource, relative to `https://accounts.twilio.com`
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): AuthTokenPromotionContext {
     this._context =
@@ -136,9 +139,9 @@ export class AuthTokenPromotionInstance {
   /**
    * Update a AuthTokenPromotionInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed AuthTokenPromotionInstance
+   * @returns Resolves to processed AuthTokenPromotionInstance
    */
   update(
     callback?: (error: Error | null, item?: AuthTokenPromotionInstance) => any
@@ -166,7 +169,13 @@ export class AuthTokenPromotionInstance {
   }
 }
 
+export interface AuthTokenPromotionSolution {}
+
 export interface AuthTokenPromotionListInstance {
+  _version: V1;
+  _solution: AuthTokenPromotionSolution;
+  _uri: string;
+
   (): AuthTokenPromotionContext;
   get(): AuthTokenPromotionContext;
 
@@ -177,22 +186,10 @@ export interface AuthTokenPromotionListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface AuthTokenPromotionSolution {}
-
-interface AuthTokenPromotionListInstanceImpl
-  extends AuthTokenPromotionListInstance {}
-class AuthTokenPromotionListInstanceImpl
-  implements AuthTokenPromotionListInstance
-{
-  _version?: V1;
-  _solution?: AuthTokenPromotionSolution;
-  _uri?: string;
-}
-
 export function AuthTokenPromotionListInstance(
   version: V1
 ): AuthTokenPromotionListInstance {
-  const instance = (() => instance.get()) as AuthTokenPromotionListInstanceImpl;
+  const instance = (() => instance.get()) as AuthTokenPromotionListInstance;
 
   instance.get = function get(): AuthTokenPromotionContext {
     return new AuthTokenPromotionContextImpl(version);
@@ -203,14 +200,14 @@ export function AuthTokenPromotionListInstance(
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

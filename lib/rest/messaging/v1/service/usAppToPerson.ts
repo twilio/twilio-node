@@ -22,80 +22,68 @@ import { isValidPathParam } from "../../../../base/utility";
 
 /**
  * Options to pass to create a UsAppToPersonInstance
- *
- * @property { string } brandRegistrationSid A2P Brand Registration SID
- * @property { string } description A short description of what this SMS campaign does. Min length: 40 characters. Max length: 4096 characters.
- * @property { string } messageFlow Required for all Campaigns. Details around how a consumer opts-in to their campaign, therefore giving consent to receive their messages. If multiple opt-in methods can be used for the same campaign, they must all be listed. 40 character minimum. 2048 character maximum.
- * @property { Array<string> } messageSamples Message samples, at least 1 and up to 5 sample messages (at least 2 for sole proprietor), >=20 chars, <=1024 chars each.
- * @property { string } usAppToPersonUsecase A2P Campaign Use Case. Examples: [ 2FA, EMERGENCY, MARKETING..]
- * @property { boolean } hasEmbeddedLinks Indicates that this SMS campaign will send messages that contain links.
- * @property { boolean } hasEmbeddedPhone Indicates that this SMS campaign will send messages that contain phone numbers.
- * @property { string } [optInMessage] If end users can text in a keyword to start receiving messages from this campaign, the auto-reply messages sent to the end users must be provided. The opt-in response should include the Brand name, confirmation of opt-in enrollment to a recurring message campaign, how to get help, and clear description of how to opt-out. This field is required if end users can text in a keyword to start receiving messages from this campaign. 20 character minimum. 320 character maximum.
- * @property { string } [optOutMessage] Upon receiving the opt-out keywords from the end users, Twilio customers are expected to send back an auto-generated response, which must provide acknowledgment of the opt-out request and confirmation that no further messages will be sent. It is also recommended that these opt-out messages include the brand name. This field is required if managing opt out keywords yourself (i.e. not using Twilio\\\'s Default or Advanced Opt Out features). 20 character minimum. 320 character maximum.
- * @property { string } [helpMessage] When customers receive the help keywords from their end users, Twilio customers are expected to send back an auto-generated response; this may include the brand name and additional support contact information. This field is required if managing help keywords yourself (i.e. not using Twilio\\\'s Default or Advanced Opt Out features). 20 character minimum. 320 character maximum.
- * @property { Array<string> } [optInKeywords] If end users can text in a keyword to start receiving messages from this campaign, those keywords must be provided. This field is required if end users can text in a keyword to start receiving messages from this campaign. Values must be alphanumeric. 255 character maximum.
- * @property { Array<string> } [optOutKeywords] End users should be able to text in a keyword to stop receiving messages from this campaign. Those keywords must be provided. This field is required if managing opt out keywords yourself (i.e. not using Twilio\\\'s Default or Advanced Opt Out features). Values must be alphanumeric. 255 character maximum.
- * @property { Array<string> } [helpKeywords] End users should be able to text in a keyword to receive help. Those keywords must be provided as part of the campaign registration request. This field is required if managing help keywords yourself (i.e. not using Twilio\\\'s Default or Advanced Opt Out features). Values must be alphanumeric. 255 character maximum.
  */
 export interface UsAppToPersonListInstanceCreateOptions {
+  /** A2P Brand Registration SID */
   brandRegistrationSid: string;
+  /** A short description of what this SMS campaign does. Min length: 40 characters. Max length: 4096 characters. */
   description: string;
+  /** Required for all Campaigns. Details around how a consumer opts-in to their campaign, therefore giving consent to receive their messages. If multiple opt-in methods can be used for the same campaign, they must all be listed. 40 character minimum. 2048 character maximum. */
   messageFlow: string;
+  /** Message samples, at least 1 and up to 5 sample messages (at least 2 for sole proprietor), >=20 chars, <=1024 chars each. */
   messageSamples: Array<string>;
+  /** A2P Campaign Use Case. Examples: [ 2FA, EMERGENCY, MARKETING..] */
   usAppToPersonUsecase: string;
+  /** Indicates that this SMS campaign will send messages that contain links. */
   hasEmbeddedLinks: boolean;
+  /** Indicates that this SMS campaign will send messages that contain phone numbers. */
   hasEmbeddedPhone: boolean;
+  /** If end users can text in a keyword to start receiving messages from this campaign, the auto-reply messages sent to the end users must be provided. The opt-in response should include the Brand name, confirmation of opt-in enrollment to a recurring message campaign, how to get help, and clear description of how to opt-out. This field is required if end users can text in a keyword to start receiving messages from this campaign. 20 character minimum. 320 character maximum. */
   optInMessage?: string;
+  /** Upon receiving the opt-out keywords from the end users, Twilio customers are expected to send back an auto-generated response, which must provide acknowledgment of the opt-out request and confirmation that no further messages will be sent. It is also recommended that these opt-out messages include the brand name. This field is required if managing opt out keywords yourself (i.e. not using Twilio\\\'s Default or Advanced Opt Out features). 20 character minimum. 320 character maximum. */
   optOutMessage?: string;
+  /** When customers receive the help keywords from their end users, Twilio customers are expected to send back an auto-generated response; this may include the brand name and additional support contact information. This field is required if managing help keywords yourself (i.e. not using Twilio\\\'s Default or Advanced Opt Out features). 20 character minimum. 320 character maximum. */
   helpMessage?: string;
+  /** If end users can text in a keyword to start receiving messages from this campaign, those keywords must be provided. This field is required if end users can text in a keyword to start receiving messages from this campaign. Values must be alphanumeric. 255 character maximum. */
   optInKeywords?: Array<string>;
+  /** End users should be able to text in a keyword to stop receiving messages from this campaign. Those keywords must be provided. This field is required if managing opt out keywords yourself (i.e. not using Twilio\\\'s Default or Advanced Opt Out features). Values must be alphanumeric. 255 character maximum. */
   optOutKeywords?: Array<string>;
+  /** End users should be able to text in a keyword to receive help. Those keywords must be provided as part of the campaign registration request. This field is required if managing help keywords yourself (i.e. not using Twilio\\\'s Default or Advanced Opt Out features). Values must be alphanumeric. 255 character maximum. */
   helpKeywords?: Array<string>;
 }
 /**
  * Options to pass to each
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface UsAppToPersonListInstanceEachOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: UsAppToPersonInstance, done: (err?: Error) => void) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface UsAppToPersonListInstanceOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface UsAppToPersonListInstancePageOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
@@ -103,9 +91,9 @@ export interface UsAppToPersonContext {
   /**
    * Remove a UsAppToPersonInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -114,9 +102,9 @@ export interface UsAppToPersonContext {
   /**
    * Fetch a UsAppToPersonInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed UsAppToPersonInstance
+   * @returns Resolves to processed UsAppToPersonInstance
    */
   fetch(
     callback?: (error: Error | null, item?: UsAppToPersonInstance) => any
@@ -130,8 +118,8 @@ export interface UsAppToPersonContext {
 }
 
 export interface UsAppToPersonContextSolution {
-  messagingServiceSid?: string;
-  sid?: string;
+  messagingServiceSid: string;
+  sid: string;
 }
 
 export class UsAppToPersonContextImpl implements UsAppToPersonContext {
@@ -155,24 +143,30 @@ export class UsAppToPersonContextImpl implements UsAppToPersonContext {
     this._uri = `/Services/${messagingServiceSid}/Compliance/Usa2p/${sid}`;
   }
 
-  remove(callback?: any): Promise<boolean> {
-    let operationVersion = this._version,
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<UsAppToPersonInstance> {
-    let operationVersion = this._version,
+  fetch(
+    callback?: (error: Error | null, item?: UsAppToPersonInstance) => any
+  ): Promise<UsAppToPersonInstance> {
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -181,12 +175,12 @@ export class UsAppToPersonContextImpl implements UsAppToPersonContext {
         new UsAppToPersonInstance(
           operationVersion,
           payload,
-          this._solution.messagingServiceSid,
-          this._solution.sid
+          instance._solution.messagingServiceSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -212,30 +206,30 @@ interface UsAppToPersonPayload extends TwilioResponsePayload {
 }
 
 interface UsAppToPersonResource {
-  sid?: string | null;
-  account_sid?: string | null;
-  brand_registration_sid?: string | null;
-  messaging_service_sid?: string | null;
-  description?: string | null;
-  message_samples?: Array<string> | null;
-  us_app_to_person_usecase?: string | null;
-  has_embedded_links?: boolean | null;
-  has_embedded_phone?: boolean | null;
-  campaign_status?: string | null;
-  campaign_id?: string | null;
-  is_externally_registered?: boolean | null;
-  rate_limits?: any | null;
-  message_flow?: string | null;
-  opt_in_message?: string | null;
-  opt_out_message?: string | null;
-  help_message?: string | null;
-  opt_in_keywords?: Array<string> | null;
-  opt_out_keywords?: Array<string> | null;
-  help_keywords?: Array<string> | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  url?: string | null;
-  mock?: boolean | null;
+  sid: string;
+  account_sid: string;
+  brand_registration_sid: string;
+  messaging_service_sid: string;
+  description: string;
+  message_samples: Array<string>;
+  us_app_to_person_usecase: string;
+  has_embedded_links: boolean;
+  has_embedded_phone: boolean;
+  campaign_status: string;
+  campaign_id: string;
+  is_externally_registered: boolean;
+  rate_limits: any;
+  message_flow: string;
+  opt_in_message: string;
+  opt_out_message: string;
+  help_message: string;
+  opt_in_keywords: Array<string>;
+  opt_out_keywords: Array<string>;
+  help_keywords: Array<string>;
+  date_created: Date;
+  date_updated: Date;
+  url: string;
+  mock: boolean;
 }
 
 export class UsAppToPersonInstance {
@@ -279,99 +273,99 @@ export class UsAppToPersonInstance {
   /**
    * The unique string that identifies a US A2P Compliance resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * A2P Brand Registration SID
    */
-  brandRegistrationSid?: string | null;
+  brandRegistrationSid: string;
   /**
    * The SID of the Messaging Service the resource is associated with
    */
-  messagingServiceSid?: string | null;
+  messagingServiceSid: string;
   /**
    * A short description of what this SMS campaign does
    */
-  description?: string | null;
+  description: string;
   /**
    * Message samples
    */
-  messageSamples?: Array<string> | null;
+  messageSamples: Array<string>;
   /**
    * A2P Campaign Use Case.
    */
-  usAppToPersonUsecase?: string | null;
+  usAppToPersonUsecase: string;
   /**
    * Indicate that this SMS campaign will send messages that contain links
    */
-  hasEmbeddedLinks?: boolean | null;
+  hasEmbeddedLinks: boolean;
   /**
    * Indicates that this SMS campaign will send messages that contain phone numbers
    */
-  hasEmbeddedPhone?: boolean | null;
+  hasEmbeddedPhone: boolean;
   /**
    * Campaign status
    */
-  campaignStatus?: string | null;
+  campaignStatus: string;
   /**
    * The Campaign Registry (TCR) Campaign ID.
    */
-  campaignId?: string | null;
+  campaignId: string;
   /**
    * Indicates whether the campaign was registered externally or not
    */
-  isExternallyRegistered?: boolean | null;
+  isExternallyRegistered: boolean;
   /**
    * Rate limit and/or classification set by each carrier
    */
-  rateLimits?: any | null;
+  rateLimits: any;
   /**
    * Consumer opt-in flow
    */
-  messageFlow?: string | null;
+  messageFlow: string;
   /**
    * Opt In Message
    */
-  optInMessage?: string | null;
+  optInMessage: string;
   /**
    * Opt Out Message
    */
-  optOutMessage?: string | null;
+  optOutMessage: string;
   /**
    * Help Message
    */
-  helpMessage?: string | null;
+  helpMessage: string;
   /**
    * Opt In Keywords
    */
-  optInKeywords?: Array<string> | null;
+  optInKeywords: Array<string>;
   /**
    * Opt Out Keywords
    */
-  optOutKeywords?: Array<string> | null;
+  optOutKeywords: Array<string>;
   /**
    * Help Keywords
    */
-  helpKeywords?: Array<string> | null;
+  helpKeywords: Array<string>;
   /**
    * The ISO 8601 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The ISO 8601 date and time in GMT when the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The absolute URL of the US App to Person resource
    */
-  url?: string | null;
+  url: string;
   /**
    * A boolean that specifies whether campaign is a mock or not.
    */
-  mock?: boolean | null;
+  mock: boolean;
 
   private get _proxy(): UsAppToPersonContext {
     this._context =
@@ -387,9 +381,9 @@ export class UsAppToPersonInstance {
   /**
    * Remove a UsAppToPersonInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -400,9 +394,9 @@ export class UsAppToPersonInstance {
   /**
    * Fetch a UsAppToPersonInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed UsAppToPersonInstance
+   * @returns Resolves to processed UsAppToPersonInstance
    */
   fetch(
     callback?: (error: Error | null, item?: UsAppToPersonInstance) => any
@@ -449,44 +443,31 @@ export class UsAppToPersonInstance {
   }
 }
 
+export interface UsAppToPersonSolution {
+  messagingServiceSid: string;
+}
+
 export interface UsAppToPersonListInstance {
+  _version: V1;
+  _solution: UsAppToPersonSolution;
+  _uri: string;
+
   (sid: string): UsAppToPersonContext;
   get(sid: string): UsAppToPersonContext;
 
   /**
    * Create a UsAppToPersonInstance
    *
-   * @param { UsAppToPersonListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed UsAppToPersonInstance
+   * @returns Resolves to processed UsAppToPersonInstance
    */
   create(
     params: UsAppToPersonListInstanceCreateOptions,
     callback?: (error: Error | null, item?: UsAppToPersonInstance) => any
   ): Promise<UsAppToPersonInstance>;
-  create(params: any, callback?: any): Promise<UsAppToPersonInstance>;
 
-  /**
-   * Streams UsAppToPersonInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (
-      item: UsAppToPersonInstance,
-      done: (err?: Error) => void
-    ) => void
-  ): void;
   /**
    * Streams UsAppToPersonInstance records from the API.
    *
@@ -503,53 +484,30 @@ export interface UsAppToPersonListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: UsAppToPersonListInstanceEachOptions,
     callback?: (
       item: UsAppToPersonInstance,
       done: (err?: Error) => void
     ) => void
   ): void;
-  each(params?: any, callback?: any): void;
+  each(
+    params: UsAppToPersonListInstanceEachOptions,
+    callback?: (
+      item: UsAppToPersonInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
   /**
    * Retrieve a single target page of UsAppToPersonInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: UsAppToPersonPage) => any
-  ): Promise<UsAppToPersonPage>;
-  /**
-   * Retrieve a single target page of UsAppToPersonInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: UsAppToPersonPage) => any
   ): Promise<UsAppToPersonPage>;
-  getPage(params?: any, callback?: any): Promise<UsAppToPersonPage>;
-  /**
-   * Lists UsAppToPersonInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: UsAppToPersonInstance[]) => any
-  ): Promise<UsAppToPersonInstance[]>;
   /**
    * Lists UsAppToPersonInstance records from the API as a list.
    *
@@ -560,23 +518,12 @@ export interface UsAppToPersonListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: UsAppToPersonListInstanceOptions,
     callback?: (error: Error | null, items: UsAppToPersonInstance[]) => any
   ): Promise<UsAppToPersonInstance[]>;
-  list(params?: any, callback?: any): Promise<UsAppToPersonInstance[]>;
-  /**
-   * Retrieve a single page of UsAppToPersonInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: UsAppToPersonPage) => any
-  ): Promise<UsAppToPersonPage>;
+  list(
+    params: UsAppToPersonListInstanceOptions,
+    callback?: (error: Error | null, items: UsAppToPersonInstance[]) => any
+  ): Promise<UsAppToPersonInstance[]>;
   /**
    * Retrieve a single page of UsAppToPersonInstance records from the API.
    *
@@ -589,27 +536,18 @@ export interface UsAppToPersonListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
+    callback?: (error: Error | null, items: UsAppToPersonPage) => any
+  ): Promise<UsAppToPersonPage>;
+  page(
     params: UsAppToPersonListInstancePageOptions,
     callback?: (error: Error | null, items: UsAppToPersonPage) => any
   ): Promise<UsAppToPersonPage>;
-  page(params?: any, callback?: any): Promise<UsAppToPersonPage>;
 
   /**
    * Provide a user-friendly representation
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export interface UsAppToPersonSolution {
-  messagingServiceSid?: string;
-}
-
-interface UsAppToPersonListInstanceImpl extends UsAppToPersonListInstance {}
-class UsAppToPersonListInstanceImpl implements UsAppToPersonListInstance {
-  _version?: V1;
-  _solution?: UsAppToPersonSolution;
-  _uri?: string;
 }
 
 export function UsAppToPersonListInstance(
@@ -620,8 +558,7 @@ export function UsAppToPersonListInstance(
     throw new Error("Parameter 'messagingServiceSid' is not valid.");
   }
 
-  const instance = ((sid) =>
-    instance.get(sid)) as UsAppToPersonListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as UsAppToPersonListInstance;
 
   instance.get = function get(sid): UsAppToPersonContext {
     return new UsAppToPersonContextImpl(version, messagingServiceSid, sid);
@@ -632,8 +569,8 @@ export function UsAppToPersonListInstance(
   instance._uri = `/Services/${messagingServiceSid}/Compliance/Usa2p`;
 
   instance.create = function create(
-    params: any,
-    callback?: any
+    params: UsAppToPersonListInstanceCreateOptions,
+    callback?: (error: Error | null, items: UsAppToPersonInstance) => any
   ): Promise<UsAppToPersonInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -700,7 +637,10 @@ export function UsAppToPersonListInstance(
 
     data["MessageFlow"] = params["messageFlow"];
 
-    data["MessageSamples"] = serialize.map(params["messageSamples"], (e) => e);
+    data["MessageSamples"] = serialize.map(
+      params["messageSamples"],
+      (e: string) => e
+    );
 
     data["UsAppToPersonUsecase"] = params["usAppToPersonUsecase"];
 
@@ -714,21 +654,27 @@ export function UsAppToPersonListInstance(
     if (params["helpMessage"] !== undefined)
       data["HelpMessage"] = params["helpMessage"];
     if (params["optInKeywords"] !== undefined)
-      data["OptInKeywords"] = serialize.map(params["optInKeywords"], (e) => e);
+      data["OptInKeywords"] = serialize.map(
+        params["optInKeywords"],
+        (e: string) => e
+      );
     if (params["optOutKeywords"] !== undefined)
       data["OptOutKeywords"] = serialize.map(
         params["optOutKeywords"],
-        (e) => e
+        (e: string) => e
       );
     if (params["helpKeywords"] !== undefined)
-      data["HelpKeywords"] = serialize.map(params["helpKeywords"], (e) => e);
+      data["HelpKeywords"] = serialize.map(
+        params["helpKeywords"],
+        (e: string) => e
+      );
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -739,11 +685,11 @@ export function UsAppToPersonListInstance(
         new UsAppToPersonInstance(
           operationVersion,
           payload,
-          this._solution.messagingServiceSid
+          instance._solution.messagingServiceSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -751,10 +697,12 @@ export function UsAppToPersonListInstance(
   };
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | UsAppToPersonListInstancePageOptions
+      | ((error: Error | null, items: UsAppToPersonPage) => any),
+    callback?: (error: Error | null, items: UsAppToPersonPage) => any
   ): Promise<UsAppToPersonPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -765,14 +713,14 @@ export function UsAppToPersonListInstance(
 
     if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
@@ -780,10 +728,10 @@ export function UsAppToPersonListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new UsAppToPersonPage(operationVersion, payload, this._solution)
+        new UsAppToPersonPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -793,33 +741,31 @@ export function UsAppToPersonListInstance(
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: UsAppToPersonPage) => any
   ): Promise<UsAppToPersonPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new UsAppToPersonPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new UsAppToPersonPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

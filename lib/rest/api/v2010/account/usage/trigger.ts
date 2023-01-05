@@ -273,99 +273,86 @@ type UsageTriggerUsageCategory =
 
 /**
  * Options to pass to update a TriggerInstance
- *
- * @property { string } [callbackMethod] The HTTP method we should use to call `callback_url`. Can be: `GET` or `POST` and the default is `POST`.
- * @property { string } [callbackUrl] The URL we should call using `callback_method` when the trigger fires.
- * @property { string } [friendlyName] A descriptive string that you create to describe the resource. It can be up to 64 characters long.
  */
 export interface TriggerContextUpdateOptions {
+  /** The HTTP method we should use to call `callback_url`. Can be: `GET` or `POST` and the default is `POST`. */
   callbackMethod?: string;
+  /** The URL we should call using `callback_method` when the trigger fires. */
   callbackUrl?: string;
+  /** A descriptive string that you create to describe the resource. It can be up to 64 characters long. */
   friendlyName?: string;
 }
 
 /**
  * Options to pass to create a TriggerInstance
- *
- * @property { string } callbackUrl The URL we should call using `callback_method` when the trigger fires.
- * @property { string } triggerValue The usage value at which the trigger should fire.  For convenience, you can use an offset value such as `+30` to specify a trigger_value that is 30 units more than the current usage value. Be sure to urlencode a `+` as `%2B`.
- * @property { UsageTriggerUsageCategory } usageCategory
- * @property { string } [callbackMethod] The HTTP method we should use to call `callback_url`. Can be: `GET` or `POST` and the default is `POST`.
- * @property { string } [friendlyName] A descriptive string that you create to describe the resource. It can be up to 64 characters long.
- * @property { UsageTriggerRecurring } [recurring]
- * @property { UsageTriggerTriggerField } [triggerBy]
  */
 export interface TriggerListInstanceCreateOptions {
+  /** The URL we should call using `callback_method` when the trigger fires. */
   callbackUrl: string;
+  /** The usage value at which the trigger should fire.  For convenience, you can use an offset value such as `+30` to specify a trigger_value that is 30 units more than the current usage value. Be sure to urlencode a `+` as `%2B`. */
   triggerValue: string;
+  /**  */
   usageCategory: UsageTriggerUsageCategory;
+  /** The HTTP method we should use to call `callback_url`. Can be: `GET` or `POST` and the default is `POST`. */
   callbackMethod?: string;
+  /** A descriptive string that you create to describe the resource. It can be up to 64 characters long. */
   friendlyName?: string;
+  /**  */
   recurring?: UsageTriggerRecurring;
+  /**  */
   triggerBy?: UsageTriggerTriggerField;
 }
 /**
  * Options to pass to each
- *
- * @property { UsageTriggerRecurring } [recurring] The frequency of recurring UsageTriggers to read. Can be: `daily`, `monthly`, or `yearly` to read recurring UsageTriggers. An empty value or a value of `alltime` reads non-recurring UsageTriggers.
- * @property { UsageTriggerTriggerField } [triggerBy] The trigger field of the UsageTriggers to read.  Can be: `count`, `usage`, or `price` as described in the [UsageRecords documentation](https://www.twilio.com/docs/usage/api/usage-record#usage-count-price).
- * @property { UsageTriggerUsageCategory } [usageCategory] The usage category of the UsageTriggers to read. Must be a supported [usage categories](https://www.twilio.com/docs/usage/api/usage-record#usage-categories).
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface TriggerListInstanceEachOptions {
+  /** The frequency of recurring UsageTriggers to read. Can be: `daily`, `monthly`, or `yearly` to read recurring UsageTriggers. An empty value or a value of `alltime` reads non-recurring UsageTriggers. */
   recurring?: UsageTriggerRecurring;
+  /** The trigger field of the UsageTriggers to read.  Can be: `count`, `usage`, or `price` as described in the [UsageRecords documentation](https://www.twilio.com/docs/usage/api/usage-record#usage-count-price). */
   triggerBy?: UsageTriggerTriggerField;
+  /** The usage category of the UsageTriggers to read. Must be a supported [usage categories](https://www.twilio.com/docs/usage/api/usage-record#usage-categories). */
   usageCategory?: UsageTriggerUsageCategory;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: TriggerInstance, done: (err?: Error) => void) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { UsageTriggerRecurring } [recurring] The frequency of recurring UsageTriggers to read. Can be: `daily`, `monthly`, or `yearly` to read recurring UsageTriggers. An empty value or a value of `alltime` reads non-recurring UsageTriggers.
- * @property { UsageTriggerTriggerField } [triggerBy] The trigger field of the UsageTriggers to read.  Can be: `count`, `usage`, or `price` as described in the [UsageRecords documentation](https://www.twilio.com/docs/usage/api/usage-record#usage-count-price).
- * @property { UsageTriggerUsageCategory } [usageCategory] The usage category of the UsageTriggers to read. Must be a supported [usage categories](https://www.twilio.com/docs/usage/api/usage-record#usage-categories).
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface TriggerListInstanceOptions {
+  /** The frequency of recurring UsageTriggers to read. Can be: `daily`, `monthly`, or `yearly` to read recurring UsageTriggers. An empty value or a value of `alltime` reads non-recurring UsageTriggers. */
   recurring?: UsageTriggerRecurring;
+  /** The trigger field of the UsageTriggers to read.  Can be: `count`, `usage`, or `price` as described in the [UsageRecords documentation](https://www.twilio.com/docs/usage/api/usage-record#usage-count-price). */
   triggerBy?: UsageTriggerTriggerField;
+  /** The usage category of the UsageTriggers to read. Must be a supported [usage categories](https://www.twilio.com/docs/usage/api/usage-record#usage-categories). */
   usageCategory?: UsageTriggerUsageCategory;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { UsageTriggerRecurring } [recurring] The frequency of recurring UsageTriggers to read. Can be: `daily`, `monthly`, or `yearly` to read recurring UsageTriggers. An empty value or a value of `alltime` reads non-recurring UsageTriggers.
- * @property { UsageTriggerTriggerField } [triggerBy] The trigger field of the UsageTriggers to read.  Can be: `count`, `usage`, or `price` as described in the [UsageRecords documentation](https://www.twilio.com/docs/usage/api/usage-record#usage-count-price).
- * @property { UsageTriggerUsageCategory } [usageCategory] The usage category of the UsageTriggers to read. Must be a supported [usage categories](https://www.twilio.com/docs/usage/api/usage-record#usage-categories).
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface TriggerListInstancePageOptions {
+  /** The frequency of recurring UsageTriggers to read. Can be: `daily`, `monthly`, or `yearly` to read recurring UsageTriggers. An empty value or a value of `alltime` reads non-recurring UsageTriggers. */
   recurring?: UsageTriggerRecurring;
+  /** The trigger field of the UsageTriggers to read.  Can be: `count`, `usage`, or `price` as described in the [UsageRecords documentation](https://www.twilio.com/docs/usage/api/usage-record#usage-count-price). */
   triggerBy?: UsageTriggerTriggerField;
+  /** The usage category of the UsageTriggers to read. Must be a supported [usage categories](https://www.twilio.com/docs/usage/api/usage-record#usage-categories). */
   usageCategory?: UsageTriggerUsageCategory;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
@@ -373,9 +360,9 @@ export interface TriggerContext {
   /**
    * Remove a TriggerInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -384,9 +371,9 @@ export interface TriggerContext {
   /**
    * Fetch a TriggerInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed TriggerInstance
+   * @returns Resolves to processed TriggerInstance
    */
   fetch(
     callback?: (error: Error | null, item?: TriggerInstance) => any
@@ -395,9 +382,9 @@ export interface TriggerContext {
   /**
    * Update a TriggerInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed TriggerInstance
+   * @returns Resolves to processed TriggerInstance
    */
   update(
     callback?: (error: Error | null, item?: TriggerInstance) => any
@@ -405,16 +392,15 @@ export interface TriggerContext {
   /**
    * Update a TriggerInstance
    *
-   * @param { TriggerContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed TriggerInstance
+   * @returns Resolves to processed TriggerInstance
    */
   update(
     params: TriggerContextUpdateOptions,
     callback?: (error: Error | null, item?: TriggerInstance) => any
   ): Promise<TriggerInstance>;
-  update(params?: any, callback?: any): Promise<TriggerInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -424,8 +410,8 @@ export interface TriggerContext {
 }
 
 export interface TriggerContextSolution {
-  accountSid?: string;
-  sid?: string;
+  accountSid: string;
+  sid: string;
 }
 
 export class TriggerContextImpl implements TriggerContext {
@@ -445,24 +431,30 @@ export class TriggerContextImpl implements TriggerContext {
     this._uri = `/Accounts/${accountSid}/Usage/Triggers/${sid}.json`;
   }
 
-  remove(callback?: any): Promise<boolean> {
-    let operationVersion = this._version,
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<TriggerInstance> {
-    let operationVersion = this._version,
+  fetch(
+    callback?: (error: Error | null, item?: TriggerInstance) => any
+  ): Promise<TriggerInstance> {
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -471,20 +463,25 @@ export class TriggerContextImpl implements TriggerContext {
         new TriggerInstance(
           operationVersion,
           payload,
-          this._solution.accountSid,
-          this._solution.sid
+          instance._solution.accountSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
     return operationPromise;
   }
 
-  update(params?: any, callback?: any): Promise<TriggerInstance> {
-    if (typeof params === "function") {
+  update(
+    params?:
+      | TriggerContextUpdateOptions
+      | ((error: Error | null, item?: TriggerInstance) => any),
+    callback?: (error: Error | null, item?: TriggerInstance) => any
+  ): Promise<TriggerInstance> {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -503,9 +500,10 @@ export class TriggerContextImpl implements TriggerContext {
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -516,12 +514,12 @@ export class TriggerContextImpl implements TriggerContext {
         new TriggerInstance(
           operationVersion,
           payload,
-          this._solution.accountSid,
-          this._solution.sid
+          instance._solution.accountSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -555,22 +553,22 @@ interface TriggerPayload extends TwilioResponsePayload {
 }
 
 interface TriggerResource {
-  account_sid?: string | null;
-  api_version?: string | null;
-  callback_method?: TriggerCallbackMethod;
-  callback_url?: string | null;
-  current_value?: string | null;
-  date_created?: Date | null;
-  date_fired?: Date | null;
-  date_updated?: Date | null;
-  friendly_name?: string | null;
-  recurring?: UsageTriggerRecurring;
-  sid?: string | null;
-  trigger_by?: UsageTriggerTriggerField;
-  trigger_value?: string | null;
-  uri?: string | null;
-  usage_category?: UsageTriggerUsageCategory;
-  usage_record_uri?: string | null;
+  account_sid: string;
+  api_version: string;
+  callback_method: TriggerCallbackMethod;
+  callback_url: string;
+  current_value: string;
+  date_created: Date;
+  date_fired: Date;
+  date_updated: Date;
+  friendly_name: string;
+  recurring: UsageTriggerRecurring;
+  sid: string;
+  trigger_by: UsageTriggerTriggerField;
+  trigger_value: string;
+  uri: string;
+  usage_category: UsageTriggerUsageCategory;
+  usage_record_uri: string;
 }
 
 export class TriggerInstance {
@@ -606,58 +604,58 @@ export class TriggerInstance {
   /**
    * The SID of the Account that this trigger monitors
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The API version used to create the resource
    */
-  apiVersion?: string | null;
+  apiVersion: string;
   /**
    * The HTTP method we use to call callback_url
    */
-  callbackMethod?: TriggerCallbackMethod;
+  callbackMethod: TriggerCallbackMethod;
   /**
    * he URL we call when the trigger fires
    */
-  callbackUrl?: string | null;
+  callbackUrl: string;
   /**
    * The current value of the field the trigger is watching
    */
-  currentValue?: string | null;
+  currentValue: string;
   /**
    * The RFC 2822 date and time in GMT that the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The RFC 2822 date and time in GMT that the trigger was last fired
    */
-  dateFired?: Date | null;
+  dateFired: Date;
   /**
    * The RFC 2822 date and time in GMT that the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The string that you assigned to describe the trigger
    */
-  friendlyName?: string | null;
-  recurring?: UsageTriggerRecurring;
+  friendlyName: string;
+  recurring: UsageTriggerRecurring;
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
-  triggerBy?: UsageTriggerTriggerField;
+  sid: string;
+  triggerBy: UsageTriggerTriggerField;
   /**
    * The value at which the trigger will fire
    */
-  triggerValue?: string | null;
+  triggerValue: string;
   /**
    * The URI of the resource, relative to `https://api.twilio.com`
    */
-  uri?: string | null;
-  usageCategory?: UsageTriggerUsageCategory;
+  uri: string;
+  usageCategory: UsageTriggerUsageCategory;
   /**
    * The URI of the UsageRecord resource this trigger watches
    */
-  usageRecordUri?: string | null;
+  usageRecordUri: string;
 
   private get _proxy(): TriggerContext {
     this._context =
@@ -673,9 +671,9 @@ export class TriggerInstance {
   /**
    * Remove a TriggerInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -686,9 +684,9 @@ export class TriggerInstance {
   /**
    * Fetch a TriggerInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed TriggerInstance
+   * @returns Resolves to processed TriggerInstance
    */
   fetch(
     callback?: (error: Error | null, item?: TriggerInstance) => any
@@ -699,9 +697,9 @@ export class TriggerInstance {
   /**
    * Update a TriggerInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed TriggerInstance
+   * @returns Resolves to processed TriggerInstance
    */
   update(
     callback?: (error: Error | null, item?: TriggerInstance) => any
@@ -709,16 +707,20 @@ export class TriggerInstance {
   /**
    * Update a TriggerInstance
    *
-   * @param { TriggerContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed TriggerInstance
+   * @returns Resolves to processed TriggerInstance
    */
   update(
     params: TriggerContextUpdateOptions,
     callback?: (error: Error | null, item?: TriggerInstance) => any
   ): Promise<TriggerInstance>;
-  update(params?: any, callback?: any): Promise<TriggerInstance> {
+
+  update(
+    params?: any,
+    callback?: (error: Error | null, item?: TriggerInstance) => any
+  ): Promise<TriggerInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -753,41 +755,31 @@ export class TriggerInstance {
   }
 }
 
+export interface TriggerSolution {
+  accountSid: string;
+}
+
 export interface TriggerListInstance {
+  _version: V2010;
+  _solution: TriggerSolution;
+  _uri: string;
+
   (sid: string): TriggerContext;
   get(sid: string): TriggerContext;
 
   /**
    * Create a TriggerInstance
    *
-   * @param { TriggerListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed TriggerInstance
+   * @returns Resolves to processed TriggerInstance
    */
   create(
     params: TriggerListInstanceCreateOptions,
     callback?: (error: Error | null, item?: TriggerInstance) => any
   ): Promise<TriggerInstance>;
-  create(params: any, callback?: any): Promise<TriggerInstance>;
 
-  /**
-   * Streams TriggerInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (item: TriggerInstance, done: (err?: Error) => void) => void
-  ): void;
   /**
    * Streams TriggerInstance records from the API.
    *
@@ -804,50 +796,24 @@ export interface TriggerListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: TriggerListInstanceEachOptions,
     callback?: (item: TriggerInstance, done: (err?: Error) => void) => void
   ): void;
-  each(params?: any, callback?: any): void;
+  each(
+    params: TriggerListInstanceEachOptions,
+    callback?: (item: TriggerInstance, done: (err?: Error) => void) => void
+  ): void;
   /**
    * Retrieve a single target page of TriggerInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: TriggerPage) => any
-  ): Promise<TriggerPage>;
-  /**
-   * Retrieve a single target page of TriggerInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: TriggerPage) => any
   ): Promise<TriggerPage>;
-  getPage(params?: any, callback?: any): Promise<TriggerPage>;
-  /**
-   * Lists TriggerInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: TriggerInstance[]) => any
-  ): Promise<TriggerInstance[]>;
   /**
    * Lists TriggerInstance records from the API as a list.
    *
@@ -858,23 +824,12 @@ export interface TriggerListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: TriggerListInstanceOptions,
     callback?: (error: Error | null, items: TriggerInstance[]) => any
   ): Promise<TriggerInstance[]>;
-  list(params?: any, callback?: any): Promise<TriggerInstance[]>;
-  /**
-   * Retrieve a single page of TriggerInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: TriggerPage) => any
-  ): Promise<TriggerPage>;
+  list(
+    params: TriggerListInstanceOptions,
+    callback?: (error: Error | null, items: TriggerInstance[]) => any
+  ): Promise<TriggerInstance[]>;
   /**
    * Retrieve a single page of TriggerInstance records from the API.
    *
@@ -887,27 +842,18 @@ export interface TriggerListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
+    callback?: (error: Error | null, items: TriggerPage) => any
+  ): Promise<TriggerPage>;
+  page(
     params: TriggerListInstancePageOptions,
     callback?: (error: Error | null, items: TriggerPage) => any
   ): Promise<TriggerPage>;
-  page(params?: any, callback?: any): Promise<TriggerPage>;
 
   /**
    * Provide a user-friendly representation
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export interface TriggerSolution {
-  accountSid?: string;
-}
-
-interface TriggerListInstanceImpl extends TriggerListInstance {}
-class TriggerListInstanceImpl implements TriggerListInstance {
-  _version?: V2010;
-  _solution?: TriggerSolution;
-  _uri?: string;
 }
 
 export function TriggerListInstance(
@@ -918,7 +864,7 @@ export function TriggerListInstance(
     throw new Error("Parameter 'accountSid' is not valid.");
   }
 
-  const instance = ((sid) => instance.get(sid)) as TriggerListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as TriggerListInstance;
 
   instance.get = function get(sid): TriggerContext {
     return new TriggerContextImpl(version, accountSid, sid);
@@ -929,8 +875,8 @@ export function TriggerListInstance(
   instance._uri = `/Accounts/${accountSid}/Usage/Triggers.json`;
 
   instance.create = function create(
-    params: any,
-    callback?: any
+    params: TriggerListInstanceCreateOptions,
+    callback?: (error: Error | null, items: TriggerInstance) => any
   ): Promise<TriggerInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -977,7 +923,7 @@ export function TriggerListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -988,11 +934,11 @@ export function TriggerListInstance(
         new TriggerInstance(
           operationVersion,
           payload,
-          this._solution.accountSid
+          instance._solution.accountSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -1000,10 +946,12 @@ export function TriggerListInstance(
   };
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | TriggerListInstancePageOptions
+      | ((error: Error | null, items: TriggerPage) => any),
+    callback?: (error: Error | null, items: TriggerPage) => any
   ): Promise<TriggerPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -1020,24 +968,25 @@ export function TriggerListInstance(
       data["UsageCategory"] = params["usageCategory"];
     if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new TriggerPage(operationVersion, payload, this._solution)
+      (payload) =>
+        new TriggerPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -1047,33 +996,31 @@ export function TriggerListInstance(
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: TriggerPage) => any
   ): Promise<TriggerPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new TriggerPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new TriggerPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

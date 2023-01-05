@@ -31,9 +31,9 @@ export interface CallContext {
   /**
    * Fetch a CallInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed CallInstance
+   * @returns Resolves to processed CallInstance
    */
   fetch(
     callback?: (error: Error | null, item?: CallInstance) => any
@@ -47,7 +47,7 @@ export interface CallContext {
 }
 
 export interface CallContextSolution {
-  sid?: string;
+  sid: string;
 }
 
 export class CallContextImpl implements CallContext {
@@ -94,19 +94,22 @@ export class CallContextImpl implements CallContext {
     return this._metrics;
   }
 
-  fetch(callback?: any): Promise<CallInstance> {
-    let operationVersion = this._version,
+  fetch(
+    callback?: (error: Error | null, item?: CallInstance) => any
+  ): Promise<CallInstance> {
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new CallInstance(operationVersion, payload, this._solution.sid)
+        new CallInstance(operationVersion, payload, instance._solution.sid)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -130,9 +133,9 @@ export class CallContextImpl implements CallContext {
 interface CallPayload extends CallResource {}
 
 interface CallResource {
-  sid?: string | null;
-  url?: string | null;
-  links?: object | null;
+  sid: string;
+  url: string;
+  links: Record<string, string>;
 }
 
 export class CallInstance {
@@ -147,9 +150,9 @@ export class CallInstance {
     this._solution = { sid: sid || this.sid };
   }
 
-  sid?: string | null;
-  url?: string | null;
-  links?: object | null;
+  sid: string;
+  url: string;
+  links: Record<string, string>;
 
   private get _proxy(): CallContext {
     this._context =
@@ -160,9 +163,9 @@ export class CallInstance {
   /**
    * Fetch a CallInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed CallInstance
+   * @returns Resolves to processed CallInstance
    */
   fetch(
     callback?: (error: Error | null, item?: CallInstance) => any
@@ -216,7 +219,13 @@ export class CallInstance {
   }
 }
 
+export interface CallSolution {}
+
 export interface CallListInstance {
+  _version: V1;
+  _solution: CallSolution;
+  _uri: string;
+
   (sid: string): CallContext;
   get(sid: string): CallContext;
 
@@ -227,17 +236,8 @@ export interface CallListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface CallSolution {}
-
-interface CallListInstanceImpl extends CallListInstance {}
-class CallListInstanceImpl implements CallListInstance {
-  _version?: V1;
-  _solution?: CallSolution;
-  _uri?: string;
-}
-
 export function CallListInstance(version: V1): CallListInstance {
-  const instance = ((sid) => instance.get(sid)) as CallListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as CallListInstance;
 
   instance.get = function get(sid): CallContext {
     return new CallContextImpl(version, sid);
@@ -248,14 +248,14 @@ export function CallListInstance(version: V1): CallListInstance {
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

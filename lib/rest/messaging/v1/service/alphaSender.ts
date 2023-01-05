@@ -22,56 +22,44 @@ import { isValidPathParam } from "../../../../base/utility";
 
 /**
  * Options to pass to create a AlphaSenderInstance
- *
- * @property { string } alphaSender The Alphanumeric Sender ID string. Can be up to 11 characters long. Valid characters are A-Z, a-z, 0-9, space, hyphen `-`, plus `+`, underscore `_` and ampersand `&`. This value cannot contain only numbers.
  */
 export interface AlphaSenderListInstanceCreateOptions {
+  /** The Alphanumeric Sender ID string. Can be up to 11 characters long. Valid characters are A-Z, a-z, 0-9, space, hyphen `-`, plus `+`, underscore `_` and ampersand `&`. This value cannot contain only numbers. */
   alphaSender: string;
 }
 /**
  * Options to pass to each
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface AlphaSenderListInstanceEachOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: AlphaSenderInstance, done: (err?: Error) => void) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface AlphaSenderListInstanceOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface AlphaSenderListInstancePageOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
@@ -79,9 +67,9 @@ export interface AlphaSenderContext {
   /**
    * Remove a AlphaSenderInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -90,9 +78,9 @@ export interface AlphaSenderContext {
   /**
    * Fetch a AlphaSenderInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed AlphaSenderInstance
+   * @returns Resolves to processed AlphaSenderInstance
    */
   fetch(
     callback?: (error: Error | null, item?: AlphaSenderInstance) => any
@@ -106,8 +94,8 @@ export interface AlphaSenderContext {
 }
 
 export interface AlphaSenderContextSolution {
-  serviceSid?: string;
-  sid?: string;
+  serviceSid: string;
+  sid: string;
 }
 
 export class AlphaSenderContextImpl implements AlphaSenderContext {
@@ -127,24 +115,30 @@ export class AlphaSenderContextImpl implements AlphaSenderContext {
     this._uri = `/Services/${serviceSid}/AlphaSenders/${sid}`;
   }
 
-  remove(callback?: any): Promise<boolean> {
-    let operationVersion = this._version,
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<AlphaSenderInstance> {
-    let operationVersion = this._version,
+  fetch(
+    callback?: (error: Error | null, item?: AlphaSenderInstance) => any
+  ): Promise<AlphaSenderInstance> {
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -153,12 +147,12 @@ export class AlphaSenderContextImpl implements AlphaSenderContext {
         new AlphaSenderInstance(
           operationVersion,
           payload,
-          this._solution.serviceSid,
-          this._solution.sid
+          instance._solution.serviceSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -184,14 +178,14 @@ interface AlphaSenderPayload extends TwilioResponsePayload {
 }
 
 interface AlphaSenderResource {
-  sid?: string | null;
-  account_sid?: string | null;
-  service_sid?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  alpha_sender?: string | null;
-  capabilities?: Array<string> | null;
-  url?: string | null;
+  sid: string;
+  account_sid: string;
+  service_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  alpha_sender: string;
+  capabilities: Array<string>;
+  url: string;
 }
 
 export class AlphaSenderInstance {
@@ -219,35 +213,35 @@ export class AlphaSenderInstance {
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The SID of the Service that the resource is associated with
    */
-  serviceSid?: string | null;
+  serviceSid: string;
   /**
    * The ISO 8601 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The ISO 8601 date and time in GMT when the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The Alphanumeric Sender ID string
    */
-  alphaSender?: string | null;
+  alphaSender: string;
   /**
    * An array of values that describe whether the number can receive calls or messages
    */
-  capabilities?: Array<string> | null;
+  capabilities: Array<string>;
   /**
    * The absolute URL of the AlphaSender resource
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): AlphaSenderContext {
     this._context =
@@ -263,9 +257,9 @@ export class AlphaSenderInstance {
   /**
    * Remove a AlphaSenderInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -276,9 +270,9 @@ export class AlphaSenderInstance {
   /**
    * Fetch a AlphaSenderInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed AlphaSenderInstance
+   * @returns Resolves to processed AlphaSenderInstance
    */
   fetch(
     callback?: (error: Error | null, item?: AlphaSenderInstance) => any
@@ -309,41 +303,31 @@ export class AlphaSenderInstance {
   }
 }
 
+export interface AlphaSenderSolution {
+  serviceSid: string;
+}
+
 export interface AlphaSenderListInstance {
+  _version: V1;
+  _solution: AlphaSenderSolution;
+  _uri: string;
+
   (sid: string): AlphaSenderContext;
   get(sid: string): AlphaSenderContext;
 
   /**
    * Create a AlphaSenderInstance
    *
-   * @param { AlphaSenderListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed AlphaSenderInstance
+   * @returns Resolves to processed AlphaSenderInstance
    */
   create(
     params: AlphaSenderListInstanceCreateOptions,
     callback?: (error: Error | null, item?: AlphaSenderInstance) => any
   ): Promise<AlphaSenderInstance>;
-  create(params: any, callback?: any): Promise<AlphaSenderInstance>;
 
-  /**
-   * Streams AlphaSenderInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (item: AlphaSenderInstance, done: (err?: Error) => void) => void
-  ): void;
   /**
    * Streams AlphaSenderInstance records from the API.
    *
@@ -360,50 +344,24 @@ export interface AlphaSenderListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: AlphaSenderListInstanceEachOptions,
     callback?: (item: AlphaSenderInstance, done: (err?: Error) => void) => void
   ): void;
-  each(params?: any, callback?: any): void;
+  each(
+    params: AlphaSenderListInstanceEachOptions,
+    callback?: (item: AlphaSenderInstance, done: (err?: Error) => void) => void
+  ): void;
   /**
    * Retrieve a single target page of AlphaSenderInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: AlphaSenderPage) => any
-  ): Promise<AlphaSenderPage>;
-  /**
-   * Retrieve a single target page of AlphaSenderInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: AlphaSenderPage) => any
   ): Promise<AlphaSenderPage>;
-  getPage(params?: any, callback?: any): Promise<AlphaSenderPage>;
-  /**
-   * Lists AlphaSenderInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: AlphaSenderInstance[]) => any
-  ): Promise<AlphaSenderInstance[]>;
   /**
    * Lists AlphaSenderInstance records from the API as a list.
    *
@@ -414,23 +372,12 @@ export interface AlphaSenderListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: AlphaSenderListInstanceOptions,
     callback?: (error: Error | null, items: AlphaSenderInstance[]) => any
   ): Promise<AlphaSenderInstance[]>;
-  list(params?: any, callback?: any): Promise<AlphaSenderInstance[]>;
-  /**
-   * Retrieve a single page of AlphaSenderInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: AlphaSenderPage) => any
-  ): Promise<AlphaSenderPage>;
+  list(
+    params: AlphaSenderListInstanceOptions,
+    callback?: (error: Error | null, items: AlphaSenderInstance[]) => any
+  ): Promise<AlphaSenderInstance[]>;
   /**
    * Retrieve a single page of AlphaSenderInstance records from the API.
    *
@@ -443,27 +390,18 @@ export interface AlphaSenderListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
+    callback?: (error: Error | null, items: AlphaSenderPage) => any
+  ): Promise<AlphaSenderPage>;
+  page(
     params: AlphaSenderListInstancePageOptions,
     callback?: (error: Error | null, items: AlphaSenderPage) => any
   ): Promise<AlphaSenderPage>;
-  page(params?: any, callback?: any): Promise<AlphaSenderPage>;
 
   /**
    * Provide a user-friendly representation
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export interface AlphaSenderSolution {
-  serviceSid?: string;
-}
-
-interface AlphaSenderListInstanceImpl extends AlphaSenderListInstance {}
-class AlphaSenderListInstanceImpl implements AlphaSenderListInstance {
-  _version?: V1;
-  _solution?: AlphaSenderSolution;
-  _uri?: string;
 }
 
 export function AlphaSenderListInstance(
@@ -474,7 +412,7 @@ export function AlphaSenderListInstance(
     throw new Error("Parameter 'serviceSid' is not valid.");
   }
 
-  const instance = ((sid) => instance.get(sid)) as AlphaSenderListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as AlphaSenderListInstance;
 
   instance.get = function get(sid): AlphaSenderContext {
     return new AlphaSenderContextImpl(version, serviceSid, sid);
@@ -485,8 +423,8 @@ export function AlphaSenderListInstance(
   instance._uri = `/Services/${serviceSid}/AlphaSenders`;
 
   instance.create = function create(
-    params: any,
-    callback?: any
+    params: AlphaSenderListInstanceCreateOptions,
+    callback?: (error: Error | null, items: AlphaSenderInstance) => any
   ): Promise<AlphaSenderInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -505,7 +443,7 @@ export function AlphaSenderListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -516,11 +454,11 @@ export function AlphaSenderListInstance(
         new AlphaSenderInstance(
           operationVersion,
           payload,
-          this._solution.serviceSid
+          instance._solution.serviceSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -528,10 +466,12 @@ export function AlphaSenderListInstance(
   };
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | AlphaSenderListInstancePageOptions
+      | ((error: Error | null, items: AlphaSenderPage) => any),
+    callback?: (error: Error | null, items: AlphaSenderPage) => any
   ): Promise<AlphaSenderPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -542,14 +482,14 @@ export function AlphaSenderListInstance(
 
     if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
@@ -557,10 +497,10 @@ export function AlphaSenderListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new AlphaSenderPage(operationVersion, payload, this._solution)
+        new AlphaSenderPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -570,33 +510,31 @@ export function AlphaSenderListInstance(
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: AlphaSenderPage) => any
   ): Promise<AlphaSenderPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new AlphaSenderPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new AlphaSenderPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

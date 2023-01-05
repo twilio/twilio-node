@@ -31,117 +31,104 @@ type RoomVideoCodec = "VP8" | "H264";
 
 /**
  * Options to pass to update a RoomInstance
- *
- * @property { RoomRoomStatus } status
  */
 export interface RoomContextUpdateOptions {
+  /**  */
   status: RoomRoomStatus;
 }
 
 /**
  * Options to pass to create a RoomInstance
- *
- * @property { boolean } [enableTurn] Deprecated, now always considered to be true.
- * @property { RoomRoomType } [type]
- * @property { string } [uniqueName] An application-defined string that uniquely identifies the resource. It can be used as a `room_sid` in place of the resource\\\'s `sid` in the URL to address the resource, assuming it does not contain any [reserved characters](https://tools.ietf.org/html/rfc3986#section-2.2) that would need to be URL encoded. This value is unique for `in-progress` rooms. SDK clients can use this name to connect to the room. REST API clients can use this name in place of the Room SID to interact with the room as long as the room is `in-progress`.
- * @property { string } [statusCallback] The URL we should call using the `status_callback_method` to send status information to your application on every room event. See [Status Callbacks](https://www.twilio.com/docs/video/api/status-callbacks) for more info.
- * @property { string } [statusCallbackMethod] The HTTP method we should use to call `status_callback`. Can be `POST` or `GET`.
- * @property { number } [maxParticipants] The maximum number of concurrent Participants allowed in the room. Peer-to-peer rooms can have up to 10 Participants. Small Group rooms can have up to 4 Participants. Group rooms can have up to 50 Participants.
- * @property { boolean } [recordParticipantsOnConnect] Whether to start recording when Participants connect. ***This feature is not available in `peer-to-peer` rooms.***
- * @property { Array<RoomVideoCodec> } [videoCodecs] An array of the video codecs that are supported when publishing a track in the room.  Can be: `VP8` and `H264`.  ***This feature is not available in `peer-to-peer` rooms***
- * @property { string } [mediaRegion] The region for the media server in Group Rooms.  Can be: one of the [available Media Regions](https://www.twilio.com/docs/video/ip-address-whitelisting#group-rooms-media-servers). ***This feature is not available in `peer-to-peer` rooms.***
- * @property { any } [recordingRules] A collection of Recording Rules that describe how to include or exclude matching tracks for recording
- * @property { boolean } [audioOnly] When set to true, indicates that the participants in the room will only publish audio. No video tracks will be allowed. Group rooms only.
- * @property { number } [maxParticipantDuration] The maximum number of seconds a Participant can be connected to the room. The maximum possible value is 86400 seconds (24 hours). The default is 14400 seconds (4 hours).
- * @property { number } [emptyRoomTimeout] Configures how long (in minutes) a room will remain active after last participant leaves. Valid values range from 1 to 60 minutes (no fractions).
- * @property { number } [unusedRoomTimeout] Configures how long (in minutes) a room will remain active if no one joins. Valid values range from 1 to 60 minutes (no fractions).
- * @property { boolean } [largeRoom] When set to true, indicated that this is the large room.
  */
 export interface RoomListInstanceCreateOptions {
+  /** Deprecated, now always considered to be true. */
   enableTurn?: boolean;
+  /**  */
   type?: RoomRoomType;
+  /** An application-defined string that uniquely identifies the resource. It can be used as a `room_sid` in place of the resource\\\'s `sid` in the URL to address the resource, assuming it does not contain any [reserved characters](https://tools.ietf.org/html/rfc3986#section-2.2) that would need to be URL encoded. This value is unique for `in-progress` rooms. SDK clients can use this name to connect to the room. REST API clients can use this name in place of the Room SID to interact with the room as long as the room is `in-progress`. */
   uniqueName?: string;
+  /** The URL we should call using the `status_callback_method` to send status information to your application on every room event. See [Status Callbacks](https://www.twilio.com/docs/video/api/status-callbacks) for more info. */
   statusCallback?: string;
+  /** The HTTP method we should use to call `status_callback`. Can be `POST` or `GET`. */
   statusCallbackMethod?: string;
+  /** The maximum number of concurrent Participants allowed in the room. Peer-to-peer rooms can have up to 10 Participants. Small Group rooms can have up to 4 Participants. Group rooms can have up to 50 Participants. */
   maxParticipants?: number;
+  /** Whether to start recording when Participants connect. ***This feature is not available in `peer-to-peer` rooms.*** */
   recordParticipantsOnConnect?: boolean;
+  /** An array of the video codecs that are supported when publishing a track in the room.  Can be: `VP8` and `H264`.  ***This feature is not available in `peer-to-peer` rooms*** */
   videoCodecs?: Array<RoomVideoCodec>;
+  /** The region for the media server in Group Rooms.  Can be: one of the [available Media Regions](https://www.twilio.com/docs/video/ip-address-whitelisting#group-rooms-media-servers). ***This feature is not available in `peer-to-peer` rooms.*** */
   mediaRegion?: string;
+  /** A collection of Recording Rules that describe how to include or exclude matching tracks for recording */
   recordingRules?: any;
+  /** When set to true, indicates that the participants in the room will only publish audio. No video tracks will be allowed. Group rooms only. */
   audioOnly?: boolean;
+  /** The maximum number of seconds a Participant can be connected to the room. The maximum possible value is 86400 seconds (24 hours). The default is 14400 seconds (4 hours). */
   maxParticipantDuration?: number;
+  /** Configures how long (in minutes) a room will remain active after last participant leaves. Valid values range from 1 to 60 minutes (no fractions). */
   emptyRoomTimeout?: number;
+  /** Configures how long (in minutes) a room will remain active if no one joins. Valid values range from 1 to 60 minutes (no fractions). */
   unusedRoomTimeout?: number;
+  /** When set to true, indicated that this is the large room. */
   largeRoom?: boolean;
 }
 /**
  * Options to pass to each
- *
- * @property { RoomRoomStatus } [status] Read only the rooms with this status. Can be: `in-progress` (default) or `completed`
- * @property { string } [uniqueName] Read only rooms with the this `unique_name`.
- * @property { Date } [dateCreatedAfter] Read only rooms that started on or after this date, given as `YYYY-MM-DD`.
- * @property { Date } [dateCreatedBefore] Read only rooms that started before this date, given as `YYYY-MM-DD`.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface RoomListInstanceEachOptions {
+  /** Read only the rooms with this status. Can be: `in-progress` (default) or `completed` */
   status?: RoomRoomStatus;
+  /** Read only rooms with the this `unique_name`. */
   uniqueName?: string;
+  /** Read only rooms that started on or after this date, given as `YYYY-MM-DD`. */
   dateCreatedAfter?: Date;
+  /** Read only rooms that started before this date, given as `YYYY-MM-DD`. */
   dateCreatedBefore?: Date;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: RoomInstance, done: (err?: Error) => void) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { RoomRoomStatus } [status] Read only the rooms with this status. Can be: `in-progress` (default) or `completed`
- * @property { string } [uniqueName] Read only rooms with the this `unique_name`.
- * @property { Date } [dateCreatedAfter] Read only rooms that started on or after this date, given as `YYYY-MM-DD`.
- * @property { Date } [dateCreatedBefore] Read only rooms that started before this date, given as `YYYY-MM-DD`.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface RoomListInstanceOptions {
+  /** Read only the rooms with this status. Can be: `in-progress` (default) or `completed` */
   status?: RoomRoomStatus;
+  /** Read only rooms with the this `unique_name`. */
   uniqueName?: string;
+  /** Read only rooms that started on or after this date, given as `YYYY-MM-DD`. */
   dateCreatedAfter?: Date;
+  /** Read only rooms that started before this date, given as `YYYY-MM-DD`. */
   dateCreatedBefore?: Date;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { RoomRoomStatus } [status] Read only the rooms with this status. Can be: `in-progress` (default) or `completed`
- * @property { string } [uniqueName] Read only rooms with the this `unique_name`.
- * @property { Date } [dateCreatedAfter] Read only rooms that started on or after this date, given as `YYYY-MM-DD`.
- * @property { Date } [dateCreatedBefore] Read only rooms that started before this date, given as `YYYY-MM-DD`.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface RoomListInstancePageOptions {
+  /** Read only the rooms with this status. Can be: `in-progress` (default) or `completed` */
   status?: RoomRoomStatus;
+  /** Read only rooms with the this `unique_name`. */
   uniqueName?: string;
+  /** Read only rooms that started on or after this date, given as `YYYY-MM-DD`. */
   dateCreatedAfter?: Date;
+  /** Read only rooms that started before this date, given as `YYYY-MM-DD`. */
   dateCreatedBefore?: Date;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
@@ -153,9 +140,9 @@ export interface RoomContext {
   /**
    * Fetch a RoomInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed RoomInstance
+   * @returns Resolves to processed RoomInstance
    */
   fetch(
     callback?: (error: Error | null, item?: RoomInstance) => any
@@ -164,16 +151,15 @@ export interface RoomContext {
   /**
    * Update a RoomInstance
    *
-   * @param { RoomContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed RoomInstance
+   * @returns Resolves to processed RoomInstance
    */
   update(
     params: RoomContextUpdateOptions,
     callback?: (error: Error | null, item?: RoomInstance) => any
   ): Promise<RoomInstance>;
-  update(params: any, callback?: any): Promise<RoomInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -183,7 +169,7 @@ export interface RoomContext {
 }
 
 export interface RoomContextSolution {
-  sid?: string;
+  sid: string;
 }
 
 export class RoomContextImpl implements RoomContext {
@@ -224,26 +210,34 @@ export class RoomContextImpl implements RoomContext {
     return this._recordings;
   }
 
-  fetch(callback?: any): Promise<RoomInstance> {
-    let operationVersion = this._version,
+  fetch(
+    callback?: (error: Error | null, item?: RoomInstance) => any
+  ): Promise<RoomInstance> {
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new RoomInstance(operationVersion, payload, this._solution.sid)
+        new RoomInstance(operationVersion, payload, instance._solution.sid)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
     return operationPromise;
   }
 
-  update(params: any, callback?: any): Promise<RoomInstance> {
+  update(
+    params:
+      | RoomContextUpdateOptions
+      | ((error: Error | null, item?: RoomInstance) => any),
+    callback?: (error: Error | null, item?: RoomInstance) => any
+  ): Promise<RoomInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
@@ -259,9 +253,10 @@ export class RoomContextImpl implements RoomContext {
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -269,10 +264,10 @@ export class RoomContextImpl implements RoomContext {
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new RoomInstance(operationVersion, payload, this._solution.sid)
+        new RoomInstance(operationVersion, payload, instance._solution.sid)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -306,30 +301,30 @@ interface RoomPayload extends TwilioResponsePayload {
 }
 
 interface RoomResource {
-  sid?: string | null;
-  status?: RoomRoomStatus;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  account_sid?: string | null;
-  enable_turn?: boolean | null;
-  unique_name?: string | null;
-  status_callback?: string | null;
-  status_callback_method?: RoomStatusCallbackMethod;
-  end_time?: Date | null;
-  duration?: number | null;
-  type?: RoomRoomType;
-  max_participants?: number | null;
-  max_participant_duration?: number | null;
-  max_concurrent_published_tracks?: number | null;
-  record_participants_on_connect?: boolean | null;
-  video_codecs?: Array<RoomVideoCodec> | null;
-  media_region?: string | null;
-  audio_only?: boolean | null;
-  empty_room_timeout?: number | null;
-  unused_room_timeout?: number | null;
-  large_room?: boolean | null;
-  url?: string | null;
-  links?: object | null;
+  sid: string;
+  status: RoomRoomStatus;
+  date_created: Date;
+  date_updated: Date;
+  account_sid: string;
+  enable_turn: boolean;
+  unique_name: string;
+  status_callback: string;
+  status_callback_method: RoomStatusCallbackMethod;
+  end_time: Date;
+  duration: number;
+  type: RoomRoomType;
+  max_participants: number;
+  max_participant_duration: number;
+  max_concurrent_published_tracks: number;
+  record_participants_on_connect: boolean;
+  video_codecs: Array<RoomVideoCodec>;
+  media_region: string;
+  audio_only: boolean;
+  empty_room_timeout: number;
+  unused_room_timeout: number;
+  large_room: boolean;
+  url: string;
+  links: Record<string, string>;
 }
 
 export class RoomInstance {
@@ -372,93 +367,93 @@ export class RoomInstance {
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
-  status?: RoomRoomStatus;
+  sid: string;
+  status: RoomRoomStatus;
   /**
    * The ISO 8601 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The ISO 8601 date and time in GMT when the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * Enable Twilio\'s Network Traversal TURN service
    */
-  enableTurn?: boolean | null;
+  enableTurn: boolean;
   /**
    * An application-defined string that uniquely identifies the resource
    */
-  uniqueName?: string | null;
+  uniqueName: string;
   /**
    * The URL to send status information to your application
    */
-  statusCallback?: string | null;
+  statusCallback: string;
   /**
    * The HTTP method we use to call status_callback
    */
-  statusCallbackMethod?: RoomStatusCallbackMethod;
+  statusCallbackMethod: RoomStatusCallbackMethod;
   /**
    * The UTC end time of the room in UTC ISO 8601 format
    */
-  endTime?: Date | null;
+  endTime: Date;
   /**
    * The duration of the room in seconds
    */
-  duration?: number | null;
-  type?: RoomRoomType;
+  duration: number;
+  type: RoomRoomType;
   /**
    * The maximum number of concurrent Participants allowed in the room
    */
-  maxParticipants?: number | null;
+  maxParticipants: number;
   /**
    * The maximum number of seconds a Participant can be connected to the room
    */
-  maxParticipantDuration?: number | null;
+  maxParticipantDuration: number;
   /**
    * The maximum number of published tracks allowed in the room at the same time
    */
-  maxConcurrentPublishedTracks?: number | null;
+  maxConcurrentPublishedTracks: number;
   /**
    * Whether to start recording when Participants connect
    */
-  recordParticipantsOnConnect?: boolean | null;
+  recordParticipantsOnConnect: boolean;
   /**
    * An array of the video codecs that are supported when publishing a track in the room
    */
-  videoCodecs?: Array<RoomVideoCodec> | null;
+  videoCodecs: Array<RoomVideoCodec>;
   /**
    * The region for the media server in Group Rooms
    */
-  mediaRegion?: string | null;
+  mediaRegion: string;
   /**
    * Indicates whether the room will only contain audio track participants for group rooms.
    */
-  audioOnly?: boolean | null;
+  audioOnly: boolean;
   /**
    * The time a room will remain active after last participant leaves.
    */
-  emptyRoomTimeout?: number | null;
+  emptyRoomTimeout: number;
   /**
    * The time a room will remain active when no one joins.
    */
-  unusedRoomTimeout?: number | null;
+  unusedRoomTimeout: number;
   /**
    * Indicates if this is a large room.
    */
-  largeRoom?: boolean | null;
+  largeRoom: boolean;
   /**
    * The absolute URL of the resource
    */
-  url?: string | null;
+  url: string;
   /**
    * The URLs of related resources
    */
-  links?: object | null;
+  links: Record<string, string>;
 
   private get _proxy(): RoomContext {
     this._context =
@@ -469,9 +464,9 @@ export class RoomInstance {
   /**
    * Fetch a RoomInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed RoomInstance
+   * @returns Resolves to processed RoomInstance
    */
   fetch(
     callback?: (error: Error | null, item?: RoomInstance) => any
@@ -482,16 +477,20 @@ export class RoomInstance {
   /**
    * Update a RoomInstance
    *
-   * @param { RoomContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed RoomInstance
+   * @returns Resolves to processed RoomInstance
    */
   update(
     params: RoomContextUpdateOptions,
     callback?: (error: Error | null, item?: RoomInstance) => any
   ): Promise<RoomInstance>;
-  update(params: any, callback?: any): Promise<RoomInstance> {
+
+  update(
+    params?: any,
+    callback?: (error: Error | null, item?: RoomInstance) => any
+  ): Promise<RoomInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -555,16 +554,22 @@ export class RoomInstance {
   }
 }
 
+export interface RoomSolution {}
+
 export interface RoomListInstance {
+  _version: V1;
+  _solution: RoomSolution;
+  _uri: string;
+
   (sid: string): RoomContext;
   get(sid: string): RoomContext;
 
   /**
    * Create a RoomInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed RoomInstance
+   * @returns Resolves to processed RoomInstance
    */
   create(
     callback?: (error: Error | null, item?: RoomInstance) => any
@@ -572,34 +577,16 @@ export interface RoomListInstance {
   /**
    * Create a RoomInstance
    *
-   * @param { RoomListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed RoomInstance
+   * @returns Resolves to processed RoomInstance
    */
   create(
     params: RoomListInstanceCreateOptions,
     callback?: (error: Error | null, item?: RoomInstance) => any
   ): Promise<RoomInstance>;
-  create(params?: any, callback?: any): Promise<RoomInstance>;
 
-  /**
-   * Streams RoomInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (item: RoomInstance, done: (err?: Error) => void) => void
-  ): void;
   /**
    * Streams RoomInstance records from the API.
    *
@@ -616,50 +603,24 @@ export interface RoomListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: RoomListInstanceEachOptions,
     callback?: (item: RoomInstance, done: (err?: Error) => void) => void
   ): void;
-  each(params?: any, callback?: any): void;
+  each(
+    params: RoomListInstanceEachOptions,
+    callback?: (item: RoomInstance, done: (err?: Error) => void) => void
+  ): void;
   /**
    * Retrieve a single target page of RoomInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: RoomPage) => any
-  ): Promise<RoomPage>;
-  /**
-   * Retrieve a single target page of RoomInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: RoomPage) => any
   ): Promise<RoomPage>;
-  getPage(params?: any, callback?: any): Promise<RoomPage>;
-  /**
-   * Lists RoomInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: RoomInstance[]) => any
-  ): Promise<RoomInstance[]>;
   /**
    * Lists RoomInstance records from the API as a list.
    *
@@ -670,23 +631,12 @@ export interface RoomListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: RoomListInstanceOptions,
     callback?: (error: Error | null, items: RoomInstance[]) => any
   ): Promise<RoomInstance[]>;
-  list(params?: any, callback?: any): Promise<RoomInstance[]>;
-  /**
-   * Retrieve a single page of RoomInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: RoomPage) => any
-  ): Promise<RoomPage>;
+  list(
+    params: RoomListInstanceOptions,
+    callback?: (error: Error | null, items: RoomInstance[]) => any
+  ): Promise<RoomInstance[]>;
   /**
    * Retrieve a single page of RoomInstance records from the API.
    *
@@ -699,10 +649,12 @@ export interface RoomListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
+    callback?: (error: Error | null, items: RoomPage) => any
+  ): Promise<RoomPage>;
+  page(
     params: RoomListInstancePageOptions,
     callback?: (error: Error | null, items: RoomPage) => any
   ): Promise<RoomPage>;
-  page(params?: any, callback?: any): Promise<RoomPage>;
 
   /**
    * Provide a user-friendly representation
@@ -711,17 +663,8 @@ export interface RoomListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface RoomSolution {}
-
-interface RoomListInstanceImpl extends RoomListInstance {}
-class RoomListInstanceImpl implements RoomListInstance {
-  _version?: V1;
-  _solution?: RoomSolution;
-  _uri?: string;
-}
-
 export function RoomListInstance(version: V1): RoomListInstance {
-  const instance = ((sid) => instance.get(sid)) as RoomListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as RoomListInstance;
 
   instance.get = function get(sid): RoomContext {
     return new RoomContextImpl(version, sid);
@@ -732,10 +675,12 @@ export function RoomListInstance(version: V1): RoomListInstance {
   instance._uri = `/Rooms`;
 
   instance.create = function create(
-    params?: any,
-    callback?: any
+    params?:
+      | RoomListInstanceCreateOptions
+      | ((error: Error | null, items: RoomInstance) => any),
+    callback?: (error: Error | null, items: RoomInstance) => any
   ): Promise<RoomInstance> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -760,7 +705,10 @@ export function RoomListInstance(version: V1): RoomListInstance {
         params["recordParticipantsOnConnect"]
       );
     if (params["videoCodecs"] !== undefined)
-      data["VideoCodecs"] = serialize.map(params["videoCodecs"], (e) => e);
+      data["VideoCodecs"] = serialize.map(
+        params["videoCodecs"],
+        (e: RoomVideoCodec) => e
+      );
     if (params["mediaRegion"] !== undefined)
       data["MediaRegion"] = params["mediaRegion"];
     if (params["recordingRules"] !== undefined)
@@ -781,7 +729,7 @@ export function RoomListInstance(version: V1): RoomListInstance {
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -791,7 +739,7 @@ export function RoomListInstance(version: V1): RoomListInstance {
       (payload) => new RoomInstance(operationVersion, payload)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -799,10 +747,12 @@ export function RoomListInstance(version: V1): RoomListInstance {
   };
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | RoomListInstancePageOptions
+      | ((error: Error | null, items: RoomPage) => any),
+    callback?: (error: Error | null, items: RoomPage) => any
   ): Promise<RoomPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -824,24 +774,24 @@ export function RoomListInstance(version: V1): RoomListInstance {
       );
     if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new RoomPage(operationVersion, payload, this._solution)
+      (payload) => new RoomPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -851,33 +801,30 @@ export function RoomListInstance(version: V1): RoomListInstance {
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: RoomPage) => any
   ): Promise<RoomPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new RoomPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) => new RoomPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

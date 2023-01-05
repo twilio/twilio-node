@@ -24,66 +24,55 @@ type RegulationEndUserType = "individual" | "business";
 
 /**
  * Options to pass to each
- *
- * @property { RegulationEndUserType } [endUserType] The type of End User the regulation requires - can be `individual` or `business`.
- * @property { string } [isoCountry] The ISO country code of the phone number\'s country.
- * @property { string } [numberType] The type of phone number that the regulatory requiremnt is restricting.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface RegulationListInstanceEachOptions {
+  /** The type of End User the regulation requires - can be `individual` or `business`. */
   endUserType?: RegulationEndUserType;
+  /** The ISO country code of the phone number\'s country. */
   isoCountry?: string;
+  /** The type of phone number that the regulatory requiremnt is restricting. */
   numberType?: string;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: RegulationInstance, done: (err?: Error) => void) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { RegulationEndUserType } [endUserType] The type of End User the regulation requires - can be `individual` or `business`.
- * @property { string } [isoCountry] The ISO country code of the phone number\'s country.
- * @property { string } [numberType] The type of phone number that the regulatory requiremnt is restricting.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface RegulationListInstanceOptions {
+  /** The type of End User the regulation requires - can be `individual` or `business`. */
   endUserType?: RegulationEndUserType;
+  /** The ISO country code of the phone number\'s country. */
   isoCountry?: string;
+  /** The type of phone number that the regulatory requiremnt is restricting. */
   numberType?: string;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { RegulationEndUserType } [endUserType] The type of End User the regulation requires - can be `individual` or `business`.
- * @property { string } [isoCountry] The ISO country code of the phone number\'s country.
- * @property { string } [numberType] The type of phone number that the regulatory requiremnt is restricting.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface RegulationListInstancePageOptions {
+  /** The type of End User the regulation requires - can be `individual` or `business`. */
   endUserType?: RegulationEndUserType;
+  /** The ISO country code of the phone number\'s country. */
   isoCountry?: string;
+  /** The type of phone number that the regulatory requiremnt is restricting. */
   numberType?: string;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
@@ -91,9 +80,9 @@ export interface RegulationContext {
   /**
    * Fetch a RegulationInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed RegulationInstance
+   * @returns Resolves to processed RegulationInstance
    */
   fetch(
     callback?: (error: Error | null, item?: RegulationInstance) => any
@@ -107,7 +96,7 @@ export interface RegulationContext {
 }
 
 export interface RegulationContextSolution {
-  sid?: string;
+  sid: string;
 }
 
 export class RegulationContextImpl implements RegulationContext {
@@ -123,19 +112,26 @@ export class RegulationContextImpl implements RegulationContext {
     this._uri = `/RegulatoryCompliance/Regulations/${sid}`;
   }
 
-  fetch(callback?: any): Promise<RegulationInstance> {
-    let operationVersion = this._version,
+  fetch(
+    callback?: (error: Error | null, item?: RegulationInstance) => any
+  ): Promise<RegulationInstance> {
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new RegulationInstance(operationVersion, payload, this._solution.sid)
+        new RegulationInstance(
+          operationVersion,
+          payload,
+          instance._solution.sid
+        )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -161,13 +157,13 @@ interface RegulationPayload extends TwilioResponsePayload {
 }
 
 interface RegulationResource {
-  sid?: string | null;
-  friendly_name?: string | null;
-  iso_country?: string | null;
-  number_type?: string | null;
-  end_user_type?: RegulationEndUserType;
-  requirements?: any | null;
-  url?: string | null;
+  sid: string;
+  friendly_name: string;
+  iso_country: string;
+  number_type: string;
+  end_user_type: RegulationEndUserType;
+  requirements: any;
+  url: string;
 }
 
 export class RegulationInstance {
@@ -193,28 +189,28 @@ export class RegulationInstance {
   /**
    * The unique string that identifies the Regulation resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * A human-readable description of the Regulation resource
    */
-  friendlyName?: string | null;
+  friendlyName: string;
   /**
    * The ISO country code of the phone number\'s country
    */
-  isoCountry?: string | null;
+  isoCountry: string;
   /**
    * The type of phone number restricted by the regulatory requirement
    */
-  numberType?: string | null;
-  endUserType?: RegulationEndUserType;
+  numberType: string;
+  endUserType: RegulationEndUserType;
   /**
    * The sid of a regulation object that dictates requirements
    */
-  requirements?: any | null;
+  requirements: any;
   /**
    * The absolute URL of the Regulation resource
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): RegulationContext {
     this._context =
@@ -226,9 +222,9 @@ export class RegulationInstance {
   /**
    * Fetch a RegulationInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed RegulationInstance
+   * @returns Resolves to processed RegulationInstance
    */
   fetch(
     callback?: (error: Error | null, item?: RegulationInstance) => any
@@ -258,27 +254,16 @@ export class RegulationInstance {
   }
 }
 
+export interface RegulationSolution {}
+
 export interface RegulationListInstance {
+  _version: V2;
+  _solution: RegulationSolution;
+  _uri: string;
+
   (sid: string): RegulationContext;
   get(sid: string): RegulationContext;
 
-  /**
-   * Streams RegulationInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (item: RegulationInstance, done: (err?: Error) => void) => void
-  ): void;
   /**
    * Streams RegulationInstance records from the API.
    *
@@ -295,50 +280,24 @@ export interface RegulationListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: RegulationListInstanceEachOptions,
     callback?: (item: RegulationInstance, done: (err?: Error) => void) => void
   ): void;
-  each(params?: any, callback?: any): void;
+  each(
+    params: RegulationListInstanceEachOptions,
+    callback?: (item: RegulationInstance, done: (err?: Error) => void) => void
+  ): void;
   /**
    * Retrieve a single target page of RegulationInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: RegulationPage) => any
-  ): Promise<RegulationPage>;
-  /**
-   * Retrieve a single target page of RegulationInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: RegulationPage) => any
   ): Promise<RegulationPage>;
-  getPage(params?: any, callback?: any): Promise<RegulationPage>;
-  /**
-   * Lists RegulationInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: RegulationInstance[]) => any
-  ): Promise<RegulationInstance[]>;
   /**
    * Lists RegulationInstance records from the API as a list.
    *
@@ -349,23 +308,12 @@ export interface RegulationListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: RegulationListInstanceOptions,
     callback?: (error: Error | null, items: RegulationInstance[]) => any
   ): Promise<RegulationInstance[]>;
-  list(params?: any, callback?: any): Promise<RegulationInstance[]>;
-  /**
-   * Retrieve a single page of RegulationInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: RegulationPage) => any
-  ): Promise<RegulationPage>;
+  list(
+    params: RegulationListInstanceOptions,
+    callback?: (error: Error | null, items: RegulationInstance[]) => any
+  ): Promise<RegulationInstance[]>;
   /**
    * Retrieve a single page of RegulationInstance records from the API.
    *
@@ -378,10 +326,12 @@ export interface RegulationListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
+    callback?: (error: Error | null, items: RegulationPage) => any
+  ): Promise<RegulationPage>;
+  page(
     params: RegulationListInstancePageOptions,
     callback?: (error: Error | null, items: RegulationPage) => any
   ): Promise<RegulationPage>;
-  page(params?: any, callback?: any): Promise<RegulationPage>;
 
   /**
    * Provide a user-friendly representation
@@ -390,17 +340,8 @@ export interface RegulationListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface RegulationSolution {}
-
-interface RegulationListInstanceImpl extends RegulationListInstance {}
-class RegulationListInstanceImpl implements RegulationListInstance {
-  _version?: V2;
-  _solution?: RegulationSolution;
-  _uri?: string;
-}
-
 export function RegulationListInstance(version: V2): RegulationListInstance {
-  const instance = ((sid) => instance.get(sid)) as RegulationListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as RegulationListInstance;
 
   instance.get = function get(sid): RegulationContext {
     return new RegulationContextImpl(version, sid);
@@ -411,10 +352,12 @@ export function RegulationListInstance(version: V2): RegulationListInstance {
   instance._uri = `/RegulatoryCompliance/Regulations`;
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | RegulationListInstancePageOptions
+      | ((error: Error | null, items: RegulationPage) => any),
+    callback?: (error: Error | null, items: RegulationPage) => any
   ): Promise<RegulationPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -431,24 +374,25 @@ export function RegulationListInstance(version: V2): RegulationListInstance {
       data["NumberType"] = params["numberType"];
     if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new RegulationPage(operationVersion, payload, this._solution)
+      (payload) =>
+        new RegulationPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -458,33 +402,31 @@ export function RegulationListInstance(version: V2): RegulationListInstance {
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: RegulationPage) => any
   ): Promise<RegulationPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new RegulationPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new RegulationPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

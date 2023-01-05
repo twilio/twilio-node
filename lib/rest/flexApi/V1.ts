@@ -27,66 +27,73 @@ export default class V1 extends Version {
   /**
    * Initialize the V1 version of FlexApi
    *
-   * @property { Twilio.FlexApi.V1.AssessmentsListInstance } assessments - assessments resource
-   * @property { Twilio.FlexApi.V1.ChannelListInstance } channel - channel resource
-   * @property { Twilio.FlexApi.V1.ConfigurationListInstance } configuration - configuration resource
-   * @property { Twilio.FlexApi.V1.FlexFlowListInstance } flexFlow - flexFlow resource
-   * @property { Twilio.FlexApi.V1.GoodDataListInstance } goodData - goodData resource
-   * @property { Twilio.FlexApi.V1.InteractionListInstance } interaction - interaction resource
-   * @property { Twilio.FlexApi.V1.UserRolesListInstance } userRoles - userRoles resource
-   * @property { Twilio.FlexApi.V1.WebChannelListInstance } webChannel - webChannel resource
-   *
-   * @param { Twilio.FlexApi } domain - The Twilio domain
+   * @param domain - The Twilio (Twilio.FlexApi) domain
    */
   constructor(domain: FlexApiBase) {
     super(domain, "v1");
   }
 
+  /** assessments - { Twilio.FlexApi.V1.AssessmentsListInstance } resource */
   protected _assessments?: AssessmentsListInstance;
+  /** channel - { Twilio.FlexApi.V1.ChannelListInstance } resource */
   protected _channel?: ChannelListInstance;
+  /** configuration - { Twilio.FlexApi.V1.ConfigurationListInstance } resource */
   protected _configuration?: ConfigurationListInstance;
+  /** flexFlow - { Twilio.FlexApi.V1.FlexFlowListInstance } resource */
   protected _flexFlow?: FlexFlowListInstance;
+  /** goodData - { Twilio.FlexApi.V1.GoodDataListInstance } resource */
   protected _goodData?: GoodDataListInstance;
+  /** interaction - { Twilio.FlexApi.V1.InteractionListInstance } resource */
   protected _interaction?: InteractionListInstance;
+  /** userRoles - { Twilio.FlexApi.V1.UserRolesListInstance } resource */
   protected _userRoles?: UserRolesListInstance;
+  /** webChannel - { Twilio.FlexApi.V1.WebChannelListInstance } resource */
   protected _webChannel?: WebChannelListInstance;
 
+  /** Getter for assessments resource */
   get assessments(): AssessmentsListInstance {
     this._assessments = this._assessments || AssessmentsListInstance(this);
     return this._assessments;
   }
 
+  /** Getter for channel resource */
   get channel(): ChannelListInstance {
     this._channel = this._channel || ChannelListInstance(this);
     return this._channel;
   }
 
+  /** Getter for configuration resource */
   get configuration(): ConfigurationListInstance {
     this._configuration =
       this._configuration || ConfigurationListInstance(this);
     return this._configuration;
   }
 
+  /** Getter for flexFlow resource */
   get flexFlow(): FlexFlowListInstance {
     this._flexFlow = this._flexFlow || FlexFlowListInstance(this);
     return this._flexFlow;
   }
 
+  /** Getter for goodData resource */
   get goodData(): GoodDataListInstance {
     this._goodData = this._goodData || GoodDataListInstance(this);
     return this._goodData;
   }
 
+  /** Getter for interaction resource */
   get interaction(): InteractionListInstance {
     this._interaction = this._interaction || InteractionListInstance(this);
     return this._interaction;
   }
 
+  /** Getter for userRoles resource */
   get userRoles(): UserRolesListInstance {
     this._userRoles = this._userRoles || UserRolesListInstance(this);
     return this._userRoles;
   }
 
+  /** Getter for webChannel resource */
   get webChannel(): WebChannelListInstance {
     this._webChannel = this._webChannel || WebChannelListInstance(this);
     return this._webChannel;

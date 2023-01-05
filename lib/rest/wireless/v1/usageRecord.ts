@@ -24,87 +24,65 @@ type AccountUsageRecordGranularity = "hourly" | "daily" | "all";
 
 /**
  * Options to pass to each
- *
- * @property { Date } [end] Only include usage that has occurred on or before this date. Format is [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html).
- * @property { Date } [start] Only include usage that has occurred on or after this date. Format is [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html).
- * @property { AccountUsageRecordGranularity } [granularity] How to summarize the usage by time. Can be: `daily`, `hourly`, or `all`. A value of `all` returns one Usage Record that describes the usage for the entire period.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface UsageRecordListInstanceEachOptions {
+  /** Only include usage that has occurred on or before this date. Format is [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html). */
   end?: Date;
+  /** Only include usage that has occurred on or after this date. Format is [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html). */
   start?: Date;
+  /** How to summarize the usage by time. Can be: `daily`, `hourly`, or `all`. A value of `all` returns one Usage Record that describes the usage for the entire period. */
   granularity?: AccountUsageRecordGranularity;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: UsageRecordInstance, done: (err?: Error) => void) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { Date } [end] Only include usage that has occurred on or before this date. Format is [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html).
- * @property { Date } [start] Only include usage that has occurred on or after this date. Format is [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html).
- * @property { AccountUsageRecordGranularity } [granularity] How to summarize the usage by time. Can be: `daily`, `hourly`, or `all`. A value of `all` returns one Usage Record that describes the usage for the entire period.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface UsageRecordListInstanceOptions {
+  /** Only include usage that has occurred on or before this date. Format is [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html). */
   end?: Date;
+  /** Only include usage that has occurred on or after this date. Format is [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html). */
   start?: Date;
+  /** How to summarize the usage by time. Can be: `daily`, `hourly`, or `all`. A value of `all` returns one Usage Record that describes the usage for the entire period. */
   granularity?: AccountUsageRecordGranularity;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { Date } [end] Only include usage that has occurred on or before this date. Format is [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html).
- * @property { Date } [start] Only include usage that has occurred on or after this date. Format is [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html).
- * @property { AccountUsageRecordGranularity } [granularity] How to summarize the usage by time. Can be: `daily`, `hourly`, or `all`. A value of `all` returns one Usage Record that describes the usage for the entire period.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface UsageRecordListInstancePageOptions {
+  /** Only include usage that has occurred on or before this date. Format is [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html). */
   end?: Date;
+  /** Only include usage that has occurred on or after this date. Format is [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html). */
   start?: Date;
+  /** How to summarize the usage by time. Can be: `daily`, `hourly`, or `all`. A value of `all` returns one Usage Record that describes the usage for the entire period. */
   granularity?: AccountUsageRecordGranularity;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
+export interface UsageRecordSolution {}
+
 export interface UsageRecordListInstance {
-  /**
-   * Streams UsageRecordInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (item: UsageRecordInstance, done: (err?: Error) => void) => void
-  ): void;
+  _version: V1;
+  _solution: UsageRecordSolution;
+  _uri: string;
+
   /**
    * Streams UsageRecordInstance records from the API.
    *
@@ -121,50 +99,24 @@ export interface UsageRecordListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: UsageRecordListInstanceEachOptions,
     callback?: (item: UsageRecordInstance, done: (err?: Error) => void) => void
   ): void;
-  each(params?: any, callback?: any): void;
+  each(
+    params: UsageRecordListInstanceEachOptions,
+    callback?: (item: UsageRecordInstance, done: (err?: Error) => void) => void
+  ): void;
   /**
    * Retrieve a single target page of UsageRecordInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: UsageRecordPage) => any
-  ): Promise<UsageRecordPage>;
-  /**
-   * Retrieve a single target page of UsageRecordInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: UsageRecordPage) => any
   ): Promise<UsageRecordPage>;
-  getPage(params?: any, callback?: any): Promise<UsageRecordPage>;
-  /**
-   * Lists UsageRecordInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: UsageRecordInstance[]) => any
-  ): Promise<UsageRecordInstance[]>;
   /**
    * Lists UsageRecordInstance records from the API as a list.
    *
@@ -175,23 +127,12 @@ export interface UsageRecordListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: UsageRecordListInstanceOptions,
     callback?: (error: Error | null, items: UsageRecordInstance[]) => any
   ): Promise<UsageRecordInstance[]>;
-  list(params?: any, callback?: any): Promise<UsageRecordInstance[]>;
-  /**
-   * Retrieve a single page of UsageRecordInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: UsageRecordPage) => any
-  ): Promise<UsageRecordPage>;
+  list(
+    params: UsageRecordListInstanceOptions,
+    callback?: (error: Error | null, items: UsageRecordInstance[]) => any
+  ): Promise<UsageRecordInstance[]>;
   /**
    * Retrieve a single page of UsageRecordInstance records from the API.
    *
@@ -204,10 +145,12 @@ export interface UsageRecordListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
+    callback?: (error: Error | null, items: UsageRecordPage) => any
+  ): Promise<UsageRecordPage>;
+  page(
     params: UsageRecordListInstancePageOptions,
     callback?: (error: Error | null, items: UsageRecordPage) => any
   ): Promise<UsageRecordPage>;
-  page(params?: any, callback?: any): Promise<UsageRecordPage>;
 
   /**
    * Provide a user-friendly representation
@@ -216,27 +159,20 @@ export interface UsageRecordListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface UsageRecordSolution {}
-
-interface UsageRecordListInstanceImpl extends UsageRecordListInstance {}
-class UsageRecordListInstanceImpl implements UsageRecordListInstance {
-  _version?: V1;
-  _solution?: UsageRecordSolution;
-  _uri?: string;
-}
-
 export function UsageRecordListInstance(version: V1): UsageRecordListInstance {
-  const instance = {} as UsageRecordListInstanceImpl;
+  const instance = {} as UsageRecordListInstance;
 
   instance._version = version;
   instance._solution = {};
   instance._uri = `/UsageRecords`;
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | UsageRecordListInstancePageOptions
+      | ((error: Error | null, items: UsageRecordPage) => any),
+    callback?: (error: Error | null, items: UsageRecordPage) => any
   ): Promise<UsageRecordPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -253,14 +189,14 @@ export function UsageRecordListInstance(version: V1): UsageRecordListInstance {
       data["Granularity"] = params["granularity"];
     if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
@@ -268,10 +204,10 @@ export function UsageRecordListInstance(version: V1): UsageRecordListInstance {
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new UsageRecordPage(operationVersion, payload, this._solution)
+        new UsageRecordPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -281,33 +217,31 @@ export function UsageRecordListInstance(version: V1): UsageRecordListInstance {
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: UsageRecordPage) => any
   ): Promise<UsageRecordPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new UsageRecordPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new UsageRecordPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;
@@ -318,10 +252,10 @@ interface UsageRecordPayload extends TwilioResponsePayload {
 }
 
 interface UsageRecordResource {
-  account_sid?: string | null;
-  period?: any | null;
-  commands?: any | null;
-  data?: any | null;
+  account_sid: string;
+  period: any;
+  commands: any;
+  data: any;
 }
 
 export class UsageRecordInstance {
@@ -335,19 +269,19 @@ export class UsageRecordInstance {
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The time period for which usage is reported
    */
-  period?: any | null;
+  period: any;
   /**
    * An object that describes the aggregated Commands usage for all SIMs during the specified period
    */
-  commands?: any | null;
+  commands: any;
   /**
    * An object that describes the aggregated Data usage for all SIMs over the period
    */
-  data?: any | null;
+  data: any;
 
   /**
    * Provide a user-friendly representation

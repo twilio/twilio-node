@@ -27,52 +27,56 @@ export default class V1 extends Version {
   /**
    * Initialize the V1 version of Conversations
    *
-   * @property { Twilio.Conversations.V1.AddressConfigurationListInstance } addressConfigurations - addressConfigurations resource
-   * @property { Twilio.Conversations.V1.ConfigurationListInstance } configuration - configuration resource
-   * @property { Twilio.Conversations.V1.ConversationListInstance } conversations - conversations resource
-   * @property { Twilio.Conversations.V1.CredentialListInstance } credentials - credentials resource
-   * @property { Twilio.Conversations.V1.ParticipantConversationListInstance } participantConversations - participantConversations resource
-   * @property { Twilio.Conversations.V1.RoleListInstance } roles - roles resource
-   * @property { Twilio.Conversations.V1.ServiceListInstance } services - services resource
-   * @property { Twilio.Conversations.V1.UserListInstance } users - users resource
-   *
-   * @param { Twilio.Conversations } domain - The Twilio domain
+   * @param domain - The Twilio (Twilio.Conversations) domain
    */
   constructor(domain: ConversationsBase) {
     super(domain, "v1");
   }
 
+  /** addressConfigurations - { Twilio.Conversations.V1.AddressConfigurationListInstance } resource */
   protected _addressConfigurations?: AddressConfigurationListInstance;
+  /** configuration - { Twilio.Conversations.V1.ConfigurationListInstance } resource */
   protected _configuration?: ConfigurationListInstance;
+  /** conversations - { Twilio.Conversations.V1.ConversationListInstance } resource */
   protected _conversations?: ConversationListInstance;
+  /** credentials - { Twilio.Conversations.V1.CredentialListInstance } resource */
   protected _credentials?: CredentialListInstance;
+  /** participantConversations - { Twilio.Conversations.V1.ParticipantConversationListInstance } resource */
   protected _participantConversations?: ParticipantConversationListInstance;
+  /** roles - { Twilio.Conversations.V1.RoleListInstance } resource */
   protected _roles?: RoleListInstance;
+  /** services - { Twilio.Conversations.V1.ServiceListInstance } resource */
   protected _services?: ServiceListInstance;
+  /** users - { Twilio.Conversations.V1.UserListInstance } resource */
   protected _users?: UserListInstance;
 
+  /** Getter for addressConfigurations resource */
   get addressConfigurations(): AddressConfigurationListInstance {
     this._addressConfigurations =
       this._addressConfigurations || AddressConfigurationListInstance(this);
     return this._addressConfigurations;
   }
 
+  /** Getter for configuration resource */
   get configuration(): ConfigurationListInstance {
     this._configuration =
       this._configuration || ConfigurationListInstance(this);
     return this._configuration;
   }
 
+  /** Getter for conversations resource */
   get conversations(): ConversationListInstance {
     this._conversations = this._conversations || ConversationListInstance(this);
     return this._conversations;
   }
 
+  /** Getter for credentials resource */
   get credentials(): CredentialListInstance {
     this._credentials = this._credentials || CredentialListInstance(this);
     return this._credentials;
   }
 
+  /** Getter for participantConversations resource */
   get participantConversations(): ParticipantConversationListInstance {
     this._participantConversations =
       this._participantConversations ||
@@ -80,16 +84,19 @@ export default class V1 extends Version {
     return this._participantConversations;
   }
 
+  /** Getter for roles resource */
   get roles(): RoleListInstance {
     this._roles = this._roles || RoleListInstance(this);
     return this._roles;
   }
 
+  /** Getter for services resource */
   get services(): ServiceListInstance {
     this._services = this._services || ServiceListInstance(this);
     return this._services;
   }
 
+  /** Getter for users resource */
   get users(): UserListInstance {
     this._users = this._users || UserListInstance(this);
     return this._users;

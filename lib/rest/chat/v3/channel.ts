@@ -24,14 +24,13 @@ type ChannelWebhookEnabledType = "true" | "false";
 
 /**
  * Options to pass to update a ChannelInstance
- *
- * @property { ChannelWebhookEnabledType } [xTwilioWebhookEnabled] The X-Twilio-Webhook-Enabled HTTP request header
- * @property { ChannelChannelType } [type]
- * @property { string } [messagingServiceSid] The unique ID of the [Messaging Service](https://www.twilio.com/docs/sms/services/api) this channel belongs to.
  */
 export interface ChannelContextUpdateOptions {
+  /** The X-Twilio-Webhook-Enabled HTTP request header */
   xTwilioWebhookEnabled?: ChannelWebhookEnabledType;
+  /**  */
   type?: ChannelChannelType;
+  /** The unique ID of the [Messaging Service](https://www.twilio.com/docs/sms/services/api) this channel belongs to. */
   messagingServiceSid?: string;
 }
 
@@ -39,9 +38,9 @@ export interface ChannelContext {
   /**
    * Update a ChannelInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ChannelInstance
+   * @returns Resolves to processed ChannelInstance
    */
   update(
     callback?: (error: Error | null, item?: ChannelInstance) => any
@@ -49,16 +48,15 @@ export interface ChannelContext {
   /**
    * Update a ChannelInstance
    *
-   * @param { ChannelContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ChannelInstance
+   * @returns Resolves to processed ChannelInstance
    */
   update(
     params: ChannelContextUpdateOptions,
     callback?: (error: Error | null, item?: ChannelInstance) => any
   ): Promise<ChannelInstance>;
-  update(params?: any, callback?: any): Promise<ChannelInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -68,8 +66,8 @@ export interface ChannelContext {
 }
 
 export interface ChannelContextSolution {
-  serviceSid?: string;
-  sid?: string;
+  serviceSid: string;
+  sid: string;
 }
 
 export class ChannelContextImpl implements ChannelContext {
@@ -89,8 +87,13 @@ export class ChannelContextImpl implements ChannelContext {
     this._uri = `/Services/${serviceSid}/Channels/${sid}`;
   }
 
-  update(params?: any, callback?: any): Promise<ChannelInstance> {
-    if (typeof params === "function") {
+  update(
+    params?:
+      | ChannelContextUpdateOptions
+      | ((error: Error | null, item?: ChannelInstance) => any),
+    callback?: (error: Error | null, item?: ChannelInstance) => any
+  ): Promise<ChannelInstance> {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -108,9 +111,10 @@ export class ChannelContextImpl implements ChannelContext {
     if (params["xTwilioWebhookEnabled"] !== undefined)
       headers["X-Twilio-Webhook-Enabled"] = params["xTwilioWebhookEnabled"];
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -121,12 +125,12 @@ export class ChannelContextImpl implements ChannelContext {
         new ChannelInstance(
           operationVersion,
           payload,
-          this._solution.serviceSid,
-          this._solution.sid
+          instance._solution.serviceSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -150,20 +154,20 @@ export class ChannelContextImpl implements ChannelContext {
 interface ChannelPayload extends ChannelResource {}
 
 interface ChannelResource {
-  sid?: string | null;
-  account_sid?: string | null;
-  service_sid?: string | null;
-  friendly_name?: string | null;
-  unique_name?: string | null;
-  attributes?: string | null;
-  type?: ChannelChannelType;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  created_by?: string | null;
-  members_count?: number | null;
-  messages_count?: number | null;
-  messaging_service_sid?: string | null;
-  url?: string | null;
+  sid: string;
+  account_sid: string;
+  service_sid: string;
+  friendly_name: string;
+  unique_name: string;
+  attributes: string;
+  type: ChannelChannelType;
+  date_created: Date;
+  date_updated: Date;
+  created_by: string;
+  members_count: number;
+  messages_count: number;
+  messaging_service_sid: string;
+  url: string;
 }
 
 export class ChannelInstance {
@@ -200,56 +204,56 @@ export class ChannelInstance {
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The SID of the Service that the resource is associated with
    */
-  serviceSid?: string | null;
+  serviceSid: string;
   /**
    * The string that you assigned to describe the resource
    */
-  friendlyName?: string | null;
+  friendlyName: string;
   /**
    * An application-defined string that uniquely identifies the resource
    */
-  uniqueName?: string | null;
+  uniqueName: string;
   /**
    * The JSON string that stores application-specific data
    */
-  attributes?: string | null;
-  type?: ChannelChannelType;
+  attributes: string;
+  type: ChannelChannelType;
   /**
    * The ISO 8601 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The ISO 8601 date and time in GMT when the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The identity of the User that created the channel
    */
-  createdBy?: string | null;
+  createdBy: string;
   /**
    * The number of Members in the Channel
    */
-  membersCount?: number | null;
+  membersCount: number;
   /**
    * The number of Messages that have been passed in the Channel
    */
-  messagesCount?: number | null;
+  messagesCount: number;
   /**
    * The unique ID of the Messaging Service this channel belongs to.
    */
-  messagingServiceSid?: string | null;
+  messagingServiceSid: string;
   /**
    * The absolute URL of the Channel resource
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): ChannelContext {
     this._context =
@@ -265,9 +269,9 @@ export class ChannelInstance {
   /**
    * Update a ChannelInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ChannelInstance
+   * @returns Resolves to processed ChannelInstance
    */
   update(
     callback?: (error: Error | null, item?: ChannelInstance) => any
@@ -275,16 +279,20 @@ export class ChannelInstance {
   /**
    * Update a ChannelInstance
    *
-   * @param { ChannelContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ChannelInstance
+   * @returns Resolves to processed ChannelInstance
    */
   update(
     params: ChannelContextUpdateOptions,
     callback?: (error: Error | null, item?: ChannelInstance) => any
   ): Promise<ChannelInstance>;
-  update(params?: any, callback?: any): Promise<ChannelInstance> {
+
+  update(
+    params?: any,
+    callback?: (error: Error | null, item?: ChannelInstance) => any
+  ): Promise<ChannelInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -317,7 +325,13 @@ export class ChannelInstance {
   }
 }
 
+export interface ChannelSolution {}
+
 export interface ChannelListInstance {
+  _version: V3;
+  _solution: ChannelSolution;
+  _uri: string;
+
   (serviceSid: string, sid: string): ChannelContext;
   get(serviceSid: string, sid: string): ChannelContext;
 
@@ -328,18 +342,9 @@ export interface ChannelListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface ChannelSolution {}
-
-interface ChannelListInstanceImpl extends ChannelListInstance {}
-class ChannelListInstanceImpl implements ChannelListInstance {
-  _version?: V3;
-  _solution?: ChannelSolution;
-  _uri?: string;
-}
-
 export function ChannelListInstance(version: V3): ChannelListInstance {
   const instance = ((serviceSid, sid) =>
-    instance.get(serviceSid, sid)) as ChannelListInstanceImpl;
+    instance.get(serviceSid, sid)) as ChannelListInstance;
 
   instance.get = function get(serviceSid, sid): ChannelContext {
     return new ChannelContextImpl(version, serviceSid, sid);
@@ -350,14 +355,14 @@ export function ChannelListInstance(version: V3): ChannelListInstance {
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

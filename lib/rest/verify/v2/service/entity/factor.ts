@@ -28,72 +28,60 @@ type FactorTotpAlgorithms = "sha1" | "sha256" | "sha512";
 
 /**
  * Options to pass to update a FactorInstance
- *
- * @property { string } [authPayload] The optional payload needed to verify the Factor for the first time. E.g. for a TOTP, the numeric code.
- * @property { string } [friendlyName] The new friendly name of this Factor. It can be up to 64 characters.
- * @property { string } [config.notificationToken] For APN, the device token. For FCM, the registration token. It is used to send the push notifications. Required when `factor_type` is `push`. If specified, this value must be between 32 and 255 characters long.
- * @property { string } [config.sdkVersion] The Verify Push SDK version used to configure the factor
- * @property { number } [config.timeStep] Defines how often, in seconds, are TOTP codes generated. i.e, a new TOTP code is generated every time_step seconds. Must be between 20 and 60 seconds, inclusive
- * @property { number } [config.skew] The number of time-steps, past and future, that are valid for validation of TOTP codes. Must be between 0 and 2, inclusive
- * @property { number } [config.codeLength] Number of digits for generated TOTP codes. Must be between 3 and 8, inclusive
- * @property { FactorTotpAlgorithms } [config.alg]
- * @property { string } [config.notificationPlatform] The transport technology used to generate the Notification Token. Can be `apn`, `fcm` or `none`.  Required when `factor_type` is `push`.
  */
 export interface FactorContextUpdateOptions {
+  /** The optional payload needed to verify the Factor for the first time. E.g. for a TOTP, the numeric code. */
   authPayload?: string;
+  /** The new friendly name of this Factor. It can be up to 64 characters. */
   friendlyName?: string;
+  /** For APN, the device token. For FCM, the registration token. It is used to send the push notifications. Required when `factor_type` is `push`. If specified, this value must be between 32 and 255 characters long. */
   "config.notificationToken"?: string;
+  /** The Verify Push SDK version used to configure the factor */
   "config.sdkVersion"?: string;
+  /** Defines how often, in seconds, are TOTP codes generated. i.e, a new TOTP code is generated every time_step seconds. Must be between 20 and 60 seconds, inclusive */
   "config.timeStep"?: number;
+  /** The number of time-steps, past and future, that are valid for validation of TOTP codes. Must be between 0 and 2, inclusive */
   "config.skew"?: number;
+  /** Number of digits for generated TOTP codes. Must be between 3 and 8, inclusive */
   "config.codeLength"?: number;
+  /**  */
   "config.alg"?: FactorTotpAlgorithms;
+  /** The transport technology used to generate the Notification Token. Can be `apn`, `fcm` or `none`.  Required when `factor_type` is `push`. */
   "config.notificationPlatform"?: string;
 }
 /**
  * Options to pass to each
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface FactorListInstanceEachOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: FactorInstance, done: (err?: Error) => void) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface FactorListInstanceOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface FactorListInstancePageOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
@@ -101,9 +89,9 @@ export interface FactorContext {
   /**
    * Remove a FactorInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -112,9 +100,9 @@ export interface FactorContext {
   /**
    * Fetch a FactorInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed FactorInstance
+   * @returns Resolves to processed FactorInstance
    */
   fetch(
     callback?: (error: Error | null, item?: FactorInstance) => any
@@ -123,9 +111,9 @@ export interface FactorContext {
   /**
    * Update a FactorInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed FactorInstance
+   * @returns Resolves to processed FactorInstance
    */
   update(
     callback?: (error: Error | null, item?: FactorInstance) => any
@@ -133,16 +121,15 @@ export interface FactorContext {
   /**
    * Update a FactorInstance
    *
-   * @param { FactorContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed FactorInstance
+   * @returns Resolves to processed FactorInstance
    */
   update(
     params: FactorContextUpdateOptions,
     callback?: (error: Error | null, item?: FactorInstance) => any
   ): Promise<FactorInstance>;
-  update(params?: any, callback?: any): Promise<FactorInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -152,9 +139,9 @@ export interface FactorContext {
 }
 
 export interface FactorContextSolution {
-  serviceSid?: string;
-  identity?: string;
-  sid?: string;
+  serviceSid: string;
+  identity: string;
+  sid: string;
 }
 
 export class FactorContextImpl implements FactorContext {
@@ -183,24 +170,30 @@ export class FactorContextImpl implements FactorContext {
     this._uri = `/Services/${serviceSid}/Entities/${identity}/Factors/${sid}`;
   }
 
-  remove(callback?: any): Promise<boolean> {
-    let operationVersion = this._version,
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<FactorInstance> {
-    let operationVersion = this._version,
+  fetch(
+    callback?: (error: Error | null, item?: FactorInstance) => any
+  ): Promise<FactorInstance> {
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -209,21 +202,26 @@ export class FactorContextImpl implements FactorContext {
         new FactorInstance(
           operationVersion,
           payload,
-          this._solution.serviceSid,
-          this._solution.identity,
-          this._solution.sid
+          instance._solution.serviceSid,
+          instance._solution.identity,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
     return operationPromise;
   }
 
-  update(params?: any, callback?: any): Promise<FactorInstance> {
-    if (typeof params === "function") {
+  update(
+    params?:
+      | FactorContextUpdateOptions
+      | ((error: Error | null, item?: FactorInstance) => any),
+    callback?: (error: Error | null, item?: FactorInstance) => any
+  ): Promise<FactorInstance> {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -255,9 +253,10 @@ export class FactorContextImpl implements FactorContext {
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -268,13 +267,13 @@ export class FactorContextImpl implements FactorContext {
         new FactorInstance(
           operationVersion,
           payload,
-          this._solution.serviceSid,
-          this._solution.identity,
-          this._solution.sid
+          instance._solution.serviceSid,
+          instance._solution.identity,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -300,19 +299,19 @@ interface FactorPayload extends TwilioResponsePayload {
 }
 
 interface FactorResource {
-  sid?: string | null;
-  account_sid?: string | null;
-  service_sid?: string | null;
-  entity_sid?: string | null;
-  identity?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  friendly_name?: string | null;
-  status?: FactorFactorStatuses;
-  factor_type?: FactorFactorTypes;
-  config?: any | null;
-  metadata?: any | null;
-  url?: string | null;
+  sid: string;
+  account_sid: string;
+  service_sid: string;
+  entity_sid: string;
+  identity: string;
+  date_created: Date;
+  date_updated: Date;
+  friendly_name: string;
+  status: FactorFactorStatuses;
+  factor_type: FactorFactorTypes;
+  config: any;
+  metadata: any;
+  url: string;
 }
 
 export class FactorInstance {
@@ -346,49 +345,49 @@ export class FactorInstance {
   /**
    * A string that uniquely identifies this Factor.
    */
-  sid?: string | null;
+  sid: string;
   /**
    * Account Sid.
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * Service Sid.
    */
-  serviceSid?: string | null;
+  serviceSid: string;
   /**
    * Entity Sid.
    */
-  entitySid?: string | null;
+  entitySid: string;
   /**
    * Unique external identifier of the Entity
    */
-  identity?: string | null;
+  identity: string;
   /**
    * The date this Factor was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The date this Factor was updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * A human readable description of this resource.
    */
-  friendlyName?: string | null;
-  status?: FactorFactorStatuses;
-  factorType?: FactorFactorTypes;
+  friendlyName: string;
+  status: FactorFactorStatuses;
+  factorType: FactorFactorTypes;
   /**
    * Configurations for a `factor_type`.
    */
-  config?: any | null;
+  config: any;
   /**
    * Metadata of the factor.
    */
-  metadata?: any | null;
+  metadata: any;
   /**
    * The URL of this resource.
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): FactorContext {
     this._context =
@@ -405,9 +404,9 @@ export class FactorInstance {
   /**
    * Remove a FactorInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -418,9 +417,9 @@ export class FactorInstance {
   /**
    * Fetch a FactorInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed FactorInstance
+   * @returns Resolves to processed FactorInstance
    */
   fetch(
     callback?: (error: Error | null, item?: FactorInstance) => any
@@ -431,9 +430,9 @@ export class FactorInstance {
   /**
    * Update a FactorInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed FactorInstance
+   * @returns Resolves to processed FactorInstance
    */
   update(
     callback?: (error: Error | null, item?: FactorInstance) => any
@@ -441,16 +440,20 @@ export class FactorInstance {
   /**
    * Update a FactorInstance
    *
-   * @param { FactorContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed FactorInstance
+   * @returns Resolves to processed FactorInstance
    */
   update(
     params: FactorContextUpdateOptions,
     callback?: (error: Error | null, item?: FactorInstance) => any
   ): Promise<FactorInstance>;
-  update(params?: any, callback?: any): Promise<FactorInstance> {
+
+  update(
+    params?: any,
+    callback?: (error: Error | null, item?: FactorInstance) => any
+  ): Promise<FactorInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -482,27 +485,19 @@ export class FactorInstance {
   }
 }
 
+export interface FactorSolution {
+  serviceSid: string;
+  identity: string;
+}
+
 export interface FactorListInstance {
+  _version: V2;
+  _solution: FactorSolution;
+  _uri: string;
+
   (sid: string): FactorContext;
   get(sid: string): FactorContext;
 
-  /**
-   * Streams FactorInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (item: FactorInstance, done: (err?: Error) => void) => void
-  ): void;
   /**
    * Streams FactorInstance records from the API.
    *
@@ -519,50 +514,24 @@ export interface FactorListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: FactorListInstanceEachOptions,
     callback?: (item: FactorInstance, done: (err?: Error) => void) => void
   ): void;
-  each(params?: any, callback?: any): void;
+  each(
+    params: FactorListInstanceEachOptions,
+    callback?: (item: FactorInstance, done: (err?: Error) => void) => void
+  ): void;
   /**
    * Retrieve a single target page of FactorInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: FactorPage) => any
-  ): Promise<FactorPage>;
-  /**
-   * Retrieve a single target page of FactorInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: FactorPage) => any
   ): Promise<FactorPage>;
-  getPage(params?: any, callback?: any): Promise<FactorPage>;
-  /**
-   * Lists FactorInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: FactorInstance[]) => any
-  ): Promise<FactorInstance[]>;
   /**
    * Lists FactorInstance records from the API as a list.
    *
@@ -573,23 +542,12 @@ export interface FactorListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: FactorListInstanceOptions,
     callback?: (error: Error | null, items: FactorInstance[]) => any
   ): Promise<FactorInstance[]>;
-  list(params?: any, callback?: any): Promise<FactorInstance[]>;
-  /**
-   * Retrieve a single page of FactorInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: FactorPage) => any
-  ): Promise<FactorPage>;
+  list(
+    params: FactorListInstanceOptions,
+    callback?: (error: Error | null, items: FactorInstance[]) => any
+  ): Promise<FactorInstance[]>;
   /**
    * Retrieve a single page of FactorInstance records from the API.
    *
@@ -602,28 +560,18 @@ export interface FactorListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
+    callback?: (error: Error | null, items: FactorPage) => any
+  ): Promise<FactorPage>;
+  page(
     params: FactorListInstancePageOptions,
     callback?: (error: Error | null, items: FactorPage) => any
   ): Promise<FactorPage>;
-  page(params?: any, callback?: any): Promise<FactorPage>;
 
   /**
    * Provide a user-friendly representation
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export interface FactorSolution {
-  serviceSid?: string;
-  identity?: string;
-}
-
-interface FactorListInstanceImpl extends FactorListInstance {}
-class FactorListInstanceImpl implements FactorListInstance {
-  _version?: V2;
-  _solution?: FactorSolution;
-  _uri?: string;
 }
 
 export function FactorListInstance(
@@ -639,7 +587,7 @@ export function FactorListInstance(
     throw new Error("Parameter 'identity' is not valid.");
   }
 
-  const instance = ((sid) => instance.get(sid)) as FactorListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as FactorListInstance;
 
   instance.get = function get(sid): FactorContext {
     return new FactorContextImpl(version, serviceSid, identity, sid);
@@ -650,10 +598,12 @@ export function FactorListInstance(
   instance._uri = `/Services/${serviceSid}/Entities/${identity}/Factors`;
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | FactorListInstancePageOptions
+      | ((error: Error | null, items: FactorPage) => any),
+    callback?: (error: Error | null, items: FactorPage) => any
   ): Promise<FactorPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -664,24 +614,24 @@ export function FactorListInstance(
 
     if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new FactorPage(operationVersion, payload, this._solution)
+      (payload) => new FactorPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -691,33 +641,31 @@ export function FactorListInstance(
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: FactorPage) => any
   ): Promise<FactorPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new FactorPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new FactorPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

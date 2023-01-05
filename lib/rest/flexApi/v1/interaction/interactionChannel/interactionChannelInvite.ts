@@ -22,70 +22,67 @@ import { isValidPathParam } from "../../../../../base/utility";
 
 /**
  * Options to pass to create a InteractionChannelInviteInstance
- *
- * @property { any } routing The Interaction\\\'s routing logic.
  */
 export interface InteractionChannelInviteListInstanceCreateOptions {
+  /** The Interaction\\\'s routing logic. */
   routing: any;
 }
 /**
  * Options to pass to each
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface InteractionChannelInviteListInstanceEachOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (
     item: InteractionChannelInviteInstance,
     done: (err?: Error) => void
   ) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface InteractionChannelInviteListInstanceOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface InteractionChannelInviteListInstancePageOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
+export interface InteractionChannelInviteSolution {
+  interactionSid: string;
+  channelSid: string;
+}
+
 export interface InteractionChannelInviteListInstance {
+  _version: V1;
+  _solution: InteractionChannelInviteSolution;
+  _uri: string;
+
   /**
    * Create a InteractionChannelInviteInstance
    *
-   * @param { InteractionChannelInviteListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed InteractionChannelInviteInstance
+   * @returns Resolves to processed InteractionChannelInviteInstance
    */
   create(
     params: InteractionChannelInviteListInstanceCreateOptions,
@@ -94,31 +91,7 @@ export interface InteractionChannelInviteListInstance {
       item?: InteractionChannelInviteInstance
     ) => any
   ): Promise<InteractionChannelInviteInstance>;
-  create(
-    params: any,
-    callback?: any
-  ): Promise<InteractionChannelInviteInstance>;
 
-  /**
-   * Streams InteractionChannelInviteInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (
-      item: InteractionChannelInviteInstance,
-      done: (err?: Error) => void
-    ) => void
-  ): void;
   /**
    * Streams InteractionChannelInviteInstance records from the API.
    *
@@ -135,56 +108,30 @@ export interface InteractionChannelInviteListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: InteractionChannelInviteListInstanceEachOptions,
     callback?: (
       item: InteractionChannelInviteInstance,
       done: (err?: Error) => void
     ) => void
   ): void;
-  each(params?: any, callback?: any): void;
+  each(
+    params: InteractionChannelInviteListInstanceEachOptions,
+    callback?: (
+      item: InteractionChannelInviteInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
   /**
    * Retrieve a single target page of InteractionChannelInviteInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: InteractionChannelInvitePage) => any
-  ): Promise<InteractionChannelInvitePage>;
-  /**
-   * Retrieve a single target page of InteractionChannelInviteInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: InteractionChannelInvitePage) => any
   ): Promise<InteractionChannelInvitePage>;
-  getPage(params?: any, callback?: any): Promise<InteractionChannelInvitePage>;
-  /**
-   * Lists InteractionChannelInviteInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (
-      error: Error | null,
-      items: InteractionChannelInviteInstance[]
-    ) => any
-  ): Promise<InteractionChannelInviteInstance[]>;
   /**
    * Lists InteractionChannelInviteInstance records from the API as a list.
    *
@@ -195,29 +142,18 @@ export interface InteractionChannelInviteListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: InteractionChannelInviteListInstanceOptions,
     callback?: (
       error: Error | null,
       items: InteractionChannelInviteInstance[]
     ) => any
   ): Promise<InteractionChannelInviteInstance[]>;
   list(
-    params?: any,
-    callback?: any
+    params: InteractionChannelInviteListInstanceOptions,
+    callback?: (
+      error: Error | null,
+      items: InteractionChannelInviteInstance[]
+    ) => any
   ): Promise<InteractionChannelInviteInstance[]>;
-  /**
-   * Retrieve a single page of InteractionChannelInviteInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: InteractionChannelInvitePage) => any
-  ): Promise<InteractionChannelInvitePage>;
   /**
    * Retrieve a single page of InteractionChannelInviteInstance records from the API.
    *
@@ -230,31 +166,18 @@ export interface InteractionChannelInviteListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
+    callback?: (error: Error | null, items: InteractionChannelInvitePage) => any
+  ): Promise<InteractionChannelInvitePage>;
+  page(
     params: InteractionChannelInviteListInstancePageOptions,
     callback?: (error: Error | null, items: InteractionChannelInvitePage) => any
   ): Promise<InteractionChannelInvitePage>;
-  page(params?: any, callback?: any): Promise<InteractionChannelInvitePage>;
 
   /**
    * Provide a user-friendly representation
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export interface InteractionChannelInviteSolution {
-  interactionSid?: string;
-  channelSid?: string;
-}
-
-interface InteractionChannelInviteListInstanceImpl
-  extends InteractionChannelInviteListInstance {}
-class InteractionChannelInviteListInstanceImpl
-  implements InteractionChannelInviteListInstance
-{
-  _version?: V1;
-  _solution?: InteractionChannelInviteSolution;
-  _uri?: string;
 }
 
 export function InteractionChannelInviteListInstance(
@@ -270,15 +193,18 @@ export function InteractionChannelInviteListInstance(
     throw new Error("Parameter 'channelSid' is not valid.");
   }
 
-  const instance = {} as InteractionChannelInviteListInstanceImpl;
+  const instance = {} as InteractionChannelInviteListInstance;
 
   instance._version = version;
   instance._solution = { interactionSid, channelSid };
   instance._uri = `/Interactions/${interactionSid}/Channels/${channelSid}/Invites`;
 
   instance.create = function create(
-    params: any,
-    callback?: any
+    params: InteractionChannelInviteListInstanceCreateOptions,
+    callback?: (
+      error: Error | null,
+      items: InteractionChannelInviteInstance
+    ) => any
   ): Promise<InteractionChannelInviteInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -297,7 +223,7 @@ export function InteractionChannelInviteListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -308,12 +234,12 @@ export function InteractionChannelInviteListInstance(
         new InteractionChannelInviteInstance(
           operationVersion,
           payload,
-          this._solution.interactionSid,
-          this._solution.channelSid
+          instance._solution.interactionSid,
+          instance._solution.channelSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -321,10 +247,12 @@ export function InteractionChannelInviteListInstance(
   };
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | InteractionChannelInviteListInstancePageOptions
+      | ((error: Error | null, items: InteractionChannelInvitePage) => any),
+    callback?: (error: Error | null, items: InteractionChannelInvitePage) => any
   ): Promise<InteractionChannelInvitePage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -335,14 +263,14 @@ export function InteractionChannelInviteListInstance(
 
     if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
@@ -353,11 +281,11 @@ export function InteractionChannelInviteListInstance(
         new InteractionChannelInvitePage(
           operationVersion,
           payload,
-          this._solution
+          instance._solution
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -367,34 +295,35 @@ export function InteractionChannelInviteListInstance(
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: InteractionChannelInvitePage) => any
   ): Promise<InteractionChannelInvitePage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
+    let pagePromise = operationPromise.then(
       (payload) =>
-        new InteractionChannelInvitePage(this._version, payload, this._solution)
+        new InteractionChannelInvitePage(
+          instance._version,
+          payload,
+          instance._solution
+        )
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;
@@ -405,11 +334,11 @@ interface InteractionChannelInvitePayload extends TwilioResponsePayload {
 }
 
 interface InteractionChannelInviteResource {
-  sid?: string | null;
-  interaction_sid?: string | null;
-  channel_sid?: string | null;
-  routing?: any | null;
-  url?: string | null;
+  sid: string;
+  interaction_sid: string;
+  channel_sid: string;
+  routing: any;
+  url: string;
 }
 
 export class InteractionChannelInviteInstance {
@@ -429,20 +358,20 @@ export class InteractionChannelInviteInstance {
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The Interaction SID for this Channel
    */
-  interactionSid?: string | null;
+  interactionSid: string;
   /**
    * The Channel SID for this Invite
    */
-  channelSid?: string | null;
+  channelSid: string;
   /**
    * A JSON object representing the routing rules for the Interaction Channel
    */
-  routing?: any | null;
-  url?: string | null;
+  routing: any;
+  url: string;
 
   /**
    * Provide a user-friendly representation

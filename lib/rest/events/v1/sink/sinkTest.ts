@@ -18,13 +18,21 @@ const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
 
+export interface SinkTestSolution {
+  sid: string;
+}
+
 export interface SinkTestListInstance {
+  _version: V1;
+  _solution: SinkTestSolution;
+  _uri: string;
+
   /**
    * Create a SinkTestInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SinkTestInstance
+   * @returns Resolves to processed SinkTestInstance
    */
   create(
     callback?: (error: Error | null, item?: SinkTestInstance) => any
@@ -37,17 +45,6 @@ export interface SinkTestListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface SinkTestSolution {
-  sid?: string;
-}
-
-interface SinkTestListInstanceImpl extends SinkTestListInstance {}
-class SinkTestListInstanceImpl implements SinkTestListInstance {
-  _version?: V1;
-  _solution?: SinkTestSolution;
-  _uri?: string;
-}
-
 export function SinkTestListInstance(
   version: V1,
   sid: string
@@ -56,25 +53,27 @@ export function SinkTestListInstance(
     throw new Error("Parameter 'sid' is not valid.");
   }
 
-  const instance = {} as SinkTestListInstanceImpl;
+  const instance = {} as SinkTestListInstance;
 
   instance._version = version;
   instance._solution = { sid };
   instance._uri = `/Sinks/${sid}/Test`;
 
-  instance.create = function create(callback?: any): Promise<SinkTestInstance> {
+  instance.create = function create(
+    callback?: (error: Error | null, items: SinkTestInstance) => any
+  ): Promise<SinkTestInstance> {
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
       });
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new SinkTestInstance(operationVersion, payload, this._solution.sid)
+        new SinkTestInstance(operationVersion, payload, instance._solution.sid)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -82,14 +81,14 @@ export function SinkTestListInstance(
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;
@@ -98,7 +97,7 @@ export function SinkTestListInstance(
 interface SinkTestPayload extends SinkTestResource {}
 
 interface SinkTestResource {
-  result?: string | null;
+  result: string;
 }
 
 export class SinkTestInstance {
@@ -109,7 +108,7 @@ export class SinkTestInstance {
   /**
    * Feedback indicating whether the test event was generated.
    */
-  result?: string | null;
+  result: string;
 
   /**
    * Provide a user-friendly representation

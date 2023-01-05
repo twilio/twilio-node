@@ -20,16 +20,16 @@ export default class V1 extends Version {
   /**
    * Initialize the V1 version of Taskrouter
    *
-   * @property { Twilio.Taskrouter.V1.WorkspaceListInstance } workspaces - workspaces resource
-   *
-   * @param { Twilio.Taskrouter } domain - The Twilio domain
+   * @param domain - The Twilio (Twilio.Taskrouter) domain
    */
   constructor(domain: TaskrouterBase) {
     super(domain, "v1");
   }
 
+  /** workspaces - { Twilio.Taskrouter.V1.WorkspaceListInstance } resource */
   protected _workspaces?: WorkspaceListInstance;
 
+  /** Getter for workspaces resource */
   get workspaces(): WorkspaceListInstance {
     this._workspaces = this._workspaces || WorkspaceListInstance(this);
     return this._workspaces;

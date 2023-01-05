@@ -20,20 +20,19 @@ import { isValidPathParam } from "../../../base/utility";
 
 /**
  * Options to pass to create a RecordingSettingsInstance
- *
- * @property { string } friendlyName A descriptive string that you create to describe the resource and be shown to users in the console
- * @property { string } [awsCredentialsSid] The SID of the stored Credential resource.
- * @property { string } [encryptionKeySid] The SID of the Public Key resource to use for encryption.
- * @property { string } [awsS3Url] The URL of the AWS S3 bucket where the recordings should be stored. We only support DNS-compliant URLs like `https://documentation-example-twilio-bucket/recordings`, where `recordings` is the path in which you want the recordings to be stored. This URL accepts only URI-valid characters, as described in the <a href=\\\'https://tools.ietf.org/html/rfc3986#section-2\\\'>RFC 3986</a>.
- * @property { boolean } [awsStorageEnabled] Whether all recordings should be written to the `aws_s3_url`. When `false`, all recordings are stored in our cloud.
- * @property { boolean } [encryptionEnabled] Whether all recordings should be stored in an encrypted form. The default is `false`.
  */
 export interface RecordingSettingsContextCreateOptions {
+  /** A descriptive string that you create to describe the resource and be shown to users in the console */
   friendlyName: string;
+  /** The SID of the stored Credential resource. */
   awsCredentialsSid?: string;
+  /** The SID of the Public Key resource to use for encryption. */
   encryptionKeySid?: string;
+  /** The URL of the AWS S3 bucket where the recordings should be stored. We only support DNS-compliant URLs like `https://documentation-example-twilio-bucket/recordings`, where `recordings` is the path in which you want the recordings to be stored. This URL accepts only URI-valid characters, as described in the <a href=\\\'https://tools.ietf.org/html/rfc3986#section-2\\\'>RFC 3986</a>. */
   awsS3Url?: string;
+  /** Whether all recordings should be written to the `aws_s3_url`. When `false`, all recordings are stored in our cloud. */
   awsStorageEnabled?: boolean;
+  /** Whether all recordings should be stored in an encrypted form. The default is `false`. */
   encryptionEnabled?: boolean;
 }
 
@@ -41,23 +40,22 @@ export interface RecordingSettingsContext {
   /**
    * Create a RecordingSettingsInstance
    *
-   * @param { RecordingSettingsContextCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed RecordingSettingsInstance
+   * @returns Resolves to processed RecordingSettingsInstance
    */
   create(
     params: RecordingSettingsContextCreateOptions,
     callback?: (error: Error | null, item?: RecordingSettingsInstance) => any
   ): Promise<RecordingSettingsInstance>;
-  create(params: any, callback?: any): Promise<RecordingSettingsInstance>;
 
   /**
    * Fetch a RecordingSettingsInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed RecordingSettingsInstance
+   * @returns Resolves to processed RecordingSettingsInstance
    */
   fetch(
     callback?: (error: Error | null, item?: RecordingSettingsInstance) => any
@@ -81,7 +79,12 @@ export class RecordingSettingsContextImpl implements RecordingSettingsContext {
     this._uri = `/RecordingSettings/Default`;
   }
 
-  create(params: any, callback?: any): Promise<RecordingSettingsInstance> {
+  create(
+    params:
+      | RecordingSettingsContextCreateOptions
+      | ((error: Error | null, item?: RecordingSettingsInstance) => any),
+    callback?: (error: Error | null, item?: RecordingSettingsInstance) => any
+  ): Promise<RecordingSettingsInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
@@ -109,9 +112,10 @@ export class RecordingSettingsContextImpl implements RecordingSettingsContext {
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -121,17 +125,20 @@ export class RecordingSettingsContextImpl implements RecordingSettingsContext {
       (payload) => new RecordingSettingsInstance(operationVersion, payload)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<RecordingSettingsInstance> {
-    let operationVersion = this._version,
+  fetch(
+    callback?: (error: Error | null, item?: RecordingSettingsInstance) => any
+  ): Promise<RecordingSettingsInstance> {
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -139,7 +146,7 @@ export class RecordingSettingsContextImpl implements RecordingSettingsContext {
       (payload) => new RecordingSettingsInstance(operationVersion, payload)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -163,14 +170,14 @@ export class RecordingSettingsContextImpl implements RecordingSettingsContext {
 interface RecordingSettingsPayload extends RecordingSettingsResource {}
 
 interface RecordingSettingsResource {
-  account_sid?: string | null;
-  friendly_name?: string | null;
-  aws_credentials_sid?: string | null;
-  aws_s3_url?: string | null;
-  aws_storage_enabled?: boolean | null;
-  encryption_key_sid?: string | null;
-  encryption_enabled?: boolean | null;
-  url?: string | null;
+  account_sid: string;
+  friendly_name: string;
+  aws_credentials_sid: string;
+  aws_s3_url: string;
+  aws_storage_enabled: boolean;
+  encryption_key_sid: string;
+  encryption_enabled: boolean;
+  url: string;
 }
 
 export class RecordingSettingsInstance {
@@ -193,35 +200,35 @@ export class RecordingSettingsInstance {
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The string that you assigned to describe the resource
    */
-  friendlyName?: string | null;
+  friendlyName: string;
   /**
    * The SID of the stored Credential resource
    */
-  awsCredentialsSid?: string | null;
+  awsCredentialsSid: string;
   /**
    * The URL of the AWS S3 bucket where the recordings are stored
    */
-  awsS3Url?: string | null;
+  awsS3Url: string;
   /**
    * Whether all recordings are written to the aws_s3_url
    */
-  awsStorageEnabled?: boolean | null;
+  awsStorageEnabled: boolean;
   /**
    * The SID of the Public Key resource used for encryption
    */
-  encryptionKeySid?: string | null;
+  encryptionKeySid: string;
   /**
    * Whether all recordings are stored in an encrypted form
    */
-  encryptionEnabled?: boolean | null;
+  encryptionEnabled: boolean;
   /**
    * The absolute URL of the resource
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): RecordingSettingsContext {
     this._context =
@@ -232,25 +239,29 @@ export class RecordingSettingsInstance {
   /**
    * Create a RecordingSettingsInstance
    *
-   * @param { RecordingSettingsContextCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed RecordingSettingsInstance
+   * @returns Resolves to processed RecordingSettingsInstance
    */
   create(
     params: RecordingSettingsContextCreateOptions,
     callback?: (error: Error | null, item?: RecordingSettingsInstance) => any
   ): Promise<RecordingSettingsInstance>;
-  create(params: any, callback?: any): Promise<RecordingSettingsInstance> {
+
+  create(
+    params?: any,
+    callback?: (error: Error | null, item?: RecordingSettingsInstance) => any
+  ): Promise<RecordingSettingsInstance> {
     return this._proxy.create(params, callback);
   }
 
   /**
    * Fetch a RecordingSettingsInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed RecordingSettingsInstance
+   * @returns Resolves to processed RecordingSettingsInstance
    */
   fetch(
     callback?: (error: Error | null, item?: RecordingSettingsInstance) => any
@@ -281,7 +292,13 @@ export class RecordingSettingsInstance {
   }
 }
 
+export interface RecordingSettingsSolution {}
+
 export interface RecordingSettingsListInstance {
+  _version: V1;
+  _solution: RecordingSettingsSolution;
+  _uri: string;
+
   (): RecordingSettingsContext;
   get(): RecordingSettingsContext;
 
@@ -292,22 +309,10 @@ export interface RecordingSettingsListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface RecordingSettingsSolution {}
-
-interface RecordingSettingsListInstanceImpl
-  extends RecordingSettingsListInstance {}
-class RecordingSettingsListInstanceImpl
-  implements RecordingSettingsListInstance
-{
-  _version?: V1;
-  _solution?: RecordingSettingsSolution;
-  _uri?: string;
-}
-
 export function RecordingSettingsListInstance(
   version: V1
 ): RecordingSettingsListInstance {
-  const instance = (() => instance.get()) as RecordingSettingsListInstanceImpl;
+  const instance = (() => instance.get()) as RecordingSettingsListInstance;
 
   instance.get = function get(): RecordingSettingsContext {
     return new RecordingSettingsContextImpl(version);
@@ -318,14 +323,14 @@ export function RecordingSettingsListInstance(
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

@@ -1,5 +1,3 @@
-"use strict";
-
 import builder from "xmlbuilder";
 
 /* jshint ignore:start */

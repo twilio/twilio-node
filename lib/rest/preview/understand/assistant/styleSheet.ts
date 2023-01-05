@@ -20,10 +20,9 @@ import { isValidPathParam } from "../../../../base/utility";
 
 /**
  * Options to pass to update a StyleSheetInstance
- *
- * @property { any } [styleSheet] The JSON Style sheet string
  */
 export interface StyleSheetContextUpdateOptions {
+  /** The JSON Style sheet string */
   styleSheet?: any;
 }
 
@@ -31,9 +30,9 @@ export interface StyleSheetContext {
   /**
    * Fetch a StyleSheetInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed StyleSheetInstance
+   * @returns Resolves to processed StyleSheetInstance
    */
   fetch(
     callback?: (error: Error | null, item?: StyleSheetInstance) => any
@@ -42,9 +41,9 @@ export interface StyleSheetContext {
   /**
    * Update a StyleSheetInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed StyleSheetInstance
+   * @returns Resolves to processed StyleSheetInstance
    */
   update(
     callback?: (error: Error | null, item?: StyleSheetInstance) => any
@@ -52,16 +51,15 @@ export interface StyleSheetContext {
   /**
    * Update a StyleSheetInstance
    *
-   * @param { StyleSheetContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed StyleSheetInstance
+   * @returns Resolves to processed StyleSheetInstance
    */
   update(
     params: StyleSheetContextUpdateOptions,
     callback?: (error: Error | null, item?: StyleSheetInstance) => any
   ): Promise<StyleSheetInstance>;
-  update(params?: any, callback?: any): Promise<StyleSheetInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -71,7 +69,7 @@ export interface StyleSheetContext {
 }
 
 export interface StyleSheetContextSolution {
-  assistantSid?: string;
+  assistantSid: string;
 }
 
 export class StyleSheetContextImpl implements StyleSheetContext {
@@ -87,10 +85,13 @@ export class StyleSheetContextImpl implements StyleSheetContext {
     this._uri = `/Assistants/${assistantSid}/StyleSheet`;
   }
 
-  fetch(callback?: any): Promise<StyleSheetInstance> {
-    let operationVersion = this._version,
+  fetch(
+    callback?: (error: Error | null, item?: StyleSheetInstance) => any
+  ): Promise<StyleSheetInstance> {
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -99,19 +100,24 @@ export class StyleSheetContextImpl implements StyleSheetContext {
         new StyleSheetInstance(
           operationVersion,
           payload,
-          this._solution.assistantSid
+          instance._solution.assistantSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
     return operationPromise;
   }
 
-  update(params?: any, callback?: any): Promise<StyleSheetInstance> {
-    if (typeof params === "function") {
+  update(
+    params?:
+      | StyleSheetContextUpdateOptions
+      | ((error: Error | null, item?: StyleSheetInstance) => any),
+    callback?: (error: Error | null, item?: StyleSheetInstance) => any
+  ): Promise<StyleSheetInstance> {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -126,9 +132,10 @@ export class StyleSheetContextImpl implements StyleSheetContext {
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -139,11 +146,11 @@ export class StyleSheetContextImpl implements StyleSheetContext {
         new StyleSheetInstance(
           operationVersion,
           payload,
-          this._solution.assistantSid
+          instance._solution.assistantSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -167,10 +174,10 @@ export class StyleSheetContextImpl implements StyleSheetContext {
 interface StyleSheetPayload extends StyleSheetResource {}
 
 interface StyleSheetResource {
-  account_sid?: string | null;
-  assistant_sid?: string | null;
-  url?: string | null;
-  data?: any | null;
+  account_sid: string;
+  assistant_sid: string;
+  url: string;
+  data: any;
 }
 
 export class StyleSheetInstance {
@@ -193,16 +200,16 @@ export class StyleSheetInstance {
   /**
    * The unique ID of the Account that created this Assistant
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The unique ID of the Assistant
    */
-  assistantSid?: string | null;
-  url?: string | null;
+  assistantSid: string;
+  url: string;
   /**
    * The JSON style sheet object
    */
-  data?: any | null;
+  data: any;
 
   private get _proxy(): StyleSheetContext {
     this._context =
@@ -214,9 +221,9 @@ export class StyleSheetInstance {
   /**
    * Fetch a StyleSheetInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed StyleSheetInstance
+   * @returns Resolves to processed StyleSheetInstance
    */
   fetch(
     callback?: (error: Error | null, item?: StyleSheetInstance) => any
@@ -227,9 +234,9 @@ export class StyleSheetInstance {
   /**
    * Update a StyleSheetInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed StyleSheetInstance
+   * @returns Resolves to processed StyleSheetInstance
    */
   update(
     callback?: (error: Error | null, item?: StyleSheetInstance) => any
@@ -237,16 +244,20 @@ export class StyleSheetInstance {
   /**
    * Update a StyleSheetInstance
    *
-   * @param { StyleSheetContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed StyleSheetInstance
+   * @returns Resolves to processed StyleSheetInstance
    */
   update(
     params: StyleSheetContextUpdateOptions,
     callback?: (error: Error | null, item?: StyleSheetInstance) => any
   ): Promise<StyleSheetInstance>;
-  update(params?: any, callback?: any): Promise<StyleSheetInstance> {
+
+  update(
+    params?: any,
+    callback?: (error: Error | null, item?: StyleSheetInstance) => any
+  ): Promise<StyleSheetInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -269,7 +280,15 @@ export class StyleSheetInstance {
   }
 }
 
+export interface StyleSheetSolution {
+  assistantSid: string;
+}
+
 export interface StyleSheetListInstance {
+  _version: Understand;
+  _solution: StyleSheetSolution;
+  _uri: string;
+
   (): StyleSheetContext;
   get(): StyleSheetContext;
 
@@ -280,17 +299,6 @@ export interface StyleSheetListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface StyleSheetSolution {
-  assistantSid?: string;
-}
-
-interface StyleSheetListInstanceImpl extends StyleSheetListInstance {}
-class StyleSheetListInstanceImpl implements StyleSheetListInstance {
-  _version?: Understand;
-  _solution?: StyleSheetSolution;
-  _uri?: string;
-}
-
 export function StyleSheetListInstance(
   version: Understand,
   assistantSid: string
@@ -299,7 +307,7 @@ export function StyleSheetListInstance(
     throw new Error("Parameter 'assistantSid' is not valid.");
   }
 
-  const instance = (() => instance.get()) as StyleSheetListInstanceImpl;
+  const instance = (() => instance.get()) as StyleSheetListInstance;
 
   instance.get = function get(): StyleSheetContext {
     return new StyleSheetContextImpl(version, assistantSid);
@@ -310,14 +318,14 @@ export function StyleSheetListInstance(
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

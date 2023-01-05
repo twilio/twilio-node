@@ -43,67 +43,55 @@ type BrandRegistrationsStatus =
 
 /**
  * Options to pass to create a BrandRegistrationInstance
- *
- * @property { string } customerProfileBundleSid Customer Profile Bundle Sid.
- * @property { string } a2PProfileBundleSid A2P Messaging Profile Bundle Sid.
- * @property { string } [brandType] Type of brand being created. One of: \\\"STANDARD\\\", \\\"STARTER\\\". STARTER is for low volume, starter use cases. STANDARD is for all other use cases.
- * @property { boolean } [mock] A boolean that specifies whether brand should be a mock or not. If true, brand will be registered as a mock brand. Defaults to false if no value is provided.
- * @property { boolean } [skipAutomaticSecVet] A flag to disable automatic secondary vetting for brands which it would otherwise be done.
  */
 export interface BrandRegistrationListInstanceCreateOptions {
+  /** Customer Profile Bundle Sid. */
   customerProfileBundleSid: string;
+  /** A2P Messaging Profile Bundle Sid. */
   a2PProfileBundleSid: string;
+  /** Type of brand being created. One of: \\\"STANDARD\\\", \\\"STARTER\\\". STARTER is for low volume, starter use cases. STANDARD is for all other use cases. */
   brandType?: string;
+  /** A boolean that specifies whether brand should be a mock or not. If true, brand will be registered as a mock brand. Defaults to false if no value is provided. */
   mock?: boolean;
+  /** A flag to disable automatic secondary vetting for brands which it would otherwise be done. */
   skipAutomaticSecVet?: boolean;
 }
 /**
  * Options to pass to each
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface BrandRegistrationListInstanceEachOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (
     item: BrandRegistrationInstance,
     done: (err?: Error) => void
   ) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface BrandRegistrationListInstanceOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface BrandRegistrationListInstancePageOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
@@ -113,9 +101,9 @@ export interface BrandRegistrationContext {
   /**
    * Fetch a BrandRegistrationInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed BrandRegistrationInstance
+   * @returns Resolves to processed BrandRegistrationInstance
    */
   fetch(
     callback?: (error: Error | null, item?: BrandRegistrationInstance) => any
@@ -124,9 +112,9 @@ export interface BrandRegistrationContext {
   /**
    * Update a BrandRegistrationInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed BrandRegistrationInstance
+   * @returns Resolves to processed BrandRegistrationInstance
    */
   update(
     callback?: (error: Error | null, item?: BrandRegistrationInstance) => any
@@ -140,7 +128,7 @@ export interface BrandRegistrationContext {
 }
 
 export interface BrandRegistrationContextSolution {
-  sid?: string;
+  sid: string;
 }
 
 export class BrandRegistrationContextImpl implements BrandRegistrationContext {
@@ -165,10 +153,13 @@ export class BrandRegistrationContextImpl implements BrandRegistrationContext {
     return this._brandVettings;
   }
 
-  fetch(callback?: any): Promise<BrandRegistrationInstance> {
-    let operationVersion = this._version,
+  fetch(
+    callback?: (error: Error | null, item?: BrandRegistrationInstance) => any
+  ): Promise<BrandRegistrationInstance> {
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -177,21 +168,24 @@ export class BrandRegistrationContextImpl implements BrandRegistrationContext {
         new BrandRegistrationInstance(
           operationVersion,
           payload,
-          this._solution.sid
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
     return operationPromise;
   }
 
-  update(callback?: any): Promise<BrandRegistrationInstance> {
-    let operationVersion = this._version,
+  update(
+    callback?: (error: Error | null, item?: BrandRegistrationInstance) => any
+  ): Promise<BrandRegistrationInstance> {
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
       });
 
@@ -200,11 +194,11 @@ export class BrandRegistrationContextImpl implements BrandRegistrationContext {
         new BrandRegistrationInstance(
           operationVersion,
           payload,
-          this._solution.sid
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -230,26 +224,26 @@ interface BrandRegistrationPayload extends TwilioResponsePayload {
 }
 
 interface BrandRegistrationResource {
-  sid?: string | null;
-  account_sid?: string | null;
-  customer_profile_bundle_sid?: string | null;
-  a2p_profile_bundle_sid?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  brand_type?: string | null;
-  status?: BrandRegistrationsStatus;
-  tcr_id?: string | null;
-  failure_reason?: string | null;
-  url?: string | null;
-  brand_score?: number | null;
-  brand_feedback?: Array<BrandRegistrationsBrandFeedback> | null;
-  identity_status?: BrandRegistrationsIdentityStatus;
-  russell_3000?: boolean | null;
-  government_entity?: boolean | null;
-  tax_exempt_status?: string | null;
-  skip_automatic_sec_vet?: boolean | null;
-  mock?: boolean | null;
-  links?: object | null;
+  sid: string;
+  account_sid: string;
+  customer_profile_bundle_sid: string;
+  a2p_profile_bundle_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  brand_type: string;
+  status: BrandRegistrationsStatus;
+  tcr_id: string;
+  failure_reason: string;
+  url: string;
+  brand_score: number;
+  brand_feedback: Array<BrandRegistrationsBrandFeedback>;
+  identity_status: BrandRegistrationsIdentityStatus;
+  russell_3000: boolean;
+  government_entity: boolean;
+  tax_exempt_status: string;
+  skip_automatic_sec_vet: boolean;
+  mock: boolean;
+  links: Record<string, string>;
 }
 
 export class BrandRegistrationInstance {
@@ -288,74 +282,74 @@ export class BrandRegistrationInstance {
   /**
    * A2P BrandRegistration Sid
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * A2P Messaging Profile Bundle BundleSid
    */
-  customerProfileBundleSid?: string | null;
+  customerProfileBundleSid: string;
   /**
    * A2P Messaging Profile Bundle BundleSid
    */
-  a2pProfileBundleSid?: string | null;
+  a2pProfileBundleSid: string;
   /**
    * The ISO 8601 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The ISO 8601 date and time in GMT when the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * Type of brand. One of: \"STANDARD\", \"STARTER\".
    */
-  brandType?: string | null;
-  status?: BrandRegistrationsStatus;
+  brandType: string;
+  status: BrandRegistrationsStatus;
   /**
    * Campaign Registry (TCR) Brand ID
    */
-  tcrId?: string | null;
+  tcrId: string;
   /**
    * A reason why brand registration has failed
    */
-  failureReason?: string | null;
+  failureReason: string;
   /**
    * The absolute URL of the Brand Registration
    */
-  url?: string | null;
+  url: string;
   /**
    * Brand score
    */
-  brandScore?: number | null;
+  brandScore: number;
   /**
    * Brand feedback
    */
-  brandFeedback?: Array<BrandRegistrationsBrandFeedback> | null;
-  identityStatus?: BrandRegistrationsIdentityStatus;
+  brandFeedback: Array<BrandRegistrationsBrandFeedback>;
+  identityStatus: BrandRegistrationsIdentityStatus;
   /**
    * Russell 3000
    */
-  russell3000?: boolean | null;
+  russell3000: boolean;
   /**
    * Government Entity
    */
-  governmentEntity?: boolean | null;
+  governmentEntity: boolean;
   /**
    * Tax Exempt Status
    */
-  taxExemptStatus?: string | null;
+  taxExemptStatus: string;
   /**
    * Skip Automatic Secondary Vetting
    */
-  skipAutomaticSecVet?: boolean | null;
+  skipAutomaticSecVet: boolean;
   /**
    * A boolean that specifies whether brand should be a mock or not. If true, brand will be registered as a mock brand. Defaults to false if no value is provided.
    */
-  mock?: boolean | null;
-  links?: object | null;
+  mock: boolean;
+  links: Record<string, string>;
 
   private get _proxy(): BrandRegistrationContext {
     this._context =
@@ -367,9 +361,9 @@ export class BrandRegistrationInstance {
   /**
    * Fetch a BrandRegistrationInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed BrandRegistrationInstance
+   * @returns Resolves to processed BrandRegistrationInstance
    */
   fetch(
     callback?: (error: Error | null, item?: BrandRegistrationInstance) => any
@@ -380,9 +374,9 @@ export class BrandRegistrationInstance {
   /**
    * Update a BrandRegistrationInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed BrandRegistrationInstance
+   * @returns Resolves to processed BrandRegistrationInstance
    */
   update(
     callback?: (error: Error | null, item?: BrandRegistrationInstance) => any
@@ -432,44 +426,29 @@ export class BrandRegistrationInstance {
   }
 }
 
+export interface BrandRegistrationSolution {}
+
 export interface BrandRegistrationListInstance {
+  _version: V1;
+  _solution: BrandRegistrationSolution;
+  _uri: string;
+
   (sid: string): BrandRegistrationContext;
   get(sid: string): BrandRegistrationContext;
 
   /**
    * Create a BrandRegistrationInstance
    *
-   * @param { BrandRegistrationListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed BrandRegistrationInstance
+   * @returns Resolves to processed BrandRegistrationInstance
    */
   create(
     params: BrandRegistrationListInstanceCreateOptions,
     callback?: (error: Error | null, item?: BrandRegistrationInstance) => any
   ): Promise<BrandRegistrationInstance>;
-  create(params: any, callback?: any): Promise<BrandRegistrationInstance>;
 
-  /**
-   * Streams BrandRegistrationInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (
-      item: BrandRegistrationInstance,
-      done: (err?: Error) => void
-    ) => void
-  ): void;
   /**
    * Streams BrandRegistrationInstance records from the API.
    *
@@ -486,53 +465,30 @@ export interface BrandRegistrationListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: BrandRegistrationListInstanceEachOptions,
     callback?: (
       item: BrandRegistrationInstance,
       done: (err?: Error) => void
     ) => void
   ): void;
-  each(params?: any, callback?: any): void;
+  each(
+    params: BrandRegistrationListInstanceEachOptions,
+    callback?: (
+      item: BrandRegistrationInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
   /**
    * Retrieve a single target page of BrandRegistrationInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: BrandRegistrationPage) => any
-  ): Promise<BrandRegistrationPage>;
-  /**
-   * Retrieve a single target page of BrandRegistrationInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: BrandRegistrationPage) => any
   ): Promise<BrandRegistrationPage>;
-  getPage(params?: any, callback?: any): Promise<BrandRegistrationPage>;
-  /**
-   * Lists BrandRegistrationInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: BrandRegistrationInstance[]) => any
-  ): Promise<BrandRegistrationInstance[]>;
   /**
    * Lists BrandRegistrationInstance records from the API as a list.
    *
@@ -543,23 +499,12 @@ export interface BrandRegistrationListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: BrandRegistrationListInstanceOptions,
     callback?: (error: Error | null, items: BrandRegistrationInstance[]) => any
   ): Promise<BrandRegistrationInstance[]>;
-  list(params?: any, callback?: any): Promise<BrandRegistrationInstance[]>;
-  /**
-   * Retrieve a single page of BrandRegistrationInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: BrandRegistrationPage) => any
-  ): Promise<BrandRegistrationPage>;
+  list(
+    params: BrandRegistrationListInstanceOptions,
+    callback?: (error: Error | null, items: BrandRegistrationInstance[]) => any
+  ): Promise<BrandRegistrationInstance[]>;
   /**
    * Retrieve a single page of BrandRegistrationInstance records from the API.
    *
@@ -572,10 +517,12 @@ export interface BrandRegistrationListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
+    callback?: (error: Error | null, items: BrandRegistrationPage) => any
+  ): Promise<BrandRegistrationPage>;
+  page(
     params: BrandRegistrationListInstancePageOptions,
     callback?: (error: Error | null, items: BrandRegistrationPage) => any
   ): Promise<BrandRegistrationPage>;
-  page(params?: any, callback?: any): Promise<BrandRegistrationPage>;
 
   /**
    * Provide a user-friendly representation
@@ -584,23 +531,11 @@ export interface BrandRegistrationListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface BrandRegistrationSolution {}
-
-interface BrandRegistrationListInstanceImpl
-  extends BrandRegistrationListInstance {}
-class BrandRegistrationListInstanceImpl
-  implements BrandRegistrationListInstance
-{
-  _version?: V1;
-  _solution?: BrandRegistrationSolution;
-  _uri?: string;
-}
-
 export function BrandRegistrationListInstance(
   version: V1
 ): BrandRegistrationListInstance {
   const instance = ((sid) =>
-    instance.get(sid)) as BrandRegistrationListInstanceImpl;
+    instance.get(sid)) as BrandRegistrationListInstance;
 
   instance.get = function get(sid): BrandRegistrationContext {
     return new BrandRegistrationContextImpl(version, sid);
@@ -611,8 +546,8 @@ export function BrandRegistrationListInstance(
   instance._uri = `/a2p/BrandRegistrations`;
 
   instance.create = function create(
-    params: any,
-    callback?: any
+    params: BrandRegistrationListInstanceCreateOptions,
+    callback?: (error: Error | null, items: BrandRegistrationInstance) => any
   ): Promise<BrandRegistrationInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -655,7 +590,7 @@ export function BrandRegistrationListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -665,7 +600,7 @@ export function BrandRegistrationListInstance(
       (payload) => new BrandRegistrationInstance(operationVersion, payload)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -673,10 +608,12 @@ export function BrandRegistrationListInstance(
   };
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | BrandRegistrationListInstancePageOptions
+      | ((error: Error | null, items: BrandRegistrationPage) => any),
+    callback?: (error: Error | null, items: BrandRegistrationPage) => any
   ): Promise<BrandRegistrationPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -687,14 +624,14 @@ export function BrandRegistrationListInstance(
 
     if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
@@ -702,10 +639,10 @@ export function BrandRegistrationListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new BrandRegistrationPage(operationVersion, payload, this._solution)
+        new BrandRegistrationPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -715,34 +652,35 @@ export function BrandRegistrationListInstance(
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: BrandRegistrationPage) => any
   ): Promise<BrandRegistrationPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
+    let pagePromise = operationPromise.then(
       (payload) =>
-        new BrandRegistrationPage(this._version, payload, this._solution)
+        new BrandRegistrationPage(
+          instance._version,
+          payload,
+          instance._solution
+        )
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;
