@@ -339,7 +339,7 @@ interface TrustProductsResource {
   date_created: Date;
   date_updated: Date;
   url: string;
-  links: object;
+  links: Record<string, string>;
 }
 
 export class TrustProductsInstance {
@@ -411,7 +411,7 @@ export class TrustProductsInstance {
   /**
    * The URLs of the Assigned Items of the Customer-Profile resource
    */
-  links: object;
+  links: Record<string, string>;
 
   private get _proxy(): TrustProductsContext {
     this._context =

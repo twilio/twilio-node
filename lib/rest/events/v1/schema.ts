@@ -107,7 +107,7 @@ interface SchemaPayload extends SchemaResource {}
 interface SchemaResource {
   id: string;
   url: string;
-  links: object;
+  links: Record<string, string>;
   latest_version_date_created: Date;
   latest_version: number;
 }
@@ -139,7 +139,7 @@ export class SchemaInstance {
   /**
    * Nested resource URLs.
    */
-  links: object;
+  links: Record<string, string>;
   /**
    * The date that the latest schema version was created.
    */

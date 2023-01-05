@@ -219,7 +219,7 @@ interface RoomRecordingResource {
   offset: number;
   media_external_location: string;
   room_sid: string;
-  links: object;
+  links: Record<string, string>;
 }
 
 export class RoomRecordingInstance {
@@ -308,7 +308,7 @@ export class RoomRecordingInstance {
   /**
    * The URLs of related resources
    */
-  links: object;
+  links: Record<string, string>;
 
   private get _proxy(): RoomRecordingContext {
     this._context =

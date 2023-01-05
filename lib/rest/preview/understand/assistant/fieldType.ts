@@ -286,7 +286,7 @@ interface FieldTypeResource {
   date_created: Date;
   date_updated: Date;
   friendly_name: string;
-  links: object;
+  links: Record<string, string>;
   assistant_sid: string;
   sid: string;
   unique_name: string;
@@ -332,7 +332,7 @@ export class FieldTypeInstance {
    * A user-provided string that identifies this resource. It is non-unique and can up to 255 characters long.
    */
   friendlyName: string;
-  links: object;
+  links: Record<string, string>;
   /**
    * The unique ID of the Assistant.
    */

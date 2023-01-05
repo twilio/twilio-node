@@ -347,7 +347,7 @@ interface WorkflowResource {
   task_reservation_timeout: number;
   workspace_sid: string;
   url: string;
-  links: object;
+  links: Record<string, string>;
 }
 
 export class WorkflowInstance {
@@ -431,7 +431,7 @@ export class WorkflowInstance {
   /**
    * The URLs of related resources
    */
-  links: object;
+  links: Record<string, string>;
 
   private get _proxy(): WorkflowContext {
     this._context =

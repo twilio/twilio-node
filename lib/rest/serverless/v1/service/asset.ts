@@ -272,7 +272,7 @@ interface AssetResource {
   date_created: Date;
   date_updated: Date;
   url: string;
-  links: object;
+  links: Record<string, string>;
 }
 
 export class AssetInstance {
@@ -328,7 +328,7 @@ export class AssetInstance {
   /**
    * The URLs of the Asset resource\'s nested resources
    */
-  links: object;
+  links: Record<string, string>;
 
   private get _proxy(): AssetContext {
     this._context =

@@ -281,7 +281,7 @@ interface SubscriptionResource {
   description: string;
   sink_sid: string;
   url: string;
-  links: object;
+  links: Record<string, string>;
 }
 
 export class SubscriptionInstance {
@@ -336,7 +336,7 @@ export class SubscriptionInstance {
   /**
    * Nested resource URLs.
    */
-  links: object;
+  links: Record<string, string>;
 
   private get _proxy(): SubscriptionContext {
     this._context =

@@ -264,7 +264,7 @@ interface ConferenceResource {
   tag_info: any;
   processing_state: ConferenceProcessingState;
   url: string;
-  links: object;
+  links: Record<string, string>;
 }
 
 export class ConferenceInstance {
@@ -383,7 +383,7 @@ export class ConferenceInstance {
   /**
    * Nested resource URLs.
    */
-  links: object;
+  links: Record<string, string>;
 
   private get _proxy(): ConferenceContext {
     this._context =

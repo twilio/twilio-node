@@ -224,7 +224,7 @@ interface EngagementResource {
   date_created: Date;
   date_updated: Date;
   url: string;
-  links: object;
+  links: Record<string, string>;
 }
 
 export class EngagementInstance {
@@ -292,7 +292,7 @@ export class EngagementInstance {
   /**
    * The URLs of the Engagement\'s nested resources
    */
-  links: object;
+  links: Record<string, string>;
 
   private get _proxy(): EngagementContext {
     this._context =

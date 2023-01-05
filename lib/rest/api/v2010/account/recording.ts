@@ -310,7 +310,7 @@ interface RecordingResource {
   error_code: number;
   uri: string;
   encryption_details: any;
-  subresource_uris: object;
+  subresource_uris: Record<string, string>;
   media_url: string;
 }
 
@@ -412,7 +412,7 @@ export class RecordingInstance {
   /**
    * A list of related resources identified by their relative URIs
    */
-  subresourceUris: object;
+  subresourceUris: Record<string, string>;
   /**
    * The URL of the media file.
    */

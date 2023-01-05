@@ -294,7 +294,7 @@ interface UserConversationResource {
   notification_level: ServiceUserConversationNotificationLevel;
   unique_name: string;
   url: string;
-  links: object;
+  links: Record<string, string>;
 }
 
 export class UserConversationInstance {
@@ -400,7 +400,7 @@ export class UserConversationInstance {
   /**
    * Absolute URLs to access the participant and conversation of this user conversation.
    */
-  links: object;
+  links: Record<string, string>;
 
   private get _proxy(): UserConversationContext {
     this._context =

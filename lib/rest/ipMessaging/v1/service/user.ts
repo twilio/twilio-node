@@ -297,7 +297,7 @@ interface UserResource {
   date_created: Date;
   date_updated: Date;
   joined_channels_count: number;
-  links: object;
+  links: Record<string, string>;
   url: string;
 }
 
@@ -343,7 +343,7 @@ export class UserInstance {
   dateCreated: Date;
   dateUpdated: Date;
   joinedChannelsCount: number;
-  links: object;
+  links: Record<string, string>;
   url: string;
 
   private get _proxy(): UserContext {

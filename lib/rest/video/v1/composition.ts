@@ -249,7 +249,7 @@ interface CompositionResource {
   status_callback: string;
   status_callback_method: CompositionStatusCallbackMethod;
   url: string;
-  links: object;
+  links: Record<string, string>;
 }
 
 export class CompositionInstance {
@@ -363,7 +363,7 @@ export class CompositionInstance {
   /**
    * The URL of the media file associated with the composition
    */
-  links: object;
+  links: Record<string, string>;
 
   private get _proxy(): CompositionContext {
     this._context =

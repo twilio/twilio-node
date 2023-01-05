@@ -278,7 +278,7 @@ interface ActivityResource {
   sid: string;
   workspace_sid: string;
   url: string;
-  links: object;
+  links: Record<string, string>;
 }
 
 export class ActivityInstance {
@@ -336,7 +336,7 @@ export class ActivityInstance {
    * The absolute URL of the Activity resource
    */
   url: string;
-  links: object;
+  links: Record<string, string>;
 
   private get _proxy(): ActivityContext {
     this._context =

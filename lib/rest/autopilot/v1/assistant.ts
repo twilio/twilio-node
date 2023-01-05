@@ -364,7 +364,7 @@ interface AssistantResource {
   date_updated: Date;
   friendly_name: string;
   latest_model_build_sid: string;
-  links: object;
+  links: Record<string, string>;
   log_queries: boolean;
   development_stage: string;
   needs_model_build: boolean;
@@ -425,7 +425,7 @@ export class AssistantInstance {
   /**
    * A list of the URLs of the Assistant\'s related resources
    */
-  links: object;
+  links: Record<string, string>;
   /**
    * Whether queries should be logged and kept after training
    */

@@ -368,7 +368,7 @@ interface AssistantResource {
   date_updated: Date;
   friendly_name: string;
   latest_model_build_sid: string;
-  links: object;
+  links: Record<string, string>;
   log_queries: boolean;
   sid: string;
   unique_name: string;
@@ -422,7 +422,7 @@ export class AssistantInstance {
    * The unique ID (Sid) of the latest model build. Null if no model has been built.
    */
   latestModelBuildSid: string;
-  links: object;
+  links: Record<string, string>;
   /**
    * A boolean that specifies whether queries should be logged for 30 days further training. If false, no queries will be stored, if true, queries will be stored for 30 days and deleted thereafter.
    */

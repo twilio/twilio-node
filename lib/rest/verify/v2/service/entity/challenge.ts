@@ -314,7 +314,7 @@ interface ChallengeResource {
   metadata: any;
   factor_type: ChallengeFactorTypes;
   url: string;
-  links: object;
+  links: Record<string, string>;
 }
 
 export class ChallengeInstance {
@@ -412,7 +412,7 @@ export class ChallengeInstance {
   /**
    * Nested resource URLs.
    */
-  links: object;
+  links: Record<string, string>;
 
   private get _proxy(): ChallengeContext {
     this._context =

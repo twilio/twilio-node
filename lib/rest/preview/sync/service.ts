@@ -301,7 +301,7 @@ interface ServiceResource {
   webhook_url: string;
   reachability_webhooks_enabled: boolean;
   acl_enabled: boolean;
-  links: object;
+  links: Record<string, string>;
 }
 
 export class ServiceInstance {
@@ -336,7 +336,7 @@ export class ServiceInstance {
   webhookUrl: string;
   reachabilityWebhooksEnabled: boolean;
   aclEnabled: boolean;
-  links: object;
+  links: Record<string, string>;
 
   private get _proxy(): ServiceContext {
     this._context =

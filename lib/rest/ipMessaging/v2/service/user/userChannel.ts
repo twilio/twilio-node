@@ -282,7 +282,7 @@ interface UserChannelResource {
   status: UserChannelChannelStatus;
   last_consumed_message_index: number;
   unread_messages_count: number;
-  links: object;
+  links: Record<string, string>;
   url: string;
   notification_level: UserChannelNotificationLevel;
 }
@@ -329,7 +329,7 @@ export class UserChannelInstance {
   status: UserChannelChannelStatus;
   lastConsumedMessageIndex: number;
   unreadMessagesCount: number;
-  links: object;
+  links: Record<string, string>;
   url: string;
   notificationLevel: UserChannelNotificationLevel;
 

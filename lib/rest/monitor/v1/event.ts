@@ -182,7 +182,7 @@ interface EventResource {
   source: string;
   source_ip_address: string;
   url: string;
-  links: object;
+  links: Record<string, string>;
 }
 
 export class EventInstance {
@@ -263,7 +263,7 @@ export class EventInstance {
   /**
    * The absolute URLs of related resources
    */
-  links: object;
+  links: Record<string, string>;
 
   private get _proxy(): EventContext {
     this._context =

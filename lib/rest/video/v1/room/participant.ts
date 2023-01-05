@@ -314,7 +314,7 @@ interface ParticipantResource {
   end_time: Date;
   duration: number;
   url: string;
-  links: object;
+  links: Record<string, string>;
 }
 
 export class ParticipantInstance {
@@ -387,7 +387,7 @@ export class ParticipantInstance {
   /**
    * The URLs of related resources
    */
-  links: object;
+  links: Record<string, string>;
 
   private get _proxy(): ParticipantContext {
     this._context =

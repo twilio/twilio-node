@@ -324,7 +324,7 @@ interface RoomResource {
   unused_room_timeout: number;
   large_room: boolean;
   url: string;
-  links: object;
+  links: Record<string, string>;
 }
 
 export class RoomInstance {
@@ -453,7 +453,7 @@ export class RoomInstance {
   /**
    * The URLs of related resources
    */
-  links: object;
+  links: Record<string, string>;
 
   private get _proxy(): RoomContext {
     this._context =

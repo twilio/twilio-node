@@ -273,7 +273,7 @@ interface DocumentResource {
   account_sid: string;
   service_sid: string;
   url: string;
-  links: object;
+  links: Record<string, string>;
   revision: string;
   data: any;
   date_created: Date;
@@ -311,7 +311,7 @@ export class DocumentInstance {
   accountSid: string;
   serviceSid: string;
   url: string;
-  links: object;
+  links: Record<string, string>;
   revision: string;
   data: any;
   dateCreated: Date;

@@ -298,7 +298,7 @@ interface SyncMapResource {
   account_sid: string;
   service_sid: string;
   url: string;
-  links: object;
+  links: Record<string, string>;
   revision: string;
   date_expires: Date;
   date_created: Date;
@@ -354,7 +354,7 @@ export class SyncMapInstance {
   /**
    * The URLs of the Sync Map\'s nested resources
    */
-  links: object;
+  links: Record<string, string>;
   /**
    * The current revision of the Sync Map, represented as a string
    */

@@ -418,7 +418,7 @@ interface TaskResource {
   workflow_friendly_name: string;
   workspace_sid: string;
   url: string;
-  links: object;
+  links: Record<string, string>;
 }
 
 export class TaskInstance {
@@ -538,7 +538,7 @@ export class TaskInstance {
   /**
    * The URLs of related resources
    */
-  links: object;
+  links: Record<string, string>;
 
   private get _proxy(): TaskContext {
     this._context =

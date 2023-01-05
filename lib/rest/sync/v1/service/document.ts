@@ -288,7 +288,7 @@ interface DocumentResource {
   account_sid: string;
   service_sid: string;
   url: string;
-  links: object;
+  links: Record<string, string>;
   revision: string;
   data: any;
   date_expires: Date;
@@ -346,7 +346,7 @@ export class DocumentInstance {
   /**
    * The URLs of resources related to the Sync Document
    */
-  links: object;
+  links: Record<string, string>;
   /**
    * The current revision of the Sync Document, represented by a string identifier
    */

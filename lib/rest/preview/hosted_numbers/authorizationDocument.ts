@@ -315,7 +315,7 @@ interface AuthorizationDocumentResource {
   date_created: Date;
   date_updated: Date;
   url: string;
-  links: object;
+  links: Record<string, string>;
 }
 
 export class AuthorizationDocumentInstance {
@@ -366,7 +366,7 @@ export class AuthorizationDocumentInstance {
    */
   dateUpdated: Date;
   url: string;
-  links: object;
+  links: Record<string, string>;
 
   private get _proxy(): AuthorizationDocumentContext {
     this._context =

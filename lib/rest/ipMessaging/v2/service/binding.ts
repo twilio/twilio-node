@@ -196,7 +196,7 @@ interface BindingResource {
   binding_type: BindingBindingType;
   message_types: Array<string>;
   url: string;
-  links: object;
+  links: Record<string, string>;
 }
 
 export class BindingInstance {
@@ -236,7 +236,7 @@ export class BindingInstance {
   bindingType: BindingBindingType;
   messageTypes: Array<string>;
   url: string;
-  links: object;
+  links: Record<string, string>;
 
   private get _proxy(): BindingContext {
     this._context =

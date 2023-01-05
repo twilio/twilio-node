@@ -407,7 +407,7 @@ interface ConversationResource {
   date_updated: Date;
   timers: any;
   url: string;
-  links: object;
+  links: Record<string, string>;
   bindings: any;
 }
 
@@ -487,7 +487,7 @@ export class ConversationInstance {
   /**
    * Absolute URLs to access the participants, messages and webhooks of this conversation.
    */
-  links: object;
+  links: Record<string, string>;
   bindings: any;
 
   private get _proxy(): ConversationContext {

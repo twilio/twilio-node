@@ -235,7 +235,7 @@ interface BindingResource {
   address: string;
   tags: Array<string>;
   url: string;
-  links: object;
+  links: Record<string, string>;
 }
 
 export class BindingInstance {
@@ -321,7 +321,7 @@ export class BindingInstance {
   /**
    * The URLs of related resources
    */
-  links: object;
+  links: Record<string, string>;
 
   private get _proxy(): BindingContext {
     this._context =

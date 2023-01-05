@@ -177,7 +177,7 @@ interface ConfigurationResource {
   default_inactive_timer: string;
   default_closed_timer: string;
   url: string;
-  links: object;
+  links: Record<string, string>;
 }
 
 export class ConfigurationInstance {
@@ -223,7 +223,7 @@ export class ConfigurationInstance {
   /**
    * Absolute URLs to access the webhook and default service configurations.
    */
-  links: object;
+  links: Record<string, string>;
 
   private get _proxy(): ConfigurationContext {
     this._context =

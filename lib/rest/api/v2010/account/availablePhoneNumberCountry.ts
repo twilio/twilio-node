@@ -262,7 +262,7 @@ interface AvailablePhoneNumberCountryResource {
   country: string;
   uri: string;
   beta: boolean;
-  subresource_uris: object;
+  subresource_uris: Record<string, string>;
 }
 
 export class AvailablePhoneNumberCountryInstance {
@@ -306,7 +306,7 @@ export class AvailablePhoneNumberCountryInstance {
   /**
    * A list of related resources identified by their relative URIs
    */
-  subresourceUris: object;
+  subresourceUris: Record<string, string>;
 
   private get _proxy(): AvailablePhoneNumberCountryContext {
     this._context =

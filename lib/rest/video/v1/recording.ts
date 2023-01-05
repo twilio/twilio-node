@@ -230,7 +230,7 @@ interface RecordingResource {
   media_external_location: string;
   status_callback: string;
   status_callback_method: RecordingStatusCallbackMethod;
-  links: object;
+  links: Record<string, string>;
 }
 
 export class RecordingInstance {
@@ -323,7 +323,7 @@ export class RecordingInstance {
   /**
    * The URLs of related resources
    */
-  links: object;
+  links: Record<string, string>;
 
   private get _proxy(): RecordingContext {
     this._context =

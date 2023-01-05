@@ -249,7 +249,7 @@ interface NetworkAccessProfileResource {
   date_created: Date;
   date_updated: Date;
   url: string;
-  links: object;
+  links: Record<string, string>;
 }
 
 export class NetworkAccessProfileInstance {
@@ -296,7 +296,7 @@ export class NetworkAccessProfileInstance {
    * The absolute URL of the resource
    */
   url: string;
-  links: object;
+  links: Record<string, string>;
 
   private get _proxy(): NetworkAccessProfileContext {
     this._context =

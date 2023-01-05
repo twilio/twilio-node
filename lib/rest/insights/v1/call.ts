@@ -135,7 +135,7 @@ interface CallPayload extends CallResource {}
 interface CallResource {
   sid: string;
   url: string;
-  links: object;
+  links: Record<string, string>;
 }
 
 export class CallInstance {
@@ -152,7 +152,7 @@ export class CallInstance {
 
   sid: string;
   url: string;
-  links: object;
+  links: Record<string, string>;
 
   private get _proxy(): CallContext {
     this._context =

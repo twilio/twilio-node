@@ -123,7 +123,7 @@ interface InteractionResource {
   channel: any;
   routing: any;
   url: string;
-  links: object;
+  links: Record<string, string>;
 }
 
 export class InteractionInstance {
@@ -157,7 +157,7 @@ export class InteractionInstance {
    */
   routing: any;
   url: string;
-  links: object;
+  links: Record<string, string>;
 
   private get _proxy(): InteractionContext {
     this._context =

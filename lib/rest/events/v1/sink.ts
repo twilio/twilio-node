@@ -280,7 +280,7 @@ interface SinkResource {
   sink_type: SinkSinkType;
   status: SinkStatus;
   url: string;
-  links: object;
+  links: Record<string, string>;
 }
 
 export class SinkInstance {
@@ -330,7 +330,7 @@ export class SinkInstance {
   /**
    * Nested resource URLs.
    */
-  links: object;
+  links: Record<string, string>;
 
   private get _proxy(): SinkContext {
     this._context =

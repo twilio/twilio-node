@@ -272,7 +272,7 @@ interface FunctionResource {
   date_created: Date;
   date_updated: Date;
   url: string;
-  links: object;
+  links: Record<string, string>;
 }
 
 export class FunctionInstance {
@@ -328,7 +328,7 @@ export class FunctionInstance {
   /**
    * The URLs of nested resources of the Function resource
    */
-  links: object;
+  links: Record<string, string>;
 
   private get _proxy(): FunctionContext {
     this._context =

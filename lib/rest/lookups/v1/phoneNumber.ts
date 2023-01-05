@@ -29,7 +29,7 @@ export interface PhoneNumberContextFetchOptions {
   /** The `unique_name` of an Add-on you would like to invoke. Can be the `unique_name` of an Add-on that is installed on your account. You can specify multiple instances of this parameter to invoke multiple Add-ons. For more information about  Add-ons, see the [Add-ons documentation](https://www.twilio.com/docs/add-ons). */
   addOns?: Array<string>;
   /** Data specific to the add-on you would like to invoke. The content and format of this value depends on the add-on. */
-  addOnsData?: object;
+  addOnsData?: Record<string, object>;
 }
 
 export interface PhoneNumberContext {

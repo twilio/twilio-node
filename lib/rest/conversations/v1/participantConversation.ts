@@ -282,7 +282,7 @@ interface ParticipantConversationResource {
   conversation_created_by: string;
   conversation_state: ParticipantConversationState;
   conversation_timers: any;
-  links: object;
+  links: Record<string, string>;
 }
 
 export class ParticipantConversationInstance {
@@ -372,7 +372,7 @@ export class ParticipantConversationInstance {
   /**
    * Absolute URLs to access the participant and conversation of this Participant Conversation.
    */
-  links: object;
+  links: Record<string, string>;
 
   /**
    * Provide a user-friendly representation

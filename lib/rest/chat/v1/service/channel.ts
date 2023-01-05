@@ -335,7 +335,7 @@ interface ChannelResource {
   members_count: number;
   messages_count: number;
   url: string;
-  links: object;
+  links: Record<string, string>;
 }
 
 export class ChannelInstance {
@@ -418,7 +418,7 @@ export class ChannelInstance {
   /**
    * Absolute URLs to access the Members, Messages , Invites and, if it exists, the last Message for the Channel
    */
-  links: object;
+  links: Record<string, string>;
 
   private get _proxy(): ChannelContext {
     this._context =

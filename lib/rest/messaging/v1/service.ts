@@ -422,7 +422,7 @@ interface ServiceResource {
   synchronous_validation: boolean;
   validity_period: number;
   url: string;
-  links: object;
+  links: Record<string, string>;
   usecase: string;
   us_app_to_person_registered: boolean;
   use_inbound_webhook_on_number: boolean;
@@ -536,7 +536,7 @@ export class ServiceInstance {
   /**
    * The absolute URLs of related resources
    */
-  links: object;
+  links: Record<string, string>;
   /**
    * A string describing the scenario in which the Messaging Service will be used
    */

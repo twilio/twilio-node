@@ -229,7 +229,7 @@ interface EntityResource {
   date_created: Date;
   date_updated: Date;
   url: string;
-  links: object;
+  links: Record<string, string>;
 }
 
 export class EntityInstance {
@@ -285,7 +285,7 @@ export class EntityInstance {
   /**
    * Nested resource URLs.
    */
-  links: object;
+  links: Record<string, string>;
 
   private get _proxy(): EntityContext {
     this._context =

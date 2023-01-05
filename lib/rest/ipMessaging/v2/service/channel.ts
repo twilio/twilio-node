@@ -413,7 +413,7 @@ interface ChannelResource {
   members_count: number;
   messages_count: number;
   url: string;
-  links: object;
+  links: Record<string, string>;
 }
 
 export class ChannelInstance {
@@ -457,7 +457,7 @@ export class ChannelInstance {
   membersCount: number;
   messagesCount: number;
   url: string;
-  links: object;
+  links: Record<string, string>;
 
   private get _proxy(): ChannelContext {
     this._context =

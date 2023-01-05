@@ -213,7 +213,7 @@ interface SyncListResource {
   account_sid: string;
   service_sid: string;
   url: string;
-  links: object;
+  links: Record<string, string>;
   revision: string;
   date_created: Date;
   date_updated: Date;
@@ -249,7 +249,7 @@ export class SyncListInstance {
   accountSid: string;
   serviceSid: string;
   url: string;
-  links: object;
+  links: Record<string, string>;
   revision: string;
   dateCreated: Date;
   dateUpdated: Date;
