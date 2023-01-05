@@ -1,5 +1,3 @@
-"use strict";
-
 import mockfs from "mock-fs";
 import axios from "axios";
 import RequestClient from "../../../lib/base/RequestClient";

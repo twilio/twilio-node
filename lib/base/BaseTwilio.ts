@@ -1,5 +1,3 @@
-"use strict";
-
 import RequestClient from "./RequestClient"; /* jshint ignore:line */
 import { HttpMethod } from "../interfaces"; /* jshint ignore:line */
 

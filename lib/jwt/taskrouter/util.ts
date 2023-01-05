@@ -1,5 +1,3 @@
-"use strict";
-
 import { Policy } from "./TaskRouterCapability";
 
 const EVENT_URL_BASE = "https://event-bridge.twilio.com/v1/wschannels";

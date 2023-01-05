@@ -1,5 +1,3 @@
-"use strict";
-
 import Domain from "./Domain";
 import { RequestOpts } from "./BaseTwilio";
 import RestException from "./RestException";
