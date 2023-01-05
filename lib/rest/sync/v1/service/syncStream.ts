@@ -121,7 +121,6 @@ export interface SyncStreamContext {
     params: SyncStreamContextUpdateOptions,
     callback?: (error: Error | null, item?: SyncStreamInstance) => any
   ): Promise<SyncStreamInstance>;
-  update(params?: any, callback?: any): Promise<SyncStreamInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -165,7 +164,9 @@ export class SyncStreamContextImpl implements SyncStreamContext {
     return this._streamMessages;
   }
 
-  remove(callback?: any): Promise<boolean> {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
@@ -180,7 +181,9 @@ export class SyncStreamContextImpl implements SyncStreamContext {
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<SyncStreamInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: SyncStreamInstance) => any
+  ): Promise<SyncStreamInstance> {
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
@@ -205,8 +208,13 @@ export class SyncStreamContextImpl implements SyncStreamContext {
     return operationPromise;
   }
 
-  update(params?: any, callback?: any): Promise<SyncStreamInstance> {
-    if (typeof params === "function") {
+  update(
+    params?:
+      | SyncStreamContextUpdateOptions
+      | ((error: Error | null, item?: SyncStreamInstance) => any),
+    callback?: (error: Error | null, item?: SyncStreamInstance) => any
+  ): Promise<SyncStreamInstance> {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -401,7 +409,11 @@ export class SyncStreamInstance {
     params: SyncStreamContextUpdateOptions,
     callback?: (error: Error | null, item?: SyncStreamInstance) => any
   ): Promise<SyncStreamInstance>;
-  update(params?: any, callback?: any): Promise<SyncStreamInstance> {
+
+  update(
+    params?: any,
+    callback?: (error: Error | null, item?: SyncStreamInstance) => any
+  ): Promise<SyncStreamInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -471,25 +483,7 @@ export interface SyncStreamListInstance {
     params: SyncStreamListInstanceCreateOptions,
     callback?: (error: Error | null, item?: SyncStreamInstance) => any
   ): Promise<SyncStreamInstance>;
-  create(params?: any, callback?: any): Promise<SyncStreamInstance>;
 
-  /**
-   * Streams SyncStreamInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (item: SyncStreamInstance, done: (err?: Error) => void) => void
-  ): void;
   /**
    * Streams SyncStreamInstance records from the API.
    *
@@ -506,50 +500,24 @@ export interface SyncStreamListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: SyncStreamListInstanceEachOptions,
     callback?: (item: SyncStreamInstance, done: (err?: Error) => void) => void
   ): void;
-  each(params?: any, callback?: any): void;
+  each(
+    params: SyncStreamListInstanceEachOptions,
+    callback?: (item: SyncStreamInstance, done: (err?: Error) => void) => void
+  ): void;
   /**
    * Retrieve a single target page of SyncStreamInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: SyncStreamPage) => any
-  ): Promise<SyncStreamPage>;
-  /**
-   * Retrieve a single target page of SyncStreamInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: SyncStreamPage) => any
   ): Promise<SyncStreamPage>;
-  getPage(params?: any, callback?: any): Promise<SyncStreamPage>;
-  /**
-   * Lists SyncStreamInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: SyncStreamInstance[]) => any
-  ): Promise<SyncStreamInstance[]>;
   /**
    * Lists SyncStreamInstance records from the API as a list.
    *
@@ -560,23 +528,12 @@ export interface SyncStreamListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: SyncStreamListInstanceOptions,
     callback?: (error: Error | null, items: SyncStreamInstance[]) => any
   ): Promise<SyncStreamInstance[]>;
-  list(params?: any, callback?: any): Promise<SyncStreamInstance[]>;
-  /**
-   * Retrieve a single page of SyncStreamInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: SyncStreamPage) => any
-  ): Promise<SyncStreamPage>;
+  list(
+    params: SyncStreamListInstanceOptions,
+    callback?: (error: Error | null, items: SyncStreamInstance[]) => any
+  ): Promise<SyncStreamInstance[]>;
   /**
    * Retrieve a single page of SyncStreamInstance records from the API.
    *
@@ -589,10 +546,12 @@ export interface SyncStreamListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
+    callback?: (error: Error | null, items: SyncStreamPage) => any
+  ): Promise<SyncStreamPage>;
+  page(
     params: SyncStreamListInstancePageOptions,
     callback?: (error: Error | null, items: SyncStreamPage) => any
   ): Promise<SyncStreamPage>;
-  page(params?: any, callback?: any): Promise<SyncStreamPage>;
 
   /**
    * Provide a user-friendly representation
@@ -620,10 +579,12 @@ export function SyncStreamListInstance(
   instance._uri = `/Services/${serviceSid}/Streams`;
 
   instance.create = function create(
-    params?: any,
-    callback?: any
+    params?:
+      | SyncStreamListInstanceCreateOptions
+      | ((error: Error | null, items: SyncStreamInstance) => any),
+    callback?: (error: Error | null, items: SyncStreamInstance) => any
   ): Promise<SyncStreamInstance> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -664,10 +625,12 @@ export function SyncStreamListInstance(
   };
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | SyncStreamListInstancePageOptions
+      | ((error: Error | null, items: SyncStreamPage) => any),
+    callback?: (error: Error | null, items: SyncStreamPage) => any
   ): Promise<SyncStreamPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -678,7 +641,7 @@ export function SyncStreamListInstance(
 
     if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
@@ -706,8 +669,8 @@ export function SyncStreamListInstance(
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: SyncStreamPage) => any
   ): Promise<SyncStreamPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",

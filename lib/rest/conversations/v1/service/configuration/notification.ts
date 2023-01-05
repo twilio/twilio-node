@@ -84,7 +84,6 @@ export interface NotificationContext {
     params: NotificationContextUpdateOptions,
     callback?: (error: Error | null, item?: NotificationInstance) => any
   ): Promise<NotificationInstance>;
-  update(params?: any, callback?: any): Promise<NotificationInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -110,7 +109,9 @@ export class NotificationContextImpl implements NotificationContext {
     this._uri = `/Services/${chatServiceSid}/Configuration/Notifications`;
   }
 
-  fetch(callback?: any): Promise<NotificationInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: NotificationInstance) => any
+  ): Promise<NotificationInstance> {
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
@@ -134,8 +135,13 @@ export class NotificationContextImpl implements NotificationContext {
     return operationPromise;
   }
 
-  update(params?: any, callback?: any): Promise<NotificationInstance> {
-    if (typeof params === "function") {
+  update(
+    params?:
+      | NotificationContextUpdateOptions
+      | ((error: Error | null, item?: NotificationInstance) => any),
+    callback?: (error: Error | null, item?: NotificationInstance) => any
+  ): Promise<NotificationInstance> {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -328,7 +334,11 @@ export class NotificationInstance {
     params: NotificationContextUpdateOptions,
     callback?: (error: Error | null, item?: NotificationInstance) => any
   ): Promise<NotificationInstance>;
-  update(params?: any, callback?: any): Promise<NotificationInstance> {
+
+  update(
+    params?: any,
+    callback?: (error: Error | null, item?: NotificationInstance) => any
+  ): Promise<NotificationInstance> {
     return this._proxy.update(params, callback);
   }
 

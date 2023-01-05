@@ -141,7 +141,9 @@ export class BuildContextImpl implements BuildContext {
     return this._buildStatus;
   }
 
-  remove(callback?: any): Promise<boolean> {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
@@ -156,7 +158,9 @@ export class BuildContextImpl implements BuildContext {
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<BuildInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: BuildInstance) => any
+  ): Promise<BuildInstance> {
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
@@ -385,25 +389,7 @@ export interface BuildListInstance {
     params: BuildListInstanceCreateOptions,
     callback?: (error: Error | null, item?: BuildInstance) => any
   ): Promise<BuildInstance>;
-  create(params?: any, callback?: any): Promise<BuildInstance>;
 
-  /**
-   * Streams BuildInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (item: BuildInstance, done: (err?: Error) => void) => void
-  ): void;
   /**
    * Streams BuildInstance records from the API.
    *
@@ -420,50 +406,24 @@ export interface BuildListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: BuildListInstanceEachOptions,
     callback?: (item: BuildInstance, done: (err?: Error) => void) => void
   ): void;
-  each(params?: any, callback?: any): void;
+  each(
+    params: BuildListInstanceEachOptions,
+    callback?: (item: BuildInstance, done: (err?: Error) => void) => void
+  ): void;
   /**
    * Retrieve a single target page of BuildInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: BuildPage) => any
-  ): Promise<BuildPage>;
-  /**
-   * Retrieve a single target page of BuildInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: BuildPage) => any
   ): Promise<BuildPage>;
-  getPage(params?: any, callback?: any): Promise<BuildPage>;
-  /**
-   * Lists BuildInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: BuildInstance[]) => any
-  ): Promise<BuildInstance[]>;
   /**
    * Lists BuildInstance records from the API as a list.
    *
@@ -474,23 +434,12 @@ export interface BuildListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: BuildListInstanceOptions,
     callback?: (error: Error | null, items: BuildInstance[]) => any
   ): Promise<BuildInstance[]>;
-  list(params?: any, callback?: any): Promise<BuildInstance[]>;
-  /**
-   * Retrieve a single page of BuildInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: BuildPage) => any
-  ): Promise<BuildPage>;
+  list(
+    params: BuildListInstanceOptions,
+    callback?: (error: Error | null, items: BuildInstance[]) => any
+  ): Promise<BuildInstance[]>;
   /**
    * Retrieve a single page of BuildInstance records from the API.
    *
@@ -503,10 +452,12 @@ export interface BuildListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
+    callback?: (error: Error | null, items: BuildPage) => any
+  ): Promise<BuildPage>;
+  page(
     params: BuildListInstancePageOptions,
     callback?: (error: Error | null, items: BuildPage) => any
   ): Promise<BuildPage>;
-  page(params?: any, callback?: any): Promise<BuildPage>;
 
   /**
    * Provide a user-friendly representation
@@ -534,10 +485,12 @@ export function BuildListInstance(
   instance._uri = `/Services/${serviceSid}/Builds`;
 
   instance.create = function create(
-    params?: any,
-    callback?: any
+    params?:
+      | BuildListInstanceCreateOptions
+      | ((error: Error | null, items: BuildInstance) => any),
+    callback?: (error: Error | null, items: BuildInstance) => any
   ): Promise<BuildInstance> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -588,10 +541,12 @@ export function BuildListInstance(
   };
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | BuildListInstancePageOptions
+      | ((error: Error | null, items: BuildPage) => any),
+    callback?: (error: Error | null, items: BuildPage) => any
   ): Promise<BuildPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -602,7 +557,7 @@ export function BuildListInstance(
 
     if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
@@ -629,8 +584,8 @@ export function BuildListInstance(
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: BuildPage) => any
   ): Promise<BuildPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",

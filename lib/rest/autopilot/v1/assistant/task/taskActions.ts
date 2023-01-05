@@ -60,7 +60,6 @@ export interface TaskActionsContext {
     params: TaskActionsContextUpdateOptions,
     callback?: (error: Error | null, item?: TaskActionsInstance) => any
   ): Promise<TaskActionsInstance>;
-  update(params?: any, callback?: any): Promise<TaskActionsInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -91,7 +90,9 @@ export class TaskActionsContextImpl implements TaskActionsContext {
     this._uri = `/Assistants/${assistantSid}/Tasks/${taskSid}/Actions`;
   }
 
-  fetch(callback?: any): Promise<TaskActionsInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: TaskActionsInstance) => any
+  ): Promise<TaskActionsInstance> {
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
@@ -116,8 +117,13 @@ export class TaskActionsContextImpl implements TaskActionsContext {
     return operationPromise;
   }
 
-  update(params?: any, callback?: any): Promise<TaskActionsInstance> {
-    if (typeof params === "function") {
+  update(
+    params?:
+      | TaskActionsContextUpdateOptions
+      | ((error: Error | null, item?: TaskActionsInstance) => any),
+    callback?: (error: Error | null, item?: TaskActionsInstance) => any
+  ): Promise<TaskActionsInstance> {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -268,7 +274,11 @@ export class TaskActionsInstance {
     params: TaskActionsContextUpdateOptions,
     callback?: (error: Error | null, item?: TaskActionsInstance) => any
   ): Promise<TaskActionsInstance>;
-  update(params?: any, callback?: any): Promise<TaskActionsInstance> {
+
+  update(
+    params?: any,
+    callback?: (error: Error | null, item?: TaskActionsInstance) => any
+  ): Promise<TaskActionsInstance> {
     return this._proxy.update(params, callback);
   }
 

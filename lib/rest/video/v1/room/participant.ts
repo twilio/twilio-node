@@ -132,7 +132,6 @@ export interface ParticipantContext {
     params: ParticipantContextUpdateOptions,
     callback?: (error: Error | null, item?: ParticipantInstance) => any
   ): Promise<ParticipantInstance>;
-  update(params?: any, callback?: any): Promise<ParticipantInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -212,7 +211,9 @@ export class ParticipantContextImpl implements ParticipantContext {
     return this._subscribedTracks;
   }
 
-  fetch(callback?: any): Promise<ParticipantInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: ParticipantInstance) => any
+  ): Promise<ParticipantInstance> {
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
@@ -237,8 +238,13 @@ export class ParticipantContextImpl implements ParticipantContext {
     return operationPromise;
   }
 
-  update(params?: any, callback?: any): Promise<ParticipantInstance> {
-    if (typeof params === "function") {
+  update(
+    params?:
+      | ParticipantContextUpdateOptions
+      | ((error: Error | null, item?: ParticipantInstance) => any),
+    callback?: (error: Error | null, item?: ParticipantInstance) => any
+  ): Promise<ParticipantInstance> {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -429,7 +435,11 @@ export class ParticipantInstance {
     params: ParticipantContextUpdateOptions,
     callback?: (error: Error | null, item?: ParticipantInstance) => any
   ): Promise<ParticipantInstance>;
-  update(params?: any, callback?: any): Promise<ParticipantInstance> {
+
+  update(
+    params?: any,
+    callback?: (error: Error | null, item?: ParticipantInstance) => any
+  ): Promise<ParticipantInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -512,71 +522,28 @@ export interface ParticipantListInstance {
    * If a function is passed as the first argument, it will be used as the callback
    * function.
    *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (item: ParticipantInstance, done: (err?: Error) => void) => void
-  ): void;
-  /**
-   * Streams ParticipantInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
    * @param { ParticipantListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: ParticipantListInstanceEachOptions,
     callback?: (item: ParticipantInstance, done: (err?: Error) => void) => void
   ): void;
-  each(params?: any, callback?: any): void;
+  each(
+    params: ParticipantListInstanceEachOptions,
+    callback?: (item: ParticipantInstance, done: (err?: Error) => void) => void
+  ): void;
   /**
    * Retrieve a single target page of ParticipantInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: ParticipantPage) => any
-  ): Promise<ParticipantPage>;
-  /**
-   * Retrieve a single target page of ParticipantInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: ParticipantPage) => any
   ): Promise<ParticipantPage>;
-  getPage(params?: any, callback?: any): Promise<ParticipantPage>;
-  /**
-   * Lists ParticipantInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: ParticipantInstance[]) => any
-  ): Promise<ParticipantInstance[]>;
   /**
    * Lists ParticipantInstance records from the API as a list.
    *
@@ -587,23 +554,12 @@ export interface ParticipantListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: ParticipantListInstanceOptions,
     callback?: (error: Error | null, items: ParticipantInstance[]) => any
   ): Promise<ParticipantInstance[]>;
-  list(params?: any, callback?: any): Promise<ParticipantInstance[]>;
-  /**
-   * Retrieve a single page of ParticipantInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: ParticipantPage) => any
-  ): Promise<ParticipantPage>;
+  list(
+    params: ParticipantListInstanceOptions,
+    callback?: (error: Error | null, items: ParticipantInstance[]) => any
+  ): Promise<ParticipantInstance[]>;
   /**
    * Retrieve a single page of ParticipantInstance records from the API.
    *
@@ -616,10 +572,12 @@ export interface ParticipantListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
+    callback?: (error: Error | null, items: ParticipantPage) => any
+  ): Promise<ParticipantPage>;
+  page(
     params: ParticipantListInstancePageOptions,
     callback?: (error: Error | null, items: ParticipantPage) => any
   ): Promise<ParticipantPage>;
-  page(params?: any, callback?: any): Promise<ParticipantPage>;
 
   /**
    * Provide a user-friendly representation
@@ -647,10 +605,12 @@ export function ParticipantListInstance(
   instance._uri = `/Rooms/${roomSid}/Participants`;
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | ParticipantListInstancePageOptions
+      | ((error: Error | null, items: ParticipantPage) => any),
+    callback?: (error: Error | null, items: ParticipantPage) => any
   ): Promise<ParticipantPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -671,7 +631,7 @@ export function ParticipantListInstance(
       );
     if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
@@ -699,8 +659,8 @@ export function ParticipantListInstance(
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: ParticipantPage) => any
   ): Promise<ParticipantPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",

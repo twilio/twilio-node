@@ -102,7 +102,6 @@ export interface PaymentContext {
     params: PaymentContextUpdateOptions,
     callback?: (error: Error | null, item?: PaymentInstance) => any
   ): Promise<PaymentInstance>;
-  update(params: any, callback?: any): Promise<PaymentInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -143,7 +142,12 @@ export class PaymentContextImpl implements PaymentContext {
     this._uri = `/Accounts/${accountSid}/Calls/${callSid}/Payments/${sid}.json`;
   }
 
-  update(params: any, callback?: any): Promise<PaymentInstance> {
+  update(
+    params:
+      | PaymentContextUpdateOptions
+      | ((error: Error | null, item?: PaymentInstance) => any),
+    callback?: (error: Error | null, item?: PaymentInstance) => any
+  ): Promise<PaymentInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
@@ -299,7 +303,11 @@ export class PaymentInstance {
     params: PaymentContextUpdateOptions,
     callback?: (error: Error | null, item?: PaymentInstance) => any
   ): Promise<PaymentInstance>;
-  update(params: any, callback?: any): Promise<PaymentInstance> {
+
+  update(
+    params?: any,
+    callback?: (error: Error | null, item?: PaymentInstance) => any
+  ): Promise<PaymentInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -349,7 +357,6 @@ export interface PaymentListInstance {
     params: PaymentListInstanceCreateOptions,
     callback?: (error: Error | null, item?: PaymentInstance) => any
   ): Promise<PaymentInstance>;
-  create(params: any, callback?: any): Promise<PaymentInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -382,8 +389,8 @@ export function PaymentListInstance(
   instance._uri = `/Accounts/${accountSid}/Calls/${callSid}/Payments.json`;
 
   instance.create = function create(
-    params: any,
-    callback?: any
+    params: PaymentListInstanceCreateOptions,
+    callback?: (error: Error | null, items: PaymentInstance) => any
   ): Promise<PaymentInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');

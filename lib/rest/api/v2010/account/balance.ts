@@ -59,7 +59,9 @@ export function BalanceListInstance(
   instance._solution = { accountSid };
   instance._uri = `/Accounts/${accountSid}/Balance.json`;
 
-  instance.fetch = function fetch(callback?: any): Promise<BalanceInstance> {
+  instance.fetch = function fetch(
+    callback?: (error: Error | null, items: BalanceInstance) => any
+  ): Promise<BalanceInstance> {
     let operationVersion = version,
       operationPromise = operationVersion.fetch({
         uri: instance._uri,

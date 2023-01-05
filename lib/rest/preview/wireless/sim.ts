@@ -160,7 +160,6 @@ export interface SimContext {
     params: SimContextUpdateOptions,
     callback?: (error: Error | null, item?: SimInstance) => any
   ): Promise<SimInstance>;
-  update(params?: any, callback?: any): Promise<SimInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -194,7 +193,9 @@ export class SimContextImpl implements SimContext {
     return this._usage;
   }
 
-  fetch(callback?: any): Promise<SimInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: SimInstance) => any
+  ): Promise<SimInstance> {
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
@@ -214,8 +215,13 @@ export class SimContextImpl implements SimContext {
     return operationPromise;
   }
 
-  update(params?: any, callback?: any): Promise<SimInstance> {
-    if (typeof params === "function") {
+  update(
+    params?:
+      | SimContextUpdateOptions
+      | ((error: Error | null, item?: SimInstance) => any),
+    callback?: (error: Error | null, item?: SimInstance) => any
+  ): Promise<SimInstance> {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -442,7 +448,11 @@ export class SimInstance {
     params: SimContextUpdateOptions,
     callback?: (error: Error | null, item?: SimInstance) => any
   ): Promise<SimInstance>;
-  update(params?: any, callback?: any): Promise<SimInstance> {
+
+  update(
+    params?: any,
+    callback?: (error: Error | null, item?: SimInstance) => any
+  ): Promise<SimInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -512,71 +522,28 @@ export interface SimListInstance {
    * If a function is passed as the first argument, it will be used as the callback
    * function.
    *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (item: SimInstance, done: (err?: Error) => void) => void
-  ): void;
-  /**
-   * Streams SimInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
    * @param { SimListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: SimListInstanceEachOptions,
     callback?: (item: SimInstance, done: (err?: Error) => void) => void
   ): void;
-  each(params?: any, callback?: any): void;
+  each(
+    params: SimListInstanceEachOptions,
+    callback?: (item: SimInstance, done: (err?: Error) => void) => void
+  ): void;
   /**
    * Retrieve a single target page of SimInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: SimPage) => any
-  ): Promise<SimPage>;
-  /**
-   * Retrieve a single target page of SimInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: SimPage) => any
   ): Promise<SimPage>;
-  getPage(params?: any, callback?: any): Promise<SimPage>;
-  /**
-   * Lists SimInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: SimInstance[]) => any
-  ): Promise<SimInstance[]>;
   /**
    * Lists SimInstance records from the API as a list.
    *
@@ -587,23 +554,12 @@ export interface SimListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: SimListInstanceOptions,
     callback?: (error: Error | null, items: SimInstance[]) => any
   ): Promise<SimInstance[]>;
-  list(params?: any, callback?: any): Promise<SimInstance[]>;
-  /**
-   * Retrieve a single page of SimInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: SimPage) => any
-  ): Promise<SimPage>;
+  list(
+    params: SimListInstanceOptions,
+    callback?: (error: Error | null, items: SimInstance[]) => any
+  ): Promise<SimInstance[]>;
   /**
    * Retrieve a single page of SimInstance records from the API.
    *
@@ -616,10 +572,12 @@ export interface SimListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
+    callback?: (error: Error | null, items: SimPage) => any
+  ): Promise<SimPage>;
+  page(
     params: SimListInstancePageOptions,
     callback?: (error: Error | null, items: SimPage) => any
   ): Promise<SimPage>;
-  page(params?: any, callback?: any): Promise<SimPage>;
 
   /**
    * Provide a user-friendly representation
@@ -640,10 +598,12 @@ export function SimListInstance(version: Wireless): SimListInstance {
   instance._uri = `/Sims`;
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | SimListInstancePageOptions
+      | ((error: Error | null, items: SimPage) => any),
+    callback?: (error: Error | null, items: SimPage) => any
   ): Promise<SimPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -660,7 +620,7 @@ export function SimListInstance(version: Wireless): SimListInstance {
       data["SimRegistrationCode"] = params["simRegistrationCode"];
     if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
@@ -687,8 +647,8 @@ export function SimListInstance(version: Wireless): SimListInstance {
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: SimPage) => any
   ): Promise<SimPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",

@@ -159,7 +159,9 @@ export class EntityContextImpl implements EntityContext {
     return this._newFactors;
   }
 
-  remove(callback?: any): Promise<boolean> {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
@@ -174,7 +176,9 @@ export class EntityContextImpl implements EntityContext {
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<EntityInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: EntityInstance) => any
+  ): Promise<EntityInstance> {
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
@@ -388,25 +392,7 @@ export interface EntityListInstance {
     params: EntityListInstanceCreateOptions,
     callback?: (error: Error | null, item?: EntityInstance) => any
   ): Promise<EntityInstance>;
-  create(params: any, callback?: any): Promise<EntityInstance>;
 
-  /**
-   * Streams EntityInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (item: EntityInstance, done: (err?: Error) => void) => void
-  ): void;
   /**
    * Streams EntityInstance records from the API.
    *
@@ -423,50 +409,24 @@ export interface EntityListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: EntityListInstanceEachOptions,
     callback?: (item: EntityInstance, done: (err?: Error) => void) => void
   ): void;
-  each(params?: any, callback?: any): void;
+  each(
+    params: EntityListInstanceEachOptions,
+    callback?: (item: EntityInstance, done: (err?: Error) => void) => void
+  ): void;
   /**
    * Retrieve a single target page of EntityInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: EntityPage) => any
-  ): Promise<EntityPage>;
-  /**
-   * Retrieve a single target page of EntityInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: EntityPage) => any
   ): Promise<EntityPage>;
-  getPage(params?: any, callback?: any): Promise<EntityPage>;
-  /**
-   * Lists EntityInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: EntityInstance[]) => any
-  ): Promise<EntityInstance[]>;
   /**
    * Lists EntityInstance records from the API as a list.
    *
@@ -477,23 +437,12 @@ export interface EntityListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: EntityListInstanceOptions,
     callback?: (error: Error | null, items: EntityInstance[]) => any
   ): Promise<EntityInstance[]>;
-  list(params?: any, callback?: any): Promise<EntityInstance[]>;
-  /**
-   * Retrieve a single page of EntityInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: EntityPage) => any
-  ): Promise<EntityPage>;
+  list(
+    params: EntityListInstanceOptions,
+    callback?: (error: Error | null, items: EntityInstance[]) => any
+  ): Promise<EntityInstance[]>;
   /**
    * Retrieve a single page of EntityInstance records from the API.
    *
@@ -506,10 +455,12 @@ export interface EntityListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
+    callback?: (error: Error | null, items: EntityPage) => any
+  ): Promise<EntityPage>;
+  page(
     params: EntityListInstancePageOptions,
     callback?: (error: Error | null, items: EntityPage) => any
   ): Promise<EntityPage>;
-  page(params?: any, callback?: any): Promise<EntityPage>;
 
   /**
    * Provide a user-friendly representation
@@ -537,8 +488,8 @@ export function EntityListInstance(
   instance._uri = `/Services/${serviceSid}/Entities`;
 
   instance.create = function create(
-    params: any,
-    callback?: any
+    params: EntityListInstanceCreateOptions,
+    callback?: (error: Error | null, items: EntityInstance) => any
   ): Promise<EntityInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -580,10 +531,12 @@ export function EntityListInstance(
   };
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | EntityListInstancePageOptions
+      | ((error: Error | null, items: EntityPage) => any),
+    callback?: (error: Error | null, items: EntityPage) => any
   ): Promise<EntityPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -594,7 +547,7 @@ export function EntityListInstance(
 
     if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
@@ -621,8 +574,8 @@ export function EntityListInstance(
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: EntityPage) => any
   ): Promise<EntityPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",

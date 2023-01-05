@@ -50,7 +50,6 @@ export interface FlowTestUserContext {
     params: FlowTestUserContextUpdateOptions,
     callback?: (error: Error | null, item?: FlowTestUserInstance) => any
   ): Promise<FlowTestUserInstance>;
-  update(params: any, callback?: any): Promise<FlowTestUserInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -76,7 +75,9 @@ export class FlowTestUserContextImpl implements FlowTestUserContext {
     this._uri = `/Flows/${sid}/TestUsers`;
   }
 
-  fetch(callback?: any): Promise<FlowTestUserInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: FlowTestUserInstance) => any
+  ): Promise<FlowTestUserInstance> {
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
@@ -100,7 +101,12 @@ export class FlowTestUserContextImpl implements FlowTestUserContext {
     return operationPromise;
   }
 
-  update(params: any, callback?: any): Promise<FlowTestUserInstance> {
+  update(
+    params:
+      | FlowTestUserContextUpdateOptions
+      | ((error: Error | null, item?: FlowTestUserInstance) => any),
+    callback?: (error: Error | null, item?: FlowTestUserInstance) => any
+  ): Promise<FlowTestUserInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
@@ -224,7 +230,11 @@ export class FlowTestUserInstance {
     params: FlowTestUserContextUpdateOptions,
     callback?: (error: Error | null, item?: FlowTestUserInstance) => any
   ): Promise<FlowTestUserInstance>;
-  update(params: any, callback?: any): Promise<FlowTestUserInstance> {
+
+  update(
+    params?: any,
+    callback?: (error: Error | null, item?: FlowTestUserInstance) => any
+  ): Promise<FlowTestUserInstance> {
     return this._proxy.update(params, callback);
   }
 

@@ -120,7 +120,6 @@ export interface BucketContext {
     params: BucketContextUpdateOptions,
     callback?: (error: Error | null, item?: BucketInstance) => any
   ): Promise<BucketInstance>;
-  update(params?: any, callback?: any): Promise<BucketInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -161,7 +160,9 @@ export class BucketContextImpl implements BucketContext {
     this._uri = `/Services/${serviceSid}/RateLimits/${rateLimitSid}/Buckets/${sid}`;
   }
 
-  remove(callback?: any): Promise<boolean> {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
@@ -176,7 +177,9 @@ export class BucketContextImpl implements BucketContext {
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<BucketInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: BucketInstance) => any
+  ): Promise<BucketInstance> {
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
@@ -202,8 +205,13 @@ export class BucketContextImpl implements BucketContext {
     return operationPromise;
   }
 
-  update(params?: any, callback?: any): Promise<BucketInstance> {
-    if (typeof params === "function") {
+  update(
+    params?:
+      | BucketContextUpdateOptions
+      | ((error: Error | null, item?: BucketInstance) => any),
+    callback?: (error: Error | null, item?: BucketInstance) => any
+  ): Promise<BucketInstance> {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -396,7 +404,11 @@ export class BucketInstance {
     params: BucketContextUpdateOptions,
     callback?: (error: Error | null, item?: BucketInstance) => any
   ): Promise<BucketInstance>;
-  update(params?: any, callback?: any): Promise<BucketInstance> {
+
+  update(
+    params?: any,
+    callback?: (error: Error | null, item?: BucketInstance) => any
+  ): Promise<BucketInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -449,25 +461,7 @@ export interface BucketListInstance {
     params: BucketListInstanceCreateOptions,
     callback?: (error: Error | null, item?: BucketInstance) => any
   ): Promise<BucketInstance>;
-  create(params: any, callback?: any): Promise<BucketInstance>;
 
-  /**
-   * Streams BucketInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (item: BucketInstance, done: (err?: Error) => void) => void
-  ): void;
   /**
    * Streams BucketInstance records from the API.
    *
@@ -484,50 +478,24 @@ export interface BucketListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: BucketListInstanceEachOptions,
     callback?: (item: BucketInstance, done: (err?: Error) => void) => void
   ): void;
-  each(params?: any, callback?: any): void;
+  each(
+    params: BucketListInstanceEachOptions,
+    callback?: (item: BucketInstance, done: (err?: Error) => void) => void
+  ): void;
   /**
    * Retrieve a single target page of BucketInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: BucketPage) => any
-  ): Promise<BucketPage>;
-  /**
-   * Retrieve a single target page of BucketInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: BucketPage) => any
   ): Promise<BucketPage>;
-  getPage(params?: any, callback?: any): Promise<BucketPage>;
-  /**
-   * Lists BucketInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: BucketInstance[]) => any
-  ): Promise<BucketInstance[]>;
   /**
    * Lists BucketInstance records from the API as a list.
    *
@@ -538,23 +506,12 @@ export interface BucketListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: BucketListInstanceOptions,
     callback?: (error: Error | null, items: BucketInstance[]) => any
   ): Promise<BucketInstance[]>;
-  list(params?: any, callback?: any): Promise<BucketInstance[]>;
-  /**
-   * Retrieve a single page of BucketInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: BucketPage) => any
-  ): Promise<BucketPage>;
+  list(
+    params: BucketListInstanceOptions,
+    callback?: (error: Error | null, items: BucketInstance[]) => any
+  ): Promise<BucketInstance[]>;
   /**
    * Retrieve a single page of BucketInstance records from the API.
    *
@@ -567,10 +524,12 @@ export interface BucketListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
+    callback?: (error: Error | null, items: BucketPage) => any
+  ): Promise<BucketPage>;
+  page(
     params: BucketListInstancePageOptions,
     callback?: (error: Error | null, items: BucketPage) => any
   ): Promise<BucketPage>;
-  page(params?: any, callback?: any): Promise<BucketPage>;
 
   /**
    * Provide a user-friendly representation
@@ -603,8 +562,8 @@ export function BucketListInstance(
   instance._uri = `/Services/${serviceSid}/RateLimits/${rateLimitSid}/Buckets`;
 
   instance.create = function create(
-    params: any,
-    callback?: any
+    params: BucketListInstanceCreateOptions,
+    callback?: (error: Error | null, items: BucketInstance) => any
   ): Promise<BucketInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -653,10 +612,12 @@ export function BucketListInstance(
   };
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | BucketListInstancePageOptions
+      | ((error: Error | null, items: BucketPage) => any),
+    callback?: (error: Error | null, items: BucketPage) => any
   ): Promise<BucketPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -667,7 +628,7 @@ export function BucketListInstance(
 
     if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
@@ -694,8 +655,8 @@ export function BucketListInstance(
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: BucketPage) => any
   ): Promise<BucketPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",

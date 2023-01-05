@@ -92,7 +92,9 @@ export class EndUserTypeContextImpl implements EndUserTypeContext {
     this._uri = `/EndUserTypes/${sid}`;
   }
 
-  fetch(callback?: any): Promise<EndUserTypeInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: EndUserTypeInstance) => any
+  ): Promise<EndUserTypeInstance> {
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
@@ -243,71 +245,28 @@ export interface EndUserTypeListInstance {
    * If a function is passed as the first argument, it will be used as the callback
    * function.
    *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (item: EndUserTypeInstance, done: (err?: Error) => void) => void
-  ): void;
-  /**
-   * Streams EndUserTypeInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
    * @param { EndUserTypeListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: EndUserTypeListInstanceEachOptions,
     callback?: (item: EndUserTypeInstance, done: (err?: Error) => void) => void
   ): void;
-  each(params?: any, callback?: any): void;
+  each(
+    params: EndUserTypeListInstanceEachOptions,
+    callback?: (item: EndUserTypeInstance, done: (err?: Error) => void) => void
+  ): void;
   /**
    * Retrieve a single target page of EndUserTypeInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: EndUserTypePage) => any
-  ): Promise<EndUserTypePage>;
-  /**
-   * Retrieve a single target page of EndUserTypeInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: EndUserTypePage) => any
   ): Promise<EndUserTypePage>;
-  getPage(params?: any, callback?: any): Promise<EndUserTypePage>;
-  /**
-   * Lists EndUserTypeInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: EndUserTypeInstance[]) => any
-  ): Promise<EndUserTypeInstance[]>;
   /**
    * Lists EndUserTypeInstance records from the API as a list.
    *
@@ -318,23 +277,12 @@ export interface EndUserTypeListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: EndUserTypeListInstanceOptions,
     callback?: (error: Error | null, items: EndUserTypeInstance[]) => any
   ): Promise<EndUserTypeInstance[]>;
-  list(params?: any, callback?: any): Promise<EndUserTypeInstance[]>;
-  /**
-   * Retrieve a single page of EndUserTypeInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: EndUserTypePage) => any
-  ): Promise<EndUserTypePage>;
+  list(
+    params: EndUserTypeListInstanceOptions,
+    callback?: (error: Error | null, items: EndUserTypeInstance[]) => any
+  ): Promise<EndUserTypeInstance[]>;
   /**
    * Retrieve a single page of EndUserTypeInstance records from the API.
    *
@@ -347,10 +295,12 @@ export interface EndUserTypeListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
+    callback?: (error: Error | null, items: EndUserTypePage) => any
+  ): Promise<EndUserTypePage>;
+  page(
     params: EndUserTypeListInstancePageOptions,
     callback?: (error: Error | null, items: EndUserTypePage) => any
   ): Promise<EndUserTypePage>;
-  page(params?: any, callback?: any): Promise<EndUserTypePage>;
 
   /**
    * Provide a user-friendly representation
@@ -371,10 +321,12 @@ export function EndUserTypeListInstance(version: V1): EndUserTypeListInstance {
   instance._uri = `/EndUserTypes`;
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | EndUserTypeListInstancePageOptions
+      | ((error: Error | null, items: EndUserTypePage) => any),
+    callback?: (error: Error | null, items: EndUserTypePage) => any
   ): Promise<EndUserTypePage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -385,7 +337,7 @@ export function EndUserTypeListInstance(version: V1): EndUserTypeListInstance {
 
     if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
@@ -413,8 +365,8 @@ export function EndUserTypeListInstance(version: V1): EndUserTypeListInstance {
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: EndUserTypePage) => any
   ): Promise<EndUserTypePage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",

@@ -48,7 +48,6 @@ export interface StreamMessageListInstance {
     params: StreamMessageListInstanceCreateOptions,
     callback?: (error: Error | null, item?: StreamMessageInstance) => any
   ): Promise<StreamMessageInstance>;
-  create(params: any, callback?: any): Promise<StreamMessageInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -77,8 +76,8 @@ export function StreamMessageListInstance(
   instance._uri = `/Services/${serviceSid}/Streams/${streamSid}/Messages`;
 
   instance.create = function create(
-    params: any,
-    callback?: any
+    params: StreamMessageListInstanceCreateOptions,
+    callback?: (error: Error | null, items: StreamMessageInstance) => any
   ): Promise<StreamMessageInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');

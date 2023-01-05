@@ -96,7 +96,6 @@ export interface InstalledAddOnExtensionContext {
       item?: InstalledAddOnExtensionInstance
     ) => any
   ): Promise<InstalledAddOnExtensionInstance>;
-  update(params: any, callback?: any): Promise<InstalledAddOnExtensionInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -133,7 +132,12 @@ export class InstalledAddOnExtensionContextImpl
     this._uri = `/InstalledAddOns/${installedAddOnSid}/Extensions/${sid}`;
   }
 
-  fetch(callback?: any): Promise<InstalledAddOnExtensionInstance> {
+  fetch(
+    callback?: (
+      error: Error | null,
+      item?: InstalledAddOnExtensionInstance
+    ) => any
+  ): Promise<InstalledAddOnExtensionInstance> {
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
@@ -159,8 +163,13 @@ export class InstalledAddOnExtensionContextImpl
   }
 
   update(
-    params: any,
-    callback?: any
+    params:
+      | InstalledAddOnExtensionContextUpdateOptions
+      | ((error: Error | null, item?: InstalledAddOnExtensionInstance) => any),
+    callback?: (
+      error: Error | null,
+      item?: InstalledAddOnExtensionInstance
+    ) => any
   ): Promise<InstalledAddOnExtensionInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -323,9 +332,13 @@ export class InstalledAddOnExtensionInstance {
       item?: InstalledAddOnExtensionInstance
     ) => any
   ): Promise<InstalledAddOnExtensionInstance>;
+
   update(
-    params: any,
-    callback?: any
+    params?: any,
+    callback?: (
+      error: Error | null,
+      item?: InstalledAddOnExtensionInstance
+    ) => any
   ): Promise<InstalledAddOnExtensionInstance> {
     return this._proxy.update(params, callback);
   }
@@ -376,80 +389,34 @@ export interface InstalledAddOnExtensionListInstance {
    * If a function is passed as the first argument, it will be used as the callback
    * function.
    *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (
-      item: InstalledAddOnExtensionInstance,
-      done: (err?: Error) => void
-    ) => void
-  ): void;
-  /**
-   * Streams InstalledAddOnExtensionInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
    * @param { InstalledAddOnExtensionListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: InstalledAddOnExtensionListInstanceEachOptions,
     callback?: (
       item: InstalledAddOnExtensionInstance,
       done: (err?: Error) => void
     ) => void
   ): void;
-  each(params?: any, callback?: any): void;
+  each(
+    params: InstalledAddOnExtensionListInstanceEachOptions,
+    callback?: (
+      item: InstalledAddOnExtensionInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
   /**
    * Retrieve a single target page of InstalledAddOnExtensionInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: InstalledAddOnExtensionPage) => any
-  ): Promise<InstalledAddOnExtensionPage>;
-  /**
-   * Retrieve a single target page of InstalledAddOnExtensionInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: InstalledAddOnExtensionPage) => any
   ): Promise<InstalledAddOnExtensionPage>;
-  getPage(params?: any, callback?: any): Promise<InstalledAddOnExtensionPage>;
-  /**
-   * Lists InstalledAddOnExtensionInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (
-      error: Error | null,
-      items: InstalledAddOnExtensionInstance[]
-    ) => any
-  ): Promise<InstalledAddOnExtensionInstance[]>;
   /**
    * Lists InstalledAddOnExtensionInstance records from the API as a list.
    *
@@ -460,29 +427,18 @@ export interface InstalledAddOnExtensionListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: InstalledAddOnExtensionListInstanceOptions,
     callback?: (
       error: Error | null,
       items: InstalledAddOnExtensionInstance[]
     ) => any
   ): Promise<InstalledAddOnExtensionInstance[]>;
   list(
-    params?: any,
-    callback?: any
+    params: InstalledAddOnExtensionListInstanceOptions,
+    callback?: (
+      error: Error | null,
+      items: InstalledAddOnExtensionInstance[]
+    ) => any
   ): Promise<InstalledAddOnExtensionInstance[]>;
-  /**
-   * Retrieve a single page of InstalledAddOnExtensionInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: InstalledAddOnExtensionPage) => any
-  ): Promise<InstalledAddOnExtensionPage>;
   /**
    * Retrieve a single page of InstalledAddOnExtensionInstance records from the API.
    *
@@ -495,10 +451,12 @@ export interface InstalledAddOnExtensionListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
+    callback?: (error: Error | null, items: InstalledAddOnExtensionPage) => any
+  ): Promise<InstalledAddOnExtensionPage>;
+  page(
     params: InstalledAddOnExtensionListInstancePageOptions,
     callback?: (error: Error | null, items: InstalledAddOnExtensionPage) => any
   ): Promise<InstalledAddOnExtensionPage>;
-  page(params?: any, callback?: any): Promise<InstalledAddOnExtensionPage>;
 
   /**
    * Provide a user-friendly representation
@@ -531,10 +489,12 @@ export function InstalledAddOnExtensionListInstance(
   instance._uri = `/InstalledAddOns/${installedAddOnSid}/Extensions`;
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | InstalledAddOnExtensionListInstancePageOptions
+      | ((error: Error | null, items: InstalledAddOnExtensionPage) => any),
+    callback?: (error: Error | null, items: InstalledAddOnExtensionPage) => any
   ): Promise<InstalledAddOnExtensionPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -545,7 +505,7 @@ export function InstalledAddOnExtensionListInstance(
 
     if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
@@ -577,8 +537,8 @@ export function InstalledAddOnExtensionListInstance(
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: InstalledAddOnExtensionPage) => any
   ): Promise<InstalledAddOnExtensionPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",

@@ -121,7 +121,12 @@ export class AssignedAddOnExtensionContextImpl
     this._uri = `/Accounts/${accountSid}/IncomingPhoneNumbers/${resourceSid}/AssignedAddOns/${assignedAddOnSid}/Extensions/${sid}.json`;
   }
 
-  fetch(callback?: any): Promise<AssignedAddOnExtensionInstance> {
+  fetch(
+    callback?: (
+      error: Error | null,
+      item?: AssignedAddOnExtensionInstance
+    ) => any
+  ): Promise<AssignedAddOnExtensionInstance> {
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
@@ -324,80 +329,34 @@ export interface AssignedAddOnExtensionListInstance {
    * If a function is passed as the first argument, it will be used as the callback
    * function.
    *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (
-      item: AssignedAddOnExtensionInstance,
-      done: (err?: Error) => void
-    ) => void
-  ): void;
-  /**
-   * Streams AssignedAddOnExtensionInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
    * @param { AssignedAddOnExtensionListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: AssignedAddOnExtensionListInstanceEachOptions,
     callback?: (
       item: AssignedAddOnExtensionInstance,
       done: (err?: Error) => void
     ) => void
   ): void;
-  each(params?: any, callback?: any): void;
+  each(
+    params: AssignedAddOnExtensionListInstanceEachOptions,
+    callback?: (
+      item: AssignedAddOnExtensionInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
   /**
    * Retrieve a single target page of AssignedAddOnExtensionInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: AssignedAddOnExtensionPage) => any
-  ): Promise<AssignedAddOnExtensionPage>;
-  /**
-   * Retrieve a single target page of AssignedAddOnExtensionInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: AssignedAddOnExtensionPage) => any
   ): Promise<AssignedAddOnExtensionPage>;
-  getPage(params?: any, callback?: any): Promise<AssignedAddOnExtensionPage>;
-  /**
-   * Lists AssignedAddOnExtensionInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (
-      error: Error | null,
-      items: AssignedAddOnExtensionInstance[]
-    ) => any
-  ): Promise<AssignedAddOnExtensionInstance[]>;
   /**
    * Lists AssignedAddOnExtensionInstance records from the API as a list.
    *
@@ -408,26 +367,18 @@ export interface AssignedAddOnExtensionListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: AssignedAddOnExtensionListInstanceOptions,
     callback?: (
       error: Error | null,
       items: AssignedAddOnExtensionInstance[]
     ) => any
   ): Promise<AssignedAddOnExtensionInstance[]>;
-  list(params?: any, callback?: any): Promise<AssignedAddOnExtensionInstance[]>;
-  /**
-   * Retrieve a single page of AssignedAddOnExtensionInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: AssignedAddOnExtensionPage) => any
-  ): Promise<AssignedAddOnExtensionPage>;
+  list(
+    params: AssignedAddOnExtensionListInstanceOptions,
+    callback?: (
+      error: Error | null,
+      items: AssignedAddOnExtensionInstance[]
+    ) => any
+  ): Promise<AssignedAddOnExtensionInstance[]>;
   /**
    * Retrieve a single page of AssignedAddOnExtensionInstance records from the API.
    *
@@ -440,10 +391,12 @@ export interface AssignedAddOnExtensionListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
+    callback?: (error: Error | null, items: AssignedAddOnExtensionPage) => any
+  ): Promise<AssignedAddOnExtensionPage>;
+  page(
     params: AssignedAddOnExtensionListInstancePageOptions,
     callback?: (error: Error | null, items: AssignedAddOnExtensionPage) => any
   ): Promise<AssignedAddOnExtensionPage>;
-  page(params?: any, callback?: any): Promise<AssignedAddOnExtensionPage>;
 
   /**
    * Provide a user-friendly representation
@@ -488,10 +441,12 @@ export function AssignedAddOnExtensionListInstance(
   instance._uri = `/Accounts/${accountSid}/IncomingPhoneNumbers/${resourceSid}/AssignedAddOns/${assignedAddOnSid}/Extensions.json`;
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | AssignedAddOnExtensionListInstancePageOptions
+      | ((error: Error | null, items: AssignedAddOnExtensionPage) => any),
+    callback?: (error: Error | null, items: AssignedAddOnExtensionPage) => any
   ): Promise<AssignedAddOnExtensionPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -502,7 +457,7 @@ export function AssignedAddOnExtensionListInstance(
 
     if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
@@ -534,8 +489,8 @@ export function AssignedAddOnExtensionListInstance(
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: AssignedAddOnExtensionPage) => any
   ): Promise<AssignedAddOnExtensionPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",

@@ -48,7 +48,9 @@ export class UserInfoContextImpl implements UserInfoContext {
     this._uri = `/userinfo`;
   }
 
-  fetch(callback?: any): Promise<UserInfoInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: UserInfoInstance) => any
+  ): Promise<UserInfoInstance> {
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({

@@ -127,7 +127,6 @@ export interface FlowContext {
     params: FlowContextUpdateOptions,
     callback?: (error: Error | null, item?: FlowInstance) => any
   ): Promise<FlowInstance>;
-  update(params: any, callback?: any): Promise<FlowInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -178,7 +177,9 @@ export class FlowContextImpl implements FlowContext {
     return this._testUsers;
   }
 
-  remove(callback?: any): Promise<boolean> {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
@@ -193,7 +194,9 @@ export class FlowContextImpl implements FlowContext {
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<FlowInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: FlowInstance) => any
+  ): Promise<FlowInstance> {
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
@@ -213,7 +216,12 @@ export class FlowContextImpl implements FlowContext {
     return operationPromise;
   }
 
-  update(params: any, callback?: any): Promise<FlowInstance> {
+  update(
+    params:
+      | FlowContextUpdateOptions
+      | ((error: Error | null, item?: FlowInstance) => any),
+    callback?: (error: Error | null, item?: FlowInstance) => any
+  ): Promise<FlowInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
@@ -415,7 +423,11 @@ export class FlowInstance {
     params: FlowContextUpdateOptions,
     callback?: (error: Error | null, item?: FlowInstance) => any
   ): Promise<FlowInstance>;
-  update(params: any, callback?: any): Promise<FlowInstance> {
+
+  update(
+    params?: any,
+    callback?: (error: Error | null, item?: FlowInstance) => any
+  ): Promise<FlowInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -492,25 +504,7 @@ export interface FlowListInstance {
     params: FlowListInstanceCreateOptions,
     callback?: (error: Error | null, item?: FlowInstance) => any
   ): Promise<FlowInstance>;
-  create(params: any, callback?: any): Promise<FlowInstance>;
 
-  /**
-   * Streams FlowInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (item: FlowInstance, done: (err?: Error) => void) => void
-  ): void;
   /**
    * Streams FlowInstance records from the API.
    *
@@ -527,50 +521,24 @@ export interface FlowListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: FlowListInstanceEachOptions,
     callback?: (item: FlowInstance, done: (err?: Error) => void) => void
   ): void;
-  each(params?: any, callback?: any): void;
+  each(
+    params: FlowListInstanceEachOptions,
+    callback?: (item: FlowInstance, done: (err?: Error) => void) => void
+  ): void;
   /**
    * Retrieve a single target page of FlowInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: FlowPage) => any
-  ): Promise<FlowPage>;
-  /**
-   * Retrieve a single target page of FlowInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: FlowPage) => any
   ): Promise<FlowPage>;
-  getPage(params?: any, callback?: any): Promise<FlowPage>;
-  /**
-   * Lists FlowInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: FlowInstance[]) => any
-  ): Promise<FlowInstance[]>;
   /**
    * Lists FlowInstance records from the API as a list.
    *
@@ -581,23 +549,12 @@ export interface FlowListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: FlowListInstanceOptions,
     callback?: (error: Error | null, items: FlowInstance[]) => any
   ): Promise<FlowInstance[]>;
-  list(params?: any, callback?: any): Promise<FlowInstance[]>;
-  /**
-   * Retrieve a single page of FlowInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: FlowPage) => any
-  ): Promise<FlowPage>;
+  list(
+    params: FlowListInstanceOptions,
+    callback?: (error: Error | null, items: FlowInstance[]) => any
+  ): Promise<FlowInstance[]>;
   /**
    * Retrieve a single page of FlowInstance records from the API.
    *
@@ -610,10 +567,12 @@ export interface FlowListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
+    callback?: (error: Error | null, items: FlowPage) => any
+  ): Promise<FlowPage>;
+  page(
     params: FlowListInstancePageOptions,
     callback?: (error: Error | null, items: FlowPage) => any
   ): Promise<FlowPage>;
-  page(params?: any, callback?: any): Promise<FlowPage>;
 
   /**
    * Provide a user-friendly representation
@@ -634,8 +593,8 @@ export function FlowListInstance(version: V2): FlowListInstance {
   instance._uri = `/Flows`;
 
   instance.create = function create(
-    params: any,
-    callback?: any
+    params: FlowListInstanceCreateOptions,
+    callback?: (error: Error | null, items: FlowInstance) => any
   ): Promise<FlowInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -689,10 +648,12 @@ export function FlowListInstance(version: V2): FlowListInstance {
   };
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | FlowListInstancePageOptions
+      | ((error: Error | null, items: FlowPage) => any),
+    callback?: (error: Error | null, items: FlowPage) => any
   ): Promise<FlowPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -703,7 +664,7 @@ export function FlowListInstance(version: V2): FlowListInstance {
 
     if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
@@ -730,8 +691,8 @@ export function FlowListInstance(version: V2): FlowListInstance {
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: FlowPage) => any
   ): Promise<FlowPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",

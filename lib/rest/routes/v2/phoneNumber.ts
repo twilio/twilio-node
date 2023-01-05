@@ -62,7 +62,6 @@ export interface PhoneNumberContext {
     params: PhoneNumberContextUpdateOptions,
     callback?: (error: Error | null, item?: PhoneNumberInstance) => any
   ): Promise<PhoneNumberInstance>;
-  update(params?: any, callback?: any): Promise<PhoneNumberInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -88,7 +87,9 @@ export class PhoneNumberContextImpl implements PhoneNumberContext {
     this._uri = `/PhoneNumbers/${phoneNumber}`;
   }
 
-  fetch(callback?: any): Promise<PhoneNumberInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: PhoneNumberInstance) => any
+  ): Promise<PhoneNumberInstance> {
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
@@ -112,8 +113,13 @@ export class PhoneNumberContextImpl implements PhoneNumberContext {
     return operationPromise;
   }
 
-  update(params?: any, callback?: any): Promise<PhoneNumberInstance> {
-    if (typeof params === "function") {
+  update(
+    params?:
+      | PhoneNumberContextUpdateOptions
+      | ((error: Error | null, item?: PhoneNumberInstance) => any),
+    callback?: (error: Error | null, item?: PhoneNumberInstance) => any
+  ): Promise<PhoneNumberInstance> {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -278,7 +284,11 @@ export class PhoneNumberInstance {
     params: PhoneNumberContextUpdateOptions,
     callback?: (error: Error | null, item?: PhoneNumberInstance) => any
   ): Promise<PhoneNumberInstance>;
-  update(params?: any, callback?: any): Promise<PhoneNumberInstance> {
+
+  update(
+    params?: any,
+    callback?: (error: Error | null, item?: PhoneNumberInstance) => any
+  ): Promise<PhoneNumberInstance> {
     return this._proxy.update(params, callback);
   }
 

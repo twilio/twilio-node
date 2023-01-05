@@ -51,7 +51,6 @@ export interface UsageContext {
     params: UsageContextFetchOptions,
     callback?: (error: Error | null, item?: UsageInstance) => any
   ): Promise<UsageInstance>;
-  fetch(params?: any, callback?: any): Promise<UsageInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -77,8 +76,13 @@ export class UsageContextImpl implements UsageContext {
     this._uri = `/Sims/${simSid}/Usage`;
   }
 
-  fetch(params?: any, callback?: any): Promise<UsageInstance> {
-    if (typeof params === "function") {
+  fetch(
+    params?:
+      | UsageContextFetchOptions
+      | ((error: Error | null, item?: UsageInstance) => any),
+    callback?: (error: Error | null, item?: UsageInstance) => any
+  ): Promise<UsageInstance> {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -202,7 +206,11 @@ export class UsageInstance {
     params: UsageContextFetchOptions,
     callback?: (error: Error | null, item?: UsageInstance) => any
   ): Promise<UsageInstance>;
-  fetch(params?: any, callback?: any): Promise<UsageInstance> {
+
+  fetch(
+    params?: any,
+    callback?: (error: Error | null, item?: UsageInstance) => any
+  ): Promise<UsageInstance> {
     return this._proxy.fetch(params, callback);
   }
 

@@ -69,10 +69,6 @@ export interface AssistantFallbackActionsContext {
       item?: AssistantFallbackActionsInstance
     ) => any
   ): Promise<AssistantFallbackActionsInstance>;
-  update(
-    params?: any,
-    callback?: any
-  ): Promise<AssistantFallbackActionsInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -100,7 +96,12 @@ export class AssistantFallbackActionsContextImpl
     this._uri = `/Assistants/${assistantSid}/FallbackActions`;
   }
 
-  fetch(callback?: any): Promise<AssistantFallbackActionsInstance> {
+  fetch(
+    callback?: (
+      error: Error | null,
+      item?: AssistantFallbackActionsInstance
+    ) => any
+  ): Promise<AssistantFallbackActionsInstance> {
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
@@ -125,10 +126,15 @@ export class AssistantFallbackActionsContextImpl
   }
 
   update(
-    params?: any,
-    callback?: any
+    params?:
+      | AssistantFallbackActionsContextUpdateOptions
+      | ((error: Error | null, item?: AssistantFallbackActionsInstance) => any),
+    callback?: (
+      error: Error | null,
+      item?: AssistantFallbackActionsInstance
+    ) => any
   ): Promise<AssistantFallbackActionsInstance> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -268,9 +274,13 @@ export class AssistantFallbackActionsInstance {
       item?: AssistantFallbackActionsInstance
     ) => any
   ): Promise<AssistantFallbackActionsInstance>;
+
   update(
     params?: any,
-    callback?: any
+    callback?: (
+      error: Error | null,
+      item?: AssistantFallbackActionsInstance
+    ) => any
   ): Promise<AssistantFallbackActionsInstance> {
     return this._proxy.update(params, callback);
   }

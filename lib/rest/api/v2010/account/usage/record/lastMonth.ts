@@ -348,71 +348,28 @@ export interface LastMonthListInstance {
    * If a function is passed as the first argument, it will be used as the callback
    * function.
    *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (item: LastMonthInstance, done: (err?: Error) => void) => void
-  ): void;
-  /**
-   * Streams LastMonthInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
    * @param { LastMonthListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: LastMonthListInstanceEachOptions,
     callback?: (item: LastMonthInstance, done: (err?: Error) => void) => void
   ): void;
-  each(params?: any, callback?: any): void;
+  each(
+    params: LastMonthListInstanceEachOptions,
+    callback?: (item: LastMonthInstance, done: (err?: Error) => void) => void
+  ): void;
   /**
    * Retrieve a single target page of LastMonthInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: LastMonthPage) => any
-  ): Promise<LastMonthPage>;
-  /**
-   * Retrieve a single target page of LastMonthInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: LastMonthPage) => any
   ): Promise<LastMonthPage>;
-  getPage(params?: any, callback?: any): Promise<LastMonthPage>;
-  /**
-   * Lists LastMonthInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: LastMonthInstance[]) => any
-  ): Promise<LastMonthInstance[]>;
   /**
    * Lists LastMonthInstance records from the API as a list.
    *
@@ -423,23 +380,12 @@ export interface LastMonthListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: LastMonthListInstanceOptions,
     callback?: (error: Error | null, items: LastMonthInstance[]) => any
   ): Promise<LastMonthInstance[]>;
-  list(params?: any, callback?: any): Promise<LastMonthInstance[]>;
-  /**
-   * Retrieve a single page of LastMonthInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: LastMonthPage) => any
-  ): Promise<LastMonthPage>;
+  list(
+    params: LastMonthListInstanceOptions,
+    callback?: (error: Error | null, items: LastMonthInstance[]) => any
+  ): Promise<LastMonthInstance[]>;
   /**
    * Retrieve a single page of LastMonthInstance records from the API.
    *
@@ -452,10 +398,12 @@ export interface LastMonthListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
+    callback?: (error: Error | null, items: LastMonthPage) => any
+  ): Promise<LastMonthPage>;
+  page(
     params: LastMonthListInstancePageOptions,
     callback?: (error: Error | null, items: LastMonthPage) => any
   ): Promise<LastMonthPage>;
-  page(params?: any, callback?: any): Promise<LastMonthPage>;
 
   /**
    * Provide a user-friendly representation
@@ -479,10 +427,12 @@ export function LastMonthListInstance(
   instance._uri = `/Accounts/${accountSid}/Usage/Records/LastMonth.json`;
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | LastMonthListInstancePageOptions
+      | ((error: Error | null, items: LastMonthPage) => any),
+    callback?: (error: Error | null, items: LastMonthPage) => any
   ): Promise<LastMonthPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -500,7 +450,7 @@ export function LastMonthListInstance(
       data["IncludeSubaccounts"] = serialize.bool(params["includeSubaccounts"]);
     if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
@@ -528,8 +478,8 @@ export function LastMonthListInstance(
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: LastMonthPage) => any
   ): Promise<LastMonthPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",

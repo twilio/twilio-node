@@ -55,7 +55,6 @@ export interface ReplaceItemsListInstance {
     params: ReplaceItemsListInstanceCreateOptions,
     callback?: (error: Error | null, item?: ReplaceItemsInstance) => any
   ): Promise<ReplaceItemsInstance>;
-  create(params: any, callback?: any): Promise<ReplaceItemsInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -79,8 +78,8 @@ export function ReplaceItemsListInstance(
   instance._uri = `/RegulatoryCompliance/Bundles/${bundleSid}/ReplaceItems`;
 
   instance.create = function create(
-    params: any,
-    callback?: any
+    params: ReplaceItemsListInstanceCreateOptions,
+    callback?: (error: Error | null, items: ReplaceItemsInstance) => any
   ): Promise<ReplaceItemsInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');

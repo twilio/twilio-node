@@ -120,7 +120,6 @@ export interface PublicKeyContext {
     params: PublicKeyContextUpdateOptions,
     callback?: (error: Error | null, item?: PublicKeyInstance) => any
   ): Promise<PublicKeyInstance>;
-  update(params?: any, callback?: any): Promise<PublicKeyInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -146,7 +145,9 @@ export class PublicKeyContextImpl implements PublicKeyContext {
     this._uri = `/Credentials/PublicKeys/${sid}`;
   }
 
-  remove(callback?: any): Promise<boolean> {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
@@ -161,7 +162,9 @@ export class PublicKeyContextImpl implements PublicKeyContext {
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<PublicKeyInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: PublicKeyInstance) => any
+  ): Promise<PublicKeyInstance> {
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
@@ -181,8 +184,13 @@ export class PublicKeyContextImpl implements PublicKeyContext {
     return operationPromise;
   }
 
-  update(params?: any, callback?: any): Promise<PublicKeyInstance> {
-    if (typeof params === "function") {
+  update(
+    params?:
+      | PublicKeyContextUpdateOptions
+      | ((error: Error | null, item?: PublicKeyInstance) => any),
+    callback?: (error: Error | null, item?: PublicKeyInstance) => any
+  ): Promise<PublicKeyInstance> {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -344,7 +352,11 @@ export class PublicKeyInstance {
     params: PublicKeyContextUpdateOptions,
     callback?: (error: Error | null, item?: PublicKeyInstance) => any
   ): Promise<PublicKeyInstance>;
-  update(params?: any, callback?: any): Promise<PublicKeyInstance> {
+
+  update(
+    params?: any,
+    callback?: (error: Error | null, item?: PublicKeyInstance) => any
+  ): Promise<PublicKeyInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -391,25 +403,7 @@ export interface PublicKeyListInstance {
     params: PublicKeyListInstanceCreateOptions,
     callback?: (error: Error | null, item?: PublicKeyInstance) => any
   ): Promise<PublicKeyInstance>;
-  create(params: any, callback?: any): Promise<PublicKeyInstance>;
 
-  /**
-   * Streams PublicKeyInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (item: PublicKeyInstance, done: (err?: Error) => void) => void
-  ): void;
   /**
    * Streams PublicKeyInstance records from the API.
    *
@@ -426,50 +420,24 @@ export interface PublicKeyListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: PublicKeyListInstanceEachOptions,
     callback?: (item: PublicKeyInstance, done: (err?: Error) => void) => void
   ): void;
-  each(params?: any, callback?: any): void;
+  each(
+    params: PublicKeyListInstanceEachOptions,
+    callback?: (item: PublicKeyInstance, done: (err?: Error) => void) => void
+  ): void;
   /**
    * Retrieve a single target page of PublicKeyInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: PublicKeyPage) => any
-  ): Promise<PublicKeyPage>;
-  /**
-   * Retrieve a single target page of PublicKeyInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: PublicKeyPage) => any
   ): Promise<PublicKeyPage>;
-  getPage(params?: any, callback?: any): Promise<PublicKeyPage>;
-  /**
-   * Lists PublicKeyInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: PublicKeyInstance[]) => any
-  ): Promise<PublicKeyInstance[]>;
   /**
    * Lists PublicKeyInstance records from the API as a list.
    *
@@ -480,23 +448,12 @@ export interface PublicKeyListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: PublicKeyListInstanceOptions,
     callback?: (error: Error | null, items: PublicKeyInstance[]) => any
   ): Promise<PublicKeyInstance[]>;
-  list(params?: any, callback?: any): Promise<PublicKeyInstance[]>;
-  /**
-   * Retrieve a single page of PublicKeyInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: PublicKeyPage) => any
-  ): Promise<PublicKeyPage>;
+  list(
+    params: PublicKeyListInstanceOptions,
+    callback?: (error: Error | null, items: PublicKeyInstance[]) => any
+  ): Promise<PublicKeyInstance[]>;
   /**
    * Retrieve a single page of PublicKeyInstance records from the API.
    *
@@ -509,10 +466,12 @@ export interface PublicKeyListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
+    callback?: (error: Error | null, items: PublicKeyPage) => any
+  ): Promise<PublicKeyPage>;
+  page(
     params: PublicKeyListInstancePageOptions,
     callback?: (error: Error | null, items: PublicKeyPage) => any
   ): Promise<PublicKeyPage>;
-  page(params?: any, callback?: any): Promise<PublicKeyPage>;
 
   /**
    * Provide a user-friendly representation
@@ -533,8 +492,8 @@ export function PublicKeyListInstance(version: V1): PublicKeyListInstance {
   instance._uri = `/Credentials/PublicKeys`;
 
   instance.create = function create(
-    params: any,
-    callback?: any
+    params: PublicKeyListInstanceCreateOptions,
+    callback?: (error: Error | null, items: PublicKeyInstance) => any
   ): Promise<PublicKeyInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -575,10 +534,12 @@ export function PublicKeyListInstance(version: V1): PublicKeyListInstance {
   };
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | PublicKeyListInstancePageOptions
+      | ((error: Error | null, items: PublicKeyPage) => any),
+    callback?: (error: Error | null, items: PublicKeyPage) => any
   ): Promise<PublicKeyPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -589,7 +550,7 @@ export function PublicKeyListInstance(version: V1): PublicKeyListInstance {
 
     if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
@@ -617,8 +578,8 @@ export function PublicKeyListInstance(version: V1): PublicKeyListInstance {
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: PublicKeyPage) => any
   ): Promise<PublicKeyPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",

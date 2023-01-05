@@ -457,7 +457,6 @@ export interface StreamContext {
     params: StreamContextUpdateOptions,
     callback?: (error: Error | null, item?: StreamInstance) => any
   ): Promise<StreamInstance>;
-  update(params: any, callback?: any): Promise<StreamInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -498,7 +497,12 @@ export class StreamContextImpl implements StreamContext {
     this._uri = `/Accounts/${accountSid}/Calls/${callSid}/Streams/${sid}.json`;
   }
 
-  update(params: any, callback?: any): Promise<StreamInstance> {
+  update(
+    params:
+      | StreamContextUpdateOptions
+      | ((error: Error | null, item?: StreamInstance) => any),
+    callback?: (error: Error | null, item?: StreamInstance) => any
+  ): Promise<StreamInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
@@ -639,7 +643,11 @@ export class StreamInstance {
     params: StreamContextUpdateOptions,
     callback?: (error: Error | null, item?: StreamInstance) => any
   ): Promise<StreamInstance>;
-  update(params: any, callback?: any): Promise<StreamInstance> {
+
+  update(
+    params?: any,
+    callback?: (error: Error | null, item?: StreamInstance) => any
+  ): Promise<StreamInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -690,7 +698,6 @@ export interface StreamListInstance {
     params: StreamListInstanceCreateOptions,
     callback?: (error: Error | null, item?: StreamInstance) => any
   ): Promise<StreamInstance>;
-  create(params: any, callback?: any): Promise<StreamInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -723,8 +730,8 @@ export function StreamListInstance(
   instance._uri = `/Accounts/${accountSid}/Calls/${callSid}/Streams.json`;
 
   instance.create = function create(
-    params: any,
-    callback?: any
+    params: StreamListInstanceCreateOptions,
+    callback?: (error: Error | null, items: StreamInstance) => any
   ): Promise<StreamInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');

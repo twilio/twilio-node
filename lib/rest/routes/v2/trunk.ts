@@ -62,7 +62,6 @@ export interface TrunkContext {
     params: TrunkContextUpdateOptions,
     callback?: (error: Error | null, item?: TrunkInstance) => any
   ): Promise<TrunkInstance>;
-  update(params?: any, callback?: any): Promise<TrunkInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -88,7 +87,9 @@ export class TrunkContextImpl implements TrunkContext {
     this._uri = `/Trunks/${sipTrunkDomain}`;
   }
 
-  fetch(callback?: any): Promise<TrunkInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: TrunkInstance) => any
+  ): Promise<TrunkInstance> {
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
@@ -112,8 +113,13 @@ export class TrunkContextImpl implements TrunkContext {
     return operationPromise;
   }
 
-  update(params?: any, callback?: any): Promise<TrunkInstance> {
-    if (typeof params === "function") {
+  update(
+    params?:
+      | TrunkContextUpdateOptions
+      | ((error: Error | null, item?: TrunkInstance) => any),
+    callback?: (error: Error | null, item?: TrunkInstance) => any
+  ): Promise<TrunkInstance> {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -278,7 +284,11 @@ export class TrunkInstance {
     params: TrunkContextUpdateOptions,
     callback?: (error: Error | null, item?: TrunkInstance) => any
   ): Promise<TrunkInstance>;
-  update(params?: any, callback?: any): Promise<TrunkInstance> {
+
+  update(
+    params?: any,
+    callback?: (error: Error | null, item?: TrunkInstance) => any
+  ): Promise<TrunkInstance> {
     return this._proxy.update(params, callback);
   }
 

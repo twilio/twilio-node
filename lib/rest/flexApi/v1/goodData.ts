@@ -49,7 +49,6 @@ export interface GoodDataContext {
     params: GoodDataContextCreateOptions,
     callback?: (error: Error | null, item?: GoodDataInstance) => any
   ): Promise<GoodDataInstance>;
-  create(params?: any, callback?: any): Promise<GoodDataInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -69,8 +68,13 @@ export class GoodDataContextImpl implements GoodDataContext {
     this._uri = `/Insights/Session`;
   }
 
-  create(params?: any, callback?: any): Promise<GoodDataInstance> {
-    if (typeof params === "function") {
+  create(
+    params?:
+      | GoodDataContextCreateOptions
+      | ((error: Error | null, item?: GoodDataInstance) => any),
+    callback?: (error: Error | null, item?: GoodDataInstance) => any
+  ): Promise<GoodDataInstance> {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -188,7 +192,11 @@ export class GoodDataInstance {
     params: GoodDataContextCreateOptions,
     callback?: (error: Error | null, item?: GoodDataInstance) => any
   ): Promise<GoodDataInstance>;
-  create(params?: any, callback?: any): Promise<GoodDataInstance> {
+
+  create(
+    params?: any,
+    callback?: (error: Error | null, item?: GoodDataInstance) => any
+  ): Promise<GoodDataInstance> {
     return this._proxy.create(params, callback);
   }
 

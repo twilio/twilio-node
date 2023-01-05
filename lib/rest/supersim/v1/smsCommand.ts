@@ -127,7 +127,9 @@ export class SmsCommandContextImpl implements SmsCommandContext {
     this._uri = `/SmsCommands/${sid}`;
   }
 
-  fetch(callback?: any): Promise<SmsCommandInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: SmsCommandInstance) => any
+  ): Promise<SmsCommandInstance> {
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
@@ -300,25 +302,7 @@ export interface SmsCommandListInstance {
     params: SmsCommandListInstanceCreateOptions,
     callback?: (error: Error | null, item?: SmsCommandInstance) => any
   ): Promise<SmsCommandInstance>;
-  create(params: any, callback?: any): Promise<SmsCommandInstance>;
 
-  /**
-   * Streams SmsCommandInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (item: SmsCommandInstance, done: (err?: Error) => void) => void
-  ): void;
   /**
    * Streams SmsCommandInstance records from the API.
    *
@@ -335,50 +319,24 @@ export interface SmsCommandListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: SmsCommandListInstanceEachOptions,
     callback?: (item: SmsCommandInstance, done: (err?: Error) => void) => void
   ): void;
-  each(params?: any, callback?: any): void;
+  each(
+    params: SmsCommandListInstanceEachOptions,
+    callback?: (item: SmsCommandInstance, done: (err?: Error) => void) => void
+  ): void;
   /**
    * Retrieve a single target page of SmsCommandInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: SmsCommandPage) => any
-  ): Promise<SmsCommandPage>;
-  /**
-   * Retrieve a single target page of SmsCommandInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: SmsCommandPage) => any
   ): Promise<SmsCommandPage>;
-  getPage(params?: any, callback?: any): Promise<SmsCommandPage>;
-  /**
-   * Lists SmsCommandInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: SmsCommandInstance[]) => any
-  ): Promise<SmsCommandInstance[]>;
   /**
    * Lists SmsCommandInstance records from the API as a list.
    *
@@ -389,23 +347,12 @@ export interface SmsCommandListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: SmsCommandListInstanceOptions,
     callback?: (error: Error | null, items: SmsCommandInstance[]) => any
   ): Promise<SmsCommandInstance[]>;
-  list(params?: any, callback?: any): Promise<SmsCommandInstance[]>;
-  /**
-   * Retrieve a single page of SmsCommandInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: SmsCommandPage) => any
-  ): Promise<SmsCommandPage>;
+  list(
+    params: SmsCommandListInstanceOptions,
+    callback?: (error: Error | null, items: SmsCommandInstance[]) => any
+  ): Promise<SmsCommandInstance[]>;
   /**
    * Retrieve a single page of SmsCommandInstance records from the API.
    *
@@ -418,10 +365,12 @@ export interface SmsCommandListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
+    callback?: (error: Error | null, items: SmsCommandPage) => any
+  ): Promise<SmsCommandPage>;
+  page(
     params: SmsCommandListInstancePageOptions,
     callback?: (error: Error | null, items: SmsCommandPage) => any
   ): Promise<SmsCommandPage>;
-  page(params?: any, callback?: any): Promise<SmsCommandPage>;
 
   /**
    * Provide a user-friendly representation
@@ -442,8 +391,8 @@ export function SmsCommandListInstance(version: V1): SmsCommandListInstance {
   instance._uri = `/SmsCommands`;
 
   instance.create = function create(
-    params: any,
-    callback?: any
+    params: SmsCommandListInstanceCreateOptions,
+    callback?: (error: Error | null, items: SmsCommandInstance) => any
   ): Promise<SmsCommandInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -490,10 +439,12 @@ export function SmsCommandListInstance(version: V1): SmsCommandListInstance {
   };
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | SmsCommandListInstancePageOptions
+      | ((error: Error | null, items: SmsCommandPage) => any),
+    callback?: (error: Error | null, items: SmsCommandPage) => any
   ): Promise<SmsCommandPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -508,7 +459,7 @@ export function SmsCommandListInstance(version: V1): SmsCommandListInstance {
       data["Direction"] = params["direction"];
     if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
@@ -536,8 +487,8 @@ export function SmsCommandListInstance(version: V1): SmsCommandListInstance {
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: SmsCommandPage) => any
   ): Promise<SmsCommandPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",

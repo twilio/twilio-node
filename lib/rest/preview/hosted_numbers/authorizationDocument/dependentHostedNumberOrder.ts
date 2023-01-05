@@ -124,89 +124,37 @@ export interface DependentHostedNumberOrderListInstance {
    * If a function is passed as the first argument, it will be used as the callback
    * function.
    *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (
-      item: DependentHostedNumberOrderInstance,
-      done: (err?: Error) => void
-    ) => void
-  ): void;
-  /**
-   * Streams DependentHostedNumberOrderInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
    * @param { DependentHostedNumberOrderListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: DependentHostedNumberOrderListInstanceEachOptions,
     callback?: (
       item: DependentHostedNumberOrderInstance,
       done: (err?: Error) => void
     ) => void
   ): void;
-  each(params?: any, callback?: any): void;
-  /**
-   * Retrieve a single target page of DependentHostedNumberOrderInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
+  each(
+    params: DependentHostedNumberOrderListInstanceEachOptions,
     callback?: (
-      error: Error | null,
-      items: DependentHostedNumberOrderPage
-    ) => any
-  ): Promise<DependentHostedNumberOrderPage>;
+      item: DependentHostedNumberOrderInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
   /**
    * Retrieve a single target page of DependentHostedNumberOrderInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (
       error: Error | null,
       items: DependentHostedNumberOrderPage
     ) => any
   ): Promise<DependentHostedNumberOrderPage>;
-  getPage(
-    params?: any,
-    callback?: any
-  ): Promise<DependentHostedNumberOrderPage>;
-  /**
-   * Lists DependentHostedNumberOrderInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (
-      error: Error | null,
-      items: DependentHostedNumberOrderInstance[]
-    ) => any
-  ): Promise<DependentHostedNumberOrderInstance[]>;
   /**
    * Lists DependentHostedNumberOrderInstance records from the API as a list.
    *
@@ -217,32 +165,18 @@ export interface DependentHostedNumberOrderListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: DependentHostedNumberOrderListInstanceOptions,
     callback?: (
       error: Error | null,
       items: DependentHostedNumberOrderInstance[]
     ) => any
   ): Promise<DependentHostedNumberOrderInstance[]>;
   list(
-    params?: any,
-    callback?: any
-  ): Promise<DependentHostedNumberOrderInstance[]>;
-  /**
-   * Retrieve a single page of DependentHostedNumberOrderInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
+    params: DependentHostedNumberOrderListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: DependentHostedNumberOrderPage
+      items: DependentHostedNumberOrderInstance[]
     ) => any
-  ): Promise<DependentHostedNumberOrderPage>;
+  ): Promise<DependentHostedNumberOrderInstance[]>;
   /**
    * Retrieve a single page of DependentHostedNumberOrderInstance records from the API.
    *
@@ -255,13 +189,18 @@ export interface DependentHostedNumberOrderListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
+    callback?: (
+      error: Error | null,
+      items: DependentHostedNumberOrderPage
+    ) => any
+  ): Promise<DependentHostedNumberOrderPage>;
+  page(
     params: DependentHostedNumberOrderListInstancePageOptions,
     callback?: (
       error: Error | null,
       items: DependentHostedNumberOrderPage
     ) => any
   ): Promise<DependentHostedNumberOrderPage>;
-  page(params?: any, callback?: any): Promise<DependentHostedNumberOrderPage>;
 
   /**
    * Provide a user-friendly representation
@@ -285,10 +224,15 @@ export function DependentHostedNumberOrderListInstance(
   instance._uri = `/AuthorizationDocuments/${signingDocumentSid}/DependentHostedNumberOrders`;
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | DependentHostedNumberOrderListInstancePageOptions
+      | ((error: Error | null, items: DependentHostedNumberOrderPage) => any),
+    callback?: (
+      error: Error | null,
+      items: DependentHostedNumberOrderPage
+    ) => any
   ): Promise<DependentHostedNumberOrderPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -308,7 +252,7 @@ export function DependentHostedNumberOrderListInstance(
       data["UniqueName"] = params["uniqueName"];
     if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
@@ -340,8 +284,11 @@ export function DependentHostedNumberOrderListInstance(
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (
+      error: Error | null,
+      items: DependentHostedNumberOrderPage
+    ) => any
   ): Promise<DependentHostedNumberOrderPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",

@@ -149,7 +149,9 @@ export class VerificationAttemptContextImpl
     this._uri = `/Attempts/${sid}`;
   }
 
-  fetch(callback?: any): Promise<VerificationAttemptInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: VerificationAttemptInstance) => any
+  ): Promise<VerificationAttemptInstance> {
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
@@ -333,80 +335,34 @@ export interface VerificationAttemptListInstance {
    * If a function is passed as the first argument, it will be used as the callback
    * function.
    *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (
-      item: VerificationAttemptInstance,
-      done: (err?: Error) => void
-    ) => void
-  ): void;
-  /**
-   * Streams VerificationAttemptInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
    * @param { VerificationAttemptListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: VerificationAttemptListInstanceEachOptions,
     callback?: (
       item: VerificationAttemptInstance,
       done: (err?: Error) => void
     ) => void
   ): void;
-  each(params?: any, callback?: any): void;
+  each(
+    params: VerificationAttemptListInstanceEachOptions,
+    callback?: (
+      item: VerificationAttemptInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
   /**
    * Retrieve a single target page of VerificationAttemptInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: VerificationAttemptPage) => any
-  ): Promise<VerificationAttemptPage>;
-  /**
-   * Retrieve a single target page of VerificationAttemptInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: VerificationAttemptPage) => any
   ): Promise<VerificationAttemptPage>;
-  getPage(params?: any, callback?: any): Promise<VerificationAttemptPage>;
-  /**
-   * Lists VerificationAttemptInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (
-      error: Error | null,
-      items: VerificationAttemptInstance[]
-    ) => any
-  ): Promise<VerificationAttemptInstance[]>;
   /**
    * Lists VerificationAttemptInstance records from the API as a list.
    *
@@ -417,26 +373,18 @@ export interface VerificationAttemptListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: VerificationAttemptListInstanceOptions,
     callback?: (
       error: Error | null,
       items: VerificationAttemptInstance[]
     ) => any
   ): Promise<VerificationAttemptInstance[]>;
-  list(params?: any, callback?: any): Promise<VerificationAttemptInstance[]>;
-  /**
-   * Retrieve a single page of VerificationAttemptInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: VerificationAttemptPage) => any
-  ): Promise<VerificationAttemptPage>;
+  list(
+    params: VerificationAttemptListInstanceOptions,
+    callback?: (
+      error: Error | null,
+      items: VerificationAttemptInstance[]
+    ) => any
+  ): Promise<VerificationAttemptInstance[]>;
   /**
    * Retrieve a single page of VerificationAttemptInstance records from the API.
    *
@@ -449,10 +397,12 @@ export interface VerificationAttemptListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
+    callback?: (error: Error | null, items: VerificationAttemptPage) => any
+  ): Promise<VerificationAttemptPage>;
+  page(
     params: VerificationAttemptListInstancePageOptions,
     callback?: (error: Error | null, items: VerificationAttemptPage) => any
   ): Promise<VerificationAttemptPage>;
-  page(params?: any, callback?: any): Promise<VerificationAttemptPage>;
 
   /**
    * Provide a user-friendly representation
@@ -476,10 +426,12 @@ export function VerificationAttemptListInstance(
   instance._uri = `/Attempts`;
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | VerificationAttemptListInstancePageOptions
+      | ((error: Error | null, items: VerificationAttemptPage) => any),
+    callback?: (error: Error | null, items: VerificationAttemptPage) => any
   ): Promise<VerificationAttemptPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -507,7 +459,7 @@ export function VerificationAttemptListInstance(
     if (params["status"] !== undefined) data["Status"] = params["status"];
     if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
@@ -539,8 +491,8 @@ export function VerificationAttemptListInstance(
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: VerificationAttemptPage) => any
   ): Promise<VerificationAttemptPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",

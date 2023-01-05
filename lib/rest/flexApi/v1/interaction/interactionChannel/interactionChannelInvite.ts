@@ -91,31 +91,7 @@ export interface InteractionChannelInviteListInstance {
       item?: InteractionChannelInviteInstance
     ) => any
   ): Promise<InteractionChannelInviteInstance>;
-  create(
-    params: any,
-    callback?: any
-  ): Promise<InteractionChannelInviteInstance>;
 
-  /**
-   * Streams InteractionChannelInviteInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (
-      item: InteractionChannelInviteInstance,
-      done: (err?: Error) => void
-    ) => void
-  ): void;
   /**
    * Streams InteractionChannelInviteInstance records from the API.
    *
@@ -132,56 +108,30 @@ export interface InteractionChannelInviteListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: InteractionChannelInviteListInstanceEachOptions,
     callback?: (
       item: InteractionChannelInviteInstance,
       done: (err?: Error) => void
     ) => void
   ): void;
-  each(params?: any, callback?: any): void;
+  each(
+    params: InteractionChannelInviteListInstanceEachOptions,
+    callback?: (
+      item: InteractionChannelInviteInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
   /**
    * Retrieve a single target page of InteractionChannelInviteInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: InteractionChannelInvitePage) => any
-  ): Promise<InteractionChannelInvitePage>;
-  /**
-   * Retrieve a single target page of InteractionChannelInviteInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: InteractionChannelInvitePage) => any
   ): Promise<InteractionChannelInvitePage>;
-  getPage(params?: any, callback?: any): Promise<InteractionChannelInvitePage>;
-  /**
-   * Lists InteractionChannelInviteInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (
-      error: Error | null,
-      items: InteractionChannelInviteInstance[]
-    ) => any
-  ): Promise<InteractionChannelInviteInstance[]>;
   /**
    * Lists InteractionChannelInviteInstance records from the API as a list.
    *
@@ -192,29 +142,18 @@ export interface InteractionChannelInviteListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: InteractionChannelInviteListInstanceOptions,
     callback?: (
       error: Error | null,
       items: InteractionChannelInviteInstance[]
     ) => any
   ): Promise<InteractionChannelInviteInstance[]>;
   list(
-    params?: any,
-    callback?: any
+    params: InteractionChannelInviteListInstanceOptions,
+    callback?: (
+      error: Error | null,
+      items: InteractionChannelInviteInstance[]
+    ) => any
   ): Promise<InteractionChannelInviteInstance[]>;
-  /**
-   * Retrieve a single page of InteractionChannelInviteInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: InteractionChannelInvitePage) => any
-  ): Promise<InteractionChannelInvitePage>;
   /**
    * Retrieve a single page of InteractionChannelInviteInstance records from the API.
    *
@@ -227,10 +166,12 @@ export interface InteractionChannelInviteListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
+    callback?: (error: Error | null, items: InteractionChannelInvitePage) => any
+  ): Promise<InteractionChannelInvitePage>;
+  page(
     params: InteractionChannelInviteListInstancePageOptions,
     callback?: (error: Error | null, items: InteractionChannelInvitePage) => any
   ): Promise<InteractionChannelInvitePage>;
-  page(params?: any, callback?: any): Promise<InteractionChannelInvitePage>;
 
   /**
    * Provide a user-friendly representation
@@ -259,8 +200,11 @@ export function InteractionChannelInviteListInstance(
   instance._uri = `/Interactions/${interactionSid}/Channels/${channelSid}/Invites`;
 
   instance.create = function create(
-    params: any,
-    callback?: any
+    params: InteractionChannelInviteListInstanceCreateOptions,
+    callback?: (
+      error: Error | null,
+      items: InteractionChannelInviteInstance
+    ) => any
   ): Promise<InteractionChannelInviteInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -303,10 +247,12 @@ export function InteractionChannelInviteListInstance(
   };
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | InteractionChannelInviteListInstancePageOptions
+      | ((error: Error | null, items: InteractionChannelInvitePage) => any),
+    callback?: (error: Error | null, items: InteractionChannelInvitePage) => any
   ): Promise<InteractionChannelInvitePage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -317,7 +263,7 @@ export function InteractionChannelInviteListInstance(
 
     if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
@@ -349,8 +295,8 @@ export function InteractionChannelInviteListInstance(
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: InteractionChannelInvitePage) => any
   ): Promise<InteractionChannelInvitePage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",

@@ -76,7 +76,6 @@ export interface RecordingRulesListInstance {
     params: RecordingRulesListInstanceUpdateOptions,
     callback?: (error: Error | null, item?: RecordingRulesInstance) => any
   ): Promise<RecordingRulesInstance>;
-  update(params?: any, callback?: any): Promise<RecordingRulesInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -100,7 +99,7 @@ export function RecordingRulesListInstance(
   instance._uri = `/Rooms/${roomSid}/RecordingRules`;
 
   instance.fetch = function fetch(
-    callback?: any
+    callback?: (error: Error | null, items: RecordingRulesInstance) => any
   ): Promise<RecordingRulesInstance> {
     let operationVersion = version,
       operationPromise = operationVersion.fetch({
@@ -125,10 +124,12 @@ export function RecordingRulesListInstance(
   };
 
   instance.update = function update(
-    params?: any,
-    callback?: any
+    params?:
+      | RecordingRulesListInstanceUpdateOptions
+      | ((error: Error | null, items: RecordingRulesInstance) => any),
+    callback?: (error: Error | null, items: RecordingRulesInstance) => any
   ): Promise<RecordingRulesInstance> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {

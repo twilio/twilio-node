@@ -457,7 +457,6 @@ export interface SiprecContext {
     params: SiprecContextUpdateOptions,
     callback?: (error: Error | null, item?: SiprecInstance) => any
   ): Promise<SiprecInstance>;
-  update(params: any, callback?: any): Promise<SiprecInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -498,7 +497,12 @@ export class SiprecContextImpl implements SiprecContext {
     this._uri = `/Accounts/${accountSid}/Calls/${callSid}/Siprec/${sid}.json`;
   }
 
-  update(params: any, callback?: any): Promise<SiprecInstance> {
+  update(
+    params:
+      | SiprecContextUpdateOptions
+      | ((error: Error | null, item?: SiprecInstance) => any),
+    callback?: (error: Error | null, item?: SiprecInstance) => any
+  ): Promise<SiprecInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
@@ -639,7 +643,11 @@ export class SiprecInstance {
     params: SiprecContextUpdateOptions,
     callback?: (error: Error | null, item?: SiprecInstance) => any
   ): Promise<SiprecInstance>;
-  update(params: any, callback?: any): Promise<SiprecInstance> {
+
+  update(
+    params?: any,
+    callback?: (error: Error | null, item?: SiprecInstance) => any
+  ): Promise<SiprecInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -700,7 +708,6 @@ export interface SiprecListInstance {
     params: SiprecListInstanceCreateOptions,
     callback?: (error: Error | null, item?: SiprecInstance) => any
   ): Promise<SiprecInstance>;
-  create(params?: any, callback?: any): Promise<SiprecInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -733,10 +740,12 @@ export function SiprecListInstance(
   instance._uri = `/Accounts/${accountSid}/Calls/${callSid}/Siprec.json`;
 
   instance.create = function create(
-    params?: any,
-    callback?: any
+    params?:
+      | SiprecListInstanceCreateOptions
+      | ((error: Error | null, items: SiprecInstance) => any),
+    callback?: (error: Error | null, items: SiprecInstance) => any
   ): Promise<SiprecInstance> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {

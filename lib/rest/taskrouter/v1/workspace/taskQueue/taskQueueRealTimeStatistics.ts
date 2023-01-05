@@ -55,10 +55,6 @@ export interface TaskQueueRealTimeStatisticsContext {
       item?: TaskQueueRealTimeStatisticsInstance
     ) => any
   ): Promise<TaskQueueRealTimeStatisticsInstance>;
-  fetch(
-    params?: any,
-    callback?: any
-  ): Promise<TaskQueueRealTimeStatisticsInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -96,10 +92,18 @@ export class TaskQueueRealTimeStatisticsContextImpl
   }
 
   fetch(
-    params?: any,
-    callback?: any
+    params?:
+      | TaskQueueRealTimeStatisticsContextFetchOptions
+      | ((
+          error: Error | null,
+          item?: TaskQueueRealTimeStatisticsInstance
+        ) => any),
+    callback?: (
+      error: Error | null,
+      item?: TaskQueueRealTimeStatisticsInstance
+    ) => any
   ): Promise<TaskQueueRealTimeStatisticsInstance> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -306,9 +310,13 @@ export class TaskQueueRealTimeStatisticsInstance {
       item?: TaskQueueRealTimeStatisticsInstance
     ) => any
   ): Promise<TaskQueueRealTimeStatisticsInstance>;
+
   fetch(
     params?: any,
-    callback?: any
+    callback?: (
+      error: Error | null,
+      item?: TaskQueueRealTimeStatisticsInstance
+    ) => any
   ): Promise<TaskQueueRealTimeStatisticsInstance> {
     return this._proxy.fetch(params, callback);
   }

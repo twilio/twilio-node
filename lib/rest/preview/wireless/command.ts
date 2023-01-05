@@ -135,7 +135,9 @@ export class CommandContextImpl implements CommandContext {
     this._uri = `/Commands/${sid}`;
   }
 
-  fetch(callback?: any): Promise<CommandInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: CommandInstance) => any
+  ): Promise<CommandInstance> {
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
@@ -291,25 +293,7 @@ export interface CommandListInstance {
     params: CommandListInstanceCreateOptions,
     callback?: (error: Error | null, item?: CommandInstance) => any
   ): Promise<CommandInstance>;
-  create(params: any, callback?: any): Promise<CommandInstance>;
 
-  /**
-   * Streams CommandInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (item: CommandInstance, done: (err?: Error) => void) => void
-  ): void;
   /**
    * Streams CommandInstance records from the API.
    *
@@ -326,50 +310,24 @@ export interface CommandListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: CommandListInstanceEachOptions,
     callback?: (item: CommandInstance, done: (err?: Error) => void) => void
   ): void;
-  each(params?: any, callback?: any): void;
+  each(
+    params: CommandListInstanceEachOptions,
+    callback?: (item: CommandInstance, done: (err?: Error) => void) => void
+  ): void;
   /**
    * Retrieve a single target page of CommandInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: CommandPage) => any
-  ): Promise<CommandPage>;
-  /**
-   * Retrieve a single target page of CommandInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: CommandPage) => any
   ): Promise<CommandPage>;
-  getPage(params?: any, callback?: any): Promise<CommandPage>;
-  /**
-   * Lists CommandInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: CommandInstance[]) => any
-  ): Promise<CommandInstance[]>;
   /**
    * Lists CommandInstance records from the API as a list.
    *
@@ -380,23 +338,12 @@ export interface CommandListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: CommandListInstanceOptions,
     callback?: (error: Error | null, items: CommandInstance[]) => any
   ): Promise<CommandInstance[]>;
-  list(params?: any, callback?: any): Promise<CommandInstance[]>;
-  /**
-   * Retrieve a single page of CommandInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: CommandPage) => any
-  ): Promise<CommandPage>;
+  list(
+    params: CommandListInstanceOptions,
+    callback?: (error: Error | null, items: CommandInstance[]) => any
+  ): Promise<CommandInstance[]>;
   /**
    * Retrieve a single page of CommandInstance records from the API.
    *
@@ -409,10 +356,12 @@ export interface CommandListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
+    callback?: (error: Error | null, items: CommandPage) => any
+  ): Promise<CommandPage>;
+  page(
     params: CommandListInstancePageOptions,
     callback?: (error: Error | null, items: CommandPage) => any
   ): Promise<CommandPage>;
-  page(params?: any, callback?: any): Promise<CommandPage>;
 
   /**
    * Provide a user-friendly representation
@@ -433,8 +382,8 @@ export function CommandListInstance(version: Wireless): CommandListInstance {
   instance._uri = `/Commands`;
 
   instance.create = function create(
-    params: any,
-    callback?: any
+    params: CommandListInstanceCreateOptions,
+    callback?: (error: Error | null, items: CommandInstance) => any
   ): Promise<CommandInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -481,10 +430,12 @@ export function CommandListInstance(version: Wireless): CommandListInstance {
   };
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | CommandListInstancePageOptions
+      | ((error: Error | null, items: CommandPage) => any),
+    callback?: (error: Error | null, items: CommandPage) => any
   ): Promise<CommandPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -500,7 +451,7 @@ export function CommandListInstance(version: Wireless): CommandListInstance {
       data["Direction"] = params["direction"];
     if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
@@ -528,8 +479,8 @@ export function CommandListInstance(version: Wireless): CommandListInstance {
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: CommandPage) => any
   ): Promise<CommandPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",

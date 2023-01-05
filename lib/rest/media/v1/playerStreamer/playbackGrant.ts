@@ -51,7 +51,6 @@ export interface PlaybackGrantContext {
     params: PlaybackGrantContextCreateOptions,
     callback?: (error: Error | null, item?: PlaybackGrantInstance) => any
   ): Promise<PlaybackGrantInstance>;
-  create(params?: any, callback?: any): Promise<PlaybackGrantInstance>;
 
   /**
    * Fetch a PlaybackGrantInstance
@@ -88,8 +87,13 @@ export class PlaybackGrantContextImpl implements PlaybackGrantContext {
     this._uri = `/PlayerStreamers/${sid}/PlaybackGrant`;
   }
 
-  create(params?: any, callback?: any): Promise<PlaybackGrantInstance> {
-    if (typeof params === "function") {
+  create(
+    params?:
+      | PlaybackGrantContextCreateOptions
+      | ((error: Error | null, item?: PlaybackGrantInstance) => any),
+    callback?: (error: Error | null, item?: PlaybackGrantInstance) => any
+  ): Promise<PlaybackGrantInstance> {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -130,7 +134,9 @@ export class PlaybackGrantContextImpl implements PlaybackGrantContext {
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<PlaybackGrantInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: PlaybackGrantInstance) => any
+  ): Promise<PlaybackGrantInstance> {
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
@@ -246,7 +252,11 @@ export class PlaybackGrantInstance {
     params: PlaybackGrantContextCreateOptions,
     callback?: (error: Error | null, item?: PlaybackGrantInstance) => any
   ): Promise<PlaybackGrantInstance>;
-  create(params?: any, callback?: any): Promise<PlaybackGrantInstance> {
+
+  create(
+    params?: any,
+    callback?: (error: Error | null, item?: PlaybackGrantInstance) => any
+  ): Promise<PlaybackGrantInstance> {
     return this._proxy.create(params, callback);
   }
 

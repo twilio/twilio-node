@@ -99,7 +99,6 @@ export interface WorkerChannelContext {
     params: WorkerChannelContextUpdateOptions,
     callback?: (error: Error | null, item?: WorkerChannelInstance) => any
   ): Promise<WorkerChannelInstance>;
-  update(params?: any, callback?: any): Promise<WorkerChannelInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -140,7 +139,9 @@ export class WorkerChannelContextImpl implements WorkerChannelContext {
     this._uri = `/Workspaces/${workspaceSid}/Workers/${workerSid}/Channels/${sid}`;
   }
 
-  fetch(callback?: any): Promise<WorkerChannelInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: WorkerChannelInstance) => any
+  ): Promise<WorkerChannelInstance> {
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
@@ -166,8 +167,13 @@ export class WorkerChannelContextImpl implements WorkerChannelContext {
     return operationPromise;
   }
 
-  update(params?: any, callback?: any): Promise<WorkerChannelInstance> {
-    if (typeof params === "function") {
+  update(
+    params?:
+      | WorkerChannelContextUpdateOptions
+      | ((error: Error | null, item?: WorkerChannelInstance) => any),
+    callback?: (error: Error | null, item?: WorkerChannelInstance) => any
+  ): Promise<WorkerChannelInstance> {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -374,7 +380,11 @@ export class WorkerChannelInstance {
     params: WorkerChannelContextUpdateOptions,
     callback?: (error: Error | null, item?: WorkerChannelInstance) => any
   ): Promise<WorkerChannelInstance>;
-  update(params?: any, callback?: any): Promise<WorkerChannelInstance> {
+
+  update(
+    params?: any,
+    callback?: (error: Error | null, item?: WorkerChannelInstance) => any
+  ): Promise<WorkerChannelInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -431,77 +441,34 @@ export interface WorkerChannelListInstance {
    * If a function is passed as the first argument, it will be used as the callback
    * function.
    *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (
-      item: WorkerChannelInstance,
-      done: (err?: Error) => void
-    ) => void
-  ): void;
-  /**
-   * Streams WorkerChannelInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
    * @param { WorkerChannelListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: WorkerChannelListInstanceEachOptions,
     callback?: (
       item: WorkerChannelInstance,
       done: (err?: Error) => void
     ) => void
   ): void;
-  each(params?: any, callback?: any): void;
+  each(
+    params: WorkerChannelListInstanceEachOptions,
+    callback?: (
+      item: WorkerChannelInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
   /**
    * Retrieve a single target page of WorkerChannelInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: WorkerChannelPage) => any
-  ): Promise<WorkerChannelPage>;
-  /**
-   * Retrieve a single target page of WorkerChannelInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: WorkerChannelPage) => any
   ): Promise<WorkerChannelPage>;
-  getPage(params?: any, callback?: any): Promise<WorkerChannelPage>;
-  /**
-   * Lists WorkerChannelInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: WorkerChannelInstance[]) => any
-  ): Promise<WorkerChannelInstance[]>;
   /**
    * Lists WorkerChannelInstance records from the API as a list.
    *
@@ -512,23 +479,12 @@ export interface WorkerChannelListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: WorkerChannelListInstanceOptions,
     callback?: (error: Error | null, items: WorkerChannelInstance[]) => any
   ): Promise<WorkerChannelInstance[]>;
-  list(params?: any, callback?: any): Promise<WorkerChannelInstance[]>;
-  /**
-   * Retrieve a single page of WorkerChannelInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: WorkerChannelPage) => any
-  ): Promise<WorkerChannelPage>;
+  list(
+    params: WorkerChannelListInstanceOptions,
+    callback?: (error: Error | null, items: WorkerChannelInstance[]) => any
+  ): Promise<WorkerChannelInstance[]>;
   /**
    * Retrieve a single page of WorkerChannelInstance records from the API.
    *
@@ -541,10 +497,12 @@ export interface WorkerChannelListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
+    callback?: (error: Error | null, items: WorkerChannelPage) => any
+  ): Promise<WorkerChannelPage>;
+  page(
     params: WorkerChannelListInstancePageOptions,
     callback?: (error: Error | null, items: WorkerChannelPage) => any
   ): Promise<WorkerChannelPage>;
-  page(params?: any, callback?: any): Promise<WorkerChannelPage>;
 
   /**
    * Provide a user-friendly representation
@@ -577,10 +535,12 @@ export function WorkerChannelListInstance(
   instance._uri = `/Workspaces/${workspaceSid}/Workers/${workerSid}/Channels`;
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | WorkerChannelListInstancePageOptions
+      | ((error: Error | null, items: WorkerChannelPage) => any),
+    callback?: (error: Error | null, items: WorkerChannelPage) => any
   ): Promise<WorkerChannelPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -591,7 +551,7 @@ export function WorkerChannelListInstance(
 
     if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
@@ -619,8 +579,8 @@ export function WorkerChannelListInstance(
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: WorkerChannelPage) => any
   ): Promise<WorkerChannelPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",

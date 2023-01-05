@@ -49,7 +49,6 @@ export interface RecordingSettingsContext {
     params: RecordingSettingsContextCreateOptions,
     callback?: (error: Error | null, item?: RecordingSettingsInstance) => any
   ): Promise<RecordingSettingsInstance>;
-  create(params: any, callback?: any): Promise<RecordingSettingsInstance>;
 
   /**
    * Fetch a RecordingSettingsInstance
@@ -80,7 +79,12 @@ export class RecordingSettingsContextImpl implements RecordingSettingsContext {
     this._uri = `/RecordingSettings/Default`;
   }
 
-  create(params: any, callback?: any): Promise<RecordingSettingsInstance> {
+  create(
+    params:
+      | RecordingSettingsContextCreateOptions
+      | ((error: Error | null, item?: RecordingSettingsInstance) => any),
+    callback?: (error: Error | null, item?: RecordingSettingsInstance) => any
+  ): Promise<RecordingSettingsInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
@@ -128,7 +132,9 @@ export class RecordingSettingsContextImpl implements RecordingSettingsContext {
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<RecordingSettingsInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: RecordingSettingsInstance) => any
+  ): Promise<RecordingSettingsInstance> {
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
@@ -242,7 +248,11 @@ export class RecordingSettingsInstance {
     params: RecordingSettingsContextCreateOptions,
     callback?: (error: Error | null, item?: RecordingSettingsInstance) => any
   ): Promise<RecordingSettingsInstance>;
-  create(params: any, callback?: any): Promise<RecordingSettingsInstance> {
+
+  create(
+    params?: any,
+    callback?: (error: Error | null, item?: RecordingSettingsInstance) => any
+  ): Promise<RecordingSettingsInstance> {
     return this._proxy.create(params, callback);
   }
 

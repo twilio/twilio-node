@@ -109,7 +109,12 @@ export class AvailableAddOnExtensionContextImpl
     this._uri = `/AvailableAddOns/${availableAddOnSid}/Extensions/${sid}`;
   }
 
-  fetch(callback?: any): Promise<AvailableAddOnExtensionInstance> {
+  fetch(
+    callback?: (
+      error: Error | null,
+      item?: AvailableAddOnExtensionInstance
+    ) => any
+  ): Promise<AvailableAddOnExtensionInstance> {
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
@@ -278,80 +283,34 @@ export interface AvailableAddOnExtensionListInstance {
    * If a function is passed as the first argument, it will be used as the callback
    * function.
    *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (
-      item: AvailableAddOnExtensionInstance,
-      done: (err?: Error) => void
-    ) => void
-  ): void;
-  /**
-   * Streams AvailableAddOnExtensionInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
    * @param { AvailableAddOnExtensionListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: AvailableAddOnExtensionListInstanceEachOptions,
     callback?: (
       item: AvailableAddOnExtensionInstance,
       done: (err?: Error) => void
     ) => void
   ): void;
-  each(params?: any, callback?: any): void;
+  each(
+    params: AvailableAddOnExtensionListInstanceEachOptions,
+    callback?: (
+      item: AvailableAddOnExtensionInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
   /**
    * Retrieve a single target page of AvailableAddOnExtensionInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: AvailableAddOnExtensionPage) => any
-  ): Promise<AvailableAddOnExtensionPage>;
-  /**
-   * Retrieve a single target page of AvailableAddOnExtensionInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: AvailableAddOnExtensionPage) => any
   ): Promise<AvailableAddOnExtensionPage>;
-  getPage(params?: any, callback?: any): Promise<AvailableAddOnExtensionPage>;
-  /**
-   * Lists AvailableAddOnExtensionInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (
-      error: Error | null,
-      items: AvailableAddOnExtensionInstance[]
-    ) => any
-  ): Promise<AvailableAddOnExtensionInstance[]>;
   /**
    * Lists AvailableAddOnExtensionInstance records from the API as a list.
    *
@@ -362,29 +321,18 @@ export interface AvailableAddOnExtensionListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: AvailableAddOnExtensionListInstanceOptions,
     callback?: (
       error: Error | null,
       items: AvailableAddOnExtensionInstance[]
     ) => any
   ): Promise<AvailableAddOnExtensionInstance[]>;
   list(
-    params?: any,
-    callback?: any
+    params: AvailableAddOnExtensionListInstanceOptions,
+    callback?: (
+      error: Error | null,
+      items: AvailableAddOnExtensionInstance[]
+    ) => any
   ): Promise<AvailableAddOnExtensionInstance[]>;
-  /**
-   * Retrieve a single page of AvailableAddOnExtensionInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: AvailableAddOnExtensionPage) => any
-  ): Promise<AvailableAddOnExtensionPage>;
   /**
    * Retrieve a single page of AvailableAddOnExtensionInstance records from the API.
    *
@@ -397,10 +345,12 @@ export interface AvailableAddOnExtensionListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
+    callback?: (error: Error | null, items: AvailableAddOnExtensionPage) => any
+  ): Promise<AvailableAddOnExtensionPage>;
+  page(
     params: AvailableAddOnExtensionListInstancePageOptions,
     callback?: (error: Error | null, items: AvailableAddOnExtensionPage) => any
   ): Promise<AvailableAddOnExtensionPage>;
-  page(params?: any, callback?: any): Promise<AvailableAddOnExtensionPage>;
 
   /**
    * Provide a user-friendly representation
@@ -433,10 +383,12 @@ export function AvailableAddOnExtensionListInstance(
   instance._uri = `/AvailableAddOns/${availableAddOnSid}/Extensions`;
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | AvailableAddOnExtensionListInstancePageOptions
+      | ((error: Error | null, items: AvailableAddOnExtensionPage) => any),
+    callback?: (error: Error | null, items: AvailableAddOnExtensionPage) => any
   ): Promise<AvailableAddOnExtensionPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -447,7 +399,7 @@ export function AvailableAddOnExtensionListInstance(
 
     if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
@@ -479,8 +431,8 @@ export function AvailableAddOnExtensionListInstance(
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: AvailableAddOnExtensionPage) => any
   ): Promise<AvailableAddOnExtensionPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",

@@ -121,7 +121,6 @@ export interface SubscribedEventContext {
     params: SubscribedEventContextUpdateOptions,
     callback?: (error: Error | null, item?: SubscribedEventInstance) => any
   ): Promise<SubscribedEventInstance>;
-  update(params?: any, callback?: any): Promise<SubscribedEventInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -152,7 +151,9 @@ export class SubscribedEventContextImpl implements SubscribedEventContext {
     this._uri = `/Subscriptions/${subscriptionSid}/SubscribedEvents/${type}`;
   }
 
-  remove(callback?: any): Promise<boolean> {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
@@ -167,7 +168,9 @@ export class SubscribedEventContextImpl implements SubscribedEventContext {
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<SubscribedEventInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: SubscribedEventInstance) => any
+  ): Promise<SubscribedEventInstance> {
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
@@ -192,8 +195,13 @@ export class SubscribedEventContextImpl implements SubscribedEventContext {
     return operationPromise;
   }
 
-  update(params?: any, callback?: any): Promise<SubscribedEventInstance> {
-    if (typeof params === "function") {
+  update(
+    params?:
+      | SubscribedEventContextUpdateOptions
+      | ((error: Error | null, item?: SubscribedEventInstance) => any),
+    callback?: (error: Error | null, item?: SubscribedEventInstance) => any
+  ): Promise<SubscribedEventInstance> {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -359,7 +367,11 @@ export class SubscribedEventInstance {
     params: SubscribedEventContextUpdateOptions,
     callback?: (error: Error | null, item?: SubscribedEventInstance) => any
   ): Promise<SubscribedEventInstance>;
-  update(params?: any, callback?: any): Promise<SubscribedEventInstance> {
+
+  update(
+    params?: any,
+    callback?: (error: Error | null, item?: SubscribedEventInstance) => any
+  ): Promise<SubscribedEventInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -407,28 +419,7 @@ export interface SubscribedEventListInstance {
     params: SubscribedEventListInstanceCreateOptions,
     callback?: (error: Error | null, item?: SubscribedEventInstance) => any
   ): Promise<SubscribedEventInstance>;
-  create(params: any, callback?: any): Promise<SubscribedEventInstance>;
 
-  /**
-   * Streams SubscribedEventInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (
-      item: SubscribedEventInstance,
-      done: (err?: Error) => void
-    ) => void
-  ): void;
   /**
    * Streams SubscribedEventInstance records from the API.
    *
@@ -445,53 +436,30 @@ export interface SubscribedEventListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: SubscribedEventListInstanceEachOptions,
     callback?: (
       item: SubscribedEventInstance,
       done: (err?: Error) => void
     ) => void
   ): void;
-  each(params?: any, callback?: any): void;
+  each(
+    params: SubscribedEventListInstanceEachOptions,
+    callback?: (
+      item: SubscribedEventInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
   /**
    * Retrieve a single target page of SubscribedEventInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: SubscribedEventPage) => any
-  ): Promise<SubscribedEventPage>;
-  /**
-   * Retrieve a single target page of SubscribedEventInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: SubscribedEventPage) => any
   ): Promise<SubscribedEventPage>;
-  getPage(params?: any, callback?: any): Promise<SubscribedEventPage>;
-  /**
-   * Lists SubscribedEventInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: SubscribedEventInstance[]) => any
-  ): Promise<SubscribedEventInstance[]>;
   /**
    * Lists SubscribedEventInstance records from the API as a list.
    *
@@ -502,23 +470,12 @@ export interface SubscribedEventListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: SubscribedEventListInstanceOptions,
     callback?: (error: Error | null, items: SubscribedEventInstance[]) => any
   ): Promise<SubscribedEventInstance[]>;
-  list(params?: any, callback?: any): Promise<SubscribedEventInstance[]>;
-  /**
-   * Retrieve a single page of SubscribedEventInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: SubscribedEventPage) => any
-  ): Promise<SubscribedEventPage>;
+  list(
+    params: SubscribedEventListInstanceOptions,
+    callback?: (error: Error | null, items: SubscribedEventInstance[]) => any
+  ): Promise<SubscribedEventInstance[]>;
   /**
    * Retrieve a single page of SubscribedEventInstance records from the API.
    *
@@ -531,10 +488,12 @@ export interface SubscribedEventListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
+    callback?: (error: Error | null, items: SubscribedEventPage) => any
+  ): Promise<SubscribedEventPage>;
+  page(
     params: SubscribedEventListInstancePageOptions,
     callback?: (error: Error | null, items: SubscribedEventPage) => any
   ): Promise<SubscribedEventPage>;
-  page(params?: any, callback?: any): Promise<SubscribedEventPage>;
 
   /**
    * Provide a user-friendly representation
@@ -563,8 +522,8 @@ export function SubscribedEventListInstance(
   instance._uri = `/Subscriptions/${subscriptionSid}/SubscribedEvents`;
 
   instance.create = function create(
-    params: any,
-    callback?: any
+    params: SubscribedEventListInstanceCreateOptions,
+    callback?: (error: Error | null, items: SubscribedEventInstance) => any
   ): Promise<SubscribedEventInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -608,10 +567,12 @@ export function SubscribedEventListInstance(
   };
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | SubscribedEventListInstancePageOptions
+      | ((error: Error | null, items: SubscribedEventPage) => any),
+    callback?: (error: Error | null, items: SubscribedEventPage) => any
   ): Promise<SubscribedEventPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -622,7 +583,7 @@ export function SubscribedEventListInstance(
 
     if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
@@ -650,8 +611,8 @@ export function SubscribedEventListInstance(
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: SubscribedEventPage) => any
   ): Promise<SubscribedEventPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",

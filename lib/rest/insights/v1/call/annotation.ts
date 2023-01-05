@@ -82,7 +82,6 @@ export interface AnnotationContext {
     params: AnnotationContextUpdateOptions,
     callback?: (error: Error | null, item?: AnnotationInstance) => any
   ): Promise<AnnotationInstance>;
-  update(params?: any, callback?: any): Promise<AnnotationInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -108,7 +107,9 @@ export class AnnotationContextImpl implements AnnotationContext {
     this._uri = `/Voice/${callSid}/Annotation`;
   }
 
-  fetch(callback?: any): Promise<AnnotationInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: AnnotationInstance) => any
+  ): Promise<AnnotationInstance> {
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
@@ -132,8 +133,13 @@ export class AnnotationContextImpl implements AnnotationContext {
     return operationPromise;
   }
 
-  update(params?: any, callback?: any): Promise<AnnotationInstance> {
-    if (typeof params === "function") {
+  update(
+    params?:
+      | AnnotationContextUpdateOptions
+      | ((error: Error | null, item?: AnnotationInstance) => any),
+    callback?: (error: Error | null, item?: AnnotationInstance) => any
+  ): Promise<AnnotationInstance> {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -312,7 +318,11 @@ export class AnnotationInstance {
     params: AnnotationContextUpdateOptions,
     callback?: (error: Error | null, item?: AnnotationInstance) => any
   ): Promise<AnnotationInstance>;
-  update(params?: any, callback?: any): Promise<AnnotationInstance> {
+
+  update(
+    params?: any,
+    callback?: (error: Error | null, item?: AnnotationInstance) => any
+  ): Promise<AnnotationInstance> {
     return this._proxy.update(params, callback);
   }
 

@@ -120,7 +120,6 @@ export interface IpRecordContext {
     params: IpRecordContextUpdateOptions,
     callback?: (error: Error | null, item?: IpRecordInstance) => any
   ): Promise<IpRecordInstance>;
-  update(params?: any, callback?: any): Promise<IpRecordInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -146,7 +145,9 @@ export class IpRecordContextImpl implements IpRecordContext {
     this._uri = `/IpRecords/${sid}`;
   }
 
-  remove(callback?: any): Promise<boolean> {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
@@ -161,7 +162,9 @@ export class IpRecordContextImpl implements IpRecordContext {
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<IpRecordInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: IpRecordInstance) => any
+  ): Promise<IpRecordInstance> {
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
@@ -181,8 +184,13 @@ export class IpRecordContextImpl implements IpRecordContext {
     return operationPromise;
   }
 
-  update(params?: any, callback?: any): Promise<IpRecordInstance> {
-    if (typeof params === "function") {
+  update(
+    params?:
+      | IpRecordContextUpdateOptions
+      | ((error: Error | null, item?: IpRecordInstance) => any),
+    callback?: (error: Error | null, item?: IpRecordInstance) => any
+  ): Promise<IpRecordInstance> {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -352,7 +360,11 @@ export class IpRecordInstance {
     params: IpRecordContextUpdateOptions,
     callback?: (error: Error | null, item?: IpRecordInstance) => any
   ): Promise<IpRecordInstance>;
-  update(params?: any, callback?: any): Promise<IpRecordInstance> {
+
+  update(
+    params?: any,
+    callback?: (error: Error | null, item?: IpRecordInstance) => any
+  ): Promise<IpRecordInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -401,25 +413,7 @@ export interface IpRecordListInstance {
     params: IpRecordListInstanceCreateOptions,
     callback?: (error: Error | null, item?: IpRecordInstance) => any
   ): Promise<IpRecordInstance>;
-  create(params: any, callback?: any): Promise<IpRecordInstance>;
 
-  /**
-   * Streams IpRecordInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (item: IpRecordInstance, done: (err?: Error) => void) => void
-  ): void;
   /**
    * Streams IpRecordInstance records from the API.
    *
@@ -436,50 +430,24 @@ export interface IpRecordListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: IpRecordListInstanceEachOptions,
     callback?: (item: IpRecordInstance, done: (err?: Error) => void) => void
   ): void;
-  each(params?: any, callback?: any): void;
+  each(
+    params: IpRecordListInstanceEachOptions,
+    callback?: (item: IpRecordInstance, done: (err?: Error) => void) => void
+  ): void;
   /**
    * Retrieve a single target page of IpRecordInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: IpRecordPage) => any
-  ): Promise<IpRecordPage>;
-  /**
-   * Retrieve a single target page of IpRecordInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: IpRecordPage) => any
   ): Promise<IpRecordPage>;
-  getPage(params?: any, callback?: any): Promise<IpRecordPage>;
-  /**
-   * Lists IpRecordInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: IpRecordInstance[]) => any
-  ): Promise<IpRecordInstance[]>;
   /**
    * Lists IpRecordInstance records from the API as a list.
    *
@@ -490,23 +458,12 @@ export interface IpRecordListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: IpRecordListInstanceOptions,
     callback?: (error: Error | null, items: IpRecordInstance[]) => any
   ): Promise<IpRecordInstance[]>;
-  list(params?: any, callback?: any): Promise<IpRecordInstance[]>;
-  /**
-   * Retrieve a single page of IpRecordInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: IpRecordPage) => any
-  ): Promise<IpRecordPage>;
+  list(
+    params: IpRecordListInstanceOptions,
+    callback?: (error: Error | null, items: IpRecordInstance[]) => any
+  ): Promise<IpRecordInstance[]>;
   /**
    * Retrieve a single page of IpRecordInstance records from the API.
    *
@@ -519,10 +476,12 @@ export interface IpRecordListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
+    callback?: (error: Error | null, items: IpRecordPage) => any
+  ): Promise<IpRecordPage>;
+  page(
     params: IpRecordListInstancePageOptions,
     callback?: (error: Error | null, items: IpRecordPage) => any
   ): Promise<IpRecordPage>;
-  page(params?: any, callback?: any): Promise<IpRecordPage>;
 
   /**
    * Provide a user-friendly representation
@@ -543,8 +502,8 @@ export function IpRecordListInstance(version: V1): IpRecordListInstance {
   instance._uri = `/IpRecords`;
 
   instance.create = function create(
-    params: any,
-    callback?: any
+    params: IpRecordListInstanceCreateOptions,
+    callback?: (error: Error | null, items: IpRecordInstance) => any
   ): Promise<IpRecordInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -585,10 +544,12 @@ export function IpRecordListInstance(version: V1): IpRecordListInstance {
   };
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | IpRecordListInstancePageOptions
+      | ((error: Error | null, items: IpRecordPage) => any),
+    callback?: (error: Error | null, items: IpRecordPage) => any
   ): Promise<IpRecordPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -599,7 +560,7 @@ export function IpRecordListInstance(version: V1): IpRecordListInstance {
 
     if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
@@ -627,8 +588,8 @@ export function IpRecordListInstance(version: V1): IpRecordListInstance {
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: IpRecordPage) => any
   ): Promise<IpRecordPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",

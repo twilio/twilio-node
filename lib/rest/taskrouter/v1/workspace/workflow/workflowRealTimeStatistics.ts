@@ -55,10 +55,6 @@ export interface WorkflowRealTimeStatisticsContext {
       item?: WorkflowRealTimeStatisticsInstance
     ) => any
   ): Promise<WorkflowRealTimeStatisticsInstance>;
-  fetch(
-    params?: any,
-    callback?: any
-  ): Promise<WorkflowRealTimeStatisticsInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -96,10 +92,18 @@ export class WorkflowRealTimeStatisticsContextImpl
   }
 
   fetch(
-    params?: any,
-    callback?: any
+    params?:
+      | WorkflowRealTimeStatisticsContextFetchOptions
+      | ((
+          error: Error | null,
+          item?: WorkflowRealTimeStatisticsInstance
+        ) => any),
+    callback?: (
+      error: Error | null,
+      item?: WorkflowRealTimeStatisticsInstance
+    ) => any
   ): Promise<WorkflowRealTimeStatisticsInstance> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -269,9 +273,13 @@ export class WorkflowRealTimeStatisticsInstance {
       item?: WorkflowRealTimeStatisticsInstance
     ) => any
   ): Promise<WorkflowRealTimeStatisticsInstance>;
+
   fetch(
     params?: any,
-    callback?: any
+    callback?: (
+      error: Error | null,
+      item?: WorkflowRealTimeStatisticsInstance
+    ) => any
   ): Promise<WorkflowRealTimeStatisticsInstance> {
     return this._proxy.fetch(params, callback);
   }

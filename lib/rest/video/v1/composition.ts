@@ -159,7 +159,9 @@ export class CompositionContextImpl implements CompositionContext {
     this._uri = `/Compositions/${sid}`;
   }
 
-  remove(callback?: any): Promise<boolean> {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
@@ -174,7 +176,9 @@ export class CompositionContextImpl implements CompositionContext {
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<CompositionInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: CompositionInstance) => any
+  ): Promise<CompositionInstance> {
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
@@ -452,25 +456,7 @@ export interface CompositionListInstance {
     params: CompositionListInstanceCreateOptions,
     callback?: (error: Error | null, item?: CompositionInstance) => any
   ): Promise<CompositionInstance>;
-  create(params: any, callback?: any): Promise<CompositionInstance>;
 
-  /**
-   * Streams CompositionInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (item: CompositionInstance, done: (err?: Error) => void) => void
-  ): void;
   /**
    * Streams CompositionInstance records from the API.
    *
@@ -487,50 +473,24 @@ export interface CompositionListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: CompositionListInstanceEachOptions,
     callback?: (item: CompositionInstance, done: (err?: Error) => void) => void
   ): void;
-  each(params?: any, callback?: any): void;
+  each(
+    params: CompositionListInstanceEachOptions,
+    callback?: (item: CompositionInstance, done: (err?: Error) => void) => void
+  ): void;
   /**
    * Retrieve a single target page of CompositionInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: CompositionPage) => any
-  ): Promise<CompositionPage>;
-  /**
-   * Retrieve a single target page of CompositionInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: CompositionPage) => any
   ): Promise<CompositionPage>;
-  getPage(params?: any, callback?: any): Promise<CompositionPage>;
-  /**
-   * Lists CompositionInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: CompositionInstance[]) => any
-  ): Promise<CompositionInstance[]>;
   /**
    * Lists CompositionInstance records from the API as a list.
    *
@@ -541,23 +501,12 @@ export interface CompositionListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: CompositionListInstanceOptions,
     callback?: (error: Error | null, items: CompositionInstance[]) => any
   ): Promise<CompositionInstance[]>;
-  list(params?: any, callback?: any): Promise<CompositionInstance[]>;
-  /**
-   * Retrieve a single page of CompositionInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: CompositionPage) => any
-  ): Promise<CompositionPage>;
+  list(
+    params: CompositionListInstanceOptions,
+    callback?: (error: Error | null, items: CompositionInstance[]) => any
+  ): Promise<CompositionInstance[]>;
   /**
    * Retrieve a single page of CompositionInstance records from the API.
    *
@@ -570,10 +519,12 @@ export interface CompositionListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
+    callback?: (error: Error | null, items: CompositionPage) => any
+  ): Promise<CompositionPage>;
+  page(
     params: CompositionListInstancePageOptions,
     callback?: (error: Error | null, items: CompositionPage) => any
   ): Promise<CompositionPage>;
-  page(params?: any, callback?: any): Promise<CompositionPage>;
 
   /**
    * Provide a user-friendly representation
@@ -594,8 +545,8 @@ export function CompositionListInstance(version: V1): CompositionListInstance {
   instance._uri = `/Compositions`;
 
   instance.create = function create(
-    params: any,
-    callback?: any
+    params: CompositionListInstanceCreateOptions,
+    callback?: (error: Error | null, items: CompositionInstance) => any
   ): Promise<CompositionInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -653,10 +604,12 @@ export function CompositionListInstance(version: V1): CompositionListInstance {
   };
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | CompositionListInstancePageOptions
+      | ((error: Error | null, items: CompositionPage) => any),
+    callback?: (error: Error | null, items: CompositionPage) => any
   ): Promise<CompositionPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -677,7 +630,7 @@ export function CompositionListInstance(version: V1): CompositionListInstance {
     if (params["roomSid"] !== undefined) data["RoomSid"] = params["roomSid"];
     if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
@@ -705,8 +658,8 @@ export function CompositionListInstance(version: V1): CompositionListInstance {
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: CompositionPage) => any
   ): Promise<CompositionPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",

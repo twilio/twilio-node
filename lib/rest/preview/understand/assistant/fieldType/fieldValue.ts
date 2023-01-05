@@ -135,7 +135,9 @@ export class FieldValueContextImpl implements FieldValueContext {
     this._uri = `/Assistants/${assistantSid}/FieldTypes/${fieldTypeSid}/FieldValues/${sid}`;
   }
 
-  remove(callback?: any): Promise<boolean> {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
@@ -150,7 +152,9 @@ export class FieldValueContextImpl implements FieldValueContext {
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<FieldValueInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: FieldValueInstance) => any
+  ): Promise<FieldValueInstance> {
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
@@ -358,25 +362,7 @@ export interface FieldValueListInstance {
     params: FieldValueListInstanceCreateOptions,
     callback?: (error: Error | null, item?: FieldValueInstance) => any
   ): Promise<FieldValueInstance>;
-  create(params: any, callback?: any): Promise<FieldValueInstance>;
 
-  /**
-   * Streams FieldValueInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (item: FieldValueInstance, done: (err?: Error) => void) => void
-  ): void;
   /**
    * Streams FieldValueInstance records from the API.
    *
@@ -393,50 +379,24 @@ export interface FieldValueListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: FieldValueListInstanceEachOptions,
     callback?: (item: FieldValueInstance, done: (err?: Error) => void) => void
   ): void;
-  each(params?: any, callback?: any): void;
+  each(
+    params: FieldValueListInstanceEachOptions,
+    callback?: (item: FieldValueInstance, done: (err?: Error) => void) => void
+  ): void;
   /**
    * Retrieve a single target page of FieldValueInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: FieldValuePage) => any
-  ): Promise<FieldValuePage>;
-  /**
-   * Retrieve a single target page of FieldValueInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: FieldValuePage) => any
   ): Promise<FieldValuePage>;
-  getPage(params?: any, callback?: any): Promise<FieldValuePage>;
-  /**
-   * Lists FieldValueInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: FieldValueInstance[]) => any
-  ): Promise<FieldValueInstance[]>;
   /**
    * Lists FieldValueInstance records from the API as a list.
    *
@@ -447,23 +407,12 @@ export interface FieldValueListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: FieldValueListInstanceOptions,
     callback?: (error: Error | null, items: FieldValueInstance[]) => any
   ): Promise<FieldValueInstance[]>;
-  list(params?: any, callback?: any): Promise<FieldValueInstance[]>;
-  /**
-   * Retrieve a single page of FieldValueInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: FieldValuePage) => any
-  ): Promise<FieldValuePage>;
+  list(
+    params: FieldValueListInstanceOptions,
+    callback?: (error: Error | null, items: FieldValueInstance[]) => any
+  ): Promise<FieldValueInstance[]>;
   /**
    * Retrieve a single page of FieldValueInstance records from the API.
    *
@@ -476,10 +425,12 @@ export interface FieldValueListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
+    callback?: (error: Error | null, items: FieldValuePage) => any
+  ): Promise<FieldValuePage>;
+  page(
     params: FieldValueListInstancePageOptions,
     callback?: (error: Error | null, items: FieldValuePage) => any
   ): Promise<FieldValuePage>;
-  page(params?: any, callback?: any): Promise<FieldValuePage>;
 
   /**
    * Provide a user-friendly representation
@@ -512,8 +463,8 @@ export function FieldValueListInstance(
   instance._uri = `/Assistants/${assistantSid}/FieldTypes/${fieldTypeSid}/FieldValues`;
 
   instance.create = function create(
-    params: any,
-    callback?: any
+    params: FieldValueListInstanceCreateOptions,
+    callback?: (error: Error | null, items: FieldValueInstance) => any
   ): Promise<FieldValueInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -564,10 +515,12 @@ export function FieldValueListInstance(
   };
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | FieldValueListInstancePageOptions
+      | ((error: Error | null, items: FieldValuePage) => any),
+    callback?: (error: Error | null, items: FieldValuePage) => any
   ): Promise<FieldValuePage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -579,7 +532,7 @@ export function FieldValueListInstance(
     if (params["language"] !== undefined) data["Language"] = params["language"];
     if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
@@ -607,8 +560,8 @@ export function FieldValueListInstance(
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: FieldValuePage) => any
   ): Promise<FieldValuePage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",

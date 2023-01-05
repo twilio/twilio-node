@@ -71,7 +71,9 @@ export class NumberContextImpl implements NumberContext {
     this._uri = `/Voice/Numbers/${number}`;
   }
 
-  fetch(callback?: any): Promise<NumberInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: NumberInstance) => any
+  ): Promise<NumberInstance> {
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({

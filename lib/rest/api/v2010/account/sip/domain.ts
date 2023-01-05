@@ -171,7 +171,6 @@ export interface DomainContext {
     params: DomainContextUpdateOptions,
     callback?: (error: Error | null, item?: DomainInstance) => any
   ): Promise<DomainInstance>;
-  update(params?: any, callback?: any): Promise<DomainInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -239,7 +238,9 @@ export class DomainContextImpl implements DomainContext {
     return this._ipAccessControlListMappings;
   }
 
-  remove(callback?: any): Promise<boolean> {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
@@ -254,7 +255,9 @@ export class DomainContextImpl implements DomainContext {
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<DomainInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: DomainInstance) => any
+  ): Promise<DomainInstance> {
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
@@ -279,8 +282,13 @@ export class DomainContextImpl implements DomainContext {
     return operationPromise;
   }
 
-  update(params?: any, callback?: any): Promise<DomainInstance> {
-    if (typeof params === "function") {
+  update(
+    params?:
+      | DomainContextUpdateOptions
+      | ((error: Error | null, item?: DomainInstance) => any),
+    callback?: (error: Error | null, item?: DomainInstance) => any
+  ): Promise<DomainInstance> {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -589,7 +597,11 @@ export class DomainInstance {
     params: DomainContextUpdateOptions,
     callback?: (error: Error | null, item?: DomainInstance) => any
   ): Promise<DomainInstance>;
-  update(params?: any, callback?: any): Promise<DomainInstance> {
+
+  update(
+    params?: any,
+    callback?: (error: Error | null, item?: DomainInstance) => any
+  ): Promise<DomainInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -674,25 +686,7 @@ export interface DomainListInstance {
     params: DomainListInstanceCreateOptions,
     callback?: (error: Error | null, item?: DomainInstance) => any
   ): Promise<DomainInstance>;
-  create(params: any, callback?: any): Promise<DomainInstance>;
 
-  /**
-   * Streams DomainInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (item: DomainInstance, done: (err?: Error) => void) => void
-  ): void;
   /**
    * Streams DomainInstance records from the API.
    *
@@ -709,50 +703,24 @@ export interface DomainListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: DomainListInstanceEachOptions,
     callback?: (item: DomainInstance, done: (err?: Error) => void) => void
   ): void;
-  each(params?: any, callback?: any): void;
+  each(
+    params: DomainListInstanceEachOptions,
+    callback?: (item: DomainInstance, done: (err?: Error) => void) => void
+  ): void;
   /**
    * Retrieve a single target page of DomainInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: DomainPage) => any
-  ): Promise<DomainPage>;
-  /**
-   * Retrieve a single target page of DomainInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: DomainPage) => any
   ): Promise<DomainPage>;
-  getPage(params?: any, callback?: any): Promise<DomainPage>;
-  /**
-   * Lists DomainInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: DomainInstance[]) => any
-  ): Promise<DomainInstance[]>;
   /**
    * Lists DomainInstance records from the API as a list.
    *
@@ -763,23 +731,12 @@ export interface DomainListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: DomainListInstanceOptions,
     callback?: (error: Error | null, items: DomainInstance[]) => any
   ): Promise<DomainInstance[]>;
-  list(params?: any, callback?: any): Promise<DomainInstance[]>;
-  /**
-   * Retrieve a single page of DomainInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: DomainPage) => any
-  ): Promise<DomainPage>;
+  list(
+    params: DomainListInstanceOptions,
+    callback?: (error: Error | null, items: DomainInstance[]) => any
+  ): Promise<DomainInstance[]>;
   /**
    * Retrieve a single page of DomainInstance records from the API.
    *
@@ -792,10 +749,12 @@ export interface DomainListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
+    callback?: (error: Error | null, items: DomainPage) => any
+  ): Promise<DomainPage>;
+  page(
     params: DomainListInstancePageOptions,
     callback?: (error: Error | null, items: DomainPage) => any
   ): Promise<DomainPage>;
-  page(params?: any, callback?: any): Promise<DomainPage>;
 
   /**
    * Provide a user-friendly representation
@@ -823,8 +782,8 @@ export function DomainListInstance(
   instance._uri = `/Accounts/${accountSid}/SIP/Domains.json`;
 
   instance.create = function create(
-    params: any,
-    callback?: any
+    params: DomainListInstanceCreateOptions,
+    callback?: (error: Error | null, items: DomainInstance) => any
   ): Promise<DomainInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -891,10 +850,12 @@ export function DomainListInstance(
   };
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | DomainListInstancePageOptions
+      | ((error: Error | null, items: DomainPage) => any),
+    callback?: (error: Error | null, items: DomainPage) => any
   ): Promise<DomainPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -905,7 +866,7 @@ export function DomainListInstance(
 
     if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
@@ -932,8 +893,8 @@ export function DomainListInstance(
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: DomainPage) => any
   ): Promise<DomainPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",

@@ -93,7 +93,6 @@ export interface NotificationListInstance {
     params: NotificationListInstanceCreateOptions,
     callback?: (error: Error | null, item?: NotificationInstance) => any
   ): Promise<NotificationInstance>;
-  create(params?: any, callback?: any): Promise<NotificationInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -117,10 +116,12 @@ export function NotificationListInstance(
   instance._uri = `/Services/${serviceSid}/Notifications`;
 
   instance.create = function create(
-    params?: any,
-    callback?: any
+    params?:
+      | NotificationListInstanceCreateOptions
+      | ((error: Error | null, items: NotificationInstance) => any),
+    callback?: (error: Error | null, items: NotificationInstance) => any
   ): Promise<NotificationInstance> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {

@@ -51,7 +51,6 @@ export interface ConfigurationContext {
     params: ConfigurationContextFetchOptions,
     callback?: (error: Error | null, item?: ConfigurationInstance) => any
   ): Promise<ConfigurationInstance>;
-  fetch(params?: any, callback?: any): Promise<ConfigurationInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -71,8 +70,13 @@ export class ConfigurationContextImpl implements ConfigurationContext {
     this._uri = `/Configuration`;
   }
 
-  fetch(params?: any, callback?: any): Promise<ConfigurationInstance> {
-    if (typeof params === "function") {
+  fetch(
+    params?:
+      | ConfigurationContextFetchOptions
+      | ((error: Error | null, item?: ConfigurationInstance) => any),
+    callback?: (error: Error | null, item?: ConfigurationInstance) => any
+  ): Promise<ConfigurationInstance> {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -430,7 +434,11 @@ export class ConfigurationInstance {
     params: ConfigurationContextFetchOptions,
     callback?: (error: Error | null, item?: ConfigurationInstance) => any
   ): Promise<ConfigurationInstance>;
-  fetch(params?: any, callback?: any): Promise<ConfigurationInstance> {
+
+  fetch(
+    params?: any,
+    callback?: (error: Error | null, item?: ConfigurationInstance) => any
+  ): Promise<ConfigurationInstance> {
     return this._proxy.fetch(params, callback);
   }
 

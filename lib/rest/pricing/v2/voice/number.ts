@@ -64,7 +64,6 @@ export interface NumberContext {
     params: NumberContextFetchOptions,
     callback?: (error: Error | null, item?: NumberInstance) => any
   ): Promise<NumberInstance>;
-  fetch(params?: any, callback?: any): Promise<NumberInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -90,8 +89,13 @@ export class NumberContextImpl implements NumberContext {
     this._uri = `/Voice/Numbers/${destinationNumber}`;
   }
 
-  fetch(params?: any, callback?: any): Promise<NumberInstance> {
-    if (typeof params === "function") {
+  fetch(
+    params?:
+      | NumberContextFetchOptions
+      | ((error: Error | null, item?: NumberInstance) => any),
+    callback?: (error: Error | null, item?: NumberInstance) => any
+  ): Promise<NumberInstance> {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -239,7 +243,11 @@ export class NumberInstance {
     params: NumberContextFetchOptions,
     callback?: (error: Error | null, item?: NumberInstance) => any
   ): Promise<NumberInstance>;
-  fetch(params?: any, callback?: any): Promise<NumberInstance> {
+
+  fetch(
+    params?: any,
+    callback?: (error: Error | null, item?: NumberInstance) => any
+  ): Promise<NumberInstance> {
     return this._proxy.fetch(params, callback);
   }
 

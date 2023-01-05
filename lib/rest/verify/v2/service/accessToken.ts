@@ -75,7 +75,9 @@ export class AccessTokenContextImpl implements AccessTokenContext {
     this._uri = `/Services/${serviceSid}/AccessTokens/${sid}`;
   }
 
-  fetch(callback?: any): Promise<AccessTokenInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: AccessTokenInstance) => any
+  ): Promise<AccessTokenInstance> {
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
@@ -264,7 +266,6 @@ export interface AccessTokenListInstance {
     params: AccessTokenListInstanceCreateOptions,
     callback?: (error: Error | null, item?: AccessTokenInstance) => any
   ): Promise<AccessTokenInstance>;
-  create(params: any, callback?: any): Promise<AccessTokenInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -292,8 +293,8 @@ export function AccessTokenListInstance(
   instance._uri = `/Services/${serviceSid}/AccessTokens`;
 
   instance.create = function create(
-    params: any,
-    callback?: any
+    params: AccessTokenListInstanceCreateOptions,
+    callback?: (error: Error | null, items: AccessTokenInstance) => any
   ): Promise<AccessTokenInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');

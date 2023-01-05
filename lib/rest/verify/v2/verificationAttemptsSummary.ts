@@ -71,10 +71,6 @@ export interface VerificationAttemptsSummaryContext {
       item?: VerificationAttemptsSummaryInstance
     ) => any
   ): Promise<VerificationAttemptsSummaryInstance>;
-  fetch(
-    params?: any,
-    callback?: any
-  ): Promise<VerificationAttemptsSummaryInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -97,10 +93,18 @@ export class VerificationAttemptsSummaryContextImpl
   }
 
   fetch(
-    params?: any,
-    callback?: any
+    params?:
+      | VerificationAttemptsSummaryContextFetchOptions
+      | ((
+          error: Error | null,
+          item?: VerificationAttemptsSummaryInstance
+        ) => any),
+    callback?: (
+      error: Error | null,
+      item?: VerificationAttemptsSummaryInstance
+    ) => any
   ): Promise<VerificationAttemptsSummaryInstance> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -242,9 +246,13 @@ export class VerificationAttemptsSummaryInstance {
       item?: VerificationAttemptsSummaryInstance
     ) => any
   ): Promise<VerificationAttemptsSummaryInstance>;
+
   fetch(
     params?: any,
-    callback?: any
+    callback?: (
+      error: Error | null,
+      item?: VerificationAttemptsSummaryInstance
+    ) => any
   ): Promise<VerificationAttemptsSummaryInstance> {
     return this._proxy.fetch(params, callback);
   }

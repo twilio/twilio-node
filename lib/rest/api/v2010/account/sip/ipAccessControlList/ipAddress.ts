@@ -124,7 +124,6 @@ export interface IpAddressContext {
     params: IpAddressContextUpdateOptions,
     callback?: (error: Error | null, item?: IpAddressInstance) => any
   ): Promise<IpAddressInstance>;
-  update(params?: any, callback?: any): Promise<IpAddressInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -165,7 +164,9 @@ export class IpAddressContextImpl implements IpAddressContext {
     this._uri = `/Accounts/${accountSid}/SIP/IpAccessControlLists/${ipAccessControlListSid}/IpAddresses/${sid}.json`;
   }
 
-  remove(callback?: any): Promise<boolean> {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
@@ -180,7 +181,9 @@ export class IpAddressContextImpl implements IpAddressContext {
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<IpAddressInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: IpAddressInstance) => any
+  ): Promise<IpAddressInstance> {
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
@@ -206,8 +209,13 @@ export class IpAddressContextImpl implements IpAddressContext {
     return operationPromise;
   }
 
-  update(params?: any, callback?: any): Promise<IpAddressInstance> {
-    if (typeof params === "function") {
+  update(
+    params?:
+      | IpAddressContextUpdateOptions
+      | ((error: Error | null, item?: IpAddressInstance) => any),
+    callback?: (error: Error | null, item?: IpAddressInstance) => any
+  ): Promise<IpAddressInstance> {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -408,7 +416,11 @@ export class IpAddressInstance {
     params: IpAddressContextUpdateOptions,
     callback?: (error: Error | null, item?: IpAddressInstance) => any
   ): Promise<IpAddressInstance>;
-  update(params?: any, callback?: any): Promise<IpAddressInstance> {
+
+  update(
+    params?: any,
+    callback?: (error: Error | null, item?: IpAddressInstance) => any
+  ): Promise<IpAddressInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -461,25 +473,7 @@ export interface IpAddressListInstance {
     params: IpAddressListInstanceCreateOptions,
     callback?: (error: Error | null, item?: IpAddressInstance) => any
   ): Promise<IpAddressInstance>;
-  create(params: any, callback?: any): Promise<IpAddressInstance>;
 
-  /**
-   * Streams IpAddressInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (item: IpAddressInstance, done: (err?: Error) => void) => void
-  ): void;
   /**
    * Streams IpAddressInstance records from the API.
    *
@@ -496,50 +490,24 @@ export interface IpAddressListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: IpAddressListInstanceEachOptions,
     callback?: (item: IpAddressInstance, done: (err?: Error) => void) => void
   ): void;
-  each(params?: any, callback?: any): void;
+  each(
+    params: IpAddressListInstanceEachOptions,
+    callback?: (item: IpAddressInstance, done: (err?: Error) => void) => void
+  ): void;
   /**
    * Retrieve a single target page of IpAddressInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: IpAddressPage) => any
-  ): Promise<IpAddressPage>;
-  /**
-   * Retrieve a single target page of IpAddressInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: IpAddressPage) => any
   ): Promise<IpAddressPage>;
-  getPage(params?: any, callback?: any): Promise<IpAddressPage>;
-  /**
-   * Lists IpAddressInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: IpAddressInstance[]) => any
-  ): Promise<IpAddressInstance[]>;
   /**
    * Lists IpAddressInstance records from the API as a list.
    *
@@ -550,23 +518,12 @@ export interface IpAddressListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: IpAddressListInstanceOptions,
     callback?: (error: Error | null, items: IpAddressInstance[]) => any
   ): Promise<IpAddressInstance[]>;
-  list(params?: any, callback?: any): Promise<IpAddressInstance[]>;
-  /**
-   * Retrieve a single page of IpAddressInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: IpAddressPage) => any
-  ): Promise<IpAddressPage>;
+  list(
+    params: IpAddressListInstanceOptions,
+    callback?: (error: Error | null, items: IpAddressInstance[]) => any
+  ): Promise<IpAddressInstance[]>;
   /**
    * Retrieve a single page of IpAddressInstance records from the API.
    *
@@ -579,10 +536,12 @@ export interface IpAddressListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
+    callback?: (error: Error | null, items: IpAddressPage) => any
+  ): Promise<IpAddressPage>;
+  page(
     params: IpAddressListInstancePageOptions,
     callback?: (error: Error | null, items: IpAddressPage) => any
   ): Promise<IpAddressPage>;
-  page(params?: any, callback?: any): Promise<IpAddressPage>;
 
   /**
    * Provide a user-friendly representation
@@ -620,8 +579,8 @@ export function IpAddressListInstance(
   instance._uri = `/Accounts/${accountSid}/SIP/IpAccessControlLists/${ipAccessControlListSid}/IpAddresses.json`;
 
   instance.create = function create(
-    params: any,
-    callback?: any
+    params: IpAddressListInstanceCreateOptions,
+    callback?: (error: Error | null, items: IpAddressInstance) => any
   ): Promise<IpAddressInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -675,10 +634,12 @@ export function IpAddressListInstance(
   };
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | IpAddressListInstancePageOptions
+      | ((error: Error | null, items: IpAddressPage) => any),
+    callback?: (error: Error | null, items: IpAddressPage) => any
   ): Promise<IpAddressPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -689,7 +650,7 @@ export function IpAddressListInstance(
 
     if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
@@ -717,8 +678,8 @@ export function IpAddressListInstance(
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: IpAddressPage) => any
   ): Promise<IpAddressPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",

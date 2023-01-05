@@ -63,10 +63,6 @@ export interface TaskQueueCumulativeStatisticsContext {
       item?: TaskQueueCumulativeStatisticsInstance
     ) => any
   ): Promise<TaskQueueCumulativeStatisticsInstance>;
-  fetch(
-    params?: any,
-    callback?: any
-  ): Promise<TaskQueueCumulativeStatisticsInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -104,10 +100,18 @@ export class TaskQueueCumulativeStatisticsContextImpl
   }
 
   fetch(
-    params?: any,
-    callback?: any
+    params?:
+      | TaskQueueCumulativeStatisticsContextFetchOptions
+      | ((
+          error: Error | null,
+          item?: TaskQueueCumulativeStatisticsInstance
+        ) => any),
+    callback?: (
+      error: Error | null,
+      item?: TaskQueueCumulativeStatisticsInstance
+    ) => any
   ): Promise<TaskQueueCumulativeStatisticsInstance> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -375,9 +379,13 @@ export class TaskQueueCumulativeStatisticsInstance {
       item?: TaskQueueCumulativeStatisticsInstance
     ) => any
   ): Promise<TaskQueueCumulativeStatisticsInstance>;
+
   fetch(
     params?: any,
-    callback?: any
+    callback?: (
+      error: Error | null,
+      item?: TaskQueueCumulativeStatisticsInstance
+    ) => any
   ): Promise<TaskQueueCumulativeStatisticsInstance> {
     return this._proxy.fetch(params, callback);
   }

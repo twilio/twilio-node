@@ -71,7 +71,6 @@ export interface RecordingContext {
     params: RecordingContextUpdateOptions,
     callback?: (error: Error | null, item?: RecordingInstance) => any
   ): Promise<RecordingInstance>;
-  update(params?: any, callback?: any): Promise<RecordingInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -97,7 +96,9 @@ export class RecordingContextImpl implements RecordingContext {
     this._uri = `/Trunks/${trunkSid}/Recording`;
   }
 
-  fetch(callback?: any): Promise<RecordingInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: RecordingInstance) => any
+  ): Promise<RecordingInstance> {
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
@@ -121,8 +122,13 @@ export class RecordingContextImpl implements RecordingContext {
     return operationPromise;
   }
 
-  update(params?: any, callback?: any): Promise<RecordingInstance> {
-    if (typeof params === "function") {
+  update(
+    params?:
+      | RecordingContextUpdateOptions
+      | ((error: Error | null, item?: RecordingInstance) => any),
+    callback?: (error: Error | null, item?: RecordingInstance) => any
+  ): Promise<RecordingInstance> {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -243,7 +249,11 @@ export class RecordingInstance {
     params: RecordingContextUpdateOptions,
     callback?: (error: Error | null, item?: RecordingInstance) => any
   ): Promise<RecordingInstance>;
-  update(params?: any, callback?: any): Promise<RecordingInstance> {
+
+  update(
+    params?: any,
+    callback?: (error: Error | null, item?: RecordingInstance) => any
+  ): Promise<RecordingInstance> {
     return this._proxy.update(params, callback);
   }
 

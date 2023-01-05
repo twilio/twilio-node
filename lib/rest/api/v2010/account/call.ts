@@ -292,7 +292,6 @@ export interface CallContext {
     params: CallContextUpdateOptions,
     callback?: (error: Error | null, item?: CallInstance) => any
   ): Promise<CallInstance>;
-  update(params?: any, callback?: any): Promise<CallInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -432,7 +431,9 @@ export class CallContextImpl implements CallContext {
     return this._userDefinedMessageSubscriptions;
   }
 
-  remove(callback?: any): Promise<boolean> {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
@@ -447,7 +448,9 @@ export class CallContextImpl implements CallContext {
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<CallInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: CallInstance) => any
+  ): Promise<CallInstance> {
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
@@ -472,8 +475,13 @@ export class CallContextImpl implements CallContext {
     return operationPromise;
   }
 
-  update(params?: any, callback?: any): Promise<CallInstance> {
-    if (typeof params === "function") {
+  update(
+    params?:
+      | CallContextUpdateOptions
+      | ((error: Error | null, item?: CallInstance) => any),
+    callback?: (error: Error | null, item?: CallInstance) => any
+  ): Promise<CallInstance> {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -774,7 +782,11 @@ export class CallInstance {
     params: CallContextUpdateOptions,
     callback?: (error: Error | null, item?: CallInstance) => any
   ): Promise<CallInstance>;
-  update(params?: any, callback?: any): Promise<CallInstance> {
+
+  update(
+    params?: any,
+    callback?: (error: Error | null, item?: CallInstance) => any
+  ): Promise<CallInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -909,25 +921,7 @@ export interface CallListInstance {
     params: CallListInstanceCreateOptions,
     callback?: (error: Error | null, item?: CallInstance) => any
   ): Promise<CallInstance>;
-  create(params: any, callback?: any): Promise<CallInstance>;
 
-  /**
-   * Streams CallInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (item: CallInstance, done: (err?: Error) => void) => void
-  ): void;
   /**
    * Streams CallInstance records from the API.
    *
@@ -944,50 +938,24 @@ export interface CallListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: CallListInstanceEachOptions,
     callback?: (item: CallInstance, done: (err?: Error) => void) => void
   ): void;
-  each(params?: any, callback?: any): void;
+  each(
+    params: CallListInstanceEachOptions,
+    callback?: (item: CallInstance, done: (err?: Error) => void) => void
+  ): void;
   /**
    * Retrieve a single target page of CallInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: CallPage) => any
-  ): Promise<CallPage>;
-  /**
-   * Retrieve a single target page of CallInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: CallPage) => any
   ): Promise<CallPage>;
-  getPage(params?: any, callback?: any): Promise<CallPage>;
-  /**
-   * Lists CallInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: CallInstance[]) => any
-  ): Promise<CallInstance[]>;
   /**
    * Lists CallInstance records from the API as a list.
    *
@@ -998,23 +966,12 @@ export interface CallListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: CallListInstanceOptions,
     callback?: (error: Error | null, items: CallInstance[]) => any
   ): Promise<CallInstance[]>;
-  list(params?: any, callback?: any): Promise<CallInstance[]>;
-  /**
-   * Retrieve a single page of CallInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: CallPage) => any
-  ): Promise<CallPage>;
+  list(
+    params: CallListInstanceOptions,
+    callback?: (error: Error | null, items: CallInstance[]) => any
+  ): Promise<CallInstance[]>;
   /**
    * Retrieve a single page of CallInstance records from the API.
    *
@@ -1027,10 +984,12 @@ export interface CallListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
+    callback?: (error: Error | null, items: CallPage) => any
+  ): Promise<CallPage>;
+  page(
     params: CallListInstancePageOptions,
     callback?: (error: Error | null, items: CallPage) => any
   ): Promise<CallPage>;
-  page(params?: any, callback?: any): Promise<CallPage>;
 
   /**
    * Provide a user-friendly representation
@@ -1070,8 +1029,8 @@ export function CallListInstance(
   });
 
   instance.create = function create(
-    params: any,
-    callback?: any
+    params: CallListInstanceCreateOptions,
+    callback?: (error: Error | null, items: CallInstance) => any
   ): Promise<CallInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -1188,10 +1147,12 @@ export function CallListInstance(
   };
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | CallListInstancePageOptions
+      | ((error: Error | null, items: CallPage) => any),
+    callback?: (error: Error | null, items: CallPage) => any
   ): Promise<CallPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -1219,7 +1180,7 @@ export function CallListInstance(
       data["EndTime>"] = serialize.iso8601DateTime(params["endTimeAfter"]);
     if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
@@ -1246,8 +1207,8 @@ export function CallListInstance(
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: CallPage) => any
   ): Promise<CallPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",

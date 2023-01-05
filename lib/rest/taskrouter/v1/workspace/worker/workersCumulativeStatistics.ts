@@ -61,10 +61,6 @@ export interface WorkersCumulativeStatisticsContext {
       item?: WorkersCumulativeStatisticsInstance
     ) => any
   ): Promise<WorkersCumulativeStatisticsInstance>;
-  fetch(
-    params?: any,
-    callback?: any
-  ): Promise<WorkersCumulativeStatisticsInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -93,10 +89,18 @@ export class WorkersCumulativeStatisticsContextImpl
   }
 
   fetch(
-    params?: any,
-    callback?: any
+    params?:
+      | WorkersCumulativeStatisticsContextFetchOptions
+      | ((
+          error: Error | null,
+          item?: WorkersCumulativeStatisticsInstance
+        ) => any),
+    callback?: (
+      error: Error | null,
+      item?: WorkersCumulativeStatisticsInstance
+    ) => any
   ): Promise<WorkersCumulativeStatisticsInstance> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -296,9 +300,13 @@ export class WorkersCumulativeStatisticsInstance {
       item?: WorkersCumulativeStatisticsInstance
     ) => any
   ): Promise<WorkersCumulativeStatisticsInstance>;
+
   fetch(
     params?: any,
-    callback?: any
+    callback?: (
+      error: Error | null,
+      item?: WorkersCumulativeStatisticsInstance
+    ) => any
   ): Promise<WorkersCumulativeStatisticsInstance> {
     return this._proxy.fetch(params, callback);
   }

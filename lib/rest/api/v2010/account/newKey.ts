@@ -57,7 +57,6 @@ export interface NewKeyListInstance {
     params: NewKeyListInstanceCreateOptions,
     callback?: (error: Error | null, item?: NewKeyInstance) => any
   ): Promise<NewKeyInstance>;
-  create(params?: any, callback?: any): Promise<NewKeyInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -81,10 +80,12 @@ export function NewKeyListInstance(
   instance._uri = `/Accounts/${accountSid}/Keys.json`;
 
   instance.create = function create(
-    params?: any,
-    callback?: any
+    params?:
+      | NewKeyListInstanceCreateOptions
+      | ((error: Error | null, items: NewKeyInstance) => any),
+    callback?: (error: Error | null, items: NewKeyInstance) => any
   ): Promise<NewKeyInstance> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {

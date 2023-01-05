@@ -115,7 +115,9 @@ export class ContentContextImpl implements ContentContext {
     return this._approvalFetch;
   }
 
-  remove(callback?: any): Promise<boolean> {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
@@ -130,7 +132,9 @@ export class ContentContextImpl implements ContentContext {
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<ContentInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: ContentInstance) => any
+  ): Promise<ContentInstance> {
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
@@ -328,71 +332,28 @@ export interface ContentListInstance {
    * If a function is passed as the first argument, it will be used as the callback
    * function.
    *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (item: ContentInstance, done: (err?: Error) => void) => void
-  ): void;
-  /**
-   * Streams ContentInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
    * @param { ContentListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: ContentListInstanceEachOptions,
     callback?: (item: ContentInstance, done: (err?: Error) => void) => void
   ): void;
-  each(params?: any, callback?: any): void;
+  each(
+    params: ContentListInstanceEachOptions,
+    callback?: (item: ContentInstance, done: (err?: Error) => void) => void
+  ): void;
   /**
    * Retrieve a single target page of ContentInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: ContentPage) => any
-  ): Promise<ContentPage>;
-  /**
-   * Retrieve a single target page of ContentInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: ContentPage) => any
   ): Promise<ContentPage>;
-  getPage(params?: any, callback?: any): Promise<ContentPage>;
-  /**
-   * Lists ContentInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: ContentInstance[]) => any
-  ): Promise<ContentInstance[]>;
   /**
    * Lists ContentInstance records from the API as a list.
    *
@@ -403,23 +364,12 @@ export interface ContentListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: ContentListInstanceOptions,
     callback?: (error: Error | null, items: ContentInstance[]) => any
   ): Promise<ContentInstance[]>;
-  list(params?: any, callback?: any): Promise<ContentInstance[]>;
-  /**
-   * Retrieve a single page of ContentInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: ContentPage) => any
-  ): Promise<ContentPage>;
+  list(
+    params: ContentListInstanceOptions,
+    callback?: (error: Error | null, items: ContentInstance[]) => any
+  ): Promise<ContentInstance[]>;
   /**
    * Retrieve a single page of ContentInstance records from the API.
    *
@@ -432,10 +382,12 @@ export interface ContentListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
+    callback?: (error: Error | null, items: ContentPage) => any
+  ): Promise<ContentPage>;
+  page(
     params: ContentListInstancePageOptions,
     callback?: (error: Error | null, items: ContentPage) => any
   ): Promise<ContentPage>;
-  page(params?: any, callback?: any): Promise<ContentPage>;
 
   /**
    * Provide a user-friendly representation
@@ -456,10 +408,12 @@ export function ContentListInstance(version: V1): ContentListInstance {
   instance._uri = `/Content`;
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | ContentListInstancePageOptions
+      | ((error: Error | null, items: ContentPage) => any),
+    callback?: (error: Error | null, items: ContentPage) => any
   ): Promise<ContentPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -470,7 +424,7 @@ export function ContentListInstance(version: V1): ContentListInstance {
 
     if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
@@ -498,8 +452,8 @@ export function ContentListInstance(version: V1): ContentListInstance {
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: ContentPage) => any
   ): Promise<ContentPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",

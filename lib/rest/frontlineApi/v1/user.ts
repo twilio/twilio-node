@@ -68,7 +68,6 @@ export interface UserContext {
     params: UserContextUpdateOptions,
     callback?: (error: Error | null, item?: UserInstance) => any
   ): Promise<UserInstance>;
-  update(params?: any, callback?: any): Promise<UserInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -94,7 +93,9 @@ export class UserContextImpl implements UserContext {
     this._uri = `/Users/${sid}`;
   }
 
-  fetch(callback?: any): Promise<UserInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: UserInstance) => any
+  ): Promise<UserInstance> {
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
@@ -114,8 +115,13 @@ export class UserContextImpl implements UserContext {
     return operationPromise;
   }
 
-  update(params?: any, callback?: any): Promise<UserInstance> {
-    if (typeof params === "function") {
+  update(
+    params?:
+      | UserContextUpdateOptions
+      | ((error: Error | null, item?: UserInstance) => any),
+    callback?: (error: Error | null, item?: UserInstance) => any
+  ): Promise<UserInstance> {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -264,7 +270,11 @@ export class UserInstance {
     params: UserContextUpdateOptions,
     callback?: (error: Error | null, item?: UserInstance) => any
   ): Promise<UserInstance>;
-  update(params?: any, callback?: any): Promise<UserInstance> {
+
+  update(
+    params?: any,
+    callback?: (error: Error | null, item?: UserInstance) => any
+  ): Promise<UserInstance> {
     return this._proxy.update(params, callback);
   }
 

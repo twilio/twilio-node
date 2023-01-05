@@ -137,7 +137,9 @@ export class CustomerProfilesChannelEndpointAssignmentContextImpl
     this._uri = `/CustomerProfiles/${customerProfileSid}/ChannelEndpointAssignments/${sid}`;
   }
 
-  remove(callback?: any): Promise<boolean> {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
@@ -153,7 +155,10 @@ export class CustomerProfilesChannelEndpointAssignmentContextImpl
   }
 
   fetch(
-    callback?: any
+    callback?: (
+      error: Error | null,
+      item?: CustomerProfilesChannelEndpointAssignmentInstance
+    ) => any
   ): Promise<CustomerProfilesChannelEndpointAssignmentInstance> {
     const instance = this;
     let operationVersion = instance._version,
@@ -347,31 +352,7 @@ export interface CustomerProfilesChannelEndpointAssignmentListInstance {
       item?: CustomerProfilesChannelEndpointAssignmentInstance
     ) => any
   ): Promise<CustomerProfilesChannelEndpointAssignmentInstance>;
-  create(
-    params: any,
-    callback?: any
-  ): Promise<CustomerProfilesChannelEndpointAssignmentInstance>;
 
-  /**
-   * Streams CustomerProfilesChannelEndpointAssignmentInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (
-      item: CustomerProfilesChannelEndpointAssignmentInstance,
-      done: (err?: Error) => void
-    ) => void
-  ): void;
   /**
    * Streams CustomerProfilesChannelEndpointAssignmentInstance records from the API.
    *
@@ -388,65 +369,33 @@ export interface CustomerProfilesChannelEndpointAssignmentListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: CustomerProfilesChannelEndpointAssignmentListInstanceEachOptions,
     callback?: (
       item: CustomerProfilesChannelEndpointAssignmentInstance,
       done: (err?: Error) => void
     ) => void
   ): void;
-  each(params?: any, callback?: any): void;
-  /**
-   * Retrieve a single target page of CustomerProfilesChannelEndpointAssignmentInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
+  each(
+    params: CustomerProfilesChannelEndpointAssignmentListInstanceEachOptions,
     callback?: (
-      error: Error | null,
-      items: CustomerProfilesChannelEndpointAssignmentPage
-    ) => any
-  ): Promise<CustomerProfilesChannelEndpointAssignmentPage>;
+      item: CustomerProfilesChannelEndpointAssignmentInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
   /**
    * Retrieve a single target page of CustomerProfilesChannelEndpointAssignmentInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (
       error: Error | null,
       items: CustomerProfilesChannelEndpointAssignmentPage
     ) => any
   ): Promise<CustomerProfilesChannelEndpointAssignmentPage>;
-  getPage(
-    params?: any,
-    callback?: any
-  ): Promise<CustomerProfilesChannelEndpointAssignmentPage>;
-  /**
-   * Lists CustomerProfilesChannelEndpointAssignmentInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (
-      error: Error | null,
-      items: CustomerProfilesChannelEndpointAssignmentInstance[]
-    ) => any
-  ): Promise<CustomerProfilesChannelEndpointAssignmentInstance[]>;
   /**
    * Lists CustomerProfilesChannelEndpointAssignmentInstance records from the API as a list.
    *
@@ -457,32 +406,18 @@ export interface CustomerProfilesChannelEndpointAssignmentListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: CustomerProfilesChannelEndpointAssignmentListInstanceOptions,
     callback?: (
       error: Error | null,
       items: CustomerProfilesChannelEndpointAssignmentInstance[]
     ) => any
   ): Promise<CustomerProfilesChannelEndpointAssignmentInstance[]>;
   list(
-    params?: any,
-    callback?: any
-  ): Promise<CustomerProfilesChannelEndpointAssignmentInstance[]>;
-  /**
-   * Retrieve a single page of CustomerProfilesChannelEndpointAssignmentInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
+    params: CustomerProfilesChannelEndpointAssignmentListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: CustomerProfilesChannelEndpointAssignmentPage
+      items: CustomerProfilesChannelEndpointAssignmentInstance[]
     ) => any
-  ): Promise<CustomerProfilesChannelEndpointAssignmentPage>;
+  ): Promise<CustomerProfilesChannelEndpointAssignmentInstance[]>;
   /**
    * Retrieve a single page of CustomerProfilesChannelEndpointAssignmentInstance records from the API.
    *
@@ -495,15 +430,17 @@ export interface CustomerProfilesChannelEndpointAssignmentListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params: CustomerProfilesChannelEndpointAssignmentListInstancePageOptions,
     callback?: (
       error: Error | null,
       items: CustomerProfilesChannelEndpointAssignmentPage
     ) => any
   ): Promise<CustomerProfilesChannelEndpointAssignmentPage>;
   page(
-    params?: any,
-    callback?: any
+    params: CustomerProfilesChannelEndpointAssignmentListInstancePageOptions,
+    callback?: (
+      error: Error | null,
+      items: CustomerProfilesChannelEndpointAssignmentPage
+    ) => any
   ): Promise<CustomerProfilesChannelEndpointAssignmentPage>;
 
   /**
@@ -539,8 +476,11 @@ export function CustomerProfilesChannelEndpointAssignmentListInstance(
   instance._uri = `/CustomerProfiles/${customerProfileSid}/ChannelEndpointAssignments`;
 
   instance.create = function create(
-    params: any,
-    callback?: any
+    params: CustomerProfilesChannelEndpointAssignmentListInstanceCreateOptions,
+    callback?: (
+      error: Error | null,
+      items: CustomerProfilesChannelEndpointAssignmentInstance
+    ) => any
   ): Promise<CustomerProfilesChannelEndpointAssignmentInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -598,10 +538,18 @@ export function CustomerProfilesChannelEndpointAssignmentListInstance(
   };
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | CustomerProfilesChannelEndpointAssignmentListInstancePageOptions
+      | ((
+          error: Error | null,
+          items: CustomerProfilesChannelEndpointAssignmentPage
+        ) => any),
+    callback?: (
+      error: Error | null,
+      items: CustomerProfilesChannelEndpointAssignmentPage
+    ) => any
   ): Promise<CustomerProfilesChannelEndpointAssignmentPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -616,7 +564,7 @@ export function CustomerProfilesChannelEndpointAssignmentListInstance(
       data["ChannelEndpointSids"] = params["channelEndpointSids"];
     if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
@@ -648,8 +596,11 @@ export function CustomerProfilesChannelEndpointAssignmentListInstance(
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (
+      error: Error | null,
+      items: CustomerProfilesChannelEndpointAssignmentPage
+    ) => any
   ): Promise<CustomerProfilesChannelEndpointAssignmentPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",

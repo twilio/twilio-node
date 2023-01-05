@@ -68,7 +68,6 @@ export interface WebhookContext {
     params: WebhookContextUpdateOptions,
     callback?: (error: Error | null, item?: WebhookInstance) => any
   ): Promise<WebhookInstance>;
-  update(params?: any, callback?: any): Promise<WebhookInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -94,7 +93,9 @@ export class WebhookContextImpl implements WebhookContext {
     this._uri = `/Services/${chatServiceSid}/Configuration/Webhooks`;
   }
 
-  fetch(callback?: any): Promise<WebhookInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: WebhookInstance) => any
+  ): Promise<WebhookInstance> {
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
@@ -118,8 +119,13 @@ export class WebhookContextImpl implements WebhookContext {
     return operationPromise;
   }
 
-  update(params?: any, callback?: any): Promise<WebhookInstance> {
-    if (typeof params === "function") {
+  update(
+    params?:
+      | WebhookContextUpdateOptions
+      | ((error: Error | null, item?: WebhookInstance) => any),
+    callback?: (error: Error | null, item?: WebhookInstance) => any
+  ): Promise<WebhookInstance> {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -278,7 +284,11 @@ export class WebhookInstance {
     params: WebhookContextUpdateOptions,
     callback?: (error: Error | null, item?: WebhookInstance) => any
   ): Promise<WebhookInstance>;
-  update(params?: any, callback?: any): Promise<WebhookInstance> {
+
+  update(
+    params?: any,
+    callback?: (error: Error | null, item?: WebhookInstance) => any
+  ): Promise<WebhookInstance> {
     return this._proxy.update(params, callback);
   }
 

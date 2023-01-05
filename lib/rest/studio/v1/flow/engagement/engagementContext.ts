@@ -59,7 +59,9 @@ export class EngagementContextContextImpl implements EngagementContextContext {
     this._uri = `/Flows/${flowSid}/Engagements/${engagementSid}/Context`;
   }
 
-  fetch(callback?: any): Promise<EngagementContextInstance> {
+  fetch(
+    callback?: (error: Error | null, item?: EngagementContextInstance) => any
+  ): Promise<EngagementContextInstance> {
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
