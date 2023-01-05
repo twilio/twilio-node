@@ -611,11 +611,14 @@ export function CompositionListInstance(version: V1): CompositionListInstance {
     if (params["videoLayout"] !== undefined)
       data["VideoLayout"] = serialize.object(params["videoLayout"]);
     if (params["audioSources"] !== undefined)
-      data["AudioSources"] = serialize.map(params["audioSources"], (e) => e);
+      data["AudioSources"] = serialize.map(
+        params["audioSources"],
+        (e: string) => e
+      );
     if (params["audioSourcesExcluded"] !== undefined)
       data["AudioSourcesExcluded"] = serialize.map(
         params["audioSourcesExcluded"],
-        (e) => e
+        (e: string) => e
       );
     if (params["resolution"] !== undefined)
       data["Resolution"] = params["resolution"];

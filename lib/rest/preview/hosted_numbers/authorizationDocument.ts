@@ -235,13 +235,13 @@ export class AuthorizationDocumentContextImpl
     if (params["hostedNumberOrderSids"] !== undefined)
       data["HostedNumberOrderSids"] = serialize.map(
         params["hostedNumberOrderSids"],
-        (e) => e
+        (e: string) => e
       );
     if (params["addressSid"] !== undefined)
       data["AddressSid"] = params["addressSid"];
     if (params["email"] !== undefined) data["Email"] = params["email"];
     if (params["ccEmails"] !== undefined)
-      data["CcEmails"] = serialize.map(params["ccEmails"], (e) => e);
+      data["CcEmails"] = serialize.map(params["ccEmails"], (e: string) => e);
     if (params["status"] !== undefined) data["Status"] = params["status"];
     if (params["contactTitle"] !== undefined)
       data["ContactTitle"] = params["contactTitle"];
@@ -668,7 +668,7 @@ export function AuthorizationDocumentListInstance(
 
     data["HostedNumberOrderSids"] = serialize.map(
       params["hostedNumberOrderSids"],
-      (e) => e
+      (e: string) => e
     );
 
     data["AddressSid"] = params["addressSid"];
@@ -679,7 +679,7 @@ export function AuthorizationDocumentListInstance(
 
     data["ContactPhoneNumber"] = params["contactPhoneNumber"];
     if (params["ccEmails"] !== undefined)
-      data["CcEmails"] = serialize.map(params["ccEmails"], (e) => e);
+      data["CcEmails"] = serialize.map(params["ccEmails"], (e: string) => e);
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";

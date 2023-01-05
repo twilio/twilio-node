@@ -262,7 +262,7 @@ export class AddressConfigurationContextImpl
     if (params["autoCreation.webhookFilters"] !== undefined)
       data["AutoCreation.WebhookFilters"] = serialize.map(
         params["autoCreation.webhookFilters"],
-        (e) => e
+        (e: string) => e
       );
     if (params["autoCreation.studioFlowSid"] !== undefined)
       data["AutoCreation.StudioFlowSid"] = params["autoCreation.studioFlowSid"];
@@ -687,7 +687,7 @@ export function AddressConfigurationListInstance(
     if (params["autoCreation.webhookFilters"] !== undefined)
       data["AutoCreation.WebhookFilters"] = serialize.map(
         params["autoCreation.webhookFilters"],
-        (e) => e
+        (e: string) => e
       );
     if (params["autoCreation.studioFlowSid"] !== undefined)
       data["AutoCreation.StudioFlowSid"] = params["autoCreation.studioFlowSid"];

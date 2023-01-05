@@ -547,11 +547,14 @@ export function BuildListInstance(
     let data: any = {};
 
     if (params["assetVersions"] !== undefined)
-      data["AssetVersions"] = serialize.map(params["assetVersions"], (e) => e);
+      data["AssetVersions"] = serialize.map(
+        params["assetVersions"],
+        (e: string) => e
+      );
     if (params["functionVersions"] !== undefined)
       data["FunctionVersions"] = serialize.map(
         params["functionVersions"],
-        (e) => e
+        (e: string) => e
       );
     if (params["dependencies"] !== undefined)
       data["Dependencies"] = params["dependencies"];

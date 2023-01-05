@@ -686,7 +686,10 @@ export function UsAppToPersonListInstance(
 
     data["MessageFlow"] = params["messageFlow"];
 
-    data["MessageSamples"] = serialize.map(params["messageSamples"], (e) => e);
+    data["MessageSamples"] = serialize.map(
+      params["messageSamples"],
+      (e: string) => e
+    );
 
     data["UsAppToPersonUsecase"] = params["usAppToPersonUsecase"];
 
@@ -700,14 +703,20 @@ export function UsAppToPersonListInstance(
     if (params["helpMessage"] !== undefined)
       data["HelpMessage"] = params["helpMessage"];
     if (params["optInKeywords"] !== undefined)
-      data["OptInKeywords"] = serialize.map(params["optInKeywords"], (e) => e);
+      data["OptInKeywords"] = serialize.map(
+        params["optInKeywords"],
+        (e: string) => e
+      );
     if (params["optOutKeywords"] !== undefined)
       data["OptOutKeywords"] = serialize.map(
         params["optOutKeywords"],
-        (e) => e
+        (e: string) => e
       );
     if (params["helpKeywords"] !== undefined)
-      data["HelpKeywords"] = serialize.map(params["helpKeywords"], (e) => e);
+      data["HelpKeywords"] = serialize.map(
+        params["helpKeywords"],
+        (e: string) => e
+      );
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";

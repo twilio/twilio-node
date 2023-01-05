@@ -832,7 +832,7 @@ export function MessageListInstance(
     if (params["persistentAction"] !== undefined)
       data["PersistentAction"] = serialize.map(
         params["persistentAction"],
-        (e) => e
+        (e: string) => e
       );
     if (params["shortenUrls"] !== undefined)
       data["ShortenUrls"] = serialize.bool(params["shortenUrls"]);
@@ -851,7 +851,7 @@ export function MessageListInstance(
       data["MessagingServiceSid"] = params["messagingServiceSid"];
     if (params["body"] !== undefined) data["Body"] = params["body"];
     if (params["mediaUrl"] !== undefined)
-      data["MediaUrl"] = serialize.map(params["mediaUrl"], (e) => e);
+      data["MediaUrl"] = serialize.map(params["mediaUrl"], (e: string) => e);
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";

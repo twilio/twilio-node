@@ -111,7 +111,7 @@ export class FlowTestUserContextImpl implements FlowTestUserContext {
 
     let data: any = {};
 
-    data["TestUsers"] = serialize.map(params["testUsers"], (e) => e);
+    data["TestUsers"] = serialize.map(params["testUsers"], (e: string) => e);
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";

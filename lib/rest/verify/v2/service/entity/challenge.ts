@@ -699,8 +699,9 @@ export function ChallengeListInstance(
     if (params["details.message"] !== undefined)
       data["Details.Message"] = params["details.message"];
     if (params["details.fields"] !== undefined)
-      data["Details.Fields"] = serialize.map(params["details.fields"], (e) =>
-        serialize.object(e)
+      data["Details.Fields"] = serialize.map(
+        params["details.fields"],
+        (e: any) => serialize.object(e)
       );
     if (params["hiddenDetails"] !== undefined)
       data["HiddenDetails"] = serialize.object(params["hiddenDetails"]);

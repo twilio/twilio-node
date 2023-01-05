@@ -123,7 +123,7 @@ export class WebhookContextImpl implements WebhookContext {
 
     if (params["method"] !== undefined) data["Method"] = params["method"];
     if (params["filters"] !== undefined)
-      data["Filters"] = serialize.map(params["filters"], (e) => e);
+      data["Filters"] = serialize.map(params["filters"], (e: string) => e);
     if (params["preWebhookUrl"] !== undefined)
       data["PreWebhookUrl"] = params["preWebhookUrl"];
     if (params["postWebhookUrl"] !== undefined)

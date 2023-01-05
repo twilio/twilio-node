@@ -220,7 +220,10 @@ export class ConnectAppContextImpl implements ConnectAppContext {
     if (params["homepageUrl"] !== undefined)
       data["HomepageUrl"] = params["homepageUrl"];
     if (params["permissions"] !== undefined)
-      data["Permissions"] = serialize.map(params["permissions"], (e) => e);
+      data["Permissions"] = serialize.map(
+        params["permissions"],
+        (e: ConnectAppPermission) => e
+      );
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";

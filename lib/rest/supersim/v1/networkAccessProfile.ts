@@ -571,7 +571,7 @@ export function NetworkAccessProfileListInstance(
     if (params["uniqueName"] !== undefined)
       data["UniqueName"] = params["uniqueName"];
     if (params["networks"] !== undefined)
-      data["Networks"] = serialize.map(params["networks"], (e) => e);
+      data["Networks"] = serialize.map(params["networks"], (e: string) => e);
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";

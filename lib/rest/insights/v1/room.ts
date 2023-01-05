@@ -600,9 +600,15 @@ export function RoomListInstance(version: V1): RoomListInstance {
     let data: any = {};
 
     if (params["roomType"] !== undefined)
-      data["RoomType"] = serialize.map(params["roomType"], (e) => e);
+      data["RoomType"] = serialize.map(
+        params["roomType"],
+        (e: VideoRoomSummaryRoomType) => e
+      );
     if (params["codec"] !== undefined)
-      data["Codec"] = serialize.map(params["codec"], (e) => e);
+      data["Codec"] = serialize.map(
+        params["codec"],
+        (e: VideoRoomSummaryCodec) => e
+      );
     if (params["roomName"] !== undefined) data["RoomName"] = params["roomName"];
     if (params["createdAfter"] !== undefined)
       data["CreatedAfter"] = serialize.iso8601DateTime(params["createdAfter"]);
