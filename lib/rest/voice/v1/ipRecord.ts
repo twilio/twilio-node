@@ -191,10 +191,7 @@ export class IpRecordContextImpl implements IpRecordContext {
     callback?: (error: Error | null, item?: IpRecordInstance) => any
   ): Promise<IpRecordInstance> {
     if (typeof params === "function") {
-      callback = params as (
-        error: Error | null,
-        item?: IpRecordInstance
-      ) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};
@@ -506,7 +503,7 @@ export function IpRecordListInstance(version: V1): IpRecordListInstance {
 
   instance.create = function create(
     params: IpRecordListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: IpRecordInstance) => any
+    callback?: (error: Error | null, items: IpRecordInstance) => any
   ): Promise<IpRecordInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -549,11 +546,11 @@ export function IpRecordListInstance(version: V1): IpRecordListInstance {
   instance.page = function page(
     params?:
       | IpRecordListInstancePageOptions
-      | ((error: Error | null, item?: IpRecordPage) => any),
-    callback?: (error: Error | null, item?: IpRecordPage) => any
+      | ((error: Error | null, items: IpRecordPage) => any),
+    callback?: (error: Error | null, items: IpRecordPage) => any
   ): Promise<IpRecordPage> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: IpRecordPage) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

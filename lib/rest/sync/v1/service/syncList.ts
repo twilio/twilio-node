@@ -233,10 +233,7 @@ export class SyncListContextImpl implements SyncListContext {
     callback?: (error: Error | null, item?: SyncListInstance) => any
   ): Promise<SyncListInstance> {
     if (typeof params === "function") {
-      callback = params as (
-        error: Error | null,
-        item?: SyncListInstance
-      ) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};
@@ -618,14 +615,11 @@ export function SyncListListInstance(
   instance.create = function create(
     params?:
       | SyncListListInstanceCreateOptions
-      | ((error: Error | null, item?: SyncListInstance) => any),
-    callback?: (error: Error | null, item?: SyncListInstance) => any
+      | ((error: Error | null, items: SyncListInstance) => any),
+    callback?: (error: Error | null, items: SyncListInstance) => any
   ): Promise<SyncListInstance> {
     if (typeof params === "function") {
-      callback = params as (
-        error: Error | null,
-        item?: SyncListInstance
-      ) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};
@@ -669,11 +663,11 @@ export function SyncListListInstance(
   instance.page = function page(
     params?:
       | SyncListListInstancePageOptions
-      | ((error: Error | null, item?: SyncListPage) => any),
-    callback?: (error: Error | null, item?: SyncListPage) => any
+      | ((error: Error | null, items: SyncListPage) => any),
+    callback?: (error: Error | null, items: SyncListPage) => any
   ): Promise<SyncListPage> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: SyncListPage) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

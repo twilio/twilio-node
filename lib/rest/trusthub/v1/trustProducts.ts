@@ -266,10 +266,7 @@ export class TrustProductsContextImpl implements TrustProductsContext {
     callback?: (error: Error | null, item?: TrustProductsInstance) => any
   ): Promise<TrustProductsInstance> {
     if (typeof params === "function") {
-      callback = params as (
-        error: Error | null,
-        item?: TrustProductsInstance
-      ) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};
@@ -647,7 +644,7 @@ export function TrustProductsListInstance(
 
   instance.create = function create(
     params: TrustProductsListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: TrustProductsInstance) => any
+    callback?: (error: Error | null, items: TrustProductsInstance) => any
   ): Promise<TrustProductsInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -703,14 +700,11 @@ export function TrustProductsListInstance(
   instance.page = function page(
     params?:
       | TrustProductsListInstancePageOptions
-      | ((error: Error | null, item?: TrustProductsPage) => any),
-    callback?: (error: Error | null, item?: TrustProductsPage) => any
+      | ((error: Error | null, items: TrustProductsPage) => any),
+    callback?: (error: Error | null, items: TrustProductsPage) => any
   ): Promise<TrustProductsPage> {
     if (typeof params === "function") {
-      callback = params as (
-        error: Error | null,
-        item?: TrustProductsPage
-      ) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

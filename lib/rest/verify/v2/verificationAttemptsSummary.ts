@@ -105,10 +105,7 @@ export class VerificationAttemptsSummaryContextImpl
     ) => any
   ): Promise<VerificationAttemptsSummaryInstance> {
     if (typeof params === "function") {
-      callback = params as (
-        error: Error | null,
-        item?: VerificationAttemptsSummaryInstance
-      ) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

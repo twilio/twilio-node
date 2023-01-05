@@ -135,10 +135,7 @@ export class AssistantFallbackActionsContextImpl
     ) => any
   ): Promise<AssistantFallbackActionsInstance> {
     if (typeof params === "function") {
-      callback = params as (
-        error: Error | null,
-        item?: AssistantFallbackActionsInstance
-      ) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

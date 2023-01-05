@@ -232,7 +232,7 @@ export class MessageContextImpl implements MessageContext {
     callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: boolean) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};
@@ -295,7 +295,7 @@ export class MessageContextImpl implements MessageContext {
     callback?: (error: Error | null, item?: MessageInstance) => any
   ): Promise<MessageInstance> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: MessageInstance) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};
@@ -736,11 +736,11 @@ export function MessageListInstance(
   instance.create = function create(
     params?:
       | MessageListInstanceCreateOptions
-      | ((error: Error | null, item?: MessageInstance) => any),
-    callback?: (error: Error | null, item?: MessageInstance) => any
+      | ((error: Error | null, items: MessageInstance) => any),
+    callback?: (error: Error | null, items: MessageInstance) => any
   ): Promise<MessageInstance> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: MessageInstance) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};
@@ -791,11 +791,11 @@ export function MessageListInstance(
   instance.page = function page(
     params?:
       | MessageListInstancePageOptions
-      | ((error: Error | null, item?: MessagePage) => any),
-    callback?: (error: Error | null, item?: MessagePage) => any
+      | ((error: Error | null, items: MessagePage) => any),
+    callback?: (error: Error | null, items: MessagePage) => any
   ): Promise<MessagePage> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: MessagePage) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

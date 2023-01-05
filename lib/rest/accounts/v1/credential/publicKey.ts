@@ -191,10 +191,7 @@ export class PublicKeyContextImpl implements PublicKeyContext {
     callback?: (error: Error | null, item?: PublicKeyInstance) => any
   ): Promise<PublicKeyInstance> {
     if (typeof params === "function") {
-      callback = params as (
-        error: Error | null,
-        item?: PublicKeyInstance
-      ) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};
@@ -496,7 +493,7 @@ export function PublicKeyListInstance(version: V1): PublicKeyListInstance {
 
   instance.create = function create(
     params: PublicKeyListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: PublicKeyInstance) => any
+    callback?: (error: Error | null, items: PublicKeyInstance) => any
   ): Promise<PublicKeyInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -539,11 +536,11 @@ export function PublicKeyListInstance(version: V1): PublicKeyListInstance {
   instance.page = function page(
     params?:
       | PublicKeyListInstancePageOptions
-      | ((error: Error | null, item?: PublicKeyPage) => any),
-    callback?: (error: Error | null, item?: PublicKeyPage) => any
+      | ((error: Error | null, items: PublicKeyPage) => any),
+    callback?: (error: Error | null, items: PublicKeyPage) => any
   ): Promise<PublicKeyPage> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: PublicKeyPage) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

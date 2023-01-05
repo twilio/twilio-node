@@ -68,7 +68,7 @@ export function WebChannelsListInstance(version: V2): WebChannelsListInstance {
 
   instance.create = function create(
     params: WebChannelsListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: WebChannelsInstance) => any
+    callback?: (error: Error | null, items: WebChannelsInstance) => any
   ): Promise<WebChannelsInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');

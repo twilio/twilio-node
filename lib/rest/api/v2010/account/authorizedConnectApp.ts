@@ -409,14 +409,11 @@ export function AuthorizedConnectAppListInstance(
   instance.page = function page(
     params?:
       | AuthorizedConnectAppListInstancePageOptions
-      | ((error: Error | null, item?: AuthorizedConnectAppPage) => any),
-    callback?: (error: Error | null, item?: AuthorizedConnectAppPage) => any
+      | ((error: Error | null, items: AuthorizedConnectAppPage) => any),
+    callback?: (error: Error | null, items: AuthorizedConnectAppPage) => any
   ): Promise<AuthorizedConnectAppPage> {
     if (typeof params === "function") {
-      callback = params as (
-        error: Error | null,
-        item?: AuthorizedConnectAppPage
-      ) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

@@ -185,10 +185,7 @@ export class NetworkAccessProfileContextImpl
     callback?: (error: Error | null, item?: NetworkAccessProfileInstance) => any
   ): Promise<NetworkAccessProfileInstance> {
     if (typeof params === "function") {
-      callback = params as (
-        error: Error | null,
-        item?: NetworkAccessProfileInstance
-      ) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};
@@ -518,14 +515,11 @@ export function NetworkAccessProfileListInstance(
   instance.create = function create(
     params?:
       | NetworkAccessProfileListInstanceCreateOptions
-      | ((error: Error | null, item?: NetworkAccessProfileInstance) => any),
-    callback?: (error: Error | null, item?: NetworkAccessProfileInstance) => any
+      | ((error: Error | null, items: NetworkAccessProfileInstance) => any),
+    callback?: (error: Error | null, items: NetworkAccessProfileInstance) => any
   ): Promise<NetworkAccessProfileInstance> {
     if (typeof params === "function") {
-      callback = params as (
-        error: Error | null,
-        item?: NetworkAccessProfileInstance
-      ) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};
@@ -563,14 +557,11 @@ export function NetworkAccessProfileListInstance(
   instance.page = function page(
     params?:
       | NetworkAccessProfileListInstancePageOptions
-      | ((error: Error | null, item?: NetworkAccessProfilePage) => any),
-    callback?: (error: Error | null, item?: NetworkAccessProfilePage) => any
+      | ((error: Error | null, items: NetworkAccessProfilePage) => any),
+    callback?: (error: Error | null, items: NetworkAccessProfilePage) => any
   ): Promise<NetworkAccessProfilePage> {
     if (typeof params === "function") {
-      callback = params as (
-        error: Error | null,
-        item?: NetworkAccessProfilePage
-      ) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

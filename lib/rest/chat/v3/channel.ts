@@ -94,7 +94,7 @@ export class ChannelContextImpl implements ChannelContext {
     callback?: (error: Error | null, item?: ChannelInstance) => any
   ): Promise<ChannelInstance> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: ChannelInstance) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

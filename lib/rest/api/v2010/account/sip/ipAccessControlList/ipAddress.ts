@@ -216,10 +216,7 @@ export class IpAddressContextImpl implements IpAddressContext {
     callback?: (error: Error | null, item?: IpAddressInstance) => any
   ): Promise<IpAddressInstance> {
     if (typeof params === "function") {
-      callback = params as (
-        error: Error | null,
-        item?: IpAddressInstance
-      ) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};
@@ -583,7 +580,7 @@ export function IpAddressListInstance(
 
   instance.create = function create(
     params: IpAddressListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: IpAddressInstance) => any
+    callback?: (error: Error | null, items: IpAddressInstance) => any
   ): Promise<IpAddressInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -639,11 +636,11 @@ export function IpAddressListInstance(
   instance.page = function page(
     params?:
       | IpAddressListInstancePageOptions
-      | ((error: Error | null, item?: IpAddressPage) => any),
-    callback?: (error: Error | null, item?: IpAddressPage) => any
+      | ((error: Error | null, items: IpAddressPage) => any),
+    callback?: (error: Error | null, items: IpAddressPage) => any
   ): Promise<IpAddressPage> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: IpAddressPage) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

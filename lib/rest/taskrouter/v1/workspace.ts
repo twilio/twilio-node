@@ -322,10 +322,7 @@ export class WorkspaceContextImpl implements WorkspaceContext {
     callback?: (error: Error | null, item?: WorkspaceInstance) => any
   ): Promise<WorkspaceInstance> {
     if (typeof params === "function") {
-      callback = params as (
-        error: Error | null,
-        item?: WorkspaceInstance
-      ) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};
@@ -769,7 +766,7 @@ export function WorkspaceListInstance(version: V1): WorkspaceListInstance {
 
   instance.create = function create(
     params: WorkspaceListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: WorkspaceInstance) => any
+    callback?: (error: Error | null, items: WorkspaceInstance) => any
   ): Promise<WorkspaceInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -820,11 +817,11 @@ export function WorkspaceListInstance(version: V1): WorkspaceListInstance {
   instance.page = function page(
     params?:
       | WorkspaceListInstancePageOptions
-      | ((error: Error | null, item?: WorkspacePage) => any),
-    callback?: (error: Error | null, item?: WorkspacePage) => any
+      | ((error: Error | null, items: WorkspacePage) => any),
+    callback?: (error: Error | null, items: WorkspacePage) => any
   ): Promise<WorkspacePage> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: WorkspacePage) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

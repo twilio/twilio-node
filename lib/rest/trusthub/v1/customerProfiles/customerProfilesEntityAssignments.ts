@@ -456,7 +456,7 @@ export function CustomerProfilesEntityAssignmentsListInstance(
     params: CustomerProfilesEntityAssignmentsListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      item?: CustomerProfilesEntityAssignmentsInstance
+      items: CustomerProfilesEntityAssignmentsInstance
     ) => any
   ): Promise<CustomerProfilesEntityAssignmentsInstance> {
     if (params === null || params === undefined) {
@@ -503,18 +503,15 @@ export function CustomerProfilesEntityAssignmentsListInstance(
       | CustomerProfilesEntityAssignmentsListInstancePageOptions
       | ((
           error: Error | null,
-          item?: CustomerProfilesEntityAssignmentsPage
+          items: CustomerProfilesEntityAssignmentsPage
         ) => any),
     callback?: (
       error: Error | null,
-      item?: CustomerProfilesEntityAssignmentsPage
+      items: CustomerProfilesEntityAssignmentsPage
     ) => any
   ): Promise<CustomerProfilesEntityAssignmentsPage> {
     if (typeof params === "function") {
-      callback = params as (
-        error: Error | null,
-        item?: CustomerProfilesEntityAssignmentsPage
-      ) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

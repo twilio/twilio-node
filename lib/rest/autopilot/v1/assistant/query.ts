@@ -229,7 +229,7 @@ export class QueryContextImpl implements QueryContext {
     callback?: (error: Error | null, item?: QueryInstance) => any
   ): Promise<QueryInstance> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: QueryInstance) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};
@@ -607,7 +607,7 @@ export function QueryListInstance(
 
   instance.create = function create(
     params: QueryListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: QueryInstance) => any
+    callback?: (error: Error | null, items: QueryInstance) => any
   ): Promise<QueryInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -660,11 +660,11 @@ export function QueryListInstance(
   instance.page = function page(
     params?:
       | QueryListInstancePageOptions
-      | ((error: Error | null, item?: QueryPage) => any),
-    callback?: (error: Error | null, item?: QueryPage) => any
+      | ((error: Error | null, items: QueryPage) => any),
+    callback?: (error: Error | null, items: QueryPage) => any
   ): Promise<QueryPage> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: QueryPage) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

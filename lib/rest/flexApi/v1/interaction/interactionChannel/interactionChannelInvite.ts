@@ -203,7 +203,7 @@ export function InteractionChannelInviteListInstance(
     params: InteractionChannelInviteListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      item?: InteractionChannelInviteInstance
+      items: InteractionChannelInviteInstance
     ) => any
   ): Promise<InteractionChannelInviteInstance> {
     if (params === null || params === undefined) {
@@ -249,14 +249,11 @@ export function InteractionChannelInviteListInstance(
   instance.page = function page(
     params?:
       | InteractionChannelInviteListInstancePageOptions
-      | ((error: Error | null, item?: InteractionChannelInvitePage) => any),
-    callback?: (error: Error | null, item?: InteractionChannelInvitePage) => any
+      | ((error: Error | null, items: InteractionChannelInvitePage) => any),
+    callback?: (error: Error | null, items: InteractionChannelInvitePage) => any
   ): Promise<InteractionChannelInvitePage> {
     if (typeof params === "function") {
-      callback = params as (
-        error: Error | null,
-        item?: InteractionChannelInvitePage
-      ) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

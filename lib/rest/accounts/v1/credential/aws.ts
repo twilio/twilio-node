@@ -191,7 +191,7 @@ export class AwsContextImpl implements AwsContext {
     callback?: (error: Error | null, item?: AwsInstance) => any
   ): Promise<AwsInstance> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: AwsInstance) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};
@@ -488,7 +488,7 @@ export function AwsListInstance(version: V1): AwsListInstance {
 
   instance.create = function create(
     params: AwsListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: AwsInstance) => any
+    callback?: (error: Error | null, items: AwsInstance) => any
   ): Promise<AwsInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -531,11 +531,11 @@ export function AwsListInstance(version: V1): AwsListInstance {
   instance.page = function page(
     params?:
       | AwsListInstancePageOptions
-      | ((error: Error | null, item?: AwsPage) => any),
-    callback?: (error: Error | null, item?: AwsPage) => any
+      | ((error: Error | null, items: AwsPage) => any),
+    callback?: (error: Error | null, items: AwsPage) => any
   ): Promise<AwsPage> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: AwsPage) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

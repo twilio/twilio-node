@@ -551,11 +551,11 @@ export function ConferenceListInstance(version: V1): ConferenceListInstance {
   instance.page = function page(
     params?:
       | ConferenceListInstancePageOptions
-      | ((error: Error | null, item?: ConferencePage) => any),
-    callback?: (error: Error | null, item?: ConferencePage) => any
+      | ((error: Error | null, items: ConferencePage) => any),
+    callback?: (error: Error | null, items: ConferencePage) => any
   ): Promise<ConferencePage> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: ConferencePage) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

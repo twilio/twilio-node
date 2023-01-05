@@ -421,7 +421,7 @@ export function CustomerProfilesEvaluationsListInstance(
     params: CustomerProfilesEvaluationsListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      item?: CustomerProfilesEvaluationsInstance
+      items: CustomerProfilesEvaluationsInstance
     ) => any
   ): Promise<CustomerProfilesEvaluationsInstance> {
     if (params === null || params === undefined) {
@@ -466,17 +466,14 @@ export function CustomerProfilesEvaluationsListInstance(
   instance.page = function page(
     params?:
       | CustomerProfilesEvaluationsListInstancePageOptions
-      | ((error: Error | null, item?: CustomerProfilesEvaluationsPage) => any),
+      | ((error: Error | null, items: CustomerProfilesEvaluationsPage) => any),
     callback?: (
       error: Error | null,
-      item?: CustomerProfilesEvaluationsPage
+      items: CustomerProfilesEvaluationsPage
     ) => any
   ): Promise<CustomerProfilesEvaluationsPage> {
     if (typeof params === "function") {
-      callback = params as (
-        error: Error | null,
-        item?: CustomerProfilesEvaluationsPage
-      ) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

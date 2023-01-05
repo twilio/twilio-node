@@ -223,10 +223,7 @@ export class ByocTrunkContextImpl implements ByocTrunkContext {
     callback?: (error: Error | null, item?: ByocTrunkInstance) => any
   ): Promise<ByocTrunkInstance> {
     if (typeof params === "function") {
-      callback = params as (
-        error: Error | null,
-        item?: ByocTrunkInstance
-      ) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};
@@ -641,14 +638,11 @@ export function ByocTrunkListInstance(version: V1): ByocTrunkListInstance {
   instance.create = function create(
     params?:
       | ByocTrunkListInstanceCreateOptions
-      | ((error: Error | null, item?: ByocTrunkInstance) => any),
-    callback?: (error: Error | null, item?: ByocTrunkInstance) => any
+      | ((error: Error | null, items: ByocTrunkInstance) => any),
+    callback?: (error: Error | null, items: ByocTrunkInstance) => any
   ): Promise<ByocTrunkInstance> {
     if (typeof params === "function") {
-      callback = params as (
-        error: Error | null,
-        item?: ByocTrunkInstance
-      ) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};
@@ -701,11 +695,11 @@ export function ByocTrunkListInstance(version: V1): ByocTrunkListInstance {
   instance.page = function page(
     params?:
       | ByocTrunkListInstancePageOptions
-      | ((error: Error | null, item?: ByocTrunkPage) => any),
-    callback?: (error: Error | null, item?: ByocTrunkPage) => any
+      | ((error: Error | null, items: ByocTrunkPage) => any),
+    callback?: (error: Error | null, items: ByocTrunkPage) => any
   ): Promise<ByocTrunkPage> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: ByocTrunkPage) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

@@ -429,11 +429,11 @@ export function MonthlyListInstance(
   instance.page = function page(
     params?:
       | MonthlyListInstancePageOptions
-      | ((error: Error | null, item?: MonthlyPage) => any),
-    callback?: (error: Error | null, item?: MonthlyPage) => any
+      | ((error: Error | null, items: MonthlyPage) => any),
+    callback?: (error: Error | null, items: MonthlyPage) => any
   ): Promise<MonthlyPage> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: MonthlyPage) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

@@ -264,7 +264,7 @@ export function LocalListInstance(
 
   instance.create = function create(
     params: LocalListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: LocalInstance) => any
+    callback?: (error: Error | null, items: LocalInstance) => any
   ): Promise<LocalInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -351,11 +351,11 @@ export function LocalListInstance(
   instance.page = function page(
     params?:
       | LocalListInstancePageOptions
-      | ((error: Error | null, item?: LocalPage) => any),
-    callback?: (error: Error | null, item?: LocalPage) => any
+      | ((error: Error | null, items: LocalPage) => any),
+    callback?: (error: Error | null, items: LocalPage) => any
   ): Promise<LocalPage> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: LocalPage) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

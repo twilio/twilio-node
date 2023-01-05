@@ -71,7 +71,7 @@ export function SinkValidateListInstance(
 
   instance.create = function create(
     params: SinkValidateListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: SinkValidateInstance) => any
+    callback?: (error: Error | null, items: SinkValidateInstance) => any
   ): Promise<SinkValidateInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');

@@ -94,14 +94,11 @@ export function NotificationListInstance(
   instance.create = function create(
     params?:
       | NotificationListInstanceCreateOptions
-      | ((error: Error | null, item?: NotificationInstance) => any),
-    callback?: (error: Error | null, item?: NotificationInstance) => any
+      | ((error: Error | null, items: NotificationInstance) => any),
+    callback?: (error: Error | null, items: NotificationInstance) => any
   ): Promise<NotificationInstance> {
     if (typeof params === "function") {
-      callback = params as (
-        error: Error | null,
-        item?: NotificationInstance
-      ) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

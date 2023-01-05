@@ -426,7 +426,7 @@ export function CredentialListListInstance(
 
   instance.create = function create(
     params: CredentialListListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: CredentialListInstance) => any
+    callback?: (error: Error | null, items: CredentialListInstance) => any
   ): Promise<CredentialListInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -475,14 +475,11 @@ export function CredentialListListInstance(
   instance.page = function page(
     params?:
       | CredentialListListInstancePageOptions
-      | ((error: Error | null, item?: CredentialListPage) => any),
-    callback?: (error: Error | null, item?: CredentialListPage) => any
+      | ((error: Error | null, items: CredentialListPage) => any),
+    callback?: (error: Error | null, items: CredentialListPage) => any
   ): Promise<CredentialListPage> {
     if (typeof params === "function") {
-      callback = params as (
-        error: Error | null,
-        item?: CredentialListPage
-      ) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

@@ -195,10 +195,7 @@ export class ConferenceParticipantContextImpl
     ) => any
   ): Promise<ConferenceParticipantInstance> {
     if (typeof params === "function") {
-      callback = params as (
-        error: Error | null,
-        item?: ConferenceParticipantInstance
-      ) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};
@@ -639,14 +636,11 @@ export function ConferenceParticipantListInstance(
   instance.page = function page(
     params?:
       | ConferenceParticipantListInstancePageOptions
-      | ((error: Error | null, item?: ConferenceParticipantPage) => any),
-    callback?: (error: Error | null, item?: ConferenceParticipantPage) => any
+      | ((error: Error | null, items: ConferenceParticipantPage) => any),
+    callback?: (error: Error | null, items: ConferenceParticipantPage) => any
   ): Promise<ConferenceParticipantPage> {
     if (typeof params === "function") {
-      callback = params as (
-        error: Error | null,
-        item?: ConferenceParticipantPage
-      ) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

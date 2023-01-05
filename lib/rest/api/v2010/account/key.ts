@@ -189,7 +189,7 @@ export class KeyContextImpl implements KeyContext {
     callback?: (error: Error | null, item?: KeyInstance) => any
   ): Promise<KeyInstance> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: KeyInstance) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};
@@ -484,11 +484,11 @@ export function KeyListInstance(
   instance.page = function page(
     params?:
       | KeyListInstancePageOptions
-      | ((error: Error | null, item?: KeyPage) => any),
-    callback?: (error: Error | null, item?: KeyPage) => any
+      | ((error: Error | null, items: KeyPage) => any),
+    callback?: (error: Error | null, items: KeyPage) => any
   ): Promise<KeyPage> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: KeyPage) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

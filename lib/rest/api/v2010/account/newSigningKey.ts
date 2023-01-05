@@ -82,14 +82,11 @@ export function NewSigningKeyListInstance(
   instance.create = function create(
     params?:
       | NewSigningKeyListInstanceCreateOptions
-      | ((error: Error | null, item?: NewSigningKeyInstance) => any),
-    callback?: (error: Error | null, item?: NewSigningKeyInstance) => any
+      | ((error: Error | null, items: NewSigningKeyInstance) => any),
+    callback?: (error: Error | null, items: NewSigningKeyInstance) => any
   ): Promise<NewSigningKeyInstance> {
     if (typeof params === "function") {
-      callback = params as (
-        error: Error | null,
-        item?: NewSigningKeyInstance
-      ) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

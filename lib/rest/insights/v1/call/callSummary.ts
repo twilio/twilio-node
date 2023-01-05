@@ -104,10 +104,7 @@ export class CallSummaryContextImpl implements CallSummaryContext {
     callback?: (error: Error | null, item?: CallSummaryInstance) => any
   ): Promise<CallSummaryInstance> {
     if (typeof params === "function") {
-      callback = params as (
-        error: Error | null,
-        item?: CallSummaryInstance
-      ) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

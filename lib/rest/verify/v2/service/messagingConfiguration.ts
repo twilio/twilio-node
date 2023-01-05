@@ -556,7 +556,7 @@ export function MessagingConfigurationListInstance(
     params: MessagingConfigurationListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      item?: MessagingConfigurationInstance
+      items: MessagingConfigurationInstance
     ) => any
   ): Promise<MessagingConfigurationInstance> {
     if (params === null || params === undefined) {
@@ -612,14 +612,11 @@ export function MessagingConfigurationListInstance(
   instance.page = function page(
     params?:
       | MessagingConfigurationListInstancePageOptions
-      | ((error: Error | null, item?: MessagingConfigurationPage) => any),
-    callback?: (error: Error | null, item?: MessagingConfigurationPage) => any
+      | ((error: Error | null, items: MessagingConfigurationPage) => any),
+    callback?: (error: Error | null, items: MessagingConfigurationPage) => any
   ): Promise<MessagingConfigurationPage> {
     if (typeof params === "function") {
-      callback = params as (
-        error: Error | null,
-        item?: MessagingConfigurationPage
-      ) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

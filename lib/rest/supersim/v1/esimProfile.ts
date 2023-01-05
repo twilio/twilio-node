@@ -429,14 +429,11 @@ export function EsimProfileListInstance(version: V1): EsimProfileListInstance {
   instance.create = function create(
     params?:
       | EsimProfileListInstanceCreateOptions
-      | ((error: Error | null, item?: EsimProfileInstance) => any),
-    callback?: (error: Error | null, item?: EsimProfileInstance) => any
+      | ((error: Error | null, items: EsimProfileInstance) => any),
+    callback?: (error: Error | null, items: EsimProfileInstance) => any
   ): Promise<EsimProfileInstance> {
     if (typeof params === "function") {
-      callback = params as (
-        error: Error | null,
-        item?: EsimProfileInstance
-      ) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};
@@ -475,11 +472,11 @@ export function EsimProfileListInstance(version: V1): EsimProfileListInstance {
   instance.page = function page(
     params?:
       | EsimProfileListInstancePageOptions
-      | ((error: Error | null, item?: EsimProfilePage) => any),
-    callback?: (error: Error | null, item?: EsimProfilePage) => any
+      | ((error: Error | null, items: EsimProfilePage) => any),
+    callback?: (error: Error | null, items: EsimProfilePage) => any
   ): Promise<EsimProfilePage> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: EsimProfilePage) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

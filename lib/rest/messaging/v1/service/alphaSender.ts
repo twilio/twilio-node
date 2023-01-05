@@ -424,7 +424,7 @@ export function AlphaSenderListInstance(
 
   instance.create = function create(
     params: AlphaSenderListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: AlphaSenderInstance) => any
+    callback?: (error: Error | null, items: AlphaSenderInstance) => any
   ): Promise<AlphaSenderInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -468,11 +468,11 @@ export function AlphaSenderListInstance(
   instance.page = function page(
     params?:
       | AlphaSenderListInstancePageOptions
-      | ((error: Error | null, item?: AlphaSenderPage) => any),
-    callback?: (error: Error | null, item?: AlphaSenderPage) => any
+      | ((error: Error | null, items: AlphaSenderPage) => any),
+    callback?: (error: Error | null, items: AlphaSenderPage) => any
   ): Promise<AlphaSenderPage> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: AlphaSenderPage) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

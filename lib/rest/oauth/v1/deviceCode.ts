@@ -66,7 +66,7 @@ export function DeviceCodeListInstance(version: V1): DeviceCodeListInstance {
 
   instance.create = function create(
     params: DeviceCodeListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: DeviceCodeInstance) => any
+    callback?: (error: Error | null, items: DeviceCodeInstance) => any
   ): Promise<DeviceCodeInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');

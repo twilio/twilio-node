@@ -75,10 +75,7 @@ export class UserRolesContextImpl implements UserRolesContext {
     callback?: (error: Error | null, item?: UserRolesInstance) => any
   ): Promise<UserRolesInstance> {
     if (typeof params === "function") {
-      callback = params as (
-        error: Error | null,
-        item?: UserRolesInstance
-      ) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

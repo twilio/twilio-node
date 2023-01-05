@@ -411,11 +411,11 @@ export function BindingListInstance(
   instance.page = function page(
     params?:
       | BindingListInstancePageOptions
-      | ((error: Error | null, item?: BindingPage) => any),
-    callback?: (error: Error | null, item?: BindingPage) => any
+      | ((error: Error | null, items: BindingPage) => any),
+    callback?: (error: Error | null, items: BindingPage) => any
   ): Promise<BindingPage> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: BindingPage) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

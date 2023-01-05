@@ -237,10 +237,7 @@ export class ConnectionPolicyTargetContextImpl
     ) => any
   ): Promise<ConnectionPolicyTargetInstance> {
     if (typeof params === "function") {
-      callback = params as (
-        error: Error | null,
-        item?: ConnectionPolicyTargetInstance
-      ) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};
@@ -635,7 +632,7 @@ export function ConnectionPolicyTargetListInstance(
     params: ConnectionPolicyTargetListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      item?: ConnectionPolicyTargetInstance
+      items: ConnectionPolicyTargetInstance
     ) => any
   ): Promise<ConnectionPolicyTargetInstance> {
     if (params === null || params === undefined) {
@@ -686,14 +683,11 @@ export function ConnectionPolicyTargetListInstance(
   instance.page = function page(
     params?:
       | ConnectionPolicyTargetListInstancePageOptions
-      | ((error: Error | null, item?: ConnectionPolicyTargetPage) => any),
-    callback?: (error: Error | null, item?: ConnectionPolicyTargetPage) => any
+      | ((error: Error | null, items: ConnectionPolicyTargetPage) => any),
+    callback?: (error: Error | null, items: ConnectionPolicyTargetPage) => any
   ): Promise<ConnectionPolicyTargetPage> {
     if (typeof params === "function") {
-      callback = params as (
-        error: Error | null,
-        item?: ConnectionPolicyTargetPage
-      ) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

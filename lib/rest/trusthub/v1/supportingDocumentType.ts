@@ -352,14 +352,11 @@ export function SupportingDocumentTypeListInstance(
   instance.page = function page(
     params?:
       | SupportingDocumentTypeListInstancePageOptions
-      | ((error: Error | null, item?: SupportingDocumentTypePage) => any),
-    callback?: (error: Error | null, item?: SupportingDocumentTypePage) => any
+      | ((error: Error | null, items: SupportingDocumentTypePage) => any),
+    callback?: (error: Error | null, items: SupportingDocumentTypePage) => any
   ): Promise<SupportingDocumentTypePage> {
     if (typeof params === "function") {
-      callback = params as (
-        error: Error | null,
-        item?: SupportingDocumentTypePage
-      ) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

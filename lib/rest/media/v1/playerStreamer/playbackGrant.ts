@@ -94,10 +94,7 @@ export class PlaybackGrantContextImpl implements PlaybackGrantContext {
     callback?: (error: Error | null, item?: PlaybackGrantInstance) => any
   ): Promise<PlaybackGrantInstance> {
     if (typeof params === "function") {
-      callback = params as (
-        error: Error | null,
-        item?: PlaybackGrantInstance
-      ) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

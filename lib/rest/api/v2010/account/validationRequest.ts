@@ -81,7 +81,7 @@ export function ValidationRequestListInstance(
 
   instance.create = function create(
     params: ValidationRequestListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: ValidationRequestInstance) => any
+    callback?: (error: Error | null, items: ValidationRequestInstance) => any
   ): Promise<ValidationRequestInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');

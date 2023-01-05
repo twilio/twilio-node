@@ -212,10 +212,7 @@ export class VariableContextImpl implements VariableContext {
     callback?: (error: Error | null, item?: VariableInstance) => any
   ): Promise<VariableInstance> {
     if (typeof params === "function") {
-      callback = params as (
-        error: Error | null,
-        item?: VariableInstance
-      ) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};
@@ -566,7 +563,7 @@ export function VariableListInstance(
 
   instance.create = function create(
     params: VariableListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: VariableInstance) => any
+    callback?: (error: Error | null, items: VariableInstance) => any
   ): Promise<VariableInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -617,11 +614,11 @@ export function VariableListInstance(
   instance.page = function page(
     params?:
       | VariableListInstancePageOptions
-      | ((error: Error | null, item?: VariablePage) => any),
-    callback?: (error: Error | null, item?: VariablePage) => any
+      | ((error: Error | null, items: VariablePage) => any),
+    callback?: (error: Error | null, items: VariablePage) => any
   ): Promise<VariablePage> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: VariablePage) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

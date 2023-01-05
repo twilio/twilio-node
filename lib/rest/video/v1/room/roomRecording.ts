@@ -494,14 +494,11 @@ export function RoomRecordingListInstance(
   instance.page = function page(
     params?:
       | RoomRecordingListInstancePageOptions
-      | ((error: Error | null, item?: RoomRecordingPage) => any),
-    callback?: (error: Error | null, item?: RoomRecordingPage) => any
+      | ((error: Error | null, items: RoomRecordingPage) => any),
+    callback?: (error: Error | null, items: RoomRecordingPage) => any
   ): Promise<RoomRecordingPage> {
     if (typeof params === "function") {
-      callback = params as (
-        error: Error | null,
-        item?: RoomRecordingPage
-      ) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

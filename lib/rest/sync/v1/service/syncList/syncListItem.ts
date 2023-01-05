@@ -219,7 +219,7 @@ export class SyncListItemContextImpl implements SyncListItemContext {
     callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: boolean) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};
@@ -282,10 +282,7 @@ export class SyncListItemContextImpl implements SyncListItemContext {
     callback?: (error: Error | null, item?: SyncListItemInstance) => any
   ): Promise<SyncListItemInstance> {
     if (typeof params === "function") {
-      callback = params as (
-        error: Error | null,
-        item?: SyncListItemInstance
-      ) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};
@@ -673,7 +670,7 @@ export function SyncListItemListInstance(
 
   instance.create = function create(
     params: SyncListItemListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: SyncListItemInstance) => any
+    callback?: (error: Error | null, items: SyncListItemInstance) => any
   ): Promise<SyncListItemInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -722,14 +719,11 @@ export function SyncListItemListInstance(
   instance.page = function page(
     params?:
       | SyncListItemListInstancePageOptions
-      | ((error: Error | null, item?: SyncListItemPage) => any),
-    callback?: (error: Error | null, item?: SyncListItemPage) => any
+      | ((error: Error | null, items: SyncListItemPage) => any),
+    callback?: (error: Error | null, items: SyncListItemPage) => any
   ): Promise<SyncListItemPage> {
     if (typeof params === "function") {
-      callback = params as (
-        error: Error | null,
-        item?: SyncListItemPage
-      ) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

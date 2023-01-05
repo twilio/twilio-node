@@ -209,14 +209,11 @@ export function TaskQueuesStatisticsListInstance(
   instance.page = function page(
     params?:
       | TaskQueuesStatisticsListInstancePageOptions
-      | ((error: Error | null, item?: TaskQueuesStatisticsPage) => any),
-    callback?: (error: Error | null, item?: TaskQueuesStatisticsPage) => any
+      | ((error: Error | null, items: TaskQueuesStatisticsPage) => any),
+    callback?: (error: Error | null, items: TaskQueuesStatisticsPage) => any
   ): Promise<TaskQueuesStatisticsPage> {
     if (typeof params === "function") {
-      callback = params as (
-        error: Error | null,
-        item?: TaskQueuesStatisticsPage
-      ) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

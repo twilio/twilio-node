@@ -289,7 +289,7 @@ export class DomainContextImpl implements DomainContext {
     callback?: (error: Error | null, item?: DomainInstance) => any
   ): Promise<DomainInstance> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: DomainInstance) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};
@@ -783,7 +783,7 @@ export function DomainListInstance(
 
   instance.create = function create(
     params: DomainListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: DomainInstance) => any
+    callback?: (error: Error | null, items: DomainInstance) => any
   ): Promise<DomainInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -852,11 +852,11 @@ export function DomainListInstance(
   instance.page = function page(
     params?:
       | DomainListInstancePageOptions
-      | ((error: Error | null, item?: DomainPage) => any),
-    callback?: (error: Error | null, item?: DomainPage) => any
+      | ((error: Error | null, items: DomainPage) => any),
+    callback?: (error: Error | null, items: DomainPage) => any
   ): Promise<DomainPage> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: DomainPage) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

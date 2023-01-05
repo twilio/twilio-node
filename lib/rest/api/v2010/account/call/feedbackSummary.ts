@@ -370,7 +370,7 @@ export function FeedbackSummaryListInstance(
 
   instance.create = function create(
     params: FeedbackSummaryListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: FeedbackSummaryInstance) => any
+    callback?: (error: Error | null, items: FeedbackSummaryInstance) => any
   ): Promise<FeedbackSummaryInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');

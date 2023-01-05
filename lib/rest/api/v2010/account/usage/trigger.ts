@@ -482,7 +482,7 @@ export class TriggerContextImpl implements TriggerContext {
     callback?: (error: Error | null, item?: TriggerInstance) => any
   ): Promise<TriggerInstance> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: TriggerInstance) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};
@@ -876,7 +876,7 @@ export function TriggerListInstance(
 
   instance.create = function create(
     params: TriggerListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: TriggerInstance) => any
+    callback?: (error: Error | null, items: TriggerInstance) => any
   ): Promise<TriggerInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -948,11 +948,11 @@ export function TriggerListInstance(
   instance.page = function page(
     params?:
       | TriggerListInstancePageOptions
-      | ((error: Error | null, item?: TriggerPage) => any),
-    callback?: (error: Error | null, item?: TriggerPage) => any
+      | ((error: Error | null, items: TriggerPage) => any),
+    callback?: (error: Error | null, items: TriggerPage) => any
   ): Promise<TriggerPage> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: TriggerPage) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

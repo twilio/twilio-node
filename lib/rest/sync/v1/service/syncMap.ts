@@ -233,7 +233,7 @@ export class SyncMapContextImpl implements SyncMapContext {
     callback?: (error: Error | null, item?: SyncMapInstance) => any
   ): Promise<SyncMapInstance> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: SyncMapInstance) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};
@@ -615,11 +615,11 @@ export function SyncMapListInstance(
   instance.create = function create(
     params?:
       | SyncMapListInstanceCreateOptions
-      | ((error: Error | null, item?: SyncMapInstance) => any),
-    callback?: (error: Error | null, item?: SyncMapInstance) => any
+      | ((error: Error | null, items: SyncMapInstance) => any),
+    callback?: (error: Error | null, items: SyncMapInstance) => any
   ): Promise<SyncMapInstance> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: SyncMapInstance) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};
@@ -663,11 +663,11 @@ export function SyncMapListInstance(
   instance.page = function page(
     params?:
       | SyncMapListInstancePageOptions
-      | ((error: Error | null, item?: SyncMapPage) => any),
-    callback?: (error: Error | null, item?: SyncMapPage) => any
+      | ((error: Error | null, items: SyncMapPage) => any),
+    callback?: (error: Error | null, items: SyncMapPage) => any
   ): Promise<SyncMapPage> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: SyncMapPage) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

@@ -308,11 +308,11 @@ export function PoliciesListInstance(version: V1): PoliciesListInstance {
   instance.page = function page(
     params?:
       | PoliciesListInstancePageOptions
-      | ((error: Error | null, item?: PoliciesPage) => any),
-    callback?: (error: Error | null, item?: PoliciesPage) => any
+      | ((error: Error | null, items: PoliciesPage) => any),
+    callback?: (error: Error | null, items: PoliciesPage) => any
   ): Promise<PoliciesPage> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: PoliciesPage) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

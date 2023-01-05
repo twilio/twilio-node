@@ -222,7 +222,7 @@ export class SimContextImpl implements SimContext {
     callback?: (error: Error | null, item?: SimInstance) => any
   ): Promise<SimInstance> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: SimInstance) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};
@@ -600,11 +600,11 @@ export function SimListInstance(version: Wireless): SimListInstance {
   instance.page = function page(
     params?:
       | SimListInstancePageOptions
-      | ((error: Error | null, item?: SimPage) => any),
-    callback?: (error: Error | null, item?: SimPage) => any
+      | ((error: Error | null, items: SimPage) => any),
+    callback?: (error: Error | null, items: SimPage) => any
   ): Promise<SimPage> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: SimPage) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

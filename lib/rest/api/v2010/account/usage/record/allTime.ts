@@ -429,11 +429,11 @@ export function AllTimeListInstance(
   instance.page = function page(
     params?:
       | AllTimeListInstancePageOptions
-      | ((error: Error | null, item?: AllTimePage) => any),
-    callback?: (error: Error | null, item?: AllTimePage) => any
+      | ((error: Error | null, items: AllTimePage) => any),
+    callback?: (error: Error | null, items: AllTimePage) => any
   ): Promise<AllTimePage> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: AllTimePage) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

@@ -203,10 +203,7 @@ export class TaskChannelContextImpl implements TaskChannelContext {
     callback?: (error: Error | null, item?: TaskChannelInstance) => any
   ): Promise<TaskChannelInstance> {
     if (typeof params === "function") {
-      callback = params as (
-        error: Error | null,
-        item?: TaskChannelInstance
-      ) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};
@@ -559,7 +556,7 @@ export function TaskChannelListInstance(
 
   instance.create = function create(
     params: TaskChannelListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: TaskChannelInstance) => any
+    callback?: (error: Error | null, items: TaskChannelInstance) => any
   ): Promise<TaskChannelInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -616,11 +613,11 @@ export function TaskChannelListInstance(
   instance.page = function page(
     params?:
       | TaskChannelListInstancePageOptions
-      | ((error: Error | null, item?: TaskChannelPage) => any),
-    callback?: (error: Error | null, item?: TaskChannelPage) => any
+      | ((error: Error | null, items: TaskChannelPage) => any),
+    callback?: (error: Error | null, items: TaskChannelPage) => any
   ): Promise<TaskChannelPage> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: TaskChannelPage) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

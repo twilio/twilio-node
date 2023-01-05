@@ -414,7 +414,7 @@ export function ChannelListInstance(version: V1): ChannelListInstance {
 
   instance.create = function create(
     params: ChannelListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: ChannelInstance) => any
+    callback?: (error: Error | null, items: ChannelInstance) => any
   ): Promise<ChannelInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -491,11 +491,11 @@ export function ChannelListInstance(version: V1): ChannelListInstance {
   instance.page = function page(
     params?:
       | ChannelListInstancePageOptions
-      | ((error: Error | null, item?: ChannelPage) => any),
-    callback?: (error: Error | null, item?: ChannelPage) => any
+      | ((error: Error | null, items: ChannelPage) => any),
+    callback?: (error: Error | null, items: ChannelPage) => any
   ): Promise<ChannelPage> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: ChannelPage) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

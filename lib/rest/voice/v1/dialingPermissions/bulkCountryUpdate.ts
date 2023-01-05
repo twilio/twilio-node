@@ -64,7 +64,7 @@ export function BulkCountryUpdateListInstance(
 
   instance.create = function create(
     params: BulkCountryUpdateListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: BulkCountryUpdateInstance) => any
+    callback?: (error: Error | null, items: BulkCountryUpdateInstance) => any
   ): Promise<BulkCountryUpdateInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');

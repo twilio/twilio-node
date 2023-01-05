@@ -230,7 +230,7 @@ export class ServiceContextImpl implements ServiceContext {
     callback?: (error: Error | null, item?: ServiceInstance) => any
   ): Promise<ServiceInstance> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: ServiceInstance) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};
@@ -570,11 +570,11 @@ export function ServiceListInstance(version: Sync): ServiceListInstance {
   instance.create = function create(
     params?:
       | ServiceListInstanceCreateOptions
-      | ((error: Error | null, item?: ServiceInstance) => any),
-    callback?: (error: Error | null, item?: ServiceInstance) => any
+      | ((error: Error | null, items: ServiceInstance) => any),
+    callback?: (error: Error | null, items: ServiceInstance) => any
   ): Promise<ServiceInstance> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: ServiceInstance) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};
@@ -618,11 +618,11 @@ export function ServiceListInstance(version: Sync): ServiceListInstance {
   instance.page = function page(
     params?:
       | ServiceListInstancePageOptions
-      | ((error: Error | null, item?: ServicePage) => any),
-    callback?: (error: Error | null, item?: ServicePage) => any
+      | ((error: Error | null, items: ServicePage) => any),
+    callback?: (error: Error | null, items: ServicePage) => any
   ): Promise<ServicePage> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: ServicePage) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

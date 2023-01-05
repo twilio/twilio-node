@@ -539,17 +539,14 @@ export function AvailablePhoneNumberCountryListInstance(
   instance.page = function page(
     params?:
       | AvailablePhoneNumberCountryListInstancePageOptions
-      | ((error: Error | null, item?: AvailablePhoneNumberCountryPage) => any),
+      | ((error: Error | null, items: AvailablePhoneNumberCountryPage) => any),
     callback?: (
       error: Error | null,
-      item?: AvailablePhoneNumberCountryPage
+      items: AvailablePhoneNumberCountryPage
     ) => any
   ): Promise<AvailablePhoneNumberCountryPage> {
     if (typeof params === "function") {
-      callback = params as (
-        error: Error | null,
-        item?: AvailablePhoneNumberCountryPage
-      ) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

@@ -218,7 +218,7 @@ export class MemberContextImpl implements MemberContext {
     callback?: (error: Error | null, item?: MemberInstance) => any
   ): Promise<MemberInstance> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: MemberInstance) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};
@@ -588,7 +588,7 @@ export function MemberListInstance(
 
   instance.create = function create(
     params: MemberListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: MemberInstance) => any
+    callback?: (error: Error | null, items: MemberInstance) => any
   ): Promise<MemberInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -634,11 +634,11 @@ export function MemberListInstance(
   instance.page = function page(
     params?:
       | MemberListInstancePageOptions
-      | ((error: Error | null, item?: MemberPage) => any),
-    callback?: (error: Error | null, item?: MemberPage) => any
+      | ((error: Error | null, items: MemberPage) => any),
+    callback?: (error: Error | null, items: MemberPage) => any
   ): Promise<MemberPage> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: MemberPage) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

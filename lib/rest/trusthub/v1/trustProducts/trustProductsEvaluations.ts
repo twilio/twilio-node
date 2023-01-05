@@ -412,7 +412,7 @@ export function TrustProductsEvaluationsListInstance(
     params: TrustProductsEvaluationsListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      item?: TrustProductsEvaluationsInstance
+      items: TrustProductsEvaluationsInstance
     ) => any
   ): Promise<TrustProductsEvaluationsInstance> {
     if (params === null || params === undefined) {
@@ -457,14 +457,11 @@ export function TrustProductsEvaluationsListInstance(
   instance.page = function page(
     params?:
       | TrustProductsEvaluationsListInstancePageOptions
-      | ((error: Error | null, item?: TrustProductsEvaluationsPage) => any),
-    callback?: (error: Error | null, item?: TrustProductsEvaluationsPage) => any
+      | ((error: Error | null, items: TrustProductsEvaluationsPage) => any),
+    callback?: (error: Error | null, items: TrustProductsEvaluationsPage) => any
   ): Promise<TrustProductsEvaluationsPage> {
     if (typeof params === "function") {
-      callback = params as (
-        error: Error | null,
-        item?: TrustProductsEvaluationsPage
-      ) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

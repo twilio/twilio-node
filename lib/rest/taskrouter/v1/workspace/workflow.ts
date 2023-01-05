@@ -265,10 +265,7 @@ export class WorkflowContextImpl implements WorkflowContext {
     callback?: (error: Error | null, item?: WorkflowInstance) => any
   ): Promise<WorkflowInstance> {
     if (typeof params === "function") {
-      callback = params as (
-        error: Error | null,
-        item?: WorkflowInstance
-      ) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};
@@ -673,7 +670,7 @@ export function WorkflowListInstance(
 
   instance.create = function create(
     params: WorkflowListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: WorkflowInstance) => any
+    callback?: (error: Error | null, items: WorkflowInstance) => any
   ): Promise<WorkflowInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -738,11 +735,11 @@ export function WorkflowListInstance(
   instance.page = function page(
     params?:
       | WorkflowListInstancePageOptions
-      | ((error: Error | null, item?: WorkflowPage) => any),
-    callback?: (error: Error | null, item?: WorkflowPage) => any
+      | ((error: Error | null, items: WorkflowPage) => any),
+    callback?: (error: Error | null, items: WorkflowPage) => any
   ): Promise<WorkflowPage> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: WorkflowPage) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

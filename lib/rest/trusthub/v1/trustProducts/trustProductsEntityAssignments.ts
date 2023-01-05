@@ -455,7 +455,7 @@ export function TrustProductsEntityAssignmentsListInstance(
     params: TrustProductsEntityAssignmentsListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      item?: TrustProductsEntityAssignmentsInstance
+      items: TrustProductsEntityAssignmentsInstance
     ) => any
   ): Promise<TrustProductsEntityAssignmentsInstance> {
     if (params === null || params === undefined) {
@@ -502,18 +502,15 @@ export function TrustProductsEntityAssignmentsListInstance(
       | TrustProductsEntityAssignmentsListInstancePageOptions
       | ((
           error: Error | null,
-          item?: TrustProductsEntityAssignmentsPage
+          items: TrustProductsEntityAssignmentsPage
         ) => any),
     callback?: (
       error: Error | null,
-      item?: TrustProductsEntityAssignmentsPage
+      items: TrustProductsEntityAssignmentsPage
     ) => any
   ): Promise<TrustProductsEntityAssignmentsPage> {
     if (typeof params === "function") {
-      callback = params as (
-        error: Error | null,
-        item?: TrustProductsEntityAssignmentsPage
-      ) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

@@ -193,7 +193,7 @@ export class EndUserContextImpl implements EndUserContext {
     callback?: (error: Error | null, item?: EndUserInstance) => any
   ): Promise<EndUserInstance> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: EndUserInstance) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};
@@ -507,7 +507,7 @@ export function EndUserListInstance(version: V1): EndUserListInstance {
 
   instance.create = function create(
     params: EndUserListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: EndUserInstance) => any
+    callback?: (error: Error | null, items: EndUserInstance) => any
   ): Promise<EndUserInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -557,11 +557,11 @@ export function EndUserListInstance(version: V1): EndUserListInstance {
   instance.page = function page(
     params?:
       | EndUserListInstancePageOptions
-      | ((error: Error | null, item?: EndUserPage) => any),
-    callback?: (error: Error | null, item?: EndUserPage) => any
+      | ((error: Error | null, items: EndUserPage) => any),
+    callback?: (error: Error | null, items: EndUserPage) => any
   ): Promise<EndUserPage> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: EndUserPage) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

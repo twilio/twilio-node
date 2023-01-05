@@ -155,7 +155,7 @@ export class DeviceContextImpl implements DeviceContext {
     callback?: (error: Error | null, item?: DeviceInstance) => any
   ): Promise<DeviceInstance> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: DeviceInstance) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};
@@ -452,11 +452,11 @@ export function DeviceListInstance(version: V1): DeviceListInstance {
   instance.page = function page(
     params?:
       | DeviceListInstancePageOptions
-      | ((error: Error | null, item?: DevicePage) => any),
-    callback?: (error: Error | null, item?: DevicePage) => any
+      | ((error: Error | null, items: DevicePage) => any),
+    callback?: (error: Error | null, items: DevicePage) => any
   ): Promise<DevicePage> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: DevicePage) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

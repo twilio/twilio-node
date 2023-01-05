@@ -323,11 +323,11 @@ export function EndUserTypeListInstance(version: V2): EndUserTypeListInstance {
   instance.page = function page(
     params?:
       | EndUserTypeListInstancePageOptions
-      | ((error: Error | null, item?: EndUserTypePage) => any),
-    callback?: (error: Error | null, item?: EndUserTypePage) => any
+      | ((error: Error | null, items: EndUserTypePage) => any),
+    callback?: (error: Error | null, items: EndUserTypePage) => any
   ): Promise<EndUserTypePage> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: EndUserTypePage) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

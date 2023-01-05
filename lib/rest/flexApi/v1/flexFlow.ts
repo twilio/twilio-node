@@ -267,10 +267,7 @@ export class FlexFlowContextImpl implements FlexFlowContext {
     callback?: (error: Error | null, item?: FlexFlowInstance) => any
   ): Promise<FlexFlowInstance> {
     if (typeof params === "function") {
-      callback = params as (
-        error: Error | null,
-        item?: FlexFlowInstance
-      ) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};
@@ -652,7 +649,7 @@ export function FlexFlowListInstance(version: V1): FlexFlowListInstance {
 
   instance.create = function create(
     params: FlexFlowListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: FlexFlowInstance) => any
+    callback?: (error: Error | null, items: FlexFlowInstance) => any
   ): Promise<FlexFlowInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -741,11 +738,11 @@ export function FlexFlowListInstance(version: V1): FlexFlowListInstance {
   instance.page = function page(
     params?:
       | FlexFlowListInstancePageOptions
-      | ((error: Error | null, item?: FlexFlowPage) => any),
-    callback?: (error: Error | null, item?: FlexFlowPage) => any
+      | ((error: Error | null, items: FlexFlowPage) => any),
+    callback?: (error: Error | null, items: FlexFlowPage) => any
   ): Promise<FlexFlowPage> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: FlexFlowPage) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

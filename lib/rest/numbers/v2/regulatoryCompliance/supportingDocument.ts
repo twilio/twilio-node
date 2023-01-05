@@ -210,10 +210,7 @@ export class SupportingDocumentContextImpl
     callback?: (error: Error | null, item?: SupportingDocumentInstance) => any
   ): Promise<SupportingDocumentInstance> {
     if (typeof params === "function") {
-      callback = params as (
-        error: Error | null,
-        item?: SupportingDocumentInstance
-      ) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};
@@ -562,7 +559,7 @@ export function SupportingDocumentListInstance(
 
   instance.create = function create(
     params: SupportingDocumentListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: SupportingDocumentInstance) => any
+    callback?: (error: Error | null, items: SupportingDocumentInstance) => any
   ): Promise<SupportingDocumentInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -612,14 +609,11 @@ export function SupportingDocumentListInstance(
   instance.page = function page(
     params?:
       | SupportingDocumentListInstancePageOptions
-      | ((error: Error | null, item?: SupportingDocumentPage) => any),
-    callback?: (error: Error | null, item?: SupportingDocumentPage) => any
+      | ((error: Error | null, items: SupportingDocumentPage) => any),
+    callback?: (error: Error | null, items: SupportingDocumentPage) => any
   ): Promise<SupportingDocumentPage> {
     if (typeof params === "function") {
-      callback = params as (
-        error: Error | null,
-        item?: SupportingDocumentPage
-      ) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

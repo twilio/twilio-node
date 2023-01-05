@@ -158,11 +158,11 @@ export function DataSessionListInstance(
   instance.page = function page(
     params?:
       | DataSessionListInstancePageOptions
-      | ((error: Error | null, item?: DataSessionPage) => any),
-    callback?: (error: Error | null, item?: DataSessionPage) => any
+      | ((error: Error | null, items: DataSessionPage) => any),
+    callback?: (error: Error | null, items: DataSessionPage) => any
   ): Promise<DataSessionPage> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: DataSessionPage) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

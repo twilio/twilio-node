@@ -491,11 +491,11 @@ export function RecordingListInstance(version: V1): RecordingListInstance {
   instance.page = function page(
     params?:
       | RecordingListInstancePageOptions
-      | ((error: Error | null, item?: RecordingPage) => any),
-    callback?: (error: Error | null, item?: RecordingPage) => any
+      | ((error: Error | null, items: RecordingPage) => any),
+    callback?: (error: Error | null, items: RecordingPage) => any
   ): Promise<RecordingPage> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: RecordingPage) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

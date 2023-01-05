@@ -296,14 +296,11 @@ export function CallSummariesListInstance(
   instance.page = function page(
     params?:
       | CallSummariesListInstancePageOptions
-      | ((error: Error | null, item?: CallSummariesPage) => any),
-    callback?: (error: Error | null, item?: CallSummariesPage) => any
+      | ((error: Error | null, items: CallSummariesPage) => any),
+    callback?: (error: Error | null, items: CallSummariesPage) => any
   ): Promise<CallSummariesPage> {
     if (typeof params === "function") {
-      callback = params as (
-        error: Error | null,
-        item?: CallSummariesPage
-      ) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

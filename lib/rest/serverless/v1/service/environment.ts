@@ -512,7 +512,7 @@ export function EnvironmentListInstance(
 
   instance.create = function create(
     params: EnvironmentListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: EnvironmentInstance) => any
+    callback?: (error: Error | null, items: EnvironmentInstance) => any
   ): Promise<EnvironmentInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -558,11 +558,11 @@ export function EnvironmentListInstance(
   instance.page = function page(
     params?:
       | EnvironmentListInstancePageOptions
-      | ((error: Error | null, item?: EnvironmentPage) => any),
-    callback?: (error: Error | null, item?: EnvironmentPage) => any
+      | ((error: Error | null, items: EnvironmentPage) => any),
+    callback?: (error: Error | null, items: EnvironmentPage) => any
   ): Promise<EnvironmentPage> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: EnvironmentPage) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

@@ -273,11 +273,11 @@ export function NationalListInstance(
   instance.page = function page(
     params?:
       | NationalListInstancePageOptions
-      | ((error: Error | null, item?: NationalPage) => any),
-    callback?: (error: Error | null, item?: NationalPage) => any
+      | ((error: Error | null, items: NationalPage) => any),
+    callback?: (error: Error | null, items: NationalPage) => any
   ): Promise<NationalPage> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: NationalPage) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

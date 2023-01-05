@@ -459,7 +459,7 @@ export function NetworkAccessProfileNetworkListInstance(
     params: NetworkAccessProfileNetworkListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      item?: NetworkAccessProfileNetworkInstance
+      items: NetworkAccessProfileNetworkInstance
     ) => any
   ): Promise<NetworkAccessProfileNetworkInstance> {
     if (params === null || params === undefined) {
@@ -504,17 +504,14 @@ export function NetworkAccessProfileNetworkListInstance(
   instance.page = function page(
     params?:
       | NetworkAccessProfileNetworkListInstancePageOptions
-      | ((error: Error | null, item?: NetworkAccessProfileNetworkPage) => any),
+      | ((error: Error | null, items: NetworkAccessProfileNetworkPage) => any),
     callback?: (
       error: Error | null,
-      item?: NetworkAccessProfileNetworkPage
+      items: NetworkAccessProfileNetworkPage
     ) => any
   ): Promise<NetworkAccessProfileNetworkPage> {
     if (typeof params === "function") {
-      callback = params as (
-        error: Error | null,
-        item?: NetworkAccessProfileNetworkPage
-      ) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

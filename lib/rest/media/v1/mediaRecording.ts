@@ -477,14 +477,11 @@ export function MediaRecordingListInstance(
   instance.page = function page(
     params?:
       | MediaRecordingListInstancePageOptions
-      | ((error: Error | null, item?: MediaRecordingPage) => any),
-    callback?: (error: Error | null, item?: MediaRecordingPage) => any
+      | ((error: Error | null, items: MediaRecordingPage) => any),
+    callback?: (error: Error | null, items: MediaRecordingPage) => any
   ): Promise<MediaRecordingPage> {
     if (typeof params === "function") {
-      callback = params as (
-        error: Error | null,
-        item?: MediaRecordingPage
-      ) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

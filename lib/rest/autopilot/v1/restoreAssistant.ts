@@ -64,7 +64,7 @@ export function RestoreAssistantListInstance(
 
   instance.update = function update(
     params: RestoreAssistantListInstanceUpdateOptions,
-    callback?: (error: Error | null, item?: RestoreAssistantInstance) => any
+    callback?: (error: Error | null, items: RestoreAssistantInstance) => any
   ): Promise<RestoreAssistantInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');

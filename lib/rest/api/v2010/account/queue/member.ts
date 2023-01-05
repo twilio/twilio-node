@@ -460,11 +460,11 @@ export function MemberListInstance(
   instance.page = function page(
     params?:
       | MemberListInstancePageOptions
-      | ((error: Error | null, item?: MemberPage) => any),
-    callback?: (error: Error | null, item?: MemberPage) => any
+      | ((error: Error | null, items: MemberPage) => any),
+    callback?: (error: Error | null, items: MemberPage) => any
   ): Promise<MemberPage> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: MemberPage) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

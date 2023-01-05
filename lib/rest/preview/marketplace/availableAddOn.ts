@@ -367,14 +367,11 @@ export function AvailableAddOnListInstance(
   instance.page = function page(
     params?:
       | AvailableAddOnListInstancePageOptions
-      | ((error: Error | null, item?: AvailableAddOnPage) => any),
-    callback?: (error: Error | null, item?: AvailableAddOnPage) => any
+      | ((error: Error | null, items: AvailableAddOnPage) => any),
+    callback?: (error: Error | null, items: AvailableAddOnPage) => any
   ): Promise<AvailableAddOnPage> {
     if (typeof params === "function") {
-      callback = params as (
-        error: Error | null,
-        item?: AvailableAddOnPage
-      ) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

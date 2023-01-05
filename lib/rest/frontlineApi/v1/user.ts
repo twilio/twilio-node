@@ -122,7 +122,7 @@ export class UserContextImpl implements UserContext {
     callback?: (error: Error | null, item?: UserInstance) => any
   ): Promise<UserInstance> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: UserInstance) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

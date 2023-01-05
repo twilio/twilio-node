@@ -226,17 +226,14 @@ export function DependentHostedNumberOrderListInstance(
   instance.page = function page(
     params?:
       | DependentHostedNumberOrderListInstancePageOptions
-      | ((error: Error | null, item?: DependentHostedNumberOrderPage) => any),
+      | ((error: Error | null, items: DependentHostedNumberOrderPage) => any),
     callback?: (
       error: Error | null,
-      item?: DependentHostedNumberOrderPage
+      items: DependentHostedNumberOrderPage
     ) => any
   ): Promise<DependentHostedNumberOrderPage> {
     if (typeof params === "function") {
-      callback = params as (
-        error: Error | null,
-        item?: DependentHostedNumberOrderPage
-      ) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

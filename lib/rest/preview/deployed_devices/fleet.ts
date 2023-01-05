@@ -229,7 +229,7 @@ export class FleetContextImpl implements FleetContext {
     callback?: (error: Error | null, item?: FleetInstance) => any
   ): Promise<FleetInstance> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: FleetInstance) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};
@@ -592,11 +592,11 @@ export function FleetListInstance(version: DeployedDevices): FleetListInstance {
   instance.create = function create(
     params?:
       | FleetListInstanceCreateOptions
-      | ((error: Error | null, item?: FleetInstance) => any),
-    callback?: (error: Error | null, item?: FleetInstance) => any
+      | ((error: Error | null, items: FleetInstance) => any),
+    callback?: (error: Error | null, items: FleetInstance) => any
   ): Promise<FleetInstance> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: FleetInstance) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};
@@ -632,11 +632,11 @@ export function FleetListInstance(version: DeployedDevices): FleetListInstance {
   instance.page = function page(
     params?:
       | FleetListInstancePageOptions
-      | ((error: Error | null, item?: FleetPage) => any),
-    callback?: (error: Error | null, item?: FleetPage) => any
+      | ((error: Error | null, items: FleetPage) => any),
+    callback?: (error: Error | null, items: FleetPage) => any
   ): Promise<FleetPage> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: FleetPage) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

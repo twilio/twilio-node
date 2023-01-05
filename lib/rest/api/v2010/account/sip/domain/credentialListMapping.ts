@@ -473,7 +473,7 @@ export function CredentialListMappingListInstance(
     params: CredentialListMappingListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      item?: CredentialListMappingInstance
+      items: CredentialListMappingInstance
     ) => any
   ): Promise<CredentialListMappingInstance> {
     if (params === null || params === undefined) {
@@ -524,14 +524,11 @@ export function CredentialListMappingListInstance(
   instance.page = function page(
     params?:
       | CredentialListMappingListInstancePageOptions
-      | ((error: Error | null, item?: CredentialListMappingPage) => any),
-    callback?: (error: Error | null, item?: CredentialListMappingPage) => any
+      | ((error: Error | null, items: CredentialListMappingPage) => any),
+    callback?: (error: Error | null, items: CredentialListMappingPage) => any
   ): Promise<CredentialListMappingPage> {
     if (typeof params === "function") {
-      callback = params as (
-        error: Error | null,
-        item?: CredentialListMappingPage
-      ) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

@@ -204,10 +204,7 @@ export class OutgoingCallerIdContextImpl implements OutgoingCallerIdContext {
     callback?: (error: Error | null, item?: OutgoingCallerIdInstance) => any
   ): Promise<OutgoingCallerIdInstance> {
     if (typeof params === "function") {
-      callback = params as (
-        error: Error | null,
-        item?: OutgoingCallerIdInstance
-      ) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};
@@ -529,14 +526,11 @@ export function OutgoingCallerIdListInstance(
   instance.page = function page(
     params?:
       | OutgoingCallerIdListInstancePageOptions
-      | ((error: Error | null, item?: OutgoingCallerIdPage) => any),
-    callback?: (error: Error | null, item?: OutgoingCallerIdPage) => any
+      | ((error: Error | null, items: OutgoingCallerIdPage) => any),
+    callback?: (error: Error | null, items: OutgoingCallerIdPage) => any
   ): Promise<OutgoingCallerIdPage> {
     if (typeof params === "function") {
-      callback = params as (
-        error: Error | null,
-        item?: OutgoingCallerIdPage
-      ) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

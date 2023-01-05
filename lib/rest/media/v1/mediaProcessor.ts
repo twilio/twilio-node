@@ -522,7 +522,7 @@ export function MediaProcessorListInstance(
 
   instance.create = function create(
     params: MediaProcessorListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: MediaProcessorInstance) => any
+    callback?: (error: Error | null, items: MediaProcessorInstance) => any
   ): Promise<MediaProcessorInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -582,14 +582,11 @@ export function MediaProcessorListInstance(
   instance.page = function page(
     params?:
       | MediaProcessorListInstancePageOptions
-      | ((error: Error | null, item?: MediaProcessorPage) => any),
-    callback?: (error: Error | null, item?: MediaProcessorPage) => any
+      | ((error: Error | null, items: MediaProcessorPage) => any),
+    callback?: (error: Error | null, items: MediaProcessorPage) => any
   ): Promise<MediaProcessorPage> {
     if (typeof params === "function") {
-      callback = params as (
-        error: Error | null,
-        item?: MediaProcessorPage
-      ) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

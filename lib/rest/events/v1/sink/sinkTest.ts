@@ -60,7 +60,7 @@ export function SinkTestListInstance(
   instance._uri = `/Sinks/${sid}/Test`;
 
   instance.create = function create(
-    callback?: (error: Error | null, item?: SinkTestInstance) => any
+    callback?: (error: Error | null, items: SinkTestInstance) => any
   ): Promise<SinkTestInstance> {
     let operationVersion = version,
       operationPromise = operationVersion.create({

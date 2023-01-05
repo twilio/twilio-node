@@ -187,14 +187,11 @@ export function DependentPhoneNumberListInstance(
   instance.page = function page(
     params?:
       | DependentPhoneNumberListInstancePageOptions
-      | ((error: Error | null, item?: DependentPhoneNumberPage) => any),
-    callback?: (error: Error | null, item?: DependentPhoneNumberPage) => any
+      | ((error: Error | null, items: DependentPhoneNumberPage) => any),
+    callback?: (error: Error | null, items: DependentPhoneNumberPage) => any
   ): Promise<DependentPhoneNumberPage> {
     if (typeof params === "function") {
-      callback = params as (
-        error: Error | null,
-        item?: DependentPhoneNumberPage
-      ) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

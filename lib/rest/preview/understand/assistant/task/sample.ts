@@ -222,7 +222,7 @@ export class SampleContextImpl implements SampleContext {
     callback?: (error: Error | null, item?: SampleInstance) => any
   ): Promise<SampleInstance> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: SampleInstance) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};
@@ -580,7 +580,7 @@ export function SampleListInstance(
 
   instance.create = function create(
     params: SampleListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: SampleInstance) => any
+    callback?: (error: Error | null, items: SampleInstance) => any
   ): Promise<SampleInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -633,11 +633,11 @@ export function SampleListInstance(
   instance.page = function page(
     params?:
       | SampleListInstancePageOptions
-      | ((error: Error | null, item?: SamplePage) => any),
-    callback?: (error: Error | null, item?: SamplePage) => any
+      | ((error: Error | null, items: SamplePage) => any),
+    callback?: (error: Error | null, items: SamplePage) => any
   ): Promise<SamplePage> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: SamplePage) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

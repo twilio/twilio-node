@@ -183,10 +183,7 @@ export class ShortCodeContextImpl implements ShortCodeContext {
     callback?: (error: Error | null, item?: ShortCodeInstance) => any
   ): Promise<ShortCodeInstance> {
     if (typeof params === "function") {
-      callback = params as (
-        error: Error | null,
-        item?: ShortCodeInstance
-      ) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};
@@ -548,11 +545,11 @@ export function ShortCodeListInstance(
   instance.page = function page(
     params?:
       | ShortCodeListInstancePageOptions
-      | ((error: Error | null, item?: ShortCodePage) => any),
-    callback?: (error: Error | null, item?: ShortCodePage) => any
+      | ((error: Error | null, items: ShortCodePage) => any),
+    callback?: (error: Error | null, items: ShortCodePage) => any
   ): Promise<ShortCodePage> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: ShortCodePage) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

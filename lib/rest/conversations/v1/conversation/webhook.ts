@@ -221,7 +221,7 @@ export class WebhookContextImpl implements WebhookContext {
     callback?: (error: Error | null, item?: WebhookInstance) => any
   ): Promise<WebhookInstance> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: WebhookInstance) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};
@@ -570,7 +570,7 @@ export function WebhookListInstance(
 
   instance.create = function create(
     params: WebhookListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: WebhookInstance) => any
+    callback?: (error: Error | null, items: WebhookInstance) => any
   ): Promise<WebhookInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -632,11 +632,11 @@ export function WebhookListInstance(
   instance.page = function page(
     params?:
       | WebhookListInstancePageOptions
-      | ((error: Error | null, item?: WebhookPage) => any),
-    callback?: (error: Error | null, item?: WebhookPage) => any
+      | ((error: Error | null, items: WebhookPage) => any),
+    callback?: (error: Error | null, items: WebhookPage) => any
   ): Promise<WebhookPage> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: WebhookPage) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

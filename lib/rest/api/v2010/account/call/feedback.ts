@@ -136,10 +136,7 @@ export class FeedbackContextImpl implements FeedbackContext {
     callback?: (error: Error | null, item?: FeedbackInstance) => any
   ): Promise<FeedbackInstance> {
     if (typeof params === "function") {
-      callback = params as (
-        error: Error | null,
-        item?: FeedbackInstance
-      ) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

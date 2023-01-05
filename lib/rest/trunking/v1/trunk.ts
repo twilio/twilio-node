@@ -271,7 +271,7 @@ export class TrunkContextImpl implements TrunkContext {
     callback?: (error: Error | null, item?: TrunkInstance) => any
   ): Promise<TrunkInstance> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: TrunkInstance) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};
@@ -707,11 +707,11 @@ export function TrunkListInstance(version: V1): TrunkListInstance {
   instance.create = function create(
     params?:
       | TrunkListInstanceCreateOptions
-      | ((error: Error | null, item?: TrunkInstance) => any),
-    callback?: (error: Error | null, item?: TrunkInstance) => any
+      | ((error: Error | null, items: TrunkInstance) => any),
+    callback?: (error: Error | null, items: TrunkInstance) => any
   ): Promise<TrunkInstance> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: TrunkInstance) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};
@@ -761,11 +761,11 @@ export function TrunkListInstance(version: V1): TrunkListInstance {
   instance.page = function page(
     params?:
       | TrunkListInstancePageOptions
-      | ((error: Error | null, item?: TrunkPage) => any),
-    callback?: (error: Error | null, item?: TrunkPage) => any
+      | ((error: Error | null, items: TrunkPage) => any),
+    callback?: (error: Error | null, items: TrunkPage) => any
   ): Promise<TrunkPage> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: TrunkPage) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

@@ -169,11 +169,11 @@ export function UsageRecordListInstance(version: V1): UsageRecordListInstance {
   instance.page = function page(
     params?:
       | UsageRecordListInstancePageOptions
-      | ((error: Error | null, item?: UsageRecordPage) => any),
-    callback?: (error: Error | null, item?: UsageRecordPage) => any
+      | ((error: Error | null, items: UsageRecordPage) => any),
+    callback?: (error: Error | null, items: UsageRecordPage) => any
   ): Promise<UsageRecordPage> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: UsageRecordPage) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

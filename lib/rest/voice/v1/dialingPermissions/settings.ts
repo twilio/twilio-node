@@ -107,10 +107,7 @@ export class SettingsContextImpl implements SettingsContext {
     callback?: (error: Error | null, item?: SettingsInstance) => any
   ): Promise<SettingsInstance> {
     if (typeof params === "function") {
-      callback = params as (
-        error: Error | null,
-        item?: SettingsInstance
-      ) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

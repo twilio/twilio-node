@@ -435,11 +435,11 @@ export function StepListInstance(
   instance.page = function page(
     params?:
       | StepListInstancePageOptions
-      | ((error: Error | null, item?: StepPage) => any),
-    callback?: (error: Error | null, item?: StepPage) => any
+      | ((error: Error | null, items: StepPage) => any),
+    callback?: (error: Error | null, items: StepPage) => any
   ): Promise<StepPage> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: StepPage) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

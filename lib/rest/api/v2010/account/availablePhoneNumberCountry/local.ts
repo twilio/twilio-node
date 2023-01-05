@@ -273,11 +273,11 @@ export function LocalListInstance(
   instance.page = function page(
     params?:
       | LocalListInstancePageOptions
-      | ((error: Error | null, item?: LocalPage) => any),
-    callback?: (error: Error | null, item?: LocalPage) => any
+      | ((error: Error | null, items: LocalPage) => any),
+    callback?: (error: Error | null, items: LocalPage) => any
   ): Promise<LocalPage> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: LocalPage) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

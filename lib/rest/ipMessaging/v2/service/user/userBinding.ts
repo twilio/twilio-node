@@ -424,11 +424,11 @@ export function UserBindingListInstance(
   instance.page = function page(
     params?:
       | UserBindingListInstancePageOptions
-      | ((error: Error | null, item?: UserBindingPage) => any),
-    callback?: (error: Error | null, item?: UserBindingPage) => any
+      | ((error: Error | null, items: UserBindingPage) => any),
+    callback?: (error: Error | null, items: UserBindingPage) => any
   ): Promise<UserBindingPage> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: UserBindingPage) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

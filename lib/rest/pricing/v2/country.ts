@@ -345,11 +345,11 @@ export function CountryListInstance(version: V2): CountryListInstance {
   instance.page = function page(
     params?:
       | CountryListInstancePageOptions
-      | ((error: Error | null, item?: CountryPage) => any),
-    callback?: (error: Error | null, item?: CountryPage) => any
+      | ((error: Error | null, items: CountryPage) => any),
+    callback?: (error: Error | null, items: CountryPage) => any
   ): Promise<CountryPage> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: CountryPage) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

@@ -429,11 +429,11 @@ export function DailyListInstance(
   instance.page = function page(
     params?:
       | DailyListInstancePageOptions
-      | ((error: Error | null, item?: DailyPage) => any),
-    callback?: (error: Error | null, item?: DailyPage) => any
+      | ((error: Error | null, items: DailyPage) => any),
+    callback?: (error: Error | null, items: DailyPage) => any
   ): Promise<DailyPage> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: DailyPage) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

@@ -92,14 +92,11 @@ export function VerificationCheckListInstance(
   instance.create = function create(
     params?:
       | VerificationCheckListInstanceCreateOptions
-      | ((error: Error | null, item?: VerificationCheckInstance) => any),
-    callback?: (error: Error | null, item?: VerificationCheckInstance) => any
+      | ((error: Error | null, items: VerificationCheckInstance) => any),
+    callback?: (error: Error | null, items: VerificationCheckInstance) => any
   ): Promise<VerificationCheckInstance> {
     if (typeof params === "function") {
-      callback = params as (
-        error: Error | null,
-        item?: VerificationCheckInstance
-      ) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

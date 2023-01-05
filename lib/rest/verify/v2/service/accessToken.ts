@@ -294,7 +294,7 @@ export function AccessTokenListInstance(
 
   instance.create = function create(
     params: AccessTokenListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: AccessTokenInstance) => any
+    callback?: (error: Error | null, items: AccessTokenInstance) => any
   ): Promise<AccessTokenInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');

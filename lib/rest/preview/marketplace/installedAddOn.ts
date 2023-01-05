@@ -214,10 +214,7 @@ export class InstalledAddOnContextImpl implements InstalledAddOnContext {
     callback?: (error: Error | null, item?: InstalledAddOnInstance) => any
   ): Promise<InstalledAddOnInstance> {
     if (typeof params === "function") {
-      callback = params as (
-        error: Error | null,
-        item?: InstalledAddOnInstance
-      ) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};
@@ -568,7 +565,7 @@ export function InstalledAddOnListInstance(
 
   instance.create = function create(
     params: InstalledAddOnListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: InstalledAddOnInstance) => any
+    callback?: (error: Error | null, items: InstalledAddOnInstance) => any
   ): Promise<InstalledAddOnInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -629,14 +626,11 @@ export function InstalledAddOnListInstance(
   instance.page = function page(
     params?:
       | InstalledAddOnListInstancePageOptions
-      | ((error: Error | null, item?: InstalledAddOnPage) => any),
-    callback?: (error: Error | null, item?: InstalledAddOnPage) => any
+      | ((error: Error | null, items: InstalledAddOnPage) => any),
+    callback?: (error: Error | null, items: InstalledAddOnPage) => any
   ): Promise<InstalledAddOnPage> {
     if (typeof params === "function") {
-      callback = params as (
-        error: Error | null,
-        item?: InstalledAddOnPage
-      ) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

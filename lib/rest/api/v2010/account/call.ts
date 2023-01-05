@@ -482,7 +482,7 @@ export class CallContextImpl implements CallContext {
     callback?: (error: Error | null, item?: CallInstance) => any
   ): Promise<CallInstance> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: CallInstance) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};
@@ -1030,7 +1030,7 @@ export function CallListInstance(
 
   instance.create = function create(
     params: CallListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: CallInstance) => any
+    callback?: (error: Error | null, items: CallInstance) => any
   ): Promise<CallInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -1149,11 +1149,11 @@ export function CallListInstance(
   instance.page = function page(
     params?:
       | CallListInstancePageOptions
-      | ((error: Error | null, item?: CallPage) => any),
-    callback?: (error: Error | null, item?: CallPage) => any
+      | ((error: Error | null, items: CallPage) => any),
+    callback?: (error: Error | null, items: CallPage) => any
   ): Promise<CallPage> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: CallPage) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

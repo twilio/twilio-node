@@ -482,7 +482,7 @@ export function IpAccessControlListMappingListInstance(
     params: IpAccessControlListMappingListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      item?: IpAccessControlListMappingInstance
+      items: IpAccessControlListMappingInstance
     ) => any
   ): Promise<IpAccessControlListMappingInstance> {
     if (params === null || params === undefined) {
@@ -533,17 +533,14 @@ export function IpAccessControlListMappingListInstance(
   instance.page = function page(
     params?:
       | IpAccessControlListMappingListInstancePageOptions
-      | ((error: Error | null, item?: IpAccessControlListMappingPage) => any),
+      | ((error: Error | null, items: IpAccessControlListMappingPage) => any),
     callback?: (
       error: Error | null,
-      item?: IpAccessControlListMappingPage
+      items: IpAccessControlListMappingPage
     ) => any
   ): Promise<IpAccessControlListMappingPage> {
     if (typeof params === "function") {
-      callback = params as (
-        error: Error | null,
-        item?: IpAccessControlListMappingPage
-      ) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

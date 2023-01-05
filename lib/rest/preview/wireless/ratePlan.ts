@@ -207,10 +207,7 @@ export class RatePlanContextImpl implements RatePlanContext {
     callback?: (error: Error | null, item?: RatePlanInstance) => any
   ): Promise<RatePlanInstance> {
     if (typeof params === "function") {
-      callback = params as (
-        error: Error | null,
-        item?: RatePlanInstance
-      ) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};
@@ -539,14 +536,11 @@ export function RatePlanListInstance(version: Wireless): RatePlanListInstance {
   instance.create = function create(
     params?:
       | RatePlanListInstanceCreateOptions
-      | ((error: Error | null, item?: RatePlanInstance) => any),
-    callback?: (error: Error | null, item?: RatePlanInstance) => any
+      | ((error: Error | null, items: RatePlanInstance) => any),
+    callback?: (error: Error | null, items: RatePlanInstance) => any
   ): Promise<RatePlanInstance> {
     if (typeof params === "function") {
-      callback = params as (
-        error: Error | null,
-        item?: RatePlanInstance
-      ) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};
@@ -605,11 +599,11 @@ export function RatePlanListInstance(version: Wireless): RatePlanListInstance {
   instance.page = function page(
     params?:
       | RatePlanListInstancePageOptions
-      | ((error: Error | null, item?: RatePlanPage) => any),
-    callback?: (error: Error | null, item?: RatePlanPage) => any
+      | ((error: Error | null, items: RatePlanPage) => any),
+    callback?: (error: Error | null, items: RatePlanPage) => any
   ): Promise<RatePlanPage> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: RatePlanPage) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

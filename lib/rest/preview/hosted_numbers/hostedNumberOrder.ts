@@ -288,10 +288,7 @@ export class HostedNumberOrderContextImpl implements HostedNumberOrderContext {
     callback?: (error: Error | null, item?: HostedNumberOrderInstance) => any
   ): Promise<HostedNumberOrderInstance> {
     if (typeof params === "function") {
-      callback = params as (
-        error: Error | null,
-        item?: HostedNumberOrderInstance
-      ) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};
@@ -734,7 +731,7 @@ export function HostedNumberOrderListInstance(
 
   instance.create = function create(
     params: HostedNumberOrderListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: HostedNumberOrderInstance) => any
+    callback?: (error: Error | null, items: HostedNumberOrderInstance) => any
   ): Promise<HostedNumberOrderInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -812,14 +809,11 @@ export function HostedNumberOrderListInstance(
   instance.page = function page(
     params?:
       | HostedNumberOrderListInstancePageOptions
-      | ((error: Error | null, item?: HostedNumberOrderPage) => any),
-    callback?: (error: Error | null, item?: HostedNumberOrderPage) => any
+      | ((error: Error | null, items: HostedNumberOrderPage) => any),
+    callback?: (error: Error | null, items: HostedNumberOrderPage) => any
   ): Promise<HostedNumberOrderPage> {
     if (typeof params === "function") {
-      callback = params as (
-        error: Error | null,
-        item?: HostedNumberOrderPage
-      ) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

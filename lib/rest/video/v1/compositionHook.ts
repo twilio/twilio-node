@@ -641,7 +641,7 @@ export function CompositionHookListInstance(
 
   instance.create = function create(
     params: CompositionHookListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: CompositionHookInstance) => any
+    callback?: (error: Error | null, items: CompositionHookInstance) => any
   ): Promise<CompositionHookInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -703,14 +703,11 @@ export function CompositionHookListInstance(
   instance.page = function page(
     params?:
       | CompositionHookListInstancePageOptions
-      | ((error: Error | null, item?: CompositionHookPage) => any),
-    callback?: (error: Error | null, item?: CompositionHookPage) => any
+      | ((error: Error | null, items: CompositionHookPage) => any),
+    callback?: (error: Error | null, items: CompositionHookPage) => any
   ): Promise<CompositionHookPage> {
     if (typeof params === "function") {
-      callback = params as (
-        error: Error | null,
-        item?: CompositionHookPage
-      ) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

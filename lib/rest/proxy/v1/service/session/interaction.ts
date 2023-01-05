@@ -517,11 +517,11 @@ export function InteractionListInstance(
   instance.page = function page(
     params?:
       | InteractionListInstancePageOptions
-      | ((error: Error | null, item?: InteractionPage) => any),
-    callback?: (error: Error | null, item?: InteractionPage) => any
+      | ((error: Error | null, items: InteractionPage) => any),
+    callback?: (error: Error | null, items: InteractionPage) => any
   ): Promise<InteractionPage> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: InteractionPage) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

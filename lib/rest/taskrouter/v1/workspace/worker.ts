@@ -280,7 +280,7 @@ export class WorkerContextImpl implements WorkerContext {
     callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: boolean) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};
@@ -342,7 +342,7 @@ export class WorkerContextImpl implements WorkerContext {
     callback?: (error: Error | null, item?: WorkerInstance) => any
   ): Promise<WorkerInstance> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: WorkerInstance) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};
@@ -806,7 +806,7 @@ export function WorkerListInstance(
 
   instance.create = function create(
     params: WorkerListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: WorkerInstance) => any
+    callback?: (error: Error | null, items: WorkerInstance) => any
   ): Promise<WorkerInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -857,11 +857,11 @@ export function WorkerListInstance(
   instance.page = function page(
     params?:
       | WorkerListInstancePageOptions
-      | ((error: Error | null, item?: WorkerPage) => any),
-    callback?: (error: Error | null, item?: WorkerPage) => any
+      | ((error: Error | null, items: WorkerPage) => any),
+    callback?: (error: Error | null, items: WorkerPage) => any
   ): Promise<WorkerPage> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: WorkerPage) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

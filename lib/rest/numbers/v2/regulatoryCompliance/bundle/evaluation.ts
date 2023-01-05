@@ -366,7 +366,7 @@ export function EvaluationListInstance(
   instance._uri = `/RegulatoryCompliance/Bundles/${bundleSid}/Evaluations`;
 
   instance.create = function create(
-    callback?: (error: Error | null, item?: EvaluationInstance) => any
+    callback?: (error: Error | null, items: EvaluationInstance) => any
   ): Promise<EvaluationInstance> {
     let operationVersion = version,
       operationPromise = operationVersion.create({
@@ -393,11 +393,11 @@ export function EvaluationListInstance(
   instance.page = function page(
     params?:
       | EvaluationListInstancePageOptions
-      | ((error: Error | null, item?: EvaluationPage) => any),
-    callback?: (error: Error | null, item?: EvaluationPage) => any
+      | ((error: Error | null, items: EvaluationPage) => any),
+    callback?: (error: Error | null, items: EvaluationPage) => any
   ): Promise<EvaluationPage> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: EvaluationPage) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

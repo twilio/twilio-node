@@ -479,7 +479,7 @@ export function CustomerProfilesChannelEndpointAssignmentListInstance(
     params: CustomerProfilesChannelEndpointAssignmentListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      item?: CustomerProfilesChannelEndpointAssignmentInstance
+      items: CustomerProfilesChannelEndpointAssignmentInstance
     ) => any
   ): Promise<CustomerProfilesChannelEndpointAssignmentInstance> {
     if (params === null || params === undefined) {
@@ -542,18 +542,15 @@ export function CustomerProfilesChannelEndpointAssignmentListInstance(
       | CustomerProfilesChannelEndpointAssignmentListInstancePageOptions
       | ((
           error: Error | null,
-          item?: CustomerProfilesChannelEndpointAssignmentPage
+          items: CustomerProfilesChannelEndpointAssignmentPage
         ) => any),
     callback?: (
       error: Error | null,
-      item?: CustomerProfilesChannelEndpointAssignmentPage
+      items: CustomerProfilesChannelEndpointAssignmentPage
     ) => any
   ): Promise<CustomerProfilesChannelEndpointAssignmentPage> {
     if (typeof params === "function") {
-      callback = params as (
-        error: Error | null,
-        item?: CustomerProfilesChannelEndpointAssignmentPage
-      ) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

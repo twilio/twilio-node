@@ -456,7 +456,7 @@ export function CommandListInstance(version: V1): CommandListInstance {
 
   instance.create = function create(
     params: CommandListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: CommandInstance) => any
+    callback?: (error: Error | null, items: CommandInstance) => any
   ): Promise<CommandInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -508,11 +508,11 @@ export function CommandListInstance(version: V1): CommandListInstance {
   instance.page = function page(
     params?:
       | CommandListInstancePageOptions
-      | ((error: Error | null, item?: CommandPage) => any),
-    callback?: (error: Error | null, item?: CommandPage) => any
+      | ((error: Error | null, items: CommandPage) => any),
+    callback?: (error: Error | null, items: CommandPage) => any
   ): Promise<CommandPage> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: CommandPage) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

@@ -160,14 +160,11 @@ export function SimIpAddressListInstance(
   instance.page = function page(
     params?:
       | SimIpAddressListInstancePageOptions
-      | ((error: Error | null, item?: SimIpAddressPage) => any),
-    callback?: (error: Error | null, item?: SimIpAddressPage) => any
+      | ((error: Error | null, items: SimIpAddressPage) => any),
+    callback?: (error: Error | null, items: SimIpAddressPage) => any
   ): Promise<SimIpAddressPage> {
     if (typeof params === "function") {
-      callback = params as (
-        error: Error | null,
-        item?: SimIpAddressPage
-      ) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

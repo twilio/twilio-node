@@ -347,14 +347,11 @@ export function SchemaVersionListInstance(
   instance.page = function page(
     params?:
       | SchemaVersionListInstancePageOptions
-      | ((error: Error | null, item?: SchemaVersionPage) => any),
-    callback?: (error: Error | null, item?: SchemaVersionPage) => any
+      | ((error: Error | null, items: SchemaVersionPage) => any),
+    callback?: (error: Error | null, items: SchemaVersionPage) => any
   ): Promise<SchemaVersionPage> {
     if (typeof params === "function") {
-      callback = params as (
-        error: Error | null,
-        item?: SchemaVersionPage
-      ) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

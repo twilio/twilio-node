@@ -202,10 +202,7 @@ export class PhoneNumberContextImpl implements PhoneNumberContext {
     callback?: (error: Error | null, item?: PhoneNumberInstance) => any
   ): Promise<PhoneNumberInstance> {
     if (typeof params === "function") {
-      callback = params as (
-        error: Error | null,
-        item?: PhoneNumberInstance
-      ) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};
@@ -576,14 +573,11 @@ export function PhoneNumberListInstance(
   instance.create = function create(
     params?:
       | PhoneNumberListInstanceCreateOptions
-      | ((error: Error | null, item?: PhoneNumberInstance) => any),
-    callback?: (error: Error | null, item?: PhoneNumberInstance) => any
+      | ((error: Error | null, items: PhoneNumberInstance) => any),
+    callback?: (error: Error | null, items: PhoneNumberInstance) => any
   ): Promise<PhoneNumberInstance> {
     if (typeof params === "function") {
-      callback = params as (
-        error: Error | null,
-        item?: PhoneNumberInstance
-      ) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};
@@ -627,11 +621,11 @@ export function PhoneNumberListInstance(
   instance.page = function page(
     params?:
       | PhoneNumberListInstancePageOptions
-      | ((error: Error | null, item?: PhoneNumberPage) => any),
-    callback?: (error: Error | null, item?: PhoneNumberPage) => any
+      | ((error: Error | null, items: PhoneNumberPage) => any),
+    callback?: (error: Error | null, items: PhoneNumberPage) => any
   ): Promise<PhoneNumberPage> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: PhoneNumberPage) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

@@ -221,10 +221,7 @@ export class DocumentContextImpl implements DocumentContext {
     callback?: (error: Error | null, item?: DocumentInstance) => any
   ): Promise<DocumentInstance> {
     if (typeof params === "function") {
-      callback = params as (
-        error: Error | null,
-        item?: DocumentInstance
-      ) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};
@@ -608,14 +605,11 @@ export function DocumentListInstance(
   instance.create = function create(
     params?:
       | DocumentListInstanceCreateOptions
-      | ((error: Error | null, item?: DocumentInstance) => any),
-    callback?: (error: Error | null, item?: DocumentInstance) => any
+      | ((error: Error | null, items: DocumentInstance) => any),
+    callback?: (error: Error | null, items: DocumentInstance) => any
   ): Promise<DocumentInstance> {
     if (typeof params === "function") {
-      callback = params as (
-        error: Error | null,
-        item?: DocumentInstance
-      ) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};
@@ -659,11 +653,11 @@ export function DocumentListInstance(
   instance.page = function page(
     params?:
       | DocumentListInstancePageOptions
-      | ((error: Error | null, item?: DocumentPage) => any),
-    callback?: (error: Error | null, item?: DocumentPage) => any
+      | ((error: Error | null, items: DocumentPage) => any),
+    callback?: (error: Error | null, items: DocumentPage) => any
   ): Promise<DocumentPage> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: DocumentPage) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

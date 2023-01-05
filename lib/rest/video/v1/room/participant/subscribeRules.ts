@@ -106,7 +106,7 @@ export function SubscribeRulesListInstance(
   instance._uri = `/Rooms/${roomSid}/Participants/${participantSid}/SubscribeRules`;
 
   instance.fetch = function fetch(
-    callback?: (error: Error | null, item?: SubscribeRulesInstance) => any
+    callback?: (error: Error | null, items: SubscribeRulesInstance) => any
   ): Promise<SubscribeRulesInstance> {
     let operationVersion = version,
       operationPromise = operationVersion.fetch({
@@ -134,14 +134,11 @@ export function SubscribeRulesListInstance(
   instance.update = function update(
     params?:
       | SubscribeRulesListInstanceUpdateOptions
-      | ((error: Error | null, item?: SubscribeRulesInstance) => any),
-    callback?: (error: Error | null, item?: SubscribeRulesInstance) => any
+      | ((error: Error | null, items: SubscribeRulesInstance) => any),
+    callback?: (error: Error | null, items: SubscribeRulesInstance) => any
   ): Promise<SubscribeRulesInstance> {
     if (typeof params === "function") {
-      callback = params as (
-        error: Error | null,
-        item?: SubscribeRulesInstance
-      ) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

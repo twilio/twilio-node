@@ -429,11 +429,11 @@ export function LastMonthListInstance(
   instance.page = function page(
     params?:
       | LastMonthListInstancePageOptions
-      | ((error: Error | null, item?: LastMonthPage) => any),
-    callback?: (error: Error | null, item?: LastMonthPage) => any
+      | ((error: Error | null, items: LastMonthPage) => any),
+    callback?: (error: Error | null, items: LastMonthPage) => any
   ): Promise<LastMonthPage> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: LastMonthPage) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

@@ -77,7 +77,7 @@ export function StreamMessageListInstance(
 
   instance.create = function create(
     params: StreamMessageListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: StreamMessageInstance) => any
+    callback?: (error: Error | null, items: StreamMessageInstance) => any
   ): Promise<StreamMessageInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');

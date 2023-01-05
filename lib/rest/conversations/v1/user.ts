@@ -196,7 +196,7 @@ export class UserContextImpl implements UserContext {
     callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: boolean) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};
@@ -253,7 +253,7 @@ export class UserContextImpl implements UserContext {
     callback?: (error: Error | null, item?: UserInstance) => any
   ): Promise<UserInstance> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: UserInstance) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};
@@ -625,7 +625,7 @@ export function UserListInstance(version: V1): UserListInstance {
 
   instance.create = function create(
     params: UserListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: UserInstance) => any
+    callback?: (error: Error | null, items: UserInstance) => any
   ): Promise<UserInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -671,11 +671,11 @@ export function UserListInstance(version: V1): UserListInstance {
   instance.page = function page(
     params?:
       | UserListInstancePageOptions
-      | ((error: Error | null, item?: UserPage) => any),
-    callback?: (error: Error | null, item?: UserPage) => any
+      | ((error: Error | null, items: UserPage) => any),
+    callback?: (error: Error | null, items: UserPage) => any
   ): Promise<UserPage> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: UserPage) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

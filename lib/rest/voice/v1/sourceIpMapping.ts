@@ -493,7 +493,7 @@ export function SourceIpMappingListInstance(
 
   instance.create = function create(
     params: SourceIpMappingListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: SourceIpMappingInstance) => any
+    callback?: (error: Error | null, items: SourceIpMappingInstance) => any
   ): Promise<SourceIpMappingInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -541,14 +541,11 @@ export function SourceIpMappingListInstance(
   instance.page = function page(
     params?:
       | SourceIpMappingListInstancePageOptions
-      | ((error: Error | null, item?: SourceIpMappingPage) => any),
-    callback?: (error: Error | null, item?: SourceIpMappingPage) => any
+      | ((error: Error | null, items: SourceIpMappingPage) => any),
+    callback?: (error: Error | null, items: SourceIpMappingPage) => any
   ): Promise<SourceIpMappingPage> {
     if (typeof params === "function") {
-      callback = params as (
-        error: Error | null,
-        item?: SourceIpMappingPage
-      ) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

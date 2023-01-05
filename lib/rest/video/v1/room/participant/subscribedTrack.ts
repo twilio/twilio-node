@@ -410,14 +410,11 @@ export function SubscribedTrackListInstance(
   instance.page = function page(
     params?:
       | SubscribedTrackListInstancePageOptions
-      | ((error: Error | null, item?: SubscribedTrackPage) => any),
-    callback?: (error: Error | null, item?: SubscribedTrackPage) => any
+      | ((error: Error | null, items: SubscribedTrackPage) => any),
+    callback?: (error: Error | null, items: SubscribedTrackPage) => any
   ): Promise<SubscribedTrackPage> {
     if (typeof params === "function") {
-      callback = params as (
-        error: Error | null,
-        item?: SubscribedTrackPage
-      ) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

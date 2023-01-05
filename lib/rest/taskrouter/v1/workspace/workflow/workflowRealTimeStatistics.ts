@@ -104,10 +104,7 @@ export class WorkflowRealTimeStatisticsContextImpl
     ) => any
   ): Promise<WorkflowRealTimeStatisticsInstance> {
     if (typeof params === "function") {
-      callback = params as (
-        error: Error | null,
-        item?: WorkflowRealTimeStatisticsInstance
-      ) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

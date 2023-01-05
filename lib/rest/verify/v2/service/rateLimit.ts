@@ -215,10 +215,7 @@ export class RateLimitContextImpl implements RateLimitContext {
     callback?: (error: Error | null, item?: RateLimitInstance) => any
   ): Promise<RateLimitInstance> {
     if (typeof params === "function") {
-      callback = params as (
-        error: Error | null,
-        item?: RateLimitInstance
-      ) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};
@@ -567,7 +564,7 @@ export function RateLimitListInstance(
 
   instance.create = function create(
     params: RateLimitListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: RateLimitInstance) => any
+    callback?: (error: Error | null, items: RateLimitInstance) => any
   ): Promise<RateLimitInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -613,11 +610,11 @@ export function RateLimitListInstance(
   instance.page = function page(
     params?:
       | RateLimitListInstancePageOptions
-      | ((error: Error | null, item?: RateLimitPage) => any),
-    callback?: (error: Error | null, item?: RateLimitPage) => any
+      | ((error: Error | null, items: RateLimitPage) => any),
+    callback?: (error: Error | null, items: RateLimitPage) => any
   ): Promise<RateLimitPage> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: RateLimitPage) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

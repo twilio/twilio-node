@@ -82,14 +82,11 @@ export function UsAppToPersonUsecaseListInstance(
   instance.fetch = function fetch(
     params?:
       | UsAppToPersonUsecaseListInstanceFetchOptions
-      | ((error: Error | null, item?: UsAppToPersonUsecaseInstance) => any),
-    callback?: (error: Error | null, item?: UsAppToPersonUsecaseInstance) => any
+      | ((error: Error | null, items: UsAppToPersonUsecaseInstance) => any),
+    callback?: (error: Error | null, items: UsAppToPersonUsecaseInstance) => any
   ): Promise<UsAppToPersonUsecaseInstance> {
     if (typeof params === "function") {
-      callback = params as (
-        error: Error | null,
-        item?: UsAppToPersonUsecaseInstance
-      ) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

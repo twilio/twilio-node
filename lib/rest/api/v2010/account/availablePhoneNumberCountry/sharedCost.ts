@@ -273,11 +273,11 @@ export function SharedCostListInstance(
   instance.page = function page(
     params?:
       | SharedCostListInstancePageOptions
-      | ((error: Error | null, item?: SharedCostPage) => any),
-    callback?: (error: Error | null, item?: SharedCostPage) => any
+      | ((error: Error | null, items: SharedCostPage) => any),
+    callback?: (error: Error | null, items: SharedCostPage) => any
   ): Promise<SharedCostPage> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: SharedCostPage) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

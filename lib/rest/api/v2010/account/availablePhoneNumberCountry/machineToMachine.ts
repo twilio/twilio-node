@@ -282,14 +282,11 @@ export function MachineToMachineListInstance(
   instance.page = function page(
     params?:
       | MachineToMachineListInstancePageOptions
-      | ((error: Error | null, item?: MachineToMachinePage) => any),
-    callback?: (error: Error | null, item?: MachineToMachinePage) => any
+      | ((error: Error | null, items: MachineToMachinePage) => any),
+    callback?: (error: Error | null, items: MachineToMachinePage) => any
   ): Promise<MachineToMachinePage> {
     if (typeof params === "function") {
-      callback = params as (
-        error: Error | null,
-        item?: MachineToMachinePage
-      ) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

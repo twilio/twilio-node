@@ -392,14 +392,11 @@ export function FlowRevisionListInstance(
   instance.page = function page(
     params?:
       | FlowRevisionListInstancePageOptions
-      | ((error: Error | null, item?: FlowRevisionPage) => any),
-    callback?: (error: Error | null, item?: FlowRevisionPage) => any
+      | ((error: Error | null, items: FlowRevisionPage) => any),
+    callback?: (error: Error | null, items: FlowRevisionPage) => any
   ): Promise<FlowRevisionPage> {
     if (typeof params === "function") {
-      callback = params as (
-        error: Error | null,
-        item?: FlowRevisionPage
-      ) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

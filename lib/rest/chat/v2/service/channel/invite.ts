@@ -465,7 +465,7 @@ export function InviteListInstance(
 
   instance.create = function create(
     params: InviteListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: InviteInstance) => any
+    callback?: (error: Error | null, items: InviteInstance) => any
   ): Promise<InviteInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -511,11 +511,11 @@ export function InviteListInstance(
   instance.page = function page(
     params?:
       | InviteListInstancePageOptions
-      | ((error: Error | null, item?: InvitePage) => any),
-    callback?: (error: Error | null, item?: InvitePage) => any
+      | ((error: Error | null, items: InvitePage) => any),
+    callback?: (error: Error | null, items: InvitePage) => any
   ): Promise<InvitePage> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: InvitePage) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

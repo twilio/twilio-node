@@ -494,7 +494,7 @@ export function AssignedAddOnListInstance(
 
   instance.create = function create(
     params: AssignedAddOnListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: AssignedAddOnInstance) => any
+    callback?: (error: Error | null, items: AssignedAddOnInstance) => any
   ): Promise<AssignedAddOnInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -544,14 +544,11 @@ export function AssignedAddOnListInstance(
   instance.page = function page(
     params?:
       | AssignedAddOnListInstancePageOptions
-      | ((error: Error | null, item?: AssignedAddOnPage) => any),
-    callback?: (error: Error | null, item?: AssignedAddOnPage) => any
+      | ((error: Error | null, items: AssignedAddOnPage) => any),
+    callback?: (error: Error | null, items: AssignedAddOnPage) => any
   ): Promise<AssignedAddOnPage> {
     if (typeof params === "function") {
-      callback = params as (
-        error: Error | null,
-        item?: AssignedAddOnPage
-      ) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

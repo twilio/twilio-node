@@ -443,14 +443,11 @@ export function AssignedAddOnExtensionListInstance(
   instance.page = function page(
     params?:
       | AssignedAddOnExtensionListInstancePageOptions
-      | ((error: Error | null, item?: AssignedAddOnExtensionPage) => any),
-    callback?: (error: Error | null, item?: AssignedAddOnExtensionPage) => any
+      | ((error: Error | null, items: AssignedAddOnExtensionPage) => any),
+    callback?: (error: Error | null, items: AssignedAddOnExtensionPage) => any
   ): Promise<AssignedAddOnExtensionPage> {
     if (typeof params === "function") {
-      callback = params as (
-        error: Error | null,
-        item?: AssignedAddOnExtensionPage
-      ) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

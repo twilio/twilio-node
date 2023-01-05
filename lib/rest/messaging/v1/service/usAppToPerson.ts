@@ -570,7 +570,7 @@ export function UsAppToPersonListInstance(
 
   instance.create = function create(
     params: UsAppToPersonListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: UsAppToPersonInstance) => any
+    callback?: (error: Error | null, items: UsAppToPersonInstance) => any
   ): Promise<UsAppToPersonInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -690,14 +690,11 @@ export function UsAppToPersonListInstance(
   instance.page = function page(
     params?:
       | UsAppToPersonListInstancePageOptions
-      | ((error: Error | null, item?: UsAppToPersonPage) => any),
-    callback?: (error: Error | null, item?: UsAppToPersonPage) => any
+      | ((error: Error | null, items: UsAppToPersonPage) => any),
+    callback?: (error: Error | null, items: UsAppToPersonPage) => any
   ): Promise<UsAppToPersonPage> {
     if (typeof params === "function") {
-      callback = params as (
-        error: Error | null,
-        item?: UsAppToPersonPage
-      ) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

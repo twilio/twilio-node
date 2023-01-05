@@ -264,7 +264,7 @@ export function TollFreeListInstance(
 
   instance.create = function create(
     params: TollFreeListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: TollFreeInstance) => any
+    callback?: (error: Error | null, items: TollFreeInstance) => any
   ): Promise<TollFreeInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -351,11 +351,11 @@ export function TollFreeListInstance(
   instance.page = function page(
     params?:
       | TollFreeListInstancePageOptions
-      | ((error: Error | null, item?: TollFreePage) => any),
-    callback?: (error: Error | null, item?: TollFreePage) => any
+      | ((error: Error | null, items: TollFreePage) => any),
+    callback?: (error: Error | null, items: TollFreePage) => any
   ): Promise<TollFreePage> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: TollFreePage) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

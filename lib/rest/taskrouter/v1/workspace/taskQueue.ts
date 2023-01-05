@@ -288,10 +288,7 @@ export class TaskQueueContextImpl implements TaskQueueContext {
     callback?: (error: Error | null, item?: TaskQueueInstance) => any
   ): Promise<TaskQueueInstance> {
     if (typeof params === "function") {
-      callback = params as (
-        error: Error | null,
-        item?: TaskQueueInstance
-      ) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};
@@ -718,7 +715,7 @@ export function TaskQueueListInstance(
 
   instance.create = function create(
     params: TaskQueueListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: TaskQueueInstance) => any
+    callback?: (error: Error | null, items: TaskQueueInstance) => any
   ): Promise<TaskQueueInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -775,11 +772,11 @@ export function TaskQueueListInstance(
   instance.page = function page(
     params?:
       | TaskQueueListInstancePageOptions
-      | ((error: Error | null, item?: TaskQueuePage) => any),
-    callback?: (error: Error | null, item?: TaskQueuePage) => any
+      | ((error: Error | null, items: TaskQueuePage) => any),
+    callback?: (error: Error | null, items: TaskQueuePage) => any
   ): Promise<TaskQueuePage> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: TaskQueuePage) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

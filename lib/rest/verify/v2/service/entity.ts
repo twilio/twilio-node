@@ -489,7 +489,7 @@ export function EntityListInstance(
 
   instance.create = function create(
     params: EntityListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: EntityInstance) => any
+    callback?: (error: Error | null, items: EntityInstance) => any
   ): Promise<EntityInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -533,11 +533,11 @@ export function EntityListInstance(
   instance.page = function page(
     params?:
       | EntityListInstancePageOptions
-      | ((error: Error | null, item?: EntityPage) => any),
-    callback?: (error: Error | null, item?: EntityPage) => any
+      | ((error: Error | null, items: EntityPage) => any),
+    callback?: (error: Error | null, items: EntityPage) => any
   ): Promise<EntityPage> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: EntityPage) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

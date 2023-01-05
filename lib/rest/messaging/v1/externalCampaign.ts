@@ -66,7 +66,7 @@ export function ExternalCampaignListInstance(
 
   instance.create = function create(
     params: ExternalCampaignListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: ExternalCampaignInstance) => any
+    callback?: (error: Error | null, items: ExternalCampaignInstance) => any
   ): Promise<ExternalCampaignInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');

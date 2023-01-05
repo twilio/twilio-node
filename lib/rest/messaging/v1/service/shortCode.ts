@@ -431,7 +431,7 @@ export function ShortCodeListInstance(
 
   instance.create = function create(
     params: ShortCodeListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: ShortCodeInstance) => any
+    callback?: (error: Error | null, items: ShortCodeInstance) => any
   ): Promise<ShortCodeInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -478,11 +478,11 @@ export function ShortCodeListInstance(
   instance.page = function page(
     params?:
       | ShortCodeListInstancePageOptions
-      | ((error: Error | null, item?: ShortCodePage) => any),
-    callback?: (error: Error | null, item?: ShortCodePage) => any
+      | ((error: Error | null, items: ShortCodePage) => any),
+    callback?: (error: Error | null, items: ShortCodePage) => any
   ): Promise<ShortCodePage> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: ShortCodePage) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

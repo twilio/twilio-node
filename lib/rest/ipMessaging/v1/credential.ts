@@ -215,10 +215,7 @@ export class CredentialContextImpl implements CredentialContext {
     callback?: (error: Error | null, item?: CredentialInstance) => any
   ): Promise<CredentialInstance> {
     if (typeof params === "function") {
-      callback = params as (
-        error: Error | null,
-        item?: CredentialInstance
-      ) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};
@@ -522,7 +519,7 @@ export function CredentialListInstance(version: V1): CredentialListInstance {
 
   instance.create = function create(
     params: CredentialListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: CredentialInstance) => any
+    callback?: (error: Error | null, items: CredentialInstance) => any
   ): Promise<CredentialInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -571,11 +568,11 @@ export function CredentialListInstance(version: V1): CredentialListInstance {
   instance.page = function page(
     params?:
       | CredentialListInstancePageOptions
-      | ((error: Error | null, item?: CredentialPage) => any),
-    callback?: (error: Error | null, item?: CredentialPage) => any
+      | ((error: Error | null, items: CredentialPage) => any),
+    callback?: (error: Error | null, items: CredentialPage) => any
   ): Promise<CredentialPage> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: CredentialPage) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

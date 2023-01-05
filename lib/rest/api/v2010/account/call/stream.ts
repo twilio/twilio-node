@@ -731,7 +731,7 @@ export function StreamListInstance(
 
   instance.create = function create(
     params: StreamListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: StreamInstance) => any
+    callback?: (error: Error | null, items: StreamInstance) => any
   ): Promise<StreamInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');

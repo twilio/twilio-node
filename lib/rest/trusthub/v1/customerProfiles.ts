@@ -272,10 +272,7 @@ export class CustomerProfilesContextImpl implements CustomerProfilesContext {
     callback?: (error: Error | null, item?: CustomerProfilesInstance) => any
   ): Promise<CustomerProfilesInstance> {
     if (typeof params === "function") {
-      callback = params as (
-        error: Error | null,
-        item?: CustomerProfilesInstance
-      ) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};
@@ -653,7 +650,7 @@ export function CustomerProfilesListInstance(
 
   instance.create = function create(
     params: CustomerProfilesListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: CustomerProfilesInstance) => any
+    callback?: (error: Error | null, items: CustomerProfilesInstance) => any
   ): Promise<CustomerProfilesInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -709,14 +706,11 @@ export function CustomerProfilesListInstance(
   instance.page = function page(
     params?:
       | CustomerProfilesListInstancePageOptions
-      | ((error: Error | null, item?: CustomerProfilesPage) => any),
-    callback?: (error: Error | null, item?: CustomerProfilesPage) => any
+      | ((error: Error | null, items: CustomerProfilesPage) => any),
+    callback?: (error: Error | null, items: CustomerProfilesPage) => any
   ): Promise<CustomerProfilesPage> {
     if (typeof params === "function") {
-      callback = params as (
-        error: Error | null,
-        item?: CustomerProfilesPage
-      ) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

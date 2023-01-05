@@ -346,10 +346,7 @@ export class ParticipantContextImpl implements ParticipantContext {
     callback?: (error: Error | null, item?: ParticipantInstance) => any
   ): Promise<ParticipantInstance> {
     if (typeof params === "function") {
-      callback = params as (
-        error: Error | null,
-        item?: ParticipantInstance
-      ) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};
@@ -764,7 +761,7 @@ export function ParticipantListInstance(
 
   instance.create = function create(
     params: ParticipantListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: ParticipantInstance) => any
+    callback?: (error: Error | null, items: ParticipantInstance) => any
   ): Promise<ParticipantInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -919,11 +916,11 @@ export function ParticipantListInstance(
   instance.page = function page(
     params?:
       | ParticipantListInstancePageOptions
-      | ((error: Error | null, item?: ParticipantPage) => any),
-    callback?: (error: Error | null, item?: ParticipantPage) => any
+      | ((error: Error | null, items: ParticipantPage) => any),
+    callback?: (error: Error | null, items: ParticipantPage) => any
   ): Promise<ParticipantPage> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: ParticipantPage) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

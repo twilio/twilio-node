@@ -534,7 +534,7 @@ export function SinkListInstance(version: V1): SinkListInstance {
 
   instance.create = function create(
     params: SinkListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: SinkInstance) => any
+    callback?: (error: Error | null, items: SinkInstance) => any
   ): Promise<SinkInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -590,11 +590,11 @@ export function SinkListInstance(version: V1): SinkListInstance {
   instance.page = function page(
     params?:
       | SinkListInstancePageOptions
-      | ((error: Error | null, item?: SinkPage) => any),
-    callback?: (error: Error | null, item?: SinkPage) => any
+      | ((error: Error | null, items: SinkPage) => any),
+    callback?: (error: Error | null, items: SinkPage) => any
   ): Promise<SinkPage> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: SinkPage) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

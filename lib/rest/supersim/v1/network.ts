@@ -333,11 +333,11 @@ export function NetworkListInstance(version: V1): NetworkListInstance {
   instance.page = function page(
     params?:
       | NetworkListInstancePageOptions
-      | ((error: Error | null, item?: NetworkPage) => any),
-    callback?: (error: Error | null, item?: NetworkPage) => any
+      | ((error: Error | null, items: NetworkPage) => any),
+    callback?: (error: Error | null, items: NetworkPage) => any
   ): Promise<NetworkPage> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: NetworkPage) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

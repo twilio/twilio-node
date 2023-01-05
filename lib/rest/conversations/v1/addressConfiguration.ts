@@ -244,10 +244,7 @@ export class AddressConfigurationContextImpl
     callback?: (error: Error | null, item?: AddressConfigurationInstance) => any
   ): Promise<AddressConfigurationInstance> {
     if (typeof params === "function") {
-      callback = params as (
-        error: Error | null,
-        item?: AddressConfigurationInstance
-      ) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};
@@ -612,7 +609,7 @@ export function AddressConfigurationListInstance(
 
   instance.create = function create(
     params: AddressConfigurationListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: AddressConfigurationInstance) => any
+    callback?: (error: Error | null, items: AddressConfigurationInstance) => any
   ): Promise<AddressConfigurationInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -682,14 +679,11 @@ export function AddressConfigurationListInstance(
   instance.page = function page(
     params?:
       | AddressConfigurationListInstancePageOptions
-      | ((error: Error | null, item?: AddressConfigurationPage) => any),
-    callback?: (error: Error | null, item?: AddressConfigurationPage) => any
+      | ((error: Error | null, items: AddressConfigurationPage) => any),
+    callback?: (error: Error | null, items: AddressConfigurationPage) => any
   ): Promise<AddressConfigurationPage> {
     if (typeof params === "function") {
-      callback = params as (
-        error: Error | null,
-        item?: AddressConfigurationPage
-      ) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

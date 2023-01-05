@@ -419,7 +419,7 @@ export function ItemAssignmentListInstance(
 
   instance.create = function create(
     params: ItemAssignmentListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: ItemAssignmentInstance) => any
+    callback?: (error: Error | null, items: ItemAssignmentInstance) => any
   ): Promise<ItemAssignmentInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -463,14 +463,11 @@ export function ItemAssignmentListInstance(
   instance.page = function page(
     params?:
       | ItemAssignmentListInstancePageOptions
-      | ((error: Error | null, item?: ItemAssignmentPage) => any),
-    callback?: (error: Error | null, item?: ItemAssignmentPage) => any
+      | ((error: Error | null, items: ItemAssignmentPage) => any),
+    callback?: (error: Error | null, items: ItemAssignmentPage) => any
   ): Promise<ItemAssignmentPage> {
     if (typeof params === "function") {
-      callback = params as (
-        error: Error | null,
-        item?: ItemAssignmentPage
-      ) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

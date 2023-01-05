@@ -111,7 +111,7 @@ export function NewFactorListInstance(
 
   instance.create = function create(
     params: NewFactorListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: NewFactorInstance) => any
+    callback?: (error: Error | null, items: NewFactorInstance) => any
   ): Promise<NewFactorInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');

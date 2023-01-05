@@ -429,11 +429,11 @@ export function YearlyListInstance(
   instance.page = function page(
     params?:
       | YearlyListInstancePageOptions
-      | ((error: Error | null, item?: YearlyPage) => any),
-    callback?: (error: Error | null, item?: YearlyPage) => any
+      | ((error: Error | null, items: YearlyPage) => any),
+    callback?: (error: Error | null, items: YearlyPage) => any
   ): Promise<YearlyPage> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: YearlyPage) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

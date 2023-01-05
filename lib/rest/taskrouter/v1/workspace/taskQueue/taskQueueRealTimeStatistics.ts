@@ -104,10 +104,7 @@ export class TaskQueueRealTimeStatisticsContextImpl
     ) => any
   ): Promise<TaskQueueRealTimeStatisticsInstance> {
     if (typeof params === "function") {
-      callback = params as (
-        error: Error | null,
-        item?: TaskQueueRealTimeStatisticsInstance
-      ) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

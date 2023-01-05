@@ -538,7 +538,7 @@ export function AssetListInstance(
 
   instance.create = function create(
     params: AssetListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: AssetInstance) => any
+    callback?: (error: Error | null, items: AssetInstance) => any
   ): Promise<AssetInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -585,11 +585,11 @@ export function AssetListInstance(
   instance.page = function page(
     params?:
       | AssetListInstancePageOptions
-      | ((error: Error | null, item?: AssetPage) => any),
-    callback?: (error: Error | null, item?: AssetPage) => any
+      | ((error: Error | null, items: AssetPage) => any),
+    callback?: (error: Error | null, items: AssetPage) => any
   ): Promise<AssetPage> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: AssetPage) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

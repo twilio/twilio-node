@@ -550,11 +550,11 @@ export function RecordListInstance(
   instance.page = function page(
     params?:
       | RecordListInstancePageOptions
-      | ((error: Error | null, item?: RecordPage) => any),
-    callback?: (error: Error | null, item?: RecordPage) => any
+      | ((error: Error | null, items: RecordPage) => any),
+    callback?: (error: Error | null, items: RecordPage) => any
   ): Promise<RecordPage> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: RecordPage) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

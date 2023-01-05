@@ -441,14 +441,11 @@ export function ExecutionStepListInstance(
   instance.page = function page(
     params?:
       | ExecutionStepListInstancePageOptions
-      | ((error: Error | null, item?: ExecutionStepPage) => any),
-    callback?: (error: Error | null, item?: ExecutionStepPage) => any
+      | ((error: Error | null, items: ExecutionStepPage) => any),
+    callback?: (error: Error | null, items: ExecutionStepPage) => any
   ): Promise<ExecutionStepPage> {
     if (typeof params === "function") {
-      callback = params as (
-        error: Error | null,
-        item?: ExecutionStepPage
-      ) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

@@ -280,7 +280,7 @@ export function UserDefinedMessageSubscriptionListInstance(
     params: UserDefinedMessageSubscriptionListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      item?: UserDefinedMessageSubscriptionInstance
+      items: UserDefinedMessageSubscriptionInstance
     ) => any
   ): Promise<UserDefinedMessageSubscriptionInstance> {
     if (params === null || params === undefined) {

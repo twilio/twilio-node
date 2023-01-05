@@ -553,14 +553,11 @@ export function MessageInteractionListInstance(
   instance.create = function create(
     params?:
       | MessageInteractionListInstanceCreateOptions
-      | ((error: Error | null, item?: MessageInteractionInstance) => any),
-    callback?: (error: Error | null, item?: MessageInteractionInstance) => any
+      | ((error: Error | null, items: MessageInteractionInstance) => any),
+    callback?: (error: Error | null, items: MessageInteractionInstance) => any
   ): Promise<MessageInteractionInstance> {
     if (typeof params === "function") {
-      callback = params as (
-        error: Error | null,
-        item?: MessageInteractionInstance
-      ) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};
@@ -604,14 +601,11 @@ export function MessageInteractionListInstance(
   instance.page = function page(
     params?:
       | MessageInteractionListInstancePageOptions
-      | ((error: Error | null, item?: MessageInteractionPage) => any),
-    callback?: (error: Error | null, item?: MessageInteractionPage) => any
+      | ((error: Error | null, items: MessageInteractionPage) => any),
+    callback?: (error: Error | null, items: MessageInteractionPage) => any
   ): Promise<MessageInteractionPage> {
     if (typeof params === "function") {
-      callback = params as (
-        error: Error | null,
-        item?: MessageInteractionPage
-      ) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

@@ -211,10 +211,7 @@ export class ActivityContextImpl implements ActivityContext {
     callback?: (error: Error | null, item?: ActivityInstance) => any
   ): Promise<ActivityInstance> {
     if (typeof params === "function") {
-      callback = params as (
-        error: Error | null,
-        item?: ActivityInstance
-      ) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};
@@ -553,7 +550,7 @@ export function ActivityListInstance(
 
   instance.create = function create(
     params: ActivityListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: ActivityInstance) => any
+    callback?: (error: Error | null, items: ActivityInstance) => any
   ): Promise<ActivityInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -602,11 +599,11 @@ export function ActivityListInstance(
   instance.page = function page(
     params?:
       | ActivityListInstancePageOptions
-      | ((error: Error | null, item?: ActivityPage) => any),
-    callback?: (error: Error | null, item?: ActivityPage) => any
+      | ((error: Error | null, items: ActivityPage) => any),
+    callback?: (error: Error | null, items: ActivityPage) => any
   ): Promise<ActivityPage> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: ActivityPage) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

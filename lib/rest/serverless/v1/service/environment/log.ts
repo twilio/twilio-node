@@ -428,11 +428,11 @@ export function LogListInstance(
   instance.page = function page(
     params?:
       | LogListInstancePageOptions
-      | ((error: Error | null, item?: LogPage) => any),
-    callback?: (error: Error | null, item?: LogPage) => any
+      | ((error: Error | null, items: LogPage) => any),
+    callback?: (error: Error | null, items: LogPage) => any
   ): Promise<LogPage> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: LogPage) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

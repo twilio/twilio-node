@@ -249,7 +249,7 @@ export function InteractionListInstance(version: V1): InteractionListInstance {
 
   instance.create = function create(
     params: InteractionListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: InteractionInstance) => any
+    callback?: (error: Error | null, items: InteractionInstance) => any
   ): Promise<InteractionInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');

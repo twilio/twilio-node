@@ -79,7 +79,7 @@ export function UserDefinedMessageListInstance(
 
   instance.create = function create(
     params: UserDefinedMessageListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: UserDefinedMessageInstance) => any
+    callback?: (error: Error | null, items: UserDefinedMessageInstance) => any
   ): Promise<UserDefinedMessageInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');

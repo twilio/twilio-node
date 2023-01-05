@@ -471,7 +471,7 @@ export function AuthRegistrationsCredentialListMappingListInstance(
     params: AuthRegistrationsCredentialListMappingListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      item?: AuthRegistrationsCredentialListMappingInstance
+      items: AuthRegistrationsCredentialListMappingInstance
     ) => any
   ): Promise<AuthRegistrationsCredentialListMappingInstance> {
     if (params === null || params === undefined) {
@@ -524,18 +524,15 @@ export function AuthRegistrationsCredentialListMappingListInstance(
       | AuthRegistrationsCredentialListMappingListInstancePageOptions
       | ((
           error: Error | null,
-          item?: AuthRegistrationsCredentialListMappingPage
+          items: AuthRegistrationsCredentialListMappingPage
         ) => any),
     callback?: (
       error: Error | null,
-      item?: AuthRegistrationsCredentialListMappingPage
+      items: AuthRegistrationsCredentialListMappingPage
     ) => any
   ): Promise<AuthRegistrationsCredentialListMappingPage> {
     if (typeof params === "function") {
-      callback = params as (
-        error: Error | null,
-        item?: AuthRegistrationsCredentialListMappingPage
-      ) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

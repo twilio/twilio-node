@@ -257,7 +257,7 @@ export class ConversationContextImpl implements ConversationContext {
     callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: boolean) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};
@@ -319,10 +319,7 @@ export class ConversationContextImpl implements ConversationContext {
     callback?: (error: Error | null, item?: ConversationInstance) => any
   ): Promise<ConversationInstance> {
     if (typeof params === "function") {
-      callback = params as (
-        error: Error | null,
-        item?: ConversationInstance
-      ) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};
@@ -759,14 +756,11 @@ export function ConversationListInstance(
   instance.create = function create(
     params?:
       | ConversationListInstanceCreateOptions
-      | ((error: Error | null, item?: ConversationInstance) => any),
-    callback?: (error: Error | null, item?: ConversationInstance) => any
+      | ((error: Error | null, items: ConversationInstance) => any),
+    callback?: (error: Error | null, items: ConversationInstance) => any
   ): Promise<ConversationInstance> {
     if (typeof params === "function") {
-      callback = params as (
-        error: Error | null,
-        item?: ConversationInstance
-      ) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};
@@ -824,14 +818,11 @@ export function ConversationListInstance(
   instance.page = function page(
     params?:
       | ConversationListInstancePageOptions
-      | ((error: Error | null, item?: ConversationPage) => any),
-    callback?: (error: Error | null, item?: ConversationPage) => any
+      | ((error: Error | null, items: ConversationPage) => any),
+    callback?: (error: Error | null, items: ConversationPage) => any
   ): Promise<ConversationPage> {
     if (typeof params === "function") {
-      callback = params as (
-        error: Error | null,
-        item?: ConversationPage
-      ) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

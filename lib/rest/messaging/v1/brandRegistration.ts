@@ -547,7 +547,7 @@ export function BrandRegistrationListInstance(
 
   instance.create = function create(
     params: BrandRegistrationListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: BrandRegistrationInstance) => any
+    callback?: (error: Error | null, items: BrandRegistrationInstance) => any
   ): Promise<BrandRegistrationInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -610,14 +610,11 @@ export function BrandRegistrationListInstance(
   instance.page = function page(
     params?:
       | BrandRegistrationListInstancePageOptions
-      | ((error: Error | null, item?: BrandRegistrationPage) => any),
-    callback?: (error: Error | null, item?: BrandRegistrationPage) => any
+      | ((error: Error | null, items: BrandRegistrationPage) => any),
+    callback?: (error: Error | null, items: BrandRegistrationPage) => any
   ): Promise<BrandRegistrationPage> {
     if (typeof params === "function") {
-      callback = params as (
-        error: Error | null,
-        item?: BrandRegistrationPage
-      ) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

@@ -390,7 +390,7 @@ export function PaymentListInstance(
 
   instance.create = function create(
     params: PaymentListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: PaymentInstance) => any
+    callback?: (error: Error | null, items: PaymentInstance) => any
   ): Promise<PaymentInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');

@@ -273,11 +273,11 @@ export function MobileListInstance(
   instance.page = function page(
     params?:
       | MobileListInstancePageOptions
-      | ((error: Error | null, item?: MobilePage) => any),
-    callback?: (error: Error | null, item?: MobilePage) => any
+      | ((error: Error | null, items: MobilePage) => any),
+    callback?: (error: Error | null, items: MobilePage) => any
   ): Promise<MobilePage> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: MobilePage) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

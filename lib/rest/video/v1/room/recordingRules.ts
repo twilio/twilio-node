@@ -99,7 +99,7 @@ export function RecordingRulesListInstance(
   instance._uri = `/Rooms/${roomSid}/RecordingRules`;
 
   instance.fetch = function fetch(
-    callback?: (error: Error | null, item?: RecordingRulesInstance) => any
+    callback?: (error: Error | null, items: RecordingRulesInstance) => any
   ): Promise<RecordingRulesInstance> {
     let operationVersion = version,
       operationPromise = operationVersion.fetch({
@@ -126,14 +126,11 @@ export function RecordingRulesListInstance(
   instance.update = function update(
     params?:
       | RecordingRulesListInstanceUpdateOptions
-      | ((error: Error | null, item?: RecordingRulesInstance) => any),
-    callback?: (error: Error | null, item?: RecordingRulesInstance) => any
+      | ((error: Error | null, items: RecordingRulesInstance) => any),
+    callback?: (error: Error | null, items: RecordingRulesInstance) => any
   ): Promise<RecordingRulesInstance> {
     if (typeof params === "function") {
-      callback = params as (
-        error: Error | null,
-        item?: RecordingRulesInstance
-      ) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

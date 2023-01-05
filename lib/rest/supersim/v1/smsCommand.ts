@@ -392,7 +392,7 @@ export function SmsCommandListInstance(version: V1): SmsCommandListInstance {
 
   instance.create = function create(
     params: SmsCommandListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: SmsCommandInstance) => any
+    callback?: (error: Error | null, items: SmsCommandInstance) => any
   ): Promise<SmsCommandInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -441,11 +441,11 @@ export function SmsCommandListInstance(version: V1): SmsCommandListInstance {
   instance.page = function page(
     params?:
       | SmsCommandListInstancePageOptions
-      | ((error: Error | null, item?: SmsCommandPage) => any),
-    callback?: (error: Error | null, item?: SmsCommandPage) => any
+      | ((error: Error | null, items: SmsCommandPage) => any),
+    callback?: (error: Error | null, items: SmsCommandPage) => any
   ): Promise<SmsCommandPage> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: SmsCommandPage) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

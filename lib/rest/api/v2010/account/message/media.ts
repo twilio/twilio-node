@@ -435,11 +435,11 @@ export function MediaListInstance(
   instance.page = function page(
     params?:
       | MediaListInstancePageOptions
-      | ((error: Error | null, item?: MediaPage) => any),
-    callback?: (error: Error | null, item?: MediaPage) => any
+      | ((error: Error | null, items: MediaPage) => any),
+    callback?: (error: Error | null, items: MediaPage) => any
   ): Promise<MediaPage> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: MediaPage) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

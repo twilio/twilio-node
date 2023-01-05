@@ -522,7 +522,7 @@ export function RoleListInstance(
 
   instance.create = function create(
     params: RoleListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: RoleInstance) => any
+    callback?: (error: Error | null, items: RoleInstance) => any
   ): Promise<RoleInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -581,11 +581,11 @@ export function RoleListInstance(
   instance.page = function page(
     params?:
       | RoleListInstancePageOptions
-      | ((error: Error | null, item?: RolePage) => any),
-    callback?: (error: Error | null, item?: RolePage) => any
+      | ((error: Error | null, items: RolePage) => any),
+    callback?: (error: Error | null, items: RolePage) => any
   ): Promise<RolePage> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: RolePage) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

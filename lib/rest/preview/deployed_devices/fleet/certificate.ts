@@ -213,10 +213,7 @@ export class CertificateContextImpl implements CertificateContext {
     callback?: (error: Error | null, item?: CertificateInstance) => any
   ): Promise<CertificateInstance> {
     if (typeof params === "function") {
-      callback = params as (
-        error: Error | null,
-        item?: CertificateInstance
-      ) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};
@@ -560,7 +557,7 @@ export function CertificateListInstance(
 
   instance.create = function create(
     params: CertificateListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: CertificateInstance) => any
+    callback?: (error: Error | null, items: CertificateInstance) => any
   ): Promise<CertificateInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -613,11 +610,11 @@ export function CertificateListInstance(
   instance.page = function page(
     params?:
       | CertificateListInstancePageOptions
-      | ((error: Error | null, item?: CertificatePage) => any),
-    callback?: (error: Error | null, item?: CertificatePage) => any
+      | ((error: Error | null, items: CertificatePage) => any),
+    callback?: (error: Error | null, items: CertificatePage) => any
   ): Promise<CertificatePage> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: CertificatePage) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

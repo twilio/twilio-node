@@ -398,14 +398,11 @@ export function PublishedTrackListInstance(
   instance.page = function page(
     params?:
       | PublishedTrackListInstancePageOptions
-      | ((error: Error | null, item?: PublishedTrackPage) => any),
-    callback?: (error: Error | null, item?: PublishedTrackPage) => any
+      | ((error: Error | null, items: PublishedTrackPage) => any),
+    callback?: (error: Error | null, items: PublishedTrackPage) => any
   ): Promise<PublishedTrackPage> {
     if (typeof params === "function") {
-      callback = params as (
-        error: Error | null,
-        item?: PublishedTrackPage
-      ) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

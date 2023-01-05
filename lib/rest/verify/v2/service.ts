@@ -321,7 +321,7 @@ export class ServiceContextImpl implements ServiceContext {
     callback?: (error: Error | null, item?: ServiceInstance) => any
   ): Promise<ServiceInstance> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: ServiceInstance) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};
@@ -782,7 +782,7 @@ export function ServiceListInstance(version: V2): ServiceListInstance {
 
   instance.create = function create(
     params: ServiceListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: ServiceInstance) => any
+    callback?: (error: Error | null, items: ServiceInstance) => any
   ): Promise<ServiceInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -857,11 +857,11 @@ export function ServiceListInstance(version: V2): ServiceListInstance {
   instance.page = function page(
     params?:
       | ServiceListInstancePageOptions
-      | ((error: Error | null, item?: ServicePage) => any),
-    callback?: (error: Error | null, item?: ServicePage) => any
+      | ((error: Error | null, items: ServicePage) => any),
+    callback?: (error: Error | null, items: ServicePage) => any
   ): Promise<ServicePage> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: ServicePage) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

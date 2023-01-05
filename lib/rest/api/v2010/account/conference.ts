@@ -254,10 +254,7 @@ export class ConferenceContextImpl implements ConferenceContext {
     callback?: (error: Error | null, item?: ConferenceInstance) => any
   ): Promise<ConferenceInstance> {
     if (typeof params === "function") {
-      callback = params as (
-        error: Error | null,
-        item?: ConferenceInstance
-      ) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};
@@ -606,11 +603,11 @@ export function ConferenceListInstance(
   instance.page = function page(
     params?:
       | ConferenceListInstancePageOptions
-      | ((error: Error | null, item?: ConferencePage) => any),
-    callback?: (error: Error | null, item?: ConferencePage) => any
+      | ((error: Error | null, items: ConferencePage) => any),
+    callback?: (error: Error | null, items: ConferencePage) => any
   ): Promise<ConferencePage> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: ConferencePage) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

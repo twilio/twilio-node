@@ -217,10 +217,7 @@ export class FieldTypeContextImpl implements FieldTypeContext {
     callback?: (error: Error | null, item?: FieldTypeInstance) => any
   ): Promise<FieldTypeInstance> {
     if (typeof params === "function") {
-      callback = params as (
-        error: Error | null,
-        item?: FieldTypeInstance
-      ) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};
@@ -571,7 +568,7 @@ export function FieldTypeListInstance(
 
   instance.create = function create(
     params: FieldTypeListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: FieldTypeInstance) => any
+    callback?: (error: Error | null, items: FieldTypeInstance) => any
   ): Promise<FieldTypeInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -617,11 +614,11 @@ export function FieldTypeListInstance(
   instance.page = function page(
     params?:
       | FieldTypeListInstancePageOptions
-      | ((error: Error | null, item?: FieldTypePage) => any),
-    callback?: (error: Error | null, item?: FieldTypePage) => any
+      | ((error: Error | null, items: FieldTypePage) => any),
+    callback?: (error: Error | null, items: FieldTypePage) => any
   ): Promise<FieldTypePage> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: FieldTypePage) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

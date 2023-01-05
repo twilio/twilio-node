@@ -487,11 +487,11 @@ export function BuildListInstance(
   instance.create = function create(
     params?:
       | BuildListInstanceCreateOptions
-      | ((error: Error | null, item?: BuildInstance) => any),
-    callback?: (error: Error | null, item?: BuildInstance) => any
+      | ((error: Error | null, items: BuildInstance) => any),
+    callback?: (error: Error | null, items: BuildInstance) => any
   ): Promise<BuildInstance> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: BuildInstance) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};
@@ -540,11 +540,11 @@ export function BuildListInstance(
   instance.page = function page(
     params?:
       | BuildListInstancePageOptions
-      | ((error: Error | null, item?: BuildPage) => any),
-    callback?: (error: Error | null, item?: BuildPage) => any
+      | ((error: Error | null, items: BuildPage) => any),
+    callback?: (error: Error | null, items: BuildPage) => any
   ): Promise<BuildPage> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: BuildPage) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

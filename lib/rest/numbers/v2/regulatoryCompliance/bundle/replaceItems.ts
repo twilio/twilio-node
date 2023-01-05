@@ -79,7 +79,7 @@ export function ReplaceItemsListInstance(
 
   instance.create = function create(
     params: ReplaceItemsListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: ReplaceItemsInstance) => any
+    callback?: (error: Error | null, items: ReplaceItemsInstance) => any
   ): Promise<ReplaceItemsInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');

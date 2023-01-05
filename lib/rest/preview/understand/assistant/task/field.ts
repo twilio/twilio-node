@@ -449,7 +449,7 @@ export function FieldListInstance(
 
   instance.create = function create(
     params: FieldListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: FieldInstance) => any
+    callback?: (error: Error | null, items: FieldInstance) => any
   ): Promise<FieldInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -500,11 +500,11 @@ export function FieldListInstance(
   instance.page = function page(
     params?:
       | FieldListInstancePageOptions
-      | ((error: Error | null, item?: FieldPage) => any),
-    callback?: (error: Error | null, item?: FieldPage) => any
+      | ((error: Error | null, items: FieldPage) => any),
+    callback?: (error: Error | null, items: FieldPage) => any
   ): Promise<FieldPage> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: FieldPage) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

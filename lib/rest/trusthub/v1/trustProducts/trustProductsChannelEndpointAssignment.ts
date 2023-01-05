@@ -479,7 +479,7 @@ export function TrustProductsChannelEndpointAssignmentListInstance(
     params: TrustProductsChannelEndpointAssignmentListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      item?: TrustProductsChannelEndpointAssignmentInstance
+      items: TrustProductsChannelEndpointAssignmentInstance
     ) => any
   ): Promise<TrustProductsChannelEndpointAssignmentInstance> {
     if (params === null || params === undefined) {
@@ -542,18 +542,15 @@ export function TrustProductsChannelEndpointAssignmentListInstance(
       | TrustProductsChannelEndpointAssignmentListInstancePageOptions
       | ((
           error: Error | null,
-          item?: TrustProductsChannelEndpointAssignmentPage
+          items: TrustProductsChannelEndpointAssignmentPage
         ) => any),
     callback?: (
       error: Error | null,
-      item?: TrustProductsChannelEndpointAssignmentPage
+      items: TrustProductsChannelEndpointAssignmentPage
     ) => any
   ): Promise<TrustProductsChannelEndpointAssignmentPage> {
     if (typeof params === "function") {
-      callback = params as (
-        error: Error | null,
-        item?: TrustProductsChannelEndpointAssignmentPage
-      ) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

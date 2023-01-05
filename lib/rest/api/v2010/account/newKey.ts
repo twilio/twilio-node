@@ -82,11 +82,11 @@ export function NewKeyListInstance(
   instance.create = function create(
     params?:
       | NewKeyListInstanceCreateOptions
-      | ((error: Error | null, item?: NewKeyInstance) => any),
-    callback?: (error: Error | null, item?: NewKeyInstance) => any
+      | ((error: Error | null, items: NewKeyInstance) => any),
+    callback?: (error: Error | null, items: NewKeyInstance) => any
   ): Promise<NewKeyInstance> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: NewKeyInstance) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

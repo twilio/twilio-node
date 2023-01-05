@@ -98,7 +98,7 @@ export class NumberContextImpl implements NumberContext {
     callback?: (error: Error | null, item?: NumberInstance) => any
   ): Promise<NumberInstance> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: NumberInstance) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

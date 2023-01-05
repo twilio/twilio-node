@@ -340,11 +340,11 @@ export function EventTypeListInstance(version: V1): EventTypeListInstance {
   instance.page = function page(
     params?:
       | EventTypeListInstancePageOptions
-      | ((error: Error | null, item?: EventTypePage) => any),
-    callback?: (error: Error | null, item?: EventTypePage) => any
+      | ((error: Error | null, items: EventTypePage) => any),
+    callback?: (error: Error | null, items: EventTypePage) => any
   ): Promise<EventTypePage> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: EventTypePage) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

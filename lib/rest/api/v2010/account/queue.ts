@@ -217,7 +217,7 @@ export class QueueContextImpl implements QueueContext {
     callback?: (error: Error | null, item?: QueueInstance) => any
   ): Promise<QueueInstance> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: QueueInstance) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};
@@ -567,7 +567,7 @@ export function QueueListInstance(
 
   instance.create = function create(
     params: QueueListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: QueueInstance) => any
+    callback?: (error: Error | null, items: QueueInstance) => any
   ): Promise<QueueInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -615,11 +615,11 @@ export function QueueListInstance(
   instance.page = function page(
     params?:
       | QueueListInstancePageOptions
-      | ((error: Error | null, item?: QueuePage) => any),
-    callback?: (error: Error | null, item?: QueuePage) => any
+      | ((error: Error | null, items: QueuePage) => any),
+    callback?: (error: Error | null, items: QueuePage) => any
   ): Promise<QueuePage> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: QueuePage) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

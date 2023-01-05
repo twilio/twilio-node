@@ -594,7 +594,7 @@ export function FlowListInstance(version: V2): FlowListInstance {
 
   instance.create = function create(
     params: FlowListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: FlowInstance) => any
+    callback?: (error: Error | null, items: FlowInstance) => any
   ): Promise<FlowInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -650,11 +650,11 @@ export function FlowListInstance(version: V2): FlowListInstance {
   instance.page = function page(
     params?:
       | FlowListInstancePageOptions
-      | ((error: Error | null, item?: FlowPage) => any),
-    callback?: (error: Error | null, item?: FlowPage) => any
+      | ((error: Error | null, items: FlowPage) => any),
+    callback?: (error: Error | null, items: FlowPage) => any
   ): Promise<FlowPage> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: FlowPage) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

@@ -189,10 +189,7 @@ export class SigningKeyContextImpl implements SigningKeyContext {
     callback?: (error: Error | null, item?: SigningKeyInstance) => any
   ): Promise<SigningKeyInstance> {
     if (typeof params === "function") {
-      callback = params as (
-        error: Error | null,
-        item?: SigningKeyInstance
-      ) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};
@@ -475,11 +472,11 @@ export function SigningKeyListInstance(
   instance.page = function page(
     params?:
       | SigningKeyListInstancePageOptions
-      | ((error: Error | null, item?: SigningKeyPage) => any),
-    callback?: (error: Error | null, item?: SigningKeyPage) => any
+      | ((error: Error | null, items: SigningKeyPage) => any),
+    callback?: (error: Error | null, items: SigningKeyPage) => any
   ): Promise<SigningKeyPage> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: SigningKeyPage) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

@@ -429,11 +429,11 @@ export function YesterdayListInstance(
   instance.page = function page(
     params?:
       | YesterdayListInstancePageOptions
-      | ((error: Error | null, item?: YesterdayPage) => any),
-    callback?: (error: Error | null, item?: YesterdayPage) => any
+      | ((error: Error | null, items: YesterdayPage) => any),
+    callback?: (error: Error | null, items: YesterdayPage) => any
   ): Promise<YesterdayPage> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: YesterdayPage) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

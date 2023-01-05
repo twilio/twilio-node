@@ -273,11 +273,11 @@ export function VoipListInstance(
   instance.page = function page(
     params?:
       | VoipListInstancePageOptions
-      | ((error: Error | null, item?: VoipPage) => any),
-    callback?: (error: Error | null, item?: VoipPage) => any
+      | ((error: Error | null, items: VoipPage) => any),
+    callback?: (error: Error | null, items: VoipPage) => any
   ): Promise<VoipPage> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: VoipPage) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

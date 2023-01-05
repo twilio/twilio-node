@@ -513,14 +513,11 @@ export function InteractionChannelListInstance(
   instance.page = function page(
     params?:
       | InteractionChannelListInstancePageOptions
-      | ((error: Error | null, item?: InteractionChannelPage) => any),
-    callback?: (error: Error | null, item?: InteractionChannelPage) => any
+      | ((error: Error | null, items: InteractionChannelPage) => any),
+    callback?: (error: Error | null, items: InteractionChannelPage) => any
   ): Promise<InteractionChannelPage> {
     if (typeof params === "function") {
-      callback = params as (
-        error: Error | null,
-        item?: InteractionChannelPage
-      ) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

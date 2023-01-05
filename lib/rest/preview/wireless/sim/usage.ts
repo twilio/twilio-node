@@ -83,7 +83,7 @@ export class UsageContextImpl implements UsageContext {
     callback?: (error: Error | null, item?: UsageInstance) => any
   ): Promise<UsageInstance> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: UsageInstance) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

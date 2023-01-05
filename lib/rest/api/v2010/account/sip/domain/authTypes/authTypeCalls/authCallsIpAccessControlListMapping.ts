@@ -469,7 +469,7 @@ export function AuthCallsIpAccessControlListMappingListInstance(
     params: AuthCallsIpAccessControlListMappingListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      item?: AuthCallsIpAccessControlListMappingInstance
+      items: AuthCallsIpAccessControlListMappingInstance
     ) => any
   ): Promise<AuthCallsIpAccessControlListMappingInstance> {
     if (params === null || params === undefined) {
@@ -522,18 +522,15 @@ export function AuthCallsIpAccessControlListMappingListInstance(
       | AuthCallsIpAccessControlListMappingListInstancePageOptions
       | ((
           error: Error | null,
-          item?: AuthCallsIpAccessControlListMappingPage
+          items: AuthCallsIpAccessControlListMappingPage
         ) => any),
     callback?: (
       error: Error | null,
-      item?: AuthCallsIpAccessControlListMappingPage
+      items: AuthCallsIpAccessControlListMappingPage
     ) => any
   ): Promise<AuthCallsIpAccessControlListMappingPage> {
     if (typeof params === "function") {
-      callback = params as (
-        error: Error | null,
-        item?: AuthCallsIpAccessControlListMappingPage
-      ) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

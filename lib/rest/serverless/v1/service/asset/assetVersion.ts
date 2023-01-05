@@ -382,14 +382,11 @@ export function AssetVersionListInstance(
   instance.page = function page(
     params?:
       | AssetVersionListInstancePageOptions
-      | ((error: Error | null, item?: AssetVersionPage) => any),
-    callback?: (error: Error | null, item?: AssetVersionPage) => any
+      | ((error: Error | null, items: AssetVersionPage) => any),
+    callback?: (error: Error | null, items: AssetVersionPage) => any
   ): Promise<AssetVersionPage> {
     if (typeof params === "function") {
-      callback = params as (
-        error: Error | null,
-        item?: AssetVersionPage
-      ) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

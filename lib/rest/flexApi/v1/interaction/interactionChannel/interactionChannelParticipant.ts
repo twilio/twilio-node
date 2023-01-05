@@ -475,7 +475,7 @@ export function InteractionChannelParticipantListInstance(
     params: InteractionChannelParticipantListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      item?: InteractionChannelParticipantInstance
+      items: InteractionChannelParticipantInstance
     ) => any
   ): Promise<InteractionChannelParticipantInstance> {
     if (params === null || params === undefined) {
@@ -534,18 +534,15 @@ export function InteractionChannelParticipantListInstance(
       | InteractionChannelParticipantListInstancePageOptions
       | ((
           error: Error | null,
-          item?: InteractionChannelParticipantPage
+          items: InteractionChannelParticipantPage
         ) => any),
     callback?: (
       error: Error | null,
-      item?: InteractionChannelParticipantPage
+      items: InteractionChannelParticipantPage
     ) => any
   ): Promise<InteractionChannelParticipantPage> {
     if (typeof params === "function") {
-      callback = params as (
-        error: Error | null,
-        item?: InteractionChannelParticipantPage
-      ) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

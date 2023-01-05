@@ -196,14 +196,11 @@ export function BundleCopyListInstance(
   instance.create = function create(
     params?:
       | BundleCopyListInstanceCreateOptions
-      | ((error: Error | null, item?: BundleCopyInstance) => any),
-    callback?: (error: Error | null, item?: BundleCopyInstance) => any
+      | ((error: Error | null, items: BundleCopyInstance) => any),
+    callback?: (error: Error | null, items: BundleCopyInstance) => any
   ): Promise<BundleCopyInstance> {
     if (typeof params === "function") {
-      callback = params as (
-        error: Error | null,
-        item?: BundleCopyInstance
-      ) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};
@@ -244,11 +241,11 @@ export function BundleCopyListInstance(
   instance.page = function page(
     params?:
       | BundleCopyListInstancePageOptions
-      | ((error: Error | null, item?: BundleCopyPage) => any),
-    callback?: (error: Error | null, item?: BundleCopyPage) => any
+      | ((error: Error | null, items: BundleCopyPage) => any),
+    callback?: (error: Error | null, items: BundleCopyPage) => any
   ): Promise<BundleCopyPage> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: BundleCopyPage) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

@@ -413,14 +413,11 @@ export function DeploymentListInstance(
   instance.create = function create(
     params?:
       | DeploymentListInstanceCreateOptions
-      | ((error: Error | null, item?: DeploymentInstance) => any),
-    callback?: (error: Error | null, item?: DeploymentInstance) => any
+      | ((error: Error | null, items: DeploymentInstance) => any),
+    callback?: (error: Error | null, items: DeploymentInstance) => any
   ): Promise<DeploymentInstance> {
     if (typeof params === "function") {
-      callback = params as (
-        error: Error | null,
-        item?: DeploymentInstance
-      ) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};
@@ -461,11 +458,11 @@ export function DeploymentListInstance(
   instance.page = function page(
     params?:
       | DeploymentListInstancePageOptions
-      | ((error: Error | null, item?: DeploymentPage) => any),
-    callback?: (error: Error | null, item?: DeploymentPage) => any
+      | ((error: Error | null, items: DeploymentPage) => any),
+    callback?: (error: Error | null, items: DeploymentPage) => any
   ): Promise<DeploymentPage> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: DeploymentPage) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

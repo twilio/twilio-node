@@ -412,7 +412,7 @@ export function BrandVettingListInstance(
 
   instance.create = function create(
     params: BrandVettingListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: BrandVettingInstance) => any
+    callback?: (error: Error | null, items: BrandVettingInstance) => any
   ): Promise<BrandVettingInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -463,14 +463,11 @@ export function BrandVettingListInstance(
   instance.page = function page(
     params?:
       | BrandVettingListInstancePageOptions
-      | ((error: Error | null, item?: BrandVettingPage) => any),
-    callback?: (error: Error | null, item?: BrandVettingPage) => any
+      | ((error: Error | null, items: BrandVettingPage) => any),
+    callback?: (error: Error | null, items: BrandVettingPage) => any
   ): Promise<BrandVettingPage> {
     if (typeof params === "function") {
-      callback = params as (
-        error: Error | null,
-        item?: BrandVettingPage
-      ) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

@@ -491,14 +491,11 @@ export function InstalledAddOnExtensionListInstance(
   instance.page = function page(
     params?:
       | InstalledAddOnExtensionListInstancePageOptions
-      | ((error: Error | null, item?: InstalledAddOnExtensionPage) => any),
-    callback?: (error: Error | null, item?: InstalledAddOnExtensionPage) => any
+      | ((error: Error | null, items: InstalledAddOnExtensionPage) => any),
+    callback?: (error: Error | null, items: InstalledAddOnExtensionPage) => any
   ): Promise<InstalledAddOnExtensionPage> {
     if (typeof params === "function") {
-      callback = params as (
-        error: Error | null,
-        item?: InstalledAddOnExtensionPage
-      ) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

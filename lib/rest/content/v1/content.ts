@@ -410,11 +410,11 @@ export function ContentListInstance(version: V1): ContentListInstance {
   instance.page = function page(
     params?:
       | ContentListInstancePageOptions
-      | ((error: Error | null, item?: ContentPage) => any),
-    callback?: (error: Error | null, item?: ContentPage) => any
+      | ((error: Error | null, items: ContentPage) => any),
+    callback?: (error: Error | null, items: ContentPage) => any
   ): Promise<ContentPage> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: ContentPage) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

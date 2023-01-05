@@ -222,7 +222,7 @@ export class MessageContextImpl implements MessageContext {
     callback?: (error: Error | null, item?: MessageInstance) => any
   ): Promise<MessageInstance> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: MessageInstance) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};
@@ -563,7 +563,7 @@ export function MessageListInstance(
 
   instance.create = function create(
     params: MessageListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: MessageInstance) => any
+    callback?: (error: Error | null, items: MessageInstance) => any
   ): Promise<MessageInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -611,11 +611,11 @@ export function MessageListInstance(
   instance.page = function page(
     params?:
       | MessageListInstancePageOptions
-      | ((error: Error | null, item?: MessagePage) => any),
-    callback?: (error: Error | null, item?: MessagePage) => any
+      | ((error: Error | null, items: MessagePage) => any),
+    callback?: (error: Error | null, items: MessagePage) => any
   ): Promise<MessagePage> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: MessagePage) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

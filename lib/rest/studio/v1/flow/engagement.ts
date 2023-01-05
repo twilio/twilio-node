@@ -492,7 +492,7 @@ export function EngagementListInstance(
 
   instance.create = function create(
     params: EngagementListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: EngagementInstance) => any
+    callback?: (error: Error | null, items: EngagementInstance) => any
   ): Promise<EngagementInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -544,11 +544,11 @@ export function EngagementListInstance(
   instance.page = function page(
     params?:
       | EngagementListInstancePageOptions
-      | ((error: Error | null, item?: EngagementPage) => any),
-    callback?: (error: Error | null, item?: EngagementPage) => any
+      | ((error: Error | null, items: EngagementPage) => any),
+    callback?: (error: Error | null, items: EngagementPage) => any
   ): Promise<EngagementPage> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: EngagementPage) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

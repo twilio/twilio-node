@@ -428,14 +428,11 @@ export function VerificationAttemptListInstance(
   instance.page = function page(
     params?:
       | VerificationAttemptListInstancePageOptions
-      | ((error: Error | null, item?: VerificationAttemptPage) => any),
-    callback?: (error: Error | null, item?: VerificationAttemptPage) => any
+      | ((error: Error | null, items: VerificationAttemptPage) => any),
+    callback?: (error: Error | null, items: VerificationAttemptPage) => any
   ): Promise<VerificationAttemptPage> {
     if (typeof params === "function") {
-      callback = params as (
-        error: Error | null,
-        item?: VerificationAttemptPage
-      ) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

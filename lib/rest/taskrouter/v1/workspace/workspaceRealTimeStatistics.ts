@@ -95,10 +95,7 @@ export class WorkspaceRealTimeStatisticsContextImpl
     ) => any
   ): Promise<WorkspaceRealTimeStatisticsInstance> {
     if (typeof params === "function") {
-      callback = params as (
-        error: Error | null,
-        item?: WorkspaceRealTimeStatisticsInstance
-      ) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

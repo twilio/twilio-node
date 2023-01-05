@@ -202,10 +202,7 @@ export class SubscribedEventContextImpl implements SubscribedEventContext {
     callback?: (error: Error | null, item?: SubscribedEventInstance) => any
   ): Promise<SubscribedEventInstance> {
     if (typeof params === "function") {
-      callback = params as (
-        error: Error | null,
-        item?: SubscribedEventInstance
-      ) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};
@@ -526,7 +523,7 @@ export function SubscribedEventListInstance(
 
   instance.create = function create(
     params: SubscribedEventListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: SubscribedEventInstance) => any
+    callback?: (error: Error | null, items: SubscribedEventInstance) => any
   ): Promise<SubscribedEventInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -572,14 +569,11 @@ export function SubscribedEventListInstance(
   instance.page = function page(
     params?:
       | SubscribedEventListInstancePageOptions
-      | ((error: Error | null, item?: SubscribedEventPage) => any),
-    callback?: (error: Error | null, item?: SubscribedEventPage) => any
+      | ((error: Error | null, items: SubscribedEventPage) => any),
+    callback?: (error: Error | null, items: SubscribedEventPage) => any
   ): Promise<SubscribedEventPage> {
     if (typeof params === "function") {
-      callback = params as (
-        error: Error | null,
-        item?: SubscribedEventPage
-      ) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

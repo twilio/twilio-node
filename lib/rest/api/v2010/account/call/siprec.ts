@@ -742,11 +742,11 @@ export function SiprecListInstance(
   instance.create = function create(
     params?:
       | SiprecListInstanceCreateOptions
-      | ((error: Error | null, item?: SiprecInstance) => any),
-    callback?: (error: Error | null, item?: SiprecInstance) => any
+      | ((error: Error | null, items: SiprecInstance) => any),
+    callback?: (error: Error | null, items: SiprecInstance) => any
   ): Promise<SiprecInstance> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: SiprecInstance) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

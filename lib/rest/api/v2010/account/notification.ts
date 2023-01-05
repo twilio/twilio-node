@@ -459,14 +459,11 @@ export function NotificationListInstance(
   instance.page = function page(
     params?:
       | NotificationListInstancePageOptions
-      | ((error: Error | null, item?: NotificationPage) => any),
-    callback?: (error: Error | null, item?: NotificationPage) => any
+      | ((error: Error | null, items: NotificationPage) => any),
+    callback?: (error: Error | null, items: NotificationPage) => any
   ): Promise<NotificationPage> {
     if (typeof params === "function") {
-      callback = params as (
-        error: Error | null,
-        item?: NotificationPage
-      ) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

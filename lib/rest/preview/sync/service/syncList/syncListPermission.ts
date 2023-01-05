@@ -549,14 +549,11 @@ export function SyncListPermissionListInstance(
   instance.page = function page(
     params?:
       | SyncListPermissionListInstancePageOptions
-      | ((error: Error | null, item?: SyncListPermissionPage) => any),
-    callback?: (error: Error | null, item?: SyncListPermissionPage) => any
+      | ((error: Error | null, items: SyncListPermissionPage) => any),
+    callback?: (error: Error | null, items: SyncListPermissionPage) => any
   ): Promise<SyncListPermissionPage> {
     if (typeof params === "function") {
-      callback = params as (
-        error: Error | null,
-        item?: SyncListPermissionPage
-      ) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

@@ -216,10 +216,7 @@ export class OriginationUrlContextImpl implements OriginationUrlContext {
     callback?: (error: Error | null, item?: OriginationUrlInstance) => any
   ): Promise<OriginationUrlInstance> {
     if (typeof params === "function") {
-      callback = params as (
-        error: Error | null,
-        item?: OriginationUrlInstance
-      ) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};
@@ -586,7 +583,7 @@ export function OriginationUrlListInstance(
 
   instance.create = function create(
     params: OriginationUrlListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: OriginationUrlInstance) => any
+    callback?: (error: Error | null, items: OriginationUrlInstance) => any
   ): Promise<OriginationUrlInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -657,14 +654,11 @@ export function OriginationUrlListInstance(
   instance.page = function page(
     params?:
       | OriginationUrlListInstancePageOptions
-      | ((error: Error | null, item?: OriginationUrlPage) => any),
-    callback?: (error: Error | null, item?: OriginationUrlPage) => any
+      | ((error: Error | null, items: OriginationUrlPage) => any),
+    callback?: (error: Error | null, items: OriginationUrlPage) => any
   ): Promise<OriginationUrlPage> {
     if (typeof params === "function") {
-      callback = params as (
-        error: Error | null,
-        item?: OriginationUrlPage
-      ) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

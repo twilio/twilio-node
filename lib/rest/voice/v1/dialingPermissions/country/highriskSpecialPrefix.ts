@@ -173,14 +173,11 @@ export function HighriskSpecialPrefixListInstance(
   instance.page = function page(
     params?:
       | HighriskSpecialPrefixListInstancePageOptions
-      | ((error: Error | null, item?: HighriskSpecialPrefixPage) => any),
-    callback?: (error: Error | null, item?: HighriskSpecialPrefixPage) => any
+      | ((error: Error | null, items: HighriskSpecialPrefixPage) => any),
+    callback?: (error: Error | null, items: HighriskSpecialPrefixPage) => any
   ): Promise<HighriskSpecialPrefixPage> {
     if (typeof params === "function") {
-      callback = params as (
-        error: Error | null,
-        item?: HighriskSpecialPrefixPage
-      ) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

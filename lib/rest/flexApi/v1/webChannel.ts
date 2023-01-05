@@ -205,10 +205,7 @@ export class WebChannelContextImpl implements WebChannelContext {
     callback?: (error: Error | null, item?: WebChannelInstance) => any
   ): Promise<WebChannelInstance> {
     if (typeof params === "function") {
-      callback = params as (
-        error: Error | null,
-        item?: WebChannelInstance
-      ) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};
@@ -516,7 +513,7 @@ export function WebChannelListInstance(version: V1): WebChannelListInstance {
 
   instance.create = function create(
     params: WebChannelListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: WebChannelInstance) => any
+    callback?: (error: Error | null, items: WebChannelInstance) => any
   ): Promise<WebChannelInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -587,11 +584,11 @@ export function WebChannelListInstance(version: V1): WebChannelListInstance {
   instance.page = function page(
     params?:
       | WebChannelListInstancePageOptions
-      | ((error: Error | null, item?: WebChannelPage) => any),
-    callback?: (error: Error | null, item?: WebChannelPage) => any
+      | ((error: Error | null, items: WebChannelPage) => any),
+    callback?: (error: Error | null, items: WebChannelPage) => any
   ): Promise<WebChannelPage> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: WebChannelPage) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

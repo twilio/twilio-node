@@ -215,10 +215,7 @@ export class SubscriptionContextImpl implements SubscriptionContext {
     callback?: (error: Error | null, item?: SubscriptionInstance) => any
   ): Promise<SubscriptionInstance> {
     if (typeof params === "function") {
-      callback = params as (
-        error: Error | null,
-        item?: SubscriptionInstance
-      ) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};
@@ -548,7 +545,7 @@ export function SubscriptionListInstance(
 
   instance.create = function create(
     params: SubscriptionListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: SubscriptionInstance) => any
+    callback?: (error: Error | null, items: SubscriptionInstance) => any
   ): Promise<SubscriptionInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -599,14 +596,11 @@ export function SubscriptionListInstance(
   instance.page = function page(
     params?:
       | SubscriptionListInstancePageOptions
-      | ((error: Error | null, item?: SubscriptionPage) => any),
-    callback?: (error: Error | null, item?: SubscriptionPage) => any
+      | ((error: Error | null, items: SubscriptionPage) => any),
+    callback?: (error: Error | null, items: SubscriptionPage) => any
   ): Promise<SubscriptionPage> {
     if (typeof params === "function") {
-      callback = params as (
-        error: Error | null,
-        item?: SubscriptionPage
-      ) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

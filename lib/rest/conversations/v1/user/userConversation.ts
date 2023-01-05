@@ -204,10 +204,7 @@ export class UserConversationContextImpl implements UserConversationContext {
     callback?: (error: Error | null, item?: UserConversationInstance) => any
   ): Promise<UserConversationInstance> {
     if (typeof params === "function") {
-      callback = params as (
-        error: Error | null,
-        item?: UserConversationInstance
-      ) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};
@@ -611,14 +608,11 @@ export function UserConversationListInstance(
   instance.page = function page(
     params?:
       | UserConversationListInstancePageOptions
-      | ((error: Error | null, item?: UserConversationPage) => any),
-    callback?: (error: Error | null, item?: UserConversationPage) => any
+      | ((error: Error | null, items: UserConversationPage) => any),
+    callback?: (error: Error | null, items: UserConversationPage) => any
   ): Promise<UserConversationPage> {
     if (typeof params === "function") {
-      callback = params as (
-        error: Error | null,
-        item?: UserConversationPage
-      ) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

@@ -179,11 +179,11 @@ export function MetricListInstance(
   instance.page = function page(
     params?:
       | MetricListInstancePageOptions
-      | ((error: Error | null, item?: MetricPage) => any),
-    callback?: (error: Error | null, item?: MetricPage) => any
+      | ((error: Error | null, items: MetricPage) => any),
+    callback?: (error: Error | null, items: MetricPage) => any
   ): Promise<MetricPage> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: MetricPage) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

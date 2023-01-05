@@ -236,10 +236,7 @@ export class AuthorizationDocumentContextImpl
     ) => any
   ): Promise<AuthorizationDocumentInstance> {
     if (typeof params === "function") {
-      callback = params as (
-        error: Error | null,
-        item?: AuthorizationDocumentInstance
-      ) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};
@@ -596,7 +593,7 @@ export function AuthorizationDocumentListInstance(
     params: AuthorizationDocumentListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      item?: AuthorizationDocumentInstance
+      items: AuthorizationDocumentInstance
     ) => any
   ): Promise<AuthorizationDocumentInstance> {
     if (params === null || params === undefined) {
@@ -678,14 +675,11 @@ export function AuthorizationDocumentListInstance(
   instance.page = function page(
     params?:
       | AuthorizationDocumentListInstancePageOptions
-      | ((error: Error | null, item?: AuthorizationDocumentPage) => any),
-    callback?: (error: Error | null, item?: AuthorizationDocumentPage) => any
+      | ((error: Error | null, items: AuthorizationDocumentPage) => any),
+    callback?: (error: Error | null, items: AuthorizationDocumentPage) => any
   ): Promise<AuthorizationDocumentPage> {
     if (typeof params === "function") {
-      callback = params as (
-        error: Error | null,
-        item?: AuthorizationDocumentPage
-      ) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

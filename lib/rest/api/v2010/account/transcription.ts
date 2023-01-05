@@ -445,14 +445,11 @@ export function TranscriptionListInstance(
   instance.page = function page(
     params?:
       | TranscriptionListInstancePageOptions
-      | ((error: Error | null, item?: TranscriptionPage) => any),
-    callback?: (error: Error | null, item?: TranscriptionPage) => any
+      | ((error: Error | null, items: TranscriptionPage) => any),
+    callback?: (error: Error | null, items: TranscriptionPage) => any
   ): Promise<TranscriptionPage> {
     if (typeof params === "function") {
-      callback = params as (
-        error: Error | null,
-        item?: TranscriptionPage
-      ) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

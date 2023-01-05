@@ -196,7 +196,7 @@ export function ExportCustomJobListInstance(
 
   instance.create = function create(
     params: ExportCustomJobListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: ExportCustomJobInstance) => any
+    callback?: (error: Error | null, items: ExportCustomJobInstance) => any
   ): Promise<ExportCustomJobInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -260,14 +260,11 @@ export function ExportCustomJobListInstance(
   instance.page = function page(
     params?:
       | ExportCustomJobListInstancePageOptions
-      | ((error: Error | null, item?: ExportCustomJobPage) => any),
-    callback?: (error: Error | null, item?: ExportCustomJobPage) => any
+      | ((error: Error | null, items: ExportCustomJobPage) => any),
+    callback?: (error: Error | null, items: ExportCustomJobPage) => any
   ): Promise<ExportCustomJobPage> {
     if (typeof params === "function") {
-      callback = params as (
-        error: Error | null,
-        item?: ExportCustomJobPage
-      ) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

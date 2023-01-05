@@ -206,10 +206,7 @@ export class ModelBuildContextImpl implements ModelBuildContext {
     callback?: (error: Error | null, item?: ModelBuildInstance) => any
   ): Promise<ModelBuildInstance> {
     if (typeof params === "function") {
-      callback = params as (
-        error: Error | null,
-        item?: ModelBuildInstance
-      ) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};
@@ -566,14 +563,11 @@ export function ModelBuildListInstance(
   instance.create = function create(
     params?:
       | ModelBuildListInstanceCreateOptions
-      | ((error: Error | null, item?: ModelBuildInstance) => any),
-    callback?: (error: Error | null, item?: ModelBuildInstance) => any
+      | ((error: Error | null, items: ModelBuildInstance) => any),
+    callback?: (error: Error | null, items: ModelBuildInstance) => any
   ): Promise<ModelBuildInstance> {
     if (typeof params === "function") {
-      callback = params as (
-        error: Error | null,
-        item?: ModelBuildInstance
-      ) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};
@@ -616,11 +610,11 @@ export function ModelBuildListInstance(
   instance.page = function page(
     params?:
       | ModelBuildListInstancePageOptions
-      | ((error: Error | null, item?: ModelBuildPage) => any),
-    callback?: (error: Error | null, item?: ModelBuildPage) => any
+      | ((error: Error | null, items: ModelBuildPage) => any),
+    callback?: (error: Error | null, items: ModelBuildPage) => any
   ): Promise<ModelBuildPage> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: ModelBuildPage) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

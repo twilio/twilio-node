@@ -235,10 +235,7 @@ export class ChallengeContextImpl implements ChallengeContext {
     callback?: (error: Error | null, item?: ChallengeInstance) => any
   ): Promise<ChallengeInstance> {
     if (typeof params === "function") {
-      callback = params as (
-        error: Error | null,
-        item?: ChallengeInstance
-      ) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};
@@ -639,7 +636,7 @@ export function ChallengeListInstance(
 
   instance.create = function create(
     params: ChallengeListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: ChallengeInstance) => any
+    callback?: (error: Error | null, items: ChallengeInstance) => any
   ): Promise<ChallengeInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -698,11 +695,11 @@ export function ChallengeListInstance(
   instance.page = function page(
     params?:
       | ChallengeListInstancePageOptions
-      | ((error: Error | null, item?: ChallengePage) => any),
-    callback?: (error: Error | null, item?: ChallengePage) => any
+      | ((error: Error | null, items: ChallengePage) => any),
+    callback?: (error: Error | null, items: ChallengePage) => any
   ): Promise<ChallengePage> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: ChallengePage) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

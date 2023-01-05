@@ -269,7 +269,7 @@ export class TaskContextImpl implements TaskContext {
     callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: boolean) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};
@@ -331,7 +331,7 @@ export class TaskContextImpl implements TaskContext {
     callback?: (error: Error | null, item?: TaskInstance) => any
   ): Promise<TaskInstance> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: TaskInstance) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};
@@ -799,11 +799,11 @@ export function TaskListInstance(
   instance.create = function create(
     params?:
       | TaskListInstanceCreateOptions
-      | ((error: Error | null, item?: TaskInstance) => any),
-    callback?: (error: Error | null, item?: TaskInstance) => any
+      | ((error: Error | null, items: TaskInstance) => any),
+    callback?: (error: Error | null, items: TaskInstance) => any
   ): Promise<TaskInstance> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: TaskInstance) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};
@@ -850,11 +850,11 @@ export function TaskListInstance(
   instance.page = function page(
     params?:
       | TaskListInstancePageOptions
-      | ((error: Error | null, item?: TaskPage) => any),
-    callback?: (error: Error | null, item?: TaskPage) => any
+      | ((error: Error | null, items: TaskPage) => any),
+    callback?: (error: Error | null, items: TaskPage) => any
   ): Promise<TaskPage> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: TaskPage) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

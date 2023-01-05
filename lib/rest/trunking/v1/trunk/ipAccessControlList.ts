@@ -435,7 +435,7 @@ export function IpAccessControlListListInstance(
 
   instance.create = function create(
     params: IpAccessControlListListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: IpAccessControlListInstance) => any
+    callback?: (error: Error | null, items: IpAccessControlListInstance) => any
   ): Promise<IpAccessControlListInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -484,14 +484,11 @@ export function IpAccessControlListListInstance(
   instance.page = function page(
     params?:
       | IpAccessControlListListInstancePageOptions
-      | ((error: Error | null, item?: IpAccessControlListPage) => any),
-    callback?: (error: Error | null, item?: IpAccessControlListPage) => any
+      | ((error: Error | null, items: IpAccessControlListPage) => any),
+    callback?: (error: Error | null, items: IpAccessControlListPage) => any
   ): Promise<IpAccessControlListPage> {
     if (typeof params === "function") {
-      callback = params as (
-        error: Error | null,
-        item?: IpAccessControlListPage
-      ) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

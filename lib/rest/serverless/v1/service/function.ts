@@ -538,7 +538,7 @@ export function FunctionListInstance(
 
   instance.create = function create(
     params: FunctionListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: FunctionInstance) => any
+    callback?: (error: Error | null, items: FunctionInstance) => any
   ): Promise<FunctionInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -585,11 +585,11 @@ export function FunctionListInstance(
   instance.page = function page(
     params?:
       | FunctionListInstancePageOptions
-      | ((error: Error | null, item?: FunctionPage) => any),
-    callback?: (error: Error | null, item?: FunctionPage) => any
+      | ((error: Error | null, items: FunctionPage) => any),
+    callback?: (error: Error | null, items: FunctionPage) => any
   ): Promise<FunctionPage> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: FunctionPage) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

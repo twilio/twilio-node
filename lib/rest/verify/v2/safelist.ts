@@ -262,7 +262,7 @@ export function SafelistListInstance(version: V2): SafelistListInstance {
 
   instance.create = function create(
     params: SafelistListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: SafelistInstance) => any
+    callback?: (error: Error | null, items: SafelistInstance) => any
   ): Promise<SafelistInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');

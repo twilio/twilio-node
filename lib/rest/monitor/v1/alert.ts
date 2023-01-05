@@ -438,11 +438,11 @@ export function AlertListInstance(version: V1): AlertListInstance {
   instance.page = function page(
     params?:
       | AlertListInstancePageOptions
-      | ((error: Error | null, item?: AlertPage) => any),
-    callback?: (error: Error | null, item?: AlertPage) => any
+      | ((error: Error | null, items: AlertPage) => any),
+    callback?: (error: Error | null, items: AlertPage) => any
   ): Promise<AlertPage> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: AlertPage) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

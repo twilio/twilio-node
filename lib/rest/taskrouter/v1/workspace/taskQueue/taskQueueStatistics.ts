@@ -100,10 +100,7 @@ export class TaskQueueStatisticsContextImpl
     callback?: (error: Error | null, item?: TaskQueueStatisticsInstance) => any
   ): Promise<TaskQueueStatisticsInstance> {
     if (typeof params === "function") {
-      callback = params as (
-        error: Error | null,
-        item?: TaskQueueStatisticsInstance
-      ) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

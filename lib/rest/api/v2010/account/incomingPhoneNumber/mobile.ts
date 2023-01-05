@@ -264,7 +264,7 @@ export function MobileListInstance(
 
   instance.create = function create(
     params: MobileListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: MobileInstance) => any
+    callback?: (error: Error | null, items: MobileInstance) => any
   ): Promise<MobileInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -351,11 +351,11 @@ export function MobileListInstance(
   instance.page = function page(
     params?:
       | MobileListInstancePageOptions
-      | ((error: Error | null, item?: MobilePage) => any),
-    callback?: (error: Error | null, item?: MobilePage) => any
+      | ((error: Error | null, items: MobilePage) => any),
+    callback?: (error: Error | null, items: MobilePage) => any
   ): Promise<MobilePage> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: MobilePage) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

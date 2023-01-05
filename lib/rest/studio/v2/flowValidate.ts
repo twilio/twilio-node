@@ -72,7 +72,7 @@ export function FlowValidateListInstance(
 
   instance.update = function update(
     params: FlowValidateListInstanceUpdateOptions,
-    callback?: (error: Error | null, item?: FlowValidateInstance) => any
+    callback?: (error: Error | null, items: FlowValidateInstance) => any
   ): Promise<FlowValidateInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');

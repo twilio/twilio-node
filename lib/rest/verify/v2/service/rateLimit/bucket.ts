@@ -212,7 +212,7 @@ export class BucketContextImpl implements BucketContext {
     callback?: (error: Error | null, item?: BucketInstance) => any
   ): Promise<BucketInstance> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: BucketInstance) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};
@@ -563,7 +563,7 @@ export function BucketListInstance(
 
   instance.create = function create(
     params: BucketListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: BucketInstance) => any
+    callback?: (error: Error | null, items: BucketInstance) => any
   ): Promise<BucketInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -614,11 +614,11 @@ export function BucketListInstance(
   instance.page = function page(
     params?:
       | BucketListInstancePageOptions
-      | ((error: Error | null, item?: BucketPage) => any),
-    callback?: (error: Error | null, item?: BucketPage) => any
+      | ((error: Error | null, items: BucketPage) => any),
+    callback?: (error: Error | null, items: BucketPage) => any
   ): Promise<BucketPage> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: BucketPage) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

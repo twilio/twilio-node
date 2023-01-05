@@ -369,11 +369,11 @@ export function AppListInstance(version: V1): AppListInstance {
   instance.page = function page(
     params?:
       | AppListInstancePageOptions
-      | ((error: Error | null, item?: AppPage) => any),
-    callback?: (error: Error | null, item?: AppPage) => any
+      | ((error: Error | null, items: AppPage) => any),
+    callback?: (error: Error | null, items: AppPage) => any
   ): Promise<AppPage> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: AppPage) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

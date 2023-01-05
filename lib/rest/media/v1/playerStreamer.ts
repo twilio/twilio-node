@@ -551,14 +551,11 @@ export function PlayerStreamerListInstance(
   instance.create = function create(
     params?:
       | PlayerStreamerListInstanceCreateOptions
-      | ((error: Error | null, item?: PlayerStreamerInstance) => any),
-    callback?: (error: Error | null, item?: PlayerStreamerInstance) => any
+      | ((error: Error | null, items: PlayerStreamerInstance) => any),
+    callback?: (error: Error | null, items: PlayerStreamerInstance) => any
   ): Promise<PlayerStreamerInstance> {
     if (typeof params === "function") {
-      callback = params as (
-        error: Error | null,
-        item?: PlayerStreamerInstance
-      ) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};
@@ -600,14 +597,11 @@ export function PlayerStreamerListInstance(
   instance.page = function page(
     params?:
       | PlayerStreamerListInstancePageOptions
-      | ((error: Error | null, item?: PlayerStreamerPage) => any),
-    callback?: (error: Error | null, item?: PlayerStreamerPage) => any
+      | ((error: Error | null, items: PlayerStreamerPage) => any),
+    callback?: (error: Error | null, items: PlayerStreamerPage) => any
   ): Promise<PlayerStreamerPage> {
     if (typeof params === "function") {
-      callback = params as (
-        error: Error | null,
-        item?: PlayerStreamerPage
-      ) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

@@ -178,14 +178,11 @@ export function SettingsUpdateListInstance(
   instance.page = function page(
     params?:
       | SettingsUpdateListInstancePageOptions
-      | ((error: Error | null, item?: SettingsUpdatePage) => any),
-    callback?: (error: Error | null, item?: SettingsUpdatePage) => any
+      | ((error: Error | null, items: SettingsUpdatePage) => any),
+    callback?: (error: Error | null, items: SettingsUpdatePage) => any
   ): Promise<SettingsUpdatePage> {
     if (typeof params === "function") {
-      callback = params as (
-        error: Error | null,
-        item?: SettingsUpdatePage
-      ) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

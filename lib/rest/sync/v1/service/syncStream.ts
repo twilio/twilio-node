@@ -215,10 +215,7 @@ export class SyncStreamContextImpl implements SyncStreamContext {
     callback?: (error: Error | null, item?: SyncStreamInstance) => any
   ): Promise<SyncStreamInstance> {
     if (typeof params === "function") {
-      callback = params as (
-        error: Error | null,
-        item?: SyncStreamInstance
-      ) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};
@@ -584,14 +581,11 @@ export function SyncStreamListInstance(
   instance.create = function create(
     params?:
       | SyncStreamListInstanceCreateOptions
-      | ((error: Error | null, item?: SyncStreamInstance) => any),
-    callback?: (error: Error | null, item?: SyncStreamInstance) => any
+      | ((error: Error | null, items: SyncStreamInstance) => any),
+    callback?: (error: Error | null, items: SyncStreamInstance) => any
   ): Promise<SyncStreamInstance> {
     if (typeof params === "function") {
-      callback = params as (
-        error: Error | null,
-        item?: SyncStreamInstance
-      ) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};
@@ -633,11 +627,11 @@ export function SyncStreamListInstance(
   instance.page = function page(
     params?:
       | SyncStreamListInstancePageOptions
-      | ((error: Error | null, item?: SyncStreamPage) => any),
-    callback?: (error: Error | null, item?: SyncStreamPage) => any
+      | ((error: Error | null, items: SyncStreamPage) => any),
+    callback?: (error: Error | null, items: SyncStreamPage) => any
   ): Promise<SyncStreamPage> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: SyncStreamPage) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

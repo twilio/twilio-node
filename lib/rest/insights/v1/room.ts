@@ -539,11 +539,11 @@ export function RoomListInstance(version: V1): RoomListInstance {
   instance.page = function page(
     params?:
       | RoomListInstancePageOptions
-      | ((error: Error | null, item?: RoomPage) => any),
-    callback?: (error: Error | null, item?: RoomPage) => any
+      | ((error: Error | null, items: RoomPage) => any),
+    callback?: (error: Error | null, items: RoomPage) => any
   ): Promise<RoomPage> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: RoomPage) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

@@ -471,11 +471,11 @@ export function PayloadListInstance(
   instance.page = function page(
     params?:
       | PayloadListInstancePageOptions
-      | ((error: Error | null, item?: PayloadPage) => any),
-    callback?: (error: Error | null, item?: PayloadPage) => any
+      | ((error: Error | null, items: PayloadPage) => any),
+    callback?: (error: Error | null, items: PayloadPage) => any
   ): Promise<PayloadPage> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: PayloadPage) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

@@ -199,7 +199,7 @@ export class SyncMapItemContextImpl implements SyncMapItemContext {
     callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: boolean) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};
@@ -599,7 +599,7 @@ export function SyncMapItemListInstance(
 
   instance.create = function create(
     params: SyncMapItemListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: SyncMapItemInstance) => any
+    callback?: (error: Error | null, items: SyncMapItemInstance) => any
   ): Promise<SyncMapItemInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -650,11 +650,11 @@ export function SyncMapItemListInstance(
   instance.page = function page(
     params?:
       | SyncMapItemListInstancePageOptions
-      | ((error: Error | null, item?: SyncMapItemPage) => any),
-    callback?: (error: Error | null, item?: SyncMapItemPage) => any
+      | ((error: Error | null, items: SyncMapItemPage) => any),
+    callback?: (error: Error | null, items: SyncMapItemPage) => any
   ): Promise<SyncMapItemPage> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: SyncMapItemPage) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

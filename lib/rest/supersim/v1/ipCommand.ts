@@ -425,7 +425,7 @@ export function IpCommandListInstance(version: V1): IpCommandListInstance {
 
   instance.create = function create(
     params: IpCommandListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: IpCommandInstance) => any
+    callback?: (error: Error | null, items: IpCommandInstance) => any
   ): Promise<IpCommandInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -482,11 +482,11 @@ export function IpCommandListInstance(version: V1): IpCommandListInstance {
   instance.page = function page(
     params?:
       | IpCommandListInstancePageOptions
-      | ((error: Error | null, item?: IpCommandPage) => any),
-    callback?: (error: Error | null, item?: IpCommandPage) => any
+      | ((error: Error | null, items: IpCommandPage) => any),
+    callback?: (error: Error | null, items: IpCommandPage) => any
   ): Promise<IpCommandPage> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: IpCommandPage) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

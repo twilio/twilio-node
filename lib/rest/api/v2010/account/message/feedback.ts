@@ -90,14 +90,11 @@ export function FeedbackListInstance(
   instance.create = function create(
     params?:
       | FeedbackListInstanceCreateOptions
-      | ((error: Error | null, item?: FeedbackInstance) => any),
-    callback?: (error: Error | null, item?: FeedbackInstance) => any
+      | ((error: Error | null, items: FeedbackInstance) => any),
+    callback?: (error: Error | null, items: FeedbackInstance) => any
   ): Promise<FeedbackInstance> {
     if (typeof params === "function") {
-      callback = params as (
-        error: Error | null,
-        item?: FeedbackInstance
-      ) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

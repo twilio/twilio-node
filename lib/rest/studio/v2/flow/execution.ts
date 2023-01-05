@@ -585,7 +585,7 @@ export function ExecutionListInstance(
 
   instance.create = function create(
     params: ExecutionListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: ExecutionInstance) => any
+    callback?: (error: Error | null, items: ExecutionInstance) => any
   ): Promise<ExecutionInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -637,11 +637,11 @@ export function ExecutionListInstance(
   instance.page = function page(
     params?:
       | ExecutionListInstancePageOptions
-      | ((error: Error | null, item?: ExecutionPage) => any),
-    callback?: (error: Error | null, item?: ExecutionPage) => any
+      | ((error: Error | null, items: ExecutionPage) => any),
+    callback?: (error: Error | null, items: ExecutionPage) => any
   ): Promise<ExecutionPage> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: ExecutionPage) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

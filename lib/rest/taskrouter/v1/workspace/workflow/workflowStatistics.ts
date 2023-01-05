@@ -100,10 +100,7 @@ export class WorkflowStatisticsContextImpl
     callback?: (error: Error | null, item?: WorkflowStatisticsInstance) => any
   ): Promise<WorkflowStatisticsInstance> {
     if (typeof params === "function") {
-      callback = params as (
-        error: Error | null,
-        item?: WorkflowStatisticsInstance
-      ) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

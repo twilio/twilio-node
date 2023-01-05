@@ -605,7 +605,7 @@ export function TollfreeVerificationListInstance(
 
   instance.create = function create(
     params: TollfreeVerificationListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: TollfreeVerificationInstance) => any
+    callback?: (error: Error | null, items: TollfreeVerificationInstance) => any
   ): Promise<TollfreeVerificationInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -769,14 +769,11 @@ export function TollfreeVerificationListInstance(
   instance.page = function page(
     params?:
       | TollfreeVerificationListInstancePageOptions
-      | ((error: Error | null, item?: TollfreeVerificationPage) => any),
-    callback?: (error: Error | null, item?: TollfreeVerificationPage) => any
+      | ((error: Error | null, items: TollfreeVerificationPage) => any),
+    callback?: (error: Error | null, items: TollfreeVerificationPage) => any
   ): Promise<TollfreeVerificationPage> {
     if (typeof params === "function") {
-      callback = params as (
-        error: Error | null,
-        item?: TollfreeVerificationPage
-      ) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

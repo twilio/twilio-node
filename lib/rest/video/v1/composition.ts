@@ -546,7 +546,7 @@ export function CompositionListInstance(version: V1): CompositionListInstance {
 
   instance.create = function create(
     params: CompositionListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: CompositionInstance) => any
+    callback?: (error: Error | null, items: CompositionInstance) => any
   ): Promise<CompositionInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -603,11 +603,11 @@ export function CompositionListInstance(version: V1): CompositionListInstance {
   instance.page = function page(
     params?:
       | CompositionListInstancePageOptions
-      | ((error: Error | null, item?: CompositionPage) => any),
-    callback?: (error: Error | null, item?: CompositionPage) => any
+      | ((error: Error | null, items: CompositionPage) => any),
+    callback?: (error: Error | null, items: CompositionPage) => any
   ): Promise<CompositionPage> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: CompositionPage) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

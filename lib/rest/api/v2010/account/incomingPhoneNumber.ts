@@ -354,10 +354,7 @@ export class IncomingPhoneNumberContextImpl
     callback?: (error: Error | null, item?: IncomingPhoneNumberInstance) => any
   ): Promise<IncomingPhoneNumberInstance> {
     if (typeof params === "function") {
-      callback = params as (
-        error: Error | null,
-        item?: IncomingPhoneNumberInstance
-      ) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};
@@ -1009,14 +1006,11 @@ export function IncomingPhoneNumberListInstance(
   instance.create = function create(
     params?:
       | IncomingPhoneNumberListInstanceCreateOptions
-      | ((error: Error | null, item?: IncomingPhoneNumberInstance) => any),
-    callback?: (error: Error | null, item?: IncomingPhoneNumberInstance) => any
+      | ((error: Error | null, items: IncomingPhoneNumberInstance) => any),
+    callback?: (error: Error | null, items: IncomingPhoneNumberInstance) => any
   ): Promise<IncomingPhoneNumberInstance> {
     if (typeof params === "function") {
-      callback = params as (
-        error: Error | null,
-        item?: IncomingPhoneNumberInstance
-      ) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};
@@ -1101,14 +1095,11 @@ export function IncomingPhoneNumberListInstance(
   instance.page = function page(
     params?:
       | IncomingPhoneNumberListInstancePageOptions
-      | ((error: Error | null, item?: IncomingPhoneNumberPage) => any),
-    callback?: (error: Error | null, item?: IncomingPhoneNumberPage) => any
+      | ((error: Error | null, items: IncomingPhoneNumberPage) => any),
+    callback?: (error: Error | null, items: IncomingPhoneNumberPage) => any
   ): Promise<IncomingPhoneNumberPage> {
     if (typeof params === "function") {
-      callback = params as (
-        error: Error | null,
-        item?: IncomingPhoneNumberPage
-      ) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

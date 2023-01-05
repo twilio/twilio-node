@@ -166,14 +166,11 @@ export function BillingPeriodListInstance(
   instance.page = function page(
     params?:
       | BillingPeriodListInstancePageOptions
-      | ((error: Error | null, item?: BillingPeriodPage) => any),
-    callback?: (error: Error | null, item?: BillingPeriodPage) => any
+      | ((error: Error | null, items: BillingPeriodPage) => any),
+    callback?: (error: Error | null, items: BillingPeriodPage) => any
   ): Promise<BillingPeriodPage> {
     if (typeof params === "function") {
-      callback = params as (
-        error: Error | null,
-        item?: BillingPeriodPage
-      ) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

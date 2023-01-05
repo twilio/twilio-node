@@ -111,10 +111,7 @@ export class PhoneNumberContextImpl implements PhoneNumberContext {
     callback?: (error: Error | null, item?: PhoneNumberInstance) => any
   ): Promise<PhoneNumberInstance> {
     if (typeof params === "function") {
-      callback = params as (
-        error: Error | null,
-        item?: PhoneNumberInstance
-      ) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

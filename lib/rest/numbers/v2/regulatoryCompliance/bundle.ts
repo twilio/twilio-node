@@ -327,7 +327,7 @@ export class BundleContextImpl implements BundleContext {
     callback?: (error: Error | null, item?: BundleInstance) => any
   ): Promise<BundleInstance> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: BundleInstance) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};
@@ -695,7 +695,7 @@ export function BundleListInstance(version: V2): BundleListInstance {
 
   instance.create = function create(
     params: BundleListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: BundleInstance) => any
+    callback?: (error: Error | null, items: BundleInstance) => any
   ): Promise<BundleInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -753,11 +753,11 @@ export function BundleListInstance(version: V2): BundleListInstance {
   instance.page = function page(
     params?:
       | BundleListInstancePageOptions
-      | ((error: Error | null, item?: BundlePage) => any),
-    callback?: (error: Error | null, item?: BundlePage) => any
+      | ((error: Error | null, items: BundlePage) => any),
+    callback?: (error: Error | null, items: BundlePage) => any
   ): Promise<BundlePage> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: BundlePage) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

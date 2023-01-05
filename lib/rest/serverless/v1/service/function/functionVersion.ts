@@ -424,14 +424,11 @@ export function FunctionVersionListInstance(
   instance.page = function page(
     params?:
       | FunctionVersionListInstancePageOptions
-      | ((error: Error | null, item?: FunctionVersionPage) => any),
-    callback?: (error: Error | null, item?: FunctionVersionPage) => any
+      | ((error: Error | null, items: FunctionVersionPage) => any),
+    callback?: (error: Error | null, items: FunctionVersionPage) => any
   ): Promise<FunctionVersionPage> {
     if (typeof params === "function") {
-      callback = params as (
-        error: Error | null,
-        item?: FunctionVersionPage
-      ) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

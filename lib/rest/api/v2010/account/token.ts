@@ -89,11 +89,11 @@ export function TokenListInstance(
   instance.create = function create(
     params?:
       | TokenListInstanceCreateOptions
-      | ((error: Error | null, item?: TokenInstance) => any),
-    callback?: (error: Error | null, item?: TokenInstance) => any
+      | ((error: Error | null, items: TokenInstance) => any),
+    callback?: (error: Error | null, items: TokenInstance) => any
   ): Promise<TokenInstance> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: TokenInstance) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

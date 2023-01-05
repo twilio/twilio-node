@@ -347,11 +347,11 @@ export function DayListInstance(
   instance.page = function page(
     params?:
       | DayListInstancePageOptions
-      | ((error: Error | null, item?: DayPage) => any),
-    callback?: (error: Error | null, item?: DayPage) => any
+      | ((error: Error | null, items: DayPage) => any),
+    callback?: (error: Error | null, items: DayPage) => any
   ): Promise<DayPage> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: DayPage) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

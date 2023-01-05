@@ -195,7 +195,7 @@ export class FleetContextImpl implements FleetContext {
     callback?: (error: Error | null, item?: FleetInstance) => any
   ): Promise<FleetInstance> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: FleetInstance) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};
@@ -566,7 +566,7 @@ export function FleetListInstance(version: V1): FleetListInstance {
 
   instance.create = function create(
     params: FleetListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: FleetInstance) => any
+    callback?: (error: Error | null, items: FleetInstance) => any
   ): Promise<FleetInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -626,11 +626,11 @@ export function FleetListInstance(version: V1): FleetListInstance {
   instance.page = function page(
     params?:
       | FleetListInstancePageOptions
-      | ((error: Error | null, item?: FleetPage) => any),
-    callback?: (error: Error | null, item?: FleetPage) => any
+      | ((error: Error | null, items: FleetPage) => any),
+    callback?: (error: Error | null, items: FleetPage) => any
   ): Promise<FleetPage> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: FleetPage) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

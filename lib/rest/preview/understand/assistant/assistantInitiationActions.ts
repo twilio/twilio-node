@@ -138,10 +138,7 @@ export class AssistantInitiationActionsContextImpl
     ) => any
   ): Promise<AssistantInitiationActionsInstance> {
     if (typeof params === "function") {
-      callback = params as (
-        error: Error | null,
-        item?: AssistantInitiationActionsInstance
-      ) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

@@ -469,11 +469,11 @@ export function AddOnResultListInstance(
   instance.page = function page(
     params?:
       | AddOnResultListInstancePageOptions
-      | ((error: Error | null, item?: AddOnResultPage) => any),
-    callback?: (error: Error | null, item?: AddOnResultPage) => any
+      | ((error: Error | null, items: AddOnResultPage) => any),
+    callback?: (error: Error | null, items: AddOnResultPage) => any
   ): Promise<AddOnResultPage> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: AddOnResultPage) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

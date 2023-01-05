@@ -439,7 +439,7 @@ export function VerificationListInstance(
 
   instance.create = function create(
     params: VerificationListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: VerificationInstance) => any
+    callback?: (error: Error | null, items: VerificationInstance) => any
   ): Promise<VerificationInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');

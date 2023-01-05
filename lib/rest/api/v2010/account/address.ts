@@ -265,7 +265,7 @@ export class AddressContextImpl implements AddressContext {
     callback?: (error: Error | null, item?: AddressInstance) => any
   ): Promise<AddressInstance> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: AddressInstance) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};
@@ -676,7 +676,7 @@ export function AddressListInstance(
 
   instance.create = function create(
     params: AddressListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: AddressInstance) => any
+    callback?: (error: Error | null, items: AddressInstance) => any
   ): Promise<AddressInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -761,11 +761,11 @@ export function AddressListInstance(
   instance.page = function page(
     params?:
       | AddressListInstancePageOptions
-      | ((error: Error | null, item?: AddressPage) => any),
-    callback?: (error: Error | null, item?: AddressPage) => any
+      | ((error: Error | null, items: AddressPage) => any),
+    callback?: (error: Error | null, items: AddressPage) => any
   ): Promise<AddressPage> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: AddressPage) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

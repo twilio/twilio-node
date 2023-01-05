@@ -354,11 +354,11 @@ export function RegulationListInstance(version: V2): RegulationListInstance {
   instance.page = function page(
     params?:
       | RegulationListInstancePageOptions
-      | ((error: Error | null, item?: RegulationPage) => any),
-    callback?: (error: Error | null, item?: RegulationPage) => any
+      | ((error: Error | null, items: RegulationPage) => any),
+    callback?: (error: Error | null, items: RegulationPage) => any
   ): Promise<RegulationPage> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: RegulationPage) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

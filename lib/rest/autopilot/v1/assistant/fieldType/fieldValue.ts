@@ -467,7 +467,7 @@ export function FieldValueListInstance(
 
   instance.create = function create(
     params: FieldValueListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: FieldValueInstance) => any
+    callback?: (error: Error | null, items: FieldValueInstance) => any
   ): Promise<FieldValueInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -520,11 +520,11 @@ export function FieldValueListInstance(
   instance.page = function page(
     params?:
       | FieldValueListInstancePageOptions
-      | ((error: Error | null, item?: FieldValuePage) => any),
-    callback?: (error: Error | null, item?: FieldValuePage) => any
+      | ((error: Error | null, items: FieldValuePage) => any),
+    callback?: (error: Error | null, items: FieldValuePage) => any
   ): Promise<FieldValuePage> {
     if (typeof params === "function") {
-      callback = params as (error: Error | null, item?: FieldValuePage) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};

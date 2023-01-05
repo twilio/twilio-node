@@ -385,14 +385,11 @@ export function AvailableAddOnExtensionListInstance(
   instance.page = function page(
     params?:
       | AvailableAddOnExtensionListInstancePageOptions
-      | ((error: Error | null, item?: AvailableAddOnExtensionPage) => any),
-    callback?: (error: Error | null, item?: AvailableAddOnExtensionPage) => any
+      | ((error: Error | null, items: AvailableAddOnExtensionPage) => any),
+    callback?: (error: Error | null, items: AvailableAddOnExtensionPage) => any
   ): Promise<AvailableAddOnExtensionPage> {
     if (typeof params === "function") {
-      callback = params as (
-        error: Error | null,
-        item?: AvailableAddOnExtensionPage
-      ) => any;
+      callback = params;
       params = {};
     } else {
       params = params || {};
