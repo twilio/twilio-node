@@ -343,7 +343,7 @@ export function EventTypeListInstance(version: V1): EventTypeListInstance {
       | ((error: Error | null, items: EventTypePage) => any),
     callback?: (error: Error | null, items: EventTypePage) => any
   ): Promise<EventTypePage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {

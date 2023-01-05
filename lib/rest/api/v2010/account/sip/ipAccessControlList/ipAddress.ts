@@ -215,7 +215,7 @@ export class IpAddressContextImpl implements IpAddressContext {
       | ((error: Error | null, item?: IpAddressInstance) => any),
     callback?: (error: Error | null, item?: IpAddressInstance) => any
   ): Promise<IpAddressInstance> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -639,7 +639,7 @@ export function IpAddressListInstance(
       | ((error: Error | null, items: IpAddressPage) => any),
     callback?: (error: Error | null, items: IpAddressPage) => any
   ): Promise<IpAddressPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {

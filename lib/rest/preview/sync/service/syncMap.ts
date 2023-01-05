@@ -466,7 +466,7 @@ export function SyncMapListInstance(
       | ((error: Error | null, items: SyncMapInstance) => any),
     callback?: (error: Error | null, items: SyncMapInstance) => any
   ): Promise<SyncMapInstance> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -511,7 +511,7 @@ export function SyncMapListInstance(
       | ((error: Error | null, items: SyncMapPage) => any),
     callback?: (error: Error | null, items: SyncMapPage) => any
   ): Promise<SyncMapPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {

@@ -503,7 +503,7 @@ export function FieldListInstance(
       | ((error: Error | null, items: FieldPage) => any),
     callback?: (error: Error | null, items: FieldPage) => any
   ): Promise<FieldPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {

@@ -432,7 +432,7 @@ export function AllTimeListInstance(
       | ((error: Error | null, items: AllTimePage) => any),
     callback?: (error: Error | null, items: AllTimePage) => any
   ): Promise<AllTimePage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {

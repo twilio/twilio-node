@@ -127,7 +127,7 @@ export class TaskActionsContextImpl implements TaskActionsContext {
       | ((error: Error | null, item?: TaskActionsInstance) => any),
     callback?: (error: Error | null, item?: TaskActionsInstance) => any
   ): Promise<TaskActionsInstance> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {

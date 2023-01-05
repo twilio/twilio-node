@@ -527,7 +527,7 @@ export function CredentialListMappingListInstance(
       | ((error: Error | null, items: CredentialListMappingPage) => any),
     callback?: (error: Error | null, items: CredentialListMappingPage) => any
   ): Promise<CredentialListMappingPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {

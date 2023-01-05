@@ -201,7 +201,7 @@ export class PhoneNumberContextImpl implements PhoneNumberContext {
       | ((error: Error | null, item?: PhoneNumberInstance) => any),
     callback?: (error: Error | null, item?: PhoneNumberInstance) => any
   ): Promise<PhoneNumberInstance> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -576,7 +576,7 @@ export function PhoneNumberListInstance(
       | ((error: Error | null, items: PhoneNumberInstance) => any),
     callback?: (error: Error | null, items: PhoneNumberInstance) => any
   ): Promise<PhoneNumberInstance> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -624,7 +624,7 @@ export function PhoneNumberListInstance(
       | ((error: Error | null, items: PhoneNumberPage) => any),
     callback?: (error: Error | null, items: PhoneNumberPage) => any
   ): Promise<PhoneNumberPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {

@@ -431,7 +431,7 @@ export function LogListInstance(
       | ((error: Error | null, items: LogPage) => any),
     callback?: (error: Error | null, items: LogPage) => any
   ): Promise<LogPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {

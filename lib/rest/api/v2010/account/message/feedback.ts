@@ -93,7 +93,7 @@ export function FeedbackListInstance(
       | ((error: Error | null, items: FeedbackInstance) => any),
     callback?: (error: Error | null, items: FeedbackInstance) => any
   ): Promise<FeedbackInstance> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {

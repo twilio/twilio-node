@@ -510,7 +510,7 @@ export function NetworkAccessProfileNetworkListInstance(
       items: NetworkAccessProfileNetworkPage
     ) => any
   ): Promise<NetworkAccessProfileNetworkPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {

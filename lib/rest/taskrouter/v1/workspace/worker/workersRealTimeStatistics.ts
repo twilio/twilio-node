@@ -94,7 +94,7 @@ export class WorkersRealTimeStatisticsContextImpl
       item?: WorkersRealTimeStatisticsInstance
     ) => any
   ): Promise<WorkersRealTimeStatisticsInstance> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {

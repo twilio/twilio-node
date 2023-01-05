@@ -74,7 +74,7 @@ export class DeactivationsContextImpl implements DeactivationsContext {
       | ((error: Error | null, item?: DeactivationsInstance) => any),
     callback?: (error: Error | null, item?: DeactivationsInstance) => any
   ): Promise<DeactivationsInstance> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {

@@ -528,7 +528,7 @@ export function AuthCallsCredentialListMappingListInstance(
       items: AuthCallsCredentialListMappingPage
     ) => any
   ): Promise<AuthCallsCredentialListMappingPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {

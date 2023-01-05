@@ -357,7 +357,7 @@ export function RegulationListInstance(version: V2): RegulationListInstance {
       | ((error: Error | null, items: RegulationPage) => any),
     callback?: (error: Error | null, items: RegulationPage) => any
   ): Promise<RegulationPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {

@@ -173,7 +173,7 @@ export class WorkerChannelContextImpl implements WorkerChannelContext {
       | ((error: Error | null, item?: WorkerChannelInstance) => any),
     callback?: (error: Error | null, item?: WorkerChannelInstance) => any
   ): Promise<WorkerChannelInstance> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -540,7 +540,7 @@ export function WorkerChannelListInstance(
       | ((error: Error | null, items: WorkerChannelPage) => any),
     callback?: (error: Error | null, items: WorkerChannelPage) => any
   ): Promise<WorkerChannelPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {

@@ -547,7 +547,7 @@ export function EngagementListInstance(
       | ((error: Error | null, items: EngagementPage) => any),
     callback?: (error: Error | null, items: EngagementPage) => any
   ): Promise<EngagementPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {

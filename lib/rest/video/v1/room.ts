@@ -680,7 +680,7 @@ export function RoomListInstance(version: V1): RoomListInstance {
       | ((error: Error | null, items: RoomInstance) => any),
     callback?: (error: Error | null, items: RoomInstance) => any
   ): Promise<RoomInstance> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -752,7 +752,7 @@ export function RoomListInstance(version: V1): RoomListInstance {
       | ((error: Error | null, items: RoomPage) => any),
     callback?: (error: Error | null, items: RoomPage) => any
   ): Promise<RoomPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {

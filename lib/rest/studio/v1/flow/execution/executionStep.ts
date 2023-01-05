@@ -444,7 +444,7 @@ export function ExecutionStepListInstance(
       | ((error: Error | null, items: ExecutionStepPage) => any),
     callback?: (error: Error | null, items: ExecutionStepPage) => any
   ): Promise<ExecutionStepPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {

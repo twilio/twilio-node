@@ -441,7 +441,7 @@ export function AlertListInstance(version: V1): AlertListInstance {
       | ((error: Error | null, items: AlertPage) => any),
     callback?: (error: Error | null, items: AlertPage) => any
   ): Promise<AlertPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {

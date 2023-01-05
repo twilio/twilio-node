@@ -444,7 +444,7 @@ export function SmsCommandListInstance(version: V1): SmsCommandListInstance {
       | ((error: Error | null, items: SmsCommandPage) => any),
     callback?: (error: Error | null, items: SmsCommandPage) => any
   ): Promise<SmsCommandPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {

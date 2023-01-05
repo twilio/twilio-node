@@ -543,7 +543,7 @@ export function DocumentListInstance(
       | ((error: Error | null, items: DocumentInstance) => any),
     callback?: (error: Error | null, items: DocumentInstance) => any
   ): Promise<DocumentInstance> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -590,7 +590,7 @@ export function DocumentListInstance(
       | ((error: Error | null, items: DocumentPage) => any),
     callback?: (error: Error | null, items: DocumentPage) => any
   ): Promise<DocumentPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {

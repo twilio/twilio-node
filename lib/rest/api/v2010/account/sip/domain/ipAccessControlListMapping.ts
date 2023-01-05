@@ -539,7 +539,7 @@ export function IpAccessControlListMappingListInstance(
       items: IpAccessControlListMappingPage
     ) => any
   ): Promise<IpAccessControlListMappingPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {

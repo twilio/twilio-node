@@ -585,7 +585,7 @@ export function MediaProcessorListInstance(
       | ((error: Error | null, items: MediaProcessorPage) => any),
     callback?: (error: Error | null, items: MediaProcessorPage) => any
   ): Promise<MediaProcessorPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {

@@ -263,7 +263,7 @@ export function ExportCustomJobListInstance(
       | ((error: Error | null, items: ExportCustomJobPage) => any),
     callback?: (error: Error | null, items: ExportCustomJobPage) => any
   ): Promise<ExportCustomJobPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {

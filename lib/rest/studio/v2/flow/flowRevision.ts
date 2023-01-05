@@ -395,7 +395,7 @@ export function FlowRevisionListInstance(
       | ((error: Error | null, items: FlowRevisionPage) => any),
     callback?: (error: Error | null, items: FlowRevisionPage) => any
   ): Promise<FlowRevisionPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {

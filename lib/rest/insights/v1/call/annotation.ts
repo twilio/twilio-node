@@ -139,7 +139,7 @@ export class AnnotationContextImpl implements AnnotationContext {
       | ((error: Error | null, item?: AnnotationInstance) => any),
     callback?: (error: Error | null, item?: AnnotationInstance) => any
   ): Promise<AnnotationInstance> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {

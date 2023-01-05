@@ -232,7 +232,7 @@ export function DependentHostedNumberOrderListInstance(
       items: DependentHostedNumberOrderPage
     ) => any
   ): Promise<DependentHostedNumberOrderPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {

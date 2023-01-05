@@ -76,7 +76,7 @@ export class ConfigurationContextImpl implements ConfigurationContext {
       | ((error: Error | null, item?: ConfigurationInstance) => any),
     callback?: (error: Error | null, item?: ConfigurationInstance) => any
   ): Promise<ConfigurationInstance> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {

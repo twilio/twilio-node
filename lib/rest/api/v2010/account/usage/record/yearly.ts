@@ -432,7 +432,7 @@ export function YearlyListInstance(
       | ((error: Error | null, items: YearlyPage) => any),
     callback?: (error: Error | null, items: YearlyPage) => any
   ): Promise<YearlyPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {

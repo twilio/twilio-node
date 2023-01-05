@@ -184,7 +184,7 @@ export class UserChannelContextImpl implements UserChannelContext {
       | ((error: Error | null, item?: boolean) => any),
     callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -247,7 +247,7 @@ export class UserChannelContextImpl implements UserChannelContext {
       | ((error: Error | null, item?: UserChannelInstance) => any),
     callback?: (error: Error | null, item?: UserChannelInstance) => any
   ): Promise<UserChannelInstance> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -630,7 +630,7 @@ export function UserChannelListInstance(
       | ((error: Error | null, items: UserChannelPage) => any),
     callback?: (error: Error | null, items: UserChannelPage) => any
   ): Promise<UserChannelPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {

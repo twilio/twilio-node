@@ -214,7 +214,7 @@ export class RateLimitContextImpl implements RateLimitContext {
       | ((error: Error | null, item?: RateLimitInstance) => any),
     callback?: (error: Error | null, item?: RateLimitInstance) => any
   ): Promise<RateLimitInstance> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -613,7 +613,7 @@ export function RateLimitListInstance(
       | ((error: Error | null, items: RateLimitPage) => any),
     callback?: (error: Error | null, items: RateLimitPage) => any
   ): Promise<RateLimitPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {

@@ -236,7 +236,7 @@ export class ConnectionPolicyTargetContextImpl
       item?: ConnectionPolicyTargetInstance
     ) => any
   ): Promise<ConnectionPolicyTargetInstance> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -686,7 +686,7 @@ export function ConnectionPolicyTargetListInstance(
       | ((error: Error | null, items: ConnectionPolicyTargetPage) => any),
     callback?: (error: Error | null, items: ConnectionPolicyTargetPage) => any
   ): Promise<ConnectionPolicyTargetPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {

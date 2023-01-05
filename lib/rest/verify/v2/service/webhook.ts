@@ -218,7 +218,7 @@ export class WebhookContextImpl implements WebhookContext {
       | ((error: Error | null, item?: WebhookInstance) => any),
     callback?: (error: Error | null, item?: WebhookInstance) => any
   ): Promise<WebhookInstance> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -646,7 +646,7 @@ export function WebhookListInstance(
       | ((error: Error | null, items: WebhookPage) => any),
     callback?: (error: Error | null, items: WebhookPage) => any
   ): Promise<WebhookPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {

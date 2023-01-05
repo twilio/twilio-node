@@ -268,7 +268,7 @@ export class TaskContextImpl implements TaskContext {
       | ((error: Error | null, item?: boolean) => any),
     callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -330,7 +330,7 @@ export class TaskContextImpl implements TaskContext {
       | ((error: Error | null, item?: TaskInstance) => any),
     callback?: (error: Error | null, item?: TaskInstance) => any
   ): Promise<TaskInstance> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -802,7 +802,7 @@ export function TaskListInstance(
       | ((error: Error | null, items: TaskInstance) => any),
     callback?: (error: Error | null, items: TaskInstance) => any
   ): Promise<TaskInstance> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -853,7 +853,7 @@ export function TaskListInstance(
       | ((error: Error | null, items: TaskPage) => any),
     callback?: (error: Error | null, items: TaskPage) => any
   ): Promise<TaskPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {

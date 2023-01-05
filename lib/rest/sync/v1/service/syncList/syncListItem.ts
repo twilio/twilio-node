@@ -218,7 +218,7 @@ export class SyncListItemContextImpl implements SyncListItemContext {
       | ((error: Error | null, item?: boolean) => any),
     callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -281,7 +281,7 @@ export class SyncListItemContextImpl implements SyncListItemContext {
       | ((error: Error | null, item?: SyncListItemInstance) => any),
     callback?: (error: Error | null, item?: SyncListItemInstance) => any
   ): Promise<SyncListItemInstance> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -722,7 +722,7 @@ export function SyncListItemListInstance(
       | ((error: Error | null, items: SyncListItemPage) => any),
     callback?: (error: Error | null, items: SyncListItemPage) => any
   ): Promise<SyncListItemPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {

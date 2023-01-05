@@ -117,7 +117,7 @@ export class StyleSheetContextImpl implements StyleSheetContext {
       | ((error: Error | null, item?: StyleSheetInstance) => any),
     callback?: (error: Error | null, item?: StyleSheetInstance) => any
   ): Promise<StyleSheetInstance> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {

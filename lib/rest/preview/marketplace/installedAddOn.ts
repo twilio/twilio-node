@@ -213,7 +213,7 @@ export class InstalledAddOnContextImpl implements InstalledAddOnContext {
       | ((error: Error | null, item?: InstalledAddOnInstance) => any),
     callback?: (error: Error | null, item?: InstalledAddOnInstance) => any
   ): Promise<InstalledAddOnInstance> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -629,7 +629,7 @@ export function InstalledAddOnListInstance(
       | ((error: Error | null, items: InstalledAddOnPage) => any),
     callback?: (error: Error | null, items: InstalledAddOnPage) => any
   ): Promise<InstalledAddOnPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {

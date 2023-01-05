@@ -221,7 +221,7 @@ export class SampleContextImpl implements SampleContext {
       | ((error: Error | null, item?: SampleInstance) => any),
     callback?: (error: Error | null, item?: SampleInstance) => any
   ): Promise<SampleInstance> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -636,7 +636,7 @@ export function SampleListInstance(
       | ((error: Error | null, items: SamplePage) => any),
     callback?: (error: Error | null, items: SamplePage) => any
   ): Promise<SamplePage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {

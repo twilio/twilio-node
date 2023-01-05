@@ -284,7 +284,7 @@ export class ServiceContextImpl implements ServiceContext {
       | ((error: Error | null, item?: ServiceInstance) => any),
     callback?: (error: Error | null, item?: ServiceInstance) => any
   ): Promise<ServiceInstance> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -870,7 +870,7 @@ export function ServiceListInstance(version: V2): ServiceListInstance {
       | ((error: Error | null, items: ServicePage) => any),
     callback?: (error: Error | null, items: ServicePage) => any
   ): Promise<ServicePage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {

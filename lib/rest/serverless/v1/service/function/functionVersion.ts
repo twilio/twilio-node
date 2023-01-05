@@ -427,7 +427,7 @@ export function FunctionVersionListInstance(
       | ((error: Error | null, items: FunctionVersionPage) => any),
     callback?: (error: Error | null, items: FunctionVersionPage) => any
   ): Promise<FunctionVersionPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {

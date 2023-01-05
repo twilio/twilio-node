@@ -158,7 +158,7 @@ export function TemplateListInstance(version: V2): TemplateListInstance {
       | ((error: Error | null, items: TemplatePage) => any),
     callback?: (error: Error | null, items: TemplatePage) => any
   ): Promise<TemplatePage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {

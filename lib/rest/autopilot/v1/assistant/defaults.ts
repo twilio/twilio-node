@@ -117,7 +117,7 @@ export class DefaultsContextImpl implements DefaultsContext {
       | ((error: Error | null, item?: DefaultsInstance) => any),
     callback?: (error: Error | null, item?: DefaultsInstance) => any
   ): Promise<DefaultsInstance> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {

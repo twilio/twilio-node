@@ -99,7 +99,7 @@ export class WorkflowStatisticsContextImpl
       | ((error: Error | null, item?: WorkflowStatisticsInstance) => any),
     callback?: (error: Error | null, item?: WorkflowStatisticsInstance) => any
   ): Promise<WorkflowStatisticsInstance> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {

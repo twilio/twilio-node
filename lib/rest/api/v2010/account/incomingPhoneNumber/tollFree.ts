@@ -354,7 +354,7 @@ export function TollFreeListInstance(
       | ((error: Error | null, items: TollFreePage) => any),
     callback?: (error: Error | null, items: TollFreePage) => any
   ): Promise<TollFreePage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {

@@ -516,7 +516,7 @@ export function InteractionChannelListInstance(
       | ((error: Error | null, items: InteractionChannelPage) => any),
     callback?: (error: Error | null, items: InteractionChannelPage) => any
   ): Promise<InteractionChannelPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {

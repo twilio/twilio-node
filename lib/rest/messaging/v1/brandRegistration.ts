@@ -613,7 +613,7 @@ export function BrandRegistrationListInstance(
       | ((error: Error | null, items: BrandRegistrationPage) => any),
     callback?: (error: Error | null, items: BrandRegistrationPage) => any
   ): Promise<BrandRegistrationPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {

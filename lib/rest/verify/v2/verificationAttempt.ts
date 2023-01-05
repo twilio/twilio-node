@@ -431,7 +431,7 @@ export function VerificationAttemptListInstance(
       | ((error: Error | null, items: VerificationAttemptPage) => any),
     callback?: (error: Error | null, items: VerificationAttemptPage) => any
   ): Promise<VerificationAttemptPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {

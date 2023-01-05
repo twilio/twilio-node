@@ -212,7 +212,7 @@ export class CertificateContextImpl implements CertificateContext {
       | ((error: Error | null, item?: CertificateInstance) => any),
     callback?: (error: Error | null, item?: CertificateInstance) => any
   ): Promise<CertificateInstance> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -613,7 +613,7 @@ export function CertificateListInstance(
       | ((error: Error | null, items: CertificatePage) => any),
     callback?: (error: Error | null, items: CertificatePage) => any
   ): Promise<CertificatePage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {

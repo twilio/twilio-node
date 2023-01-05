@@ -214,7 +214,7 @@ export class SyncStreamContextImpl implements SyncStreamContext {
       | ((error: Error | null, item?: SyncStreamInstance) => any),
     callback?: (error: Error | null, item?: SyncStreamInstance) => any
   ): Promise<SyncStreamInstance> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -584,7 +584,7 @@ export function SyncStreamListInstance(
       | ((error: Error | null, items: SyncStreamInstance) => any),
     callback?: (error: Error | null, items: SyncStreamInstance) => any
   ): Promise<SyncStreamInstance> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -630,7 +630,7 @@ export function SyncStreamListInstance(
       | ((error: Error | null, items: SyncStreamPage) => any),
     callback?: (error: Error | null, items: SyncStreamPage) => any
   ): Promise<SyncStreamPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {

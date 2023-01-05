@@ -545,7 +545,7 @@ export function RoleListInstance(version: V1): RoleListInstance {
       | ((error: Error | null, items: RolePage) => any),
     callback?: (error: Error | null, items: RolePage) => any
   ): Promise<RolePage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {

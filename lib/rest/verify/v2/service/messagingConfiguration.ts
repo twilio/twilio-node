@@ -615,7 +615,7 @@ export function MessagingConfigurationListInstance(
       | ((error: Error | null, items: MessagingConfigurationPage) => any),
     callback?: (error: Error | null, items: MessagingConfigurationPage) => any
   ): Promise<MessagingConfigurationPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {

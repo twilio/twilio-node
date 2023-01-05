@@ -222,7 +222,7 @@ export class ByocTrunkContextImpl implements ByocTrunkContext {
       | ((error: Error | null, item?: ByocTrunkInstance) => any),
     callback?: (error: Error | null, item?: ByocTrunkInstance) => any
   ): Promise<ByocTrunkInstance> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -641,7 +641,7 @@ export function ByocTrunkListInstance(version: V1): ByocTrunkListInstance {
       | ((error: Error | null, items: ByocTrunkInstance) => any),
     callback?: (error: Error | null, items: ByocTrunkInstance) => any
   ): Promise<ByocTrunkInstance> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -698,7 +698,7 @@ export function ByocTrunkListInstance(version: V1): ByocTrunkListInstance {
       | ((error: Error | null, items: ByocTrunkPage) => any),
     callback?: (error: Error | null, items: ByocTrunkPage) => any
   ): Promise<ByocTrunkPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {

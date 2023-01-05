@@ -91,7 +91,7 @@ export class WorkerStatisticsContextImpl implements WorkerStatisticsContext {
       | ((error: Error | null, item?: WorkerStatisticsInstance) => any),
     callback?: (error: Error | null, item?: WorkerStatisticsInstance) => any
   ): Promise<WorkerStatisticsInstance> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {

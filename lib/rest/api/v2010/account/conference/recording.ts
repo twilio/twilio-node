@@ -611,7 +611,7 @@ export function RecordingListInstance(
       | ((error: Error | null, items: RecordingPage) => any),
     callback?: (error: Error | null, items: RecordingPage) => any
   ): Promise<RecordingPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {

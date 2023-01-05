@@ -412,7 +412,7 @@ export function AuthorizedConnectAppListInstance(
       | ((error: Error | null, items: AuthorizedConnectAppPage) => any),
     callback?: (error: Error | null, items: AuthorizedConnectAppPage) => any
   ): Promise<AuthorizedConnectAppPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {

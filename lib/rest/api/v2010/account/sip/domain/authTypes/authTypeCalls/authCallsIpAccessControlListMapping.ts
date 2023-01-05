@@ -529,7 +529,7 @@ export function AuthCallsIpAccessControlListMappingListInstance(
       items: AuthCallsIpAccessControlListMappingPage
     ) => any
   ): Promise<AuthCallsIpAccessControlListMappingPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {

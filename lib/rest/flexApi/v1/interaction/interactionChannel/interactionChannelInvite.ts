@@ -252,7 +252,7 @@ export function InteractionChannelInviteListInstance(
       | ((error: Error | null, items: InteractionChannelInvitePage) => any),
     callback?: (error: Error | null, items: InteractionChannelInvitePage) => any
   ): Promise<InteractionChannelInvitePage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {

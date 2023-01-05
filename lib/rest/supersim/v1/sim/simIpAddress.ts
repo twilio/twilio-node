@@ -163,7 +163,7 @@ export function SimIpAddressListInstance(
       | ((error: Error | null, items: SimIpAddressPage) => any),
     callback?: (error: Error | null, items: SimIpAddressPage) => any
   ): Promise<SimIpAddressPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {

@@ -209,7 +209,7 @@ export class ModelBuildContextImpl implements ModelBuildContext {
       | ((error: Error | null, item?: ModelBuildInstance) => any),
     callback?: (error: Error | null, item?: ModelBuildInstance) => any
   ): Promise<ModelBuildInstance> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -564,7 +564,7 @@ export function ModelBuildListInstance(
       | ((error: Error | null, items: ModelBuildInstance) => any),
     callback?: (error: Error | null, items: ModelBuildInstance) => any
   ): Promise<ModelBuildInstance> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -611,7 +611,7 @@ export function ModelBuildListInstance(
       | ((error: Error | null, items: ModelBuildPage) => any),
     callback?: (error: Error | null, items: ModelBuildPage) => any
   ): Promise<ModelBuildPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {

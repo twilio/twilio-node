@@ -590,7 +590,7 @@ export function CredentialListListInstance(
       | ((error: Error | null, items: CredentialListPage) => any),
     callback?: (error: Error | null, items: CredentialListPage) => any
   ): Promise<CredentialListPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {

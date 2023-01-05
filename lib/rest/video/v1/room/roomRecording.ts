@@ -497,7 +497,7 @@ export function RoomRecordingListInstance(
       | ((error: Error | null, items: RoomRecordingPage) => any),
     callback?: (error: Error | null, items: RoomRecordingPage) => any
   ): Promise<RoomRecordingPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {

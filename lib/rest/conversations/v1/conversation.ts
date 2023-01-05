@@ -237,7 +237,7 @@ export class ConversationContextImpl implements ConversationContext {
       | ((error: Error | null, item?: boolean) => any),
     callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -298,7 +298,7 @@ export class ConversationContextImpl implements ConversationContext {
       | ((error: Error | null, item?: ConversationInstance) => any),
     callback?: (error: Error | null, item?: ConversationInstance) => any
   ): Promise<ConversationInstance> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -726,7 +726,7 @@ export function ConversationListInstance(
       | ((error: Error | null, items: ConversationInstance) => any),
     callback?: (error: Error | null, items: ConversationInstance) => any
   ): Promise<ConversationInstance> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -783,7 +783,7 @@ export function ConversationListInstance(
       | ((error: Error | null, items: ConversationPage) => any),
     callback?: (error: Error | null, items: ConversationPage) => any
   ): Promise<ConversationPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {

@@ -202,7 +202,7 @@ export class TaskChannelContextImpl implements TaskChannelContext {
       | ((error: Error | null, item?: TaskChannelInstance) => any),
     callback?: (error: Error | null, item?: TaskChannelInstance) => any
   ): Promise<TaskChannelInstance> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -616,7 +616,7 @@ export function TaskChannelListInstance(
       | ((error: Error | null, items: TaskChannelPage) => any),
     callback?: (error: Error | null, items: TaskChannelPage) => any
   ): Promise<TaskChannelPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {

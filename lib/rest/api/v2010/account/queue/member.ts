@@ -463,7 +463,7 @@ export function MemberListInstance(
       | ((error: Error | null, items: MemberPage) => any),
     callback?: (error: Error | null, items: MemberPage) => any
   ): Promise<MemberPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {

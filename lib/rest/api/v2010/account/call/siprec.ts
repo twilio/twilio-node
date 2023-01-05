@@ -745,7 +745,7 @@ export function SiprecListInstance(
       | ((error: Error | null, items: SiprecInstance) => any),
     callback?: (error: Error | null, items: SiprecInstance) => any
   ): Promise<SiprecInstance> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {

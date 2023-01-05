@@ -549,7 +549,7 @@ export function TrustProductsChannelEndpointAssignmentListInstance(
       items: TrustProductsChannelEndpointAssignmentPage
     ) => any
   ): Promise<TrustProductsChannelEndpointAssignmentPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {

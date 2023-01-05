@@ -550,7 +550,7 @@ export function SyncMapPermissionListInstance(
       | ((error: Error | null, items: SyncMapPermissionPage) => any),
     callback?: (error: Error | null, items: SyncMapPermissionPage) => any
   ): Promise<SyncMapPermissionPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {

@@ -85,7 +85,7 @@ export function NewKeyListInstance(
       | ((error: Error | null, items: NewKeyInstance) => any),
     callback?: (error: Error | null, items: NewKeyInstance) => any
   ): Promise<NewKeyInstance> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {

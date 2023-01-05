@@ -119,7 +119,7 @@ export class SipDomainContextImpl implements SipDomainContext {
       | ((error: Error | null, item?: SipDomainInstance) => any),
     callback?: (error: Error | null, item?: SipDomainInstance) => any
   ): Promise<SipDomainInstance> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {

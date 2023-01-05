@@ -235,7 +235,7 @@ export class AuthorizationDocumentContextImpl
       item?: AuthorizationDocumentInstance
     ) => any
   ): Promise<AuthorizationDocumentInstance> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -678,7 +678,7 @@ export function AuthorizationDocumentListInstance(
       | ((error: Error | null, items: AuthorizationDocumentPage) => any),
     callback?: (error: Error | null, items: AuthorizationDocumentPage) => any
   ): Promise<AuthorizationDocumentPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {

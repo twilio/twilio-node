@@ -712,7 +712,7 @@ export function CompositionHookListInstance(
       | ((error: Error | null, items: CompositionHookPage) => any),
     callback?: (error: Error | null, items: CompositionHookPage) => any
   ): Promise<CompositionHookPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {

@@ -271,7 +271,7 @@ export class CustomerProfilesContextImpl implements CustomerProfilesContext {
       | ((error: Error | null, item?: CustomerProfilesInstance) => any),
     callback?: (error: Error | null, item?: CustomerProfilesInstance) => any
   ): Promise<CustomerProfilesInstance> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -709,7 +709,7 @@ export function CustomerProfilesListInstance(
       | ((error: Error | null, items: CustomerProfilesPage) => any),
     callback?: (error: Error | null, items: CustomerProfilesPage) => any
   ): Promise<CustomerProfilesPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {

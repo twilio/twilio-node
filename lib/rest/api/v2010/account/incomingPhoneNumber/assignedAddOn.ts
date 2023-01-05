@@ -547,7 +547,7 @@ export function AssignedAddOnListInstance(
       | ((error: Error | null, items: AssignedAddOnPage) => any),
     callback?: (error: Error | null, items: AssignedAddOnPage) => any
   ): Promise<AssignedAddOnPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {

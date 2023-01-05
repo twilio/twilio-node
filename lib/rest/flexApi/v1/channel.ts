@@ -494,7 +494,7 @@ export function ChannelListInstance(version: V1): ChannelListInstance {
       | ((error: Error | null, items: ChannelPage) => any),
     callback?: (error: Error | null, items: ChannelPage) => any
   ): Promise<ChannelPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {

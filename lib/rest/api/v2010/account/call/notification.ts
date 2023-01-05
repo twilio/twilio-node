@@ -481,7 +481,7 @@ export function NotificationListInstance(
       | ((error: Error | null, items: NotificationPage) => any),
     callback?: (error: Error | null, items: NotificationPage) => any
   ): Promise<NotificationPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {

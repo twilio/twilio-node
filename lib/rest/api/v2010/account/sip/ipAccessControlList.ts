@@ -599,7 +599,7 @@ export function IpAccessControlListListInstance(
       | ((error: Error | null, items: IpAccessControlListPage) => any),
     callback?: (error: Error | null, items: IpAccessControlListPage) => any
   ): Promise<IpAccessControlListPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {

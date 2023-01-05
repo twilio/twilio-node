@@ -92,7 +92,7 @@ export function TokenListInstance(
       | ((error: Error | null, items: TokenInstance) => any),
     callback?: (error: Error | null, items: TokenInstance) => any
   ): Promise<TokenInstance> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {

@@ -350,7 +350,7 @@ export function DayListInstance(
       | ((error: Error | null, items: DayPage) => any),
     callback?: (error: Error | null, items: DayPage) => any
   ): Promise<DayPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {

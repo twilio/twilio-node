@@ -460,7 +460,7 @@ export function TrustProductsEvaluationsListInstance(
       | ((error: Error | null, items: TrustProductsEvaluationsPage) => any),
     callback?: (error: Error | null, items: TrustProductsEvaluationsPage) => any
   ): Promise<TrustProductsEvaluationsPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {

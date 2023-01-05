@@ -109,7 +109,7 @@ export class SettingContextImpl implements SettingContext {
       | ((error: Error | null, item?: SettingInstance) => any),
     callback?: (error: Error | null, item?: SettingInstance) => any
   ): Promise<SettingInstance> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -149,7 +149,7 @@ export class SettingContextImpl implements SettingContext {
       | ((error: Error | null, item?: SettingInstance) => any),
     callback?: (error: Error | null, item?: SettingInstance) => any
   ): Promise<SettingInstance> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {

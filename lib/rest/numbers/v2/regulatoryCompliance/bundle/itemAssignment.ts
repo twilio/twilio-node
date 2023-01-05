@@ -466,7 +466,7 @@ export function ItemAssignmentListInstance(
       | ((error: Error | null, items: ItemAssignmentPage) => any),
     callback?: (error: Error | null, items: ItemAssignmentPage) => any
   ): Promise<ItemAssignmentPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {

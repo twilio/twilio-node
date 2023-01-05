@@ -640,7 +640,7 @@ export function ExecutionListInstance(
       | ((error: Error | null, items: ExecutionPage) => any),
     callback?: (error: Error | null, items: ExecutionPage) => any
   ): Promise<ExecutionPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {

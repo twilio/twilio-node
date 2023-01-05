@@ -243,7 +243,7 @@ export class AddressConfigurationContextImpl
       | ((error: Error | null, item?: AddressConfigurationInstance) => any),
     callback?: (error: Error | null, item?: AddressConfigurationInstance) => any
   ): Promise<AddressConfigurationInstance> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -682,7 +682,7 @@ export function AddressConfigurationListInstance(
       | ((error: Error | null, items: AddressConfigurationPage) => any),
     callback?: (error: Error | null, items: AddressConfigurationPage) => any
   ): Promise<AddressConfigurationPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {

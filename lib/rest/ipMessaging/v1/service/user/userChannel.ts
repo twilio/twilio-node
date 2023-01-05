@@ -169,7 +169,7 @@ export function UserChannelListInstance(
       | ((error: Error | null, items: UserChannelPage) => any),
     callback?: (error: Error | null, items: UserChannelPage) => any
   ): Promise<UserChannelPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {

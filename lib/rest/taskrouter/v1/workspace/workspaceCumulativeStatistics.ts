@@ -102,7 +102,7 @@ export class WorkspaceCumulativeStatisticsContextImpl
       item?: WorkspaceCumulativeStatisticsInstance
     ) => any
   ): Promise<WorkspaceCumulativeStatisticsInstance> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {

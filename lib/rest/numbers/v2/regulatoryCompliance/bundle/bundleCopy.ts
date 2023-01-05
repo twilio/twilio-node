@@ -199,7 +199,7 @@ export function BundleCopyListInstance(
       | ((error: Error | null, items: BundleCopyInstance) => any),
     callback?: (error: Error | null, items: BundleCopyInstance) => any
   ): Promise<BundleCopyInstance> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -244,7 +244,7 @@ export function BundleCopyListInstance(
       | ((error: Error | null, items: BundleCopyPage) => any),
     callback?: (error: Error | null, items: BundleCopyPage) => any
   ): Promise<BundleCopyPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {

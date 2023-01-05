@@ -264,7 +264,7 @@ export class AddressContextImpl implements AddressContext {
       | ((error: Error | null, item?: AddressInstance) => any),
     callback?: (error: Error | null, item?: AddressInstance) => any
   ): Promise<AddressInstance> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -764,7 +764,7 @@ export function AddressListInstance(
       | ((error: Error | null, items: AddressPage) => any),
     callback?: (error: Error | null, items: AddressPage) => any
   ): Promise<AddressPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {

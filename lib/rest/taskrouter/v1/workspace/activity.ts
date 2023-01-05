@@ -210,7 +210,7 @@ export class ActivityContextImpl implements ActivityContext {
       | ((error: Error | null, item?: ActivityInstance) => any),
     callback?: (error: Error | null, item?: ActivityInstance) => any
   ): Promise<ActivityInstance> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -602,7 +602,7 @@ export function ActivityListInstance(
       | ((error: Error | null, items: ActivityPage) => any),
     callback?: (error: Error | null, items: ActivityPage) => any
   ): Promise<ActivityPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {

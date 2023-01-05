@@ -90,7 +90,7 @@ export class WorkspaceStatisticsContextImpl
       | ((error: Error | null, item?: WorkspaceStatisticsInstance) => any),
     callback?: (error: Error | null, item?: WorkspaceStatisticsInstance) => any
   ): Promise<WorkspaceStatisticsInstance> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {

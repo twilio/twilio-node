@@ -775,7 +775,7 @@ export function TollfreeVerificationListInstance(
       | ((error: Error | null, items: TollfreeVerificationPage) => any),
     callback?: (error: Error | null, items: TollfreeVerificationPage) => any
   ): Promise<TollfreeVerificationPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {

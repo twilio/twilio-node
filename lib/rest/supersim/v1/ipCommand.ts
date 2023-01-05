@@ -485,7 +485,7 @@ export function IpCommandListInstance(version: V1): IpCommandListInstance {
       | ((error: Error | null, items: IpCommandPage) => any),
     callback?: (error: Error | null, items: IpCommandPage) => any
   ): Promise<IpCommandPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {

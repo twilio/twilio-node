@@ -181,7 +181,7 @@ export function SettingsUpdateListInstance(
       | ((error: Error | null, items: SettingsUpdatePage) => any),
     callback?: (error: Error | null, items: SettingsUpdatePage) => any
   ): Promise<SettingsUpdatePage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {

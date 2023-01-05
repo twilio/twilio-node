@@ -432,7 +432,7 @@ export function LastMonthListInstance(
       | ((error: Error | null, items: LastMonthPage) => any),
     callback?: (error: Error | null, items: LastMonthPage) => any
   ): Promise<LastMonthPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {

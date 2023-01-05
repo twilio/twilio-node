@@ -288,7 +288,7 @@ export class DomainContextImpl implements DomainContext {
       | ((error: Error | null, item?: DomainInstance) => any),
     callback?: (error: Error | null, item?: DomainInstance) => any
   ): Promise<DomainInstance> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -855,7 +855,7 @@ export function DomainListInstance(
       | ((error: Error | null, items: DomainPage) => any),
     callback?: (error: Error | null, items: DomainPage) => any
   ): Promise<DomainPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {

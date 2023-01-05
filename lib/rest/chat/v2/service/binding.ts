@@ -447,7 +447,7 @@ export function BindingListInstance(
       | ((error: Error | null, items: BindingPage) => any),
     callback?: (error: Error | null, items: BindingPage) => any
   ): Promise<BindingPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {

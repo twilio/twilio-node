@@ -218,7 +218,7 @@ export class MessageContextImpl implements MessageContext {
       | ((error: Error | null, item?: boolean) => any),
     callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -281,7 +281,7 @@ export class MessageContextImpl implements MessageContext {
       | ((error: Error | null, item?: MessageInstance) => any),
     callback?: (error: Error | null, item?: MessageInstance) => any
   ): Promise<MessageInstance> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -723,7 +723,7 @@ export function MessageListInstance(
       | ((error: Error | null, items: MessageInstance) => any),
     callback?: (error: Error | null, items: MessageInstance) => any
   ): Promise<MessageInstance> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -780,7 +780,7 @@ export function MessageListInstance(
       | ((error: Error | null, items: MessagePage) => any),
     callback?: (error: Error | null, items: MessagePage) => any
   ): Promise<MessagePage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {

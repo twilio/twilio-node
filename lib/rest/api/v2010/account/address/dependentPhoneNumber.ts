@@ -190,7 +190,7 @@ export function DependentPhoneNumberListInstance(
       | ((error: Error | null, items: DependentPhoneNumberPage) => any),
     callback?: (error: Error | null, items: DependentPhoneNumberPage) => any
   ): Promise<DependentPhoneNumberPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {

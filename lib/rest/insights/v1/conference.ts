@@ -554,7 +554,7 @@ export function ConferenceListInstance(version: V1): ConferenceListInstance {
       | ((error: Error | null, items: ConferencePage) => any),
     callback?: (error: Error | null, items: ConferencePage) => any
   ): Promise<ConferencePage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {

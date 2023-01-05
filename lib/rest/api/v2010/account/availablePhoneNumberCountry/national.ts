@@ -276,7 +276,7 @@ export function NationalListInstance(
       | ((error: Error | null, items: NationalPage) => any),
     callback?: (error: Error | null, items: NationalPage) => any
   ): Promise<NationalPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {

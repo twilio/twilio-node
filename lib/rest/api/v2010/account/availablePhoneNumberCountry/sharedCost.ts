@@ -276,7 +276,7 @@ export function SharedCostListInstance(
       | ((error: Error | null, items: SharedCostPage) => any),
     callback?: (error: Error | null, items: SharedCostPage) => any
   ): Promise<SharedCostPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {

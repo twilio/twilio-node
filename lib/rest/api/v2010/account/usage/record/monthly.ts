@@ -432,7 +432,7 @@ export function MonthlyListInstance(
       | ((error: Error | null, items: MonthlyPage) => any),
     callback?: (error: Error | null, items: MonthlyPage) => any
   ): Promise<MonthlyPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {

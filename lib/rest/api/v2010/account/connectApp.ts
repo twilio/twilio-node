@@ -204,7 +204,7 @@ export class ConnectAppContextImpl implements ConnectAppContext {
       | ((error: Error | null, item?: ConnectAppInstance) => any),
     callback?: (error: Error | null, item?: ConnectAppInstance) => any
   ): Promise<ConnectAppInstance> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -577,7 +577,7 @@ export function ConnectAppListInstance(
       | ((error: Error | null, items: ConnectAppPage) => any),
     callback?: (error: Error | null, items: ConnectAppPage) => any
   ): Promise<ConnectAppPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {

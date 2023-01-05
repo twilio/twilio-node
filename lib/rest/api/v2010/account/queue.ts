@@ -216,7 +216,7 @@ export class QueueContextImpl implements QueueContext {
       | ((error: Error | null, item?: QueueInstance) => any),
     callback?: (error: Error | null, item?: QueueInstance) => any
   ): Promise<QueueInstance> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -618,7 +618,7 @@ export function QueueListInstance(
       | ((error: Error | null, items: QueuePage) => any),
     callback?: (error: Error | null, items: QueuePage) => any
   ): Promise<QueuePage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {

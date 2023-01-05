@@ -276,7 +276,7 @@ export class SimContextImpl implements SimContext {
       | ((error: Error | null, item?: SimInstance) => any),
     callback?: (error: Error | null, item?: SimInstance) => any
   ): Promise<SimInstance> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -759,7 +759,7 @@ export function SimListInstance(version: V1): SimListInstance {
       | ((error: Error | null, items: SimPage) => any),
     callback?: (error: Error | null, items: SimPage) => any
   ): Promise<SimPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {

@@ -97,7 +97,7 @@ export function NotificationListInstance(
       | ((error: Error | null, items: NotificationInstance) => any),
     callback?: (error: Error | null, items: NotificationInstance) => any
   ): Promise<NotificationInstance> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {

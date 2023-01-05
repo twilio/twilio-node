@@ -446,7 +446,7 @@ export function AssignedAddOnExtensionListInstance(
       | ((error: Error | null, items: AssignedAddOnExtensionPage) => any),
     callback?: (error: Error | null, items: AssignedAddOnExtensionPage) => any
   ): Promise<AssignedAddOnExtensionPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {

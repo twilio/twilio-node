@@ -435,7 +435,7 @@ export function CommandListInstance(version: Wireless): CommandListInstance {
       | ((error: Error | null, items: CommandPage) => any),
     callback?: (error: Error | null, items: CommandPage) => any
   ): Promise<CommandPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {

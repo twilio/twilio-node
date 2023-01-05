@@ -141,7 +141,7 @@ export class NotificationContextImpl implements NotificationContext {
       | ((error: Error | null, item?: NotificationInstance) => any),
     callback?: (error: Error | null, item?: NotificationInstance) => any
   ): Promise<NotificationInstance> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {

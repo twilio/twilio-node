@@ -425,7 +425,7 @@ export function DeliveryReceiptListInstance(
       | ((error: Error | null, items: DeliveryReceiptPage) => any),
     callback?: (error: Error | null, items: DeliveryReceiptPage) => any
   ): Promise<DeliveryReceiptPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {

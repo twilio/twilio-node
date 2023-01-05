@@ -128,7 +128,7 @@ export class RecordingContextImpl implements RecordingContext {
       | ((error: Error | null, item?: RecordingInstance) => any),
     callback?: (error: Error | null, item?: RecordingInstance) => any
   ): Promise<RecordingInstance> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {

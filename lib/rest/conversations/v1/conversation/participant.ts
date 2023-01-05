@@ -208,7 +208,7 @@ export class ParticipantContextImpl implements ParticipantContext {
       | ((error: Error | null, item?: boolean) => any),
     callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -270,7 +270,7 @@ export class ParticipantContextImpl implements ParticipantContext {
       | ((error: Error | null, item?: ParticipantInstance) => any),
     callback?: (error: Error | null, item?: ParticipantInstance) => any
   ): Promise<ParticipantInstance> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -685,7 +685,7 @@ export function ParticipantListInstance(
       | ((error: Error | null, items: ParticipantInstance) => any),
     callback?: (error: Error | null, items: ParticipantInstance) => any
   ): Promise<ParticipantInstance> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -746,7 +746,7 @@ export function ParticipantListInstance(
       | ((error: Error | null, items: ParticipantPage) => any),
     callback?: (error: Error | null, items: ParticipantPage) => any
   ): Promise<ParticipantPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {

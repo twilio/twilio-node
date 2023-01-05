@@ -552,7 +552,7 @@ export function DocumentPermissionListInstance(
       | ((error: Error | null, items: DocumentPermissionPage) => any),
     callback?: (error: Error | null, items: DocumentPermissionPage) => any
   ): Promise<DocumentPermissionPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {

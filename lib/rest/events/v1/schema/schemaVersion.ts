@@ -350,7 +350,7 @@ export function SchemaVersionListInstance(
       | ((error: Error | null, items: SchemaVersionPage) => any),
     callback?: (error: Error | null, items: SchemaVersionPage) => any
   ): Promise<SchemaVersionPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {

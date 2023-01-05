@@ -549,7 +549,7 @@ export function CustomerProfilesChannelEndpointAssignmentListInstance(
       items: CustomerProfilesChannelEndpointAssignmentPage
     ) => any
   ): Promise<CustomerProfilesChannelEndpointAssignmentPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {

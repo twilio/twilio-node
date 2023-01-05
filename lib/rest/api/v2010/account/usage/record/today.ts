@@ -432,7 +432,7 @@ export function TodayListInstance(
       | ((error: Error | null, items: TodayPage) => any),
     callback?: (error: Error | null, items: TodayPage) => any
   ): Promise<TodayPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {

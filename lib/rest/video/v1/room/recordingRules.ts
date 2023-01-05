@@ -129,7 +129,7 @@ export function RecordingRulesListInstance(
       | ((error: Error | null, items: RecordingRulesInstance) => any),
     callback?: (error: Error | null, items: RecordingRulesInstance) => any
   ): Promise<RecordingRulesInstance> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {

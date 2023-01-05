@@ -190,7 +190,7 @@ export function ParticipantConversationListInstance(
       | ((error: Error | null, items: ParticipantConversationPage) => any),
     callback?: (error: Error | null, items: ParticipantConversationPage) => any
   ): Promise<ParticipantConversationPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {

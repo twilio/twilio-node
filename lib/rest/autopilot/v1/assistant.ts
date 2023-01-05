@@ -290,7 +290,7 @@ export class AssistantContextImpl implements AssistantContext {
       | ((error: Error | null, item?: AssistantInstance) => any),
     callback?: (error: Error | null, item?: AssistantInstance) => any
   ): Promise<AssistantInstance> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -733,7 +733,7 @@ export function AssistantListInstance(version: V1): AssistantListInstance {
       | ((error: Error | null, items: AssistantInstance) => any),
     callback?: (error: Error | null, items: AssistantInstance) => any
   ): Promise<AssistantInstance> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -785,7 +785,7 @@ export function AssistantListInstance(version: V1): AssistantListInstance {
       | ((error: Error | null, items: AssistantPage) => any),
     callback?: (error: Error | null, items: AssistantPage) => any
   ): Promise<AssistantPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {

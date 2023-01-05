@@ -287,7 +287,7 @@ export class TaskQueueContextImpl implements TaskQueueContext {
       | ((error: Error | null, item?: TaskQueueInstance) => any),
     callback?: (error: Error | null, item?: TaskQueueInstance) => any
   ): Promise<TaskQueueInstance> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -775,7 +775,7 @@ export function TaskQueueListInstance(
       | ((error: Error | null, items: TaskQueuePage) => any),
     callback?: (error: Error | null, items: TaskQueuePage) => any
   ): Promise<TaskQueuePage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {

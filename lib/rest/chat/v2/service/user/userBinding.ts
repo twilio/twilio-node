@@ -460,7 +460,7 @@ export function UserBindingListInstance(
       | ((error: Error | null, items: UserBindingPage) => any),
     callback?: (error: Error | null, items: UserBindingPage) => any
   ): Promise<UserBindingPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {

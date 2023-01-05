@@ -111,7 +111,7 @@ export class TaskQueueCumulativeStatisticsContextImpl
       item?: TaskQueueCumulativeStatisticsInstance
     ) => any
   ): Promise<TaskQueueCumulativeStatisticsInstance> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {

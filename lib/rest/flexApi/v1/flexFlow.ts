@@ -266,7 +266,7 @@ export class FlexFlowContextImpl implements FlexFlowContext {
       | ((error: Error | null, item?: FlexFlowInstance) => any),
     callback?: (error: Error | null, item?: FlexFlowInstance) => any
   ): Promise<FlexFlowInstance> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -741,7 +741,7 @@ export function FlexFlowListInstance(version: V1): FlexFlowListInstance {
       | ((error: Error | null, items: FlexFlowPage) => any),
     callback?: (error: Error | null, items: FlexFlowPage) => any
   ): Promise<FlexFlowPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {

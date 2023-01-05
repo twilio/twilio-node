@@ -561,7 +561,7 @@ export function EnvironmentListInstance(
       | ((error: Error | null, items: EnvironmentPage) => any),
     callback?: (error: Error | null, items: EnvironmentPage) => any
   ): Promise<EnvironmentPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {

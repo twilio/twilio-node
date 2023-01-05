@@ -544,7 +544,7 @@ export function SourceIpMappingListInstance(
       | ((error: Error | null, items: SourceIpMappingPage) => any),
     callback?: (error: Error | null, items: SourceIpMappingPage) => any
   ): Promise<SourceIpMappingPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {

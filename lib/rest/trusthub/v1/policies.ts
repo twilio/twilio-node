@@ -311,7 +311,7 @@ export function PoliciesListInstance(version: V1): PoliciesListInstance {
       | ((error: Error | null, items: PoliciesPage) => any),
     callback?: (error: Error | null, items: PoliciesPage) => any
   ): Promise<PoliciesPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {

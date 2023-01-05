@@ -326,7 +326,7 @@ export function EndUserTypeListInstance(version: V2): EndUserTypeListInstance {
       | ((error: Error | null, items: EndUserTypePage) => any),
     callback?: (error: Error | null, items: EndUserTypePage) => any
   ): Promise<EndUserTypePage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {

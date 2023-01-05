@@ -214,7 +214,7 @@ export class SubscriptionContextImpl implements SubscriptionContext {
       | ((error: Error | null, item?: SubscriptionInstance) => any),
     callback?: (error: Error | null, item?: SubscriptionInstance) => any
   ): Promise<SubscriptionInstance> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -601,7 +601,7 @@ export function SubscriptionListInstance(
       | ((error: Error | null, items: SubscriptionPage) => any),
     callback?: (error: Error | null, items: SubscriptionPage) => any
   ): Promise<SubscriptionPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {

@@ -194,7 +194,7 @@ export class ConferenceParticipantContextImpl
       item?: ConferenceParticipantInstance
     ) => any
   ): Promise<ConferenceParticipantInstance> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -639,7 +639,7 @@ export function ConferenceParticipantListInstance(
       | ((error: Error | null, items: ConferenceParticipantPage) => any),
     callback?: (error: Error | null, items: ConferenceParticipantPage) => any
   ): Promise<ConferenceParticipantPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {

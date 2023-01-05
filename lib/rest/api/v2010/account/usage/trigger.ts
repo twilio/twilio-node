@@ -481,7 +481,7 @@ export class TriggerContextImpl implements TriggerContext {
       | ((error: Error | null, item?: TriggerInstance) => any),
     callback?: (error: Error | null, item?: TriggerInstance) => any
   ): Promise<TriggerInstance> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -951,7 +951,7 @@ export function TriggerListInstance(
       | ((error: Error | null, items: TriggerPage) => any),
     callback?: (error: Error | null, items: TriggerPage) => any
   ): Promise<TriggerPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {

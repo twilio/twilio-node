@@ -216,7 +216,7 @@ export class CredentialContextImpl implements CredentialContext {
       | ((error: Error | null, item?: CredentialInstance) => any),
     callback?: (error: Error | null, item?: CredentialInstance) => any
   ): Promise<CredentialInstance> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -595,7 +595,7 @@ export function CredentialListInstance(version: V1): CredentialListInstance {
       | ((error: Error | null, items: CredentialPage) => any),
     callback?: (error: Error | null, items: CredentialPage) => any
   ): Promise<CredentialPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {

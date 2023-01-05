@@ -372,7 +372,7 @@ export function AppListInstance(version: V1): AppListInstance {
       | ((error: Error | null, items: AppPage) => any),
     callback?: (error: Error | null, items: AppPage) => any
   ): Promise<AppPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {

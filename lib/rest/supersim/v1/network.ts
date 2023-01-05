@@ -336,7 +336,7 @@ export function NetworkListInstance(version: V1): NetworkListInstance {
       | ((error: Error | null, items: NetworkPage) => any),
     callback?: (error: Error | null, items: NetworkPage) => any
   ): Promise<NetworkPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {

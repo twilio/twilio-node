@@ -333,7 +333,7 @@ export function CountryListInstance(version: V1): CountryListInstance {
       | ((error: Error | null, items: CountryPage) => any),
     callback?: (error: Error | null, items: CountryPage) => any
   ): Promise<CountryPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {

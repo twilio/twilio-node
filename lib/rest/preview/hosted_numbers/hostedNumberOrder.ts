@@ -287,7 +287,7 @@ export class HostedNumberOrderContextImpl implements HostedNumberOrderContext {
       | ((error: Error | null, item?: HostedNumberOrderInstance) => any),
     callback?: (error: Error | null, item?: HostedNumberOrderInstance) => any
   ): Promise<HostedNumberOrderInstance> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -812,7 +812,7 @@ export function HostedNumberOrderListInstance(
       | ((error: Error | null, items: HostedNumberOrderPage) => any),
     callback?: (error: Error | null, items: HostedNumberOrderPage) => any
   ): Promise<HostedNumberOrderPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {

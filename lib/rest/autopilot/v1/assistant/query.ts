@@ -228,7 +228,7 @@ export class QueryContextImpl implements QueryContext {
       | ((error: Error | null, item?: QueryInstance) => any),
     callback?: (error: Error | null, item?: QueryInstance) => any
   ): Promise<QueryInstance> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -663,7 +663,7 @@ export function QueryListInstance(
       | ((error: Error | null, items: QueryPage) => any),
     callback?: (error: Error | null, items: QueryPage) => any
   ): Promise<QueryPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {

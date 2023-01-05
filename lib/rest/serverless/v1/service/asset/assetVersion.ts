@@ -385,7 +385,7 @@ export function AssetVersionListInstance(
       | ((error: Error | null, items: AssetVersionPage) => any),
     callback?: (error: Error | null, items: AssetVersionPage) => any
   ): Promise<AssetVersionPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {

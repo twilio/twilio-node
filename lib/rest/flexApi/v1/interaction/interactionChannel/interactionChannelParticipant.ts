@@ -541,7 +541,7 @@ export function InteractionChannelParticipantListInstance(
       items: InteractionChannelParticipantPage
     ) => any
   ): Promise<InteractionChannelParticipantPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {

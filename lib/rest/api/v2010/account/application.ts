@@ -258,7 +258,7 @@ export class ApplicationContextImpl implements ApplicationContext {
       | ((error: Error | null, item?: ApplicationInstance) => any),
     callback?: (error: Error | null, item?: ApplicationInstance) => any
   ): Promise<ApplicationInstance> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -756,7 +756,7 @@ export function ApplicationListInstance(
       | ((error: Error | null, items: ApplicationInstance) => any),
     callback?: (error: Error | null, items: ApplicationInstance) => any
   ): Promise<ApplicationInstance> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -829,7 +829,7 @@ export function ApplicationListInstance(
       | ((error: Error | null, items: ApplicationPage) => any),
     callback?: (error: Error | null, items: ApplicationPage) => any
   ): Promise<ApplicationPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {

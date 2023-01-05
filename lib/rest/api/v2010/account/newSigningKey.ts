@@ -85,7 +85,7 @@ export function NewSigningKeyListInstance(
       | ((error: Error | null, items: NewSigningKeyInstance) => any),
     callback?: (error: Error | null, items: NewSigningKeyInstance) => any
   ): Promise<NewSigningKeyInstance> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {

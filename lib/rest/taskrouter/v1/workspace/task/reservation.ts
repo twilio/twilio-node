@@ -316,7 +316,7 @@ export class ReservationContextImpl implements ReservationContext {
       | ((error: Error | null, item?: ReservationInstance) => any),
     callback?: (error: Error | null, item?: ReservationInstance) => any
   ): Promise<ReservationInstance> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -775,7 +775,7 @@ export function ReservationListInstance(
       | ((error: Error | null, items: ReservationPage) => any),
     callback?: (error: Error | null, items: ReservationPage) => any
   ): Promise<ReservationPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {

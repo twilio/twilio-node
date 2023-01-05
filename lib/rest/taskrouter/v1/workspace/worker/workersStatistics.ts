@@ -92,7 +92,7 @@ export class WorkersStatisticsContextImpl implements WorkersStatisticsContext {
       | ((error: Error | null, item?: WorkersStatisticsInstance) => any),
     callback?: (error: Error | null, item?: WorkersStatisticsInstance) => any
   ): Promise<WorkersStatisticsInstance> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {

@@ -510,7 +510,7 @@ export function CustomerProfilesEntityAssignmentsListInstance(
       items: CustomerProfilesEntityAssignmentsPage
     ) => any
   ): Promise<CustomerProfilesEntityAssignmentsPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {

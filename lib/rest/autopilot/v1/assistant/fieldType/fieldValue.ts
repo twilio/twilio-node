@@ -523,7 +523,7 @@ export function FieldValueListInstance(
       | ((error: Error | null, items: FieldValuePage) => any),
     callback?: (error: Error | null, items: FieldValuePage) => any
   ): Promise<FieldValuePage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {

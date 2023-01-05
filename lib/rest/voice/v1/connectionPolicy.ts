@@ -205,7 +205,7 @@ export class ConnectionPolicyContextImpl implements ConnectionPolicyContext {
       | ((error: Error | null, item?: ConnectionPolicyInstance) => any),
     callback?: (error: Error | null, item?: ConnectionPolicyInstance) => any
   ): Promise<ConnectionPolicyInstance> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -548,7 +548,7 @@ export function ConnectionPolicyListInstance(
       | ((error: Error | null, items: ConnectionPolicyInstance) => any),
     callback?: (error: Error | null, items: ConnectionPolicyInstance) => any
   ): Promise<ConnectionPolicyInstance> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -588,7 +588,7 @@ export function ConnectionPolicyListInstance(
       | ((error: Error | null, items: ConnectionPolicyPage) => any),
     callback?: (error: Error | null, items: ConnectionPolicyPage) => any
   ): Promise<ConnectionPolicyPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {

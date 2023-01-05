@@ -432,7 +432,7 @@ export function DailyListInstance(
       | ((error: Error | null, items: DailyPage) => any),
     callback?: (error: Error | null, items: DailyPage) => any
   ): Promise<DailyPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {

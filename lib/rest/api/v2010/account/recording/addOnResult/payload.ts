@@ -474,7 +474,7 @@ export function PayloadListInstance(
       | ((error: Error | null, items: PayloadPage) => any),
     callback?: (error: Error | null, items: PayloadPage) => any
   ): Promise<PayloadPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {

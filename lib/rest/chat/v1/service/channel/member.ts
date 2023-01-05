@@ -217,7 +217,7 @@ export class MemberContextImpl implements MemberContext {
       | ((error: Error | null, item?: MemberInstance) => any),
     callback?: (error: Error | null, item?: MemberInstance) => any
   ): Promise<MemberInstance> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -637,7 +637,7 @@ export function MemberListInstance(
       | ((error: Error | null, items: MemberPage) => any),
     callback?: (error: Error | null, items: MemberPage) => any
   ): Promise<MemberPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {

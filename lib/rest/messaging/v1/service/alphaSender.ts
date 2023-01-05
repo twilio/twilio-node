@@ -471,7 +471,7 @@ export function AlphaSenderListInstance(
       | ((error: Error | null, items: AlphaSenderPage) => any),
     callback?: (error: Error | null, items: AlphaSenderPage) => any
   ): Promise<AlphaSenderPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {

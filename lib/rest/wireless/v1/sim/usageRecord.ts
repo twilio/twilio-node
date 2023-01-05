@@ -181,7 +181,7 @@ export function UsageRecordListInstance(
       | ((error: Error | null, items: UsageRecordPage) => any),
     callback?: (error: Error | null, items: UsageRecordPage) => any
   ): Promise<UsageRecordPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {

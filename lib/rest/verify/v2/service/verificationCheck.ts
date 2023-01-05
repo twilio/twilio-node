@@ -95,7 +95,7 @@ export function VerificationCheckListInstance(
       | ((error: Error | null, items: VerificationCheckInstance) => any),
     callback?: (error: Error | null, items: VerificationCheckInstance) => any
   ): Promise<VerificationCheckInstance> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {

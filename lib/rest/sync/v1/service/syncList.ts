@@ -232,7 +232,7 @@ export class SyncListContextImpl implements SyncListContext {
       | ((error: Error | null, item?: SyncListInstance) => any),
     callback?: (error: Error | null, item?: SyncListInstance) => any
   ): Promise<SyncListInstance> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -618,7 +618,7 @@ export function SyncListListInstance(
       | ((error: Error | null, items: SyncListInstance) => any),
     callback?: (error: Error | null, items: SyncListInstance) => any
   ): Promise<SyncListInstance> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -666,7 +666,7 @@ export function SyncListListInstance(
       | ((error: Error | null, items: SyncListPage) => any),
     callback?: (error: Error | null, items: SyncListPage) => any
   ): Promise<SyncListPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {

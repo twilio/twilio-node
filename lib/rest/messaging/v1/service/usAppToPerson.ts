@@ -702,7 +702,7 @@ export function UsAppToPersonListInstance(
       | ((error: Error | null, items: UsAppToPersonPage) => any),
     callback?: (error: Error | null, items: UsAppToPersonPage) => any
   ): Promise<UsAppToPersonPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {

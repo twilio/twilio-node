@@ -285,7 +285,7 @@ export function MachineToMachineListInstance(
       | ((error: Error | null, items: MachineToMachinePage) => any),
     callback?: (error: Error | null, items: MachineToMachinePage) => any
   ): Promise<MachineToMachinePage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {

@@ -355,7 +355,7 @@ export function SupportingDocumentTypeListInstance(
       | ((error: Error | null, items: SupportingDocumentTypePage) => any),
     callback?: (error: Error | null, items: SupportingDocumentTypePage) => any
   ): Promise<SupportingDocumentTypePage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {

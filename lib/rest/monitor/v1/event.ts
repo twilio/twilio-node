@@ -416,7 +416,7 @@ export function EventListInstance(version: V1): EventListInstance {
       | ((error: Error | null, items: EventPage) => any),
     callback?: (error: Error | null, items: EventPage) => any
   ): Promise<EventPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {

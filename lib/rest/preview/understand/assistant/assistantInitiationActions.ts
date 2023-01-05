@@ -137,7 +137,7 @@ export class AssistantInitiationActionsContextImpl
       item?: AssistantInitiationActionsInstance
     ) => any
   ): Promise<AssistantInitiationActionsInstance> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
