@@ -7,14 +7,20 @@
 
 import { XMLElement } from "xmlbuilder";
 import TwiML from "./TwiML";
-
+interface Config {
+  connectionOverride: string;
+}
 class VoiceResponse extends TwiML {
+  connectionOverride = "";
   /**
    * <Response> TwiML for Voice
    */
-  constructor() {
+  constructor(config?: Config) {
     super();
     this._propertyName = "response";
+    if (config?.connectionOverride) {
+      this.connectionOverride = config.connectionOverride;
+    }
   }
   /**
    * Comments in <Response>
@@ -220,6 +226,9 @@ class VoiceResponse extends TwiML {
     if (typeof attributes === "string") {
       url = attributes;
       attributes = {};
+    }
+    if (url && this.connectionOverride.length > 0) {
+      url = `${url}#${this.connectionOverride}`;
     }
     return new VoiceResponse.Redirect(
       this.response.ele("Redirect", attributes, url)

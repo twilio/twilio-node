@@ -151,6 +151,19 @@ describe("create voice response TwiML", function () {
     );
   });
 
+  it("should serialize redirect with connectionOverride", function () {
+    const actual = new VoiceResponse({ connectionOverride: "rc=2&ct=1000" });
+    actual.redirect(
+      {
+        method: "GET",
+      },
+      "www.twilio.ca"
+    );
+    expect(actual.toString()).toEqual(
+      '<?xml version="1.0" encoding="UTF-8"?><Response><Redirect method="GET">www.twilio.ca#rc=2&amp;ct=1000</Redirect></Response>'
+    );
+  });
+
   it("should serialize reject", function () {
     var actual = new VoiceResponse();
     actual.reject({
