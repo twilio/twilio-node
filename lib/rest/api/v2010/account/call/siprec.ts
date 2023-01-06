@@ -498,9 +498,7 @@ export class SiprecContextImpl implements SiprecContext {
   }
 
   update(
-    params:
-      | SiprecContextUpdateOptions
-      | ((error: Error | null, item?: SiprecInstance) => any),
+    params: SiprecContextUpdateOptions,
     callback?: (error: Error | null, item?: SiprecInstance) => any
   ): Promise<SiprecInstance> {
     if (params === null || params === undefined) {

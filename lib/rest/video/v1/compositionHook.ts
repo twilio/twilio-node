@@ -240,9 +240,7 @@ export class CompositionHookContextImpl implements CompositionHookContext {
   }
 
   update(
-    params:
-      | CompositionHookContextUpdateOptions
-      | ((error: Error | null, item?: CompositionHookInstance) => any),
+    params: CompositionHookContextUpdateOptions,
     callback?: (error: Error | null, item?: CompositionHookInstance) => any
   ): Promise<CompositionHookInstance> {
     if (params === null || params === undefined) {

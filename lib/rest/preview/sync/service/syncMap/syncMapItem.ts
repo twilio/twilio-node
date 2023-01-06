@@ -256,9 +256,7 @@ export class SyncMapItemContextImpl implements SyncMapItemContext {
   }
 
   update(
-    params:
-      | SyncMapItemContextUpdateOptions
-      | ((error: Error | null, item?: SyncMapItemInstance) => any),
+    params: SyncMapItemContextUpdateOptions,
     callback?: (error: Error | null, item?: SyncMapItemInstance) => any
   ): Promise<SyncMapItemInstance> {
     if (params === null || params === undefined) {

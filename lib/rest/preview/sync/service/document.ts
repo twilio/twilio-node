@@ -201,9 +201,7 @@ export class DocumentContextImpl implements DocumentContext {
   }
 
   update(
-    params:
-      | DocumentContextUpdateOptions
-      | ((error: Error | null, item?: DocumentInstance) => any),
+    params: DocumentContextUpdateOptions,
     callback?: (error: Error | null, item?: DocumentInstance) => any
   ): Promise<DocumentInstance> {
     if (params === null || params === undefined) {

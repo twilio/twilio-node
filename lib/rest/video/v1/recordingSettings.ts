@@ -80,9 +80,7 @@ export class RecordingSettingsContextImpl implements RecordingSettingsContext {
   }
 
   create(
-    params:
-      | RecordingSettingsContextCreateOptions
-      | ((error: Error | null, item?: RecordingSettingsInstance) => any),
+    params: RecordingSettingsContextCreateOptions,
     callback?: (error: Error | null, item?: RecordingSettingsInstance) => any
   ): Promise<RecordingSettingsInstance> {
     if (params === null || params === undefined) {

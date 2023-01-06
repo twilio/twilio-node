@@ -212,9 +212,7 @@ export class SinkContextImpl implements SinkContext {
   }
 
   update(
-    params:
-      | SinkContextUpdateOptions
-      | ((error: Error | null, item?: SinkInstance) => any),
+    params: SinkContextUpdateOptions,
     callback?: (error: Error | null, item?: SinkInstance) => any
   ): Promise<SinkInstance> {
     if (params === null || params === undefined) {

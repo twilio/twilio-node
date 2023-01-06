@@ -202,9 +202,7 @@ export class IpAccessControlListContextImpl
   }
 
   update(
-    params:
-      | IpAccessControlListContextUpdateOptions
-      | ((error: Error | null, item?: IpAccessControlListInstance) => any),
+    params: IpAccessControlListContextUpdateOptions,
     callback?: (error: Error | null, item?: IpAccessControlListInstance) => any
   ): Promise<IpAccessControlListInstance> {
     if (params === null || params === undefined) {

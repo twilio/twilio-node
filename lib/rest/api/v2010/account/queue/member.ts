@@ -158,9 +158,7 @@ export class MemberContextImpl implements MemberContext {
   }
 
   update(
-    params:
-      | MemberContextUpdateOptions
-      | ((error: Error | null, item?: MemberInstance) => any),
+    params: MemberContextUpdateOptions,
     callback?: (error: Error | null, item?: MemberInstance) => any
   ): Promise<MemberInstance> {
     if (params === null || params === undefined) {

@@ -178,9 +178,7 @@ export class MediaProcessorContextImpl implements MediaProcessorContext {
   }
 
   update(
-    params:
-      | MediaProcessorContextUpdateOptions
-      | ((error: Error | null, item?: MediaProcessorInstance) => any),
+    params: MediaProcessorContextUpdateOptions,
     callback?: (error: Error | null, item?: MediaProcessorInstance) => any
   ): Promise<MediaProcessorInstance> {
     if (params === null || params === undefined) {
