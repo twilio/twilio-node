@@ -229,10 +229,31 @@ export default class Version {
     return operationPromise;
   }
 
+  /**
+   * For each record instance, executes a provided callback function with that
+   * instance
+   *
+   * @param params - Parameters (Optional)
+   * @param params.limit - Optional maximum number of record instances to
+   *  fetch
+   * @param params.pageSize - Optional maximum number of records to return
+   *  with every request
+   * @param params.callback - Callback function to call with each
+   *  record instance
+   * @param params.done - Optional done function to call when all
+   *  records are processed, the limit is reached, or an error occurs.
+   *  Receives an error argument if an error occurs.
+   * @param callback - Callback function to call with each record.
+   *  Receives a done function argument that will short-circuit the for-each
+   *  loop that may accept an error argument.
+   * @returns Returns a promise that resolves when all records
+   *  processed or if the limit is reached, and rejects with an error if an
+   *  error occurs and is not handled in the user provided done function.
+   */
   each<T>(
     params?: any,
     callback?: (item: T, done: (err?: Error) => void) => void
-  ): void {
+  ): Promise<void> {
     if (typeof params === "function") {
       callback = params;
       params = {};
@@ -250,42 +271,63 @@ export default class Version {
     let currentPage = 1;
     let currentResource = 0;
     let limits = {} as PageLimit;
+    let pPending = true;
+    let pResolve: (value: void) => void;
+    let pReject: (reason?: any) => void;
     if (this._version instanceof Version) {
       limits = this._version.readLimits({
         limit: params.limit,
         pageSize: params.pageSize,
       });
     }
-    function onComplete(error?) {
+    function onComplete(error?: any) {
+      let unhandledError = error;
+
       done = true;
       if (typeof params.done === "function" && !doneCalled) {
-        params.done(error);
+        try {
+          params.done(unhandledError);
+          unhandledError = null;
+        } catch (e) {
+          unhandledError = e;
+        }
       }
       doneCalled = true;
+
+      if (pPending) {
+        if (unhandledError) {
+          pReject(unhandledError);
+        } else {
+          pResolve();
+        }
+        pPending = false;
+      }
     }
-    function fetchNextPage(fn) {
+    function fetchNextPage(fn: () => Promise<any>) {
       let promise = fn();
       if (typeof promise === "undefined") {
         onComplete();
         return;
       }
+
       promise.then((page) => {
-        page.instances.forEach(function (instance: any) {
-          if (
-            done ||
-            (typeof params.limit !== "undefined" &&
-              currentResource >= params.limit)
-          ) {
-            done = true;
-            return false;
-          }
-          currentResource++;
-          try {
-            callback(instance, onComplete);
-          } catch (e) {
-            throw e;
-          }
-        });
+        try {
+          page.instances.forEach(function (instance: any) {
+            if (
+              done ||
+              (typeof params.limit !== "undefined" &&
+                currentResource >= params.limit)
+            ) {
+              done = true;
+              return false;
+            }
+            currentResource++;
+            callback?.(instance, onComplete);
+          });
+        } catch (e) {
+          return onComplete(e);
+        }
+
         if (!done) {
           currentPage++;
           fetchNextPage(page.nextPage.bind(page));
@@ -295,7 +337,12 @@ export default class Version {
       });
       promise.catch(onComplete);
     }
-    fetchNextPage(this.page.bind(this, Object.assign(params, limits)));
+
+    return new Promise((resolve, reject) => {
+      pResolve = resolve;
+      pReject = reject;
+      fetchNextPage(this.page.bind(this, Object.assign(params, limits)));
+    });
   }
 
   list<T>(
