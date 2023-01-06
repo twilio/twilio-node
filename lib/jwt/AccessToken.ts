@@ -79,9 +79,9 @@ export interface AccessTokenOptions {
    */
   ttl?: number;
   /**
-   * The identity of the first person
+   * The identity of the first person. Required.
    */
-  identity?: string;
+  identity: string;
   /**
    * Time from epoch in seconds for not before value
    */
@@ -329,7 +329,7 @@ export default class AccessToken implements AccessTokenOptions {
   keySid: string;
   secret: string;
   ttl: number;
-  identity?: string;
+  identity: string;
   nbf?: number;
   region?: string;
   grants: Grant<any, any, any>[];
@@ -340,7 +340,7 @@ export default class AccessToken implements AccessTokenOptions {
    * @param secret - The secret to sign the token with
    * @param options - ...
    * @param options.ttl - Time to live in seconds (default 3600)
-   * @param options.identity - The identity of the first person
+   * @param options.identity - The identity of the first person. Required.
    * @param options.nbf - Time from epoch in seconds for not before value
    * @param options.region - The region value associated with this account
    */
@@ -348,7 +348,7 @@ export default class AccessToken implements AccessTokenOptions {
     accountSid: string,
     keySid: string,
     secret: string,
-    options?: AccessTokenOptions
+    options: AccessTokenOptions
   ) {
     if (!accountSid) {
       throw new Error("accountSid is required");
@@ -359,7 +359,9 @@ export default class AccessToken implements AccessTokenOptions {
     if (!secret) {
       throw new Error("secret is required");
     }
-    options = options || {};
+    if (!options || !options.identity) {
+      throw new Error("identity is required to be specified in options");
+    }
 
     this.accountSid = accountSid;
     this.keySid = keySid;
