@@ -233,20 +233,20 @@ export default class Version {
    * For each record instance, executes a provided callback function with that
    * instance
    *
-   * @param {object} [params] Parameters
-   * @param {number} [params.limit] The maximum number of record instances to
+   * @param params - Parameters (Optional)
+   * @param params.limit - Optional maximum number of record instances to
    *  fetch
-   * @param {number} [params.pageSize] The maximum number of records to return
+   * @param params.pageSize - Optional maximum number of records to return
    *  with every request
-   * @param {function} params.callback Callback function to call with each
+   * @param params.callback - Callback function to call with each
    *  record instance
-   * @param {function} [params.done] Optional done function to call when all
+   * @param params.done - Optional done function to call when all
    *  records are processed, the limit is reached, or an error occurs.
    *  Receives an error argument if an error occurs.
-   * @param {function} [callback] Callback function to call with each record.
+   * @param callback - Callback function to call with each record.
    *  Receives a done function argument that will short-circuit the for-each
    *  loop that may accept an error argument.
-   * @returns {Promise<void>} Returns a promise that resolves when all records
+   * @returns Returns a promise that resolves when all records
    *  processed or if the limit is reached, and rejects with an error if an
    *  error occurs and is not handled in the user provided done function.
    */
@@ -322,13 +322,7 @@ export default class Version {
               return false;
             }
             currentResource++;
-            try {
-              if (callback) {
-                callback(instance, onComplete);
-              }
-            } catch (e) {
-              throw e;
-            }
+            callback?.(instance, onComplete);
           });
         } catch (e) {
           return onComplete(e);
