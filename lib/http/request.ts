@@ -6,9 +6,9 @@ export interface RequestOptions<TData> {
   method?: HttpMethod | "*";
   url?: string;
   auth?: string;
-  params?: string;
+  params?: object | "*";
   data?: TData | "*";
-  headers?: Headers | "*";
+  headers?: Headers;
   ca?: string | Buffer;
 }
 
@@ -20,7 +20,7 @@ export default class Request<TData> {
   method: HttpMethod | "*";
   url: string;
   auth: string;
-  params: string;
+  params: object | "*";
   data: TData | "*";
   headers: Headers | "*";
   ca?: string | Buffer;
@@ -85,12 +85,13 @@ export default class Request<TData> {
 
     var params = "";
     if (this.params && this.params !== this.ANY) {
+      const origParams = this.params;
       params =
         "?" +
-        Object.keys(this.params)
+        Object.keys(origParams)
           .map((key) =>
             function () {
-              return key + "=" + this.params[key];
+              return key + "=" + origParams[key as keyof typeof origParams];
             }.bind(this)()
           )
           .join("&");

@@ -99,7 +99,7 @@ export default class Page<
    */
   getPreviousPageUrl(): string | undefined {
     if (
-      "meta" in this._payload &&
+      this._payload.meta &&
       "previous_page_url" in this._payload.meta &&
       this._payload.meta.previous_page_url
     ) {
@@ -126,7 +126,7 @@ export default class Page<
    */
   getNextPageUrl(): string | undefined {
     if (
-      "meta" in this._payload &&
+      this._payload.meta &&
       "next_page_url" in this._payload.meta &&
       this._payload.meta.next_page_url
     ) {
@@ -267,7 +267,7 @@ export default class Page<
     throw new Error("Page Records cannot be deserialized");
   }
 
-  forOwn(obj: object, iteratee: (val: any, key: string, object) => void) {
+  forOwn(obj: object, iteratee: (val: any, key: string, object: object) => void) {
     obj = Object(obj);
     for (const [key, val] of Object.entries(obj)) {
       iteratee(val, key, obj);

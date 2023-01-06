@@ -66,7 +66,7 @@ export function prefixedCollapsibleMap<T>(m: T, prefix?: string): {} {
     return {};
   }
 
-  function flatten(m, result?, previous?) {
+  function flatten(m: any, result?: any, previous?: any) {
     result = result || {};
     previous = previous || [];
 

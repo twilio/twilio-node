@@ -1,4 +1,5 @@
 "use strict";
+import Response from "../http/response";
 
 export default class RestException extends Error {
   status: number;
@@ -7,7 +8,7 @@ export default class RestException extends Error {
   moreInfo: string;
   details: object;
 
-  constructor(response) {
+  constructor(response: Response<any>) {
     super("[HTTP " + response.statusCode + "] Failed to execute request");
 
     const body =

@@ -275,7 +275,7 @@ export default class RequestClient {
       console.log("Headers:");
       const filteredHeaderKeys = this.filterLoggingHeaders(options.headers);
       filteredHeaderKeys.forEach((header) =>
-        console.log(`${header}: ${options.headers[header]}`)
+        console.log(`${header}: ${options.headers?.header}`)
       );
     }
 

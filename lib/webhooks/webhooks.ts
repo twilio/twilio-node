@@ -1,7 +1,7 @@
 "use strict";
 
+const scmp = require('scmp');
 import crypto from "crypto";
-import scmp from "scmp";
 import urllib from "url";
 import Url from "url-parse";
 import { IncomingHttpHeaders } from "http2";
@@ -240,7 +240,7 @@ export function validateRequestWithBody(
   const urlObject = new Url(url, true);
   return (
     validateRequest(authToken, twilioHeader, url, {}) &&
-    validateBody(body, urlObject.query.bodySHA256)
+    validateBody(body, urlObject.query.bodySHA256 || "")
   );
 }
 
@@ -284,14 +284,14 @@ export function validateIncomingRequest(
   if (webhookUrl.indexOf("bodySHA256") > 0) {
     return validateRequestWithBody(
       authToken,
-      request.header("X-Twilio-Signature"),
+      request.header("X-Twilio-Signature") || "",
       webhookUrl,
       request.rawBody || "{}"
     );
   } else {
     return validateRequest(
       authToken,
-      request.header("X-Twilio-Signature"),
+      request.header("X-Twilio-Signature") || "",
       webhookUrl,
       request.body || {}
     );
@@ -340,7 +340,7 @@ export function webhook(
   authToken?: string | WebhookOptions
 ): (req: any, res: any, next: any) => void {
   let token: string;
-  let options: WebhookOptions;
+  let options: WebhookOptions = {};
 
   // Narrowing the args
   if (opts) {
