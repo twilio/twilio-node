@@ -177,9 +177,7 @@ export class RoleContextImpl implements RoleContext {
   }
 
   update(
-    params:
-      | RoleContextUpdateOptions
-      | ((error: Error | null, item?: RoleInstance) => any),
+    params: RoleContextUpdateOptions,
     callback?: (error: Error | null, item?: RoleInstance) => any
   ): Promise<RoleInstance> {
     if (params === null || params === undefined) {

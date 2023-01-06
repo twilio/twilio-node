@@ -197,9 +197,7 @@ export class FunctionContextImpl implements FunctionContext {
   }
 
   update(
-    params:
-      | FunctionContextUpdateOptions
-      | ((error: Error | null, item?: FunctionInstance) => any),
+    params: FunctionContextUpdateOptions,
     callback?: (error: Error | null, item?: FunctionInstance) => any
   ): Promise<FunctionInstance> {
     if (params === null || params === undefined) {

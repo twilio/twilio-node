@@ -180,9 +180,7 @@ export class SourceIpMappingContextImpl implements SourceIpMappingContext {
   }
 
   update(
-    params:
-      | SourceIpMappingContextUpdateOptions
-      | ((error: Error | null, item?: SourceIpMappingInstance) => any),
+    params: SourceIpMappingContextUpdateOptions,
     callback?: (error: Error | null, item?: SourceIpMappingInstance) => any
   ): Promise<SourceIpMappingInstance> {
     if (params === null || params === undefined) {

@@ -108,9 +108,7 @@ export class DomainConfigContextImpl implements DomainConfigContext {
   }
 
   update(
-    params:
-      | DomainConfigContextUpdateOptions
-      | ((error: Error | null, item?: DomainConfigInstance) => any),
+    params: DomainConfigContextUpdateOptions,
     callback?: (error: Error | null, item?: DomainConfigInstance) => any
   ): Promise<DomainConfigInstance> {
     if (params === null || params === undefined) {

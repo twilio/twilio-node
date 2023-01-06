@@ -7,7 +7,6 @@ export interface RequestOptions<TData> {
   params?: string;
   data?: TData | "*";
   headers?: Headers | "*";
-  ca?: string | Buffer;
 }
 
 export interface Headers {
@@ -21,7 +20,6 @@ export default class Request<TData> {
   params: string;
   data: TData | "*";
   headers: Headers | "*";
-  ca?: string | Buffer;
 
   constructor(opts?: RequestOptions<TData>) {
     opts = opts || {};
@@ -32,7 +30,6 @@ export default class Request<TData> {
     this.params = opts.params || this.ANY;
     this.data = opts.data || this.ANY;
     this.headers = opts.headers || this.ANY;
-    this.ca = opts.ca;
   }
 
   get ANY(): "*" {
