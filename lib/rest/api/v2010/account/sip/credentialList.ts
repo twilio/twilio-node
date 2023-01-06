@@ -200,9 +200,7 @@ export class CredentialListContextImpl implements CredentialListContext {
   }
 
   update(
-    params:
-      | CredentialListContextUpdateOptions
-      | ((error: Error | null, item?: CredentialListInstance) => any),
+    params: CredentialListContextUpdateOptions,
     callback?: (error: Error | null, item?: CredentialListInstance) => any
   ): Promise<CredentialListInstance> {
     if (params === null || params === undefined) {

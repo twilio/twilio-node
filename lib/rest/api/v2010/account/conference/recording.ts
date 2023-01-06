@@ -221,9 +221,7 @@ export class RecordingContextImpl implements RecordingContext {
   }
 
   update(
-    params:
-      | RecordingContextUpdateOptions
-      | ((error: Error | null, item?: RecordingInstance) => any),
+    params: RecordingContextUpdateOptions,
     callback?: (error: Error | null, item?: RecordingInstance) => any
   ): Promise<RecordingInstance> {
     if (params === null || params === undefined) {

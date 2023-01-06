@@ -143,9 +143,7 @@ export class PaymentContextImpl implements PaymentContext {
   }
 
   update(
-    params:
-      | PaymentContextUpdateOptions
-      | ((error: Error | null, item?: PaymentInstance) => any),
+    params: PaymentContextUpdateOptions,
     callback?: (error: Error | null, item?: PaymentInstance) => any
   ): Promise<PaymentInstance> {
     if (params === null || params === undefined) {

@@ -130,9 +130,7 @@ export class DomainCertsContextImpl implements DomainCertsContext {
   }
 
   update(
-    params:
-      | DomainCertsContextUpdateOptions
-      | ((error: Error | null, item?: DomainCertsInstance) => any),
+    params: DomainCertsContextUpdateOptions,
     callback?: (error: Error | null, item?: DomainCertsInstance) => any
   ): Promise<DomainCertsInstance> {
     if (params === null || params === undefined) {

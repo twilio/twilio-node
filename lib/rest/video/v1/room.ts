@@ -233,9 +233,7 @@ export class RoomContextImpl implements RoomContext {
   }
 
   update(
-    params:
-      | RoomContextUpdateOptions
-      | ((error: Error | null, item?: RoomInstance) => any),
+    params: RoomContextUpdateOptions,
     callback?: (error: Error | null, item?: RoomInstance) => any
   ): Promise<RoomInstance> {
     if (params === null || params === undefined) {

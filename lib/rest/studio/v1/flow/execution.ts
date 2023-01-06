@@ -229,9 +229,7 @@ export class ExecutionContextImpl implements ExecutionContext {
   }
 
   update(
-    params:
-      | ExecutionContextUpdateOptions
-      | ((error: Error | null, item?: ExecutionInstance) => any),
+    params: ExecutionContextUpdateOptions,
     callback?: (error: Error | null, item?: ExecutionInstance) => any
   ): Promise<ExecutionInstance> {
     if (params === null || params === undefined) {

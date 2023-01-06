@@ -193,9 +193,7 @@ export class SyncListPermissionContextImpl
   }
 
   update(
-    params:
-      | SyncListPermissionContextUpdateOptions
-      | ((error: Error | null, item?: SyncListPermissionInstance) => any),
+    params: SyncListPermissionContextUpdateOptions,
     callback?: (error: Error | null, item?: SyncListPermissionInstance) => any
   ): Promise<SyncListPermissionInstance> {
     if (params === null || params === undefined) {
