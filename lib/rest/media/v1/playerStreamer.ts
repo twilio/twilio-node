@@ -192,9 +192,7 @@ export class PlayerStreamerContextImpl implements PlayerStreamerContext {
   }
 
   update(
-    params:
-      | PlayerStreamerContextUpdateOptions
-      | ((error: Error | null, item?: PlayerStreamerInstance) => any),
+    params: PlayerStreamerContextUpdateOptions,
     callback?: (error: Error | null, item?: PlayerStreamerInstance) => any
   ): Promise<PlayerStreamerInstance> {
     if (params === null || params === undefined) {

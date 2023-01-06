@@ -217,9 +217,7 @@ export class FlowContextImpl implements FlowContext {
   }
 
   update(
-    params:
-      | FlowContextUpdateOptions
-      | ((error: Error | null, item?: FlowInstance) => any),
+    params: FlowContextUpdateOptions,
     callback?: (error: Error | null, item?: FlowInstance) => any
   ): Promise<FlowInstance> {
     if (params === null || params === undefined) {

@@ -102,9 +102,7 @@ export class FlowTestUserContextImpl implements FlowTestUserContext {
   }
 
   update(
-    params:
-      | FlowTestUserContextUpdateOptions
-      | ((error: Error | null, item?: FlowTestUserInstance) => any),
+    params: FlowTestUserContextUpdateOptions,
     callback?: (error: Error | null, item?: FlowTestUserInstance) => any
   ): Promise<FlowTestUserInstance> {
     if (params === null || params === undefined) {
