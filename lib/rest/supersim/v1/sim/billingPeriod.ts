@@ -24,72 +24,49 @@ type BillingPeriodBpType = "ready" | "active";
 
 /**
  * Options to pass to each
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface BillingPeriodListInstanceEachOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: BillingPeriodInstance, done: (err?: Error) => void) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface BillingPeriodListInstanceOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface BillingPeriodListInstancePageOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
+export interface BillingPeriodSolution {
+  simSid: string;
+}
+
 export interface BillingPeriodListInstance {
-  /**
-   * Streams BillingPeriodInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (
-      item: BillingPeriodInstance,
-      done: (err?: Error) => void
-    ) => void
-  ): void;
+  _version: V1;
+  _solution: BillingPeriodSolution;
+  _uri: string;
+
   /**
    * Streams BillingPeriodInstance records from the API.
    *
@@ -106,53 +83,30 @@ export interface BillingPeriodListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: BillingPeriodListInstanceEachOptions,
     callback?: (
       item: BillingPeriodInstance,
       done: (err?: Error) => void
     ) => void
   ): void;
-  each(params?: any, callback?: any): void;
+  each(
+    params: BillingPeriodListInstanceEachOptions,
+    callback?: (
+      item: BillingPeriodInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
   /**
    * Retrieve a single target page of BillingPeriodInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: BillingPeriodPage) => any
-  ): Promise<BillingPeriodPage>;
-  /**
-   * Retrieve a single target page of BillingPeriodInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: BillingPeriodPage) => any
   ): Promise<BillingPeriodPage>;
-  getPage(params?: any, callback?: any): Promise<BillingPeriodPage>;
-  /**
-   * Lists BillingPeriodInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: BillingPeriodInstance[]) => any
-  ): Promise<BillingPeriodInstance[]>;
   /**
    * Lists BillingPeriodInstance records from the API as a list.
    *
@@ -163,23 +117,12 @@ export interface BillingPeriodListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: BillingPeriodListInstanceOptions,
     callback?: (error: Error | null, items: BillingPeriodInstance[]) => any
   ): Promise<BillingPeriodInstance[]>;
-  list(params?: any, callback?: any): Promise<BillingPeriodInstance[]>;
-  /**
-   * Retrieve a single page of BillingPeriodInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: BillingPeriodPage) => any
-  ): Promise<BillingPeriodPage>;
+  list(
+    params: BillingPeriodListInstanceOptions,
+    callback?: (error: Error | null, items: BillingPeriodInstance[]) => any
+  ): Promise<BillingPeriodInstance[]>;
   /**
    * Retrieve a single page of BillingPeriodInstance records from the API.
    *
@@ -192,27 +135,18 @@ export interface BillingPeriodListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
+    callback?: (error: Error | null, items: BillingPeriodPage) => any
+  ): Promise<BillingPeriodPage>;
+  page(
     params: BillingPeriodListInstancePageOptions,
     callback?: (error: Error | null, items: BillingPeriodPage) => any
   ): Promise<BillingPeriodPage>;
-  page(params?: any, callback?: any): Promise<BillingPeriodPage>;
 
   /**
    * Provide a user-friendly representation
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export interface BillingPeriodSolution {
-  simSid?: string;
-}
-
-interface BillingPeriodListInstanceImpl extends BillingPeriodListInstance {}
-class BillingPeriodListInstanceImpl implements BillingPeriodListInstance {
-  _version?: V1;
-  _solution?: BillingPeriodSolution;
-  _uri?: string;
 }
 
 export function BillingPeriodListInstance(
@@ -223,17 +157,19 @@ export function BillingPeriodListInstance(
     throw new Error("Parameter 'simSid' is not valid.");
   }
 
-  const instance = {} as BillingPeriodListInstanceImpl;
+  const instance = {} as BillingPeriodListInstance;
 
   instance._version = version;
   instance._solution = { simSid };
   instance._uri = `/Sims/${simSid}/BillingPeriods`;
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | BillingPeriodListInstancePageOptions
+      | ((error: Error | null, items: BillingPeriodPage) => any),
+    callback?: (error: Error | null, items: BillingPeriodPage) => any
   ): Promise<BillingPeriodPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -244,14 +180,14 @@ export function BillingPeriodListInstance(
 
     if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
@@ -259,10 +195,10 @@ export function BillingPeriodListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new BillingPeriodPage(operationVersion, payload, this._solution)
+        new BillingPeriodPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -272,33 +208,31 @@ export function BillingPeriodListInstance(
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: BillingPeriodPage) => any
   ): Promise<BillingPeriodPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new BillingPeriodPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new BillingPeriodPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;
@@ -309,14 +243,14 @@ interface BillingPeriodPayload extends TwilioResponsePayload {
 }
 
 interface BillingPeriodResource {
-  sid?: string | null;
-  account_sid?: string | null;
-  sim_sid?: string | null;
-  start_time?: Date | null;
-  end_time?: Date | null;
-  period_type?: BillingPeriodBpType;
-  date_created?: Date | null;
-  date_updated?: Date | null;
+  sid: string;
+  account_sid: string;
+  sim_sid: string;
+  start_time: Date;
+  end_time: Date;
+  period_type: BillingPeriodBpType;
+  date_created: Date;
+  date_updated: Date;
 }
 
 export class BillingPeriodInstance {
@@ -338,32 +272,32 @@ export class BillingPeriodInstance {
   /**
    * The SID of the Billing Period
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The SID of the Account the Super SIM belongs to
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The SID of the Super SIM the Billing Period belongs to
    */
-  simSid?: string | null;
+  simSid: string;
   /**
    * The start time of the Billing Period
    */
-  startTime?: Date | null;
+  startTime: Date;
   /**
    * The end time of the Billing Period
    */
-  endTime?: Date | null;
-  periodType?: BillingPeriodBpType;
+  endTime: Date;
+  periodType: BillingPeriodBpType;
   /**
    * The ISO 8601 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The ISO 8601 date and time in GMT when the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
 
   /**
    * Provide a user-friendly representation

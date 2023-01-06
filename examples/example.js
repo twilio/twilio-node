@@ -1,5 +1,3 @@
-"use strict";
-
 var Twilio = require("../lib");
 
 var accountSid = process.env.TWILIO_ACCOUNT_SID;

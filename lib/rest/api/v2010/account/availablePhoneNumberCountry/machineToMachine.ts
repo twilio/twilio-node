@@ -23,183 +23,161 @@ import { PhoneNumberCapabilities } from "../../../../../../lib/interfaces";
 
 /**
  * Options to pass to each
- *
- * @property { number } [areaCode] The area code of the phone numbers to read. Applies to only phone numbers in the US and Canada.
- * @property { string } [contains] The pattern on which to match phone numbers. Valid characters are `*`, `0-9`, `a-z`, and `A-Z`. The `*` character matches any single digit. For examples, see [Example 2](https://www.twilio.com/docs/phone-numbers/api/availablephonenumber-resource#local-get-basic-example-2) and [Example 3](https://www.twilio.com/docs/phone-numbers/api/availablephonenumber-resource#local-get-basic-example-3). If specified, this value must have at least two characters.
- * @property { boolean } [smsEnabled] Whether the phone numbers can receive text messages. Can be: `true` or `false`.
- * @property { boolean } [mmsEnabled] Whether the phone numbers can receive MMS messages. Can be: `true` or `false`.
- * @property { boolean } [voiceEnabled] Whether the phone numbers can receive calls. Can be: `true` or `false`.
- * @property { boolean } [excludeAllAddressRequired] Whether to exclude phone numbers that require an [Address](https://www.twilio.com/docs/usage/api/address). Can be: `true` or `false` and the default is `false`.
- * @property { boolean } [excludeLocalAddressRequired] Whether to exclude phone numbers that require a local [Address](https://www.twilio.com/docs/usage/api/address). Can be: `true` or `false` and the default is `false`.
- * @property { boolean } [excludeForeignAddressRequired] Whether to exclude phone numbers that require a foreign [Address](https://www.twilio.com/docs/usage/api/address). Can be: `true` or `false` and the default is `false`.
- * @property { boolean } [beta] Whether to read phone numbers that are new to the Twilio platform. Can be: `true` or `false` and the default is `true`.
- * @property { string } [nearNumber] Given a phone number, find a geographically close number within `distance` miles. Distance defaults to 25 miles. Applies to only phone numbers in the US and Canada.
- * @property { string } [nearLatLong] Given a latitude/longitude pair `lat,long` find geographically close numbers within `distance` miles. Applies to only phone numbers in the US and Canada.
- * @property { number } [distance] The search radius, in miles, for a `near_` query.  Can be up to `500` and the default is `25`. Applies to only phone numbers in the US and Canada.
- * @property { string } [inPostalCode] Limit results to a particular postal code. Given a phone number, search within the same postal code as that number. Applies to only phone numbers in the US and Canada.
- * @property { string } [inRegion] Limit results to a particular region, state, or province. Given a phone number, search within the same region as that number. Applies to only phone numbers in the US and Canada.
- * @property { string } [inRateCenter] Limit results to a specific rate center, or given a phone number search within the same rate center as that number. Requires `in_lata` to be set as well. Applies to only phone numbers in the US and Canada.
- * @property { string } [inLata] Limit results to a specific local access and transport area ([LATA](https://en.wikipedia.org/wiki/Local_access_and_transport_area)). Given a phone number, search within the same [LATA](https://en.wikipedia.org/wiki/Local_access_and_transport_area) as that number. Applies to only phone numbers in the US and Canada.
- * @property { string } [inLocality] Limit results to a particular locality or city. Given a phone number, search within the same Locality as that number.
- * @property { boolean } [faxEnabled] Whether the phone numbers can receive faxes. Can be: `true` or `false`.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface MachineToMachineListInstanceEachOptions {
+  /** The area code of the phone numbers to read. Applies to only phone numbers in the US and Canada. */
   areaCode?: number;
+  /** The pattern on which to match phone numbers. Valid characters are `*`, `0-9`, `a-z`, and `A-Z`. The `*` character matches any single digit. For examples, see [Example 2](https://www.twilio.com/docs/phone-numbers/api/availablephonenumber-resource#local-get-basic-example-2) and [Example 3](https://www.twilio.com/docs/phone-numbers/api/availablephonenumber-resource#local-get-basic-example-3). If specified, this value must have at least two characters. */
   contains?: string;
+  /** Whether the phone numbers can receive text messages. Can be: `true` or `false`. */
   smsEnabled?: boolean;
+  /** Whether the phone numbers can receive MMS messages. Can be: `true` or `false`. */
   mmsEnabled?: boolean;
+  /** Whether the phone numbers can receive calls. Can be: `true` or `false`. */
   voiceEnabled?: boolean;
+  /** Whether to exclude phone numbers that require an [Address](https://www.twilio.com/docs/usage/api/address). Can be: `true` or `false` and the default is `false`. */
   excludeAllAddressRequired?: boolean;
+  /** Whether to exclude phone numbers that require a local [Address](https://www.twilio.com/docs/usage/api/address). Can be: `true` or `false` and the default is `false`. */
   excludeLocalAddressRequired?: boolean;
+  /** Whether to exclude phone numbers that require a foreign [Address](https://www.twilio.com/docs/usage/api/address). Can be: `true` or `false` and the default is `false`. */
   excludeForeignAddressRequired?: boolean;
+  /** Whether to read phone numbers that are new to the Twilio platform. Can be: `true` or `false` and the default is `true`. */
   beta?: boolean;
+  /** Given a phone number, find a geographically close number within `distance` miles. Distance defaults to 25 miles. Applies to only phone numbers in the US and Canada. */
   nearNumber?: string;
+  /** Given a latitude/longitude pair `lat,long` find geographically close numbers within `distance` miles. Applies to only phone numbers in the US and Canada. */
   nearLatLong?: string;
+  /** The search radius, in miles, for a `near_` query.  Can be up to `500` and the default is `25`. Applies to only phone numbers in the US and Canada. */
   distance?: number;
+  /** Limit results to a particular postal code. Given a phone number, search within the same postal code as that number. Applies to only phone numbers in the US and Canada. */
   inPostalCode?: string;
+  /** Limit results to a particular region, state, or province. Given a phone number, search within the same region as that number. Applies to only phone numbers in the US and Canada. */
   inRegion?: string;
+  /** Limit results to a specific rate center, or given a phone number search within the same rate center as that number. Requires `in_lata` to be set as well. Applies to only phone numbers in the US and Canada. */
   inRateCenter?: string;
+  /** Limit results to a specific local access and transport area ([LATA](https://en.wikipedia.org/wiki/Local_access_and_transport_area)). Given a phone number, search within the same [LATA](https://en.wikipedia.org/wiki/Local_access_and_transport_area) as that number. Applies to only phone numbers in the US and Canada. */
   inLata?: string;
+  /** Limit results to a particular locality or city. Given a phone number, search within the same Locality as that number. */
   inLocality?: string;
+  /** Whether the phone numbers can receive faxes. Can be: `true` or `false`. */
   faxEnabled?: boolean;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (
     item: MachineToMachineInstance,
     done: (err?: Error) => void
   ) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { number } [areaCode] The area code of the phone numbers to read. Applies to only phone numbers in the US and Canada.
- * @property { string } [contains] The pattern on which to match phone numbers. Valid characters are `*`, `0-9`, `a-z`, and `A-Z`. The `*` character matches any single digit. For examples, see [Example 2](https://www.twilio.com/docs/phone-numbers/api/availablephonenumber-resource#local-get-basic-example-2) and [Example 3](https://www.twilio.com/docs/phone-numbers/api/availablephonenumber-resource#local-get-basic-example-3). If specified, this value must have at least two characters.
- * @property { boolean } [smsEnabled] Whether the phone numbers can receive text messages. Can be: `true` or `false`.
- * @property { boolean } [mmsEnabled] Whether the phone numbers can receive MMS messages. Can be: `true` or `false`.
- * @property { boolean } [voiceEnabled] Whether the phone numbers can receive calls. Can be: `true` or `false`.
- * @property { boolean } [excludeAllAddressRequired] Whether to exclude phone numbers that require an [Address](https://www.twilio.com/docs/usage/api/address). Can be: `true` or `false` and the default is `false`.
- * @property { boolean } [excludeLocalAddressRequired] Whether to exclude phone numbers that require a local [Address](https://www.twilio.com/docs/usage/api/address). Can be: `true` or `false` and the default is `false`.
- * @property { boolean } [excludeForeignAddressRequired] Whether to exclude phone numbers that require a foreign [Address](https://www.twilio.com/docs/usage/api/address). Can be: `true` or `false` and the default is `false`.
- * @property { boolean } [beta] Whether to read phone numbers that are new to the Twilio platform. Can be: `true` or `false` and the default is `true`.
- * @property { string } [nearNumber] Given a phone number, find a geographically close number within `distance` miles. Distance defaults to 25 miles. Applies to only phone numbers in the US and Canada.
- * @property { string } [nearLatLong] Given a latitude/longitude pair `lat,long` find geographically close numbers within `distance` miles. Applies to only phone numbers in the US and Canada.
- * @property { number } [distance] The search radius, in miles, for a `near_` query.  Can be up to `500` and the default is `25`. Applies to only phone numbers in the US and Canada.
- * @property { string } [inPostalCode] Limit results to a particular postal code. Given a phone number, search within the same postal code as that number. Applies to only phone numbers in the US and Canada.
- * @property { string } [inRegion] Limit results to a particular region, state, or province. Given a phone number, search within the same region as that number. Applies to only phone numbers in the US and Canada.
- * @property { string } [inRateCenter] Limit results to a specific rate center, or given a phone number search within the same rate center as that number. Requires `in_lata` to be set as well. Applies to only phone numbers in the US and Canada.
- * @property { string } [inLata] Limit results to a specific local access and transport area ([LATA](https://en.wikipedia.org/wiki/Local_access_and_transport_area)). Given a phone number, search within the same [LATA](https://en.wikipedia.org/wiki/Local_access_and_transport_area) as that number. Applies to only phone numbers in the US and Canada.
- * @property { string } [inLocality] Limit results to a particular locality or city. Given a phone number, search within the same Locality as that number.
- * @property { boolean } [faxEnabled] Whether the phone numbers can receive faxes. Can be: `true` or `false`.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface MachineToMachineListInstanceOptions {
+  /** The area code of the phone numbers to read. Applies to only phone numbers in the US and Canada. */
   areaCode?: number;
+  /** The pattern on which to match phone numbers. Valid characters are `*`, `0-9`, `a-z`, and `A-Z`. The `*` character matches any single digit. For examples, see [Example 2](https://www.twilio.com/docs/phone-numbers/api/availablephonenumber-resource#local-get-basic-example-2) and [Example 3](https://www.twilio.com/docs/phone-numbers/api/availablephonenumber-resource#local-get-basic-example-3). If specified, this value must have at least two characters. */
   contains?: string;
+  /** Whether the phone numbers can receive text messages. Can be: `true` or `false`. */
   smsEnabled?: boolean;
+  /** Whether the phone numbers can receive MMS messages. Can be: `true` or `false`. */
   mmsEnabled?: boolean;
+  /** Whether the phone numbers can receive calls. Can be: `true` or `false`. */
   voiceEnabled?: boolean;
+  /** Whether to exclude phone numbers that require an [Address](https://www.twilio.com/docs/usage/api/address). Can be: `true` or `false` and the default is `false`. */
   excludeAllAddressRequired?: boolean;
+  /** Whether to exclude phone numbers that require a local [Address](https://www.twilio.com/docs/usage/api/address). Can be: `true` or `false` and the default is `false`. */
   excludeLocalAddressRequired?: boolean;
+  /** Whether to exclude phone numbers that require a foreign [Address](https://www.twilio.com/docs/usage/api/address). Can be: `true` or `false` and the default is `false`. */
   excludeForeignAddressRequired?: boolean;
+  /** Whether to read phone numbers that are new to the Twilio platform. Can be: `true` or `false` and the default is `true`. */
   beta?: boolean;
+  /** Given a phone number, find a geographically close number within `distance` miles. Distance defaults to 25 miles. Applies to only phone numbers in the US and Canada. */
   nearNumber?: string;
+  /** Given a latitude/longitude pair `lat,long` find geographically close numbers within `distance` miles. Applies to only phone numbers in the US and Canada. */
   nearLatLong?: string;
+  /** The search radius, in miles, for a `near_` query.  Can be up to `500` and the default is `25`. Applies to only phone numbers in the US and Canada. */
   distance?: number;
+  /** Limit results to a particular postal code. Given a phone number, search within the same postal code as that number. Applies to only phone numbers in the US and Canada. */
   inPostalCode?: string;
+  /** Limit results to a particular region, state, or province. Given a phone number, search within the same region as that number. Applies to only phone numbers in the US and Canada. */
   inRegion?: string;
+  /** Limit results to a specific rate center, or given a phone number search within the same rate center as that number. Requires `in_lata` to be set as well. Applies to only phone numbers in the US and Canada. */
   inRateCenter?: string;
+  /** Limit results to a specific local access and transport area ([LATA](https://en.wikipedia.org/wiki/Local_access_and_transport_area)). Given a phone number, search within the same [LATA](https://en.wikipedia.org/wiki/Local_access_and_transport_area) as that number. Applies to only phone numbers in the US and Canada. */
   inLata?: string;
+  /** Limit results to a particular locality or city. Given a phone number, search within the same Locality as that number. */
   inLocality?: string;
+  /** Whether the phone numbers can receive faxes. Can be: `true` or `false`. */
   faxEnabled?: boolean;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { number } [areaCode] The area code of the phone numbers to read. Applies to only phone numbers in the US and Canada.
- * @property { string } [contains] The pattern on which to match phone numbers. Valid characters are `*`, `0-9`, `a-z`, and `A-Z`. The `*` character matches any single digit. For examples, see [Example 2](https://www.twilio.com/docs/phone-numbers/api/availablephonenumber-resource#local-get-basic-example-2) and [Example 3](https://www.twilio.com/docs/phone-numbers/api/availablephonenumber-resource#local-get-basic-example-3). If specified, this value must have at least two characters.
- * @property { boolean } [smsEnabled] Whether the phone numbers can receive text messages. Can be: `true` or `false`.
- * @property { boolean } [mmsEnabled] Whether the phone numbers can receive MMS messages. Can be: `true` or `false`.
- * @property { boolean } [voiceEnabled] Whether the phone numbers can receive calls. Can be: `true` or `false`.
- * @property { boolean } [excludeAllAddressRequired] Whether to exclude phone numbers that require an [Address](https://www.twilio.com/docs/usage/api/address). Can be: `true` or `false` and the default is `false`.
- * @property { boolean } [excludeLocalAddressRequired] Whether to exclude phone numbers that require a local [Address](https://www.twilio.com/docs/usage/api/address). Can be: `true` or `false` and the default is `false`.
- * @property { boolean } [excludeForeignAddressRequired] Whether to exclude phone numbers that require a foreign [Address](https://www.twilio.com/docs/usage/api/address). Can be: `true` or `false` and the default is `false`.
- * @property { boolean } [beta] Whether to read phone numbers that are new to the Twilio platform. Can be: `true` or `false` and the default is `true`.
- * @property { string } [nearNumber] Given a phone number, find a geographically close number within `distance` miles. Distance defaults to 25 miles. Applies to only phone numbers in the US and Canada.
- * @property { string } [nearLatLong] Given a latitude/longitude pair `lat,long` find geographically close numbers within `distance` miles. Applies to only phone numbers in the US and Canada.
- * @property { number } [distance] The search radius, in miles, for a `near_` query.  Can be up to `500` and the default is `25`. Applies to only phone numbers in the US and Canada.
- * @property { string } [inPostalCode] Limit results to a particular postal code. Given a phone number, search within the same postal code as that number. Applies to only phone numbers in the US and Canada.
- * @property { string } [inRegion] Limit results to a particular region, state, or province. Given a phone number, search within the same region as that number. Applies to only phone numbers in the US and Canada.
- * @property { string } [inRateCenter] Limit results to a specific rate center, or given a phone number search within the same rate center as that number. Requires `in_lata` to be set as well. Applies to only phone numbers in the US and Canada.
- * @property { string } [inLata] Limit results to a specific local access and transport area ([LATA](https://en.wikipedia.org/wiki/Local_access_and_transport_area)). Given a phone number, search within the same [LATA](https://en.wikipedia.org/wiki/Local_access_and_transport_area) as that number. Applies to only phone numbers in the US and Canada.
- * @property { string } [inLocality] Limit results to a particular locality or city. Given a phone number, search within the same Locality as that number.
- * @property { boolean } [faxEnabled] Whether the phone numbers can receive faxes. Can be: `true` or `false`.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface MachineToMachineListInstancePageOptions {
+  /** The area code of the phone numbers to read. Applies to only phone numbers in the US and Canada. */
   areaCode?: number;
+  /** The pattern on which to match phone numbers. Valid characters are `*`, `0-9`, `a-z`, and `A-Z`. The `*` character matches any single digit. For examples, see [Example 2](https://www.twilio.com/docs/phone-numbers/api/availablephonenumber-resource#local-get-basic-example-2) and [Example 3](https://www.twilio.com/docs/phone-numbers/api/availablephonenumber-resource#local-get-basic-example-3). If specified, this value must have at least two characters. */
   contains?: string;
+  /** Whether the phone numbers can receive text messages. Can be: `true` or `false`. */
   smsEnabled?: boolean;
+  /** Whether the phone numbers can receive MMS messages. Can be: `true` or `false`. */
   mmsEnabled?: boolean;
+  /** Whether the phone numbers can receive calls. Can be: `true` or `false`. */
   voiceEnabled?: boolean;
+  /** Whether to exclude phone numbers that require an [Address](https://www.twilio.com/docs/usage/api/address). Can be: `true` or `false` and the default is `false`. */
   excludeAllAddressRequired?: boolean;
+  /** Whether to exclude phone numbers that require a local [Address](https://www.twilio.com/docs/usage/api/address). Can be: `true` or `false` and the default is `false`. */
   excludeLocalAddressRequired?: boolean;
+  /** Whether to exclude phone numbers that require a foreign [Address](https://www.twilio.com/docs/usage/api/address). Can be: `true` or `false` and the default is `false`. */
   excludeForeignAddressRequired?: boolean;
+  /** Whether to read phone numbers that are new to the Twilio platform. Can be: `true` or `false` and the default is `true`. */
   beta?: boolean;
+  /** Given a phone number, find a geographically close number within `distance` miles. Distance defaults to 25 miles. Applies to only phone numbers in the US and Canada. */
   nearNumber?: string;
+  /** Given a latitude/longitude pair `lat,long` find geographically close numbers within `distance` miles. Applies to only phone numbers in the US and Canada. */
   nearLatLong?: string;
+  /** The search radius, in miles, for a `near_` query.  Can be up to `500` and the default is `25`. Applies to only phone numbers in the US and Canada. */
   distance?: number;
+  /** Limit results to a particular postal code. Given a phone number, search within the same postal code as that number. Applies to only phone numbers in the US and Canada. */
   inPostalCode?: string;
+  /** Limit results to a particular region, state, or province. Given a phone number, search within the same region as that number. Applies to only phone numbers in the US and Canada. */
   inRegion?: string;
+  /** Limit results to a specific rate center, or given a phone number search within the same rate center as that number. Requires `in_lata` to be set as well. Applies to only phone numbers in the US and Canada. */
   inRateCenter?: string;
+  /** Limit results to a specific local access and transport area ([LATA](https://en.wikipedia.org/wiki/Local_access_and_transport_area)). Given a phone number, search within the same [LATA](https://en.wikipedia.org/wiki/Local_access_and_transport_area) as that number. Applies to only phone numbers in the US and Canada. */
   inLata?: string;
+  /** Limit results to a particular locality or city. Given a phone number, search within the same Locality as that number. */
   inLocality?: string;
+  /** Whether the phone numbers can receive faxes. Can be: `true` or `false`. */
   faxEnabled?: boolean;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
+export interface MachineToMachineSolution {
+  accountSid: string;
+  countryCode: string;
+}
+
 export interface MachineToMachineListInstance {
-  /**
-   * Streams MachineToMachineInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (
-      item: MachineToMachineInstance,
-      done: (err?: Error) => void
-    ) => void
-  ): void;
+  _version: V2010;
+  _solution: MachineToMachineSolution;
+  _uri: string;
+
   /**
    * Streams MachineToMachineInstance records from the API.
    *
@@ -216,53 +194,30 @@ export interface MachineToMachineListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: MachineToMachineListInstanceEachOptions,
     callback?: (
       item: MachineToMachineInstance,
       done: (err?: Error) => void
     ) => void
   ): void;
-  each(params?: any, callback?: any): void;
+  each(
+    params: MachineToMachineListInstanceEachOptions,
+    callback?: (
+      item: MachineToMachineInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
   /**
    * Retrieve a single target page of MachineToMachineInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: MachineToMachinePage) => any
-  ): Promise<MachineToMachinePage>;
-  /**
-   * Retrieve a single target page of MachineToMachineInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: MachineToMachinePage) => any
   ): Promise<MachineToMachinePage>;
-  getPage(params?: any, callback?: any): Promise<MachineToMachinePage>;
-  /**
-   * Lists MachineToMachineInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: MachineToMachineInstance[]) => any
-  ): Promise<MachineToMachineInstance[]>;
   /**
    * Lists MachineToMachineInstance records from the API as a list.
    *
@@ -273,23 +228,12 @@ export interface MachineToMachineListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: MachineToMachineListInstanceOptions,
     callback?: (error: Error | null, items: MachineToMachineInstance[]) => any
   ): Promise<MachineToMachineInstance[]>;
-  list(params?: any, callback?: any): Promise<MachineToMachineInstance[]>;
-  /**
-   * Retrieve a single page of MachineToMachineInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: MachineToMachinePage) => any
-  ): Promise<MachineToMachinePage>;
+  list(
+    params: MachineToMachineListInstanceOptions,
+    callback?: (error: Error | null, items: MachineToMachineInstance[]) => any
+  ): Promise<MachineToMachineInstance[]>;
   /**
    * Retrieve a single page of MachineToMachineInstance records from the API.
    *
@@ -302,29 +246,18 @@ export interface MachineToMachineListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
+    callback?: (error: Error | null, items: MachineToMachinePage) => any
+  ): Promise<MachineToMachinePage>;
+  page(
     params: MachineToMachineListInstancePageOptions,
     callback?: (error: Error | null, items: MachineToMachinePage) => any
   ): Promise<MachineToMachinePage>;
-  page(params?: any, callback?: any): Promise<MachineToMachinePage>;
 
   /**
    * Provide a user-friendly representation
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export interface MachineToMachineSolution {
-  accountSid?: string;
-  countryCode?: string;
-}
-
-interface MachineToMachineListInstanceImpl
-  extends MachineToMachineListInstance {}
-class MachineToMachineListInstanceImpl implements MachineToMachineListInstance {
-  _version?: V2010;
-  _solution?: MachineToMachineSolution;
-  _uri?: string;
 }
 
 export function MachineToMachineListInstance(
@@ -340,17 +273,19 @@ export function MachineToMachineListInstance(
     throw new Error("Parameter 'countryCode' is not valid.");
   }
 
-  const instance = {} as MachineToMachineListInstanceImpl;
+  const instance = {} as MachineToMachineListInstance;
 
   instance._version = version;
   instance._solution = { accountSid, countryCode };
   instance._uri = `/Accounts/${accountSid}/AvailablePhoneNumbers/${countryCode}/MachineToMachine.json`;
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | MachineToMachineListInstancePageOptions
+      | ((error: Error | null, items: MachineToMachinePage) => any),
+    callback?: (error: Error | null, items: MachineToMachinePage) => any
   ): Promise<MachineToMachinePage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -398,14 +333,14 @@ export function MachineToMachineListInstance(
       data["FaxEnabled"] = serialize.bool(params["faxEnabled"]);
     if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
@@ -413,10 +348,10 @@ export function MachineToMachineListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new MachineToMachinePage(operationVersion, payload, this._solution)
+        new MachineToMachinePage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -426,34 +361,31 @@ export function MachineToMachineListInstance(
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: MachineToMachinePage) => any
   ): Promise<MachineToMachinePage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
+    let pagePromise = operationPromise.then(
       (payload) =>
-        new MachineToMachinePage(this._version, payload, this._solution)
+        new MachineToMachinePage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;
@@ -464,19 +396,19 @@ interface MachineToMachinePayload extends TwilioResponsePayload {
 }
 
 interface MachineToMachineResource {
-  friendly_name?: string | null;
-  phone_number?: string | null;
-  lata?: string | null;
-  locality?: string | null;
-  rate_center?: string | null;
-  latitude?: number | null;
-  longitude?: number | null;
-  region?: string | null;
-  postal_code?: string | null;
-  iso_country?: string | null;
-  address_requirements?: string | null;
-  beta?: boolean | null;
-  capabilities?: PhoneNumberCapabilities | null;
+  friendly_name: string;
+  phone_number: string;
+  lata: string;
+  locality: string;
+  rate_center: string;
+  latitude: number;
+  longitude: number;
+  region: string;
+  postal_code: string;
+  iso_country: string;
+  address_requirements: string;
+  beta: boolean;
+  capabilities: PhoneNumberCapabilities;
 }
 
 export class MachineToMachineInstance {
@@ -504,52 +436,52 @@ export class MachineToMachineInstance {
   /**
    * A formatted version of the phone number
    */
-  friendlyName?: string | null;
+  friendlyName: string;
   /**
    * The phone number in E.164 format
    */
-  phoneNumber?: string | null;
+  phoneNumber: string;
   /**
    * The LATA of this phone number
    */
-  lata?: string | null;
+  lata: string;
   /**
    * The locality or city of this phone number\'s location
    */
-  locality?: string | null;
+  locality: string;
   /**
    * The rate center of this phone number
    */
-  rateCenter?: string | null;
+  rateCenter: string;
   /**
    * The latitude of this phone number\'s location
    */
-  latitude?: number | null;
+  latitude: number;
   /**
    * The longitude of this phone number\'s location
    */
-  longitude?: number | null;
+  longitude: number;
   /**
    * The two-letter state or province abbreviation of this phone number\'s location
    */
-  region?: string | null;
+  region: string;
   /**
    * The postal or ZIP code of this phone number\'s location
    */
-  postalCode?: string | null;
+  postalCode: string;
   /**
    * The ISO country code of this phone number
    */
-  isoCountry?: string | null;
+  isoCountry: string;
   /**
    * The type of Address resource the phone number requires
    */
-  addressRequirements?: string | null;
+  addressRequirements: string;
   /**
    * Whether the phone number is new to the Twilio platform
    */
-  beta?: boolean | null;
-  capabilities?: PhoneNumberCapabilities | null;
+  beta: boolean;
+  capabilities: PhoneNumberCapabilities;
 
   /**
    * Provide a user-friendly representation

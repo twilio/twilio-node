@@ -19,7 +19,14 @@ const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 import { CountryListInstance } from "./phoneNumber/country";
 
+export interface PhoneNumberSolution {}
+
 export interface PhoneNumberListInstance {
+  _version: V1;
+  _solution: PhoneNumberSolution;
+  _uri: string;
+
+  _countries?: CountryListInstance;
   countries: CountryListInstance;
 
   /**
@@ -29,19 +36,8 @@ export interface PhoneNumberListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface PhoneNumberSolution {}
-
-interface PhoneNumberListInstanceImpl extends PhoneNumberListInstance {}
-class PhoneNumberListInstanceImpl implements PhoneNumberListInstance {
-  _version?: V1;
-  _solution?: PhoneNumberSolution;
-  _uri?: string;
-
-  _countries?: CountryListInstance;
-}
-
 export function PhoneNumberListInstance(version: V1): PhoneNumberListInstance {
-  const instance = {} as PhoneNumberListInstanceImpl;
+  const instance = {} as PhoneNumberListInstance;
 
   instance._version = version;
   instance._solution = {};
@@ -49,22 +45,22 @@ export function PhoneNumberListInstance(version: V1): PhoneNumberListInstance {
 
   Object.defineProperty(instance, "countries", {
     get: function countries() {
-      if (!this._countries) {
-        this._countries = CountryListInstance(this._version);
+      if (!instance._countries) {
+        instance._countries = CountryListInstance(instance._version);
       }
-      return this._countries;
+      return instance._countries;
     },
   });
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

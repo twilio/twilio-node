@@ -21,23 +21,24 @@ export default class V1 extends Version {
   /**
    * Initialize the V1 version of Monitor
    *
-   * @property { Twilio.Monitor.V1.AlertListInstance } alerts - alerts resource
-   * @property { Twilio.Monitor.V1.EventListInstance } events - events resource
-   *
-   * @param { Twilio.Monitor } domain - The Twilio domain
+   * @param domain - The Twilio (Twilio.Monitor) domain
    */
   constructor(domain: MonitorBase) {
     super(domain, "v1");
   }
 
+  /** alerts - { Twilio.Monitor.V1.AlertListInstance } resource */
   protected _alerts?: AlertListInstance;
+  /** events - { Twilio.Monitor.V1.EventListInstance } resource */
   protected _events?: EventListInstance;
 
+  /** Getter for alerts resource */
   get alerts(): AlertListInstance {
     this._alerts = this._alerts || AlertListInstance(this);
     return this._alerts;
   }
 
+  /** Getter for events resource */
   get events(): EventListInstance {
     this._events = this._events || EventListInstance(this);
     return this._events;

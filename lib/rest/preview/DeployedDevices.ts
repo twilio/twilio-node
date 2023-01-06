@@ -20,16 +20,16 @@ export default class DeployedDevices extends Version {
   /**
    * Initialize the DeployedDevices version of Preview
    *
-   * @property { Twilio.Preview.DeployedDevices.FleetListInstance } fleets - fleets resource
-   *
-   * @param { Twilio.Preview } domain - The Twilio domain
+   * @param domain - The Twilio (Twilio.Preview) domain
    */
   constructor(domain: PreviewBase) {
     super(domain, "DeployedDevices");
   }
 
+  /** fleets - { Twilio.Preview.DeployedDevices.FleetListInstance } resource */
   protected _fleets?: FleetListInstance;
 
+  /** Getter for fleets resource */
   get fleets(): FleetListInstance {
     this._fleets = this._fleets || FleetListInstance(this);
     return this._fleets;

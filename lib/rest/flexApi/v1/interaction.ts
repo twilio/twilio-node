@@ -21,12 +21,11 @@ import { InteractionChannelListInstance } from "./interaction/interactionChannel
 
 /**
  * Options to pass to create a InteractionInstance
- *
- * @property { any } channel The Interaction\\\'s channel.
- * @property { any } routing The Interaction\\\'s routing logic.
  */
 export interface InteractionListInstanceCreateOptions {
+  /** The Interaction\\\'s channel. */
   channel: any;
+  /** The Interaction\\\'s routing logic. */
   routing: any;
 }
 
@@ -36,9 +35,9 @@ export interface InteractionContext {
   /**
    * Fetch a InteractionInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed InteractionInstance
+   * @returns Resolves to processed InteractionInstance
    */
   fetch(
     callback?: (error: Error | null, item?: InteractionInstance) => any
@@ -52,7 +51,7 @@ export interface InteractionContext {
 }
 
 export interface InteractionContextSolution {
-  sid?: string;
+  sid: string;
 }
 
 export class InteractionContextImpl implements InteractionContext {
@@ -77,19 +76,26 @@ export class InteractionContextImpl implements InteractionContext {
     return this._channels;
   }
 
-  fetch(callback?: any): Promise<InteractionInstance> {
-    let operationVersion = this._version,
+  fetch(
+    callback?: (error: Error | null, item?: InteractionInstance) => any
+  ): Promise<InteractionInstance> {
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new InteractionInstance(operationVersion, payload, this._solution.sid)
+        new InteractionInstance(
+          operationVersion,
+          payload,
+          instance._solution.sid
+        )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -113,11 +119,11 @@ export class InteractionContextImpl implements InteractionContext {
 interface InteractionPayload extends InteractionResource {}
 
 interface InteractionResource {
-  sid?: string | null;
-  channel?: any | null;
-  routing?: any | null;
-  url?: string | null;
-  links?: object | null;
+  sid: string;
+  channel: any;
+  routing: any;
+  url: string;
+  links: Record<string, string>;
 }
 
 export class InteractionInstance {
@@ -141,17 +147,17 @@ export class InteractionInstance {
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The Interaction\'s channel
    */
-  channel?: any | null;
+  channel: any;
   /**
    * A JSON Object representing the routing rules for the Interaction Channel
    */
-  routing?: any | null;
-  url?: string | null;
-  links?: object | null;
+  routing: any;
+  url: string;
+  links: Record<string, string>;
 
   private get _proxy(): InteractionContext {
     this._context =
@@ -163,9 +169,9 @@ export class InteractionInstance {
   /**
    * Fetch a InteractionInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed InteractionInstance
+   * @returns Resolves to processed InteractionInstance
    */
   fetch(
     callback?: (error: Error | null, item?: InteractionInstance) => any
@@ -200,23 +206,28 @@ export class InteractionInstance {
   }
 }
 
+export interface InteractionSolution {}
+
 export interface InteractionListInstance {
+  _version: V1;
+  _solution: InteractionSolution;
+  _uri: string;
+
   (sid: string): InteractionContext;
   get(sid: string): InteractionContext;
 
   /**
    * Create a InteractionInstance
    *
-   * @param { InteractionListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed InteractionInstance
+   * @returns Resolves to processed InteractionInstance
    */
   create(
     params: InteractionListInstanceCreateOptions,
     callback?: (error: Error | null, item?: InteractionInstance) => any
   ): Promise<InteractionInstance>;
-  create(params: any, callback?: any): Promise<InteractionInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -225,17 +236,8 @@ export interface InteractionListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface InteractionSolution {}
-
-interface InteractionListInstanceImpl extends InteractionListInstance {}
-class InteractionListInstanceImpl implements InteractionListInstance {
-  _version?: V1;
-  _solution?: InteractionSolution;
-  _uri?: string;
-}
-
 export function InteractionListInstance(version: V1): InteractionListInstance {
-  const instance = ((sid) => instance.get(sid)) as InteractionListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as InteractionListInstance;
 
   instance.get = function get(sid): InteractionContext {
     return new InteractionContextImpl(version, sid);
@@ -246,8 +248,8 @@ export function InteractionListInstance(version: V1): InteractionListInstance {
   instance._uri = `/Interactions`;
 
   instance.create = function create(
-    params: any,
-    callback?: any
+    params: InteractionListInstanceCreateOptions,
+    callback?: (error: Error | null, items: InteractionInstance) => any
   ): Promise<InteractionInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -272,7 +274,7 @@ export function InteractionListInstance(version: V1): InteractionListInstance {
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -282,7 +284,7 @@ export function InteractionListInstance(version: V1): InteractionListInstance {
       (payload) => new InteractionInstance(operationVersion, payload)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -290,14 +292,14 @@ export function InteractionListInstance(version: V1): InteractionListInstance {
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

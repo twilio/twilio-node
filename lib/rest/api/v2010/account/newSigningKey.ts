@@ -20,20 +20,27 @@ import { isValidPathParam } from "../../../../base/utility";
 
 /**
  * Options to pass to create a NewSigningKeyInstance
- *
- * @property { string } [friendlyName] A descriptive string that you create to describe the resource. It can be up to 64 characters long.
  */
 export interface NewSigningKeyListInstanceCreateOptions {
+  /** A descriptive string that you create to describe the resource. It can be up to 64 characters long. */
   friendlyName?: string;
 }
 
+export interface NewSigningKeySolution {
+  accountSid: string;
+}
+
 export interface NewSigningKeyListInstance {
+  _version: V2010;
+  _solution: NewSigningKeySolution;
+  _uri: string;
+
   /**
    * Create a NewSigningKeyInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed NewSigningKeyInstance
+   * @returns Resolves to processed NewSigningKeyInstance
    */
   create(
     callback?: (error: Error | null, item?: NewSigningKeyInstance) => any
@@ -41,33 +48,21 @@ export interface NewSigningKeyListInstance {
   /**
    * Create a NewSigningKeyInstance
    *
-   * @param { NewSigningKeyListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed NewSigningKeyInstance
+   * @returns Resolves to processed NewSigningKeyInstance
    */
   create(
     params: NewSigningKeyListInstanceCreateOptions,
     callback?: (error: Error | null, item?: NewSigningKeyInstance) => any
   ): Promise<NewSigningKeyInstance>;
-  create(params?: any, callback?: any): Promise<NewSigningKeyInstance>;
 
   /**
    * Provide a user-friendly representation
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export interface NewSigningKeySolution {
-  accountSid?: string;
-}
-
-interface NewSigningKeyListInstanceImpl extends NewSigningKeyListInstance {}
-class NewSigningKeyListInstanceImpl implements NewSigningKeyListInstance {
-  _version?: V2010;
-  _solution?: NewSigningKeySolution;
-  _uri?: string;
 }
 
 export function NewSigningKeyListInstance(
@@ -78,17 +73,19 @@ export function NewSigningKeyListInstance(
     throw new Error("Parameter 'accountSid' is not valid.");
   }
 
-  const instance = {} as NewSigningKeyListInstanceImpl;
+  const instance = {} as NewSigningKeyListInstance;
 
   instance._version = version;
   instance._solution = { accountSid };
   instance._uri = `/Accounts/${accountSid}/SigningKeys.json`;
 
   instance.create = function create(
-    params?: any,
-    callback?: any
+    params?:
+      | NewSigningKeyListInstanceCreateOptions
+      | ((error: Error | null, items: NewSigningKeyInstance) => any),
+    callback?: (error: Error | null, items: NewSigningKeyInstance) => any
   ): Promise<NewSigningKeyInstance> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -105,7 +102,7 @@ export function NewSigningKeyListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -116,11 +113,11 @@ export function NewSigningKeyListInstance(
         new NewSigningKeyInstance(
           operationVersion,
           payload,
-          this._solution.accountSid
+          instance._solution.accountSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -128,14 +125,14 @@ export function NewSigningKeyListInstance(
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;
@@ -144,11 +141,11 @@ export function NewSigningKeyListInstance(
 interface NewSigningKeyPayload extends NewSigningKeyResource {}
 
 interface NewSigningKeyResource {
-  sid?: string | null;
-  friendly_name?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  secret?: string | null;
+  sid: string;
+  friendly_name: string;
+  date_created: Date;
+  date_updated: Date;
+  secret: string;
 }
 
 export class NewSigningKeyInstance {
@@ -167,23 +164,23 @@ export class NewSigningKeyInstance {
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The string that you assigned to describe the resource
    */
-  friendlyName?: string | null;
+  friendlyName: string;
   /**
    * The RFC 2822 date and time in GMT that the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The RFC 2822 date and time in GMT that the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The secret your application uses to sign Access Tokens and to authenticate to the REST API.
    */
-  secret?: string | null;
+  secret: string;
 
   /**
    * Provide a user-friendly representation

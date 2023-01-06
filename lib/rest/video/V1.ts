@@ -25,54 +25,59 @@ export default class V1 extends Version {
   /**
    * Initialize the V1 version of Video
    *
-   * @property { Twilio.Video.V1.CompositionListInstance } compositions - compositions resource
-   * @property { Twilio.Video.V1.CompositionHookListInstance } compositionHooks - compositionHooks resource
-   * @property { Twilio.Video.V1.CompositionSettingsListInstance } compositionSettings - compositionSettings resource
-   * @property { Twilio.Video.V1.RecordingListInstance } recordings - recordings resource
-   * @property { Twilio.Video.V1.RecordingSettingsListInstance } recordingSettings - recordingSettings resource
-   * @property { Twilio.Video.V1.RoomListInstance } rooms - rooms resource
-   *
-   * @param { Twilio.Video } domain - The Twilio domain
+   * @param domain - The Twilio (Twilio.Video) domain
    */
   constructor(domain: VideoBase) {
     super(domain, "v1");
   }
 
+  /** compositions - { Twilio.Video.V1.CompositionListInstance } resource */
   protected _compositions?: CompositionListInstance;
+  /** compositionHooks - { Twilio.Video.V1.CompositionHookListInstance } resource */
   protected _compositionHooks?: CompositionHookListInstance;
+  /** compositionSettings - { Twilio.Video.V1.CompositionSettingsListInstance } resource */
   protected _compositionSettings?: CompositionSettingsListInstance;
+  /** recordings - { Twilio.Video.V1.RecordingListInstance } resource */
   protected _recordings?: RecordingListInstance;
+  /** recordingSettings - { Twilio.Video.V1.RecordingSettingsListInstance } resource */
   protected _recordingSettings?: RecordingSettingsListInstance;
+  /** rooms - { Twilio.Video.V1.RoomListInstance } resource */
   protected _rooms?: RoomListInstance;
 
+  /** Getter for compositions resource */
   get compositions(): CompositionListInstance {
     this._compositions = this._compositions || CompositionListInstance(this);
     return this._compositions;
   }
 
+  /** Getter for compositionHooks resource */
   get compositionHooks(): CompositionHookListInstance {
     this._compositionHooks =
       this._compositionHooks || CompositionHookListInstance(this);
     return this._compositionHooks;
   }
 
+  /** Getter for compositionSettings resource */
   get compositionSettings(): CompositionSettingsListInstance {
     this._compositionSettings =
       this._compositionSettings || CompositionSettingsListInstance(this);
     return this._compositionSettings;
   }
 
+  /** Getter for recordings resource */
   get recordings(): RecordingListInstance {
     this._recordings = this._recordings || RecordingListInstance(this);
     return this._recordings;
   }
 
+  /** Getter for recordingSettings resource */
   get recordingSettings(): RecordingSettingsListInstance {
     this._recordingSettings =
       this._recordingSettings || RecordingSettingsListInstance(this);
     return this._recordingSettings;
   }
 
+  /** Getter for rooms resource */
   get rooms(): RoomListInstance {
     this._rooms = this._rooms || RoomListInstance(this);
     return this._rooms;

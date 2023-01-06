@@ -32,95 +32,82 @@ type TrustProductStatus =
 
 /**
  * Options to pass to update a TrustProductsInstance
- *
- * @property { TrustProductStatus } [status]
- * @property { string } [statusCallback] The URL we call to inform your application of status changes.
- * @property { string } [friendlyName] The string that you assigned to describe the resource.
- * @property { string } [email] The email address that will receive updates when the Customer-Profile resource changes status.
  */
 export interface TrustProductsContextUpdateOptions {
+  /**  */
   status?: TrustProductStatus;
+  /** The URL we call to inform your application of status changes. */
   statusCallback?: string;
+  /** The string that you assigned to describe the resource. */
   friendlyName?: string;
+  /** The email address that will receive updates when the Customer-Profile resource changes status. */
   email?: string;
 }
 
 /**
  * Options to pass to create a TrustProductsInstance
- *
- * @property { string } friendlyName The string that you assigned to describe the resource.
- * @property { string } email The email address that will receive updates when the Customer-Profile resource changes status.
- * @property { string } policySid The unique string of a policy that is associated to the Customer-Profile resource.
- * @property { string } [statusCallback] The URL we call to inform your application of status changes.
  */
 export interface TrustProductsListInstanceCreateOptions {
+  /** The string that you assigned to describe the resource. */
   friendlyName: string;
+  /** The email address that will receive updates when the Customer-Profile resource changes status. */
   email: string;
+  /** The unique string of a policy that is associated to the Customer-Profile resource. */
   policySid: string;
+  /** The URL we call to inform your application of status changes. */
   statusCallback?: string;
 }
 /**
  * Options to pass to each
- *
- * @property { TrustProductStatus } [status] The verification status of the Customer-Profile resource.
- * @property { string } [friendlyName] The string that you assigned to describe the resource.
- * @property { string } [policySid] The unique string of a policy that is associated to the Customer-Profile resource.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface TrustProductsListInstanceEachOptions {
+  /** The verification status of the Customer-Profile resource. */
   status?: TrustProductStatus;
+  /** The string that you assigned to describe the resource. */
   friendlyName?: string;
+  /** The unique string of a policy that is associated to the Customer-Profile resource. */
   policySid?: string;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: TrustProductsInstance, done: (err?: Error) => void) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { TrustProductStatus } [status] The verification status of the Customer-Profile resource.
- * @property { string } [friendlyName] The string that you assigned to describe the resource.
- * @property { string } [policySid] The unique string of a policy that is associated to the Customer-Profile resource.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface TrustProductsListInstanceOptions {
+  /** The verification status of the Customer-Profile resource. */
   status?: TrustProductStatus;
+  /** The string that you assigned to describe the resource. */
   friendlyName?: string;
+  /** The unique string of a policy that is associated to the Customer-Profile resource. */
   policySid?: string;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { TrustProductStatus } [status] The verification status of the Customer-Profile resource.
- * @property { string } [friendlyName] The string that you assigned to describe the resource.
- * @property { string } [policySid] The unique string of a policy that is associated to the Customer-Profile resource.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface TrustProductsListInstancePageOptions {
+  /** The verification status of the Customer-Profile resource. */
   status?: TrustProductStatus;
+  /** The string that you assigned to describe the resource. */
   friendlyName?: string;
+  /** The unique string of a policy that is associated to the Customer-Profile resource. */
   policySid?: string;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
@@ -132,9 +119,9 @@ export interface TrustProductsContext {
   /**
    * Remove a TrustProductsInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -143,9 +130,9 @@ export interface TrustProductsContext {
   /**
    * Fetch a TrustProductsInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed TrustProductsInstance
+   * @returns Resolves to processed TrustProductsInstance
    */
   fetch(
     callback?: (error: Error | null, item?: TrustProductsInstance) => any
@@ -154,9 +141,9 @@ export interface TrustProductsContext {
   /**
    * Update a TrustProductsInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed TrustProductsInstance
+   * @returns Resolves to processed TrustProductsInstance
    */
   update(
     callback?: (error: Error | null, item?: TrustProductsInstance) => any
@@ -164,16 +151,15 @@ export interface TrustProductsContext {
   /**
    * Update a TrustProductsInstance
    *
-   * @param { TrustProductsContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed TrustProductsInstance
+   * @returns Resolves to processed TrustProductsInstance
    */
   update(
     params: TrustProductsContextUpdateOptions,
     callback?: (error: Error | null, item?: TrustProductsInstance) => any
   ): Promise<TrustProductsInstance>;
-  update(params?: any, callback?: any): Promise<TrustProductsInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -183,7 +169,7 @@ export interface TrustProductsContext {
 }
 
 export interface TrustProductsContextSolution {
-  sid?: string;
+  sid: string;
 }
 
 export class TrustProductsContextImpl implements TrustProductsContext {
@@ -230,41 +216,56 @@ export class TrustProductsContextImpl implements TrustProductsContext {
     return this._trustProductsEvaluations;
   }
 
-  remove(callback?: any): Promise<boolean> {
-    let operationVersion = this._version,
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<TrustProductsInstance> {
-    let operationVersion = this._version,
+  fetch(
+    callback?: (error: Error | null, item?: TrustProductsInstance) => any
+  ): Promise<TrustProductsInstance> {
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new TrustProductsInstance(operationVersion, payload, this._solution.sid)
+        new TrustProductsInstance(
+          operationVersion,
+          payload,
+          instance._solution.sid
+        )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
     return operationPromise;
   }
 
-  update(params?: any, callback?: any): Promise<TrustProductsInstance> {
-    if (typeof params === "function") {
+  update(
+    params?:
+      | TrustProductsContextUpdateOptions
+      | ((error: Error | null, item?: TrustProductsInstance) => any),
+    callback?: (error: Error | null, item?: TrustProductsInstance) => any
+  ): Promise<TrustProductsInstance> {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -283,9 +284,10 @@ export class TrustProductsContextImpl implements TrustProductsContext {
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -293,10 +295,14 @@ export class TrustProductsContextImpl implements TrustProductsContext {
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new TrustProductsInstance(operationVersion, payload, this._solution.sid)
+        new TrustProductsInstance(
+          operationVersion,
+          payload,
+          instance._solution.sid
+        )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -322,18 +328,18 @@ interface TrustProductsPayload extends TwilioResponsePayload {
 }
 
 interface TrustProductsResource {
-  sid?: string | null;
-  account_sid?: string | null;
-  policy_sid?: string | null;
-  friendly_name?: string | null;
-  status?: TrustProductStatus;
-  valid_until?: Date | null;
-  email?: string | null;
-  status_callback?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  url?: string | null;
-  links?: object | null;
+  sid: string;
+  account_sid: string;
+  policy_sid: string;
+  friendly_name: string;
+  status: TrustProductStatus;
+  valid_until: Date;
+  email: string;
+  status_callback: string;
+  date_created: Date;
+  date_updated: Date;
+  url: string;
+  links: Record<string, string>;
 }
 
 export class TrustProductsInstance {
@@ -364,48 +370,48 @@ export class TrustProductsInstance {
   /**
    * The unique string that identifies the resource.
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The unique string of a policy.
    */
-  policySid?: string | null;
+  policySid: string;
   /**
    * The string that you assigned to describe the resource
    */
-  friendlyName?: string | null;
-  status?: TrustProductStatus;
+  friendlyName: string;
+  status: TrustProductStatus;
   /**
    * The ISO 8601 date and time in GMT when the resource will be valid until.
    */
-  validUntil?: Date | null;
+  validUntil: Date;
   /**
    * The email address
    */
-  email?: string | null;
+  email: string;
   /**
    * The URL we call to inform your application of status changes.
    */
-  statusCallback?: string | null;
+  statusCallback: string;
   /**
    * The ISO 8601 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The ISO 8601 date and time in GMT when the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The absolute URL of the Customer-Profile resource
    */
-  url?: string | null;
+  url: string;
   /**
    * The URLs of the Assigned Items of the Customer-Profile resource
    */
-  links?: object | null;
+  links: Record<string, string>;
 
   private get _proxy(): TrustProductsContext {
     this._context =
@@ -417,9 +423,9 @@ export class TrustProductsInstance {
   /**
    * Remove a TrustProductsInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -430,9 +436,9 @@ export class TrustProductsInstance {
   /**
    * Fetch a TrustProductsInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed TrustProductsInstance
+   * @returns Resolves to processed TrustProductsInstance
    */
   fetch(
     callback?: (error: Error | null, item?: TrustProductsInstance) => any
@@ -443,9 +449,9 @@ export class TrustProductsInstance {
   /**
    * Update a TrustProductsInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed TrustProductsInstance
+   * @returns Resolves to processed TrustProductsInstance
    */
   update(
     callback?: (error: Error | null, item?: TrustProductsInstance) => any
@@ -453,16 +459,20 @@ export class TrustProductsInstance {
   /**
    * Update a TrustProductsInstance
    *
-   * @param { TrustProductsContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed TrustProductsInstance
+   * @returns Resolves to processed TrustProductsInstance
    */
   update(
     params: TrustProductsContextUpdateOptions,
     callback?: (error: Error | null, item?: TrustProductsInstance) => any
   ): Promise<TrustProductsInstance>;
-  update(params?: any, callback?: any): Promise<TrustProductsInstance> {
+
+  update(
+    params?: any,
+    callback?: (error: Error | null, item?: TrustProductsInstance) => any
+  ): Promise<TrustProductsInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -514,44 +524,29 @@ export class TrustProductsInstance {
   }
 }
 
+export interface TrustProductsSolution {}
+
 export interface TrustProductsListInstance {
+  _version: V1;
+  _solution: TrustProductsSolution;
+  _uri: string;
+
   (sid: string): TrustProductsContext;
   get(sid: string): TrustProductsContext;
 
   /**
    * Create a TrustProductsInstance
    *
-   * @param { TrustProductsListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed TrustProductsInstance
+   * @returns Resolves to processed TrustProductsInstance
    */
   create(
     params: TrustProductsListInstanceCreateOptions,
     callback?: (error: Error | null, item?: TrustProductsInstance) => any
   ): Promise<TrustProductsInstance>;
-  create(params: any, callback?: any): Promise<TrustProductsInstance>;
 
-  /**
-   * Streams TrustProductsInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (
-      item: TrustProductsInstance,
-      done: (err?: Error) => void
-    ) => void
-  ): void;
   /**
    * Streams TrustProductsInstance records from the API.
    *
@@ -568,53 +563,30 @@ export interface TrustProductsListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: TrustProductsListInstanceEachOptions,
     callback?: (
       item: TrustProductsInstance,
       done: (err?: Error) => void
     ) => void
   ): void;
-  each(params?: any, callback?: any): void;
+  each(
+    params: TrustProductsListInstanceEachOptions,
+    callback?: (
+      item: TrustProductsInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
   /**
    * Retrieve a single target page of TrustProductsInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: TrustProductsPage) => any
-  ): Promise<TrustProductsPage>;
-  /**
-   * Retrieve a single target page of TrustProductsInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: TrustProductsPage) => any
   ): Promise<TrustProductsPage>;
-  getPage(params?: any, callback?: any): Promise<TrustProductsPage>;
-  /**
-   * Lists TrustProductsInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: TrustProductsInstance[]) => any
-  ): Promise<TrustProductsInstance[]>;
   /**
    * Lists TrustProductsInstance records from the API as a list.
    *
@@ -625,23 +597,12 @@ export interface TrustProductsListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: TrustProductsListInstanceOptions,
     callback?: (error: Error | null, items: TrustProductsInstance[]) => any
   ): Promise<TrustProductsInstance[]>;
-  list(params?: any, callback?: any): Promise<TrustProductsInstance[]>;
-  /**
-   * Retrieve a single page of TrustProductsInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: TrustProductsPage) => any
-  ): Promise<TrustProductsPage>;
+  list(
+    params: TrustProductsListInstanceOptions,
+    callback?: (error: Error | null, items: TrustProductsInstance[]) => any
+  ): Promise<TrustProductsInstance[]>;
   /**
    * Retrieve a single page of TrustProductsInstance records from the API.
    *
@@ -654,10 +615,12 @@ export interface TrustProductsListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
+    callback?: (error: Error | null, items: TrustProductsPage) => any
+  ): Promise<TrustProductsPage>;
+  page(
     params: TrustProductsListInstancePageOptions,
     callback?: (error: Error | null, items: TrustProductsPage) => any
   ): Promise<TrustProductsPage>;
-  page(params?: any, callback?: any): Promise<TrustProductsPage>;
 
   /**
    * Provide a user-friendly representation
@@ -666,20 +629,10 @@ export interface TrustProductsListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface TrustProductsSolution {}
-
-interface TrustProductsListInstanceImpl extends TrustProductsListInstance {}
-class TrustProductsListInstanceImpl implements TrustProductsListInstance {
-  _version?: V1;
-  _solution?: TrustProductsSolution;
-  _uri?: string;
-}
-
 export function TrustProductsListInstance(
   version: V1
 ): TrustProductsListInstance {
-  const instance = ((sid) =>
-    instance.get(sid)) as TrustProductsListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as TrustProductsListInstance;
 
   instance.get = function get(sid): TrustProductsContext {
     return new TrustProductsContextImpl(version, sid);
@@ -690,8 +643,8 @@ export function TrustProductsListInstance(
   instance._uri = `/TrustProducts`;
 
   instance.create = function create(
-    params: any,
-    callback?: any
+    params: TrustProductsListInstanceCreateOptions,
+    callback?: (error: Error | null, items: TrustProductsInstance) => any
   ): Promise<TrustProductsInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -727,7 +680,7 @@ export function TrustProductsListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -737,7 +690,7 @@ export function TrustProductsListInstance(
       (payload) => new TrustProductsInstance(operationVersion, payload)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -745,10 +698,12 @@ export function TrustProductsListInstance(
   };
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | TrustProductsListInstancePageOptions
+      | ((error: Error | null, items: TrustProductsPage) => any),
+    callback?: (error: Error | null, items: TrustProductsPage) => any
   ): Promise<TrustProductsPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -764,14 +719,14 @@ export function TrustProductsListInstance(
       data["PolicySid"] = params["policySid"];
     if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
@@ -779,10 +734,10 @@ export function TrustProductsListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new TrustProductsPage(operationVersion, payload, this._solution)
+        new TrustProductsPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -792,33 +747,31 @@ export function TrustProductsListInstance(
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: TrustProductsPage) => any
   ): Promise<TrustProductsPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new TrustProductsPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new TrustProductsPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

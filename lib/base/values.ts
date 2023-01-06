@@ -1,16 +1,12 @@
-"use strict";
-
 /**
  * @namespace values
  */
 
 /**
- * @function of
- * @memberOf values
- * @description removes all undefined values of an object
+ * Removes all undefined values of an object
  *
- * @param  {object} obj object to filter
- * @return {object} object with no undefined values
+ * @param obj - object to filter
+ * @returns object with no undefined values
  */
 export function of(obj: Object): Object {
   return Object.fromEntries(

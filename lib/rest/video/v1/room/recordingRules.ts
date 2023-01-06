@@ -28,20 +28,27 @@ export class VideoV1RoomRoomRecordingRuleRules {
 
 /**
  * Options to pass to update a RecordingRulesInstance
- *
- * @property { any } [rules] A JSON-encoded array of recording rules.
  */
 export interface RecordingRulesListInstanceUpdateOptions {
+  /** A JSON-encoded array of recording rules. */
   rules?: any;
 }
 
+export interface RecordingRulesSolution {
+  roomSid: string;
+}
+
 export interface RecordingRulesListInstance {
+  _version: V1;
+  _solution: RecordingRulesSolution;
+  _uri: string;
+
   /**
    * Fetch a RecordingRulesInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed RecordingRulesInstance
+   * @returns Resolves to processed RecordingRulesInstance
    */
   fetch(
     callback?: (error: Error | null, item?: RecordingRulesInstance) => any
@@ -50,9 +57,9 @@ export interface RecordingRulesListInstance {
   /**
    * Update a RecordingRulesInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed RecordingRulesInstance
+   * @returns Resolves to processed RecordingRulesInstance
    */
   update(
     callback?: (error: Error | null, item?: RecordingRulesInstance) => any
@@ -60,33 +67,21 @@ export interface RecordingRulesListInstance {
   /**
    * Update a RecordingRulesInstance
    *
-   * @param { RecordingRulesListInstanceUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed RecordingRulesInstance
+   * @returns Resolves to processed RecordingRulesInstance
    */
   update(
     params: RecordingRulesListInstanceUpdateOptions,
     callback?: (error: Error | null, item?: RecordingRulesInstance) => any
   ): Promise<RecordingRulesInstance>;
-  update(params?: any, callback?: any): Promise<RecordingRulesInstance>;
 
   /**
    * Provide a user-friendly representation
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export interface RecordingRulesSolution {
-  roomSid?: string;
-}
-
-interface RecordingRulesListInstanceImpl extends RecordingRulesListInstance {}
-class RecordingRulesListInstanceImpl implements RecordingRulesListInstance {
-  _version?: V1;
-  _solution?: RecordingRulesSolution;
-  _uri?: string;
 }
 
 export function RecordingRulesListInstance(
@@ -97,18 +92,18 @@ export function RecordingRulesListInstance(
     throw new Error("Parameter 'roomSid' is not valid.");
   }
 
-  const instance = {} as RecordingRulesListInstanceImpl;
+  const instance = {} as RecordingRulesListInstance;
 
   instance._version = version;
   instance._solution = { roomSid };
   instance._uri = `/Rooms/${roomSid}/RecordingRules`;
 
   instance.fetch = function fetch(
-    callback?: any
+    callback?: (error: Error | null, items: RecordingRulesInstance) => any
   ): Promise<RecordingRulesInstance> {
     let operationVersion = version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -117,11 +112,11 @@ export function RecordingRulesListInstance(
         new RecordingRulesInstance(
           operationVersion,
           payload,
-          this._solution.roomSid
+          instance._solution.roomSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -129,10 +124,12 @@ export function RecordingRulesListInstance(
   };
 
   instance.update = function update(
-    params?: any,
-    callback?: any
+    params?:
+      | RecordingRulesListInstanceUpdateOptions
+      | ((error: Error | null, items: RecordingRulesInstance) => any),
+    callback?: (error: Error | null, items: RecordingRulesInstance) => any
   ): Promise<RecordingRulesInstance> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -149,7 +146,7 @@ export function RecordingRulesListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -160,11 +157,11 @@ export function RecordingRulesListInstance(
         new RecordingRulesInstance(
           operationVersion,
           payload,
-          this._solution.roomSid
+          instance._solution.roomSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -172,14 +169,14 @@ export function RecordingRulesListInstance(
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;
@@ -188,10 +185,10 @@ export function RecordingRulesListInstance(
 interface RecordingRulesPayload extends RecordingRulesResource {}
 
 interface RecordingRulesResource {
-  room_sid?: string | null;
-  rules?: Array<VideoV1RoomRoomRecordingRuleRules> | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
+  room_sid: string;
+  rules: Array<VideoV1RoomRoomRecordingRuleRules>;
+  date_created: Date;
+  date_updated: Date;
 }
 
 export class RecordingRulesInstance {
@@ -209,19 +206,19 @@ export class RecordingRulesInstance {
   /**
    * The SID of the Room resource for the Recording Rules
    */
-  roomSid?: string | null;
+  roomSid: string;
   /**
    * A collection of recording Rules that describe how to include or exclude matching tracks for recording
    */
-  rules?: Array<VideoV1RoomRoomRecordingRuleRules> | null;
+  rules: Array<VideoV1RoomRoomRecordingRuleRules>;
   /**
    * The ISO 8601 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The ISO 8601 date and time in GMT when the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
 
   /**
    * Provide a user-friendly representation

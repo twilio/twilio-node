@@ -22,33 +22,37 @@ type FlowValidateStatus = "draft" | "published";
 
 /**
  * Options to pass to update a FlowValidateInstance
- *
- * @property { string } friendlyName The string that you assigned to describe the Flow.
- * @property { FlowValidateStatus } status
- * @property { any } definition JSON representation of flow definition.
- * @property { string } [commitMessage] Description of change made in the revision.
  */
 export interface FlowValidateListInstanceUpdateOptions {
+  /** The string that you assigned to describe the Flow. */
   friendlyName: string;
+  /**  */
   status: FlowValidateStatus;
+  /** JSON representation of flow definition. */
   definition: any;
+  /** Description of change made in the revision. */
   commitMessage?: string;
 }
 
+export interface FlowValidateSolution {}
+
 export interface FlowValidateListInstance {
+  _version: V2;
+  _solution: FlowValidateSolution;
+  _uri: string;
+
   /**
    * Update a FlowValidateInstance
    *
-   * @param { FlowValidateListInstanceUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed FlowValidateInstance
+   * @returns Resolves to processed FlowValidateInstance
    */
   update(
     params: FlowValidateListInstanceUpdateOptions,
     callback?: (error: Error | null, item?: FlowValidateInstance) => any
   ): Promise<FlowValidateInstance>;
-  update(params: any, callback?: any): Promise<FlowValidateInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -57,27 +61,18 @@ export interface FlowValidateListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface FlowValidateSolution {}
-
-interface FlowValidateListInstanceImpl extends FlowValidateListInstance {}
-class FlowValidateListInstanceImpl implements FlowValidateListInstance {
-  _version?: V2;
-  _solution?: FlowValidateSolution;
-  _uri?: string;
-}
-
 export function FlowValidateListInstance(
   version: V2
 ): FlowValidateListInstance {
-  const instance = {} as FlowValidateListInstanceImpl;
+  const instance = {} as FlowValidateListInstance;
 
   instance._version = version;
   instance._solution = {};
   instance._uri = `/Flows/Validate`;
 
   instance.update = function update(
-    params: any,
-    callback?: any
+    params: FlowValidateListInstanceUpdateOptions,
+    callback?: (error: Error | null, items: FlowValidateInstance) => any
   ): Promise<FlowValidateInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -113,7 +108,7 @@ export function FlowValidateListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -123,7 +118,7 @@ export function FlowValidateListInstance(
       (payload) => new FlowValidateInstance(operationVersion, payload)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -131,14 +126,14 @@ export function FlowValidateListInstance(
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;
@@ -147,7 +142,7 @@ export function FlowValidateListInstance(
 interface FlowValidatePayload extends FlowValidateResource {}
 
 interface FlowValidateResource {
-  valid?: boolean | null;
+  valid: boolean;
 }
 
 export class FlowValidateInstance {
@@ -158,7 +153,7 @@ export class FlowValidateInstance {
   /**
    * Boolean if the flow definition is valid
    */
-  valid?: boolean | null;
+  valid: boolean;
 
   /**
    * Provide a user-friendly representation

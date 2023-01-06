@@ -20,16 +20,15 @@ import { isValidPathParam } from "../../../../../base/utility";
 
 /**
  * Options to pass to fetch a WorkersCumulativeStatisticsInstance
- *
- * @property { Date } [endDate] Only calculate statistics from this date and time and earlier, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
- * @property { number } [minutes] Only calculate statistics since this many minutes in the past. The default 15 minutes. This is helpful for displaying statistics for the last 15 minutes, 240 minutes (4 hours), and 480 minutes (8 hours) to see trends.
- * @property { Date } [startDate] Only calculate statistics from this date and time and later, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
- * @property { string } [taskChannel] Only calculate cumulative statistics on this TaskChannel. Can be the TaskChannel\'s SID or its `unique_name`, such as `voice`, `sms`, or `default`.
  */
 export interface WorkersCumulativeStatisticsContextFetchOptions {
+  /** Only calculate statistics from this date and time and earlier, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. */
   endDate?: Date;
+  /** Only calculate statistics since this many minutes in the past. The default 15 minutes. This is helpful for displaying statistics for the last 15 minutes, 240 minutes (4 hours), and 480 minutes (8 hours) to see trends. */
   minutes?: number;
+  /** Only calculate statistics from this date and time and later, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. */
   startDate?: Date;
+  /** Only calculate cumulative statistics on this TaskChannel. Can be the TaskChannel\'s SID or its `unique_name`, such as `voice`, `sms`, or `default`. */
   taskChannel?: string;
 }
 
@@ -37,9 +36,9 @@ export interface WorkersCumulativeStatisticsContext {
   /**
    * Fetch a WorkersCumulativeStatisticsInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed WorkersCumulativeStatisticsInstance
+   * @returns Resolves to processed WorkersCumulativeStatisticsInstance
    */
   fetch(
     callback?: (
@@ -50,10 +49,10 @@ export interface WorkersCumulativeStatisticsContext {
   /**
    * Fetch a WorkersCumulativeStatisticsInstance
    *
-   * @param { WorkersCumulativeStatisticsContextFetchOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed WorkersCumulativeStatisticsInstance
+   * @returns Resolves to processed WorkersCumulativeStatisticsInstance
    */
   fetch(
     params: WorkersCumulativeStatisticsContextFetchOptions,
@@ -61,10 +60,6 @@ export interface WorkersCumulativeStatisticsContext {
       error: Error | null,
       item?: WorkersCumulativeStatisticsInstance
     ) => any
-  ): Promise<WorkersCumulativeStatisticsInstance>;
-  fetch(
-    params?: any,
-    callback?: any
   ): Promise<WorkersCumulativeStatisticsInstance>;
 
   /**
@@ -75,7 +70,7 @@ export interface WorkersCumulativeStatisticsContext {
 }
 
 export interface WorkersCumulativeStatisticsContextSolution {
-  workspaceSid?: string;
+  workspaceSid: string;
 }
 
 export class WorkersCumulativeStatisticsContextImpl
@@ -94,10 +89,18 @@ export class WorkersCumulativeStatisticsContextImpl
   }
 
   fetch(
-    params?: any,
-    callback?: any
+    params?:
+      | WorkersCumulativeStatisticsContextFetchOptions
+      | ((
+          error: Error | null,
+          item?: WorkersCumulativeStatisticsInstance
+        ) => any),
+    callback?: (
+      error: Error | null,
+      item?: WorkersCumulativeStatisticsInstance
+    ) => any
   ): Promise<WorkersCumulativeStatisticsInstance> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -116,9 +119,10 @@ export class WorkersCumulativeStatisticsContextImpl
 
     const headers: any = {};
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
@@ -129,11 +133,11 @@ export class WorkersCumulativeStatisticsContextImpl
         new WorkersCumulativeStatisticsInstance(
           operationVersion,
           payload,
-          this._solution.workspaceSid
+          instance._solution.workspaceSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -158,18 +162,18 @@ interface WorkersCumulativeStatisticsPayload
   extends WorkersCumulativeStatisticsResource {}
 
 interface WorkersCumulativeStatisticsResource {
-  account_sid?: string | null;
-  start_time?: Date | null;
-  end_time?: Date | null;
-  activity_durations?: Array<any> | null;
-  reservations_created?: number | null;
-  reservations_accepted?: number | null;
-  reservations_rejected?: number | null;
-  reservations_timed_out?: number | null;
-  reservations_canceled?: number | null;
-  reservations_rescinded?: number | null;
-  workspace_sid?: string | null;
-  url?: string | null;
+  account_sid: string;
+  start_time: Date;
+  end_time: Date;
+  activity_durations: Array<any>;
+  reservations_created: number;
+  reservations_accepted: number;
+  reservations_rejected: number;
+  reservations_timed_out: number;
+  reservations_canceled: number;
+  reservations_rescinded: number;
+  workspace_sid: string;
+  url: string;
 }
 
 export class WorkersCumulativeStatisticsInstance {
@@ -212,51 +216,51 @@ export class WorkersCumulativeStatisticsInstance {
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The beginning of the interval during which these statistics were calculated
    */
-  startTime?: Date | null;
+  startTime: Date;
   /**
    * The end of the interval during which these statistics were calculated
    */
-  endTime?: Date | null;
+  endTime: Date;
   /**
    * The minimum, average, maximum, and total time that Workers spent in each Activity
    */
-  activityDurations?: Array<any> | null;
+  activityDurations: Array<any>;
   /**
    * The total number of Reservations that were created
    */
-  reservationsCreated?: number | null;
+  reservationsCreated: number;
   /**
    * The total number of Reservations that were accepted
    */
-  reservationsAccepted?: number | null;
+  reservationsAccepted: number;
   /**
    * The total number of Reservations that were rejected
    */
-  reservationsRejected?: number | null;
+  reservationsRejected: number;
   /**
    * The total number of Reservations that were timed out
    */
-  reservationsTimedOut?: number | null;
+  reservationsTimedOut: number;
   /**
    * The total number of Reservations that were canceled
    */
-  reservationsCanceled?: number | null;
+  reservationsCanceled: number;
   /**
    * The total number of Reservations that were rescinded
    */
-  reservationsRescinded?: number | null;
+  reservationsRescinded: number;
   /**
    * The SID of the Workspace that contains the Workers
    */
-  workspaceSid?: string | null;
+  workspaceSid: string;
   /**
    * The absolute URL of the Workers statistics resource
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): WorkersCumulativeStatisticsContext {
     this._context =
@@ -271,9 +275,9 @@ export class WorkersCumulativeStatisticsInstance {
   /**
    * Fetch a WorkersCumulativeStatisticsInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed WorkersCumulativeStatisticsInstance
+   * @returns Resolves to processed WorkersCumulativeStatisticsInstance
    */
   fetch(
     callback?: (
@@ -284,10 +288,10 @@ export class WorkersCumulativeStatisticsInstance {
   /**
    * Fetch a WorkersCumulativeStatisticsInstance
    *
-   * @param { WorkersCumulativeStatisticsContextFetchOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed WorkersCumulativeStatisticsInstance
+   * @returns Resolves to processed WorkersCumulativeStatisticsInstance
    */
   fetch(
     params: WorkersCumulativeStatisticsContextFetchOptions,
@@ -296,9 +300,13 @@ export class WorkersCumulativeStatisticsInstance {
       item?: WorkersCumulativeStatisticsInstance
     ) => any
   ): Promise<WorkersCumulativeStatisticsInstance>;
+
   fetch(
     params?: any,
-    callback?: any
+    callback?: (
+      error: Error | null,
+      item?: WorkersCumulativeStatisticsInstance
+    ) => any
   ): Promise<WorkersCumulativeStatisticsInstance> {
     return this._proxy.fetch(params, callback);
   }
@@ -330,7 +338,15 @@ export class WorkersCumulativeStatisticsInstance {
   }
 }
 
+export interface WorkersCumulativeStatisticsSolution {
+  workspaceSid: string;
+}
+
 export interface WorkersCumulativeStatisticsListInstance {
+  _version: V1;
+  _solution: WorkersCumulativeStatisticsSolution;
+  _uri: string;
+
   (): WorkersCumulativeStatisticsContext;
   get(): WorkersCumulativeStatisticsContext;
 
@@ -339,20 +355,6 @@ export interface WorkersCumulativeStatisticsListInstance {
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export interface WorkersCumulativeStatisticsSolution {
-  workspaceSid?: string;
-}
-
-interface WorkersCumulativeStatisticsListInstanceImpl
-  extends WorkersCumulativeStatisticsListInstance {}
-class WorkersCumulativeStatisticsListInstanceImpl
-  implements WorkersCumulativeStatisticsListInstance
-{
-  _version?: V1;
-  _solution?: WorkersCumulativeStatisticsSolution;
-  _uri?: string;
 }
 
 export function WorkersCumulativeStatisticsListInstance(
@@ -364,7 +366,7 @@ export function WorkersCumulativeStatisticsListInstance(
   }
 
   const instance = (() =>
-    instance.get()) as WorkersCumulativeStatisticsListInstanceImpl;
+    instance.get()) as WorkersCumulativeStatisticsListInstance;
 
   instance.get = function get(): WorkersCumulativeStatisticsContext {
     return new WorkersCumulativeStatisticsContextImpl(version, workspaceSid);
@@ -375,14 +377,14 @@ export function WorkersCumulativeStatisticsListInstance(
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

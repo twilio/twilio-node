@@ -20,10 +20,9 @@ import { isValidPathParam } from "../../../../base/utility";
 
 /**
  * Options to pass to update a AssistantInitiationActionsInstance
- *
- * @property { any } [initiationActions]
  */
 export interface AssistantInitiationActionsContextUpdateOptions {
+  /**  */
   initiationActions?: any;
 }
 
@@ -31,9 +30,9 @@ export interface AssistantInitiationActionsContext {
   /**
    * Fetch a AssistantInitiationActionsInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed AssistantInitiationActionsInstance
+   * @returns Resolves to processed AssistantInitiationActionsInstance
    */
   fetch(
     callback?: (
@@ -45,9 +44,9 @@ export interface AssistantInitiationActionsContext {
   /**
    * Update a AssistantInitiationActionsInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed AssistantInitiationActionsInstance
+   * @returns Resolves to processed AssistantInitiationActionsInstance
    */
   update(
     callback?: (
@@ -58,10 +57,10 @@ export interface AssistantInitiationActionsContext {
   /**
    * Update a AssistantInitiationActionsInstance
    *
-   * @param { AssistantInitiationActionsContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed AssistantInitiationActionsInstance
+   * @returns Resolves to processed AssistantInitiationActionsInstance
    */
   update(
     params: AssistantInitiationActionsContextUpdateOptions,
@@ -69,10 +68,6 @@ export interface AssistantInitiationActionsContext {
       error: Error | null,
       item?: AssistantInitiationActionsInstance
     ) => any
-  ): Promise<AssistantInitiationActionsInstance>;
-  update(
-    params?: any,
-    callback?: any
   ): Promise<AssistantInitiationActionsInstance>;
 
   /**
@@ -83,7 +78,7 @@ export interface AssistantInitiationActionsContext {
 }
 
 export interface AssistantInitiationActionsContextSolution {
-  assistantSid?: string;
+  assistantSid: string;
 }
 
 export class AssistantInitiationActionsContextImpl
@@ -101,10 +96,16 @@ export class AssistantInitiationActionsContextImpl
     this._uri = `/Assistants/${assistantSid}/InitiationActions`;
   }
 
-  fetch(callback?: any): Promise<AssistantInitiationActionsInstance> {
-    let operationVersion = this._version,
+  fetch(
+    callback?: (
+      error: Error | null,
+      item?: AssistantInitiationActionsInstance
+    ) => any
+  ): Promise<AssistantInitiationActionsInstance> {
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -113,11 +114,11 @@ export class AssistantInitiationActionsContextImpl
         new AssistantInitiationActionsInstance(
           operationVersion,
           payload,
-          this._solution.assistantSid
+          instance._solution.assistantSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -125,10 +126,18 @@ export class AssistantInitiationActionsContextImpl
   }
 
   update(
-    params?: any,
-    callback?: any
+    params?:
+      | AssistantInitiationActionsContextUpdateOptions
+      | ((
+          error: Error | null,
+          item?: AssistantInitiationActionsInstance
+        ) => any),
+    callback?: (
+      error: Error | null,
+      item?: AssistantInitiationActionsInstance
+    ) => any
   ): Promise<AssistantInitiationActionsInstance> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -143,9 +152,10 @@ export class AssistantInitiationActionsContextImpl
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -156,11 +166,11 @@ export class AssistantInitiationActionsContextImpl
         new AssistantInitiationActionsInstance(
           operationVersion,
           payload,
-          this._solution.assistantSid
+          instance._solution.assistantSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -185,10 +195,10 @@ interface AssistantInitiationActionsPayload
   extends AssistantInitiationActionsResource {}
 
 interface AssistantInitiationActionsResource {
-  account_sid?: string | null;
-  assistant_sid?: string | null;
-  url?: string | null;
-  data?: any | null;
+  account_sid: string;
+  assistant_sid: string;
+  url: string;
+  data: any;
 }
 
 export class AssistantInitiationActionsInstance {
@@ -208,10 +218,10 @@ export class AssistantInitiationActionsInstance {
     this._solution = { assistantSid };
   }
 
-  accountSid?: string | null;
-  assistantSid?: string | null;
-  url?: string | null;
-  data?: any | null;
+  accountSid: string;
+  assistantSid: string;
+  url: string;
+  data: any;
 
   private get _proxy(): AssistantInitiationActionsContext {
     this._context =
@@ -226,9 +236,9 @@ export class AssistantInitiationActionsInstance {
   /**
    * Fetch a AssistantInitiationActionsInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed AssistantInitiationActionsInstance
+   * @returns Resolves to processed AssistantInitiationActionsInstance
    */
   fetch(
     callback?: (
@@ -242,9 +252,9 @@ export class AssistantInitiationActionsInstance {
   /**
    * Update a AssistantInitiationActionsInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed AssistantInitiationActionsInstance
+   * @returns Resolves to processed AssistantInitiationActionsInstance
    */
   update(
     callback?: (
@@ -255,10 +265,10 @@ export class AssistantInitiationActionsInstance {
   /**
    * Update a AssistantInitiationActionsInstance
    *
-   * @param { AssistantInitiationActionsContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed AssistantInitiationActionsInstance
+   * @returns Resolves to processed AssistantInitiationActionsInstance
    */
   update(
     params: AssistantInitiationActionsContextUpdateOptions,
@@ -267,9 +277,13 @@ export class AssistantInitiationActionsInstance {
       item?: AssistantInitiationActionsInstance
     ) => any
   ): Promise<AssistantInitiationActionsInstance>;
+
   update(
     params?: any,
-    callback?: any
+    callback?: (
+      error: Error | null,
+      item?: AssistantInitiationActionsInstance
+    ) => any
   ): Promise<AssistantInitiationActionsInstance> {
     return this._proxy.update(params, callback);
   }
@@ -293,7 +307,15 @@ export class AssistantInitiationActionsInstance {
   }
 }
 
+export interface AssistantInitiationActionsSolution {
+  assistantSid: string;
+}
+
 export interface AssistantInitiationActionsListInstance {
+  _version: Understand;
+  _solution: AssistantInitiationActionsSolution;
+  _uri: string;
+
   (): AssistantInitiationActionsContext;
   get(): AssistantInitiationActionsContext;
 
@@ -302,20 +324,6 @@ export interface AssistantInitiationActionsListInstance {
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export interface AssistantInitiationActionsSolution {
-  assistantSid?: string;
-}
-
-interface AssistantInitiationActionsListInstanceImpl
-  extends AssistantInitiationActionsListInstance {}
-class AssistantInitiationActionsListInstanceImpl
-  implements AssistantInitiationActionsListInstance
-{
-  _version?: Understand;
-  _solution?: AssistantInitiationActionsSolution;
-  _uri?: string;
 }
 
 export function AssistantInitiationActionsListInstance(
@@ -327,7 +335,7 @@ export function AssistantInitiationActionsListInstance(
   }
 
   const instance = (() =>
-    instance.get()) as AssistantInitiationActionsListInstanceImpl;
+    instance.get()) as AssistantInitiationActionsListInstance;
 
   instance.get = function get(): AssistantInitiationActionsContext {
     return new AssistantInitiationActionsContextImpl(version, assistantSid);
@@ -338,14 +346,14 @@ export function AssistantInitiationActionsListInstance(
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

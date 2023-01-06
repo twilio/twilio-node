@@ -1,5 +1,3 @@
-"use strict";
-
 const scmp = require('scmp');
 import crypto from "crypto";
 import urllib from "url";
@@ -64,8 +62,8 @@ export interface WebhookOptions {
 /**
  * Utility function to construct the URL string, since Node.js url library won't include standard port numbers
  *
- * @param {Url} parsedUrl - The parsed url object that Twilio requested on your server
- * @returns {string} - URL with standard port number included
+ * @param parsedUrl - The parsed url object that Twilio requested on your server
+ * @returns URL with standard port number included
  */
 function buildUrlWithStandardPort(parsedUrl: Url<string>): string {
   let url = "";
@@ -84,9 +82,8 @@ function buildUrlWithStandardPort(parsedUrl: Url<string>): string {
 /**
  Utility function to add a port number to a URL
 
- @param {Url} parsedUrl - The parsed url object that Twilio requested on your
- server
- @returns {string} - URL with port
+ @param parsedUrl - The parsed url object that Twilio requested on your server
+ @returns URL with port
  */
 function addPort(parsedUrl: Url<string>): string {
   if (!parsedUrl.port) {
@@ -98,9 +95,8 @@ function addPort(parsedUrl: Url<string>): string {
 /**
  Utility function to remove a port number from a URL
 
- @param {Url} parsedUrl - The parsed url object that Twilio requested on your
- server
- @returns {string} - URL without port
+ @param parsedUrl - The parsed url object that Twilio requested on your server
+ @returns URL without port
  */
 function removePort(parsedUrl: Url<string>): string {
   parsedUrl.set("port", "");
@@ -110,9 +106,9 @@ function removePort(parsedUrl: Url<string>): string {
 /**
  Utility function to convert request parameter to a string format
 
- @param {string} paramName - The request parameter name
- @param {string|array<string>} paramValue - The request parameter value
- @returns {string} - Formatted parameter string
+ @param paramName - The request parameter name
+ @param paramValue - The request parameter value
+ @returns Formatted parameter string
  */
 function toFormUrlEncodedParam(
   paramName: string,
@@ -130,11 +126,11 @@ function toFormUrlEncodedParam(
 /**
  Utility function to get the expected signature for a given request
 
- @param {string} authToken - The auth token, as seen in the Twilio portal
- @param {string} url - The full URL (with query string) you configured to handle
+ @param authToken - The auth token, as seen in the Twilio portal
+ @param url - The full URL (with query string) you configured to handle
  this request
- @param {object} params - the parameters sent with this request
- @returns {string} - signature
+ @param params - the parameters sent with this request
+ @returns signature
  */
 export function getExpectedTwilioSignature(
   authToken: string,
@@ -158,7 +154,7 @@ export function getExpectedTwilioSignature(
 /**
  Utility function to get the expected body hash for a given request's body
 
- @param {string} body - The plain-text body of the request
+ @param body - The plain-text body of the request
  */
 export function getExpectedBodyHash(body: string): string {
   return crypto
@@ -170,11 +166,11 @@ export function getExpectedBodyHash(body: string): string {
 /**
  Utility function to validate an incoming request is indeed from Twilio
 
- @param {string} authToken - The auth token, as seen in the Twilio portal
- @param {string} twilioHeader - The value of the X-Twilio-Signature header from the request
- @param {string} url - The full URL (with query string) you configured to handle this request
- @param {object} params - the parameters sent with this request
- @returns {boolean} - valid
+ @param authToken - The auth token, as seen in the Twilio portal
+ @param twilioHeader - The value of the X-Twilio-Signature header from the request
+ @param url - The full URL (with query string) you configured to handle this request
+ @param params - the parameters sent with this request
+ @returns valid
  */
 export function validateRequest(
   authToken: string,
@@ -225,11 +221,11 @@ export function validateBody(
  Utility function to validate an incoming request is indeed from Twilio. This also validates
  the request body against the bodySHA256 post parameter.
 
- @param {string} authToken - The auth token, as seen in the Twilio portal
- @param {string} twilioHeader - The value of the X-Twilio-Signature header from the request
- @param {string} url - The full URL (with query string) you configured to handle this request
- @param {string} body - The body of the request
- @returns {boolean} - valid
+ @param authToken - The auth token, as seen in the Twilio portal
+ @param twilioHeader - The value of the X-Twilio-Signature header from the request
+ @param url - The full URL (with query string) you configured to handle this request
+ @param body - The body of the request
+ @returns valid
  */
 export function validateRequestWithBody(
   authToken: string,
@@ -248,12 +244,12 @@ export function validateRequestWithBody(
  Utility function to validate an incoming request is indeed from Twilio.
  adapted from https://github.com/crabasa/twiliosig
 
- @param {object} request - A request object (based on Express implementation http://expressjs.com/api.html#req.params)
- @param {string} authToken - The auth token, as seen in the Twilio portal
- @param {object} opts - options for request validation:
-    - url: The full URL (with query string) you used to configure the webhook with Twilio - overrides host/protocol options
-    - host: manually specify the host name used by Twilio in a number's webhook config
-    - protocol: manually specify the protocol used by Twilio in a number's webhook config
+ @param request - A request object (based on Express implementation http://expressjs.com/api.html#req.params)
+ @param authToken - The auth token, as seen in the Twilio portal
+ @param opts - options for request validation:
+    -> url: The full URL (with query string) you used to configure the webhook with Twilio - overrides host/protocol options
+    -> host: manually specify the host name used by Twilio in a number's webhook config
+    -> protocol: manually specify the protocol used by Twilio in a number's webhook config
  */
 export function validateIncomingRequest(
   request: Request,

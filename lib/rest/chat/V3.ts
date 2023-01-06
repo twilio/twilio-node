@@ -20,16 +20,16 @@ export default class V3 extends Version {
   /**
    * Initialize the V3 version of Chat
    *
-   * @property { Twilio.Chat.V3.ChannelListInstance } channels - channels resource
-   *
-   * @param { Twilio.Chat } domain - The Twilio domain
+   * @param domain - The Twilio (Twilio.Chat) domain
    */
   constructor(domain: ChatBase) {
     super(domain, "v3");
   }
 
+  /** channels - { Twilio.Chat.V3.ChannelListInstance } resource */
   protected _channels?: ChannelListInstance;
 
+  /** Getter for channels resource */
   get channels(): ChannelListInstance {
     this._channels = this._channels || ChannelListInstance(this);
     return this._channels;

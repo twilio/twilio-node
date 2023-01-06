@@ -24,9 +24,9 @@ export interface FormContext {
   /**
    * Fetch a FormInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed FormInstance
+   * @returns Resolves to processed FormInstance
    */
   fetch(
     callback?: (error: Error | null, item?: FormInstance) => any
@@ -40,7 +40,7 @@ export interface FormContext {
 }
 
 export interface FormContextSolution {
-  formType?: FormFormTypes;
+  formType: FormFormTypes;
 }
 
 export class FormContextImpl implements FormContext {
@@ -56,19 +56,22 @@ export class FormContextImpl implements FormContext {
     this._uri = `/Forms/${formType}`;
   }
 
-  fetch(callback?: any): Promise<FormInstance> {
-    let operationVersion = this._version,
+  fetch(
+    callback?: (error: Error | null, item?: FormInstance) => any
+  ): Promise<FormInstance> {
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new FormInstance(operationVersion, payload, this._solution.formType)
+        new FormInstance(operationVersion, payload, instance._solution.formType)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -92,10 +95,10 @@ export class FormContextImpl implements FormContext {
 interface FormPayload extends FormResource {}
 
 interface FormResource {
-  form_type?: FormFormTypes;
-  forms?: any | null;
-  form_meta?: any | null;
-  url?: string | null;
+  form_type: FormFormTypes;
+  forms: any;
+  form_meta: any;
+  url: string;
 }
 
 export class FormInstance {
@@ -115,19 +118,19 @@ export class FormInstance {
     this._solution = { formType: formType || this.formType };
   }
 
-  formType?: FormFormTypes;
+  formType: FormFormTypes;
   /**
    * Object that contains the available forms for this type.
    */
-  forms?: any | null;
+  forms: any;
   /**
    * Additional information for the available forms for this type.
    */
-  formMeta?: any | null;
+  formMeta: any;
   /**
    * The URL to access the forms for this type.
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): FormContext {
     this._context =
@@ -139,9 +142,9 @@ export class FormInstance {
   /**
    * Fetch a FormInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed FormInstance
+   * @returns Resolves to processed FormInstance
    */
   fetch(
     callback?: (error: Error | null, item?: FormInstance) => any
@@ -168,7 +171,13 @@ export class FormInstance {
   }
 }
 
+export interface FormSolution {}
+
 export interface FormListInstance {
+  _version: V2;
+  _solution: FormSolution;
+  _uri: string;
+
   (formType: FormFormTypes): FormContext;
   get(formType: FormFormTypes): FormContext;
 
@@ -179,18 +188,8 @@ export interface FormListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface FormSolution {}
-
-interface FormListInstanceImpl extends FormListInstance {}
-class FormListInstanceImpl implements FormListInstance {
-  _version?: V2;
-  _solution?: FormSolution;
-  _uri?: string;
-}
-
 export function FormListInstance(version: V2): FormListInstance {
-  const instance = ((formType) =>
-    instance.get(formType)) as FormListInstanceImpl;
+  const instance = ((formType) => instance.get(formType)) as FormListInstance;
 
   instance.get = function get(formType): FormContext {
     return new FormContextImpl(version, formType);
@@ -201,14 +200,14 @@ export function FormListInstance(version: V2): FormListInstance {
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

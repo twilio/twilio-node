@@ -24,60 +24,49 @@ type ServiceBindingBindingType = "apn" | "gcm" | "fcm";
 
 /**
  * Options to pass to each
- *
- * @property { Array<ServiceBindingBindingType> } [bindingType] The push technology used by the Binding resources to read.  Can be: `apn`, `gcm`, or `fcm`.  See [push notification configuration](https://www.twilio.com/docs/chat/push-notification-configuration) for more info.
- * @property { Array<string> } [identity] The identity of a [Conversation User](https://www.twilio.com/docs/conversations/api/user-resource) this binding belongs to. See [access tokens](https://www.twilio.com/docs/conversations/create-tokens) for more details.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface BindingListInstanceEachOptions {
+  /** The push technology used by the Binding resources to read.  Can be: `apn`, `gcm`, or `fcm`.  See [push notification configuration](https://www.twilio.com/docs/chat/push-notification-configuration) for more info. */
   bindingType?: Array<ServiceBindingBindingType>;
+  /** The identity of a [Conversation User](https://www.twilio.com/docs/conversations/api/user-resource) this binding belongs to. See [access tokens](https://www.twilio.com/docs/conversations/create-tokens) for more details. */
   identity?: Array<string>;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: BindingInstance, done: (err?: Error) => void) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { Array<ServiceBindingBindingType> } [bindingType] The push technology used by the Binding resources to read.  Can be: `apn`, `gcm`, or `fcm`.  See [push notification configuration](https://www.twilio.com/docs/chat/push-notification-configuration) for more info.
- * @property { Array<string> } [identity] The identity of a [Conversation User](https://www.twilio.com/docs/conversations/api/user-resource) this binding belongs to. See [access tokens](https://www.twilio.com/docs/conversations/create-tokens) for more details.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface BindingListInstanceOptions {
+  /** The push technology used by the Binding resources to read.  Can be: `apn`, `gcm`, or `fcm`.  See [push notification configuration](https://www.twilio.com/docs/chat/push-notification-configuration) for more info. */
   bindingType?: Array<ServiceBindingBindingType>;
+  /** The identity of a [Conversation User](https://www.twilio.com/docs/conversations/api/user-resource) this binding belongs to. See [access tokens](https://www.twilio.com/docs/conversations/create-tokens) for more details. */
   identity?: Array<string>;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { Array<ServiceBindingBindingType> } [bindingType] The push technology used by the Binding resources to read.  Can be: `apn`, `gcm`, or `fcm`.  See [push notification configuration](https://www.twilio.com/docs/chat/push-notification-configuration) for more info.
- * @property { Array<string> } [identity] The identity of a [Conversation User](https://www.twilio.com/docs/conversations/api/user-resource) this binding belongs to. See [access tokens](https://www.twilio.com/docs/conversations/create-tokens) for more details.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface BindingListInstancePageOptions {
+  /** The push technology used by the Binding resources to read.  Can be: `apn`, `gcm`, or `fcm`.  See [push notification configuration](https://www.twilio.com/docs/chat/push-notification-configuration) for more info. */
   bindingType?: Array<ServiceBindingBindingType>;
+  /** The identity of a [Conversation User](https://www.twilio.com/docs/conversations/api/user-resource) this binding belongs to. See [access tokens](https://www.twilio.com/docs/conversations/create-tokens) for more details. */
   identity?: Array<string>;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
@@ -85,9 +74,9 @@ export interface BindingContext {
   /**
    * Remove a BindingInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -96,9 +85,9 @@ export interface BindingContext {
   /**
    * Fetch a BindingInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed BindingInstance
+   * @returns Resolves to processed BindingInstance
    */
   fetch(
     callback?: (error: Error | null, item?: BindingInstance) => any
@@ -112,8 +101,8 @@ export interface BindingContext {
 }
 
 export interface BindingContextSolution {
-  chatServiceSid?: string;
-  sid?: string;
+  chatServiceSid: string;
+  sid: string;
 }
 
 export class BindingContextImpl implements BindingContext {
@@ -133,24 +122,30 @@ export class BindingContextImpl implements BindingContext {
     this._uri = `/Services/${chatServiceSid}/Bindings/${sid}`;
   }
 
-  remove(callback?: any): Promise<boolean> {
-    let operationVersion = this._version,
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<BindingInstance> {
-    let operationVersion = this._version,
+  fetch(
+    callback?: (error: Error | null, item?: BindingInstance) => any
+  ): Promise<BindingInstance> {
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -159,12 +154,12 @@ export class BindingContextImpl implements BindingContext {
         new BindingInstance(
           operationVersion,
           payload,
-          this._solution.chatServiceSid,
-          this._solution.sid
+          instance._solution.chatServiceSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -190,17 +185,17 @@ interface BindingPayload extends TwilioResponsePayload {
 }
 
 interface BindingResource {
-  sid?: string | null;
-  account_sid?: string | null;
-  chat_service_sid?: string | null;
-  credential_sid?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  endpoint?: string | null;
-  identity?: string | null;
-  binding_type?: ServiceBindingBindingType;
-  message_types?: Array<string> | null;
-  url?: string | null;
+  sid: string;
+  account_sid: string;
+  chat_service_sid: string;
+  credential_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  endpoint: string;
+  identity: string;
+  binding_type: ServiceBindingBindingType;
+  message_types: Array<string>;
+  url: string;
 }
 
 export class BindingInstance {
@@ -231,44 +226,44 @@ export class BindingInstance {
   /**
    * A 34 character string that uniquely identifies this resource.
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The unique ID of the Account responsible for this binding.
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The SID of the Conversation Service that the resource is associated with.
    */
-  chatServiceSid?: string | null;
+  chatServiceSid: string;
   /**
    * The SID of the Credential for the binding.
    */
-  credentialSid?: string | null;
+  credentialSid: string;
   /**
    * The date that this resource was created.
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The date that this resource was last updated.
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The unique endpoint identifier for the Binding.
    */
-  endpoint?: string | null;
+  endpoint: string;
   /**
    * The identity of Conversation User associated with this binding.
    */
-  identity?: string | null;
-  bindingType?: ServiceBindingBindingType;
+  identity: string;
+  bindingType: ServiceBindingBindingType;
   /**
    * The Conversation message types the binding is subscribed to.
    */
-  messageTypes?: Array<string> | null;
+  messageTypes: Array<string>;
   /**
    * An absolute URL for this binding.
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): BindingContext {
     this._context =
@@ -284,9 +279,9 @@ export class BindingInstance {
   /**
    * Remove a BindingInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -297,9 +292,9 @@ export class BindingInstance {
   /**
    * Fetch a BindingInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed BindingInstance
+   * @returns Resolves to processed BindingInstance
    */
   fetch(
     callback?: (error: Error | null, item?: BindingInstance) => any
@@ -333,27 +328,18 @@ export class BindingInstance {
   }
 }
 
+export interface BindingSolution {
+  chatServiceSid: string;
+}
+
 export interface BindingListInstance {
+  _version: V1;
+  _solution: BindingSolution;
+  _uri: string;
+
   (sid: string): BindingContext;
   get(sid: string): BindingContext;
 
-  /**
-   * Streams BindingInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (item: BindingInstance, done: (err?: Error) => void) => void
-  ): void;
   /**
    * Streams BindingInstance records from the API.
    *
@@ -370,50 +356,24 @@ export interface BindingListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: BindingListInstanceEachOptions,
     callback?: (item: BindingInstance, done: (err?: Error) => void) => void
   ): void;
-  each(params?: any, callback?: any): void;
+  each(
+    params: BindingListInstanceEachOptions,
+    callback?: (item: BindingInstance, done: (err?: Error) => void) => void
+  ): void;
   /**
    * Retrieve a single target page of BindingInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: BindingPage) => any
-  ): Promise<BindingPage>;
-  /**
-   * Retrieve a single target page of BindingInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: BindingPage) => any
   ): Promise<BindingPage>;
-  getPage(params?: any, callback?: any): Promise<BindingPage>;
-  /**
-   * Lists BindingInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: BindingInstance[]) => any
-  ): Promise<BindingInstance[]>;
   /**
    * Lists BindingInstance records from the API as a list.
    *
@@ -424,23 +384,12 @@ export interface BindingListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: BindingListInstanceOptions,
     callback?: (error: Error | null, items: BindingInstance[]) => any
   ): Promise<BindingInstance[]>;
-  list(params?: any, callback?: any): Promise<BindingInstance[]>;
-  /**
-   * Retrieve a single page of BindingInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: BindingPage) => any
-  ): Promise<BindingPage>;
+  list(
+    params: BindingListInstanceOptions,
+    callback?: (error: Error | null, items: BindingInstance[]) => any
+  ): Promise<BindingInstance[]>;
   /**
    * Retrieve a single page of BindingInstance records from the API.
    *
@@ -453,27 +402,18 @@ export interface BindingListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
+    callback?: (error: Error | null, items: BindingPage) => any
+  ): Promise<BindingPage>;
+  page(
     params: BindingListInstancePageOptions,
     callback?: (error: Error | null, items: BindingPage) => any
   ): Promise<BindingPage>;
-  page(params?: any, callback?: any): Promise<BindingPage>;
 
   /**
    * Provide a user-friendly representation
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export interface BindingSolution {
-  chatServiceSid?: string;
-}
-
-interface BindingListInstanceImpl extends BindingListInstance {}
-class BindingListInstanceImpl implements BindingListInstance {
-  _version?: V1;
-  _solution?: BindingSolution;
-  _uri?: string;
 }
 
 export function BindingListInstance(
@@ -484,7 +424,7 @@ export function BindingListInstance(
     throw new Error("Parameter 'chatServiceSid' is not valid.");
   }
 
-  const instance = ((sid) => instance.get(sid)) as BindingListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as BindingListInstance;
 
   instance.get = function get(sid): BindingContext {
     return new BindingContextImpl(version, chatServiceSid, sid);
@@ -495,10 +435,12 @@ export function BindingListInstance(
   instance._uri = `/Services/${chatServiceSid}/Bindings`;
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | BindingListInstancePageOptions
+      | ((error: Error | null, items: BindingPage) => any),
+    callback?: (error: Error | null, items: BindingPage) => any
   ): Promise<BindingPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -508,29 +450,33 @@ export function BindingListInstance(
     let data: any = {};
 
     if (params["bindingType"] !== undefined)
-      data["BindingType"] = serialize.map(params["bindingType"], (e) => e);
+      data["BindingType"] = serialize.map(
+        params["bindingType"],
+        (e: ServiceBindingBindingType) => e
+      );
     if (params["identity"] !== undefined)
-      data["Identity"] = serialize.map(params["identity"], (e) => e);
+      data["Identity"] = serialize.map(params["identity"], (e: string) => e);
     if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new BindingPage(operationVersion, payload, this._solution)
+      (payload) =>
+        new BindingPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -540,33 +486,31 @@ export function BindingListInstance(
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: BindingPage) => any
   ): Promise<BindingPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new BindingPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new BindingPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

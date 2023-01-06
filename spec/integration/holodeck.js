@@ -1,8 +1,5 @@
-"use strict";
-
 import util from "util";
 import Request from "../../lib/http/request";
-import RequestClient from "../../lib/base/RequestClient";
 import moduleInfo from "../../package.json";
 import os from "os";
 

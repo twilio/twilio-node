@@ -23,48 +23,37 @@ import { ApprovalFetchListInstance } from "./content/approvalFetch";
 
 /**
  * Options to pass to each
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface ContentListInstanceEachOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: ContentInstance, done: (err?: Error) => void) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface ContentListInstanceOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface ContentListInstancePageOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
@@ -74,9 +63,9 @@ export interface ContentContext {
   /**
    * Remove a ContentInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -85,9 +74,9 @@ export interface ContentContext {
   /**
    * Fetch a ContentInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ContentInstance
+   * @returns Resolves to processed ContentInstance
    */
   fetch(
     callback?: (error: Error | null, item?: ContentInstance) => any
@@ -101,7 +90,7 @@ export interface ContentContext {
 }
 
 export interface ContentContextSolution {
-  sid?: string;
+  sid: string;
 }
 
 export class ContentContextImpl implements ContentContext {
@@ -126,33 +115,39 @@ export class ContentContextImpl implements ContentContext {
     return this._approvalFetch;
   }
 
-  remove(callback?: any): Promise<boolean> {
-    let operationVersion = this._version,
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<ContentInstance> {
-    let operationVersion = this._version,
+  fetch(
+    callback?: (error: Error | null, item?: ContentInstance) => any
+  ): Promise<ContentInstance> {
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new ContentInstance(operationVersion, payload, this._solution.sid)
+        new ContentInstance(operationVersion, payload, instance._solution.sid)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -178,16 +173,16 @@ interface ContentPayload extends TwilioResponsePayload {
 }
 
 interface ContentResource {
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  sid?: string | null;
-  account_sid?: string | null;
-  friendly_name?: string | null;
-  language?: string | null;
-  variables?: any | null;
-  types?: any | null;
-  url?: string | null;
-  links?: object | null;
+  date_created: Date;
+  date_updated: Date;
+  sid: string;
+  account_sid: string;
+  friendly_name: string;
+  language: string;
+  variables: any;
+  types: any;
+  url: string;
+  links: Record<string, string>;
 }
 
 export class ContentInstance {
@@ -212,43 +207,43 @@ export class ContentInstance {
   /**
    * The RFC 2822 date and time in GMT that the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The RFC 2822 date and time in GMT that the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * A string name used to describe the Content resource
    */
-  friendlyName?: string | null;
+  friendlyName: string;
   /**
    * Two-letter language code identifying the language the Content resource is in.
    */
-  language?: string | null;
+  language: string;
   /**
    * Defines the default placeholder values for variables included in the Content resource
    */
-  variables?: any | null;
+  variables: any;
   /**
    * The Content types (e.g. twilio/text) for this Content resource
    */
-  types?: any | null;
+  types: any;
   /**
    * The URL of the resource, relative to `https://content.twilio.com`
    */
-  url?: string | null;
+  url: string;
   /**
    * A list of links related to the Content resource
    */
-  links?: object | null;
+  links: Record<string, string>;
 
   private get _proxy(): ContentContext {
     this._context =
@@ -260,9 +255,9 @@ export class ContentInstance {
   /**
    * Remove a ContentInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -273,9 +268,9 @@ export class ContentInstance {
   /**
    * Fetch a ContentInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ContentInstance
+   * @returns Resolves to processed ContentInstance
    */
   fetch(
     callback?: (error: Error | null, item?: ContentInstance) => any
@@ -315,27 +310,16 @@ export class ContentInstance {
   }
 }
 
+export interface ContentSolution {}
+
 export interface ContentListInstance {
+  _version: V1;
+  _solution: ContentSolution;
+  _uri: string;
+
   (sid: string): ContentContext;
   get(sid: string): ContentContext;
 
-  /**
-   * Streams ContentInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (item: ContentInstance, done: (err?: Error) => void) => void
-  ): void;
   /**
    * Streams ContentInstance records from the API.
    *
@@ -352,50 +336,24 @@ export interface ContentListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: ContentListInstanceEachOptions,
     callback?: (item: ContentInstance, done: (err?: Error) => void) => void
   ): void;
-  each(params?: any, callback?: any): void;
+  each(
+    params: ContentListInstanceEachOptions,
+    callback?: (item: ContentInstance, done: (err?: Error) => void) => void
+  ): void;
   /**
    * Retrieve a single target page of ContentInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: ContentPage) => any
-  ): Promise<ContentPage>;
-  /**
-   * Retrieve a single target page of ContentInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: ContentPage) => any
   ): Promise<ContentPage>;
-  getPage(params?: any, callback?: any): Promise<ContentPage>;
-  /**
-   * Lists ContentInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: ContentInstance[]) => any
-  ): Promise<ContentInstance[]>;
   /**
    * Lists ContentInstance records from the API as a list.
    *
@@ -406,23 +364,12 @@ export interface ContentListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: ContentListInstanceOptions,
     callback?: (error: Error | null, items: ContentInstance[]) => any
   ): Promise<ContentInstance[]>;
-  list(params?: any, callback?: any): Promise<ContentInstance[]>;
-  /**
-   * Retrieve a single page of ContentInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: ContentPage) => any
-  ): Promise<ContentPage>;
+  list(
+    params: ContentListInstanceOptions,
+    callback?: (error: Error | null, items: ContentInstance[]) => any
+  ): Promise<ContentInstance[]>;
   /**
    * Retrieve a single page of ContentInstance records from the API.
    *
@@ -435,10 +382,12 @@ export interface ContentListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
+    callback?: (error: Error | null, items: ContentPage) => any
+  ): Promise<ContentPage>;
+  page(
     params: ContentListInstancePageOptions,
     callback?: (error: Error | null, items: ContentPage) => any
   ): Promise<ContentPage>;
-  page(params?: any, callback?: any): Promise<ContentPage>;
 
   /**
    * Provide a user-friendly representation
@@ -447,17 +396,8 @@ export interface ContentListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface ContentSolution {}
-
-interface ContentListInstanceImpl extends ContentListInstance {}
-class ContentListInstanceImpl implements ContentListInstance {
-  _version?: V1;
-  _solution?: ContentSolution;
-  _uri?: string;
-}
-
 export function ContentListInstance(version: V1): ContentListInstance {
-  const instance = ((sid) => instance.get(sid)) as ContentListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as ContentListInstance;
 
   instance.get = function get(sid): ContentContext {
     return new ContentContextImpl(version, sid);
@@ -468,10 +408,12 @@ export function ContentListInstance(version: V1): ContentListInstance {
   instance._uri = `/Content`;
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | ContentListInstancePageOptions
+      | ((error: Error | null, items: ContentPage) => any),
+    callback?: (error: Error | null, items: ContentPage) => any
   ): Promise<ContentPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -482,24 +424,25 @@ export function ContentListInstance(version: V1): ContentListInstance {
 
     if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new ContentPage(operationVersion, payload, this._solution)
+      (payload) =>
+        new ContentPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -509,33 +452,31 @@ export function ContentListInstance(version: V1): ContentListInstance {
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: ContentPage) => any
   ): Promise<ContentPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new ContentPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new ContentPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

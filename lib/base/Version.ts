@@ -1,5 +1,3 @@
-"use strict";
-
 import Domain from "./Domain";
 import Page, {TwilioResponsePayload, } from "./Page";
 import { RequestOpts } from "./BaseTwilio";
@@ -27,12 +25,11 @@ export default class Version {
   _version: Version | string;
 
   /**
-   * @constructor
    *
-   * @description Base version object
+   * Base version object
    *
-   * @param {Domain} domain twilio domain
-   * @param {Version} version api version
+   * @param domain - twilio domain
+   * @param version - api version
    */
   constructor(domain: Domain, version: string | Version) {
     this._domain = domain;
@@ -46,8 +43,8 @@ export default class Version {
   /**
    * Generate absolute url from a uri
    *
-   * @param  {string} uri uri to transform
-   * @return {string} transformed url
+   * @param uri - uri to transform
+   * @returns transformed url
    */
   absoluteUrl(uri: string): string {
     return this._domain.absoluteUrl(this.relativeUrl(uri));
@@ -56,8 +53,8 @@ export default class Version {
   /**
    * Generate relative url from a uri
    *
-   * @param  {string} uri uri to transform
-   * @return {string} transformed url
+   * @param uri - uri to transform
+   * @returns transformed url
    */
   relativeUrl(uri: string): string {
     var result = "";
@@ -79,8 +76,8 @@ export default class Version {
   /**
    * Make a request against the domain
    *
-   * @param  {object} opts request options
-   * @return {Promise} promise that resolves to request response
+   * @param opts - request options
+   * @returns promise that resolves to request response
    */
   request(opts: RequestOpts): Promise<any> {
     return this._domain.request({
@@ -91,10 +88,12 @@ export default class Version {
 
   /**
    * Create a new record
-   * @throws {Error} If response returns non 2xx or 201 status code
    *
-   * @param  {object} opts request options
-   * @return {Promise} promise that resolves to created record
+   * @param opts - request options
+   *
+   * @throws Error If response returns non 2xx or 201 status code
+   *
+   * @returns promise that resolves to created record
    */
   create(opts: RequestOpts): Promise<any> {
     var qResponse = this.request(opts);
@@ -112,11 +111,13 @@ export default class Version {
   }
 
   /**
-   * Fetch a instance of a record
-   * @throws {Error} If response returns non 2xx or 3xx status code
+   * Fetch an instance of a record
    *
-   * @param  {object} opts request options
-   * @return {Promise} promise that resolves to fetched result
+   * @param opts - request options
+   *
+   * @throws Error If response returns non 2xx or 3xx status code
+   *
+   * @returns promise that resolves to fetched result
    */
   fetch(opts: RequestOpts): Promise<any> {
     var qResponse = this.request(opts);
@@ -138,8 +139,8 @@ export default class Version {
   /**
    * Fetch a page of records
    *
-   * @param  {object} opts request options
-   * @return {Promise} promise that resolves to page of records
+   * @param opts - request options
+   * @returns promise that resolves to page of records
    */
   page(opts: RequestOpts): Promise<any> {
     return this.request(opts);
@@ -147,10 +148,12 @@ export default class Version {
 
   /**
    * Update a record
-   * @throws {Error} If response returns non 2xx status code
    *
-   * @param  {object} opts request options
-   * @return {Promise} promise that resolves to updated result
+   * @param opts - request options
+   *
+   * @throws Error If response returns non 2xx status code
+   *
+   * @returns promise that resolves to updated result
    */
   update(opts: RequestOpts): Promise<any> {
     var qResponse = this.request(opts);
@@ -170,10 +173,12 @@ export default class Version {
 
   /**
    * Delete a record
-   * @throws {Error} If response returns a 5xx status
    *
-   * @param  {object} opts request options
-   * @return {Promise} promise that resolves to true if record was deleted
+   * @param opts - request options
+   *
+   * @throws Error If response returns a 5xx status
+   *
+   * @returns promise that resolves to true if record was deleted
    */
   remove(opts: RequestOpts): Promise<boolean> {
     var qResponse = this.request(opts);
@@ -191,10 +196,9 @@ export default class Version {
   /**
    * Process limits for list requests
    *
-   * @param {object} [opts] ...
-   * @param {number} [opts.limit] The maximum number of items to fetch
-   * @param {number} [opts.pageSize] The maximum number of items to return
-   *                                  with every request
+   * @param opts.limit - The maximum number of items to fetch
+   * @param opts.pageSize - The maximum number of items to return with every request
+   *
    */
   readLimits(opts: PageLimitOptions): PageLimit {
     var limit = opts.limit;
@@ -243,6 +247,7 @@ export default class Version {
       throw new Error("Callback function must be provided");
     }
     let done = false;
+    let doneCalled = false;
     let currentPage = 1;
     let currentResource = 0;
     let limits = {} as PageLimit;
@@ -254,9 +259,10 @@ export default class Version {
     }
     function onComplete(error?: any) {
       done = true;
-      if (typeof params.done === "function") {
+      if (typeof params.done === "function" && !doneCalled) {
         params.done(error);
       }
+      doneCalled = true;
     }
     function fetchNextPage(fn: any) {
       let promise = fn();
@@ -265,7 +271,7 @@ export default class Version {
         return;
       }
       promise.then((page: Page<Version, TwilioResponsePayload, any, any>) => {
-        Object.keys(page.instances).forEach(function (instance: any) {
+        page.instances.forEach(function (instance: any) {
           if (
             done ||
             (typeof params.limit !== "undefined" &&

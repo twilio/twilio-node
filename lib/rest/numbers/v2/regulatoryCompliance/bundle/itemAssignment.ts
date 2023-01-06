@@ -22,59 +22,47 @@ import { isValidPathParam } from "../../../../../base/utility";
 
 /**
  * Options to pass to create a ItemAssignmentInstance
- *
- * @property { string } objectSid The SID of an object bag that holds information of the different items.
  */
 export interface ItemAssignmentListInstanceCreateOptions {
+  /** The SID of an object bag that holds information of the different items. */
   objectSid: string;
 }
 /**
  * Options to pass to each
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface ItemAssignmentListInstanceEachOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (
     item: ItemAssignmentInstance,
     done: (err?: Error) => void
   ) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface ItemAssignmentListInstanceOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface ItemAssignmentListInstancePageOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
@@ -82,9 +70,9 @@ export interface ItemAssignmentContext {
   /**
    * Remove a ItemAssignmentInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -93,9 +81,9 @@ export interface ItemAssignmentContext {
   /**
    * Fetch a ItemAssignmentInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ItemAssignmentInstance
+   * @returns Resolves to processed ItemAssignmentInstance
    */
   fetch(
     callback?: (error: Error | null, item?: ItemAssignmentInstance) => any
@@ -109,8 +97,8 @@ export interface ItemAssignmentContext {
 }
 
 export interface ItemAssignmentContextSolution {
-  bundleSid?: string;
-  sid?: string;
+  bundleSid: string;
+  sid: string;
 }
 
 export class ItemAssignmentContextImpl implements ItemAssignmentContext {
@@ -130,24 +118,30 @@ export class ItemAssignmentContextImpl implements ItemAssignmentContext {
     this._uri = `/RegulatoryCompliance/Bundles/${bundleSid}/ItemAssignments/${sid}`;
   }
 
-  remove(callback?: any): Promise<boolean> {
-    let operationVersion = this._version,
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<ItemAssignmentInstance> {
-    let operationVersion = this._version,
+  fetch(
+    callback?: (error: Error | null, item?: ItemAssignmentInstance) => any
+  ): Promise<ItemAssignmentInstance> {
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -156,12 +150,12 @@ export class ItemAssignmentContextImpl implements ItemAssignmentContext {
         new ItemAssignmentInstance(
           operationVersion,
           payload,
-          this._solution.bundleSid,
-          this._solution.sid
+          instance._solution.bundleSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -187,12 +181,12 @@ interface ItemAssignmentPayload extends TwilioResponsePayload {
 }
 
 interface ItemAssignmentResource {
-  sid?: string | null;
-  bundle_sid?: string | null;
-  account_sid?: string | null;
-  object_sid?: string | null;
-  date_created?: Date | null;
-  url?: string | null;
+  sid: string;
+  bundle_sid: string;
+  account_sid: string;
+  object_sid: string;
+  date_created: Date;
+  url: string;
 }
 
 export class ItemAssignmentInstance {
@@ -218,27 +212,27 @@ export class ItemAssignmentInstance {
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The unique string that identifies the Bundle resource.
    */
-  bundleSid?: string | null;
+  bundleSid: string;
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The sid of an object bag
    */
-  objectSid?: string | null;
+  objectSid: string;
   /**
    * The ISO 8601 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The absolute URL of the Identity resource
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): ItemAssignmentContext {
     this._context =
@@ -254,9 +248,9 @@ export class ItemAssignmentInstance {
   /**
    * Remove a ItemAssignmentInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -267,9 +261,9 @@ export class ItemAssignmentInstance {
   /**
    * Fetch a ItemAssignmentInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ItemAssignmentInstance
+   * @returns Resolves to processed ItemAssignmentInstance
    */
   fetch(
     callback?: (error: Error | null, item?: ItemAssignmentInstance) => any
@@ -298,44 +292,31 @@ export class ItemAssignmentInstance {
   }
 }
 
+export interface ItemAssignmentSolution {
+  bundleSid: string;
+}
+
 export interface ItemAssignmentListInstance {
+  _version: V2;
+  _solution: ItemAssignmentSolution;
+  _uri: string;
+
   (sid: string): ItemAssignmentContext;
   get(sid: string): ItemAssignmentContext;
 
   /**
    * Create a ItemAssignmentInstance
    *
-   * @param { ItemAssignmentListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ItemAssignmentInstance
+   * @returns Resolves to processed ItemAssignmentInstance
    */
   create(
     params: ItemAssignmentListInstanceCreateOptions,
     callback?: (error: Error | null, item?: ItemAssignmentInstance) => any
   ): Promise<ItemAssignmentInstance>;
-  create(params: any, callback?: any): Promise<ItemAssignmentInstance>;
 
-  /**
-   * Streams ItemAssignmentInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (
-      item: ItemAssignmentInstance,
-      done: (err?: Error) => void
-    ) => void
-  ): void;
   /**
    * Streams ItemAssignmentInstance records from the API.
    *
@@ -352,53 +333,30 @@ export interface ItemAssignmentListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: ItemAssignmentListInstanceEachOptions,
     callback?: (
       item: ItemAssignmentInstance,
       done: (err?: Error) => void
     ) => void
   ): void;
-  each(params?: any, callback?: any): void;
+  each(
+    params: ItemAssignmentListInstanceEachOptions,
+    callback?: (
+      item: ItemAssignmentInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
   /**
    * Retrieve a single target page of ItemAssignmentInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: ItemAssignmentPage) => any
-  ): Promise<ItemAssignmentPage>;
-  /**
-   * Retrieve a single target page of ItemAssignmentInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: ItemAssignmentPage) => any
   ): Promise<ItemAssignmentPage>;
-  getPage(params?: any, callback?: any): Promise<ItemAssignmentPage>;
-  /**
-   * Lists ItemAssignmentInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: ItemAssignmentInstance[]) => any
-  ): Promise<ItemAssignmentInstance[]>;
   /**
    * Lists ItemAssignmentInstance records from the API as a list.
    *
@@ -409,23 +367,12 @@ export interface ItemAssignmentListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: ItemAssignmentListInstanceOptions,
     callback?: (error: Error | null, items: ItemAssignmentInstance[]) => any
   ): Promise<ItemAssignmentInstance[]>;
-  list(params?: any, callback?: any): Promise<ItemAssignmentInstance[]>;
-  /**
-   * Retrieve a single page of ItemAssignmentInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: ItemAssignmentPage) => any
-  ): Promise<ItemAssignmentPage>;
+  list(
+    params: ItemAssignmentListInstanceOptions,
+    callback?: (error: Error | null, items: ItemAssignmentInstance[]) => any
+  ): Promise<ItemAssignmentInstance[]>;
   /**
    * Retrieve a single page of ItemAssignmentInstance records from the API.
    *
@@ -438,27 +385,18 @@ export interface ItemAssignmentListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
+    callback?: (error: Error | null, items: ItemAssignmentPage) => any
+  ): Promise<ItemAssignmentPage>;
+  page(
     params: ItemAssignmentListInstancePageOptions,
     callback?: (error: Error | null, items: ItemAssignmentPage) => any
   ): Promise<ItemAssignmentPage>;
-  page(params?: any, callback?: any): Promise<ItemAssignmentPage>;
 
   /**
    * Provide a user-friendly representation
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export interface ItemAssignmentSolution {
-  bundleSid?: string;
-}
-
-interface ItemAssignmentListInstanceImpl extends ItemAssignmentListInstance {}
-class ItemAssignmentListInstanceImpl implements ItemAssignmentListInstance {
-  _version?: V2;
-  _solution?: ItemAssignmentSolution;
-  _uri?: string;
 }
 
 export function ItemAssignmentListInstance(
@@ -469,8 +407,7 @@ export function ItemAssignmentListInstance(
     throw new Error("Parameter 'bundleSid' is not valid.");
   }
 
-  const instance = ((sid) =>
-    instance.get(sid)) as ItemAssignmentListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as ItemAssignmentListInstance;
 
   instance.get = function get(sid): ItemAssignmentContext {
     return new ItemAssignmentContextImpl(version, bundleSid, sid);
@@ -481,8 +418,8 @@ export function ItemAssignmentListInstance(
   instance._uri = `/RegulatoryCompliance/Bundles/${bundleSid}/ItemAssignments`;
 
   instance.create = function create(
-    params: any,
-    callback?: any
+    params: ItemAssignmentListInstanceCreateOptions,
+    callback?: (error: Error | null, items: ItemAssignmentInstance) => any
   ): Promise<ItemAssignmentInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -501,7 +438,7 @@ export function ItemAssignmentListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -512,11 +449,11 @@ export function ItemAssignmentListInstance(
         new ItemAssignmentInstance(
           operationVersion,
           payload,
-          this._solution.bundleSid
+          instance._solution.bundleSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -524,10 +461,12 @@ export function ItemAssignmentListInstance(
   };
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | ItemAssignmentListInstancePageOptions
+      | ((error: Error | null, items: ItemAssignmentPage) => any),
+    callback?: (error: Error | null, items: ItemAssignmentPage) => any
   ): Promise<ItemAssignmentPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -538,14 +477,14 @@ export function ItemAssignmentListInstance(
 
     if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
@@ -553,10 +492,10 @@ export function ItemAssignmentListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new ItemAssignmentPage(operationVersion, payload, this._solution)
+        new ItemAssignmentPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -566,34 +505,31 @@ export function ItemAssignmentListInstance(
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: ItemAssignmentPage) => any
   ): Promise<ItemAssignmentPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
+    let pagePromise = operationPromise.then(
       (payload) =>
-        new ItemAssignmentPage(this._version, payload, this._solution)
+        new ItemAssignmentPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

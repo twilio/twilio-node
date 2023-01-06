@@ -24,99 +24,86 @@ type FleetDataMetering = "payg";
 
 /**
  * Options to pass to update a FleetInstance
- *
- * @property { string } [uniqueName] An application-defined string that uniquely identifies the resource. It can be used in place of the resource\\\'s `sid` in the URL to address the resource.
- * @property { string } [networkAccessProfile] The SID or unique name of the Network Access Profile that will control which cellular networks the Fleet\\\'s SIMs can connect to.
- * @property { string } [ipCommandsUrl] The URL that will receive a webhook when a Super SIM in the Fleet is used to send an IP Command from your device to a special IP address. Your server should respond with an HTTP status code in the 200 range; any response body will be ignored.
- * @property { string } [ipCommandsMethod] A string representing the HTTP method to use when making a request to `ip_commands_url`. Can be one of `POST` or `GET`. Defaults to `POST`.
- * @property { string } [smsCommandsUrl] The URL that will receive a webhook when a Super SIM in the Fleet is used to send an SMS from your device to the SMS Commands number. Your server should respond with an HTTP status code in the 200 range; any response body will be ignored.
- * @property { string } [smsCommandsMethod] A string representing the HTTP method to use when making a request to `sms_commands_url`. Can be one of `POST` or `GET`. Defaults to `POST`.
- * @property { number } [dataLimit] The total data usage (download and upload combined) in Megabytes that each Super SIM assigned to the Fleet can consume during a billing period (normally one month). Value must be between 1MB (1) and 2TB (2,000,000). Defaults to 1GB (1,000).
  */
 export interface FleetContextUpdateOptions {
+  /** An application-defined string that uniquely identifies the resource. It can be used in place of the resource\\\'s `sid` in the URL to address the resource. */
   uniqueName?: string;
+  /** The SID or unique name of the Network Access Profile that will control which cellular networks the Fleet\\\'s SIMs can connect to. */
   networkAccessProfile?: string;
+  /** The URL that will receive a webhook when a Super SIM in the Fleet is used to send an IP Command from your device to a special IP address. Your server should respond with an HTTP status code in the 200 range; any response body will be ignored. */
   ipCommandsUrl?: string;
+  /** A string representing the HTTP method to use when making a request to `ip_commands_url`. Can be one of `POST` or `GET`. Defaults to `POST`. */
   ipCommandsMethod?: string;
+  /** The URL that will receive a webhook when a Super SIM in the Fleet is used to send an SMS from your device to the SMS Commands number. Your server should respond with an HTTP status code in the 200 range; any response body will be ignored. */
   smsCommandsUrl?: string;
+  /** A string representing the HTTP method to use when making a request to `sms_commands_url`. Can be one of `POST` or `GET`. Defaults to `POST`. */
   smsCommandsMethod?: string;
+  /** The total data usage (download and upload combined) in Megabytes that each Super SIM assigned to the Fleet can consume during a billing period (normally one month). Value must be between 1MB (1) and 2TB (2,000,000). Defaults to 1GB (1,000). */
   dataLimit?: number;
 }
 
 /**
  * Options to pass to create a FleetInstance
- *
- * @property { string } networkAccessProfile The SID or unique name of the Network Access Profile that will control which cellular networks the Fleet\\\'s SIMs can connect to.
- * @property { string } [uniqueName] An application-defined string that uniquely identifies the resource. It can be used in place of the resource\\\'s `sid` in the URL to address the resource.
- * @property { boolean } [dataEnabled] Defines whether SIMs in the Fleet are capable of using 2G/3G/4G/LTE/CAT-M data connectivity. Defaults to `true`.
- * @property { number } [dataLimit] The total data usage (download and upload combined) in Megabytes that each Super SIM assigned to the Fleet can consume during a billing period (normally one month). Value must be between 1MB (1) and 2TB (2,000,000). Defaults to 1GB (1,000).
- * @property { string } [ipCommandsUrl] The URL that will receive a webhook when a Super SIM in the Fleet is used to send an IP Command from your device to a special IP address. Your server should respond with an HTTP status code in the 200 range; any response body will be ignored.
- * @property { string } [ipCommandsMethod] A string representing the HTTP method to use when making a request to `ip_commands_url`. Can be one of `POST` or `GET`. Defaults to `POST`.
- * @property { boolean } [smsCommandsEnabled] Defines whether SIMs in the Fleet are capable of sending and receiving machine-to-machine SMS via Commands. Defaults to `true`.
- * @property { string } [smsCommandsUrl] The URL that will receive a webhook when a Super SIM in the Fleet is used to send an SMS from your device to the SMS Commands number. Your server should respond with an HTTP status code in the 200 range; any response body will be ignored.
- * @property { string } [smsCommandsMethod] A string representing the HTTP method to use when making a request to `sms_commands_url`. Can be one of `POST` or `GET`. Defaults to `POST`.
  */
 export interface FleetListInstanceCreateOptions {
+  /** The SID or unique name of the Network Access Profile that will control which cellular networks the Fleet\\\'s SIMs can connect to. */
   networkAccessProfile: string;
+  /** An application-defined string that uniquely identifies the resource. It can be used in place of the resource\\\'s `sid` in the URL to address the resource. */
   uniqueName?: string;
+  /** Defines whether SIMs in the Fleet are capable of using 2G/3G/4G/LTE/CAT-M data connectivity. Defaults to `true`. */
   dataEnabled?: boolean;
+  /** The total data usage (download and upload combined) in Megabytes that each Super SIM assigned to the Fleet can consume during a billing period (normally one month). Value must be between 1MB (1) and 2TB (2,000,000). Defaults to 1GB (1,000). */
   dataLimit?: number;
+  /** The URL that will receive a webhook when a Super SIM in the Fleet is used to send an IP Command from your device to a special IP address. Your server should respond with an HTTP status code in the 200 range; any response body will be ignored. */
   ipCommandsUrl?: string;
+  /** A string representing the HTTP method to use when making a request to `ip_commands_url`. Can be one of `POST` or `GET`. Defaults to `POST`. */
   ipCommandsMethod?: string;
+  /** Defines whether SIMs in the Fleet are capable of sending and receiving machine-to-machine SMS via Commands. Defaults to `true`. */
   smsCommandsEnabled?: boolean;
+  /** The URL that will receive a webhook when a Super SIM in the Fleet is used to send an SMS from your device to the SMS Commands number. Your server should respond with an HTTP status code in the 200 range; any response body will be ignored. */
   smsCommandsUrl?: string;
+  /** A string representing the HTTP method to use when making a request to `sms_commands_url`. Can be one of `POST` or `GET`. Defaults to `POST`. */
   smsCommandsMethod?: string;
 }
 /**
  * Options to pass to each
- *
- * @property { string } [networkAccessProfile] The SID or unique name of the Network Access Profile that controls which cellular networks the Fleet\'s SIMs can connect to.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface FleetListInstanceEachOptions {
+  /** The SID or unique name of the Network Access Profile that controls which cellular networks the Fleet\'s SIMs can connect to. */
   networkAccessProfile?: string;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: FleetInstance, done: (err?: Error) => void) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { string } [networkAccessProfile] The SID or unique name of the Network Access Profile that controls which cellular networks the Fleet\'s SIMs can connect to.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface FleetListInstanceOptions {
+  /** The SID or unique name of the Network Access Profile that controls which cellular networks the Fleet\'s SIMs can connect to. */
   networkAccessProfile?: string;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { string } [networkAccessProfile] The SID or unique name of the Network Access Profile that controls which cellular networks the Fleet\'s SIMs can connect to.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface FleetListInstancePageOptions {
+  /** The SID or unique name of the Network Access Profile that controls which cellular networks the Fleet\'s SIMs can connect to. */
   networkAccessProfile?: string;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
@@ -124,9 +111,9 @@ export interface FleetContext {
   /**
    * Fetch a FleetInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed FleetInstance
+   * @returns Resolves to processed FleetInstance
    */
   fetch(
     callback?: (error: Error | null, item?: FleetInstance) => any
@@ -135,9 +122,9 @@ export interface FleetContext {
   /**
    * Update a FleetInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed FleetInstance
+   * @returns Resolves to processed FleetInstance
    */
   update(
     callback?: (error: Error | null, item?: FleetInstance) => any
@@ -145,16 +132,15 @@ export interface FleetContext {
   /**
    * Update a FleetInstance
    *
-   * @param { FleetContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed FleetInstance
+   * @returns Resolves to processed FleetInstance
    */
   update(
     params: FleetContextUpdateOptions,
     callback?: (error: Error | null, item?: FleetInstance) => any
   ): Promise<FleetInstance>;
-  update(params?: any, callback?: any): Promise<FleetInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -164,7 +150,7 @@ export interface FleetContext {
 }
 
 export interface FleetContextSolution {
-  sid?: string;
+  sid: string;
 }
 
 export class FleetContextImpl implements FleetContext {
@@ -180,27 +166,35 @@ export class FleetContextImpl implements FleetContext {
     this._uri = `/Fleets/${sid}`;
   }
 
-  fetch(callback?: any): Promise<FleetInstance> {
-    let operationVersion = this._version,
+  fetch(
+    callback?: (error: Error | null, item?: FleetInstance) => any
+  ): Promise<FleetInstance> {
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new FleetInstance(operationVersion, payload, this._solution.sid)
+        new FleetInstance(operationVersion, payload, instance._solution.sid)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
     return operationPromise;
   }
 
-  update(params?: any, callback?: any): Promise<FleetInstance> {
-    if (typeof params === "function") {
+  update(
+    params?:
+      | FleetContextUpdateOptions
+      | ((error: Error | null, item?: FleetInstance) => any),
+    callback?: (error: Error | null, item?: FleetInstance) => any
+  ): Promise<FleetInstance> {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -227,9 +221,10 @@ export class FleetContextImpl implements FleetContext {
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -237,10 +232,10 @@ export class FleetContextImpl implements FleetContext {
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new FleetInstance(operationVersion, payload, this._solution.sid)
+        new FleetInstance(operationVersion, payload, instance._solution.sid)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -281,21 +276,21 @@ interface FleetPayload extends TwilioResponsePayload {
 }
 
 interface FleetResource {
-  account_sid?: string | null;
-  sid?: string | null;
-  unique_name?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  url?: string | null;
-  data_enabled?: boolean | null;
-  data_limit?: number | null;
-  data_metering?: FleetDataMetering;
-  sms_commands_enabled?: boolean | null;
-  sms_commands_url?: string | null;
-  sms_commands_method?: FleetSmsCommandsMethod;
-  network_access_profile_sid?: string | null;
-  ip_commands_url?: string | null;
-  ip_commands_method?: FleetIpCommandsMethod;
+  account_sid: string;
+  sid: string;
+  unique_name: string;
+  date_created: Date;
+  date_updated: Date;
+  url: string;
+  data_enabled: boolean;
+  data_limit: number;
+  data_metering: FleetDataMetering;
+  sms_commands_enabled: boolean;
+  sms_commands_url: string;
+  sms_commands_method: FleetSmsCommandsMethod;
+  network_access_profile_sid: string;
+  ip_commands_url: string;
+  ip_commands_method: FleetIpCommandsMethod;
 }
 
 export class FleetInstance {
@@ -325,60 +320,60 @@ export class FleetInstance {
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * An application-defined string that uniquely identifies the resource
    */
-  uniqueName?: string | null;
+  uniqueName: string;
   /**
    * The ISO 8601 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The ISO 8601 date and time in GMT when the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The absolute URL of the Fleet resource
    */
-  url?: string | null;
+  url: string;
   /**
    * Defines whether SIMs in the Fleet are capable of using data connectivity
    */
-  dataEnabled?: boolean | null;
+  dataEnabled: boolean;
   /**
    * The total data usage (download and upload combined) in Megabytes that each Super SIM assigned to the Fleet can consume
    */
-  dataLimit?: number | null;
-  dataMetering?: FleetDataMetering;
+  dataLimit: number;
+  dataMetering: FleetDataMetering;
   /**
    * Defines whether SIMs in the Fleet are capable of sending and receiving machine-to-machine SMS via Commands
    */
-  smsCommandsEnabled?: boolean | null;
+  smsCommandsEnabled: boolean;
   /**
    * The URL that will receive a webhook when a Super SIM in the Fleet is used to send an SMS from your device to the SMS Commands number
    */
-  smsCommandsUrl?: string | null;
+  smsCommandsUrl: string;
   /**
    * A string representing the HTTP method to use when making a request to `sms_commands_url`
    */
-  smsCommandsMethod?: FleetSmsCommandsMethod;
+  smsCommandsMethod: FleetSmsCommandsMethod;
   /**
    * The SID of the Network Access Profile of the Fleet
    */
-  networkAccessProfileSid?: string | null;
+  networkAccessProfileSid: string;
   /**
    * The URL that will receive a webhook when a Super SIM in the Fleet is used to send an IP Command from your device
    */
-  ipCommandsUrl?: string | null;
+  ipCommandsUrl: string;
   /**
    * A string representing the HTTP method to use when making a request to `ip_commands_url`
    */
-  ipCommandsMethod?: FleetIpCommandsMethod;
+  ipCommandsMethod: FleetIpCommandsMethod;
 
   private get _proxy(): FleetContext {
     this._context =
@@ -389,9 +384,9 @@ export class FleetInstance {
   /**
    * Fetch a FleetInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed FleetInstance
+   * @returns Resolves to processed FleetInstance
    */
   fetch(
     callback?: (error: Error | null, item?: FleetInstance) => any
@@ -402,9 +397,9 @@ export class FleetInstance {
   /**
    * Update a FleetInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed FleetInstance
+   * @returns Resolves to processed FleetInstance
    */
   update(
     callback?: (error: Error | null, item?: FleetInstance) => any
@@ -412,16 +407,20 @@ export class FleetInstance {
   /**
    * Update a FleetInstance
    *
-   * @param { FleetContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed FleetInstance
+   * @returns Resolves to processed FleetInstance
    */
   update(
     params: FleetContextUpdateOptions,
     callback?: (error: Error | null, item?: FleetInstance) => any
   ): Promise<FleetInstance>;
-  update(params?: any, callback?: any): Promise<FleetInstance> {
+
+  update(
+    params?: any,
+    callback?: (error: Error | null, item?: FleetInstance) => any
+  ): Promise<FleetInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -455,41 +454,29 @@ export class FleetInstance {
   }
 }
 
+export interface FleetSolution {}
+
 export interface FleetListInstance {
+  _version: V1;
+  _solution: FleetSolution;
+  _uri: string;
+
   (sid: string): FleetContext;
   get(sid: string): FleetContext;
 
   /**
    * Create a FleetInstance
    *
-   * @param { FleetListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed FleetInstance
+   * @returns Resolves to processed FleetInstance
    */
   create(
     params: FleetListInstanceCreateOptions,
     callback?: (error: Error | null, item?: FleetInstance) => any
   ): Promise<FleetInstance>;
-  create(params: any, callback?: any): Promise<FleetInstance>;
 
-  /**
-   * Streams FleetInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (item: FleetInstance, done: (err?: Error) => void) => void
-  ): void;
   /**
    * Streams FleetInstance records from the API.
    *
@@ -506,50 +493,24 @@ export interface FleetListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: FleetListInstanceEachOptions,
     callback?: (item: FleetInstance, done: (err?: Error) => void) => void
   ): void;
-  each(params?: any, callback?: any): void;
+  each(
+    params: FleetListInstanceEachOptions,
+    callback?: (item: FleetInstance, done: (err?: Error) => void) => void
+  ): void;
   /**
    * Retrieve a single target page of FleetInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: FleetPage) => any
-  ): Promise<FleetPage>;
-  /**
-   * Retrieve a single target page of FleetInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: FleetPage) => any
   ): Promise<FleetPage>;
-  getPage(params?: any, callback?: any): Promise<FleetPage>;
-  /**
-   * Lists FleetInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: FleetInstance[]) => any
-  ): Promise<FleetInstance[]>;
   /**
    * Lists FleetInstance records from the API as a list.
    *
@@ -560,23 +521,12 @@ export interface FleetListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: FleetListInstanceOptions,
     callback?: (error: Error | null, items: FleetInstance[]) => any
   ): Promise<FleetInstance[]>;
-  list(params?: any, callback?: any): Promise<FleetInstance[]>;
-  /**
-   * Retrieve a single page of FleetInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: FleetPage) => any
-  ): Promise<FleetPage>;
+  list(
+    params: FleetListInstanceOptions,
+    callback?: (error: Error | null, items: FleetInstance[]) => any
+  ): Promise<FleetInstance[]>;
   /**
    * Retrieve a single page of FleetInstance records from the API.
    *
@@ -589,10 +539,12 @@ export interface FleetListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
+    callback?: (error: Error | null, items: FleetPage) => any
+  ): Promise<FleetPage>;
+  page(
     params: FleetListInstancePageOptions,
     callback?: (error: Error | null, items: FleetPage) => any
   ): Promise<FleetPage>;
-  page(params?: any, callback?: any): Promise<FleetPage>;
 
   /**
    * Provide a user-friendly representation
@@ -601,17 +553,8 @@ export interface FleetListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface FleetSolution {}
-
-interface FleetListInstanceImpl extends FleetListInstance {}
-class FleetListInstanceImpl implements FleetListInstance {
-  _version?: V1;
-  _solution?: FleetSolution;
-  _uri?: string;
-}
-
 export function FleetListInstance(version: V1): FleetListInstance {
-  const instance = ((sid) => instance.get(sid)) as FleetListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as FleetListInstance;
 
   instance.get = function get(sid): FleetContext {
     return new FleetContextImpl(version, sid);
@@ -622,8 +565,8 @@ export function FleetListInstance(version: V1): FleetListInstance {
   instance._uri = `/Fleets`;
 
   instance.create = function create(
-    params: any,
-    callback?: any
+    params: FleetListInstanceCreateOptions,
+    callback?: (error: Error | null, items: FleetInstance) => any
   ): Promise<FleetInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -663,7 +606,7 @@ export function FleetListInstance(version: V1): FleetListInstance {
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -673,7 +616,7 @@ export function FleetListInstance(version: V1): FleetListInstance {
       (payload) => new FleetInstance(operationVersion, payload)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -681,10 +624,12 @@ export function FleetListInstance(version: V1): FleetListInstance {
   };
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | FleetListInstancePageOptions
+      | ((error: Error | null, items: FleetPage) => any),
+    callback?: (error: Error | null, items: FleetPage) => any
   ): Promise<FleetPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -697,24 +642,24 @@ export function FleetListInstance(version: V1): FleetListInstance {
       data["NetworkAccessProfile"] = params["networkAccessProfile"];
     if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new FleetPage(operationVersion, payload, this._solution)
+      (payload) => new FleetPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -724,33 +669,30 @@ export function FleetListInstance(version: V1): FleetListInstance {
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: FleetPage) => any
   ): Promise<FleetPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new FleetPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) => new FleetPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

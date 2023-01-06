@@ -20,33 +20,37 @@ import { isValidPathParam } from "../../../base/utility";
 
 /**
  * Options to pass to create a WebChannelsInstance
- *
- * @property { string } addressSid The SID of the Conversations Address. See [Address Configuration Resource](https://www.twilio.com/docs/conversations/api/address-configuration-resource) for configuration details. When a conversation is created on the Flex backend, the callback URL will be set to the corresponding Studio Flow SID or webhook URL in your address configuration.
- * @property { string } [chatFriendlyName] The Conversation\\\'s friendly name. See the [Conversation resource](https://www.twilio.com/docs/conversations/api/conversation-resource) for an example.
- * @property { string } [customerFriendlyName] The Conversation participant\\\'s friendly name. See the [Conversation Participant Resource](https://www.twilio.com/docs/conversations/api/conversation-participant-resource) for an example.
- * @property { string } [preEngagementData] The pre-engagement data.
  */
 export interface WebChannelsListInstanceCreateOptions {
+  /** The SID of the Conversations Address. See [Address Configuration Resource](https://www.twilio.com/docs/conversations/api/address-configuration-resource) for configuration details. When a conversation is created on the Flex backend, the callback URL will be set to the corresponding Studio Flow SID or webhook URL in your address configuration. */
   addressSid: string;
+  /** The Conversation\\\'s friendly name. See the [Conversation resource](https://www.twilio.com/docs/conversations/api/conversation-resource) for an example. */
   chatFriendlyName?: string;
+  /** The Conversation participant\\\'s friendly name. See the [Conversation Participant Resource](https://www.twilio.com/docs/conversations/api/conversation-participant-resource) for an example. */
   customerFriendlyName?: string;
+  /** The pre-engagement data. */
   preEngagementData?: string;
 }
 
+export interface WebChannelsSolution {}
+
 export interface WebChannelsListInstance {
+  _version: V2;
+  _solution: WebChannelsSolution;
+  _uri: string;
+
   /**
    * Create a WebChannelsInstance
    *
-   * @param { WebChannelsListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed WebChannelsInstance
+   * @returns Resolves to processed WebChannelsInstance
    */
   create(
     params: WebChannelsListInstanceCreateOptions,
     callback?: (error: Error | null, item?: WebChannelsInstance) => any
   ): Promise<WebChannelsInstance>;
-  create(params: any, callback?: any): Promise<WebChannelsInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -55,25 +59,16 @@ export interface WebChannelsListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface WebChannelsSolution {}
-
-interface WebChannelsListInstanceImpl extends WebChannelsListInstance {}
-class WebChannelsListInstanceImpl implements WebChannelsListInstance {
-  _version?: V2;
-  _solution?: WebChannelsSolution;
-  _uri?: string;
-}
-
 export function WebChannelsListInstance(version: V2): WebChannelsListInstance {
-  const instance = {} as WebChannelsListInstanceImpl;
+  const instance = {} as WebChannelsListInstance;
 
   instance._version = version;
   instance._solution = {};
   instance._uri = `/WebChats`;
 
   instance.create = function create(
-    params: any,
-    callback?: any
+    params: WebChannelsListInstanceCreateOptions,
+    callback?: (error: Error | null, items: WebChannelsInstance) => any
   ): Promise<WebChannelsInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -98,7 +93,7 @@ export function WebChannelsListInstance(version: V2): WebChannelsListInstance {
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -108,7 +103,7 @@ export function WebChannelsListInstance(version: V2): WebChannelsListInstance {
       (payload) => new WebChannelsInstance(operationVersion, payload)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -116,14 +111,14 @@ export function WebChannelsListInstance(version: V2): WebChannelsListInstance {
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;
@@ -132,8 +127,8 @@ export function WebChannelsListInstance(version: V2): WebChannelsListInstance {
 interface WebChannelsPayload extends WebChannelsResource {}
 
 interface WebChannelsResource {
-  conversation_sid?: string | null;
-  identity?: string | null;
+  conversation_sid: string;
+  identity: string;
 }
 
 export class WebChannelsInstance {
@@ -145,11 +140,11 @@ export class WebChannelsInstance {
   /**
    * The unique string representing the Conversation resource created
    */
-  conversationSid?: string | null;
+  conversationSid: string;
   /**
    * The unique string representing the User created
    */
-  identity?: string | null;
+  identity: string;
 
   /**
    * Provide a user-friendly representation

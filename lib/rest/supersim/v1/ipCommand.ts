@@ -28,90 +28,78 @@ type IpCommandStatus = "queued" | "sent" | "received" | "failed";
 
 /**
  * Options to pass to create a IpCommandInstance
- *
- * @property { string } sim The `sid` or `unique_name` of the [Super SIM](https://www.twilio.com/docs/iot/supersim/api/sim-resource) to send the IP Command to.
- * @property { string } payload The data that will be sent to the device. The payload cannot exceed 1300 bytes. If the PayloadType is set to text, the payload is encoded in UTF-8. If PayloadType is set to binary, the payload is encoded in Base64.
- * @property { number } devicePort The device port to which the IP Command will be sent.
- * @property { IpCommandPayloadType } [payloadType]
- * @property { string } [callbackUrl] The URL we should call using the `callback_method` after we have sent the IP Command.
- * @property { string } [callbackMethod] The HTTP method we should use to call `callback_url`. Can be `GET` or `POST`, and the default is `POST`.
  */
 export interface IpCommandListInstanceCreateOptions {
+  /** The `sid` or `unique_name` of the [Super SIM](https://www.twilio.com/docs/iot/supersim/api/sim-resource) to send the IP Command to. */
   sim: string;
+  /** The payload to be delivered to the device. */
   payload: string;
+  /** The device port to which the IP Command will be sent. */
   devicePort: number;
+  /**  */
   payloadType?: IpCommandPayloadType;
+  /** The URL we should call using the `callback_method` after we have sent the IP Command. */
   callbackUrl?: string;
+  /** The HTTP method we should use to call `callback_url`. Can be `GET` or `POST`, and the default is `POST`. */
   callbackMethod?: string;
 }
 /**
  * Options to pass to each
- *
- * @property { string } [sim] The SID or unique name of the Sim resource that IP Command was sent to or from.
- * @property { string } [simIccid] The ICCID of the Sim resource that IP Command was sent to or from.
- * @property { IpCommandStatus } [status] The status of the IP Command. Can be: `queued`, `sent`, `received` or `failed`. See the [IP Command Status Values](https://www.twilio.com/docs/wireless/api/ipcommand-resource#status-values) for a description of each.
- * @property { IpCommandDirection } [direction] The direction of the IP Command. Can be `to_sim` or `from_sim`. The value of `to_sim` is synonymous with the term `mobile terminated`, and `from_sim` is synonymous with the term `mobile originated`.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface IpCommandListInstanceEachOptions {
+  /** The SID or unique name of the Sim resource that IP Command was sent to or from. */
   sim?: string;
+  /** The ICCID of the Sim resource that IP Command was sent to or from. */
   simIccid?: string;
+  /** The status of the IP Command. Can be: `queued`, `sent`, `received` or `failed`. See the [IP Command Status Values](https://www.twilio.com/docs/wireless/api/ipcommand-resource#status-values) for a description of each. */
   status?: IpCommandStatus;
+  /** The direction of the IP Command. Can be `to_sim` or `from_sim`. The value of `to_sim` is synonymous with the term `mobile terminated`, and `from_sim` is synonymous with the term `mobile originated`. */
   direction?: IpCommandDirection;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: IpCommandInstance, done: (err?: Error) => void) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { string } [sim] The SID or unique name of the Sim resource that IP Command was sent to or from.
- * @property { string } [simIccid] The ICCID of the Sim resource that IP Command was sent to or from.
- * @property { IpCommandStatus } [status] The status of the IP Command. Can be: `queued`, `sent`, `received` or `failed`. See the [IP Command Status Values](https://www.twilio.com/docs/wireless/api/ipcommand-resource#status-values) for a description of each.
- * @property { IpCommandDirection } [direction] The direction of the IP Command. Can be `to_sim` or `from_sim`. The value of `to_sim` is synonymous with the term `mobile terminated`, and `from_sim` is synonymous with the term `mobile originated`.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface IpCommandListInstanceOptions {
+  /** The SID or unique name of the Sim resource that IP Command was sent to or from. */
   sim?: string;
+  /** The ICCID of the Sim resource that IP Command was sent to or from. */
   simIccid?: string;
+  /** The status of the IP Command. Can be: `queued`, `sent`, `received` or `failed`. See the [IP Command Status Values](https://www.twilio.com/docs/wireless/api/ipcommand-resource#status-values) for a description of each. */
   status?: IpCommandStatus;
+  /** The direction of the IP Command. Can be `to_sim` or `from_sim`. The value of `to_sim` is synonymous with the term `mobile terminated`, and `from_sim` is synonymous with the term `mobile originated`. */
   direction?: IpCommandDirection;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { string } [sim] The SID or unique name of the Sim resource that IP Command was sent to or from.
- * @property { string } [simIccid] The ICCID of the Sim resource that IP Command was sent to or from.
- * @property { IpCommandStatus } [status] The status of the IP Command. Can be: `queued`, `sent`, `received` or `failed`. See the [IP Command Status Values](https://www.twilio.com/docs/wireless/api/ipcommand-resource#status-values) for a description of each.
- * @property { IpCommandDirection } [direction] The direction of the IP Command. Can be `to_sim` or `from_sim`. The value of `to_sim` is synonymous with the term `mobile terminated`, and `from_sim` is synonymous with the term `mobile originated`.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface IpCommandListInstancePageOptions {
+  /** The SID or unique name of the Sim resource that IP Command was sent to or from. */
   sim?: string;
+  /** The ICCID of the Sim resource that IP Command was sent to or from. */
   simIccid?: string;
+  /** The status of the IP Command. Can be: `queued`, `sent`, `received` or `failed`. See the [IP Command Status Values](https://www.twilio.com/docs/wireless/api/ipcommand-resource#status-values) for a description of each. */
   status?: IpCommandStatus;
+  /** The direction of the IP Command. Can be `to_sim` or `from_sim`. The value of `to_sim` is synonymous with the term `mobile terminated`, and `from_sim` is synonymous with the term `mobile originated`. */
   direction?: IpCommandDirection;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
@@ -119,9 +107,9 @@ export interface IpCommandContext {
   /**
    * Fetch a IpCommandInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed IpCommandInstance
+   * @returns Resolves to processed IpCommandInstance
    */
   fetch(
     callback?: (error: Error | null, item?: IpCommandInstance) => any
@@ -135,7 +123,7 @@ export interface IpCommandContext {
 }
 
 export interface IpCommandContextSolution {
-  sid?: string;
+  sid: string;
 }
 
 export class IpCommandContextImpl implements IpCommandContext {
@@ -151,19 +139,22 @@ export class IpCommandContextImpl implements IpCommandContext {
     this._uri = `/IpCommands/${sid}`;
   }
 
-  fetch(callback?: any): Promise<IpCommandInstance> {
-    let operationVersion = this._version,
+  fetch(
+    callback?: (error: Error | null, item?: IpCommandInstance) => any
+  ): Promise<IpCommandInstance> {
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new IpCommandInstance(operationVersion, payload, this._solution.sid)
+        new IpCommandInstance(operationVersion, payload, instance._solution.sid)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -189,19 +180,19 @@ interface IpCommandPayload extends TwilioResponsePayload {
 }
 
 interface IpCommandResource {
-  sid?: string | null;
-  account_sid?: string | null;
-  sim_sid?: string | null;
-  sim_iccid?: string | null;
-  status?: IpCommandStatus;
-  direction?: IpCommandDirection;
-  device_ip?: string | null;
-  device_port?: number | null;
-  payload_type?: IpCommandPayloadType;
-  payload?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  url?: string | null;
+  sid: string;
+  account_sid: string;
+  sim_sid: string;
+  sim_iccid: string;
+  status: IpCommandStatus;
+  direction: IpCommandDirection;
+  device_ip: string;
+  device_port: number;
+  payload_type: IpCommandPayloadType;
+  payload: string;
+  date_created: Date;
+  date_updated: Date;
+  url: string;
 }
 
 export class IpCommandInstance {
@@ -233,46 +224,46 @@ export class IpCommandInstance {
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The SID of the Super SIM that this IP Command was sent to or from
    */
-  simSid?: string | null;
+  simSid: string;
   /**
    * The ICCID of the Super SIM that this IP Command was sent to or from
    */
-  simIccid?: string | null;
-  status?: IpCommandStatus;
-  direction?: IpCommandDirection;
+  simIccid: string;
+  status: IpCommandStatus;
+  direction: IpCommandDirection;
   /**
    * The IP address of the device that the IP Command was sent to or received from
    */
-  deviceIp?: string | null;
+  deviceIp: string;
   /**
    * The port that the IP Command either originated from or was sent to
    */
-  devicePort?: number | null;
-  payloadType?: IpCommandPayloadType;
+  devicePort: number;
+  payloadType: IpCommandPayloadType;
   /**
    * The payload of the IP Command sent to or from the Super SIM
    */
-  payload?: string | null;
+  payload: string;
   /**
    * The ISO 8601 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The ISO 8601 date and time in GMT when the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The absolute URL of the IP Command resource
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): IpCommandContext {
     this._context =
@@ -284,9 +275,9 @@ export class IpCommandInstance {
   /**
    * Fetch a IpCommandInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed IpCommandInstance
+   * @returns Resolves to processed IpCommandInstance
    */
   fetch(
     callback?: (error: Error | null, item?: IpCommandInstance) => any
@@ -322,41 +313,29 @@ export class IpCommandInstance {
   }
 }
 
+export interface IpCommandSolution {}
+
 export interface IpCommandListInstance {
+  _version: V1;
+  _solution: IpCommandSolution;
+  _uri: string;
+
   (sid: string): IpCommandContext;
   get(sid: string): IpCommandContext;
 
   /**
    * Create a IpCommandInstance
    *
-   * @param { IpCommandListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed IpCommandInstance
+   * @returns Resolves to processed IpCommandInstance
    */
   create(
     params: IpCommandListInstanceCreateOptions,
     callback?: (error: Error | null, item?: IpCommandInstance) => any
   ): Promise<IpCommandInstance>;
-  create(params: any, callback?: any): Promise<IpCommandInstance>;
 
-  /**
-   * Streams IpCommandInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (item: IpCommandInstance, done: (err?: Error) => void) => void
-  ): void;
   /**
    * Streams IpCommandInstance records from the API.
    *
@@ -373,50 +352,24 @@ export interface IpCommandListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: IpCommandListInstanceEachOptions,
     callback?: (item: IpCommandInstance, done: (err?: Error) => void) => void
   ): void;
-  each(params?: any, callback?: any): void;
+  each(
+    params: IpCommandListInstanceEachOptions,
+    callback?: (item: IpCommandInstance, done: (err?: Error) => void) => void
+  ): void;
   /**
    * Retrieve a single target page of IpCommandInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: IpCommandPage) => any
-  ): Promise<IpCommandPage>;
-  /**
-   * Retrieve a single target page of IpCommandInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: IpCommandPage) => any
   ): Promise<IpCommandPage>;
-  getPage(params?: any, callback?: any): Promise<IpCommandPage>;
-  /**
-   * Lists IpCommandInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: IpCommandInstance[]) => any
-  ): Promise<IpCommandInstance[]>;
   /**
    * Lists IpCommandInstance records from the API as a list.
    *
@@ -427,23 +380,12 @@ export interface IpCommandListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: IpCommandListInstanceOptions,
     callback?: (error: Error | null, items: IpCommandInstance[]) => any
   ): Promise<IpCommandInstance[]>;
-  list(params?: any, callback?: any): Promise<IpCommandInstance[]>;
-  /**
-   * Retrieve a single page of IpCommandInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: IpCommandPage) => any
-  ): Promise<IpCommandPage>;
+  list(
+    params: IpCommandListInstanceOptions,
+    callback?: (error: Error | null, items: IpCommandInstance[]) => any
+  ): Promise<IpCommandInstance[]>;
   /**
    * Retrieve a single page of IpCommandInstance records from the API.
    *
@@ -456,10 +398,12 @@ export interface IpCommandListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
+    callback?: (error: Error | null, items: IpCommandPage) => any
+  ): Promise<IpCommandPage>;
+  page(
     params: IpCommandListInstancePageOptions,
     callback?: (error: Error | null, items: IpCommandPage) => any
   ): Promise<IpCommandPage>;
-  page(params?: any, callback?: any): Promise<IpCommandPage>;
 
   /**
    * Provide a user-friendly representation
@@ -468,17 +412,8 @@ export interface IpCommandListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface IpCommandSolution {}
-
-interface IpCommandListInstanceImpl extends IpCommandListInstance {}
-class IpCommandListInstanceImpl implements IpCommandListInstance {
-  _version?: V1;
-  _solution?: IpCommandSolution;
-  _uri?: string;
-}
-
 export function IpCommandListInstance(version: V1): IpCommandListInstance {
-  const instance = ((sid) => instance.get(sid)) as IpCommandListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as IpCommandListInstance;
 
   instance.get = function get(sid): IpCommandContext {
     return new IpCommandContextImpl(version, sid);
@@ -489,8 +424,8 @@ export function IpCommandListInstance(version: V1): IpCommandListInstance {
   instance._uri = `/IpCommands`;
 
   instance.create = function create(
-    params: any,
-    callback?: any
+    params: IpCommandListInstanceCreateOptions,
+    callback?: (error: Error | null, items: IpCommandInstance) => any
   ): Promise<IpCommandInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -527,7 +462,7 @@ export function IpCommandListInstance(version: V1): IpCommandListInstance {
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -537,7 +472,7 @@ export function IpCommandListInstance(version: V1): IpCommandListInstance {
       (payload) => new IpCommandInstance(operationVersion, payload)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -545,10 +480,12 @@ export function IpCommandListInstance(version: V1): IpCommandListInstance {
   };
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | IpCommandListInstancePageOptions
+      | ((error: Error | null, items: IpCommandPage) => any),
+    callback?: (error: Error | null, items: IpCommandPage) => any
   ): Promise<IpCommandPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -564,24 +501,25 @@ export function IpCommandListInstance(version: V1): IpCommandListInstance {
       data["Direction"] = params["direction"];
     if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new IpCommandPage(operationVersion, payload, this._solution)
+      (payload) =>
+        new IpCommandPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -591,33 +529,31 @@ export function IpCommandListInstance(version: V1): IpCommandListInstance {
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: IpCommandPage) => any
   ): Promise<IpCommandPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new IpCommandPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new IpCommandPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

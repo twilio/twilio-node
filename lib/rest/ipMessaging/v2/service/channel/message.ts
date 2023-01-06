@@ -26,106 +26,92 @@ type MessageWebhookEnabledType = "true" | "false";
 
 /**
  * Options to pass to remove a MessageInstance
- *
- * @property { MessageWebhookEnabledType } [xTwilioWebhookEnabled] The X-Twilio-Webhook-Enabled HTTP request header
  */
 export interface MessageContextRemoveOptions {
+  /** The X-Twilio-Webhook-Enabled HTTP request header */
   xTwilioWebhookEnabled?: MessageWebhookEnabledType;
 }
 
 /**
  * Options to pass to update a MessageInstance
- *
- * @property { MessageWebhookEnabledType } [xTwilioWebhookEnabled] The X-Twilio-Webhook-Enabled HTTP request header
- * @property { string } [body]
- * @property { string } [attributes]
- * @property { Date } [dateCreated]
- * @property { Date } [dateUpdated]
- * @property { string } [lastUpdatedBy]
- * @property { string } [from]
  */
 export interface MessageContextUpdateOptions {
+  /** The X-Twilio-Webhook-Enabled HTTP request header */
   xTwilioWebhookEnabled?: MessageWebhookEnabledType;
+  /**  */
   body?: string;
+  /**  */
   attributes?: string;
+  /**  */
   dateCreated?: Date;
+  /**  */
   dateUpdated?: Date;
+  /**  */
   lastUpdatedBy?: string;
+  /**  */
   from?: string;
 }
 
 /**
  * Options to pass to create a MessageInstance
- *
- * @property { MessageWebhookEnabledType } [xTwilioWebhookEnabled] The X-Twilio-Webhook-Enabled HTTP request header
- * @property { string } [from]
- * @property { string } [attributes]
- * @property { Date } [dateCreated]
- * @property { Date } [dateUpdated]
- * @property { string } [lastUpdatedBy]
- * @property { string } [body]
- * @property { string } [mediaSid]
  */
 export interface MessageListInstanceCreateOptions {
+  /** The X-Twilio-Webhook-Enabled HTTP request header */
   xTwilioWebhookEnabled?: MessageWebhookEnabledType;
+  /**  */
   from?: string;
+  /**  */
   attributes?: string;
+  /**  */
   dateCreated?: Date;
+  /**  */
   dateUpdated?: Date;
+  /**  */
   lastUpdatedBy?: string;
+  /**  */
   body?: string;
+  /**  */
   mediaSid?: string;
 }
 /**
  * Options to pass to each
- *
- * @property { MessageOrderType } [order]
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface MessageListInstanceEachOptions {
+  /**  */
   order?: MessageOrderType;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: MessageInstance, done: (err?: Error) => void) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { MessageOrderType } [order]
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface MessageListInstanceOptions {
+  /**  */
   order?: MessageOrderType;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { MessageOrderType } [order]
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface MessageListInstancePageOptions {
+  /**  */
   order?: MessageOrderType;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
@@ -133,9 +119,9 @@ export interface MessageContext {
   /**
    * Remove a MessageInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -143,23 +129,22 @@ export interface MessageContext {
   /**
    * Remove a MessageInstance
    *
-   * @param { MessageContextRemoveOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed MessageInstance
+   * @returns Resolves to processed MessageInstance
    */
   remove(
     params: MessageContextRemoveOptions,
     callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean>;
-  remove(params?: any, callback?: any): Promise<boolean>;
 
   /**
    * Fetch a MessageInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed MessageInstance
+   * @returns Resolves to processed MessageInstance
    */
   fetch(
     callback?: (error: Error | null, item?: MessageInstance) => any
@@ -168,9 +153,9 @@ export interface MessageContext {
   /**
    * Update a MessageInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed MessageInstance
+   * @returns Resolves to processed MessageInstance
    */
   update(
     callback?: (error: Error | null, item?: MessageInstance) => any
@@ -178,16 +163,15 @@ export interface MessageContext {
   /**
    * Update a MessageInstance
    *
-   * @param { MessageContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed MessageInstance
+   * @returns Resolves to processed MessageInstance
    */
   update(
     params: MessageContextUpdateOptions,
     callback?: (error: Error | null, item?: MessageInstance) => any
   ): Promise<MessageInstance>;
-  update(params?: any, callback?: any): Promise<MessageInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -197,9 +181,9 @@ export interface MessageContext {
 }
 
 export interface MessageContextSolution {
-  serviceSid?: string;
-  channelSid?: string;
-  sid?: string;
+  serviceSid: string;
+  channelSid: string;
+  sid: string;
 }
 
 export class MessageContextImpl implements MessageContext {
@@ -228,8 +212,13 @@ export class MessageContextImpl implements MessageContext {
     this._uri = `/Services/${serviceSid}/Channels/${channelSid}/Messages/${sid}`;
   }
 
-  remove(params?: any, callback?: any): Promise<boolean> {
-    if (typeof params === "function") {
+  remove(
+    params?:
+      | MessageContextRemoveOptions
+      | ((error: Error | null, item?: boolean) => any),
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -242,25 +231,29 @@ export class MessageContextImpl implements MessageContext {
     if (params["xTwilioWebhookEnabled"] !== undefined)
       headers["X-Twilio-Webhook-Enabled"] = params["xTwilioWebhookEnabled"];
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
         params: data,
         headers,
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<MessageInstance> {
-    let operationVersion = this._version,
+  fetch(
+    callback?: (error: Error | null, item?: MessageInstance) => any
+  ): Promise<MessageInstance> {
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -269,21 +262,26 @@ export class MessageContextImpl implements MessageContext {
         new MessageInstance(
           operationVersion,
           payload,
-          this._solution.serviceSid,
-          this._solution.channelSid,
-          this._solution.sid
+          instance._solution.serviceSid,
+          instance._solution.channelSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
     return operationPromise;
   }
 
-  update(params?: any, callback?: any): Promise<MessageInstance> {
-    if (typeof params === "function") {
+  update(
+    params?:
+      | MessageContextUpdateOptions
+      | ((error: Error | null, item?: MessageInstance) => any),
+    callback?: (error: Error | null, item?: MessageInstance) => any
+  ): Promise<MessageInstance> {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -308,9 +306,10 @@ export class MessageContextImpl implements MessageContext {
     if (params["xTwilioWebhookEnabled"] !== undefined)
       headers["X-Twilio-Webhook-Enabled"] = params["xTwilioWebhookEnabled"];
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -321,13 +320,13 @@ export class MessageContextImpl implements MessageContext {
         new MessageInstance(
           operationVersion,
           payload,
-          this._solution.serviceSid,
-          this._solution.channelSid,
-          this._solution.sid
+          instance._solution.serviceSid,
+          instance._solution.channelSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -353,22 +352,22 @@ interface MessagePayload extends TwilioResponsePayload {
 }
 
 interface MessageResource {
-  sid?: string | null;
-  account_sid?: string | null;
-  attributes?: string | null;
-  service_sid?: string | null;
-  to?: string | null;
-  channel_sid?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  last_updated_by?: string | null;
-  was_edited?: boolean | null;
-  from?: string | null;
-  body?: string | null;
-  index?: number | null;
-  type?: string | null;
-  media?: any | null;
-  url?: string | null;
+  sid: string;
+  account_sid: string;
+  attributes: string;
+  service_sid: string;
+  to: string;
+  channel_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  last_updated_by: string;
+  was_edited: boolean;
+  from: string;
+  body: string;
+  index: number;
+  type: string;
+  media: any;
+  url: string;
 }
 
 export class MessageInstance {
@@ -402,22 +401,22 @@ export class MessageInstance {
     this._solution = { serviceSid, channelSid, sid: sid || this.sid };
   }
 
-  sid?: string | null;
-  accountSid?: string | null;
-  attributes?: string | null;
-  serviceSid?: string | null;
-  to?: string | null;
-  channelSid?: string | null;
-  dateCreated?: Date | null;
-  dateUpdated?: Date | null;
-  lastUpdatedBy?: string | null;
-  wasEdited?: boolean | null;
-  from?: string | null;
-  body?: string | null;
-  index?: number | null;
-  type?: string | null;
-  media?: any | null;
-  url?: string | null;
+  sid: string;
+  accountSid: string;
+  attributes: string;
+  serviceSid: string;
+  to: string;
+  channelSid: string;
+  dateCreated: Date;
+  dateUpdated: Date;
+  lastUpdatedBy: string;
+  wasEdited: boolean;
+  from: string;
+  body: string;
+  index: number;
+  type: string;
+  media: any;
+  url: string;
 
   private get _proxy(): MessageContext {
     this._context =
@@ -434,9 +433,9 @@ export class MessageInstance {
   /**
    * Remove a MessageInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -444,25 +443,29 @@ export class MessageInstance {
   /**
    * Remove a MessageInstance
    *
-   * @param { MessageContextRemoveOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed MessageInstance
+   * @returns Resolves to processed MessageInstance
    */
   remove(
     params: MessageContextRemoveOptions,
     callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean>;
-  remove(params?: any, callback?: any): Promise<boolean> {
+
+  remove(
+    params?: any,
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     return this._proxy.remove(params, callback);
   }
 
   /**
    * Fetch a MessageInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed MessageInstance
+   * @returns Resolves to processed MessageInstance
    */
   fetch(
     callback?: (error: Error | null, item?: MessageInstance) => any
@@ -473,9 +476,9 @@ export class MessageInstance {
   /**
    * Update a MessageInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed MessageInstance
+   * @returns Resolves to processed MessageInstance
    */
   update(
     callback?: (error: Error | null, item?: MessageInstance) => any
@@ -483,16 +486,20 @@ export class MessageInstance {
   /**
    * Update a MessageInstance
    *
-   * @param { MessageContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed MessageInstance
+   * @returns Resolves to processed MessageInstance
    */
   update(
     params: MessageContextUpdateOptions,
     callback?: (error: Error | null, item?: MessageInstance) => any
   ): Promise<MessageInstance>;
-  update(params?: any, callback?: any): Promise<MessageInstance> {
+
+  update(
+    params?: any,
+    callback?: (error: Error | null, item?: MessageInstance) => any
+  ): Promise<MessageInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -527,16 +534,25 @@ export class MessageInstance {
   }
 }
 
+export interface MessageSolution {
+  serviceSid: string;
+  channelSid: string;
+}
+
 export interface MessageListInstance {
+  _version: V2;
+  _solution: MessageSolution;
+  _uri: string;
+
   (sid: string): MessageContext;
   get(sid: string): MessageContext;
 
   /**
    * Create a MessageInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed MessageInstance
+   * @returns Resolves to processed MessageInstance
    */
   create(
     callback?: (error: Error | null, item?: MessageInstance) => any
@@ -544,34 +560,16 @@ export interface MessageListInstance {
   /**
    * Create a MessageInstance
    *
-   * @param { MessageListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed MessageInstance
+   * @returns Resolves to processed MessageInstance
    */
   create(
     params: MessageListInstanceCreateOptions,
     callback?: (error: Error | null, item?: MessageInstance) => any
   ): Promise<MessageInstance>;
-  create(params?: any, callback?: any): Promise<MessageInstance>;
 
-  /**
-   * Streams MessageInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (item: MessageInstance, done: (err?: Error) => void) => void
-  ): void;
   /**
    * Streams MessageInstance records from the API.
    *
@@ -588,50 +586,24 @@ export interface MessageListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: MessageListInstanceEachOptions,
     callback?: (item: MessageInstance, done: (err?: Error) => void) => void
   ): void;
-  each(params?: any, callback?: any): void;
+  each(
+    params: MessageListInstanceEachOptions,
+    callback?: (item: MessageInstance, done: (err?: Error) => void) => void
+  ): void;
   /**
    * Retrieve a single target page of MessageInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: MessagePage) => any
-  ): Promise<MessagePage>;
-  /**
-   * Retrieve a single target page of MessageInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: MessagePage) => any
   ): Promise<MessagePage>;
-  getPage(params?: any, callback?: any): Promise<MessagePage>;
-  /**
-   * Lists MessageInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: MessageInstance[]) => any
-  ): Promise<MessageInstance[]>;
   /**
    * Lists MessageInstance records from the API as a list.
    *
@@ -642,23 +614,12 @@ export interface MessageListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: MessageListInstanceOptions,
     callback?: (error: Error | null, items: MessageInstance[]) => any
   ): Promise<MessageInstance[]>;
-  list(params?: any, callback?: any): Promise<MessageInstance[]>;
-  /**
-   * Retrieve a single page of MessageInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: MessagePage) => any
-  ): Promise<MessagePage>;
+  list(
+    params: MessageListInstanceOptions,
+    callback?: (error: Error | null, items: MessageInstance[]) => any
+  ): Promise<MessageInstance[]>;
   /**
    * Retrieve a single page of MessageInstance records from the API.
    *
@@ -671,28 +632,18 @@ export interface MessageListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
+    callback?: (error: Error | null, items: MessagePage) => any
+  ): Promise<MessagePage>;
+  page(
     params: MessageListInstancePageOptions,
     callback?: (error: Error | null, items: MessagePage) => any
   ): Promise<MessagePage>;
-  page(params?: any, callback?: any): Promise<MessagePage>;
 
   /**
    * Provide a user-friendly representation
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export interface MessageSolution {
-  serviceSid?: string;
-  channelSid?: string;
-}
-
-interface MessageListInstanceImpl extends MessageListInstance {}
-class MessageListInstanceImpl implements MessageListInstance {
-  _version?: V2;
-  _solution?: MessageSolution;
-  _uri?: string;
 }
 
 export function MessageListInstance(
@@ -708,7 +659,7 @@ export function MessageListInstance(
     throw new Error("Parameter 'channelSid' is not valid.");
   }
 
-  const instance = ((sid) => instance.get(sid)) as MessageListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as MessageListInstance;
 
   instance.get = function get(sid): MessageContext {
     return new MessageContextImpl(version, serviceSid, channelSid, sid);
@@ -719,10 +670,12 @@ export function MessageListInstance(
   instance._uri = `/Services/${serviceSid}/Channels/${channelSid}/Messages`;
 
   instance.create = function create(
-    params?: any,
-    callback?: any
+    params?:
+      | MessageListInstanceCreateOptions
+      | ((error: Error | null, items: MessageInstance) => any),
+    callback?: (error: Error | null, items: MessageInstance) => any
   ): Promise<MessageInstance> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -750,7 +703,7 @@ export function MessageListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -761,12 +714,12 @@ export function MessageListInstance(
         new MessageInstance(
           operationVersion,
           payload,
-          this._solution.serviceSid,
-          this._solution.channelSid
+          instance._solution.serviceSid,
+          instance._solution.channelSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -774,10 +727,12 @@ export function MessageListInstance(
   };
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | MessageListInstancePageOptions
+      | ((error: Error | null, items: MessagePage) => any),
+    callback?: (error: Error | null, items: MessagePage) => any
   ): Promise<MessagePage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -789,24 +744,25 @@ export function MessageListInstance(
     if (params["order"] !== undefined) data["Order"] = params["order"];
     if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new MessagePage(operationVersion, payload, this._solution)
+      (payload) =>
+        new MessagePage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -816,33 +772,31 @@ export function MessageListInstance(
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: MessagePage) => any
   ): Promise<MessagePage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new MessagePage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new MessagePage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

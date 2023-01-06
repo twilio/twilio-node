@@ -22,66 +22,55 @@ import { isValidPathParam } from "../../../base/utility";
 
 /**
  * Options to pass to each
- *
- * @property { string } [logLevel] Only show alerts for this log-level.  Can be: `error`, `warning`, `notice`, or `debug`.
- * @property { Date } [startDate] Only include alerts that occurred on or after this date and time. Specify the date and time in GMT and format as `YYYY-MM-DD` or `YYYY-MM-DDThh:mm:ssZ`. Queries for alerts older than 30 days are not supported.
- * @property { Date } [endDate] Only include alerts that occurred on or before this date and time. Specify the date and time in GMT and format as `YYYY-MM-DD` or `YYYY-MM-DDThh:mm:ssZ`. Queries for alerts older than 30 days are not supported.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface AlertListInstanceEachOptions {
+  /** Only show alerts for this log-level.  Can be: `error`, `warning`, `notice`, or `debug`. */
   logLevel?: string;
+  /** Only include alerts that occurred on or after this date and time. Specify the date and time in GMT and format as `YYYY-MM-DD` or `YYYY-MM-DDThh:mm:ssZ`. Queries for alerts older than 30 days are not supported. */
   startDate?: Date;
+  /** Only include alerts that occurred on or before this date and time. Specify the date and time in GMT and format as `YYYY-MM-DD` or `YYYY-MM-DDThh:mm:ssZ`. Queries for alerts older than 30 days are not supported. */
   endDate?: Date;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: AlertInstance, done: (err?: Error) => void) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { string } [logLevel] Only show alerts for this log-level.  Can be: `error`, `warning`, `notice`, or `debug`.
- * @property { Date } [startDate] Only include alerts that occurred on or after this date and time. Specify the date and time in GMT and format as `YYYY-MM-DD` or `YYYY-MM-DDThh:mm:ssZ`. Queries for alerts older than 30 days are not supported.
- * @property { Date } [endDate] Only include alerts that occurred on or before this date and time. Specify the date and time in GMT and format as `YYYY-MM-DD` or `YYYY-MM-DDThh:mm:ssZ`. Queries for alerts older than 30 days are not supported.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface AlertListInstanceOptions {
+  /** Only show alerts for this log-level.  Can be: `error`, `warning`, `notice`, or `debug`. */
   logLevel?: string;
+  /** Only include alerts that occurred on or after this date and time. Specify the date and time in GMT and format as `YYYY-MM-DD` or `YYYY-MM-DDThh:mm:ssZ`. Queries for alerts older than 30 days are not supported. */
   startDate?: Date;
+  /** Only include alerts that occurred on or before this date and time. Specify the date and time in GMT and format as `YYYY-MM-DD` or `YYYY-MM-DDThh:mm:ssZ`. Queries for alerts older than 30 days are not supported. */
   endDate?: Date;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { string } [logLevel] Only show alerts for this log-level.  Can be: `error`, `warning`, `notice`, or `debug`.
- * @property { Date } [startDate] Only include alerts that occurred on or after this date and time. Specify the date and time in GMT and format as `YYYY-MM-DD` or `YYYY-MM-DDThh:mm:ssZ`. Queries for alerts older than 30 days are not supported.
- * @property { Date } [endDate] Only include alerts that occurred on or before this date and time. Specify the date and time in GMT and format as `YYYY-MM-DD` or `YYYY-MM-DDThh:mm:ssZ`. Queries for alerts older than 30 days are not supported.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface AlertListInstancePageOptions {
+  /** Only show alerts for this log-level.  Can be: `error`, `warning`, `notice`, or `debug`. */
   logLevel?: string;
+  /** Only include alerts that occurred on or after this date and time. Specify the date and time in GMT and format as `YYYY-MM-DD` or `YYYY-MM-DDThh:mm:ssZ`. Queries for alerts older than 30 days are not supported. */
   startDate?: Date;
+  /** Only include alerts that occurred on or before this date and time. Specify the date and time in GMT and format as `YYYY-MM-DD` or `YYYY-MM-DDThh:mm:ssZ`. Queries for alerts older than 30 days are not supported. */
   endDate?: Date;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
@@ -89,9 +78,9 @@ export interface AlertContext {
   /**
    * Fetch a AlertInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed AlertInstance
+   * @returns Resolves to processed AlertInstance
    */
   fetch(
     callback?: (error: Error | null, item?: AlertInstance) => any
@@ -105,7 +94,7 @@ export interface AlertContext {
 }
 
 export interface AlertContextSolution {
-  sid?: string;
+  sid: string;
 }
 
 export class AlertContextImpl implements AlertContext {
@@ -121,19 +110,22 @@ export class AlertContextImpl implements AlertContext {
     this._uri = `/Alerts/${sid}`;
   }
 
-  fetch(callback?: any): Promise<AlertInstance> {
-    let operationVersion = this._version,
+  fetch(
+    callback?: (error: Error | null, item?: AlertInstance) => any
+  ): Promise<AlertInstance> {
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new AlertInstance(operationVersion, payload, this._solution.sid)
+        new AlertInstance(operationVersion, payload, instance._solution.sid)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -167,25 +159,25 @@ interface AlertPayload extends TwilioResponsePayload {
 }
 
 interface AlertResource {
-  account_sid?: string | null;
-  alert_text?: string | null;
-  api_version?: string | null;
-  date_created?: Date | null;
-  date_generated?: Date | null;
-  date_updated?: Date | null;
-  error_code?: string | null;
-  log_level?: string | null;
-  more_info?: string | null;
-  request_method?: AlertRequestMethod;
-  request_url?: string | null;
-  request_variables?: string | null;
-  resource_sid?: string | null;
-  response_body?: string | null;
-  response_headers?: string | null;
-  sid?: string | null;
-  url?: string | null;
-  request_headers?: string | null;
-  service_sid?: string | null;
+  account_sid: string;
+  alert_text: string;
+  api_version: string;
+  date_created: Date;
+  date_generated: Date;
+  date_updated: Date;
+  error_code: string;
+  log_level: string;
+  more_info: string;
+  request_method: AlertRequestMethod;
+  request_url: string;
+  request_variables: string;
+  resource_sid: string;
+  response_body: string;
+  response_headers: string;
+  sid: string;
+  url: string;
+  request_headers: string;
+  service_sid: string;
 }
 
 export class AlertInstance {
@@ -219,79 +211,79 @@ export class AlertInstance {
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The text of the alert
    */
-  alertText?: string | null;
+  alertText: string;
   /**
    * The API version used when the alert was generated
    */
-  apiVersion?: string | null;
+  apiVersion: string;
   /**
    * The ISO 8601 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The date and time when the alert was generated specified in ISO 8601 format
    */
-  dateGenerated?: Date | null;
+  dateGenerated: Date;
   /**
    * The ISO 8601 date and time in GMT when the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The error code for the condition that generated the alert
    */
-  errorCode?: string | null;
+  errorCode: string;
   /**
    * The log level
    */
-  logLevel?: string | null;
+  logLevel: string;
   /**
    * The URL of the page in our Error Dictionary with more information about the error condition
    */
-  moreInfo?: string | null;
+  moreInfo: string;
   /**
    * The method used by the request that generated the alert
    */
-  requestMethod?: AlertRequestMethod;
+  requestMethod: AlertRequestMethod;
   /**
    * The URL of the request that generated the alert
    */
-  requestUrl?: string | null;
+  requestUrl: string;
   /**
    * The variables passed in the request that generated the alert
    */
-  requestVariables?: string | null;
+  requestVariables: string;
   /**
    * The SID of the resource for which the alert was generated
    */
-  resourceSid?: string | null;
+  resourceSid: string;
   /**
    * The response body of the request that generated the alert
    */
-  responseBody?: string | null;
+  responseBody: string;
   /**
    * The response headers of the request that generated the alert
    */
-  responseHeaders?: string | null;
+  responseHeaders: string;
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The absolute URL of the Alert resource
    */
-  url?: string | null;
+  url: string;
   /**
    * The request headers of the request that generated the alert
    */
-  requestHeaders?: string | null;
+  requestHeaders: string;
   /**
    * The SID of the service or resource that generated the alert
    */
-  serviceSid?: string | null;
+  serviceSid: string;
 
   private get _proxy(): AlertContext {
     this._context =
@@ -302,9 +294,9 @@ export class AlertInstance {
   /**
    * Fetch a AlertInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed AlertInstance
+   * @returns Resolves to processed AlertInstance
    */
   fetch(
     callback?: (error: Error | null, item?: AlertInstance) => any
@@ -346,27 +338,16 @@ export class AlertInstance {
   }
 }
 
+export interface AlertSolution {}
+
 export interface AlertListInstance {
+  _version: V1;
+  _solution: AlertSolution;
+  _uri: string;
+
   (sid: string): AlertContext;
   get(sid: string): AlertContext;
 
-  /**
-   * Streams AlertInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (item: AlertInstance, done: (err?: Error) => void) => void
-  ): void;
   /**
    * Streams AlertInstance records from the API.
    *
@@ -383,50 +364,24 @@ export interface AlertListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: AlertListInstanceEachOptions,
     callback?: (item: AlertInstance, done: (err?: Error) => void) => void
   ): void;
-  each(params?: any, callback?: any): void;
+  each(
+    params: AlertListInstanceEachOptions,
+    callback?: (item: AlertInstance, done: (err?: Error) => void) => void
+  ): void;
   /**
    * Retrieve a single target page of AlertInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: AlertPage) => any
-  ): Promise<AlertPage>;
-  /**
-   * Retrieve a single target page of AlertInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: AlertPage) => any
   ): Promise<AlertPage>;
-  getPage(params?: any, callback?: any): Promise<AlertPage>;
-  /**
-   * Lists AlertInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: AlertInstance[]) => any
-  ): Promise<AlertInstance[]>;
   /**
    * Lists AlertInstance records from the API as a list.
    *
@@ -437,23 +392,12 @@ export interface AlertListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: AlertListInstanceOptions,
     callback?: (error: Error | null, items: AlertInstance[]) => any
   ): Promise<AlertInstance[]>;
-  list(params?: any, callback?: any): Promise<AlertInstance[]>;
-  /**
-   * Retrieve a single page of AlertInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: AlertPage) => any
-  ): Promise<AlertPage>;
+  list(
+    params: AlertListInstanceOptions,
+    callback?: (error: Error | null, items: AlertInstance[]) => any
+  ): Promise<AlertInstance[]>;
   /**
    * Retrieve a single page of AlertInstance records from the API.
    *
@@ -466,10 +410,12 @@ export interface AlertListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
+    callback?: (error: Error | null, items: AlertPage) => any
+  ): Promise<AlertPage>;
+  page(
     params: AlertListInstancePageOptions,
     callback?: (error: Error | null, items: AlertPage) => any
   ): Promise<AlertPage>;
-  page(params?: any, callback?: any): Promise<AlertPage>;
 
   /**
    * Provide a user-friendly representation
@@ -478,17 +424,8 @@ export interface AlertListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface AlertSolution {}
-
-interface AlertListInstanceImpl extends AlertListInstance {}
-class AlertListInstanceImpl implements AlertListInstance {
-  _version?: V1;
-  _solution?: AlertSolution;
-  _uri?: string;
-}
-
 export function AlertListInstance(version: V1): AlertListInstance {
-  const instance = ((sid) => instance.get(sid)) as AlertListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as AlertListInstance;
 
   instance.get = function get(sid): AlertContext {
     return new AlertContextImpl(version, sid);
@@ -499,10 +436,12 @@ export function AlertListInstance(version: V1): AlertListInstance {
   instance._uri = `/Alerts`;
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | AlertListInstancePageOptions
+      | ((error: Error | null, items: AlertPage) => any),
+    callback?: (error: Error | null, items: AlertPage) => any
   ): Promise<AlertPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -518,24 +457,24 @@ export function AlertListInstance(version: V1): AlertListInstance {
       data["EndDate"] = serialize.iso8601DateTime(params["endDate"]);
     if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new AlertPage(operationVersion, payload, this._solution)
+      (payload) => new AlertPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -545,33 +484,30 @@ export function AlertListInstance(version: V1): AlertListInstance {
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: AlertPage) => any
   ): Promise<AlertPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new AlertPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) => new AlertPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

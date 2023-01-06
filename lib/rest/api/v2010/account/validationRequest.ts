@@ -20,57 +20,49 @@ import { isValidPathParam } from "../../../../base/utility";
 
 /**
  * Options to pass to create a ValidationRequestInstance
- *
- * @property { string } phoneNumber The phone number to verify in [E.164](https://www.twilio.com/docs/glossary/what-e164) format, which consists of a + followed by the country code and subscriber number.
- * @property { string } [friendlyName] A descriptive string that you create to describe the new caller ID resource. It can be up to 64 characters long. The default value is a formatted version of the phone number.
- * @property { number } [callDelay] The number of seconds to delay before initiating the verification call. Can be an integer between `0` and `60`, inclusive. The default is `0`.
- * @property { string } [extension] The digits to dial after connecting the verification call.
- * @property { string } [statusCallback] The URL we should call using the `status_callback_method` to send status information about the verification process to your application.
- * @property { string } [statusCallbackMethod] The HTTP method we should use to call `status_callback`. Can be: `GET` or `POST`, and the default is `POST`.
  */
 export interface ValidationRequestListInstanceCreateOptions {
+  /** The phone number to verify in [E.164](https://www.twilio.com/docs/glossary/what-e164) format, which consists of a + followed by the country code and subscriber number. */
   phoneNumber: string;
+  /** A descriptive string that you create to describe the new caller ID resource. It can be up to 64 characters long. The default value is a formatted version of the phone number. */
   friendlyName?: string;
+  /** The number of seconds to delay before initiating the verification call. Can be an integer between `0` and `60`, inclusive. The default is `0`. */
   callDelay?: number;
+  /** The digits to dial after connecting the verification call. */
   extension?: string;
+  /** The URL we should call using the `status_callback_method` to send status information about the verification process to your application. */
   statusCallback?: string;
+  /** The HTTP method we should use to call `status_callback`. Can be: `GET` or `POST`, and the default is `POST`. */
   statusCallbackMethod?: string;
 }
 
+export interface ValidationRequestSolution {
+  accountSid: string;
+}
+
 export interface ValidationRequestListInstance {
+  _version: V2010;
+  _solution: ValidationRequestSolution;
+  _uri: string;
+
   /**
    * Create a ValidationRequestInstance
    *
-   * @param { ValidationRequestListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ValidationRequestInstance
+   * @returns Resolves to processed ValidationRequestInstance
    */
   create(
     params: ValidationRequestListInstanceCreateOptions,
     callback?: (error: Error | null, item?: ValidationRequestInstance) => any
   ): Promise<ValidationRequestInstance>;
-  create(params: any, callback?: any): Promise<ValidationRequestInstance>;
 
   /**
    * Provide a user-friendly representation
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export interface ValidationRequestSolution {
-  accountSid?: string;
-}
-
-interface ValidationRequestListInstanceImpl
-  extends ValidationRequestListInstance {}
-class ValidationRequestListInstanceImpl
-  implements ValidationRequestListInstance
-{
-  _version?: V2010;
-  _solution?: ValidationRequestSolution;
-  _uri?: string;
 }
 
 export function ValidationRequestListInstance(
@@ -81,15 +73,15 @@ export function ValidationRequestListInstance(
     throw new Error("Parameter 'accountSid' is not valid.");
   }
 
-  const instance = {} as ValidationRequestListInstanceImpl;
+  const instance = {} as ValidationRequestListInstance;
 
   instance._version = version;
   instance._solution = { accountSid };
   instance._uri = `/Accounts/${accountSid}/OutgoingCallerIds.json`;
 
   instance.create = function create(
-    params: any,
-    callback?: any
+    params: ValidationRequestListInstanceCreateOptions,
+    callback?: (error: Error | null, items: ValidationRequestInstance) => any
   ): Promise<ValidationRequestInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -118,7 +110,7 @@ export function ValidationRequestListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -129,11 +121,11 @@ export function ValidationRequestListInstance(
         new ValidationRequestInstance(
           operationVersion,
           payload,
-          this._solution.accountSid
+          instance._solution.accountSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -141,14 +133,14 @@ export function ValidationRequestListInstance(
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;
@@ -157,11 +149,11 @@ export function ValidationRequestListInstance(
 interface ValidationRequestPayload extends ValidationRequestResource {}
 
 interface ValidationRequestResource {
-  account_sid?: string | null;
-  call_sid?: string | null;
-  friendly_name?: string | null;
-  phone_number?: string | null;
-  validation_code?: string | null;
+  account_sid: string;
+  call_sid: string;
+  friendly_name: string;
+  phone_number: string;
+  validation_code: string;
 }
 
 export class ValidationRequestInstance {
@@ -180,23 +172,23 @@ export class ValidationRequestInstance {
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The SID of the Call the resource is associated with
    */
-  callSid?: string | null;
+  callSid: string;
   /**
    * The string that you assigned to describe the resource
    */
-  friendlyName?: string | null;
+  friendlyName: string;
   /**
    * The phone number to verify in E.164 format
    */
-  phoneNumber?: string | null;
+  phoneNumber: string;
   /**
    * The 6 digit validation code that someone must enter to validate the Caller ID  when `phone_number` is called
    */
-  validationCode?: string | null;
+  validationCode: string;
 
   /**
    * Provide a user-friendly representation

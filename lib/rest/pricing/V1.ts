@@ -22,30 +22,32 @@ export default class V1 extends Version {
   /**
    * Initialize the V1 version of Pricing
    *
-   * @property { Twilio.Pricing.V1.MessagingListInstance } messaging - messaging resource
-   * @property { Twilio.Pricing.V1.PhoneNumberListInstance } phoneNumbers - phoneNumbers resource
-   * @property { Twilio.Pricing.V1.VoiceListInstance } voice - voice resource
-   *
-   * @param { Twilio.Pricing } domain - The Twilio domain
+   * @param domain - The Twilio (Twilio.Pricing) domain
    */
   constructor(domain: PricingBase) {
     super(domain, "v1");
   }
 
+  /** messaging - { Twilio.Pricing.V1.MessagingListInstance } resource */
   protected _messaging?: MessagingListInstance;
+  /** phoneNumbers - { Twilio.Pricing.V1.PhoneNumberListInstance } resource */
   protected _phoneNumbers?: PhoneNumberListInstance;
+  /** voice - { Twilio.Pricing.V1.VoiceListInstance } resource */
   protected _voice?: VoiceListInstance;
 
+  /** Getter for messaging resource */
   get messaging(): MessagingListInstance {
     this._messaging = this._messaging || MessagingListInstance(this);
     return this._messaging;
   }
 
+  /** Getter for phoneNumbers resource */
   get phoneNumbers(): PhoneNumberListInstance {
     this._phoneNumbers = this._phoneNumbers || PhoneNumberListInstance(this);
     return this._phoneNumbers;
   }
 
+  /** Getter for voice resource */
   get voice(): VoiceListInstance {
     this._voice = this._voice || VoiceListInstance(this);
     return this._voice;

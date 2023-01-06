@@ -6,6 +6,7 @@ describe("exception gets created from string", function () {
       statusCode: 200,
       body: '{"message":"test", "code":81022,"more_info": "https://www.twilio.com/docs/errors/81022"}',
     };
+
     const exception = new RestException(response);
     expect(exception.status).toEqual(200);
     expect(exception.message).toEqual("test");
@@ -13,6 +14,19 @@ describe("exception gets created from string", function () {
     expect(exception.moreInfo).toEqual(
       "https://www.twilio.com/docs/errors/81022"
     );
+  });
+  it("should test serialize from improper json string", function () {
+    const response = {
+      statusCode: 200,
+      body: '{message":test", "code:81022,"more_info": "https://www.twilio.com/docs/errors/81022"}',
+    };
+    const exception = new RestException(response);
+    expect(exception.status).toEqual(200);
+    expect(exception.message).toEqual(
+      `[HTTP ${response.statusCode}] Failed to execute request`
+    );
+    expect(exception.code).toEqual(undefined);
+    expect(exception.moreInfo).toEqual(undefined);
   });
 });
 

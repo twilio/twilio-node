@@ -22,73 +22,60 @@ import { isValidPathParam } from "../../../../../../base/utility";
 
 /**
  * Options to pass to update a IpAddressInstance
- *
- * @property { string } [ipAddress] An IP address in dotted decimal notation from which you want to accept traffic. Any SIP requests from this IP address will be allowed by Twilio. IPv4 only supported today.
- * @property { string } [friendlyName] A human readable descriptive text for this resource, up to 255 characters long.
- * @property { number } [cidrPrefixLength] An integer representing the length of the CIDR prefix to use with this IP address when accepting traffic. By default the entire IP address is used.
  */
 export interface IpAddressContextUpdateOptions {
+  /** An IP address in dotted decimal notation from which you want to accept traffic. Any SIP requests from this IP address will be allowed by Twilio. IPv4 only supported today. */
   ipAddress?: string;
+  /** A human readable descriptive text for this resource, up to 255 characters long. */
   friendlyName?: string;
+  /** An integer representing the length of the CIDR prefix to use with this IP address when accepting traffic. By default the entire IP address is used. */
   cidrPrefixLength?: number;
 }
 
 /**
  * Options to pass to create a IpAddressInstance
- *
- * @property { string } friendlyName A human readable descriptive text for this resource, up to 255 characters long.
- * @property { string } ipAddress An IP address in dotted decimal notation from which you want to accept traffic. Any SIP requests from this IP address will be allowed by Twilio. IPv4 only supported today.
- * @property { number } [cidrPrefixLength] An integer representing the length of the CIDR prefix to use with this IP address when accepting traffic. By default the entire IP address is used.
  */
 export interface IpAddressListInstanceCreateOptions {
+  /** A human readable descriptive text for this resource, up to 255 characters long. */
   friendlyName: string;
+  /** An IP address in dotted decimal notation from which you want to accept traffic. Any SIP requests from this IP address will be allowed by Twilio. IPv4 only supported today. */
   ipAddress: string;
+  /** An integer representing the length of the CIDR prefix to use with this IP address when accepting traffic. By default the entire IP address is used. */
   cidrPrefixLength?: number;
 }
 /**
  * Options to pass to each
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface IpAddressListInstanceEachOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: IpAddressInstance, done: (err?: Error) => void) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface IpAddressListInstanceOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface IpAddressListInstancePageOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
@@ -96,9 +83,9 @@ export interface IpAddressContext {
   /**
    * Remove a IpAddressInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -107,9 +94,9 @@ export interface IpAddressContext {
   /**
    * Fetch a IpAddressInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed IpAddressInstance
+   * @returns Resolves to processed IpAddressInstance
    */
   fetch(
     callback?: (error: Error | null, item?: IpAddressInstance) => any
@@ -118,9 +105,9 @@ export interface IpAddressContext {
   /**
    * Update a IpAddressInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed IpAddressInstance
+   * @returns Resolves to processed IpAddressInstance
    */
   update(
     callback?: (error: Error | null, item?: IpAddressInstance) => any
@@ -128,16 +115,15 @@ export interface IpAddressContext {
   /**
    * Update a IpAddressInstance
    *
-   * @param { IpAddressContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed IpAddressInstance
+   * @returns Resolves to processed IpAddressInstance
    */
   update(
     params: IpAddressContextUpdateOptions,
     callback?: (error: Error | null, item?: IpAddressInstance) => any
   ): Promise<IpAddressInstance>;
-  update(params?: any, callback?: any): Promise<IpAddressInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -147,9 +133,9 @@ export interface IpAddressContext {
 }
 
 export interface IpAddressContextSolution {
-  accountSid?: string;
-  ipAccessControlListSid?: string;
-  sid?: string;
+  accountSid: string;
+  ipAccessControlListSid: string;
+  sid: string;
 }
 
 export class IpAddressContextImpl implements IpAddressContext {
@@ -178,24 +164,30 @@ export class IpAddressContextImpl implements IpAddressContext {
     this._uri = `/Accounts/${accountSid}/SIP/IpAccessControlLists/${ipAccessControlListSid}/IpAddresses/${sid}.json`;
   }
 
-  remove(callback?: any): Promise<boolean> {
-    let operationVersion = this._version,
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<IpAddressInstance> {
-    let operationVersion = this._version,
+  fetch(
+    callback?: (error: Error | null, item?: IpAddressInstance) => any
+  ): Promise<IpAddressInstance> {
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -204,21 +196,26 @@ export class IpAddressContextImpl implements IpAddressContext {
         new IpAddressInstance(
           operationVersion,
           payload,
-          this._solution.accountSid,
-          this._solution.ipAccessControlListSid,
-          this._solution.sid
+          instance._solution.accountSid,
+          instance._solution.ipAccessControlListSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
     return operationPromise;
   }
 
-  update(params?: any, callback?: any): Promise<IpAddressInstance> {
-    if (typeof params === "function") {
+  update(
+    params?:
+      | IpAddressContextUpdateOptions
+      | ((error: Error | null, item?: IpAddressInstance) => any),
+    callback?: (error: Error | null, item?: IpAddressInstance) => any
+  ): Promise<IpAddressInstance> {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -237,9 +234,10 @@ export class IpAddressContextImpl implements IpAddressContext {
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -250,13 +248,13 @@ export class IpAddressContextImpl implements IpAddressContext {
         new IpAddressInstance(
           operationVersion,
           payload,
-          this._solution.accountSid,
-          this._solution.ipAccessControlListSid,
-          this._solution.sid
+          instance._solution.accountSid,
+          instance._solution.ipAccessControlListSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -282,15 +280,15 @@ interface IpAddressPayload extends TwilioResponsePayload {
 }
 
 interface IpAddressResource {
-  sid?: string | null;
-  account_sid?: string | null;
-  friendly_name?: string | null;
-  ip_address?: string | null;
-  cidr_prefix_length?: number | null;
-  ip_access_control_list_sid?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  uri?: string | null;
+  sid: string;
+  account_sid: string;
+  friendly_name: string;
+  ip_address: string;
+  cidr_prefix_length: number;
+  ip_access_control_list_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  uri: string;
 }
 
 export class IpAddressInstance {
@@ -324,39 +322,39 @@ export class IpAddressInstance {
   /**
    * A 34 character string that uniquely identifies this resource.
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The unique id of the Account that is responsible for this resource.
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * A human readable descriptive text for this resource, up to 255 characters long.
    */
-  friendlyName?: string | null;
+  friendlyName: string;
   /**
    * An IP address in dotted decimal notation from which you want to accept traffic. Any SIP requests from this IP address will be allowed by Twilio. IPv4 only supported today.
    */
-  ipAddress?: string | null;
+  ipAddress: string;
   /**
    * An integer representing the length of the CIDR prefix to use with this IP address when accepting traffic. By default the entire IP address is used.
    */
-  cidrPrefixLength?: number | null;
+  cidrPrefixLength: number;
   /**
    * The unique id of the IpAccessControlList resource that includes this resource.
    */
-  ipAccessControlListSid?: string | null;
+  ipAccessControlListSid: string;
   /**
    * The date that this resource was created, given as GMT in RFC 2822 format.
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The date that this resource was last updated, given as GMT in RFC 2822 format.
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The URI for this resource, relative to https://api.twilio.com
    */
-  uri?: string | null;
+  uri: string;
 
   private get _proxy(): IpAddressContext {
     this._context =
@@ -373,9 +371,9 @@ export class IpAddressInstance {
   /**
    * Remove a IpAddressInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -386,9 +384,9 @@ export class IpAddressInstance {
   /**
    * Fetch a IpAddressInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed IpAddressInstance
+   * @returns Resolves to processed IpAddressInstance
    */
   fetch(
     callback?: (error: Error | null, item?: IpAddressInstance) => any
@@ -399,9 +397,9 @@ export class IpAddressInstance {
   /**
    * Update a IpAddressInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed IpAddressInstance
+   * @returns Resolves to processed IpAddressInstance
    */
   update(
     callback?: (error: Error | null, item?: IpAddressInstance) => any
@@ -409,16 +407,20 @@ export class IpAddressInstance {
   /**
    * Update a IpAddressInstance
    *
-   * @param { IpAddressContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed IpAddressInstance
+   * @returns Resolves to processed IpAddressInstance
    */
   update(
     params: IpAddressContextUpdateOptions,
     callback?: (error: Error | null, item?: IpAddressInstance) => any
   ): Promise<IpAddressInstance>;
-  update(params?: any, callback?: any): Promise<IpAddressInstance> {
+
+  update(
+    params?: any,
+    callback?: (error: Error | null, item?: IpAddressInstance) => any
+  ): Promise<IpAddressInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -446,41 +448,32 @@ export class IpAddressInstance {
   }
 }
 
+export interface IpAddressSolution {
+  accountSid: string;
+  ipAccessControlListSid: string;
+}
+
 export interface IpAddressListInstance {
+  _version: V2010;
+  _solution: IpAddressSolution;
+  _uri: string;
+
   (sid: string): IpAddressContext;
   get(sid: string): IpAddressContext;
 
   /**
    * Create a IpAddressInstance
    *
-   * @param { IpAddressListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed IpAddressInstance
+   * @returns Resolves to processed IpAddressInstance
    */
   create(
     params: IpAddressListInstanceCreateOptions,
     callback?: (error: Error | null, item?: IpAddressInstance) => any
   ): Promise<IpAddressInstance>;
-  create(params: any, callback?: any): Promise<IpAddressInstance>;
 
-  /**
-   * Streams IpAddressInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (item: IpAddressInstance, done: (err?: Error) => void) => void
-  ): void;
   /**
    * Streams IpAddressInstance records from the API.
    *
@@ -497,50 +490,24 @@ export interface IpAddressListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: IpAddressListInstanceEachOptions,
     callback?: (item: IpAddressInstance, done: (err?: Error) => void) => void
   ): void;
-  each(params?: any, callback?: any): void;
+  each(
+    params: IpAddressListInstanceEachOptions,
+    callback?: (item: IpAddressInstance, done: (err?: Error) => void) => void
+  ): void;
   /**
    * Retrieve a single target page of IpAddressInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: IpAddressPage) => any
-  ): Promise<IpAddressPage>;
-  /**
-   * Retrieve a single target page of IpAddressInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: IpAddressPage) => any
   ): Promise<IpAddressPage>;
-  getPage(params?: any, callback?: any): Promise<IpAddressPage>;
-  /**
-   * Lists IpAddressInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: IpAddressInstance[]) => any
-  ): Promise<IpAddressInstance[]>;
   /**
    * Lists IpAddressInstance records from the API as a list.
    *
@@ -551,23 +518,12 @@ export interface IpAddressListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: IpAddressListInstanceOptions,
     callback?: (error: Error | null, items: IpAddressInstance[]) => any
   ): Promise<IpAddressInstance[]>;
-  list(params?: any, callback?: any): Promise<IpAddressInstance[]>;
-  /**
-   * Retrieve a single page of IpAddressInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: IpAddressPage) => any
-  ): Promise<IpAddressPage>;
+  list(
+    params: IpAddressListInstanceOptions,
+    callback?: (error: Error | null, items: IpAddressInstance[]) => any
+  ): Promise<IpAddressInstance[]>;
   /**
    * Retrieve a single page of IpAddressInstance records from the API.
    *
@@ -580,28 +536,18 @@ export interface IpAddressListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
+    callback?: (error: Error | null, items: IpAddressPage) => any
+  ): Promise<IpAddressPage>;
+  page(
     params: IpAddressListInstancePageOptions,
     callback?: (error: Error | null, items: IpAddressPage) => any
   ): Promise<IpAddressPage>;
-  page(params?: any, callback?: any): Promise<IpAddressPage>;
 
   /**
    * Provide a user-friendly representation
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export interface IpAddressSolution {
-  accountSid?: string;
-  ipAccessControlListSid?: string;
-}
-
-interface IpAddressListInstanceImpl extends IpAddressListInstance {}
-class IpAddressListInstanceImpl implements IpAddressListInstance {
-  _version?: V2010;
-  _solution?: IpAddressSolution;
-  _uri?: string;
 }
 
 export function IpAddressListInstance(
@@ -617,7 +563,7 @@ export function IpAddressListInstance(
     throw new Error("Parameter 'ipAccessControlListSid' is not valid.");
   }
 
-  const instance = ((sid) => instance.get(sid)) as IpAddressListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as IpAddressListInstance;
 
   instance.get = function get(sid): IpAddressContext {
     return new IpAddressContextImpl(
@@ -633,8 +579,8 @@ export function IpAddressListInstance(
   instance._uri = `/Accounts/${accountSid}/SIP/IpAccessControlLists/${ipAccessControlListSid}/IpAddresses.json`;
 
   instance.create = function create(
-    params: any,
-    callback?: any
+    params: IpAddressListInstanceCreateOptions,
+    callback?: (error: Error | null, items: IpAddressInstance) => any
   ): Promise<IpAddressInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -664,7 +610,7 @@ export function IpAddressListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -675,12 +621,12 @@ export function IpAddressListInstance(
         new IpAddressInstance(
           operationVersion,
           payload,
-          this._solution.accountSid,
-          this._solution.ipAccessControlListSid
+          instance._solution.accountSid,
+          instance._solution.ipAccessControlListSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -688,10 +634,12 @@ export function IpAddressListInstance(
   };
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | IpAddressListInstancePageOptions
+      | ((error: Error | null, items: IpAddressPage) => any),
+    callback?: (error: Error | null, items: IpAddressPage) => any
   ): Promise<IpAddressPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -702,24 +650,25 @@ export function IpAddressListInstance(
 
     if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new IpAddressPage(operationVersion, payload, this._solution)
+      (payload) =>
+        new IpAddressPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -729,33 +678,31 @@ export function IpAddressListInstance(
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: IpAddressPage) => any
   ): Promise<IpAddressPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new IpAddressPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new IpAddressPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

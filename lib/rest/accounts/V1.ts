@@ -22,31 +22,33 @@ export default class V1 extends Version {
   /**
    * Initialize the V1 version of Accounts
    *
-   * @property { Twilio.Accounts.V1.AuthTokenPromotionListInstance } authTokenPromotion - authTokenPromotion resource
-   * @property { Twilio.Accounts.V1.CredentialListInstance } credentials - credentials resource
-   * @property { Twilio.Accounts.V1.SecondaryAuthTokenListInstance } secondaryAuthToken - secondaryAuthToken resource
-   *
-   * @param { Twilio.Accounts } domain - The Twilio domain
+   * @param domain - The Twilio (Twilio.Accounts) domain
    */
   constructor(domain: AccountsBase) {
     super(domain, "v1");
   }
 
+  /** authTokenPromotion - { Twilio.Accounts.V1.AuthTokenPromotionListInstance } resource */
   protected _authTokenPromotion?: AuthTokenPromotionListInstance;
+  /** credentials - { Twilio.Accounts.V1.CredentialListInstance } resource */
   protected _credentials?: CredentialListInstance;
+  /** secondaryAuthToken - { Twilio.Accounts.V1.SecondaryAuthTokenListInstance } resource */
   protected _secondaryAuthToken?: SecondaryAuthTokenListInstance;
 
+  /** Getter for authTokenPromotion resource */
   get authTokenPromotion(): AuthTokenPromotionListInstance {
     this._authTokenPromotion =
       this._authTokenPromotion || AuthTokenPromotionListInstance(this);
     return this._authTokenPromotion;
   }
 
+  /** Getter for credentials resource */
   get credentials(): CredentialListInstance {
     this._credentials = this._credentials || CredentialListInstance(this);
     return this._credentials;
   }
 
+  /** Getter for secondaryAuthToken resource */
   get secondaryAuthToken(): SecondaryAuthTokenListInstance {
     this._secondaryAuthToken =
       this._secondaryAuthToken || SecondaryAuthTokenListInstance(this);

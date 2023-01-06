@@ -20,16 +20,16 @@ export default class V1 extends Version {
   /**
    * Initialize the V1 version of Sync
    *
-   * @property { Twilio.Sync.V1.ServiceListInstance } services - services resource
-   *
-   * @param { Twilio.Sync } domain - The Twilio domain
+   * @param domain - The Twilio (Twilio.Sync) domain
    */
   constructor(domain: SyncBase) {
     super(domain, "v1");
   }
 
+  /** services - { Twilio.Sync.V1.ServiceListInstance } resource */
   protected _services?: ServiceListInstance;
 
+  /** Getter for services resource */
   get services(): ServiceListInstance {
     this._services = this._services || ServiceListInstance(this);
     return this._services;
