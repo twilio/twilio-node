@@ -22,114 +22,103 @@ import { isValidPathParam } from "../../../../base/utility";
 
 /**
  * Options to pass to each
- *
- * @property { Date } [endDate] Only include Events that occurred on or before this date, specified in GMT as an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time.
- * @property { string } [eventType] The type of Events to read. Returns only Events of the type specified.
- * @property { number } [minutes] The period of events to read in minutes. Returns only Events that occurred since this many minutes in the past. The default is `15` minutes. Task Attributes for Events occuring more 43,200 minutes ago will be redacted.
- * @property { string } [reservationSid] The SID of the Reservation with the Events to read. Returns only Events that pertain to the specified Reservation.
- * @property { Date } [startDate] Only include Events from on or after this date and time, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. Task Attributes for Events older than 30 days will be redacted.
- * @property { string } [taskQueueSid] The SID of the TaskQueue with the Events to read. Returns only the Events that pertain to the specified TaskQueue.
- * @property { string } [taskSid] The SID of the Task with the Events to read. Returns only the Events that pertain to the specified Task.
- * @property { string } [workerSid] The SID of the Worker with the Events to read. Returns only the Events that pertain to the specified Worker.
- * @property { string } [workflowSid] The SID of the Workflow with the Events to read. Returns only the Events that pertain to the specified Workflow.
- * @property { string } [taskChannel] The TaskChannel with the Events to read. Returns only the Events that pertain to the specified TaskChannel.
- * @property { string } [sid] The SID of the Event resource to read.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface EventListInstanceEachOptions {
+  /** Only include Events that occurred on or before this date, specified in GMT as an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time. */
   endDate?: Date;
+  /** The type of Events to read. Returns only Events of the type specified. */
   eventType?: string;
+  /** The period of events to read in minutes. Returns only Events that occurred since this many minutes in the past. The default is `15` minutes. Task Attributes for Events occuring more 43,200 minutes ago will be redacted. */
   minutes?: number;
+  /** The SID of the Reservation with the Events to read. Returns only Events that pertain to the specified Reservation. */
   reservationSid?: string;
+  /** Only include Events from on or after this date and time, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. Task Attributes for Events older than 30 days will be redacted. */
   startDate?: Date;
+  /** The SID of the TaskQueue with the Events to read. Returns only the Events that pertain to the specified TaskQueue. */
   taskQueueSid?: string;
+  /** The SID of the Task with the Events to read. Returns only the Events that pertain to the specified Task. */
   taskSid?: string;
+  /** The SID of the Worker with the Events to read. Returns only the Events that pertain to the specified Worker. */
   workerSid?: string;
+  /** The SID of the Workflow with the Events to read. Returns only the Events that pertain to the specified Workflow. */
   workflowSid?: string;
+  /** The TaskChannel with the Events to read. Returns only the Events that pertain to the specified TaskChannel. */
   taskChannel?: string;
+  /** The SID of the Event resource to read. */
   sid?: string;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: EventInstance, done: (err?: Error) => void) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { Date } [endDate] Only include Events that occurred on or before this date, specified in GMT as an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time.
- * @property { string } [eventType] The type of Events to read. Returns only Events of the type specified.
- * @property { number } [minutes] The period of events to read in minutes. Returns only Events that occurred since this many minutes in the past. The default is `15` minutes. Task Attributes for Events occuring more 43,200 minutes ago will be redacted.
- * @property { string } [reservationSid] The SID of the Reservation with the Events to read. Returns only Events that pertain to the specified Reservation.
- * @property { Date } [startDate] Only include Events from on or after this date and time, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. Task Attributes for Events older than 30 days will be redacted.
- * @property { string } [taskQueueSid] The SID of the TaskQueue with the Events to read. Returns only the Events that pertain to the specified TaskQueue.
- * @property { string } [taskSid] The SID of the Task with the Events to read. Returns only the Events that pertain to the specified Task.
- * @property { string } [workerSid] The SID of the Worker with the Events to read. Returns only the Events that pertain to the specified Worker.
- * @property { string } [workflowSid] The SID of the Workflow with the Events to read. Returns only the Events that pertain to the specified Workflow.
- * @property { string } [taskChannel] The TaskChannel with the Events to read. Returns only the Events that pertain to the specified TaskChannel.
- * @property { string } [sid] The SID of the Event resource to read.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface EventListInstanceOptions {
+  /** Only include Events that occurred on or before this date, specified in GMT as an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time. */
   endDate?: Date;
+  /** The type of Events to read. Returns only Events of the type specified. */
   eventType?: string;
+  /** The period of events to read in minutes. Returns only Events that occurred since this many minutes in the past. The default is `15` minutes. Task Attributes for Events occuring more 43,200 minutes ago will be redacted. */
   minutes?: number;
+  /** The SID of the Reservation with the Events to read. Returns only Events that pertain to the specified Reservation. */
   reservationSid?: string;
+  /** Only include Events from on or after this date and time, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. Task Attributes for Events older than 30 days will be redacted. */
   startDate?: Date;
+  /** The SID of the TaskQueue with the Events to read. Returns only the Events that pertain to the specified TaskQueue. */
   taskQueueSid?: string;
+  /** The SID of the Task with the Events to read. Returns only the Events that pertain to the specified Task. */
   taskSid?: string;
+  /** The SID of the Worker with the Events to read. Returns only the Events that pertain to the specified Worker. */
   workerSid?: string;
+  /** The SID of the Workflow with the Events to read. Returns only the Events that pertain to the specified Workflow. */
   workflowSid?: string;
+  /** The TaskChannel with the Events to read. Returns only the Events that pertain to the specified TaskChannel. */
   taskChannel?: string;
+  /** The SID of the Event resource to read. */
   sid?: string;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { Date } [endDate] Only include Events that occurred on or before this date, specified in GMT as an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time.
- * @property { string } [eventType] The type of Events to read. Returns only Events of the type specified.
- * @property { number } [minutes] The period of events to read in minutes. Returns only Events that occurred since this many minutes in the past. The default is `15` minutes. Task Attributes for Events occuring more 43,200 minutes ago will be redacted.
- * @property { string } [reservationSid] The SID of the Reservation with the Events to read. Returns only Events that pertain to the specified Reservation.
- * @property { Date } [startDate] Only include Events from on or after this date and time, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. Task Attributes for Events older than 30 days will be redacted.
- * @property { string } [taskQueueSid] The SID of the TaskQueue with the Events to read. Returns only the Events that pertain to the specified TaskQueue.
- * @property { string } [taskSid] The SID of the Task with the Events to read. Returns only the Events that pertain to the specified Task.
- * @property { string } [workerSid] The SID of the Worker with the Events to read. Returns only the Events that pertain to the specified Worker.
- * @property { string } [workflowSid] The SID of the Workflow with the Events to read. Returns only the Events that pertain to the specified Workflow.
- * @property { string } [taskChannel] The TaskChannel with the Events to read. Returns only the Events that pertain to the specified TaskChannel.
- * @property { string } [sid] The SID of the Event resource to read.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface EventListInstancePageOptions {
+  /** Only include Events that occurred on or before this date, specified in GMT as an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time. */
   endDate?: Date;
+  /** The type of Events to read. Returns only Events of the type specified. */
   eventType?: string;
+  /** The period of events to read in minutes. Returns only Events that occurred since this many minutes in the past. The default is `15` minutes. Task Attributes for Events occuring more 43,200 minutes ago will be redacted. */
   minutes?: number;
+  /** The SID of the Reservation with the Events to read. Returns only Events that pertain to the specified Reservation. */
   reservationSid?: string;
+  /** Only include Events from on or after this date and time, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. Task Attributes for Events older than 30 days will be redacted. */
   startDate?: Date;
+  /** The SID of the TaskQueue with the Events to read. Returns only the Events that pertain to the specified TaskQueue. */
   taskQueueSid?: string;
+  /** The SID of the Task with the Events to read. Returns only the Events that pertain to the specified Task. */
   taskSid?: string;
+  /** The SID of the Worker with the Events to read. Returns only the Events that pertain to the specified Worker. */
   workerSid?: string;
+  /** The SID of the Workflow with the Events to read. Returns only the Events that pertain to the specified Workflow. */
   workflowSid?: string;
+  /** The TaskChannel with the Events to read. Returns only the Events that pertain to the specified TaskChannel. */
   taskChannel?: string;
+  /** The SID of the Event resource to read. */
   sid?: string;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
@@ -137,9 +126,9 @@ export interface EventContext {
   /**
    * Fetch a EventInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed EventInstance
+   * @returns Resolves to processed EventInstance
    */
   fetch(
     callback?: (error: Error | null, item?: EventInstance) => any
@@ -153,8 +142,8 @@ export interface EventContext {
 }
 
 export interface EventContextSolution {
-  workspaceSid?: string;
-  sid?: string;
+  workspaceSid: string;
+  sid: string;
 }
 
 export class EventContextImpl implements EventContext {
@@ -174,10 +163,13 @@ export class EventContextImpl implements EventContext {
     this._uri = `/Workspaces/${workspaceSid}/Events/${sid}`;
   }
 
-  fetch(callback?: any): Promise<EventInstance> {
-    let operationVersion = this._version,
+  fetch(
+    callback?: (error: Error | null, item?: EventInstance) => any
+  ): Promise<EventInstance> {
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -186,12 +178,12 @@ export class EventContextImpl implements EventContext {
         new EventInstance(
           operationVersion,
           payload,
-          this._solution.workspaceSid,
-          this._solution.sid
+          instance._solution.workspaceSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -217,23 +209,23 @@ interface EventPayload extends TwilioResponsePayload {
 }
 
 interface EventResource {
-  account_sid?: string | null;
-  actor_sid?: string | null;
-  actor_type?: string | null;
-  actor_url?: string | null;
-  description?: string | null;
-  event_data?: any | null;
-  event_date?: Date | null;
-  event_date_ms?: number | null;
-  event_type?: string | null;
-  resource_sid?: string | null;
-  resource_type?: string | null;
-  resource_url?: string | null;
-  sid?: string | null;
-  source?: string | null;
-  source_ip_address?: string | null;
-  url?: string | null;
-  workspace_sid?: string | null;
+  account_sid: string;
+  actor_sid: string;
+  actor_type: string;
+  actor_url: string;
+  description: string;
+  event_data: any;
+  event_date: Date;
+  event_date_ms: number;
+  event_type: string;
+  resource_sid: string;
+  resource_type: string;
+  resource_url: string;
+  sid: string;
+  source: string;
+  source_ip_address: string;
+  url: string;
+  workspace_sid: string;
 }
 
 export class EventInstance {
@@ -270,71 +262,71 @@ export class EventInstance {
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The SID of the resource that triggered the event
    */
-  actorSid?: string | null;
+  actorSid: string;
   /**
    * The type of resource that triggered the event
    */
-  actorType?: string | null;
+  actorType: string;
   /**
    * The absolute URL of the resource that triggered the event
    */
-  actorUrl?: string | null;
+  actorUrl: string;
   /**
    * A description of the event
    */
-  description?: string | null;
+  description: string;
   /**
    * Data about the event
    */
-  eventData?: any | null;
+  eventData: any;
   /**
    * The time the event was sent
    */
-  eventDate?: Date | null;
+  eventDate: Date;
   /**
    * The time the event was sent in milliseconds
    */
-  eventDateMs?: number | null;
+  eventDateMs: number;
   /**
    * The identifier for the event
    */
-  eventType?: string | null;
+  eventType: string;
   /**
    * The SID of the object the event is most relevant to
    */
-  resourceSid?: string | null;
+  resourceSid: string;
   /**
    * The type of object the event is most relevant to
    */
-  resourceType?: string | null;
+  resourceType: string;
   /**
    * The URL of the resource the event is most relevant to
    */
-  resourceUrl?: string | null;
+  resourceUrl: string;
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * Where the Event originated
    */
-  source?: string | null;
+  source: string;
   /**
    * The IP from which the Event originated
    */
-  sourceIpAddress?: string | null;
+  sourceIpAddress: string;
   /**
    * The absolute URL of the Event resource
    */
-  url?: string | null;
+  url: string;
   /**
    * The SID of the Workspace that contains the Event
    */
-  workspaceSid?: string | null;
+  workspaceSid: string;
 
   private get _proxy(): EventContext {
     this._context =
@@ -350,9 +342,9 @@ export class EventInstance {
   /**
    * Fetch a EventInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed EventInstance
+   * @returns Resolves to processed EventInstance
    */
   fetch(
     callback?: (error: Error | null, item?: EventInstance) => any
@@ -392,27 +384,18 @@ export class EventInstance {
   }
 }
 
+export interface EventSolution {
+  workspaceSid: string;
+}
+
 export interface EventListInstance {
+  _version: V1;
+  _solution: EventSolution;
+  _uri: string;
+
   (sid: string): EventContext;
   get(sid: string): EventContext;
 
-  /**
-   * Streams EventInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (item: EventInstance, done: (err?: Error) => void) => void
-  ): void;
   /**
    * Streams EventInstance records from the API.
    *
@@ -429,50 +412,24 @@ export interface EventListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: EventListInstanceEachOptions,
     callback?: (item: EventInstance, done: (err?: Error) => void) => void
   ): void;
-  each(params?: any, callback?: any): void;
+  each(
+    params: EventListInstanceEachOptions,
+    callback?: (item: EventInstance, done: (err?: Error) => void) => void
+  ): void;
   /**
    * Retrieve a single target page of EventInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: EventPage) => any
-  ): Promise<EventPage>;
-  /**
-   * Retrieve a single target page of EventInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: EventPage) => any
   ): Promise<EventPage>;
-  getPage(params?: any, callback?: any): Promise<EventPage>;
-  /**
-   * Lists EventInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: EventInstance[]) => any
-  ): Promise<EventInstance[]>;
   /**
    * Lists EventInstance records from the API as a list.
    *
@@ -483,23 +440,12 @@ export interface EventListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: EventListInstanceOptions,
     callback?: (error: Error | null, items: EventInstance[]) => any
   ): Promise<EventInstance[]>;
-  list(params?: any, callback?: any): Promise<EventInstance[]>;
-  /**
-   * Retrieve a single page of EventInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: EventPage) => any
-  ): Promise<EventPage>;
+  list(
+    params: EventListInstanceOptions,
+    callback?: (error: Error | null, items: EventInstance[]) => any
+  ): Promise<EventInstance[]>;
   /**
    * Retrieve a single page of EventInstance records from the API.
    *
@@ -512,27 +458,18 @@ export interface EventListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
+    callback?: (error: Error | null, items: EventPage) => any
+  ): Promise<EventPage>;
+  page(
     params: EventListInstancePageOptions,
     callback?: (error: Error | null, items: EventPage) => any
   ): Promise<EventPage>;
-  page(params?: any, callback?: any): Promise<EventPage>;
 
   /**
    * Provide a user-friendly representation
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export interface EventSolution {
-  workspaceSid?: string;
-}
-
-interface EventListInstanceImpl extends EventListInstance {}
-class EventListInstanceImpl implements EventListInstance {
-  _version?: V1;
-  _solution?: EventSolution;
-  _uri?: string;
 }
 
 export function EventListInstance(
@@ -543,7 +480,7 @@ export function EventListInstance(
     throw new Error("Parameter 'workspaceSid' is not valid.");
   }
 
-  const instance = ((sid) => instance.get(sid)) as EventListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as EventListInstance;
 
   instance.get = function get(sid): EventContext {
     return new EventContextImpl(version, workspaceSid, sid);
@@ -554,10 +491,12 @@ export function EventListInstance(
   instance._uri = `/Workspaces/${workspaceSid}/Events`;
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | EventListInstancePageOptions
+      | ((error: Error | null, items: EventPage) => any),
+    callback?: (error: Error | null, items: EventPage) => any
   ): Promise<EventPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -587,24 +526,24 @@ export function EventListInstance(
     if (params["sid"] !== undefined) data["Sid"] = params["sid"];
     if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new EventPage(operationVersion, payload, this._solution)
+      (payload) => new EventPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -614,33 +553,30 @@ export function EventListInstance(
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: EventPage) => any
   ): Promise<EventPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new EventPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) => new EventPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

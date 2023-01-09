@@ -24,87 +24,64 @@ type ServiceParticipantConversationState = "inactive" | "active" | "closed";
 
 /**
  * Options to pass to each
- *
- * @property { string } [identity] A unique string identifier for the conversation participant as [Conversation User](https://www.twilio.com/docs/conversations/api/user-resource). This parameter is non-null if (and only if) the participant is using the Conversations SDK to communicate. Limited to 256 characters.
- * @property { string } [address] A unique string identifier for the conversation participant who\'s not a Conversation User. This parameter could be found in messaging_binding.address field of Participant resource. It should be url-encoded.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface ParticipantConversationListInstanceEachOptions {
+  /** A unique string identifier for the conversation participant as [Conversation User](https://www.twilio.com/docs/conversations/api/user-resource). This parameter is non-null if (and only if) the participant is using the Conversations SDK to communicate. Limited to 256 characters. */
   identity?: string;
+  /** A unique string identifier for the conversation participant who\'s not a Conversation User. This parameter could be found in messaging_binding.address field of Participant resource. It should be url-encoded. */
   address?: string;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (
     item: ParticipantConversationInstance,
     done: (err?: Error) => void
   ) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { string } [identity] A unique string identifier for the conversation participant as [Conversation User](https://www.twilio.com/docs/conversations/api/user-resource). This parameter is non-null if (and only if) the participant is using the Conversations SDK to communicate. Limited to 256 characters.
- * @property { string } [address] A unique string identifier for the conversation participant who\'s not a Conversation User. This parameter could be found in messaging_binding.address field of Participant resource. It should be url-encoded.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface ParticipantConversationListInstanceOptions {
+  /** A unique string identifier for the conversation participant as [Conversation User](https://www.twilio.com/docs/conversations/api/user-resource). This parameter is non-null if (and only if) the participant is using the Conversations SDK to communicate. Limited to 256 characters. */
   identity?: string;
+  /** A unique string identifier for the conversation participant who\'s not a Conversation User. This parameter could be found in messaging_binding.address field of Participant resource. It should be url-encoded. */
   address?: string;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { string } [identity] A unique string identifier for the conversation participant as [Conversation User](https://www.twilio.com/docs/conversations/api/user-resource). This parameter is non-null if (and only if) the participant is using the Conversations SDK to communicate. Limited to 256 characters.
- * @property { string } [address] A unique string identifier for the conversation participant who\'s not a Conversation User. This parameter could be found in messaging_binding.address field of Participant resource. It should be url-encoded.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface ParticipantConversationListInstancePageOptions {
+  /** A unique string identifier for the conversation participant as [Conversation User](https://www.twilio.com/docs/conversations/api/user-resource). This parameter is non-null if (and only if) the participant is using the Conversations SDK to communicate. Limited to 256 characters. */
   identity?: string;
+  /** A unique string identifier for the conversation participant who\'s not a Conversation User. This parameter could be found in messaging_binding.address field of Participant resource. It should be url-encoded. */
   address?: string;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
+export interface ParticipantConversationSolution {
+  chatServiceSid: string;
+}
+
 export interface ParticipantConversationListInstance {
-  /**
-   * Streams ParticipantConversationInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (
-      item: ParticipantConversationInstance,
-      done: (err?: Error) => void
-    ) => void
-  ): void;
+  _version: V1;
+  _solution: ParticipantConversationSolution;
+  _uri: string;
+
   /**
    * Streams ParticipantConversationInstance records from the API.
    *
@@ -121,56 +98,30 @@ export interface ParticipantConversationListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: ParticipantConversationListInstanceEachOptions,
     callback?: (
       item: ParticipantConversationInstance,
       done: (err?: Error) => void
     ) => void
   ): void;
-  each(params?: any, callback?: any): void;
+  each(
+    params: ParticipantConversationListInstanceEachOptions,
+    callback?: (
+      item: ParticipantConversationInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
   /**
    * Retrieve a single target page of ParticipantConversationInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: ParticipantConversationPage) => any
-  ): Promise<ParticipantConversationPage>;
-  /**
-   * Retrieve a single target page of ParticipantConversationInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: ParticipantConversationPage) => any
   ): Promise<ParticipantConversationPage>;
-  getPage(params?: any, callback?: any): Promise<ParticipantConversationPage>;
-  /**
-   * Lists ParticipantConversationInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (
-      error: Error | null,
-      items: ParticipantConversationInstance[]
-    ) => any
-  ): Promise<ParticipantConversationInstance[]>;
   /**
    * Lists ParticipantConversationInstance records from the API as a list.
    *
@@ -181,29 +132,18 @@ export interface ParticipantConversationListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: ParticipantConversationListInstanceOptions,
     callback?: (
       error: Error | null,
       items: ParticipantConversationInstance[]
     ) => any
   ): Promise<ParticipantConversationInstance[]>;
   list(
-    params?: any,
-    callback?: any
+    params: ParticipantConversationListInstanceOptions,
+    callback?: (
+      error: Error | null,
+      items: ParticipantConversationInstance[]
+    ) => any
   ): Promise<ParticipantConversationInstance[]>;
-  /**
-   * Retrieve a single page of ParticipantConversationInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: ParticipantConversationPage) => any
-  ): Promise<ParticipantConversationPage>;
   /**
    * Retrieve a single page of ParticipantConversationInstance records from the API.
    *
@@ -216,30 +156,18 @@ export interface ParticipantConversationListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
+    callback?: (error: Error | null, items: ParticipantConversationPage) => any
+  ): Promise<ParticipantConversationPage>;
+  page(
     params: ParticipantConversationListInstancePageOptions,
     callback?: (error: Error | null, items: ParticipantConversationPage) => any
   ): Promise<ParticipantConversationPage>;
-  page(params?: any, callback?: any): Promise<ParticipantConversationPage>;
 
   /**
    * Provide a user-friendly representation
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export interface ParticipantConversationSolution {
-  chatServiceSid?: string;
-}
-
-interface ParticipantConversationListInstanceImpl
-  extends ParticipantConversationListInstance {}
-class ParticipantConversationListInstanceImpl
-  implements ParticipantConversationListInstance
-{
-  _version?: V1;
-  _solution?: ParticipantConversationSolution;
-  _uri?: string;
 }
 
 export function ParticipantConversationListInstance(
@@ -250,17 +178,19 @@ export function ParticipantConversationListInstance(
     throw new Error("Parameter 'chatServiceSid' is not valid.");
   }
 
-  const instance = {} as ParticipantConversationListInstanceImpl;
+  const instance = {} as ParticipantConversationListInstance;
 
   instance._version = version;
   instance._solution = { chatServiceSid };
   instance._uri = `/Services/${chatServiceSid}/ParticipantConversations`;
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | ParticipantConversationListInstancePageOptions
+      | ((error: Error | null, items: ParticipantConversationPage) => any),
+    callback?: (error: Error | null, items: ParticipantConversationPage) => any
   ): Promise<ParticipantConversationPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -273,14 +203,14 @@ export function ParticipantConversationListInstance(
     if (params["address"] !== undefined) data["Address"] = params["address"];
     if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
@@ -291,11 +221,11 @@ export function ParticipantConversationListInstance(
         new ParticipantConversationPage(
           operationVersion,
           payload,
-          this._solution
+          instance._solution
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -305,34 +235,35 @@ export function ParticipantConversationListInstance(
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: ParticipantConversationPage) => any
   ): Promise<ParticipantConversationPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
+    let pagePromise = operationPromise.then(
       (payload) =>
-        new ParticipantConversationPage(this._version, payload, this._solution)
+        new ParticipantConversationPage(
+          instance._version,
+          payload,
+          instance._solution
+        )
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;
@@ -343,22 +274,22 @@ interface ParticipantConversationPayload extends TwilioResponsePayload {
 }
 
 interface ParticipantConversationResource {
-  account_sid?: string | null;
-  chat_service_sid?: string | null;
-  participant_sid?: string | null;
-  participant_user_sid?: string | null;
-  participant_identity?: string | null;
-  participant_messaging_binding?: any | null;
-  conversation_sid?: string | null;
-  conversation_unique_name?: string | null;
-  conversation_friendly_name?: string | null;
-  conversation_attributes?: string | null;
-  conversation_date_created?: Date | null;
-  conversation_date_updated?: Date | null;
-  conversation_created_by?: string | null;
-  conversation_state?: ServiceParticipantConversationState;
-  conversation_timers?: any | null;
-  links?: object | null;
+  account_sid: string;
+  chat_service_sid: string;
+  participant_sid: string;
+  participant_user_sid: string;
+  participant_identity: string;
+  participant_messaging_binding: any;
+  conversation_sid: string;
+  conversation_unique_name: string;
+  conversation_friendly_name: string;
+  conversation_attributes: string;
+  conversation_date_created: Date;
+  conversation_date_updated: Date;
+  conversation_created_by: string;
+  conversation_state: ServiceParticipantConversationState;
+  conversation_timers: any;
+  links: Record<string, string>;
 }
 
 export class ParticipantConversationInstance {
@@ -392,64 +323,64 @@ export class ParticipantConversationInstance {
   /**
    * The unique ID of the Account responsible for this conversation.
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The unique ID of the Conversation Service this conversation belongs to.
    */
-  chatServiceSid?: string | null;
+  chatServiceSid: string;
   /**
    * The unique ID of the Participant.
    */
-  participantSid?: string | null;
+  participantSid: string;
   /**
    * The unique ID for the conversation participant as Conversation User.
    */
-  participantUserSid?: string | null;
+  participantUserSid: string;
   /**
    * A unique string identifier for the conversation participant as Conversation User.
    */
-  participantIdentity?: string | null;
+  participantIdentity: string;
   /**
    * Information about how this participant exchanges messages with the conversation.
    */
-  participantMessagingBinding?: any | null;
+  participantMessagingBinding: any;
   /**
    * The unique ID of the Conversation this Participant belongs to.
    */
-  conversationSid?: string | null;
+  conversationSid: string;
   /**
    * An application-defined string that uniquely identifies the Conversation resource.
    */
-  conversationUniqueName?: string | null;
+  conversationUniqueName: string;
   /**
    * The human-readable name of this conversation.
    */
-  conversationFriendlyName?: string | null;
+  conversationFriendlyName: string;
   /**
    * An optional string metadata field you can use to store any data you wish.
    */
-  conversationAttributes?: string | null;
+  conversationAttributes: string;
   /**
    * The date that this conversation was created.
    */
-  conversationDateCreated?: Date | null;
+  conversationDateCreated: Date;
   /**
    * The date that this conversation was last updated.
    */
-  conversationDateUpdated?: Date | null;
+  conversationDateUpdated: Date;
   /**
    * Creator of this conversation.
    */
-  conversationCreatedBy?: string | null;
-  conversationState?: ServiceParticipantConversationState;
+  conversationCreatedBy: string;
+  conversationState: ServiceParticipantConversationState;
   /**
    * Timer date values for this conversation.
    */
-  conversationTimers?: any | null;
+  conversationTimers: any;
   /**
    * Absolute URLs to access the participant and conversation of this Participant Conversation.
    */
-  links?: object | null;
+  links: Record<string, string>;
 
   /**
    * Provide a user-friendly representation

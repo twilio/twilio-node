@@ -22,56 +22,44 @@ import { isValidPathParam } from "../../../../base/utility";
 
 /**
  * Options to pass to update a SigningKeyInstance
- *
- * @property { string } [friendlyName]
  */
 export interface SigningKeyContextUpdateOptions {
+  /**  */
   friendlyName?: string;
 }
 /**
  * Options to pass to each
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface SigningKeyListInstanceEachOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: SigningKeyInstance, done: (err?: Error) => void) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface SigningKeyListInstanceOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface SigningKeyListInstancePageOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
@@ -79,9 +67,9 @@ export interface SigningKeyContext {
   /**
    * Remove a SigningKeyInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -90,9 +78,9 @@ export interface SigningKeyContext {
   /**
    * Fetch a SigningKeyInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SigningKeyInstance
+   * @returns Resolves to processed SigningKeyInstance
    */
   fetch(
     callback?: (error: Error | null, item?: SigningKeyInstance) => any
@@ -101,9 +89,9 @@ export interface SigningKeyContext {
   /**
    * Update a SigningKeyInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SigningKeyInstance
+   * @returns Resolves to processed SigningKeyInstance
    */
   update(
     callback?: (error: Error | null, item?: SigningKeyInstance) => any
@@ -111,16 +99,15 @@ export interface SigningKeyContext {
   /**
    * Update a SigningKeyInstance
    *
-   * @param { SigningKeyContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SigningKeyInstance
+   * @returns Resolves to processed SigningKeyInstance
    */
   update(
     params: SigningKeyContextUpdateOptions,
     callback?: (error: Error | null, item?: SigningKeyInstance) => any
   ): Promise<SigningKeyInstance>;
-  update(params?: any, callback?: any): Promise<SigningKeyInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -130,8 +117,8 @@ export interface SigningKeyContext {
 }
 
 export interface SigningKeyContextSolution {
-  accountSid?: string;
-  sid?: string;
+  accountSid: string;
+  sid: string;
 }
 
 export class SigningKeyContextImpl implements SigningKeyContext {
@@ -151,24 +138,30 @@ export class SigningKeyContextImpl implements SigningKeyContext {
     this._uri = `/Accounts/${accountSid}/SigningKeys/${sid}.json`;
   }
 
-  remove(callback?: any): Promise<boolean> {
-    let operationVersion = this._version,
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<SigningKeyInstance> {
-    let operationVersion = this._version,
+  fetch(
+    callback?: (error: Error | null, item?: SigningKeyInstance) => any
+  ): Promise<SigningKeyInstance> {
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -177,20 +170,25 @@ export class SigningKeyContextImpl implements SigningKeyContext {
         new SigningKeyInstance(
           operationVersion,
           payload,
-          this._solution.accountSid,
-          this._solution.sid
+          instance._solution.accountSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
     return operationPromise;
   }
 
-  update(params?: any, callback?: any): Promise<SigningKeyInstance> {
-    if (typeof params === "function") {
+  update(
+    params?:
+      | SigningKeyContextUpdateOptions
+      | ((error: Error | null, item?: SigningKeyInstance) => any),
+    callback?: (error: Error | null, item?: SigningKeyInstance) => any
+  ): Promise<SigningKeyInstance> {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -205,9 +203,10 @@ export class SigningKeyContextImpl implements SigningKeyContext {
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -218,12 +217,12 @@ export class SigningKeyContextImpl implements SigningKeyContext {
         new SigningKeyInstance(
           operationVersion,
           payload,
-          this._solution.accountSid,
-          this._solution.sid
+          instance._solution.accountSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -249,10 +248,10 @@ interface SigningKeyPayload extends TwilioResponsePayload {
 }
 
 interface SigningKeyResource {
-  sid?: string | null;
-  friendly_name?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
+  sid: string;
+  friendly_name: string;
+  date_created: Date;
+  date_updated: Date;
 }
 
 export class SigningKeyInstance {
@@ -273,10 +272,10 @@ export class SigningKeyInstance {
     this._solution = { accountSid, sid: sid || this.sid };
   }
 
-  sid?: string | null;
-  friendlyName?: string | null;
-  dateCreated?: Date | null;
-  dateUpdated?: Date | null;
+  sid: string;
+  friendlyName: string;
+  dateCreated: Date;
+  dateUpdated: Date;
 
   private get _proxy(): SigningKeyContext {
     this._context =
@@ -292,9 +291,9 @@ export class SigningKeyInstance {
   /**
    * Remove a SigningKeyInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -305,9 +304,9 @@ export class SigningKeyInstance {
   /**
    * Fetch a SigningKeyInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SigningKeyInstance
+   * @returns Resolves to processed SigningKeyInstance
    */
   fetch(
     callback?: (error: Error | null, item?: SigningKeyInstance) => any
@@ -318,9 +317,9 @@ export class SigningKeyInstance {
   /**
    * Update a SigningKeyInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SigningKeyInstance
+   * @returns Resolves to processed SigningKeyInstance
    */
   update(
     callback?: (error: Error | null, item?: SigningKeyInstance) => any
@@ -328,16 +327,20 @@ export class SigningKeyInstance {
   /**
    * Update a SigningKeyInstance
    *
-   * @param { SigningKeyContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SigningKeyInstance
+   * @returns Resolves to processed SigningKeyInstance
    */
   update(
     params: SigningKeyContextUpdateOptions,
     callback?: (error: Error | null, item?: SigningKeyInstance) => any
   ): Promise<SigningKeyInstance>;
-  update(params?: any, callback?: any): Promise<SigningKeyInstance> {
+
+  update(
+    params?: any,
+    callback?: (error: Error | null, item?: SigningKeyInstance) => any
+  ): Promise<SigningKeyInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -360,27 +363,18 @@ export class SigningKeyInstance {
   }
 }
 
+export interface SigningKeySolution {
+  accountSid: string;
+}
+
 export interface SigningKeyListInstance {
+  _version: V2010;
+  _solution: SigningKeySolution;
+  _uri: string;
+
   (sid: string): SigningKeyContext;
   get(sid: string): SigningKeyContext;
 
-  /**
-   * Streams SigningKeyInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (item: SigningKeyInstance, done: (err?: Error) => void) => void
-  ): void;
   /**
    * Streams SigningKeyInstance records from the API.
    *
@@ -397,50 +391,24 @@ export interface SigningKeyListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: SigningKeyListInstanceEachOptions,
     callback?: (item: SigningKeyInstance, done: (err?: Error) => void) => void
   ): void;
-  each(params?: any, callback?: any): void;
+  each(
+    params: SigningKeyListInstanceEachOptions,
+    callback?: (item: SigningKeyInstance, done: (err?: Error) => void) => void
+  ): void;
   /**
    * Retrieve a single target page of SigningKeyInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: SigningKeyPage) => any
-  ): Promise<SigningKeyPage>;
-  /**
-   * Retrieve a single target page of SigningKeyInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: SigningKeyPage) => any
   ): Promise<SigningKeyPage>;
-  getPage(params?: any, callback?: any): Promise<SigningKeyPage>;
-  /**
-   * Lists SigningKeyInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: SigningKeyInstance[]) => any
-  ): Promise<SigningKeyInstance[]>;
   /**
    * Lists SigningKeyInstance records from the API as a list.
    *
@@ -451,23 +419,12 @@ export interface SigningKeyListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: SigningKeyListInstanceOptions,
     callback?: (error: Error | null, items: SigningKeyInstance[]) => any
   ): Promise<SigningKeyInstance[]>;
-  list(params?: any, callback?: any): Promise<SigningKeyInstance[]>;
-  /**
-   * Retrieve a single page of SigningKeyInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: SigningKeyPage) => any
-  ): Promise<SigningKeyPage>;
+  list(
+    params: SigningKeyListInstanceOptions,
+    callback?: (error: Error | null, items: SigningKeyInstance[]) => any
+  ): Promise<SigningKeyInstance[]>;
   /**
    * Retrieve a single page of SigningKeyInstance records from the API.
    *
@@ -480,27 +437,18 @@ export interface SigningKeyListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
+    callback?: (error: Error | null, items: SigningKeyPage) => any
+  ): Promise<SigningKeyPage>;
+  page(
     params: SigningKeyListInstancePageOptions,
     callback?: (error: Error | null, items: SigningKeyPage) => any
   ): Promise<SigningKeyPage>;
-  page(params?: any, callback?: any): Promise<SigningKeyPage>;
 
   /**
    * Provide a user-friendly representation
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export interface SigningKeySolution {
-  accountSid?: string;
-}
-
-interface SigningKeyListInstanceImpl extends SigningKeyListInstance {}
-class SigningKeyListInstanceImpl implements SigningKeyListInstance {
-  _version?: V2010;
-  _solution?: SigningKeySolution;
-  _uri?: string;
 }
 
 export function SigningKeyListInstance(
@@ -511,7 +459,7 @@ export function SigningKeyListInstance(
     throw new Error("Parameter 'accountSid' is not valid.");
   }
 
-  const instance = ((sid) => instance.get(sid)) as SigningKeyListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as SigningKeyListInstance;
 
   instance.get = function get(sid): SigningKeyContext {
     return new SigningKeyContextImpl(version, accountSid, sid);
@@ -522,10 +470,12 @@ export function SigningKeyListInstance(
   instance._uri = `/Accounts/${accountSid}/SigningKeys.json`;
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | SigningKeyListInstancePageOptions
+      | ((error: Error | null, items: SigningKeyPage) => any),
+    callback?: (error: Error | null, items: SigningKeyPage) => any
   ): Promise<SigningKeyPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -536,24 +486,25 @@ export function SigningKeyListInstance(
 
     if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new SigningKeyPage(operationVersion, payload, this._solution)
+      (payload) =>
+        new SigningKeyPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -563,33 +514,31 @@ export function SigningKeyListInstance(
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: SigningKeyPage) => any
   ): Promise<SigningKeyPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new SigningKeyPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new SigningKeyPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

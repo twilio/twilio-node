@@ -24,48 +24,37 @@ type AssetVersionVisibility = "public" | "private" | "protected";
 
 /**
  * Options to pass to each
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface AssetVersionListInstanceEachOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: AssetVersionInstance, done: (err?: Error) => void) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface AssetVersionListInstanceOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface AssetVersionListInstancePageOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
@@ -73,9 +62,9 @@ export interface AssetVersionContext {
   /**
    * Fetch a AssetVersionInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed AssetVersionInstance
+   * @returns Resolves to processed AssetVersionInstance
    */
   fetch(
     callback?: (error: Error | null, item?: AssetVersionInstance) => any
@@ -89,9 +78,9 @@ export interface AssetVersionContext {
 }
 
 export interface AssetVersionContextSolution {
-  serviceSid?: string;
-  assetSid?: string;
-  sid?: string;
+  serviceSid: string;
+  assetSid: string;
+  sid: string;
 }
 
 export class AssetVersionContextImpl implements AssetVersionContext {
@@ -120,10 +109,13 @@ export class AssetVersionContextImpl implements AssetVersionContext {
     this._uri = `/Services/${serviceSid}/Assets/${assetSid}/Versions/${sid}`;
   }
 
-  fetch(callback?: any): Promise<AssetVersionInstance> {
-    let operationVersion = this._version,
+  fetch(
+    callback?: (error: Error | null, item?: AssetVersionInstance) => any
+  ): Promise<AssetVersionInstance> {
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -132,13 +124,13 @@ export class AssetVersionContextImpl implements AssetVersionContext {
         new AssetVersionInstance(
           operationVersion,
           payload,
-          this._solution.serviceSid,
-          this._solution.assetSid,
-          this._solution.sid
+          instance._solution.serviceSid,
+          instance._solution.assetSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -164,14 +156,14 @@ interface AssetVersionPayload extends TwilioResponsePayload {
 }
 
 interface AssetVersionResource {
-  sid?: string | null;
-  account_sid?: string | null;
-  service_sid?: string | null;
-  asset_sid?: string | null;
-  path?: string | null;
-  visibility?: AssetVersionVisibility;
-  date_created?: Date | null;
-  url?: string | null;
+  sid: string;
+  account_sid: string;
+  service_sid: string;
+  asset_sid: string;
+  path: string;
+  visibility: AssetVersionVisibility;
+  date_created: Date;
+  url: string;
 }
 
 export class AssetVersionInstance {
@@ -200,32 +192,32 @@ export class AssetVersionInstance {
   /**
    * The unique string that identifies the Asset Version resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The SID of the Account that created the Asset Version resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The SID of the Service that the Asset Version resource is associated with
    */
-  serviceSid?: string | null;
+  serviceSid: string;
   /**
    * The SID of the Asset resource that is the parent of the Asset Version
    */
-  assetSid?: string | null;
+  assetSid: string;
   /**
    * The URL-friendly string by which the Asset Version can be referenced
    */
-  path?: string | null;
-  visibility?: AssetVersionVisibility;
+  path: string;
+  visibility: AssetVersionVisibility;
   /**
    * The ISO 8601 date and time in GMT when the Asset Version resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The absolute URL of the Asset Version resource
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): AssetVersionContext {
     this._context =
@@ -242,9 +234,9 @@ export class AssetVersionInstance {
   /**
    * Fetch a AssetVersionInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed AssetVersionInstance
+   * @returns Resolves to processed AssetVersionInstance
    */
   fetch(
     callback?: (error: Error | null, item?: AssetVersionInstance) => any
@@ -275,27 +267,19 @@ export class AssetVersionInstance {
   }
 }
 
+export interface AssetVersionSolution {
+  serviceSid: string;
+  assetSid: string;
+}
+
 export interface AssetVersionListInstance {
+  _version: V1;
+  _solution: AssetVersionSolution;
+  _uri: string;
+
   (sid: string): AssetVersionContext;
   get(sid: string): AssetVersionContext;
 
-  /**
-   * Streams AssetVersionInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (item: AssetVersionInstance, done: (err?: Error) => void) => void
-  ): void;
   /**
    * Streams AssetVersionInstance records from the API.
    *
@@ -312,50 +296,24 @@ export interface AssetVersionListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: AssetVersionListInstanceEachOptions,
     callback?: (item: AssetVersionInstance, done: (err?: Error) => void) => void
   ): void;
-  each(params?: any, callback?: any): void;
+  each(
+    params: AssetVersionListInstanceEachOptions,
+    callback?: (item: AssetVersionInstance, done: (err?: Error) => void) => void
+  ): void;
   /**
    * Retrieve a single target page of AssetVersionInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: AssetVersionPage) => any
-  ): Promise<AssetVersionPage>;
-  /**
-   * Retrieve a single target page of AssetVersionInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: AssetVersionPage) => any
   ): Promise<AssetVersionPage>;
-  getPage(params?: any, callback?: any): Promise<AssetVersionPage>;
-  /**
-   * Lists AssetVersionInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: AssetVersionInstance[]) => any
-  ): Promise<AssetVersionInstance[]>;
   /**
    * Lists AssetVersionInstance records from the API as a list.
    *
@@ -366,23 +324,12 @@ export interface AssetVersionListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: AssetVersionListInstanceOptions,
     callback?: (error: Error | null, items: AssetVersionInstance[]) => any
   ): Promise<AssetVersionInstance[]>;
-  list(params?: any, callback?: any): Promise<AssetVersionInstance[]>;
-  /**
-   * Retrieve a single page of AssetVersionInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: AssetVersionPage) => any
-  ): Promise<AssetVersionPage>;
+  list(
+    params: AssetVersionListInstanceOptions,
+    callback?: (error: Error | null, items: AssetVersionInstance[]) => any
+  ): Promise<AssetVersionInstance[]>;
   /**
    * Retrieve a single page of AssetVersionInstance records from the API.
    *
@@ -395,28 +342,18 @@ export interface AssetVersionListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
+    callback?: (error: Error | null, items: AssetVersionPage) => any
+  ): Promise<AssetVersionPage>;
+  page(
     params: AssetVersionListInstancePageOptions,
     callback?: (error: Error | null, items: AssetVersionPage) => any
   ): Promise<AssetVersionPage>;
-  page(params?: any, callback?: any): Promise<AssetVersionPage>;
 
   /**
    * Provide a user-friendly representation
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export interface AssetVersionSolution {
-  serviceSid?: string;
-  assetSid?: string;
-}
-
-interface AssetVersionListInstanceImpl extends AssetVersionListInstance {}
-class AssetVersionListInstanceImpl implements AssetVersionListInstance {
-  _version?: V1;
-  _solution?: AssetVersionSolution;
-  _uri?: string;
 }
 
 export function AssetVersionListInstance(
@@ -432,7 +369,7 @@ export function AssetVersionListInstance(
     throw new Error("Parameter 'assetSid' is not valid.");
   }
 
-  const instance = ((sid) => instance.get(sid)) as AssetVersionListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as AssetVersionListInstance;
 
   instance.get = function get(sid): AssetVersionContext {
     return new AssetVersionContextImpl(version, serviceSid, assetSid, sid);
@@ -443,10 +380,12 @@ export function AssetVersionListInstance(
   instance._uri = `/Services/${serviceSid}/Assets/${assetSid}/Versions`;
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | AssetVersionListInstancePageOptions
+      | ((error: Error | null, items: AssetVersionPage) => any),
+    callback?: (error: Error | null, items: AssetVersionPage) => any
   ): Promise<AssetVersionPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -457,14 +396,14 @@ export function AssetVersionListInstance(
 
     if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
@@ -472,10 +411,10 @@ export function AssetVersionListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new AssetVersionPage(operationVersion, payload, this._solution)
+        new AssetVersionPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -485,33 +424,31 @@ export function AssetVersionListInstance(
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: AssetVersionPage) => any
   ): Promise<AssetVersionPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new AssetVersionPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new AssetVersionPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

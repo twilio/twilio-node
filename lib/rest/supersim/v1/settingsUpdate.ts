@@ -28,87 +28,62 @@ type SettingsUpdateStatus =
 
 /**
  * Options to pass to each
- *
- * @property { string } [sim] Filter the Settings Updates by a Super SIM\'s SID or UniqueName.
- * @property { SettingsUpdateStatus } [status] Filter the Settings Updates by status. Can be `scheduled`, `in-progress`, `successful`, or `failed`.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface SettingsUpdateListInstanceEachOptions {
+  /** Filter the Settings Updates by a Super SIM\'s SID or UniqueName. */
   sim?: string;
+  /** Filter the Settings Updates by status. Can be `scheduled`, `in-progress`, `successful`, or `failed`. */
   status?: SettingsUpdateStatus;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (
     item: SettingsUpdateInstance,
     done: (err?: Error) => void
   ) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { string } [sim] Filter the Settings Updates by a Super SIM\'s SID or UniqueName.
- * @property { SettingsUpdateStatus } [status] Filter the Settings Updates by status. Can be `scheduled`, `in-progress`, `successful`, or `failed`.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface SettingsUpdateListInstanceOptions {
+  /** Filter the Settings Updates by a Super SIM\'s SID or UniqueName. */
   sim?: string;
+  /** Filter the Settings Updates by status. Can be `scheduled`, `in-progress`, `successful`, or `failed`. */
   status?: SettingsUpdateStatus;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { string } [sim] Filter the Settings Updates by a Super SIM\'s SID or UniqueName.
- * @property { SettingsUpdateStatus } [status] Filter the Settings Updates by status. Can be `scheduled`, `in-progress`, `successful`, or `failed`.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface SettingsUpdateListInstancePageOptions {
+  /** Filter the Settings Updates by a Super SIM\'s SID or UniqueName. */
   sim?: string;
+  /** Filter the Settings Updates by status. Can be `scheduled`, `in-progress`, `successful`, or `failed`. */
   status?: SettingsUpdateStatus;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
+export interface SettingsUpdateSolution {}
+
 export interface SettingsUpdateListInstance {
-  /**
-   * Streams SettingsUpdateInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (
-      item: SettingsUpdateInstance,
-      done: (err?: Error) => void
-    ) => void
-  ): void;
+  _version: V1;
+  _solution: SettingsUpdateSolution;
+  _uri: string;
+
   /**
    * Streams SettingsUpdateInstance records from the API.
    *
@@ -125,53 +100,30 @@ export interface SettingsUpdateListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: SettingsUpdateListInstanceEachOptions,
     callback?: (
       item: SettingsUpdateInstance,
       done: (err?: Error) => void
     ) => void
   ): void;
-  each(params?: any, callback?: any): void;
+  each(
+    params: SettingsUpdateListInstanceEachOptions,
+    callback?: (
+      item: SettingsUpdateInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
   /**
    * Retrieve a single target page of SettingsUpdateInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: SettingsUpdatePage) => any
-  ): Promise<SettingsUpdatePage>;
-  /**
-   * Retrieve a single target page of SettingsUpdateInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: SettingsUpdatePage) => any
   ): Promise<SettingsUpdatePage>;
-  getPage(params?: any, callback?: any): Promise<SettingsUpdatePage>;
-  /**
-   * Lists SettingsUpdateInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: SettingsUpdateInstance[]) => any
-  ): Promise<SettingsUpdateInstance[]>;
   /**
    * Lists SettingsUpdateInstance records from the API as a list.
    *
@@ -182,23 +134,12 @@ export interface SettingsUpdateListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: SettingsUpdateListInstanceOptions,
     callback?: (error: Error | null, items: SettingsUpdateInstance[]) => any
   ): Promise<SettingsUpdateInstance[]>;
-  list(params?: any, callback?: any): Promise<SettingsUpdateInstance[]>;
-  /**
-   * Retrieve a single page of SettingsUpdateInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: SettingsUpdatePage) => any
-  ): Promise<SettingsUpdatePage>;
+  list(
+    params: SettingsUpdateListInstanceOptions,
+    callback?: (error: Error | null, items: SettingsUpdateInstance[]) => any
+  ): Promise<SettingsUpdateInstance[]>;
   /**
    * Retrieve a single page of SettingsUpdateInstance records from the API.
    *
@@ -211,10 +152,12 @@ export interface SettingsUpdateListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
+    callback?: (error: Error | null, items: SettingsUpdatePage) => any
+  ): Promise<SettingsUpdatePage>;
+  page(
     params: SettingsUpdateListInstancePageOptions,
     callback?: (error: Error | null, items: SettingsUpdatePage) => any
   ): Promise<SettingsUpdatePage>;
-  page(params?: any, callback?: any): Promise<SettingsUpdatePage>;
 
   /**
    * Provide a user-friendly representation
@@ -223,29 +166,22 @@ export interface SettingsUpdateListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface SettingsUpdateSolution {}
-
-interface SettingsUpdateListInstanceImpl extends SettingsUpdateListInstance {}
-class SettingsUpdateListInstanceImpl implements SettingsUpdateListInstance {
-  _version?: V1;
-  _solution?: SettingsUpdateSolution;
-  _uri?: string;
-}
-
 export function SettingsUpdateListInstance(
   version: V1
 ): SettingsUpdateListInstance {
-  const instance = {} as SettingsUpdateListInstanceImpl;
+  const instance = {} as SettingsUpdateListInstance;
 
   instance._version = version;
   instance._solution = {};
   instance._uri = `/SettingsUpdates`;
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | SettingsUpdateListInstancePageOptions
+      | ((error: Error | null, items: SettingsUpdatePage) => any),
+    callback?: (error: Error | null, items: SettingsUpdatePage) => any
   ): Promise<SettingsUpdatePage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -258,14 +194,14 @@ export function SettingsUpdateListInstance(
     if (params["status"] !== undefined) data["Status"] = params["status"];
     if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
@@ -273,10 +209,10 @@ export function SettingsUpdateListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new SettingsUpdatePage(operationVersion, payload, this._solution)
+        new SettingsUpdatePage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -286,34 +222,31 @@ export function SettingsUpdateListInstance(
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: SettingsUpdatePage) => any
   ): Promise<SettingsUpdatePage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
+    let pagePromise = operationPromise.then(
       (payload) =>
-        new SettingsUpdatePage(this._version, payload, this._solution)
+        new SettingsUpdatePage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;
@@ -324,14 +257,14 @@ interface SettingsUpdatePayload extends TwilioResponsePayload {
 }
 
 interface SettingsUpdateResource {
-  sid?: string | null;
-  iccid?: string | null;
-  sim_sid?: string | null;
-  status?: SettingsUpdateStatus;
-  packages?: Array<any> | null;
-  date_completed?: Date | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
+  sid: string;
+  iccid: string;
+  sim_sid: string;
+  status: SettingsUpdateStatus;
+  packages: Array<any>;
+  date_completed: Date;
+  date_created: Date;
+  date_updated: Date;
 }
 
 export class SettingsUpdateInstance {
@@ -349,32 +282,32 @@ export class SettingsUpdateInstance {
   /**
    * The unique identifier of this Settings Update
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The ICCID associated with the SIM
    */
-  iccid?: string | null;
+  iccid: string;
   /**
    * The SID of the Super SIM to which this Settings Update was applied
    */
-  simSid?: string | null;
-  status?: SettingsUpdateStatus;
+  simSid: string;
+  status: SettingsUpdateStatus;
   /**
    * Array containing the different Settings Packages that will be applied to the SIM after the update completes
    */
-  packages?: Array<any> | null;
+  packages: Array<any>;
   /**
    * The time when the update successfully completed and the new settings were applied to the SIM
    */
-  dateCompleted?: Date | null;
+  dateCompleted: Date;
   /**
    * The date this Settings Update was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The date this Settings Update was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
 
   /**
    * Provide a user-friendly representation

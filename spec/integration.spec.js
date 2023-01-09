@@ -1,5 +1,3 @@
-"use strict";
-
 import twilio from "../lib/";
 
 var accountSid = "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";

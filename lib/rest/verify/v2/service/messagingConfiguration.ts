@@ -22,70 +22,57 @@ import { isValidPathParam } from "../../../../base/utility";
 
 /**
  * Options to pass to update a MessagingConfigurationInstance
- *
- * @property { string } messagingServiceSid The SID of the [Messaging Service](https://www.twilio.com/docs/sms/services/api) to be used to send SMS to the country of this configuration.
  */
 export interface MessagingConfigurationContextUpdateOptions {
+  /** The SID of the [Messaging Service](https://www.twilio.com/docs/sms/services/api) to be used to send SMS to the country of this configuration. */
   messagingServiceSid: string;
 }
 
 /**
  * Options to pass to create a MessagingConfigurationInstance
- *
- * @property { string } country The [ISO-3166-1](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code of the country this configuration will be applied to. If this is a global configuration, Country will take the value `all`.
- * @property { string } messagingServiceSid The SID of the [Messaging Service](https://www.twilio.com/docs/sms/services/api) to be used to send SMS to the country of this configuration.
  */
 export interface MessagingConfigurationListInstanceCreateOptions {
+  /** The [ISO-3166-1](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code of the country this configuration will be applied to. If this is a global configuration, Country will take the value `all`. */
   country: string;
+  /** The SID of the [Messaging Service](https://www.twilio.com/docs/sms/services/api) to be used to send SMS to the country of this configuration. */
   messagingServiceSid: string;
 }
 /**
  * Options to pass to each
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface MessagingConfigurationListInstanceEachOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (
     item: MessagingConfigurationInstance,
     done: (err?: Error) => void
   ) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface MessagingConfigurationListInstanceOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface MessagingConfigurationListInstancePageOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
@@ -93,9 +80,9 @@ export interface MessagingConfigurationContext {
   /**
    * Remove a MessagingConfigurationInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -104,9 +91,9 @@ export interface MessagingConfigurationContext {
   /**
    * Fetch a MessagingConfigurationInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed MessagingConfigurationInstance
+   * @returns Resolves to processed MessagingConfigurationInstance
    */
   fetch(
     callback?: (
@@ -118,10 +105,10 @@ export interface MessagingConfigurationContext {
   /**
    * Update a MessagingConfigurationInstance
    *
-   * @param { MessagingConfigurationContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed MessagingConfigurationInstance
+   * @returns Resolves to processed MessagingConfigurationInstance
    */
   update(
     params: MessagingConfigurationContextUpdateOptions,
@@ -130,7 +117,6 @@ export interface MessagingConfigurationContext {
       item?: MessagingConfigurationInstance
     ) => any
   ): Promise<MessagingConfigurationInstance>;
-  update(params: any, callback?: any): Promise<MessagingConfigurationInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -140,8 +126,8 @@ export interface MessagingConfigurationContext {
 }
 
 export interface MessagingConfigurationContextSolution {
-  serviceSid?: string;
-  country?: string;
+  serviceSid: string;
+  country: string;
 }
 
 export class MessagingConfigurationContextImpl
@@ -163,24 +149,33 @@ export class MessagingConfigurationContextImpl
     this._uri = `/Services/${serviceSid}/MessagingConfigurations/${country}`;
   }
 
-  remove(callback?: any): Promise<boolean> {
-    let operationVersion = this._version,
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<MessagingConfigurationInstance> {
-    let operationVersion = this._version,
+  fetch(
+    callback?: (
+      error: Error | null,
+      item?: MessagingConfigurationInstance
+    ) => any
+  ): Promise<MessagingConfigurationInstance> {
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -189,19 +184,25 @@ export class MessagingConfigurationContextImpl
         new MessagingConfigurationInstance(
           operationVersion,
           payload,
-          this._solution.serviceSid,
-          this._solution.country
+          instance._solution.serviceSid,
+          instance._solution.country
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
     return operationPromise;
   }
 
-  update(params: any, callback?: any): Promise<MessagingConfigurationInstance> {
+  update(
+    params: MessagingConfigurationContextUpdateOptions,
+    callback?: (
+      error: Error | null,
+      item?: MessagingConfigurationInstance
+    ) => any
+  ): Promise<MessagingConfigurationInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
@@ -222,9 +223,10 @@ export class MessagingConfigurationContextImpl
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -235,12 +237,12 @@ export class MessagingConfigurationContextImpl
         new MessagingConfigurationInstance(
           operationVersion,
           payload,
-          this._solution.serviceSid,
-          this._solution.country
+          instance._solution.serviceSid,
+          instance._solution.country
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -266,13 +268,13 @@ interface MessagingConfigurationPayload extends TwilioResponsePayload {
 }
 
 interface MessagingConfigurationResource {
-  account_sid?: string | null;
-  service_sid?: string | null;
-  country?: string | null;
-  messaging_service_sid?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  url?: string | null;
+  account_sid: string;
+  service_sid: string;
+  country: string;
+  messaging_service_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  url: string;
 }
 
 export class MessagingConfigurationInstance {
@@ -299,31 +301,31 @@ export class MessagingConfigurationInstance {
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The SID of the Service that the resource is associated with
    */
-  serviceSid?: string | null;
+  serviceSid: string;
   /**
    * The ISO-3166-1 country code of the country or `all`.
    */
-  country?: string | null;
+  country: string;
   /**
    * The SID of the Messaging Service used for this configuration.
    */
-  messagingServiceSid?: string | null;
+  messagingServiceSid: string;
   /**
    * The RFC 2822 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The RFC 2822 date and time in GMT when the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The URL of this resource.
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): MessagingConfigurationContext {
     this._context =
@@ -339,9 +341,9 @@ export class MessagingConfigurationInstance {
   /**
    * Remove a MessagingConfigurationInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -352,9 +354,9 @@ export class MessagingConfigurationInstance {
   /**
    * Fetch a MessagingConfigurationInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed MessagingConfigurationInstance
+   * @returns Resolves to processed MessagingConfigurationInstance
    */
   fetch(
     callback?: (
@@ -368,10 +370,10 @@ export class MessagingConfigurationInstance {
   /**
    * Update a MessagingConfigurationInstance
    *
-   * @param { MessagingConfigurationContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed MessagingConfigurationInstance
+   * @returns Resolves to processed MessagingConfigurationInstance
    */
   update(
     params: MessagingConfigurationContextUpdateOptions,
@@ -380,7 +382,14 @@ export class MessagingConfigurationInstance {
       item?: MessagingConfigurationInstance
     ) => any
   ): Promise<MessagingConfigurationInstance>;
-  update(params: any, callback?: any): Promise<MessagingConfigurationInstance> {
+
+  update(
+    params?: any,
+    callback?: (
+      error: Error | null,
+      item?: MessagingConfigurationInstance
+    ) => any
+  ): Promise<MessagingConfigurationInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -406,17 +415,25 @@ export class MessagingConfigurationInstance {
   }
 }
 
+export interface MessagingConfigurationSolution {
+  serviceSid: string;
+}
+
 export interface MessagingConfigurationListInstance {
+  _version: V2;
+  _solution: MessagingConfigurationSolution;
+  _uri: string;
+
   (country: string): MessagingConfigurationContext;
   get(country: string): MessagingConfigurationContext;
 
   /**
    * Create a MessagingConfigurationInstance
    *
-   * @param { MessagingConfigurationListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed MessagingConfigurationInstance
+   * @returns Resolves to processed MessagingConfigurationInstance
    */
   create(
     params: MessagingConfigurationListInstanceCreateOptions,
@@ -425,28 +442,7 @@ export interface MessagingConfigurationListInstance {
       item?: MessagingConfigurationInstance
     ) => any
   ): Promise<MessagingConfigurationInstance>;
-  create(params: any, callback?: any): Promise<MessagingConfigurationInstance>;
 
-  /**
-   * Streams MessagingConfigurationInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (
-      item: MessagingConfigurationInstance,
-      done: (err?: Error) => void
-    ) => void
-  ): void;
   /**
    * Streams MessagingConfigurationInstance records from the API.
    *
@@ -463,56 +459,30 @@ export interface MessagingConfigurationListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: MessagingConfigurationListInstanceEachOptions,
     callback?: (
       item: MessagingConfigurationInstance,
       done: (err?: Error) => void
     ) => void
   ): void;
-  each(params?: any, callback?: any): void;
+  each(
+    params: MessagingConfigurationListInstanceEachOptions,
+    callback?: (
+      item: MessagingConfigurationInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
   /**
    * Retrieve a single target page of MessagingConfigurationInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: MessagingConfigurationPage) => any
-  ): Promise<MessagingConfigurationPage>;
-  /**
-   * Retrieve a single target page of MessagingConfigurationInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: MessagingConfigurationPage) => any
   ): Promise<MessagingConfigurationPage>;
-  getPage(params?: any, callback?: any): Promise<MessagingConfigurationPage>;
-  /**
-   * Lists MessagingConfigurationInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (
-      error: Error | null,
-      items: MessagingConfigurationInstance[]
-    ) => any
-  ): Promise<MessagingConfigurationInstance[]>;
   /**
    * Lists MessagingConfigurationInstance records from the API as a list.
    *
@@ -523,26 +493,18 @@ export interface MessagingConfigurationListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: MessagingConfigurationListInstanceOptions,
     callback?: (
       error: Error | null,
       items: MessagingConfigurationInstance[]
     ) => any
   ): Promise<MessagingConfigurationInstance[]>;
-  list(params?: any, callback?: any): Promise<MessagingConfigurationInstance[]>;
-  /**
-   * Retrieve a single page of MessagingConfigurationInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: MessagingConfigurationPage) => any
-  ): Promise<MessagingConfigurationPage>;
+  list(
+    params: MessagingConfigurationListInstanceOptions,
+    callback?: (
+      error: Error | null,
+      items: MessagingConfigurationInstance[]
+    ) => any
+  ): Promise<MessagingConfigurationInstance[]>;
   /**
    * Retrieve a single page of MessagingConfigurationInstance records from the API.
    *
@@ -555,30 +517,18 @@ export interface MessagingConfigurationListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
+    callback?: (error: Error | null, items: MessagingConfigurationPage) => any
+  ): Promise<MessagingConfigurationPage>;
+  page(
     params: MessagingConfigurationListInstancePageOptions,
     callback?: (error: Error | null, items: MessagingConfigurationPage) => any
   ): Promise<MessagingConfigurationPage>;
-  page(params?: any, callback?: any): Promise<MessagingConfigurationPage>;
 
   /**
    * Provide a user-friendly representation
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export interface MessagingConfigurationSolution {
-  serviceSid?: string;
-}
-
-interface MessagingConfigurationListInstanceImpl
-  extends MessagingConfigurationListInstance {}
-class MessagingConfigurationListInstanceImpl
-  implements MessagingConfigurationListInstance
-{
-  _version?: V2;
-  _solution?: MessagingConfigurationSolution;
-  _uri?: string;
 }
 
 export function MessagingConfigurationListInstance(
@@ -590,7 +540,7 @@ export function MessagingConfigurationListInstance(
   }
 
   const instance = ((country) =>
-    instance.get(country)) as MessagingConfigurationListInstanceImpl;
+    instance.get(country)) as MessagingConfigurationListInstance;
 
   instance.get = function get(country): MessagingConfigurationContext {
     return new MessagingConfigurationContextImpl(version, serviceSid, country);
@@ -601,8 +551,11 @@ export function MessagingConfigurationListInstance(
   instance._uri = `/Services/${serviceSid}/MessagingConfigurations`;
 
   instance.create = function create(
-    params: any,
-    callback?: any
+    params: MessagingConfigurationListInstanceCreateOptions,
+    callback?: (
+      error: Error | null,
+      items: MessagingConfigurationInstance
+    ) => any
   ): Promise<MessagingConfigurationInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -632,7 +585,7 @@ export function MessagingConfigurationListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -643,11 +596,11 @@ export function MessagingConfigurationListInstance(
         new MessagingConfigurationInstance(
           operationVersion,
           payload,
-          this._solution.serviceSid
+          instance._solution.serviceSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -655,10 +608,12 @@ export function MessagingConfigurationListInstance(
   };
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | MessagingConfigurationListInstancePageOptions
+      | ((error: Error | null, items: MessagingConfigurationPage) => any),
+    callback?: (error: Error | null, items: MessagingConfigurationPage) => any
   ): Promise<MessagingConfigurationPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -669,14 +624,14 @@ export function MessagingConfigurationListInstance(
 
     if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
@@ -687,11 +642,11 @@ export function MessagingConfigurationListInstance(
         new MessagingConfigurationPage(
           operationVersion,
           payload,
-          this._solution
+          instance._solution
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -701,34 +656,35 @@ export function MessagingConfigurationListInstance(
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: MessagingConfigurationPage) => any
   ): Promise<MessagingConfigurationPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
+    let pagePromise = operationPromise.then(
       (payload) =>
-        new MessagingConfigurationPage(this._version, payload, this._solution)
+        new MessagingConfigurationPage(
+          instance._version,
+          payload,
+          instance._solution
+        )
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

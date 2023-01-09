@@ -22,54 +22,43 @@ import { isValidPathParam } from "../../../base/utility";
 
 /**
  * Options to pass to each
- *
- * @property { string } [schemaId] A string parameter filtering the results to return only the Event Types using a given schema.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface EventTypeListInstanceEachOptions {
+  /** A string parameter filtering the results to return only the Event Types using a given schema. */
   schemaId?: string;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: EventTypeInstance, done: (err?: Error) => void) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { string } [schemaId] A string parameter filtering the results to return only the Event Types using a given schema.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface EventTypeListInstanceOptions {
+  /** A string parameter filtering the results to return only the Event Types using a given schema. */
   schemaId?: string;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { string } [schemaId] A string parameter filtering the results to return only the Event Types using a given schema.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface EventTypeListInstancePageOptions {
+  /** A string parameter filtering the results to return only the Event Types using a given schema. */
   schemaId?: string;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
@@ -77,9 +66,9 @@ export interface EventTypeContext {
   /**
    * Fetch a EventTypeInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed EventTypeInstance
+   * @returns Resolves to processed EventTypeInstance
    */
   fetch(
     callback?: (error: Error | null, item?: EventTypeInstance) => any
@@ -93,7 +82,7 @@ export interface EventTypeContext {
 }
 
 export interface EventTypeContextSolution {
-  type?: string;
+  type: string;
 }
 
 export class EventTypeContextImpl implements EventTypeContext {
@@ -109,19 +98,26 @@ export class EventTypeContextImpl implements EventTypeContext {
     this._uri = `/Types/${type}`;
   }
 
-  fetch(callback?: any): Promise<EventTypeInstance> {
-    let operationVersion = this._version,
+  fetch(
+    callback?: (error: Error | null, item?: EventTypeInstance) => any
+  ): Promise<EventTypeInstance> {
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new EventTypeInstance(operationVersion, payload, this._solution.type)
+        new EventTypeInstance(
+          operationVersion,
+          payload,
+          instance._solution.type
+        )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -147,13 +143,13 @@ interface EventTypePayload extends TwilioResponsePayload {
 }
 
 interface EventTypeResource {
-  type?: string | null;
-  schema_id?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  description?: string | null;
-  url?: string | null;
-  links?: object | null;
+  type: string;
+  schema_id: string;
+  date_created: Date;
+  date_updated: Date;
+  description: string;
+  url: string;
+  links: Record<string, string>;
 }
 
 export class EventTypeInstance {
@@ -179,28 +175,28 @@ export class EventTypeInstance {
   /**
    * The Event Type identifier.
    */
-  type?: string | null;
+  type: string;
   /**
    * The Schema identifier for this Event Type.
    */
-  schemaId?: string | null;
+  schemaId: string;
   /**
    * The date this Event Type was created.
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The date this Event Type was updated.
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * Event Type description.
    */
-  description?: string | null;
+  description: string;
   /**
    * The URL of this resource.
    */
-  url?: string | null;
-  links?: object | null;
+  url: string;
+  links: Record<string, string>;
 
   private get _proxy(): EventTypeContext {
     this._context =
@@ -212,9 +208,9 @@ export class EventTypeInstance {
   /**
    * Fetch a EventTypeInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed EventTypeInstance
+   * @returns Resolves to processed EventTypeInstance
    */
   fetch(
     callback?: (error: Error | null, item?: EventTypeInstance) => any
@@ -244,27 +240,16 @@ export class EventTypeInstance {
   }
 }
 
+export interface EventTypeSolution {}
+
 export interface EventTypeListInstance {
+  _version: V1;
+  _solution: EventTypeSolution;
+  _uri: string;
+
   (type: string): EventTypeContext;
   get(type: string): EventTypeContext;
 
-  /**
-   * Streams EventTypeInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (item: EventTypeInstance, done: (err?: Error) => void) => void
-  ): void;
   /**
    * Streams EventTypeInstance records from the API.
    *
@@ -281,50 +266,24 @@ export interface EventTypeListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: EventTypeListInstanceEachOptions,
     callback?: (item: EventTypeInstance, done: (err?: Error) => void) => void
   ): void;
-  each(params?: any, callback?: any): void;
+  each(
+    params: EventTypeListInstanceEachOptions,
+    callback?: (item: EventTypeInstance, done: (err?: Error) => void) => void
+  ): void;
   /**
    * Retrieve a single target page of EventTypeInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: EventTypePage) => any
-  ): Promise<EventTypePage>;
-  /**
-   * Retrieve a single target page of EventTypeInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: EventTypePage) => any
   ): Promise<EventTypePage>;
-  getPage(params?: any, callback?: any): Promise<EventTypePage>;
-  /**
-   * Lists EventTypeInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: EventTypeInstance[]) => any
-  ): Promise<EventTypeInstance[]>;
   /**
    * Lists EventTypeInstance records from the API as a list.
    *
@@ -335,23 +294,12 @@ export interface EventTypeListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: EventTypeListInstanceOptions,
     callback?: (error: Error | null, items: EventTypeInstance[]) => any
   ): Promise<EventTypeInstance[]>;
-  list(params?: any, callback?: any): Promise<EventTypeInstance[]>;
-  /**
-   * Retrieve a single page of EventTypeInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: EventTypePage) => any
-  ): Promise<EventTypePage>;
+  list(
+    params: EventTypeListInstanceOptions,
+    callback?: (error: Error | null, items: EventTypeInstance[]) => any
+  ): Promise<EventTypeInstance[]>;
   /**
    * Retrieve a single page of EventTypeInstance records from the API.
    *
@@ -364,10 +312,12 @@ export interface EventTypeListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
+    callback?: (error: Error | null, items: EventTypePage) => any
+  ): Promise<EventTypePage>;
+  page(
     params: EventTypeListInstancePageOptions,
     callback?: (error: Error | null, items: EventTypePage) => any
   ): Promise<EventTypePage>;
-  page(params?: any, callback?: any): Promise<EventTypePage>;
 
   /**
    * Provide a user-friendly representation
@@ -376,17 +326,8 @@ export interface EventTypeListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface EventTypeSolution {}
-
-interface EventTypeListInstanceImpl extends EventTypeListInstance {}
-class EventTypeListInstanceImpl implements EventTypeListInstance {
-  _version?: V1;
-  _solution?: EventTypeSolution;
-  _uri?: string;
-}
-
 export function EventTypeListInstance(version: V1): EventTypeListInstance {
-  const instance = ((type) => instance.get(type)) as EventTypeListInstanceImpl;
+  const instance = ((type) => instance.get(type)) as EventTypeListInstance;
 
   instance.get = function get(type): EventTypeContext {
     return new EventTypeContextImpl(version, type);
@@ -397,10 +338,12 @@ export function EventTypeListInstance(version: V1): EventTypeListInstance {
   instance._uri = `/Types`;
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | EventTypeListInstancePageOptions
+      | ((error: Error | null, items: EventTypePage) => any),
+    callback?: (error: Error | null, items: EventTypePage) => any
   ): Promise<EventTypePage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -412,24 +355,25 @@ export function EventTypeListInstance(version: V1): EventTypeListInstance {
     if (params["schemaId"] !== undefined) data["SchemaId"] = params["schemaId"];
     if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new EventTypePage(operationVersion, payload, this._solution)
+      (payload) =>
+        new EventTypePage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -439,33 +383,31 @@ export function EventTypeListInstance(version: V1): EventTypeListInstance {
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: EventTypePage) => any
   ): Promise<EventTypePage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new EventTypePage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new EventTypePage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

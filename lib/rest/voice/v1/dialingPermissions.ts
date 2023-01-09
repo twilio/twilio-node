@@ -21,9 +21,18 @@ import { BulkCountryUpdateListInstance } from "./dialingPermissions/bulkCountryU
 import { CountryListInstance } from "./dialingPermissions/country";
 import { SettingsListInstance } from "./dialingPermissions/settings";
 
+export interface DialingPermissionsSolution {}
+
 export interface DialingPermissionsListInstance {
+  _version: V1;
+  _solution: DialingPermissionsSolution;
+  _uri: string;
+
+  _bulkCountryUpdates?: BulkCountryUpdateListInstance;
   bulkCountryUpdates: BulkCountryUpdateListInstance;
+  _countries?: CountryListInstance;
   countries: CountryListInstance;
+  _settings?: SettingsListInstance;
   settings: SettingsListInstance;
 
   /**
@@ -33,26 +42,10 @@ export interface DialingPermissionsListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface DialingPermissionsSolution {}
-
-interface DialingPermissionsListInstanceImpl
-  extends DialingPermissionsListInstance {}
-class DialingPermissionsListInstanceImpl
-  implements DialingPermissionsListInstance
-{
-  _version?: V1;
-  _solution?: DialingPermissionsSolution;
-  _uri?: string;
-
-  _bulkCountryUpdates?: BulkCountryUpdateListInstance;
-  _countries?: CountryListInstance;
-  _settings?: SettingsListInstance;
-}
-
 export function DialingPermissionsListInstance(
   version: V1
 ): DialingPermissionsListInstance {
-  const instance = {} as DialingPermissionsListInstanceImpl;
+  const instance = {} as DialingPermissionsListInstance;
 
   instance._version = version;
   instance._solution = {};
@@ -60,40 +53,42 @@ export function DialingPermissionsListInstance(
 
   Object.defineProperty(instance, "bulkCountryUpdates", {
     get: function bulkCountryUpdates() {
-      if (!this._bulkCountryUpdates) {
-        this._bulkCountryUpdates = BulkCountryUpdateListInstance(this._version);
+      if (!instance._bulkCountryUpdates) {
+        instance._bulkCountryUpdates = BulkCountryUpdateListInstance(
+          instance._version
+        );
       }
-      return this._bulkCountryUpdates;
+      return instance._bulkCountryUpdates;
     },
   });
 
   Object.defineProperty(instance, "countries", {
     get: function countries() {
-      if (!this._countries) {
-        this._countries = CountryListInstance(this._version);
+      if (!instance._countries) {
+        instance._countries = CountryListInstance(instance._version);
       }
-      return this._countries;
+      return instance._countries;
     },
   });
 
   Object.defineProperty(instance, "settings", {
     get: function settings() {
-      if (!this._settings) {
-        this._settings = SettingsListInstance(this._version);
+      if (!instance._settings) {
+        instance._settings = SettingsListInstance(instance._version);
       }
-      return this._settings;
+      return instance._settings;
     },
   });
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

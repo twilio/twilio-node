@@ -28,90 +28,77 @@ type MediaProcessorUpdateStatus = "ended";
 
 /**
  * Options to pass to update a MediaProcessorInstance
- *
- * @property { MediaProcessorUpdateStatus } status
  */
 export interface MediaProcessorContextUpdateOptions {
+  /**  */
   status: MediaProcessorUpdateStatus;
 }
 
 /**
  * Options to pass to create a MediaProcessorInstance
- *
- * @property { string } extension The [Media Extension](/docs/live/api/media-extensions-overview) name or URL. Ex: `video-composer-v2`
- * @property { string } extensionContext The context of the Media Extension, represented as a JSON dictionary. See the documentation for the specific [Media Extension](/docs/live/api/media-extensions-overview) you are using for more information about the context to send.
- * @property { any } [extensionEnvironment] User-defined environment variables for the Media Extension, represented as a JSON dictionary of key/value strings. See the documentation for the specific [Media Extension](/docs/live/api/media-extensions-overview) you are using for more information about whether you need to provide this.
- * @property { string } [statusCallback] The URL to which Twilio will send asynchronous webhook requests for every MediaProcessor event. See [Status Callbacks](/docs/live/status-callbacks) for details.
- * @property { string } [statusCallbackMethod] The HTTP method Twilio should use to call the `status_callback` URL. Can be `POST` or `GET` and the default is `POST`.
- * @property { number } [maxDuration] The maximum time, in seconds, that the MediaProcessor can run before automatically ends. The default value is 300 seconds, and the maximum value is 90000 seconds. Once this maximum duration is reached, Twilio will end the MediaProcessor, regardless of whether media is still streaming.
  */
 export interface MediaProcessorListInstanceCreateOptions {
+  /** The [Media Extension](/docs/live/api/media-extensions-overview) name or URL. Ex: `video-composer-v2` */
   extension: string;
+  /** The context of the Media Extension, represented as a JSON dictionary. See the documentation for the specific [Media Extension](/docs/live/api/media-extensions-overview) you are using for more information about the context to send. */
   extensionContext: string;
+  /** User-defined environment variables for the Media Extension, represented as a JSON dictionary of key/value strings. See the documentation for the specific [Media Extension](/docs/live/api/media-extensions-overview) you are using for more information about whether you need to provide this. */
   extensionEnvironment?: any;
+  /** The URL to which Twilio will send asynchronous webhook requests for every MediaProcessor event. See [Status Callbacks](/docs/live/status-callbacks) for details. */
   statusCallback?: string;
+  /** The HTTP method Twilio should use to call the `status_callback` URL. Can be `POST` or `GET` and the default is `POST`. */
   statusCallbackMethod?: string;
+  /** The maximum time, in seconds, that the MediaProcessor can run before automatically ends. The default value is 300 seconds, and the maximum value is 90000 seconds. Once this maximum duration is reached, Twilio will end the MediaProcessor, regardless of whether media is still streaming. */
   maxDuration?: number;
 }
 /**
  * Options to pass to each
- *
- * @property { MediaProcessorOrder } [order] The sort order of the list by `date_created`. Can be: `asc` (ascending) or `desc` (descending) with `desc` as the default.
- * @property { MediaProcessorStatus } [status] Status to filter by, with possible values `started`, `ended` or `failed`.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface MediaProcessorListInstanceEachOptions {
+  /** The sort order of the list by `date_created`. Can be: `asc` (ascending) or `desc` (descending) with `desc` as the default. */
   order?: MediaProcessorOrder;
+  /** Status to filter by, with possible values `started`, `ended` or `failed`. */
   status?: MediaProcessorStatus;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (
     item: MediaProcessorInstance,
     done: (err?: Error) => void
   ) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { MediaProcessorOrder } [order] The sort order of the list by `date_created`. Can be: `asc` (ascending) or `desc` (descending) with `desc` as the default.
- * @property { MediaProcessorStatus } [status] Status to filter by, with possible values `started`, `ended` or `failed`.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface MediaProcessorListInstanceOptions {
+  /** The sort order of the list by `date_created`. Can be: `asc` (ascending) or `desc` (descending) with `desc` as the default. */
   order?: MediaProcessorOrder;
+  /** Status to filter by, with possible values `started`, `ended` or `failed`. */
   status?: MediaProcessorStatus;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { MediaProcessorOrder } [order] The sort order of the list by `date_created`. Can be: `asc` (ascending) or `desc` (descending) with `desc` as the default.
- * @property { MediaProcessorStatus } [status] Status to filter by, with possible values `started`, `ended` or `failed`.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface MediaProcessorListInstancePageOptions {
+  /** The sort order of the list by `date_created`. Can be: `asc` (ascending) or `desc` (descending) with `desc` as the default. */
   order?: MediaProcessorOrder;
+  /** Status to filter by, with possible values `started`, `ended` or `failed`. */
   status?: MediaProcessorStatus;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
@@ -119,9 +106,9 @@ export interface MediaProcessorContext {
   /**
    * Fetch a MediaProcessorInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed MediaProcessorInstance
+   * @returns Resolves to processed MediaProcessorInstance
    */
   fetch(
     callback?: (error: Error | null, item?: MediaProcessorInstance) => any
@@ -130,16 +117,15 @@ export interface MediaProcessorContext {
   /**
    * Update a MediaProcessorInstance
    *
-   * @param { MediaProcessorContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed MediaProcessorInstance
+   * @returns Resolves to processed MediaProcessorInstance
    */
   update(
     params: MediaProcessorContextUpdateOptions,
     callback?: (error: Error | null, item?: MediaProcessorInstance) => any
   ): Promise<MediaProcessorInstance>;
-  update(params: any, callback?: any): Promise<MediaProcessorInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -149,7 +135,7 @@ export interface MediaProcessorContext {
 }
 
 export interface MediaProcessorContextSolution {
-  sid?: string;
+  sid: string;
 }
 
 export class MediaProcessorContextImpl implements MediaProcessorContext {
@@ -165,10 +151,13 @@ export class MediaProcessorContextImpl implements MediaProcessorContext {
     this._uri = `/MediaProcessors/${sid}`;
   }
 
-  fetch(callback?: any): Promise<MediaProcessorInstance> {
-    let operationVersion = this._version,
+  fetch(
+    callback?: (error: Error | null, item?: MediaProcessorInstance) => any
+  ): Promise<MediaProcessorInstance> {
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -177,18 +166,21 @@ export class MediaProcessorContextImpl implements MediaProcessorContext {
         new MediaProcessorInstance(
           operationVersion,
           payload,
-          this._solution.sid
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
     return operationPromise;
   }
 
-  update(params: any, callback?: any): Promise<MediaProcessorInstance> {
+  update(
+    params: MediaProcessorContextUpdateOptions,
+    callback?: (error: Error | null, item?: MediaProcessorInstance) => any
+  ): Promise<MediaProcessorInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
@@ -204,9 +196,10 @@ export class MediaProcessorContextImpl implements MediaProcessorContext {
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -217,11 +210,11 @@ export class MediaProcessorContextImpl implements MediaProcessorContext {
         new MediaProcessorInstance(
           operationVersion,
           payload,
-          this._solution.sid
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -255,18 +248,18 @@ interface MediaProcessorPayload extends TwilioResponsePayload {
 }
 
 interface MediaProcessorResource {
-  account_sid?: string | null;
-  sid?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  extension?: string | null;
-  extension_context?: string | null;
-  status?: MediaProcessorStatus;
-  url?: string | null;
-  ended_reason?: string | null;
-  status_callback?: string | null;
-  status_callback_method?: MediaProcessorStatusCallbackMethod;
-  max_duration?: number | null;
+  account_sid: string;
+  sid: string;
+  date_created: Date;
+  date_updated: Date;
+  extension: string;
+  extension_context: string;
+  status: MediaProcessorStatus;
+  url: string;
+  ended_reason: string;
+  status_callback: string;
+  status_callback_method: MediaProcessorStatusCallbackMethod;
+  max_duration: number;
 }
 
 export class MediaProcessorInstance {
@@ -297,48 +290,48 @@ export class MediaProcessorInstance {
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The ISO 8601 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The ISO 8601 date and time in GMT when the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The Media Extension name or URL
    */
-  extension?: string | null;
+  extension: string;
   /**
    * The Media Extension context
    */
-  extensionContext?: string | null;
-  status?: MediaProcessorStatus;
+  extensionContext: string;
+  status: MediaProcessorStatus;
   /**
    * The absolute URL of the resource
    */
-  url?: string | null;
+  url: string;
   /**
    * The reason why a MediaProcessor ended
    */
-  endedReason?: string | null;
+  endedReason: string;
   /**
    * The URL to which Twilio will send MediaProcessor event updates
    */
-  statusCallback?: string | null;
+  statusCallback: string;
   /**
    * The HTTP method Twilio should use to call the `status_callback` URL
    */
-  statusCallbackMethod?: MediaProcessorStatusCallbackMethod;
+  statusCallbackMethod: MediaProcessorStatusCallbackMethod;
   /**
    * Maximum MediaProcessor duration in seconds
    */
-  maxDuration?: number | null;
+  maxDuration: number;
 
   private get _proxy(): MediaProcessorContext {
     this._context =
@@ -350,9 +343,9 @@ export class MediaProcessorInstance {
   /**
    * Fetch a MediaProcessorInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed MediaProcessorInstance
+   * @returns Resolves to processed MediaProcessorInstance
    */
   fetch(
     callback?: (error: Error | null, item?: MediaProcessorInstance) => any
@@ -363,16 +356,20 @@ export class MediaProcessorInstance {
   /**
    * Update a MediaProcessorInstance
    *
-   * @param { MediaProcessorContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed MediaProcessorInstance
+   * @returns Resolves to processed MediaProcessorInstance
    */
   update(
     params: MediaProcessorContextUpdateOptions,
     callback?: (error: Error | null, item?: MediaProcessorInstance) => any
   ): Promise<MediaProcessorInstance>;
-  update(params: any, callback?: any): Promise<MediaProcessorInstance> {
+
+  update(
+    params?: any,
+    callback?: (error: Error | null, item?: MediaProcessorInstance) => any
+  ): Promise<MediaProcessorInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -403,44 +400,29 @@ export class MediaProcessorInstance {
   }
 }
 
+export interface MediaProcessorSolution {}
+
 export interface MediaProcessorListInstance {
+  _version: V1;
+  _solution: MediaProcessorSolution;
+  _uri: string;
+
   (sid: string): MediaProcessorContext;
   get(sid: string): MediaProcessorContext;
 
   /**
    * Create a MediaProcessorInstance
    *
-   * @param { MediaProcessorListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed MediaProcessorInstance
+   * @returns Resolves to processed MediaProcessorInstance
    */
   create(
     params: MediaProcessorListInstanceCreateOptions,
     callback?: (error: Error | null, item?: MediaProcessorInstance) => any
   ): Promise<MediaProcessorInstance>;
-  create(params: any, callback?: any): Promise<MediaProcessorInstance>;
 
-  /**
-   * Streams MediaProcessorInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (
-      item: MediaProcessorInstance,
-      done: (err?: Error) => void
-    ) => void
-  ): void;
   /**
    * Streams MediaProcessorInstance records from the API.
    *
@@ -457,53 +439,30 @@ export interface MediaProcessorListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: MediaProcessorListInstanceEachOptions,
     callback?: (
       item: MediaProcessorInstance,
       done: (err?: Error) => void
     ) => void
   ): void;
-  each(params?: any, callback?: any): void;
+  each(
+    params: MediaProcessorListInstanceEachOptions,
+    callback?: (
+      item: MediaProcessorInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
   /**
    * Retrieve a single target page of MediaProcessorInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: MediaProcessorPage) => any
-  ): Promise<MediaProcessorPage>;
-  /**
-   * Retrieve a single target page of MediaProcessorInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: MediaProcessorPage) => any
   ): Promise<MediaProcessorPage>;
-  getPage(params?: any, callback?: any): Promise<MediaProcessorPage>;
-  /**
-   * Lists MediaProcessorInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: MediaProcessorInstance[]) => any
-  ): Promise<MediaProcessorInstance[]>;
   /**
    * Lists MediaProcessorInstance records from the API as a list.
    *
@@ -514,23 +473,12 @@ export interface MediaProcessorListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: MediaProcessorListInstanceOptions,
     callback?: (error: Error | null, items: MediaProcessorInstance[]) => any
   ): Promise<MediaProcessorInstance[]>;
-  list(params?: any, callback?: any): Promise<MediaProcessorInstance[]>;
-  /**
-   * Retrieve a single page of MediaProcessorInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: MediaProcessorPage) => any
-  ): Promise<MediaProcessorPage>;
+  list(
+    params: MediaProcessorListInstanceOptions,
+    callback?: (error: Error | null, items: MediaProcessorInstance[]) => any
+  ): Promise<MediaProcessorInstance[]>;
   /**
    * Retrieve a single page of MediaProcessorInstance records from the API.
    *
@@ -543,10 +491,12 @@ export interface MediaProcessorListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
+    callback?: (error: Error | null, items: MediaProcessorPage) => any
+  ): Promise<MediaProcessorPage>;
+  page(
     params: MediaProcessorListInstancePageOptions,
     callback?: (error: Error | null, items: MediaProcessorPage) => any
   ): Promise<MediaProcessorPage>;
-  page(params?: any, callback?: any): Promise<MediaProcessorPage>;
 
   /**
    * Provide a user-friendly representation
@@ -555,20 +505,10 @@ export interface MediaProcessorListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface MediaProcessorSolution {}
-
-interface MediaProcessorListInstanceImpl extends MediaProcessorListInstance {}
-class MediaProcessorListInstanceImpl implements MediaProcessorListInstance {
-  _version?: V1;
-  _solution?: MediaProcessorSolution;
-  _uri?: string;
-}
-
 export function MediaProcessorListInstance(
   version: V1
 ): MediaProcessorListInstance {
-  const instance = ((sid) =>
-    instance.get(sid)) as MediaProcessorListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as MediaProcessorListInstance;
 
   instance.get = function get(sid): MediaProcessorContext {
     return new MediaProcessorContextImpl(version, sid);
@@ -579,8 +519,8 @@ export function MediaProcessorListInstance(
   instance._uri = `/MediaProcessors`;
 
   instance.create = function create(
-    params: any,
-    callback?: any
+    params: MediaProcessorListInstanceCreateOptions,
+    callback?: (error: Error | null, items: MediaProcessorInstance) => any
   ): Promise<MediaProcessorInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -620,7 +560,7 @@ export function MediaProcessorListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -630,7 +570,7 @@ export function MediaProcessorListInstance(
       (payload) => new MediaProcessorInstance(operationVersion, payload)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -638,10 +578,12 @@ export function MediaProcessorListInstance(
   };
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | MediaProcessorListInstancePageOptions
+      | ((error: Error | null, items: MediaProcessorPage) => any),
+    callback?: (error: Error | null, items: MediaProcessorPage) => any
   ): Promise<MediaProcessorPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -654,14 +596,14 @@ export function MediaProcessorListInstance(
     if (params["status"] !== undefined) data["Status"] = params["status"];
     if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
@@ -669,10 +611,10 @@ export function MediaProcessorListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new MediaProcessorPage(operationVersion, payload, this._solution)
+        new MediaProcessorPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -682,34 +624,31 @@ export function MediaProcessorListInstance(
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: MediaProcessorPage) => any
   ): Promise<MediaProcessorPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
+    let pagePromise = operationPromise.then(
       (payload) =>
-        new MediaProcessorPage(this._version, payload, this._solution)
+        new MediaProcessorPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

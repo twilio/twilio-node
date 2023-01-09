@@ -22,66 +22,55 @@ import { isValidPathParam } from "../../../base/utility";
 
 /**
  * Options to pass to each
- *
- * @property { string } [isoCountry] The [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the Network resources to read.
- * @property { string } [mcc] The \'mobile country code\' of a country. Network resources with this `mcc` in their `identifiers` will be read.
- * @property { string } [mnc] The \'mobile network code\' of a mobile operator network. Network resources with this `mnc` in their `identifiers` will be read.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface NetworkListInstanceEachOptions {
+  /** The [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the Network resources to read. */
   isoCountry?: string;
+  /** The \'mobile country code\' of a country. Network resources with this `mcc` in their `identifiers` will be read. */
   mcc?: string;
+  /** The \'mobile network code\' of a mobile operator network. Network resources with this `mnc` in their `identifiers` will be read. */
   mnc?: string;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: NetworkInstance, done: (err?: Error) => void) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { string } [isoCountry] The [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the Network resources to read.
- * @property { string } [mcc] The \'mobile country code\' of a country. Network resources with this `mcc` in their `identifiers` will be read.
- * @property { string } [mnc] The \'mobile network code\' of a mobile operator network. Network resources with this `mnc` in their `identifiers` will be read.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface NetworkListInstanceOptions {
+  /** The [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the Network resources to read. */
   isoCountry?: string;
+  /** The \'mobile country code\' of a country. Network resources with this `mcc` in their `identifiers` will be read. */
   mcc?: string;
+  /** The \'mobile network code\' of a mobile operator network. Network resources with this `mnc` in their `identifiers` will be read. */
   mnc?: string;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { string } [isoCountry] The [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the Network resources to read.
- * @property { string } [mcc] The \'mobile country code\' of a country. Network resources with this `mcc` in their `identifiers` will be read.
- * @property { string } [mnc] The \'mobile network code\' of a mobile operator network. Network resources with this `mnc` in their `identifiers` will be read.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface NetworkListInstancePageOptions {
+  /** The [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the Network resources to read. */
   isoCountry?: string;
+  /** The \'mobile country code\' of a country. Network resources with this `mcc` in their `identifiers` will be read. */
   mcc?: string;
+  /** The \'mobile network code\' of a mobile operator network. Network resources with this `mnc` in their `identifiers` will be read. */
   mnc?: string;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
@@ -89,9 +78,9 @@ export interface NetworkContext {
   /**
    * Fetch a NetworkInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed NetworkInstance
+   * @returns Resolves to processed NetworkInstance
    */
   fetch(
     callback?: (error: Error | null, item?: NetworkInstance) => any
@@ -105,7 +94,7 @@ export interface NetworkContext {
 }
 
 export interface NetworkContextSolution {
-  sid?: string;
+  sid: string;
 }
 
 export class NetworkContextImpl implements NetworkContext {
@@ -121,19 +110,22 @@ export class NetworkContextImpl implements NetworkContext {
     this._uri = `/Networks/${sid}`;
   }
 
-  fetch(callback?: any): Promise<NetworkInstance> {
-    let operationVersion = this._version,
+  fetch(
+    callback?: (error: Error | null, item?: NetworkInstance) => any
+  ): Promise<NetworkInstance> {
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new NetworkInstance(operationVersion, payload, this._solution.sid)
+        new NetworkInstance(operationVersion, payload, instance._solution.sid)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -159,11 +151,11 @@ interface NetworkPayload extends TwilioResponsePayload {
 }
 
 interface NetworkResource {
-  sid?: string | null;
-  friendly_name?: string | null;
-  url?: string | null;
-  iso_country?: string | null;
-  identifiers?: Array<any> | null;
+  sid: string;
+  friendly_name: string;
+  url: string;
+  iso_country: string;
+  identifiers: Array<any>;
 }
 
 export class NetworkInstance {
@@ -183,23 +175,23 @@ export class NetworkInstance {
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * A human readable identifier of this resource
    */
-  friendlyName?: string | null;
+  friendlyName: string;
   /**
    * The absolute URL of the Network resource
    */
-  url?: string | null;
+  url: string;
   /**
    * The ISO country code of the Network resource
    */
-  isoCountry?: string | null;
+  isoCountry: string;
   /**
    * The MCC/MNCs included in the Network resource
    */
-  identifiers?: Array<any> | null;
+  identifiers: Array<any>;
 
   private get _proxy(): NetworkContext {
     this._context =
@@ -211,9 +203,9 @@ export class NetworkInstance {
   /**
    * Fetch a NetworkInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed NetworkInstance
+   * @returns Resolves to processed NetworkInstance
    */
   fetch(
     callback?: (error: Error | null, item?: NetworkInstance) => any
@@ -241,27 +233,16 @@ export class NetworkInstance {
   }
 }
 
+export interface NetworkSolution {}
+
 export interface NetworkListInstance {
+  _version: V1;
+  _solution: NetworkSolution;
+  _uri: string;
+
   (sid: string): NetworkContext;
   get(sid: string): NetworkContext;
 
-  /**
-   * Streams NetworkInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (item: NetworkInstance, done: (err?: Error) => void) => void
-  ): void;
   /**
    * Streams NetworkInstance records from the API.
    *
@@ -278,50 +259,24 @@ export interface NetworkListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: NetworkListInstanceEachOptions,
     callback?: (item: NetworkInstance, done: (err?: Error) => void) => void
   ): void;
-  each(params?: any, callback?: any): void;
+  each(
+    params: NetworkListInstanceEachOptions,
+    callback?: (item: NetworkInstance, done: (err?: Error) => void) => void
+  ): void;
   /**
    * Retrieve a single target page of NetworkInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: NetworkPage) => any
-  ): Promise<NetworkPage>;
-  /**
-   * Retrieve a single target page of NetworkInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: NetworkPage) => any
   ): Promise<NetworkPage>;
-  getPage(params?: any, callback?: any): Promise<NetworkPage>;
-  /**
-   * Lists NetworkInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: NetworkInstance[]) => any
-  ): Promise<NetworkInstance[]>;
   /**
    * Lists NetworkInstance records from the API as a list.
    *
@@ -332,23 +287,12 @@ export interface NetworkListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: NetworkListInstanceOptions,
     callback?: (error: Error | null, items: NetworkInstance[]) => any
   ): Promise<NetworkInstance[]>;
-  list(params?: any, callback?: any): Promise<NetworkInstance[]>;
-  /**
-   * Retrieve a single page of NetworkInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: NetworkPage) => any
-  ): Promise<NetworkPage>;
+  list(
+    params: NetworkListInstanceOptions,
+    callback?: (error: Error | null, items: NetworkInstance[]) => any
+  ): Promise<NetworkInstance[]>;
   /**
    * Retrieve a single page of NetworkInstance records from the API.
    *
@@ -361,10 +305,12 @@ export interface NetworkListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
+    callback?: (error: Error | null, items: NetworkPage) => any
+  ): Promise<NetworkPage>;
+  page(
     params: NetworkListInstancePageOptions,
     callback?: (error: Error | null, items: NetworkPage) => any
   ): Promise<NetworkPage>;
-  page(params?: any, callback?: any): Promise<NetworkPage>;
 
   /**
    * Provide a user-friendly representation
@@ -373,17 +319,8 @@ export interface NetworkListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface NetworkSolution {}
-
-interface NetworkListInstanceImpl extends NetworkListInstance {}
-class NetworkListInstanceImpl implements NetworkListInstance {
-  _version?: V1;
-  _solution?: NetworkSolution;
-  _uri?: string;
-}
-
 export function NetworkListInstance(version: V1): NetworkListInstance {
-  const instance = ((sid) => instance.get(sid)) as NetworkListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as NetworkListInstance;
 
   instance.get = function get(sid): NetworkContext {
     return new NetworkContextImpl(version, sid);
@@ -394,10 +331,12 @@ export function NetworkListInstance(version: V1): NetworkListInstance {
   instance._uri = `/Networks`;
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | NetworkListInstancePageOptions
+      | ((error: Error | null, items: NetworkPage) => any),
+    callback?: (error: Error | null, items: NetworkPage) => any
   ): Promise<NetworkPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -412,24 +351,25 @@ export function NetworkListInstance(version: V1): NetworkListInstance {
     if (params["mnc"] !== undefined) data["Mnc"] = params["mnc"];
     if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new NetworkPage(operationVersion, payload, this._solution)
+      (payload) =>
+        new NetworkPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -439,33 +379,31 @@ export function NetworkListInstance(version: V1): NetworkListInstance {
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: NetworkPage) => any
   ): Promise<NetworkPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new NetworkPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new NetworkPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

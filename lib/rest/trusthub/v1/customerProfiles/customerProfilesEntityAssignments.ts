@@ -22,59 +22,47 @@ import { isValidPathParam } from "../../../../base/utility";
 
 /**
  * Options to pass to create a CustomerProfilesEntityAssignmentsInstance
- *
- * @property { string } objectSid The SID of an object bag that holds information of the different items.
  */
 export interface CustomerProfilesEntityAssignmentsListInstanceCreateOptions {
+  /** The SID of an object bag that holds information of the different items. */
   objectSid: string;
 }
 /**
  * Options to pass to each
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface CustomerProfilesEntityAssignmentsListInstanceEachOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (
     item: CustomerProfilesEntityAssignmentsInstance,
     done: (err?: Error) => void
   ) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface CustomerProfilesEntityAssignmentsListInstanceOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface CustomerProfilesEntityAssignmentsListInstancePageOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
@@ -82,9 +70,9 @@ export interface CustomerProfilesEntityAssignmentsContext {
   /**
    * Remove a CustomerProfilesEntityAssignmentsInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -93,9 +81,9 @@ export interface CustomerProfilesEntityAssignmentsContext {
   /**
    * Fetch a CustomerProfilesEntityAssignmentsInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed CustomerProfilesEntityAssignmentsInstance
+   * @returns Resolves to processed CustomerProfilesEntityAssignmentsInstance
    */
   fetch(
     callback?: (
@@ -112,8 +100,8 @@ export interface CustomerProfilesEntityAssignmentsContext {
 }
 
 export interface CustomerProfilesEntityAssignmentsContextSolution {
-  customerProfileSid?: string;
-  sid?: string;
+  customerProfileSid: string;
+  sid: string;
 }
 
 export class CustomerProfilesEntityAssignmentsContextImpl
@@ -135,24 +123,33 @@ export class CustomerProfilesEntityAssignmentsContextImpl
     this._uri = `/CustomerProfiles/${customerProfileSid}/EntityAssignments/${sid}`;
   }
 
-  remove(callback?: any): Promise<boolean> {
-    let operationVersion = this._version,
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<CustomerProfilesEntityAssignmentsInstance> {
-    let operationVersion = this._version,
+  fetch(
+    callback?: (
+      error: Error | null,
+      item?: CustomerProfilesEntityAssignmentsInstance
+    ) => any
+  ): Promise<CustomerProfilesEntityAssignmentsInstance> {
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -161,12 +158,12 @@ export class CustomerProfilesEntityAssignmentsContextImpl
         new CustomerProfilesEntityAssignmentsInstance(
           operationVersion,
           payload,
-          this._solution.customerProfileSid,
-          this._solution.sid
+          instance._solution.customerProfileSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -193,12 +190,12 @@ interface CustomerProfilesEntityAssignmentsPayload
 }
 
 interface CustomerProfilesEntityAssignmentsResource {
-  sid?: string | null;
-  customer_profile_sid?: string | null;
-  account_sid?: string | null;
-  object_sid?: string | null;
-  date_created?: Date | null;
-  url?: string | null;
+  sid: string;
+  customer_profile_sid: string;
+  account_sid: string;
+  object_sid: string;
+  date_created: Date;
+  url: string;
 }
 
 export class CustomerProfilesEntityAssignmentsInstance {
@@ -224,27 +221,27 @@ export class CustomerProfilesEntityAssignmentsInstance {
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The unique string that identifies the CustomerProfile resource.
    */
-  customerProfileSid?: string | null;
+  customerProfileSid: string;
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The sid of an object bag
    */
-  objectSid?: string | null;
+  objectSid: string;
   /**
    * The ISO 8601 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The absolute URL of the Identity resource
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): CustomerProfilesEntityAssignmentsContext {
     this._context =
@@ -260,9 +257,9 @@ export class CustomerProfilesEntityAssignmentsInstance {
   /**
    * Remove a CustomerProfilesEntityAssignmentsInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -273,9 +270,9 @@ export class CustomerProfilesEntityAssignmentsInstance {
   /**
    * Fetch a CustomerProfilesEntityAssignmentsInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed CustomerProfilesEntityAssignmentsInstance
+   * @returns Resolves to processed CustomerProfilesEntityAssignmentsInstance
    */
   fetch(
     callback?: (
@@ -307,17 +304,25 @@ export class CustomerProfilesEntityAssignmentsInstance {
   }
 }
 
+export interface CustomerProfilesEntityAssignmentsSolution {
+  customerProfileSid: string;
+}
+
 export interface CustomerProfilesEntityAssignmentsListInstance {
+  _version: V1;
+  _solution: CustomerProfilesEntityAssignmentsSolution;
+  _uri: string;
+
   (sid: string): CustomerProfilesEntityAssignmentsContext;
   get(sid: string): CustomerProfilesEntityAssignmentsContext;
 
   /**
    * Create a CustomerProfilesEntityAssignmentsInstance
    *
-   * @param { CustomerProfilesEntityAssignmentsListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed CustomerProfilesEntityAssignmentsInstance
+   * @returns Resolves to processed CustomerProfilesEntityAssignmentsInstance
    */
   create(
     params: CustomerProfilesEntityAssignmentsListInstanceCreateOptions,
@@ -326,31 +331,7 @@ export interface CustomerProfilesEntityAssignmentsListInstance {
       item?: CustomerProfilesEntityAssignmentsInstance
     ) => any
   ): Promise<CustomerProfilesEntityAssignmentsInstance>;
-  create(
-    params: any,
-    callback?: any
-  ): Promise<CustomerProfilesEntityAssignmentsInstance>;
 
-  /**
-   * Streams CustomerProfilesEntityAssignmentsInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (
-      item: CustomerProfilesEntityAssignmentsInstance,
-      done: (err?: Error) => void
-    ) => void
-  ): void;
   /**
    * Streams CustomerProfilesEntityAssignmentsInstance records from the API.
    *
@@ -367,65 +348,33 @@ export interface CustomerProfilesEntityAssignmentsListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: CustomerProfilesEntityAssignmentsListInstanceEachOptions,
     callback?: (
       item: CustomerProfilesEntityAssignmentsInstance,
       done: (err?: Error) => void
     ) => void
   ): void;
-  each(params?: any, callback?: any): void;
-  /**
-   * Retrieve a single target page of CustomerProfilesEntityAssignmentsInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
+  each(
+    params: CustomerProfilesEntityAssignmentsListInstanceEachOptions,
     callback?: (
-      error: Error | null,
-      items: CustomerProfilesEntityAssignmentsPage
-    ) => any
-  ): Promise<CustomerProfilesEntityAssignmentsPage>;
+      item: CustomerProfilesEntityAssignmentsInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
   /**
    * Retrieve a single target page of CustomerProfilesEntityAssignmentsInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (
       error: Error | null,
       items: CustomerProfilesEntityAssignmentsPage
     ) => any
   ): Promise<CustomerProfilesEntityAssignmentsPage>;
-  getPage(
-    params?: any,
-    callback?: any
-  ): Promise<CustomerProfilesEntityAssignmentsPage>;
-  /**
-   * Lists CustomerProfilesEntityAssignmentsInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (
-      error: Error | null,
-      items: CustomerProfilesEntityAssignmentsInstance[]
-    ) => any
-  ): Promise<CustomerProfilesEntityAssignmentsInstance[]>;
   /**
    * Lists CustomerProfilesEntityAssignmentsInstance records from the API as a list.
    *
@@ -436,32 +385,18 @@ export interface CustomerProfilesEntityAssignmentsListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: CustomerProfilesEntityAssignmentsListInstanceOptions,
     callback?: (
       error: Error | null,
       items: CustomerProfilesEntityAssignmentsInstance[]
     ) => any
   ): Promise<CustomerProfilesEntityAssignmentsInstance[]>;
   list(
-    params?: any,
-    callback?: any
-  ): Promise<CustomerProfilesEntityAssignmentsInstance[]>;
-  /**
-   * Retrieve a single page of CustomerProfilesEntityAssignmentsInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
+    params: CustomerProfilesEntityAssignmentsListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: CustomerProfilesEntityAssignmentsPage
+      items: CustomerProfilesEntityAssignmentsInstance[]
     ) => any
-  ): Promise<CustomerProfilesEntityAssignmentsPage>;
+  ): Promise<CustomerProfilesEntityAssignmentsInstance[]>;
   /**
    * Retrieve a single page of CustomerProfilesEntityAssignmentsInstance records from the API.
    *
@@ -474,15 +409,17 @@ export interface CustomerProfilesEntityAssignmentsListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    params: CustomerProfilesEntityAssignmentsListInstancePageOptions,
     callback?: (
       error: Error | null,
       items: CustomerProfilesEntityAssignmentsPage
     ) => any
   ): Promise<CustomerProfilesEntityAssignmentsPage>;
   page(
-    params?: any,
-    callback?: any
+    params: CustomerProfilesEntityAssignmentsListInstancePageOptions,
+    callback?: (
+      error: Error | null,
+      items: CustomerProfilesEntityAssignmentsPage
+    ) => any
   ): Promise<CustomerProfilesEntityAssignmentsPage>;
 
   /**
@@ -490,20 +427,6 @@ export interface CustomerProfilesEntityAssignmentsListInstance {
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export interface CustomerProfilesEntityAssignmentsSolution {
-  customerProfileSid?: string;
-}
-
-interface CustomerProfilesEntityAssignmentsListInstanceImpl
-  extends CustomerProfilesEntityAssignmentsListInstance {}
-class CustomerProfilesEntityAssignmentsListInstanceImpl
-  implements CustomerProfilesEntityAssignmentsListInstance
-{
-  _version?: V1;
-  _solution?: CustomerProfilesEntityAssignmentsSolution;
-  _uri?: string;
 }
 
 export function CustomerProfilesEntityAssignmentsListInstance(
@@ -515,7 +438,7 @@ export function CustomerProfilesEntityAssignmentsListInstance(
   }
 
   const instance = ((sid) =>
-    instance.get(sid)) as CustomerProfilesEntityAssignmentsListInstanceImpl;
+    instance.get(sid)) as CustomerProfilesEntityAssignmentsListInstance;
 
   instance.get = function get(sid): CustomerProfilesEntityAssignmentsContext {
     return new CustomerProfilesEntityAssignmentsContextImpl(
@@ -530,8 +453,11 @@ export function CustomerProfilesEntityAssignmentsListInstance(
   instance._uri = `/CustomerProfiles/${customerProfileSid}/EntityAssignments`;
 
   instance.create = function create(
-    params: any,
-    callback?: any
+    params: CustomerProfilesEntityAssignmentsListInstanceCreateOptions,
+    callback?: (
+      error: Error | null,
+      items: CustomerProfilesEntityAssignmentsInstance
+    ) => any
   ): Promise<CustomerProfilesEntityAssignmentsInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -550,7 +476,7 @@ export function CustomerProfilesEntityAssignmentsListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -561,11 +487,11 @@ export function CustomerProfilesEntityAssignmentsListInstance(
         new CustomerProfilesEntityAssignmentsInstance(
           operationVersion,
           payload,
-          this._solution.customerProfileSid
+          instance._solution.customerProfileSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -573,10 +499,18 @@ export function CustomerProfilesEntityAssignmentsListInstance(
   };
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | CustomerProfilesEntityAssignmentsListInstancePageOptions
+      | ((
+          error: Error | null,
+          items: CustomerProfilesEntityAssignmentsPage
+        ) => any),
+    callback?: (
+      error: Error | null,
+      items: CustomerProfilesEntityAssignmentsPage
+    ) => any
   ): Promise<CustomerProfilesEntityAssignmentsPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -587,14 +521,14 @@ export function CustomerProfilesEntityAssignmentsListInstance(
 
     if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
@@ -605,11 +539,11 @@ export function CustomerProfilesEntityAssignmentsListInstance(
         new CustomerProfilesEntityAssignmentsPage(
           operationVersion,
           payload,
-          this._solution
+          instance._solution
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -619,38 +553,38 @@ export function CustomerProfilesEntityAssignmentsListInstance(
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (
+      error: Error | null,
+      items: CustomerProfilesEntityAssignmentsPage
+    ) => any
   ): Promise<CustomerProfilesEntityAssignmentsPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
+    let pagePromise = operationPromise.then(
       (payload) =>
         new CustomerProfilesEntityAssignmentsPage(
-          this._version,
+          instance._version,
           payload,
-          this._solution
+          instance._solution
         )
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

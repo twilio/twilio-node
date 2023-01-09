@@ -31,81 +31,61 @@ type MetricTwilioEdge =
 
 /**
  * Options to pass to each
- *
- * @property { MetricTwilioEdge } [edge]
- * @property { MetricStreamDirection } [direction]
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface MetricListInstanceEachOptions {
+  /**  */
   edge?: MetricTwilioEdge;
+  /**  */
   direction?: MetricStreamDirection;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: MetricInstance, done: (err?: Error) => void) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { MetricTwilioEdge } [edge]
- * @property { MetricStreamDirection } [direction]
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface MetricListInstanceOptions {
+  /**  */
   edge?: MetricTwilioEdge;
+  /**  */
   direction?: MetricStreamDirection;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { MetricTwilioEdge } [edge]
- * @property { MetricStreamDirection } [direction]
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface MetricListInstancePageOptions {
+  /**  */
   edge?: MetricTwilioEdge;
+  /**  */
   direction?: MetricStreamDirection;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
+export interface MetricSolution {
+  callSid: string;
+}
+
 export interface MetricListInstance {
-  /**
-   * Streams MetricInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (item: MetricInstance, done: (err?: Error) => void) => void
-  ): void;
+  _version: V1;
+  _solution: MetricSolution;
+  _uri: string;
+
   /**
    * Streams MetricInstance records from the API.
    *
@@ -122,50 +102,24 @@ export interface MetricListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: MetricListInstanceEachOptions,
     callback?: (item: MetricInstance, done: (err?: Error) => void) => void
   ): void;
-  each(params?: any, callback?: any): void;
+  each(
+    params: MetricListInstanceEachOptions,
+    callback?: (item: MetricInstance, done: (err?: Error) => void) => void
+  ): void;
   /**
    * Retrieve a single target page of MetricInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: MetricPage) => any
-  ): Promise<MetricPage>;
-  /**
-   * Retrieve a single target page of MetricInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: MetricPage) => any
   ): Promise<MetricPage>;
-  getPage(params?: any, callback?: any): Promise<MetricPage>;
-  /**
-   * Lists MetricInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: MetricInstance[]) => any
-  ): Promise<MetricInstance[]>;
   /**
    * Lists MetricInstance records from the API as a list.
    *
@@ -176,23 +130,12 @@ export interface MetricListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: MetricListInstanceOptions,
     callback?: (error: Error | null, items: MetricInstance[]) => any
   ): Promise<MetricInstance[]>;
-  list(params?: any, callback?: any): Promise<MetricInstance[]>;
-  /**
-   * Retrieve a single page of MetricInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: MetricPage) => any
-  ): Promise<MetricPage>;
+  list(
+    params: MetricListInstanceOptions,
+    callback?: (error: Error | null, items: MetricInstance[]) => any
+  ): Promise<MetricInstance[]>;
   /**
    * Retrieve a single page of MetricInstance records from the API.
    *
@@ -205,27 +148,18 @@ export interface MetricListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
+    callback?: (error: Error | null, items: MetricPage) => any
+  ): Promise<MetricPage>;
+  page(
     params: MetricListInstancePageOptions,
     callback?: (error: Error | null, items: MetricPage) => any
   ): Promise<MetricPage>;
-  page(params?: any, callback?: any): Promise<MetricPage>;
 
   /**
    * Provide a user-friendly representation
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export interface MetricSolution {
-  callSid?: string;
-}
-
-interface MetricListInstanceImpl extends MetricListInstance {}
-class MetricListInstanceImpl implements MetricListInstance {
-  _version?: V1;
-  _solution?: MetricSolution;
-  _uri?: string;
 }
 
 export function MetricListInstance(
@@ -236,17 +170,19 @@ export function MetricListInstance(
     throw new Error("Parameter 'callSid' is not valid.");
   }
 
-  const instance = {} as MetricListInstanceImpl;
+  const instance = {} as MetricListInstance;
 
   instance._version = version;
   instance._solution = { callSid };
   instance._uri = `/Voice/${callSid}/Metrics`;
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | MetricListInstancePageOptions
+      | ((error: Error | null, items: MetricPage) => any),
+    callback?: (error: Error | null, items: MetricPage) => any
   ): Promise<MetricPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -260,24 +196,24 @@ export function MetricListInstance(
       data["Direction"] = params["direction"];
     if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new MetricPage(operationVersion, payload, this._solution)
+      (payload) => new MetricPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -287,33 +223,31 @@ export function MetricListInstance(
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: MetricPage) => any
   ): Promise<MetricPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new MetricPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new MetricPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;
@@ -324,15 +258,15 @@ interface MetricPayload extends TwilioResponsePayload {
 }
 
 interface MetricResource {
-  timestamp?: string | null;
-  call_sid?: string | null;
-  account_sid?: string | null;
-  edge?: MetricTwilioEdge;
-  direction?: MetricStreamDirection;
-  carrier_edge?: any | null;
-  sip_edge?: any | null;
-  sdk_edge?: any | null;
-  client_edge?: any | null;
+  timestamp: string;
+  call_sid: string;
+  account_sid: string;
+  edge: MetricTwilioEdge;
+  direction: MetricStreamDirection;
+  carrier_edge: any;
+  sip_edge: any;
+  sdk_edge: any;
+  client_edge: any;
 }
 
 export class MetricInstance {
@@ -352,15 +286,15 @@ export class MetricInstance {
     this.clientEdge = payload.client_edge;
   }
 
-  timestamp?: string | null;
-  callSid?: string | null;
-  accountSid?: string | null;
-  edge?: MetricTwilioEdge;
-  direction?: MetricStreamDirection;
-  carrierEdge?: any | null;
-  sipEdge?: any | null;
-  sdkEdge?: any | null;
-  clientEdge?: any | null;
+  timestamp: string;
+  callSid: string;
+  accountSid: string;
+  edge: MetricTwilioEdge;
+  direction: MetricStreamDirection;
+  carrierEdge: any;
+  sipEdge: any;
+  sdkEdge: any;
+  clientEdge: any;
 
   /**
    * Provide a user-friendly representation

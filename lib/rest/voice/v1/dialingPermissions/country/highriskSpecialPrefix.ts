@@ -22,75 +22,52 @@ import { isValidPathParam } from "../../../../../base/utility";
 
 /**
  * Options to pass to each
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface HighriskSpecialPrefixListInstanceEachOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (
     item: HighriskSpecialPrefixInstance,
     done: (err?: Error) => void
   ) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface HighriskSpecialPrefixListInstanceOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface HighriskSpecialPrefixListInstancePageOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
+export interface HighriskSpecialPrefixSolution {
+  isoCode: string;
+}
+
 export interface HighriskSpecialPrefixListInstance {
-  /**
-   * Streams HighriskSpecialPrefixInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (
-      item: HighriskSpecialPrefixInstance,
-      done: (err?: Error) => void
-    ) => void
-  ): void;
+  _version: V1;
+  _solution: HighriskSpecialPrefixSolution;
+  _uri: string;
+
   /**
    * Streams HighriskSpecialPrefixInstance records from the API.
    *
@@ -107,56 +84,30 @@ export interface HighriskSpecialPrefixListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: HighriskSpecialPrefixListInstanceEachOptions,
     callback?: (
       item: HighriskSpecialPrefixInstance,
       done: (err?: Error) => void
     ) => void
   ): void;
-  each(params?: any, callback?: any): void;
+  each(
+    params: HighriskSpecialPrefixListInstanceEachOptions,
+    callback?: (
+      item: HighriskSpecialPrefixInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
   /**
    * Retrieve a single target page of HighriskSpecialPrefixInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: HighriskSpecialPrefixPage) => any
-  ): Promise<HighriskSpecialPrefixPage>;
-  /**
-   * Retrieve a single target page of HighriskSpecialPrefixInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: HighriskSpecialPrefixPage) => any
   ): Promise<HighriskSpecialPrefixPage>;
-  getPage(params?: any, callback?: any): Promise<HighriskSpecialPrefixPage>;
-  /**
-   * Lists HighriskSpecialPrefixInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (
-      error: Error | null,
-      items: HighriskSpecialPrefixInstance[]
-    ) => any
-  ): Promise<HighriskSpecialPrefixInstance[]>;
   /**
    * Lists HighriskSpecialPrefixInstance records from the API as a list.
    *
@@ -167,26 +118,18 @@ export interface HighriskSpecialPrefixListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: HighriskSpecialPrefixListInstanceOptions,
     callback?: (
       error: Error | null,
       items: HighriskSpecialPrefixInstance[]
     ) => any
   ): Promise<HighriskSpecialPrefixInstance[]>;
-  list(params?: any, callback?: any): Promise<HighriskSpecialPrefixInstance[]>;
-  /**
-   * Retrieve a single page of HighriskSpecialPrefixInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: HighriskSpecialPrefixPage) => any
-  ): Promise<HighriskSpecialPrefixPage>;
+  list(
+    params: HighriskSpecialPrefixListInstanceOptions,
+    callback?: (
+      error: Error | null,
+      items: HighriskSpecialPrefixInstance[]
+    ) => any
+  ): Promise<HighriskSpecialPrefixInstance[]>;
   /**
    * Retrieve a single page of HighriskSpecialPrefixInstance records from the API.
    *
@@ -199,30 +142,18 @@ export interface HighriskSpecialPrefixListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
+    callback?: (error: Error | null, items: HighriskSpecialPrefixPage) => any
+  ): Promise<HighriskSpecialPrefixPage>;
+  page(
     params: HighriskSpecialPrefixListInstancePageOptions,
     callback?: (error: Error | null, items: HighriskSpecialPrefixPage) => any
   ): Promise<HighriskSpecialPrefixPage>;
-  page(params?: any, callback?: any): Promise<HighriskSpecialPrefixPage>;
 
   /**
    * Provide a user-friendly representation
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export interface HighriskSpecialPrefixSolution {
-  isoCode?: string;
-}
-
-interface HighriskSpecialPrefixListInstanceImpl
-  extends HighriskSpecialPrefixListInstance {}
-class HighriskSpecialPrefixListInstanceImpl
-  implements HighriskSpecialPrefixListInstance
-{
-  _version?: V1;
-  _solution?: HighriskSpecialPrefixSolution;
-  _uri?: string;
 }
 
 export function HighriskSpecialPrefixListInstance(
@@ -233,17 +164,19 @@ export function HighriskSpecialPrefixListInstance(
     throw new Error("Parameter 'isoCode' is not valid.");
   }
 
-  const instance = {} as HighriskSpecialPrefixListInstanceImpl;
+  const instance = {} as HighriskSpecialPrefixListInstance;
 
   instance._version = version;
   instance._solution = { isoCode };
   instance._uri = `/DialingPermissions/Countries/${isoCode}/HighRiskSpecialPrefixes`;
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | HighriskSpecialPrefixListInstancePageOptions
+      | ((error: Error | null, items: HighriskSpecialPrefixPage) => any),
+    callback?: (error: Error | null, items: HighriskSpecialPrefixPage) => any
   ): Promise<HighriskSpecialPrefixPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -254,14 +187,14 @@ export function HighriskSpecialPrefixListInstance(
 
     if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
@@ -269,10 +202,14 @@ export function HighriskSpecialPrefixListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new HighriskSpecialPrefixPage(operationVersion, payload, this._solution)
+        new HighriskSpecialPrefixPage(
+          operationVersion,
+          payload,
+          instance._solution
+        )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -282,34 +219,35 @@ export function HighriskSpecialPrefixListInstance(
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: HighriskSpecialPrefixPage) => any
   ): Promise<HighriskSpecialPrefixPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
+    let pagePromise = operationPromise.then(
       (payload) =>
-        new HighriskSpecialPrefixPage(this._version, payload, this._solution)
+        new HighriskSpecialPrefixPage(
+          instance._version,
+          payload,
+          instance._solution
+        )
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;
@@ -320,7 +258,7 @@ interface HighriskSpecialPrefixPayload extends TwilioResponsePayload {
 }
 
 interface HighriskSpecialPrefixResource {
-  prefix?: string | null;
+  prefix: string;
 }
 
 export class HighriskSpecialPrefixInstance {
@@ -335,7 +273,7 @@ export class HighriskSpecialPrefixInstance {
   /**
    * A prefix that includes the E.164 assigned country code
    */
-  prefix?: string | null;
+  prefix: string;
 
   /**
    * Provide a user-friendly representation

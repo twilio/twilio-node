@@ -22,9 +22,9 @@ export interface JobContext {
   /**
    * Remove a JobInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -33,9 +33,9 @@ export interface JobContext {
   /**
    * Fetch a JobInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed JobInstance
+   * @returns Resolves to processed JobInstance
    */
   fetch(
     callback?: (error: Error | null, item?: JobInstance) => any
@@ -49,7 +49,7 @@ export interface JobContext {
 }
 
 export interface JobContextSolution {
-  jobSid?: string;
+  jobSid: string;
 }
 
 export class JobContextImpl implements JobContext {
@@ -65,33 +65,39 @@ export class JobContextImpl implements JobContext {
     this._uri = `/Exports/Jobs/${jobSid}`;
   }
 
-  remove(callback?: any): Promise<boolean> {
-    let operationVersion = this._version,
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<JobInstance> {
-    let operationVersion = this._version,
+  fetch(
+    callback?: (error: Error | null, item?: JobInstance) => any
+  ): Promise<JobInstance> {
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new JobInstance(operationVersion, payload, this._solution.jobSid)
+        new JobInstance(operationVersion, payload, instance._solution.jobSid)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -115,18 +121,18 @@ export class JobContextImpl implements JobContext {
 interface JobPayload extends JobResource {}
 
 interface JobResource {
-  resource_type?: string | null;
-  friendly_name?: string | null;
-  details?: any | null;
-  start_day?: string | null;
-  end_day?: string | null;
-  job_sid?: string | null;
-  webhook_url?: string | null;
-  webhook_method?: string | null;
-  email?: string | null;
-  url?: string | null;
-  job_queue_position?: string | null;
-  estimated_completion_time?: string | null;
+  resource_type: string;
+  friendly_name: string;
+  details: any;
+  start_day: string;
+  end_day: string;
+  job_sid: string;
+  webhook_url: string;
+  webhook_method: string;
+  email: string;
+  url: string;
+  job_queue_position: string;
+  estimated_completion_time: string;
 }
 
 export class JobInstance {
@@ -153,48 +159,48 @@ export class JobInstance {
   /**
    * The type of communication – Messages, Calls, Conferences, and Participants
    */
-  resourceType?: string | null;
+  resourceType: string;
   /**
    * The friendly name specified when creating the job
    */
-  friendlyName?: string | null;
+  friendlyName: string;
   /**
    * The details of a job state which is an object that contains a `status` string, a day count integer, and list of days in the job
    */
-  details?: any | null;
+  details: any;
   /**
    * The start time for the export specified when creating the job
    */
-  startDay?: string | null;
+  startDay: string;
   /**
    * The end time for the export specified when creating the job
    */
-  endDay?: string | null;
+  endDay: string;
   /**
    * The job_sid returned when the export was created
    */
-  jobSid?: string | null;
+  jobSid: string;
   /**
    * The optional webhook url called on completion
    */
-  webhookUrl?: string | null;
+  webhookUrl: string;
   /**
    * This is the method used to call the webhook
    */
-  webhookMethod?: string | null;
+  webhookMethod: string;
   /**
    * The optional email to send the completion notification to
    */
-  email?: string | null;
-  url?: string | null;
+  email: string;
+  url: string;
   /**
    * This is the job position from the 1st in line. Your queue position will never increase. As jobs ahead of yours in the queue are processed, the queue position number will decrease
    */
-  jobQueuePosition?: string | null;
+  jobQueuePosition: string;
   /**
    * this is the time estimated until your job is complete. This is calculated each time you request the job list. The time is calculated based on the current rate of job completion (which may vary) and your job queue position
    */
-  estimatedCompletionTime?: string | null;
+  estimatedCompletionTime: string;
 
   private get _proxy(): JobContext {
     this._context =
@@ -205,9 +211,9 @@ export class JobInstance {
   /**
    * Remove a JobInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -218,9 +224,9 @@ export class JobInstance {
   /**
    * Fetch a JobInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed JobInstance
+   * @returns Resolves to processed JobInstance
    */
   fetch(
     callback?: (error: Error | null, item?: JobInstance) => any
@@ -255,7 +261,13 @@ export class JobInstance {
   }
 }
 
+export interface JobSolution {}
+
 export interface JobListInstance {
+  _version: V1;
+  _solution: JobSolution;
+  _uri: string;
+
   (jobSid: string): JobContext;
   get(jobSid: string): JobContext;
 
@@ -266,17 +278,8 @@ export interface JobListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface JobSolution {}
-
-interface JobListInstanceImpl extends JobListInstance {}
-class JobListInstanceImpl implements JobListInstance {
-  _version?: V1;
-  _solution?: JobSolution;
-  _uri?: string;
-}
-
 export function JobListInstance(version: V1): JobListInstance {
-  const instance = ((jobSid) => instance.get(jobSid)) as JobListInstanceImpl;
+  const instance = ((jobSid) => instance.get(jobSid)) as JobListInstance;
 
   instance.get = function get(jobSid): JobContext {
     return new JobContextImpl(version, jobSid);
@@ -287,14 +290,14 @@ export function JobListInstance(version: V1): JobListInstance {
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

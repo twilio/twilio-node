@@ -25,58 +25,46 @@ import { VariableListInstance } from "./environment/variable";
 
 /**
  * Options to pass to create a EnvironmentInstance
- *
- * @property { string } uniqueName A user-defined string that uniquely identifies the Environment resource. It can be a maximum of 100 characters.
- * @property { string } [domainSuffix] A URL-friendly name that represents the environment and forms part of the domain name. It can be a maximum of 16 characters.
  */
 export interface EnvironmentListInstanceCreateOptions {
+  /** A user-defined string that uniquely identifies the Environment resource. It can be a maximum of 100 characters. */
   uniqueName: string;
+  /** A URL-friendly name that represents the environment and forms part of the domain name. It can be a maximum of 16 characters. */
   domainSuffix?: string;
 }
 /**
  * Options to pass to each
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface EnvironmentListInstanceEachOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: EnvironmentInstance, done: (err?: Error) => void) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface EnvironmentListInstanceOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface EnvironmentListInstancePageOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
@@ -88,9 +76,9 @@ export interface EnvironmentContext {
   /**
    * Remove a EnvironmentInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -99,9 +87,9 @@ export interface EnvironmentContext {
   /**
    * Fetch a EnvironmentInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed EnvironmentInstance
+   * @returns Resolves to processed EnvironmentInstance
    */
   fetch(
     callback?: (error: Error | null, item?: EnvironmentInstance) => any
@@ -115,8 +103,8 @@ export interface EnvironmentContext {
 }
 
 export interface EnvironmentContextSolution {
-  serviceSid?: string;
-  sid?: string;
+  serviceSid: string;
+  sid: string;
 }
 
 export class EnvironmentContextImpl implements EnvironmentContext {
@@ -173,24 +161,30 @@ export class EnvironmentContextImpl implements EnvironmentContext {
     return this._variables;
   }
 
-  remove(callback?: any): Promise<boolean> {
-    let operationVersion = this._version,
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<EnvironmentInstance> {
-    let operationVersion = this._version,
+  fetch(
+    callback?: (error: Error | null, item?: EnvironmentInstance) => any
+  ): Promise<EnvironmentInstance> {
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -199,12 +193,12 @@ export class EnvironmentContextImpl implements EnvironmentContext {
         new EnvironmentInstance(
           operationVersion,
           payload,
-          this._solution.serviceSid,
-          this._solution.sid
+          instance._solution.serviceSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -230,17 +224,17 @@ interface EnvironmentPayload extends TwilioResponsePayload {
 }
 
 interface EnvironmentResource {
-  sid?: string | null;
-  account_sid?: string | null;
-  service_sid?: string | null;
-  build_sid?: string | null;
-  unique_name?: string | null;
-  domain_suffix?: string | null;
-  domain_name?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  url?: string | null;
-  links?: object | null;
+  sid: string;
+  account_sid: string;
+  service_sid: string;
+  build_sid: string;
+  unique_name: string;
+  domain_suffix: string;
+  domain_name: string;
+  date_created: Date;
+  date_updated: Date;
+  url: string;
+  links: Record<string, string>;
 }
 
 export class EnvironmentInstance {
@@ -271,47 +265,47 @@ export class EnvironmentInstance {
   /**
    * The unique string that identifies the Environment resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The SID of the Account that created the Environment resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The SID of the Service that the Environment resource is associated with
    */
-  serviceSid?: string | null;
+  serviceSid: string;
   /**
    * The SID of the build deployed in the environment
    */
-  buildSid?: string | null;
+  buildSid: string;
   /**
    * A user-defined string that uniquely identifies the Environment resource
    */
-  uniqueName?: string | null;
+  uniqueName: string;
   /**
    * A URL-friendly name that represents the environment
    */
-  domainSuffix?: string | null;
+  domainSuffix: string;
   /**
    * The domain name for all Functions and Assets deployed in the Environment
    */
-  domainName?: string | null;
+  domainName: string;
   /**
    * The ISO 8601 date and time in GMT when the Environment resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The ISO 8601 date and time in GMT when the Environment resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The absolute URL of the Environment resource
    */
-  url?: string | null;
+  url: string;
   /**
    * The URLs of the Environment resource\'s nested resources
    */
-  links?: object | null;
+  links: Record<string, string>;
 
   private get _proxy(): EnvironmentContext {
     this._context =
@@ -327,9 +321,9 @@ export class EnvironmentInstance {
   /**
    * Remove a EnvironmentInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -340,9 +334,9 @@ export class EnvironmentInstance {
   /**
    * Fetch a EnvironmentInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed EnvironmentInstance
+   * @returns Resolves to processed EnvironmentInstance
    */
   fetch(
     callback?: (error: Error | null, item?: EnvironmentInstance) => any
@@ -397,41 +391,31 @@ export class EnvironmentInstance {
   }
 }
 
+export interface EnvironmentSolution {
+  serviceSid: string;
+}
+
 export interface EnvironmentListInstance {
+  _version: V1;
+  _solution: EnvironmentSolution;
+  _uri: string;
+
   (sid: string): EnvironmentContext;
   get(sid: string): EnvironmentContext;
 
   /**
    * Create a EnvironmentInstance
    *
-   * @param { EnvironmentListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed EnvironmentInstance
+   * @returns Resolves to processed EnvironmentInstance
    */
   create(
     params: EnvironmentListInstanceCreateOptions,
     callback?: (error: Error | null, item?: EnvironmentInstance) => any
   ): Promise<EnvironmentInstance>;
-  create(params: any, callback?: any): Promise<EnvironmentInstance>;
 
-  /**
-   * Streams EnvironmentInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (item: EnvironmentInstance, done: (err?: Error) => void) => void
-  ): void;
   /**
    * Streams EnvironmentInstance records from the API.
    *
@@ -448,50 +432,24 @@ export interface EnvironmentListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: EnvironmentListInstanceEachOptions,
     callback?: (item: EnvironmentInstance, done: (err?: Error) => void) => void
   ): void;
-  each(params?: any, callback?: any): void;
+  each(
+    params: EnvironmentListInstanceEachOptions,
+    callback?: (item: EnvironmentInstance, done: (err?: Error) => void) => void
+  ): void;
   /**
    * Retrieve a single target page of EnvironmentInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: EnvironmentPage) => any
-  ): Promise<EnvironmentPage>;
-  /**
-   * Retrieve a single target page of EnvironmentInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: EnvironmentPage) => any
   ): Promise<EnvironmentPage>;
-  getPage(params?: any, callback?: any): Promise<EnvironmentPage>;
-  /**
-   * Lists EnvironmentInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: EnvironmentInstance[]) => any
-  ): Promise<EnvironmentInstance[]>;
   /**
    * Lists EnvironmentInstance records from the API as a list.
    *
@@ -502,23 +460,12 @@ export interface EnvironmentListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: EnvironmentListInstanceOptions,
     callback?: (error: Error | null, items: EnvironmentInstance[]) => any
   ): Promise<EnvironmentInstance[]>;
-  list(params?: any, callback?: any): Promise<EnvironmentInstance[]>;
-  /**
-   * Retrieve a single page of EnvironmentInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: EnvironmentPage) => any
-  ): Promise<EnvironmentPage>;
+  list(
+    params: EnvironmentListInstanceOptions,
+    callback?: (error: Error | null, items: EnvironmentInstance[]) => any
+  ): Promise<EnvironmentInstance[]>;
   /**
    * Retrieve a single page of EnvironmentInstance records from the API.
    *
@@ -531,27 +478,18 @@ export interface EnvironmentListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
+    callback?: (error: Error | null, items: EnvironmentPage) => any
+  ): Promise<EnvironmentPage>;
+  page(
     params: EnvironmentListInstancePageOptions,
     callback?: (error: Error | null, items: EnvironmentPage) => any
   ): Promise<EnvironmentPage>;
-  page(params?: any, callback?: any): Promise<EnvironmentPage>;
 
   /**
    * Provide a user-friendly representation
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export interface EnvironmentSolution {
-  serviceSid?: string;
-}
-
-interface EnvironmentListInstanceImpl extends EnvironmentListInstance {}
-class EnvironmentListInstanceImpl implements EnvironmentListInstance {
-  _version?: V1;
-  _solution?: EnvironmentSolution;
-  _uri?: string;
 }
 
 export function EnvironmentListInstance(
@@ -562,7 +500,7 @@ export function EnvironmentListInstance(
     throw new Error("Parameter 'serviceSid' is not valid.");
   }
 
-  const instance = ((sid) => instance.get(sid)) as EnvironmentListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as EnvironmentListInstance;
 
   instance.get = function get(sid): EnvironmentContext {
     return new EnvironmentContextImpl(version, serviceSid, sid);
@@ -573,8 +511,8 @@ export function EnvironmentListInstance(
   instance._uri = `/Services/${serviceSid}/Environments`;
 
   instance.create = function create(
-    params: any,
-    callback?: any
+    params: EnvironmentListInstanceCreateOptions,
+    callback?: (error: Error | null, items: EnvironmentInstance) => any
   ): Promise<EnvironmentInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -595,7 +533,7 @@ export function EnvironmentListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -606,11 +544,11 @@ export function EnvironmentListInstance(
         new EnvironmentInstance(
           operationVersion,
           payload,
-          this._solution.serviceSid
+          instance._solution.serviceSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -618,10 +556,12 @@ export function EnvironmentListInstance(
   };
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | EnvironmentListInstancePageOptions
+      | ((error: Error | null, items: EnvironmentPage) => any),
+    callback?: (error: Error | null, items: EnvironmentPage) => any
   ): Promise<EnvironmentPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -632,14 +572,14 @@ export function EnvironmentListInstance(
 
     if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
@@ -647,10 +587,10 @@ export function EnvironmentListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new EnvironmentPage(operationVersion, payload, this._solution)
+        new EnvironmentPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -660,33 +600,31 @@ export function EnvironmentListInstance(
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: EnvironmentPage) => any
   ): Promise<EnvironmentPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new EnvironmentPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new EnvironmentPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

@@ -1,32 +1,23 @@
-"use strict";
-
 import { BaseTwilio, RequestOpts } from "./BaseTwilio";
 import { trim } from "./utility";
 
 /**
  * Base domain object
- *
- * @constructor
- *
- * @param {Twilio} twilio - A Twilio Client
- * @param {string} baseUrl - Base url for this domain
  */
 export default class Domain {
   /**
-   * Base domain object
+   * Creates a Domain instance
    *
-   * @constructor
-   *
-   * @param {Twilio} twilio - A Twilio Client
-   * @param {string} baseUrl - Base url for this domain
+   * @param twilio - A Twilio Client
+   * @param baseUrl - Base url for this domain
    */
   constructor(public twilio: BaseTwilio, public baseUrl: string) {}
 
   /**
    * Turn a uri into an absolute url
    *
-   * @param  {string} uri uri to transform
-   * @return {string} absolute url
+   * @param uri - uri to transform
+   * @returns absolute url
    */
   absoluteUrl(uri: string): string {
     var result = "";
@@ -48,8 +39,8 @@ export default class Domain {
   /**
    * Make request to this domain
    *
-   * @param {object} opts request options
-   * @return {Promise} request promise
+   * @param opts - request options
+   * @returns request promise
    */
   request(opts: RequestOpts): Promise<any> {
     return this.twilio.request({

@@ -29,129 +29,116 @@ import { WebhookListInstance } from "./service/webhook";
 
 /**
  * Options to pass to update a ServiceInstance
- *
- * @property { string } [friendlyName] A descriptive string that you create to describe the verification service. It can be up to 30 characters long. **This value should not contain PII.**
- * @property { number } [codeLength] The length of the verification code to generate. Must be an integer value between 4 and 10, inclusive.
- * @property { boolean } [lookupEnabled] Whether to perform a lookup with each verification started and return info about the phone number.
- * @property { boolean } [skipSmsToLandlines] Whether to skip sending SMS verifications to landlines. Requires `lookup_enabled`.
- * @property { boolean } [dtmfInputRequired] Whether to ask the user to press a number before delivering the verify code in a phone call.
- * @property { string } [ttsName] The name of an alternative text-to-speech service to use in phone calls. Applies only to TTS languages.
- * @property { boolean } [psd2Enabled] Whether to pass PSD2 transaction parameters when starting a verification.
- * @property { boolean } [doNotShareWarningEnabled] Whether to add a privacy warning at the end of an SMS. **Disabled by default and applies only for SMS.**
- * @property { boolean } [customCodeEnabled] Whether to allow sending verifications with a custom code instead of a randomly generated one. Not available for all customers.
- * @property { boolean } [push.includeDate] Optional configuration for the Push factors. If true, include the date in the Challenge\\\'s response. Otherwise, the date is omitted from the response. See [Challenge](https://www.twilio.com/docs/verify/api/challenge) resource’s details parameter for more info. Default: false. **Deprecated** do not use this parameter.
- * @property { string } [push.apnCredentialSid] Optional configuration for the Push factors. Set the APN Credential for this service. This will allow to send push notifications to iOS devices. See [Credential Resource](https://www.twilio.com/docs/notify/api/credential-resource)
- * @property { string } [push.fcmCredentialSid] Optional configuration for the Push factors. Set the FCM Credential for this service. This will allow to send push notifications to Android devices. See [Credential Resource](https://www.twilio.com/docs/notify/api/credential-resource)
- * @property { string } [totp.issuer] Optional configuration for the TOTP factors. Set TOTP Issuer for this service. This will allow to configure the issuer of the TOTP URI.
- * @property { number } [totp.timeStep] Optional configuration for the TOTP factors. Defines how often, in seconds, are TOTP codes generated. i.e, a new TOTP code is generated every time_step seconds. Must be between 20 and 60 seconds, inclusive. Defaults to 30 seconds
- * @property { number } [totp.codeLength] Optional configuration for the TOTP factors. Number of digits for generated TOTP codes. Must be between 3 and 8, inclusive. Defaults to 6
- * @property { number } [totp.skew] Optional configuration for the TOTP factors. The number of time-steps, past and future, that are valid for validation of TOTP codes. Must be between 0 and 2, inclusive. Defaults to 1
- * @property { string } [defaultTemplateSid] The default message [template](https://www.twilio.com/docs/verify/api/templates). Will be used for all SMS verifications unless explicitly overriden. SMS channel only.
  */
 export interface ServiceContextUpdateOptions {
+  /** A descriptive string that you create to describe the verification service. It can be up to 30 characters long. **This value should not contain PII.** */
   friendlyName?: string;
+  /** The length of the verification code to generate. Must be an integer value between 4 and 10, inclusive. */
   codeLength?: number;
+  /** Whether to perform a lookup with each verification started and return info about the phone number. */
   lookupEnabled?: boolean;
+  /** Whether to skip sending SMS verifications to landlines. Requires `lookup_enabled`. */
   skipSmsToLandlines?: boolean;
+  /** Whether to ask the user to press a number before delivering the verify code in a phone call. */
   dtmfInputRequired?: boolean;
+  /** The name of an alternative text-to-speech service to use in phone calls. Applies only to TTS languages. */
   ttsName?: string;
+  /** Whether to pass PSD2 transaction parameters when starting a verification. */
   psd2Enabled?: boolean;
+  /** Whether to add a privacy warning at the end of an SMS. **Disabled by default and applies only for SMS.** */
   doNotShareWarningEnabled?: boolean;
+  /** Whether to allow sending verifications with a custom code instead of a randomly generated one. Not available for all customers. */
   customCodeEnabled?: boolean;
+  /** Optional configuration for the Push factors. If true, include the date in the Challenge\\\'s response. Otherwise, the date is omitted from the response. See [Challenge](https://www.twilio.com/docs/verify/api/challenge) resource’s details parameter for more info. Default: false. **Deprecated** do not use this parameter. */
   "push.includeDate"?: boolean;
+  /** Optional configuration for the Push factors. Set the APN Credential for this service. This will allow to send push notifications to iOS devices. See [Credential Resource](https://www.twilio.com/docs/notify/api/credential-resource) */
   "push.apnCredentialSid"?: string;
+  /** Optional configuration for the Push factors. Set the FCM Credential for this service. This will allow to send push notifications to Android devices. See [Credential Resource](https://www.twilio.com/docs/notify/api/credential-resource) */
   "push.fcmCredentialSid"?: string;
+  /** Optional configuration for the TOTP factors. Set TOTP Issuer for this service. This will allow to configure the issuer of the TOTP URI. */
   "totp.issuer"?: string;
+  /** Optional configuration for the TOTP factors. Defines how often, in seconds, are TOTP codes generated. i.e, a new TOTP code is generated every time_step seconds. Must be between 20 and 60 seconds, inclusive. Defaults to 30 seconds */
   "totp.timeStep"?: number;
+  /** Optional configuration for the TOTP factors. Number of digits for generated TOTP codes. Must be between 3 and 8, inclusive. Defaults to 6 */
   "totp.codeLength"?: number;
+  /** Optional configuration for the TOTP factors. The number of time-steps, past and future, that are valid for validation of TOTP codes. Must be between 0 and 2, inclusive. Defaults to 1 */
   "totp.skew"?: number;
+  /** The default message [template](https://www.twilio.com/docs/verify/api/templates). Will be used for all SMS verifications unless explicitly overriden. SMS channel only. */
   defaultTemplateSid?: string;
 }
 
 /**
  * Options to pass to create a ServiceInstance
- *
- * @property { string } friendlyName A descriptive string that you create to describe the verification service. It can be up to 30 characters long. **This value should not contain PII.**
- * @property { number } [codeLength] The length of the verification code to generate. Must be an integer value between 4 and 10, inclusive.
- * @property { boolean } [lookupEnabled] Whether to perform a lookup with each verification started and return info about the phone number.
- * @property { boolean } [skipSmsToLandlines] Whether to skip sending SMS verifications to landlines. Requires `lookup_enabled`.
- * @property { boolean } [dtmfInputRequired] Whether to ask the user to press a number before delivering the verify code in a phone call.
- * @property { string } [ttsName] The name of an alternative text-to-speech service to use in phone calls. Applies only to TTS languages.
- * @property { boolean } [psd2Enabled] Whether to pass PSD2 transaction parameters when starting a verification.
- * @property { boolean } [doNotShareWarningEnabled] Whether to add a security warning at the end of an SMS verification body. Disabled by default and applies only to SMS. Example SMS body: `Your AppName verification code is: 1234. Don’t share this code with anyone; our employees will never ask for the code`
- * @property { boolean } [customCodeEnabled] Whether to allow sending verifications with a custom code instead of a randomly generated one. Not available for all customers.
- * @property { boolean } [push.includeDate] Optional configuration for the Push factors. If true, include the date in the Challenge\\\'s response. Otherwise, the date is omitted from the response. See [Challenge](https://www.twilio.com/docs/verify/api/challenge) resource’s details parameter for more info. Default: false. **Deprecated** do not use this parameter. This timestamp value is the same one as the one found in `date_created`, please use that one instead.
- * @property { string } [push.apnCredentialSid] Optional configuration for the Push factors. Set the APN Credential for this service. This will allow to send push notifications to iOS devices. See [Credential Resource](https://www.twilio.com/docs/notify/api/credential-resource)
- * @property { string } [push.fcmCredentialSid] Optional configuration for the Push factors. Set the FCM Credential for this service. This will allow to send push notifications to Android devices. See [Credential Resource](https://www.twilio.com/docs/notify/api/credential-resource)
- * @property { string } [totp.issuer] Optional configuration for the TOTP factors. Set TOTP Issuer for this service. This will allow to configure the issuer of the TOTP URI. Defaults to the service friendly name if not provided.
- * @property { number } [totp.timeStep] Optional configuration for the TOTP factors. Defines how often, in seconds, are TOTP codes generated. i.e, a new TOTP code is generated every time_step seconds. Must be between 20 and 60 seconds, inclusive. Defaults to 30 seconds
- * @property { number } [totp.codeLength] Optional configuration for the TOTP factors. Number of digits for generated TOTP codes. Must be between 3 and 8, inclusive. Defaults to 6
- * @property { number } [totp.skew] Optional configuration for the TOTP factors. The number of time-steps, past and future, that are valid for validation of TOTP codes. Must be between 0 and 2, inclusive. Defaults to 1
- * @property { string } [defaultTemplateSid] The default message [template](https://www.twilio.com/docs/verify/api/templates). Will be used for all SMS verifications unless explicitly overriden. SMS channel only.
  */
 export interface ServiceListInstanceCreateOptions {
+  /** A descriptive string that you create to describe the verification service. It can be up to 30 characters long. **This value should not contain PII.** */
   friendlyName: string;
+  /** The length of the verification code to generate. Must be an integer value between 4 and 10, inclusive. */
   codeLength?: number;
+  /** Whether to perform a lookup with each verification started and return info about the phone number. */
   lookupEnabled?: boolean;
+  /** Whether to skip sending SMS verifications to landlines. Requires `lookup_enabled`. */
   skipSmsToLandlines?: boolean;
+  /** Whether to ask the user to press a number before delivering the verify code in a phone call. */
   dtmfInputRequired?: boolean;
+  /** The name of an alternative text-to-speech service to use in phone calls. Applies only to TTS languages. */
   ttsName?: string;
+  /** Whether to pass PSD2 transaction parameters when starting a verification. */
   psd2Enabled?: boolean;
+  /** Whether to add a security warning at the end of an SMS verification body. Disabled by default and applies only to SMS. Example SMS body: `Your AppName verification code is: 1234. Don’t share this code with anyone; our employees will never ask for the code` */
   doNotShareWarningEnabled?: boolean;
+  /** Whether to allow sending verifications with a custom code instead of a randomly generated one. Not available for all customers. */
   customCodeEnabled?: boolean;
+  /** Optional configuration for the Push factors. If true, include the date in the Challenge\\\'s response. Otherwise, the date is omitted from the response. See [Challenge](https://www.twilio.com/docs/verify/api/challenge) resource’s details parameter for more info. Default: false. **Deprecated** do not use this parameter. This timestamp value is the same one as the one found in `date_created`, please use that one instead. */
   "push.includeDate"?: boolean;
+  /** Optional configuration for the Push factors. Set the APN Credential for this service. This will allow to send push notifications to iOS devices. See [Credential Resource](https://www.twilio.com/docs/notify/api/credential-resource) */
   "push.apnCredentialSid"?: string;
+  /** Optional configuration for the Push factors. Set the FCM Credential for this service. This will allow to send push notifications to Android devices. See [Credential Resource](https://www.twilio.com/docs/notify/api/credential-resource) */
   "push.fcmCredentialSid"?: string;
+  /** Optional configuration for the TOTP factors. Set TOTP Issuer for this service. This will allow to configure the issuer of the TOTP URI. Defaults to the service friendly name if not provided. */
   "totp.issuer"?: string;
+  /** Optional configuration for the TOTP factors. Defines how often, in seconds, are TOTP codes generated. i.e, a new TOTP code is generated every time_step seconds. Must be between 20 and 60 seconds, inclusive. Defaults to 30 seconds */
   "totp.timeStep"?: number;
+  /** Optional configuration for the TOTP factors. Number of digits for generated TOTP codes. Must be between 3 and 8, inclusive. Defaults to 6 */
   "totp.codeLength"?: number;
+  /** Optional configuration for the TOTP factors. The number of time-steps, past and future, that are valid for validation of TOTP codes. Must be between 0 and 2, inclusive. Defaults to 1 */
   "totp.skew"?: number;
+  /** The default message [template](https://www.twilio.com/docs/verify/api/templates). Will be used for all SMS verifications unless explicitly overriden. SMS channel only. */
   defaultTemplateSid?: string;
 }
 /**
  * Options to pass to each
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface ServiceListInstanceEachOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: ServiceInstance, done: (err?: Error) => void) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface ServiceListInstanceOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface ServiceListInstancePageOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
@@ -167,9 +154,9 @@ export interface ServiceContext {
   /**
    * Remove a ServiceInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -178,9 +165,9 @@ export interface ServiceContext {
   /**
    * Fetch a ServiceInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ServiceInstance
+   * @returns Resolves to processed ServiceInstance
    */
   fetch(
     callback?: (error: Error | null, item?: ServiceInstance) => any
@@ -189,9 +176,9 @@ export interface ServiceContext {
   /**
    * Update a ServiceInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ServiceInstance
+   * @returns Resolves to processed ServiceInstance
    */
   update(
     callback?: (error: Error | null, item?: ServiceInstance) => any
@@ -199,16 +186,15 @@ export interface ServiceContext {
   /**
    * Update a ServiceInstance
    *
-   * @param { ServiceContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ServiceInstance
+   * @returns Resolves to processed ServiceInstance
    */
   update(
     params: ServiceContextUpdateOptions,
     callback?: (error: Error | null, item?: ServiceInstance) => any
   ): Promise<ServiceInstance>;
-  update(params?: any, callback?: any): Promise<ServiceInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -218,7 +204,7 @@ export interface ServiceContext {
 }
 
 export interface ServiceContextSolution {
-  sid?: string;
+  sid: string;
 }
 
 export class ServiceContextImpl implements ServiceContext {
@@ -289,41 +275,52 @@ export class ServiceContextImpl implements ServiceContext {
     return this._webhooks;
   }
 
-  remove(callback?: any): Promise<boolean> {
-    let operationVersion = this._version,
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<ServiceInstance> {
-    let operationVersion = this._version,
+  fetch(
+    callback?: (error: Error | null, item?: ServiceInstance) => any
+  ): Promise<ServiceInstance> {
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new ServiceInstance(operationVersion, payload, this._solution.sid)
+        new ServiceInstance(operationVersion, payload, instance._solution.sid)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
     return operationPromise;
   }
 
-  update(params?: any, callback?: any): Promise<ServiceInstance> {
-    if (typeof params === "function") {
+  update(
+    params?:
+      | ServiceContextUpdateOptions
+      | ((error: Error | null, item?: ServiceInstance) => any),
+    callback?: (error: Error | null, item?: ServiceInstance) => any
+  ): Promise<ServiceInstance> {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -371,9 +368,10 @@ export class ServiceContextImpl implements ServiceContext {
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -381,10 +379,10 @@ export class ServiceContextImpl implements ServiceContext {
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new ServiceInstance(operationVersion, payload, this._solution.sid)
+        new ServiceInstance(operationVersion, payload, instance._solution.sid)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -410,24 +408,24 @@ interface ServicePayload extends TwilioResponsePayload {
 }
 
 interface ServiceResource {
-  sid?: string | null;
-  account_sid?: string | null;
-  friendly_name?: string | null;
-  code_length?: number | null;
-  lookup_enabled?: boolean | null;
-  psd2_enabled?: boolean | null;
-  skip_sms_to_landlines?: boolean | null;
-  dtmf_input_required?: boolean | null;
-  tts_name?: string | null;
-  do_not_share_warning_enabled?: boolean | null;
-  custom_code_enabled?: boolean | null;
-  push?: any | null;
-  totp?: any | null;
-  default_template_sid?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  url?: string | null;
-  links?: object | null;
+  sid: string;
+  account_sid: string;
+  friendly_name: string;
+  code_length: number;
+  lookup_enabled: boolean;
+  psd2_enabled: boolean;
+  skip_sms_to_landlines: boolean;
+  dtmf_input_required: boolean;
+  tts_name: string;
+  do_not_share_warning_enabled: boolean;
+  custom_code_enabled: boolean;
+  push: any;
+  totp: any;
+  default_template_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  url: string;
+  links: Record<string, string>;
 }
 
 export class ServiceInstance {
@@ -460,72 +458,72 @@ export class ServiceInstance {
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The string that you assigned to describe the verification service
    */
-  friendlyName?: string | null;
+  friendlyName: string;
   /**
    * The length of the verification code
    */
-  codeLength?: number | null;
+  codeLength: number;
   /**
    * Whether to perform a lookup with each verification
    */
-  lookupEnabled?: boolean | null;
+  lookupEnabled: boolean;
   /**
    * Whether to pass PSD2 transaction parameters when starting a verification
    */
-  psd2Enabled?: boolean | null;
+  psd2Enabled: boolean;
   /**
    * Whether to skip sending SMS verifications to landlines
    */
-  skipSmsToLandlines?: boolean | null;
+  skipSmsToLandlines: boolean;
   /**
    * Whether to ask the user to press a number before delivering the verify code in a phone call
    */
-  dtmfInputRequired?: boolean | null;
+  dtmfInputRequired: boolean;
   /**
    * The name of an alternative text-to-speech service to use in phone calls
    */
-  ttsName?: string | null;
+  ttsName: string;
   /**
    * Whether to add a security warning at the end of an SMS.
    */
-  doNotShareWarningEnabled?: boolean | null;
+  doNotShareWarningEnabled: boolean;
   /**
    * Whether to allow sending verifications with a custom code.
    */
-  customCodeEnabled?: boolean | null;
+  customCodeEnabled: boolean;
   /**
    * The service level configuration of factor push type.
    */
-  push?: any | null;
+  push: any;
   /**
    * The service level configuration of factor TOTP type.
    */
-  totp?: any | null;
-  defaultTemplateSid?: string | null;
+  totp: any;
+  defaultTemplateSid: string;
   /**
    * The RFC 2822 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The RFC 2822 date and time in GMT when the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The absolute URL of the resource
    */
-  url?: string | null;
+  url: string;
   /**
    * The URLs of related resources
    */
-  links?: object | null;
+  links: Record<string, string>;
 
   private get _proxy(): ServiceContext {
     this._context =
@@ -537,9 +535,9 @@ export class ServiceInstance {
   /**
    * Remove a ServiceInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -550,9 +548,9 @@ export class ServiceInstance {
   /**
    * Fetch a ServiceInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ServiceInstance
+   * @returns Resolves to processed ServiceInstance
    */
   fetch(
     callback?: (error: Error | null, item?: ServiceInstance) => any
@@ -563,9 +561,9 @@ export class ServiceInstance {
   /**
    * Update a ServiceInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ServiceInstance
+   * @returns Resolves to processed ServiceInstance
    */
   update(
     callback?: (error: Error | null, item?: ServiceInstance) => any
@@ -573,16 +571,20 @@ export class ServiceInstance {
   /**
    * Update a ServiceInstance
    *
-   * @param { ServiceContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ServiceInstance
+   * @returns Resolves to processed ServiceInstance
    */
   update(
     params: ServiceContextUpdateOptions,
     callback?: (error: Error | null, item?: ServiceInstance) => any
   ): Promise<ServiceInstance>;
-  update(params?: any, callback?: any): Promise<ServiceInstance> {
+
+  update(
+    params?: any,
+    callback?: (error: Error | null, item?: ServiceInstance) => any
+  ): Promise<ServiceInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -668,41 +670,29 @@ export class ServiceInstance {
   }
 }
 
+export interface ServiceSolution {}
+
 export interface ServiceListInstance {
+  _version: V2;
+  _solution: ServiceSolution;
+  _uri: string;
+
   (sid: string): ServiceContext;
   get(sid: string): ServiceContext;
 
   /**
    * Create a ServiceInstance
    *
-   * @param { ServiceListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed ServiceInstance
+   * @returns Resolves to processed ServiceInstance
    */
   create(
     params: ServiceListInstanceCreateOptions,
     callback?: (error: Error | null, item?: ServiceInstance) => any
   ): Promise<ServiceInstance>;
-  create(params: any, callback?: any): Promise<ServiceInstance>;
 
-  /**
-   * Streams ServiceInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (item: ServiceInstance, done: (err?: Error) => void) => void
-  ): void;
   /**
    * Streams ServiceInstance records from the API.
    *
@@ -719,50 +709,24 @@ export interface ServiceListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: ServiceListInstanceEachOptions,
     callback?: (item: ServiceInstance, done: (err?: Error) => void) => void
   ): void;
-  each(params?: any, callback?: any): void;
+  each(
+    params: ServiceListInstanceEachOptions,
+    callback?: (item: ServiceInstance, done: (err?: Error) => void) => void
+  ): void;
   /**
    * Retrieve a single target page of ServiceInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: ServicePage) => any
-  ): Promise<ServicePage>;
-  /**
-   * Retrieve a single target page of ServiceInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: ServicePage) => any
   ): Promise<ServicePage>;
-  getPage(params?: any, callback?: any): Promise<ServicePage>;
-  /**
-   * Lists ServiceInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: ServiceInstance[]) => any
-  ): Promise<ServiceInstance[]>;
   /**
    * Lists ServiceInstance records from the API as a list.
    *
@@ -773,23 +737,12 @@ export interface ServiceListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: ServiceListInstanceOptions,
     callback?: (error: Error | null, items: ServiceInstance[]) => any
   ): Promise<ServiceInstance[]>;
-  list(params?: any, callback?: any): Promise<ServiceInstance[]>;
-  /**
-   * Retrieve a single page of ServiceInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: ServicePage) => any
-  ): Promise<ServicePage>;
+  list(
+    params: ServiceListInstanceOptions,
+    callback?: (error: Error | null, items: ServiceInstance[]) => any
+  ): Promise<ServiceInstance[]>;
   /**
    * Retrieve a single page of ServiceInstance records from the API.
    *
@@ -802,10 +755,12 @@ export interface ServiceListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
+    callback?: (error: Error | null, items: ServicePage) => any
+  ): Promise<ServicePage>;
+  page(
     params: ServiceListInstancePageOptions,
     callback?: (error: Error | null, items: ServicePage) => any
   ): Promise<ServicePage>;
-  page(params?: any, callback?: any): Promise<ServicePage>;
 
   /**
    * Provide a user-friendly representation
@@ -814,17 +769,8 @@ export interface ServiceListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface ServiceSolution {}
-
-interface ServiceListInstanceImpl extends ServiceListInstance {}
-class ServiceListInstanceImpl implements ServiceListInstance {
-  _version?: V2;
-  _solution?: ServiceSolution;
-  _uri?: string;
-}
-
 export function ServiceListInstance(version: V2): ServiceListInstance {
-  const instance = ((sid) => instance.get(sid)) as ServiceListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as ServiceListInstance;
 
   instance.get = function get(sid): ServiceContext {
     return new ServiceContextImpl(version, sid);
@@ -835,8 +781,8 @@ export function ServiceListInstance(version: V2): ServiceListInstance {
   instance._uri = `/Services`;
 
   instance.create = function create(
-    params: any,
-    callback?: any
+    params: ServiceListInstanceCreateOptions,
+    callback?: (error: Error | null, items: ServiceInstance) => any
   ): Promise<ServiceInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -891,7 +837,7 @@ export function ServiceListInstance(version: V2): ServiceListInstance {
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -901,7 +847,7 @@ export function ServiceListInstance(version: V2): ServiceListInstance {
       (payload) => new ServiceInstance(operationVersion, payload)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -909,10 +855,12 @@ export function ServiceListInstance(version: V2): ServiceListInstance {
   };
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | ServiceListInstancePageOptions
+      | ((error: Error | null, items: ServicePage) => any),
+    callback?: (error: Error | null, items: ServicePage) => any
   ): Promise<ServicePage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -923,24 +871,25 @@ export function ServiceListInstance(version: V2): ServiceListInstance {
 
     if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new ServicePage(operationVersion, payload, this._solution)
+      (payload) =>
+        new ServicePage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -950,33 +899,31 @@ export function ServiceListInstance(version: V2): ServiceListInstance {
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: ServicePage) => any
   ): Promise<ServicePage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new ServicePage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new ServicePage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

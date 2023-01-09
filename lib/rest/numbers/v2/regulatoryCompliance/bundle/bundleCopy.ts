@@ -30,66 +30,62 @@ type BundleCopyStatus =
 
 /**
  * Options to pass to create a BundleCopyInstance
- *
- * @property { string } [friendlyName] The string that you assigned to describe the copied bundle.
  */
 export interface BundleCopyListInstanceCreateOptions {
+  /** The string that you assigned to describe the copied bundle. */
   friendlyName?: string;
 }
 /**
  * Options to pass to each
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface BundleCopyListInstanceEachOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: BundleCopyInstance, done: (err?: Error) => void) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface BundleCopyListInstanceOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface BundleCopyListInstancePageOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
+export interface BundleCopySolution {
+  bundleSid: string;
+}
+
 export interface BundleCopyListInstance {
+  _version: V2;
+  _solution: BundleCopySolution;
+  _uri: string;
+
   /**
    * Create a BundleCopyInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed BundleCopyInstance
+   * @returns Resolves to processed BundleCopyInstance
    */
   create(
     callback?: (error: Error | null, item?: BundleCopyInstance) => any
@@ -97,34 +93,16 @@ export interface BundleCopyListInstance {
   /**
    * Create a BundleCopyInstance
    *
-   * @param { BundleCopyListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed BundleCopyInstance
+   * @returns Resolves to processed BundleCopyInstance
    */
   create(
     params: BundleCopyListInstanceCreateOptions,
     callback?: (error: Error | null, item?: BundleCopyInstance) => any
   ): Promise<BundleCopyInstance>;
-  create(params?: any, callback?: any): Promise<BundleCopyInstance>;
 
-  /**
-   * Streams BundleCopyInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (item: BundleCopyInstance, done: (err?: Error) => void) => void
-  ): void;
   /**
    * Streams BundleCopyInstance records from the API.
    *
@@ -141,50 +119,24 @@ export interface BundleCopyListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: BundleCopyListInstanceEachOptions,
     callback?: (item: BundleCopyInstance, done: (err?: Error) => void) => void
   ): void;
-  each(params?: any, callback?: any): void;
+  each(
+    params: BundleCopyListInstanceEachOptions,
+    callback?: (item: BundleCopyInstance, done: (err?: Error) => void) => void
+  ): void;
   /**
    * Retrieve a single target page of BundleCopyInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: BundleCopyPage) => any
-  ): Promise<BundleCopyPage>;
-  /**
-   * Retrieve a single target page of BundleCopyInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: BundleCopyPage) => any
   ): Promise<BundleCopyPage>;
-  getPage(params?: any, callback?: any): Promise<BundleCopyPage>;
-  /**
-   * Lists BundleCopyInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: BundleCopyInstance[]) => any
-  ): Promise<BundleCopyInstance[]>;
   /**
    * Lists BundleCopyInstance records from the API as a list.
    *
@@ -195,23 +147,12 @@ export interface BundleCopyListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: BundleCopyListInstanceOptions,
     callback?: (error: Error | null, items: BundleCopyInstance[]) => any
   ): Promise<BundleCopyInstance[]>;
-  list(params?: any, callback?: any): Promise<BundleCopyInstance[]>;
-  /**
-   * Retrieve a single page of BundleCopyInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: BundleCopyPage) => any
-  ): Promise<BundleCopyPage>;
+  list(
+    params: BundleCopyListInstanceOptions,
+    callback?: (error: Error | null, items: BundleCopyInstance[]) => any
+  ): Promise<BundleCopyInstance[]>;
   /**
    * Retrieve a single page of BundleCopyInstance records from the API.
    *
@@ -224,27 +165,18 @@ export interface BundleCopyListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
+    callback?: (error: Error | null, items: BundleCopyPage) => any
+  ): Promise<BundleCopyPage>;
+  page(
     params: BundleCopyListInstancePageOptions,
     callback?: (error: Error | null, items: BundleCopyPage) => any
   ): Promise<BundleCopyPage>;
-  page(params?: any, callback?: any): Promise<BundleCopyPage>;
 
   /**
    * Provide a user-friendly representation
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export interface BundleCopySolution {
-  bundleSid?: string;
-}
-
-interface BundleCopyListInstanceImpl extends BundleCopyListInstance {}
-class BundleCopyListInstanceImpl implements BundleCopyListInstance {
-  _version?: V2;
-  _solution?: BundleCopySolution;
-  _uri?: string;
 }
 
 export function BundleCopyListInstance(
@@ -255,17 +187,19 @@ export function BundleCopyListInstance(
     throw new Error("Parameter 'bundleSid' is not valid.");
   }
 
-  const instance = {} as BundleCopyListInstanceImpl;
+  const instance = {} as BundleCopyListInstance;
 
   instance._version = version;
   instance._solution = { bundleSid };
   instance._uri = `/RegulatoryCompliance/Bundles/${bundleSid}/Copies`;
 
   instance.create = function create(
-    params?: any,
-    callback?: any
+    params?:
+      | BundleCopyListInstanceCreateOptions
+      | ((error: Error | null, items: BundleCopyInstance) => any),
+    callback?: (error: Error | null, items: BundleCopyInstance) => any
   ): Promise<BundleCopyInstance> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -282,7 +216,7 @@ export function BundleCopyListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -293,11 +227,11 @@ export function BundleCopyListInstance(
         new BundleCopyInstance(
           operationVersion,
           payload,
-          this._solution.bundleSid
+          instance._solution.bundleSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -305,10 +239,12 @@ export function BundleCopyListInstance(
   };
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | BundleCopyListInstancePageOptions
+      | ((error: Error | null, items: BundleCopyPage) => any),
+    callback?: (error: Error | null, items: BundleCopyPage) => any
   ): Promise<BundleCopyPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -319,24 +255,25 @@ export function BundleCopyListInstance(
 
     if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new BundleCopyPage(operationVersion, payload, this._solution)
+      (payload) =>
+        new BundleCopyPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -346,33 +283,31 @@ export function BundleCopyListInstance(
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: BundleCopyPage) => any
   ): Promise<BundleCopyPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new BundleCopyPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new BundleCopyPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;
@@ -383,16 +318,16 @@ interface BundleCopyPayload extends TwilioResponsePayload {
 }
 
 interface BundleCopyResource {
-  sid?: string | null;
-  account_sid?: string | null;
-  regulation_sid?: string | null;
-  friendly_name?: string | null;
-  status?: BundleCopyStatus;
-  valid_until?: Date | null;
-  email?: string | null;
-  status_callback?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
+  sid: string;
+  account_sid: string;
+  regulation_sid: string;
+  friendly_name: string;
+  status: BundleCopyStatus;
+  valid_until: Date;
+  email: string;
+  status_callback: string;
+  date_created: Date;
+  date_updated: Date;
 }
 
 export class BundleCopyInstance {
@@ -416,40 +351,40 @@ export class BundleCopyInstance {
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The unique string of a regulation
    */
-  regulationSid?: string | null;
+  regulationSid: string;
   /**
    * The string that you assigned to describe the resource
    */
-  friendlyName?: string | null;
-  status?: BundleCopyStatus;
+  friendlyName: string;
+  status: BundleCopyStatus;
   /**
    * The ISO 8601 date and time in GMT when the resource will be valid until
    */
-  validUntil?: Date | null;
+  validUntil: Date;
   /**
    * The email address
    */
-  email?: string | null;
+  email: string;
   /**
    * The URL we call to inform your application of status changes
    */
-  statusCallback?: string | null;
+  statusCallback: string;
   /**
    * The ISO 8601 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The ISO 8601 date and time in GMT when the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
 
   /**
    * Provide a user-friendly representation

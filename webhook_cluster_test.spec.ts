@@ -1,5 +1,3 @@
-"use strict";
-
 import { FlowInstance } from "./lib/rest/studio/v2/flow";
 jest.setTimeout(15000);
 

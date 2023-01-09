@@ -35,113 +35,101 @@ type TollfreeVerificationStatus =
 
 /**
  * Options to pass to create a TollfreeVerificationInstance
- *
- * @property { string } businessName The name of the business or organization using the Tollfree number.
- * @property { string } businessWebsite The website of the business or organization using the Tollfree number.
- * @property { string } notificationEmail The email address to receive the notification about the verification result. .
- * @property { Array<string> } useCaseCategories The category of the use case for the Tollfree Number. List as many are applicable..
- * @property { string } useCaseSummary Use this to further explain how messaging is used by the business or organization.
- * @property { string } productionMessageSample An example of message content, i.e. a sample message.
- * @property { Array<string> } optInImageUrls Link to an image that shows the opt-in workflow. Multiple images allowed and must be a publicly hosted URL.
- * @property { TollfreeVerificationOptInType } optInType
- * @property { string } messageVolume Estimate monthly volume of messages from the Tollfree Number.
- * @property { string } tollfreePhoneNumberSid The SID of the Phone Number associated with the Tollfree Verification.
- * @property { string } [customerProfileSid] Customer\\\'s Profile Bundle BundleSid.
- * @property { string } [businessStreetAddress] The address of the business or organization using the Tollfree number.
- * @property { string } [businessStreetAddress2] The address of the business or organization using the Tollfree number.
- * @property { string } [businessCity] The city of the business or organization using the Tollfree number.
- * @property { string } [businessStateProvinceRegion] The state/province/region of the business or organization using the Tollfree number.
- * @property { string } [businessPostalCode] The postal code of the business or organization using the Tollfree number.
- * @property { string } [businessCountry] The country of the business or organization using the Tollfree number.
- * @property { string } [additionalInformation] Additional information to be provided for verification.
- * @property { string } [businessContactFirstName] The first name of the contact for the business or organization using the Tollfree number.
- * @property { string } [businessContactLastName] The last name of the contact for the business or organization using the Tollfree number.
- * @property { string } [businessContactEmail] The email address of the contact for the business or organization using the Tollfree number.
- * @property { string } [businessContactPhone] The phone number of the contact for the business or organization using the Tollfree number.
  */
 export interface TollfreeVerificationListInstanceCreateOptions {
+  /** The name of the business or organization using the Tollfree number. */
   businessName: string;
+  /** The website of the business or organization using the Tollfree number. */
   businessWebsite: string;
+  /** The email address to receive the notification about the verification result. . */
   notificationEmail: string;
+  /** The category of the use case for the Tollfree Number. List as many are applicable.. */
   useCaseCategories: Array<string>;
+  /** Use this to further explain how messaging is used by the business or organization. */
   useCaseSummary: string;
+  /** An example of message content, i.e. a sample message. */
   productionMessageSample: string;
+  /** Link to an image that shows the opt-in workflow. Multiple images allowed and must be a publicly hosted URL. */
   optInImageUrls: Array<string>;
+  /**  */
   optInType: TollfreeVerificationOptInType;
+  /** Estimate monthly volume of messages from the Tollfree Number. */
   messageVolume: string;
+  /** The SID of the Phone Number associated with the Tollfree Verification. */
   tollfreePhoneNumberSid: string;
+  /** Customer\\\'s Profile Bundle BundleSid. */
   customerProfileSid?: string;
+  /** The address of the business or organization using the Tollfree number. */
   businessStreetAddress?: string;
+  /** The address of the business or organization using the Tollfree number. */
   businessStreetAddress2?: string;
+  /** The city of the business or organization using the Tollfree number. */
   businessCity?: string;
+  /** The state/province/region of the business or organization using the Tollfree number. */
   businessStateProvinceRegion?: string;
+  /** The postal code of the business or organization using the Tollfree number. */
   businessPostalCode?: string;
+  /** The country of the business or organization using the Tollfree number. */
   businessCountry?: string;
+  /** Additional information to be provided for verification. */
   additionalInformation?: string;
+  /** The first name of the contact for the business or organization using the Tollfree number. */
   businessContactFirstName?: string;
+  /** The last name of the contact for the business or organization using the Tollfree number. */
   businessContactLastName?: string;
+  /** The email address of the contact for the business or organization using the Tollfree number. */
   businessContactEmail?: string;
+  /** The phone number of the contact for the business or organization using the Tollfree number. */
   businessContactPhone?: string;
 }
 /**
  * Options to pass to each
- *
- * @property { string } [tollfreePhoneNumberSid] The SID of the Phone Number associated with the Tollfree Verification.
- * @property { TollfreeVerificationStatus } [status] The compliance status of the Tollfree Verification record.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface TollfreeVerificationListInstanceEachOptions {
+  /** The SID of the Phone Number associated with the Tollfree Verification. */
   tollfreePhoneNumberSid?: string;
+  /** The compliance status of the Tollfree Verification record. */
   status?: TollfreeVerificationStatus;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (
     item: TollfreeVerificationInstance,
     done: (err?: Error) => void
   ) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { string } [tollfreePhoneNumberSid] The SID of the Phone Number associated with the Tollfree Verification.
- * @property { TollfreeVerificationStatus } [status] The compliance status of the Tollfree Verification record.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface TollfreeVerificationListInstanceOptions {
+  /** The SID of the Phone Number associated with the Tollfree Verification. */
   tollfreePhoneNumberSid?: string;
+  /** The compliance status of the Tollfree Verification record. */
   status?: TollfreeVerificationStatus;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { string } [tollfreePhoneNumberSid] The SID of the Phone Number associated with the Tollfree Verification.
- * @property { TollfreeVerificationStatus } [status] The compliance status of the Tollfree Verification record.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface TollfreeVerificationListInstancePageOptions {
+  /** The SID of the Phone Number associated with the Tollfree Verification. */
   tollfreePhoneNumberSid?: string;
+  /** The compliance status of the Tollfree Verification record. */
   status?: TollfreeVerificationStatus;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
@@ -149,9 +137,9 @@ export interface TollfreeVerificationContext {
   /**
    * Fetch a TollfreeVerificationInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed TollfreeVerificationInstance
+   * @returns Resolves to processed TollfreeVerificationInstance
    */
   fetch(
     callback?: (error: Error | null, item?: TollfreeVerificationInstance) => any
@@ -165,7 +153,7 @@ export interface TollfreeVerificationContext {
 }
 
 export interface TollfreeVerificationContextSolution {
-  sid?: string;
+  sid: string;
 }
 
 export class TollfreeVerificationContextImpl
@@ -183,10 +171,13 @@ export class TollfreeVerificationContextImpl
     this._uri = `/Tollfree/Verifications/${sid}`;
   }
 
-  fetch(callback?: any): Promise<TollfreeVerificationInstance> {
-    let operationVersion = this._version,
+  fetch(
+    callback?: (error: Error | null, item?: TollfreeVerificationInstance) => any
+  ): Promise<TollfreeVerificationInstance> {
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -195,11 +186,11 @@ export class TollfreeVerificationContextImpl
         new TollfreeVerificationInstance(
           operationVersion,
           payload,
-          this._solution.sid
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -225,37 +216,37 @@ interface TollfreeVerificationPayload extends TwilioResponsePayload {
 }
 
 interface TollfreeVerificationResource {
-  sid?: string | null;
-  account_sid?: string | null;
-  customer_profile_sid?: string | null;
-  trust_product_sid?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  regulated_item_sid?: string | null;
-  business_name?: string | null;
-  business_street_address?: string | null;
-  business_street_address2?: string | null;
-  business_city?: string | null;
-  business_state_province_region?: string | null;
-  business_postal_code?: string | null;
-  business_country?: string | null;
-  business_website?: string | null;
-  business_contact_first_name?: string | null;
-  business_contact_last_name?: string | null;
-  business_contact_email?: string | null;
-  business_contact_phone?: string | null;
-  notification_email?: string | null;
-  use_case_categories?: Array<string> | null;
-  use_case_summary?: string | null;
-  production_message_sample?: string | null;
-  opt_in_image_urls?: Array<string> | null;
-  opt_in_type?: TollfreeVerificationOptInType;
-  message_volume?: string | null;
-  additional_information?: string | null;
-  tollfree_phone_number_sid?: string | null;
-  status?: TollfreeVerificationStatus;
-  url?: string | null;
-  resource_links?: any | null;
+  sid: string;
+  account_sid: string;
+  customer_profile_sid: string;
+  trust_product_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  regulated_item_sid: string;
+  business_name: string;
+  business_street_address: string;
+  business_street_address2: string;
+  business_city: string;
+  business_state_province_region: string;
+  business_postal_code: string;
+  business_country: string;
+  business_website: string;
+  business_contact_first_name: string;
+  business_contact_last_name: string;
+  business_contact_email: string;
+  business_contact_phone: string;
+  notification_email: string;
+  use_case_categories: Array<string>;
+  use_case_summary: string;
+  production_message_sample: string;
+  opt_in_image_urls: Array<string>;
+  opt_in_type: TollfreeVerificationOptInType;
+  message_volume: string;
+  additional_information: string;
+  tollfree_phone_number_sid: string;
+  status: TollfreeVerificationStatus;
+  url: string;
+  resource_links: any;
 }
 
 export class TollfreeVerificationInstance {
@@ -305,121 +296,121 @@ export class TollfreeVerificationInstance {
   /**
    * Tollfree Verification Sid
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * Customer\'s Profile Bundle BundleSid
    */
-  customerProfileSid?: string | null;
+  customerProfileSid: string;
   /**
    * Tollfree TrustProduct Bundle BundleSid
    */
-  trustProductSid?: string | null;
+  trustProductSid: string;
   /**
    * The ISO 8601 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The ISO 8601 date and time in GMT when the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The SID of the Regulated Item
    */
-  regulatedItemSid?: string | null;
+  regulatedItemSid: string;
   /**
    * The name of the business or organization using the Tollfree number
    */
-  businessName?: string | null;
+  businessName: string;
   /**
    * The address of the business or organization using the Tollfree number
    */
-  businessStreetAddress?: string | null;
+  businessStreetAddress: string;
   /**
    * The address of the business or organization using the Tollfree number
    */
-  businessStreetAddress2?: string | null;
+  businessStreetAddress2: string;
   /**
    * The city of the business or organization using the Tollfree number
    */
-  businessCity?: string | null;
+  businessCity: string;
   /**
    * The state/province/region of the business or organization using the Tollfree number
    */
-  businessStateProvinceRegion?: string | null;
+  businessStateProvinceRegion: string;
   /**
    * The postal code of the business or organization using the Tollfree number
    */
-  businessPostalCode?: string | null;
+  businessPostalCode: string;
   /**
    * The country of the business or organization using the Tollfree number
    */
-  businessCountry?: string | null;
+  businessCountry: string;
   /**
    * The website of the business or organization using the Tollfree number
    */
-  businessWebsite?: string | null;
+  businessWebsite: string;
   /**
    * The first name of the contact for the business or organization using the Tollfree number
    */
-  businessContactFirstName?: string | null;
+  businessContactFirstName: string;
   /**
    * The last name of the contact for the business or organization using the Tollfree number
    */
-  businessContactLastName?: string | null;
+  businessContactLastName: string;
   /**
    * The email address of the contact for the business or organization using the Tollfree number
    */
-  businessContactEmail?: string | null;
+  businessContactEmail: string;
   /**
    * The phone number of the contact for the business or organization using the Tollfree number
    */
-  businessContactPhone?: string | null;
+  businessContactPhone: string;
   /**
    * The email address to receive the notification about the verification result.
    */
-  notificationEmail?: string | null;
+  notificationEmail: string;
   /**
    * The category of the use case for the Tollfree Number. List as many are applicable.
    */
-  useCaseCategories?: Array<string> | null;
+  useCaseCategories: Array<string>;
   /**
    * Further explaination on how messaging is used by the business or organization
    */
-  useCaseSummary?: string | null;
+  useCaseSummary: string;
   /**
    * An example of message content, i.e. a sample message
    */
-  productionMessageSample?: string | null;
+  productionMessageSample: string;
   /**
    * Link to an image that shows the opt-in workflow. Multiple images allowed and must be a publicly hosted URL
    */
-  optInImageUrls?: Array<string> | null;
-  optInType?: TollfreeVerificationOptInType;
+  optInImageUrls: Array<string>;
+  optInType: TollfreeVerificationOptInType;
   /**
    * Estimate monthly volume of messages from the Tollfree Number
    */
-  messageVolume?: string | null;
+  messageVolume: string;
   /**
    * Additional information to be provided for verification
    */
-  additionalInformation?: string | null;
+  additionalInformation: string;
   /**
    * The SID of the Phone Number associated with the Tollfree Verification
    */
-  tollfreePhoneNumberSid?: string | null;
-  status?: TollfreeVerificationStatus;
+  tollfreePhoneNumberSid: string;
+  status: TollfreeVerificationStatus;
   /**
    * The absolute URL of the Tollfree Verification
    */
-  url?: string | null;
+  url: string;
   /**
    * The URLs of the documents associated with the Tollfree Verification resource
    */
-  resourceLinks?: any | null;
+  resourceLinks: any;
 
   private get _proxy(): TollfreeVerificationContext {
     this._context =
@@ -431,9 +422,9 @@ export class TollfreeVerificationInstance {
   /**
    * Fetch a TollfreeVerificationInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed TollfreeVerificationInstance
+   * @returns Resolves to processed TollfreeVerificationInstance
    */
   fetch(
     callback?: (error: Error | null, item?: TollfreeVerificationInstance) => any
@@ -487,44 +478,29 @@ export class TollfreeVerificationInstance {
   }
 }
 
+export interface TollfreeVerificationSolution {}
+
 export interface TollfreeVerificationListInstance {
+  _version: V1;
+  _solution: TollfreeVerificationSolution;
+  _uri: string;
+
   (sid: string): TollfreeVerificationContext;
   get(sid: string): TollfreeVerificationContext;
 
   /**
    * Create a TollfreeVerificationInstance
    *
-   * @param { TollfreeVerificationListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed TollfreeVerificationInstance
+   * @returns Resolves to processed TollfreeVerificationInstance
    */
   create(
     params: TollfreeVerificationListInstanceCreateOptions,
     callback?: (error: Error | null, item?: TollfreeVerificationInstance) => any
   ): Promise<TollfreeVerificationInstance>;
-  create(params: any, callback?: any): Promise<TollfreeVerificationInstance>;
 
-  /**
-   * Streams TollfreeVerificationInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (
-      item: TollfreeVerificationInstance,
-      done: (err?: Error) => void
-    ) => void
-  ): void;
   /**
    * Streams TollfreeVerificationInstance records from the API.
    *
@@ -541,56 +517,30 @@ export interface TollfreeVerificationListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: TollfreeVerificationListInstanceEachOptions,
     callback?: (
       item: TollfreeVerificationInstance,
       done: (err?: Error) => void
     ) => void
   ): void;
-  each(params?: any, callback?: any): void;
+  each(
+    params: TollfreeVerificationListInstanceEachOptions,
+    callback?: (
+      item: TollfreeVerificationInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
   /**
    * Retrieve a single target page of TollfreeVerificationInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: TollfreeVerificationPage) => any
-  ): Promise<TollfreeVerificationPage>;
-  /**
-   * Retrieve a single target page of TollfreeVerificationInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: TollfreeVerificationPage) => any
   ): Promise<TollfreeVerificationPage>;
-  getPage(params?: any, callback?: any): Promise<TollfreeVerificationPage>;
-  /**
-   * Lists TollfreeVerificationInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (
-      error: Error | null,
-      items: TollfreeVerificationInstance[]
-    ) => any
-  ): Promise<TollfreeVerificationInstance[]>;
   /**
    * Lists TollfreeVerificationInstance records from the API as a list.
    *
@@ -601,26 +551,18 @@ export interface TollfreeVerificationListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: TollfreeVerificationListInstanceOptions,
     callback?: (
       error: Error | null,
       items: TollfreeVerificationInstance[]
     ) => any
   ): Promise<TollfreeVerificationInstance[]>;
-  list(params?: any, callback?: any): Promise<TollfreeVerificationInstance[]>;
-  /**
-   * Retrieve a single page of TollfreeVerificationInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: TollfreeVerificationPage) => any
-  ): Promise<TollfreeVerificationPage>;
+  list(
+    params: TollfreeVerificationListInstanceOptions,
+    callback?: (
+      error: Error | null,
+      items: TollfreeVerificationInstance[]
+    ) => any
+  ): Promise<TollfreeVerificationInstance[]>;
   /**
    * Retrieve a single page of TollfreeVerificationInstance records from the API.
    *
@@ -633,10 +575,12 @@ export interface TollfreeVerificationListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
+    callback?: (error: Error | null, items: TollfreeVerificationPage) => any
+  ): Promise<TollfreeVerificationPage>;
+  page(
     params: TollfreeVerificationListInstancePageOptions,
     callback?: (error: Error | null, items: TollfreeVerificationPage) => any
   ): Promise<TollfreeVerificationPage>;
-  page(params?: any, callback?: any): Promise<TollfreeVerificationPage>;
 
   /**
    * Provide a user-friendly representation
@@ -645,23 +589,11 @@ export interface TollfreeVerificationListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface TollfreeVerificationSolution {}
-
-interface TollfreeVerificationListInstanceImpl
-  extends TollfreeVerificationListInstance {}
-class TollfreeVerificationListInstanceImpl
-  implements TollfreeVerificationListInstance
-{
-  _version?: V1;
-  _solution?: TollfreeVerificationSolution;
-  _uri?: string;
-}
-
 export function TollfreeVerificationListInstance(
   version: V1
 ): TollfreeVerificationListInstance {
   const instance = ((sid) =>
-    instance.get(sid)) as TollfreeVerificationListInstanceImpl;
+    instance.get(sid)) as TollfreeVerificationListInstance;
 
   instance.get = function get(sid): TollfreeVerificationContext {
     return new TollfreeVerificationContextImpl(version, sid);
@@ -672,8 +604,8 @@ export function TollfreeVerificationListInstance(
   instance._uri = `/Tollfree/Verifications`;
 
   instance.create = function create(
-    params: any,
-    callback?: any
+    params: TollfreeVerificationListInstanceCreateOptions,
+    callback?: (error: Error | null, items: TollfreeVerificationInstance) => any
   ): Promise<TollfreeVerificationInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -772,14 +704,17 @@ export function TollfreeVerificationListInstance(
 
     data["UseCaseCategories"] = serialize.map(
       params["useCaseCategories"],
-      (e) => e
+      (e: string) => e
     );
 
     data["UseCaseSummary"] = params["useCaseSummary"];
 
     data["ProductionMessageSample"] = params["productionMessageSample"];
 
-    data["OptInImageUrls"] = serialize.map(params["optInImageUrls"], (e) => e);
+    data["OptInImageUrls"] = serialize.map(
+      params["optInImageUrls"],
+      (e: string) => e
+    );
 
     data["OptInType"] = params["optInType"];
 
@@ -817,7 +752,7 @@ export function TollfreeVerificationListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -827,7 +762,7 @@ export function TollfreeVerificationListInstance(
       (payload) => new TollfreeVerificationInstance(operationVersion, payload)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -835,10 +770,12 @@ export function TollfreeVerificationListInstance(
   };
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | TollfreeVerificationListInstancePageOptions
+      | ((error: Error | null, items: TollfreeVerificationPage) => any),
+    callback?: (error: Error | null, items: TollfreeVerificationPage) => any
   ): Promise<TollfreeVerificationPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -852,14 +789,14 @@ export function TollfreeVerificationListInstance(
     if (params["status"] !== undefined) data["Status"] = params["status"];
     if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
@@ -867,10 +804,14 @@ export function TollfreeVerificationListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new TollfreeVerificationPage(operationVersion, payload, this._solution)
+        new TollfreeVerificationPage(
+          operationVersion,
+          payload,
+          instance._solution
+        )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -880,34 +821,35 @@ export function TollfreeVerificationListInstance(
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: TollfreeVerificationPage) => any
   ): Promise<TollfreeVerificationPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
+    let pagePromise = operationPromise.then(
       (payload) =>
-        new TollfreeVerificationPage(this._version, payload, this._solution)
+        new TollfreeVerificationPage(
+          instance._version,
+          payload,
+          instance._solution
+        )
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

@@ -1,5 +1,3 @@
-"use strict";
-
 import Domain from "./Domain";
 import { RequestOpts } from "./BaseTwilio";
 import RestException from "./RestException";
@@ -26,12 +24,11 @@ export default class Version {
   _version: Version | string;
 
   /**
-   * @constructor
    *
-   * @description Base version object
+   * Base version object
    *
-   * @param {Domain} domain twilio domain
-   * @param {Version} version api version
+   * @param domain - twilio domain
+   * @param version - api version
    */
   constructor(domain: Domain, version: string | Version) {
     this._domain = domain;
@@ -45,8 +42,8 @@ export default class Version {
   /**
    * Generate absolute url from a uri
    *
-   * @param  {string} uri uri to transform
-   * @return {string} transformed url
+   * @param uri - uri to transform
+   * @returns transformed url
    */
   absoluteUrl(uri: string): string {
     return this._domain.absoluteUrl(this.relativeUrl(uri));
@@ -55,8 +52,8 @@ export default class Version {
   /**
    * Generate relative url from a uri
    *
-   * @param  {string} uri uri to transform
-   * @return {string} transformed url
+   * @param uri - uri to transform
+   * @returns transformed url
    */
   relativeUrl(uri: string): string {
     var result = "";
@@ -78,8 +75,8 @@ export default class Version {
   /**
    * Make a request against the domain
    *
-   * @param  {object} opts request options
-   * @return {Promise} promise that resolves to request response
+   * @param opts - request options
+   * @returns promise that resolves to request response
    */
   request(opts: RequestOpts): Promise<any> {
     return this._domain.request({
@@ -90,10 +87,12 @@ export default class Version {
 
   /**
    * Create a new record
-   * @throws {Error} If response returns non 2xx or 201 status code
    *
-   * @param  {object} opts request options
-   * @return {Promise} promise that resolves to created record
+   * @param opts - request options
+   *
+   * @throws Error If response returns non 2xx or 201 status code
+   *
+   * @returns promise that resolves to created record
    */
   create(opts: RequestOpts): Promise<any> {
     var qResponse = this.request(opts);
@@ -111,11 +110,13 @@ export default class Version {
   }
 
   /**
-   * Fetch a instance of a record
-   * @throws {Error} If response returns non 2xx or 3xx status code
+   * Fetch an instance of a record
    *
-   * @param  {object} opts request options
-   * @return {Promise} promise that resolves to fetched result
+   * @param opts - request options
+   *
+   * @throws Error If response returns non 2xx or 3xx status code
+   *
+   * @returns promise that resolves to fetched result
    */
   fetch(opts: RequestOpts): Promise<any> {
     var qResponse = this.request(opts);
@@ -137,8 +138,8 @@ export default class Version {
   /**
    * Fetch a page of records
    *
-   * @param  {object} opts request options
-   * @return {Promise} promise that resolves to page of records
+   * @param opts - request options
+   * @returns promise that resolves to page of records
    */
   page(opts: RequestOpts): Promise<any> {
     return this.request(opts);
@@ -146,10 +147,12 @@ export default class Version {
 
   /**
    * Update a record
-   * @throws {Error} If response returns non 2xx status code
    *
-   * @param  {object} opts request options
-   * @return {Promise} promise that resolves to updated result
+   * @param opts - request options
+   *
+   * @throws Error If response returns non 2xx status code
+   *
+   * @returns promise that resolves to updated result
    */
   update(opts: RequestOpts): Promise<any> {
     var qResponse = this.request(opts);
@@ -169,10 +172,12 @@ export default class Version {
 
   /**
    * Delete a record
-   * @throws {Error} If response returns a 5xx status
    *
-   * @param  {object} opts request options
-   * @return {Promise} promise that resolves to true if record was deleted
+   * @param opts - request options
+   *
+   * @throws Error If response returns a 5xx status
+   *
+   * @returns promise that resolves to true if record was deleted
    */
   remove(opts: RequestOpts): Promise<boolean> {
     var qResponse = this.request(opts);
@@ -190,10 +195,9 @@ export default class Version {
   /**
    * Process limits for list requests
    *
-   * @param {object} [opts] ...
-   * @param {number} [opts.limit] The maximum number of items to fetch
-   * @param {number} [opts.pageSize] The maximum number of items to return
-   *                                  with every request
+   * @param opts.limit - The maximum number of items to fetch
+   * @param opts.pageSize - The maximum number of items to return with every request
+   *
    */
   readLimits(opts: PageLimitOptions): PageLimit {
     var limit = opts.limit;
@@ -225,10 +229,31 @@ export default class Version {
     return operationPromise;
   }
 
+  /**
+   * For each record instance, executes a provided callback function with that
+   * instance
+   *
+   * @param params - Parameters (Optional)
+   * @param params.limit - Optional maximum number of record instances to
+   *  fetch
+   * @param params.pageSize - Optional maximum number of records to return
+   *  with every request
+   * @param params.callback - Callback function to call with each
+   *  record instance
+   * @param params.done - Optional done function to call when all
+   *  records are processed, the limit is reached, or an error occurs.
+   *  Receives an error argument if an error occurs.
+   * @param callback - Callback function to call with each record.
+   *  Receives a done function argument that will short-circuit the for-each
+   *  loop that may accept an error argument.
+   * @returns Returns a promise that resolves when all records
+   *  processed or if the limit is reached, and rejects with an error if an
+   *  error occurs and is not handled in the user provided done function.
+   */
   each<T>(
     params?: any,
     callback?: (item: T, done: (err?: Error) => void) => void
-  ): void {
+  ): Promise<void> {
     if (typeof params === "function") {
       callback = params;
       params = {};
@@ -242,44 +267,67 @@ export default class Version {
       throw new Error("Callback function must be provided");
     }
     let done = false;
+    let doneCalled = false;
     let currentPage = 1;
     let currentResource = 0;
     let limits = {} as PageLimit;
+    let pPending = true;
+    let pResolve: (value: void) => void;
+    let pReject: (reason?: any) => void;
     if (this._version instanceof Version) {
       limits = this._version.readLimits({
         limit: params.limit,
         pageSize: params.pageSize,
       });
     }
-    function onComplete(error?) {
+    function onComplete(error?: any) {
+      let unhandledError = error;
+
       done = true;
-      if (typeof params.done === "function") {
-        params.done(error);
+      if (typeof params.done === "function" && !doneCalled) {
+        try {
+          params.done(unhandledError);
+          unhandledError = null;
+        } catch (e) {
+          unhandledError = e;
+        }
+      }
+      doneCalled = true;
+
+      if (pPending) {
+        if (unhandledError) {
+          pReject(unhandledError);
+        } else {
+          pResolve();
+        }
+        pPending = false;
       }
     }
-    function fetchNextPage(fn) {
+    function fetchNextPage(fn: () => Promise<any>) {
       let promise = fn();
       if (typeof promise === "undefined") {
         onComplete();
         return;
       }
+
       promise.then((page) => {
-        Object.keys(page.instances).forEach(function (instance: any) {
-          if (
-            done ||
-            (typeof params.limit !== "undefined" &&
-              currentResource >= params.limit)
-          ) {
-            done = true;
-            return false;
-          }
-          currentResource++;
-          try {
-            callback(instance, onComplete);
-          } catch (e) {
-            throw e;
-          }
-        });
+        try {
+          page.instances.forEach(function (instance: any) {
+            if (
+              done ||
+              (typeof params.limit !== "undefined" &&
+                currentResource >= params.limit)
+            ) {
+              done = true;
+              return false;
+            }
+            currentResource++;
+            callback?.(instance, onComplete);
+          });
+        } catch (e) {
+          return onComplete(e);
+        }
+
         if (!done) {
           currentPage++;
           fetchNextPage(page.nextPage.bind(page));
@@ -289,7 +337,12 @@ export default class Version {
       });
       promise.catch(onComplete);
     }
-    fetchNextPage(this.page.bind(this, Object.assign(params, limits)));
+
+    return new Promise((resolve, reject) => {
+      pResolve = resolve;
+      pReject = reject;
+      fetchNextPage(this.page.bind(this, Object.assign(params, limits)));
+    });
   }
 
   list<T>(

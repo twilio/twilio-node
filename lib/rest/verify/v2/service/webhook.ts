@@ -28,81 +28,68 @@ type WebhookVersion = "v1" | "v2";
 
 /**
  * Options to pass to update a WebhookInstance
- *
- * @property { string } [friendlyName] The string that you assigned to describe the webhook. **This value should not contain PII.**
- * @property { Array<string> } [eventTypes] The array of events that this Webhook is subscribed to. Possible event types: `*, factor.deleted, factor.created, factor.verified, challenge.approved, challenge.denied`
- * @property { string } [webhookUrl] The URL associated with this Webhook.
- * @property { WebhookStatus } [status]
- * @property { WebhookVersion } [version]
  */
 export interface WebhookContextUpdateOptions {
+  /** The string that you assigned to describe the webhook. **This value should not contain PII.** */
   friendlyName?: string;
+  /** The array of events that this Webhook is subscribed to. Possible event types: `*, factor.deleted, factor.created, factor.verified, challenge.approved, challenge.denied` */
   eventTypes?: Array<string>;
+  /** The URL associated with this Webhook. */
   webhookUrl?: string;
+  /**  */
   status?: WebhookStatus;
+  /**  */
   version?: WebhookVersion;
 }
 
 /**
  * Options to pass to create a WebhookInstance
- *
- * @property { string } friendlyName The string that you assigned to describe the webhook. **This value should not contain PII.**
- * @property { Array<string> } eventTypes The array of events that this Webhook is subscribed to. Possible event types: `*, factor.deleted, factor.created, factor.verified, challenge.approved, challenge.denied`
- * @property { string } webhookUrl The URL associated with this Webhook.
- * @property { WebhookStatus } [status]
- * @property { WebhookVersion } [version]
  */
 export interface WebhookListInstanceCreateOptions {
+  /** The string that you assigned to describe the webhook. **This value should not contain PII.** */
   friendlyName: string;
+  /** The array of events that this Webhook is subscribed to. Possible event types: `*, factor.deleted, factor.created, factor.verified, challenge.approved, challenge.denied` */
   eventTypes: Array<string>;
+  /** The URL associated with this Webhook. */
   webhookUrl: string;
+  /**  */
   status?: WebhookStatus;
+  /**  */
   version?: WebhookVersion;
 }
 /**
  * Options to pass to each
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface WebhookListInstanceEachOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: WebhookInstance, done: (err?: Error) => void) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface WebhookListInstanceOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface WebhookListInstancePageOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
@@ -110,9 +97,9 @@ export interface WebhookContext {
   /**
    * Remove a WebhookInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -121,9 +108,9 @@ export interface WebhookContext {
   /**
    * Fetch a WebhookInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed WebhookInstance
+   * @returns Resolves to processed WebhookInstance
    */
   fetch(
     callback?: (error: Error | null, item?: WebhookInstance) => any
@@ -132,9 +119,9 @@ export interface WebhookContext {
   /**
    * Update a WebhookInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed WebhookInstance
+   * @returns Resolves to processed WebhookInstance
    */
   update(
     callback?: (error: Error | null, item?: WebhookInstance) => any
@@ -142,16 +129,15 @@ export interface WebhookContext {
   /**
    * Update a WebhookInstance
    *
-   * @param { WebhookContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed WebhookInstance
+   * @returns Resolves to processed WebhookInstance
    */
   update(
     params: WebhookContextUpdateOptions,
     callback?: (error: Error | null, item?: WebhookInstance) => any
   ): Promise<WebhookInstance>;
-  update(params?: any, callback?: any): Promise<WebhookInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -161,8 +147,8 @@ export interface WebhookContext {
 }
 
 export interface WebhookContextSolution {
-  serviceSid?: string;
-  sid?: string;
+  serviceSid: string;
+  sid: string;
 }
 
 export class WebhookContextImpl implements WebhookContext {
@@ -182,24 +168,30 @@ export class WebhookContextImpl implements WebhookContext {
     this._uri = `/Services/${serviceSid}/Webhooks/${sid}`;
   }
 
-  remove(callback?: any): Promise<boolean> {
-    let operationVersion = this._version,
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<WebhookInstance> {
-    let operationVersion = this._version,
+  fetch(
+    callback?: (error: Error | null, item?: WebhookInstance) => any
+  ): Promise<WebhookInstance> {
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -208,20 +200,25 @@ export class WebhookContextImpl implements WebhookContext {
         new WebhookInstance(
           operationVersion,
           payload,
-          this._solution.serviceSid,
-          this._solution.sid
+          instance._solution.serviceSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
     return operationPromise;
   }
 
-  update(params?: any, callback?: any): Promise<WebhookInstance> {
-    if (typeof params === "function") {
+  update(
+    params?:
+      | WebhookContextUpdateOptions
+      | ((error: Error | null, item?: WebhookInstance) => any),
+    callback?: (error: Error | null, item?: WebhookInstance) => any
+  ): Promise<WebhookInstance> {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -233,7 +230,10 @@ export class WebhookContextImpl implements WebhookContext {
     if (params["friendlyName"] !== undefined)
       data["FriendlyName"] = params["friendlyName"];
     if (params["eventTypes"] !== undefined)
-      data["EventTypes"] = serialize.map(params["eventTypes"], (e) => e);
+      data["EventTypes"] = serialize.map(
+        params["eventTypes"],
+        (e: string) => e
+      );
     if (params["webhookUrl"] !== undefined)
       data["WebhookUrl"] = params["webhookUrl"];
     if (params["status"] !== undefined) data["Status"] = params["status"];
@@ -242,9 +242,10 @@ export class WebhookContextImpl implements WebhookContext {
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -255,12 +256,12 @@ export class WebhookContextImpl implements WebhookContext {
         new WebhookInstance(
           operationVersion,
           payload,
-          this._solution.serviceSid,
-          this._solution.sid
+          instance._solution.serviceSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -286,18 +287,18 @@ interface WebhookPayload extends TwilioResponsePayload {
 }
 
 interface WebhookResource {
-  sid?: string | null;
-  service_sid?: string | null;
-  account_sid?: string | null;
-  friendly_name?: string | null;
-  event_types?: Array<string> | null;
-  status?: WebhookStatus;
-  version?: WebhookVersion;
-  webhook_url?: string | null;
-  webhook_method?: WebhookMethods;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  url?: string | null;
+  sid: string;
+  service_sid: string;
+  account_sid: string;
+  friendly_name: string;
+  event_types: Array<string>;
+  status: WebhookStatus;
+  version: WebhookVersion;
+  webhook_url: string;
+  webhook_method: WebhookMethods;
+  date_created: Date;
+  date_updated: Date;
+  url: string;
 }
 
 export class WebhookInstance {
@@ -329,42 +330,42 @@ export class WebhookInstance {
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * Service Sid.
    */
-  serviceSid?: string | null;
+  serviceSid: string;
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The string that you assigned to describe the webhook
    */
-  friendlyName?: string | null;
+  friendlyName: string;
   /**
    * The array of events that this Webhook is subscribed to.
    */
-  eventTypes?: Array<string> | null;
-  status?: WebhookStatus;
-  version?: WebhookVersion;
+  eventTypes: Array<string>;
+  status: WebhookStatus;
+  version: WebhookVersion;
   /**
    * The URL associated with this Webhook.
    */
-  webhookUrl?: string | null;
-  webhookMethod?: WebhookMethods;
+  webhookUrl: string;
+  webhookMethod: WebhookMethods;
   /**
    * The ISO 8601 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The ISO 8601 date and time in GMT when the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The absolute URL of the Webhook resource
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): WebhookContext {
     this._context =
@@ -380,9 +381,9 @@ export class WebhookInstance {
   /**
    * Remove a WebhookInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -393,9 +394,9 @@ export class WebhookInstance {
   /**
    * Fetch a WebhookInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed WebhookInstance
+   * @returns Resolves to processed WebhookInstance
    */
   fetch(
     callback?: (error: Error | null, item?: WebhookInstance) => any
@@ -406,9 +407,9 @@ export class WebhookInstance {
   /**
    * Update a WebhookInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed WebhookInstance
+   * @returns Resolves to processed WebhookInstance
    */
   update(
     callback?: (error: Error | null, item?: WebhookInstance) => any
@@ -416,16 +417,20 @@ export class WebhookInstance {
   /**
    * Update a WebhookInstance
    *
-   * @param { WebhookContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed WebhookInstance
+   * @returns Resolves to processed WebhookInstance
    */
   update(
     params: WebhookContextUpdateOptions,
     callback?: (error: Error | null, item?: WebhookInstance) => any
   ): Promise<WebhookInstance>;
-  update(params?: any, callback?: any): Promise<WebhookInstance> {
+
+  update(
+    params?: any,
+    callback?: (error: Error | null, item?: WebhookInstance) => any
+  ): Promise<WebhookInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -456,41 +461,31 @@ export class WebhookInstance {
   }
 }
 
+export interface WebhookSolution {
+  serviceSid: string;
+}
+
 export interface WebhookListInstance {
+  _version: V2;
+  _solution: WebhookSolution;
+  _uri: string;
+
   (sid: string): WebhookContext;
   get(sid: string): WebhookContext;
 
   /**
    * Create a WebhookInstance
    *
-   * @param { WebhookListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed WebhookInstance
+   * @returns Resolves to processed WebhookInstance
    */
   create(
     params: WebhookListInstanceCreateOptions,
     callback?: (error: Error | null, item?: WebhookInstance) => any
   ): Promise<WebhookInstance>;
-  create(params: any, callback?: any): Promise<WebhookInstance>;
 
-  /**
-   * Streams WebhookInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (item: WebhookInstance, done: (err?: Error) => void) => void
-  ): void;
   /**
    * Streams WebhookInstance records from the API.
    *
@@ -507,50 +502,24 @@ export interface WebhookListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: WebhookListInstanceEachOptions,
     callback?: (item: WebhookInstance, done: (err?: Error) => void) => void
   ): void;
-  each(params?: any, callback?: any): void;
+  each(
+    params: WebhookListInstanceEachOptions,
+    callback?: (item: WebhookInstance, done: (err?: Error) => void) => void
+  ): void;
   /**
    * Retrieve a single target page of WebhookInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: WebhookPage) => any
-  ): Promise<WebhookPage>;
-  /**
-   * Retrieve a single target page of WebhookInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: WebhookPage) => any
   ): Promise<WebhookPage>;
-  getPage(params?: any, callback?: any): Promise<WebhookPage>;
-  /**
-   * Lists WebhookInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: WebhookInstance[]) => any
-  ): Promise<WebhookInstance[]>;
   /**
    * Lists WebhookInstance records from the API as a list.
    *
@@ -561,23 +530,12 @@ export interface WebhookListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: WebhookListInstanceOptions,
     callback?: (error: Error | null, items: WebhookInstance[]) => any
   ): Promise<WebhookInstance[]>;
-  list(params?: any, callback?: any): Promise<WebhookInstance[]>;
-  /**
-   * Retrieve a single page of WebhookInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: WebhookPage) => any
-  ): Promise<WebhookPage>;
+  list(
+    params: WebhookListInstanceOptions,
+    callback?: (error: Error | null, items: WebhookInstance[]) => any
+  ): Promise<WebhookInstance[]>;
   /**
    * Retrieve a single page of WebhookInstance records from the API.
    *
@@ -590,27 +548,18 @@ export interface WebhookListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
+    callback?: (error: Error | null, items: WebhookPage) => any
+  ): Promise<WebhookPage>;
+  page(
     params: WebhookListInstancePageOptions,
     callback?: (error: Error | null, items: WebhookPage) => any
   ): Promise<WebhookPage>;
-  page(params?: any, callback?: any): Promise<WebhookPage>;
 
   /**
    * Provide a user-friendly representation
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export interface WebhookSolution {
-  serviceSid?: string;
-}
-
-interface WebhookListInstanceImpl extends WebhookListInstance {}
-class WebhookListInstanceImpl implements WebhookListInstance {
-  _version?: V2;
-  _solution?: WebhookSolution;
-  _uri?: string;
 }
 
 export function WebhookListInstance(
@@ -621,7 +570,7 @@ export function WebhookListInstance(
     throw new Error("Parameter 'serviceSid' is not valid.");
   }
 
-  const instance = ((sid) => instance.get(sid)) as WebhookListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as WebhookListInstance;
 
   instance.get = function get(sid): WebhookContext {
     return new WebhookContextImpl(version, serviceSid, sid);
@@ -632,8 +581,8 @@ export function WebhookListInstance(
   instance._uri = `/Services/${serviceSid}/Webhooks`;
 
   instance.create = function create(
-    params: any,
-    callback?: any
+    params: WebhookListInstanceCreateOptions,
+    callback?: (error: Error | null, items: WebhookInstance) => any
   ): Promise<WebhookInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -658,7 +607,7 @@ export function WebhookListInstance(
 
     data["FriendlyName"] = params["friendlyName"];
 
-    data["EventTypes"] = serialize.map(params["eventTypes"], (e) => e);
+    data["EventTypes"] = serialize.map(params["eventTypes"], (e: string) => e);
 
     data["WebhookUrl"] = params["webhookUrl"];
     if (params["status"] !== undefined) data["Status"] = params["status"];
@@ -669,7 +618,7 @@ export function WebhookListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -680,11 +629,11 @@ export function WebhookListInstance(
         new WebhookInstance(
           operationVersion,
           payload,
-          this._solution.serviceSid
+          instance._solution.serviceSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -692,10 +641,12 @@ export function WebhookListInstance(
   };
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | WebhookListInstancePageOptions
+      | ((error: Error | null, items: WebhookPage) => any),
+    callback?: (error: Error | null, items: WebhookPage) => any
   ): Promise<WebhookPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -706,24 +657,25 @@ export function WebhookListInstance(
 
     if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new WebhookPage(operationVersion, payload, this._solution)
+      (payload) =>
+        new WebhookPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -733,33 +685,31 @@ export function WebhookListInstance(
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: WebhookPage) => any
   ): Promise<WebhookPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new WebhookPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new WebhookPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

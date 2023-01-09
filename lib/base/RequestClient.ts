@@ -1,5 +1,3 @@
-"use strict";
-
 import { HttpMethod } from "../interfaces";
 import axios, { AxiosInstance, AxiosRequestConfig } from "axios";
 import * as fs from "fs";
@@ -96,24 +94,23 @@ export interface RequestClientOptions {
   ca?: string | Buffer;
 }
 
-/**
- * Make http request
- * @param {object} opts - The options passed to https.Agent
- * @param {number} opts.timeout - https.Agent timeout option. Used as the socket timeout, AND as the default request timeout.
- * @param {boolean} opts.keepAlive - https.Agent keepAlive option
- * @param {number} opts.keepAliveMsecs - https.Agent keepAliveMsecs option
- * @param {number} opts.maxSockets - https.Agent maxSockets option
- * @param {number} opts.maxTotalSockets - https.Agent maxTotalSockets option
- * @param {number} opts.maxFreeSockets - https.Agent maxFreeSockets option
- * @param {string} opts.scheduling - https.Agent scheduling option
- */
 export default class RequestClient {
   defaultTimeout: number;
   axios: AxiosInstance;
-  ca?: string | Buffer;
   lastResponse?: Response<any>;
   lastRequest?: Request<any>;
 
+  /**
+   * Make http request
+   * @param opts - The options passed to https.Agent
+   * @param opts.timeout - https.Agent timeout option. Used as the socket timeout, AND as the default request timeout.
+   * @param opts.keepAlive - https.Agent keepAlive option
+   * @param opts.keepAliveMsecs - https.Agent keepAliveMsecs option
+   * @param opts.maxSockets - https.Agent maxSockets option
+   * @param opts.maxTotalSockets - https.Agent maxTotalSockets option
+   * @param opts.maxFreeSockets - https.Agent maxFreeSockets option
+   * @param opts.scheduling - https.Agent scheduling option
+   */
   constructor(opts?: RequestClientOptions) {
     opts = opts || {};
     this.defaultTimeout = opts.timeout || DEFAULT_TIMEOUT;
@@ -133,9 +130,8 @@ export default class RequestClient {
     // sets https agent CA bundle if defined in CA bundle filepath env variable
     if (process.env.TWILIO_CA_BUNDLE !== undefined) {
       if (agentOpts.ca === undefined) {
-        this.ca = fs.readFileSync(process.env.TWILIO_CA_BUNDLE);
+        agentOpts.ca = fs.readFileSync(process.env.TWILIO_CA_BUNDLE);
       }
-      agentOpts.ca = this.ca;
     }
 
     let agent;
@@ -155,18 +151,18 @@ export default class RequestClient {
 
   /**
    * Make http request
-   * @param {object} opts - The options argument
-   * @param {string} opts.method - The http method
-   * @param {string} opts.uri - The request uri
-   * @param {string} [opts.username] - The username used for auth
-   * @param {string} [opts.password] - The password used for auth
-   * @param {object} [opts.headers] - The request headers
-   * @param {object} [opts.params] - The request params
-   * @param {object} [opts.data] - The request data
-   * @param {int} [opts.timeout=30000] - The request timeout in milliseconds
-   * @param {boolean} [opts.allowRedirects] - Should the client follow redirects
-   * @param {boolean} [opts.forever] - Set to true to use the forever-agent
-   * @param {string} [opts.logLevel] - Show debug logs
+   * @param opts - The options argument
+   * @param opts.method - The http method
+   * @param opts.uri - The request uri
+   * @param opts.username - The username used for auth
+   * @param opts.password - The password used for auth
+   * @param opts.headers - The request headers
+   * @param opts.params - The request params
+   * @param opts.data - The request data
+   * @param opts.timeout - The request timeout in milliseconds (default 30000)
+   * @param opts.allowRedirects - Should the client follow redirects
+   * @param opts.forever - Set to true to use the forever-agent
+   * @param opts.logLevel - Show debug logs
    */
   request<TData>(opts: RequestOptions<TData>): Promise<Response<TData>> {
     if (!opts.method) {
@@ -194,7 +190,7 @@ export default class RequestClient {
       headers.Authorization = "Basic " + auth;
     }
 
-    var options: AxiosRequestConfig = {
+    const options: AxiosRequestConfig = {
       timeout: opts.timeout || this.defaultTimeout,
       maxRedirects: opts.allowRedirects ? 10 : 0,
       url: opts.uri,
@@ -215,21 +211,20 @@ export default class RequestClient {
       };
     }
 
-    var requestOptions: LastRequestOptions<TData> = {
+    const requestOptions: LastRequestOptions<TData> = {
       method: opts.method,
       url: opts.uri,
       auth: auth,
       params: options.params,
       data: opts.data,
       headers: opts.headers,
-      ca: this.ca,
     };
 
     if (opts.logLevel === "debug") {
       this.logRequest(requestOptions);
     }
 
-    var _this = this;
+    const _this = this;
     this.lastResponse = undefined;
     this.lastRequest = new Request(requestOptions);
 

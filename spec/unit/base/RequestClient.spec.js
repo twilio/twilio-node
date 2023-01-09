@@ -1,5 +1,3 @@
-"use strict";
-
 import mockfs from "mock-fs";
 import axios from "axios";
 import RequestClient from "../../../lib/base/RequestClient";
@@ -74,6 +72,7 @@ describe("RequestClient constructor", function () {
     expect(requestClient.axios.defaults.httpsAgent.options.scheduling).toBe(
       undefined
     );
+    expect(requestClient.axios.defaults.httpsAgent.options.ca).toBe(undefined);
   });
 
   it("should initialize with a proxy", function () {
@@ -284,19 +283,8 @@ describe("lastRequest defined, lastResponse undefined", function () {
 });
 
 describe("User specified CA bundle", function () {
-  let options;
   beforeEach(function () {
-    axios.create.mockReturnValue(createMockAxios(Promise.reject("failed")));
-
-    options = {
-      method: "GET",
-      uri: "test-uri",
-      username: "test-username",
-      password: "test-password",
-      headers: { "test-header-key": "test-header-value" },
-      params: { "test-param-key": "test-param-value" },
-      data: { "test-data-key": "test-data-value" },
-    };
+    axios.create.mockReturnValue(createMockAxios(Promise.resolve()));
 
     mockfs({
       "/path/to/ca": {
@@ -309,39 +297,13 @@ describe("User specified CA bundle", function () {
     mockfs.restore();
   });
 
-  it("should not modify CA if not specified", function () {
-    let client = new RequestClient();
-
-    return client.request(options).catch(() => {
-      expect(client.lastRequest.ca).toBeUndefined();
-    });
-  });
-
   it("should use CA if it is specified", function () {
     process.env.TWILIO_CA_BUNDLE = "/path/to/ca/test-ca.pem";
     let client = new RequestClient();
+    delete process.env.TWILIO_CA_BUNDLE;
 
-    return client.request(options).catch(() => {
-      expect(client.lastRequest.ca.toString()).toEqual("test ca data");
-      delete process.env.TWILIO_CA_BUNDLE;
-    });
+    return expect(
+      client.axios.defaults.httpsAgent.options.ca.toString()
+    ).toEqual("test ca data");
   });
-
-  /* This doesn't make sense because Axios requires the CA to be set in a custom HTTP agent */
-  /* See: https://stackoverflow.com/questions/51363855/how-to-configure-axios-to-use-ssl-certificate */
-  /* See (doesn't specify SSL CA certificates in the request): https://axios-http.com/docs/req_config */
-  // it("should cache the CA after loading it for the first time", function () {
-  //   process.env.TWILIO_CA_BUNDLE = "/path/to/ca/test-ca.pem";
-  //   return client.request(options).catch(() => {
-  //     mockfs({
-  //       "/path/to/ca": {
-  //         "test-ca.pem": null,
-  //       },
-  //     });
-  //     return client.request(options).catch(() => {
-  //       expect(client.lastRequest.ca.toString()).toEqual("test ca data");
-  //       delete process.env.TWILIO_CA_BUNDLE;
-  //     });
-  //   });
-  // });
 });

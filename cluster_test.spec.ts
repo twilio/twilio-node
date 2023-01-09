@@ -1,5 +1,3 @@
-"use strict";
-
 jest.setTimeout(15000);
 
 import twilio from "./lib/";

@@ -24,66 +24,55 @@ type LogLevel = "info" | "warn" | "error";
 
 /**
  * Options to pass to each
- *
- * @property { string } [functionSid] The SID of the function whose invocation produced the Log resources to read.
- * @property { Date } [startDate] The date/time (in GMT, ISO 8601) after which the Log resources must have been created. Defaults to 1 day prior to current date/time.
- * @property { Date } [endDate] The date/time (in GMT, ISO 8601) before which the Log resources must have been created. Defaults to current date/time.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface LogListInstanceEachOptions {
+  /** The SID of the function whose invocation produced the Log resources to read. */
   functionSid?: string;
+  /** The date/time (in GMT, ISO 8601) after which the Log resources must have been created. Defaults to 1 day prior to current date/time. */
   startDate?: Date;
+  /** The date/time (in GMT, ISO 8601) before which the Log resources must have been created. Defaults to current date/time. */
   endDate?: Date;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: LogInstance, done: (err?: Error) => void) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { string } [functionSid] The SID of the function whose invocation produced the Log resources to read.
- * @property { Date } [startDate] The date/time (in GMT, ISO 8601) after which the Log resources must have been created. Defaults to 1 day prior to current date/time.
- * @property { Date } [endDate] The date/time (in GMT, ISO 8601) before which the Log resources must have been created. Defaults to current date/time.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface LogListInstanceOptions {
+  /** The SID of the function whose invocation produced the Log resources to read. */
   functionSid?: string;
+  /** The date/time (in GMT, ISO 8601) after which the Log resources must have been created. Defaults to 1 day prior to current date/time. */
   startDate?: Date;
+  /** The date/time (in GMT, ISO 8601) before which the Log resources must have been created. Defaults to current date/time. */
   endDate?: Date;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { string } [functionSid] The SID of the function whose invocation produced the Log resources to read.
- * @property { Date } [startDate] The date/time (in GMT, ISO 8601) after which the Log resources must have been created. Defaults to 1 day prior to current date/time.
- * @property { Date } [endDate] The date/time (in GMT, ISO 8601) before which the Log resources must have been created. Defaults to current date/time.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface LogListInstancePageOptions {
+  /** The SID of the function whose invocation produced the Log resources to read. */
   functionSid?: string;
+  /** The date/time (in GMT, ISO 8601) after which the Log resources must have been created. Defaults to 1 day prior to current date/time. */
   startDate?: Date;
+  /** The date/time (in GMT, ISO 8601) before which the Log resources must have been created. Defaults to current date/time. */
   endDate?: Date;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
@@ -91,9 +80,9 @@ export interface LogContext {
   /**
    * Fetch a LogInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed LogInstance
+   * @returns Resolves to processed LogInstance
    */
   fetch(
     callback?: (error: Error | null, item?: LogInstance) => any
@@ -107,9 +96,9 @@ export interface LogContext {
 }
 
 export interface LogContextSolution {
-  serviceSid?: string;
-  environmentSid?: string;
-  sid?: string;
+  serviceSid: string;
+  environmentSid: string;
+  sid: string;
 }
 
 export class LogContextImpl implements LogContext {
@@ -138,10 +127,13 @@ export class LogContextImpl implements LogContext {
     this._uri = `/Services/${serviceSid}/Environments/${environmentSid}/Logs/${sid}`;
   }
 
-  fetch(callback?: any): Promise<LogInstance> {
-    let operationVersion = this._version,
+  fetch(
+    callback?: (error: Error | null, item?: LogInstance) => any
+  ): Promise<LogInstance> {
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -150,13 +142,13 @@ export class LogContextImpl implements LogContext {
         new LogInstance(
           operationVersion,
           payload,
-          this._solution.serviceSid,
-          this._solution.environmentSid,
-          this._solution.sid
+          instance._solution.serviceSid,
+          instance._solution.environmentSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -182,18 +174,18 @@ interface LogPayload extends TwilioResponsePayload {
 }
 
 interface LogResource {
-  sid?: string | null;
-  account_sid?: string | null;
-  service_sid?: string | null;
-  environment_sid?: string | null;
-  build_sid?: string | null;
-  deployment_sid?: string | null;
-  function_sid?: string | null;
-  request_sid?: string | null;
-  level?: LogLevel;
-  message?: string | null;
-  date_created?: Date | null;
-  url?: string | null;
+  sid: string;
+  account_sid: string;
+  service_sid: string;
+  environment_sid: string;
+  build_sid: string;
+  deployment_sid: string;
+  function_sid: string;
+  request_sid: string;
+  level: LogLevel;
+  message: string;
+  date_created: Date;
+  url: string;
 }
 
 export class LogInstance {
@@ -226,48 +218,48 @@ export class LogInstance {
   /**
    * The unique string that identifies the Log resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The SID of the Account that created the Log resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The SID of the Service that the Log resource is associated with
    */
-  serviceSid?: string | null;
+  serviceSid: string;
   /**
    * The SID of the environment in which the log occurred
    */
-  environmentSid?: string | null;
+  environmentSid: string;
   /**
    * The SID of the build that corresponds to the log
    */
-  buildSid?: string | null;
+  buildSid: string;
   /**
    * The SID of the deployment that corresponds to the log
    */
-  deploymentSid?: string | null;
+  deploymentSid: string;
   /**
    * The SID of the function whose invocation produced the log
    */
-  functionSid?: string | null;
+  functionSid: string;
   /**
    * The SID of the request associated with the log
    */
-  requestSid?: string | null;
-  level?: LogLevel;
+  requestSid: string;
+  level: LogLevel;
   /**
    * The log message
    */
-  message?: string | null;
+  message: string;
   /**
    * The ISO 8601 date and time in GMT when the Log resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The absolute URL of the Log resource
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): LogContext {
     this._context =
@@ -284,9 +276,9 @@ export class LogInstance {
   /**
    * Fetch a LogInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed LogInstance
+   * @returns Resolves to processed LogInstance
    */
   fetch(
     callback?: (error: Error | null, item?: LogInstance) => any
@@ -321,27 +313,19 @@ export class LogInstance {
   }
 }
 
+export interface LogSolution {
+  serviceSid: string;
+  environmentSid: string;
+}
+
 export interface LogListInstance {
+  _version: V1;
+  _solution: LogSolution;
+  _uri: string;
+
   (sid: string): LogContext;
   get(sid: string): LogContext;
 
-  /**
-   * Streams LogInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (item: LogInstance, done: (err?: Error) => void) => void
-  ): void;
   /**
    * Streams LogInstance records from the API.
    *
@@ -358,50 +342,24 @@ export interface LogListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: LogListInstanceEachOptions,
     callback?: (item: LogInstance, done: (err?: Error) => void) => void
   ): void;
-  each(params?: any, callback?: any): void;
+  each(
+    params: LogListInstanceEachOptions,
+    callback?: (item: LogInstance, done: (err?: Error) => void) => void
+  ): void;
   /**
    * Retrieve a single target page of LogInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: LogPage) => any
-  ): Promise<LogPage>;
-  /**
-   * Retrieve a single target page of LogInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: LogPage) => any
   ): Promise<LogPage>;
-  getPage(params?: any, callback?: any): Promise<LogPage>;
-  /**
-   * Lists LogInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: LogInstance[]) => any
-  ): Promise<LogInstance[]>;
   /**
    * Lists LogInstance records from the API as a list.
    *
@@ -412,23 +370,12 @@ export interface LogListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: LogListInstanceOptions,
     callback?: (error: Error | null, items: LogInstance[]) => any
   ): Promise<LogInstance[]>;
-  list(params?: any, callback?: any): Promise<LogInstance[]>;
-  /**
-   * Retrieve a single page of LogInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: LogPage) => any
-  ): Promise<LogPage>;
+  list(
+    params: LogListInstanceOptions,
+    callback?: (error: Error | null, items: LogInstance[]) => any
+  ): Promise<LogInstance[]>;
   /**
    * Retrieve a single page of LogInstance records from the API.
    *
@@ -441,28 +388,18 @@ export interface LogListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
+    callback?: (error: Error | null, items: LogPage) => any
+  ): Promise<LogPage>;
+  page(
     params: LogListInstancePageOptions,
     callback?: (error: Error | null, items: LogPage) => any
   ): Promise<LogPage>;
-  page(params?: any, callback?: any): Promise<LogPage>;
 
   /**
    * Provide a user-friendly representation
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export interface LogSolution {
-  serviceSid?: string;
-  environmentSid?: string;
-}
-
-interface LogListInstanceImpl extends LogListInstance {}
-class LogListInstanceImpl implements LogListInstance {
-  _version?: V1;
-  _solution?: LogSolution;
-  _uri?: string;
 }
 
 export function LogListInstance(
@@ -478,7 +415,7 @@ export function LogListInstance(
     throw new Error("Parameter 'environmentSid' is not valid.");
   }
 
-  const instance = ((sid) => instance.get(sid)) as LogListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as LogListInstance;
 
   instance.get = function get(sid): LogContext {
     return new LogContextImpl(version, serviceSid, environmentSid, sid);
@@ -489,10 +426,12 @@ export function LogListInstance(
   instance._uri = `/Services/${serviceSid}/Environments/${environmentSid}/Logs`;
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | LogListInstancePageOptions
+      | ((error: Error | null, items: LogPage) => any),
+    callback?: (error: Error | null, items: LogPage) => any
   ): Promise<LogPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -509,24 +448,24 @@ export function LogListInstance(
       data["EndDate"] = serialize.iso8601DateTime(params["endDate"]);
     if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new LogPage(operationVersion, payload, this._solution)
+      (payload) => new LogPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -536,33 +475,30 @@ export function LogListInstance(
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: LogPage) => any
   ): Promise<LogPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new LogPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) => new LogPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

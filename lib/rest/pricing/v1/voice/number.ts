@@ -39,9 +39,9 @@ export interface NumberContext {
   /**
    * Fetch a NumberInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed NumberInstance
+   * @returns Resolves to processed NumberInstance
    */
   fetch(
     callback?: (error: Error | null, item?: NumberInstance) => any
@@ -55,7 +55,7 @@ export interface NumberContext {
 }
 
 export interface NumberContextSolution {
-  number?: string;
+  number: string;
 }
 
 export class NumberContextImpl implements NumberContext {
@@ -71,19 +71,22 @@ export class NumberContextImpl implements NumberContext {
     this._uri = `/Voice/Numbers/${number}`;
   }
 
-  fetch(callback?: any): Promise<NumberInstance> {
-    let operationVersion = this._version,
+  fetch(
+    callback?: (error: Error | null, item?: NumberInstance) => any
+  ): Promise<NumberInstance> {
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new NumberInstance(operationVersion, payload, this._solution.number)
+        new NumberInstance(operationVersion, payload, instance._solution.number)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -107,13 +110,13 @@ export class NumberContextImpl implements NumberContext {
 interface NumberPayload extends NumberResource {}
 
 interface NumberResource {
-  number?: string | null;
-  country?: string | null;
-  iso_country?: string | null;
-  outbound_call_price?: PricingV1VoiceVoiceNumberOutboundCallPrice | null;
-  inbound_call_price?: PricingV1VoiceVoiceNumberInboundCallPrice | null;
-  price_unit?: string | null;
-  url?: string | null;
+  number: string;
+  country: string;
+  iso_country: string;
+  outbound_call_price: PricingV1VoiceVoiceNumberOutboundCallPrice;
+  inbound_call_price: PricingV1VoiceVoiceNumberInboundCallPrice;
+  price_unit: string;
+  url: string;
 }
 
 export class NumberInstance {
@@ -139,25 +142,25 @@ export class NumberInstance {
   /**
    * The phone number
    */
-  number?: string | null;
+  number: string;
   /**
    * The name of the country
    */
-  country?: string | null;
+  country: string;
   /**
    * The ISO country code
    */
-  isoCountry?: string | null;
-  outboundCallPrice?: PricingV1VoiceVoiceNumberOutboundCallPrice | null;
-  inboundCallPrice?: PricingV1VoiceVoiceNumberInboundCallPrice | null;
+  isoCountry: string;
+  outboundCallPrice: PricingV1VoiceVoiceNumberOutboundCallPrice;
+  inboundCallPrice: PricingV1VoiceVoiceNumberInboundCallPrice;
   /**
    * The currency in which prices are measured, in ISO 4127 format (e.g. usd, eur, jpy)
    */
-  priceUnit?: string | null;
+  priceUnit: string;
   /**
    * The absolute URL of the resource
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): NumberContext {
     this._context =
@@ -169,9 +172,9 @@ export class NumberInstance {
   /**
    * Fetch a NumberInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed NumberInstance
+   * @returns Resolves to processed NumberInstance
    */
   fetch(
     callback?: (error: Error | null, item?: NumberInstance) => any
@@ -201,7 +204,13 @@ export class NumberInstance {
   }
 }
 
+export interface NumberSolution {}
+
 export interface NumberListInstance {
+  _version: V1;
+  _solution: NumberSolution;
+  _uri: string;
+
   (number: string): NumberContext;
   get(number: string): NumberContext;
 
@@ -212,17 +221,8 @@ export interface NumberListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface NumberSolution {}
-
-interface NumberListInstanceImpl extends NumberListInstance {}
-class NumberListInstanceImpl implements NumberListInstance {
-  _version?: V1;
-  _solution?: NumberSolution;
-  _uri?: string;
-}
-
 export function NumberListInstance(version: V1): NumberListInstance {
-  const instance = ((number) => instance.get(number)) as NumberListInstanceImpl;
+  const instance = ((number) => instance.get(number)) as NumberListInstance;
 
   instance.get = function get(number): NumberContext {
     return new NumberContextImpl(version, number);
@@ -233,14 +233,14 @@ export function NumberListInstance(version: V1): NumberListInstance {
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

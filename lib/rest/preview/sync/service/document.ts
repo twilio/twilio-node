@@ -23,69 +23,56 @@ import { DocumentPermissionListInstance } from "./document/documentPermission";
 
 /**
  * Options to pass to update a DocumentInstance
- *
- * @property { any } data
- * @property { string } [ifMatch] The If-Match HTTP request header
  */
 export interface DocumentContextUpdateOptions {
+  /**  */
   data: any;
+  /** The If-Match HTTP request header */
   ifMatch?: string;
 }
 
 /**
  * Options to pass to create a DocumentInstance
- *
- * @property { string } [uniqueName]
- * @property { any } [data]
  */
 export interface DocumentListInstanceCreateOptions {
+  /**  */
   uniqueName?: string;
+  /**  */
   data?: any;
 }
 /**
  * Options to pass to each
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface DocumentListInstanceEachOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: DocumentInstance, done: (err?: Error) => void) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface DocumentListInstanceOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface DocumentListInstancePageOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
@@ -95,9 +82,9 @@ export interface DocumentContext {
   /**
    * Remove a DocumentInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -106,9 +93,9 @@ export interface DocumentContext {
   /**
    * Fetch a DocumentInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed DocumentInstance
+   * @returns Resolves to processed DocumentInstance
    */
   fetch(
     callback?: (error: Error | null, item?: DocumentInstance) => any
@@ -117,16 +104,15 @@ export interface DocumentContext {
   /**
    * Update a DocumentInstance
    *
-   * @param { DocumentContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed DocumentInstance
+   * @returns Resolves to processed DocumentInstance
    */
   update(
     params: DocumentContextUpdateOptions,
     callback?: (error: Error | null, item?: DocumentInstance) => any
   ): Promise<DocumentInstance>;
-  update(params: any, callback?: any): Promise<DocumentInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -136,8 +122,8 @@ export interface DocumentContext {
 }
 
 export interface DocumentContextSolution {
-  serviceSid?: string;
-  sid?: string;
+  serviceSid: string;
+  sid: string;
 }
 
 export class DocumentContextImpl implements DocumentContext {
@@ -170,24 +156,30 @@ export class DocumentContextImpl implements DocumentContext {
     return this._documentPermissions;
   }
 
-  remove(callback?: any): Promise<boolean> {
-    let operationVersion = this._version,
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<DocumentInstance> {
-    let operationVersion = this._version,
+  fetch(
+    callback?: (error: Error | null, item?: DocumentInstance) => any
+  ): Promise<DocumentInstance> {
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -196,19 +188,22 @@ export class DocumentContextImpl implements DocumentContext {
         new DocumentInstance(
           operationVersion,
           payload,
-          this._solution.serviceSid,
-          this._solution.sid
+          instance._solution.serviceSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
     return operationPromise;
   }
 
-  update(params: any, callback?: any): Promise<DocumentInstance> {
+  update(
+    params: DocumentContextUpdateOptions,
+    callback?: (error: Error | null, item?: DocumentInstance) => any
+  ): Promise<DocumentInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
@@ -226,9 +221,10 @@ export class DocumentContextImpl implements DocumentContext {
     if (params["ifMatch"] !== undefined)
       headers["If-Match"] = params["ifMatch"];
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -239,12 +235,12 @@ export class DocumentContextImpl implements DocumentContext {
         new DocumentInstance(
           operationVersion,
           payload,
-          this._solution.serviceSid,
-          this._solution.sid
+          instance._solution.serviceSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -270,17 +266,17 @@ interface DocumentPayload extends TwilioResponsePayload {
 }
 
 interface DocumentResource {
-  sid?: string | null;
-  unique_name?: string | null;
-  account_sid?: string | null;
-  service_sid?: string | null;
-  url?: string | null;
-  links?: object | null;
-  revision?: string | null;
-  data?: any | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  created_by?: string | null;
+  sid: string;
+  unique_name: string;
+  account_sid: string;
+  service_sid: string;
+  url: string;
+  links: Record<string, string>;
+  revision: string;
+  data: any;
+  date_created: Date;
+  date_updated: Date;
+  created_by: string;
 }
 
 export class DocumentInstance {
@@ -308,17 +304,17 @@ export class DocumentInstance {
     this._solution = { serviceSid, sid: sid || this.sid };
   }
 
-  sid?: string | null;
-  uniqueName?: string | null;
-  accountSid?: string | null;
-  serviceSid?: string | null;
-  url?: string | null;
-  links?: object | null;
-  revision?: string | null;
-  data?: any | null;
-  dateCreated?: Date | null;
-  dateUpdated?: Date | null;
-  createdBy?: string | null;
+  sid: string;
+  uniqueName: string;
+  accountSid: string;
+  serviceSid: string;
+  url: string;
+  links: Record<string, string>;
+  revision: string;
+  data: any;
+  dateCreated: Date;
+  dateUpdated: Date;
+  createdBy: string;
 
   private get _proxy(): DocumentContext {
     this._context =
@@ -334,9 +330,9 @@ export class DocumentInstance {
   /**
    * Remove a DocumentInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -347,9 +343,9 @@ export class DocumentInstance {
   /**
    * Fetch a DocumentInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed DocumentInstance
+   * @returns Resolves to processed DocumentInstance
    */
   fetch(
     callback?: (error: Error | null, item?: DocumentInstance) => any
@@ -360,16 +356,20 @@ export class DocumentInstance {
   /**
    * Update a DocumentInstance
    *
-   * @param { DocumentContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed DocumentInstance
+   * @returns Resolves to processed DocumentInstance
    */
   update(
     params: DocumentContextUpdateOptions,
     callback?: (error: Error | null, item?: DocumentInstance) => any
   ): Promise<DocumentInstance>;
-  update(params: any, callback?: any): Promise<DocumentInstance> {
+
+  update(
+    params?: any,
+    callback?: (error: Error | null, item?: DocumentInstance) => any
+  ): Promise<DocumentInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -406,16 +406,24 @@ export class DocumentInstance {
   }
 }
 
+export interface DocumentSolution {
+  serviceSid: string;
+}
+
 export interface DocumentListInstance {
+  _version: Sync;
+  _solution: DocumentSolution;
+  _uri: string;
+
   (sid: string): DocumentContext;
   get(sid: string): DocumentContext;
 
   /**
    * Create a DocumentInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed DocumentInstance
+   * @returns Resolves to processed DocumentInstance
    */
   create(
     callback?: (error: Error | null, item?: DocumentInstance) => any
@@ -423,34 +431,16 @@ export interface DocumentListInstance {
   /**
    * Create a DocumentInstance
    *
-   * @param { DocumentListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed DocumentInstance
+   * @returns Resolves to processed DocumentInstance
    */
   create(
     params: DocumentListInstanceCreateOptions,
     callback?: (error: Error | null, item?: DocumentInstance) => any
   ): Promise<DocumentInstance>;
-  create(params?: any, callback?: any): Promise<DocumentInstance>;
 
-  /**
-   * Streams DocumentInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (item: DocumentInstance, done: (err?: Error) => void) => void
-  ): void;
   /**
    * Streams DocumentInstance records from the API.
    *
@@ -467,50 +457,24 @@ export interface DocumentListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: DocumentListInstanceEachOptions,
     callback?: (item: DocumentInstance, done: (err?: Error) => void) => void
   ): void;
-  each(params?: any, callback?: any): void;
+  each(
+    params: DocumentListInstanceEachOptions,
+    callback?: (item: DocumentInstance, done: (err?: Error) => void) => void
+  ): void;
   /**
    * Retrieve a single target page of DocumentInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: DocumentPage) => any
-  ): Promise<DocumentPage>;
-  /**
-   * Retrieve a single target page of DocumentInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: DocumentPage) => any
   ): Promise<DocumentPage>;
-  getPage(params?: any, callback?: any): Promise<DocumentPage>;
-  /**
-   * Lists DocumentInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: DocumentInstance[]) => any
-  ): Promise<DocumentInstance[]>;
   /**
    * Lists DocumentInstance records from the API as a list.
    *
@@ -521,23 +485,12 @@ export interface DocumentListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: DocumentListInstanceOptions,
     callback?: (error: Error | null, items: DocumentInstance[]) => any
   ): Promise<DocumentInstance[]>;
-  list(params?: any, callback?: any): Promise<DocumentInstance[]>;
-  /**
-   * Retrieve a single page of DocumentInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: DocumentPage) => any
-  ): Promise<DocumentPage>;
+  list(
+    params: DocumentListInstanceOptions,
+    callback?: (error: Error | null, items: DocumentInstance[]) => any
+  ): Promise<DocumentInstance[]>;
   /**
    * Retrieve a single page of DocumentInstance records from the API.
    *
@@ -550,27 +503,18 @@ export interface DocumentListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
+    callback?: (error: Error | null, items: DocumentPage) => any
+  ): Promise<DocumentPage>;
+  page(
     params: DocumentListInstancePageOptions,
     callback?: (error: Error | null, items: DocumentPage) => any
   ): Promise<DocumentPage>;
-  page(params?: any, callback?: any): Promise<DocumentPage>;
 
   /**
    * Provide a user-friendly representation
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export interface DocumentSolution {
-  serviceSid?: string;
-}
-
-interface DocumentListInstanceImpl extends DocumentListInstance {}
-class DocumentListInstanceImpl implements DocumentListInstance {
-  _version?: Sync;
-  _solution?: DocumentSolution;
-  _uri?: string;
 }
 
 export function DocumentListInstance(
@@ -581,7 +525,7 @@ export function DocumentListInstance(
     throw new Error("Parameter 'serviceSid' is not valid.");
   }
 
-  const instance = ((sid) => instance.get(sid)) as DocumentListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as DocumentListInstance;
 
   instance.get = function get(sid): DocumentContext {
     return new DocumentContextImpl(version, serviceSid, sid);
@@ -592,10 +536,12 @@ export function DocumentListInstance(
   instance._uri = `/Services/${serviceSid}/Documents`;
 
   instance.create = function create(
-    params?: any,
-    callback?: any
+    params?:
+      | DocumentListInstanceCreateOptions
+      | ((error: Error | null, items: DocumentInstance) => any),
+    callback?: (error: Error | null, items: DocumentInstance) => any
   ): Promise<DocumentInstance> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -614,7 +560,7 @@ export function DocumentListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -625,11 +571,11 @@ export function DocumentListInstance(
         new DocumentInstance(
           operationVersion,
           payload,
-          this._solution.serviceSid
+          instance._solution.serviceSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -637,10 +583,12 @@ export function DocumentListInstance(
   };
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | DocumentListInstancePageOptions
+      | ((error: Error | null, items: DocumentPage) => any),
+    callback?: (error: Error | null, items: DocumentPage) => any
   ): Promise<DocumentPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -651,24 +599,25 @@ export function DocumentListInstance(
 
     if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new DocumentPage(operationVersion, payload, this._solution)
+      (payload) =>
+        new DocumentPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -678,33 +627,31 @@ export function DocumentListInstance(
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: DocumentPage) => any
   ): Promise<DocumentPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new DocumentPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new DocumentPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

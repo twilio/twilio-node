@@ -28,74 +28,82 @@ export default class V1 extends Version {
   /**
    * Initialize the V1 version of Supersim
    *
-   * @property { Twilio.Supersim.V1.EsimProfileListInstance } esimProfiles - esimProfiles resource
-   * @property { Twilio.Supersim.V1.FleetListInstance } fleets - fleets resource
-   * @property { Twilio.Supersim.V1.IpCommandListInstance } ipCommands - ipCommands resource
-   * @property { Twilio.Supersim.V1.NetworkListInstance } networks - networks resource
-   * @property { Twilio.Supersim.V1.NetworkAccessProfileListInstance } networkAccessProfiles - networkAccessProfiles resource
-   * @property { Twilio.Supersim.V1.SettingsUpdateListInstance } settingsUpdates - settingsUpdates resource
-   * @property { Twilio.Supersim.V1.SimListInstance } sims - sims resource
-   * @property { Twilio.Supersim.V1.SmsCommandListInstance } smsCommands - smsCommands resource
-   * @property { Twilio.Supersim.V1.UsageRecordListInstance } usageRecords - usageRecords resource
-   *
-   * @param { Twilio.Supersim } domain - The Twilio domain
+   * @param domain - The Twilio (Twilio.Supersim) domain
    */
   constructor(domain: SupersimBase) {
     super(domain, "v1");
   }
 
+  /** esimProfiles - { Twilio.Supersim.V1.EsimProfileListInstance } resource */
   protected _esimProfiles?: EsimProfileListInstance;
+  /** fleets - { Twilio.Supersim.V1.FleetListInstance } resource */
   protected _fleets?: FleetListInstance;
+  /** ipCommands - { Twilio.Supersim.V1.IpCommandListInstance } resource */
   protected _ipCommands?: IpCommandListInstance;
+  /** networks - { Twilio.Supersim.V1.NetworkListInstance } resource */
   protected _networks?: NetworkListInstance;
+  /** networkAccessProfiles - { Twilio.Supersim.V1.NetworkAccessProfileListInstance } resource */
   protected _networkAccessProfiles?: NetworkAccessProfileListInstance;
+  /** settingsUpdates - { Twilio.Supersim.V1.SettingsUpdateListInstance } resource */
   protected _settingsUpdates?: SettingsUpdateListInstance;
+  /** sims - { Twilio.Supersim.V1.SimListInstance } resource */
   protected _sims?: SimListInstance;
+  /** smsCommands - { Twilio.Supersim.V1.SmsCommandListInstance } resource */
   protected _smsCommands?: SmsCommandListInstance;
+  /** usageRecords - { Twilio.Supersim.V1.UsageRecordListInstance } resource */
   protected _usageRecords?: UsageRecordListInstance;
 
+  /** Getter for esimProfiles resource */
   get esimProfiles(): EsimProfileListInstance {
     this._esimProfiles = this._esimProfiles || EsimProfileListInstance(this);
     return this._esimProfiles;
   }
 
+  /** Getter for fleets resource */
   get fleets(): FleetListInstance {
     this._fleets = this._fleets || FleetListInstance(this);
     return this._fleets;
   }
 
+  /** Getter for ipCommands resource */
   get ipCommands(): IpCommandListInstance {
     this._ipCommands = this._ipCommands || IpCommandListInstance(this);
     return this._ipCommands;
   }
 
+  /** Getter for networks resource */
   get networks(): NetworkListInstance {
     this._networks = this._networks || NetworkListInstance(this);
     return this._networks;
   }
 
+  /** Getter for networkAccessProfiles resource */
   get networkAccessProfiles(): NetworkAccessProfileListInstance {
     this._networkAccessProfiles =
       this._networkAccessProfiles || NetworkAccessProfileListInstance(this);
     return this._networkAccessProfiles;
   }
 
+  /** Getter for settingsUpdates resource */
   get settingsUpdates(): SettingsUpdateListInstance {
     this._settingsUpdates =
       this._settingsUpdates || SettingsUpdateListInstance(this);
     return this._settingsUpdates;
   }
 
+  /** Getter for sims resource */
   get sims(): SimListInstance {
     this._sims = this._sims || SimListInstance(this);
     return this._sims;
   }
 
+  /** Getter for smsCommands resource */
   get smsCommands(): SmsCommandListInstance {
     this._smsCommands = this._smsCommands || SmsCommandListInstance(this);
     return this._smsCommands;
   }
 
+  /** Getter for usageRecords resource */
   get usageRecords(): UsageRecordListInstance {
     this._usageRecords = this._usageRecords || UsageRecordListInstance(this);
     return this._usageRecords;

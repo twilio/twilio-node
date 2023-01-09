@@ -29,12 +29,11 @@ type RecordingRecordingTrim = "trim-silence" | "do-not-trim";
 
 /**
  * Options to pass to update a RecordingInstance
- *
- * @property { RecordingRecordingMode } [mode]
- * @property { RecordingRecordingTrim } [trim]
  */
 export interface RecordingContextUpdateOptions {
+  /**  */
   mode?: RecordingRecordingMode;
+  /**  */
   trim?: RecordingRecordingTrim;
 }
 
@@ -42,9 +41,9 @@ export interface RecordingContext {
   /**
    * Fetch a RecordingInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed RecordingInstance
+   * @returns Resolves to processed RecordingInstance
    */
   fetch(
     callback?: (error: Error | null, item?: RecordingInstance) => any
@@ -53,9 +52,9 @@ export interface RecordingContext {
   /**
    * Update a RecordingInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed RecordingInstance
+   * @returns Resolves to processed RecordingInstance
    */
   update(
     callback?: (error: Error | null, item?: RecordingInstance) => any
@@ -63,16 +62,15 @@ export interface RecordingContext {
   /**
    * Update a RecordingInstance
    *
-   * @param { RecordingContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed RecordingInstance
+   * @returns Resolves to processed RecordingInstance
    */
   update(
     params: RecordingContextUpdateOptions,
     callback?: (error: Error | null, item?: RecordingInstance) => any
   ): Promise<RecordingInstance>;
-  update(params?: any, callback?: any): Promise<RecordingInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -82,7 +80,7 @@ export interface RecordingContext {
 }
 
 export interface RecordingContextSolution {
-  trunkSid?: string;
+  trunkSid: string;
 }
 
 export class RecordingContextImpl implements RecordingContext {
@@ -98,10 +96,13 @@ export class RecordingContextImpl implements RecordingContext {
     this._uri = `/Trunks/${trunkSid}/Recording`;
   }
 
-  fetch(callback?: any): Promise<RecordingInstance> {
-    let operationVersion = this._version,
+  fetch(
+    callback?: (error: Error | null, item?: RecordingInstance) => any
+  ): Promise<RecordingInstance> {
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -110,19 +111,24 @@ export class RecordingContextImpl implements RecordingContext {
         new RecordingInstance(
           operationVersion,
           payload,
-          this._solution.trunkSid
+          instance._solution.trunkSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
     return operationPromise;
   }
 
-  update(params?: any, callback?: any): Promise<RecordingInstance> {
-    if (typeof params === "function") {
+  update(
+    params?:
+      | RecordingContextUpdateOptions
+      | ((error: Error | null, item?: RecordingInstance) => any),
+    callback?: (error: Error | null, item?: RecordingInstance) => any
+  ): Promise<RecordingInstance> {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -137,9 +143,10 @@ export class RecordingContextImpl implements RecordingContext {
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -150,11 +157,11 @@ export class RecordingContextImpl implements RecordingContext {
         new RecordingInstance(
           operationVersion,
           payload,
-          this._solution.trunkSid
+          instance._solution.trunkSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -178,8 +185,8 @@ export class RecordingContextImpl implements RecordingContext {
 interface RecordingPayload extends RecordingResource {}
 
 interface RecordingResource {
-  mode?: RecordingRecordingMode;
-  trim?: RecordingRecordingTrim;
+  mode: RecordingRecordingMode;
+  trim: RecordingRecordingTrim;
 }
 
 export class RecordingInstance {
@@ -197,8 +204,8 @@ export class RecordingInstance {
     this._solution = { trunkSid };
   }
 
-  mode?: RecordingRecordingMode;
-  trim?: RecordingRecordingTrim;
+  mode: RecordingRecordingMode;
+  trim: RecordingRecordingTrim;
 
   private get _proxy(): RecordingContext {
     this._context =
@@ -210,9 +217,9 @@ export class RecordingInstance {
   /**
    * Fetch a RecordingInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed RecordingInstance
+   * @returns Resolves to processed RecordingInstance
    */
   fetch(
     callback?: (error: Error | null, item?: RecordingInstance) => any
@@ -223,9 +230,9 @@ export class RecordingInstance {
   /**
    * Update a RecordingInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed RecordingInstance
+   * @returns Resolves to processed RecordingInstance
    */
   update(
     callback?: (error: Error | null, item?: RecordingInstance) => any
@@ -233,16 +240,20 @@ export class RecordingInstance {
   /**
    * Update a RecordingInstance
    *
-   * @param { RecordingContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed RecordingInstance
+   * @returns Resolves to processed RecordingInstance
    */
   update(
     params: RecordingContextUpdateOptions,
     callback?: (error: Error | null, item?: RecordingInstance) => any
   ): Promise<RecordingInstance>;
-  update(params?: any, callback?: any): Promise<RecordingInstance> {
+
+  update(
+    params?: any,
+    callback?: (error: Error | null, item?: RecordingInstance) => any
+  ): Promise<RecordingInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -263,7 +274,15 @@ export class RecordingInstance {
   }
 }
 
+export interface RecordingSolution {
+  trunkSid: string;
+}
+
 export interface RecordingListInstance {
+  _version: V1;
+  _solution: RecordingSolution;
+  _uri: string;
+
   (): RecordingContext;
   get(): RecordingContext;
 
@@ -274,17 +293,6 @@ export interface RecordingListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface RecordingSolution {
-  trunkSid?: string;
-}
-
-interface RecordingListInstanceImpl extends RecordingListInstance {}
-class RecordingListInstanceImpl implements RecordingListInstance {
-  _version?: V1;
-  _solution?: RecordingSolution;
-  _uri?: string;
-}
-
 export function RecordingListInstance(
   version: V1,
   trunkSid: string
@@ -293,7 +301,7 @@ export function RecordingListInstance(
     throw new Error("Parameter 'trunkSid' is not valid.");
   }
 
-  const instance = (() => instance.get()) as RecordingListInstanceImpl;
+  const instance = (() => instance.get()) as RecordingListInstance;
 
   instance.get = function get(): RecordingContext {
     return new RecordingContextImpl(version, trunkSid);
@@ -304,14 +312,14 @@ export function RecordingListInstance(
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

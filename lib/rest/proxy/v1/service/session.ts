@@ -28,79 +28,66 @@ type SessionStatus = "open" | "in-progress" | "closed" | "failed" | "unknown";
 
 /**
  * Options to pass to update a SessionInstance
- *
- * @property { Date } [dateExpiry] The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date when the Session should expire. If this is value is present, it overrides the `ttl` value.
- * @property { number } [ttl] The time, in seconds, when the session will expire. The time is measured from the last Session create or the Session\\\'s last Interaction.
- * @property { SessionStatus } [status]
  */
 export interface SessionContextUpdateOptions {
+  /** The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date when the Session should expire. If this is value is present, it overrides the `ttl` value. */
   dateExpiry?: Date;
+  /** The time, in seconds, when the session will expire. The time is measured from the last Session create or the Session\\\'s last Interaction. */
   ttl?: number;
+  /**  */
   status?: SessionStatus;
 }
 
 /**
  * Options to pass to create a SessionInstance
- *
- * @property { string } [uniqueName] An application-defined string that uniquely identifies the resource. This value must be 191 characters or fewer in length and be unique. **This value should not have PII.**
- * @property { Date } [dateExpiry] The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date when the Session should expire. If this is value is present, it overrides the `ttl` value.
- * @property { number } [ttl] The time, in seconds, when the session will expire. The time is measured from the last Session create or the Session\\\'s last Interaction.
- * @property { SessionMode } [mode]
- * @property { SessionStatus } [status]
- * @property { Array<any> } [participants] The Participant objects to include in the new session.
  */
 export interface SessionListInstanceCreateOptions {
+  /** An application-defined string that uniquely identifies the resource. This value must be 191 characters or fewer in length and be unique. **This value should not have PII.** */
   uniqueName?: string;
+  /** The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date when the Session should expire. If this is value is present, it overrides the `ttl` value. */
   dateExpiry?: Date;
+  /** The time, in seconds, when the session will expire. The time is measured from the last Session create or the Session\\\'s last Interaction. */
   ttl?: number;
+  /**  */
   mode?: SessionMode;
+  /**  */
   status?: SessionStatus;
+  /** The Participant objects to include in the new session. */
   participants?: Array<any>;
 }
 /**
  * Options to pass to each
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface SessionListInstanceEachOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: SessionInstance, done: (err?: Error) => void) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface SessionListInstanceOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface SessionListInstancePageOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
@@ -111,9 +98,9 @@ export interface SessionContext {
   /**
    * Remove a SessionInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -122,9 +109,9 @@ export interface SessionContext {
   /**
    * Fetch a SessionInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SessionInstance
+   * @returns Resolves to processed SessionInstance
    */
   fetch(
     callback?: (error: Error | null, item?: SessionInstance) => any
@@ -133,9 +120,9 @@ export interface SessionContext {
   /**
    * Update a SessionInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SessionInstance
+   * @returns Resolves to processed SessionInstance
    */
   update(
     callback?: (error: Error | null, item?: SessionInstance) => any
@@ -143,16 +130,15 @@ export interface SessionContext {
   /**
    * Update a SessionInstance
    *
-   * @param { SessionContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SessionInstance
+   * @returns Resolves to processed SessionInstance
    */
   update(
     params: SessionContextUpdateOptions,
     callback?: (error: Error | null, item?: SessionInstance) => any
   ): Promise<SessionInstance>;
-  update(params?: any, callback?: any): Promise<SessionInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -162,8 +148,8 @@ export interface SessionContext {
 }
 
 export interface SessionContextSolution {
-  serviceSid?: string;
-  sid?: string;
+  serviceSid: string;
+  sid: string;
 }
 
 export class SessionContextImpl implements SessionContext {
@@ -208,24 +194,30 @@ export class SessionContextImpl implements SessionContext {
     return this._participants;
   }
 
-  remove(callback?: any): Promise<boolean> {
-    let operationVersion = this._version,
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<SessionInstance> {
-    let operationVersion = this._version,
+  fetch(
+    callback?: (error: Error | null, item?: SessionInstance) => any
+  ): Promise<SessionInstance> {
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -234,20 +226,25 @@ export class SessionContextImpl implements SessionContext {
         new SessionInstance(
           operationVersion,
           payload,
-          this._solution.serviceSid,
-          this._solution.sid
+          instance._solution.serviceSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
     return operationPromise;
   }
 
-  update(params?: any, callback?: any): Promise<SessionInstance> {
-    if (typeof params === "function") {
+  update(
+    params?:
+      | SessionContextUpdateOptions
+      | ((error: Error | null, item?: SessionInstance) => any),
+    callback?: (error: Error | null, item?: SessionInstance) => any
+  ): Promise<SessionInstance> {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -264,9 +261,10 @@ export class SessionContextImpl implements SessionContext {
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -277,12 +275,12 @@ export class SessionContextImpl implements SessionContext {
         new SessionInstance(
           operationVersion,
           payload,
-          this._solution.serviceSid,
-          this._solution.sid
+          instance._solution.serviceSid,
+          instance._solution.sid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -308,22 +306,22 @@ interface SessionPayload extends TwilioResponsePayload {
 }
 
 interface SessionResource {
-  sid?: string | null;
-  service_sid?: string | null;
-  account_sid?: string | null;
-  date_started?: Date | null;
-  date_ended?: Date | null;
-  date_last_interaction?: Date | null;
-  date_expiry?: Date | null;
-  unique_name?: string | null;
-  status?: SessionStatus;
-  closed_reason?: string | null;
-  ttl?: number | null;
-  mode?: SessionMode;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  url?: string | null;
-  links?: object | null;
+  sid: string;
+  service_sid: string;
+  account_sid: string;
+  date_started: Date;
+  date_ended: Date;
+  date_last_interaction: Date;
+  date_expiry: Date;
+  unique_name: string;
+  status: SessionStatus;
+  closed_reason: string;
+  ttl: number;
+  mode: SessionMode;
+  date_created: Date;
+  date_updated: Date;
+  url: string;
+  links: Record<string, string>;
 }
 
 export class SessionInstance {
@@ -361,61 +359,61 @@ export class SessionInstance {
   /**
    * The unique string that identifies the resource
    */
-  sid?: string | null;
+  sid: string;
   /**
    * The SID of the resource\'s parent Service
    */
-  serviceSid?: string | null;
+  serviceSid: string;
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The ISO 8601 date when the Session started
    */
-  dateStarted?: Date | null;
+  dateStarted: Date;
   /**
    * The ISO 8601 date when the Session ended
    */
-  dateEnded?: Date | null;
+  dateEnded: Date;
   /**
    * The ISO 8601 date when the Session last had an interaction
    */
-  dateLastInteraction?: Date | null;
+  dateLastInteraction: Date;
   /**
    * The ISO 8601 date when the Session should expire
    */
-  dateExpiry?: Date | null;
+  dateExpiry: Date;
   /**
    * An application-defined string that uniquely identifies the resource
    */
-  uniqueName?: string | null;
-  status?: SessionStatus;
+  uniqueName: string;
+  status: SessionStatus;
   /**
    * The reason the Session ended
    */
-  closedReason?: string | null;
+  closedReason: string;
   /**
    * When the session will expire
    */
-  ttl?: number | null;
-  mode?: SessionMode;
+  ttl: number;
+  mode: SessionMode;
   /**
    * The ISO 8601 date and time in GMT when the resource was created
    */
-  dateCreated?: Date | null;
+  dateCreated: Date;
   /**
    * The ISO 8601 date and time in GMT when the resource was last updated
    */
-  dateUpdated?: Date | null;
+  dateUpdated: Date;
   /**
    * The absolute URL of the Session resource
    */
-  url?: string | null;
+  url: string;
   /**
    * The URLs of resources related to the Session
    */
-  links?: object | null;
+  links: Record<string, string>;
 
   private get _proxy(): SessionContext {
     this._context =
@@ -431,9 +429,9 @@ export class SessionInstance {
   /**
    * Remove a SessionInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -444,9 +442,9 @@ export class SessionInstance {
   /**
    * Fetch a SessionInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SessionInstance
+   * @returns Resolves to processed SessionInstance
    */
   fetch(
     callback?: (error: Error | null, item?: SessionInstance) => any
@@ -457,9 +455,9 @@ export class SessionInstance {
   /**
    * Update a SessionInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SessionInstance
+   * @returns Resolves to processed SessionInstance
    */
   update(
     callback?: (error: Error | null, item?: SessionInstance) => any
@@ -467,16 +465,20 @@ export class SessionInstance {
   /**
    * Update a SessionInstance
    *
-   * @param { SessionContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SessionInstance
+   * @returns Resolves to processed SessionInstance
    */
   update(
     params: SessionContextUpdateOptions,
     callback?: (error: Error | null, item?: SessionInstance) => any
   ): Promise<SessionInstance>;
-  update(params?: any, callback?: any): Promise<SessionInstance> {
+
+  update(
+    params?: any,
+    callback?: (error: Error | null, item?: SessionInstance) => any
+  ): Promise<SessionInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -525,16 +527,24 @@ export class SessionInstance {
   }
 }
 
+export interface SessionSolution {
+  serviceSid: string;
+}
+
 export interface SessionListInstance {
+  _version: V1;
+  _solution: SessionSolution;
+  _uri: string;
+
   (sid: string): SessionContext;
   get(sid: string): SessionContext;
 
   /**
    * Create a SessionInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SessionInstance
+   * @returns Resolves to processed SessionInstance
    */
   create(
     callback?: (error: Error | null, item?: SessionInstance) => any
@@ -542,34 +552,16 @@ export interface SessionListInstance {
   /**
    * Create a SessionInstance
    *
-   * @param { SessionListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SessionInstance
+   * @returns Resolves to processed SessionInstance
    */
   create(
     params: SessionListInstanceCreateOptions,
     callback?: (error: Error | null, item?: SessionInstance) => any
   ): Promise<SessionInstance>;
-  create(params?: any, callback?: any): Promise<SessionInstance>;
 
-  /**
-   * Streams SessionInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (item: SessionInstance, done: (err?: Error) => void) => void
-  ): void;
   /**
    * Streams SessionInstance records from the API.
    *
@@ -586,50 +578,24 @@ export interface SessionListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: SessionListInstanceEachOptions,
     callback?: (item: SessionInstance, done: (err?: Error) => void) => void
   ): void;
-  each(params?: any, callback?: any): void;
+  each(
+    params: SessionListInstanceEachOptions,
+    callback?: (item: SessionInstance, done: (err?: Error) => void) => void
+  ): void;
   /**
    * Retrieve a single target page of SessionInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: SessionPage) => any
-  ): Promise<SessionPage>;
-  /**
-   * Retrieve a single target page of SessionInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: SessionPage) => any
   ): Promise<SessionPage>;
-  getPage(params?: any, callback?: any): Promise<SessionPage>;
-  /**
-   * Lists SessionInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: SessionInstance[]) => any
-  ): Promise<SessionInstance[]>;
   /**
    * Lists SessionInstance records from the API as a list.
    *
@@ -640,23 +606,12 @@ export interface SessionListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: SessionListInstanceOptions,
     callback?: (error: Error | null, items: SessionInstance[]) => any
   ): Promise<SessionInstance[]>;
-  list(params?: any, callback?: any): Promise<SessionInstance[]>;
-  /**
-   * Retrieve a single page of SessionInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: SessionPage) => any
-  ): Promise<SessionPage>;
+  list(
+    params: SessionListInstanceOptions,
+    callback?: (error: Error | null, items: SessionInstance[]) => any
+  ): Promise<SessionInstance[]>;
   /**
    * Retrieve a single page of SessionInstance records from the API.
    *
@@ -669,27 +624,18 @@ export interface SessionListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
+    callback?: (error: Error | null, items: SessionPage) => any
+  ): Promise<SessionPage>;
+  page(
     params: SessionListInstancePageOptions,
     callback?: (error: Error | null, items: SessionPage) => any
   ): Promise<SessionPage>;
-  page(params?: any, callback?: any): Promise<SessionPage>;
 
   /**
    * Provide a user-friendly representation
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export interface SessionSolution {
-  serviceSid?: string;
-}
-
-interface SessionListInstanceImpl extends SessionListInstance {}
-class SessionListInstanceImpl implements SessionListInstance {
-  _version?: V1;
-  _solution?: SessionSolution;
-  _uri?: string;
 }
 
 export function SessionListInstance(
@@ -700,7 +646,7 @@ export function SessionListInstance(
     throw new Error("Parameter 'serviceSid' is not valid.");
   }
 
-  const instance = ((sid) => instance.get(sid)) as SessionListInstanceImpl;
+  const instance = ((sid) => instance.get(sid)) as SessionListInstance;
 
   instance.get = function get(sid): SessionContext {
     return new SessionContextImpl(version, serviceSid, sid);
@@ -711,10 +657,12 @@ export function SessionListInstance(
   instance._uri = `/Services/${serviceSid}/Sessions`;
 
   instance.create = function create(
-    params?: any,
-    callback?: any
+    params?:
+      | SessionListInstanceCreateOptions
+      | ((error: Error | null, items: SessionInstance) => any),
+    callback?: (error: Error | null, items: SessionInstance) => any
   ): Promise<SessionInstance> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -731,7 +679,7 @@ export function SessionListInstance(
     if (params["mode"] !== undefined) data["Mode"] = params["mode"];
     if (params["status"] !== undefined) data["Status"] = params["status"];
     if (params["participants"] !== undefined)
-      data["Participants"] = serialize.map(params["participants"], (e) =>
+      data["Participants"] = serialize.map(params["participants"], (e: any) =>
         serialize.object(e)
       );
 
@@ -740,7 +688,7 @@ export function SessionListInstance(
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -751,11 +699,11 @@ export function SessionListInstance(
         new SessionInstance(
           operationVersion,
           payload,
-          this._solution.serviceSid
+          instance._solution.serviceSid
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -763,10 +711,12 @@ export function SessionListInstance(
   };
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | SessionListInstancePageOptions
+      | ((error: Error | null, items: SessionPage) => any),
+    callback?: (error: Error | null, items: SessionPage) => any
   ): Promise<SessionPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -777,24 +727,25 @@ export function SessionListInstance(
 
     if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new SessionPage(operationVersion, payload, this._solution)
+      (payload) =>
+        new SessionPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -804,33 +755,31 @@ export function SessionListInstance(
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: SessionPage) => any
   ): Promise<SessionPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new SessionPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new SessionPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

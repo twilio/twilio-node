@@ -22,48 +22,37 @@ import { isValidPathParam } from "../../../../base/utility";
 
 /**
  * Options to pass to each
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface DayListInstanceEachOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: DayInstance, done: (err?: Error) => void) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface DayListInstanceOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface DayListInstancePageOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
@@ -71,9 +60,9 @@ export interface DayContext {
   /**
    * Fetch a DayInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed DayInstance
+   * @returns Resolves to processed DayInstance
    */
   fetch(
     callback?: (error: Error | null, item?: DayInstance) => any
@@ -87,8 +76,8 @@ export interface DayContext {
 }
 
 export interface DayContextSolution {
-  resourceType?: string;
-  day?: string;
+  resourceType: string;
+  day: string;
 }
 
 export class DayContextImpl implements DayContext {
@@ -108,10 +97,13 @@ export class DayContextImpl implements DayContext {
     this._uri = `/Exports/${resourceType}/Days/${day}`;
   }
 
-  fetch(callback?: any): Promise<DayInstance> {
-    let operationVersion = this._version,
+  fetch(
+    callback?: (error: Error | null, item?: DayInstance) => any
+  ): Promise<DayInstance> {
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -120,12 +112,12 @@ export class DayContextImpl implements DayContext {
         new DayInstance(
           operationVersion,
           payload,
-          this._solution.resourceType,
-          this._solution.day
+          instance._solution.resourceType,
+          instance._solution.day
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -151,12 +143,12 @@ interface DayPayload extends TwilioResponsePayload {
 }
 
 interface DayResource {
-  redirect_to?: string | null;
-  day?: string | null;
-  size?: number | null;
-  create_date?: string | null;
-  friendly_name?: string | null;
-  resource_type?: string | null;
+  redirect_to: string;
+  day: string;
+  size: number;
+  create_date: string;
+  friendly_name: string;
+  resource_type: string;
 }
 
 export class DayInstance {
@@ -179,27 +171,27 @@ export class DayInstance {
     this._solution = { resourceType, day: day || this.day };
   }
 
-  redirectTo?: string | null;
+  redirectTo: string;
   /**
    * The date of the data in the file
    */
-  day?: string | null;
+  day: string;
   /**
    * Size of the file in bytes
    */
-  size?: number | null;
+  size: number;
   /**
    * The date when resource is created
    */
-  createDate?: string | null;
+  createDate: string;
   /**
    * The friendly name specified when creating the job
    */
-  friendlyName?: string | null;
+  friendlyName: string;
   /**
    * The type of communication – Messages, Calls, Conferences, and Participants
    */
-  resourceType?: string | null;
+  resourceType: string;
 
   private get _proxy(): DayContext {
     this._context =
@@ -215,9 +207,9 @@ export class DayInstance {
   /**
    * Fetch a DayInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed DayInstance
+   * @returns Resolves to processed DayInstance
    */
   fetch(
     callback?: (error: Error | null, item?: DayInstance) => any
@@ -246,27 +238,18 @@ export class DayInstance {
   }
 }
 
+export interface DaySolution {
+  resourceType: string;
+}
+
 export interface DayListInstance {
+  _version: V1;
+  _solution: DaySolution;
+  _uri: string;
+
   (day: string): DayContext;
   get(day: string): DayContext;
 
-  /**
-   * Streams DayInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (item: DayInstance, done: (err?: Error) => void) => void
-  ): void;
   /**
    * Streams DayInstance records from the API.
    *
@@ -283,50 +266,24 @@ export interface DayListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: DayListInstanceEachOptions,
     callback?: (item: DayInstance, done: (err?: Error) => void) => void
   ): void;
-  each(params?: any, callback?: any): void;
+  each(
+    params: DayListInstanceEachOptions,
+    callback?: (item: DayInstance, done: (err?: Error) => void) => void
+  ): void;
   /**
    * Retrieve a single target page of DayInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: DayPage) => any
-  ): Promise<DayPage>;
-  /**
-   * Retrieve a single target page of DayInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: DayPage) => any
   ): Promise<DayPage>;
-  getPage(params?: any, callback?: any): Promise<DayPage>;
-  /**
-   * Lists DayInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: DayInstance[]) => any
-  ): Promise<DayInstance[]>;
   /**
    * Lists DayInstance records from the API as a list.
    *
@@ -337,23 +294,12 @@ export interface DayListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: DayListInstanceOptions,
     callback?: (error: Error | null, items: DayInstance[]) => any
   ): Promise<DayInstance[]>;
-  list(params?: any, callback?: any): Promise<DayInstance[]>;
-  /**
-   * Retrieve a single page of DayInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: DayPage) => any
-  ): Promise<DayPage>;
+  list(
+    params: DayListInstanceOptions,
+    callback?: (error: Error | null, items: DayInstance[]) => any
+  ): Promise<DayInstance[]>;
   /**
    * Retrieve a single page of DayInstance records from the API.
    *
@@ -366,27 +312,18 @@ export interface DayListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
+    callback?: (error: Error | null, items: DayPage) => any
+  ): Promise<DayPage>;
+  page(
     params: DayListInstancePageOptions,
     callback?: (error: Error | null, items: DayPage) => any
   ): Promise<DayPage>;
-  page(params?: any, callback?: any): Promise<DayPage>;
 
   /**
    * Provide a user-friendly representation
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export interface DaySolution {
-  resourceType?: string;
-}
-
-interface DayListInstanceImpl extends DayListInstance {}
-class DayListInstanceImpl implements DayListInstance {
-  _version?: V1;
-  _solution?: DaySolution;
-  _uri?: string;
 }
 
 export function DayListInstance(
@@ -397,7 +334,7 @@ export function DayListInstance(
     throw new Error("Parameter 'resourceType' is not valid.");
   }
 
-  const instance = ((day) => instance.get(day)) as DayListInstanceImpl;
+  const instance = ((day) => instance.get(day)) as DayListInstance;
 
   instance.get = function get(day): DayContext {
     return new DayContextImpl(version, resourceType, day);
@@ -408,10 +345,12 @@ export function DayListInstance(
   instance._uri = `/Exports/${resourceType}/Days`;
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | DayListInstancePageOptions
+      | ((error: Error | null, items: DayPage) => any),
+    callback?: (error: Error | null, items: DayPage) => any
   ): Promise<DayPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -422,24 +361,24 @@ export function DayListInstance(
 
     if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new DayPage(operationVersion, payload, this._solution)
+      (payload) => new DayPage(operationVersion, payload, instance._solution)
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -449,33 +388,30 @@ export function DayListInstance(
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: DayPage) => any
   ): Promise<DayPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
-      (payload) => new DayPage(this._version, payload, this._solution)
+    let pagePromise = operationPromise.then(
+      (payload) => new DayPage(instance._version, payload, instance._solution)
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

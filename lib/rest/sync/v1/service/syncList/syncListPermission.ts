@@ -22,63 +22,51 @@ import { isValidPathParam } from "../../../../../base/utility";
 
 /**
  * Options to pass to update a SyncListPermissionInstance
- *
- * @property { boolean } read Whether the identity can read the Sync List and its Items. Default value is `false`.
- * @property { boolean } write Whether the identity can create, update, and delete Items in the Sync List. Default value is `false`.
- * @property { boolean } manage Whether the identity can delete the Sync List. Default value is `false`.
  */
 export interface SyncListPermissionContextUpdateOptions {
+  /** Whether the identity can read the Sync List and its Items. Default value is `false`. */
   read: boolean;
+  /** Whether the identity can create, update, and delete Items in the Sync List. Default value is `false`. */
   write: boolean;
+  /** Whether the identity can delete the Sync List. Default value is `false`. */
   manage: boolean;
 }
 /**
  * Options to pass to each
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface SyncListPermissionListInstanceEachOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (
     item: SyncListPermissionInstance,
     done: (err?: Error) => void
   ) => void;
+  /** Function to be called upon completion of streaming */
   done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to list
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
 export interface SyncListPermissionListInstanceOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
 
 /**
  * Options to pass to page
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface SyncListPermissionListInstancePageOptions {
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Page Number, this value is simply for client state */
   pageNumber?: number;
+  /** PageToken provided by the API */
   pageToken?: string;
 }
 
@@ -86,9 +74,9 @@ export interface SyncListPermissionContext {
   /**
    * Remove a SyncListPermissionInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -97,9 +85,9 @@ export interface SyncListPermissionContext {
   /**
    * Fetch a SyncListPermissionInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SyncListPermissionInstance
+   * @returns Resolves to processed SyncListPermissionInstance
    */
   fetch(
     callback?: (error: Error | null, item?: SyncListPermissionInstance) => any
@@ -108,16 +96,15 @@ export interface SyncListPermissionContext {
   /**
    * Update a SyncListPermissionInstance
    *
-   * @param { SyncListPermissionContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SyncListPermissionInstance
+   * @returns Resolves to processed SyncListPermissionInstance
    */
   update(
     params: SyncListPermissionContextUpdateOptions,
     callback?: (error: Error | null, item?: SyncListPermissionInstance) => any
   ): Promise<SyncListPermissionInstance>;
-  update(params: any, callback?: any): Promise<SyncListPermissionInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -127,9 +114,9 @@ export interface SyncListPermissionContext {
 }
 
 export interface SyncListPermissionContextSolution {
-  serviceSid?: string;
-  listSid?: string;
-  identity?: string;
+  serviceSid: string;
+  listSid: string;
+  identity: string;
 }
 
 export class SyncListPermissionContextImpl
@@ -160,24 +147,30 @@ export class SyncListPermissionContextImpl
     this._uri = `/Services/${serviceSid}/Lists/${listSid}/Permissions/${identity}`;
   }
 
-  remove(callback?: any): Promise<boolean> {
-    let operationVersion = this._version,
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
-        uri: this._uri,
+        uri: instance._uri,
         method: "delete",
       });
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
     return operationPromise;
   }
 
-  fetch(callback?: any): Promise<SyncListPermissionInstance> {
-    let operationVersion = this._version,
+  fetch(
+    callback?: (error: Error | null, item?: SyncListPermissionInstance) => any
+  ): Promise<SyncListPermissionInstance> {
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
       });
 
@@ -186,20 +179,23 @@ export class SyncListPermissionContextImpl
         new SyncListPermissionInstance(
           operationVersion,
           payload,
-          this._solution.serviceSid,
-          this._solution.listSid,
-          this._solution.identity
+          instance._solution.serviceSid,
+          instance._solution.listSid,
+          instance._solution.identity
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
     return operationPromise;
   }
 
-  update(params: any, callback?: any): Promise<SyncListPermissionInstance> {
+  update(
+    params: SyncListPermissionContextUpdateOptions,
+    callback?: (error: Error | null, item?: SyncListPermissionInstance) => any
+  ): Promise<SyncListPermissionInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
@@ -227,9 +223,10 @@ export class SyncListPermissionContextImpl
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
 
-    let operationVersion = this._version,
+    const instance = this;
+    let operationVersion = instance._version,
       operationPromise = operationVersion.update({
-        uri: this._uri,
+        uri: instance._uri,
         method: "post",
         data,
         headers,
@@ -240,13 +237,13 @@ export class SyncListPermissionContextImpl
         new SyncListPermissionInstance(
           operationVersion,
           payload,
-          this._solution.serviceSid,
-          this._solution.listSid,
-          this._solution.identity
+          instance._solution.serviceSid,
+          instance._solution.listSid,
+          instance._solution.identity
         )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -272,14 +269,14 @@ interface SyncListPermissionPayload extends TwilioResponsePayload {
 }
 
 interface SyncListPermissionResource {
-  account_sid?: string | null;
-  service_sid?: string | null;
-  list_sid?: string | null;
-  identity?: string | null;
-  read?: boolean | null;
-  write?: boolean | null;
-  manage?: boolean | null;
-  url?: string | null;
+  account_sid: string;
+  service_sid: string;
+  list_sid: string;
+  identity: string;
+  read: boolean;
+  write: boolean;
+  manage: boolean;
+  url: string;
 }
 
 export class SyncListPermissionInstance {
@@ -312,35 +309,35 @@ export class SyncListPermissionInstance {
   /**
    * The SID of the Account that created the resource
    */
-  accountSid?: string | null;
+  accountSid: string;
   /**
    * The SID of the Sync Service that the resource is associated with
    */
-  serviceSid?: string | null;
+  serviceSid: string;
   /**
    * The SID of the Sync List to which the Permission applies
    */
-  listSid?: string | null;
+  listSid: string;
   /**
    * The identity of the user to whom the Sync List Permission applies
    */
-  identity?: string | null;
+  identity: string;
   /**
    * Read access
    */
-  read?: boolean | null;
+  read: boolean;
   /**
    * Write access
    */
-  write?: boolean | null;
+  write: boolean;
   /**
    * Manage access
    */
-  manage?: boolean | null;
+  manage: boolean;
   /**
    * The absolute URL of the Sync List Permission resource
    */
-  url?: string | null;
+  url: string;
 
   private get _proxy(): SyncListPermissionContext {
     this._context =
@@ -357,9 +354,9 @@ export class SyncListPermissionInstance {
   /**
    * Remove a SyncListPermissionInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed boolean
+   * @returns Resolves to processed boolean
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
@@ -370,9 +367,9 @@ export class SyncListPermissionInstance {
   /**
    * Fetch a SyncListPermissionInstance
    *
-   * @param { function } [callback] - Callback to handle processed record
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SyncListPermissionInstance
+   * @returns Resolves to processed SyncListPermissionInstance
    */
   fetch(
     callback?: (error: Error | null, item?: SyncListPermissionInstance) => any
@@ -383,16 +380,20 @@ export class SyncListPermissionInstance {
   /**
    * Update a SyncListPermissionInstance
    *
-   * @param { SyncListPermissionContextUpdateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SyncListPermissionInstance
+   * @returns Resolves to processed SyncListPermissionInstance
    */
   update(
     params: SyncListPermissionContextUpdateOptions,
     callback?: (error: Error | null, item?: SyncListPermissionInstance) => any
   ): Promise<SyncListPermissionInstance>;
-  update(params: any, callback?: any): Promise<SyncListPermissionInstance> {
+
+  update(
+    params?: any,
+    callback?: (error: Error | null, item?: SyncListPermissionInstance) => any
+  ): Promise<SyncListPermissionInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -419,30 +420,19 @@ export class SyncListPermissionInstance {
   }
 }
 
+export interface SyncListPermissionSolution {
+  serviceSid: string;
+  listSid: string;
+}
+
 export interface SyncListPermissionListInstance {
+  _version: V1;
+  _solution: SyncListPermissionSolution;
+  _uri: string;
+
   (identity: string): SyncListPermissionContext;
   get(identity: string): SyncListPermissionContext;
 
-  /**
-   * Streams SyncListPermissionInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(
-    callback?: (
-      item: SyncListPermissionInstance,
-      done: (err?: Error) => void
-    ) => void
-  ): void;
   /**
    * Streams SyncListPermissionInstance records from the API.
    *
@@ -459,53 +449,30 @@ export interface SyncListPermissionListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    params?: SyncListPermissionListInstanceEachOptions,
     callback?: (
       item: SyncListPermissionInstance,
       done: (err?: Error) => void
     ) => void
   ): void;
-  each(params?: any, callback?: any): void;
+  each(
+    params: SyncListPermissionListInstanceEachOptions,
+    callback?: (
+      item: SyncListPermissionInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
   /**
    * Retrieve a single target page of SyncListPermissionInstance records from the API.
    *
    * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(
-    callback?: (error: Error | null, items: SyncListPermissionPage) => any
-  ): Promise<SyncListPermissionPage>;
-  /**
-   * Retrieve a single target page of SyncListPermissionInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
    *
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
   getPage(
-    targetUrl?: string,
+    targetUrl: string,
     callback?: (error: Error | null, items: SyncListPermissionPage) => any
   ): Promise<SyncListPermissionPage>;
-  getPage(params?: any, callback?: any): Promise<SyncListPermissionPage>;
-  /**
-   * Lists SyncListPermissionInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(
-    callback?: (error: Error | null, items: SyncListPermissionInstance[]) => any
-  ): Promise<SyncListPermissionInstance[]>;
   /**
    * Lists SyncListPermissionInstance records from the API as a list.
    *
@@ -516,23 +483,12 @@ export interface SyncListPermissionListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    params?: SyncListPermissionListInstanceOptions,
     callback?: (error: Error | null, items: SyncListPermissionInstance[]) => any
   ): Promise<SyncListPermissionInstance[]>;
-  list(params?: any, callback?: any): Promise<SyncListPermissionInstance[]>;
-  /**
-   * Retrieve a single page of SyncListPermissionInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(
-    callback?: (error: Error | null, items: SyncListPermissionPage) => any
-  ): Promise<SyncListPermissionPage>;
+  list(
+    params: SyncListPermissionListInstanceOptions,
+    callback?: (error: Error | null, items: SyncListPermissionInstance[]) => any
+  ): Promise<SyncListPermissionInstance[]>;
   /**
    * Retrieve a single page of SyncListPermissionInstance records from the API.
    *
@@ -545,31 +501,18 @@ export interface SyncListPermissionListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
+    callback?: (error: Error | null, items: SyncListPermissionPage) => any
+  ): Promise<SyncListPermissionPage>;
+  page(
     params: SyncListPermissionListInstancePageOptions,
     callback?: (error: Error | null, items: SyncListPermissionPage) => any
   ): Promise<SyncListPermissionPage>;
-  page(params?: any, callback?: any): Promise<SyncListPermissionPage>;
 
   /**
    * Provide a user-friendly representation
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export interface SyncListPermissionSolution {
-  serviceSid?: string;
-  listSid?: string;
-}
-
-interface SyncListPermissionListInstanceImpl
-  extends SyncListPermissionListInstance {}
-class SyncListPermissionListInstanceImpl
-  implements SyncListPermissionListInstance
-{
-  _version?: V1;
-  _solution?: SyncListPermissionSolution;
-  _uri?: string;
 }
 
 export function SyncListPermissionListInstance(
@@ -586,7 +529,7 @@ export function SyncListPermissionListInstance(
   }
 
   const instance = ((identity) =>
-    instance.get(identity)) as SyncListPermissionListInstanceImpl;
+    instance.get(identity)) as SyncListPermissionListInstance;
 
   instance.get = function get(identity): SyncListPermissionContext {
     return new SyncListPermissionContextImpl(
@@ -602,10 +545,12 @@ export function SyncListPermissionListInstance(
   instance._uri = `/Services/${serviceSid}/Lists/${listSid}/Permissions`;
 
   instance.page = function page(
-    params?: any,
-    callback?: any
+    params?:
+      | SyncListPermissionListInstancePageOptions
+      | ((error: Error | null, items: SyncListPermissionPage) => any),
+    callback?: (error: Error | null, items: SyncListPermissionPage) => any
   ): Promise<SyncListPermissionPage> {
-    if (typeof params === "function") {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -616,14 +561,14 @@ export function SyncListPermissionListInstance(
 
     if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    if (params.page !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
-        uri: this._uri,
+        uri: instance._uri,
         method: "get",
         params: data,
         headers,
@@ -631,10 +576,14 @@ export function SyncListPermissionListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new SyncListPermissionPage(operationVersion, payload, this._solution)
+        new SyncListPermissionPage(
+          operationVersion,
+          payload,
+          instance._solution
+        )
     );
 
-    operationPromise = this._version.setPromiseCallback(
+    operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
     );
@@ -644,34 +593,35 @@ export function SyncListPermissionListInstance(
   instance.list = instance._version.list;
 
   instance.getPage = function getPage(
-    targetUrl?: any,
-    callback?: any
+    targetUrl: string,
+    callback?: (error: Error | null, items: SyncListPermissionPage) => any
   ): Promise<SyncListPermissionPage> {
-    let operationPromise = this._version._domain.twilio.request({
+    const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
-    operationPromise = operationPromise.then(
+    let pagePromise = operationPromise.then(
       (payload) =>
-        new SyncListPermissionPage(this._version, payload, this._solution)
+        new SyncListPermissionPage(
+          instance._version,
+          payload,
+          instance._solution
+        )
     );
-    operationPromise = this._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;

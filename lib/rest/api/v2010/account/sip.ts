@@ -21,9 +21,20 @@ import { CredentialListListInstance } from "./sip/credentialList";
 import { DomainListInstance } from "./sip/domain";
 import { IpAccessControlListListInstance } from "./sip/ipAccessControlList";
 
+export interface SipSolution {
+  accountSid: string;
+}
+
 export interface SipListInstance {
+  _version: V2010;
+  _solution: SipSolution;
+  _uri: string;
+
+  _credentialLists?: CredentialListListInstance;
   credentialLists: CredentialListListInstance;
+  _domains?: DomainListInstance;
   domains: DomainListInstance;
+  _ipAccessControlLists?: IpAccessControlListListInstance;
   ipAccessControlLists: IpAccessControlListListInstance;
 
   /**
@@ -31,21 +42,6 @@ export interface SipListInstance {
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export interface SipSolution {
-  accountSid?: string;
-}
-
-interface SipListInstanceImpl extends SipListInstance {}
-class SipListInstanceImpl implements SipListInstance {
-  _version?: V2010;
-  _solution?: SipSolution;
-  _uri?: string;
-
-  _credentialLists?: CredentialListListInstance;
-  _domains?: DomainListInstance;
-  _ipAccessControlLists?: IpAccessControlListListInstance;
 }
 
 export function SipListInstance(
@@ -56,7 +52,7 @@ export function SipListInstance(
     throw new Error("Parameter 'accountSid' is not valid.");
   }
 
-  const instance = {} as SipListInstanceImpl;
+  const instance = {} as SipListInstance;
 
   instance._version = version;
   instance._solution = { accountSid };
@@ -64,49 +60,49 @@ export function SipListInstance(
 
   Object.defineProperty(instance, "credentialLists", {
     get: function credentialLists() {
-      if (!this._credentialLists) {
-        this._credentialLists = CredentialListListInstance(
-          this._version,
-          this._solution.accountSid
+      if (!instance._credentialLists) {
+        instance._credentialLists = CredentialListListInstance(
+          instance._version,
+          instance._solution.accountSid
         );
       }
-      return this._credentialLists;
+      return instance._credentialLists;
     },
   });
 
   Object.defineProperty(instance, "domains", {
     get: function domains() {
-      if (!this._domains) {
-        this._domains = DomainListInstance(
-          this._version,
-          this._solution.accountSid
+      if (!instance._domains) {
+        instance._domains = DomainListInstance(
+          instance._version,
+          instance._solution.accountSid
         );
       }
-      return this._domains;
+      return instance._domains;
     },
   });
 
   Object.defineProperty(instance, "ipAccessControlLists", {
     get: function ipAccessControlLists() {
-      if (!this._ipAccessControlLists) {
-        this._ipAccessControlLists = IpAccessControlListListInstance(
-          this._version,
-          this._solution.accountSid
+      if (!instance._ipAccessControlLists) {
+        instance._ipAccessControlLists = IpAccessControlListListInstance(
+          instance._version,
+          instance._solution.accountSid
         );
       }
-      return this._ipAccessControlLists;
+      return instance._ipAccessControlLists;
     },
   });
 
   instance.toJSON = function toJSON() {
-    return this._solution;
+    return instance._solution;
   };
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
     options: InspectOptions
   ) {
-    return inspect(this.toJSON(), options);
+    return inspect(instance.toJSON(), options);
   };
 
   return instance;
