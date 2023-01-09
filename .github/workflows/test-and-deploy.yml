@@ -18,6 +18,8 @@ jobs:
     strategy:
       matrix:
         node: [ 6, 8, 10, 12, 14, 16, lts/* ]
+    permissions:
+      id-token: write  # Required for requesting the JWT
     steps:
       - name: Checkout twilio-node
         uses: actions/checkout@v3
@@ -29,7 +31,18 @@ jobs:
         with:
           node-version: ${{ matrix.node }}
 
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          role-to-assume: arn:aws:iam::189508161045:role/git-hub-actions
+          aws-region: us-east-1
       - run: npm install
+      - name: Build HTML docs
+        if: matrix.node == 'lts/*'
+        run: make docs
+      - name: Upload HTML docs
+        if: matrix.node == 'lts/*'
+        run: aws s3 sync docs s3://twilio-helper-library-docs-prod/twilio-node/3.84.0
       - name: Run Unit Tests
         run: npm run ci
 
