@@ -6,7 +6,7 @@ export interface RequestOptions<TData> {
   auth?: string;
   params?: object | "*";
   data?: TData | "*";
-  headers?: Headers | "*";
+  headers?: Headers;
   ca?: string | Buffer;
 }
 

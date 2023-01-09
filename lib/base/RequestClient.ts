@@ -251,7 +251,7 @@ export default class RequestClient {
       });
   }
 
-  filterLoggingHeaders(headers: Headers | "*") {
+  filterLoggingHeaders(headers: Headers) {
     return Object.keys(headers).filter((header) => {
       return !"authorization".includes(header.toLowerCase());
     });
