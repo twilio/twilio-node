@@ -282,11 +282,8 @@ export default class Version {
       });
     }
     function onComplete(error?: any) {
-<<<<<<< HEAD
-=======
       let unhandledError = error;
 
->>>>>>> origin/4.0.0-rc
       done = true;
       if (typeof params.done === "function" && !doneCalled) {
         try {
@@ -307,37 +304,14 @@ export default class Version {
         pPending = false;
       }
     }
-<<<<<<< HEAD
-    function fetchNextPage(fn: any) {
-=======
     function fetchNextPage(fn: () => Promise<any>) {
->>>>>>> origin/4.0.0-rc
       let promise = fn();
       if (typeof promise === "undefined") {
         onComplete();
         return;
       }
-<<<<<<< HEAD
-      promise.then((page: Page<Version, TwilioResponsePayload, any, any>) => {
-        page.instances.forEach(function (instance: any) {
-          if (
-            done ||
-            (typeof params.limit !== "undefined" &&
-              currentResource >= params.limit)
-          ) {
-            done = true;
-            return false;
-          }
-          currentResource++;
-          try {
-            callback(instance, onComplete);
-          } catch (e) {
-            throw e;
-          }
-        });
-=======
 
-      promise.then((page) => {
+      promise.then((page: any) => {
         try {
           page.instances.forEach(function (instance: any) {
             if (
@@ -355,7 +329,6 @@ export default class Version {
           return onComplete(e);
         }
 
->>>>>>> origin/4.0.0-rc
         if (!done) {
           currentPage++;
           fetchNextPage(page.nextPage.bind(page));
