@@ -35,7 +35,7 @@ export interface PolicyPayload {
  * Create a new Policy
  */
 export class Policy {
-  url?: string;
+  url: string;
   method: string;
   queryFilter: object;
   postFilter: object;
@@ -53,7 +53,7 @@ export class Policy {
    */
   constructor(options?: PolicyOptions) {
     options = options || {};
-    this.url = options.url;
+    this.url = options.url || "";
     this.method = options.method || "GET";
     this.queryFilter = options.queryFilter || {};
     this.postFilter = options.postFilter || {};

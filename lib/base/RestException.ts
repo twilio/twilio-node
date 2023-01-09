@@ -29,6 +29,12 @@ export default class RestException extends Error implements RestExceptionError {
       this.moreInfo = body.more_info; /* jshint ignore:line */
       this.details = body.details;
     }
+    else {
+      this.message = "";
+      this.code = -1;
+      this.moreInfo = "";
+      this.details = {};
+    }
   }
 }
 

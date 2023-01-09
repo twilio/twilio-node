@@ -133,7 +133,6 @@ type MapFunction<TInput, TOutput> = (input: TInput) => TOutput;
  * returned as is.
  * @returns new array with transform applied to each element.
  */
-export function map<T>(input: T, transform?: (T) => any): T;
 export function map<TInput, TOutput>(
   input: Array<TInput>,
   transform: MapFunction<TInput, TOutput>
