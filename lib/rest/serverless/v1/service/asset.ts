@@ -197,9 +197,7 @@ export class AssetContextImpl implements AssetContext {
   }
 
   update(
-    params:
-      | AssetContextUpdateOptions
-      | ((error: Error | null, item?: AssetInstance) => any),
+    params: AssetContextUpdateOptions,
     callback?: (error: Error | null, item?: AssetInstance) => any
   ): Promise<AssetInstance> {
     if (params === null || params === undefined) {

@@ -498,9 +498,7 @@ export class StreamContextImpl implements StreamContext {
   }
 
   update(
-    params:
-      | StreamContextUpdateOptions
-      | ((error: Error | null, item?: StreamInstance) => any),
+    params: StreamContextUpdateOptions,
     callback?: (error: Error | null, item?: StreamInstance) => any
   ): Promise<StreamInstance> {
     if (params === null || params === undefined) {

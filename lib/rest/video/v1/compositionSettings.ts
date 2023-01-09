@@ -82,9 +82,7 @@ export class CompositionSettingsContextImpl
   }
 
   create(
-    params:
-      | CompositionSettingsContextCreateOptions
-      | ((error: Error | null, item?: CompositionSettingsInstance) => any),
+    params: CompositionSettingsContextCreateOptions,
     callback?: (error: Error | null, item?: CompositionSettingsInstance) => any
   ): Promise<CompositionSettingsInstance> {
     if (params === null || params === undefined) {

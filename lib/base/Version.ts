@@ -230,10 +230,31 @@ export default class Version {
     return operationPromise;
   }
 
+  /**
+   * For each record instance, executes a provided callback function with that
+   * instance
+   *
+   * @param params - Parameters (Optional)
+   * @param params.limit - Optional maximum number of record instances to
+   *  fetch
+   * @param params.pageSize - Optional maximum number of records to return
+   *  with every request
+   * @param params.callback - Callback function to call with each
+   *  record instance
+   * @param params.done - Optional done function to call when all
+   *  records are processed, the limit is reached, or an error occurs.
+   *  Receives an error argument if an error occurs.
+   * @param callback - Callback function to call with each record.
+   *  Receives a done function argument that will short-circuit the for-each
+   *  loop that may accept an error argument.
+   * @returns Returns a promise that resolves when all records
+   *  processed or if the limit is reached, and rejects with an error if an
+   *  error occurs and is not handled in the user provided done function.
+   */
   each<T>(
     callback: (item: T, done: (err?: Error) => void) => void,
     params?: any
-  ): void {
+  ): Promise<void> {
     if (typeof params === "function") {
       callback = params;
       params = {};
@@ -251,6 +272,9 @@ export default class Version {
     let currentPage = 1;
     let currentResource = 0;
     let limits = {} as PageLimit;
+    let pPending = true;
+    let pResolve: (value: void) => void;
+    let pReject: (reason?: any) => void;
     if (this._version instanceof Version) {
       limits = this._version.readLimits({
         limit: params.limit,
@@ -258,18 +282,42 @@ export default class Version {
       });
     }
     function onComplete(error?: any) {
+<<<<<<< HEAD
+=======
+      let unhandledError = error;
+
+>>>>>>> origin/4.0.0-rc
       done = true;
       if (typeof params.done === "function" && !doneCalled) {
-        params.done(error);
+        try {
+          params.done(unhandledError);
+          unhandledError = null;
+        } catch (e) {
+          unhandledError = e;
+        }
       }
       doneCalled = true;
+
+      if (pPending) {
+        if (unhandledError) {
+          pReject(unhandledError);
+        } else {
+          pResolve();
+        }
+        pPending = false;
+      }
     }
+<<<<<<< HEAD
     function fetchNextPage(fn: any) {
+=======
+    function fetchNextPage(fn: () => Promise<any>) {
+>>>>>>> origin/4.0.0-rc
       let promise = fn();
       if (typeof promise === "undefined") {
         onComplete();
         return;
       }
+<<<<<<< HEAD
       promise.then((page: Page<Version, TwilioResponsePayload, any, any>) => {
         page.instances.forEach(function (instance: any) {
           if (
@@ -287,6 +335,27 @@ export default class Version {
             throw e;
           }
         });
+=======
+
+      promise.then((page) => {
+        try {
+          page.instances.forEach(function (instance: any) {
+            if (
+              done ||
+              (typeof params.limit !== "undefined" &&
+                currentResource >= params.limit)
+            ) {
+              done = true;
+              return false;
+            }
+            currentResource++;
+            callback?.(instance, onComplete);
+          });
+        } catch (e) {
+          return onComplete(e);
+        }
+
+>>>>>>> origin/4.0.0-rc
         if (!done) {
           currentPage++;
           fetchNextPage(page.nextPage.bind(page));
@@ -296,7 +365,12 @@ export default class Version {
       });
       promise.catch(onComplete);
     }
-    fetchNextPage(this.page.bind(this, Object.assign(params, limits)));
+
+    return new Promise((resolve, reject) => {
+      pResolve = resolve;
+      pReject = reject;
+      fetchNextPage(this.page.bind(this, Object.assign(params, limits)));
+    });
   }
 
   list<T>(

@@ -144,12 +144,7 @@ export class InteractionChannelParticipantContextImpl
   }
 
   update(
-    params:
-      | InteractionChannelParticipantContextUpdateOptions
-      | ((
-          error: Error | null,
-          item?: InteractionChannelParticipantInstance
-        ) => any),
+    params: InteractionChannelParticipantContextUpdateOptions,
     callback?: (
       error: Error | null,
       item?: InteractionChannelParticipantInstance

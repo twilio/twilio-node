@@ -97,7 +97,6 @@ export interface RequestClientOptions {
 export default class RequestClient {
   defaultTimeout: number;
   axios: AxiosInstance;
-  ca?: string | Buffer;
   lastResponse?: Response<any>;
   lastRequest?: Request<any>;
 
@@ -131,9 +130,8 @@ export default class RequestClient {
     // sets https agent CA bundle if defined in CA bundle filepath env variable
     if (process.env.TWILIO_CA_BUNDLE !== undefined) {
       if (agentOpts.ca === undefined) {
-        this.ca = fs.readFileSync(process.env.TWILIO_CA_BUNDLE);
+        agentOpts.ca = fs.readFileSync(process.env.TWILIO_CA_BUNDLE);
       }
-      agentOpts.ca = this.ca;
     }
 
     let agent;
@@ -192,7 +190,7 @@ export default class RequestClient {
       headers.Authorization = "Basic " + auth;
     }
 
-    var options: AxiosRequestConfig = {
+    const options: AxiosRequestConfig = {
       timeout: opts.timeout || this.defaultTimeout,
       maxRedirects: opts.allowRedirects ? 10 : 0,
       url: opts.uri,
@@ -213,21 +211,20 @@ export default class RequestClient {
       };
     }
 
-    var requestOptions: LastRequestOptions<TData> = {
+    const requestOptions: LastRequestOptions<TData> = {
       method: opts.method,
       url: opts.uri,
       auth: auth,
       params: options.params,
       data: opts.data,
       headers: opts.headers,
-      ca: this.ca,
     };
 
     if (opts.logLevel === "debug") {
       this.logRequest(requestOptions);
     }
 
-    var _this = this;
+    const _this = this;
     this.lastResponse = undefined;
     this.lastRequest = new Request(requestOptions);
 

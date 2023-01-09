@@ -163,9 +163,7 @@ export class InstalledAddOnExtensionContextImpl
   }
 
   update(
-    params:
-      | InstalledAddOnExtensionContextUpdateOptions
-      | ((error: Error | null, item?: InstalledAddOnExtensionInstance) => any),
+    params: InstalledAddOnExtensionContextUpdateOptions,
     callback?: (
       error: Error | null,
       item?: InstalledAddOnExtensionInstance

@@ -193,9 +193,7 @@ export class DocumentPermissionContextImpl
   }
 
   update(
-    params:
-      | DocumentPermissionContextUpdateOptions
-      | ((error: Error | null, item?: DocumentPermissionInstance) => any),
+    params: DocumentPermissionContextUpdateOptions,
     callback?: (error: Error | null, item?: DocumentPermissionInstance) => any
   ): Promise<DocumentPermissionInstance> {
     if (params === null || params === undefined) {

@@ -196,9 +196,7 @@ export class InteractionChannelContextImpl
   }
 
   update(
-    params:
-      | InteractionChannelContextUpdateOptions
-      | ((error: Error | null, item?: InteractionChannelInstance) => any),
+    params: InteractionChannelContextUpdateOptions,
     callback?: (error: Error | null, item?: InteractionChannelInstance) => any
   ): Promise<InteractionChannelInstance> {
     if (params === null || params === undefined) {

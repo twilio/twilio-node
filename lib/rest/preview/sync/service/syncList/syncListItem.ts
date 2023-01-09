@@ -254,9 +254,7 @@ export class SyncListItemContextImpl implements SyncListItemContext {
   }
 
   update(
-    params:
-      | SyncListItemContextUpdateOptions
-      | ((error: Error | null, item?: SyncListItemInstance) => any),
+    params: SyncListItemContextUpdateOptions,
     callback?: (error: Error | null, item?: SyncListItemInstance) => any
   ): Promise<SyncListItemInstance> {
     if (params === null || params === undefined) {

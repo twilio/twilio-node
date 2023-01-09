@@ -191,9 +191,7 @@ export class SyncMapPermissionContextImpl implements SyncMapPermissionContext {
   }
 
   update(
-    params:
-      | SyncMapPermissionContextUpdateOptions
-      | ((error: Error | null, item?: SyncMapPermissionInstance) => any),
+    params: SyncMapPermissionContextUpdateOptions,
     callback?: (error: Error | null, item?: SyncMapPermissionInstance) => any
   ): Promise<SyncMapPermissionInstance> {
     if (params === null || params === undefined) {

@@ -197,9 +197,7 @@ export class MessagingConfigurationContextImpl
   }
 
   update(
-    params:
-      | MessagingConfigurationContextUpdateOptions
-      | ((error: Error | null, item?: MessagingConfigurationInstance) => any),
+    params: MessagingConfigurationContextUpdateOptions,
     callback?: (
       error: Error | null,
       item?: MessagingConfigurationInstance
