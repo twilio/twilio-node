@@ -336,7 +336,7 @@ export function webhook(
   authToken?: string | WebhookOptions
 ): (req: any, res: any, next: any) => void {
   let token: string;
-  let options: WebhookOptions = {};
+  let options: WebhookOptions | undefined = undefined;
 
   // Narrowing the args
   if (opts) {
@@ -369,17 +369,18 @@ export function webhook(
     if (typeof arg === "string") {
       tokenString = arg;
     } else {
-      options = Object.assign(options, arg);
+      options = Object.assign(options || {}, arg);
     }
   }
 
   // set auth token from input or environment variable
-  options.authToken = tokenString ? tokenString : process.env.TWILIO_AUTH_TOKEN;
-
+  if (options) {
+    options.authToken = tokenString ? tokenString : process.env.TWILIO_AUTH_TOKEN;
+  }
   // Create middleware function
   return function hook(request, response, next) {
     // Do validation if requested
-    if (options.validate) {
+    if (options?.validate) {
       // Check if the 'X-Twilio-Signature' header exists or not
       if (!request.header("X-Twilio-Signature")) {
         return response
@@ -390,7 +391,7 @@ export function webhook(
           );
       }
       // Check for a valid auth token
-      if (!options.authToken) {
+      if (!options?.authToken) {
         console.error(
           "[Twilio]: Error - Twilio auth token is required for webhook request validation."
         );
@@ -402,10 +403,10 @@ export function webhook(
           );
       } else {
         // Check that the request originated from Twilio
-        var valid = validateExpressRequest(request, options.authToken, {
-          url: options.url,
-          host: options.host,
-          protocol: options.protocol,
+        var valid = validateExpressRequest(request, options?.authToken, {
+          url: options?.url,
+          host: options?.host,
+          protocol: options?.protocol,
         });
 
         if (valid) {

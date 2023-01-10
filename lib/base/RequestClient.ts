@@ -268,7 +268,7 @@ export default class RequestClient {
 
     if (options.headers) {
       console.log("Headers:");
-      const filteredHeaderKeys = this.filterLoggingHeaders(options.headers);
+      const filteredHeaderKeys = this.filterLoggingHeaders(options.headers as Headers);
       filteredHeaderKeys.forEach((header) =>
         console.log(`${header}: ${options.headers?.header}`)
       );

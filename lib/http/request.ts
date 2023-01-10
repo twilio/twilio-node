@@ -7,7 +7,6 @@ export interface RequestOptions<TData> {
   params?: object | "*";
   data?: TData | "*";
   headers?: Headers;
-  ca?: string | Buffer;
 }
 
 export interface Headers {
@@ -81,13 +80,12 @@ export default class Request<TData> {
 
     var params = "";
     if (this.params && this.params !== this.ANY) {
-      const origParams = this.params;
       params =
         "?" +
-        Object.keys(origParams)
+        Object.keys(this.params)
           .map((key) =>
-            function () {
-              return key + "=" + origParams[key as keyof typeof origParams];
+            function (this: any) {
+              return key + "=" + this.params[key];
             }.bind(this)()
           )
           .join("&");

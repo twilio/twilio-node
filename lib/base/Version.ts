@@ -252,8 +252,8 @@ export default class Version {
    *  error occurs and is not handled in the user provided done function.
    */
   each<T>(
-    callback: (item: T, done: (err?: Error) => void) => void,
-    params?: any
+    params?: any,
+    callback?: (item: T, done: (err?: Error) => void) => void
   ): Promise<void> {
     if (typeof params === "function") {
       callback = params;

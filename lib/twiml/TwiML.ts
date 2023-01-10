@@ -35,6 +35,7 @@ export default class TwiML {
    */
   /* jshint ignore:end */
   _getXml() {
+    // @ts-ignore
     return this[this._propertyName];
   }
 
