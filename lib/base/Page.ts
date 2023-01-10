@@ -204,7 +204,7 @@ export default class Page<
     var prevPagePromise: Promise<
       Page<TVersion, TPayload, TResource, TInstance>
     > = reqPromise.then(
-       function (this: any, response: any) {
+      function (this: any, response: any) {
         return new this.constructor(this._version, response, this._solution);
       }.bind(this)
     );
@@ -253,7 +253,10 @@ export default class Page<
     throw new Error("Page Records cannot be deserialized");
   }
 
-  forOwn(obj: object, iteratee: (val: any, key: string, object: object) => void) {
+  forOwn(
+    obj: object,
+    iteratee: (val: any, key: string, object: object) => void
+  ) {
     obj = Object(obj);
     for (const [key, val] of Object.entries(obj)) {
       iteratee(val, key, obj);

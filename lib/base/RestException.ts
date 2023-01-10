@@ -26,9 +26,9 @@ export default class RestException extends Error implements RestExceptionError {
       this.code = body.code;
       this.moreInfo = body.more_info; /* jshint ignore:line */
       this.details = body.details;
-    }
-    else {
-      this.message = "[HTTP " + response.statusCode + "] Failed to execute request";
+    } else {
+      this.message =
+        "[HTTP " + response.statusCode + "] Failed to execute request";
     }
   }
 }

@@ -1,5 +1,5 @@
 import Domain from "./Domain";
-import Page, {TwilioResponsePayload, } from "./Page";
+import Page, { TwilioResponsePayload } from "./Page";
 import { RequestOpts } from "./BaseTwilio";
 import RestException from "./RestException";
 import { trim } from "./utility";

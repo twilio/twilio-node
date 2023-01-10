@@ -1,4 +1,4 @@
-const scmp = require('scmp');
+const scmp = require("scmp");
 import crypto from "crypto";
 import urllib from "url";
 import Url from "url-parse";
@@ -375,7 +375,9 @@ export function webhook(
 
   // set auth token from input or environment variable
   if (options) {
-    options.authToken = tokenString ? tokenString : process.env.TWILIO_AUTH_TOKEN;
+    options.authToken = tokenString
+      ? tokenString
+      : process.env.TWILIO_AUTH_TOKEN;
   }
   // Create middleware function
   return function hook(request, response, next) {
