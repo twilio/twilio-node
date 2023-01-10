@@ -503,7 +503,7 @@ export class CallContextImpl implements CallContext {
     if (params["statusCallbackMethod"] !== undefined)
       data["StatusCallbackMethod"] = params["statusCallbackMethod"];
     if (params["twiml"] !== undefined)
-      data["Twiml"] = serialize.stringify(params["twiml"]);
+      data["Twiml"] = serialize.twiml(params["twiml"]);
     if (params["timeLimit"] !== undefined)
       data["TimeLimit"] = params["timeLimit"];
 
@@ -1118,7 +1118,7 @@ export function CallListInstance(
       data["TimeLimit"] = params["timeLimit"];
     if (params["url"] !== undefined) data["Url"] = params["url"];
     if (params["twiml"] !== undefined)
-      data["Twiml"] = serialize.stringify(params["twiml"]);
+      data["Twiml"] = serialize.twiml(params["twiml"]);
     if (params["applicationSid"] !== undefined)
       data["ApplicationSid"] = params["applicationSid"];
 
