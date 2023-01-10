@@ -2,6 +2,11 @@
 
 _All `MAJOR` version bumps will have upgrade notes posted here._
 
+[2023-01-11] 4.0.0-rc.4 to 4.0.0-rc.5
+-----------------------------
+
+* Creating an AccessToken requires an `identity` in the options ([#875](https://github.com/twilio/twilio-node/pull/875))
+
 [2022-11-30] 3.x.x to 4.0.0-rc.1
 -----------------------------
 
