@@ -19,24 +19,15 @@ The Node library documentation can be found [here][libdocs].
 
 This library supports the following Node.js implementations:
 
-* Node.js 6
-* Node.js 8
-* Node.js 10
-* Node.js 12
 * Node.js 14
 * Node.js 16
+* Node.js 18
 
 TypeScript is supported for TypeScript version 2.9 and above.
 
 ## Installation
 
 `npm install twilio` or `yarn add twilio`
-
-### Installing Release Candidates
-
-Or, if you're wanting to install the latest release candidate use:
-
-`npm install twilio@rc` or `yarn add twilio@rc`
 
 ## Sample Usage
 
@@ -48,15 +39,28 @@ Check out these [code examples](examples) in JavaScript and TypeScript to get up
 
 If your environment requires SSL decryption, you can set the path to CA bundle in the env var `TWILIO_CA_BUNDLE`.
 
+### Client Initialization
+If you invoke any V2010 operations without specifying an account SID, `twilio-node` will automatically use the `TWILIO_ACCOUNT_SID` value that the client was initialized with. This is useful for when you'd like to, for example, fetch resources for your main account but also your subaccount. See below:
+
+```javascript
+var accountSid = process.env.TWILIO_ACCOUNT_SID; // Your Account SID from www.twilio.com/console
+var authToken = process.env.TWILIO_AUTH_TOKEN;   // Your Auth Token from www.twilio.com/console
+var subaccountSid = process.env.TWILIO_ACCOUNT_SUBACCOUNT_SID; // Your Subaccount SID from www.twilio.com/console
+
+const client = require('twilio')(accountSid, authToken);
+const mainAccountCalls = client.api.v2010.account.calls.list; // SID not specified, so defaults to accountSid
+const subaccountCalls = client.api.v2010.account(subaccountSid).calls.list // SID specified as subaccountSid
+```
+
 ### Lazy Loading
 
-`twilio-node` supports lazy loading required modules for faster loading time. Lazy loading is disabled by default. To enable lazy loading, simply instantiate the Twilio client with the `lazyLoading` flag set to `true`:
+`twilio-node` supports lazy loading required modules for faster loading time. Lazy loading is enabled by default. To disable lazy loading, simply instantiate the Twilio client with the `lazyLoading` flag set to `false`:
 ```javascript
 var accountSid = process.env.TWILIO_ACCOUNT_SID; // Your Account SID from www.twilio.com/console
 var authToken = process.env.TWILIO_AUTH_TOKEN;   // Your Auth Token from www.twilio.com/console
 
 const client = require('twilio')(accountSid, authToken, {
-    lazyLoading: true
+    lazyLoading: false
 });
 ```
 

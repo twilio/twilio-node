@@ -1,4 +1,4 @@
-### Logs ###
+### Logs ###
 logs
 *.log
 
@@ -14,13 +14,13 @@ pids
 node_modules
 
 ### Test coverage ###
-spec/coverage
+coverage
 
 ### Custom ignores ###
 config.js
 .idea
 
-### jsdoc dir ###
+### typedoc dir ###
 docs
 
 ### ide / editors ###
@@ -29,3 +29,6 @@ docs
 ### Libraries don't need locks files ###
 yarn.lock
 package-lock.json
+
+**/.openapi-generator*
+dist
