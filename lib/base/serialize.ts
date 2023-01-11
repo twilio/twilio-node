@@ -55,7 +55,7 @@ export function prefixedCollapsibleMap<T>(m: T, prefix?: string): {} {
     return {};
   }
 
-  function flatten(m, result?, previous?) {
+  function flatten(m: any, result?: any, previous?: any) {
     result = result || {};
     previous = previous || [];
 
@@ -138,7 +138,6 @@ type MapFunction<TInput, TOutput> = (input: TInput) => TOutput;
  * returned as is.
  * @returns new array with transform applied to each element.
  */
-export function map<T>(input: T, transform?: (T) => any): T;
 export function map<TInput, TOutput>(
   input: Array<TInput>,
   transform: MapFunction<TInput, TOutput>

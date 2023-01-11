@@ -1,6 +1,53 @@
 twilio-node changelog
 =====================
 
+[2023-01-11] Version 4.0.0-rc.5
+-------------------------------
+**Note:** This release contains breaking changes, check our [upgrade guide](./UPGRADE.md#2023-01-11-400-rc4-to-400-rc5) for detailed migration notes.
+
+**Library - Fix**
+- [PR #878](https://github.com/twilio/twilio-node/pull/878): resolve tsc errs in handcrafted code. Thanks to [@beebzz](https://github.com/beebzz)!
+- [PR #869](https://github.com/twilio/twilio-node/pull/869): Handle errors thrown in user callbacks in each. Thanks to [@Hunga1](https://github.com/Hunga1)!
+- [PR #876](https://github.com/twilio/twilio-node/pull/876): don't support callback as first arg when params are required. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+- [PR #871](https://github.com/twilio/twilio-node/pull/871): set the correct item type for the transform function. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+- [PR #870](https://github.com/twilio/twilio-node/pull/870): correct the lazy-load typing in the Twilio client. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+- [PR #860](https://github.com/twilio/twilio-node/pull/860): refactor the instance implementation. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+- [PR #868](https://github.com/twilio/twilio-node/pull/868): rename the interfaces file for compilation. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+- [PR #861](https://github.com/twilio/twilio-node/pull/861): done only gets called one in each. Thanks to [@mattcole19](https://github.com/mattcole19)!
+- [PR #855](https://github.com/twilio/twilio-node/pull/855): update SMS messaging parse error. Thanks to [@mariomui](https://github.com/mariomui)!
+- [PR #854](https://github.com/twilio/twilio-node/pull/854): stringify non-string path param response properties. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+
+**Library - Docs**
+- [PR #880](https://github.com/twilio/twilio-node/pull/880): Adding upgrade guide entry for AccessToken change. Thanks to [@rakatyal](https://github.com/rakatyal)!
+
+**Library - Chore**
+- [PR #877](https://github.com/twilio/twilio-node/pull/877): cleanup CA bundle setting of request client. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+- [PR #873](https://github.com/twilio/twilio-node/pull/873): Use Record type. Thanks to [@claudiachua](https://github.com/claudiachua)!
+- [PR #872](https://github.com/twilio/twilio-node/pull/872): Remove signature overloading. Thanks to [@claudiachua](https://github.com/claudiachua)!
+- [PR #853](https://github.com/twilio/twilio-node/pull/853): set strict mode in tsconfig. Thanks to [@beebzz](https://github.com/beebzz)!
+- [PR #859](https://github.com/twilio/twilio-node/pull/859): tighten up some of the types. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+- [PR #858](https://github.com/twilio/twilio-node/pull/858): add rc branch to test&deploy workflow. Thanks to [@beebzz](https://github.com/beebzz)!
+- [PR #851](https://github.com/twilio/twilio-node/pull/851): upgrade GitHub Actions dependencies. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+
+**Library - Feature**
+- [PR #875](https://github.com/twilio/twilio-node/pull/875): Making AccessToken Identity required. Thanks to [@rakatyal](https://github.com/rakatyal)! **(breaking change)**
+- [PR #866](https://github.com/twilio/twilio-node/pull/866): TSDoc changes for generated apis. Thanks to [@rakatyal](https://github.com/rakatyal)!
+- [PR #865](https://github.com/twilio/twilio-node/pull/865): Moving to Typedoc and handcrafted changes. Thanks to [@rakatyal](https://github.com/rakatyal)!
+- [PR #864](https://github.com/twilio/twilio-node/pull/864): TSDoc changes for twiml generated files. Thanks to [@rakatyal](https://github.com/rakatyal)!
+- [PR #863](https://github.com/twilio/twilio-node/pull/863): add types to Twilio client. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+- [PR #862](https://github.com/twilio/twilio-node/pull/862): Changes to twilio.ts file for TSDoc. Thanks to [@rakatyal](https://github.com/rakatyal)!
+- [PR #856](https://github.com/twilio/twilio-node/pull/856): Include comment in node twiml XML. Thanks to [@claudiachua](https://github.com/claudiachua)!
+
+**Conversations**
+- Add support for creating Multi-Channel Rich Content Messages
+
+**Lookups**
+- Changed the no data message for match postal code from `no_data` to `data_not_available` in identity match package
+
+**Messaging**
+- Add update/edit tollfree verification API
+
+
 [2022-12-28] Version 4.0.0-rc.4
 -------------------------------
 **Library - Chore**

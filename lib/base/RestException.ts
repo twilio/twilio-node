@@ -1,19 +1,19 @@
 interface RestExceptionError {
   status: number;
-  message: string;
-  code: number;
-  moreInfo: string;
-  details: object;
+  message?: string;
+  code?: number;
+  moreInfo?: string;
+  details?: object;
 }
 
 export default class RestException extends Error implements RestExceptionError {
   status: number;
   message: string;
-  code: number;
-  moreInfo: string;
-  details: object;
+  code?: number;
+  moreInfo?: string;
+  details?: object;
 
-  constructor(response) {
+  constructor(response: any) {
     super("[HTTP " + response.statusCode + "] Failed to execute request");
     const isResponseBodyString = typeof response.body == "string";
     const body = isResponseBodyString
@@ -26,6 +26,9 @@ export default class RestException extends Error implements RestExceptionError {
       this.code = body.code;
       this.moreInfo = body.more_info; /* jshint ignore:line */
       this.details = body.details;
+    } else {
+      this.message =
+        "[HTTP " + response.statusCode + "] Failed to execute request";
     }
   }
 }

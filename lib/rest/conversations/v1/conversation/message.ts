@@ -69,6 +69,10 @@ export interface MessageListInstanceCreateOptions {
   attributes?: string;
   /** The Media SID to be attached to the new Message. */
   mediaSid?: string;
+  /** The unique ID of the multi-channel [Rich Content](https://www.twilio.com/docs/content-api) template, required for template-generated messages.  **Note** that if this field is set, `Body` and `MediaSid` parameters are ignored. */
+  contentSid?: string;
+  /** A structurally valid JSON string that contains values to resolve Rich Content template variables. */
+  contentVariables?: string;
 }
 /**
  * Options to pass to each
@@ -364,6 +368,7 @@ interface MessageResource {
   url: string;
   delivery: any;
   links: Record<string, string>;
+  content_sid: string;
 }
 
 export class MessageInstance {
@@ -390,6 +395,7 @@ export class MessageInstance {
     this.url = payload.url;
     this.delivery = payload.delivery;
     this.links = payload.links;
+    this.contentSid = payload.content_sid;
 
     this._solution = { conversationSid, sid: sid || this.sid };
   }
@@ -450,6 +456,10 @@ export class MessageInstance {
    * Absolute URL to access the receipts of this message.
    */
   links: Record<string, string>;
+  /**
+   * The unique ID of the multi-channel Rich Content template.
+   */
+  contentSid: string;
 
   private get _proxy(): MessageContext {
     this._context =
@@ -563,6 +573,7 @@ export class MessageInstance {
       url: this.url,
       delivery: this.delivery,
       links: this.links,
+      contentSid: this.contentSid,
     };
   }
 
@@ -724,6 +735,10 @@ export function MessageListInstance(
     if (params["attributes"] !== undefined)
       data["Attributes"] = params["attributes"];
     if (params["mediaSid"] !== undefined) data["MediaSid"] = params["mediaSid"];
+    if (params["contentSid"] !== undefined)
+      data["ContentSid"] = params["contentSid"];
+    if (params["contentVariables"] !== undefined)
+      data["ContentVariables"] = params["contentVariables"];
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
