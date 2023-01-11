@@ -34,6 +34,52 @@ type TollfreeVerificationStatus =
   | "TWILIO_REJECTED";
 
 /**
+ * Options to pass to update a TollfreeVerificationInstance
+ */
+export interface TollfreeVerificationContextUpdateOptions {
+  /** The name of the business or organization using the Tollfree number. */
+  businessName?: string;
+  /** The website of the business or organization using the Tollfree number. */
+  businessWebsite?: string;
+  /** The email address to receive the notification about the verification result. . */
+  notificationEmail?: string;
+  /** The category of the use case for the Tollfree Number. List as many are applicable.. */
+  useCaseCategories?: Array<string>;
+  /** Use this to further explain how messaging is used by the business or organization. */
+  useCaseSummary?: string;
+  /** An example of message content, i.e. a sample message. */
+  productionMessageSample?: string;
+  /** Link to an image that shows the opt-in workflow. Multiple images allowed and must be a publicly hosted URL. */
+  optInImageUrls?: Array<string>;
+  /**  */
+  optInType?: TollfreeVerificationOptInType;
+  /** Estimate monthly volume of messages from the Tollfree Number. */
+  messageVolume?: string;
+  /** The address of the business or organization using the Tollfree number. */
+  businessStreetAddress?: string;
+  /** The address of the business or organization using the Tollfree number. */
+  businessStreetAddress2?: string;
+  /** The city of the business or organization using the Tollfree number. */
+  businessCity?: string;
+  /** The state/province/region of the business or organization using the Tollfree number. */
+  businessStateProvinceRegion?: string;
+  /** The postal code of the business or organization using the Tollfree number. */
+  businessPostalCode?: string;
+  /** The country of the business or organization using the Tollfree number. */
+  businessCountry?: string;
+  /** Additional information to be provided for verification. */
+  additionalInformation?: string;
+  /** The first name of the contact for the business or organization using the Tollfree number. */
+  businessContactFirstName?: string;
+  /** The last name of the contact for the business or organization using the Tollfree number. */
+  businessContactLastName?: string;
+  /** The email address of the contact for the business or organization using the Tollfree number. */
+  businessContactEmail?: string;
+  /** The phone number of the contact for the business or organization using the Tollfree number. */
+  businessContactPhone?: string;
+}
+
+/**
  * Options to pass to create a TollfreeVerificationInstance
  */
 export interface TollfreeVerificationListInstanceCreateOptions {
@@ -146,6 +192,29 @@ export interface TollfreeVerificationContext {
   ): Promise<TollfreeVerificationInstance>;
 
   /**
+   * Update a TollfreeVerificationInstance
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed TollfreeVerificationInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: TollfreeVerificationInstance) => any
+  ): Promise<TollfreeVerificationInstance>;
+  /**
+   * Update a TollfreeVerificationInstance
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed TollfreeVerificationInstance
+   */
+  update(
+    params: TollfreeVerificationContextUpdateOptions,
+    callback?: (error: Error | null, item?: TollfreeVerificationInstance) => any
+  ): Promise<TollfreeVerificationInstance>;
+
+  /**
    * Provide a user-friendly representation
    */
   toJSON(): any;
@@ -179,6 +248,97 @@ export class TollfreeVerificationContextImpl
       operationPromise = operationVersion.fetch({
         uri: instance._uri,
         method: "get",
+      });
+
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new TollfreeVerificationInstance(
+          operationVersion,
+          payload,
+          instance._solution.sid
+        )
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
+  update(
+    params?:
+      | TollfreeVerificationContextUpdateOptions
+      | ((error: Error | null, item?: TollfreeVerificationInstance) => any),
+    callback?: (error: Error | null, item?: TollfreeVerificationInstance) => any
+  ): Promise<TollfreeVerificationInstance> {
+    if (params instanceof Function) {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    let data: any = {};
+
+    if (params["businessName"] !== undefined)
+      data["BusinessName"] = params["businessName"];
+    if (params["businessWebsite"] !== undefined)
+      data["BusinessWebsite"] = params["businessWebsite"];
+    if (params["notificationEmail"] !== undefined)
+      data["NotificationEmail"] = params["notificationEmail"];
+    if (params["useCaseCategories"] !== undefined)
+      data["UseCaseCategories"] = serialize.map(
+        params["useCaseCategories"],
+        (e: string) => e
+      );
+    if (params["useCaseSummary"] !== undefined)
+      data["UseCaseSummary"] = params["useCaseSummary"];
+    if (params["productionMessageSample"] !== undefined)
+      data["ProductionMessageSample"] = params["productionMessageSample"];
+    if (params["optInImageUrls"] !== undefined)
+      data["OptInImageUrls"] = serialize.map(
+        params["optInImageUrls"],
+        (e: string) => e
+      );
+    if (params["optInType"] !== undefined)
+      data["OptInType"] = params["optInType"];
+    if (params["messageVolume"] !== undefined)
+      data["MessageVolume"] = params["messageVolume"];
+    if (params["businessStreetAddress"] !== undefined)
+      data["BusinessStreetAddress"] = params["businessStreetAddress"];
+    if (params["businessStreetAddress2"] !== undefined)
+      data["BusinessStreetAddress2"] = params["businessStreetAddress2"];
+    if (params["businessCity"] !== undefined)
+      data["BusinessCity"] = params["businessCity"];
+    if (params["businessStateProvinceRegion"] !== undefined)
+      data["BusinessStateProvinceRegion"] =
+        params["businessStateProvinceRegion"];
+    if (params["businessPostalCode"] !== undefined)
+      data["BusinessPostalCode"] = params["businessPostalCode"];
+    if (params["businessCountry"] !== undefined)
+      data["BusinessCountry"] = params["businessCountry"];
+    if (params["additionalInformation"] !== undefined)
+      data["AdditionalInformation"] = params["additionalInformation"];
+    if (params["businessContactFirstName"] !== undefined)
+      data["BusinessContactFirstName"] = params["businessContactFirstName"];
+    if (params["businessContactLastName"] !== undefined)
+      data["BusinessContactLastName"] = params["businessContactLastName"];
+    if (params["businessContactEmail"] !== undefined)
+      data["BusinessContactEmail"] = params["businessContactEmail"];
+    if (params["businessContactPhone"] !== undefined)
+      data["BusinessContactPhone"] = params["businessContactPhone"];
+
+    const headers: any = {};
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+
+    const instance = this;
+    let operationVersion = instance._version,
+      operationPromise = operationVersion.update({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
       });
 
     operationPromise = operationPromise.then(
@@ -430,6 +590,36 @@ export class TollfreeVerificationInstance {
     callback?: (error: Error | null, item?: TollfreeVerificationInstance) => any
   ): Promise<TollfreeVerificationInstance> {
     return this._proxy.fetch(callback);
+  }
+
+  /**
+   * Update a TollfreeVerificationInstance
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed TollfreeVerificationInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: TollfreeVerificationInstance) => any
+  ): Promise<TollfreeVerificationInstance>;
+  /**
+   * Update a TollfreeVerificationInstance
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed TollfreeVerificationInstance
+   */
+  update(
+    params: TollfreeVerificationContextUpdateOptions,
+    callback?: (error: Error | null, item?: TollfreeVerificationInstance) => any
+  ): Promise<TollfreeVerificationInstance>;
+
+  update(
+    params?: any,
+    callback?: (error: Error | null, item?: TollfreeVerificationInstance) => any
+  ): Promise<TollfreeVerificationInstance> {
+    return this._proxy.update(params, callback);
   }
 
   /**
