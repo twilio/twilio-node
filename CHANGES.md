@@ -1,6 +1,21 @@
 twilio-node changelog
 =====================
 
+[2023-01-11] Version 3.84.1
+---------------------------
+**Library - Test**
+- [PR #848](https://github.com/twilio/twilio-node/pull/848): bypass audit failures until v4 release. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+
+**Conversations**
+- Add support for creating Multi-Channel Rich Content Messages
+
+**Lookups**
+- Changed the no data message for match postal code from `no_data` to `data_not_available` in identity match package
+
+**Messaging**
+- Add update/edit tollfree verification API
+
+
 [2022-12-14] Version 3.84.0
 ---------------------------
 **Library - Docs**

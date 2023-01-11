@@ -152,7 +152,7 @@ interface IpCommandListInstance {
  * @property callbackMethod - The HTTP method we should use to call callback_url
  * @property callbackUrl - The URL we should call after we have sent the IP Command
  * @property devicePort - The device port to which the IP Command will be sent
- * @property payload - The payload to be delivered to the device
+ * @property payload - The data to be delivered to the device. If payload_type has been specified as binary, payload should be encoded using base64 encoding. Twilio will decode the the binary payload before sending to the device.
  * @property payloadType - Indicates how the payload is encoded
  * @property sim - The sid or unique_name of the Super SIM to send the IP Command to
  */

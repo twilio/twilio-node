@@ -185,6 +185,8 @@ interface MessageListInstance {
  * @property attributes - A string metadata field you can use to store any data you wish.
  * @property author - The channel specific identifier of the message's author.
  * @property body - The content of the message.
+ * @property contentSid - The unique ID of the multi-channel Rich Content template.
+ * @property contentVariables - A structurally valid JSON string that contains values to resolve Rich Content template variables.
  * @property dateCreated - The date that this resource was created.
  * @property dateUpdated - The date that this resource was last updated.
  * @property mediaSid - The Media SID to be attached to the new Message.
@@ -194,6 +196,8 @@ interface MessageListInstanceCreateOptions {
   attributes?: string;
   author?: string;
   body?: string;
+  contentSid?: string;
+  contentVariables?: string;
   dateCreated?: Date;
   dateUpdated?: Date;
   mediaSid?: string;
@@ -272,6 +276,7 @@ interface MessageResource {
   author: string;
   body: string;
   chat_service_sid: string;
+  content_sid: string;
   conversation_sid: string;
   date_created: Date;
   date_updated: Date;
@@ -359,6 +364,7 @@ declare class MessageInstance extends SerializableClass {
   author: string;
   body: string;
   chatServiceSid: string;
+  contentSid: string;
   conversationSid: string;
   dateCreated: Date;
   dateUpdated: Date;

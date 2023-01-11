@@ -24,6 +24,53 @@ type TollfreeVerificationStatus = 'PENDING_REVIEW'|'IN_REVIEW'|'TWILIO_APPROVED'
  */
 declare function TollfreeVerificationList(version: V1): TollfreeVerificationListInstance;
 
+/**
+ * Options to pass to update
+ *
+ * @property additionalInformation - Additional information to be provided for verification
+ * @property businessCity - The city of the business or organization using the Tollfree number
+ * @property businessContactEmail - The email address of the contact for the business or organization using the Tollfree number
+ * @property businessContactFirstName - The first name of the contact for the business or organization using the Tollfree number
+ * @property businessContactLastName - The last name of the contact for the business or organization using the Tollfree number
+ * @property businessContactPhone - The phone number of the contact for the business or organization using the Tollfree number
+ * @property businessCountry - The country of the business or organization using the Tollfree number
+ * @property businessName - The name of the business or organization using the Tollfree number
+ * @property businessPostalCode - The postal code of the business or organization using the Tollfree number
+ * @property businessStateProvinceRegion - The state/province/region of the business or organization using the Tollfree number
+ * @property businessStreetAddress - The address of the business or organization using the Tollfree number
+ * @property businessStreetAddress2 - The address of the business or organization using the Tollfree number
+ * @property businessWebsite - The website of the business or organization using the Tollfree number
+ * @property messageVolume - Estimate monthly volume of messages from the Tollfree Number
+ * @property notificationEmail - The email address to receive the notification about the verification result.
+ * @property optInImageUrls - Link to an image that shows the opt-in workflow. Multiple images allowed and must be a publicly hosted URL
+ * @property optInType - Describe how a user opts-in to text messages
+ * @property productionMessageSample - An example of message content, i.e. a sample message
+ * @property useCaseCategories - The category of the use case for the Tollfree Number. List as many are applicable.
+ * @property useCaseSummary - Further explaination on how messaging is used by the business or organization
+ */
+interface TollfreeVerificationInstanceUpdateOptions {
+  additionalInformation?: string;
+  businessCity?: string;
+  businessContactEmail?: string;
+  businessContactFirstName?: string;
+  businessContactLastName?: string;
+  businessContactPhone?: string;
+  businessCountry?: string;
+  businessName?: string;
+  businessPostalCode?: string;
+  businessStateProvinceRegion?: string;
+  businessStreetAddress?: string;
+  businessStreetAddress2?: string;
+  businessWebsite?: string;
+  messageVolume?: string;
+  notificationEmail?: string;
+  optInImageUrls?: string | string[];
+  optInType?: TollfreeVerificationOptInType;
+  productionMessageSample?: string;
+  useCaseCategories?: string | string[];
+  useCaseSummary?: string;
+}
+
 interface TollfreeVerificationListInstance {
   /**
    * @param sid - sid of instance
@@ -329,6 +376,19 @@ declare class TollfreeVerificationContext {
    * Provide a user-friendly representation
    */
   toJSON(): any;
+  /**
+   * update a TollfreeVerificationInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  update(callback?: (error: Error | null, items: TollfreeVerificationInstance) => any): Promise<TollfreeVerificationInstance>;
+  /**
+   * update a TollfreeVerificationInstance
+   *
+   * @param opts - Options for request
+   * @param callback - Callback to handle processed record
+   */
+  update(opts?: TollfreeVerificationInstanceUpdateOptions, callback?: (error: Error | null, items: TollfreeVerificationInstance) => any): Promise<TollfreeVerificationInstance>;
 }
 
 
@@ -384,6 +444,19 @@ declare class TollfreeVerificationInstance extends SerializableClass {
   toJSON(): any;
   tollfreePhoneNumberSid: string;
   trustProductSid: string;
+  /**
+   * update a TollfreeVerificationInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  update(callback?: (error: Error | null, items: TollfreeVerificationInstance) => any): Promise<TollfreeVerificationInstance>;
+  /**
+   * update a TollfreeVerificationInstance
+   *
+   * @param opts - Options for request
+   * @param callback - Callback to handle processed record
+   */
+  update(opts?: TollfreeVerificationInstanceUpdateOptions, callback?: (error: Error | null, items: TollfreeVerificationInstance) => any): Promise<TollfreeVerificationInstance>;
   url: string;
   useCaseCategories: string[];
   useCaseSummary: string;
@@ -415,4 +488,4 @@ declare class TollfreeVerificationPage extends Page<V1, TollfreeVerificationPayl
   toJSON(): any;
 }
 
-export { TollfreeVerificationContext, TollfreeVerificationInstance, TollfreeVerificationList, TollfreeVerificationListInstance, TollfreeVerificationListInstanceCreateOptions, TollfreeVerificationListInstanceEachOptions, TollfreeVerificationListInstanceOptions, TollfreeVerificationListInstancePageOptions, TollfreeVerificationOptInType, TollfreeVerificationPage, TollfreeVerificationPayload, TollfreeVerificationResource, TollfreeVerificationSolution, TollfreeVerificationStatus }
+export { TollfreeVerificationContext, TollfreeVerificationInstance, TollfreeVerificationInstanceUpdateOptions, TollfreeVerificationList, TollfreeVerificationListInstance, TollfreeVerificationListInstanceCreateOptions, TollfreeVerificationListInstanceEachOptions, TollfreeVerificationListInstanceOptions, TollfreeVerificationListInstancePageOptions, TollfreeVerificationOptInType, TollfreeVerificationPage, TollfreeVerificationPayload, TollfreeVerificationResource, TollfreeVerificationSolution, TollfreeVerificationStatus }
