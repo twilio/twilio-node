@@ -19,7 +19,7 @@ export default class Domain {
    * @param uri - uri to transform
    * @returns absolute url
    */
-  absoluteUrl(uri: string): string {
+  absoluteUrl(uri?: string): string {
     var result = "";
     if (typeof this.baseUrl === "string") {
       const cleanBaseUrl = trim(this.baseUrl, "/");

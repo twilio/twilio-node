@@ -11,6 +11,7 @@ export default class TwiML {
   _propertyName: string;
 
   constructor() {
+    this._propertyName = "";
     this.response = builder
       .create("Response", {
         stringify: {
@@ -18,7 +19,7 @@ export default class TwiML {
             if (Array.isArray(value)) {
               value = value.join(" ");
             }
-            return this.attEscape("" + value || "");
+            return this.attEscape?.("" + value || "") || "";
           },
         },
       })
@@ -34,6 +35,7 @@ export default class TwiML {
    */
   /* jshint ignore:end */
   _getXml() {
+    // @ts-ignore
     return this[this._propertyName];
   }
 

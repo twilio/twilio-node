@@ -4,9 +4,9 @@ export interface RequestOptions<TData> {
   method?: HttpMethod | "*";
   url?: string;
   auth?: string;
-  params?: string;
+  params?: object | "*";
   data?: TData | "*";
-  headers?: Headers | "*";
+  headers?: Headers;
 }
 
 export interface Headers {
@@ -17,7 +17,7 @@ export default class Request<TData> {
   method: HttpMethod | "*";
   url: string;
   auth: string;
-  params: string;
+  params: object | "*";
   data: TData | "*";
   headers: Headers | "*";
 
@@ -84,7 +84,7 @@ export default class Request<TData> {
         "?" +
         Object.keys(this.params)
           .map((key) =>
-            function () {
+            function (this: any) {
               return key + "=" + this.params[key];
             }.bind(this)()
           )
