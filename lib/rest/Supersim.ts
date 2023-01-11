@@ -3,6 +3,7 @@ import { FleetListInstance } from "./supersim/v1/fleet";
 import { IpCommandListInstance } from "./supersim/v1/ipCommand";
 import { NetworkListInstance } from "./supersim/v1/network";
 import { NetworkAccessProfileListInstance } from "./supersim/v1/networkAccessProfile";
+import { SettingsUpdateListInstance } from "./supersim/v1/settingsUpdate";
 import { SimListInstance } from "./supersim/v1/sim";
 import { SmsCommandListInstance } from "./supersim/v1/smsCommand";
 import { UsageRecordListInstance } from "./supersim/v1/usageRecord";
@@ -39,6 +40,16 @@ class Supersim extends SupersimBase {
   get networks(): NetworkListInstance {
     console.warn("networks is deprecated. Use v1.networks instead.");
     return this.v1.networks;
+  }
+
+  /**
+   * @deprecated - Use v1.settingsUpdates instead
+   */
+  get settingsUpdates(): SettingsUpdateListInstance {
+    console.warn(
+      "settingsUpdates is deprecated. Use v1.settingsUpdates instead."
+    );
+    return this.v1.settingsUpdates;
   }
 
   /**

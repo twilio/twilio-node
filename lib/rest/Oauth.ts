@@ -1,10 +1,19 @@
 import OauthBase from "./OauthBase";
 import { OauthListInstance } from "./oauth/v1/oauth";
+import { DeviceCodeListInstance } from "./oauth/v1/deviceCode";
 import { OpenidDiscoveryListInstance } from "./oauth/v1/openidDiscovery";
 import { TokenListInstance } from "./oauth/v1/token";
 import { UserInfoListInstance } from "./oauth/v1/userInfo";
 
 class Oauth extends OauthBase {
+  /**
+   * @deprecated - Use v1.deviceCode instead
+   */
+  get deviceCode(): DeviceCodeListInstance {
+    console.warn("deviceCode is deprecated. Use v1.deviceCode instead.");
+    return this.v1.deviceCode;
+  }
+
   /**
    * @deprecated - Use v1.oauth instead
    */

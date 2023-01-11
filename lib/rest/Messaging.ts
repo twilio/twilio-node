@@ -3,6 +3,8 @@ import { DeactivationsListInstance } from "./messaging/v1/deactivations";
 import { ExternalCampaignListInstance } from "./messaging/v1/externalCampaign";
 import { ServiceListInstance } from "./messaging/v1/service";
 import { UsecaseListInstance } from "./messaging/v1/usecase";
+import { DomainCertsListInstance } from "./messaging/v1/domainCerts";
+import { DomainConfigListInstance } from "./messaging/v1/domainConfig";
 import MessagingBase from "./MessagingBase";
 
 class Messaging extends MessagingBase {
@@ -22,6 +24,22 @@ class Messaging extends MessagingBase {
   get deactivations(): DeactivationsListInstance {
     console.warn("deactivations is deprecated. Use v1.deactivations instead.");
     return this.v1.deactivations;
+  }
+
+  /**
+   * @deprecated - Use v1.domainCerts instead
+   */
+  get domainCerts(): DomainCertsListInstance {
+    console.warn("domainCerts is deprecated. Use v1.domainCerts instead.");
+    return this.v1.domainCerts;
+  }
+
+  /**
+   * @deprecated - Use v1.domainConfig instead
+   */
+  get domainConfig(): DomainConfigListInstance {
+    console.warn("domainConfig is deprecated. Use v1.domainConfig instead.");
+    return this.v1.domainConfig;
   }
 
   /**
