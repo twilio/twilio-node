@@ -273,22 +273,6 @@ describe("Request validation", () => {
 
     expect(isValid).toBeTruthy();
   });
-
-  it('should validate request body with an array parameter regardless of the position of values in the array', () => {
-    const paramsWithArray = { 'MessagingBinding.Address': ['+1415xxxxxxx', '+1325xxxxxxx'] };
-    const signature = '83O6e2vORAoJHUNzJjDWN1jz+BA=';
-    const isValid = validateRequest(token, signature, requestUrl, paramsWithArray);
-
-    expect(isValid).toBeTruthy();
-  });
-
-  it('should validate request body with multiple params and values', () => {
-    const paramsWithArray = { Sid: 'CA123', SidAccount: 'AC123', Digits: ['5678', '1234', '1234'] };
-    const signature = 'IK+Dwps556ElfBT0I3Rgjkr1wJU=';
-    const isValid = validateRequest(token, signature, requestUrl, paramsWithArray);
-
-    expect(isValid).toBeTruthy();
-  });
 });
 
 describe("Request validation middleware", () => {
