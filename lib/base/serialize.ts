@@ -1,5 +1,6 @@
 import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
+import TwiML from "../twiml/TwiML";
 
 dayjs.extend(utc);
 
@@ -122,6 +123,10 @@ export function bool(input: string | boolean): string | "true" | "false" {
   }
 
   return input;
+}
+
+export function twiml(input: TwiML | string): string {
+  return input.toString();
 }
 
 type MapFunction<TInput, TOutput> = (input: TInput) => TOutput;
