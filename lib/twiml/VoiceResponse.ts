@@ -733,9 +733,13 @@ namespace VoiceResponse {
     | "Polly.Brian-Neural"
     | "Polly.Camila-Neural"
     | "Polly.Daniel-Neural"
+    | "Polly.Elin-Neural"
     | "Polly.Emma-Neural"
     | "Polly.Gabrielle-Neural"
+    | "Polly.Hala-Neural"
     | "Polly.Hannah-Neural"
+    | "Polly.Hiujin-Neural"
+    | "Polly.Ida-Neural"
     | "Polly.Ines-Neural"
     | "Polly.Ivy-Neural"
     | "Polly.Joanna-Neural"
@@ -745,19 +749,23 @@ namespace VoiceResponse {
     | "Polly.Kendra-Neural"
     | "Polly.Kevin-Neural"
     | "Polly.Kimberly-Neural"
+    | "Polly.Laura-Neural"
     | "Polly.Lea-Neural"
     | "Polly.Liam-Neural"
     | "Polly.Lucia-Neural"
     | "Polly.Lupe-Neural"
     | "Polly.Matthew-Neural"
     | "Polly.Mia-Neural"
+    | "Polly.Ola-Neural"
     | "Polly.Olivia-Neural"
     | "Polly.Pedro-Neural"
     | "Polly.Salli-Neural"
     | "Polly.Seoyeon-Neural"
+    | "Polly.Suvi-Neural"
     | "Polly.Takumi-Neural"
     | "Polly.Vicki-Neural"
-    | "Polly.Vitoria-Neural";
+    | "Polly.Vitoria-Neural"
+    | "Polly.Zhiyu-Neural";
 
   type SipEvent = "initiated" | "ringing" | "answered" | "completed";
 
@@ -775,6 +783,7 @@ namespace VoiceResponse {
 
   type SsmlLangXmlLang =
     | "arb"
+    | "ar-AE"
     | "ca-ES"
     | "cmn-CN"
     | "cy-GB"
@@ -791,6 +800,7 @@ namespace VoiceResponse {
     | "es-ES"
     | "es-MX"
     | "es-US"
+    | "fi-FI"
     | "fr-CA"
     | "fr-FR"
     | "hi-IN"
@@ -807,9 +817,7 @@ namespace VoiceResponse {
     | "ru-RU"
     | "sv-SE"
     | "tr-TR"
-    | "ar-AE"
-    | "yue-CN"
-    | "fi-FI";
+    | "yue-CN";
 
   type SsmlPhonemeAlphabet =
     | "ipa"
