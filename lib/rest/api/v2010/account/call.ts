@@ -29,6 +29,7 @@ import { SiprecListInstance } from "./call/siprec";
 import { StreamListInstance } from "./call/stream";
 import { UserDefinedMessageListInstance } from "./call/userDefinedMessage";
 import { UserDefinedMessageSubscriptionListInstance } from "./call/userDefinedMessageSubscription";
+import TwiML from "../../../../../lib/twiml/TwiML";
 
 type CallStatus =
   | "queued"
@@ -61,7 +62,7 @@ export interface CallContextUpdateOptions {
   /** The HTTP method we should use when requesting the `status_callback` URL. Can be: `GET` or `POST` and the default is `POST`. If an `application_sid` parameter is present, this parameter is ignored. */
   statusCallbackMethod?: string;
   /** TwiML instructions for the call Twilio will use without fetching Twiml from url. Twiml and url parameters are mutually exclusive */
-  twiml?: string;
+  twiml?: TwiML | string;
   /** The maximum duration of the call in seconds. Constraints depend on account and configuration. */
   timeLimit?: number;
 }
@@ -137,7 +138,7 @@ export interface CallListInstanceCreateOptions {
   /** The absolute URL that returns the TwiML instructions for the call. We will call this URL using the `method` when the call connects. For more information, see the [Url Parameter](https://www.twilio.com/docs/voice/make-calls#specify-a-url-parameter) section in [Making Calls](https://www.twilio.com/docs/voice/make-calls). */
   url?: string;
   /** TwiML instructions for the call Twilio will use without fetching Twiml from url parameter. If both `twiml` and `url` are provided then `twiml` parameter will be ignored. Max 4000 characters. */
-  twiml?: string;
+  twiml?: TwiML | string;
   /** The SID of the Application resource that will handle the call, if the call will be handled by an application. */
   applicationSid?: string;
 }
@@ -501,7 +502,8 @@ export class CallContextImpl implements CallContext {
       data["StatusCallback"] = params["statusCallback"];
     if (params["statusCallbackMethod"] !== undefined)
       data["StatusCallbackMethod"] = params["statusCallbackMethod"];
-    if (params["twiml"] !== undefined) data["Twiml"] = params["twiml"];
+    if (params["twiml"] !== undefined)
+      data["Twiml"] = serialize.twiml(params["twiml"]);
     if (params["timeLimit"] !== undefined)
       data["TimeLimit"] = params["timeLimit"];
 
@@ -1115,7 +1117,8 @@ export function CallListInstance(
     if (params["timeLimit"] !== undefined)
       data["TimeLimit"] = params["timeLimit"];
     if (params["url"] !== undefined) data["Url"] = params["url"];
-    if (params["twiml"] !== undefined) data["Twiml"] = params["twiml"];
+    if (params["twiml"] !== undefined)
+      data["Twiml"] = serialize.twiml(params["twiml"]);
     if (params["applicationSid"] !== undefined)
       data["ApplicationSid"] = params["applicationSid"];
 
