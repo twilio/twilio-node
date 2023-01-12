@@ -3,6 +3,7 @@ import Response from "../http/response";
 import RestException from "./RestException";
 
 export interface TwilioResponsePayload {
+  [key: string]: any;
   first_page_uri: string;
   next_page_uri: string;
   page: number;
@@ -19,19 +20,6 @@ export interface TwilioResponsePayload {
 interface Solution {
   [name: string]: any;
 }
-
-type META_KEYS =
-  | "end"
-  | "first_page_uri"
-  | "last_page_uri"
-  | "next_page_uri"
-  | "num_pages"
-  | "page"
-  | "page_size"
-  | "previous_page_uri"
-  | "start"
-  | "total"
-  | "uri";
 
 export default class Page<
   TVersion extends Version,
@@ -75,7 +63,7 @@ export default class Page<
    *
    * @constant META_KEYS
    */
-  static META_KEYS: META_KEYS[] = [
+  static META_KEYS: string[] = [
     "end",
     "first_page_uri",
     "last_page_uri",
@@ -97,7 +85,7 @@ export default class Page<
    */
   getPreviousPageUrl(): string | undefined {
     if (
-      "meta" in this._payload &&
+      this._payload.meta &&
       "previous_page_url" in this._payload.meta &&
       this._payload.meta.previous_page_url
     ) {
@@ -124,7 +112,7 @@ export default class Page<
    */
   getNextPageUrl(): string | undefined {
     if (
-      "meta" in this._payload &&
+      this._payload.meta &&
       "next_page_url" in this._payload.meta &&
       this._payload.meta.next_page_url
     ) {
@@ -187,7 +175,7 @@ export default class Page<
     var nextPagePromise: Promise<
       Page<TVersion, TPayload, TResource, TInstance>
     > = reqPromise.then(
-      function (response: any) {
+      function (this: any, response: any) {
         return new this.constructor(this._version, response, this._solution);
       }.bind(this)
     );
@@ -216,7 +204,7 @@ export default class Page<
     var prevPagePromise: Promise<
       Page<TVersion, TPayload, TResource, TInstance>
     > = reqPromise.then(
-      function (response: any) {
+      function (this: any, response: any) {
         return new this.constructor(this._version, response, this._solution);
       }.bind(this)
     );
@@ -247,11 +235,8 @@ export default class Page<
   /**
    * Load a page of records
    *
-   * @param payload - json payload
-   *
-   * @throws Error If records cannot be deserialized
-   *
-   * @returns the page of records
+   * @param  {object} payload json payload
+   * @return {array} the page of records
    */
   loadPage(payload: TPayload): TResource[] {
     if (payload.meta?.key) {
@@ -259,7 +244,7 @@ export default class Page<
     }
 
     const keys = Object.keys(payload).filter(
-      (key: META_KEYS) => !Page.META_KEYS.includes(key)
+      (key: string) => !Page.META_KEYS.includes(key)
     );
     if (keys.length === 1) {
       return payload[keys[0]];
@@ -268,7 +253,10 @@ export default class Page<
     throw new Error("Page Records cannot be deserialized");
   }
 
-  forOwn(obj: object, iteratee: (val: any, key: string, object) => void) {
+  forOwn(
+    obj: object,
+    iteratee: (val: any, key: string, object: object) => void
+  ) {
     obj = Object(obj);
     for (const [key, val] of Object.entries(obj)) {
       iteratee(val, key, obj);

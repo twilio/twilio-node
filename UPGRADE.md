@@ -2,7 +2,7 @@
 
 _All `MAJOR` version bumps will have upgrade notes posted here._
 
-[2022-11-30] 3.x.x to 4.0.0-rc.1
+[2023-01-25] 3.x.x to 4.x.x
 -----------------------------
 
 * Supported Node.js versions updated
@@ -12,6 +12,10 @@ _All `MAJOR` version bumps will have upgrade notes posted here._
 * Lazy loading enabled by default ([#752](https://github.com/twilio/twilio-node/pull/752))
   * Required Twilio modules now lazy load by default
   * See the [README](README.md) for how to disable lazy loading
+* Type changes from `object` to `Record` ([#873](https://github.com/twilio/twilio-node/pull/873))
+  * Certain response properties now use the `Record` type with `string` keys
+  * Including the `subresourceUris` property for v2010 APIs and the `links` properties for non-v2010 APIs
+* Creating an AccessToken requires an `identity` in the options ([#875](https://github.com/twilio/twilio-node/pull/875))
 * JWT token building deprecations
   * `ConversationsGrant` has been deprecated in favor of `VoiceGrant` ([#783](https://github.com/twilio/twilio-node/pull/783))
   * `IpMessagingGrant` has been removed ([#784](https://github.com/twilio/twilio-node/pull/784))

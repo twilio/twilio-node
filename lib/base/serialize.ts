@@ -1,5 +1,6 @@
 import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
+import TwiML from "../twiml/TwiML";
 
 dayjs.extend(utc);
 
@@ -54,7 +55,7 @@ export function prefixedCollapsibleMap<T>(m: T, prefix?: string): {} {
     return {};
   }
 
-  function flatten(m, result?, previous?) {
+  function flatten(m: any, result?: any, previous?: any) {
     result = result || {};
     previous = previous || [];
 
@@ -124,6 +125,10 @@ export function bool(input: string | boolean): string | "true" | "false" {
   return input;
 }
 
+export function twiml(input: TwiML | string): string {
+  return input.toString();
+}
+
 type MapFunction<TInput, TOutput> = (input: TInput) => TOutput;
 
 /**
@@ -133,7 +138,6 @@ type MapFunction<TInput, TOutput> = (input: TInput) => TOutput;
  * returned as is.
  * @returns new array with transform applied to each element.
  */
-export function map<T>(input: T, transform?: (T) => any): T;
 export function map<TInput, TOutput>(
   input: Array<TInput>,
   transform: MapFunction<TInput, TOutput>

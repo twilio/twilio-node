@@ -1,4 +1,5 @@
 import Domain from "./Domain";
+import Page, { TwilioResponsePayload } from "./Page";
 import { RequestOpts } from "./BaseTwilio";
 import RestException from "./RestException";
 import { trim } from "./utility";
@@ -81,7 +82,7 @@ export default class Version {
   request(opts: RequestOpts): Promise<any> {
     return this._domain.request({
       ...opts,
-      uri: this.relativeUrl(opts.uri),
+      uri: this.relativeUrl(opts.uri || ""),
     });
   }
 
@@ -223,8 +224,8 @@ export default class Version {
   setPromiseCallback(operationPromise: any, callback: any): Promise<any> {
     if (typeof callback === "function") {
       operationPromise = operationPromise
-        .then((value) => callback(null, value))
-        .catch((error) => callback(error));
+        .then((value: any) => callback(null, value))
+        .catch((error: any) => callback(error));
     }
     return operationPromise;
   }
@@ -310,7 +311,7 @@ export default class Version {
         return;
       }
 
-      promise.then((page) => {
+      promise.then((page: any) => {
         try {
           page.instances.forEach(function (instance: any) {
             if (
@@ -355,8 +356,8 @@ export default class Version {
     } else {
       params = params || {};
     }
-    let allResources = [];
-    params.callback = function (resource, done) {
+    let allResources: any[] = [];
+    params.callback = function (resource: any, done: any) {
       allResources.push(resource);
       if (
         typeof params.limit !== "undefined" &&
@@ -366,7 +367,7 @@ export default class Version {
       }
     };
     let operationPromise = new Promise((resolve, reject) => {
-      params.done = function (error) {
+      params.done = function (error: any) {
         if (typeof error === "undefined") {
           resolve(allResources);
         } else {
