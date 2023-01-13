@@ -52,7 +52,7 @@
     "typedoc": "^0.23.21"
   },
   "scripts": {
-    "test": "npm run test:javascript",
+    "test": "npm run test:javascript && npm run test:typescript",
     "test:javascript": "jest spec/* --coverage --detectOpenHandles",
     "test:typescript": "tsc --noEmit",
     "jshint": "jshint lib/rest/** lib/base/** lib/http/**",

@@ -7,6 +7,7 @@ import builder from "xmlbuilder";
 /* jshint ignore:end */
 
 export default class TwiML {
+  [key: string]: any;
   response: any;
   _propertyName: string;
 
@@ -35,7 +36,6 @@ export default class TwiML {
    */
   /* jshint ignore:end */
   _getXml() {
-    // @ts-ignore
     return this[this._propertyName];
   }
 
