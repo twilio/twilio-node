@@ -17,7 +17,7 @@ jobs:
     timeout-minutes: 20
     strategy:
       matrix:
-        node: [ 6, 8, 10, 12, 14, 16, lts/* ]
+        node: [ 14, 16, 18, lts/* ]
     steps:
       - name: Checkout twilio-node
         uses: actions/checkout@v3
@@ -32,6 +32,16 @@ jobs:
       - run: npm install
       - name: Run Unit Tests
         run: npm run ci
+
+      - name: Run Cluster Tests
+        if: (!github.event.pull_request.head.repo.fork)
+        env:
+          TWILIO_ACCOUNT_SID: ${{ secrets.TWILIO_ACCOUNT_SID }}
+          TWILIO_API_KEY: ${{ secrets.TWILIO_CLUSTER_TEST_API_KEY}}
+          TWILIO_API_SECRET: ${{ secrets.TWILIO_CLUSTER_TEST_API_KEY_SECRET }}
+          TWILIO_FROM_NUMBER: ${{ secrets.TWILIO_FROM_NUMBER }}
+          TWILIO_TO_NUMBER: ${{ secrets.TWILIO_TO_NUMBER }}
+        run: npm run cluster
 
       - name: SonarCloud Scan
         if: ${{ (github.event_name == 'pull_request' || github.ref_type == 'branch') && matrix.node == 'lts/*' && !github.event.pull_request.head.repo.fork }}
