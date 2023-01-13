@@ -90,7 +90,7 @@ export interface RequestClientOptions {
   /**
    * https.Agent scheduling option
    */
-  scheduling?: string;
+  scheduling?: "fifo" | "lifo" | undefined;
   /**
    * The private CA certificate bundle (if private SSL certificate)
    */
@@ -191,7 +191,7 @@ export default class RequestClient {
     this.maxRetries = opts.maxRetries || DEFAULT_MAX_RETRIES;
 
     // construct an https agent
-    let agentOpts = {
+    let agentOpts: https.AgentOptions = {
       timeout: this.defaultTimeout,
       keepAlive: opts.keepAlive,
       keepAliveMsecs: opts.keepAliveMsecs,

@@ -211,7 +211,7 @@ export function validateRequest(
 
 export function validateBody(
   body: string,
-  bodyHash: any[] | string | ArrayBuffer | Buffer
+  bodyHash: any[] | string | Buffer
 ): boolean {
   var expectedHash = getExpectedBodyHash(body);
   return scmp(Buffer.from(bodyHash), Buffer.from(expectedHash));
