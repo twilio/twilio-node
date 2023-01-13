@@ -16,6 +16,8 @@ export interface ClientOpts {
   lazyLoading?: boolean;
   logLevel?: string;
   userAgentExtensions?: string[];
+  autoRetry?: boolean;
+  maxRetries?: number;
 }
 
 export interface RequestOpts {
@@ -46,6 +48,8 @@ export class BaseTwilio {
   edge?: string;
   region?: string;
   logLevel?: string;
+  autoRetry: boolean;
+  maxRetries?: number;
   userAgentExtensions?: string[];
   _httpClient?: RequestClient;
 
@@ -84,6 +88,8 @@ export class BaseTwilio {
     this.edge = this.opts.edge || this.env.TWILIO_EDGE;
     this.region = this.opts.region || this.env.TWILIO_REGION;
     this.logLevel = this.opts.logLevel || this.env.TWILIO_LOG_LEVEL;
+    this.autoRetry = this.opts.autoRetry || false;
+    this.maxRetries = this.opts.maxRetries;
     this.userAgentExtensions = this.opts.userAgentExtensions || [];
     this._httpClient = this.opts.httpClient;
 
@@ -102,7 +108,10 @@ export class BaseTwilio {
 
   get httpClient() {
     if (!this._httpClient) {
-      this._httpClient = new RequestClient();
+      this._httpClient = new RequestClient({
+        autoRetry: this.autoRetry,
+        maxRetries: this.maxRetries,
+      });
     }
     return this._httpClient;
   }

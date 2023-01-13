@@ -1,5 +1,5 @@
 import { HttpMethod } from "../interfaces";
-import axios, { AxiosInstance, AxiosRequestConfig } from "axios";
+import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from "axios";
 import * as fs from "fs";
 import HttpsProxyAgent from "https-proxy-agent";
 import qs from "qs";
@@ -10,6 +10,9 @@ import { RequestOptions as LastRequestOptions, Headers } from "../http/request";
 
 const DEFAULT_CONTENT_TYPE = "application/x-www-form-urlencoded";
 const DEFAULT_TIMEOUT = 30000;
+const DEFAULT_INITIAL_RETRY_INTERVAL_MILLIS = 100;
+const DEFAULT_MAX_RETRY_DELAY = 3000;
+const DEFAULT_MAX_RETRIES = 3;
 
 export interface RequestOptions<TData = any, TParams = object> {
   /**
@@ -92,6 +95,69 @@ export interface RequestClientOptions {
    * The private CA certificate bundle (if private SSL certificate)
    */
   ca?: string | Buffer;
+  /**
+   * Enable auto-retry with exponential backoff when receiving 429 Errors from
+   * the API. Disabled by default.
+   */
+  autoRetry?: boolean;
+  /**
+   * Maximum retry delay in milliseconds for 429 Error response retries.
+   * Defaults to 3000.
+   */
+  maxRetryDelay?: number;
+  /**
+   * Maximum number of request retries for 429 Error responses. Defaults to 3.
+   */
+  maxRetries?: number;
+}
+
+interface BackoffAxiosRequestConfig extends AxiosRequestConfig {
+  /**
+   * Current retry attempt performed by Axios
+   */
+  retryCount?: number;
+}
+
+interface ExpontentialBackoffResponseHandlerOptions {
+  /**
+   * Maximum retry delay in milliseconds
+   */
+  maxIntervalMillis: number;
+  /**
+   * Maximum number of request retries
+   */
+  maxRetries: number;
+}
+
+function getExpontentialBackoffResponseHandler(
+  axios: AxiosInstance,
+  opts: ExpontentialBackoffResponseHandlerOptions
+) {
+  const maxIntervalMillis = opts.maxIntervalMillis;
+  const maxRetries = opts.maxRetries;
+
+  return function (res: AxiosResponse<any, any>) {
+    const config: BackoffAxiosRequestConfig = res.config;
+
+    if (res.status !== 429) {
+      return res;
+    }
+
+    const retryCount = (config.retryCount || 0) + 1;
+    if (retryCount <= maxRetries) {
+      config.retryCount = retryCount;
+      const baseDelay = Math.min(
+        maxIntervalMillis,
+        DEFAULT_INITIAL_RETRY_INTERVAL_MILLIS * Math.pow(2, retryCount)
+      );
+      const delay = Math.floor(baseDelay * Math.random()); // Full jitter backoff
+
+      return new Promise((resolve) => {
+        setTimeout(() => resolve(axios(config)), delay);
+      });
+    }
+    return res;
+  };
 }
 
 export default class RequestClient {
@@ -99,6 +165,9 @@ export default class RequestClient {
   axios: AxiosInstance;
   lastResponse?: Response<any>;
   lastRequest?: Request<any>;
+  autoRetry: boolean;
+  maxRetryDelay: number;
+  maxRetries: number;
 
   /**
    * Make http request
@@ -110,10 +179,16 @@ export default class RequestClient {
    * @param opts.maxTotalSockets - https.Agent maxTotalSockets option
    * @param opts.maxFreeSockets - https.Agent maxFreeSockets option
    * @param opts.scheduling - https.Agent scheduling option
+   * @param opts.autoRetry - Enable auto-retry requests with exponential backoff on 429 responses. Defaults to false.
+   * @param opts.maxRetryDelay - Max retry delay in milliseconds for 429 Too Many Request response retries. Defaults to 3000.
+   * @param opts.maxRetries - Max number of request retries for 429 Too Many Request responses. Defaults to 3.
    */
   constructor(opts?: RequestClientOptions) {
     opts = opts || {};
     this.defaultTimeout = opts.timeout || DEFAULT_TIMEOUT;
+    this.autoRetry = opts.autoRetry || false;
+    this.maxRetryDelay = opts.maxRetryDelay || DEFAULT_MAX_RETRY_DELAY;
+    this.maxRetries = opts.maxRetries || DEFAULT_MAX_RETRIES;
 
     // construct an https agent
     let agentOpts = {
@@ -147,6 +222,14 @@ export default class RequestClient {
     this.axios = axios.create();
     this.axios.defaults.headers.post["Content-Type"] = DEFAULT_CONTENT_TYPE;
     this.axios.defaults.httpsAgent = agent;
+    if (opts.autoRetry) {
+      this.axios.interceptors.response.use(
+        getExpontentialBackoffResponseHandler(this.axios, {
+          maxIntervalMillis: this.maxRetryDelay,
+          maxRetries: this.maxRetries,
+        })
+      );
+    }
   }
 
   /**
