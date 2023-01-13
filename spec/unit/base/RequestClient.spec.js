@@ -2,8 +2,7 @@ import mockfs from "mock-fs";
 import axios from "axios";
 import RequestClient from "../../../lib/base/RequestClient";
 import HttpsProxyAgent from "https-proxy-agent";
-
-jest.mock("axios");
+import http from "http";
 
 function createMockAxios(promiseHandler) {
   let instance = function () {
@@ -20,10 +19,12 @@ function createMockAxios(promiseHandler) {
 }
 
 describe("RequestClient constructor", function () {
+  let createSpy;
   let initialHttpProxyValue = process.env.HTTP_PROXY;
 
   beforeEach(function () {
-    axios.create.mockReturnValue(
+    createSpy = jest.spyOn(axios, "create");
+    createSpy.mockReturnValue(
       createMockAxios(
         Promise.resolve({
           status: 200,
@@ -35,6 +36,7 @@ describe("RequestClient constructor", function () {
   });
 
   afterEach(function () {
+    createSpy.mockRestore();
     if (initialHttpProxyValue) {
       process.env.HTTP_PROXY = initialHttpProxyValue;
     } else {
@@ -170,10 +172,13 @@ describe("RequestClient constructor", function () {
 });
 
 describe("lastResponse and lastRequest defined", function () {
+  let createSpy;
   let client;
   let response;
+
   beforeEach(function () {
-    axios.create.mockReturnValue(
+    createSpy = jest.spyOn(axios, "create");
+    createSpy.mockReturnValue(
       createMockAxios(
         Promise.resolve({
           status: 200,
@@ -198,6 +203,10 @@ describe("lastResponse and lastRequest defined", function () {
     response = client.request(options);
 
     return response;
+  });
+
+  afterEach(function () {
+    createSpy.mockRestore();
   });
 
   it("should have lastResponse and lastRequest on success", function () {
@@ -240,10 +249,13 @@ describe("lastResponse and lastRequest defined", function () {
 });
 
 describe("lastRequest defined, lastResponse undefined", function () {
+  let createSpy;
   let client;
   let options;
+
   beforeEach(function () {
-    axios.create.mockReturnValue(createMockAxios(Promise.reject("failed")));
+    createSpy = jest.spyOn(axios, "create");
+    createSpy.mockReturnValue(createMockAxios(Promise.reject("failed")));
 
     client = new RequestClient();
 
@@ -256,6 +268,10 @@ describe("lastRequest defined, lastResponse undefined", function () {
       params: { "test-param-key": "test-param-value" },
       data: { "test-data-key": "test-data-value" },
     };
+  });
+
+  afterEach(function () {
+    createSpy.mockRestore();
   });
 
   it("should have lastResponse and lastRequest on success", function () {
@@ -283,8 +299,11 @@ describe("lastRequest defined, lastResponse undefined", function () {
 });
 
 describe("User specified CA bundle", function () {
+  let createSpy;
+
   beforeEach(function () {
-    axios.create.mockReturnValue(createMockAxios(Promise.resolve()));
+    createSpy = jest.spyOn(axios, "create");
+    createSpy.mockReturnValue(createMockAxios(Promise.resolve()));
 
     mockfs({
       "/path/to/ca": {
@@ -294,6 +313,7 @@ describe("User specified CA bundle", function () {
   });
 
   afterEach(function () {
+    createSpy.mockRestore();
     mockfs.restore();
   });
 
@@ -306,4 +326,160 @@ describe("User specified CA bundle", function () {
       client.axios.defaults.httpsAgent.options.ca.toString()
     ).toEqual("test ca data");
   });
+});
+
+describe("Exponential backoff and retry", function () {
+  let client;
+  let server;
+
+  /**
+   * Returns a new RequestListener function that will return 429 Error responses
+   * until requests to the listener exceed the specified number of errors.
+   * @param errors - Number of 429 Error responses returned by the listener
+   *   before returning a 200 OK response
+   * @returns RequestListener function
+   */
+  function getRequestListenerWithErrors(errors) {
+    let requestCount = 0;
+    return function (req, res) {
+      requestCount++;
+      if (requestCount <= errors) {
+        res.writeHead(429);
+        res.end(`FAILED! Request #${requestCount}`);
+        return;
+      }
+      res.writeHead(200);
+      res.end(`OK! Request #${requestCount}`);
+    };
+  }
+  /**
+   * Creates and starts an HTTP server
+   * @param listener - Request listener function
+   * @returns Returns a promise that resolves with the server URL
+   */
+  function startServer(listener) {
+    return new Promise((resolve) => {
+      server = http.createServer(listener);
+      server.listen(0, "localhost", () => {
+        resolve(`http://localhost:${server.address().port}`);
+      });
+    });
+  }
+
+  beforeEach(function () {
+    client = new RequestClient({
+      autoRetry: true,
+    });
+  });
+
+  afterEach(function () {
+    if (server && server.listening) {
+      server.close();
+    }
+  });
+
+  it("should set exponential backoff and retry default values", function () {
+    client = new RequestClient();
+    expect(client.autoRetry).toBe(false);
+    expect(client.maxRetryDelay).toBe(3000);
+    expect(client.maxRetries).toBe(3);
+  });
+
+  it("should not retry when auto-retry disabled", function (done) {
+    let client = new RequestClient();
+    startServer(getRequestListenerWithErrors(1))
+      .then((uri) => {
+        return client.request({
+          method: "GET",
+          uri,
+        });
+      })
+      .then((res) => {
+        expect(res.statusCode).toEqual(429);
+        expect(res.body).toEqual("FAILED! Request #1");
+        done();
+      });
+  });
+
+  it("should not retry on non-429 Error response", function (done) {
+    startServer(getRequestListenerWithErrors(0))
+      .then((uri) => {
+        return client.request({
+          method: "GET",
+          uri,
+        });
+      })
+      .then((res) => {
+        expect(res.statusCode).toEqual(200);
+        expect(res.body).toEqual("OK! Request #1");
+        done();
+      });
+  });
+
+  it("should retry request on 429 Error response", function (done) {
+    let client = new RequestClient({
+      autoRetry: true,
+    });
+    startServer(getRequestListenerWithErrors(1))
+      .then((uri) => {
+        return client.request({
+          method: "GET",
+          uri,
+        });
+      })
+      .then((res) => {
+        expect(res.statusCode).toEqual(200);
+        expect(res.body).toEqual("OK! Request #2");
+        done();
+      });
+  });
+
+  it("should retry up to max retries allowed", function (done) {
+    startServer(getRequestListenerWithErrors(3))
+      .then((uri) => {
+        return client.request({
+          method: "GET",
+          uri,
+        });
+      })
+      .then((res) => {
+        expect(res.statusCode).toEqual(200);
+        expect(res.body).toEqual("OK! Request #4");
+        done();
+      });
+  });
+
+  it("should return 429 Error response when exceeding max retries allowed", function (done) {
+    startServer(getRequestListenerWithErrors(99))
+      .then((uri) => {
+        return client.request({
+          method: "GET",
+          uri,
+        });
+      })
+      .then((res) => {
+        expect(res.statusCode).toEqual(429);
+        expect(res.body).toEqual("FAILED! Request #4");
+        done();
+      });
+  });
+
+  it("should retry up to custom max retries allowed", function (done) {
+    client = new RequestClient({
+      autoRetry: true,
+      maxRetries: 6,
+    });
+    startServer(getRequestListenerWithErrors(6))
+      .then((uri) => {
+        return client.request({
+          method: "GET",
+          uri,
+        });
+      })
+      .then((res) => {
+        expect(res.statusCode).toEqual(200);
+        expect(res.body).toEqual("OK! Request #7");
+        done();
+      });
+  }, 10000);
 });
