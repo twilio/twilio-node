@@ -51,9 +51,6 @@ _All `MAJOR` version bumps will have upgrade notes posted here._
       say.emphasis("you");
       ```
 
-          **Note**
-          These TwiML methods were deprecated in 2019, so you may already be using the updated methods. This change removes the previously-deprecated methods from twilio-node entirely.
-
 * [TaskRouter Workers Statistics](https://www.twilio.com/docs/taskrouter/api/worker/statistics) operations updated ([#820](https://github.com/twilio/twilio-node/pull/820))
   * Cumulative and Real-Time Workers Statistics no longer accept a WorkerSid
   * `GET /v1/Workspaces/{WorkspaceSid}/Workers/CumulativeStatistics`
