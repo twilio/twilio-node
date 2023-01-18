@@ -51,14 +51,18 @@ _All `MAJOR` version bumps will have upgrade notes posted here._
       say.emphasis("you");
       ```
 
-* TaskRouter Workers Statistics operations updated ([#820](https://github.com/twilio/twilio-node/pull/820))
+* [TaskRouter Workers Statistics](https://www.twilio.com/docs/taskrouter/api/worker/statistics) operations updated ([#820](https://github.com/twilio/twilio-node/pull/820))
   * Cumulative and Real-Time Workers Statistics no longer accept a WorkerSid
   * `GET /v1/Workspaces/{WorkspaceSid}/Workers/CumulativeStatistics`
-    * Old: `client.taskrouter.v1.workspaces('WS...').workers('WK...).cumulativeStatistics()`
-    * New: `client.taskrouter.v1.workspaces('WS...').workers.cumulativeStatistics()`
+
+    Old: `client.taskrouter.v1.workspaces('WS...').workers('WK...).cumulativeStatistics()`
+
+    New: `client.taskrouter.v1.workspaces('WS...').workers.cumulativeStatistics()`
   * `GET /v1/Workspaces/{WorkspaceSid}/Workers/RealTimeStatistics`
-    * Old: `client.taskrouter.v1.workspaces('WS...').workers('WK...).realTimeStatistics()`
-    * New: `client.taskrouter.v1.workspaces('WS...').workers.realTimeStatistics()`
+
+    Old: `client.taskrouter.v1.workspaces('WS...').workers('WK...).realTimeStatistics()`
+
+    New: `client.taskrouter.v1.workspaces('WS...').workers.realTimeStatistics()`
 
 ## [2017-05-22] 3.1.x to 3.2.x
 
