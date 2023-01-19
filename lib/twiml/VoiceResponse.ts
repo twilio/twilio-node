@@ -1264,7 +1264,7 @@ namespace VoiceResponse {
   }
 
   /**
-   * Attributes to pass to break_
+   * Attributes to pass to break
    */
   export interface SsmlBreakAttributes {
     /** strength - Set a pause based on strength */
@@ -1338,7 +1338,7 @@ namespace VoiceResponse {
   }
 
   /**
-   * Attributes to pass to break_
+   * Attributes to pass to break
    */
   export interface SsmlBreakAttributes {
     /** strength - Set a pause based on strength */
@@ -1396,81 +1396,7 @@ namespace VoiceResponse {
   }
 
   /**
-   * Attributes to pass to break_
-   */
-  export interface SsmlBreakAttributes {
-    /** strength - Set a pause based on strength */
-    strength?: SsmlBreakStrength;
-    /** time - Set a pause to a specific length of time in seconds or milliseconds, available values: [number]s, [number]ms */
-    time?: string;
-  }
-
-  /**
-   * Attributes to pass to emphasis
-   */
-  export interface SsmlEmphasisAttributes {
-    /** level - Specify the degree of emphasis */
-    level?: SsmlEmphasisLevel;
-  }
-
-  /**
-   * Attributes to pass to lang
-   */
-  export interface SsmlLangAttributes {
-    /** xml:lang - Specify the language */
-    "xml:lang"?: SsmlLangXmlLang;
-  }
-
-  /**
-   * Attributes to pass to phoneme
-   */
-  export interface SsmlPhonemeAttributes {
-    /** alphabet - Specify the phonetic alphabet */
-    alphabet?: SsmlPhonemeAlphabet;
-    /** ph - Specifiy the phonetic symbols for pronunciation */
-    ph?: string;
-  }
-
-  /**
-   * Attributes to pass to prosody
-   */
-  export interface SsmlProsodyAttributes {
-    /** pitch - Specify the pitch, available values: default, x-low, low, medium, high, x-high, +n%, -n% */
-    pitch?: string;
-    /** rate - Specify the rate, available values: x-slow, slow, medium, fast, x-fast, n% */
-    rate?: string;
-    /** volume - Specify the volume, available values: default, silent, x-soft, soft, medium, loud, x-loud, +ndB, -ndB */
-    volume?: string;
-  }
-
-  /**
-   * Attributes to pass to sayAs
-   */
-  export interface SsmlSayAsAttributes {
-    /** format - Specify the format of the date when interpret-as is set to date */
-    format?: SsmlSayAsFormat;
-    /** interpret-as - Specify the type of words are spoken */
-    "interpret-as"?: SsmlSayAsInterpretAs;
-  }
-
-  /**
-   * Attributes to pass to sub
-   */
-  export interface SsmlSubAttributes {
-    /** alias - Substitute a different word (or pronunciation) for selected text such as an acronym or abbreviation */
-    alias?: string;
-  }
-
-  /**
-   * Attributes to pass to w
-   */
-  export interface SsmlWAttributes {
-    /** role - Customize the pronunciation of words by specifying the word’s part of speech or alternate meaning */
-    role?: string;
-  }
-
-  /**
-   * Attributes to pass to break_
+   * Attributes to pass to break
    */
   export interface SsmlBreakAttributes {
     /** strength - Set a pause based on strength */
@@ -1544,7 +1470,7 @@ namespace VoiceResponse {
   }
 
   /**
-   * Attributes to pass to break_
+   * Attributes to pass to break
    */
   export interface SsmlBreakAttributes {
     /** strength - Set a pause based on strength */
@@ -1618,7 +1544,7 @@ namespace VoiceResponse {
   }
 
   /**
-   * Attributes to pass to break_
+   * Attributes to pass to break
    */
   export interface SsmlBreakAttributes {
     /** strength - Set a pause based on strength */
@@ -1692,7 +1618,81 @@ namespace VoiceResponse {
   }
 
   /**
-   * Attributes to pass to break_
+   * Attributes to pass to break
+   */
+  export interface SsmlBreakAttributes {
+    /** strength - Set a pause based on strength */
+    strength?: SsmlBreakStrength;
+    /** time - Set a pause to a specific length of time in seconds or milliseconds, available values: [number]s, [number]ms */
+    time?: string;
+  }
+
+  /**
+   * Attributes to pass to emphasis
+   */
+  export interface SsmlEmphasisAttributes {
+    /** level - Specify the degree of emphasis */
+    level?: SsmlEmphasisLevel;
+  }
+
+  /**
+   * Attributes to pass to lang
+   */
+  export interface SsmlLangAttributes {
+    /** xml:lang - Specify the language */
+    "xml:lang"?: SsmlLangXmlLang;
+  }
+
+  /**
+   * Attributes to pass to phoneme
+   */
+  export interface SsmlPhonemeAttributes {
+    /** alphabet - Specify the phonetic alphabet */
+    alphabet?: SsmlPhonemeAlphabet;
+    /** ph - Specifiy the phonetic symbols for pronunciation */
+    ph?: string;
+  }
+
+  /**
+   * Attributes to pass to prosody
+   */
+  export interface SsmlProsodyAttributes {
+    /** pitch - Specify the pitch, available values: default, x-low, low, medium, high, x-high, +n%, -n% */
+    pitch?: string;
+    /** rate - Specify the rate, available values: x-slow, slow, medium, fast, x-fast, n% */
+    rate?: string;
+    /** volume - Specify the volume, available values: default, silent, x-soft, soft, medium, loud, x-loud, +ndB, -ndB */
+    volume?: string;
+  }
+
+  /**
+   * Attributes to pass to sayAs
+   */
+  export interface SsmlSayAsAttributes {
+    /** format - Specify the format of the date when interpret-as is set to date */
+    format?: SsmlSayAsFormat;
+    /** interpret-as - Specify the type of words are spoken */
+    "interpret-as"?: SsmlSayAsInterpretAs;
+  }
+
+  /**
+   * Attributes to pass to sub
+   */
+  export interface SsmlSubAttributes {
+    /** alias - Substitute a different word (or pronunciation) for selected text such as an acronym or abbreviation */
+    alias?: string;
+  }
+
+  /**
+   * Attributes to pass to w
+   */
+  export interface SsmlWAttributes {
+    /** role - Customize the pronunciation of words by specifying the word’s part of speech or alternate meaning */
+    role?: string;
+  }
+
+  /**
+   * Attributes to pass to break
    */
   export interface SsmlBreakAttributes {
     /** strength - Set a pause based on strength */
@@ -2798,7 +2798,7 @@ namespace VoiceResponse {
      *
      * @param attributes - TwiML attributes
      */
-    break_(
+    break(
       attributes?: VoiceResponse.SsmlBreakAttributes
     ): VoiceResponse.SsmlBreak {
       return new VoiceResponse.SsmlBreak(this.say.ele("break", attributes));
@@ -3079,7 +3079,7 @@ namespace VoiceResponse {
      *
      * @param attributes - TwiML attributes
      */
-    break_(
+    break(
       attributes?: VoiceResponse.SsmlBreakAttributes
     ): VoiceResponse.SsmlBreak {
       return new VoiceResponse.SsmlBreak(
@@ -3264,7 +3264,7 @@ namespace VoiceResponse {
      *
      * @param attributes - TwiML attributes
      */
-    break_(
+    break(
       attributes?: VoiceResponse.SsmlBreakAttributes
     ): VoiceResponse.SsmlBreak {
       return new VoiceResponse.SsmlBreak(
@@ -3477,7 +3477,7 @@ namespace VoiceResponse {
      *
      * @param attributes - TwiML attributes
      */
-    break_(
+    break(
       attributes?: VoiceResponse.SsmlBreakAttributes
     ): VoiceResponse.SsmlBreak {
       return new VoiceResponse.SsmlBreak(this.ssmlP.ele("break", attributes));
@@ -3685,7 +3685,7 @@ namespace VoiceResponse {
      *
      * @param attributes - TwiML attributes
      */
-    break_(
+    break(
       attributes?: VoiceResponse.SsmlBreakAttributes
     ): VoiceResponse.SsmlBreak {
       return new VoiceResponse.SsmlBreak(
@@ -3904,7 +3904,7 @@ namespace VoiceResponse {
      *
      * @param attributes - TwiML attributes
      */
-    break_(
+    break(
       attributes?: VoiceResponse.SsmlBreakAttributes
     ): VoiceResponse.SsmlBreak {
       return new VoiceResponse.SsmlBreak(this.ssmlS.ele("break", attributes));
@@ -4109,7 +4109,7 @@ namespace VoiceResponse {
      *
      * @param attributes - TwiML attributes
      */
-    break_(
+    break(
       attributes?: VoiceResponse.SsmlBreakAttributes
     ): VoiceResponse.SsmlBreak {
       return new VoiceResponse.SsmlBreak(this.ssmlW.ele("break", attributes));
