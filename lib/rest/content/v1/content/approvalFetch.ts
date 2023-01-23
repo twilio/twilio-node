@@ -121,19 +121,19 @@ export class ApprovalFetchInstance {
   }
 
   /**
-   * The unique string that identifies the Content resource
+   * The unique string that that we created to identify the Content resource.
    */
   sid: string;
   /**
-   * The SID of the Account that created the Content resource
+   * The SID of the [Account](https://www.twilio.com/docs/usage/api/account) that created Content resource.
    */
   accountSid: string;
   /**
-   * Contains the whatsapp approval information for the Content resource
+   * Contains the whatsapp approval information for the Content resource, with fields such as approval status, rejection reason, and category, amongst others.
    */
   whatsapp: any;
   /**
-   * The URL of the resource, relative to `https://content.twilio.com`
+   * The URL of the resource, relative to `https://content.twilio.com`.
    */
   url: string;
 

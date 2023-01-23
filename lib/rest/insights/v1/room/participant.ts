@@ -236,7 +236,7 @@ export class ParticipantInstance {
    */
   joinTime: Date;
   /**
-   * When the participant left the room
+   * When the participant left the room.
    */
   leaveTime: Date;
   /**
@@ -253,11 +253,11 @@ export class ParticipantInstance {
   roomSid: string;
   status: VideoParticipantSummaryRoomStatus;
   /**
-   * Codecs detected from the participant.
+   * Codecs detected from the participant. Can be `VP8`, `H264`, or `VP9`.
    */
   codecs: Array<VideoParticipantSummaryCodec>;
   /**
-   * Reason the participant left the room.
+   * Reason the participant left the room. See [the list of possible values here](https://www.twilio.com/docs/video/video-log-analyzer/video-log-analyzer-api#end_reason).
    */
   endReason: string;
   /**
@@ -270,12 +270,12 @@ export class ParticipantInstance {
   errorCodeUrl: string;
   mediaRegion: VideoParticipantSummaryTwilioRealm;
   /**
-   * Object containing information about the participant\'s data from the room.
+   * Object containing information about the participant\'s data from the room. See [below](https://www.twilio.com/docs/video/video-log-analyzer/video-log-analyzer-api#properties) for more information.
    */
   properties: any;
   edgeLocation: VideoParticipantSummaryEdgeLocation;
   /**
-   * Object containing information about the SDK name and version.
+   * Object containing information about the SDK name and version. See [below](https://www.twilio.com/docs/video/video-log-analyzer/video-log-analyzer-api#publisher_info) for more information.
    */
   publisherInfo: any;
   /**

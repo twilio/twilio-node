@@ -459,84 +459,84 @@ export class TaskInstance {
   }
 
   /**
-   * The SID of the Account that created the resource
+   * The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Task resource.
    */
   accountSid: string;
   /**
-   * The number of seconds since the Task was created
+   * The number of seconds since the Task was created.
    */
   age: number;
   assignmentStatus: TaskStatus;
   /**
-   * The JSON string with custom attributes of the work
+   * The JSON string with custom attributes of the work. **Note** If this property has been assigned a value, it will only be displayed in FETCH action that returns a single resource. Otherwise, it will be null.
    */
   attributes: string;
   /**
-   * An object that contains the addon data for all installed addons
+   * An object that contains the [addon](https://www.twilio.com/docs/taskrouter/marketplace) data for all installed addons.
    */
   addons: string;
   /**
-   * The ISO 8601 date and time in GMT when the resource was created
+   * The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
   dateCreated: Date;
   /**
-   * The ISO 8601 date and time in GMT when the resource was last updated
+   * The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
   dateUpdated: Date;
   /**
-   * The ISO 8601 date and time in GMT when the Task entered the TaskQueue.
+   * The date and time in GMT when the Task entered the TaskQueue, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
   taskQueueEnteredDate: Date;
   /**
-   * Retrieve the list of all Tasks in the Workspace with the specified priority
+   * The current priority score of the Task as assigned to a Worker by the workflow. Tasks with higher priority values will be assigned before Tasks with lower values.
    */
   priority: number;
   /**
-   * The reason the Task was canceled or completed
+   * The reason the Task was canceled or completed, if applicable.
    */
   reason: string;
   /**
-   * The unique string that identifies the resource
+   * The unique string that we created to identify the Task resource.
    */
   sid: string;
   /**
-   * The SID of the TaskQueue
+   * The SID of the TaskQueue.
    */
   taskQueueSid: string;
   /**
-   * The friendly name of the TaskQueue
+   * The friendly name of the TaskQueue.
    */
   taskQueueFriendlyName: string;
   /**
-   * The SID of the TaskChannel
+   * The SID of the TaskChannel.
    */
   taskChannelSid: string;
   /**
-   * The unique name of the TaskChannel
+   * The unique name of the TaskChannel.
    */
   taskChannelUniqueName: string;
   /**
-   * The amount of time in seconds that the Task can live before being assigned
+   * The amount of time in seconds that the Task can live before being assigned.
    */
   timeout: number;
   /**
-   * The SID of the Workflow that is controlling the Task
+   * The SID of the Workflow that is controlling the Task.
    */
   workflowSid: string;
   /**
-   * The friendly name of the Workflow that is controlling the Task
+   * The friendly name of the Workflow that is controlling the Task.
    */
   workflowFriendlyName: string;
   /**
-   * The SID of the Workspace that contains the Task
+   * The SID of the Workspace that contains the Task.
    */
   workspaceSid: string;
   /**
-   * The absolute URL of the Task resource
+   * The absolute URL of the Task resource.
    */
   url: string;
   /**
-   * The URLs of related resources
+   * The URLs of related resources.
    */
   links: Record<string, string>;
 

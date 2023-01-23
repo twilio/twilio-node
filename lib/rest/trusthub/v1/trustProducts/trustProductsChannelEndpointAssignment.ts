@@ -235,31 +235,31 @@ export class TrustProductsChannelEndpointAssignmentInstance {
   }
 
   /**
-   * The unique string that identifies the resource
+   * The unique string that we created to identify the Item Assignment resource.
    */
   sid: string;
   /**
-   * The unique string that identifies the CustomerProfile resource.
+   * The unique string that we created to identify the CustomerProfile resource.
    */
   trustProductSid: string;
   /**
-   * The SID of the Account that created the resource
+   * The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Item Assignment resource.
    */
   accountSid: string;
   /**
-   * The type of channel endpoint
+   * The type of channel endpoint. eg: phone-number
    */
   channelEndpointType: string;
   /**
-   * The sid of an channel endpoint
+   * The SID of an channel endpoint
    */
   channelEndpointSid: string;
   /**
-   * The ISO 8601 date and time in GMT when the resource was created
+   * The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
   dateCreated: Date;
   /**
-   * The absolute URL of the Identity resource
+   * The absolute URL of the Identity resource.
    */
   url: string;
 

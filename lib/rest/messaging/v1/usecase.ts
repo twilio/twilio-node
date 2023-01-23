@@ -96,7 +96,7 @@ export class UsecaseInstance {
   }
 
   /**
-   * Human readable Messaging Service Use Case details
+   * Human readable use case details (usecase, description and purpose) of Messaging Service Use Cases.
    */
   usecases: Array<any>;
 

@@ -173,23 +173,23 @@ export class NetworkInstance {
   }
 
   /**
-   * The unique string that identifies the resource
+   * The unique string that we created to identify the Network resource.
    */
   sid: string;
   /**
-   * A human readable identifier of this resource
+   * A human readable identifier of this resource.
    */
   friendlyName: string;
   /**
-   * The absolute URL of the Network resource
+   * The absolute URL of the Network resource.
    */
   url: string;
   /**
-   * The ISO country code of the Network resource
+   * The [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the Network resource.
    */
   isoCountry: string;
   /**
-   * The MCC/MNCs included in the Network resource
+   * Array of objects identifying the [MCC-MNCs](https://en.wikipedia.org/wiki/Mobile_country_code) that are included in the Network resource.
    */
   identifiers: Array<any>;
 

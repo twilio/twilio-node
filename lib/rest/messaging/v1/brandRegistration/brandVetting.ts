@@ -204,40 +204,40 @@ export class BrandVettingInstance {
   }
 
   /**
-   * The SID of the Account that created the vetting
+   * The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the vetting record.
    */
   accountSid: string;
   /**
-   * A2P BrandRegistration Sid
+   * The unique string to identify Brand Registration.
    */
   brandSid: string;
   /**
-   * SID for third-party vetting record
+   * The Twilio SID of the third-party vetting record.
    */
   brandVettingSid: string;
   /**
-   * The ISO 8601 date and time in GMT when the resource was last updated
+   * The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
   dateUpdated: Date;
   /**
-   * The ISO 8601 date and time in GMT when the resource was created
+   * The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
   dateCreated: Date;
   /**
-   * The unique ID of the vetting
+   * The unique identifier of the vetting from the third-party provider.
    */
   vettingId: string;
   /**
-   * The type of vetting
+   * The type of vetting that has been conducted. One of “STANDARD” (Aegis) or “POLITICAL” (Campaign Verify).
    */
   vettingClass: string;
   /**
-   * Status of vetting attempt
+   * The status of the import vetting attempt. One of “PENDING,” “SUCCESS,” or “FAILED”.
    */
   vettingStatus: string;
   vettingProvider: BrandVettingVettingProvider;
   /**
-   * The absolute URL of the Brand Vetting
+   * The absolute URL of the Brand Vetting resource.
    */
   url: string;
 

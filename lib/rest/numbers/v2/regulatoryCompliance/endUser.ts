@@ -279,32 +279,32 @@ export class EndUserInstance {
   }
 
   /**
-   * The unique string that identifies the resource
+   * The unique string created by Twilio to identify the End User resource.
    */
   sid: string;
   /**
-   * The SID of the Account that created the resource
+   * The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the End User resource.
    */
   accountSid: string;
   /**
-   * The string that you assigned to describe the resource
+   * The string that you assigned to describe the resource.
    */
   friendlyName: string;
   type: EndUserType;
   /**
-   * The set of parameters that compose the End Users resource
+   * The set of parameters that are the attributes of the End Users resource which are listed in the End User Types.
    */
   attributes: any;
   /**
-   * The ISO 8601 date and time in GMT when the resource was created
+   * The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
   dateCreated: Date;
   /**
-   * The ISO 8601 date and time in GMT when the resource was last updated
+   * The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
   dateUpdated: Date;
   /**
-   * The absolute URL of the End User resource
+   * The absolute URL of the End User resource.
    */
   url: string;
 

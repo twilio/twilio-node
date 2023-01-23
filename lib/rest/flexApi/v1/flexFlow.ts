@@ -395,53 +395,53 @@ export class FlexFlowInstance {
   }
 
   /**
-   * The SID of the Account that created the resource
+   * The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Flex Flow resource and owns this Workflow.
    */
   accountSid: string;
   /**
-   * The ISO 8601 date and time in GMT when the resource was created
+   * The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
   dateCreated: Date;
   /**
-   * The ISO 8601 date and time in GMT when the resource was last updated
+   * The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
   dateUpdated: Date;
   /**
-   * The unique string that identifies the resource
+   * The unique string that we created to identify the Flex Flow resource.
    */
   sid: string;
   /**
-   * The string that you assigned to describe the resource
+   * The string that you assigned to describe the resource.
    */
   friendlyName: string;
   /**
-   * The SID of the chat service
+   * The SID of the chat service.
    */
   chatServiceSid: string;
   channelType: FlexFlowChannelType;
   /**
-   * The channel contact\'s Identity
+   * The channel contact\'s Identity.
    */
   contactIdentity: string;
   /**
-   * Whether the Flex Flow is enabled
+   * Whether the Flex Flow is enabled.
    */
   enabled: boolean;
   integrationType: FlexFlowIntegrationType;
   /**
-   * An object that contains specific parameters for the integration
+   * An object that contains specific parameters for the integration.
    */
   integration: any;
   /**
-   * Re-use this chat channel for future interactions with a contact
+   * When enabled, Flex will keep the chat channel active so that it may be used for subsequent interactions with a contact identity. Defaults to `false`.
    */
   longLived: boolean;
   /**
-   * Remove active Proxy sessions if the corresponding Task is deleted.
+   * When enabled, the Messaging Channel Janitor will remove active Proxy sessions if the associated Task is deleted outside of the Flex UI. Defaults to `false`.
    */
   janitorEnabled: boolean;
   /**
-   * The absolute URL of the Flex Flow resource
+   * The absolute URL of the Flex Flow resource.
    */
   url: string;
 

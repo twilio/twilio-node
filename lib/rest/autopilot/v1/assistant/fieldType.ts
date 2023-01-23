@@ -313,39 +313,39 @@ export class FieldTypeInstance {
   }
 
   /**
-   * The SID of the Account that created the resource
+   * The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the FieldType resource.
    */
   accountSid: string;
   /**
-   * The RFC 2822 date and time in GMT when the resource was created
+   * The date and time in GMT when the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
    */
   dateCreated: Date;
   /**
-   * The RFC 2822 date and time in GMT when the resource was last updated
+   * The date and time in GMT when the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
    */
   dateUpdated: Date;
   /**
-   * The string that you assigned to describe the resource
+   * The string that you assigned to describe the resource. It is not unique and can be up to 255 characters long.
    */
   friendlyName: string;
   /**
-   * A list of the URLs of related resources
+   * A list of the URLs of related resources.
    */
   links: Record<string, string>;
   /**
-   * The SID of the Assistant that is the parent of the resource
+   * The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the resource.
    */
   assistantSid: string;
   /**
-   * The unique string that identifies the resource
+   * The unique string that we created to identify the FieldType resource.
    */
   sid: string;
   /**
-   * An application-defined string that uniquely identifies the resource
+   * An application-defined string that uniquely identifies the resource. It can be used in place of the resource\'s `sid` in the URL to address the resource.
    */
   uniqueName: string;
   /**
-   * The absolute URL of the FieldType resource
+   * The absolute URL of the FieldType resource.
    */
   url: string;
 

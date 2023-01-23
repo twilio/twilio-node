@@ -214,31 +214,31 @@ export class IpAccessControlListInstance {
   }
 
   /**
-   * The SID of the Account that created the resource
+   * The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the IpAccessControlList resource.
    */
   accountSid: string;
   /**
-   * The unique string that identifies the resource
+   * The unique string that we created to identify the IpAccessControlList resource.
    */
   sid: string;
   /**
-   * The SID of the Trunk the resource is associated with
+   * The SID of the Trunk the resource is associated with.
    */
   trunkSid: string;
   /**
-   * The string that you assigned to describe the resource
+   * The string that you assigned to describe the resource.
    */
   friendlyName: string;
   /**
-   * The RFC 2822 date and time in GMT when the resource was created
+   * The date and time in GMT when the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
    */
   dateCreated: Date;
   /**
-   * The RFC 2822 date and time in GMT when the resource was last updated
+   * The date and time in GMT when the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
    */
   dateUpdated: Date;
   /**
-   * The absolute URL of the resource
+   * The absolute URL of the resource.
    */
   url: string;
 

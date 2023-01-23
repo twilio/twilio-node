@@ -169,23 +169,23 @@ export class CountryInstance {
   }
 
   /**
-   * The name of the country
+   * The name of the country.
    */
   country: string;
   /**
-   * The ISO country code
+   * The [ISO country code](http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).
    */
   isoCountry: string;
   /**
-   * The list of PhoneNumberPrices records
+   * The list of [PhoneNumberPrice](https://www.twilio.com/docs/phone-numbers/pricing#phone-number-price) records.
    */
   phoneNumberPrices: Array<PricingV1PhoneNumberPhoneNumberCountryInstancePhoneNumberPrices>;
   /**
-   * The currency in which prices are measured, in ISO 4127 format (e.g. usd, eur, jpy)
+   * The currency in which prices are measured, specified in [ISO 4127](http://www.iso.org/iso/home/standards/currency_codes.htm) format (e.g. `usd`, `eur`, `jpy`).
    */
   priceUnit: string;
   /**
-   * The absolute URL of the resource
+   * The absolute URL of the resource.
    */
   url: string;
 

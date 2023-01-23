@@ -227,39 +227,39 @@ export class FieldInstance {
   }
 
   /**
-   * The SID of the Account that created the resource
+   * The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Field resource.
    */
   accountSid: string;
   /**
-   * The RFC 2822 date and time in GMT when the resource was created
+   * The date and time in GMT when the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
    */
   dateCreated: Date;
   /**
-   * The RFC 2822 date and time in GMT when the resource was last updated
+   * The date and time in GMT when the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
    */
   dateUpdated: Date;
   /**
-   * The Field Type of the field
+   * The Field Type of the field. Can be: a [Built-in Field Type](https://www.twilio.com/docs/autopilot/built-in-field-types), the unique_name, or the SID of a custom Field Type.
    */
   fieldType: string;
   /**
-   * The SID of the [Task](https://www.twilio.com/docs/autopilot/api/task) resource associated with this Field
+   * The SID of the [Task](https://www.twilio.com/docs/autopilot/api/task) resource associated with this Field.
    */
   taskSid: string;
   /**
-   * The SID of the Assistant that is the parent of the Task associated with the resource
+   * The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the Task associated with the resource.
    */
   assistantSid: string;
   /**
-   * The unique string that identifies the resource
+   * The unique string that we created to identify the Field resource.
    */
   sid: string;
   /**
-   * An application-defined string that uniquely identifies the resource
+   * An application-defined string that uniquely identifies the resource. It can be used in place of the resource\'s `sid` in the URL to address the resource.
    */
   uniqueName: string;
   /**
-   * The absolute URL of the Field resource
+   * The absolute URL of the Field resource.
    */
   url: string;
 

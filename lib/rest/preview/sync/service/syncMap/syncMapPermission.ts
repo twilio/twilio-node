@@ -305,35 +305,35 @@ export class SyncMapPermissionInstance {
   }
 
   /**
-   * Twilio Account SID.
+   * The unique SID identifier of the Twilio Account.
    */
   accountSid: string;
   /**
-   * Sync Service Instance SID.
+   * The unique SID identifier of the Sync Service Instance.
    */
   serviceSid: string;
   /**
-   * Sync Map SID.
+   * The unique SID identifier of the Sync Map to which the Permission applies.
    */
   mapSid: string;
   /**
-   * Identity of the user to whom the Sync Map Permission applies.
+   * Arbitrary string identifier representing a human user associated with an FPA token, assigned by the developer.
    */
   identity: string;
   /**
-   * Read access.
+   * Boolean flag specifying whether the identity can read the Sync Map and its Items.
    */
   read: boolean;
   /**
-   * Write access.
+   * Boolean flag specifying whether the identity can create, update and delete Items of the Sync Map.
    */
   write: boolean;
   /**
-   * Manage access.
+   * Boolean flag specifying whether the identity can delete the Sync Map.
    */
   manage: boolean;
   /**
-   * URL of this Sync Map Permission.
+   * Contains an absolute URL for this Sync Map Permission.
    */
   url: string;
 

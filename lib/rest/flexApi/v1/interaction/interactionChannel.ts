@@ -294,11 +294,11 @@ export class InteractionChannelInstance {
   }
 
   /**
-   * The unique string that identifies the resource
+   * The unique string created by Twilio to identify an Interaction Channel resource, prefixed with UO.
    */
   sid: string;
   /**
-   * The unique string that identifies the resource.
+   * The unique string created by Twilio to identify an Interaction resource, prefixed with KD.
    */
   interactionSid: string;
   type: InteractionChannelType;

@@ -399,51 +399,51 @@ export class MemberInstance {
   }
 
   /**
-   * The unique string that identifies the resource
+   * The unique string that we created to identify the Member resource.
    */
   sid: string;
   /**
-   * The SID of the Account that created the resource
+   * The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Member resource.
    */
   accountSid: string;
   /**
-   * The SID of the Channel for the member
+   * The SID of the [Channel](https://www.twilio.com/docs/chat/channels) the Member resource belongs to.
    */
   channelSid: string;
   /**
-   * The SID of the Service that the resource is associated with
+   * The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) the Member resource is associated with.
    */
   serviceSid: string;
   /**
-   * The string that identifies the resource\'s User
+   * The application-defined string that uniquely identifies the resource\'s [User](https://www.twilio.com/docs/chat/rest/user-resource) within the [Service](https://www.twilio.com/docs/chat/rest/service-resource). See [access tokens](https://www.twilio.com/docs/chat/create-tokens) for more info.
    */
   identity: string;
   /**
-   * The ISO 8601 date and time in GMT when the resource was created
+   * The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
   dateCreated: Date;
   /**
-   * The ISO 8601 date and time in GMT when the resource was last updated
+   * The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
   dateUpdated: Date;
   /**
-   * The SID of the Role assigned to the member
+   * The SID of the [Role](https://www.twilio.com/docs/chat/rest/role-resource) assigned to the member.
    */
   roleSid: string;
   /**
-   * The index of the last Message that the Member has read within the Channel
+   * The index of the last [Message](https://www.twilio.com/docs/chat/rest/message-resource) in the [Channel](https://www.twilio.com/docs/chat/channels) that the Member has read.
    */
   lastConsumedMessageIndex: number;
   /**
-   * The ISO 8601 based timestamp string that represents the datetime of the last Message read event for the Member within the Channel
+   * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp of the last [Message](https://www.twilio.com/docs/chat/rest/message-resource) read event for the Member within the [Channel](https://www.twilio.com/docs/chat/channels).
    */
   lastConsumptionTimestamp: Date;
   /**
-   * The absolute URL of the Member resource
+   * The absolute URL of the Member resource.
    */
   url: string;
   /**
-   * The JSON string that stores application-specific data
+   * The JSON string that stores application-specific data. If attributes have not been set, `{}` is returned.
    */
   attributes: string;
 

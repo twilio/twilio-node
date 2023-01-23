@@ -454,121 +454,121 @@ export class TollfreeVerificationInstance {
   }
 
   /**
-   * Tollfree Verification Sid
+   * The unique string to identify Tollfree Verification.
    */
   sid: string;
   /**
-   * The SID of the Account that created the resource
+   * The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Tollfree Verification resource.
    */
   accountSid: string;
   /**
-   * Customer\'s Profile Bundle BundleSid
+   * Customer\'s Profile Bundle BundleSid.
    */
   customerProfileSid: string;
   /**
-   * Tollfree TrustProduct Bundle BundleSid
+   * Tollfree TrustProduct Bundle BundleSid.
    */
   trustProductSid: string;
   /**
-   * The ISO 8601 date and time in GMT when the resource was created
+   * The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
   dateCreated: Date;
   /**
-   * The ISO 8601 date and time in GMT when the resource was last updated
+   * The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
   dateUpdated: Date;
   /**
-   * The SID of the Regulated Item
+   * The SID of the Regulated Item.
    */
   regulatedItemSid: string;
   /**
-   * The name of the business or organization using the Tollfree number
+   * The name of the business or organization using the Tollfree number.
    */
   businessName: string;
   /**
-   * The address of the business or organization using the Tollfree number
+   * The address of the business or organization using the Tollfree number.
    */
   businessStreetAddress: string;
   /**
-   * The address of the business or organization using the Tollfree number
+   * The address of the business or organization using the Tollfree number.
    */
   businessStreetAddress2: string;
   /**
-   * The city of the business or organization using the Tollfree number
+   * The city of the business or organization using the Tollfree number.
    */
   businessCity: string;
   /**
-   * The state/province/region of the business or organization using the Tollfree number
+   * The state/province/region of the business or organization using the Tollfree number.
    */
   businessStateProvinceRegion: string;
   /**
-   * The postal code of the business or organization using the Tollfree number
+   * The postal code of the business or organization using the Tollfree number.
    */
   businessPostalCode: string;
   /**
-   * The country of the business or organization using the Tollfree number
+   * The country of the business or organization using the Tollfree number.
    */
   businessCountry: string;
   /**
-   * The website of the business or organization using the Tollfree number
+   * The website of the business or organization using the Tollfree number.
    */
   businessWebsite: string;
   /**
-   * The first name of the contact for the business or organization using the Tollfree number
+   * The first name of the contact for the business or organization using the Tollfree number.
    */
   businessContactFirstName: string;
   /**
-   * The last name of the contact for the business or organization using the Tollfree number
+   * The last name of the contact for the business or organization using the Tollfree number.
    */
   businessContactLastName: string;
   /**
-   * The email address of the contact for the business or organization using the Tollfree number
+   * The email address of the contact for the business or organization using the Tollfree number.
    */
   businessContactEmail: string;
   /**
-   * The phone number of the contact for the business or organization using the Tollfree number
+   * The phone number of the contact for the business or organization using the Tollfree number.
    */
   businessContactPhone: string;
   /**
-   * The email address to receive the notification about the verification result.
+   * The email address to receive the notification about the verification result. .
    */
   notificationEmail: string;
   /**
-   * The category of the use case for the Tollfree Number. List as many are applicable.
+   * The category of the use case for the Tollfree Number. List as many are applicable..
    */
   useCaseCategories: Array<string>;
   /**
-   * Further explaination on how messaging is used by the business or organization
+   * Use this to further explain how messaging is used by the business or organization.
    */
   useCaseSummary: string;
   /**
-   * An example of message content, i.e. a sample message
+   * An example of message content, i.e. a sample message.
    */
   productionMessageSample: string;
   /**
-   * Link to an image that shows the opt-in workflow. Multiple images allowed and must be a publicly hosted URL
+   * Link to an image that shows the opt-in workflow. Multiple images allowed and must be a publicly hosted URL.
    */
   optInImageUrls: Array<string>;
   optInType: TollfreeVerificationOptInType;
   /**
-   * Estimate monthly volume of messages from the Tollfree Number
+   * Estimate monthly volume of messages from the Tollfree Number.
    */
   messageVolume: string;
   /**
-   * Additional information to be provided for verification
+   * Additional information to be provided for verification.
    */
   additionalInformation: string;
   /**
-   * The SID of the Phone Number associated with the Tollfree Verification
+   * The SID of the Phone Number associated with the Tollfree Verification.
    */
   tollfreePhoneNumberSid: string;
   status: TollfreeVerificationStatus;
   /**
-   * The absolute URL of the Tollfree Verification
+   * The absolute URL of the Tollfree Verification resource.
    */
   url: string;
   /**
-   * The URLs of the documents associated with the Tollfree Verification resource
+   * The URLs of the documents associated with the Tollfree Verification resource.
    */
   resourceLinks: any;
 

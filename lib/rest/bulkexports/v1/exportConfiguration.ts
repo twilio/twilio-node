@@ -210,15 +210,15 @@ export class ExportConfigurationInstance {
   }
 
   /**
-   * Whether files are automatically generated
+   * If true, Twilio will automatically generate every day\'s file when the day is over.
    */
   enabled: boolean;
   /**
-   * URL targeted at export
+   * Stores the URL destination for the method specified in webhook_method.
    */
   webhookUrl: string;
   /**
-   * Whether to GET or POST to the webhook url
+   * Sets whether Twilio should call a webhook URL when the automatic generation is complete, using GET or POST. The actual destination is set in the webhook_url
    */
   webhookMethod: string;
   /**

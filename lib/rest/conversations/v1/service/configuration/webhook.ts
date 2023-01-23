@@ -217,7 +217,7 @@ export class WebhookInstance {
   }
 
   /**
-   * The unique ID of the Account responsible for this service.
+   * The unique ID of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this service.
    */
   accountSid: string;
   /**
@@ -233,12 +233,12 @@ export class WebhookInstance {
    */
   postWebhookUrl: string;
   /**
-   * The list of events that your configured webhook targets will receive. Events not configured here will not fire.
+   * The list of events that your configured webhook targets will receive. Events not configured here will not fire. Possible values are `onParticipantAdd`, `onParticipantAdded`, `onDeliveryUpdated`, `onConversationUpdated`, `onConversationRemove`, `onParticipantRemove`, `onConversationUpdate`, `onMessageAdd`, `onMessageRemoved`, `onParticipantUpdated`, `onConversationAdded`, `onMessageAdded`, `onConversationAdd`, `onConversationRemoved`, `onParticipantUpdate`, `onMessageRemove`, `onMessageUpdated`, `onParticipantRemoved`, `onMessageUpdate` or `onConversationStateUpdated`.
    */
   filters: Array<string>;
   method: ServiceWebhookConfigurationMethod;
   /**
-   * An absolute URL for this webhook.
+   * An absolute API resource URL for this webhook.
    */
   url: string;
 

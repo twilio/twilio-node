@@ -237,43 +237,43 @@ export class FieldValueInstance {
   }
 
   /**
-   * The SID of the Account that created the resource
+   * The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the FieldValue resource.
    */
   accountSid: string;
   /**
-   * The RFC 2822 date and time in GMT when the resource was created
+   * The date and time in GMT when the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
    */
   dateCreated: Date;
   /**
-   * The RFC 2822 date and time in GMT when the resource was last updated
+   * The date and time in GMT when the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
    */
   dateUpdated: Date;
   /**
-   * The SID of the Field Type associated with the Field Value
+   * The SID of the Field Type associated with the Field Value.
    */
   fieldTypeSid: string;
   /**
-   * The ISO language-country tag that identifies the language of the value
+   * The [ISO language-country](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) tag that specifies the language of the value. Currently supported tags: `en-US`
    */
   language: string;
   /**
-   * The SID of the Assistant that is the parent of the FieldType associated with the resource
+   * The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the FieldType associated with the resource.
    */
   assistantSid: string;
   /**
-   * The unique string that identifies the resource
+   * The unique string that we created to identify the FieldValue resource.
    */
   sid: string;
   /**
-   * The Field Value data
+   * The Field Value data.
    */
   value: string;
   /**
-   * The absolute URL of the FieldValue resource
+   * The absolute URL of the FieldValue resource.
    */
   url: string;
   /**
-   * The word for which the field value is a synonym of
+   * The word for which the field value is a synonym of.
    */
   synonymOf: string;
 

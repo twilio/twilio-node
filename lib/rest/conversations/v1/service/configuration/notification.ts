@@ -264,11 +264,11 @@ export class NotificationInstance {
   }
 
   /**
-   * The unique ID of the Account responsible for this configuration.
+   * The unique ID of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this configuration.
    */
   accountSid: string;
   /**
-   * The SID of the Conversation Service that the Configuration applies to.
+   * The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Configuration applies to.
    */
   chatServiceSid: string;
   /**
@@ -288,7 +288,7 @@ export class NotificationInstance {
    */
   logEnabled: boolean;
   /**
-   * An absolute URL for this configuration.
+   * An absolute API resource URL for this configuration.
    */
   url: string;
 

@@ -153,23 +153,23 @@ export class FunctionVersionContentInstance {
   }
 
   /**
-   * The unique string that identifies the Function Version resource
+   * The unique string that we created to identify the Function Version resource.
    */
   sid: string;
   /**
-   * The SID of the Account that created the Function Version resource
+   * The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Function Version resource.
    */
   accountSid: string;
   /**
-   * The SID of the Service that the Function Version resource is associated with
+   * The SID of the Service that the Function Version resource is associated with.
    */
   serviceSid: string;
   /**
-   * The SID of the Function that is the parent of the Function Version
+   * The SID of the Function that is the parent of the Function Version.
    */
   functionSid: string;
   /**
-   * The content of the Function Version resource
+   * The content of the Function Version resource.
    */
   content: string;
   url: string;

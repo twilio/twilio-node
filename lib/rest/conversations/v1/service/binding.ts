@@ -228,15 +228,15 @@ export class BindingInstance {
    */
   sid: string;
   /**
-   * The unique ID of the Account responsible for this binding.
+   * The unique ID of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this binding.
    */
   accountSid: string;
   /**
-   * The SID of the Conversation Service that the resource is associated with.
+   * The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Binding resource is associated with.
    */
   chatServiceSid: string;
   /**
-   * The SID of the Credential for the binding.
+   * The SID of the [Credential](https://www.twilio.com/docs/conversations/api/credential-resource) for the binding. See [push notification configuration](https://www.twilio.com/docs/chat/push-notification-configuration) for more info.
    */
   credentialSid: string;
   /**
@@ -248,20 +248,20 @@ export class BindingInstance {
    */
   dateUpdated: Date;
   /**
-   * The unique endpoint identifier for the Binding.
+   * The unique endpoint identifier for the Binding. The format of this value depends on the `binding_type`.
    */
   endpoint: string;
   /**
-   * The identity of Conversation User associated with this binding.
+   * The application-defined string that uniquely identifies the [Conversation User](https://www.twilio.com/docs/conversations/api/user-resource) within the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource). See [access tokens](https://www.twilio.com/docs/conversations/create-tokens) for more info.
    */
   identity: string;
   bindingType: ServiceBindingBindingType;
   /**
-   * The Conversation message types the binding is subscribed to.
+   * The [Conversation message types](https://www.twilio.com/docs/chat/push-notification-configuration#push-types) the binding is subscribed to.
    */
   messageTypes: Array<string>;
   /**
-   * An absolute URL for this binding.
+   * An absolute API resource URL for this binding.
    */
   url: string;
 

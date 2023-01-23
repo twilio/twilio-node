@@ -190,48 +190,48 @@ export class VerificationCheckInstance {
   }
 
   /**
-   * The unique string that identifies the resource
+   * The unique string that we created to identify the VerificationCheck resource.
    */
   sid: string;
   /**
-   * The SID of the Service that the resource is associated with
+   * The SID of the [Service](https://www.twilio.com/docs/verify/api/service) the resource is associated with.
    */
   serviceSid: string;
   /**
-   * The SID of the Account that created the resource
+   * The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the VerificationCheck resource.
    */
   accountSid: string;
   /**
-   * The phone number or email being verified
+   * The phone number or [email](https://www.twilio.com/docs/verify/email) being verified. Phone numbers must be in [E.164 format](https://www.twilio.com/docs/glossary/what-e164).
    */
   to: string;
   channel: VerificationCheckChannel;
   /**
-   * The status of the verification resource
+   * The status of the verification. Can be: `pending`, `approved`, or `canceled`.
    */
   status: string;
   /**
-   * Whether the verification was successful
+   * Use \"status\" instead. Legacy property indicating whether the verification was successful.
    */
   valid: boolean;
   /**
-   * The amount of the associated PSD2 compliant transaction.
+   * The amount of the associated PSD2 compliant transaction. Requires the PSD2 Service flag enabled.
    */
   amount: string;
   /**
-   * The payee of the associated PSD2 compliant transaction
+   * The payee of the associated PSD2 compliant transaction. Requires the PSD2 Service flag enabled.
    */
   payee: string;
   /**
-   * The ISO 8601 date and time in GMT when the Verification Check resource was created
+   * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time in GMT when the Verification Check resource was created.
    */
   dateCreated: Date;
   /**
-   * The ISO 8601 date and time in GMT when the Verification Check resource was last updated
+   * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time in GMT when the Verification Check resource was last updated.
    */
   dateUpdated: Date;
   /**
-   * List of error codes as a result of attempting a verification using the `sna` channel.
+   * List of error codes as a result of attempting a verification using the `sna` channel. The error codes are chronologically ordered, from the first attempt to the latest attempt. This will be an empty list if no errors occured or `null` if the last channel used wasn\'t `sna`.
    */
   snaAttemptsErrorCodes: Array<any>;
 

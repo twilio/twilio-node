@@ -308,27 +308,27 @@ export class ConferenceInstance {
   }
 
   /**
-   * Conference SID.
+   * The unique SID identifier of the Conference.
    */
   conferenceSid: string;
   /**
-   * Account SID.
+   * The unique SID identifier of the Account.
    */
   accountSid: string;
   /**
-   * Custom label for the conference.
+   * Custom label for the conference resource, up to 64 characters.
    */
   friendlyName: string;
   /**
-   * Conference creation date/time.
+   * Conference creation date and time in ISO 8601 format.
    */
   createTime: Date;
   /**
-   * Timestamp in ISO 8601 format when the conference started.
+   * Timestamp in ISO 8601 format when the conference started. Conferences do not start until at least two participants join, at least one of whom has startConferenceOnEnter=true.
    */
   startTime: Date;
   /**
-   * Conference end date/time.
+   * Conference end date and time in ISO 8601 format.
    */
   endTime: Date;
   /**
@@ -336,43 +336,43 @@ export class ConferenceInstance {
    */
   durationSeconds: number;
   /**
-   * Duration of the conference in seconds.
+   * Duration of the between conference start event and conference end event in seconds.
    */
   connectDurationSeconds: number;
   status: ConferenceConferenceStatus;
   /**
-   * Max participants specified in config.
+   * Maximum number of concurrent participants as specified by the configuration.
    */
   maxParticipants: number;
   /**
-   * Actual maximum concurrent participants.
+   * Actual maximum number of concurrent participants in the conference.
    */
   maxConcurrentParticipants: number;
   /**
-   * Unique conference participants.
+   * Unique conference participants based on caller ID.
    */
   uniqueParticipants: number;
   endReason: ConferenceConferenceEndReason;
   /**
-   * Call SID that ended the conference.
+   * Call SID of the participant whose actions ended the conference.
    */
   endedBy: string;
   mixerRegion: ConferenceRegion;
   mixerRegionRequested: ConferenceRegion;
   /**
-   * Boolean. Indicates whether recording was enabled.
+   * Boolean. Indicates whether recording was enabled at the conference mixer.
    */
   recordingEnabled: boolean;
   /**
-   * Potential issues detected during the conference.
+   * Potential issues detected by Twilio during the conference.
    */
   detectedIssues: any;
   /**
-   * Tags for detected conference conditions and participant behaviors.
+   * Tags for detected conference conditions and participant behaviors which may be of interest.
    */
   tags: Array<ConferenceTag>;
   /**
-   * Object. Contains details about conference tags.
+   * Object. Contains details about conference tags including severity.
    */
   tagInfo: any;
   processingState: ConferenceProcessingState;
@@ -381,7 +381,7 @@ export class ConferenceInstance {
    */
   url: string;
   /**
-   * Nested resource URLs.
+   * Contains a dictionary of URL links to nested resources of this Conference.
    */
   links: Record<string, string>;
 

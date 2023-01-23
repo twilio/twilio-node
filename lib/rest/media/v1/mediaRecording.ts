@@ -252,57 +252,57 @@ export class MediaRecordingInstance {
   }
 
   /**
-   * The SID of the Account that created the resource
+   * The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the MediaRecording resource.
    */
   accountSid: string;
   /**
-   * The ISO 8601 date and time in GMT when the resource was created
+   * The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
   dateCreated: Date;
   /**
-   * The ISO 8601 date and time in GMT when the resource was last updated
+   * The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
   dateUpdated: Date;
   /**
-   * The duration of the MediaRecording
+   * The duration of the MediaRecording in seconds.
    */
   duration: number;
   format: MediaRecordingFormat;
   /**
-   * The URLs of related resources
+   * The URLs of related resources.
    */
   links: Record<string, string>;
   /**
-   * The SID of the MediaProcessor
+   * The SID of the MediaProcessor resource which produced the MediaRecording.
    */
   processorSid: string;
   /**
-   * The dimensions of the video image in pixels
+   * The dimensions of the video image in pixels expressed as columns (width) and rows (height).
    */
   resolution: string;
   /**
-   * The SID of the resource that generated the original media
+   * The SID of the resource that generated the original media track(s) of the MediaRecording.
    */
   sourceSid: string;
   /**
-   * The unique string that identifies the resource
+   * The unique string generated to identify the MediaRecording resource.
    */
   sid: string;
   /**
-   * The size of the recording media
+   * The size of the recording media in bytes.
    */
   mediaSize: number;
   status: MediaRecordingStatus;
   /**
-   * The URL to which Twilio will send MediaRecording event updates
+   * The URL to which Twilio will send asynchronous webhook requests for every MediaRecording event. See [Status Callbacks](/docs/live/status-callbacks) for more details.
    */
   statusCallback: string;
   /**
-   * The HTTP method Twilio should use to call the `status_callback` URL
+   * The HTTP method Twilio should use to call the `status_callback` URL. Can be `POST` or `GET` and the default is `POST`.
    */
   statusCallbackMethod: MediaRecordingStatusCallbackMethod;
   /**
-   * The absolute URL of the resource
+   * The absolute URL of the resource.
    */
   url: string;
 

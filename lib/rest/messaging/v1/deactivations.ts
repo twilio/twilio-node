@@ -139,7 +139,7 @@ export class DeactivationsInstance {
   }
 
   /**
-   * Redirect url to the list of deactivated numbers.
+   * Returns an authenticated url that redirects to a file containing the deactivated numbers for the requested day. This url is valid for up to two minutes.
    */
   redirectTo: string;
 

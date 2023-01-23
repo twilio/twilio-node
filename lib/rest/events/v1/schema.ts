@@ -129,7 +129,7 @@ export class SchemaInstance {
   }
 
   /**
-   * Schema Identifier.
+   * The unique identifier of the schema. Each schema can have multiple versions, that share the same id.
    */
   id: string;
   /**
@@ -137,15 +137,15 @@ export class SchemaInstance {
    */
   url: string;
   /**
-   * Nested resource URLs.
+   * Contains a dictionary of URL links to nested resources of this schema.
    */
   links: Record<string, string>;
   /**
-   * The date that the latest schema version was created.
+   * The date that the latest schema version was created, given in ISO 8601 format.
    */
   latestVersionDateCreated: Date;
   /**
-   * Latest schema version.
+   * The latest version published of this schema.
    */
   latestVersion: number;
 

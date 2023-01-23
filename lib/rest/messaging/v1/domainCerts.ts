@@ -230,11 +230,11 @@ export class DomainCertsInstance {
    */
   dateUpdated: Date;
   /**
-   * Expiration date for your private certificate.
+   * Date that the private certificate associated with this domain expires. You will need to update the certificate before that date to ensure your shortened links will continue to work.
    */
   dateExpires: Date;
   /**
-   * Date this Domain SID was created.
+   * Date that this Domain was registered to the Twilio platform to create a new Domain object.
    */
   dateCreated: Date;
   /**
@@ -247,7 +247,7 @@ export class DomainCertsInstance {
   certificateSid: string;
   url: string;
   /**
-   * Certificate validation field
+   * Boolean value indicating whether certificate has been validated
    */
   validated: boolean;
 

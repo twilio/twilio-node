@@ -280,69 +280,69 @@ export class BrandRegistrationInstance {
   }
 
   /**
-   * A2P BrandRegistration Sid
+   * The unique string to identify Brand Registration.
    */
   sid: string;
   /**
-   * The SID of the Account that created the resource
+   * The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Brand Registration resource.
    */
   accountSid: string;
   /**
-   * A2P Messaging Profile Bundle BundleSid
+   * A2P Messaging Profile Bundle BundleSid.
    */
   customerProfileBundleSid: string;
   /**
-   * A2P Messaging Profile Bundle BundleSid
+   * A2P Messaging Profile Bundle BundleSid.
    */
   a2pProfileBundleSid: string;
   /**
-   * The ISO 8601 date and time in GMT when the resource was created
+   * The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
   dateCreated: Date;
   /**
-   * The ISO 8601 date and time in GMT when the resource was last updated
+   * The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
   dateUpdated: Date;
   /**
-   * Type of brand. One of: \"STANDARD\", \"STARTER\".
+   * Type of brand. One of: \"STANDARD\", \"STARTER\". STARTER is for the low volume, STARTER campaign use case. There can only be one STARTER campaign created per STARTER brand. STANDARD is for all other campaign use cases. Multiple campaign use cases can be created per STANDARD brand.
    */
   brandType: string;
   status: BrandRegistrationsStatus;
   /**
-   * Campaign Registry (TCR) Brand ID
+   * Campaign Registry (TCR) Brand ID. Assigned only after successful brand registration.
    */
   tcrId: string;
   /**
-   * A reason why brand registration has failed
+   * A reason why brand registration has failed. Only applicable when status is FAILED.
    */
   failureReason: string;
   /**
-   * The absolute URL of the Brand Registration
+   * The absolute URL of the Brand Registration resource.
    */
   url: string;
   /**
-   * Brand score
+   * The secondary vetting score if it was done. Otherwise, it will be the brand score if it\'s returned from TCR. It may be null if no score is available.
    */
   brandScore: number;
   /**
-   * Brand feedback
+   * Feedback on how to improve brand score
    */
   brandFeedback: Array<BrandRegistrationsBrandFeedback>;
   identityStatus: BrandRegistrationsIdentityStatus;
   /**
-   * Russell 3000
+   * Publicly traded company identified in the Russell 3000 Index
    */
   russell3000: boolean;
   /**
-   * Government Entity
+   * Identified as a government entity
    */
   governmentEntity: boolean;
   /**
-   * Tax Exempt Status
+   * Nonprofit organization tax-exempt status per section 501 of the U.S. tax code.
    */
   taxExemptStatus: string;
   /**
-   * Skip Automatic Secondary Vetting
+   * A flag to disable automatic secondary vetting for brands which it would otherwise be done.
    */
   skipAutomaticSecVet: boolean;
   /**

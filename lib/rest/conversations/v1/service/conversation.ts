@@ -440,15 +440,15 @@ export class ConversationInstance {
   }
 
   /**
-   * The unique ID of the Account responsible for this conversation.
+   * The unique ID of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this conversation.
    */
   accountSid: string;
   /**
-   * The unique ID of the Conversation Service this conversation belongs to.
+   * The unique ID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) this conversation belongs to.
    */
   chatServiceSid: string;
   /**
-   * The unique ID of the Messaging Service this conversation belongs to.
+   * The unique ID of the [Messaging Service](https://www.twilio.com/docs/sms/services/api) this conversation belongs to.
    */
   messagingServiceSid: string;
   /**
@@ -456,15 +456,15 @@ export class ConversationInstance {
    */
   sid: string;
   /**
-   * The human-readable name of this conversation.
+   * The human-readable name of this conversation, limited to 256 characters. Optional.
    */
   friendlyName: string;
   /**
-   * An application-defined string that uniquely identifies the resource
+   * An application-defined string that uniquely identifies the resource. It can be used to address the resource in place of the resource\'s `sid` in the URL.
    */
   uniqueName: string;
   /**
-   * An optional string metadata field you can use to store any data you wish.
+   * An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \"{}\" will be returned.
    */
   attributes: string;
   state: ServiceConversationState;
@@ -477,15 +477,15 @@ export class ConversationInstance {
    */
   dateUpdated: Date;
   /**
-   * Timer date values for this conversation.
+   * Timer date values representing state update for this conversation.
    */
   timers: any;
   /**
-   * An absolute URL for this conversation.
+   * An absolute API resource URL for this conversation.
    */
   url: string;
   /**
-   * Absolute URLs to access the participants, messages and webhooks of this conversation.
+   * Contains absolute URLs to access the [participants](https://www.twilio.com/docs/conversations/api/conversation-participant-resource), [messages](https://www.twilio.com/docs/conversations/api/conversation-message-resource) and [webhooks](https://www.twilio.com/docs/conversations/api/conversation-scoped-webhook-resource) of this conversation.
    */
   links: Record<string, string>;
   bindings: any;

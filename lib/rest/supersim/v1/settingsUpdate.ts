@@ -280,32 +280,32 @@ export class SettingsUpdateInstance {
   }
 
   /**
-   * The unique identifier of this Settings Update
+   * The unique identifier of this Settings Update.
    */
   sid: string;
   /**
-   * The ICCID associated with the SIM
+   * The [ICCID](https://en.wikipedia.org/wiki/SIM_card#ICCID) associated with the SIM.
    */
   iccid: string;
   /**
-   * The SID of the Super SIM to which this Settings Update was applied
+   * The SID of the Super SIM to which this Settings Update was applied.
    */
   simSid: string;
   status: SettingsUpdateStatus;
   /**
-   * Array containing the different Settings Packages that will be applied to the SIM after the update completes
+   * Array containing the different Settings Packages that will be applied to the SIM after the update completes. Each object within the array indicates the name and the version of the Settings Package that will be on the SIM if the update is successful.
    */
   packages: Array<any>;
   /**
-   * The time when the update successfully completed and the new settings were applied to the SIM
+   * The time, given in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format, when the update successfully completed and the new settings were applied to the SIM.
    */
   dateCompleted: Date;
   /**
-   * The date this Settings Update was created
+   * The date that this Settings Update was created, given in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
   dateCreated: Date;
   /**
-   * The date this Settings Update was last updated
+   * The date that this Settings Update was updated, given in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
   dateUpdated: Date;
 

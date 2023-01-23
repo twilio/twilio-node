@@ -402,67 +402,67 @@ export class MessageInstance {
   }
 
   /**
-   * The unique string that identifies the resource
+   * The unique string that we created to identify the Message resource.
    */
   sid: string;
   /**
-   * The SID of the Account that created the resource
+   * The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Message resource.
    */
   accountSid: string;
   /**
-   * The JSON string that stores application-specific data
+   * The JSON string that stores application-specific data. If attributes have not been set, `{}` is returned.
    */
   attributes: string;
   /**
-   * The SID of the Service that the resource is associated with
+   * The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) the Message resource is associated with.
    */
   serviceSid: string;
   /**
-   * The SID of the Channel that the message was sent to
+   * The SID of the [Channel](https://www.twilio.com/docs/chat/channels) that the message was sent to.
    */
   to: string;
   /**
-   * The SID of the Channel the Message resource belongs to
+   * The SID of the [Channel](https://www.twilio.com/docs/chat/channels) the Message resource belongs to.
    */
   channelSid: string;
   /**
-   * The RFC 2822 date and time in GMT when the resource was created
+   * The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
   dateCreated: Date;
   /**
-   * The RFC 2822 date and time in GMT when the resource was last updated
+   * The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
   dateUpdated: Date;
   /**
-   * The Identity of the User who last updated the Message
+   * The [Identity](https://www.twilio.com/docs/chat/identity) of the User who last updated the Message, if applicable.
    */
   lastUpdatedBy: string;
   /**
-   * Whether the message has been edited since  it was created
+   * Whether the message has been edited since it was created.
    */
   wasEdited: boolean;
   /**
-   * The Identity of the message\'s author
+   * The [Identity](https://www.twilio.com/docs/chat/identity) of the message\'s author. The default value is `system`.
    */
   from: string;
   /**
-   * The content of the message
+   * The content of the message.
    */
   body: string;
   /**
-   * The index of the message within the Channel
+   * The index of the message within the [Channel](https://www.twilio.com/docs/chat/channels). Indices may skip numbers, but will always be in order of when the message was received.
    */
   index: number;
   /**
-   * The Message type
+   * The Message type. Can be: `text` or `media`.
    */
   type: string;
   /**
-   * A Media object that describes the Message\'s media if attached; otherwise, null
+   * An object that describes the Message\'s media, if the message contains media. The object contains these fields: `content_type` with the MIME type of the media, `filename` with the name of the media, `sid` with the SID of the Media resource, and `size` with the media object\'s file size in bytes. If the Message has no media, this value is `null`.
    */
   media: any;
   /**
-   * The absolute URL of the Message resource
+   * The absolute URL of the Message resource.
    */
   url: string;
 

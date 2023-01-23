@@ -334,55 +334,55 @@ export class QueryInstance {
   }
 
   /**
-   * The SID of the Account that created the resource
+   * The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Query resource.
    */
   accountSid: string;
   /**
-   * The RFC 2822 date and time in GMT when the resource was created
+   * The date and time in GMT when the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
    */
   dateCreated: Date;
   /**
-   * The RFC 2822 date and time in GMT when the resource was last updated
+   * The date and time in GMT when the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
    */
   dateUpdated: Date;
   /**
-   * The natural language analysis results that include the Task recognized and a list of identified Fields
+   * The natural language analysis results that include the [Task](https://www.twilio.com/docs/autopilot/api/task) recognized and a list of identified [Fields](https://www.twilio.com/docs/autopilot/api/task-field).
    */
   results: any;
   /**
-   * The ISO language-country string that specifies the language used by the Query
+   * The [ISO language-country](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) string that specifies the language used by the Query. For example: `en-US`.
    */
   language: string;
   /**
-   * The SID of the [Model Build](https://www.twilio.com/docs/autopilot/api/model-build) queried
+   * The SID of the [Model Build](https://www.twilio.com/docs/autopilot/api/model-build) queried.
    */
   modelBuildSid: string;
   /**
-   * The end-user\'s natural language input
+   * The end-user\'s natural language input.
    */
   query: string;
   /**
-   * The SID of an optional reference to the Sample created from the query
+   * The SID of an optional reference to the [Sample](https://www.twilio.com/docs/autopilot/api/task-sample) created from the query.
    */
   sampleSid: string;
   /**
-   * The SID of the Assistant that is the parent of the resource
+   * The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the resource.
    */
   assistantSid: string;
   /**
-   * The unique string that identifies the resource
+   * The unique string that we created to identify the Query resource.
    */
   sid: string;
   /**
-   * The status of the Query
+   * The status of the Query. Can be: `pending-review`, `reviewed`, or `discarded`
    */
   status: string;
   /**
-   * The absolute URL of the Query resource
+   * The absolute URL of the Query resource.
    */
   url: string;
   /**
-   * The communication channel from where the end-user input came
+   * The communication channel from where the end-user input came.
    */
   sourceChannel: string;
   /**

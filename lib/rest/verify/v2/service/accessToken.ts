@@ -156,28 +156,28 @@ export class AccessTokenInstance {
   }
 
   /**
-   * A string that uniquely identifies this Access Token.
+   * A 34 character string that uniquely identifies this Access Token.
    */
   sid: string;
   /**
-   * Account Sid.
+   * The unique SID identifier of the Account.
    */
   accountSid: string;
   /**
-   * Verify Service Sid.
+   * The unique SID identifier of the Verify Service.
    */
   serviceSid: string;
   /**
-   * Unique external identifier of the Entity
+   * The unique external identifier for the Entity of the Service.
    */
   entityIdentity: string;
   factorType: AccessTokenFactorTypes;
   /**
-   * A human readable description of this factor.
+   * A human readable description of this factor, up to 64 characters. For a push factor, this can be the device\'s name.
    */
   factorFriendlyName: string;
   /**
-   * Generated access token.
+   * The access token generated for enrollment, this is an encrypted json web token.
    */
   token: string;
   /**
@@ -185,11 +185,11 @@ export class AccessTokenInstance {
    */
   url: string;
   /**
-   * How long, in seconds, the access token is valid.
+   * How long, in seconds, the access token is valid. Max: 5 minutes
    */
   ttl: number;
   /**
-   * The date this access token was created
+   * The date that this access token was created, given in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
   dateCreated: Date;
 

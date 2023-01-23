@@ -180,23 +180,23 @@ export class WorkerStatisticsInstance {
   }
 
   /**
-   * The SID of the Account that created the resource
+   * The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Worker resource.
    */
   accountSid: string;
   /**
-   * An object that contains the cumulative statistics for the Worker
+   * An object that contains the cumulative statistics for the Worker.
    */
   cumulative: any;
   /**
-   * The SID of the Worker that contains the WorkerChannel
+   * The SID of the Worker that contains the WorkerChannel.
    */
   workerSid: string;
   /**
-   * The SID of the Workspace that contains the WorkerChannel
+   * The SID of the Workspace that contains the WorkerChannel.
    */
   workspaceSid: string;
   /**
-   * The absolute URL of the WorkerChannel statistics resource
+   * The absolute URL of the WorkerChannel statistics resource.
    */
   url: string;
 

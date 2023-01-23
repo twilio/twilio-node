@@ -309,19 +309,19 @@ export class RateLimitInstance {
   }
 
   /**
-   * A string that uniquely identifies this Rate Limit.
+   * A 34 character string that uniquely identifies this Rate Limit.
    */
   sid: string;
   /**
-   * The SID of the Service that the resource is associated with
+   * The SID of the [Service](https://www.twilio.com/docs/verify/api/service) the resource is associated with.
    */
   serviceSid: string;
   /**
-   * The SID of the Account that created the resource
+   * The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Rate Limit resource.
    */
   accountSid: string;
   /**
-   * A unique, developer assigned name of this Rate Limit.
+   * Provides a unique and addressable name to be assigned to this Rate Limit, assigned by the developer, to be optionally used in addition to SID. **This value should not contain PII.**
    */
   uniqueName: string;
   /**
@@ -329,11 +329,11 @@ export class RateLimitInstance {
    */
   description: string;
   /**
-   * The RFC 2822 date and time in GMT when the resource was created
+   * The date and time in GMT when the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
    */
   dateCreated: Date;
   /**
-   * The RFC 2822 date and time in GMT when the resource was last updated
+   * The date and time in GMT when the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
    */
   dateUpdated: Date;
   /**
@@ -341,7 +341,7 @@ export class RateLimitInstance {
    */
   url: string;
   /**
-   * The URLs of related resources
+   * The URLs of related resources.
    */
   links: Record<string, string>;
 

@@ -363,19 +363,19 @@ export class AddressConfigurationInstance {
    */
   sid: string;
   /**
-   * The unique ID of the Account the address belongs to.
+   * The unique ID of the [Account](https://www.twilio.com/docs/iam/api/account) the address belongs to
    */
   accountSid: string;
   /**
-   * Type of Address.
+   * Type of Address, value can be `whatsapp` or `sms`.
    */
   type: string;
   /**
-   * The unique address to be configured.
+   * The unique address to be configured. The address can be a whatsapp address or phone number
    */
   address: string;
   /**
-   * The human-readable name of this configuration.
+   * The human-readable name of this configuration, limited to 256 characters. Optional.
    */
   friendlyName: string;
   /**
@@ -391,7 +391,7 @@ export class AddressConfigurationInstance {
    */
   dateUpdated: Date;
   /**
-   * An absolute URL for this address configuration.
+   * An absolute API resource URL for this address configuration.
    */
   url: string;
 

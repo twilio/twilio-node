@@ -305,35 +305,35 @@ export class SyncMapPermissionInstance {
   }
 
   /**
-   * The SID of the Account that created the resource
+   * The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Sync Map Permission resource.
    */
   accountSid: string;
   /**
-   * The SID of the Sync Service that the resource is associated with
+   * The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) the resource is associated with.
    */
   serviceSid: string;
   /**
-   * Sync Map SID
+   * The SID of the Sync Map to which the Permission applies.
    */
   mapSid: string;
   /**
-   * The identity of the user to whom the Sync Document Permission applies
+   * The application-defined string that uniquely identifies the resource\'s User within the Service to an FPA token.
    */
   identity: string;
   /**
-   * Read access
+   * Whether the identity can read the Sync Map and its Items.
    */
   read: boolean;
   /**
-   * Write access
+   * Whether the identity can create, update, and delete Items in the Sync Map.
    */
   write: boolean;
   /**
-   * Manage access
+   * Whether the identity can delete the Sync Map.
    */
   manage: boolean;
   /**
-   * The absolute URL of the Sync Map Permission resource
+   * The absolute URL of the Sync Map Permission resource.
    */
   url: string;
 

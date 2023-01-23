@@ -401,11 +401,11 @@ export class MessageInstance {
   }
 
   /**
-   * The unique ID of the Account responsible for this message.
+   * The unique ID of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this message.
    */
   accountSid: string;
   /**
-   * The unique ID of the Conversation for this message.
+   * The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this message.
    */
   conversationSid: string;
   /**
@@ -413,27 +413,27 @@ export class MessageInstance {
    */
   sid: string;
   /**
-   * The index of the message within the Conversation.
+   * The index of the message within the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource).  Indices may skip numbers, but will always be in order of when the message was received.
    */
   index: number;
   /**
-   * The channel specific identifier of the message\'s author.
+   * The channel specific identifier of the message\'s author. Defaults to `system`.
    */
   author: string;
   /**
-   * The content of the message.
+   * The content of the message, can be up to 1,600 characters long.
    */
   body: string;
   /**
-   * An array of objects that describe the Message\'s media if attached, otherwise, null.
+   * An array of objects that describe the Message\'s media, if the message contains media. Each object contains these fields: `content_type` with the MIME type of the media, `filename` with the name of the media, `sid` with the SID of the Media resource, and `size` with the media object\'s file size in bytes. If the Message has no media, this value is `null`.
    */
   media: Array<any>;
   /**
-   * A string metadata field you can use to store any data you wish.
+   * A string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \"{}\" will be returned.
    */
   attributes: string;
   /**
-   * The unique ID of messages\'s author participant.
+   * The unique ID of messages\'s author participant. Null in case of `system` sent message.
    */
   participantSid: string;
   /**
@@ -441,11 +441,11 @@ export class MessageInstance {
    */
   dateCreated: Date;
   /**
-   * The date that this resource was last updated.
+   * The date that this resource was last updated. `null` if the message has not been edited.
    */
   dateUpdated: Date;
   /**
-   * An absolute API URL for this message.
+   * An absolute API resource API URL for this message.
    */
   url: string;
   /**
@@ -453,11 +453,11 @@ export class MessageInstance {
    */
   delivery: any;
   /**
-   * Absolute URL to access the receipts of this message.
+   * Contains an absolute API resource URL to access the delivery & read receipts of this message.
    */
   links: Record<string, string>;
   /**
-   * The unique ID of the multi-channel Rich Content template.
+   * The unique ID of the multi-channel [Rich Content](https://www.twilio.com/docs/content-api) template.
    */
   contentSid: string;
 

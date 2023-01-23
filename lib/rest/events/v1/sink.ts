@@ -300,23 +300,23 @@ export class SinkInstance {
   }
 
   /**
-   * The date this Sink was created
+   * The date that this Sink was created, given in ISO 8601 format.
    */
   dateCreated: Date;
   /**
-   * The date this Sink was updated
+   * The date that this Sink was updated, given in ISO 8601 format.
    */
   dateUpdated: Date;
   /**
-   * Sink Description
+   * A human readable description for the Sink
    */
   description: string;
   /**
-   * A string that uniquely identifies this Sink.
+   * A 34 character string that uniquely identifies this Sink.
    */
   sid: string;
   /**
-   * JSON Sink configuration.
+   * The information required for Twilio to connect to the provided Sink encoded as JSON.
    */
   sinkConfiguration: any;
   sinkType: SinkSinkType;
@@ -326,7 +326,7 @@ export class SinkInstance {
    */
   url: string;
   /**
-   * Nested resource URLs.
+   * Contains a dictionary of URL links to nested resources of this Sink.
    */
   links: Record<string, string>;
 

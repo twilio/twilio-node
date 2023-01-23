@@ -425,51 +425,51 @@ export class NationalInstance {
   }
 
   /**
-   * A formatted version of the phone number
+   * A formatted version of the phone number.
    */
   friendlyName: string;
   /**
-   * The phone number in E.164 format
+   * The phone number in [E.164](https://www.twilio.com/docs/glossary/what-e164) format, which consists of a + followed by the country code and subscriber number.
    */
   phoneNumber: string;
   /**
-   * The LATA of this phone number
+   * The [LATA](https://en.wikipedia.org/wiki/Local_access_and_transport_area) of this phone number. Available for only phone numbers from the US and Canada.
    */
   lata: string;
   /**
-   * The locality or city of this phone number\'s location
+   * The locality or city of this phone number\'s location.
    */
   locality: string;
   /**
-   * The rate center of this phone number
+   * The [rate center](https://en.wikipedia.org/wiki/Telephone_exchange) of this phone number. Available for only phone numbers from the US and Canada.
    */
   rateCenter: string;
   /**
-   * The latitude of this phone number\'s location
+   * The latitude of this phone number\'s location. Available for only phone numbers from the US and Canada.
    */
   latitude: number;
   /**
-   * The longitude of this phone number\'s location
+   * The longitude of this phone number\'s location. Available for only phone numbers from the US and Canada.
    */
   longitude: number;
   /**
-   * The two-letter state or province abbreviation of this phone number\'s location
+   * The two-letter state or province abbreviation of this phone number\'s location. Available for only phone numbers from the US and Canada.
    */
   region: string;
   /**
-   * The postal or ZIP code of this phone number\'s location
+   * The postal or ZIP code of this phone number\'s location. Available for only phone numbers from the US and Canada.
    */
   postalCode: string;
   /**
-   * The ISO country code of this phone number
+   * The [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of this phone number.
    */
   isoCountry: string;
   /**
-   * The type of Address resource the phone number requires
+   * The type of [Address](https://www.twilio.com/docs/usage/api/address) resource the phone number requires. Can be: `none`, `any`, `local`, or `foreign`. `none` means no address is required. `any` means an address is required, but it can be anywhere in the world. `local` means an address in the phone number\'s country is required. `foreign` means an address outside of the phone number\'s country is required.
    */
   addressRequirements: string;
   /**
-   * Whether the phone number is new to the Twilio platform
+   * Whether the phone number is new to the Twilio platform. Can be: `true` or `false`.
    */
   beta: boolean;
   capabilities: PhoneNumberCapabilities;

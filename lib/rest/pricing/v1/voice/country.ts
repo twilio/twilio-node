@@ -178,27 +178,27 @@ export class CountryInstance {
   }
 
   /**
-   * The name of the country
+   * The name of the country.
    */
   country: string;
   /**
-   * The ISO country code
+   * The [ISO country code](http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).
    */
   isoCountry: string;
   /**
-   * The list of OutboundPrefixPrice records
+   * The list of OutboundPrefixPrice records, which include a list of the `prefixes`, the `friendly_name`, `base_price`, and the   `current_price` for those prefixes.
    */
   outboundPrefixPrices: Array<PricingV1VoiceVoiceCountryInstanceOutboundPrefixPrices>;
   /**
-   * The list of InboundCallPrice records
+   * The list of [InboundCallPrice](https://www.twilio.com/docs/voice/pricing#inbound-call-price) records.
    */
   inboundCallPrices: Array<PricingV1VoiceVoiceCountryInstanceInboundCallPrices>;
   /**
-   * The currency in which prices are measured, in ISO 4127 format (e.g. usd, eur, jpy)
+   * The currency in which prices are measured, specified in [ISO 4127](http://www.iso.org/iso/home/standards/currency_codes.htm) format (e.g. `usd`, `eur`, `jpy`).
    */
   priceUnit: string;
   /**
-   * The absolute URL of the resource
+   * The absolute URL of the resource.
    */
   url: string;
 

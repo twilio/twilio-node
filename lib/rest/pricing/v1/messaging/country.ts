@@ -184,27 +184,27 @@ export class CountryInstance {
   }
 
   /**
-   * The name of the country
+   * The name of the country.
    */
   country: string;
   /**
-   * The ISO country code
+   * The [ISO country code](http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).
    */
   isoCountry: string;
   /**
-   * The list of OutboundSMSPrice records
+   * The list of [OutboundSMSPrice](https://www.twilio.com/docs/sms/api/pricing#outbound-sms-price) records that represent the price to send a message for each MCC/MNC applicable in this country.
    */
   outboundSmsPrices: Array<PricingV1MessagingMessagingCountryInstanceOutboundSmsPrices>;
   /**
-   * The list of InboundPrice records
+   * The list of [InboundPrice](https://www.twilio.com/docs/sms/api/pricing#inbound-price) records that describe the price to receive an inbound SMS to the different Twilio phone number types supported in this country
    */
   inboundSmsPrices: Array<PricingV1MessagingMessagingCountryInstanceInboundSmsPrices>;
   /**
-   * The currency in which prices are measured, in ISO 4127 format (e.g. usd, eur, jpy)
+   * The currency in which prices are measured, specified in [ISO 4127](http://www.iso.org/iso/home/standards/currency_codes.htm) format (e.g. `usd`, `eur`, `jpy`).
    */
   priceUnit: string;
   /**
-   * The absolute URL of the resource
+   * The absolute URL of the resource.
    */
   url: string;
 

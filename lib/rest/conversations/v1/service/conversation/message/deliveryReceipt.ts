@@ -219,19 +219,19 @@ export class DeliveryReceiptInstance {
   }
 
   /**
-   * The unique ID of the Account responsible for this participant.
+   * The unique ID of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this participant.
    */
   accountSid: string;
   /**
-   * The SID of the Conversation Service that the resource is associated with.
+   * The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Message resource is associated with.
    */
   chatServiceSid: string;
   /**
-   * The unique ID of the Conversation for this message.
+   * The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this message.
    */
   conversationSid: string;
   /**
-   * The SID of the message the delivery receipt belongs to
+   * The SID of the message within a [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) the delivery receipt belongs to
    */
   messageSid: string;
   /**
@@ -239,7 +239,7 @@ export class DeliveryReceiptInstance {
    */
   sid: string;
   /**
-   * A messaging channel-specific identifier for the message delivered to participant
+   * A messaging channel-specific identifier for the message delivered to participant e.g. `SMxx` for SMS, `WAxx` for Whatsapp etc.
    */
   channelMessageSid: string;
   /**
@@ -248,7 +248,7 @@ export class DeliveryReceiptInstance {
   participantSid: string;
   status: ServiceConversationMessageReceiptDeliveryStatus;
   /**
-   * The message [delivery error code](https://www.twilio.com/docs/sms/api/message-resource#delivery-related-errors) for a `failed` status
+   * The message [delivery error code](https://www.twilio.com/docs/sms/api/message-resource#delivery-related-errors) for a `failed` status,
    */
   errorCode: number;
   /**
@@ -256,11 +256,11 @@ export class DeliveryReceiptInstance {
    */
   dateCreated: Date;
   /**
-   * The date that this resource was last updated.
+   * The date that this resource was last updated. `null` if the delivery receipt has not been updated.
    */
   dateUpdated: Date;
   /**
-   * An absolute URL for this delivery receipt.
+   * An absolute API resource URL for this delivery receipt.
    */
   url: string;
 

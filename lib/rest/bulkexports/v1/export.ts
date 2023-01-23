@@ -149,7 +149,7 @@ export class ExportInstance {
    */
   url: string;
   /**
-   * Nested resource URLs.
+   * Contains a dictionary of URL links to nested resources of this Export.
    */
   links: Record<string, string>;
 

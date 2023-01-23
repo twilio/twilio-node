@@ -222,31 +222,31 @@ export class ConfigurationInstance {
   }
 
   /**
-   * The unique string that identifies the resource
+   * The unique string that we created to identify the Service configuration resource.
    */
   chatServiceSid: string;
   /**
-   * The role assigned to a conversation creator user when they join a new conversation
+   * The conversation-level role assigned to a conversation creator user when they join a new conversation. See the [Conversation Role](https://www.twilio.com/docs/conversations/api/role-resource) for more info about roles.
    */
   defaultConversationCreatorRoleSid: string;
   /**
-   * The role assigned to users when they are added to a conversation
+   * The conversation-level role assigned to users when they are added to a conversation. See the [Conversation Role](https://www.twilio.com/docs/conversations/api/role-resource) for more info about roles.
    */
   defaultConversationRoleSid: string;
   /**
-   * The service role assigned to users when they are added to the service
+   * The service-level role assigned to users when they are added to the service. See the [Conversation Role](https://www.twilio.com/docs/conversations/api/role-resource) for more info about roles.
    */
   defaultChatServiceRoleSid: string;
   /**
-   * An absolute URL for this service configuration.
+   * An absolute API resource URL for this service configuration.
    */
   url: string;
   /**
-   * Absolute URL to access the push notifications configuration of this service.
+   * Contains an absolute API resource URL to access the push notifications configuration of this service.
    */
   links: Record<string, string>;
   /**
-   * Whether the Reachability Indicator feature is enabled for this Conversations Service
+   * Whether the [Reachability Indicator](https://www.twilio.com/docs/chat/reachability-indicator) is enabled for this Conversations Service. The default is `false`.
    */
   reachabilityEnabled: boolean;
 

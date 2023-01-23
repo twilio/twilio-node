@@ -195,35 +195,35 @@ export class DeploymentInstance {
   }
 
   /**
-   * The unique string that identifies the Deployment resource
+   * The unique string that we created to identify the Deployment resource.
    */
   sid: string;
   /**
-   * The SID of the Account that created the Deployment resource
+   * The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Deployment resource.
    */
   accountSid: string;
   /**
-   * The SID of the Service that the Deployment resource is associated with
+   * The SID of the Service that the Deployment resource is associated with.
    */
   serviceSid: string;
   /**
-   * The SID of the Environment for the Deployment
+   * The SID of the Environment for the Deployment.
    */
   environmentSid: string;
   /**
-   * The SID of the Build for the deployment
+   * The SID of the Build for the deployment.
    */
   buildSid: string;
   /**
-   * The ISO 8601 date and time in GMT when the Deployment resource was created
+   * The date and time in GMT when the Deployment resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
   dateCreated: Date;
   /**
-   * The ISO 8601 date and time in GMT when the Deployment resource was last updated
+   * The date and time in GMT when the Deployment resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
   dateUpdated: Date;
   /**
-   * The absolute URL of the Deployment resource
+   * The absolute URL of the Deployment resource.
    */
   url: string;
 

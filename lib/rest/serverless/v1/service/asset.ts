@@ -296,35 +296,35 @@ export class AssetInstance {
   }
 
   /**
-   * The unique string that identifies the Asset resource
+   * The unique string that we created to identify the Asset resource.
    */
   sid: string;
   /**
-   * The SID of the Account that created the Asset resource
+   * The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Asset resource.
    */
   accountSid: string;
   /**
-   * The SID of the Service that the Asset resource is associated with
+   * The SID of the Service that the Asset resource is associated with.
    */
   serviceSid: string;
   /**
-   * The string that you assigned to describe the Asset resource
+   * The string that you assigned to describe the Asset resource. It can be a maximum of 255 characters.
    */
   friendlyName: string;
   /**
-   * The ISO 8601 date and time in GMT when the Asset resource was created
+   * The date and time in GMT when the Asset resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
   dateCreated: Date;
   /**
-   * The ISO 8601 date and time in GMT when the Asset resource was last updated
+   * The date and time in GMT when the Asset resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
   dateUpdated: Date;
   /**
-   * The absolute URL of the Asset resource
+   * The absolute URL of the Asset resource.
    */
   url: string;
   /**
-   * The URLs of the Asset resource\'s nested resources
+   * The URLs of the Asset resource\'s nested resources.
    */
   links: Record<string, string>;
 

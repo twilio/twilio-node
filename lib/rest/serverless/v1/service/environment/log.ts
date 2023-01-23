@@ -216,48 +216,48 @@ export class LogInstance {
   }
 
   /**
-   * The unique string that identifies the Log resource
+   * The unique string that we created to identify the Log resource.
    */
   sid: string;
   /**
-   * The SID of the Account that created the Log resource
+   * The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Log resource.
    */
   accountSid: string;
   /**
-   * The SID of the Service that the Log resource is associated with
+   * The SID of the Service that the Log resource is associated with.
    */
   serviceSid: string;
   /**
-   * The SID of the environment in which the log occurred
+   * The SID of the environment in which the log occurred.
    */
   environmentSid: string;
   /**
-   * The SID of the build that corresponds to the log
+   * The SID of the build that corresponds to the log.
    */
   buildSid: string;
   /**
-   * The SID of the deployment that corresponds to the log
+   * The SID of the deployment that corresponds to the log.
    */
   deploymentSid: string;
   /**
-   * The SID of the function whose invocation produced the log
+   * The SID of the function whose invocation produced the log.
    */
   functionSid: string;
   /**
-   * The SID of the request associated with the log
+   * The SID of the request associated with the log.
    */
   requestSid: string;
   level: LogLevel;
   /**
-   * The log message
+   * The log message.
    */
   message: string;
   /**
-   * The ISO 8601 date and time in GMT when the Log resource was created
+   * The date and time in GMT when the Log resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
   dateCreated: Date;
   /**
-   * The absolute URL of the Log resource
+   * The absolute URL of the Log resource.
    */
   url: string;
 

@@ -263,47 +263,47 @@ export class EnvironmentInstance {
   }
 
   /**
-   * The unique string that identifies the Environment resource
+   * The unique string that we created to identify the Environment resource.
    */
   sid: string;
   /**
-   * The SID of the Account that created the Environment resource
+   * The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Environment resource.
    */
   accountSid: string;
   /**
-   * The SID of the Service that the Environment resource is associated with
+   * The SID of the Service that the Environment resource is associated with.
    */
   serviceSid: string;
   /**
-   * The SID of the build deployed in the environment
+   * The SID of the build deployed in the environment.
    */
   buildSid: string;
   /**
-   * A user-defined string that uniquely identifies the Environment resource
+   * A user-defined string that uniquely identifies the Environment resource.
    */
   uniqueName: string;
   /**
-   * A URL-friendly name that represents the environment
+   * A URL-friendly name that represents the environment and forms part of the domain name.
    */
   domainSuffix: string;
   /**
-   * The domain name for all Functions and Assets deployed in the Environment
+   * The domain name for all Functions and Assets deployed in the Environment, using the Service unique name, a randomly-generated Service suffix, and an optional Environment domain suffix.
    */
   domainName: string;
   /**
-   * The ISO 8601 date and time in GMT when the Environment resource was created
+   * The date and time in GMT when the Environment resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
   dateCreated: Date;
   /**
-   * The ISO 8601 date and time in GMT when the Environment resource was last updated
+   * The date and time in GMT when the Environment resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
   dateUpdated: Date;
   /**
-   * The absolute URL of the Environment resource
+   * The absolute URL of the Environment resource.
    */
   url: string;
   /**
-   * The URLs of the Environment resource\'s nested resources
+   * The URLs of the Environment resource\'s nested resources.
    */
   links: Record<string, string>;
 

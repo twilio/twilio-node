@@ -174,23 +174,23 @@ export class SupportingDocumentTypeInstance {
   }
 
   /**
-   * The unique string that identifies the Supporting Document Type resource
+   * The unique string that identifies the Supporting Document Type resource.
    */
   sid: string;
   /**
-   * A human-readable description of the Supporting Document Type resource
+   * A human-readable description of the Supporting Document Type resource.
    */
   friendlyName: string;
   /**
-   * The machine-readable description of the Supporting Document Type resource
+   * The machine-readable description of the Supporting Document Type resource.
    */
   machineName: string;
   /**
-   * The required information for creating a Supporting Document
+   * The required information for creating a Supporting Document. The required fields will change as regulatory needs change and will differ for businesses and individuals.
    */
   fields: Array<any>;
   /**
-   * The absolute URL of the Supporting Document Type resource
+   * The absolute URL of the Supporting Document Type resource.
    */
   url: string;
 

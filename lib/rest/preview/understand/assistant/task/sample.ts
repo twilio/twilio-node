@@ -356,7 +356,7 @@ export class SampleInstance {
   taggedText: string;
   url: string;
   /**
-   * The communication channel the sample was captured. It can be: voice, sms, chat, alexa, google-assistant, or slack. If not included the value will be null
+   * The communication channel the sample was captured. It can be: *voice*, *sms*, *chat*, *alexa*, *google-assistant*, or *slack*. If not included the value will be null
    */
   sourceChannel: string;
 

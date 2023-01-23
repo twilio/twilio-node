@@ -196,24 +196,24 @@ export class CustomerProfilesEvaluationsInstance {
   }
 
   /**
-   * The unique string that identifies the Evaluation resource
+   * The unique string that identifies the Evaluation resource.
    */
   sid: string;
   /**
-   * The SID of the Account that created the resource
+   * The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the customer_profile resource.
    */
   accountSid: string;
   /**
-   * The unique string of a policy
+   * The unique string of a policy that is associated to the customer_profile resource.
    */
   policySid: string;
   /**
-   * The unique string that identifies the resource
+   * The unique string that we created to identify the customer_profile resource.
    */
   customerProfileSid: string;
   status: CustomerProfileEvaluationStatus;
   /**
-   * The results of the Evaluation resource
+   * The results of the Evaluation which includes the valid and invalid attributes.
    */
   results: Array<any>;
   dateCreated: Date;

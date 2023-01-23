@@ -204,28 +204,28 @@ export class UserInstance {
   }
 
   /**
-   * The unique string that identifies the resource
+   * The unique string that we created to identify the User resource.
    */
   sid: string;
   /**
-   * The string that identifies the resource\'s User
+   * The application-defined string that uniquely identifies the resource\'s User. This value is often a username or an email address, and is case-sensitive.
    */
   identity: string;
   /**
-   * The string that you assigned to describe the User
+   * The string that you assigned to describe the User.
    */
   friendlyName: string;
   /**
-   * The avatar URL which will be shown in Frontline application
+   * The avatar URL which will be shown in Frontline application.
    */
   avatar: string;
   state: UserStateType;
   /**
-   * Whether the User is available for new conversations
+   * Whether the User is available for new conversations. Defaults to `false` for new users.
    */
   isAvailable: boolean;
   /**
-   * An absolute URL for this user.
+   * An absolute API resource URL for this user.
    */
   url: string;
 

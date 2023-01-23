@@ -312,7 +312,7 @@ export class QueueInstance {
   }
 
   /**
-   * The RFC 2822 date and time in GMT that this resource was last updated
+   * The date and time in GMT that this resource was last updated, specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
    */
   dateUpdated: Date;
   /**
@@ -320,31 +320,31 @@ export class QueueInstance {
    */
   currentSize: number;
   /**
-   * A string that you assigned to describe this resource
+   * A string that you assigned to describe this resource.
    */
   friendlyName: string;
   /**
-   * The URI of this resource, relative to `https://api.twilio.com`
+   * The URI of this resource, relative to `https://api.twilio.com`.
    */
   uri: string;
   /**
-   * The SID of the Account that created this resource
+   * The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created this Queue resource.
    */
   accountSid: string;
   /**
-   * Average wait time of members in the queue
+   *  The average wait time in seconds of the members in this queue. This is calculated at the time of the request.
    */
   averageWaitTime: number;
   /**
-   * The unique string that identifies this resource
+   * The unique string that that we created to identify this Queue resource.
    */
   sid: string;
   /**
-   * The RFC 2822 date and time in GMT that this resource was created
+   * The date and time in GMT that this resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
    */
   dateCreated: Date;
   /**
-   * The max number of calls allowed in the queue
+   *  The maximum number of calls that can be in the queue. The default is 100 and the maximum is 5000.
    */
   maxSize: number;
 

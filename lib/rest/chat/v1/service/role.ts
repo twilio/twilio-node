@@ -285,36 +285,36 @@ export class RoleInstance {
   }
 
   /**
-   * The unique string that identifies the resource
+   * The unique string that we created to identify the Role resource.
    */
   sid: string;
   /**
-   * The SID of the Account that created the resource
+   * The SID of the [Account](https://www.twilio.com/docs/api/rest/account) that created the Role resource.
    */
   accountSid: string;
   /**
-   * The SID of the Service that the resource is associated with
+   * The SID of the [Service](https://www.twilio.com/docs/api/chat/rest/services) the resource is associated with.
    */
   serviceSid: string;
   /**
-   * The string that you assigned to describe the resource
+   * The string that you assigned to describe the resource.
    */
   friendlyName: string;
   type: RoleRoleType;
   /**
-   * An array of the permissions the role has been granted
+   * An array of the permissions the role has been granted, formatted as a JSON string.
    */
   permissions: Array<string>;
   /**
-   * The RFC 2822 date and time in GMT when the resource was created
+   * The date and time in GMT when the resource was created specified in [RFC 2822](http://www.ietf.org/rfc/rfc2822.txt) format.
    */
   dateCreated: Date;
   /**
-   * The RFC 2822 date and time in GMT when the resource was last updated
+   * The date and time in GMT when the resource was last updated specified in [RFC 2822](http://www.ietf.org/rfc/rfc2822.txt) format.
    */
   dateUpdated: Date;
   /**
-   * The absolute URL of the Role resource
+   * The absolute URL of the Role resource.
    */
   url: string;
 

@@ -296,7 +296,7 @@ export class RoomInstance {
    */
   roomSid: string;
   /**
-   * room friendly name.
+   * Room friendly name.
    */
   roomName: string;
   /**
@@ -340,7 +340,7 @@ export class RoomInstance {
    */
   maxConcurrentParticipants: number;
   /**
-   * Codecs used by participants in the room.
+   * Codecs used by participants in the room. Can be `VP8`, `H264`, or `VP9`.
    */
   codecs: Array<VideoRoomSummaryCodec>;
   mediaRegion: VideoRoomSummaryTwilioRealm;

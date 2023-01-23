@@ -308,19 +308,19 @@ export class SupportingDocumentInstance {
   }
 
   /**
-   * The unique string that identifies the resource
+   * The unique string created by Twilio to identify the Supporting Document resource.
    */
   sid: string;
   /**
-   * The SID of the Account that created the resource
+   * The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Document resource.
    */
   accountSid: string;
   /**
-   * The string that you assigned to describe the resource
+   * The string that you assigned to describe the resource.
    */
   friendlyName: string;
   /**
-   * The image type of the file
+   * The image type uploaded in the Supporting Document container.
    */
   mimeType: string;
   status: SupportingDocumentStatus;
@@ -329,23 +329,23 @@ export class SupportingDocumentInstance {
    */
   failureReason: string;
   /**
-   * The type of the Supporting Document
+   * The type of the Supporting Document.
    */
   type: string;
   /**
-   * The set of parameters that compose the Supporting Documents resource
+   * The set of parameters that are the attributes of the Supporting Documents resource which are listed in the Supporting Document Types.
    */
   attributes: any;
   /**
-   * The ISO 8601 date and time in GMT when the resource was created
+   * The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
   dateCreated: Date;
   /**
-   * The ISO 8601 date and time in GMT when the resource was last updated
+   * The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
   dateUpdated: Date;
   /**
-   * The absolute URL of the Supporting Document resource
+   * The absolute URL of the Supporting Document resource.
    */
   url: string;
 

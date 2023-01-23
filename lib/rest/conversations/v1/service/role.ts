@@ -285,36 +285,36 @@ export class RoleInstance {
   }
 
   /**
-   * The unique string that identifies the resource
+   * The unique string that we created to identify the Role resource.
    */
   sid: string;
   /**
-   * The SID of the Account that created the resource
+   * The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Role resource.
    */
   accountSid: string;
   /**
-   * The SID of the Conversation Service that the resource is associated with
+   * The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Role resource is associated with.
    */
   chatServiceSid: string;
   /**
-   * The string that you assigned to describe the resource
+   * The string that you assigned to describe the resource.
    */
   friendlyName: string;
   type: ServiceRoleRoleType;
   /**
-   * An array of the permissions the role has been granted
+   * An array of the permissions the role has been granted.
    */
   permissions: Array<string>;
   /**
-   * The ISO 8601 date and time in GMT when the resource was created
+   * The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
   dateCreated: Date;
   /**
-   * The ISO 8601 date and time in GMT when the resource was last updated
+   * The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
   dateUpdated: Date;
   /**
-   * An absolute URL for this user role.
+   * An absolute API resource URL for this user role.
    */
   url: string;
 

@@ -147,11 +147,11 @@ export class ExternalCampaignInstance {
   }
 
   /**
-   * The unique string that identifies a US A2P Compliance resource
+   * The unique string that identifies a US A2P Compliance resource `QE2c6890da8086d771620e9b13fadeba0b`.
    */
   sid: string;
   /**
-   * The SID of the Account that created the resource
+   * The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that the Campaign belongs to.
    */
   accountSid: string;
   /**
@@ -159,11 +159,11 @@ export class ExternalCampaignInstance {
    */
   campaignId: string;
   /**
-   * The SID of the Messaging Service the resource is associated with
+   * The SID of the [Messaging Service](https://www.twilio.com/docs/messaging/services/api) that the resource is associated with.
    */
   messagingServiceSid: string;
   /**
-   * The ISO 8601 date and time in GMT when the resource was created
+   * The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
   dateCreated: Date;
 

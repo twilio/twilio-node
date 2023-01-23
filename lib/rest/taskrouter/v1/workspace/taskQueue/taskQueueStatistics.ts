@@ -192,27 +192,27 @@ export class TaskQueueStatisticsInstance {
   }
 
   /**
-   * The SID of the Account that created the resource
+   * The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the TaskQueue resource.
    */
   accountSid: string;
   /**
-   * An object that contains the cumulative statistics for the TaskQueue
+   * An object that contains the cumulative statistics for the TaskQueue.
    */
   cumulative: any;
   /**
-   * An object that contains the real-time statistics for the TaskQueue
+   * An object that contains the real-time statistics for the TaskQueue.
    */
   realtime: any;
   /**
-   * The SID of the TaskQueue from which these statistics were calculated
+   * The SID of the TaskQueue from which these statistics were calculated.
    */
   taskQueueSid: string;
   /**
-   * The SID of the Workspace that contains the TaskQueue
+   * The SID of the Workspace that contains the TaskQueue.
    */
   workspaceSid: string;
   /**
-   * The absolute URL of the TaskQueue statistics resource
+   * The absolute URL of the TaskQueue statistics resource.
    */
   url: string;
 

@@ -297,31 +297,31 @@ export class CredentialListInstance {
   }
 
   /**
-   * The unique sid that identifies this account
+   * The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) that owns this resource.
    */
   accountSid: string;
   /**
-   * The date this resource was created
+   * The date that this resource was created, given as GMT in [RFC 2822](https://www.php.net/manual/en/class.datetime.php#datetime.constants.rfc2822) format.
    */
   dateCreated: Date;
   /**
-   * The date this resource was last updated
+   * The date that this resource was last updated, given as GMT in [RFC 2822](https://www.php.net/manual/en/class.datetime.php#datetime.constants.rfc2822) format.
    */
   dateUpdated: Date;
   /**
-   * Human readable descriptive text
+   * A human readable descriptive text that describes the CredentialList, up to 64 characters long.
    */
   friendlyName: string;
   /**
-   * A string that uniquely identifies this credential
+   * A 34 character string that uniquely identifies this resource.
    */
   sid: string;
   /**
-   * The list of credentials associated with this credential list.
+   * A list of credentials associated with this credential list.
    */
   subresourceUris: Record<string, string>;
   /**
-   * The URI for this resource
+   * The URI for this resource, relative to `https://api.twilio.com`.
    */
   uri: string;
 

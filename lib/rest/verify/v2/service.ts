@@ -456,72 +456,72 @@ export class ServiceInstance {
   }
 
   /**
-   * The unique string that identifies the resource
+   * The unique string that we created to identify the Service resource.
    */
   sid: string;
   /**
-   * The SID of the Account that created the resource
+   * The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Service resource.
    */
   accountSid: string;
   /**
-   * The string that you assigned to describe the verification service
+   * The string that you assigned to describe the verification service. **This value should not contain PII.**
    */
   friendlyName: string;
   /**
-   * The length of the verification code
+   * The length of the verification code to generate.
    */
   codeLength: number;
   /**
-   * Whether to perform a lookup with each verification
+   * Whether to perform a lookup with each verification started and return info about the phone number.
    */
   lookupEnabled: boolean;
   /**
-   * Whether to pass PSD2 transaction parameters when starting a verification
+   * Whether to pass PSD2 transaction parameters when starting a verification.
    */
   psd2Enabled: boolean;
   /**
-   * Whether to skip sending SMS verifications to landlines
+   * Whether to skip sending SMS verifications to landlines. Requires `lookup_enabled`.
    */
   skipSmsToLandlines: boolean;
   /**
-   * Whether to ask the user to press a number before delivering the verify code in a phone call
+   * Whether to ask the user to press a number before delivering the verify code in a phone call.
    */
   dtmfInputRequired: boolean;
   /**
-   * The name of an alternative text-to-speech service to use in phone calls
+   * The name of an alternative text-to-speech service to use in phone calls. Applies only to TTS languages.
    */
   ttsName: string;
   /**
-   * Whether to add a security warning at the end of an SMS.
+   * Whether to add a security warning at the end of an SMS verification body. Disabled by default and applies only to SMS. Example SMS body: `Your AppName verification code is: 1234. Don’t share this code with anyone; our employees will never ask for the code`
    */
   doNotShareWarningEnabled: boolean;
   /**
-   * Whether to allow sending verifications with a custom code.
+   * Whether to allow sending verifications with a custom code instead of a randomly generated one. Not available for all customers.
    */
   customCodeEnabled: boolean;
   /**
-   * The service level configuration of factor push type.
+   * Configurations for the Push factors (channel) created under this Service.
    */
   push: any;
   /**
-   * The service level configuration of factor TOTP type.
+   * Configurations for the TOTP factors (channel) created under this Service.
    */
   totp: any;
   defaultTemplateSid: string;
   /**
-   * The RFC 2822 date and time in GMT when the resource was created
+   * The date and time in GMT when the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
    */
   dateCreated: Date;
   /**
-   * The RFC 2822 date and time in GMT when the resource was last updated
+   * The date and time in GMT when the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
    */
   dateUpdated: Date;
   /**
-   * The absolute URL of the resource
+   * The absolute URL of the resource.
    */
   url: string;
   /**
-   * The URLs of related resources
+   * The URLs of related resources.
    */
   links: Record<string, string>;
 

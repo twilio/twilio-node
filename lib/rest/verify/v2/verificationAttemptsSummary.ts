@@ -194,19 +194,19 @@ export class VerificationAttemptsSummaryInstance {
   }
 
   /**
-   * Total of attempts made.
+   * Total of attempts made according to the provided filters
    */
   totalAttempts: number;
   /**
-   * Total of attempts confirmed by the end user.
+   * Total of  attempts made that were confirmed by the end user, according to the provided filters.
    */
   totalConverted: number;
   /**
-   * Total of attempts made that were not confirmed by the end user.
+   * Total of attempts made that were not confirmed by the end user, according to the provided filters.
    */
   totalUnconverted: number;
   /**
-   * Percentage of the confirmed messages over the total.
+   * Percentage of the confirmed messages over the total, defined by (total_converted/total_attempts)*100.
    */
   conversionRatePercentage: number;
   url: string;

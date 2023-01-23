@@ -247,40 +247,40 @@ export class AddOnResultInstance {
   }
 
   /**
-   * The unique string that identifies the resource
+   * The unique string that that we created to identify the Recording AddOnResult resource.
    */
   sid: string;
   /**
-   * The SID of the Account that created the resource
+   * The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Recording AddOnResult resource.
    */
   accountSid: string;
   status: RecordingAddOnResultStatus;
   /**
-   * The SID of the Add-on to which the result belongs
+   * The SID of the Add-on to which the result belongs.
    */
   addOnSid: string;
   /**
-   * The SID of the Add-on configuration
+   * The SID of the Add-on configuration.
    */
   addOnConfigurationSid: string;
   /**
-   * The RFC 2822 date and time in GMT that the resource was created
+   * The date and time in GMT that the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
    */
   dateCreated: Date;
   /**
-   * The RFC 2822 date and time in GMT that the resource was last updated
+   * The date and time in GMT that the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
    */
   dateUpdated: Date;
   /**
-   * The date and time in GMT that the result was completed
+   * The date and time in GMT that the result was completed specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
    */
   dateCompleted: Date;
   /**
-   * The SID of the recording to which the AddOnResult resource belongs
+   * The SID of the recording to which the AddOnResult resource belongs.
    */
   referenceSid: string;
   /**
-   * A list of related resources identified by their relative URIs
+   * A list of related resources identified by their relative URIs.
    */
   subresourceUris: Record<string, string>;
 

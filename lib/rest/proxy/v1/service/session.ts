@@ -357,61 +357,61 @@ export class SessionInstance {
   }
 
   /**
-   * The unique string that identifies the resource
+   * The unique string that we created to identify the Session resource.
    */
   sid: string;
   /**
-   * The SID of the resource\'s parent Service
+   * The SID of the [Service](https://www.twilio.com/docs/proxy/api/service) the session is associated with.
    */
   serviceSid: string;
   /**
-   * The SID of the Account that created the resource
+   * The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Session resource.
    */
   accountSid: string;
   /**
-   * The ISO 8601 date when the Session started
+   * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date when the Session started.
    */
   dateStarted: Date;
   /**
-   * The ISO 8601 date when the Session ended
+   * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date when the Session ended.
    */
   dateEnded: Date;
   /**
-   * The ISO 8601 date when the Session last had an interaction
+   * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date when the Session last had an interaction.
    */
   dateLastInteraction: Date;
   /**
-   * The ISO 8601 date when the Session should expire
+   * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date when the Session should expire. If this is value is present, it overrides the `ttl` value.
    */
   dateExpiry: Date;
   /**
-   * An application-defined string that uniquely identifies the resource
+   * An application-defined string that uniquely identifies the resource. This value must be 191 characters or fewer in length and be unique. Supports UTF-8 characters. **This value should not have PII.**
    */
   uniqueName: string;
   status: SessionStatus;
   /**
-   * The reason the Session ended
+   * The reason the Session ended.
    */
   closedReason: string;
   /**
-   * When the session will expire
+   * The time, in seconds, when the session will expire. The time is measured from the last Session create or the Session\'s last Interaction.
    */
   ttl: number;
   mode: SessionMode;
   /**
-   * The ISO 8601 date and time in GMT when the resource was created
+   * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time in GMT when the resource was created.
    */
   dateCreated: Date;
   /**
-   * The ISO 8601 date and time in GMT when the resource was last updated
+   * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time in GMT when the resource was last updated.
    */
   dateUpdated: Date;
   /**
-   * The absolute URL of the Session resource
+   * The absolute URL of the Session resource.
    */
   url: string;
   /**
-   * The URLs of resources related to the Session
+   * The URLs of resources related to the Session.
    */
   links: Record<string, string>;
 

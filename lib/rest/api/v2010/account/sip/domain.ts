@@ -454,87 +454,87 @@ export class DomainInstance {
   }
 
   /**
-   * The SID of the Account that created the resource
+   * The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the SipDomain resource.
    */
   accountSid: string;
   /**
-   * The API version used to process the call
+   * The API version used to process the call.
    */
   apiVersion: string;
   /**
-   * The types of authentication mapped to the domain
+   * The types of authentication you have mapped to your domain. Can be: `IP_ACL` and `CREDENTIAL_LIST`. If you have both defined for your domain, both will be returned in a comma delimited string. If `auth_type` is not defined, the domain will not be able to receive any traffic.
    */
   authType: string;
   /**
-   * The RFC 2822 date and time in GMT that the resource was created
+   * The date and time in GMT that the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
    */
   dateCreated: Date;
   /**
-   * The RFC 2822 date and time in GMT that the resource was last updated
+   * The date and time in GMT that the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
    */
   dateUpdated: Date;
   /**
-   * The unique address on Twilio to route SIP traffic
+   * The unique address you reserve on Twilio to which you route your SIP traffic. Domain names can contain letters, digits, and \"-\" and must end with `sip.twilio.com`.
    */
   domainName: string;
   /**
-   * The string that you assigned to describe the resource
+   * The string that you assigned to describe the resource.
    */
   friendlyName: string;
   /**
-   * The unique string that identifies the resource
+   * The unique string that that we created to identify the SipDomain resource.
    */
   sid: string;
   /**
-   * The URI of the resource, relative to `https://api.twilio.com`
+   * The URI of the resource, relative to `https://api.twilio.com`.
    */
   uri: string;
   /**
-   * The HTTP method used with voice_fallback_url
+   * The HTTP method we use to call `voice_fallback_url`. Can be: `GET` or `POST`.
    */
   voiceFallbackMethod: DomainVoiceFallbackMethod;
   /**
-   * The URL we call when an error occurs while executing TwiML
+   * The URL that we call when an error occurs while retrieving or executing the TwiML requested from `voice_url`.
    */
   voiceFallbackUrl: string;
   /**
-   * The HTTP method to use with voice_url
+   * The HTTP method we use to call `voice_url`. Can be: `GET` or `POST`.
    */
   voiceMethod: DomainVoiceMethod;
   /**
-   * The HTTP method we use to call voice_status_callback_url
+   * The HTTP method we use to call `voice_status_callback_url`. Either `GET` or `POST`.
    */
   voiceStatusCallbackMethod: DomainVoiceStatusCallbackMethod;
   /**
-   * The URL that we call with status updates
+   * The URL that we call to pass status parameters (such as call ended) to your application.
    */
   voiceStatusCallbackUrl: string;
   /**
-   * The URL we call when receiving a call
+   * The URL we call using the `voice_method` when the domain receives a call.
    */
   voiceUrl: string;
   /**
-   * A list mapping resources associated with the SIP Domain resource
+   * A list of mapping resources associated with the SIP Domain resource identified by their relative URIs.
    */
   subresourceUris: Record<string, string>;
   /**
-   * Whether SIP registration is allowed
+   * Whether to allow SIP Endpoints to register with the domain to receive calls.
    */
   sipRegistration: boolean;
   /**
-   * Whether emergency calling is enabled for the domain.
+   * Whether emergency calling is enabled for the domain. If enabled, allows emergency calls on the domain from phone numbers with validated addresses.
    */
   emergencyCallingEnabled: boolean;
   /**
-   * Whether secure SIP is enabled for the domain
+   * Whether secure SIP is enabled for the domain. If enabled, TLS will be enforced and SRTP will be negotiated on all incoming calls to this sip domain.
    */
   secure: boolean;
   /**
-   * The SID of the BYOC Trunk resource.
+   * The SID of the BYOC Trunk(Bring Your Own Carrier) resource that the Sip Domain will be associated with.
    */
   byocTrunkSid: string;
   /**
-   * Whether an emergency caller sid is configured for the domain.
+   * Whether an emergency caller sid is configured for the domain. If present, this phone number will be used as the callback for the emergency call.
    */
   emergencyCallerSid: string;
 

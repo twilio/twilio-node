@@ -263,37 +263,37 @@ export class InteractionInstance {
   }
 
   /**
-   * The unique string that identifies the resource
+   * The unique string that we created to identify the Interaction resource.
    */
   sid: string;
   /**
-   * The SID of the resource\'s parent Session
+   * The SID of the parent [Session](https://www.twilio.com/docs/proxy/api/session) resource.
    */
   sessionSid: string;
   /**
-   * The SID of the resource\'s parent Service
+   * The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) resource.
    */
   serviceSid: string;
   /**
-   * The SID of the Account that created the resource
+   * The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Interaction resource.
    */
   accountSid: string;
   /**
-   * A JSON string that includes the message body of message interactions
+   * A JSON string that includes the message body of message interactions (e.g. `{\"body\": \"hello\"}`) or the call duration (when available) of a call (e.g. `{\"duration\": \"5\"}`).
    */
   data: string;
   type: InteractionType;
   /**
-   * The SID of the inbound Participant resource
+   * The SID of the inbound [Participant](https://www.twilio.com/docs/proxy/api/participant) resource.
    */
   inboundParticipantSid: string;
   /**
-   * The SID of the inbound resource
+   * The SID of the inbound resource; either the [Call](https://www.twilio.com/docs/voice/api/call-resource) or [Message](https://www.twilio.com/docs/sms/api/message.
    */
   inboundResourceSid: string;
   inboundResourceStatus: InteractionResourceStatus;
   /**
-   * The inbound resource type
+   * The inbound resource type. Can be [Call](https://www.twilio.com/docs/voice/api/call-resource) or [Message](https://www.twilio.com/docs/sms/api/message-resource).
    */
   inboundResourceType: string;
   /**
@@ -301,32 +301,32 @@ export class InteractionInstance {
    */
   inboundResourceUrl: string;
   /**
-   * The SID of the outbound Participant
+   * The SID of the outbound [Participant](https://www.twilio.com/docs/proxy/api/participant)).
    */
   outboundParticipantSid: string;
   /**
-   * The SID of the outbound resource
+   * The SID of the outbound resource; either the [Call](https://www.twilio.com/docs/voice/api/call-resource) or [Message](https://www.twilio.com/docs/sms/api/message-resource).
    */
   outboundResourceSid: string;
   outboundResourceStatus: InteractionResourceStatus;
   /**
-   * The outbound resource type
+   * The outbound resource type. Can be: [Call](https://www.twilio.com/docs/voice/api/call-resource) or [Message](https://www.twilio.com/docs/sms/api/message-resource).
    */
   outboundResourceType: string;
   /**
-   * The URL of the Twilio outbound resource
+   * The URL of the Twilio outbound resource.
    */
   outboundResourceUrl: string;
   /**
-   * The ISO 8601 date and time in GMT when the Interaction was created
+   * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time in GMT when the Interaction was created.
    */
   dateCreated: Date;
   /**
-   * The ISO 8601 date and time in GMT when the resource was last updated
+   * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time in GMT when the resource was last updated.
    */
   dateUpdated: Date;
   /**
-   * The absolute URL of the Interaction resource
+   * The absolute URL of the Interaction resource.
    */
   url: string;
 

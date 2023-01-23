@@ -519,32 +519,32 @@ export class ReservationInstance {
   }
 
   /**
-   * The SID of the Account that created the resource
+   * The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the WorkerReservation resource.
    */
   accountSid: string;
   /**
-   * The ISO 8601 date and time in GMT when the resource was created
+   * The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
   dateCreated: Date;
   /**
-   * The ISO 8601 date and time in GMT when the resource was last updated
+   * The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
   dateUpdated: Date;
   reservationStatus: WorkerReservationStatus;
   /**
-   * The unique string that identifies the resource
+   * The unique string that we created to identify the WorkerReservation resource.
    */
   sid: string;
   /**
-   * The SID of the reserved Task resource
+   * The SID of the reserved Task resource.
    */
   taskSid: string;
   /**
-   * The friendly_name of the Worker that is reserved
+   * The `friendly_name` of the Worker that is reserved.
    */
   workerName: string;
   /**
-   * The SID of the reserved Worker resource
+   * The SID of the reserved Worker resource.
    */
   workerSid: string;
   /**
@@ -552,11 +552,11 @@ export class ReservationInstance {
    */
   workspaceSid: string;
   /**
-   * The absolute URL of the WorkerReservation resource
+   * The absolute URL of the WorkerReservation resource.
    */
   url: string;
   /**
-   * The URLs of related resources
+   * The URLs of related resources.
    */
   links: Record<string, string>;
 

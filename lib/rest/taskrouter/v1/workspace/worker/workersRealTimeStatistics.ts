@@ -177,23 +177,23 @@ export class WorkersRealTimeStatisticsInstance {
   }
 
   /**
-   * The SID of the Account that created the resource
+   * The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Worker resource.
    */
   accountSid: string;
   /**
-   * The number of current Workers by Activity
+   * The number of current Workers by Activity.
    */
   activityStatistics: Array<any>;
   /**
-   * The total number of Workers
+   * The total number of Workers.
    */
   totalWorkers: number;
   /**
-   * The SID of the Workspace that contains the Workers
+   * The SID of the Workspace that contains the Workers.
    */
   workspaceSid: string;
   /**
-   * The absolute URL of the Workers statistics resource
+   * The absolute URL of the Workers statistics resource.
    */
   url: string;
 

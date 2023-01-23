@@ -210,23 +210,23 @@ export class PhoneNumberInstance {
   }
 
   /**
-   * The phone number
+   * The phone number in E.164 format
    */
   phoneNumber: string;
   /**
-   * The absolute URL of the resource
+   * The absolute URL of the resource.
    */
   url: string;
   /**
-   * A string that uniquely identifies the Inbound Processing Region assignments for this phone number.
+   * A 34 character string that uniquely identifies the Inbound Processing Region assignments for this phone number.
    */
   sid: string;
   /**
-   * Account Sid.
+   * The unique SID identifier of the Account.
    */
   accountSid: string;
   /**
-   * A human readable description of the Inbound Processing Region assignments for this phone number.
+   * A human readable description of the Inbound Processing Region assignments for this phone number, up to 64 characters.
    */
   friendlyName: string;
   /**
@@ -234,11 +234,11 @@ export class PhoneNumberInstance {
    */
   voiceRegion: string;
   /**
-   * The date that this phone number was assigned an Inbound Processing Region.
+   * The date that this phone number was assigned an Inbound Processing Region, given in ISO 8601 format.
    */
   dateCreated: Date;
   /**
-   * The date that the Inbound Processing Region was updated for this phone number.
+   * The date that the Inbound Processing Region was updated for this phone number, given in ISO 8601 format.
    */
   dateUpdated: Date;
 

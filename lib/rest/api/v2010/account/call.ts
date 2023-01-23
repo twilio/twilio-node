@@ -624,15 +624,15 @@ export class CallInstance {
   }
 
   /**
-   * The unique string that identifies this resource
+   * The unique string that we created to identify this Call resource.
    */
   sid: string;
   /**
-   * The RFC 2822 date and time in GMT that this resource was created
+   * The date and time in GMT that this resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
    */
   dateCreated: Date;
   /**
-   * The RFC 2822 date and time in GMT that this resource was last updated
+   * The date and time in GMT that this resource was last updated, specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
    */
   dateUpdated: Date;
   /**
@@ -640,23 +640,23 @@ export class CallInstance {
    */
   parentCallSid: string;
   /**
-   * The SID of the Account that created this resource
+   * The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created this Call resource.
    */
   accountSid: string;
   /**
-   * The phone number, SIP address or Client identifier that received this call. Phone numbers are in E.164 format (e.g., +16175551212). SIP addresses are formatted as `name@company.com`. Client identifiers are formatted `client:name`.
+   * The phone number, SIP address, Client identifier or SIM SID that received this call. Phone numbers are in [E.164](https://www.twilio.com/docs/glossary/what-e164) format (e.g., +16175551212). SIP addresses are formatted as `name@company.com`. Client identifiers are formatted `client:name`. SIM SIDs are formatted as `sim:sid`.
    */
   to: string;
   /**
-   * The phone number, SIP address or Client identifier that received this call. Formatted for display.
+   * The phone number, SIP address or Client identifier that received this call. Formatted for display. Non-North American phone numbers are in [E.164](https://www.twilio.com/docs/glossary/what-e164) format (e.g., +442071838750).
    */
   toFormatted: string;
   /**
-   * The phone number, SIP address or Client identifier that made this call. Phone numbers are in E.164 format (e.g., +16175551212). SIP addresses are formatted as `name@company.com`. Client identifiers are formatted `client:name`.
+   * The phone number, SIP address, Client identifier or SIM SID that made this call. Phone numbers are in [E.164](https://www.twilio.com/docs/glossary/what-e164) format (e.g., +16175551212). SIP addresses are formatted as `name@company.com`. Client identifiers are formatted `client:name`. SIM SIDs are formatted as `sim:sid`.
    */
   from: string;
   /**
-   * The calling phone number, SIP address, or Client identifier formatted for display.
+   * The calling phone number, SIP address, or Client identifier formatted for display. Non-North American phone numbers are in [E.164](https://www.twilio.com/docs/glossary/what-e164) format (e.g., +442071838750).
    */
   fromFormatted: string;
   /**
@@ -665,15 +665,15 @@ export class CallInstance {
   phoneNumberSid: string;
   status: CallStatus;
   /**
-   * The start time of the call. Null if the call has not yet been dialed.
+   * The start time of the call, given as GMT in [RFC 2822](https://www.php.net/manual/en/class.datetime.php#datetime.constants.rfc2822) format. Empty if the call has not yet been dialed.
    */
   startTime: Date;
   /**
-   * The end time of the call. Null if the call did not complete successfully.
+   * The time the call ended, given as GMT in [RFC 2822](https://www.php.net/manual/en/class.datetime.php#datetime.constants.rfc2822) format. Empty if the call did not complete successfully.
    */
   endTime: Date;
   /**
-   * The length of the call in seconds.
+   * The length of the call in seconds. This value is empty for busy, failed, unanswered, or ongoing calls.
    */
   duration: string;
   /**
@@ -681,11 +681,11 @@ export class CallInstance {
    */
   price: string;
   /**
-   * The currency in which `Price` is measured.
+   * The currency in which `Price` is measured, in [ISO 4127](https://www.iso.org/iso/home/standards/currency_codes.htm) format (e.g., `USD`, `EUR`, `JPY`). Always capitalized for calls.
    */
   priceUnit: string;
   /**
-   * A string describing the direction of the call. `inbound` for inbound calls, `outbound-api` for calls initiated via the REST API or `outbound-dial` for calls initiated by a `Dial` verb.
+   * A string describing the direction of the call. Can be: `inbound` for inbound calls, `outbound-api` for calls initiated via the REST API or `outbound-dial` for calls initiated by a `<Dial>` verb. Using [Elastic SIP Trunking](https://www.twilio.com/docs/sip-trunking), the values can be [`trunking-terminating`](https://www.twilio.com/docs/sip-trunking#termination) for outgoing calls from your communications infrastructure to the PSTN or [`trunking-originating`](https://www.twilio.com/docs/sip-trunking#origination) for incoming calls to your communications infrastructure from the PSTN.
    */
   direction: string;
   /**
@@ -693,7 +693,7 @@ export class CallInstance {
    */
   answeredBy: string;
   /**
-   * The API Version used to create the call
+   * The API version used to create the call.
    */
   apiVersion: string;
   /**
@@ -713,15 +713,15 @@ export class CallInstance {
    */
   queueTime: string;
   /**
-   * The (optional) unique identifier of the trunk resource that was used for this call.
+   * The unique identifier of the trunk resource that was used for this call. The field is empty if the call was not made using a SIP trunk or if the call is not terminated.
    */
   trunkSid: string;
   /**
-   * The URI of this resource, relative to `https://api.twilio.com`
+   * The URI of this resource, relative to `https://api.twilio.com`.
    */
   uri: string;
   /**
-   * A list of related subresources identified by their relative URIs
+   * A list of subresources available to this call, identified by their URIs relative to `https://api.twilio.com`.
    */
   subresourceUris: Record<string, string>;
 

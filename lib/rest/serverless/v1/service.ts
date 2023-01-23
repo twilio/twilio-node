@@ -329,47 +329,47 @@ export class ServiceInstance {
   }
 
   /**
-   * The unique string that identifies the Service resource
+   * The unique string that we created to identify the Service resource.
    */
   sid: string;
   /**
-   * The SID of the Account that created the Service resource
+   * The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Service resource.
    */
   accountSid: string;
   /**
-   * The string that you assigned to describe the Service resource
+   * The string that you assigned to describe the Service resource.
    */
   friendlyName: string;
   /**
-   * A user-defined string that uniquely identifies the Service resource
+   * A user-defined string that uniquely identifies the Service resource. It can be used in place of the Service resource\'s `sid` in the URL to address the Service resource.
    */
   uniqueName: string;
   /**
-   * Whether to inject Account credentials into a function invocation context
+   * Whether to inject Account credentials into a function invocation context.
    */
   includeCredentials: boolean;
   /**
-   * Whether the Service resource\'s properties and subresources can be edited via the UI
+   * Whether the Service resource\'s properties and subresources can be edited via the UI.
    */
   uiEditable: boolean;
   /**
-   * The base domain name for this Service, which is a combination of the unique name and a randomly generated string
+   * The base domain name for this Service, which is a combination of the unique name and a randomly generated string.
    */
   domainBase: string;
   /**
-   * The ISO 8601 date and time in GMT when the Service resource was created
+   * The date and time in GMT when the Service resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
   dateCreated: Date;
   /**
-   * The ISO 8601 date and time in GMT when the Service resource was last updated
+   * The date and time in GMT when the Service resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
   dateUpdated: Date;
   /**
-   * The absolute URL of the Service resource
+   * The absolute URL of the Service resource.
    */
   url: string;
   /**
-   * The URLs of the Service\'s nested resources
+   * The URLs of the Service\'s nested resources.
    */
   links: Record<string, string>;
 

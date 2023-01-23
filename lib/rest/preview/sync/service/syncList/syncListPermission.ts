@@ -307,35 +307,35 @@ export class SyncListPermissionInstance {
   }
 
   /**
-   * Twilio Account SID.
+   * The unique SID identifier of the Twilio Account.
    */
   accountSid: string;
   /**
-   * Sync Service Instance SID.
+   * The unique SID identifier of the Sync Service Instance.
    */
   serviceSid: string;
   /**
-   * Sync List SID.
+   * The unique SID identifier of the Sync List to which the Permission applies.
    */
   listSid: string;
   /**
-   * Identity of the user to whom the Sync List Permission applies.
+   * Arbitrary string identifier representing a human user associated with an FPA token, assigned by the developer.
    */
   identity: string;
   /**
-   * Read access.
+   * Boolean flag specifying whether the identity can read the Sync List and its Items.
    */
   read: boolean;
   /**
-   * Write access.
+   * Boolean flag specifying whether the identity can create, update and delete Items of the Sync List.
    */
   write: boolean;
   /**
-   * Manage access.
+   * Boolean flag specifying whether the identity can delete the Sync List.
    */
   manage: boolean;
   /**
-   * URL of this Sync List Permission.
+   * Contains an absolute URL for this Sync List Permission.
    */
   url: string;
 

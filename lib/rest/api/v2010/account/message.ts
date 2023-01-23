@@ -446,77 +446,77 @@ export class MessageInstance {
   }
 
   /**
-   * The message text
+   * The message text. Can be up to 1,600 characters long.
    */
   body: string;
   /**
-   * The number of messages used to deliver the message body
+   * The number of segments that make up the complete message. A message body that is too large to be sent in a single SMS message is segmented and charged as multiple messages. Inbound messages over 160 characters are reassembled when the message is received. Note: When using a Messaging Service to send messages, `num_segments` will always be 0 in Twilio\'s response to your API request.
    */
   numSegments: string;
   direction: MessageDirection;
   /**
-   * The phone number that initiated the message
+   * The phone number (in [E.164](https://en.wikipedia.org/wiki/E.164) format), [alphanumeric sender ID](https://www.twilio.com/docs/sms/send-messages#use-an-alphanumeric-sender-id), or [Wireless SIM](https://www.twilio.com/docs/wireless/tutorials/communications-guides/how-to-send-and-receive-text-messages) that initiated the message. For incoming messages, this will be the number of the sending phone. For outgoing messages, this value will be one of your Twilio phone numbers or the alphanumeric sender ID used.
    */
   from: string;
   /**
-   * The phone number that received the message
+   * The phone number in [E.164](https://en.wikipedia.org/wiki/E.164) format that received the message. For incoming messages, this will be one of your Twilio phone numbers. For outgoing messages, this will be the sending phone.
    */
   to: string;
   /**
-   * The RFC 2822 date and time in GMT that the resource was last updated
+   * The date and time in GMT that the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
    */
   dateUpdated: Date;
   /**
-   * The amount billed for the message
+   * The amount billed for the message, in the currency specified by `price_unit`.  Note that your account is charged for each segment we send to the handset. Populated after the message has been sent. May not be immediately available.
    */
   price: string;
   /**
-   * The description of the error_code
+   * The description of the `error_code` if your message `status` is `failed` or `undelivered`. If the message was successful, this value is null.
    */
   errorMessage: string;
   /**
-   * The URI of the resource, relative to `https://api.twilio.com`
+   * The URI of the resource, relative to `https://api.twilio.com`.
    */
   uri: string;
   /**
-   * The SID of the Account that created the resource
+   * The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that sent the message that created the resource.
    */
   accountSid: string;
   /**
-   * The number of media files associated with the message
+   * The number of media files associated with the message. A message can send up to 10 media files.
    */
   numMedia: string;
   status: MessageStatus;
   /**
-   * The SID of the Messaging Service used with the message.
+   * The SID of the [Messaging Service](https://www.twilio.com/docs/sms/services/api) used with the message. The value is null if a Messaging Service was not used.
    */
   messagingServiceSid: string;
   /**
-   * The unique string that identifies the resource
+   * The unique string that that we created to identify the Message resource.
    */
   sid: string;
   /**
-   * The RFC 2822 date and time in GMT when the message was sent
+   * The date and time in GMT that the resource was sent specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format. For outgoing messages, this is when we sent the message. For incoming messages, this is when we made the HTTP request to your application.
    */
   dateSent: Date;
   /**
-   * The RFC 2822 date and time in GMT that the resource was created
+   * The date and time in GMT that the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
    */
   dateCreated: Date;
   /**
-   * The error code associated with the message
+   * The error code returned if your message `status` is `failed` or `undelivered`. The error_code provides more information about the failure. If the message was successful, this value is null.
    */
   errorCode: number;
   /**
-   * The currency in which price is measured
+   * The currency in which `price` is measured, in [ISO 4127](https://www.iso.org/iso/home/standards/currency_codes.htm) format (e.g. `usd`, `eur`, `jpy`).
    */
   priceUnit: string;
   /**
-   * The API version used to process the message
+   * The API version used to process the message.
    */
   apiVersion: string;
   /**
-   * A list of related resources identified by their relative URIs
+   * A list of related resources identified by their URIs relative to `https://api.twilio.com`
    */
   subresourceUris: Record<string, string>;
 

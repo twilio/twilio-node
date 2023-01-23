@@ -265,63 +265,63 @@ export class RecordingInstance {
   }
 
   /**
-   * The SID of the Account that created the resource
+   * The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Recording resource.
    */
   accountSid: string;
   status: RecordingStatus;
   /**
-   * The ISO 8601 date and time in GMT when the resource was created
+   * The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
   dateCreated: Date;
   /**
-   * The unique string that identifies the resource
+   * The unique string that we created to identify the Recording resource.
    */
   sid: string;
   /**
-   * The SID of the recording source
+   * The SID of the recording source. For a Room Recording, this value is a `track_sid`.
    */
   sourceSid: string;
   /**
-   * The size of the recorded track, in bytes
+   * The size of the recorded track, in bytes.
    */
   size: number;
   /**
-   * The absolute URL of the resource
+   * The absolute URL of the resource.
    */
   url: string;
   type: RecordingType;
   /**
-   * The duration of the recording in seconds
+   * The duration of the recording in seconds rounded to the nearest second. Sub-second tracks have a `Duration` property of 1 second
    */
   duration: number;
   containerFormat: RecordingFormat;
   codec: RecordingCodec;
   /**
-   * A list of SIDs related to the recording
+   * A list of SIDs related to the recording. Includes the `room_sid` and `participant_sid`.
    */
   groupingSids: any;
   /**
-   * The name that was given to the source track of the recording
+   * The name that was given to the source track of the recording. If no name is given, the `source_sid` is used.
    */
   trackName: string;
   /**
-   * The number of milliseconds between a point in time that is common to all rooms in a group and when the source room of the recording started
+   * The time in milliseconds elapsed between an arbitrary point in time, common to all group rooms, and the moment when the source room of this track started. This information provides a synchronization mechanism for recordings belonging to the same room.
    */
   offset: number;
   /**
-   * The URL of the media file associated with the recording when stored externally
+   * The URL of the media file associated with the recording when stored externally. See [External S3 Recordings](/docs/video/api/external-s3-recordings) for more details.
    */
   mediaExternalLocation: string;
   /**
-   * The URL called to send status information on every recording event.
+   * The URL called using the `status_callback_method` to send status information on every recording event.
    */
   statusCallback: string;
   /**
-   * The HTTP method used to call `status_callback`
+   * The HTTP method used to call `status_callback`. Can be: `POST` or `GET`, defaults to `POST`.
    */
   statusCallbackMethod: RecordingStatusCallbackMethod;
   /**
-   * The URLs of related resources
+   * The URLs of related resources.
    */
   links: Record<string, string>;
 

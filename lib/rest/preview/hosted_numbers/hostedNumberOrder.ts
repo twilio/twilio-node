@@ -426,61 +426,61 @@ export class HostedNumberOrderInstance {
   }
 
   /**
-   * HostedNumberOrder sid.
+   * A 34 character string that uniquely identifies this HostedNumberOrder.
    */
   sid: string;
   /**
-   * Account Sid.
+   * A 34 character string that uniquely identifies the account.
    */
   accountSid: string;
   /**
-   * IncomingPhoneNumber sid.
+   * A 34 character string that uniquely identifies the [IncomingPhoneNumber](https://www.twilio.com/docs/api/rest/incoming-phone-numbers) resource that represents the phone number being hosted.
    */
   incomingPhoneNumberSid: string;
   /**
-   * Address sid.
+   * A 34 character string that uniquely identifies the Address resource that represents the address of the owner of this phone number.
    */
   addressSid: string;
   /**
-   * LOA document sid.
+   * A 34 character string that uniquely identifies the [Authorization Document](https://www.twilio.com/docs/api/phone-numbers/hosted-number-authorization-documents) the user needs to sign.
    */
   signingDocumentSid: string;
   /**
-   * An E164 formatted phone number.
+   * Phone number to be hosted. This must be in [E.164](https://en.wikipedia.org/wiki/E.164) format, e.g., +16175551212
    */
   phoneNumber: string;
   capabilities: PhoneNumberCapabilities;
   /**
-   * A human readable description of this resource.
+   * A 64 character string that is a human-readable text that describes this resource.
    */
   friendlyName: string;
   /**
-   * A unique, developer assigned name of this HostedNumberOrder.
+   * Provides a unique and addressable name to be assigned to this HostedNumberOrder, assigned by the developer, to be optionally used in addition to SID.
    */
   uniqueName: string;
   status: HostedNumberOrderStatus;
   /**
-   * Why a hosted_number_order reached status \"action-required\"
+   * A message that explains why a hosted_number_order went to status \"action-required\"
    */
   failureReason: string;
   /**
-   * The date this HostedNumberOrder was created.
+   * The date this resource was created, given as [GMT RFC 2822](http://www.ietf.org/rfc/rfc2822.txt) format.
    */
   dateCreated: Date;
   /**
-   * The date this HostedNumberOrder was updated.
+   * The date that this resource was updated, given as [GMT RFC 2822](http://www.ietf.org/rfc/rfc2822.txt) format.
    */
   dateUpdated: Date;
   /**
-   * The number of attempts made to verify ownership of the phone number.
+   * The number of attempts made to verify ownership of the phone number that is being hosted.
    */
   verificationAttempts: number;
   /**
-   * Email.
+   * Email of the owner of this phone number that is being hosted.
    */
   email: string;
   /**
-   * A list of emails.
+   * A list of emails that LOA document for this HostedNumberOrder will be carbon copied to.
    */
   ccEmails: Array<string>;
   /**
@@ -489,23 +489,23 @@ export class HostedNumberOrderInstance {
   url: string;
   verificationType: HostedNumberOrderVerificationType;
   /**
-   * Verification Document Sid.
+   * A 34 character string that uniquely identifies the Identity Document resource that represents the document for verifying ownership of the number to be hosted.
    */
   verificationDocumentSid: string;
   /**
-   * Phone extension to use for ownership verification call.
+   * A numerical extension to be used when making the ownership verification call.
    */
   extension: string;
   /**
-   * Seconds (0-30) to delay ownership verification call by.
+   * A value between 0-30 specifying the number of seconds to delay initiating the ownership verification call.
    */
   callDelay: number;
   /**
-   * The digits passed during the ownership verification call.
+   * A verification code provided in the response for a user to enter when they pick up the phone call.
    */
   verificationCode: string;
   /**
-   * List of IDs for ownership verification calls.
+   * A list of 34 character strings that are unique identifiers for the calls placed as part of ownership verification.
    */
   verificationCallSids: Array<string>;
 

@@ -267,59 +267,59 @@ export class BindingInstance {
   }
 
   /**
-   * The unique string that identifies the resource
+   * The unique string that we created to identify the Binding resource.
    */
   sid: string;
   /**
-   * The SID of the Account that created the resource
+   * The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Binding resource.
    */
   accountSid: string;
   /**
-   * The SID of the Service that the resource is associated with
+   * The SID of the [Service](https://www.twilio.com/docs/notify/api/service-resource) the resource is associated with.
    */
   serviceSid: string;
   /**
-   * The SID of the Credential resource to be used to send notifications to this Binding
+   * The SID of the [Credential](https://www.twilio.com/docs/notify/api/credential-resource) resource to be used to send notifications to this Binding. If present, this overrides the Credential specified in the Service resource. Applicable only to `apn`, `fcm`, and `gcm` type Bindings.
    */
   credentialSid: string;
   /**
-   * The RFC 2822 date and time in GMT when the resource was created
+   * The date and time in GMT when the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
    */
   dateCreated: Date;
   /**
-   * The RFC 2822 date and time in GMT when the resource was last updated
+   * The date and time in GMT when the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
    */
   dateUpdated: Date;
   /**
-   * The protocol version to use to send the notification
+   * The protocol version to use to send the notification. This defaults to the value of `default_xxxx_notification_protocol_version` in the [Service](https://www.twilio.com/docs/notify/api/service-resource) for the protocol. The current version is `\"3\"` for `apn`, `fcm`, and `gcm` type Bindings. The parameter is not applicable to `sms` and `facebook-messenger` type Bindings as the data format is fixed.
    */
   notificationProtocolVersion: string;
   /**
-   * Deprecated
+   * Deprecated.
    */
   endpoint: string;
   /**
-   * The `identity` value that identifies the new resource\'s User
+   * The `identity` value that uniquely identifies the resource\'s [User](https://www.twilio.com/docs/chat/rest/user-resource) within the [Service](https://www.twilio.com/docs/notify/api/service-resource). Up to 20 Bindings can be created for the same Identity in a given Service.
    */
   identity: string;
   /**
-   * The type of the Binding
+   * The transport technology to use for the Binding. Can be: `apn`, `fcm`, `gcm`, `sms`, or `facebook-messenger`.
    */
   bindingType: string;
   /**
-   * The channel-specific address
+   * The channel-specific address. For APNS, the device token. For FCM and GCM, the registration token. For SMS, a phone number in E.164 format. For Facebook Messenger, the Messenger ID of the user or a phone number in E.164 format.
    */
   address: string;
   /**
-   * The list of tags associated with this Binding
+   * The list of tags associated with this Binding. Tags can be used to select the Bindings to use when sending a notification. Maximum 20 tags are allowed.
    */
   tags: Array<string>;
   /**
-   * The absolute URL of the Binding resource
+   * The absolute URL of the Binding resource.
    */
   url: string;
   /**
-   * The URLs of related resources
+   * The URLs of related resources.
    */
   links: Record<string, string>;
 

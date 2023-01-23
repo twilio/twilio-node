@@ -153,19 +153,19 @@ export class PoliciesInstance {
   }
 
   /**
-   * The unique string that identifies the Policy resource
+   * The unique string that identifies the Policy resource.
    */
   sid: string;
   /**
-   * A human-readable description of the Policy resource
+   * A human-readable description that is assigned to describe the Policy resource. Examples can include Primary Customer profile policy
    */
   friendlyName: string;
   /**
-   * The sid of a Policy object that dictates requirements
+   * The SID of an object that holds the policy information
    */
   requirements: any;
   /**
-   * The absolute URL of the Policy resource
+   * The absolute URL of the Policy resource.
    */
   url: string;
 

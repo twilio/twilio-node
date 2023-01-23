@@ -130,23 +130,23 @@ export class DialogueInstance {
   }
 
   /**
-   * The SID of the Account that created the resource
+   * The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Dialogue resource.
    */
   accountSid: string;
   /**
-   * The SID of the Assistant that is the parent of the resource
+   * The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the resource.
    */
   assistantSid: string;
   /**
-   * The unique string that identifies the resource
+   * The unique string that we created to identify the Dialogue resource.
    */
   sid: string;
   /**
-   * The JSON string that describes the dialogue session object
+   * The JSON string that describes the dialogue session object.
    */
   data: any;
   /**
-   * The absolute URL of the Dialogue resource
+   * The absolute URL of the Dialogue resource.
    */
   url: string;
 

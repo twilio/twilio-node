@@ -173,23 +173,23 @@ export class EventTypeInstance {
   }
 
   /**
-   * The Event Type identifier.
+   * A string that uniquely identifies this Event Type.
    */
   type: string;
   /**
-   * The Schema identifier for this Event Type.
+   * A string that uniquely identifies the Schema this Event Type adheres to.
    */
   schemaId: string;
   /**
-   * The date this Event Type was created.
+   * The date that this Event Type was created, given in ISO 8601 format.
    */
   dateCreated: Date;
   /**
-   * The date this Event Type was updated.
+   * The date that this Event Type was updated, given in ISO 8601 format.
    */
   dateUpdated: Date;
   /**
-   * Event Type description.
+   * A human readable description for this Event Type.
    */
   description: string;
   /**
