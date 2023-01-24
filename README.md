@@ -125,7 +125,7 @@ See [example](examples/express.js) for a code sample for incoming Twilio request
 
 ## Handling Exceptions
 
-For an example on how to handle exceptions in this helper library, please see the [Twilio documentation](https://www.twilio.com/docs/libraries/node/usage-guide#exceptions).
+For an example on how to handle exceptions in this helper library, please see the [Twilio documentation](https://www.twilio.com/docs/libraries/node#exceptions).
 
 ## Using a Custom HTTP Client
 
