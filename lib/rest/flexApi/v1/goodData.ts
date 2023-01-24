@@ -149,15 +149,15 @@ export class GoodDataInstance {
    */
   workspaceId: string;
   /**
-   * The session expiry date and time
+   * The session expiry date and time, given in ISO 8601 format.
    */
   sessionExpiry: string;
   /**
-   * Unique session ID
+   * The unique ID for the session
    */
   sessionId: string;
   /**
-   * Base URL to fetch reports and dashboards
+   * The base URL to fetch reports and dashboards
    */
   baseUrl: string;
   /**

@@ -344,15 +344,15 @@ export class IpAddressInstance {
    */
   ipAccessControlListSid: string;
   /**
-   * The date that this resource was created, given as GMT in RFC 2822 format.
+   * The date that this resource was created, given as GMT in [RFC 2822](https://www.php.net/manual/en/class.datetime.php#datetime.constants.rfc2822) format.
    */
   dateCreated: Date;
   /**
-   * The date that this resource was last updated, given as GMT in RFC 2822 format.
+   * The date that this resource was last updated, given as GMT in [RFC 2822](https://www.php.net/manual/en/class.datetime.php#datetime.constants.rfc2822) format.
    */
   dateUpdated: Date;
   /**
-   * The URI for this resource, relative to https://api.twilio.com
+   * The URI for this resource, relative to `https://api.twilio.com`
    */
   uri: string;
 

@@ -125,51 +125,51 @@ export class OpenidDiscoveryInstance {
   }
 
   /**
-   * The issuer URL
+   * The URL of the party that will create the token and sign it with its private key.
    */
   issuer: string;
   /**
-   * The URL of authorization endpoint
+   * The endpoint that validates all authorization requests.
    */
   authorizationEndpoint: string;
   /**
-   * The URL of device code authorization endpoint
+   * The endpoint that validates all device code related authorization requests.
    */
   deviceAuthorizationEndpoint: string;
   /**
-   * The URL of token endpoint
+   * The URL of the token endpoint. After a client has received an authorization code, that code is presented to the token endpoint and exchanged for an identity token, an access token, and a refresh token.
    */
   tokenEndpoint: string;
   /**
-   * The URL of user info endpoint
+   * The URL of the user info endpoint, which returns user profile information to a client. Keep in mind that the user info endpoint returns only the information that has been requested.
    */
   userinfoEndpoint: string;
   /**
-   * The URL of revocation endpoint
+   * The endpoint used to revoke access or refresh tokens issued by the authorization server.
    */
   revocationEndpoint: string;
   /**
-   * The URL of public JWK endpoint
+   * The URL of your JSON Web Key Set. This set is a collection of JSON Web Keys, a standard method for representing cryptographic keys in a JSON structure.
    */
   jwkUri: string;
   /**
-   * List of response type supported for identity token
+   * A collection of response type supported by authorization server.
    */
   responseTypeSupported: Array<string>;
   /**
-   * List of subject supported for identity token
+   * A collection of subject by authorization server.
    */
   subjectTypeSupported: Array<string>;
   /**
-   * List of JWS signing algorithms supported for identity token
+   * A collection of JWS signing algorithms supported by authorization server to sign identity token.
    */
   idTokenSigningAlgValuesSupported: Array<string>;
   /**
-   * List of scopes supported identity token
+   * A collection of scopes supported by authorization server for identity token
    */
   scopesSupported: Array<string>;
   /**
-   * List of claims supported for identity token
+   * A collection of claims supported by authorization server for identity token
    */
   claimsSupported: Array<string>;
   url: string;

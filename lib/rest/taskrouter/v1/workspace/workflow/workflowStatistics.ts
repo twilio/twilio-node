@@ -192,27 +192,27 @@ export class WorkflowStatisticsInstance {
   }
 
   /**
-   * The SID of the Account that created the resource
+   * The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Workflow resource.
    */
   accountSid: string;
   /**
-   * An object that contains the cumulative statistics for the Workflow
+   * An object that contains the cumulative statistics for the Workflow.
    */
   cumulative: any;
   /**
-   * An object that contains the real-time statistics for the Workflow
+   * An object that contains the real-time statistics for the Workflow.
    */
   realtime: any;
   /**
-   * Returns the list of Tasks that are being controlled by the Workflow with the specified SID value
+   * Returns the list of Tasks that are being controlled by the Workflow with the specified SID value.
    */
   workflowSid: string;
   /**
-   * The SID of the Workspace that contains the Workflow
+   * The SID of the Workspace that contains the Workflow.
    */
   workspaceSid: string;
   /**
-   * The absolute URL of the Workflow statistics resource
+   * The absolute URL of the Workflow statistics resource.
    */
   url: string;
 

@@ -239,7 +239,7 @@ export class FieldInstance {
    */
   dateUpdated: Date;
   /**
-   * The Field Type of this field. It can be any Built-in Field Type or unique_name or the Field Type sid of a custom Field Type.
+   * The Field Type of this field. It can be any [Built-in Field Type](https://www.twilio.com/docs/assistant/api/built-in-field-types) or the unique_name or sid of a custom Field Type.
    */
   fieldType: string;
   /**

@@ -502,23 +502,23 @@ export class AccountInstance {
   }
 
   /**
-   * The authorization token for this account
+   * The authorization token for this account. This token should be kept a secret, so no sharing.
    */
   authToken: string;
   /**
-   * The date this account was created
+   * The date that this account was created, in GMT in RFC 2822 format
    */
   dateCreated: Date;
   /**
-   * The date this account was last updated
+   * The date that this account was last updated, in GMT in RFC 2822 format.
    */
   dateUpdated: Date;
   /**
-   * A human readable description of this account
+   * A human readable description of this account, up to 64 characters long. By default the FriendlyName is your email address.
    */
   friendlyName: string;
   /**
-   * The unique 34 character id representing the parent of this account
+   * The unique 34 character id that represents the parent of this account. The OwnerAccountSid of a parent account is it\'s own sid.
    */
   ownerAccountSid: string;
   /**
@@ -527,7 +527,7 @@ export class AccountInstance {
   sid: string;
   status: AccountStatus;
   /**
-   * Account Instance Subresources
+   * A Map of various subresources available for the given Account Instance
    */
   subresourceUris: Record<string, string>;
   type: AccountType;

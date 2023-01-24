@@ -102,7 +102,7 @@ export class OauthInstance {
   }
 
   /**
-   * A collection of certificates
+   * A collection of certificates where are signed Twilio-issued tokens.
    */
   keys: any;
   url: string;

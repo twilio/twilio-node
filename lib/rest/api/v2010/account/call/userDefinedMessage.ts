@@ -160,19 +160,19 @@ export class UserDefinedMessageInstance {
   }
 
   /**
-   * Account SID.
+   * The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created User Defined Message.
    */
   accountSid: string;
   /**
-   * Call SID.
+   * The SID of the [Call](https://www.twilio.com/docs/voice/api/call-resource) the User Defined Message is associated with.
    */
   callSid: string;
   /**
-   * User Defined Message SID.
+   * The SID that uniquely identifies this User Defined Message.
    */
   sid: string;
   /**
-   * The date this User Defined Message was created.
+   * The date that this User Defined Message was created, given in RFC 2822 format.
    */
   dateCreated: Date;
 

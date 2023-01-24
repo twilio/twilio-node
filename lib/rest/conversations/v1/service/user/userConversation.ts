@@ -339,66 +339,66 @@ export class UserConversationInstance {
   }
 
   /**
-   * The unique ID of the Account responsible for this conversation.
+   * The unique ID of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this conversation.
    */
   accountSid: string;
   /**
-   * The unique ID of the Conversation Service this conversation belongs to.
+   * The unique ID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) this conversation belongs to.
    */
   chatServiceSid: string;
   /**
-   * The unique ID of the Conversation for this User Conversation.
+   * The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this User Conversation.
    */
   conversationSid: string;
   /**
-   * The number of unread Messages in the Conversation.
+   * The number of unread Messages in the Conversation for the Participant.
    */
   unreadMessagesCount: number;
   /**
-   * The index of the last read Message .
+   * The index of the last Message in the Conversation that the Participant has read.
    */
   lastReadMessageIndex: number;
   /**
-   * Participant Sid.
+   * The unique ID of the [participant](https://www.twilio.com/docs/conversations/api/conversation-participant-resource) the user conversation belongs to.
    */
   participantSid: string;
   /**
-   * The unique ID for the User.
+   * The unique string that identifies the [User resource](https://www.twilio.com/docs/conversations/api/user-resource).
    */
   userSid: string;
   /**
-   * The human-readable name of this conversation.
+   * The human-readable name of this conversation, limited to 256 characters. Optional.
    */
   friendlyName: string;
   conversationState: ServiceUserConversationState;
   /**
-   * Timer date values for this conversation.
+   * Timer date values representing state update for this conversation.
    */
   timers: any;
   /**
-   * An optional string metadata field you can use to store any data you wish.
+   * An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \"{}\" will be returned.
    */
   attributes: string;
   /**
-   * The date that this conversation was created.
+   * The date that this conversation was created, given in ISO 8601 format.
    */
   dateCreated: Date;
   /**
-   * The date that this conversation was last updated.
+   * The date that this conversation was last updated, given in ISO 8601 format.
    */
   dateUpdated: Date;
   /**
-   * Creator of this conversation.
+   * Identity of the creator of this Conversation.
    */
   createdBy: string;
   notificationLevel: ServiceUserConversationNotificationLevel;
   /**
-   * An application-defined string that uniquely identifies the Conversation resource.
+   * An application-defined string that uniquely identifies the Conversation resource. It can be used to address the resource in place of the resource\'s `conversation_sid` in the URL.
    */
   uniqueName: string;
   url: string;
   /**
-   * Absolute URLs to access the participant and conversation of this user conversation.
+   * Contains absolute URLs to access the [participant](https://www.twilio.com/docs/conversations/api/conversation-participant-resource) and [conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) of this conversation.
    */
   links: Record<string, string>;
 

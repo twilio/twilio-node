@@ -270,32 +270,32 @@ export class BillingPeriodInstance {
   }
 
   /**
-   * The SID of the Billing Period
+   * The SID of the Billing Period.
    */
   sid: string;
   /**
-   * The SID of the Account the Super SIM belongs to
+   * The SID of the [Account](https://www.twilio.com/docs/iam/api/account) the Super SIM belongs to.
    */
   accountSid: string;
   /**
-   * The SID of the Super SIM the Billing Period belongs to
+   * The SID of the Super SIM the Billing Period belongs to.
    */
   simSid: string;
   /**
-   * The start time of the Billing Period
+   * The start time of the Billing Period specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
   startTime: Date;
   /**
-   * The end time of the Billing Period
+   * The end time of the Billing Period specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
   endTime: Date;
   periodType: BillingPeriodBpType;
   /**
-   * The ISO 8601 date and time in GMT when the resource was created
+   * The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
   dateCreated: Date;
   /**
-   * The ISO 8601 date and time in GMT when the resource was last updated
+   * The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
   dateUpdated: Date;
 

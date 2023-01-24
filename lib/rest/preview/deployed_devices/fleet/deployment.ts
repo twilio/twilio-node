@@ -299,35 +299,35 @@ export class DeploymentInstance {
   }
 
   /**
-   * A string that uniquely identifies this Deployment.
+   * Contains a 34 character string that uniquely identifies this Deployment resource.
    */
   sid: string;
   /**
-   * URL of this Deployment.
+   * Contains an absolute URL for this Deployment resource.
    */
   url: string;
   /**
-   * A human readable description for this Deployment
+   * Contains a human readable descriptive text for this Deployment, up to 64 characters long
    */
   friendlyName: string;
   /**
-   * The unique identifier of the Fleet.
+   * Specifies the unique string identifier of the Fleet that the given Deployment belongs to.
    */
   fleetSid: string;
   /**
-   * The unique SID that identifies this Account.
+   * Specifies the unique string identifier of the Account responsible for this Deployment.
    */
   accountSid: string;
   /**
-   * The unique identifier of the Sync service instance.
+   * Specifies the unique string identifier of the Twilio Sync service instance linked to and accessible by this Deployment.
    */
   syncServiceSid: string;
   /**
-   * The date this Deployment was created.
+   * Specifies the date this Deployment was created, given in UTC ISO 8601 format.
    */
   dateCreated: Date;
   /**
-   * The date this Deployment was updated.
+   * Specifies the date this Deployment was last updated, given in UTC ISO 8601 format.
    */
   dateUpdated: Date;
 

@@ -386,67 +386,67 @@ export class AddressInstance {
   }
 
   /**
-   * The SID of the Account that is responsible for the resource
+   * The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that is responsible for the Address resource.
    */
   accountSid: string;
   /**
-   * The city in which the address is located
+   * The city in which the address is located.
    */
   city: string;
   /**
-   * The name associated with the address
+   * The name associated with the address.This property has a maximum length of 16 4-byte characters, or 21 3-byte characters.
    */
   customerName: string;
   /**
-   * The RFC 2822 date and time in GMT that the resource was created
+   * The date and time in GMT that the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
    */
   dateCreated: Date;
   /**
-   * The RFC 2822 date and time in GMT that the resource was last updated
+   * The date and time in GMT that the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
    */
   dateUpdated: Date;
   /**
-   * The string that you assigned to describe the resource
+   * The string that you assigned to describe the resource.
    */
   friendlyName: string;
   /**
-   * The ISO country code of the address
+   * The ISO country code of the address.
    */
   isoCountry: string;
   /**
-   * The postal code of the address
+   * The postal code of the address.
    */
   postalCode: string;
   /**
-   * The state or region of the address
+   * The state or region of the address.
    */
   region: string;
   /**
-   * The unique string that identifies the resource
+   * The unique string that that we created to identify the Address resource.
    */
   sid: string;
   /**
-   * The number and street address of the address
+   * The number and street address of the address.
    */
   street: string;
   /**
-   * The URI of the resource, relative to `https://api.twilio.com`
+   * The URI of the resource, relative to `https://api.twilio.com`.
    */
   uri: string;
   /**
-   * Whether emergency calling has been enabled on this number
+   * Whether emergency calling has been enabled on this number.
    */
   emergencyEnabled: boolean;
   /**
-   * Whether the address has been validated to comply with local regulation
+   * Whether the address has been validated to comply with local regulation. In countries that require valid addresses, an invalid address will not be accepted. `true` indicates the Address has been validated. `false` indicate the country doesn\'t require validation or the Address is not valid.
    */
   validated: boolean;
   /**
-   * Whether the address has been verified to comply with regulation
+   * Whether the address has been verified to comply with regulation. In countries that require valid addresses, an invalid address will not be accepted. `true` indicates the Address has been verified. `false` indicate the country doesn\'t require verified or the Address is not valid.
    */
   verified: boolean;
   /**
-   * The additional number and street address of the address
+   * The additional number and street address of the address.
    */
   streetSecondary: string;
 

@@ -162,23 +162,23 @@ export class NewKeyInstance {
   }
 
   /**
-   * The unique string that identifies the resource
+   * The unique string that that we created to identify the NewKey resource. You will use this as the basic-auth `user` when authenticating to the API.
    */
   sid: string;
   /**
-   * The string that you assigned to describe the resource
+   * The string that you assigned to describe the resource.
    */
   friendlyName: string;
   /**
-   * The RFC 2822 date and time in GMT that the resource was created
+   * The date and time in GMT that the API Key was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
    */
   dateCreated: Date;
   /**
-   * The RFC 2822 date and time in GMT that the resource was last updated
+   * The date and time in GMT that the new API Key was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
    */
   dateUpdated: Date;
   /**
-   * The secret your application uses to sign Access Tokens and to authenticate to the REST API.
+   * The secret your application uses to sign Access Tokens and to authenticate to the REST API (you will use this as the basic-auth `password`).  **Note that for security reasons, this field is ONLY returned when the API Key is first created.**
    */
   secret: string;
 

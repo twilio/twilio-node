@@ -255,11 +255,11 @@ export class EventInstance {
   }
 
   /**
-   * Call Request.
+   * Contains a dictionary representing the request of the call.
    */
   request: any;
   /**
-   * Call Response with Events.
+   * Contains a dictionary representing the call response, including a list of the call events.
    */
   response: any;
 

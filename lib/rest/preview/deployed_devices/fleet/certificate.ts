@@ -309,39 +309,39 @@ export class CertificateInstance {
   }
 
   /**
-   * A string that uniquely identifies this Certificate.
+   * Contains a 34 character string that uniquely identifies this Certificate credential resource.
    */
   sid: string;
   /**
-   * URL of this Certificate.
+   * Contains an absolute URL for this Certificate credential resource.
    */
   url: string;
   /**
-   * A human readable description for this Certificate.
+   * Contains a human readable descriptive text for this Certificate credential, up to 256 characters long.
    */
   friendlyName: string;
   /**
-   * The unique identifier of the Fleet.
+   * Specifies the unique string identifier of the Fleet that the given Certificate credential belongs to.
    */
   fleetSid: string;
   /**
-   * The unique SID that identifies this Account.
+   * Specifies the unique string identifier of the Account responsible for this Certificate credential.
    */
   accountSid: string;
   /**
-   * The unique identifier of a mapped Device.
+   * Specifies the unique string identifier of a Device authenticated with this Certificate credential.
    */
   deviceSid: string;
   /**
-   * A Certificate unique payload hash.
+   * Contains a unique hash of the payload of this Certificate credential, used to authenticate the Device.
    */
   thumbprint: string;
   /**
-   * The date this Certificate was created.
+   * Specifies the date this Certificate credential was created, given in UTC ISO 8601 format.
    */
   dateCreated: Date;
   /**
-   * The date this Certificate was updated.
+   * Specifies the date this Certificate credential was last updated, given in UTC ISO 8601 format.
    */
   dateUpdated: Date;
 

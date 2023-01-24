@@ -253,7 +253,7 @@ export class ServiceInstance {
   }
 
   /**
-   * The unique ID of the Account responsible for this service.
+   * The unique ID of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this service.
    */
   accountSid: string;
   /**
@@ -261,7 +261,7 @@ export class ServiceInstance {
    */
   sid: string;
   /**
-   * The human-readable name of this service.
+   * The human-readable name of this service, limited to 256 characters. Optional.
    */
   friendlyName: string;
   /**
@@ -273,11 +273,11 @@ export class ServiceInstance {
    */
   dateUpdated: Date;
   /**
-   * An absolute URL for this service.
+   * An absolute API resource URL for this service.
    */
   url: string;
   /**
-   * Absolute URLs to access the conversations, users, roles, bindings and configuration of this service.
+   * Contains absolute API resource URLs to access conversations, users, roles, bindings and configuration of this service.
    */
   links: Record<string, string>;
 

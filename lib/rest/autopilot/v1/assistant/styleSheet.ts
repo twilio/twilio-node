@@ -198,19 +198,19 @@ export class StyleSheetInstance {
   }
 
   /**
-   * The SID of the Account that created the resource
+   * The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the StyleSheet resource.
    */
   accountSid: string;
   /**
-   * The SID of the Assistant that is the parent of the resource
+   * The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the resource.
    */
   assistantSid: string;
   /**
-   * The absolute URL of the StyleSheet resource
+   * The absolute URL of the StyleSheet resource.
    */
   url: string;
   /**
-   * The JSON string that describes the style sheet object
+   * The JSON string that describes the style sheet object.
    */
   data: any;
 

@@ -331,23 +331,23 @@ export class WebhookInstance {
    */
   sid: string;
   /**
-   * The unique ID of the Account responsible for this conversation.
+   * The unique ID of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this conversation.
    */
   accountSid: string;
   /**
-   * The unique ID of the Conversation for this webhook.
+   * The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this webhook.
    */
   conversationSid: string;
   /**
-   * The target of this webhook.
+   * The target of this webhook: `webhook`, `studio`, `trigger`
    */
   target: string;
   /**
-   * An absolute URL for this webhook.
+   * An absolute API resource URL for this webhook.
    */
   url: string;
   /**
-   * The configuration of this webhook.
+   * The configuration of this webhook. Is defined based on target.
    */
   configuration: any;
   /**

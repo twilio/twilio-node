@@ -208,23 +208,23 @@ export class TaskActionsInstance {
   }
 
   /**
-   * The SID of the Account that created the resource
+   * The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the TaskActions resource.
    */
   accountSid: string;
   /**
-   * The SID of the Assistant that is the parent of the Task associated with the resource
+   * The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the Task associated with the resource.
    */
   assistantSid: string;
   /**
-   * The SID of the Task associated with the resource
+   * The SID of the [Task](https://www.twilio.com/docs/autopilot/api/task) associated with the resource.
    */
   taskSid: string;
   /**
-   * The absolute URL of the TaskActions resource
+   * The absolute URL of the TaskActions resource.
    */
   url: string;
   /**
-   * The JSON string that specifies the actions that instruct the Assistant on how to perform the task
+   * The JSON string that specifies the [actions](https://www.twilio.com/docs/autopilot/actions) that instruct the Assistant on how to perform the task.
    */
   data: any;
 

@@ -307,35 +307,35 @@ export class DocumentPermissionInstance {
   }
 
   /**
-   * Twilio Account SID.
+   * The unique SID identifier of the Twilio Account.
    */
   accountSid: string;
   /**
-   * Sync Service Instance SID.
+   * The unique SID identifier of the Sync Service Instance.
    */
   serviceSid: string;
   /**
-   * Sync Document SID.
+   * The unique SID identifier of the Sync Document to which the Permission applies.
    */
   documentSid: string;
   /**
-   * Identity of the user to whom the Sync Document Permission applies.
+   * Arbitrary string identifier representing a human user associated with an FPA token, assigned by the developer.
    */
   identity: string;
   /**
-   * Read access.
+   * Boolean flag specifying whether the identity can read the Sync Document.
    */
   read: boolean;
   /**
-   * Write access.
+   * Boolean flag specifying whether the identity can update the Sync Document.
    */
   write: boolean;
   /**
-   * Manage access.
+   * Boolean flag specifying whether the identity can delete the Sync Document.
    */
   manage: boolean;
   /**
-   * URL of this Sync Document Permission.
+   * Contains an absolute URL for this Sync Document Permission.
    */
   url: string;
 

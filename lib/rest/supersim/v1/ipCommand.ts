@@ -222,46 +222,46 @@ export class IpCommandInstance {
   }
 
   /**
-   * The unique string that identifies the resource
+   * The unique string that we created to identify the IP Command resource.
    */
   sid: string;
   /**
-   * The SID of the Account that created the resource
+   * The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the IP Command resource.
    */
   accountSid: string;
   /**
-   * The SID of the Super SIM that this IP Command was sent to or from
+   * The SID of the [Super SIM](https://www.twilio.com/docs/iot/supersim/api/sim-resource) that this IP Command was sent to or from.
    */
   simSid: string;
   /**
-   * The ICCID of the Super SIM that this IP Command was sent to or from
+   * The [ICCID](https://en.wikipedia.org/wiki/Subscriber_identity_module#ICCID) of the [Super SIM](https://www.twilio.com/docs/iot/supersim/api/sim-resource) that this IP Command was sent to or from.
    */
   simIccid: string;
   status: IpCommandStatus;
   direction: IpCommandDirection;
   /**
-   * The IP address of the device that the IP Command was sent to or received from
+   * The IP address of the device that the IP Command was sent to or received from. For an IP Command sent to a Super SIM, `device_ip` starts out as `null`, and once the IP Command is “sent”, the `device_ip` will be filled out. An IP Command sent from a Super SIM have its `device_ip` always set.
    */
   deviceIp: string;
   /**
-   * The port that the IP Command either originated from or was sent to
+   * For an IP Command sent to a Super SIM, it would be the destination port of the IP message. For an IP Command sent from a Super SIM, it would be the source port of the IP message.
    */
   devicePort: number;
   payloadType: IpCommandPayloadType;
   /**
-   * The payload of the IP Command sent to or from the Super SIM
+   * The payload that is carried in the IP/UDP message. The payload can be encoded in either text or binary format. For text payload, UTF-8 encoding must be used.  For an IP Command sent to a Super SIM, the payload is appended to the IP/UDP message “as is”. The payload should not exceed 1300 bytes.  For an IP Command sent from a Super SIM, the payload from the received IP/UDP message is extracted and sent in binary encoding. For an IP Command sent from a Super SIM, the payload should not exceed 1300 bytes. If it is larger than 1300 bytes, there might be fragmentation on the upstream and the message may appear truncated.
    */
   payload: string;
   /**
-   * The ISO 8601 date and time in GMT when the resource was created
+   * The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
   dateCreated: Date;
   /**
-   * The ISO 8601 date and time in GMT when the resource was last updated
+   * The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
   dateUpdated: Date;
   /**
-   * The absolute URL of the IP Command resource
+   * The absolute URL of the IP Command resource.
    */
   url: string;
 

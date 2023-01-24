@@ -166,20 +166,20 @@ export class TokenInstance {
   }
 
   /**
-   * Token which carries the necessary information to access a Twilio resource directly
+   * Token which carries the necessary information to access a Twilio resource directly.
    */
   accessToken: string;
   /**
-   * Token which carries the information necessary to get a new access token
+   * Token which carries the information necessary to get a new access token.
    */
   refreshToken: string;
   idToken: string;
   /**
-   * The RFC 2822 date and time in GMT when the refresh token expires
+   * The date and time in GMT when the refresh token expires in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
    */
   refreshTokenExpiresAt: Date;
   /**
-   * The RFC 2822 date and time in GMT when the access token expires
+   * The date and time in GMT when the refresh token expires in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
    */
   accessTokenExpiresAt: Date;
 

@@ -19,7 +19,7 @@ const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
 
 /**
- * The InboundCallPrice record
+ * The [InboundCallPrice](https://www.twilio.com/docs/voice/pricing#inbound-call-price) record. If `null`, the Phone Number is not a Twilio number owned by this account.
  */
 export class PricingV1VoiceVoiceNumberInboundCallPrice {
   "basePrice"?: number;
@@ -28,7 +28,7 @@ export class PricingV1VoiceVoiceNumberInboundCallPrice {
 }
 
 /**
- * The OutboundCallPrice record
+ * The OutboundCallPrice record, which includes a list of `origination_prefixes` and the `base_price` and `current_price` for those prefixes.
  */
 export class PricingV1VoiceVoiceNumberOutboundCallPrice {
   "basePrice"?: number;
@@ -140,25 +140,25 @@ export class NumberInstance {
   }
 
   /**
-   * The phone number
+   * The phone number.
    */
   number: string;
   /**
-   * The name of the country
+   * The name of the country.
    */
   country: string;
   /**
-   * The ISO country code
+   * The [ISO country code](http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).
    */
   isoCountry: string;
   outboundCallPrice: PricingV1VoiceVoiceNumberOutboundCallPrice;
   inboundCallPrice: PricingV1VoiceVoiceNumberInboundCallPrice;
   /**
-   * The currency in which prices are measured, in ISO 4127 format (e.g. usd, eur, jpy)
+   * The currency in which prices are measured, specified in [ISO 4127](http://www.iso.org/iso/home/standards/currency_codes.htm) format (e.g. `usd`, `eur`, `jpy`).
    */
   priceUnit: string;
   /**
-   * The absolute URL of the resource
+   * The absolute URL of the resource.
    */
   url: string;
 

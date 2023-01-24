@@ -408,83 +408,83 @@ export class ServiceInstance {
   }
 
   /**
-   * The unique string that identifies the resource
+   * The unique string that we created to identify the Service resource.
    */
   sid: string;
   /**
-   * The SID of the Account that created the resource
+   * The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Service resource.
    */
   accountSid: string;
   /**
-   * The string that you assigned to describe the resource
+   * The string that you assigned to describe the resource.
    */
   friendlyName: string;
   /**
-   * The RFC 2822 date and time in GMT when the resource was created
+   * The date and time in GMT when the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
    */
   dateCreated: Date;
   /**
-   * The RFC 2822 date and time in GMT when the resource was last updated
+   * The date and time in GMT when the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
    */
   dateUpdated: Date;
   /**
-   * The SID of the Credential to use for APN Bindings
+   * The SID of the [Credential](https://www.twilio.com/docs/notify/api/credential-resource) to use for APN Bindings.
    */
   apnCredentialSid: string;
   /**
-   * The SID of the Credential to use for GCM Bindings
+   * The SID of the [Credential](https://www.twilio.com/docs/notify/api/credential-resource) to use for GCM Bindings.
    */
   gcmCredentialSid: string;
   /**
-   * The SID of the Credential to use for FCM Bindings
+   * The SID of the [Credential](https://www.twilio.com/docs/notify/api/credential-resource) to use for FCM Bindings.
    */
   fcmCredentialSid: string;
   /**
-   * The SID of the Messaging Service to use for SMS Bindings
+   * The SID of the [Messaging Service](https://www.twilio.com/docs/sms/send-messages#messaging-services) to use for SMS Bindings. In order to send SMS notifications this parameter has to be set.
    */
   messagingServiceSid: string;
   /**
-   * Deprecated
+   * Deprecated.
    */
   facebookMessengerPageId: string;
   /**
-   * The protocol version to use for sending APNS notifications
+   * The protocol version to use for sending APNS notifications. Can be overridden on a Binding by Binding basis when creating a [Binding](https://www.twilio.com/docs/notify/api/binding-resource) resource.
    */
   defaultApnNotificationProtocolVersion: string;
   /**
-   * The protocol version to use for sending GCM notifications
+   * The protocol version to use for sending GCM notifications. Can be overridden on a Binding by Binding basis when creating a [Binding](https://www.twilio.com/docs/notify/api/binding-resource) resource.
    */
   defaultGcmNotificationProtocolVersion: string;
   /**
-   * The protocol version to use for sending FCM notifications
+   * The protocol version to use for sending FCM notifications. Can be overridden on a Binding by Binding basis when creating a [Binding](https://www.twilio.com/docs/notify/api/binding-resource) resource.
    */
   defaultFcmNotificationProtocolVersion: string;
   /**
-   * Whether to log notifications
+   * Whether to log notifications. Can be: `true` or `false` and the default is `true`.
    */
   logEnabled: boolean;
   /**
-   * The absolute URL of the Service resource
+   * The absolute URL of the Service resource.
    */
   url: string;
   /**
-   * The URLs of the resources related to the service
+   * The URLs of the Binding, Notification, Segment, and User resources related to the service.
    */
   links: Record<string, string>;
   /**
-   * Deprecated
+   * Deprecated.
    */
   alexaSkillId: string;
   /**
-   * Deprecated
+   * Deprecated.
    */
   defaultAlexaNotificationProtocolVersion: string;
   /**
-   * Webhook URL
+   * URL to send delivery status callback.
    */
   deliveryCallbackUrl: string;
   /**
-   * Enable delivery callbacks
+   * Callback configuration that enables delivery callbacks, default false
    */
   deliveryCallbackEnabled: boolean;
 

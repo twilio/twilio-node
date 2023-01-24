@@ -339,15 +339,15 @@ export class ConferenceParticipantInstance {
    */
   label: string;
   /**
-   * Conference SID.
+   * The unique SID identifier of the Conference.
    */
   conferenceSid: string;
   /**
-   * Unique SID identifier of the call.
+   * Unique SID identifier of the call that generated the Participant resource.
    */
   callSid: string;
   /**
-   * Account SID.
+   * The unique SID identifier of the Account.
    */
   accountSid: string;
   callDirection: ConferenceParticipantCallDirection;
@@ -361,7 +361,7 @@ export class ConferenceParticipantInstance {
   to: string;
   callStatus: ConferenceParticipantCallStatus;
   /**
-   * ISO alpha-2 country code of the participant.
+   * ISO alpha-2 country code of the participant based on caller ID or called number.
    */
   countryCode: string;
   /**
@@ -381,11 +381,11 @@ export class ConferenceParticipantInstance {
    */
   durationSeconds: number;
   /**
-   * Estimated time in queue at call creation.
+   * Add Participant API only. Estimated time in queue at call creation.
    */
   outboundQueueLength: number;
   /**
-   * Actual time in queue (seconds).
+   * Add Participant API only. Actual time in queue in seconds.
    */
   outboundTimeInQueue: number;
   jitterBufferSize: ConferenceParticipantJitterBufferSize;
@@ -406,11 +406,11 @@ export class ConferenceParticipantInstance {
    */
   properties: any;
   /**
-   * Object containing information of actions taken by participants. Nested resource URLs.
+   * Object containing information of actions taken by participants. Contains a dictionary of URL links to nested resources of this Conference Participant.
    */
   events: any;
   /**
-   * Object. Contains participant quality metrics.
+   * Object. Contains participant call quality metrics.
    */
   metrics: any;
   /**

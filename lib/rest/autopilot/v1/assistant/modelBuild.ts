@@ -302,40 +302,40 @@ export class ModelBuildInstance {
   }
 
   /**
-   * The SID of the Account that created the resource
+   * The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the ModelBuild resource.
    */
   accountSid: string;
   /**
-   * The RFC 2822 date and time in GMT when the resource was created
+   * The date and time in GMT when the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
    */
   dateCreated: Date;
   /**
-   * The RFC 2822 date and time in GMT when the resource was last updated
+   * The date and time in GMT when the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
    */
   dateUpdated: Date;
   /**
-   * The SID of the Assistant that is the parent of the resource
+   * The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the resource.
    */
   assistantSid: string;
   /**
-   * The unique string that identifies the resource
+   * The unique string that we created to identify the ModelBuild resource.
    */
   sid: string;
   status: ModelBuildStatus;
   /**
-   * An application-defined string that uniquely identifies the resource
+   * An application-defined string that uniquely identifies the resource. It can be used as an alternative to the `sid` in the URL path to address the resource.
    */
   uniqueName: string;
   /**
-   * The absolute URL of the ModelBuild resource
+   * The absolute URL of the ModelBuild resource.
    */
   url: string;
   /**
-   * The time in seconds it took to build the model
+   * The time in seconds it took to build the model.
    */
   buildDuration: number;
   /**
-   * More information about why the model build failed, if `status` is `failed`
+   * If the `status` for the model build is `failed`, this value is a code to more information about the failure. This value will be null for all other statuses. See [error code dictionary](https://www.twilio.com/docs/api/errors) for a description of the error.
    */
   errorCode: number;
 

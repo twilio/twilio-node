@@ -213,51 +213,51 @@ export class StepInstance {
   }
 
   /**
-   * The unique string that identifies the resource
+   * The unique string that we created to identify the Step resource.
    */
   sid: string;
   /**
-   * The SID of the Account that created the resource
+   * The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Step resource.
    */
   accountSid: string;
   /**
-   * The SID of the Flow
+   * The SID of the Flow.
    */
   flowSid: string;
   /**
-   * The SID of the Engagement
+   * The SID of the Engagement.
    */
   engagementSid: string;
   /**
-   * The event that caused the Flow to transition to the Step
+   * The event that caused the Flow to transition to the Step.
    */
   name: string;
   /**
-   * The current state of the flow
+   * The current state of the Flow\'s Execution. As a flow executes, we save its state in this context. We save data that your widgets can access as variables in configuration fields or in text areas as variable substitution.
    */
   context: any;
   /**
-   * The Widget that preceded the Widget for the Step
+   * The Widget that preceded the Widget for the Step.
    */
   transitionedFrom: string;
   /**
-   * The Widget that will follow the Widget for the Step
+   * The Widget that will follow the Widget for the Step.
    */
   transitionedTo: string;
   /**
-   * The ISO 8601 date and time in GMT when the resource was created
+   * The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
   dateCreated: Date;
   /**
-   * The ISO 8601 date and time in GMT when the resource was last updated
+   * The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
   dateUpdated: Date;
   /**
-   * The absolute URL of the resource
+   * The absolute URL of the resource.
    */
   url: string;
   /**
-   * The URLs of related resources
+   * The URLs of related resources.
    */
   links: Record<string, string>;
 

@@ -110,23 +110,23 @@ export class UserInfoInstance {
   }
 
   /**
-   * The user sid
+   * The URL of the party that will create the token and sign it with its private key.
    */
   userSid: string;
   /**
-   * The first name of the end-user
+   * The first name of the end-user.
    */
   firstName: string;
   /**
-   * The last name of the end-user
+   * The last name of the end-user.
    */
   lastName: string;
   /**
-   * The friendly name of the end-user
+   * The friendly name of the end-user.
    */
   friendlyName: string;
   /**
-   * The end-user\'s preferred email address
+   * The end-user\'s preferred email address.
    */
   email: string;
   url: string;

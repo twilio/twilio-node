@@ -152,11 +152,11 @@ export class StreamMessageInstance {
   }
 
   /**
-   * The unique string that identifies the resource
+   * The unique string that we created to identify the Stream Message resource.
    */
   sid: string;
   /**
-   * Stream Message body
+   * An arbitrary, schema-less object that contains the Stream Message body. Can be up to 4 KiB in length.
    */
   data: any;
 

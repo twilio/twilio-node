@@ -210,23 +210,23 @@ export class TrunkInstance {
   }
 
   /**
-   * The SIP Trunk
+   * The absolute URL of the SIP Trunk
    */
   sipTrunkDomain: string;
   /**
-   * The absolute URL of the resource
+   * The absolute URL of the resource.
    */
   url: string;
   /**
-   * A string that uniquely identifies the Inbound Processing Region assignments for this SIP Trunk.
+   * A 34 character string that uniquely identifies the Inbound Processing Region assignments for this SIP Trunk.
    */
   sid: string;
   /**
-   * Account Sid.
+   * The unique SID identifier of the Account.
    */
   accountSid: string;
   /**
-   * A human readable description of the Inbound Processing Region assignments for this SIP Trunk.
+   * A human readable description of the Inbound Processing Region assignments for this SIP Trunk, up to 64 characters.
    */
   friendlyName: string;
   /**
@@ -234,11 +234,11 @@ export class TrunkInstance {
    */
   voiceRegion: string;
   /**
-   * The date that this SIP Trunk was assigned an Inbound Processing Region.
+   * The date that this SIP Trunk was assigned an Inbound Processing Region, given in ISO 8601 format.
    */
   dateCreated: Date;
   /**
-   * The date that the Inbound Processing Region was updated for this SIP Trunk.
+   * The date that the Inbound Processing Region was updated for this SIP Trunk, given in ISO 8601 format.
    */
   dateUpdated: Date;
 

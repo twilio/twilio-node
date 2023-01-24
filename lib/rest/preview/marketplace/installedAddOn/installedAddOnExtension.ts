@@ -260,31 +260,31 @@ export class InstalledAddOnExtensionInstance {
   }
 
   /**
-   * The unique string that identifies the resource
+   * The unique string that we created to identify the InstalledAddOn Extension resource.
    */
   sid: string;
   /**
-   * The SID of the InstalledAddOn resource to which this extension applies
+   * The SID of the InstalledAddOn resource to which this extension applies.
    */
   installedAddOnSid: string;
   /**
-   * The string that you assigned to describe the resource
+   * The string that you assigned to describe the resource.
    */
   friendlyName: string;
   /**
-   * The name of the Extension\'s Product
+   * The name of the Product this Extension is used within.
    */
   productName: string;
   /**
-   * An application-defined string that uniquely identifies the resource
+   * An application-defined string that uniquely identifies the resource.
    */
   uniqueName: string;
   /**
-   * Whether the Extension will be invoked
+   * Whether the Extension will be invoked.
    */
   enabled: boolean;
   /**
-   * The absolute URL of the resource
+   * The absolute URL of the resource.
    */
   url: string;
 

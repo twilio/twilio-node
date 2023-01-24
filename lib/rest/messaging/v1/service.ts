@@ -461,84 +461,84 @@ export class ServiceInstance {
   }
 
   /**
-   * The unique string that identifies the resource
+   * The unique string that we created to identify the Service resource.
    */
   sid: string;
   /**
-   * The SID of the Account that created the resource
+   * The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Service resource.
    */
   accountSid: string;
   /**
-   * The string that you assigned to describe the resource
+   * The string that you assigned to describe the resource.
    */
   friendlyName: string;
   /**
-   * The ISO 8601 date and time in GMT when the resource was created
+   * The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
   dateCreated: Date;
   /**
-   * The ISO 8601 date and time in GMT when the resource was last updated
+   * The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
   dateUpdated: Date;
   /**
-   * The URL we call using inbound_method when a message is received by any phone number or short code in the Service. This field will be overridden if the `use_inbound_webhook_on_number` field is enabled.
+   * The URL we call using `inbound_method` when a message is received by any phone number or short code in the Service. When this property is `null`, receiving inbound messages is disabled. All messages sent to the Twilio phone number or short code will not be logged and received on the Account. If the `use_inbound_webhook_on_number` field is enabled then the webhook url defined on the phone number will override the `inbound_request_url` defined for the Messaging Service.
    */
   inboundRequestUrl: string;
   /**
-   * The HTTP method we use to call inbound_request_url
+   * The HTTP method we use to call `inbound_request_url`. Can be `GET` or `POST`.
    */
   inboundMethod: ServiceInboundMethod;
   /**
-   * The URL that we call using fallback_method if an error occurs while retrieving or executing the TwiML from the Inbound Request URL. This field will be overridden if the `use_inbound_webhook_on_number` field is enabled.
+   * The URL that we call using `fallback_method` if an error occurs while retrieving or executing the TwiML from the Inbound Request URL. If the `use_inbound_webhook_on_number` field is enabled then the webhook url defined on the phone number will override the `fallback_url` defined for the Messaging Service.
    */
   fallbackUrl: string;
   /**
-   * The HTTP method we use to call fallback_url
+   * The HTTP method we use to call `fallback_url`. Can be: `GET` or `POST`.
    */
   fallbackMethod: ServiceFallbackMethod;
   /**
-   * The URL we call to pass status updates about message delivery
+   * The URL we call to [pass status updates](https://www.twilio.com/docs/sms/api/message-resource#message-status-values) about message delivery.
    */
   statusCallback: string;
   /**
-   * Whether to enable Sticky Sender on the Service instance
+   * Whether to enable [Sticky Sender](https://www.twilio.com/docs/sms/services#sticky-sender) on the Service instance.
    */
   stickySender: boolean;
   /**
-   * Whether to enable the MMS Converter for messages sent through the Service instance
+   * Whether to enable the [MMS Converter](https://www.twilio.com/docs/sms/services#mms-converter) for messages sent through the Service instance.
    */
   mmsConverter: boolean;
   /**
-   * Whether to enable Encoding for messages sent through the Service instance
+   * Whether to enable [Smart Encoding](https://www.twilio.com/docs/sms/services#smart-encoding) for messages sent through the Service instance.
    */
   smartEncoding: boolean;
   scanMessageContent: ServiceScanMessageContent;
   /**
-   * Whether to enable Fallback to Long Code for messages sent through the Service instance
+   * Whether to enable [Fallback to Long Code](https://www.twilio.com/docs/sms/services#fallback-to-long-code) for messages sent through the Service instance.
    */
   fallbackToLongCode: boolean;
   /**
-   * Whether to enable Area Code Geomatch on the Service Instance
+   * Whether to enable [Area Code Geomatch](https://www.twilio.com/docs/sms/services#area-code-geomatch) on the Service Instance.
    */
   areaCodeGeomatch: boolean;
   /**
-   * Reserved
+   * Reserved.
    */
   synchronousValidation: boolean;
   /**
-   * How long, in seconds, messages sent from the Service are valid
+   * How long, in seconds, messages sent from the Service are valid. Can be an integer from `1` to `14,400`.
    */
   validityPeriod: number;
   /**
-   * The absolute URL of the Service resource
+   * The absolute URL of the Service resource.
    */
   url: string;
   /**
-   * The absolute URLs of related resources
+   * The absolute URLs of related resources.
    */
   links: Record<string, string>;
   /**
-   * A string describing the scenario in which the Messaging Service will be used
+   * A string that describes the scenario in which the Messaging Service will be used. Examples: [notification, marketing, verification, poll ..]
    */
   usecase: string;
   /**
@@ -546,7 +546,7 @@ export class ServiceInstance {
    */
   usAppToPersonRegistered: boolean;
   /**
-   * If enabled, the webhook url configured on the phone number will be used and will override the `inbound_request_url`/`fallback_url` url called when an inbound message is received.
+   * A boolean value that indicates either the webhook url configured on the phone number will be used or `inbound_request_url`/`fallback_url` url will be called when a message is received from the phone number. If this field is enabled then the webhook url defined on the phone number will override the `inbound_request_url`/`fallback_url` defined for the Messaging Service.
    */
   useInboundWebhookOnNumber: boolean;
 

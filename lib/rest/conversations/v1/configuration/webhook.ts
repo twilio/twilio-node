@@ -202,12 +202,12 @@ export class WebhookInstance {
   }
 
   /**
-   * The unique ID of the Account responsible for this conversation.
+   * The unique ID of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this conversation.
    */
   accountSid: string;
   method: ConfigurationWebhookMethod;
   /**
-   * The list of webhook event triggers that are enabled for this Service.
+   * The list of webhook event triggers that are enabled for this Service: `onMessageAdded`, `onMessageUpdated`, `onMessageRemoved`, `onConversationUpdated`, `onConversationRemoved`, `onParticipantAdded`, `onParticipantUpdated`, `onParticipantRemoved`
    */
   filters: Array<string>;
   /**
@@ -220,7 +220,7 @@ export class WebhookInstance {
   postWebhookUrl: string;
   target: ConfigurationWebhookTarget;
   /**
-   * An absolute URL for this webhook.
+   * An absolute API resource API resource URL for this webhook.
    */
   url: string;
 

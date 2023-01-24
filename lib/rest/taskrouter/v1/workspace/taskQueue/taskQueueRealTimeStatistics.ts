@@ -215,59 +215,59 @@ export class TaskQueueRealTimeStatisticsInstance {
   }
 
   /**
-   * The SID of the Account that created the resource
+   * The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the TaskQueue resource.
    */
   accountSid: string;
   /**
-   * The number of current Workers by Activity
+   * The number of current Workers by Activity.
    */
   activityStatistics: Array<any>;
   /**
-   * The age of the longest waiting Task
+   * The age of the longest waiting Task.
    */
   longestTaskWaitingAge: number;
   /**
-   * The SID of the longest waiting Task
+   * The SID of the longest waiting Task.
    */
   longestTaskWaitingSid: string;
   /**
-   * The relative age in the TaskQueue for the longest waiting Task.
+   * The relative age in the TaskQueue for the longest waiting Task. Calculation is based on the time when the Task entered the TaskQueue.
    */
   longestRelativeTaskAgeInQueue: number;
   /**
-   * The SID of the Task waiting in the TaskQueue the longest.
+   * The Task SID of the Task waiting in the TaskQueue the longest. Calculation is based on the time when the Task entered the TaskQueue.
    */
   longestRelativeTaskSidInQueue: string;
   /**
-   * The SID of the TaskQueue from which these statistics were calculated
+   * The SID of the TaskQueue from which these statistics were calculated.
    */
   taskQueueSid: string;
   /**
-   * The number of Tasks by priority
+   * The number of Tasks by priority. For example: `{\"0\": \"10\", \"99\": \"5\"}` shows 10 Tasks at priority 0 and 5 at priority 99.
    */
   tasksByPriority: any;
   /**
-   * The number of Tasks by their current status
+   * The number of Tasks by their current status. For example: `{\"pending\": \"1\", \"reserved\": \"3\", \"assigned\": \"2\", \"completed\": \"5\"}`.
    */
   tasksByStatus: any;
   /**
-   * The total number of Workers available for Tasks in the TaskQueue
+   * The total number of Workers available for Tasks in the TaskQueue.
    */
   totalAvailableWorkers: number;
   /**
-   * The total number of Workers eligible for Tasks in the TaskQueue, independent of their Activity state
+   * The total number of Workers eligible for Tasks in the TaskQueue, independent of their Activity state.
    */
   totalEligibleWorkers: number;
   /**
-   * The total number of Tasks
+   * The total number of Tasks.
    */
   totalTasks: number;
   /**
-   * The SID of the Workspace that contains the TaskQueue
+   * The SID of the Workspace that contains the TaskQueue.
    */
   workspaceSid: string;
   /**
-   * The absolute URL of the TaskQueue statistics resource
+   * The absolute URL of the TaskQueue statistics resource.
    */
   url: string;
 

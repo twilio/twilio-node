@@ -229,164 +229,164 @@ export class ConfigurationInstance {
   }
 
   /**
-   * The SID of the Account that created the resource
+   * The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Configuration resource.
    */
   accountSid: string;
   /**
-   * The ISO 8601 date and time in GMT when the Configuration resource was created
+   * The date and time in GMT when the Configuration resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
   dateCreated: Date;
   /**
-   * The ISO 8601 date and time in GMT when the Configuration resource was last updated
+   * The date and time in GMT when the Configuration resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
   dateUpdated: Date;
   /**
-   * An object that contains application-specific data
+   * An object that contains application-specific data.
    */
   attributes: any;
   status: ConfigurationStatus;
   /**
-   * The SID of the TaskRouter Workspace
+   * The SID of the TaskRouter Workspace.
    */
   taskrouterWorkspaceSid: string;
   /**
-   * The SID of the TaskRouter target Workflow
+   * The SID of the TaskRouter target Workflow.
    */
   taskrouterTargetWorkflowSid: string;
   /**
-   * The SID of the TaskRouter Target TaskQueue
+   * The SID of the TaskRouter Target TaskQueue.
    */
   taskrouterTargetTaskqueueSid: string;
   /**
-   * The list of TaskRouter TaskQueues
+   * The list of TaskRouter TaskQueues.
    */
   taskrouterTaskqueues: Array<any>;
   /**
-   * The Skill description for TaskRouter workers
+   * The Skill description for TaskRouter workers.
    */
   taskrouterSkills: Array<any>;
   /**
-   * The TaskRouter default channel capacities and availability for workers
+   * The TaskRouter default channel capacities and availability for workers.
    */
   taskrouterWorkerChannels: any;
   /**
-   * The TaskRouter Worker attributes
+   * The TaskRouter Worker attributes.
    */
   taskrouterWorkerAttributes: any;
   /**
-   * The TaskRouter SID of the offline activity
+   * The TaskRouter SID of the offline activity.
    */
   taskrouterOfflineActivitySid: string;
   /**
-   * The URL where the Flex instance is hosted
+   * The URL where the Flex instance is hosted.
    */
   runtimeDomain: string;
   /**
-   * The SID of the Messaging service instance
+   * The SID of the Messaging service instance.
    */
   messagingServiceInstanceSid: string;
   /**
-   * The SID of the chat service this user belongs to
+   * The SID of the chat service this user belongs to.
    */
   chatServiceInstanceSid: string;
   /**
-   * The SID of the Flex service instance
+   * The SID of the Flex service instance.
    */
   flexServiceInstanceSid: string;
   /**
-   * The primary language of the Flex UI
+   * The primary language of the Flex UI.
    */
   uiLanguage: string;
   /**
-   * The object that describes Flex UI characteristics and settings
+   * The object that describes Flex UI characteristics and settings.
    */
   uiAttributes: any;
   /**
-   * The object that defines the NPM packages and versions to be used in Hosted Flex
+   * The object that defines the NPM packages and versions to be used in Hosted Flex.
    */
   uiDependencies: any;
   /**
-   * The Pinned UI version
+   * The Pinned UI version.
    */
   uiVersion: string;
   /**
-   * The Flex Service version
+   * The Flex Service version.
    */
   serviceVersion: string;
   /**
-   * Whether call recording is enabled
+   * Whether call recording is enabled.
    */
   callRecordingEnabled: boolean;
   /**
-   * The call recording webhook URL
+   * The call recording webhook URL.
    */
   callRecordingWebhookUrl: string;
   /**
-   * Whether CRM is present for Flex
+   * Whether CRM is present for Flex.
    */
   crmEnabled: boolean;
   /**
-   * The CRM Type
+   * The CRM type.
    */
   crmType: string;
   /**
-   * The CRM Callback URL
+   * The CRM Callback URL.
    */
   crmCallbackUrl: string;
   /**
-   * The CRM Fallback URL
+   * The CRM Fallback URL.
    */
   crmFallbackUrl: string;
   /**
-   * An object that contains the CRM attributes
+   * An object that contains the CRM attributes.
    */
   crmAttributes: any;
   /**
-   * The list of public attributes
+   * The list of public attributes, which are visible to unauthenticated clients.
    */
   publicAttributes: any;
   /**
-   * Whether the plugin service enabled
+   * Whether the plugin service enabled.
    */
   pluginServiceEnabled: boolean;
   /**
-   * The plugin service attributes
+   * The plugin service attributes.
    */
   pluginServiceAttributes: any;
   /**
-   * A list of objects that contain the configurations for the Integrations supported in this configuration
+   * A list of objects that contain the configurations for the Integrations supported in this configuration.
    */
   integrations: Array<any>;
   /**
-   * The list of outbound call flows
+   * The list of outbound call flows.
    */
   outboundCallFlows: any;
   /**
-   * The list of serverless service SIDs
+   * The list of serverless service SIDs.
    */
   serverlessServiceSids: Array<string>;
   /**
-   * Configurable parameters for Queues Statistics
+   * Configurable parameters for Queues Statistics.
    */
   queueStatsConfiguration: any;
   /**
-   * Configurable parameters for Notifications
+   * Configurable parameters for Notifications.
    */
   notifications: any;
   /**
-   * Configurable parameters for Markdown
+   * Configurable parameters for Markdown.
    */
   markdown: any;
   /**
-   * The absolute URL of the Configuration resource
+   * The absolute URL of the Configuration resource.
    */
   url: string;
   /**
-   * Object that controls workspace reporting
+   * Object with enabled/disabled flag with list of workspaces.
    */
   flexInsightsHr: any;
   /**
-   * Setting to enable Flex UI redirection
+   * Setting this to true will redirect Flex UI to the URL set in flex_url
    */
   flexInsightsDrilldown: boolean;
   /**
@@ -394,15 +394,15 @@ export class ConfigurationInstance {
    */
   flexUrl: string;
   /**
-   * Flex Conversations channels\' attachments configurations
+   * Settings for different limits for Flex Conversations channels attachments.
    */
   channelConfigs: Array<any>;
   /**
-   * Configurable parameters for Debugger Integration
+   * Configurable parameters for Debugger Integration.
    */
   debuggerIntegration: any;
   /**
-   * Configurable parameters for Flex UI Status report
+   * Configurable parameters for Flex UI Status report.
    */
   flexUiStatusReport: any;
 

@@ -451,93 +451,93 @@ export class SimInstance {
   }
 
   /**
-   * The unique string that identifies the Sim resource
+   * The unique string that we created to identify the Sim resource.
    */
   sid: string;
   /**
-   * An application-defined string that uniquely identifies the resource
+   * An application-defined string that uniquely identifies the resource. It can be used in place of the resource\'s `sid` in the URL to address the resource.
    */
   uniqueName: string;
   /**
-   * The SID of the Account to which the Sim resource belongs
+   * The SID of the [Account](https://www.twilio.com/docs/iam/api/account) to which the Sim resource belongs.
    */
   accountSid: string;
   /**
-   * The SID of the RatePlan resource to which the Sim resource is assigned.
+   * The SID of the [RatePlan resource](https://www.twilio.com/docs/wireless/api/rateplan-resource) to which the Sim resource is assigned.
    */
   ratePlanSid: string;
   /**
-   * The string that you assigned to describe the Sim resource
+   * The string that you assigned to describe the Sim resource.
    */
   friendlyName: string;
   /**
-   * The ICCID associated with the SIM
+   * The [ICCID](https://en.wikipedia.org/wiki/SIM_card#ICCID) associated with the SIM.
    */
   iccid: string;
   /**
-   * Deprecated
+   * Deprecated.
    */
   eId: string;
   status: SimStatus;
   resetStatus: SimResetStatus;
   /**
-   * The URL we call when the SIM originates a machine-to-machine Command
+   * The URL we call using the `commands_callback_method` when the SIM originates a machine-to-machine [Command](https://www.twilio.com/docs/wireless/api/command-resource). Your server should respond with an HTTP status code in the 200 range; any response body will be ignored.
    */
   commandsCallbackUrl: string;
   /**
-   * The HTTP method we use to call commands_callback_url
+   * The HTTP method we use to call `commands_callback_url`.  Can be: `POST` or `GET`. Default is `POST`.
    */
   commandsCallbackMethod: SimCommandsCallbackMethod;
   /**
-   * Deprecated
+   * Deprecated.
    */
   smsFallbackMethod: SimSmsFallbackMethod;
   /**
-   * Deprecated
+   * Deprecated.
    */
   smsFallbackUrl: string;
   /**
-   * Deprecated
+   * Deprecated.
    */
   smsMethod: SimSmsMethod;
   /**
-   * Deprecated
+   * Deprecated.
    */
   smsUrl: string;
   /**
-   * Deprecated. The HTTP method we use to call voice_fallback_url
+   * Deprecated. The HTTP method we use to call `voice_fallback_url`. Can be: `GET` or `POST`. Default is `POST`.
    */
   voiceFallbackMethod: SimVoiceFallbackMethod;
   /**
-   * Deprecated. The URL we call when an error occurs while retrieving or executing the TwiML requested from voice_url
+   * Deprecated. The URL we call using the `voice_fallback_method` when an error occurs while retrieving or executing the TwiML requested from `voice_url`.
    */
   voiceFallbackUrl: string;
   /**
-   * Deprecated. The HTTP method we use to call voice_url
+   * Deprecated. The HTTP method we use to call `voice_url`. Can be: `GET` or `POST`. Default is `POST`.
    */
   voiceMethod: SimVoiceMethod;
   /**
-   * Deprecated. The URL we call when the SIM-connected device makes a voice call
+   * Deprecated. The URL we call using the `voice_method` when the SIM-connected device makes a voice call.
    */
   voiceUrl: string;
   /**
-   * The ISO 8601 date and time in GMT when the resource was created
+   * The date and time in GMT when the resource was created specified in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format.
    */
   dateCreated: Date;
   /**
-   * The ISO 8601 date and time in GMT when the Sim resource was last updated
+   * The date and time in GMT when the Sim resource was last updated specified in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format.
    */
   dateUpdated: Date;
   /**
-   * The absolute URL of the resource
+   * The absolute URL of the resource.
    */
   url: string;
   /**
-   * The URLs of related subresources
+   * The URLs of related subresources.
    */
   links: Record<string, string>;
   /**
-   * Deprecated
+   * Deprecated.
    */
   ipAddress: string;
 

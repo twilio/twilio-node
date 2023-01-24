@@ -294,40 +294,40 @@ export class ShortCodeInstance {
   }
 
   /**
-   * The unique string that identifies the resource
+   * The unique string that we created to identify the ShortCode resource.
    */
   sid: string;
   /**
-   * The SID of the Account that created the resource
+   * The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the ShortCode resource.
    */
   accountSid: string;
   /**
-   * The SID of the resource\'s parent Service
+   * The SID of the ShortCode resource\'s parent [Service](https://www.twilio.com/docs/proxy/api/service) resource.
    */
   serviceSid: string;
   /**
-   * The ISO 8601 date and time in GMT when the resource was created
+   * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time in GMT when the resource was created.
    */
   dateCreated: Date;
   /**
-   * The ISO 8601 date and time in GMT when the resource was last updated
+   * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time in GMT when the resource was last updated.
    */
   dateUpdated: Date;
   /**
-   * The short code\'s number
+   * The short code\'s number.
    */
   shortCode: string;
   /**
-   * The ISO Country Code
+   * The ISO Country Code for the short code.
    */
   isoCountry: string;
   capabilities: PhoneNumberCapabilities;
   /**
-   * The absolute URL of the ShortCode resource
+   * The absolute URL of the ShortCode resource.
    */
   url: string;
   /**
-   * Whether the short code should be reserved for manual assignment to participants only
+   * Whether the short code should be reserved and not be assigned to a participant using proxy pool logic. See [Reserved Phone Numbers](https://www.twilio.com/docs/proxy/reserved-phone-numbers) for more information.
    */
   isReserved: boolean;
 

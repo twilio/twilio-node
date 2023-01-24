@@ -177,11 +177,11 @@ export class SettingsInstance {
   }
 
   /**
-   * `true` if the sub-account will inherit voice dialing permissions from the Master Project; otherwise `false`
+   * `true` if the sub-account will inherit voice dialing permissions from the Master Project; otherwise `false`.
    */
   dialingPermissionsInheritance: boolean;
   /**
-   * The absolute URL of this resource
+   * The absolute URL of this resource.
    */
   url: string;
 

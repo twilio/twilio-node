@@ -178,24 +178,24 @@ export class EvaluationInstance {
   }
 
   /**
-   * The unique string that identifies the Evaluation resource
+   * The unique string that identifies the Evaluation resource.
    */
   sid: string;
   /**
-   * The SID of the Account that created the resource
+   * The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Bundle resource.
    */
   accountSid: string;
   /**
-   * The unique string of a regulation
+   * The unique string of a regulation that is associated to the Bundle resource.
    */
   regulationSid: string;
   /**
-   * The unique string that identifies the resource
+   * The unique string that we created to identify the Bundle resource.
    */
   bundleSid: string;
   status: EvaluationStatus;
   /**
-   * The results of the Evaluation resource
+   * The results of the Evaluation which includes the valid and invalid attributes.
    */
   results: Array<any>;
   dateCreated: Date;

@@ -203,19 +203,19 @@ export class PlaybackGrantInstance {
   }
 
   /**
-   * The unique string that identifies the PlayerStreamer associated with this PlaybackGrant.
+   * The unique string generated to identify the PlayerStreamer resource that this PlaybackGrant authorizes views for.
    */
   sid: string;
   /**
-   * The absolute URL of the resource
+   * The absolute URL of the resource.
    */
   url: string;
   /**
-   * The SID of the Account that created the resource
+   * The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created this resource.
    */
   accountSid: string;
   /**
-   * The ISO 8601 date and time in GMT when the resource was created
+   * The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
   dateCreated: Date;
   /**

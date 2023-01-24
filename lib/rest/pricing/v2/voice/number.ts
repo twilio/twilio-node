@@ -19,7 +19,7 @@ const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
 
 /**
- * The InboundCallPrice record
+ * The [InboundCallPrice](https://www.twilio.com/docs/voice/pricing#inbound-call-price) record.
  */
 export class PricingV2VoiceVoiceNumberInboundCallPrice {
   "basePrice"?: number;
@@ -185,32 +185,32 @@ export class NumberInstance {
   }
 
   /**
-   * The destination phone number, in E.164 format
+   * The destination phone number in [E.164](https://www.twilio.com/docs/glossary/what-e164) format, which consists of a + followed by the country code and subscriber number.
    */
   destinationNumber: string;
   /**
-   * The origination phone number, in E.164 format
+   * The origination phone number in [[E.164](https://www.twilio.com/docs/glossary/what-e164) format, which consists of a + followed by the country code and subscriber number.
    */
   originationNumber: string;
   /**
-   * The name of the country
+   * The name of the country.
    */
   country: string;
   /**
-   * The ISO country code
+   * The [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)
    */
   isoCountry: string;
   /**
-   * The list of OutboundCallPriceWithOrigin records
+   * The list of [OutboundCallPriceWithOrigin](https://www.twilio.com/docs/voice/pricing#outbound-call-price-with-origin) records.
    */
   outboundCallPrices: Array<PricingV2VoiceVoiceNumberOutboundCallPrices>;
   inboundCallPrice: PricingV2VoiceVoiceNumberInboundCallPrice;
   /**
-   * The currency in which prices are measured, in ISO 4127 format (e.g. usd, eur, jpy)
+   * The currency in which prices are measured, specified in [ISO 4127](https://www.iso.org/iso/home/standards/currency_codes.htm) format (e.g. `usd`, `eur`, `jpy`).
    */
   priceUnit: string;
   /**
-   * The absolute URL of the resource
+   * The absolute URL of the resource.
    */
   url: string;
 

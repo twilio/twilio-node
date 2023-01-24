@@ -153,7 +153,7 @@ export class UsAppToPersonUsecaseInstance {
   }
 
   /**
-   * Human readable A2P Use Case details
+   * Human readable name, code, description and post_approval_required (indicates whether or not post approval is required for this Use Case) of A2P Campaign Use Cases.
    */
   usAppToPersonUsecases: Array<any>;
 

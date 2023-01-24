@@ -320,16 +320,16 @@ export class CredentialInstance {
    */
   sid: string;
   /**
-   * The unique ID of the Account responsible for this credential.
+   * The unique ID of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this credential.
    */
   accountSid: string;
   /**
-   * The human-readable name of this credential.
+   * The human-readable name of this credential, limited to 64 characters. Optional.
    */
   friendlyName: string;
   type: CredentialPushType;
   /**
-   * [APN only] Whether to send the credential to sandbox APNs.
+   * [APN only] Whether to send the credential to sandbox APNs. Can be `true` to send to sandbox APNs or `false` to send to production.
    */
   sandbox: string;
   /**
@@ -341,7 +341,7 @@ export class CredentialInstance {
    */
   dateUpdated: Date;
   /**
-   * An absolute URL for this credential.
+   * An absolute API resource URL for this credential.
    */
   url: string;
 

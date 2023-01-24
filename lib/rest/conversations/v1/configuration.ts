@@ -197,31 +197,31 @@ export class ConfigurationInstance {
   }
 
   /**
-   * The SID of the Account responsible for this configuration.
+   * The SID of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this configuration.
    */
   accountSid: string;
   /**
-   * The SID of the default Conversation Service that every new conversation is associated with.
+   * The SID of the default [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) used when creating a conversation.
    */
   defaultChatServiceSid: string;
   /**
-   * The SID of the default Messaging Service that every new conversation is associated with.
+   * The SID of the default [Messaging Service](https://www.twilio.com/docs/sms/services/api) used when creating a conversation.
    */
   defaultMessagingServiceSid: string;
   /**
-   * Default ISO8601 duration when conversation will be switched to `inactive` state.
+   * Default ISO8601 duration when conversation will be switched to `inactive` state. Minimum value for this timer is 1 minute.
    */
   defaultInactiveTimer: string;
   /**
-   * Default ISO8601 duration when conversation will be switched to `closed` state.
+   * Default ISO8601 duration when conversation will be switched to `closed` state. Minimum value for this timer is 10 minutes.
    */
   defaultClosedTimer: string;
   /**
-   * An absolute URL for this global configuration.
+   * An absolute API resource URL for this global configuration.
    */
   url: string;
   /**
-   * Absolute URLs to access the webhook and default service configurations.
+   * Contains absolute API resource URLs to access the webhook and default service configurations.
    */
   links: Record<string, string>;
 

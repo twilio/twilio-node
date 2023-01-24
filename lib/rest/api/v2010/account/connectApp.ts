@@ -328,47 +328,47 @@ export class ConnectAppInstance {
   }
 
   /**
-   * The SID of the Account that created the resource
+   * The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the ConnectApp resource.
    */
   accountSid: string;
   /**
-   * The URL to redirect the user to after authorization
+   * The URL we redirect the user to after we authenticate the user and obtain authorization to access the Connect App.
    */
   authorizeRedirectUrl: string;
   /**
-   * The company name set for the Connect App
+   * The company name set for the Connect App.
    */
   companyName: string;
   /**
-   * The HTTP method we use to call deauthorize_callback_url
+   * The HTTP method we use to call `deauthorize_callback_url`.
    */
   deauthorizeCallbackMethod: ConnectAppDeauthorizeCallbackMethod;
   /**
-   * The URL we call to de-authorize the Connect App
+   * The URL we call using the `deauthorize_callback_method` to de-authorize the Connect App.
    */
   deauthorizeCallbackUrl: string;
   /**
-   * The description of the Connect App
+   * The description of the Connect App.
    */
   description: string;
   /**
-   * The string that you assigned to describe the resource
+   * The string that you assigned to describe the resource.
    */
   friendlyName: string;
   /**
-   * The URL users can obtain more information
+   * The public URL where users can obtain more information about this Connect App.
    */
   homepageUrl: string;
   /**
-   * The set of permissions that your ConnectApp requests
+   * The set of permissions that your ConnectApp requests.
    */
   permissions: Array<ConnectAppPermission>;
   /**
-   * The unique string that identifies the resource
+   * The unique string that that we created to identify the ConnectApp resource.
    */
   sid: string;
   /**
-   * The URI of the resource, relative to `https://api.twilio.com`
+   * The URI of the resource, relative to `https://api.twilio.com`.
    */
   uri: string;
 

@@ -132,20 +132,20 @@ export class BuildStatusInstance {
   }
 
   /**
-   * The unique string that identifies the Build resource
+   * The unique string that we created to identify the Build resource.
    */
   sid: string;
   /**
-   * The SID of the Account that created the Build resource
+   * The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Build resource.
    */
   accountSid: string;
   /**
-   * The SID of the Service that the Build resource is associated with
+   * The SID of the Service that the Build resource is associated with.
    */
   serviceSid: string;
   status: BuildStatusStatus;
   /**
-   * The absolute URL of the Build Status resource
+   * The absolute URL of the Build Status resource.
    */
   url: string;
 

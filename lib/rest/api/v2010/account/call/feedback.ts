@@ -227,27 +227,27 @@ export class FeedbackInstance {
   }
 
   /**
-   * The unique sid that identifies this account
+   * The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource.
    */
   accountSid: string;
   /**
-   * The date this resource was created
+   * The date that this resource was created, given in [RFC 2822](https://www.php.net/manual/en/class.datetime.php#datetime.constants.rfc2822) format.
    */
   dateCreated: Date;
   /**
-   * The date this resource was last updated
+   * The date that this resource was last updated, given in [RFC 2822](https://www.php.net/manual/en/class.datetime.php#datetime.constants.rfc2822) format.
    */
   dateUpdated: Date;
   /**
-   * Issues experienced during the call
+   * A list of issues experienced during the call. The issues can be: `imperfect-audio`, `dropped-call`, `incorrect-caller-id`, `post-dial-delay`, `digits-not-captured`, `audio-latency`, `unsolicited-call`, or `one-way-audio`.
    */
   issues: Array<CallFeedbackIssues>;
   /**
-   * 1 to 5 quality score
+   * `1` to `5` quality score where `1` represents imperfect experience and `5` represents a perfect call.
    */
   qualityScore: number;
   /**
-   * A string that uniquely identifies this feedback resource
+   * A 34 character string that uniquely identifies this resource.
    */
   sid: string;
 

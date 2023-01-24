@@ -344,48 +344,48 @@ export class ParticipantInstance {
   }
 
   /**
-   * The unique string that identifies the resource
+   * The unique string that we created to identify the RoomParticipant resource.
    */
   sid: string;
   /**
-   * The SID of the participant\'s room
+   * The SID of the participant\'s room.
    */
   roomSid: string;
   /**
-   * The SID of the Account that created the resource
+   * The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the RoomParticipant resource.
    */
   accountSid: string;
   status: RoomParticipantStatus;
   /**
-   * The string that identifies the resource\'s User
+   * The application-defined string that uniquely identifies the resource\'s User within a Room. If a client joins with an existing Identity, the existing client is disconnected. See [access tokens](https://www.twilio.com/docs/video/tutorials/user-identity-access-tokens) and [limits](https://www.twilio.com/docs/video/programmable-video-limits) for more info.
    */
   identity: string;
   /**
-   * The ISO 8601 date and time in GMT when the resource was created
+   * The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
   dateCreated: Date;
   /**
-   * The ISO 8601 date and time in GMT when the resource was last updated
+   * The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
   dateUpdated: Date;
   /**
-   * The time of participant connected to the room in ISO 8601 format
+   * The time of participant connected to the room in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601#UTC) format.
    */
   startTime: Date;
   /**
-   * The time when the participant disconnected from the room in ISO 8601 format
+   * The time when the participant disconnected from the room in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601#UTC) format.
    */
   endTime: Date;
   /**
-   * Duration of time in seconds the participant was connected
+   * The duration in seconds that the participant was `connected`. Populated only after the participant is `disconnected`.
    */
   duration: number;
   /**
-   * The absolute URL of the resource
+   * The absolute URL of the resource.
    */
   url: string;
   /**
-   * The URLs of related resources
+   * The URLs of related resources.
    */
   links: Record<string, string>;
 

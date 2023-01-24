@@ -288,7 +288,7 @@ export class SubscribedEventInstance {
   }
 
   /**
-   * Account SID.
+   * The unique SID identifier of the Account.
    */
   accountSid: string;
   /**
@@ -300,7 +300,7 @@ export class SubscribedEventInstance {
    */
   schemaVersion: number;
   /**
-   * Subscription SID.
+   * The unique SID identifier of the Subscription.
    */
   subscriptionSid: string;
   /**

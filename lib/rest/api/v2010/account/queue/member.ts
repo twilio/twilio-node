@@ -253,11 +253,11 @@ export class MemberInstance {
   }
 
   /**
-   * The SID of the Call the resource is associated with
+   * The SID of the [Call](https://www.twilio.com/docs/voice/api/call-resource) the Member resource is associated with.
    */
   callSid: string;
   /**
-   * The date the member was enqueued
+   * The date that the member was enqueued, given in RFC 2822 format.
    */
   dateEnqueued: Date;
   /**
@@ -265,7 +265,7 @@ export class MemberInstance {
    */
   position: number;
   /**
-   * The URI of the resource, relative to `https://api.twilio.com`
+   * The URI of the resource, relative to `https://api.twilio.com`.
    */
   uri: string;
   /**
@@ -273,7 +273,7 @@ export class MemberInstance {
    */
   waitTime: number;
   /**
-   * The SID of the Queue the member is in
+   * The SID of the Queue the member is in.
    */
   queueSid: string;
 

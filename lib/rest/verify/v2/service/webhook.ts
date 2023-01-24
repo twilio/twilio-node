@@ -328,23 +328,23 @@ export class WebhookInstance {
   }
 
   /**
-   * The unique string that identifies the resource
+   * The unique string that we created to identify the Webhook resource.
    */
   sid: string;
   /**
-   * Service Sid.
+   * The unique SID identifier of the Service.
    */
   serviceSid: string;
   /**
-   * The SID of the Account that created the resource
+   * The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Service resource.
    */
   accountSid: string;
   /**
-   * The string that you assigned to describe the webhook
+   * The string that you assigned to describe the webhook. **This value should not contain PII.**
    */
   friendlyName: string;
   /**
-   * The array of events that this Webhook is subscribed to.
+   * The array of events that this Webhook is subscribed to. Possible event types: `*, factor.deleted, factor.created, factor.verified, challenge.approved, challenge.denied`
    */
   eventTypes: Array<string>;
   status: WebhookStatus;
@@ -355,15 +355,15 @@ export class WebhookInstance {
   webhookUrl: string;
   webhookMethod: WebhookMethods;
   /**
-   * The ISO 8601 date and time in GMT when the resource was created
+   * The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
   dateCreated: Date;
   /**
-   * The ISO 8601 date and time in GMT when the resource was last updated
+   * The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
   dateUpdated: Date;
   /**
-   * The absolute URL of the Webhook resource
+   * The absolute URL of the Webhook resource.
    */
   url: string;
 

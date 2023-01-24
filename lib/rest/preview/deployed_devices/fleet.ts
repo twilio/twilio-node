@@ -319,39 +319,39 @@ export class FleetInstance {
   }
 
   /**
-   * A string that uniquely identifies this Fleet.
+   * Contains a 34 character string that uniquely identifies this Fleet resource.
    */
   sid: string;
   /**
-   * URL of this Fleet.
+   * Contains an absolute URL for this Fleet resource.
    */
   url: string;
   /**
-   * A unique, addressable name of this Fleet.
+   * Contains a unique and addressable name of this Fleet, e.g. \'default\', up to 128 characters long.
    */
   uniqueName: string;
   /**
-   * A human readable description for this Fleet.
+   * Contains a human readable descriptive text for this Fleet, up to 256 characters long.
    */
   friendlyName: string;
   /**
-   * The unique SID that identifies this Account.
+   * Speicifies the unique string identifier of the Account responsible for this Fleet.
    */
   accountSid: string;
   /**
-   * The unique SID that identifies this Fleet\'s default Deployment.
+   * Contains the string identifier of the automatically provisioned default Deployment of this Fleet.
    */
   defaultDeploymentSid: string;
   /**
-   * The date this Fleet was created.
+   * Specifies the date this Fleet was created, given in UTC ISO 8601 format.
    */
   dateCreated: Date;
   /**
-   * The date this Fleet was updated.
+   * Specifies the date this Fleet was last updated, given in UTC ISO 8601 format.
    */
   dateUpdated: Date;
   /**
-   * Nested resource URLs.
+   * Contains a dictionary of URL links to nested resources of this Fleet.
    */
   links: Record<string, string>;
 

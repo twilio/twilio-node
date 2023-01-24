@@ -341,28 +341,28 @@ export class AuthorizationDocumentInstance {
   }
 
   /**
-   * AuthorizationDocument sid.
+   * A 34 character string that uniquely identifies this AuthorizationDocument.
    */
   sid: string;
   /**
-   * Address sid.
+   * A 34 character string that uniquely identifies the Address resource that is associated with this AuthorizationDocument.
    */
   addressSid: string;
   status: AuthorizationDocumentStatus;
   /**
-   * Email.
+   * Email that this AuthorizationDocument will be sent to for signing.
    */
   email: string;
   /**
-   * A list of emails.
+   * Email recipients who will be informed when an Authorization Document has been sent and signed.
    */
   ccEmails: Array<string>;
   /**
-   * The date this AuthorizationDocument was created.
+   * The date this resource was created, given as [GMT RFC 2822](http://www.ietf.org/rfc/rfc2822.txt) format.
    */
   dateCreated: Date;
   /**
-   * The date this AuthorizationDocument was updated.
+   * The date that this resource was updated, given as [GMT RFC 2822](http://www.ietf.org/rfc/rfc2822.txt) format.
    */
   dateUpdated: Date;
   url: string;

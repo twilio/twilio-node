@@ -393,65 +393,65 @@ export class TrunkInstance {
   }
 
   /**
-   * The SID of the Account that created the resource
+   * The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Trunk resource.
    */
   accountSid: string;
   /**
-   * The unique address you reserve on Twilio to which you route your SIP traffic
+   * The unique address you reserve on Twilio to which you route your SIP traffic. Domain names can contain letters, digits, and `-` and must end with `pstn.twilio.com`. See [Termination Settings](https://www.twilio.com/docs/sip-trunking#termination) for more information.
    */
   domainName: string;
   /**
-   * The HTTP method we use to call the disaster_recovery_url
+   * The HTTP method we use to call the `disaster_recovery_url`. Can be: `GET` or `POST`.
    */
   disasterRecoveryMethod: TrunkDisasterRecoveryMethod;
   /**
-   * The HTTP URL that we call if an error occurs while sending SIP traffic towards your configured Origination URL
+   * The URL we call using the `disaster_recovery_method` if an error occurs while sending SIP traffic towards the configured Origination URL. We retrieve TwiML from this URL and execute the instructions like any other normal TwiML call. See [Disaster Recovery](https://www.twilio.com/docs/sip-trunking#disaster-recovery) for more information.
    */
   disasterRecoveryUrl: string;
   /**
-   * The string that you assigned to describe the resource
+   * The string that you assigned to describe the resource.
    */
   friendlyName: string;
   /**
-   * Whether Secure Trunking is enabled for the trunk
+   * Whether Secure Trunking is enabled for the trunk. If enabled, all calls going through the trunk will be secure using SRTP for media and TLS for signaling. If disabled, then RTP will be used for media. See [Secure Trunking](https://www.twilio.com/docs/sip-trunking#securetrunking) for more information.
    */
   secure: boolean;
   /**
-   * The recording settings for the trunk
+   * The recording settings for the trunk. Can be: `do-not-record`, `record-from-ringing`, `record-from-answer`. If set to `record-from-ringing` or `record-from-answer`, all calls going through the trunk will be recorded. The only way to change recording parameters is on a sub-resource of a Trunk after it has been created. e.g.`/Trunks/[Trunk_SID]/Recording -XPOST -d\'Mode=record-from-answer\'`. See [Recording](https://www.twilio.com/docs/sip-trunking#recording) for more information.
    */
   recording: any;
   transferMode: TrunkTransferSetting;
   transferCallerId: TrunkTransferCallerId;
   /**
-   * Whether Caller ID Name (CNAM) lookup is enabled for the trunk
+   * Whether Caller ID Name (CNAM) lookup is enabled for the trunk. If enabled, all inbound calls to the SIP Trunk from the United States and Canada automatically perform a CNAM Lookup and display Caller ID data on your phone. See [CNAM Lookups](https://www.twilio.com/docs/sip-trunking#CNAM) for more information.
    */
   cnamLookupEnabled: boolean;
   /**
-   * The types of authentication mapped to the domain
+   * The types of authentication mapped to the domain. Can be: `IP_ACL` and `CREDENTIAL_LIST`. If both are mapped, the values are returned in a comma delimited list. If empty, the domain will not receive any traffic.
    */
   authType: string;
   /**
-   * Reserved
+   * Reserved.
    */
   authTypeSet: Array<string>;
   /**
-   * The RFC 2822 date and time in GMT when the resource was created
+   * The date and time in GMT when the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
    */
   dateCreated: Date;
   /**
-   * The RFC 2822 date and time in GMT when the resource was last updated
+   * The date and time in GMT when the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
    */
   dateUpdated: Date;
   /**
-   * The unique string that identifies the resource
+   * The unique string that we created to identify the Trunk resource.
    */
   sid: string;
   /**
-   * The absolute URL of the resource
+   * The absolute URL of the resource.
    */
   url: string;
   /**
-   * The URLs of related resources
+   * The URLs of related resources.
    */
   links: Record<string, string>;
 

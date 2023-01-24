@@ -155,7 +155,7 @@ export class SafelistInstance {
   }
 
   /**
-   * The unique string that identifies the resource.
+   * The unique string that we created to identify the SafeList resource.
    */
   sid: string;
   /**

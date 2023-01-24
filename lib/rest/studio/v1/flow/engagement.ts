@@ -253,44 +253,44 @@ export class EngagementInstance {
   }
 
   /**
-   * The unique string that identifies the resource
+   * The unique string that we created to identify the Engagement resource.
    */
   sid: string;
   /**
-   * The SID of the Account that created the resource
+   * The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Engagement resource.
    */
   accountSid: string;
   /**
-   * The SID of the Flow
+   * The SID of the Flow.
    */
   flowSid: string;
   /**
-   * The SID of the Contact
+   * The SID of the Contact.
    */
   contactSid: string;
   /**
-   * The phone number, SIP address or Client identifier that triggered this Engagement
+   * The phone number, SIP address or Client identifier that triggered this Engagement. Phone numbers are in E.164 format (+16175551212). SIP addresses are formatted as `name@company.com`. Client identifiers are formatted `client:name`.
    */
   contactChannelAddress: string;
   /**
-   * The current state of the execution flow
+   * The current state of the execution flow. As your flow executes, we save the state in a flow context. Your widgets can access the data in the flow context as variables, either in configuration fields or in text areas as variable substitution.
    */
   context: any;
   status: EngagementStatus;
   /**
-   * The ISO 8601 date and time in GMT when the Engagement was created
+   * The date and time in GMT when the Engagement was created in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
   dateCreated: Date;
   /**
-   * The ISO 8601 date and time in GMT when the Engagement was last updated
+   * The date and time in GMT when the Engagement was updated in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
   dateUpdated: Date;
   /**
-   * The absolute URL of the resource
+   * The absolute URL of the resource.
    */
   url: string;
   /**
-   * The URLs of the Engagement\'s nested resources
+   * The URLs of the Engagement\'s nested resources.
    */
   links: Record<string, string>;
 

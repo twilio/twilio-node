@@ -256,55 +256,55 @@ export class ParticipantInstance {
   }
 
   /**
-   * The unique string that identifies the resource
+   * The unique string that we created to identify the Participant resource.
    */
   sid: string;
   /**
-   * The SID of the resource\'s parent Session
+   * The SID of the parent [Session](https://www.twilio.com/docs/proxy/api/session) resource.
    */
   sessionSid: string;
   /**
-   * The SID of the resource\'s parent Service
+   * The SID of the resource\'s parent [Service](https://www.twilio.com/docs/proxy/api/service) resource.
    */
   serviceSid: string;
   /**
-   * The SID of the Account that created the resource
+   * The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Participant resource.
    */
   accountSid: string;
   /**
-   * The string that you assigned to describe the participant
+   * The string that you assigned to describe the participant. This value must be 255 characters or fewer. Supports UTF-8 characters. **This value should not have PII.**
    */
   friendlyName: string;
   /**
-   * The phone number or channel identifier of the Participant
+   * The phone number or channel identifier of the Participant. This value must be 191 characters or fewer. Supports UTF-8 characters.
    */
   identifier: string;
   /**
-   * The phone number or short code of the participant\'s partner
+   * The phone number or short code (masked number) of the participant\'s partner. The participant will call or message the partner participant at this number.
    */
   proxyIdentifier: string;
   /**
-   * The SID of the Proxy Identifier assigned to the Participant
+   * The SID of the Proxy Identifier assigned to the Participant.
    */
   proxyIdentifierSid: string;
   /**
-   * The ISO 8601 date the Participant was removed
+   * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date when the Participant was removed from the session.
    */
   dateDeleted: Date;
   /**
-   * The ISO 8601 date and time in GMT when the resource was created
+   * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time in GMT when the resource was created.
    */
   dateCreated: Date;
   /**
-   * The ISO 8601 date and time in GMT when the resource was last updated
+   * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time in GMT when the resource was last updated.
    */
   dateUpdated: Date;
   /**
-   * The absolute URL of the Participant resource
+   * The absolute URL of the Participant resource.
    */
   url: string;
   /**
-   * The URLs to resources related the participant
+   * The URLs to resources related the participant.
    */
   links: Record<string, string>;
 

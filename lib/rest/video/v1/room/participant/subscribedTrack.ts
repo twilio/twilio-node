@@ -197,40 +197,40 @@ export class SubscribedTrackInstance {
   }
 
   /**
-   * The unique string that identifies the resource
+   * The unique string that we created to identify the RoomParticipantSubscribedTrack resource.
    */
   sid: string;
   /**
-   * The SID of the participant that subscribes to the track
+   * The SID of the participant that subscribes to the track.
    */
   participantSid: string;
   /**
-   * The SID of the participant that publishes the track
+   * The SID of the participant that publishes the track.
    */
   publisherSid: string;
   /**
-   * The SID of the room where the track is published
+   * The SID of the room where the track is published.
    */
   roomSid: string;
   /**
-   * The track name
+   * The track name. Must have no more than 128 characters and be unique among the participant\'s published tracks.
    */
   name: string;
   /**
-   * The ISO 8601 date and time in GMT when the resource was created
+   * The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
   dateCreated: Date;
   /**
-   * The ISO 8601 date and time in GMT when the resource was last updated
+   * The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
   dateUpdated: Date;
   /**
-   * Whether the track is enabled
+   * Whether the track is enabled.
    */
   enabled: boolean;
   kind: RoomParticipantSubscribedTrackKind;
   /**
-   * The absolute URL of the resource
+   * The absolute URL of the resource.
    */
   url: string;
 

@@ -173,15 +173,15 @@ export class DayInstance {
 
   redirectTo: string;
   /**
-   * The date of the data in the file
+   * The ISO 8601 format date of the resources in the file, for a UTC day
    */
   day: string;
   /**
-   * Size of the file in bytes
+   * The size of the day\'s data file in bytes
    */
   size: number;
   /**
-   * The date when resource is created
+   * The ISO 8601 format date when resources is created
    */
   createDate: string;
   /**

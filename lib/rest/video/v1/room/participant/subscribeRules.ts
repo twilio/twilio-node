@@ -216,7 +216,7 @@ export class SubscribeRulesInstance {
   }
 
   /**
-   * The SID of the Participant resource for the Subscribe Rules
+   * The SID of the Participant resource for the Subscribe Rules.
    */
   participantSid: string;
   /**
@@ -224,15 +224,15 @@ export class SubscribeRulesInstance {
    */
   roomSid: string;
   /**
-   * A collection of Subscribe Rules that describe how to include or exclude matching tracks
+   * A collection of Subscribe Rules that describe how to include or exclude matching tracks. See the [Specifying Subscribe Rules](https://www.twilio.com/docs/video/api/track-subscriptions#specifying-sr) section for further information.
    */
   rules: Array<VideoV1RoomRoomParticipantRoomParticipantSubscribeRuleRules>;
   /**
-   * The ISO 8601 date and time in GMT when the resource was created
+   * The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
   dateCreated: Date;
   /**
-   * The ISO 8601 date and time in GMT when the resource was last updated
+   * The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
   dateUpdated: Date;
 

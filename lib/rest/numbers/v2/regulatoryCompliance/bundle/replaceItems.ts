@@ -173,40 +173,40 @@ export class ReplaceItemsInstance {
   }
 
   /**
-   * The unique string that identifies the resource
+   * The unique string that we created to identify the Bundle resource.
    */
   sid: string;
   /**
-   * The SID of the Account that created the resource
+   * The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Bundle resource.
    */
   accountSid: string;
   /**
-   * The unique string of a regulation
+   * The unique string of a regulation that is associated to the Bundle resource.
    */
   regulationSid: string;
   /**
-   * The string that you assigned to describe the resource
+   * The string that you assigned to describe the resource.
    */
   friendlyName: string;
   status: ReplaceItemsStatus;
   /**
-   * The ISO 8601 date and time in GMT when the resource will be valid until
+   * The date and time in GMT in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format when the resource will be valid until.
    */
   validUntil: Date;
   /**
-   * The email address
+   * The email address that will receive updates when the Bundle resource changes status.
    */
   email: string;
   /**
-   * The URL we call to inform your application of status changes
+   * The URL we call to inform your application of status changes.
    */
   statusCallback: string;
   /**
-   * The ISO 8601 date and time in GMT when the resource was created
+   * The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
   dateCreated: Date;
   /**
-   * The ISO 8601 date and time in GMT when the resource was last updated
+   * The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
   dateUpdated: Date;
 

@@ -307,35 +307,35 @@ export class DocumentPermissionInstance {
   }
 
   /**
-   * The SID of the Account that created the resource
+   * The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Document Permission resource.
    */
   accountSid: string;
   /**
-   * The SID of the Sync Service that the resource is associated with
+   * The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) the resource is associated with.
    */
   serviceSid: string;
   /**
-   * The Sync Document SID
+   * The SID of the Sync Document to which the Document Permission applies.
    */
   documentSid: string;
   /**
-   * The identity of the user to whom the Sync Document Permission applies
+   * The application-defined string that uniquely identifies the resource\'s User within the Service to an FPA token.
    */
   identity: string;
   /**
-   * Read access
+   * Whether the identity can read the Sync Document.
    */
   read: boolean;
   /**
-   * Write access
+   * Whether the identity can update the Sync Document.
    */
   write: boolean;
   /**
-   * Manage access
+   * Whether the identity can delete the Sync Document.
    */
   manage: boolean;
   /**
-   * The absolute URL of the Sync Document Permission resource
+   * The absolute URL of the Sync Document Permission resource.
    */
   url: string;
 

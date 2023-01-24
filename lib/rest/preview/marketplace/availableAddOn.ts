@@ -182,31 +182,31 @@ export class AvailableAddOnInstance {
   }
 
   /**
-   * The unique string that identifies the resource
+   * The unique string that we created to identify the AvailableAddOn resource.
    */
   sid: string;
   /**
-   * The string that you assigned to describe the resource
+   * The string that you assigned to describe the resource.
    */
   friendlyName: string;
   /**
-   * A short description of the Add-on\'s functionality
+   * A short description of the Add-on\'s functionality.
    */
   description: string;
   /**
-   * How customers are charged for using this Add-on
+   * How customers are charged for using this Add-on.
    */
   pricingType: string;
   /**
-   * The JSON object with the configuration that must be provided when installing a given Add-on
+   * The JSON object with the configuration that must be provided when installing a given Add-on.
    */
   configurationSchema: any;
   /**
-   * The absolute URL of the resource
+   * The absolute URL of the resource.
    */
   url: string;
   /**
-   * The URLs of related resources
+   * The URLs of related resources.
    */
   links: Record<string, string>;
 

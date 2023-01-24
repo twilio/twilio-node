@@ -185,23 +185,23 @@ export class WorkersStatisticsInstance {
   }
 
   /**
-   * An object that contains the real-time statistics for the Worker
+   * An object that contains the real-time statistics for the Worker.
    */
   realtime: any;
   /**
-   * An object that contains the cumulative statistics for the Worker
+   * An object that contains the cumulative statistics for the Worker.
    */
   cumulative: any;
   /**
-   * The SID of the Account that created the resource
+   * The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Worker resource.
    */
   accountSid: string;
   /**
-   * The SID of the Workspace that contains the Worker
+   * The SID of the Workspace that contains the Worker.
    */
   workspaceSid: string;
   /**
-   * The absolute URL of the Worker statistics resource
+   * The absolute URL of the Worker statistics resource.
    */
   url: string;
 

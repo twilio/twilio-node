@@ -306,27 +306,27 @@ export class SubscriptionInstance {
   }
 
   /**
-   * Account SID.
+   * The unique SID identifier of the Account.
    */
   accountSid: string;
   /**
-   * A string that uniquely identifies this Subscription.
+   * A 34 character string that uniquely identifies this Subscription.
    */
   sid: string;
   /**
-   * The date this Subscription was created
+   * The date that this Subscription was created, given in ISO 8601 format.
    */
   dateCreated: Date;
   /**
-   * The date this Subscription was updated
+   * The date that this Subscription was updated, given in ISO 8601 format.
    */
   dateUpdated: Date;
   /**
-   * Subscription description
+   * A human readable description for the Subscription
    */
   description: string;
   /**
-   * Sink SID.
+   * The SID of the sink that events selected by this subscription should be sent to. Sink must be active for the subscription to be created.
    */
   sinkSid: string;
   /**
@@ -334,7 +334,7 @@ export class SubscriptionInstance {
    */
   url: string;
   /**
-   * Nested resource URLs.
+   * Contains a dictionary of URL links to nested resources of this Subscription.
    */
   links: Record<string, string>;
 

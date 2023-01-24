@@ -318,60 +318,60 @@ export class FleetInstance {
   }
 
   /**
-   * The SID of the Account that created the resource
+   * The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Fleet resource.
    */
   accountSid: string;
   /**
-   * The unique string that identifies the resource
+   * The unique string that we created to identify the Fleet resource.
    */
   sid: string;
   /**
-   * An application-defined string that uniquely identifies the resource
+   * An application-defined string that uniquely identifies the resource. It can be used in place of the resource\'s `sid` in the URL to address the resource.
    */
   uniqueName: string;
   /**
-   * The ISO 8601 date and time in GMT when the resource was created
+   * The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
   dateCreated: Date;
   /**
-   * The ISO 8601 date and time in GMT when the resource was last updated
+   * The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
   dateUpdated: Date;
   /**
-   * The absolute URL of the Fleet resource
+   * The absolute URL of the Fleet resource.
    */
   url: string;
   /**
-   * Defines whether SIMs in the Fleet are capable of using data connectivity
+   * Defines whether SIMs in the Fleet are capable of using 2G/3G/4G/LTE/CAT-M data connectivity. Defaults to `true`.
    */
   dataEnabled: boolean;
   /**
-   * The total data usage (download and upload combined) in Megabytes that each Super SIM assigned to the Fleet can consume
+   * The total data usage (download and upload combined) in Megabytes that each Super SIM assigned to the Fleet can consume during a billing period (normally one month). Value must be between 1MB (1) and 2TB (2,000,000). Defaults to 1GB (1,000).
    */
   dataLimit: number;
   dataMetering: FleetDataMetering;
   /**
-   * Defines whether SIMs in the Fleet are capable of sending and receiving machine-to-machine SMS via Commands
+   * Defines whether SIMs in the Fleet are capable of sending and receiving machine-to-machine SMS via Commands. Defaults to `true`.
    */
   smsCommandsEnabled: boolean;
   /**
-   * The URL that will receive a webhook when a Super SIM in the Fleet is used to send an SMS from your device to the SMS Commands number
+   * The URL that will receive a webhook when a Super SIM in the Fleet is used to send an SMS from your device to the SMS Commands number. Your server should respond with an HTTP status code in the 200 range; any response body will be ignored.
    */
   smsCommandsUrl: string;
   /**
-   * A string representing the HTTP method to use when making a request to `sms_commands_url`
+   * A string representing the HTTP method to use when making a request to `sms_commands_url`. Can be one of `POST` or `GET`. Defaults to `POST`.
    */
   smsCommandsMethod: FleetSmsCommandsMethod;
   /**
-   * The SID of the Network Access Profile of the Fleet
+   * The SID of the Network Access Profile that controls which cellular networks the Fleet\'s SIMs can connect to.
    */
   networkAccessProfileSid: string;
   /**
-   * The URL that will receive a webhook when a Super SIM in the Fleet is used to send an IP Command from your device
+   * The URL that will receive a webhook when a Super SIM in the Fleet is used to send an IP Command from your device to a special IP address. Your server should respond with an HTTP status code in the 200 range; any response body will be ignored.
    */
   ipCommandsUrl: string;
   /**
-   * A string representing the HTTP method to use when making a request to `ip_commands_url`
+   * A string representing the HTTP method to use when making a request to `ip_commands_url`. Can be one of `POST` or `GET`. Defaults to `POST`.
    */
   ipCommandsMethod: FleetIpCommandsMethod;
 

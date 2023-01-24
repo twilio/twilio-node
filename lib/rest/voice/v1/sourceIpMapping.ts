@@ -273,27 +273,27 @@ export class SourceIpMappingInstance {
   }
 
   /**
-   * The unique string that identifies the resource
+   * The unique string that we created to identify the IP Record resource.
    */
   sid: string;
   /**
-   * The unique string that identifies an IP Record
+   * The Twilio-provided string that uniquely identifies the IP Record resource to map from.
    */
   ipRecordSid: string;
   /**
-   * The unique string that identifies a SIP Domain
+   * The SID of the SIP Domain that the IP Record is mapped to.
    */
   sipDomainSid: string;
   /**
-   * The RFC 2822 date and time in GMT that the resource was created
+   * The date and time in GMT that the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
    */
   dateCreated: Date;
   /**
-   * The RFC 2822 date and time in GMT that the resource was last updated
+   * The date and time in GMT that the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
    */
   dateUpdated: Date;
   /**
-   * The absolute URL of the resource
+   * The absolute URL of the resource.
    */
   url: string;
 

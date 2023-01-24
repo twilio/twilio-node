@@ -226,48 +226,48 @@ export class BindingInstance {
   }
 
   /**
-   * The unique string that identifies the resource
+   * The unique string that we created to identify the Binding resource.
    */
   sid: string;
   /**
-   * The SID of the Account that created the resource
+   * The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Binding resource.
    */
   accountSid: string;
   /**
-   * The SID of the Service that the Binding resource is associated with
+   * The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) the Binding resource is associated with.
    */
   serviceSid: string;
   /**
-   * The ISO 8601 date and time in GMT when the resource was created
+   * The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
   dateCreated: Date;
   /**
-   * The ISO 8601 date and time in GMT when the resource was last updated
+   * The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
   dateUpdated: Date;
   /**
-   * The unique endpoint identifier for the Binding
+   * The unique endpoint identifier for the Binding. The format of this value depends on the `binding_type`.
    */
   endpoint: string;
   /**
-   * The string that identifies the resource\'s User
+   * The application-defined string that uniquely identifies the resource\'s [User](https://www.twilio.com/docs/chat/rest/user-resource) within the [Service](https://www.twilio.com/docs/chat/rest/service-resource). See [access tokens](https://www.twilio.com/docs/chat/create-tokens) for more info.
    */
   identity: string;
   /**
-   * The SID of the Credential for the binding
+   * The SID of the [Credential](https://www.twilio.com/docs/chat/rest/credential-resource) for the binding. See [push notification configuration](https://www.twilio.com/docs/chat/push-notification-configuration) for more info.
    */
   credentialSid: string;
   bindingType: BindingBindingType;
   /**
-   * The Programmable Chat message types the binding is subscribed to
+   * The [Programmable Chat message types](https://www.twilio.com/docs/chat/push-notification-configuration#push-types) the binding is subscribed to.
    */
   messageTypes: Array<string>;
   /**
-   * The absolute URL of the Binding resource
+   * The absolute URL of the Binding resource.
    */
   url: string;
   /**
-   * The absolute URLs of the Binding\'s User
+   * The absolute URLs of the Binding\'s [User](https://www.twilio.com/docs/chat/rest/user-resource).
    */
   links: Record<string, string>;
 

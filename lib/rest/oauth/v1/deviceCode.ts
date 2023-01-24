@@ -146,27 +146,27 @@ export class DeviceCodeInstance {
   }
 
   /**
-   * The device verification code
+   * The device verification code.
    */
   deviceCode: string;
   /**
-   * The verification code for the end user
+   * The verification code which end user uses to verify authorization request.
    */
   userCode: string;
   /**
-   * The URI that the end user visits to verify request
+   * The URI that the end user visits to verify authorization request.
    */
   verificationUri: string;
   /**
-   * he URI with user_code that the end-user alternatively visits to verify request
+   * The URI with user_code that the end-user alternatively visits to verify authorization request.
    */
   verificationUriComplete: string;
   /**
-   * The expiration time of the device_code and user_code in seconds
+   * The expiration time of the device_code and user_code in seconds.
    */
   expiresIn: number;
   /**
-   * The minimum amount of time in seconds that the client should wait between polling requests to the token endpoint
+   * The minimum amount of time in seconds that the client should wait between polling requests to the token endpoint.
    */
   interval: number;
 

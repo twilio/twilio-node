@@ -328,51 +328,51 @@ export class DeviceInstance {
   }
 
   /**
-   * A string that uniquely identifies this Device.
+   * Contains a 34 character string that uniquely identifies this Device resource.
    */
   sid: string;
   /**
-   * URL of this Device.
+   * Contains an absolute URL for this Device resource.
    */
   url: string;
   /**
-   * A unique, addressable name of this Device.
+   * Contains a unique and addressable name of this Device, assigned by the developer, up to 128 characters long.
    */
   uniqueName: string;
   /**
-   * A human readable description for this Device
+   * Contains a human readable descriptive text for this Device, up to 256 characters long
    */
   friendlyName: string;
   /**
-   * The unique identifier of the Fleet.
+   * Specifies the unique string identifier of the Fleet that the given Device belongs to.
    */
   fleetSid: string;
   /**
-   * Device enabled flag.
+   * Contains a boolean flag indicating whether the device is enabled or not, blocks device connectivity if set to false.
    */
   enabled: boolean;
   /**
-   * The unique SID that identifies this Account.
+   * Specifies the unique string identifier of the Account responsible for this Device.
    */
   accountSid: string;
   /**
-   * An identifier of the Device user.
+   * Contains an arbitrary string identifier representing a human user associated with this Device, assigned by the developer, up to 256 characters long.
    */
   identity: string;
   /**
-   * The unique SID of the Deployment group.
+   * Specifies the unique string identifier of the Deployment group that this Device is associated with.
    */
   deploymentSid: string;
   /**
-   * The date this Device was created.
+   * Specifies the date this Device was created, given in UTC ISO 8601 format.
    */
   dateCreated: Date;
   /**
-   * The date this Device was updated.
+   * Specifies the date this Device was last updated, given in UTC ISO 8601 format.
    */
   dateUpdated: Date;
   /**
-   * The date this Device was authenticated.
+   * Specifies the date this Device was last authenticated, given in UTC ISO 8601 format.
    */
   dateAuthenticated: Date;
 

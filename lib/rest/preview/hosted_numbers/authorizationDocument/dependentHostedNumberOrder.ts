@@ -383,74 +383,74 @@ export class DependentHostedNumberOrderInstance {
   }
 
   /**
-   * HostedNumberOrder sid.
+   * A 34 character string that uniquely identifies this Authorization Document
    */
   sid: string;
   /**
-   * Account sid.
+   * The unique SID identifier of the Account.
    */
   accountSid: string;
   /**
-   * IncomingPhoneNumber sid.
+   * A 34 character string that uniquely identifies the IncomingPhoneNumber resource created by this HostedNumberOrder.
    */
   incomingPhoneNumberSid: string;
   /**
-   * Address sid.
+   * A 34 character string that uniquely identifies the Address resource that represents the address of the owner of this phone number.
    */
   addressSid: string;
   /**
-   * LOA document sid.
+   * A 34 character string that uniquely identifies the LOA document associated with this HostedNumberOrder.
    */
   signingDocumentSid: string;
   /**
-   * An E164 formatted phone number.
+   * An E164 formatted phone number hosted by this HostedNumberOrder.
    */
   phoneNumber: string;
   capabilities: PhoneNumberCapabilities;
   /**
-   * A human readable description of this resource.
+   * A human readable description of this resource, up to 64 characters.
    */
   friendlyName: string;
   /**
-   * A unique, developer assigned name of this HostedNumberOrder.
+   * Provides a unique and addressable name to be assigned to this HostedNumberOrder, assigned by the developer, to be optionally used in addition to SID.
    */
   uniqueName: string;
   status: DependentHostedNumberOrderStatus;
   /**
-   * Why a hosted_number_order reached status \"action-required\"
+   * A message that explains why a hosted_number_order went to status \"action-required\"
    */
   failureReason: string;
   /**
-   * The date this HostedNumberOrder was created.
+   * The date this resource was created, given as [GMT RFC 2822](http://www.ietf.org/rfc/rfc2822.txt) format.
    */
   dateCreated: Date;
   /**
-   * The date this HostedNumberOrder was updated.
+   * The date that this resource was updated, given as [GMT RFC 2822](http://www.ietf.org/rfc/rfc2822.txt) format.
    */
   dateUpdated: Date;
   /**
-   * The number of attempts made to verify ownership of the phone number.
+   * The number of attempts made to verify ownership of the phone number that is being hosted.
    */
   verificationAttempts: number;
   /**
-   * Email.
+   * Email of the owner of this phone number that is being hosted.
    */
   email: string;
   /**
-   * A list of emails.
+   * Email recipients who will be informed when an Authorization Document has been sent and signed
    */
   ccEmails: Array<string>;
   verificationType: DependentHostedNumberOrderVerificationType;
   /**
-   * Verification Document Sid.
+   * A 34 character string that uniquely identifies the Identity Document resource that represents the document for verifying ownership of the number to be hosted.
    */
   verificationDocumentSid: string;
   /**
-   * Phone extension to use for ownership verification call.
+   * A numerical extension to be used when making the ownership verification call.
    */
   extension: string;
   /**
-   * Seconds (0-30) to delay ownership verification call by.
+   * A value between 0-30 specifying the number of seconds to delay initiating the ownership verification call.
    */
   callDelay: number;
   /**
@@ -458,7 +458,7 @@ export class DependentHostedNumberOrderInstance {
    */
   verificationCode: string;
   /**
-   * List of IDs for ownership verification calls.
+   * A list of 34 character strings that are unique identifiers for the calls placed as part of ownership verification.
    */
   verificationCallSids: Array<string>;
 

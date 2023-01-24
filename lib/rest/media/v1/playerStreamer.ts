@@ -302,45 +302,45 @@ export class PlayerStreamerInstance {
   }
 
   /**
-   * The SID of the Account that created the resource
+   * The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the PlayerStreamer resource.
    */
   accountSid: string;
   /**
-   * The ISO 8601 date and time in GMT when the resource was created
+   * The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
   dateCreated: Date;
   /**
-   * The ISO 8601 date and time in GMT when the resource was last updated
+   * The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
   dateUpdated: Date;
   /**
-   * Whether the PlayerStreamer is configured to stream video
+   * Specifies whether the PlayerStreamer is configured to stream video. Defaults to `true`.
    */
   video: boolean;
   /**
-   * The URLs of related resources
+   * The URLs of related resources.
    */
   links: Record<string, string>;
   /**
-   * The unique string that identifies the resource
+   * The unique string generated to identify the PlayerStreamer resource.
    */
   sid: string;
   status: PlayerStreamerStatus;
   /**
-   * The absolute URL of the resource
+   * The absolute URL of the resource.
    */
   url: string;
   /**
-   * The URL to which Twilio will send PlayerStreamer event updates
+   * The URL to which Twilio will send asynchronous webhook requests for every PlayerStreamer event. See [Status Callbacks](/docs/live/status-callbacks) for more details.
    */
   statusCallback: string;
   /**
-   * The HTTP method Twilio should use to call the `status_callback` URL
+   * The HTTP method Twilio should use to call the `status_callback` URL. Can be `POST` or `GET` and the default is `POST`.
    */
   statusCallbackMethod: PlayerStreamerStatusCallbackMethod;
   endedReason: PlayerStreamerEndedReason;
   /**
-   * Maximum PlayerStreamer duration in seconds
+   * The maximum time, in seconds, that the PlayerStreamer is active (`created` or `started`) before automatically ends. The default value is 300 seconds, and the maximum value is 90000 seconds. Once this maximum duration is reached, Twilio will end the PlayerStreamer, regardless of whether media is still streaming.
    */
   maxDuration: number;
 

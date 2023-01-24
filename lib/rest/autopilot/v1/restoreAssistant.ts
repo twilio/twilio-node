@@ -148,39 +148,39 @@ export class RestoreAssistantInstance {
   }
 
   /**
-   * The SID of the Account that created the resource
+   * The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Assistant resource.
    */
   accountSid: string;
   /**
-   * The unique string that identifies the resource
+   * The unique string that we created to identify the Assistant resource.
    */
   sid: string;
   /**
-   * The RFC 2822 date and time in GMT when the resource was created
+   * The date and time in GMT when the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
    */
   dateCreated: Date;
   /**
-   * The RFC 2822 date and time in GMT when the resource was last updated
+   * The date and time in GMT when the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
    */
   dateUpdated: Date;
   /**
-   * An application-defined string that uniquely identifies the resource
+   * An application-defined string that uniquely identifies the resource. It can be used in place of the resource\'s `sid` in the URL to address the resource.
    */
   uniqueName: string;
   /**
-   * The string that you assigned to describe the resource
+   * The string that you assigned to describe the resource. It is not unique and can be up to 255 characters long.
    */
   friendlyName: string;
   /**
-   * Whether model needs to be rebuilt
+   * Whether model needs to be rebuilt.
    */
   needsModelBuild: boolean;
   /**
-   * Reserved
+   * Reserved.
    */
   latestModelBuildSid: string;
   /**
-   * Whether queries should be logged and kept after training
+   * Whether queries should be logged and kept after training. Can be: `true` or `false` and defaults to `true`. If `true`, queries are stored for 30 days, and then deleted. If `false`, no queries are stored.
    */
   logQueries: boolean;
   /**
@@ -188,11 +188,11 @@ export class RestoreAssistantInstance {
    */
   developmentStage: string;
   /**
-   * Reserved
+   * Reserved.
    */
   callbackUrl: string;
   /**
-   * Reserved
+   * Reserved.
    */
   callbackEvents: string;
 

@@ -439,83 +439,83 @@ export class ApplicationInstance {
   }
 
   /**
-   * The SID of the Account that created the resource
+   * The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Application resource.
    */
   accountSid: string;
   /**
-   * The API version used to start a new TwiML session
+   * The API version used to start a new TwiML session.
    */
   apiVersion: string;
   /**
-   * The RFC 2822 date and time in GMT that the resource was created
+   * The date and time in GMT that the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
    */
   dateCreated: Date;
   /**
-   * The RFC 2822 date and time in GMT that the resource was last updated
+   * The date and time in GMT that the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
    */
   dateUpdated: Date;
   /**
-   * The string that you assigned to describe the resource
+   * The string that you assigned to describe the resource.
    */
   friendlyName: string;
   /**
-   * The URL to send message status information to your application
+   * The URL we call using a POST method to send message status information to your application.
    */
   messageStatusCallback: string;
   /**
-   * The unique string that identifies the resource
+   * The unique string that that we created to identify the Application resource.
    */
   sid: string;
   /**
-   * The HTTP method used with sms_fallback_url
+   * The HTTP method we use to call `sms_fallback_url`. Can be: `GET` or `POST`.
    */
   smsFallbackMethod: ApplicationSmsFallbackMethod;
   /**
-   * The URL that we call when an error occurs while retrieving or executing the TwiML
+   * The URL that we call when an error occurs while retrieving or executing the TwiML from `sms_url`.
    */
   smsFallbackUrl: string;
   /**
-   * The HTTP method to use with sms_url
+   * The HTTP method we use to call `sms_url`. Can be: `GET` or `POST`.
    */
   smsMethod: ApplicationSmsMethod;
   /**
-   * The URL to send status information to your application
+   * The URL we call using a POST method to send status information to your application about SMS messages that refer to the application.
    */
   smsStatusCallback: string;
   /**
-   * The URL we call when the phone number receives an incoming SMS message
+   * The URL we call when the phone number receives an incoming SMS message.
    */
   smsUrl: string;
   /**
-   * The URL to send status information to your application
+   * The URL we call using the `status_callback_method` to send status information to your application.
    */
   statusCallback: string;
   /**
-   * The HTTP method we use to call status_callback
+   * The HTTP method we use to call `status_callback`. Can be: `GET` or `POST`.
    */
   statusCallbackMethod: ApplicationStatusCallbackMethod;
   /**
-   * The URI of the resource, relative to `https://api.twilio.com`
+   * The URI of the resource, relative to `https://api.twilio.com`.
    */
   uri: string;
   /**
-   * Whether to lookup the caller\'s name
+   * Whether we look up the caller\'s caller-ID name from the CNAM database (additional charges apply). Can be: `true` or `false`.
    */
   voiceCallerIdLookup: boolean;
   /**
-   * The HTTP method used with voice_fallback_url
+   * The HTTP method we use to call `voice_fallback_url`. Can be: `GET` or `POST`.
    */
   voiceFallbackMethod: ApplicationVoiceFallbackMethod;
   /**
-   * The URL we call when a TwiML error occurs
+   * The URL that we call when an error occurs retrieving or executing the TwiML requested by `url`.
    */
   voiceFallbackUrl: string;
   /**
-   * The HTTP method used with the voice_url
+   * The HTTP method we use to call `voice_url`. Can be: `GET` or `POST`.
    */
   voiceMethod: ApplicationVoiceMethod;
   /**
-   * The URL we call when the phone number receives a call
+   * The URL we call when the phone number assigned to this application receives a call.
    */
   voiceUrl: string;
 

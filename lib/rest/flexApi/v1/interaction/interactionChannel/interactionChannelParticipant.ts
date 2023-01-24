@@ -239,7 +239,7 @@ export class InteractionChannelParticipantInstance {
   }
 
   /**
-   * The unique string that identifies the resource
+   * The unique string created by Twilio to identify an Interaction Channel Participant resource.
    */
   sid: string;
   type: InteractionChannelParticipantType;

@@ -232,33 +232,33 @@ export class VerificationAttemptInstance {
   }
 
   /**
-   * The SID that uniquely identifies the verification attempt.
+   * The SID that uniquely identifies the verification attempt resource.
    */
   sid: string;
   /**
-   * The SID of the Account that created the verification.
+   * The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Verification resource.
    */
   accountSid: string;
   /**
-   * The SID of the verify service that generated this attempt.
+   * The SID of the [Service](https://www.twilio.com/docs/verify/api/service) used to generate the attempt.
    */
   serviceSid: string;
   /**
-   * The SID of the verification that generated this attempt.
+   * The SID of the [Verification](https://www.twilio.com/docs/verify/api/verification) that generated the attempt.
    */
   verificationSid: string;
   /**
-   * The date this Attempt was created
+   * The date that this Attempt was created, given in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
   dateCreated: Date;
   /**
-   * The date this Attempt was updated
+   * The date that this Attempt was updated, given in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
   dateUpdated: Date;
   conversionStatus: VerificationAttemptConversionStatus;
   channel: VerificationAttemptChannels;
   /**
-   * An object containing the charge for this verification attempt.
+   * An object containing the charge for this verification attempt related to the channel costs and the currency used. The costs related to the succeeded verifications are not included. May not be immediately available. More information on pricing is available [here](https://www.twilio.com/verify/pricing).
    */
   price: any;
   /**

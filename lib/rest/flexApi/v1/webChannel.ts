@@ -293,27 +293,27 @@ export class WebChannelInstance {
   }
 
   /**
-   * The SID of the Account that created the resource and owns this Workflow
+   * The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the WebChannel resource and owns this Workflow.
    */
   accountSid: string;
   /**
-   * The SID of the Flex Flow
+   * The SID of the Flex Flow.
    */
   flexFlowSid: string;
   /**
-   * The unique string that identifies the WebChannel resource
+   * The unique string that we created to identify the WebChannel resource.
    */
   sid: string;
   /**
-   * The absolute URL of the WebChannel resource
+   * The absolute URL of the WebChannel resource.
    */
   url: string;
   /**
-   * The ISO 8601 date and time in GMT when the resource was created
+   * The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
   dateCreated: Date;
   /**
-   * The ISO 8601 date and time in GMT when the resource was last updated
+   * The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
   dateUpdated: Date;
 

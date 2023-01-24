@@ -242,33 +242,33 @@ export class AnnotationInstance {
   }
 
   /**
-   * Call SID.
+   * The unique SID identifier of the Call.
    */
   callSid: string;
   /**
-   * Account SID.
+   * The unique SID identifier of the Account.
    */
   accountSid: string;
   answeredBy: AnnotationAnsweredBy;
   connectivityIssue: AnnotationConnectivityIssue;
   /**
-   * Indicates if the call had audio quality issues.
+   * Specify if the call had any subjective quality issues. Possible values, one or more of:  no_quality_issue, low_volume, choppy_robotic, echo, dtmf, latency, owa, static_noise. Use comma separated values to indicate multiple quality issues for the same call
    */
   qualityIssues: Array<string>;
   /**
-   * Call spam indicator
+   * Specify if the call was a spam call. Use this to provide feedback on whether calls placed from your account were marked as spam, or if inbound calls received by your account were unwanted spam. Is of type Boolean: true, false. Use true if the call was a spam call.
    */
   spam: boolean;
   /**
-   * Call Score
+   * Specify the call score. This is of type integer. Use a range of 1-5 to indicate the call experience score, with the following mapping as a reference for rating the call [5: Excellent, 4: Good, 3 : Fair, 2 : Poor, 1: Bad].
    */
   callScore: number;
   /**
-   * User comments
+   * Specify any comments pertaining to the call. This of type string with a max limit of 100 characters. Twilio does not treat this field as PII, so don’t put any PII in here.
    */
   comment: string;
   /**
-   * Call tag for incidents or support ticket
+   * Associate this call with an incident or support ticket. This is of type string with a max limit of 100 characters. Twilio does not treat this field as PII, so don’t put any PII in here.
    */
   incident: string;
   /**

@@ -214,51 +214,51 @@ export class WorkersCumulativeStatisticsInstance {
   }
 
   /**
-   * The SID of the Account that created the resource
+   * The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Worker resource.
    */
   accountSid: string;
   /**
-   * The beginning of the interval during which these statistics were calculated
+   * The beginning of the interval during which these statistics were calculated, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
   startTime: Date;
   /**
-   * The end of the interval during which these statistics were calculated
+   * The end of the interval during which these statistics were calculated, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
   endTime: Date;
   /**
-   * The minimum, average, maximum, and total time that Workers spent in each Activity
+   * The minimum, average, maximum, and total time (in seconds) that Workers spent in each Activity.
    */
   activityDurations: Array<any>;
   /**
-   * The total number of Reservations that were created
+   * The total number of Reservations that were created.
    */
   reservationsCreated: number;
   /**
-   * The total number of Reservations that were accepted
+   * The total number of Reservations that were accepted.
    */
   reservationsAccepted: number;
   /**
-   * The total number of Reservations that were rejected
+   * The total number of Reservations that were rejected.
    */
   reservationsRejected: number;
   /**
-   * The total number of Reservations that were timed out
+   * The total number of Reservations that were timed out.
    */
   reservationsTimedOut: number;
   /**
-   * The total number of Reservations that were canceled
+   * The total number of Reservations that were canceled.
    */
   reservationsCanceled: number;
   /**
-   * The total number of Reservations that were rescinded
+   * The total number of Reservations that were rescinded.
    */
   reservationsRescinded: number;
   /**
-   * The SID of the Workspace that contains the Workers
+   * The SID of the Workspace that contains the Workers.
    */
   workspaceSid: string;
   /**
-   * The absolute URL of the Workers statistics resource
+   * The absolute URL of the Workers statistics resource.
    */
   url: string;
 

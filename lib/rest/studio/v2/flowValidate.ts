@@ -151,7 +151,7 @@ export class FlowValidateInstance {
   }
 
   /**
-   * Boolean if the flow definition is valid
+   * Boolean if the flow definition is valid.
    */
   valid: boolean;
 
