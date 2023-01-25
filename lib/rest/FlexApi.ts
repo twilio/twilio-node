@@ -4,8 +4,6 @@ import { FlexFlowListInstance } from "./flexApi/v1/flexFlow";
 import { InteractionListInstance } from "./flexApi/v1/interaction";
 import { WebChannelListInstance } from "./flexApi/v1/webChannel";
 import { AssessmentsListInstance } from "./flexApi/v1/assessments";
-import { GoodDataListInstance } from "./flexApi/v1/goodData";
-import { UserRolesListInstance } from "./flexApi/v1/userRoles";
 import { WebChannelsListInstance } from "./flexApi/v2/webChannels";
 
 import FlexApiBase from "./FlexApiBase";
@@ -44,27 +42,11 @@ class FlexApi extends FlexApiBase {
   }
 
   /**
-   * @deprecated - Use v1.goodData instead
-   */
-  get goodData(): GoodDataListInstance {
-    console.warn("goodData is deprecated. Use v1.goodData instead.");
-    return this.v1.goodData;
-  }
-
-  /**
    * @deprecated - Use v1.interaction instead
    */
   get interaction(): InteractionListInstance {
     console.warn("interaction is deprecated. Use v1.interaction instead.");
     return this.v1.interaction;
-  }
-
-  /**
-   * @deprecated - Use v1.userRoles instead
-   */
-  get userRoles(): UserRolesListInstance {
-    console.warn("userRoles is deprecated. Use v1.userRoles instead.");
-    return this.v1.userRoles;
   }
 
   /**
