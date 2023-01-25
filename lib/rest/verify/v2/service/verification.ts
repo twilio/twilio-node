@@ -36,7 +36,7 @@ export interface VerificationContextUpdateOptions {
 export interface VerificationListInstanceCreateOptions {
   /** The phone number or [email](https://www.twilio.com/docs/verify/email) to verify. Phone numbers must be in [E.164 format](https://www.twilio.com/docs/glossary/what-e164). */
   to: string;
-  /** The verification method to use. One of: [`email`](https://www.twilio.com/docs/verify/email), `sms`, `whatsapp`, `call`, or `sna`. */
+  /** The verification method to use. One of: [`email`](https://www.twilio.com/docs/verify/email), `sms`, `whatsapp`, `call`, `sna` or `auto`. */
   channel: string;
   /** A custom user defined friendly name that overwrites the existing one in the verification message */
   customFriendlyName?: string;
@@ -62,6 +62,8 @@ export interface VerificationListInstanceCreateOptions {
   templateSid?: string;
   /** A stringified JSON object in which the keys are the template\\\'s special variables and the values are the variables substitutions. */
   templateCustomSubstitutions?: string;
+  /** The IP address of the client\\\'s device. If provided, it has to be a valid IPv4 or IPv6 address. */
+  deviceIp?: string;
 }
 
 export interface VerificationContext {
@@ -479,6 +481,7 @@ export function VerificationListInstance(
     if (params["templateCustomSubstitutions"] !== undefined)
       data["TemplateCustomSubstitutions"] =
         params["templateCustomSubstitutions"];
+    if (params["deviceIp"] !== undefined) data["DeviceIp"] = params["deviceIp"];
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";

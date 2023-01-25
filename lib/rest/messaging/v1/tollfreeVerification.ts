@@ -127,6 +127,8 @@ export interface TollfreeVerificationListInstanceCreateOptions {
   businessContactEmail?: string;
   /** The phone number of the contact for the business or organization using the Tollfree number. */
   businessContactPhone?: string;
+  /** An optional external reference ID supplied by customer and echoed back on status retrieval. */
+  externalReferenceId?: string;
 }
 /**
  * Options to pass to each
@@ -407,6 +409,7 @@ interface TollfreeVerificationResource {
   status: TollfreeVerificationStatus;
   url: string;
   resource_links: any;
+  external_reference_id: string;
 }
 
 export class TollfreeVerificationInstance {
@@ -449,6 +452,7 @@ export class TollfreeVerificationInstance {
     this.status = payload.status;
     this.url = payload.url;
     this.resourceLinks = payload.resource_links;
+    this.externalReferenceId = payload.external_reference_id;
 
     this._solution = { sid: sid || this.sid };
   }
@@ -571,6 +575,10 @@ export class TollfreeVerificationInstance {
    * The URLs of the documents associated with the Tollfree Verification resource.
    */
   resourceLinks: any;
+  /**
+   * An optional external reference ID supplied by customer and echoed back on status retrieval.
+   */
+  externalReferenceId: string;
 
   private get _proxy(): TollfreeVerificationContext {
     this._context =
@@ -660,6 +668,7 @@ export class TollfreeVerificationInstance {
       status: this.status,
       url: this.url,
       resourceLinks: this.resourceLinks,
+      externalReferenceId: this.externalReferenceId,
     };
   }
 
@@ -936,6 +945,8 @@ export function TollfreeVerificationListInstance(
       data["BusinessContactEmail"] = params["businessContactEmail"];
     if (params["businessContactPhone"] !== undefined)
       data["BusinessContactPhone"] = params["businessContactPhone"];
+    if (params["externalReferenceId"] !== undefined)
+      data["ExternalReferenceId"] = params["externalReferenceId"];
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";

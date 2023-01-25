@@ -18,9 +18,13 @@ import { AssessmentsListInstance } from "./v1/assessments";
 import { ChannelListInstance } from "./v1/channel";
 import { ConfigurationListInstance } from "./v1/configuration";
 import { FlexFlowListInstance } from "./v1/flexFlow";
-import { GoodDataListInstance } from "./v1/goodData";
+import { InsightsQuestionnairesCategoryListInstance } from "./v1/insightsQuestionnairesCategory";
+import { InsightsQuestionnairesQuestionListInstance } from "./v1/insightsQuestionnairesQuestion";
+import { InsightsSessionListInstance } from "./v1/insightsSession";
+import { InsightsSettingsAnswerSetsListInstance } from "./v1/insightsSettingsAnswerSets";
+import { InsightsSettingsCommentListInstance } from "./v1/insightsSettingsComment";
+import { InsightsUserRolesListInstance } from "./v1/insightsUserRoles";
 import { InteractionListInstance } from "./v1/interaction";
-import { UserRolesListInstance } from "./v1/userRoles";
 import { WebChannelListInstance } from "./v1/webChannel";
 
 export default class V1 extends Version {
@@ -41,12 +45,20 @@ export default class V1 extends Version {
   protected _configuration?: ConfigurationListInstance;
   /** flexFlow - { Twilio.FlexApi.V1.FlexFlowListInstance } resource */
   protected _flexFlow?: FlexFlowListInstance;
-  /** goodData - { Twilio.FlexApi.V1.GoodDataListInstance } resource */
-  protected _goodData?: GoodDataListInstance;
+  /** insightsQuestionnairesCategory - { Twilio.FlexApi.V1.InsightsQuestionnairesCategoryListInstance } resource */
+  protected _insightsQuestionnairesCategory?: InsightsQuestionnairesCategoryListInstance;
+  /** insightsQuestionnairesQuestion - { Twilio.FlexApi.V1.InsightsQuestionnairesQuestionListInstance } resource */
+  protected _insightsQuestionnairesQuestion?: InsightsQuestionnairesQuestionListInstance;
+  /** insightsSession - { Twilio.FlexApi.V1.InsightsSessionListInstance } resource */
+  protected _insightsSession?: InsightsSessionListInstance;
+  /** insightsSettingsAnswerSets - { Twilio.FlexApi.V1.InsightsSettingsAnswerSetsListInstance } resource */
+  protected _insightsSettingsAnswerSets?: InsightsSettingsAnswerSetsListInstance;
+  /** insightsSettingsComment - { Twilio.FlexApi.V1.InsightsSettingsCommentListInstance } resource */
+  protected _insightsSettingsComment?: InsightsSettingsCommentListInstance;
+  /** insightsUserRoles - { Twilio.FlexApi.V1.InsightsUserRolesListInstance } resource */
+  protected _insightsUserRoles?: InsightsUserRolesListInstance;
   /** interaction - { Twilio.FlexApi.V1.InteractionListInstance } resource */
   protected _interaction?: InteractionListInstance;
-  /** userRoles - { Twilio.FlexApi.V1.UserRolesListInstance } resource */
-  protected _userRoles?: UserRolesListInstance;
   /** webChannel - { Twilio.FlexApi.V1.WebChannelListInstance } resource */
   protected _webChannel?: WebChannelListInstance;
 
@@ -75,22 +87,56 @@ export default class V1 extends Version {
     return this._flexFlow;
   }
 
-  /** Getter for goodData resource */
-  get goodData(): GoodDataListInstance {
-    this._goodData = this._goodData || GoodDataListInstance(this);
-    return this._goodData;
+  /** Getter for insightsQuestionnairesCategory resource */
+  get insightsQuestionnairesCategory(): InsightsQuestionnairesCategoryListInstance {
+    this._insightsQuestionnairesCategory =
+      this._insightsQuestionnairesCategory ||
+      InsightsQuestionnairesCategoryListInstance(this);
+    return this._insightsQuestionnairesCategory;
+  }
+
+  /** Getter for insightsQuestionnairesQuestion resource */
+  get insightsQuestionnairesQuestion(): InsightsQuestionnairesQuestionListInstance {
+    this._insightsQuestionnairesQuestion =
+      this._insightsQuestionnairesQuestion ||
+      InsightsQuestionnairesQuestionListInstance(this);
+    return this._insightsQuestionnairesQuestion;
+  }
+
+  /** Getter for insightsSession resource */
+  get insightsSession(): InsightsSessionListInstance {
+    this._insightsSession =
+      this._insightsSession || InsightsSessionListInstance(this);
+    return this._insightsSession;
+  }
+
+  /** Getter for insightsSettingsAnswerSets resource */
+  get insightsSettingsAnswerSets(): InsightsSettingsAnswerSetsListInstance {
+    this._insightsSettingsAnswerSets =
+      this._insightsSettingsAnswerSets ||
+      InsightsSettingsAnswerSetsListInstance(this);
+    return this._insightsSettingsAnswerSets;
+  }
+
+  /** Getter for insightsSettingsComment resource */
+  get insightsSettingsComment(): InsightsSettingsCommentListInstance {
+    this._insightsSettingsComment =
+      this._insightsSettingsComment ||
+      InsightsSettingsCommentListInstance(this);
+    return this._insightsSettingsComment;
+  }
+
+  /** Getter for insightsUserRoles resource */
+  get insightsUserRoles(): InsightsUserRolesListInstance {
+    this._insightsUserRoles =
+      this._insightsUserRoles || InsightsUserRolesListInstance(this);
+    return this._insightsUserRoles;
   }
 
   /** Getter for interaction resource */
   get interaction(): InteractionListInstance {
     this._interaction = this._interaction || InteractionListInstance(this);
     return this._interaction;
-  }
-
-  /** Getter for userRoles resource */
-  get userRoles(): UserRolesListInstance {
-    this._userRoles = this._userRoles || UserRolesListInstance(this);
-    return this._userRoles;
   }
 
   /** Getter for webChannel resource */

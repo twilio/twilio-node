@@ -1,6 +1,38 @@
 twilio-node changelog
 =====================
 
+[2023-01-25] Version 4.0.0
+--------------------------
+**Note:** This release contains breaking changes, check our [upgrade guide](./UPGRADE.md###-2023-01-25-3xx-to-4xx) for detailed migration notes.
+
+**Library - Fix**
+- [PR #902](https://github.com/twilio/twilio-node/pull/902): remove Flex shortcuts for removed APIs. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+- [PR #897](https://github.com/twilio/twilio-node/pull/897): use break() for method names rather than break_(). Thanks to [@mattcole19](https://github.com/mattcole19)!
+
+**Library - Docs**
+- [PR #901](https://github.com/twilio/twilio-node/pull/901): update README link to exceptions example for 4.x release. Thanks to [@stern-shawn](https://github.com/stern-shawn)!
+- [PR #899](https://github.com/twilio/twilio-node/pull/899): use long property descriptions if available. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+- [PR #895](https://github.com/twilio/twilio-node/pull/895): add relevant Refer/Say/ssml links to upgrade guide; formatting. Thanks to [@stern-shawn](https://github.com/stern-shawn)!
+
+**Library - Chore**
+- [PR #888](https://github.com/twilio/twilio-node/pull/888): re-add test:typescript to test rule. Thanks to [@beebzz](https://github.com/beebzz)!
+
+**Library - Feature**
+- [PR #883](https://github.com/twilio/twilio-node/pull/883): Merge branch '4.0.0-rc' to main. Thanks to [@childish-sambino](https://github.com/childish-sambino)! **(breaking change)**
+
+**Api**
+- Add `public_application_connect_enabled` param to Application resource
+
+**Messaging**
+- Add new tollfree verification API property (ExternalReferenceId)]
+
+**Verify**
+- Add `device_ip` parameter and channel `auto` for sna/sms orchestration
+
+**Twiml**
+- Add support for `<Application>` noun and `<ApplicationSid>` noun, nested `<Parameter>` to `<Hangup>` and `<Leave>` verb
+
+
 [2023-01-11] Version 3.84.1
 ---------------------------
 **Library - Test**

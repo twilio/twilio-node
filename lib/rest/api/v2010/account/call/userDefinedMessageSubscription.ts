@@ -26,7 +26,7 @@ export interface UserDefinedMessageSubscriptionListInstanceCreateOptions {
   callback: string;
   /** A unique string value to identify API call. This should be a unique string value per API call and can be a randomly generated. */
   idempotencyKey?: string;
-  /** The HTTP method Twilio will use when requesting the above `Url`. Either `GET` or `POST`. */
+  /** The HTTP method Twilio will use when requesting the above `Url`. Either `GET` or `POST`. Default is `POST`. */
   method?: string;
 }
 

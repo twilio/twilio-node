@@ -302,6 +302,8 @@ class VoiceResponse extends TwiML {
 }
 
 namespace VoiceResponse {
+  type ApplicationEvent = "initiated" | "ringing" | "answered" | "completed";
+
   type ClientEvent = "initiated" | "ringing" | "answered" | "completed";
 
   type ConferenceBeep = "true" | "false" | "onEnter" | "onExit";
@@ -1792,6 +1794,26 @@ namespace VoiceResponse {
   }
 
   /**
+   * Attributes to pass to parameter
+   */
+  export interface ParameterAttributes {
+    /** name - The name of the custom parameter */
+    name?: string;
+    /** value - The value of the custom parameter */
+    value?: string;
+  }
+
+  /**
+   * Attributes to pass to parameter
+   */
+  export interface ParameterAttributes {
+    /** name - The name of the custom parameter */
+    name?: string;
+    /** value - The value of the custom parameter */
+    value?: string;
+  }
+
+  /**
    * Attributes to pass to say
    */
   export interface SayAttributes {
@@ -1976,6 +1998,36 @@ namespace VoiceResponse {
   }
 
   /**
+   * Attributes to pass to application
+   */
+  export interface ApplicationAttributes {
+    /** copyParentTo - Copy parent call To field to called application side, otherwise use the application sid as To field */
+    copyParentTo?: boolean;
+    /** customerId - Identity of the customer calling application */
+    customerId?: string;
+    /** method - TwiML URL Method */
+    method?: string;
+    /** statusCallback - Status Callback URL */
+    statusCallback?: string;
+    /** statusCallbackEvent - Events to trigger status callback */
+    statusCallbackEvent?: ApplicationEvent[];
+    /** statusCallbackMethod - Status Callback URL Method */
+    statusCallbackMethod?: string;
+    /** url - TwiML URL */
+    url?: string;
+  }
+
+  /**
+   * Attributes to pass to parameter
+   */
+  export interface ParameterAttributes {
+    /** name - The name of the custom parameter */
+    name?: string;
+    /** value - The value of the custom parameter */
+    value?: string;
+  }
+
+  /**
    * Attributes to pass to parameter
    */
   export interface ParameterAttributes {
@@ -2079,6 +2131,65 @@ namespace VoiceResponse {
     name?: string;
     /** value - The value of the custom parameter */
     value?: string;
+  }
+
+  export class Application extends TwiML {
+    application: XMLElement;
+    /**
+     * <Application> TwiML Noun
+     */
+    constructor(application: XMLElement) {
+      super();
+      this.application = application;
+      this._propertyName = "application";
+    }
+    /**
+     * <ApplicationSid> TwiML Noun
+     *
+     * @param attributes - TwiML attributes
+     * @param sid - Application sid to dial
+     */
+    applicationSid(sid: string): VoiceResponse.ApplicationSid;
+    applicationSid(
+      attributes: object,
+      sid: string
+    ): VoiceResponse.ApplicationSid;
+    applicationSid(
+      attributes: object | string,
+      sid?: string
+    ): VoiceResponse.ApplicationSid {
+      if (typeof attributes === "string") {
+        sid = attributes;
+        attributes = {};
+      }
+      return new VoiceResponse.ApplicationSid(
+        this.application.ele("ApplicationSid", attributes, sid)
+      );
+    }
+    /**
+     * <Parameter> TwiML Noun
+     *
+     * @param attributes - TwiML attributes
+     */
+    parameter(
+      attributes?: VoiceResponse.ParameterAttributes
+    ): VoiceResponse.Parameter {
+      return new VoiceResponse.Parameter(
+        this.application.ele("Parameter", attributes)
+      );
+    }
+  }
+
+  export class ApplicationSid extends TwiML {
+    applicationSid: XMLElement;
+    /**
+     * <ApplicationSid> TwiML Noun
+     */
+    constructor(applicationSid: XMLElement) {
+      super();
+      this.applicationSid = applicationSid;
+      this._propertyName = "applicationSid";
+    }
   }
 
   export class Autopilot extends TwiML {
@@ -2270,6 +2381,29 @@ namespace VoiceResponse {
       super();
       this.dial = dial;
       this._propertyName = "dial";
+    }
+    /**
+     * <Application> TwiML Noun
+     *
+     * @param attributes - TwiML attributes
+     * @param applicationSid - Application sid
+     */
+    application(applicationSid?: string): VoiceResponse.Application;
+    application(
+      attributes?: VoiceResponse.ApplicationAttributes,
+      applicationSid?: string
+    ): VoiceResponse.Application;
+    application(
+      attributes?: VoiceResponse.ApplicationAttributes | string,
+      applicationSid?: string
+    ): VoiceResponse.Application {
+      if (typeof attributes === "string") {
+        applicationSid = attributes;
+        attributes = {};
+      }
+      return new VoiceResponse.Application(
+        this.dial.ele("Application", attributes, applicationSid)
+      );
     }
     /**
      * <Client> TwiML Noun
@@ -2515,6 +2649,18 @@ namespace VoiceResponse {
       super();
       this.hangup = hangup;
       this._propertyName = "hangup";
+    }
+    /**
+     * <Parameter> TwiML Noun
+     *
+     * @param attributes - TwiML attributes
+     */
+    parameter(
+      attributes?: VoiceResponse.ParameterAttributes
+    ): VoiceResponse.Parameter {
+      return new VoiceResponse.Parameter(
+        this.hangup.ele("Parameter", attributes)
+      );
     }
   }
 
@@ -2768,6 +2914,18 @@ namespace VoiceResponse {
       super();
       this.reject = reject;
       this._propertyName = "reject";
+    }
+    /**
+     * <Parameter> TwiML Noun
+     *
+     * @param attributes - TwiML attributes
+     */
+    parameter(
+      attributes?: VoiceResponse.ParameterAttributes
+    ): VoiceResponse.Parameter {
+      return new VoiceResponse.Parameter(
+        this.reject.ele("Parameter", attributes)
+      );
     }
   }
 

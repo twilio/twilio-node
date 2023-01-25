@@ -19,36 +19,36 @@ const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 
 /**
- * Options to pass to fetch a UserRolesInstance
+ * Options to pass to fetch a InsightsUserRolesInstance
  */
-export interface UserRolesContextFetchOptions {
+export interface InsightsUserRolesContextFetchOptions {
   /** The Token HTTP request header */
   token?: string;
 }
 
-export interface UserRolesContext {
+export interface InsightsUserRolesContext {
   /**
-   * Fetch a UserRolesInstance
+   * Fetch a InsightsUserRolesInstance
    *
    * @param callback - Callback to handle processed record
    *
-   * @returns Resolves to processed UserRolesInstance
+   * @returns Resolves to processed InsightsUserRolesInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: UserRolesInstance) => any
-  ): Promise<UserRolesInstance>;
+    callback?: (error: Error | null, item?: InsightsUserRolesInstance) => any
+  ): Promise<InsightsUserRolesInstance>;
   /**
-   * Fetch a UserRolesInstance
+   * Fetch a InsightsUserRolesInstance
    *
    * @param params - Parameter for request
    * @param callback - Callback to handle processed record
    *
-   * @returns Resolves to processed UserRolesInstance
+   * @returns Resolves to processed InsightsUserRolesInstance
    */
   fetch(
-    params: UserRolesContextFetchOptions,
-    callback?: (error: Error | null, item?: UserRolesInstance) => any
-  ): Promise<UserRolesInstance>;
+    params: InsightsUserRolesContextFetchOptions,
+    callback?: (error: Error | null, item?: InsightsUserRolesInstance) => any
+  ): Promise<InsightsUserRolesInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -57,10 +57,10 @@ export interface UserRolesContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface UserRolesContextSolution {}
+export interface InsightsUserRolesContextSolution {}
 
-export class UserRolesContextImpl implements UserRolesContext {
-  protected _solution: UserRolesContextSolution;
+export class InsightsUserRolesContextImpl implements InsightsUserRolesContext {
+  protected _solution: InsightsUserRolesContextSolution;
   protected _uri: string;
 
   constructor(protected _version: V1) {
@@ -70,10 +70,10 @@ export class UserRolesContextImpl implements UserRolesContext {
 
   fetch(
     params?:
-      | UserRolesContextFetchOptions
-      | ((error: Error | null, item?: UserRolesInstance) => any),
-    callback?: (error: Error | null, item?: UserRolesInstance) => any
-  ): Promise<UserRolesInstance> {
+      | InsightsUserRolesContextFetchOptions
+      | ((error: Error | null, item?: InsightsUserRolesInstance) => any),
+    callback?: (error: Error | null, item?: InsightsUserRolesInstance) => any
+  ): Promise<InsightsUserRolesInstance> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -96,7 +96,7 @@ export class UserRolesContextImpl implements UserRolesContext {
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new UserRolesInstance(operationVersion, payload)
+      (payload) => new InsightsUserRolesInstance(operationVersion, payload)
     );
 
     operationPromise = instance._version.setPromiseCallback(
@@ -120,18 +120,18 @@ export class UserRolesContextImpl implements UserRolesContext {
   }
 }
 
-interface UserRolesPayload extends UserRolesResource {}
+interface InsightsUserRolesPayload extends InsightsUserRolesResource {}
 
-interface UserRolesResource {
+interface InsightsUserRolesResource {
   roles: Array<string>;
   url: string;
 }
 
-export class UserRolesInstance {
-  protected _solution: UserRolesContextSolution;
-  protected _context?: UserRolesContext;
+export class InsightsUserRolesInstance {
+  protected _solution: InsightsUserRolesContextSolution;
+  protected _context?: InsightsUserRolesContext;
 
-  constructor(protected _version: V1, payload: UserRolesResource) {
+  constructor(protected _version: V1, payload: InsightsUserRolesResource) {
     this.roles = payload.roles;
     this.url = payload.url;
 
@@ -144,38 +144,39 @@ export class UserRolesInstance {
   roles: Array<string>;
   url: string;
 
-  private get _proxy(): UserRolesContext {
-    this._context = this._context || new UserRolesContextImpl(this._version);
+  private get _proxy(): InsightsUserRolesContext {
+    this._context =
+      this._context || new InsightsUserRolesContextImpl(this._version);
     return this._context;
   }
 
   /**
-   * Fetch a UserRolesInstance
+   * Fetch a InsightsUserRolesInstance
    *
    * @param callback - Callback to handle processed record
    *
-   * @returns Resolves to processed UserRolesInstance
+   * @returns Resolves to processed InsightsUserRolesInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: UserRolesInstance) => any
-  ): Promise<UserRolesInstance>;
+    callback?: (error: Error | null, item?: InsightsUserRolesInstance) => any
+  ): Promise<InsightsUserRolesInstance>;
   /**
-   * Fetch a UserRolesInstance
+   * Fetch a InsightsUserRolesInstance
    *
    * @param params - Parameter for request
    * @param callback - Callback to handle processed record
    *
-   * @returns Resolves to processed UserRolesInstance
+   * @returns Resolves to processed InsightsUserRolesInstance
    */
   fetch(
-    params: UserRolesContextFetchOptions,
-    callback?: (error: Error | null, item?: UserRolesInstance) => any
-  ): Promise<UserRolesInstance>;
+    params: InsightsUserRolesContextFetchOptions,
+    callback?: (error: Error | null, item?: InsightsUserRolesInstance) => any
+  ): Promise<InsightsUserRolesInstance>;
 
   fetch(
     params?: any,
-    callback?: (error: Error | null, item?: UserRolesInstance) => any
-  ): Promise<UserRolesInstance> {
+    callback?: (error: Error | null, item?: InsightsUserRolesInstance) => any
+  ): Promise<InsightsUserRolesInstance> {
     return this._proxy.fetch(params, callback);
   }
 
@@ -196,15 +197,15 @@ export class UserRolesInstance {
   }
 }
 
-export interface UserRolesSolution {}
+export interface InsightsUserRolesSolution {}
 
-export interface UserRolesListInstance {
+export interface InsightsUserRolesListInstance {
   _version: V1;
-  _solution: UserRolesSolution;
+  _solution: InsightsUserRolesSolution;
   _uri: string;
 
-  (): UserRolesContext;
-  get(): UserRolesContext;
+  (): InsightsUserRolesContext;
+  get(): InsightsUserRolesContext;
 
   /**
    * Provide a user-friendly representation
@@ -213,11 +214,13 @@ export interface UserRolesListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function UserRolesListInstance(version: V1): UserRolesListInstance {
-  const instance = (() => instance.get()) as UserRolesListInstance;
+export function InsightsUserRolesListInstance(
+  version: V1
+): InsightsUserRolesListInstance {
+  const instance = (() => instance.get()) as InsightsUserRolesListInstance;
 
-  instance.get = function get(): UserRolesContext {
-    return new UserRolesContextImpl(version);
+  instance.get = function get(): InsightsUserRolesContext {
+    return new InsightsUserRolesContextImpl(version);
   };
 
   instance._version = version;

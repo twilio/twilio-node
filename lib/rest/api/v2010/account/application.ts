@@ -54,6 +54,8 @@ export interface ApplicationContextUpdateOptions {
   smsStatusCallback?: string;
   /** The URL we should call using a POST method to send message status information to your application. */
   messageStatusCallback?: string;
+  /** Whether to allow other Twilio accounts to dial this applicaton using Dial verb. Can be: `true` or `false`. */
+  publicApplicationConnectEnabled?: boolean;
 }
 
 /**
@@ -90,6 +92,8 @@ export interface ApplicationListInstanceCreateOptions {
   messageStatusCallback?: string;
   /** A descriptive string that you create to describe the new application. It can be up to 64 characters long. */
   friendlyName?: string;
+  /** Whether to allow other Twilio accounts to dial this applicaton using Dial verb. Can be: `true` or `false`. */
+  publicApplicationConnectEnabled?: boolean;
 }
 /**
  * Options to pass to each
@@ -297,6 +301,10 @@ export class ApplicationContextImpl implements ApplicationContext {
       data["SmsStatusCallback"] = params["smsStatusCallback"];
     if (params["messageStatusCallback"] !== undefined)
       data["MessageStatusCallback"] = params["messageStatusCallback"];
+    if (params["publicApplicationConnectEnabled"] !== undefined)
+      data["PublicApplicationConnectEnabled"] = serialize.bool(
+        params["publicApplicationConnectEnabled"]
+      );
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
@@ -402,6 +410,7 @@ interface ApplicationResource {
   voice_fallback_url: string;
   voice_method: ApplicationVoiceMethod;
   voice_url: string;
+  public_application_connect_enabled: boolean;
 }
 
 export class ApplicationInstance {
@@ -434,6 +443,8 @@ export class ApplicationInstance {
     this.voiceFallbackUrl = payload.voice_fallback_url;
     this.voiceMethod = payload.voice_method;
     this.voiceUrl = payload.voice_url;
+    this.publicApplicationConnectEnabled =
+      payload.public_application_connect_enabled;
 
     this._solution = { accountSid, sid: sid || this.sid };
   }
@@ -518,6 +529,10 @@ export class ApplicationInstance {
    * The URL we call when the phone number assigned to this application receives a call.
    */
   voiceUrl: string;
+  /**
+   * Whether to allow other Twilio accounts to dial this applicaton using Dial verb. Can be: `true` or `false`.
+   */
+  publicApplicationConnectEnabled: boolean;
 
   private get _proxy(): ApplicationContext {
     this._context =
@@ -613,6 +628,7 @@ export class ApplicationInstance {
       voiceFallbackUrl: this.voiceFallbackUrl,
       voiceMethod: this.voiceMethod,
       voiceUrl: this.voiceUrl,
+      publicApplicationConnectEnabled: this.publicApplicationConnectEnabled,
     };
   }
 
@@ -795,6 +811,10 @@ export function ApplicationListInstance(
       data["MessageStatusCallback"] = params["messageStatusCallback"];
     if (params["friendlyName"] !== undefined)
       data["FriendlyName"] = params["friendlyName"];
+    if (params["publicApplicationConnectEnabled"] !== undefined)
+      data["PublicApplicationConnectEnabled"] = serialize.bool(
+        params["publicApplicationConnectEnabled"]
+      );
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
