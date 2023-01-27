@@ -1,7 +1,7 @@
-import Version from "../../../lib/base/Version";
+import Version from "../../../src/base/Version";
 import Holodeck from "../../integration/holodeck";
-import Response from "../../../lib/http/response";
-import Twilio from "../../../lib";
+import Response from "../../../src/http/response";
+import Twilio from "../../../src";
 
 describe("fetch method", function () {
   it("should not throw an exception on 3xx status code", function (done) {

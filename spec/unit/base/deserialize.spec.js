@@ -1,4 +1,4 @@
-import * as deserialize from "../../../lib/base/deserialize";
+import * as deserialize from "../../../src/base/deserialize";
 
 describe("deserialize date tests", function () {
   it("should parse date", function () {

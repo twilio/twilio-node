@@ -1,4 +1,4 @@
-import twilio from "../../../";
+import twilio from "../../../src";
 import jwt from "jsonwebtoken";
 
 process.noDeprecation = true;

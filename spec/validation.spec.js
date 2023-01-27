@@ -3,7 +3,7 @@ import {
   validateRequestWithBody,
   validateBody,
   webhook,
-} from "../lib/webhooks/webhooks";
+} from "../src/webhooks/webhooks";
 import httpMocks from "node-mocks-http";
 import url from "url";
 

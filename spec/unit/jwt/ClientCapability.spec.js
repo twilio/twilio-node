@@ -1,4 +1,4 @@
-import ClientCapability from "../../../lib/jwt/ClientCapability";
+import ClientCapability from "../../../src/jwt/ClientCapability";
 import jwt from "jsonwebtoken";
 
 describe("The TwiML Capability Token Object", function () {

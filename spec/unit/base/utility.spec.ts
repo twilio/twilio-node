@@ -1,4 +1,4 @@
-import { isValidPathParam } from "../../../lib/base/utility";
+import { isValidPathParam } from "../../../src/base/utility";
 
 describe("isValidPathParam", () => {
   it("should validate path params", () => {

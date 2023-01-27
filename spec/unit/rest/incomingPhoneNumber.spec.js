@@ -1,6 +1,6 @@
 import Holodeck from "../../integration/holodeck";
-import Response from "../../../lib/http/response";
-import Twilio from "../../../lib/";
+import Response from "../../../src/http/response";
+import Twilio from "../../../src/";
 
 var client;
 var holodeck;
