@@ -1,4 +1,4 @@
-import * as util from "../../../../lib/jwt/taskrouter/util";
+import * as util from "../../../../src/jwt/taskrouter/util";
 
 describe("util", function () {
   describe("url utils", function () {

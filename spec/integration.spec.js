@@ -1,4 +1,4 @@
-import twilio from "../lib/";
+import twilio from "../src/";
 
 var accountSid = "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
 var token = "token";

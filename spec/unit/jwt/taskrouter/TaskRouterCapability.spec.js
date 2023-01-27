@@ -1,5 +1,5 @@
-import TaskRouterCapability from "../../../../lib/jwt/taskrouter/TaskRouterCapability";
-import * as util from "../../../../lib/jwt/taskrouter/util";
+import TaskRouterCapability from "../../../../src/jwt/taskrouter/TaskRouterCapability";
+import * as util from "../../../../src/jwt/taskrouter/util";
 import jwt from "jsonwebtoken";
 
 describe("The TaskRouter Capability Token Object", function () {

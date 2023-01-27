@@ -1,5 +1,5 @@
 import util from "util";
-import Request from "../../lib/http/request";
+import Request from "../../src/http/request";
 import moduleInfo from "../../package.json";
 import os from "os";
 

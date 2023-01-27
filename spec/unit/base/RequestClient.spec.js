@@ -1,6 +1,6 @@
 import mockfs from "mock-fs";
 import axios from "axios";
-import RequestClient from "../../../lib/base/RequestClient";
+import RequestClient from "../../../src/base/RequestClient";
 import HttpsProxyAgent from "https-proxy-agent";
 import http from "http";
 

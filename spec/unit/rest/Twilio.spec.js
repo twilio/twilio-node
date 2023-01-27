@@ -1,5 +1,5 @@
 import nock from "nock";
-import Twilio from "../../../lib/";
+import Twilio from "../../../src/";
 
 describe("client", () => {
   let client;
