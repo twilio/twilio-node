@@ -6,8 +6,9 @@
     "esModuleInterop": true,
     "moduleResolution": "node",
     "allowJs": true,
-    "outDir": "dist",
+    "rootDir": "src",
+    "outDir": "lib",
     "strict": true
   },
-  "include": ["lib", "index.*"],
+  "include": ["src"],
 }

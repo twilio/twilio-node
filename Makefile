@@ -15,7 +15,7 @@ docs:
 	npm run typedoc
 
 clean:
-	rm -rf node_modules dist
+	rm -rf node_modules lib
 
 prettier:
 	npm run prettier

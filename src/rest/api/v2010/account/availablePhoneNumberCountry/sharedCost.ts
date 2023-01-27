@@ -19,12 +19,12 @@ import V2010 from "../../../V2010";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
-import { PhoneNumberCapabilities } from "../../../../../../lib/interfaces";
+import { PhoneNumberCapabilities } from "../../../../../../src/interfaces";
 
 /**
  * Options to pass to each
  */
-export interface VoipListInstanceEachOptions {
+export interface SharedCostListInstanceEachOptions {
   /** The area code of the phone numbers to read. Applies to only phone numbers in the US and Canada. */
   areaCode?: number;
   /** The pattern on which to match phone numbers. Valid characters are `*`, `0-9`, `a-z`, and `A-Z`. The `*` character matches any single digit. For examples, see [Example 2](https://www.twilio.com/docs/phone-numbers/api/availablephonenumber-resource#local-get-basic-example-2) and [Example 3](https://www.twilio.com/docs/phone-numbers/api/availablephonenumber-resource#local-get-basic-example-3). If specified, this value must have at least two characters. */
@@ -64,7 +64,7 @@ export interface VoipListInstanceEachOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
-  callback?: (item: VoipInstance, done: (err?: Error) => void) => void;
+  callback?: (item: SharedCostInstance, done: (err?: Error) => void) => void;
   /** Function to be called upon completion of streaming */
   done?: Function;
   /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
@@ -74,7 +74,7 @@ export interface VoipListInstanceEachOptions {
 /**
  * Options to pass to list
  */
-export interface VoipListInstanceOptions {
+export interface SharedCostListInstanceOptions {
   /** The area code of the phone numbers to read. Applies to only phone numbers in the US and Canada. */
   areaCode?: number;
   /** The pattern on which to match phone numbers. Valid characters are `*`, `0-9`, `a-z`, and `A-Z`. The `*` character matches any single digit. For examples, see [Example 2](https://www.twilio.com/docs/phone-numbers/api/availablephonenumber-resource#local-get-basic-example-2) and [Example 3](https://www.twilio.com/docs/phone-numbers/api/availablephonenumber-resource#local-get-basic-example-3). If specified, this value must have at least two characters. */
@@ -120,7 +120,7 @@ export interface VoipListInstanceOptions {
 /**
  * Options to pass to page
  */
-export interface VoipListInstancePageOptions {
+export interface SharedCostListInstancePageOptions {
   /** The area code of the phone numbers to read. Applies to only phone numbers in the US and Canada. */
   areaCode?: number;
   /** The pattern on which to match phone numbers. Valid characters are `*`, `0-9`, `a-z`, and `A-Z`. The `*` character matches any single digit. For examples, see [Example 2](https://www.twilio.com/docs/phone-numbers/api/availablephonenumber-resource#local-get-basic-example-2) and [Example 3](https://www.twilio.com/docs/phone-numbers/api/availablephonenumber-resource#local-get-basic-example-3). If specified, this value must have at least two characters. */
@@ -165,18 +165,18 @@ export interface VoipListInstancePageOptions {
   pageToken?: string;
 }
 
-export interface VoipSolution {
+export interface SharedCostSolution {
   accountSid: string;
   countryCode: string;
 }
 
-export interface VoipListInstance {
+export interface SharedCostListInstance {
   _version: V2010;
-  _solution: VoipSolution;
+  _solution: SharedCostSolution;
   _uri: string;
 
   /**
-   * Streams VoipInstance records from the API.
+   * Streams SharedCostInstance records from the API.
    *
    * This operation lazily loads records as efficiently as possible until the limit
    * is reached.
@@ -187,18 +187,18 @@ export interface VoipListInstance {
    * If a function is passed as the first argument, it will be used as the callback
    * function.
    *
-   * @param { VoipListInstanceEachOptions } [params] - Options for request
+   * @param { SharedCostListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
   each(
-    callback?: (item: VoipInstance, done: (err?: Error) => void) => void
+    callback?: (item: SharedCostInstance, done: (err?: Error) => void) => void
   ): void;
   each(
-    params: VoipListInstanceEachOptions,
-    callback?: (item: VoipInstance, done: (err?: Error) => void) => void
+    params: SharedCostListInstanceEachOptions,
+    callback?: (item: SharedCostInstance, done: (err?: Error) => void) => void
   ): void;
   /**
-   * Retrieve a single target page of VoipInstance records from the API.
+   * Retrieve a single target page of SharedCostInstance records from the API.
    *
    * The request is executed immediately.
    *
@@ -207,42 +207,42 @@ export interface VoipListInstance {
    */
   getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: VoipPage) => any
-  ): Promise<VoipPage>;
+    callback?: (error: Error | null, items: SharedCostPage) => any
+  ): Promise<SharedCostPage>;
   /**
-   * Lists VoipInstance records from the API as a list.
+   * Lists SharedCostInstance records from the API as a list.
    *
    * If a function is passed as the first argument, it will be used as the callback
    * function.
    *
-   * @param { VoipListInstanceOptions } [params] - Options for request
+   * @param { SharedCostListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    callback?: (error: Error | null, items: VoipInstance[]) => any
-  ): Promise<VoipInstance[]>;
+    callback?: (error: Error | null, items: SharedCostInstance[]) => any
+  ): Promise<SharedCostInstance[]>;
   list(
-    params: VoipListInstanceOptions,
-    callback?: (error: Error | null, items: VoipInstance[]) => any
-  ): Promise<VoipInstance[]>;
+    params: SharedCostListInstanceOptions,
+    callback?: (error: Error | null, items: SharedCostInstance[]) => any
+  ): Promise<SharedCostInstance[]>;
   /**
-   * Retrieve a single page of VoipInstance records from the API.
+   * Retrieve a single page of SharedCostInstance records from the API.
    *
    * The request is executed immediately.
    *
    * If a function is passed as the first argument, it will be used as the callback
    * function.
    *
-   * @param { VoipListInstancePageOptions } [params] - Options for request
+   * @param { SharedCostListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    callback?: (error: Error | null, items: VoipPage) => any
-  ): Promise<VoipPage>;
+    callback?: (error: Error | null, items: SharedCostPage) => any
+  ): Promise<SharedCostPage>;
   page(
-    params: VoipListInstancePageOptions,
-    callback?: (error: Error | null, items: VoipPage) => any
-  ): Promise<VoipPage>;
+    params: SharedCostListInstancePageOptions,
+    callback?: (error: Error | null, items: SharedCostPage) => any
+  ): Promise<SharedCostPage>;
 
   /**
    * Provide a user-friendly representation
@@ -251,11 +251,11 @@ export interface VoipListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function VoipListInstance(
+export function SharedCostListInstance(
   version: V2010,
   accountSid: string,
   countryCode: string
-): VoipListInstance {
+): SharedCostListInstance {
   if (!isValidPathParam(accountSid)) {
     throw new Error("Parameter 'accountSid' is not valid.");
   }
@@ -264,18 +264,18 @@ export function VoipListInstance(
     throw new Error("Parameter 'countryCode' is not valid.");
   }
 
-  const instance = {} as VoipListInstance;
+  const instance = {} as SharedCostListInstance;
 
   instance._version = version;
   instance._solution = { accountSid, countryCode };
-  instance._uri = `/Accounts/${accountSid}/AvailablePhoneNumbers/${countryCode}/Voip.json`;
+  instance._uri = `/Accounts/${accountSid}/AvailablePhoneNumbers/${countryCode}/SharedCost.json`;
 
   instance.page = function page(
     params?:
-      | VoipListInstancePageOptions
-      | ((error: Error | null, items: VoipPage) => any),
-    callback?: (error: Error | null, items: VoipPage) => any
-  ): Promise<VoipPage> {
+      | SharedCostListInstancePageOptions
+      | ((error: Error | null, items: SharedCostPage) => any),
+    callback?: (error: Error | null, items: SharedCostPage) => any
+  ): Promise<SharedCostPage> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -338,7 +338,8 @@ export function VoipListInstance(
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new VoipPage(operationVersion, payload, instance._solution)
+      (payload) =>
+        new SharedCostPage(operationVersion, payload, instance._solution)
     );
 
     operationPromise = instance._version.setPromiseCallback(
@@ -352,15 +353,16 @@ export function VoipListInstance(
 
   instance.getPage = function getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: VoipPage) => any
-  ): Promise<VoipPage> {
+    callback?: (error: Error | null, items: SharedCostPage) => any
+  ): Promise<SharedCostPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
     let pagePromise = operationPromise.then(
-      (payload) => new VoipPage(instance._version, payload, instance._solution)
+      (payload) =>
+        new SharedCostPage(instance._version, payload, instance._solution)
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -380,11 +382,11 @@ export function VoipListInstance(
   return instance;
 }
 
-interface VoipPayload extends TwilioResponsePayload {
-  available_phone_numbers: VoipResource[];
+interface SharedCostPayload extends TwilioResponsePayload {
+  available_phone_numbers: SharedCostResource[];
 }
 
-interface VoipResource {
+interface SharedCostResource {
   friendly_name: string;
   phone_number: string;
   lata: string;
@@ -400,10 +402,10 @@ interface VoipResource {
   capabilities: PhoneNumberCapabilities;
 }
 
-export class VoipInstance {
+export class SharedCostInstance {
   constructor(
     protected _version: V2010,
-    payload: VoipResource,
+    payload: SharedCostResource,
     accountSid: string,
     countryCode: string
   ) {
@@ -500,14 +502,14 @@ export class VoipInstance {
   }
 }
 
-export class VoipPage extends Page<
+export class SharedCostPage extends Page<
   V2010,
-  VoipPayload,
-  VoipResource,
-  VoipInstance
+  SharedCostPayload,
+  SharedCostResource,
+  SharedCostInstance
 > {
   /**
-   * Initialize the VoipPage
+   * Initialize the SharedCostPage
    *
    * @param version - Version of the resource
    * @param response - Response from the API
@@ -516,18 +518,18 @@ export class VoipPage extends Page<
   constructor(
     version: V2010,
     response: Response<string>,
-    solution: VoipSolution
+    solution: SharedCostSolution
   ) {
     super(version, response, solution);
   }
 
   /**
-   * Build an instance of VoipInstance
+   * Build an instance of SharedCostInstance
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: VoipResource): VoipInstance {
-    return new VoipInstance(
+  getInstance(payload: SharedCostResource): SharedCostInstance {
+    return new SharedCostInstance(
       this._version,
       payload,
       this._solution.accountSid,

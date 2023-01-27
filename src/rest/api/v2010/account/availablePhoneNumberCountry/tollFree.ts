@@ -19,15 +19,15 @@ import V2010 from "../../../V2010";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
-import { PhoneNumberCapabilities } from "../../../../../../lib/interfaces";
+import { PhoneNumberCapabilities } from "../../../../../../src/interfaces";
 
 /**
  * Options to pass to each
  */
-export interface LocalListInstanceEachOptions {
+export interface TollFreeListInstanceEachOptions {
   /** The area code of the phone numbers to read. Applies to only phone numbers in the US and Canada. */
   areaCode?: number;
-  /** The pattern on which to match phone numbers. Valid characters are `*`, `0-9`, `a-z`, and `A-Z`. The `*` character matches any single digit. For examples, see [Example 2](https://www.twilio.com/docs/phone-numbers/api/availablephonenumberlocal-resource?code-sample=code-find-phone-numbers-by-number-pattern) and [Example 3](https://www.twilio.com/docs/phone-numbers/api/availablephonenumberlocal-resource?code-sample=code-find-phone-numbers-by-character-pattern). If specified, this value must have at least two characters. */
+  /** The pattern on which to match phone numbers. Valid characters are `*`, `0-9`, `a-z`, and `A-Z`. The `*` character matches any single digit. For examples, see [Example 2](https://www.twilio.com/docs/phone-numbers/api/availablephonenumber-resource#local-get-basic-example-2) and [Example 3](https://www.twilio.com/docs/phone-numbers/api/availablephonenumber-resource#local-get-basic-example-3). If specified, this value must have at least two characters. */
   contains?: string;
   /** Whether the phone numbers can receive text messages. Can be: `true` or `false`. */
   smsEnabled?: boolean;
@@ -64,7 +64,7 @@ export interface LocalListInstanceEachOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
-  callback?: (item: LocalInstance, done: (err?: Error) => void) => void;
+  callback?: (item: TollFreeInstance, done: (err?: Error) => void) => void;
   /** Function to be called upon completion of streaming */
   done?: Function;
   /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
@@ -74,10 +74,10 @@ export interface LocalListInstanceEachOptions {
 /**
  * Options to pass to list
  */
-export interface LocalListInstanceOptions {
+export interface TollFreeListInstanceOptions {
   /** The area code of the phone numbers to read. Applies to only phone numbers in the US and Canada. */
   areaCode?: number;
-  /** The pattern on which to match phone numbers. Valid characters are `*`, `0-9`, `a-z`, and `A-Z`. The `*` character matches any single digit. For examples, see [Example 2](https://www.twilio.com/docs/phone-numbers/api/availablephonenumberlocal-resource?code-sample=code-find-phone-numbers-by-number-pattern) and [Example 3](https://www.twilio.com/docs/phone-numbers/api/availablephonenumberlocal-resource?code-sample=code-find-phone-numbers-by-character-pattern). If specified, this value must have at least two characters. */
+  /** The pattern on which to match phone numbers. Valid characters are `*`, `0-9`, `a-z`, and `A-Z`. The `*` character matches any single digit. For examples, see [Example 2](https://www.twilio.com/docs/phone-numbers/api/availablephonenumber-resource#local-get-basic-example-2) and [Example 3](https://www.twilio.com/docs/phone-numbers/api/availablephonenumber-resource#local-get-basic-example-3). If specified, this value must have at least two characters. */
   contains?: string;
   /** Whether the phone numbers can receive text messages. Can be: `true` or `false`. */
   smsEnabled?: boolean;
@@ -120,10 +120,10 @@ export interface LocalListInstanceOptions {
 /**
  * Options to pass to page
  */
-export interface LocalListInstancePageOptions {
+export interface TollFreeListInstancePageOptions {
   /** The area code of the phone numbers to read. Applies to only phone numbers in the US and Canada. */
   areaCode?: number;
-  /** The pattern on which to match phone numbers. Valid characters are `*`, `0-9`, `a-z`, and `A-Z`. The `*` character matches any single digit. For examples, see [Example 2](https://www.twilio.com/docs/phone-numbers/api/availablephonenumberlocal-resource?code-sample=code-find-phone-numbers-by-number-pattern) and [Example 3](https://www.twilio.com/docs/phone-numbers/api/availablephonenumberlocal-resource?code-sample=code-find-phone-numbers-by-character-pattern). If specified, this value must have at least two characters. */
+  /** The pattern on which to match phone numbers. Valid characters are `*`, `0-9`, `a-z`, and `A-Z`. The `*` character matches any single digit. For examples, see [Example 2](https://www.twilio.com/docs/phone-numbers/api/availablephonenumber-resource#local-get-basic-example-2) and [Example 3](https://www.twilio.com/docs/phone-numbers/api/availablephonenumber-resource#local-get-basic-example-3). If specified, this value must have at least two characters. */
   contains?: string;
   /** Whether the phone numbers can receive text messages. Can be: `true` or `false`. */
   smsEnabled?: boolean;
@@ -165,18 +165,18 @@ export interface LocalListInstancePageOptions {
   pageToken?: string;
 }
 
-export interface LocalSolution {
+export interface TollFreeSolution {
   accountSid: string;
   countryCode: string;
 }
 
-export interface LocalListInstance {
+export interface TollFreeListInstance {
   _version: V2010;
-  _solution: LocalSolution;
+  _solution: TollFreeSolution;
   _uri: string;
 
   /**
-   * Streams LocalInstance records from the API.
+   * Streams TollFreeInstance records from the API.
    *
    * This operation lazily loads records as efficiently as possible until the limit
    * is reached.
@@ -187,18 +187,18 @@ export interface LocalListInstance {
    * If a function is passed as the first argument, it will be used as the callback
    * function.
    *
-   * @param { LocalListInstanceEachOptions } [params] - Options for request
+   * @param { TollFreeListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
   each(
-    callback?: (item: LocalInstance, done: (err?: Error) => void) => void
+    callback?: (item: TollFreeInstance, done: (err?: Error) => void) => void
   ): void;
   each(
-    params: LocalListInstanceEachOptions,
-    callback?: (item: LocalInstance, done: (err?: Error) => void) => void
+    params: TollFreeListInstanceEachOptions,
+    callback?: (item: TollFreeInstance, done: (err?: Error) => void) => void
   ): void;
   /**
-   * Retrieve a single target page of LocalInstance records from the API.
+   * Retrieve a single target page of TollFreeInstance records from the API.
    *
    * The request is executed immediately.
    *
@@ -207,42 +207,42 @@ export interface LocalListInstance {
    */
   getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: LocalPage) => any
-  ): Promise<LocalPage>;
+    callback?: (error: Error | null, items: TollFreePage) => any
+  ): Promise<TollFreePage>;
   /**
-   * Lists LocalInstance records from the API as a list.
+   * Lists TollFreeInstance records from the API as a list.
    *
    * If a function is passed as the first argument, it will be used as the callback
    * function.
    *
-   * @param { LocalListInstanceOptions } [params] - Options for request
+   * @param { TollFreeListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    callback?: (error: Error | null, items: LocalInstance[]) => any
-  ): Promise<LocalInstance[]>;
+    callback?: (error: Error | null, items: TollFreeInstance[]) => any
+  ): Promise<TollFreeInstance[]>;
   list(
-    params: LocalListInstanceOptions,
-    callback?: (error: Error | null, items: LocalInstance[]) => any
-  ): Promise<LocalInstance[]>;
+    params: TollFreeListInstanceOptions,
+    callback?: (error: Error | null, items: TollFreeInstance[]) => any
+  ): Promise<TollFreeInstance[]>;
   /**
-   * Retrieve a single page of LocalInstance records from the API.
+   * Retrieve a single page of TollFreeInstance records from the API.
    *
    * The request is executed immediately.
    *
    * If a function is passed as the first argument, it will be used as the callback
    * function.
    *
-   * @param { LocalListInstancePageOptions } [params] - Options for request
+   * @param { TollFreeListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    callback?: (error: Error | null, items: LocalPage) => any
-  ): Promise<LocalPage>;
+    callback?: (error: Error | null, items: TollFreePage) => any
+  ): Promise<TollFreePage>;
   page(
-    params: LocalListInstancePageOptions,
-    callback?: (error: Error | null, items: LocalPage) => any
-  ): Promise<LocalPage>;
+    params: TollFreeListInstancePageOptions,
+    callback?: (error: Error | null, items: TollFreePage) => any
+  ): Promise<TollFreePage>;
 
   /**
    * Provide a user-friendly representation
@@ -251,11 +251,11 @@ export interface LocalListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function LocalListInstance(
+export function TollFreeListInstance(
   version: V2010,
   accountSid: string,
   countryCode: string
-): LocalListInstance {
+): TollFreeListInstance {
   if (!isValidPathParam(accountSid)) {
     throw new Error("Parameter 'accountSid' is not valid.");
   }
@@ -264,18 +264,18 @@ export function LocalListInstance(
     throw new Error("Parameter 'countryCode' is not valid.");
   }
 
-  const instance = {} as LocalListInstance;
+  const instance = {} as TollFreeListInstance;
 
   instance._version = version;
   instance._solution = { accountSid, countryCode };
-  instance._uri = `/Accounts/${accountSid}/AvailablePhoneNumbers/${countryCode}/Local.json`;
+  instance._uri = `/Accounts/${accountSid}/AvailablePhoneNumbers/${countryCode}/TollFree.json`;
 
   instance.page = function page(
     params?:
-      | LocalListInstancePageOptions
-      | ((error: Error | null, items: LocalPage) => any),
-    callback?: (error: Error | null, items: LocalPage) => any
-  ): Promise<LocalPage> {
+      | TollFreeListInstancePageOptions
+      | ((error: Error | null, items: TollFreePage) => any),
+    callback?: (error: Error | null, items: TollFreePage) => any
+  ): Promise<TollFreePage> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -338,7 +338,8 @@ export function LocalListInstance(
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new LocalPage(operationVersion, payload, instance._solution)
+      (payload) =>
+        new TollFreePage(operationVersion, payload, instance._solution)
     );
 
     operationPromise = instance._version.setPromiseCallback(
@@ -352,15 +353,16 @@ export function LocalListInstance(
 
   instance.getPage = function getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: LocalPage) => any
-  ): Promise<LocalPage> {
+    callback?: (error: Error | null, items: TollFreePage) => any
+  ): Promise<TollFreePage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
     let pagePromise = operationPromise.then(
-      (payload) => new LocalPage(instance._version, payload, instance._solution)
+      (payload) =>
+        new TollFreePage(instance._version, payload, instance._solution)
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -380,11 +382,11 @@ export function LocalListInstance(
   return instance;
 }
 
-interface LocalPayload extends TwilioResponsePayload {
-  available_phone_numbers: LocalResource[];
+interface TollFreePayload extends TwilioResponsePayload {
+  available_phone_numbers: TollFreeResource[];
 }
 
-interface LocalResource {
+interface TollFreeResource {
   friendly_name: string;
   phone_number: string;
   lata: string;
@@ -400,10 +402,10 @@ interface LocalResource {
   capabilities: PhoneNumberCapabilities;
 }
 
-export class LocalInstance {
+export class TollFreeInstance {
   constructor(
     protected _version: V2010,
-    payload: LocalResource,
+    payload: TollFreeResource,
     accountSid: string,
     countryCode: string
   ) {
@@ -500,14 +502,14 @@ export class LocalInstance {
   }
 }
 
-export class LocalPage extends Page<
+export class TollFreePage extends Page<
   V2010,
-  LocalPayload,
-  LocalResource,
-  LocalInstance
+  TollFreePayload,
+  TollFreeResource,
+  TollFreeInstance
 > {
   /**
-   * Initialize the LocalPage
+   * Initialize the TollFreePage
    *
    * @param version - Version of the resource
    * @param response - Response from the API
@@ -516,18 +518,18 @@ export class LocalPage extends Page<
   constructor(
     version: V2010,
     response: Response<string>,
-    solution: LocalSolution
+    solution: TollFreeSolution
   ) {
     super(version, response, solution);
   }
 
   /**
-   * Build an instance of LocalInstance
+   * Build an instance of TollFreeInstance
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: LocalResource): LocalInstance {
-    return new LocalInstance(
+  getInstance(payload: TollFreeResource): TollFreeInstance {
+    return new TollFreeInstance(
       this._version,
       payload,
       this._solution.accountSid,

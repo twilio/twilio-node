@@ -1,6 +1,6 @@
 {
   "exclude": [
-    "lib/rest/**/*.js",
+    "src/rest/**/*.js",
     "**/*.spec.js"
   ],
   "reporter": [
