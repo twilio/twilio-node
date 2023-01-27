@@ -19,12 +19,12 @@ import V2010 from "../../../V2010";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
-import { PhoneNumberCapabilities } from "../../../../../../lib/interfaces";
+import { PhoneNumberCapabilities } from "../../../../../../src/interfaces";
 
 /**
  * Options to pass to each
  */
-export interface MachineToMachineListInstanceEachOptions {
+export interface VoipListInstanceEachOptions {
   /** The area code of the phone numbers to read. Applies to only phone numbers in the US and Canada. */
   areaCode?: number;
   /** The pattern on which to match phone numbers. Valid characters are `*`, `0-9`, `a-z`, and `A-Z`. The `*` character matches any single digit. For examples, see [Example 2](https://www.twilio.com/docs/phone-numbers/api/availablephonenumber-resource#local-get-basic-example-2) and [Example 3](https://www.twilio.com/docs/phone-numbers/api/availablephonenumber-resource#local-get-basic-example-3). If specified, this value must have at least two characters. */
@@ -64,10 +64,7 @@ export interface MachineToMachineListInstanceEachOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
-  callback?: (
-    item: MachineToMachineInstance,
-    done: (err?: Error) => void
-  ) => void;
+  callback?: (item: VoipInstance, done: (err?: Error) => void) => void;
   /** Function to be called upon completion of streaming */
   done?: Function;
   /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
@@ -77,7 +74,7 @@ export interface MachineToMachineListInstanceEachOptions {
 /**
  * Options to pass to list
  */
-export interface MachineToMachineListInstanceOptions {
+export interface VoipListInstanceOptions {
   /** The area code of the phone numbers to read. Applies to only phone numbers in the US and Canada. */
   areaCode?: number;
   /** The pattern on which to match phone numbers. Valid characters are `*`, `0-9`, `a-z`, and `A-Z`. The `*` character matches any single digit. For examples, see [Example 2](https://www.twilio.com/docs/phone-numbers/api/availablephonenumber-resource#local-get-basic-example-2) and [Example 3](https://www.twilio.com/docs/phone-numbers/api/availablephonenumber-resource#local-get-basic-example-3). If specified, this value must have at least two characters. */
@@ -123,7 +120,7 @@ export interface MachineToMachineListInstanceOptions {
 /**
  * Options to pass to page
  */
-export interface MachineToMachineListInstancePageOptions {
+export interface VoipListInstancePageOptions {
   /** The area code of the phone numbers to read. Applies to only phone numbers in the US and Canada. */
   areaCode?: number;
   /** The pattern on which to match phone numbers. Valid characters are `*`, `0-9`, `a-z`, and `A-Z`. The `*` character matches any single digit. For examples, see [Example 2](https://www.twilio.com/docs/phone-numbers/api/availablephonenumber-resource#local-get-basic-example-2) and [Example 3](https://www.twilio.com/docs/phone-numbers/api/availablephonenumber-resource#local-get-basic-example-3). If specified, this value must have at least two characters. */
@@ -168,18 +165,18 @@ export interface MachineToMachineListInstancePageOptions {
   pageToken?: string;
 }
 
-export interface MachineToMachineSolution {
+export interface VoipSolution {
   accountSid: string;
   countryCode: string;
 }
 
-export interface MachineToMachineListInstance {
+export interface VoipListInstance {
   _version: V2010;
-  _solution: MachineToMachineSolution;
+  _solution: VoipSolution;
   _uri: string;
 
   /**
-   * Streams MachineToMachineInstance records from the API.
+   * Streams VoipInstance records from the API.
    *
    * This operation lazily loads records as efficiently as possible until the limit
    * is reached.
@@ -190,24 +187,18 @@ export interface MachineToMachineListInstance {
    * If a function is passed as the first argument, it will be used as the callback
    * function.
    *
-   * @param { MachineToMachineListInstanceEachOptions } [params] - Options for request
+   * @param { VoipListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
   each(
-    callback?: (
-      item: MachineToMachineInstance,
-      done: (err?: Error) => void
-    ) => void
+    callback?: (item: VoipInstance, done: (err?: Error) => void) => void
   ): void;
   each(
-    params: MachineToMachineListInstanceEachOptions,
-    callback?: (
-      item: MachineToMachineInstance,
-      done: (err?: Error) => void
-    ) => void
+    params: VoipListInstanceEachOptions,
+    callback?: (item: VoipInstance, done: (err?: Error) => void) => void
   ): void;
   /**
-   * Retrieve a single target page of MachineToMachineInstance records from the API.
+   * Retrieve a single target page of VoipInstance records from the API.
    *
    * The request is executed immediately.
    *
@@ -216,42 +207,42 @@ export interface MachineToMachineListInstance {
    */
   getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: MachineToMachinePage) => any
-  ): Promise<MachineToMachinePage>;
+    callback?: (error: Error | null, items: VoipPage) => any
+  ): Promise<VoipPage>;
   /**
-   * Lists MachineToMachineInstance records from the API as a list.
+   * Lists VoipInstance records from the API as a list.
    *
    * If a function is passed as the first argument, it will be used as the callback
    * function.
    *
-   * @param { MachineToMachineListInstanceOptions } [params] - Options for request
+   * @param { VoipListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    callback?: (error: Error | null, items: MachineToMachineInstance[]) => any
-  ): Promise<MachineToMachineInstance[]>;
+    callback?: (error: Error | null, items: VoipInstance[]) => any
+  ): Promise<VoipInstance[]>;
   list(
-    params: MachineToMachineListInstanceOptions,
-    callback?: (error: Error | null, items: MachineToMachineInstance[]) => any
-  ): Promise<MachineToMachineInstance[]>;
+    params: VoipListInstanceOptions,
+    callback?: (error: Error | null, items: VoipInstance[]) => any
+  ): Promise<VoipInstance[]>;
   /**
-   * Retrieve a single page of MachineToMachineInstance records from the API.
+   * Retrieve a single page of VoipInstance records from the API.
    *
    * The request is executed immediately.
    *
    * If a function is passed as the first argument, it will be used as the callback
    * function.
    *
-   * @param { MachineToMachineListInstancePageOptions } [params] - Options for request
+   * @param { VoipListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    callback?: (error: Error | null, items: MachineToMachinePage) => any
-  ): Promise<MachineToMachinePage>;
+    callback?: (error: Error | null, items: VoipPage) => any
+  ): Promise<VoipPage>;
   page(
-    params: MachineToMachineListInstancePageOptions,
-    callback?: (error: Error | null, items: MachineToMachinePage) => any
-  ): Promise<MachineToMachinePage>;
+    params: VoipListInstancePageOptions,
+    callback?: (error: Error | null, items: VoipPage) => any
+  ): Promise<VoipPage>;
 
   /**
    * Provide a user-friendly representation
@@ -260,11 +251,11 @@ export interface MachineToMachineListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function MachineToMachineListInstance(
+export function VoipListInstance(
   version: V2010,
   accountSid: string,
   countryCode: string
-): MachineToMachineListInstance {
+): VoipListInstance {
   if (!isValidPathParam(accountSid)) {
     throw new Error("Parameter 'accountSid' is not valid.");
   }
@@ -273,18 +264,18 @@ export function MachineToMachineListInstance(
     throw new Error("Parameter 'countryCode' is not valid.");
   }
 
-  const instance = {} as MachineToMachineListInstance;
+  const instance = {} as VoipListInstance;
 
   instance._version = version;
   instance._solution = { accountSid, countryCode };
-  instance._uri = `/Accounts/${accountSid}/AvailablePhoneNumbers/${countryCode}/MachineToMachine.json`;
+  instance._uri = `/Accounts/${accountSid}/AvailablePhoneNumbers/${countryCode}/Voip.json`;
 
   instance.page = function page(
     params?:
-      | MachineToMachineListInstancePageOptions
-      | ((error: Error | null, items: MachineToMachinePage) => any),
-    callback?: (error: Error | null, items: MachineToMachinePage) => any
-  ): Promise<MachineToMachinePage> {
+      | VoipListInstancePageOptions
+      | ((error: Error | null, items: VoipPage) => any),
+    callback?: (error: Error | null, items: VoipPage) => any
+  ): Promise<VoipPage> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -347,8 +338,7 @@ export function MachineToMachineListInstance(
       });
 
     operationPromise = operationPromise.then(
-      (payload) =>
-        new MachineToMachinePage(operationVersion, payload, instance._solution)
+      (payload) => new VoipPage(operationVersion, payload, instance._solution)
     );
 
     operationPromise = instance._version.setPromiseCallback(
@@ -362,16 +352,15 @@ export function MachineToMachineListInstance(
 
   instance.getPage = function getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: MachineToMachinePage) => any
-  ): Promise<MachineToMachinePage> {
+    callback?: (error: Error | null, items: VoipPage) => any
+  ): Promise<VoipPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
     let pagePromise = operationPromise.then(
-      (payload) =>
-        new MachineToMachinePage(instance._version, payload, instance._solution)
+      (payload) => new VoipPage(instance._version, payload, instance._solution)
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -391,11 +380,11 @@ export function MachineToMachineListInstance(
   return instance;
 }
 
-interface MachineToMachinePayload extends TwilioResponsePayload {
-  available_phone_numbers: MachineToMachineResource[];
+interface VoipPayload extends TwilioResponsePayload {
+  available_phone_numbers: VoipResource[];
 }
 
-interface MachineToMachineResource {
+interface VoipResource {
   friendly_name: string;
   phone_number: string;
   lata: string;
@@ -411,10 +400,10 @@ interface MachineToMachineResource {
   capabilities: PhoneNumberCapabilities;
 }
 
-export class MachineToMachineInstance {
+export class VoipInstance {
   constructor(
     protected _version: V2010,
-    payload: MachineToMachineResource,
+    payload: VoipResource,
     accountSid: string,
     countryCode: string
   ) {
@@ -511,14 +500,14 @@ export class MachineToMachineInstance {
   }
 }
 
-export class MachineToMachinePage extends Page<
+export class VoipPage extends Page<
   V2010,
-  MachineToMachinePayload,
-  MachineToMachineResource,
-  MachineToMachineInstance
+  VoipPayload,
+  VoipResource,
+  VoipInstance
 > {
   /**
-   * Initialize the MachineToMachinePage
+   * Initialize the VoipPage
    *
    * @param version - Version of the resource
    * @param response - Response from the API
@@ -527,18 +516,18 @@ export class MachineToMachinePage extends Page<
   constructor(
     version: V2010,
     response: Response<string>,
-    solution: MachineToMachineSolution
+    solution: VoipSolution
   ) {
     super(version, response, solution);
   }
 
   /**
-   * Build an instance of MachineToMachineInstance
+   * Build an instance of VoipInstance
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: MachineToMachineResource): MachineToMachineInstance {
-    return new MachineToMachineInstance(
+  getInstance(payload: VoipResource): VoipInstance {
+    return new VoipInstance(
       this._version,
       payload,
       this._solution.accountSid,

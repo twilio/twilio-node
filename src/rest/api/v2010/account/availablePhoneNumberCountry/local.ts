@@ -19,15 +19,15 @@ import V2010 from "../../../V2010";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
-import { PhoneNumberCapabilities } from "../../../../../../lib/interfaces";
+import { PhoneNumberCapabilities } from "../../../../../../src/interfaces";
 
 /**
  * Options to pass to each
  */
-export interface SharedCostListInstanceEachOptions {
+export interface LocalListInstanceEachOptions {
   /** The area code of the phone numbers to read. Applies to only phone numbers in the US and Canada. */
   areaCode?: number;
-  /** The pattern on which to match phone numbers. Valid characters are `*`, `0-9`, `a-z`, and `A-Z`. The `*` character matches any single digit. For examples, see [Example 2](https://www.twilio.com/docs/phone-numbers/api/availablephonenumber-resource#local-get-basic-example-2) and [Example 3](https://www.twilio.com/docs/phone-numbers/api/availablephonenumber-resource#local-get-basic-example-3). If specified, this value must have at least two characters. */
+  /** The pattern on which to match phone numbers. Valid characters are `*`, `0-9`, `a-z`, and `A-Z`. The `*` character matches any single digit. For examples, see [Example 2](https://www.twilio.com/docs/phone-numbers/api/availablephonenumberlocal-resource?code-sample=code-find-phone-numbers-by-number-pattern) and [Example 3](https://www.twilio.com/docs/phone-numbers/api/availablephonenumberlocal-resource?code-sample=code-find-phone-numbers-by-character-pattern). If specified, this value must have at least two characters. */
   contains?: string;
   /** Whether the phone numbers can receive text messages. Can be: `true` or `false`. */
   smsEnabled?: boolean;
@@ -64,7 +64,7 @@ export interface SharedCostListInstanceEachOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
-  callback?: (item: SharedCostInstance, done: (err?: Error) => void) => void;
+  callback?: (item: LocalInstance, done: (err?: Error) => void) => void;
   /** Function to be called upon completion of streaming */
   done?: Function;
   /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
@@ -74,10 +74,10 @@ export interface SharedCostListInstanceEachOptions {
 /**
  * Options to pass to list
  */
-export interface SharedCostListInstanceOptions {
+export interface LocalListInstanceOptions {
   /** The area code of the phone numbers to read. Applies to only phone numbers in the US and Canada. */
   areaCode?: number;
-  /** The pattern on which to match phone numbers. Valid characters are `*`, `0-9`, `a-z`, and `A-Z`. The `*` character matches any single digit. For examples, see [Example 2](https://www.twilio.com/docs/phone-numbers/api/availablephonenumber-resource#local-get-basic-example-2) and [Example 3](https://www.twilio.com/docs/phone-numbers/api/availablephonenumber-resource#local-get-basic-example-3). If specified, this value must have at least two characters. */
+  /** The pattern on which to match phone numbers. Valid characters are `*`, `0-9`, `a-z`, and `A-Z`. The `*` character matches any single digit. For examples, see [Example 2](https://www.twilio.com/docs/phone-numbers/api/availablephonenumberlocal-resource?code-sample=code-find-phone-numbers-by-number-pattern) and [Example 3](https://www.twilio.com/docs/phone-numbers/api/availablephonenumberlocal-resource?code-sample=code-find-phone-numbers-by-character-pattern). If specified, this value must have at least two characters. */
   contains?: string;
   /** Whether the phone numbers can receive text messages. Can be: `true` or `false`. */
   smsEnabled?: boolean;
@@ -120,10 +120,10 @@ export interface SharedCostListInstanceOptions {
 /**
  * Options to pass to page
  */
-export interface SharedCostListInstancePageOptions {
+export interface LocalListInstancePageOptions {
   /** The area code of the phone numbers to read. Applies to only phone numbers in the US and Canada. */
   areaCode?: number;
-  /** The pattern on which to match phone numbers. Valid characters are `*`, `0-9`, `a-z`, and `A-Z`. The `*` character matches any single digit. For examples, see [Example 2](https://www.twilio.com/docs/phone-numbers/api/availablephonenumber-resource#local-get-basic-example-2) and [Example 3](https://www.twilio.com/docs/phone-numbers/api/availablephonenumber-resource#local-get-basic-example-3). If specified, this value must have at least two characters. */
+  /** The pattern on which to match phone numbers. Valid characters are `*`, `0-9`, `a-z`, and `A-Z`. The `*` character matches any single digit. For examples, see [Example 2](https://www.twilio.com/docs/phone-numbers/api/availablephonenumberlocal-resource?code-sample=code-find-phone-numbers-by-number-pattern) and [Example 3](https://www.twilio.com/docs/phone-numbers/api/availablephonenumberlocal-resource?code-sample=code-find-phone-numbers-by-character-pattern). If specified, this value must have at least two characters. */
   contains?: string;
   /** Whether the phone numbers can receive text messages. Can be: `true` or `false`. */
   smsEnabled?: boolean;
@@ -165,18 +165,18 @@ export interface SharedCostListInstancePageOptions {
   pageToken?: string;
 }
 
-export interface SharedCostSolution {
+export interface LocalSolution {
   accountSid: string;
   countryCode: string;
 }
 
-export interface SharedCostListInstance {
+export interface LocalListInstance {
   _version: V2010;
-  _solution: SharedCostSolution;
+  _solution: LocalSolution;
   _uri: string;
 
   /**
-   * Streams SharedCostInstance records from the API.
+   * Streams LocalInstance records from the API.
    *
    * This operation lazily loads records as efficiently as possible until the limit
    * is reached.
@@ -187,18 +187,18 @@ export interface SharedCostListInstance {
    * If a function is passed as the first argument, it will be used as the callback
    * function.
    *
-   * @param { SharedCostListInstanceEachOptions } [params] - Options for request
+   * @param { LocalListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
   each(
-    callback?: (item: SharedCostInstance, done: (err?: Error) => void) => void
+    callback?: (item: LocalInstance, done: (err?: Error) => void) => void
   ): void;
   each(
-    params: SharedCostListInstanceEachOptions,
-    callback?: (item: SharedCostInstance, done: (err?: Error) => void) => void
+    params: LocalListInstanceEachOptions,
+    callback?: (item: LocalInstance, done: (err?: Error) => void) => void
   ): void;
   /**
-   * Retrieve a single target page of SharedCostInstance records from the API.
+   * Retrieve a single target page of LocalInstance records from the API.
    *
    * The request is executed immediately.
    *
@@ -207,42 +207,42 @@ export interface SharedCostListInstance {
    */
   getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: SharedCostPage) => any
-  ): Promise<SharedCostPage>;
+    callback?: (error: Error | null, items: LocalPage) => any
+  ): Promise<LocalPage>;
   /**
-   * Lists SharedCostInstance records from the API as a list.
+   * Lists LocalInstance records from the API as a list.
    *
    * If a function is passed as the first argument, it will be used as the callback
    * function.
    *
-   * @param { SharedCostListInstanceOptions } [params] - Options for request
+   * @param { LocalListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    callback?: (error: Error | null, items: SharedCostInstance[]) => any
-  ): Promise<SharedCostInstance[]>;
+    callback?: (error: Error | null, items: LocalInstance[]) => any
+  ): Promise<LocalInstance[]>;
   list(
-    params: SharedCostListInstanceOptions,
-    callback?: (error: Error | null, items: SharedCostInstance[]) => any
-  ): Promise<SharedCostInstance[]>;
+    params: LocalListInstanceOptions,
+    callback?: (error: Error | null, items: LocalInstance[]) => any
+  ): Promise<LocalInstance[]>;
   /**
-   * Retrieve a single page of SharedCostInstance records from the API.
+   * Retrieve a single page of LocalInstance records from the API.
    *
    * The request is executed immediately.
    *
    * If a function is passed as the first argument, it will be used as the callback
    * function.
    *
-   * @param { SharedCostListInstancePageOptions } [params] - Options for request
+   * @param { LocalListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    callback?: (error: Error | null, items: SharedCostPage) => any
-  ): Promise<SharedCostPage>;
+    callback?: (error: Error | null, items: LocalPage) => any
+  ): Promise<LocalPage>;
   page(
-    params: SharedCostListInstancePageOptions,
-    callback?: (error: Error | null, items: SharedCostPage) => any
-  ): Promise<SharedCostPage>;
+    params: LocalListInstancePageOptions,
+    callback?: (error: Error | null, items: LocalPage) => any
+  ): Promise<LocalPage>;
 
   /**
    * Provide a user-friendly representation
@@ -251,11 +251,11 @@ export interface SharedCostListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function SharedCostListInstance(
+export function LocalListInstance(
   version: V2010,
   accountSid: string,
   countryCode: string
-): SharedCostListInstance {
+): LocalListInstance {
   if (!isValidPathParam(accountSid)) {
     throw new Error("Parameter 'accountSid' is not valid.");
   }
@@ -264,18 +264,18 @@ export function SharedCostListInstance(
     throw new Error("Parameter 'countryCode' is not valid.");
   }
 
-  const instance = {} as SharedCostListInstance;
+  const instance = {} as LocalListInstance;
 
   instance._version = version;
   instance._solution = { accountSid, countryCode };
-  instance._uri = `/Accounts/${accountSid}/AvailablePhoneNumbers/${countryCode}/SharedCost.json`;
+  instance._uri = `/Accounts/${accountSid}/AvailablePhoneNumbers/${countryCode}/Local.json`;
 
   instance.page = function page(
     params?:
-      | SharedCostListInstancePageOptions
-      | ((error: Error | null, items: SharedCostPage) => any),
-    callback?: (error: Error | null, items: SharedCostPage) => any
-  ): Promise<SharedCostPage> {
+      | LocalListInstancePageOptions
+      | ((error: Error | null, items: LocalPage) => any),
+    callback?: (error: Error | null, items: LocalPage) => any
+  ): Promise<LocalPage> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -338,8 +338,7 @@ export function SharedCostListInstance(
       });
 
     operationPromise = operationPromise.then(
-      (payload) =>
-        new SharedCostPage(operationVersion, payload, instance._solution)
+      (payload) => new LocalPage(operationVersion, payload, instance._solution)
     );
 
     operationPromise = instance._version.setPromiseCallback(
@@ -353,16 +352,15 @@ export function SharedCostListInstance(
 
   instance.getPage = function getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: SharedCostPage) => any
-  ): Promise<SharedCostPage> {
+    callback?: (error: Error | null, items: LocalPage) => any
+  ): Promise<LocalPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
 
     let pagePromise = operationPromise.then(
-      (payload) =>
-        new SharedCostPage(instance._version, payload, instance._solution)
+      (payload) => new LocalPage(instance._version, payload, instance._solution)
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -382,11 +380,11 @@ export function SharedCostListInstance(
   return instance;
 }
 
-interface SharedCostPayload extends TwilioResponsePayload {
-  available_phone_numbers: SharedCostResource[];
+interface LocalPayload extends TwilioResponsePayload {
+  available_phone_numbers: LocalResource[];
 }
 
-interface SharedCostResource {
+interface LocalResource {
   friendly_name: string;
   phone_number: string;
   lata: string;
@@ -402,10 +400,10 @@ interface SharedCostResource {
   capabilities: PhoneNumberCapabilities;
 }
 
-export class SharedCostInstance {
+export class LocalInstance {
   constructor(
     protected _version: V2010,
-    payload: SharedCostResource,
+    payload: LocalResource,
     accountSid: string,
     countryCode: string
   ) {
@@ -502,14 +500,14 @@ export class SharedCostInstance {
   }
 }
 
-export class SharedCostPage extends Page<
+export class LocalPage extends Page<
   V2010,
-  SharedCostPayload,
-  SharedCostResource,
-  SharedCostInstance
+  LocalPayload,
+  LocalResource,
+  LocalInstance
 > {
   /**
-   * Initialize the SharedCostPage
+   * Initialize the LocalPage
    *
    * @param version - Version of the resource
    * @param response - Response from the API
@@ -518,18 +516,18 @@ export class SharedCostPage extends Page<
   constructor(
     version: V2010,
     response: Response<string>,
-    solution: SharedCostSolution
+    solution: LocalSolution
   ) {
     super(version, response, solution);
   }
 
   /**
-   * Build an instance of SharedCostInstance
+   * Build an instance of LocalInstance
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: SharedCostResource): SharedCostInstance {
-    return new SharedCostInstance(
+  getInstance(payload: LocalResource): LocalInstance {
+    return new LocalInstance(
       this._version,
       payload,
       this._solution.accountSid,

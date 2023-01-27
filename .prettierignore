@@ -1,6 +1,6 @@
 .github
 coverage
-dist
+lib
 docs
 
 babel.config.js

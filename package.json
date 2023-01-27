@@ -55,10 +55,10 @@
     "test": "npm run test:javascript && npm run test:typescript",
     "test:javascript": "jest spec/* --coverage --detectOpenHandles",
     "test:typescript": "tsc --noEmit",
-    "jshint": "jshint lib/rest/** lib/base/** lib/http/**",
-    "jscs": "eslint lib/base/**/**.js lib/http/**/**.js --fix",
+    "jshint": "jshint src/rest/** src/base/** src/http/**",
+    "jscs": "eslint src/base/**/**.js src/http/**/**.js --fix",
     "prepublish": "npm run build",
-    "build": "tsc && cp package.json dist/",
+    "build": "tsc",
     "check": "npm run jshint && npm run jscs",
     "ci": "npm run test && npm run nsp && npm run prettier-check",
     "nsp": "npm audit --production",
@@ -66,13 +66,13 @@
     "prettier-check": "prettier --check .",
     "cluster": "jest ./cluster_test.spec.ts --coverage",
     "webhook-test": "jest ./webhook_cluster_test.spec.ts --coverage",
-    "typedoc": "typedoc --entryPointStrategy expand lib --out docs --logLevel Error"
+    "typedoc": "typedoc --entryPointStrategy expand src --out docs --logLevel Error"
   },
   "files": [
-    "dist"
+    "list"
   ],
-  "main": "./dist/lib",
-  "types": "./dist/index.d.ts",
+  "main": "./lib",
+  "types": "./index.d.ts",
   "engines": {
     "node": ">=14.0"
   },

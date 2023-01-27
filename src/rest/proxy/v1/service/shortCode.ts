@@ -19,35 +19,31 @@ import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
-import { PhoneNumberCapabilities } from "../../../../../lib/interfaces";
+import { PhoneNumberCapabilities } from "../../../../../src/interfaces";
 
 /**
- * Options to pass to update a PhoneNumberInstance
+ * Options to pass to update a ShortCodeInstance
  */
-export interface PhoneNumberContextUpdateOptions {
-  /** Whether the phone number should be reserved and not be assigned to a participant using proxy pool logic. See [Reserved Phone Numbers](https://www.twilio.com/docs/proxy/reserved-phone-numbers) for more information. */
+export interface ShortCodeContextUpdateOptions {
+  /** Whether the short code should be reserved and not be assigned to a participant using proxy pool logic. See [Reserved Phone Numbers](https://www.twilio.com/docs/proxy/reserved-phone-numbers) for more information. */
   isReserved?: boolean;
 }
 
 /**
- * Options to pass to create a PhoneNumberInstance
+ * Options to pass to create a ShortCodeInstance
  */
-export interface PhoneNumberListInstanceCreateOptions {
-  /** The SID of a Twilio [IncomingPhoneNumber](https://www.twilio.com/docs/phone-numbers/api/incomingphonenumber-resource) resource that represents the Twilio Number you would like to assign to your Proxy Service. */
-  sid?: string;
-  /** The phone number in [E.164](https://www.twilio.com/docs/glossary/what-e164) format.  E.164 phone numbers consist of a + followed by the country code and subscriber number without punctuation characters. For example, +14155551234. */
-  phoneNumber?: string;
-  /** Whether the new phone number should be reserved and not be assigned to a participant using proxy pool logic. See [Reserved Phone Numbers](https://www.twilio.com/docs/proxy/reserved-phone-numbers) for more information. */
-  isReserved?: boolean;
+export interface ShortCodeListInstanceCreateOptions {
+  /** The SID of a Twilio [ShortCode](https://www.twilio.com/docs/sms/api/short-code) resource that represents the short code you would like to assign to your Proxy Service. */
+  sid: string;
 }
 /**
  * Options to pass to each
  */
-export interface PhoneNumberListInstanceEachOptions {
+export interface ShortCodeListInstanceEachOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
-  callback?: (item: PhoneNumberInstance, done: (err?: Error) => void) => void;
+  callback?: (item: ShortCodeInstance, done: (err?: Error) => void) => void;
   /** Function to be called upon completion of streaming */
   done?: Function;
   /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
@@ -57,7 +53,7 @@ export interface PhoneNumberListInstanceEachOptions {
 /**
  * Options to pass to list
  */
-export interface PhoneNumberListInstanceOptions {
+export interface ShortCodeListInstanceOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
   /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
@@ -67,7 +63,7 @@ export interface PhoneNumberListInstanceOptions {
 /**
  * Options to pass to page
  */
-export interface PhoneNumberListInstancePageOptions {
+export interface ShortCodeListInstancePageOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
   /** Page Number, this value is simply for client state */
@@ -76,9 +72,9 @@ export interface PhoneNumberListInstancePageOptions {
   pageToken?: string;
 }
 
-export interface PhoneNumberContext {
+export interface ShortCodeContext {
   /**
-   * Remove a PhoneNumberInstance
+   * Remove a ShortCodeInstance
    *
    * @param callback - Callback to handle processed record
    *
@@ -89,38 +85,38 @@ export interface PhoneNumberContext {
   ): Promise<boolean>;
 
   /**
-   * Fetch a PhoneNumberInstance
+   * Fetch a ShortCodeInstance
    *
    * @param callback - Callback to handle processed record
    *
-   * @returns Resolves to processed PhoneNumberInstance
+   * @returns Resolves to processed ShortCodeInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: PhoneNumberInstance) => any
-  ): Promise<PhoneNumberInstance>;
+    callback?: (error: Error | null, item?: ShortCodeInstance) => any
+  ): Promise<ShortCodeInstance>;
 
   /**
-   * Update a PhoneNumberInstance
+   * Update a ShortCodeInstance
    *
    * @param callback - Callback to handle processed record
    *
-   * @returns Resolves to processed PhoneNumberInstance
+   * @returns Resolves to processed ShortCodeInstance
    */
   update(
-    callback?: (error: Error | null, item?: PhoneNumberInstance) => any
-  ): Promise<PhoneNumberInstance>;
+    callback?: (error: Error | null, item?: ShortCodeInstance) => any
+  ): Promise<ShortCodeInstance>;
   /**
-   * Update a PhoneNumberInstance
+   * Update a ShortCodeInstance
    *
    * @param params - Parameter for request
    * @param callback - Callback to handle processed record
    *
-   * @returns Resolves to processed PhoneNumberInstance
+   * @returns Resolves to processed ShortCodeInstance
    */
   update(
-    params: PhoneNumberContextUpdateOptions,
-    callback?: (error: Error | null, item?: PhoneNumberInstance) => any
-  ): Promise<PhoneNumberInstance>;
+    params: ShortCodeContextUpdateOptions,
+    callback?: (error: Error | null, item?: ShortCodeInstance) => any
+  ): Promise<ShortCodeInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -129,13 +125,13 @@ export interface PhoneNumberContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface PhoneNumberContextSolution {
+export interface ShortCodeContextSolution {
   serviceSid: string;
   sid: string;
 }
 
-export class PhoneNumberContextImpl implements PhoneNumberContext {
-  protected _solution: PhoneNumberContextSolution;
+export class ShortCodeContextImpl implements ShortCodeContext {
+  protected _solution: ShortCodeContextSolution;
   protected _uri: string;
 
   constructor(protected _version: V1, serviceSid: string, sid: string) {
@@ -148,7 +144,7 @@ export class PhoneNumberContextImpl implements PhoneNumberContext {
     }
 
     this._solution = { serviceSid, sid };
-    this._uri = `/Services/${serviceSid}/PhoneNumbers/${sid}`;
+    this._uri = `/Services/${serviceSid}/ShortCodes/${sid}`;
   }
 
   remove(
@@ -169,8 +165,8 @@ export class PhoneNumberContextImpl implements PhoneNumberContext {
   }
 
   fetch(
-    callback?: (error: Error | null, item?: PhoneNumberInstance) => any
-  ): Promise<PhoneNumberInstance> {
+    callback?: (error: Error | null, item?: ShortCodeInstance) => any
+  ): Promise<ShortCodeInstance> {
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
@@ -180,7 +176,7 @@ export class PhoneNumberContextImpl implements PhoneNumberContext {
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new PhoneNumberInstance(
+        new ShortCodeInstance(
           operationVersion,
           payload,
           instance._solution.serviceSid,
@@ -197,10 +193,10 @@ export class PhoneNumberContextImpl implements PhoneNumberContext {
 
   update(
     params?:
-      | PhoneNumberContextUpdateOptions
-      | ((error: Error | null, item?: PhoneNumberInstance) => any),
-    callback?: (error: Error | null, item?: PhoneNumberInstance) => any
-  ): Promise<PhoneNumberInstance> {
+      | ShortCodeContextUpdateOptions
+      | ((error: Error | null, item?: ShortCodeInstance) => any),
+    callback?: (error: Error | null, item?: ShortCodeInstance) => any
+  ): Promise<ShortCodeInstance> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -227,7 +223,7 @@ export class PhoneNumberContextImpl implements PhoneNumberContext {
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new PhoneNumberInstance(
+        new ShortCodeInstance(
           operationVersion,
           payload,
           instance._solution.serviceSid,
@@ -256,32 +252,30 @@ export class PhoneNumberContextImpl implements PhoneNumberContext {
   }
 }
 
-interface PhoneNumberPayload extends TwilioResponsePayload {
-  phone_numbers: PhoneNumberResource[];
+interface ShortCodePayload extends TwilioResponsePayload {
+  short_codes: ShortCodeResource[];
 }
 
-interface PhoneNumberResource {
+interface ShortCodeResource {
   sid: string;
   account_sid: string;
   service_sid: string;
   date_created: Date;
   date_updated: Date;
-  phone_number: string;
-  friendly_name: string;
+  short_code: string;
   iso_country: string;
   capabilities: PhoneNumberCapabilities;
   url: string;
   is_reserved: boolean;
-  in_use: number;
 }
 
-export class PhoneNumberInstance {
-  protected _solution: PhoneNumberContextSolution;
-  protected _context?: PhoneNumberContext;
+export class ShortCodeInstance {
+  protected _solution: ShortCodeContextSolution;
+  protected _context?: ShortCodeContext;
 
   constructor(
     protected _version: V1,
-    payload: PhoneNumberResource,
+    payload: ShortCodeResource,
     serviceSid: string,
     sid?: string
   ) {
@@ -290,27 +284,25 @@ export class PhoneNumberInstance {
     this.serviceSid = payload.service_sid;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
-    this.phoneNumber = payload.phone_number;
-    this.friendlyName = payload.friendly_name;
+    this.shortCode = payload.short_code;
     this.isoCountry = payload.iso_country;
     this.capabilities = payload.capabilities;
     this.url = payload.url;
     this.isReserved = payload.is_reserved;
-    this.inUse = deserialize.integer(payload.in_use);
 
     this._solution = { serviceSid, sid: sid || this.sid };
   }
 
   /**
-   * The unique string that we created to identify the PhoneNumber resource.
+   * The unique string that we created to identify the ShortCode resource.
    */
   sid: string;
   /**
-   * The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the PhoneNumber resource.
+   * The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the ShortCode resource.
    */
   accountSid: string;
   /**
-   * The SID of the PhoneNumber resource\'s parent [Service](https://www.twilio.com/docs/proxy/api/service) resource.
+   * The SID of the ShortCode resource\'s parent [Service](https://www.twilio.com/docs/proxy/api/service) resource.
    */
   serviceSid: string;
   /**
@@ -322,35 +314,27 @@ export class PhoneNumberInstance {
    */
   dateUpdated: Date;
   /**
-   * The phone number in [E.164](https://www.twilio.com/docs/glossary/what-e164) format, which consists of a + followed by the country code and subscriber number.
+   * The short code\'s number.
    */
-  phoneNumber: string;
+  shortCode: string;
   /**
-   * The string that you assigned to describe the resource.
-   */
-  friendlyName: string;
-  /**
-   * The ISO Country Code for the phone number.
+   * The ISO Country Code for the short code.
    */
   isoCountry: string;
   capabilities: PhoneNumberCapabilities;
   /**
-   * The absolute URL of the PhoneNumber resource.
+   * The absolute URL of the ShortCode resource.
    */
   url: string;
   /**
-   * Whether the phone number should be reserved and not be assigned to a participant using proxy pool logic. See [Reserved Phone Numbers](https://www.twilio.com/docs/proxy/reserved-phone-numbers) for more information.
+   * Whether the short code should be reserved and not be assigned to a participant using proxy pool logic. See [Reserved Phone Numbers](https://www.twilio.com/docs/proxy/reserved-phone-numbers) for more information.
    */
   isReserved: boolean;
-  /**
-   * The number of open session assigned to the number. See the [How many Phone Numbers do I need?](https://www.twilio.com/docs/proxy/phone-numbers-needed) guide for more information.
-   */
-  inUse: number;
 
-  private get _proxy(): PhoneNumberContext {
+  private get _proxy(): ShortCodeContext {
     this._context =
       this._context ||
-      new PhoneNumberContextImpl(
+      new ShortCodeContextImpl(
         this._version,
         this._solution.serviceSid,
         this._solution.sid
@@ -359,7 +343,7 @@ export class PhoneNumberInstance {
   }
 
   /**
-   * Remove a PhoneNumberInstance
+   * Remove a ShortCodeInstance
    *
    * @param callback - Callback to handle processed record
    *
@@ -372,45 +356,45 @@ export class PhoneNumberInstance {
   }
 
   /**
-   * Fetch a PhoneNumberInstance
+   * Fetch a ShortCodeInstance
    *
    * @param callback - Callback to handle processed record
    *
-   * @returns Resolves to processed PhoneNumberInstance
+   * @returns Resolves to processed ShortCodeInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: PhoneNumberInstance) => any
-  ): Promise<PhoneNumberInstance> {
+    callback?: (error: Error | null, item?: ShortCodeInstance) => any
+  ): Promise<ShortCodeInstance> {
     return this._proxy.fetch(callback);
   }
 
   /**
-   * Update a PhoneNumberInstance
+   * Update a ShortCodeInstance
    *
    * @param callback - Callback to handle processed record
    *
-   * @returns Resolves to processed PhoneNumberInstance
+   * @returns Resolves to processed ShortCodeInstance
    */
   update(
-    callback?: (error: Error | null, item?: PhoneNumberInstance) => any
-  ): Promise<PhoneNumberInstance>;
+    callback?: (error: Error | null, item?: ShortCodeInstance) => any
+  ): Promise<ShortCodeInstance>;
   /**
-   * Update a PhoneNumberInstance
+   * Update a ShortCodeInstance
    *
    * @param params - Parameter for request
    * @param callback - Callback to handle processed record
    *
-   * @returns Resolves to processed PhoneNumberInstance
+   * @returns Resolves to processed ShortCodeInstance
    */
   update(
-    params: PhoneNumberContextUpdateOptions,
-    callback?: (error: Error | null, item?: PhoneNumberInstance) => any
-  ): Promise<PhoneNumberInstance>;
+    params: ShortCodeContextUpdateOptions,
+    callback?: (error: Error | null, item?: ShortCodeInstance) => any
+  ): Promise<ShortCodeInstance>;
 
   update(
     params?: any,
-    callback?: (error: Error | null, item?: PhoneNumberInstance) => any
-  ): Promise<PhoneNumberInstance> {
+    callback?: (error: Error | null, item?: ShortCodeInstance) => any
+  ): Promise<ShortCodeInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -426,13 +410,11 @@ export class PhoneNumberInstance {
       serviceSid: this.serviceSid,
       dateCreated: this.dateCreated,
       dateUpdated: this.dateUpdated,
-      phoneNumber: this.phoneNumber,
-      friendlyName: this.friendlyName,
+      shortCode: this.shortCode,
       isoCountry: this.isoCountry,
       capabilities: this.capabilities,
       url: this.url,
       isReserved: this.isReserved,
-      inUse: this.inUse,
     };
   }
 
@@ -441,43 +423,33 @@ export class PhoneNumberInstance {
   }
 }
 
-export interface PhoneNumberSolution {
+export interface ShortCodeSolution {
   serviceSid: string;
 }
 
-export interface PhoneNumberListInstance {
+export interface ShortCodeListInstance {
   _version: V1;
-  _solution: PhoneNumberSolution;
+  _solution: ShortCodeSolution;
   _uri: string;
 
-  (sid: string): PhoneNumberContext;
-  get(sid: string): PhoneNumberContext;
+  (sid: string): ShortCodeContext;
+  get(sid: string): ShortCodeContext;
 
   /**
-   * Create a PhoneNumberInstance
-   *
-   * @param callback - Callback to handle processed record
-   *
-   * @returns Resolves to processed PhoneNumberInstance
-   */
-  create(
-    callback?: (error: Error | null, item?: PhoneNumberInstance) => any
-  ): Promise<PhoneNumberInstance>;
-  /**
-   * Create a PhoneNumberInstance
+   * Create a ShortCodeInstance
    *
    * @param params - Parameter for request
    * @param callback - Callback to handle processed record
    *
-   * @returns Resolves to processed PhoneNumberInstance
+   * @returns Resolves to processed ShortCodeInstance
    */
   create(
-    params: PhoneNumberListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: PhoneNumberInstance) => any
-  ): Promise<PhoneNumberInstance>;
+    params: ShortCodeListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: ShortCodeInstance) => any
+  ): Promise<ShortCodeInstance>;
 
   /**
-   * Streams PhoneNumberInstance records from the API.
+   * Streams ShortCodeInstance records from the API.
    *
    * This operation lazily loads records as efficiently as possible until the limit
    * is reached.
@@ -488,18 +460,18 @@ export interface PhoneNumberListInstance {
    * If a function is passed as the first argument, it will be used as the callback
    * function.
    *
-   * @param { PhoneNumberListInstanceEachOptions } [params] - Options for request
+   * @param { ShortCodeListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
   each(
-    callback?: (item: PhoneNumberInstance, done: (err?: Error) => void) => void
+    callback?: (item: ShortCodeInstance, done: (err?: Error) => void) => void
   ): void;
   each(
-    params: PhoneNumberListInstanceEachOptions,
-    callback?: (item: PhoneNumberInstance, done: (err?: Error) => void) => void
+    params: ShortCodeListInstanceEachOptions,
+    callback?: (item: ShortCodeInstance, done: (err?: Error) => void) => void
   ): void;
   /**
-   * Retrieve a single target page of PhoneNumberInstance records from the API.
+   * Retrieve a single target page of ShortCodeInstance records from the API.
    *
    * The request is executed immediately.
    *
@@ -508,42 +480,42 @@ export interface PhoneNumberListInstance {
    */
   getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: PhoneNumberPage) => any
-  ): Promise<PhoneNumberPage>;
+    callback?: (error: Error | null, items: ShortCodePage) => any
+  ): Promise<ShortCodePage>;
   /**
-   * Lists PhoneNumberInstance records from the API as a list.
+   * Lists ShortCodeInstance records from the API as a list.
    *
    * If a function is passed as the first argument, it will be used as the callback
    * function.
    *
-   * @param { PhoneNumberListInstanceOptions } [params] - Options for request
+   * @param { ShortCodeListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    callback?: (error: Error | null, items: PhoneNumberInstance[]) => any
-  ): Promise<PhoneNumberInstance[]>;
+    callback?: (error: Error | null, items: ShortCodeInstance[]) => any
+  ): Promise<ShortCodeInstance[]>;
   list(
-    params: PhoneNumberListInstanceOptions,
-    callback?: (error: Error | null, items: PhoneNumberInstance[]) => any
-  ): Promise<PhoneNumberInstance[]>;
+    params: ShortCodeListInstanceOptions,
+    callback?: (error: Error | null, items: ShortCodeInstance[]) => any
+  ): Promise<ShortCodeInstance[]>;
   /**
-   * Retrieve a single page of PhoneNumberInstance records from the API.
+   * Retrieve a single page of ShortCodeInstance records from the API.
    *
    * The request is executed immediately.
    *
    * If a function is passed as the first argument, it will be used as the callback
    * function.
    *
-   * @param { PhoneNumberListInstancePageOptions } [params] - Options for request
+   * @param { ShortCodeListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    callback?: (error: Error | null, items: PhoneNumberPage) => any
-  ): Promise<PhoneNumberPage>;
+    callback?: (error: Error | null, items: ShortCodePage) => any
+  ): Promise<ShortCodePage>;
   page(
-    params: PhoneNumberListInstancePageOptions,
-    callback?: (error: Error | null, items: PhoneNumberPage) => any
-  ): Promise<PhoneNumberPage>;
+    params: ShortCodeListInstancePageOptions,
+    callback?: (error: Error | null, items: ShortCodePage) => any
+  ): Promise<ShortCodePage>;
 
   /**
    * Provide a user-friendly representation
@@ -552,44 +524,39 @@ export interface PhoneNumberListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function PhoneNumberListInstance(
+export function ShortCodeListInstance(
   version: V1,
   serviceSid: string
-): PhoneNumberListInstance {
+): ShortCodeListInstance {
   if (!isValidPathParam(serviceSid)) {
     throw new Error("Parameter 'serviceSid' is not valid.");
   }
 
-  const instance = ((sid) => instance.get(sid)) as PhoneNumberListInstance;
+  const instance = ((sid) => instance.get(sid)) as ShortCodeListInstance;
 
-  instance.get = function get(sid): PhoneNumberContext {
-    return new PhoneNumberContextImpl(version, serviceSid, sid);
+  instance.get = function get(sid): ShortCodeContext {
+    return new ShortCodeContextImpl(version, serviceSid, sid);
   };
 
   instance._version = version;
   instance._solution = { serviceSid };
-  instance._uri = `/Services/${serviceSid}/PhoneNumbers`;
+  instance._uri = `/Services/${serviceSid}/ShortCodes`;
 
   instance.create = function create(
-    params?:
-      | PhoneNumberListInstanceCreateOptions
-      | ((error: Error | null, items: PhoneNumberInstance) => any),
-    callback?: (error: Error | null, items: PhoneNumberInstance) => any
-  ): Promise<PhoneNumberInstance> {
-    if (params instanceof Function) {
-      callback = params;
-      params = {};
-    } else {
-      params = params || {};
+    params: ShortCodeListInstanceCreateOptions,
+    callback?: (error: Error | null, items: ShortCodeInstance) => any
+  ): Promise<ShortCodeInstance> {
+    if (params === null || params === undefined) {
+      throw new Error('Required parameter "params" missing.');
+    }
+
+    if (params["sid"] === null || params["sid"] === undefined) {
+      throw new Error("Required parameter \"params['sid']\" missing.");
     }
 
     let data: any = {};
 
-    if (params["sid"] !== undefined) data["Sid"] = params["sid"];
-    if (params["phoneNumber"] !== undefined)
-      data["PhoneNumber"] = params["phoneNumber"];
-    if (params["isReserved"] !== undefined)
-      data["IsReserved"] = serialize.bool(params["isReserved"]);
+    data["Sid"] = params["sid"];
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
@@ -604,7 +571,7 @@ export function PhoneNumberListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new PhoneNumberInstance(
+        new ShortCodeInstance(
           operationVersion,
           payload,
           instance._solution.serviceSid
@@ -620,10 +587,10 @@ export function PhoneNumberListInstance(
 
   instance.page = function page(
     params?:
-      | PhoneNumberListInstancePageOptions
-      | ((error: Error | null, items: PhoneNumberPage) => any),
-    callback?: (error: Error | null, items: PhoneNumberPage) => any
-  ): Promise<PhoneNumberPage> {
+      | ShortCodeListInstancePageOptions
+      | ((error: Error | null, items: ShortCodePage) => any),
+    callback?: (error: Error | null, items: ShortCodePage) => any
+  ): Promise<ShortCodePage> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -650,7 +617,7 @@ export function PhoneNumberListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new PhoneNumberPage(operationVersion, payload, instance._solution)
+        new ShortCodePage(operationVersion, payload, instance._solution)
     );
 
     operationPromise = instance._version.setPromiseCallback(
@@ -664,8 +631,8 @@ export function PhoneNumberListInstance(
 
   instance.getPage = function getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: PhoneNumberPage) => any
-  ): Promise<PhoneNumberPage> {
+    callback?: (error: Error | null, items: ShortCodePage) => any
+  ): Promise<ShortCodePage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
@@ -673,7 +640,7 @@ export function PhoneNumberListInstance(
 
     let pagePromise = operationPromise.then(
       (payload) =>
-        new PhoneNumberPage(instance._version, payload, instance._solution)
+        new ShortCodePage(instance._version, payload, instance._solution)
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -693,14 +660,14 @@ export function PhoneNumberListInstance(
   return instance;
 }
 
-export class PhoneNumberPage extends Page<
+export class ShortCodePage extends Page<
   V1,
-  PhoneNumberPayload,
-  PhoneNumberResource,
-  PhoneNumberInstance
+  ShortCodePayload,
+  ShortCodeResource,
+  ShortCodeInstance
 > {
   /**
-   * Initialize the PhoneNumberPage
+   * Initialize the ShortCodePage
    *
    * @param version - Version of the resource
    * @param response - Response from the API
@@ -709,18 +676,18 @@ export class PhoneNumberPage extends Page<
   constructor(
     version: V1,
     response: Response<string>,
-    solution: PhoneNumberSolution
+    solution: ShortCodeSolution
   ) {
     super(version, response, solution);
   }
 
   /**
-   * Build an instance of PhoneNumberInstance
+   * Build an instance of ShortCodeInstance
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: PhoneNumberResource): PhoneNumberInstance {
-    return new PhoneNumberInstance(
+  getInstance(payload: ShortCodeResource): ShortCodeInstance {
+    return new ShortCodeInstance(
       this._version,
       payload,
       this._solution.serviceSid

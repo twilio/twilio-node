@@ -19,12 +19,12 @@ import V2010 from "../../../V2010";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
-import { PhoneNumberCapabilities } from "../../../../../../lib/interfaces";
+import { PhoneNumberCapabilities } from "../../../../../../src/interfaces";
 
 /**
  * Options to pass to each
  */
-export interface MobileListInstanceEachOptions {
+export interface MachineToMachineListInstanceEachOptions {
   /** The area code of the phone numbers to read. Applies to only phone numbers in the US and Canada. */
   areaCode?: number;
   /** The pattern on which to match phone numbers. Valid characters are `*`, `0-9`, `a-z`, and `A-Z`. The `*` character matches any single digit. For examples, see [Example 2](https://www.twilio.com/docs/phone-numbers/api/availablephonenumber-resource#local-get-basic-example-2) and [Example 3](https://www.twilio.com/docs/phone-numbers/api/availablephonenumber-resource#local-get-basic-example-3). If specified, this value must have at least two characters. */
@@ -64,7 +64,10 @@ export interface MobileListInstanceEachOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
-  callback?: (item: MobileInstance, done: (err?: Error) => void) => void;
+  callback?: (
+    item: MachineToMachineInstance,
+    done: (err?: Error) => void
+  ) => void;
   /** Function to be called upon completion of streaming */
   done?: Function;
   /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
@@ -74,7 +77,7 @@ export interface MobileListInstanceEachOptions {
 /**
  * Options to pass to list
  */
-export interface MobileListInstanceOptions {
+export interface MachineToMachineListInstanceOptions {
   /** The area code of the phone numbers to read. Applies to only phone numbers in the US and Canada. */
   areaCode?: number;
   /** The pattern on which to match phone numbers. Valid characters are `*`, `0-9`, `a-z`, and `A-Z`. The `*` character matches any single digit. For examples, see [Example 2](https://www.twilio.com/docs/phone-numbers/api/availablephonenumber-resource#local-get-basic-example-2) and [Example 3](https://www.twilio.com/docs/phone-numbers/api/availablephonenumber-resource#local-get-basic-example-3). If specified, this value must have at least two characters. */
@@ -120,7 +123,7 @@ export interface MobileListInstanceOptions {
 /**
  * Options to pass to page
  */
-export interface MobileListInstancePageOptions {
+export interface MachineToMachineListInstancePageOptions {
   /** The area code of the phone numbers to read. Applies to only phone numbers in the US and Canada. */
   areaCode?: number;
   /** The pattern on which to match phone numbers. Valid characters are `*`, `0-9`, `a-z`, and `A-Z`. The `*` character matches any single digit. For examples, see [Example 2](https://www.twilio.com/docs/phone-numbers/api/availablephonenumber-resource#local-get-basic-example-2) and [Example 3](https://www.twilio.com/docs/phone-numbers/api/availablephonenumber-resource#local-get-basic-example-3). If specified, this value must have at least two characters. */
@@ -165,18 +168,18 @@ export interface MobileListInstancePageOptions {
   pageToken?: string;
 }
 
-export interface MobileSolution {
+export interface MachineToMachineSolution {
   accountSid: string;
   countryCode: string;
 }
 
-export interface MobileListInstance {
+export interface MachineToMachineListInstance {
   _version: V2010;
-  _solution: MobileSolution;
+  _solution: MachineToMachineSolution;
   _uri: string;
 
   /**
-   * Streams MobileInstance records from the API.
+   * Streams MachineToMachineInstance records from the API.
    *
    * This operation lazily loads records as efficiently as possible until the limit
    * is reached.
@@ -187,18 +190,24 @@ export interface MobileListInstance {
    * If a function is passed as the first argument, it will be used as the callback
    * function.
    *
-   * @param { MobileListInstanceEachOptions } [params] - Options for request
+   * @param { MachineToMachineListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
   each(
-    callback?: (item: MobileInstance, done: (err?: Error) => void) => void
+    callback?: (
+      item: MachineToMachineInstance,
+      done: (err?: Error) => void
+    ) => void
   ): void;
   each(
-    params: MobileListInstanceEachOptions,
-    callback?: (item: MobileInstance, done: (err?: Error) => void) => void
+    params: MachineToMachineListInstanceEachOptions,
+    callback?: (
+      item: MachineToMachineInstance,
+      done: (err?: Error) => void
+    ) => void
   ): void;
   /**
-   * Retrieve a single target page of MobileInstance records from the API.
+   * Retrieve a single target page of MachineToMachineInstance records from the API.
    *
    * The request is executed immediately.
    *
@@ -207,42 +216,42 @@ export interface MobileListInstance {
    */
   getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: MobilePage) => any
-  ): Promise<MobilePage>;
+    callback?: (error: Error | null, items: MachineToMachinePage) => any
+  ): Promise<MachineToMachinePage>;
   /**
-   * Lists MobileInstance records from the API as a list.
+   * Lists MachineToMachineInstance records from the API as a list.
    *
    * If a function is passed as the first argument, it will be used as the callback
    * function.
    *
-   * @param { MobileListInstanceOptions } [params] - Options for request
+   * @param { MachineToMachineListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    callback?: (error: Error | null, items: MobileInstance[]) => any
-  ): Promise<MobileInstance[]>;
+    callback?: (error: Error | null, items: MachineToMachineInstance[]) => any
+  ): Promise<MachineToMachineInstance[]>;
   list(
-    params: MobileListInstanceOptions,
-    callback?: (error: Error | null, items: MobileInstance[]) => any
-  ): Promise<MobileInstance[]>;
+    params: MachineToMachineListInstanceOptions,
+    callback?: (error: Error | null, items: MachineToMachineInstance[]) => any
+  ): Promise<MachineToMachineInstance[]>;
   /**
-   * Retrieve a single page of MobileInstance records from the API.
+   * Retrieve a single page of MachineToMachineInstance records from the API.
    *
    * The request is executed immediately.
    *
    * If a function is passed as the first argument, it will be used as the callback
    * function.
    *
-   * @param { MobileListInstancePageOptions } [params] - Options for request
+   * @param { MachineToMachineListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    callback?: (error: Error | null, items: MobilePage) => any
-  ): Promise<MobilePage>;
+    callback?: (error: Error | null, items: MachineToMachinePage) => any
+  ): Promise<MachineToMachinePage>;
   page(
-    params: MobileListInstancePageOptions,
-    callback?: (error: Error | null, items: MobilePage) => any
-  ): Promise<MobilePage>;
+    params: MachineToMachineListInstancePageOptions,
+    callback?: (error: Error | null, items: MachineToMachinePage) => any
+  ): Promise<MachineToMachinePage>;
 
   /**
    * Provide a user-friendly representation
@@ -251,11 +260,11 @@ export interface MobileListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function MobileListInstance(
+export function MachineToMachineListInstance(
   version: V2010,
   accountSid: string,
   countryCode: string
-): MobileListInstance {
+): MachineToMachineListInstance {
   if (!isValidPathParam(accountSid)) {
     throw new Error("Parameter 'accountSid' is not valid.");
   }
@@ -264,18 +273,18 @@ export function MobileListInstance(
     throw new Error("Parameter 'countryCode' is not valid.");
   }
 
-  const instance = {} as MobileListInstance;
+  const instance = {} as MachineToMachineListInstance;
 
   instance._version = version;
   instance._solution = { accountSid, countryCode };
-  instance._uri = `/Accounts/${accountSid}/AvailablePhoneNumbers/${countryCode}/Mobile.json`;
+  instance._uri = `/Accounts/${accountSid}/AvailablePhoneNumbers/${countryCode}/MachineToMachine.json`;
 
   instance.page = function page(
     params?:
-      | MobileListInstancePageOptions
-      | ((error: Error | null, items: MobilePage) => any),
-    callback?: (error: Error | null, items: MobilePage) => any
-  ): Promise<MobilePage> {
+      | MachineToMachineListInstancePageOptions
+      | ((error: Error | null, items: MachineToMachinePage) => any),
+    callback?: (error: Error | null, items: MachineToMachinePage) => any
+  ): Promise<MachineToMachinePage> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -338,7 +347,8 @@ export function MobileListInstance(
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new MobilePage(operationVersion, payload, instance._solution)
+      (payload) =>
+        new MachineToMachinePage(operationVersion, payload, instance._solution)
     );
 
     operationPromise = instance._version.setPromiseCallback(
@@ -352,8 +362,8 @@ export function MobileListInstance(
 
   instance.getPage = function getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: MobilePage) => any
-  ): Promise<MobilePage> {
+    callback?: (error: Error | null, items: MachineToMachinePage) => any
+  ): Promise<MachineToMachinePage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
@@ -361,7 +371,7 @@ export function MobileListInstance(
 
     let pagePromise = operationPromise.then(
       (payload) =>
-        new MobilePage(instance._version, payload, instance._solution)
+        new MachineToMachinePage(instance._version, payload, instance._solution)
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -381,11 +391,11 @@ export function MobileListInstance(
   return instance;
 }
 
-interface MobilePayload extends TwilioResponsePayload {
-  available_phone_numbers: MobileResource[];
+interface MachineToMachinePayload extends TwilioResponsePayload {
+  available_phone_numbers: MachineToMachineResource[];
 }
 
-interface MobileResource {
+interface MachineToMachineResource {
   friendly_name: string;
   phone_number: string;
   lata: string;
@@ -401,10 +411,10 @@ interface MobileResource {
   capabilities: PhoneNumberCapabilities;
 }
 
-export class MobileInstance {
+export class MachineToMachineInstance {
   constructor(
     protected _version: V2010,
-    payload: MobileResource,
+    payload: MachineToMachineResource,
     accountSid: string,
     countryCode: string
   ) {
@@ -501,14 +511,14 @@ export class MobileInstance {
   }
 }
 
-export class MobilePage extends Page<
+export class MachineToMachinePage extends Page<
   V2010,
-  MobilePayload,
-  MobileResource,
-  MobileInstance
+  MachineToMachinePayload,
+  MachineToMachineResource,
+  MachineToMachineInstance
 > {
   /**
-   * Initialize the MobilePage
+   * Initialize the MachineToMachinePage
    *
    * @param version - Version of the resource
    * @param response - Response from the API
@@ -517,18 +527,18 @@ export class MobilePage extends Page<
   constructor(
     version: V2010,
     response: Response<string>,
-    solution: MobileSolution
+    solution: MachineToMachineSolution
   ) {
     super(version, response, solution);
   }
 
   /**
-   * Build an instance of MobileInstance
+   * Build an instance of MachineToMachineInstance
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: MobileResource): MobileInstance {
-    return new MobileInstance(
+  getInstance(payload: MachineToMachineResource): MachineToMachineInstance {
+    return new MachineToMachineInstance(
       this._version,
       payload,
       this._solution.accountSid,
