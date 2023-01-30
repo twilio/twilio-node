@@ -4516,4 +4516,4 @@ namespace VoiceResponse {
   }
 }
 
-export default VoiceResponse;
+export = VoiceResponse;

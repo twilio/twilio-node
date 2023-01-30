@@ -84,4 +84,4 @@ namespace FaxResponse {
   }
 }
 
-export default FaxResponse;
+export = FaxResponse;

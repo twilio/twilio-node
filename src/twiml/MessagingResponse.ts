@@ -199,4 +199,4 @@ namespace MessagingResponse {
   }
 }
 
-export default MessagingResponse;
+export = MessagingResponse;

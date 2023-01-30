@@ -6,4 +6,4 @@ var __importDefault =
   };
 Object.defineProperty(exports, "__esModule", { value: true });
 const lib_1 = __importDefault(require("./lib"));
-exports.default = lib_1.default;
+module.exports = lib_1.default;

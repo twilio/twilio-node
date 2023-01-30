@@ -1,4 +1,4 @@
-import { BaseTwilio, RequestOpts } from "./BaseTwilio";
+import { Client as BaseTwilio, RequestOpts } from "./BaseTwilio";
 import { trim } from "./utility";
 
 /**
