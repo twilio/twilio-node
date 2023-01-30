@@ -1,6 +1,12 @@
 twilio-node changelog
 =====================
 
+[2023-01-30] Version 4.1.0
+--------------------------
+**Library - Feature**
+- [PR #906](https://github.com/twilio/twilio-node/pull/906): add root index. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+
+
 [2023-01-30] Version 4.0.2
 --------------------------
 **Library - Fix**
