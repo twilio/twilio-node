@@ -11,6 +11,7 @@ twilio-node changelog
 
 **Library - Fix**
 - [PR #905](https://github.com/twilio/twilio-node/pull/905): correct included files path. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+- [PR #907](https://github.com/twilio/twilio-node/pull/907): update exports for backwards-compatibility. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
 - [PR #902](https://github.com/twilio/twilio-node/pull/902): remove Flex shortcuts for removed APIs. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
 - [PR #903](https://github.com/twilio/twilio-node/pull/903): move lib to src and dist to lib for backwards-compatibility. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
 - [PR #897](https://github.com/twilio/twilio-node/pull/897): use break() for method names rather than break_(). Thanks to [@mattcole19](https://github.com/mattcole19)!
