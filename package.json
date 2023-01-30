@@ -69,7 +69,7 @@
     "typedoc": "typedoc --entryPointStrategy expand src --out docs --logLevel Error"
   },
   "files": [
-    "list"
+    "lib"
   ],
   "main": "./lib",
   "types": "./index.d.ts",
