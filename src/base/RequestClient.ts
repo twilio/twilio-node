@@ -5,111 +5,16 @@ import HttpsProxyAgent from "https-proxy-agent";
 import qs from "qs";
 import * as https from "https";
 import Response from "../http/response";
-import Request from "../http/request";
-import { RequestOptions as LastRequestOptions, Headers } from "../http/request";
+import Request, {
+  RequestOptions as LastRequestOptions,
+  Headers,
+} from "../http/request";
 
 const DEFAULT_CONTENT_TYPE = "application/x-www-form-urlencoded";
 const DEFAULT_TIMEOUT = 30000;
 const DEFAULT_INITIAL_RETRY_INTERVAL_MILLIS = 100;
 const DEFAULT_MAX_RETRY_DELAY = 3000;
 const DEFAULT_MAX_RETRIES = 3;
-
-export interface RequestOptions<TData = any, TParams = object> {
-  /**
-   * The HTTP method
-   */
-  method: HttpMethod;
-  /**
-   * The request URI
-   */
-  uri: string;
-  /**
-   * The username used for auth
-   */
-  username?: string;
-  /**
-   * The password used for auth
-   */
-  password?: string;
-  /**
-   * The request headers
-   */
-  headers?: Headers;
-  /**
-   * The object of params added as query string to the request
-   */
-  params?: TParams;
-  /**
-   * The form data that should be submitted
-   */
-  data?: TData;
-  /**
-   * The request timeout in milliseconds
-   */
-  timeout?: number;
-  /**
-   * Should the client follow redirects
-   */
-  allowRedirects?: boolean;
-  /**
-   * Set to true to use the forever-agent
-   */
-  forever?: boolean;
-  /**
-   * Set to 'debug' to enable debug logging
-   */
-  logLevel?: string;
-}
-
-export interface RequestClientOptions {
-  /**
-   * A timeout in milliseconds. This will be used as the HTTPS agent's socket
-   * timeout, AND as the default request timeout.
-   */
-  timeout?: number;
-  /**
-   * https.Agent keepAlive option
-   */
-  keepAlive?: boolean;
-  /**
-   * https.Agent keepAliveMSecs option
-   */
-  keepAliveMsecs?: number;
-  /**
-   * https.Agent maxSockets option
-   */
-  maxSockets?: number;
-  /**
-   * https.Agent maxTotalSockets option
-   */
-  maxTotalSockets?: number;
-  /**
-   * https.Agent maxFreeSockets option
-   */
-  maxFreeSockets?: number;
-  /**
-   * https.Agent scheduling option
-   */
-  scheduling?: "fifo" | "lifo" | undefined;
-  /**
-   * The private CA certificate bundle (if private SSL certificate)
-   */
-  ca?: string | Buffer;
-  /**
-   * Enable auto-retry with exponential backoff when receiving 429 Errors from
-   * the API. Disabled by default.
-   */
-  autoRetry?: boolean;
-  /**
-   * Maximum retry delay in milliseconds for 429 Error response retries.
-   * Defaults to 3000.
-   */
-  maxRetryDelay?: number;
-  /**
-   * Maximum number of request retries for 429 Error responses. Defaults to 3.
-   */
-  maxRetries?: number;
-}
 
 interface BackoffAxiosRequestConfig extends AxiosRequestConfig {
   /**
@@ -118,7 +23,7 @@ interface BackoffAxiosRequestConfig extends AxiosRequestConfig {
   retryCount?: number;
 }
 
-interface ExpontentialBackoffResponseHandlerOptions {
+interface ExponentialBackoffResponseHandlerOptions {
   /**
    * Maximum retry delay in milliseconds
    */
@@ -129,9 +34,9 @@ interface ExpontentialBackoffResponseHandlerOptions {
   maxRetries: number;
 }
 
-function getExpontentialBackoffResponseHandler(
+function getExponentialBackoffResponseHandler(
   axios: AxiosInstance,
-  opts: ExpontentialBackoffResponseHandlerOptions
+  opts: ExponentialBackoffResponseHandlerOptions
 ) {
   const maxIntervalMillis = opts.maxIntervalMillis;
   const maxRetries = opts.maxRetries;
@@ -160,7 +65,7 @@ function getExpontentialBackoffResponseHandler(
   };
 }
 
-export default class RequestClient {
+class RequestClient {
   defaultTimeout: number;
   axios: AxiosInstance;
   lastResponse?: Response<any>;
@@ -183,7 +88,7 @@ export default class RequestClient {
    * @param opts.maxRetryDelay - Max retry delay in milliseconds for 429 Too Many Request response retries. Defaults to 3000.
    * @param opts.maxRetries - Max number of request retries for 429 Too Many Request responses. Defaults to 3.
    */
-  constructor(opts?: RequestClientOptions) {
+  constructor(opts?: RequestClient.RequestClientOptions) {
     opts = opts || {};
     this.defaultTimeout = opts.timeout || DEFAULT_TIMEOUT;
     this.autoRetry = opts.autoRetry || false;
@@ -224,7 +129,7 @@ export default class RequestClient {
     this.axios.defaults.httpsAgent = agent;
     if (opts.autoRetry) {
       this.axios.interceptors.response.use(
-        getExpontentialBackoffResponseHandler(this.axios, {
+        getExponentialBackoffResponseHandler(this.axios, {
           maxIntervalMillis: this.maxRetryDelay,
           maxRetries: this.maxRetries,
         })
@@ -247,7 +152,9 @@ export default class RequestClient {
    * @param opts.forever - Set to true to use the forever-agent
    * @param opts.logLevel - Show debug logs
    */
-  request<TData>(opts: RequestOptions<TData>): Promise<Response<TData>> {
+  request<TData>(
+    opts: RequestClient.RequestOptions<TData>
+  ): Promise<Response<TData>> {
     if (!opts.method) {
       throw new Error("http method is required");
     }
@@ -362,3 +269,103 @@ export default class RequestClient {
     console.log("-- END Twilio API Request --");
   }
 }
+
+namespace RequestClient {
+  export interface RequestOptions<TData = any, TParams = object> {
+    /**
+     * The HTTP method
+     */
+    method: HttpMethod;
+    /**
+     * The request URI
+     */
+    uri: string;
+    /**
+     * The username used for auth
+     */
+    username?: string;
+    /**
+     * The password used for auth
+     */
+    password?: string;
+    /**
+     * The request headers
+     */
+    headers?: Headers;
+    /**
+     * The object of params added as query string to the request
+     */
+    params?: TParams;
+    /**
+     * The form data that should be submitted
+     */
+    data?: TData;
+    /**
+     * The request timeout in milliseconds
+     */
+    timeout?: number;
+    /**
+     * Should the client follow redirects
+     */
+    allowRedirects?: boolean;
+    /**
+     * Set to true to use the forever-agent
+     */
+    forever?: boolean;
+    /**
+     * Set to 'debug' to enable debug logging
+     */
+    logLevel?: string;
+  }
+
+  export interface RequestClientOptions {
+    /**
+     * A timeout in milliseconds. This will be used as the HTTPS agent's socket
+     * timeout, AND as the default request timeout.
+     */
+    timeout?: number;
+    /**
+     * https.Agent keepAlive option
+     */
+    keepAlive?: boolean;
+    /**
+     * https.Agent keepAliveMSecs option
+     */
+    keepAliveMsecs?: number;
+    /**
+     * https.Agent maxSockets option
+     */
+    maxSockets?: number;
+    /**
+     * https.Agent maxTotalSockets option
+     */
+    maxTotalSockets?: number;
+    /**
+     * https.Agent maxFreeSockets option
+     */
+    maxFreeSockets?: number;
+    /**
+     * https.Agent scheduling option
+     */
+    scheduling?: "fifo" | "lifo" | undefined;
+    /**
+     * The private CA certificate bundle (if private SSL certificate)
+     */
+    ca?: string | Buffer;
+    /**
+     * Enable auto-retry with exponential backoff when receiving 429 Errors from
+     * the API. Disabled by default.
+     */
+    autoRetry?: boolean;
+    /**
+     * Maximum retry delay in milliseconds for 429 Error response retries.
+     * Defaults to 3000.
+     */
+    maxRetryDelay?: number;
+    /**
+     * Maximum number of request retries for 429 Error responses. Defaults to 3.
+     */
+    maxRetries?: number;
+  }
+}
+export = RequestClient;

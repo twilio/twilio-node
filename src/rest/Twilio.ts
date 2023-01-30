@@ -9,7 +9,7 @@
  * Do not edit the class manually.
  */
 
-import { BaseTwilio, ClientOpts } from "../base/BaseTwilio";
+import { Client, ClientOpts, RequestOpts } from "../base/BaseTwilio";
 import Accounts from "./Accounts";
 import Api from "./Api";
 import Autopilot from "./Autopilot";
@@ -76,7 +76,7 @@ import { ValidationRequestListInstance } from "./api/v2010/account/validationReq
  */
 /* jshint ignore:end */
 
-class Twilio extends BaseTwilio {
+class Twilio extends Client {
   /** (Twilio.Accounts) - accounts domain */
   _accounts?: Accounts;
   /** (Twilio.Api) - api domain */
@@ -478,6 +478,11 @@ class Twilio extends BaseTwilio {
   get validationRequests(): ValidationRequestListInstance {
     return this.api.v2010.account.validationRequests;
   }
+}
+
+namespace Twilio {
+  export interface RequestClientOptions extends ClientOpts {}
+  export interface RequestOptions extends RequestOpts {}
 }
 
 export = Twilio;
