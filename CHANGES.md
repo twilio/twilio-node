@@ -1,6 +1,15 @@
 twilio-node changelog
 =====================
 
+[2023-01-30] Version 4.0.1
+--------------------------
+**Library - Test**
+- [PR #904](https://github.com/twilio/twilio-node/pull/904): update tests to use new src path. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+
+**Library - Fix**
+- [PR #903](https://github.com/twilio/twilio-node/pull/903): move lib to src and dist to lib for backwards-compatibility. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+
+
 [2023-01-25] Version 4.0.0
 --------------------------
 **Note:** This release contains breaking changes, check our [upgrade guide](./UPGRADE.md###-2023-01-25-3xx-to-4xx) for detailed migration notes.
