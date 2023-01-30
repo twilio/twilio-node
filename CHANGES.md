@@ -1,6 +1,12 @@
 twilio-node changelog
 =====================
 
+[2023-01-30] Version 4.0.2
+--------------------------
+**Library - Fix**
+- [PR #905](https://github.com/twilio/twilio-node/pull/905): correct included files path. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+
+
 [2023-01-30] Version 4.0.1
 --------------------------
 **Library - Test**
