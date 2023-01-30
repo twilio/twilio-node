@@ -1,34 +1,22 @@
 twilio-node changelog
 =====================
 
-[2023-01-30] Version 4.1.0
---------------------------
-**Library - Feature**
-- [PR #906](https://github.com/twilio/twilio-node/pull/906): add root index. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
-
-
-[2023-01-30] Version 4.0.2
---------------------------
-**Library - Fix**
-- [PR #905](https://github.com/twilio/twilio-node/pull/905): correct included files path. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
-
-
-[2023-01-30] Version 4.0.1
---------------------------
-**Library - Test**
-- [PR #904](https://github.com/twilio/twilio-node/pull/904): update tests to use new src path. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
-
-**Library - Fix**
-- [PR #903](https://github.com/twilio/twilio-node/pull/903): move lib to src and dist to lib for backwards-compatibility. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
-
-
-[2023-01-25] Version 4.0.0
+[2023-01-30] Version 4.6.1
 --------------------------
 **Note:** This release contains breaking changes, check our [upgrade guide](./UPGRADE.md###-2023-01-25-3xx-to-4xx) for detailed migration notes.
 
+**Library - Feature**
+- [PR #906](https://github.com/twilio/twilio-node/pull/906): add root index. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+- [PR #883](https://github.com/twilio/twilio-node/pull/883): Merge branch '4.0.0-rc' to main. Thanks to [@childish-sambino](https://github.com/childish-sambino)! **(breaking change)**
+
 **Library - Fix**
+- [PR #905](https://github.com/twilio/twilio-node/pull/905): correct included files path. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
 - [PR #902](https://github.com/twilio/twilio-node/pull/902): remove Flex shortcuts for removed APIs. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+- [PR #903](https://github.com/twilio/twilio-node/pull/903): move lib to src and dist to lib for backwards-compatibility. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
 - [PR #897](https://github.com/twilio/twilio-node/pull/897): use break() for method names rather than break_(). Thanks to [@mattcole19](https://github.com/mattcole19)!
+
+**Library - Test**
+- [PR #904](https://github.com/twilio/twilio-node/pull/904): update tests to use new src path. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
 
 **Library - Docs**
 - [PR #901](https://github.com/twilio/twilio-node/pull/901): update README link to exceptions example for 4.x release. Thanks to [@stern-shawn](https://github.com/stern-shawn)!
@@ -37,9 +25,6 @@ twilio-node changelog
 
 **Library - Chore**
 - [PR #888](https://github.com/twilio/twilio-node/pull/888): re-add test:typescript to test rule. Thanks to [@beebzz](https://github.com/beebzz)!
-
-**Library - Feature**
-- [PR #883](https://github.com/twilio/twilio-node/pull/883): Merge branch '4.0.0-rc' to main. Thanks to [@childish-sambino](https://github.com/childish-sambino)! **(breaking change)**
 
 **Api**
 - Add `public_application_connect_enabled` param to Application resource
