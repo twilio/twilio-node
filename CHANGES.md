@@ -1,6 +1,12 @@
 twilio-node changelog
 =====================
 
+[2023-01-30] Version 4.1.1
+--------------------------
+**Library - Fix**
+- [PR #907](https://github.com/twilio/twilio-node/pull/907): update exports for backwards-compatibility. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+
+
 [2023-01-30] Version 4.1.0
 --------------------------
 **Library - Feature**
