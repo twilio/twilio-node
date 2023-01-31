@@ -3,6 +3,8 @@ twilio-node changelog
 
 [2023-01-30] Version 4.7.0
 --------------------------
+**Note:** This release contains breaking changes, check our [upgrade guide](./UPGRADE.md###-2023-01-25-3xx-to-4xx) for detailed migration notes.
+
 **Library - Feature**
 - [PR #908](https://github.com/twilio/twilio-node/pull/908): prep twilio-node for 4.7.x bump. Thanks to [@beebzz](https://github.com/beebzz)!
 - [PR #906](https://github.com/twilio/twilio-node/pull/906): add root index. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
