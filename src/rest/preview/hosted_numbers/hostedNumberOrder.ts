@@ -19,7 +19,7 @@ import HostedNumbers from "../HostedNumbers";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
-import { PhoneNumberCapabilities } from "../../../../src/interfaces";
+import { PhoneNumberCapabilities } from "../../../interfaces";
 
 type HostedNumberOrderStatus =
   | "received"

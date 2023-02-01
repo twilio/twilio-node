@@ -19,7 +19,7 @@ import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
-import { PhoneNumberCapabilities } from "../../../../../src/interfaces";
+import { PhoneNumberCapabilities } from "../../../../interfaces";
 
 /**
  * Options to pass to update a PhoneNumberInstance
