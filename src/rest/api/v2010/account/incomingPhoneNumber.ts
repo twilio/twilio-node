@@ -23,7 +23,7 @@ import { AssignedAddOnListInstance } from "./incomingPhoneNumber/assignedAddOn";
 import { LocalListInstance } from "./incomingPhoneNumber/local";
 import { MobileListInstance } from "./incomingPhoneNumber/mobile";
 import { TollFreeListInstance } from "./incomingPhoneNumber/tollFree";
-import { PhoneNumberCapabilities } from "../../../../../src/interfaces";
+import { PhoneNumberCapabilities } from "../../../../interfaces";
 
 type IncomingPhoneNumberAddressRequirement =
   | "none"

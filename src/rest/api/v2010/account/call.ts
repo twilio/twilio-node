@@ -29,7 +29,7 @@ import { SiprecListInstance } from "./call/siprec";
 import { StreamListInstance } from "./call/stream";
 import { UserDefinedMessageListInstance } from "./call/userDefinedMessage";
 import { UserDefinedMessageSubscriptionListInstance } from "./call/userDefinedMessageSubscription";
-import TwiML from "../../../../../src/twiml/TwiML";
+import TwiML from "../../../../twiml/TwiML";
 
 type CallStatus =
   | "queued"
