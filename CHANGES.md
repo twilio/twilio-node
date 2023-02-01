@@ -1,6 +1,12 @@
 twilio-node changelog
 =====================
 
+[2023-02-01] Version 4.7.1
+--------------------------
+**Library - Fix**
+- [PR #910](https://github.com/twilio/twilio-node/pull/910): use relative root for library type imports. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+
+
 [2023-01-30] Version 4.7.0
 --------------------------
 **Note:** This release contains breaking changes, check our [upgrade guide](./UPGRADE.md###-2023-01-25-3xx-to-4xx) for detailed migration notes.
