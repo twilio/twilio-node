@@ -13,3 +13,4 @@ COPY index.* package.json babel.config.js tsconfig.json ./
 RUN npm config set unsafe-perm true # Needed to run prepublish as root.
 
 RUN npm install . --include=dev
+RUN npm install -g .
