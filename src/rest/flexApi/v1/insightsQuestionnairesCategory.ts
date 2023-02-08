@@ -13,6 +13,8 @@
  */
 
 import { inspect, InspectOptions } from "util";
+import Page, { TwilioResponsePayload } from "../../../base/Page";
+import Response from "../../../http/response";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
@@ -44,6 +46,50 @@ export interface InsightsQuestionnairesCategoryListInstanceCreateOptions {
   name: string;
   /** The Token HTTP request header */
   token?: string;
+}
+/**
+ * Options to pass to each
+ */
+export interface InsightsQuestionnairesCategoryListInstanceEachOptions {
+  /** The Token HTTP request header */
+  token?: string;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
+  pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
+  callback?: (
+    item: InsightsQuestionnairesCategoryInstance,
+    done: (err?: Error) => void
+  ) => void;
+  /** Function to be called upon completion of streaming */
+  done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
+  limit?: number;
+}
+
+/**
+ * Options to pass to list
+ */
+export interface InsightsQuestionnairesCategoryListInstanceOptions {
+  /** The Token HTTP request header */
+  token?: string;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
+  pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
+  limit?: number;
+}
+
+/**
+ * Options to pass to page
+ */
+export interface InsightsQuestionnairesCategoryListInstancePageOptions {
+  /** The Token HTTP request header */
+  token?: string;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
+  pageSize?: number;
+  /** Page Number, this value is simply for client state */
+  pageNumber?: number;
+  /** PageToken provided by the API */
+  pageToken?: string;
 }
 
 export interface InsightsQuestionnairesCategoryContext {
@@ -208,8 +254,9 @@ export class InsightsQuestionnairesCategoryContextImpl
   }
 }
 
-interface InsightsQuestionnairesCategoryPayload
-  extends InsightsQuestionnairesCategoryResource {}
+interface InsightsQuestionnairesCategoryPayload extends TwilioResponsePayload {
+  categories: InsightsQuestionnairesCategoryResource[];
+}
 
 interface InsightsQuestionnairesCategoryResource {
   account_sid: string;
@@ -361,6 +408,96 @@ export interface InsightsQuestionnairesCategoryListInstance {
   ): Promise<InsightsQuestionnairesCategoryInstance>;
 
   /**
+   * Streams InsightsQuestionnairesCategoryInstance records from the API.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { InsightsQuestionnairesCategoryListInstanceEachOptions } [params] - Options for request
+   * @param { function } [callback] - Function to process each record
+   */
+  each(
+    callback?: (
+      item: InsightsQuestionnairesCategoryInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
+  each(
+    params: InsightsQuestionnairesCategoryListInstanceEachOptions,
+    callback?: (
+      item: InsightsQuestionnairesCategoryInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
+  /**
+   * Retrieve a single target page of InsightsQuestionnairesCategoryInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * @param { string } [targetUrl] - API-generated URL for the requested results page
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  getPage(
+    targetUrl: string,
+    callback?: (
+      error: Error | null,
+      items: InsightsQuestionnairesCategoryPage
+    ) => any
+  ): Promise<InsightsQuestionnairesCategoryPage>;
+  /**
+   * Lists InsightsQuestionnairesCategoryInstance records from the API as a list.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { InsightsQuestionnairesCategoryListInstanceOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  list(
+    callback?: (
+      error: Error | null,
+      items: InsightsQuestionnairesCategoryInstance[]
+    ) => any
+  ): Promise<InsightsQuestionnairesCategoryInstance[]>;
+  list(
+    params: InsightsQuestionnairesCategoryListInstanceOptions,
+    callback?: (
+      error: Error | null,
+      items: InsightsQuestionnairesCategoryInstance[]
+    ) => any
+  ): Promise<InsightsQuestionnairesCategoryInstance[]>;
+  /**
+   * Retrieve a single page of InsightsQuestionnairesCategoryInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { InsightsQuestionnairesCategoryListInstancePageOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  page(
+    callback?: (
+      error: Error | null,
+      items: InsightsQuestionnairesCategoryPage
+    ) => any
+  ): Promise<InsightsQuestionnairesCategoryPage>;
+  page(
+    params: InsightsQuestionnairesCategoryListInstancePageOptions,
+    callback?: (
+      error: Error | null,
+      items: InsightsQuestionnairesCategoryPage
+    ) => any
+  ): Promise<InsightsQuestionnairesCategoryPage>;
+
+  /**
    * Provide a user-friendly representation
    */
   toJSON(): any;
@@ -426,6 +563,85 @@ export function InsightsQuestionnairesCategoryListInstance(
     return operationPromise;
   };
 
+  instance.page = function page(
+    params?:
+      | InsightsQuestionnairesCategoryListInstancePageOptions
+      | ((
+          error: Error | null,
+          items: InsightsQuestionnairesCategoryPage
+        ) => any),
+    callback?: (
+      error: Error | null,
+      items: InsightsQuestionnairesCategoryPage
+    ) => any
+  ): Promise<InsightsQuestionnairesCategoryPage> {
+    if (params instanceof Function) {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    let data: any = {};
+
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+
+    if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
+
+    const headers: any = {};
+    if (params["token"] !== undefined) headers["Token"] = params["token"];
+
+    let operationVersion = version,
+      operationPromise = operationVersion.page({
+        uri: instance._uri,
+        method: "get",
+        params: data,
+        headers,
+      });
+
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new InsightsQuestionnairesCategoryPage(
+          operationVersion,
+          payload,
+          instance._solution
+        )
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  };
+  instance.each = instance._version.each;
+  instance.list = instance._version.list;
+
+  instance.getPage = function getPage(
+    targetUrl: string,
+    callback?: (
+      error: Error | null,
+      items: InsightsQuestionnairesCategoryPage
+    ) => any
+  ): Promise<InsightsQuestionnairesCategoryPage> {
+    const operationPromise = instance._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
+
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new InsightsQuestionnairesCategoryPage(
+          instance._version,
+          payload,
+          instance._solution
+        )
+    );
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
+  };
+
   instance.toJSON = function toJSON() {
     return instance._solution;
   };
@@ -438,4 +654,41 @@ export function InsightsQuestionnairesCategoryListInstance(
   };
 
   return instance;
+}
+
+export class InsightsQuestionnairesCategoryPage extends Page<
+  V1,
+  InsightsQuestionnairesCategoryPayload,
+  InsightsQuestionnairesCategoryResource,
+  InsightsQuestionnairesCategoryInstance
+> {
+  /**
+   * Initialize the InsightsQuestionnairesCategoryPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(
+    version: V1,
+    response: Response<string>,
+    solution: InsightsQuestionnairesCategorySolution
+  ) {
+    super(version, response, solution);
+  }
+
+  /**
+   * Build an instance of InsightsQuestionnairesCategoryInstance
+   *
+   * @param payload - Payload response from the API
+   */
+  getInstance(
+    payload: InsightsQuestionnairesCategoryResource
+  ): InsightsQuestionnairesCategoryInstance {
+    return new InsightsQuestionnairesCategoryInstance(this._version, payload);
+  }
+
+  [inspect.custom](depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+  }
 }

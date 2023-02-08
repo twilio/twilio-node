@@ -19,6 +19,8 @@ import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
+import { DeviceConfigListInstance } from "./device/deviceConfig";
+import { DeviceSecretListInstance } from "./device/deviceSecret";
 
 /**
  * Options to pass to update a DeviceInstance
@@ -68,6 +70,9 @@ export interface DeviceListInstancePageOptions {
 }
 
 export interface DeviceContext {
+  deviceConfigs: DeviceConfigListInstance;
+  deviceSecrets: DeviceSecretListInstance;
+
   /**
    * Fetch a DeviceInstance
    *
@@ -117,6 +122,9 @@ export class DeviceContextImpl implements DeviceContext {
   protected _solution: DeviceContextSolution;
   protected _uri: string;
 
+  protected _deviceConfigs?: DeviceConfigListInstance;
+  protected _deviceSecrets?: DeviceSecretListInstance;
+
   constructor(protected _version: V1, sid: string) {
     if (!isValidPathParam(sid)) {
       throw new Error("Parameter 'sid' is not valid.");
@@ -124,6 +132,20 @@ export class DeviceContextImpl implements DeviceContext {
 
     this._solution = { sid };
     this._uri = `/Devices/${sid}`;
+  }
+
+  get deviceConfigs(): DeviceConfigListInstance {
+    this._deviceConfigs =
+      this._deviceConfigs ||
+      DeviceConfigListInstance(this._version, this._solution.sid);
+    return this._deviceConfigs;
+  }
+
+  get deviceSecrets(): DeviceSecretListInstance {
+    this._deviceSecrets =
+      this._deviceSecrets ||
+      DeviceSecretListInstance(this._version, this._solution.sid);
+    return this._deviceSecrets;
   }
 
   fetch(
@@ -326,6 +348,20 @@ export class DeviceInstance {
     callback?: (error: Error | null, item?: DeviceInstance) => any
   ): Promise<DeviceInstance> {
     return this._proxy.update(params, callback);
+  }
+
+  /**
+   * Access the deviceConfigs.
+   */
+  deviceConfigs(): DeviceConfigListInstance {
+    return this._proxy.deviceConfigs;
+  }
+
+  /**
+   * Access the deviceSecrets.
+   */
+  deviceSecrets(): DeviceSecretListInstance {
+    return this._proxy.deviceSecrets;
   }
 
   /**

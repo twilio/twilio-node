@@ -15,6 +15,7 @@
 import ContentBase from "../ContentBase";
 import Version from "../../base/Version";
 import { ContentListInstance } from "./v1/content";
+import { LegacyContentListInstance } from "./v1/legacyContent";
 
 export default class V1 extends Version {
   /**
@@ -28,10 +29,19 @@ export default class V1 extends Version {
 
   /** contents - { Twilio.Content.V1.ContentListInstance } resource */
   protected _contents?: ContentListInstance;
+  /** legacyContents - { Twilio.Content.V1.LegacyContentListInstance } resource */
+  protected _legacyContents?: LegacyContentListInstance;
 
   /** Getter for contents resource */
   get contents(): ContentListInstance {
     this._contents = this._contents || ContentListInstance(this);
     return this._contents;
+  }
+
+  /** Getter for legacyContents resource */
+  get legacyContents(): LegacyContentListInstance {
+    this._legacyContents =
+      this._legacyContents || LegacyContentListInstance(this);
+    return this._legacyContents;
   }
 }

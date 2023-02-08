@@ -196,6 +196,8 @@ interface PhoneNumberResource {
   live_activity: any;
   line_type_intelligence: any;
   identity_match: any;
+  sms_pumping_risk: any;
+  disposable_phone_number_risk: any;
   url: string;
 }
 
@@ -220,6 +222,8 @@ export class PhoneNumberInstance {
     this.liveActivity = payload.live_activity;
     this.lineTypeIntelligence = payload.line_type_intelligence;
     this.identityMatch = payload.identity_match;
+    this.smsPumpingRisk = payload.sms_pumping_risk;
+    this.disposablePhoneNumberRisk = payload.disposable_phone_number_risk;
     this.url = payload.url;
 
     this._solution = { phoneNumber: phoneNumber || this.phoneNumber };
@@ -273,6 +277,14 @@ export class PhoneNumberInstance {
    * An object that contains identity match information. The result of comparing user-provided information including name, address, date of birth, national ID, against authoritative phone-based data sources
    */
   identityMatch: any;
+  /**
+   * An object that contains information on if a phone number has been currently or previously blocked by Verify Fraud Guard for receiving malicious SMS pumping traffic as well as other signals associated with risky carriers and low conversion rates.
+   */
+  smsPumpingRisk: any;
+  /**
+   * An object that contains information on if a mobile phone number could be a disposable or burner number.
+   */
+  disposablePhoneNumberRisk: any;
   /**
    * The absolute URL of the resource.
    */
@@ -334,6 +346,8 @@ export class PhoneNumberInstance {
       liveActivity: this.liveActivity,
       lineTypeIntelligence: this.lineTypeIntelligence,
       identityMatch: this.identityMatch,
+      smsPumpingRisk: this.smsPumpingRisk,
+      disposablePhoneNumberRisk: this.disposablePhoneNumberRisk,
       url: this.url,
     };
   }

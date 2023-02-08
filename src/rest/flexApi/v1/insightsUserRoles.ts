@@ -22,8 +22,8 @@ import { isValidPathParam } from "../../../base/utility";
  * Options to pass to fetch a InsightsUserRolesInstance
  */
 export interface InsightsUserRolesContextFetchOptions {
-  /** The Token HTTP request header */
-  token?: string;
+  /** The Authorization HTTP request header */
+  authorization?: string;
 }
 
 export interface InsightsUserRolesContext {
@@ -84,7 +84,8 @@ export class InsightsUserRolesContextImpl implements InsightsUserRolesContext {
     let data: any = {};
 
     const headers: any = {};
-    if (params["token"] !== undefined) headers["Token"] = params["token"];
+    if (params["authorization"] !== undefined)
+      headers["Authorization"] = params["authorization"];
 
     const instance = this;
     let operationVersion = instance._version,

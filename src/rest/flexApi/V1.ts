@@ -18,8 +18,11 @@ import { AssessmentsListInstance } from "./v1/assessments";
 import { ChannelListInstance } from "./v1/channel";
 import { ConfigurationListInstance } from "./v1/configuration";
 import { FlexFlowListInstance } from "./v1/flexFlow";
+import { InsightsAssessmentsCommentListInstance } from "./v1/insightsAssessmentsComment";
+import { InsightsQuestionnairesListInstance } from "./v1/insightsQuestionnaires";
 import { InsightsQuestionnairesCategoryListInstance } from "./v1/insightsQuestionnairesCategory";
 import { InsightsQuestionnairesQuestionListInstance } from "./v1/insightsQuestionnairesQuestion";
+import { InsightsSegmentsListInstance } from "./v1/insightsSegments";
 import { InsightsSessionListInstance } from "./v1/insightsSession";
 import { InsightsSettingsAnswerSetsListInstance } from "./v1/insightsSettingsAnswerSets";
 import { InsightsSettingsCommentListInstance } from "./v1/insightsSettingsComment";
@@ -45,10 +48,16 @@ export default class V1 extends Version {
   protected _configuration?: ConfigurationListInstance;
   /** flexFlow - { Twilio.FlexApi.V1.FlexFlowListInstance } resource */
   protected _flexFlow?: FlexFlowListInstance;
+  /** insightsAssessmentsComment - { Twilio.FlexApi.V1.InsightsAssessmentsCommentListInstance } resource */
+  protected _insightsAssessmentsComment?: InsightsAssessmentsCommentListInstance;
+  /** insightsQuestionnaires - { Twilio.FlexApi.V1.InsightsQuestionnairesListInstance } resource */
+  protected _insightsQuestionnaires?: InsightsQuestionnairesListInstance;
   /** insightsQuestionnairesCategory - { Twilio.FlexApi.V1.InsightsQuestionnairesCategoryListInstance } resource */
   protected _insightsQuestionnairesCategory?: InsightsQuestionnairesCategoryListInstance;
   /** insightsQuestionnairesQuestion - { Twilio.FlexApi.V1.InsightsQuestionnairesQuestionListInstance } resource */
   protected _insightsQuestionnairesQuestion?: InsightsQuestionnairesQuestionListInstance;
+  /** insightsSegments - { Twilio.FlexApi.V1.InsightsSegmentsListInstance } resource */
+  protected _insightsSegments?: InsightsSegmentsListInstance;
   /** insightsSession - { Twilio.FlexApi.V1.InsightsSessionListInstance } resource */
   protected _insightsSession?: InsightsSessionListInstance;
   /** insightsSettingsAnswerSets - { Twilio.FlexApi.V1.InsightsSettingsAnswerSetsListInstance } resource */
@@ -87,6 +96,21 @@ export default class V1 extends Version {
     return this._flexFlow;
   }
 
+  /** Getter for insightsAssessmentsComment resource */
+  get insightsAssessmentsComment(): InsightsAssessmentsCommentListInstance {
+    this._insightsAssessmentsComment =
+      this._insightsAssessmentsComment ||
+      InsightsAssessmentsCommentListInstance(this);
+    return this._insightsAssessmentsComment;
+  }
+
+  /** Getter for insightsQuestionnaires resource */
+  get insightsQuestionnaires(): InsightsQuestionnairesListInstance {
+    this._insightsQuestionnaires =
+      this._insightsQuestionnaires || InsightsQuestionnairesListInstance(this);
+    return this._insightsQuestionnaires;
+  }
+
   /** Getter for insightsQuestionnairesCategory resource */
   get insightsQuestionnairesCategory(): InsightsQuestionnairesCategoryListInstance {
     this._insightsQuestionnairesCategory =
@@ -101,6 +125,13 @@ export default class V1 extends Version {
       this._insightsQuestionnairesQuestion ||
       InsightsQuestionnairesQuestionListInstance(this);
     return this._insightsQuestionnairesQuestion;
+  }
+
+  /** Getter for insightsSegments resource */
+  get insightsSegments(): InsightsSegmentsListInstance {
+    this._insightsSegments =
+      this._insightsSegments || InsightsSegmentsListInstance(this);
+    return this._insightsSegments;
   }
 
   /** Getter for insightsSession resource */

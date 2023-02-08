@@ -22,8 +22,8 @@ import { isValidPathParam } from "../../../base/utility";
  * Options to pass to create a InsightsSessionInstance
  */
 export interface InsightsSessionContextCreateOptions {
-  /** The Token HTTP request header */
-  token?: string;
+  /** The Authorization HTTP request header */
+  authorization?: string;
 }
 
 export interface InsightsSessionContext {
@@ -84,7 +84,8 @@ export class InsightsSessionContextImpl implements InsightsSessionContext {
     let data: any = {};
 
     const headers: any = {};
-    if (params["token"] !== undefined) headers["Token"] = params["token"];
+    if (params["authorization"] !== undefined)
+      headers["Authorization"] = params["authorization"];
 
     const instance = this;
     let operationVersion = instance._version,

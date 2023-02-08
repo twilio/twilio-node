@@ -1,6 +1,16 @@
 twilio-node changelog
 =====================
 
+[2023-02-08] Version 4.7.2
+--------------------------
+**Library - Fix**
+- [PR #911](https://github.com/twilio/twilio-node/pull/911): restore test-docker rule. Thanks to [@beebzz](https://github.com/beebzz)!
+
+**Lookups**
+- Add `disposable_phone_number_risk` package to the lookup response
+- Add `sms_pumping_risk` package to the lookup response
+
+
 [2023-02-01] Version 4.7.1
 --------------------------
 **Library - Fix**

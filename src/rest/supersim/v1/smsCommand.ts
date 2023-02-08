@@ -43,7 +43,7 @@ export interface SmsCommandListInstanceCreateOptions {
 export interface SmsCommandListInstanceEachOptions {
   /** The SID or unique name of the Sim resource that SMS Command was sent to or from. */
   sim?: string;
-  /** The status of the SMS Command. Can be: `queued`, `sent`, `delivered`, `received` or `failed`. See the [SMS Command Status Values](https://www.twilio.com/docs/wireless/api/smscommand-resource#status-values) for a description of each. */
+  /** The status of the SMS Command. Can be: `queued`, `sent`, `delivered`, `received` or `failed`. See the [SMS Command Status Values](https://www.twilio.com/docs/iot/supersim/api/smscommand-resource#status-values) for a description of each. */
   status?: SmsCommandStatus;
   /** The direction of the SMS Command. Can be `to_sim` or `from_sim`. The value of `to_sim` is synonymous with the term `mobile terminated`, and `from_sim` is synonymous with the term `mobile originated`. */
   direction?: SmsCommandDirection;
@@ -63,7 +63,7 @@ export interface SmsCommandListInstanceEachOptions {
 export interface SmsCommandListInstanceOptions {
   /** The SID or unique name of the Sim resource that SMS Command was sent to or from. */
   sim?: string;
-  /** The status of the SMS Command. Can be: `queued`, `sent`, `delivered`, `received` or `failed`. See the [SMS Command Status Values](https://www.twilio.com/docs/wireless/api/smscommand-resource#status-values) for a description of each. */
+  /** The status of the SMS Command. Can be: `queued`, `sent`, `delivered`, `received` or `failed`. See the [SMS Command Status Values](https://www.twilio.com/docs/iot/supersim/api/smscommand-resource#status-values) for a description of each. */
   status?: SmsCommandStatus;
   /** The direction of the SMS Command. Can be `to_sim` or `from_sim`. The value of `to_sim` is synonymous with the term `mobile terminated`, and `from_sim` is synonymous with the term `mobile originated`. */
   direction?: SmsCommandDirection;
@@ -79,7 +79,7 @@ export interface SmsCommandListInstanceOptions {
 export interface SmsCommandListInstancePageOptions {
   /** The SID or unique name of the Sim resource that SMS Command was sent to or from. */
   sim?: string;
-  /** The status of the SMS Command. Can be: `queued`, `sent`, `delivered`, `received` or `failed`. See the [SMS Command Status Values](https://www.twilio.com/docs/wireless/api/smscommand-resource#status-values) for a description of each. */
+  /** The status of the SMS Command. Can be: `queued`, `sent`, `delivered`, `received` or `failed`. See the [SMS Command Status Values](https://www.twilio.com/docs/iot/supersim/api/smscommand-resource#status-values) for a description of each. */
   status?: SmsCommandStatus;
   /** The direction of the SMS Command. Can be `to_sim` or `from_sim`. The value of `to_sim` is synonymous with the term `mobile terminated`, and `from_sim` is synonymous with the term `mobile originated`. */
   direction?: SmsCommandDirection;
