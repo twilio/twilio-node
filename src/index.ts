@@ -11,7 +11,7 @@ import IMessagingResponse from "./twiml/MessagingResponse";
 import IFaxResponse from "./twiml/FaxResponse";
 
 // Shorthand to automatically create a RestClient
-function TwilioSDK (
+function TwilioSDK(
   accountSid?: string,
   authToken?: string,
   opts?: IClientOpts
@@ -57,7 +57,8 @@ namespace TwilioSDK {
   export const validateIncomingRequest = webhooks.validateIncomingRequest;
   export type getExpectedBodyHash = typeof webhooks.getExpectedBodyHash;
   export const getExpectedBodyHash = webhooks.getExpectedBodyHash;
-  export type getExpectedTwilioSignature = typeof webhooks.getExpectedTwilioSignature;
+  export type getExpectedTwilioSignature =
+    typeof webhooks.getExpectedTwilioSignature;
   export const getExpectedTwilioSignature = webhooks.getExpectedTwilioSignature;
   export type webhook = typeof webhooks.webhook;
   export const webhook = webhooks.webhook;
