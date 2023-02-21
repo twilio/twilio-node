@@ -42,7 +42,6 @@
     "express": "^4.17.1",
     "jest": "^29.3.1",
     "jshint": "^2.11.0",
-    "localtunnel": "^2.0.2",
     "mock-fs": "^5.2.0",
     "nock": "^13.2.9",
     "node-mocks-http": "^1.8.1",
@@ -53,7 +52,7 @@
   },
   "scripts": {
     "test": "npm run test:javascript && npm run test:typescript",
-    "test:javascript": "jest spec/* --coverage --detectOpenHandles",
+    "test:javascript": "jest spec --coverage --detectOpenHandles --testPathIgnorePatterns=spec/cluster",
     "test:typescript": "tsc --noEmit",
     "jshint": "jshint src/rest/** src/base/** src/http/**",
     "jscs": "eslint src/base/**/**.js src/http/**/**.js --fix",
@@ -64,8 +63,6 @@
     "nsp": "npm audit --production",
     "prettier": "prettier --write .",
     "prettier-check": "prettier --check .",
-    "cluster": "jest ./cluster_test.spec.ts --coverage",
-    "webhook-test": "jest ./webhook_cluster_test.spec.ts --coverage",
     "typedoc": "typedoc --entryPointStrategy expand src --out docs --logLevel Error"
   },
   "files": [
