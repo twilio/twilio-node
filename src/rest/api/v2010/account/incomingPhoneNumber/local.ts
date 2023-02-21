@@ -21,13 +21,13 @@ const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
 import { PhoneNumberCapabilities } from "../../../../../interfaces";
 
-type IncomingPhoneNumberLocalAddressRequirement =
+export type IncomingPhoneNumberLocalAddressRequirement =
   | "none"
   | "any"
   | "local"
   | "foreign";
 
-type IncomingPhoneNumberLocalEmergencyAddressStatus =
+export type IncomingPhoneNumberLocalEmergencyAddressStatus =
   | "registered"
   | "unregistered"
   | "pending-registration"
@@ -35,9 +35,9 @@ type IncomingPhoneNumberLocalEmergencyAddressStatus =
   | "pending-unregistration"
   | "unregistration-failure";
 
-type IncomingPhoneNumberLocalEmergencyStatus = "Active" | "Inactive";
+export type IncomingPhoneNumberLocalEmergencyStatus = "Active" | "Inactive";
 
-type IncomingPhoneNumberLocalVoiceReceiveMode = "voice" | "fax";
+export type IncomingPhoneNumberLocalVoiceReceiveMode = "voice" | "fax";
 
 /**
  * Options to pass to create a LocalInstance

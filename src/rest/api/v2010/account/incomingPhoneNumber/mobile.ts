@@ -21,13 +21,13 @@ const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
 import { PhoneNumberCapabilities } from "../../../../../interfaces";
 
-type IncomingPhoneNumberMobileAddressRequirement =
+export type IncomingPhoneNumberMobileAddressRequirement =
   | "none"
   | "any"
   | "local"
   | "foreign";
 
-type IncomingPhoneNumberMobileEmergencyAddressStatus =
+export type IncomingPhoneNumberMobileEmergencyAddressStatus =
   | "registered"
   | "unregistered"
   | "pending-registration"
@@ -35,9 +35,9 @@ type IncomingPhoneNumberMobileEmergencyAddressStatus =
   | "pending-unregistration"
   | "unregistration-failure";
 
-type IncomingPhoneNumberMobileEmergencyStatus = "Active" | "Inactive";
+export type IncomingPhoneNumberMobileEmergencyStatus = "Active" | "Inactive";
 
-type IncomingPhoneNumberMobileVoiceReceiveMode = "voice" | "fax";
+export type IncomingPhoneNumberMobileVoiceReceiveMode = "voice" | "fax";
 
 /**
  * Options to pass to create a MobileInstance

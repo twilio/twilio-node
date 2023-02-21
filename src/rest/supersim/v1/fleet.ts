@@ -20,7 +20,7 @@ const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 
-type FleetDataMetering = "payg";
+export type FleetDataMetering = "payg";
 
 /**
  * Options to pass to update a FleetInstance

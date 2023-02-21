@@ -20,7 +20,7 @@ const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
 
-type EndUserType = "individual" | "business";
+export type EndUserType = "individual" | "business";
 
 /**
  * Options to pass to update a EndUserInstance

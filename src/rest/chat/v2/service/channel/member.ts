@@ -20,7 +20,7 @@ const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
 
-type MemberWebhookEnabledType = "true" | "false";
+export type MemberWebhookEnabledType = "true" | "false";
 
 /**
  * Options to pass to remove a MemberInstance

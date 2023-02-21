@@ -18,9 +18,9 @@ const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 
-type ChannelChannelType = "public" | "private";
+export type ChannelChannelType = "public" | "private";
 
-type ChannelWebhookEnabledType = "true" | "false";
+export type ChannelWebhookEnabledType = "true" | "false";
 
 /**
  * Options to pass to update a ChannelInstance

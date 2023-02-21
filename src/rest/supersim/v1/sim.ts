@@ -22,9 +22,9 @@ import { isValidPathParam } from "../../../base/utility";
 import { BillingPeriodListInstance } from "./sim/billingPeriod";
 import { SimIpAddressListInstance } from "./sim/simIpAddress";
 
-type SimStatus = "new" | "ready" | "active" | "inactive" | "scheduled";
+export type SimStatus = "new" | "ready" | "active" | "inactive" | "scheduled";
 
-type SimStatusUpdate = "ready" | "active" | "inactive";
+export type SimStatusUpdate = "ready" | "active" | "inactive";
 
 /**
  * Options to pass to update a SimInstance

@@ -20,7 +20,7 @@ const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
 
-type CustomerProfileEvaluationStatus = "compliant" | "noncompliant";
+export type CustomerProfileEvaluationStatus = "compliant" | "noncompliant";
 
 /**
  * Options to pass to create a CustomerProfilesEvaluationsInstance

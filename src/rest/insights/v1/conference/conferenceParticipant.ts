@@ -20,9 +20,9 @@ const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
 
-type ConferenceParticipantCallDirection = "inbound" | "outbound";
+export type ConferenceParticipantCallDirection = "inbound" | "outbound";
 
-type ConferenceParticipantCallStatus =
+export type ConferenceParticipantCallStatus =
   | "answered"
   | "completed"
   | "busy"
@@ -31,20 +31,20 @@ type ConferenceParticipantCallStatus =
   | "ringing"
   | "canceled";
 
-type ConferenceParticipantCallType = "carrier" | "client" | "sip";
+export type ConferenceParticipantCallType = "carrier" | "client" | "sip";
 
-type ConferenceParticipantJitterBufferSize =
+export type ConferenceParticipantJitterBufferSize =
   | "large"
   | "small"
   | "medium"
   | "off";
 
-type ConferenceParticipantProcessingState =
+export type ConferenceParticipantProcessingState =
   | "complete"
   | "in_progress"
   | "timeout";
 
-type ConferenceParticipantRegion =
+export type ConferenceParticipantRegion =
   | "us1"
   | "us2"
   | "au1"

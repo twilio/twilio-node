@@ -22,9 +22,9 @@ import { isValidPathParam } from "../../../base/utility";
 import { SinkTestListInstance } from "./sink/sinkTest";
 import { SinkValidateListInstance } from "./sink/sinkValidate";
 
-type SinkSinkType = "kinesis" | "webhook" | "segment";
+export type SinkSinkType = "kinesis" | "webhook" | "segment";
 
-type SinkStatus = "initialized" | "validating" | "active" | "failed";
+export type SinkStatus = "initialized" | "validating" | "active" | "failed";
 
 /**
  * Options to pass to update a SinkInstance

@@ -18,14 +18,14 @@ const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
 
-type RecordingRecordingMode =
+export type RecordingRecordingMode =
   | "do-not-record"
   | "record-from-ringing"
   | "record-from-answer"
   | "record-from-ringing-dual"
   | "record-from-answer-dual";
 
-type RecordingRecordingTrim = "trim-silence" | "do-not-trim";
+export type RecordingRecordingTrim = "trim-silence" | "do-not-trim";
 
 /**
  * Options to pass to update a RecordingInstance

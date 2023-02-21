@@ -21,7 +21,7 @@ const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
 import { ReservationListInstance } from "./task/reservation";
 
-type TaskStatus =
+export type TaskStatus =
   | "pending"
   | "reserved"
   | "assigned"

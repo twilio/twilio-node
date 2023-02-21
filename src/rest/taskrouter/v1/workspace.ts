@@ -30,7 +30,7 @@ import { WorkspaceCumulativeStatisticsListInstance } from "./workspace/workspace
 import { WorkspaceRealTimeStatisticsListInstance } from "./workspace/workspaceRealTimeStatistics";
 import { WorkspaceStatisticsListInstance } from "./workspace/workspaceStatistics";
 
-type WorkspaceQueueOrder = "FIFO" | "LIFO";
+export type WorkspaceQueueOrder = "FIFO" | "LIFO";
 
 /**
  * Options to pass to update a WorkspaceInstance

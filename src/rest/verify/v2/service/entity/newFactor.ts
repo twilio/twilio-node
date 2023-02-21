@@ -18,13 +18,13 @@ const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
 
-type NewFactorFactorStatuses = "unverified" | "verified";
+export type NewFactorFactorStatuses = "unverified" | "verified";
 
-type NewFactorFactorTypes = "push" | "totp";
+export type NewFactorFactorTypes = "push" | "totp";
 
-type NewFactorNotificationPlatforms = "apn" | "fcm" | "none";
+export type NewFactorNotificationPlatforms = "apn" | "fcm" | "none";
 
-type NewFactorTotpAlgorithms = "sha1" | "sha256" | "sha512";
+export type NewFactorTotpAlgorithms = "sha1" | "sha256" | "sha512";
 
 /**
  * Options to pass to create a NewFactorInstance

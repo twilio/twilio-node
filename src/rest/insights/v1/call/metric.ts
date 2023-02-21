@@ -20,9 +20,9 @@ const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
 
-type MetricStreamDirection = "unknown" | "inbound" | "outbound" | "both";
+export type MetricStreamDirection = "unknown" | "inbound" | "outbound" | "both";
 
-type MetricTwilioEdge =
+export type MetricTwilioEdge =
   | "unknown_edge"
   | "carrier_edge"
   | "sip_edge"

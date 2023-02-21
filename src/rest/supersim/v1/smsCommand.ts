@@ -20,9 +20,14 @@ const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 
-type SmsCommandDirection = "to_sim" | "from_sim";
+export type SmsCommandDirection = "to_sim" | "from_sim";
 
-type SmsCommandStatus = "queued" | "sent" | "delivered" | "received" | "failed";
+export type SmsCommandStatus =
+  | "queued"
+  | "sent"
+  | "delivered"
+  | "received"
+  | "failed";
 
 /**
  * Options to pass to create a SmsCommandInstance

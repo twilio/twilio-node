@@ -20,9 +20,9 @@ const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
 
-type InteractionChannelParticipantStatus = "closed" | "wrapup";
+export type InteractionChannelParticipantStatus = "closed" | "wrapup";
 
-type InteractionChannelParticipantType =
+export type InteractionChannelParticipantType =
   | "supervisor"
   | "customer"
   | "external"

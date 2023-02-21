@@ -20,11 +20,11 @@ const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
 
-type FactorFactorStatuses = "unverified" | "verified";
+export type FactorFactorStatuses = "unverified" | "verified";
 
-type FactorFactorTypes = "push" | "totp";
+export type FactorFactorTypes = "push" | "totp";
 
-type FactorTotpAlgorithms = "sha1" | "sha256" | "sha512";
+export type FactorTotpAlgorithms = "sha1" | "sha256" | "sha512";
 
 /**
  * Options to pass to update a FactorInstance

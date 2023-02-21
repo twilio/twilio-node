@@ -22,7 +22,7 @@ import { isValidPathParam } from "../../../../base/utility";
 import { AddOnResultListInstance } from "./recording/addOnResult";
 import { TranscriptionListInstance } from "./recording/transcription";
 
-type RecordingSource =
+export type RecordingSource =
   | "DialVerb"
   | "Conference"
   | "OutboundAPI"
@@ -31,7 +31,7 @@ type RecordingSource =
   | "StartCallRecordingAPI"
   | "StartConferenceRecordingAPI";
 
-type RecordingStatus =
+export type RecordingStatus =
   | "in-progress"
   | "paused"
   | "stopped"

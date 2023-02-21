@@ -20,7 +20,7 @@ const deserialize = require("../../../../../../base/deserialize");
 const serialize = require("../../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../../base/utility";
 
-type ServiceConversationMessageReceiptDeliveryStatus =
+export type ServiceConversationMessageReceiptDeliveryStatus =
   | "read"
   | "failed"
   | "delivered"

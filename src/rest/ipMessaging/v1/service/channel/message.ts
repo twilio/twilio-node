@@ -20,7 +20,7 @@ const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
 
-type MessageOrderType = "asc" | "desc";
+export type MessageOrderType = "asc" | "desc";
 
 /**
  * Options to pass to update a MessageInstance

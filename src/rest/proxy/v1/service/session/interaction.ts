@@ -20,7 +20,7 @@ const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
 
-type InteractionResourceStatus =
+export type InteractionResourceStatus =
   | "accepted"
   | "answered"
   | "busy"
@@ -43,7 +43,7 @@ type InteractionResourceStatus =
   | "undelivered"
   | "unknown";
 
-type InteractionType = "message" | "voice" | "unknown";
+export type InteractionType = "message" | "voice" | "unknown";
 
 /**
  * Options to pass to each

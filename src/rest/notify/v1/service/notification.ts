@@ -18,7 +18,7 @@ const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
 
-type NotificationPriority = "high" | "low";
+export type NotificationPriority = "high" | "low";
 
 /**
  * Options to pass to create a NotificationInstance

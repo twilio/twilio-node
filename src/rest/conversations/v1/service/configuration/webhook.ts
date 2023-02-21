@@ -18,7 +18,7 @@ const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
 
-type ServiceWebhookConfigurationMethod = "GET" | "POST";
+export type ServiceWebhookConfigurationMethod = "GET" | "POST";
 
 /**
  * Options to pass to update a WebhookInstance

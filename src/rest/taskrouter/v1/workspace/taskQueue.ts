@@ -24,7 +24,7 @@ import { TaskQueueRealTimeStatisticsListInstance } from "./taskQueue/taskQueueRe
 import { TaskQueueStatisticsListInstance } from "./taskQueue/taskQueueStatistics";
 import { TaskQueuesStatisticsListInstance } from "./taskQueue/taskQueuesStatistics";
 
-type TaskQueueTaskOrder = "FIFO" | "LIFO";
+export type TaskQueueTaskOrder = "FIFO" | "LIFO";
 
 /**
  * Options to pass to update a TaskQueueInstance

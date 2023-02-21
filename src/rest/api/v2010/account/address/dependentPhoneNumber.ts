@@ -20,13 +20,13 @@ const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
 
-type DependentPhoneNumberAddressRequirement =
+export type DependentPhoneNumberAddressRequirement =
   | "none"
   | "any"
   | "local"
   | "foreign";
 
-type DependentPhoneNumberEmergencyStatus = "Active" | "Inactive";
+export type DependentPhoneNumberEmergencyStatus = "Active" | "Inactive";
 
 /**
  * Options to pass to each

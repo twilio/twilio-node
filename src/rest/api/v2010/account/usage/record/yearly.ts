@@ -20,7 +20,7 @@ const deserialize = require("../../../../../../base/deserialize");
 const serialize = require("../../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../../base/utility";
 
-type UsageRecordYearlyCategory =
+export type UsageRecordYearlyCategory =
   | "a2p-registration-fees"
   | "agent-conference"
   | "amazon-polly"

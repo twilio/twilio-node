@@ -20,7 +20,7 @@ const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 
-type SupportingDocumentStatus =
+export type SupportingDocumentStatus =
   | "draft"
   | "pending-review"
   | "rejected"

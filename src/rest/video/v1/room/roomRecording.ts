@@ -20,13 +20,17 @@ const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
 
-type RoomRecordingCodec = "VP8" | "H264" | "OPUS" | "PCMU";
+export type RoomRecordingCodec = "VP8" | "H264" | "OPUS" | "PCMU";
 
-type RoomRecordingFormat = "mka" | "mkv";
+export type RoomRecordingFormat = "mka" | "mkv";
 
-type RoomRecordingStatus = "processing" | "completed" | "deleted" | "failed";
+export type RoomRecordingStatus =
+  | "processing"
+  | "completed"
+  | "deleted"
+  | "failed";
 
-type RoomRecordingType = "audio" | "video" | "data";
+export type RoomRecordingType = "audio" | "video" | "data";
 
 /**
  * Options to pass to each

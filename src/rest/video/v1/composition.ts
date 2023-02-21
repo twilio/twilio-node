@@ -20,9 +20,9 @@ const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 
-type CompositionFormat = "mp4" | "webm";
+export type CompositionFormat = "mp4" | "webm";
 
-type CompositionStatus =
+export type CompositionStatus =
   | "enqueued"
   | "processing"
   | "completed"

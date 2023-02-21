@@ -20,7 +20,7 @@ const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
 
-type BrandVettingVettingProvider = "campaign-verify";
+export type BrandVettingVettingProvider = "campaign-verify";
 
 /**
  * Options to pass to create a BrandVettingInstance

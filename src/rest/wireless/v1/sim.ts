@@ -22,9 +22,9 @@ import { isValidPathParam } from "../../../base/utility";
 import { DataSessionListInstance } from "./sim/dataSession";
 import { UsageRecordListInstance } from "./sim/usageRecord";
 
-type SimResetStatus = "resetting";
+export type SimResetStatus = "resetting";
 
-type SimStatus =
+export type SimStatus =
   | "new"
   | "ready"
   | "active"

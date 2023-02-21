@@ -20,7 +20,7 @@ const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
 
-type RoomParticipantSubscribedTrackKind = "audio" | "video" | "data";
+export type RoomParticipantSubscribedTrackKind = "audio" | "video" | "data";
 
 /**
  * Options to pass to each

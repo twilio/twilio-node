@@ -44,9 +44,9 @@ import { TranscriptionListInstance } from "./account/transcription";
 import { UsageListInstance } from "./account/usage";
 import { ValidationRequestListInstance } from "./account/validationRequest";
 
-type AccountStatus = "active" | "suspended" | "closed";
+export type AccountStatus = "active" | "suspended" | "closed";
 
-type AccountType = "Trial" | "Full";
+export type AccountType = "Trial" | "Full";
 
 /**
  * Options to pass to update a AccountInstance

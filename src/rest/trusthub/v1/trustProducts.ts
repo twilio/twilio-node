@@ -23,7 +23,7 @@ import { TrustProductsChannelEndpointAssignmentListInstance } from "./trustProdu
 import { TrustProductsEntityAssignmentsListInstance } from "./trustProducts/trustProductsEntityAssignments";
 import { TrustProductsEvaluationsListInstance } from "./trustProducts/trustProductsEvaluations";
 
-type TrustProductStatus =
+export type TrustProductStatus =
   | "draft"
   | "pending-review"
   | "in-review"

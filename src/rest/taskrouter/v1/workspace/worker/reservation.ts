@@ -20,13 +20,13 @@ const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
 
-type WorkerReservationCallStatus =
+export type WorkerReservationCallStatus =
   | "initiated"
   | "ringing"
   | "answered"
   | "completed";
 
-type WorkerReservationConferenceEvent =
+export type WorkerReservationConferenceEvent =
   | "start"
   | "end"
   | "join"
@@ -35,7 +35,7 @@ type WorkerReservationConferenceEvent =
   | "hold"
   | "speaker";
 
-type WorkerReservationStatus =
+export type WorkerReservationStatus =
   | "pending"
   | "accepted"
   | "rejected"

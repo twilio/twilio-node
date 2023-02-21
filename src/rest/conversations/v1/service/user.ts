@@ -21,7 +21,7 @@ const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
 import { UserConversationListInstance } from "./user/userConversation";
 
-type ServiceUserWebhookEnabledType = "true" | "false";
+export type ServiceUserWebhookEnabledType = "true" | "false";
 
 /**
  * Options to pass to remove a UserInstance

@@ -20,7 +20,7 @@ const deserialize = require("../../../../../../base/deserialize");
 const serialize = require("../../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../../base/utility";
 
-type MessageInteractionResourceStatus =
+export type MessageInteractionResourceStatus =
   | "accepted"
   | "answered"
   | "busy"
@@ -43,7 +43,7 @@ type MessageInteractionResourceStatus =
   | "undelivered"
   | "unknown";
 
-type MessageInteractionType = "message" | "voice" | "unknown";
+export type MessageInteractionType = "message" | "voice" | "unknown";
 
 /**
  * Options to pass to create a MessageInteractionInstance

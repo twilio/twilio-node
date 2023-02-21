@@ -20,9 +20,9 @@ const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 
-type VerificationAttemptChannels = "sms" | "call" | "email" | "whatsapp";
+export type VerificationAttemptChannels = "sms" | "call" | "email" | "whatsapp";
 
-type VerificationAttemptConversionStatus = "converted" | "unconverted";
+export type VerificationAttemptConversionStatus = "converted" | "unconverted";
 
 /**
  * Options to pass to each

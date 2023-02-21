@@ -18,7 +18,7 @@ const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 
-type PhoneNumberValidationError =
+export type PhoneNumberValidationError =
   | "TOO_SHORT"
   | "TOO_LONG"
   | "INVALID_BUT_POSSIBLE"

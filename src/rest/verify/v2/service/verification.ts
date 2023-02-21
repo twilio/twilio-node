@@ -18,9 +18,9 @@ const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
 
-type VerificationChannel = "sms" | "call" | "email" | "whatsapp" | "sna";
+export type VerificationChannel = "sms" | "call" | "email" | "whatsapp" | "sna";
 
-type VerificationStatus = "canceled" | "approved";
+export type VerificationStatus = "canceled" | "approved";
 
 /**
  * Options to pass to update a VerificationInstance

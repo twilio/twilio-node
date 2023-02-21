@@ -20,9 +20,9 @@ const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
 
-type ChannelWebhookMethod = "GET" | "POST";
+export type ChannelWebhookMethod = "GET" | "POST";
 
-type ChannelWebhookType = "webhook" | "trigger" | "studio";
+export type ChannelWebhookType = "webhook" | "trigger" | "studio";
 
 /**
  * Options to pass to update a WebhookInstance

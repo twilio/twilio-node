@@ -20,7 +20,7 @@ const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
 
-type TrustProductEvaluationStatus = "compliant" | "noncompliant";
+export type TrustProductEvaluationStatus = "compliant" | "noncompliant";
 
 /**
  * Options to pass to create a TrustProductsEvaluationsInstance

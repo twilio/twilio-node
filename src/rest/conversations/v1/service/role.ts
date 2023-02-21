@@ -20,7 +20,7 @@ const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
 
-type ServiceRoleRoleType = "conversation" | "service";
+export type ServiceRoleRoleType = "conversation" | "service";
 
 /**
  * Options to pass to update a RoleInstance

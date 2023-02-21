@@ -20,7 +20,7 @@ const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 
-type CallSummariesAnsweredBy =
+export type CallSummariesAnsweredBy =
   | "unknown"
   | "machine_start"
   | "machine_end_beep"
@@ -29,7 +29,7 @@ type CallSummariesAnsweredBy =
   | "human"
   | "fax";
 
-type CallSummariesCallState =
+export type CallSummariesCallState =
   | "ringing"
   | "completed"
   | "busy"
@@ -39,17 +39,17 @@ type CallSummariesCallState =
   | "answered"
   | "undialed";
 
-type CallSummariesCallType = "carrier" | "sip" | "trunking" | "client";
+export type CallSummariesCallType = "carrier" | "sip" | "trunking" | "client";
 
-type CallSummariesProcessingState = "complete" | "partial";
+export type CallSummariesProcessingState = "complete" | "partial";
 
-type CallSummariesProcessingStateRequest =
+export type CallSummariesProcessingStateRequest =
   | "completed"
   | "started"
   | "partial"
   | "all";
 
-type CallSummariesSortBy = "start_time" | "end_time";
+export type CallSummariesSortBy = "start_time" | "end_time";
 
 /**
  * Options to pass to each

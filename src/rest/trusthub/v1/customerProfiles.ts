@@ -23,7 +23,7 @@ import { CustomerProfilesChannelEndpointAssignmentListInstance } from "./custome
 import { CustomerProfilesEntityAssignmentsListInstance } from "./customerProfiles/customerProfilesEntityAssignments";
 import { CustomerProfilesEvaluationsListInstance } from "./customerProfiles/customerProfilesEvaluations";
 
-type CustomerProfileStatus =
+export type CustomerProfileStatus =
   | "draft"
   | "pending-review"
   | "in-review"

@@ -20,9 +20,9 @@ const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
 
-type SyncListItemQueryFromBoundType = "inclusive" | "exclusive";
+export type SyncListItemQueryFromBoundType = "inclusive" | "exclusive";
 
-type SyncListItemQueryResultOrder = "asc" | "desc";
+export type SyncListItemQueryResultOrder = "asc" | "desc";
 
 /**
  * Options to pass to remove a SyncListItemInstance

@@ -20,11 +20,14 @@ const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 
-type ConfigurationAddressAutoCreationType = "webhook" | "studio" | "default";
+export type ConfigurationAddressAutoCreationType =
+  | "webhook"
+  | "studio"
+  | "default";
 
-type ConfigurationAddressMethod = "GET" | "POST";
+export type ConfigurationAddressMethod = "GET" | "POST";
 
-type ConfigurationAddressType = "sms" | "whatsapp" | "messenger" | "gbm";
+export type ConfigurationAddressType = "sms" | "whatsapp" | "messenger" | "gbm";
 
 /**
  * Options to pass to update a AddressConfigurationInstance

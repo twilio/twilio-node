@@ -21,7 +21,7 @@ const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
 import { PhoneNumberCapabilities } from "../../../../interfaces";
 
-type DependentHostedNumberOrderStatus =
+export type DependentHostedNumberOrderStatus =
   | "received"
   | "pending-verification"
   | "verified"
@@ -32,7 +32,9 @@ type DependentHostedNumberOrderStatus =
   | "failed"
   | "action-required";
 
-type DependentHostedNumberOrderVerificationType = "phone-call" | "phone-bill";
+export type DependentHostedNumberOrderVerificationType =
+  | "phone-call"
+  | "phone-bill";
 
 /**
  * Options to pass to each

@@ -20,7 +20,7 @@ const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
 
-type EvaluationStatus = "compliant" | "noncompliant";
+export type EvaluationStatus = "compliant" | "noncompliant";
 
 /**
  * Options to pass to each

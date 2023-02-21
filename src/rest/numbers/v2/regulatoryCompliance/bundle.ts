@@ -24,13 +24,13 @@ import { EvaluationListInstance } from "./bundle/evaluation";
 import { ItemAssignmentListInstance } from "./bundle/itemAssignment";
 import { ReplaceItemsListInstance } from "./bundle/replaceItems";
 
-type BundleEndUserType = "individual" | "business";
+export type BundleEndUserType = "individual" | "business";
 
-type BundleSortBy = "valid-until" | "date-updated";
+export type BundleSortBy = "valid-until" | "date-updated";
 
-type BundleSortDirection = "ASC" | "DESC";
+export type BundleSortDirection = "ASC" | "DESC";
 
-type BundleStatus =
+export type BundleStatus =
   | "draft"
   | "pending-review"
   | "in-review"

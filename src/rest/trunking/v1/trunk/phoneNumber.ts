@@ -20,7 +20,11 @@ const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
 
-type PhoneNumberAddressRequirement = "none" | "any" | "local" | "foreign";
+export type PhoneNumberAddressRequirement =
+  | "none"
+  | "any"
+  | "local"
+  | "foreign";
 
 /**
  * Options to pass to create a PhoneNumberInstance

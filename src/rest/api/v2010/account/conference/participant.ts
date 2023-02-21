@@ -20,7 +20,7 @@ const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
 
-type ParticipantStatus =
+export type ParticipantStatus =
   | "queued"
   | "connecting"
   | "ringing"
