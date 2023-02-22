@@ -22,7 +22,7 @@ import { isValidPathParam } from "../../../../base/utility";
 import { EngagementContextListInstance } from "./engagement/engagementContext";
 import { StepListInstance } from "./engagement/step";
 
-type EngagementStatus = "active" | "ended";
+export type EngagementStatus = "active" | "ended";
 
 /**
  * Options to pass to create a EngagementInstance

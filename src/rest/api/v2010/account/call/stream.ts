@@ -18,11 +18,11 @@ const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
 
-type StreamStatus = "in-progress" | "stopped";
+export type StreamStatus = "in-progress" | "stopped";
 
-type StreamTrack = "inbound_track" | "outbound_track" | "both_tracks";
+export type StreamTrack = "inbound_track" | "outbound_track" | "both_tracks";
 
-type StreamUpdateStatus = "stopped";
+export type StreamUpdateStatus = "stopped";
 
 /**
  * Options to pass to update a StreamInstance

@@ -18,7 +18,7 @@ const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
 
-type SummaryAnsweredBy =
+export type SummaryAnsweredBy =
   | "unknown"
   | "machine_start"
   | "machine_end_beep"
@@ -27,7 +27,7 @@ type SummaryAnsweredBy =
   | "human"
   | "fax";
 
-type SummaryCallState =
+export type SummaryCallState =
   | "ringing"
   | "completed"
   | "busy"
@@ -37,9 +37,9 @@ type SummaryCallState =
   | "answered"
   | "undialed";
 
-type SummaryCallType = "carrier" | "sip" | "trunking" | "client";
+export type SummaryCallType = "carrier" | "sip" | "trunking" | "client";
 
-type SummaryProcessingState = "complete" | "partial";
+export type SummaryProcessingState = "complete" | "partial";
 
 /**
  * Options to pass to fetch a CallSummaryInstance

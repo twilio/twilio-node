@@ -21,17 +21,17 @@ const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 import { PlaybackGrantListInstance } from "./playerStreamer/playbackGrant";
 
-type PlayerStreamerEndedReason =
+export type PlayerStreamerEndedReason =
   | "ended-via-api"
   | "max-duration-exceeded"
   | "stream-disconnected-by-source"
   | "unexpected-failure";
 
-type PlayerStreamerOrder = "asc" | "desc";
+export type PlayerStreamerOrder = "asc" | "desc";
 
-type PlayerStreamerStatus = "created" | "started" | "ended" | "failed";
+export type PlayerStreamerStatus = "created" | "started" | "ended" | "failed";
 
-type PlayerStreamerUpdateStatus = "ended";
+export type PlayerStreamerUpdateStatus = "ended";
 
 /**
  * Options to pass to update a PlayerStreamerInstance

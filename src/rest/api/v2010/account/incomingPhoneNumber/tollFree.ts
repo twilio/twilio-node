@@ -21,13 +21,13 @@ const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
 import { PhoneNumberCapabilities } from "../../../../../interfaces";
 
-type IncomingPhoneNumberTollFreeAddressRequirement =
+export type IncomingPhoneNumberTollFreeAddressRequirement =
   | "none"
   | "any"
   | "local"
   | "foreign";
 
-type IncomingPhoneNumberTollFreeEmergencyAddressStatus =
+export type IncomingPhoneNumberTollFreeEmergencyAddressStatus =
   | "registered"
   | "unregistered"
   | "pending-registration"
@@ -35,9 +35,9 @@ type IncomingPhoneNumberTollFreeEmergencyAddressStatus =
   | "pending-unregistration"
   | "unregistration-failure";
 
-type IncomingPhoneNumberTollFreeEmergencyStatus = "Active" | "Inactive";
+export type IncomingPhoneNumberTollFreeEmergencyStatus = "Active" | "Inactive";
 
-type IncomingPhoneNumberTollFreeVoiceReceiveMode = "voice" | "fax";
+export type IncomingPhoneNumberTollFreeVoiceReceiveMode = "voice" | "fax";
 
 /**
  * Options to pass to create a TollFreeInstance

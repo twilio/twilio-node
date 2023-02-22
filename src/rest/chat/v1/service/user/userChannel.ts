@@ -20,7 +20,10 @@ const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
 
-type UserChannelChannelStatus = "joined" | "invited" | "not_participating";
+export type UserChannelChannelStatus =
+  | "joined"
+  | "invited"
+  | "not_participating";
 
 /**
  * Options to pass to each

@@ -20,7 +20,7 @@ const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
 
-type LogLevel = "info" | "warn" | "error";
+export type LogLevel = "info" | "warn" | "error";
 
 /**
  * Options to pass to each

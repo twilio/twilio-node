@@ -20,13 +20,18 @@ const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 
-type CommandCommandMode = "text" | "binary";
+export type CommandCommandMode = "text" | "binary";
 
-type CommandDirection = "from_sim" | "to_sim";
+export type CommandDirection = "from_sim" | "to_sim";
 
-type CommandStatus = "queued" | "sent" | "delivered" | "received" | "failed";
+export type CommandStatus =
+  | "queued"
+  | "sent"
+  | "delivered"
+  | "received"
+  | "failed";
 
-type CommandTransport = "sms" | "ip";
+export type CommandTransport = "sms" | "ip";
 
 /**
  * Options to pass to create a CommandInstance

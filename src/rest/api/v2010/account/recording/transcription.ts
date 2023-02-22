@@ -20,7 +20,10 @@ const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
 
-type RecordingTranscriptionStatus = "in-progress" | "completed" | "failed";
+export type RecordingTranscriptionStatus =
+  | "in-progress"
+  | "completed"
+  | "failed";
 
 /**
  * Options to pass to each

@@ -22,9 +22,14 @@ import { isValidPathParam } from "../../../../base/utility";
 import { InteractionListInstance } from "./session/interaction";
 import { ParticipantListInstance } from "./session/participant";
 
-type SessionMode = "message-only" | "voice-only" | "voice-and-message";
+export type SessionMode = "message-only" | "voice-only" | "voice-and-message";
 
-type SessionStatus = "open" | "in-progress" | "closed" | "failed" | "unknown";
+export type SessionStatus =
+  | "open"
+  | "in-progress"
+  | "closed"
+  | "failed"
+  | "unknown";
 
 /**
  * Options to pass to update a SessionInstance

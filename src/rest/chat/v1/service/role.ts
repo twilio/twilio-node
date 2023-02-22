@@ -20,7 +20,7 @@ const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
 
-type RoleRoleType = "channel" | "deployment";
+export type RoleRoleType = "channel" | "deployment";
 
 /**
  * Options to pass to update a RoleInstance

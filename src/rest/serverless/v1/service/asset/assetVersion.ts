@@ -20,7 +20,7 @@ const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
 
-type AssetVersionVisibility = "public" | "private" | "protected";
+export type AssetVersionVisibility = "public" | "private" | "protected";
 
 /**
  * Options to pass to each

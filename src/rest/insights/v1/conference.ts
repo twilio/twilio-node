@@ -21,24 +21,31 @@ const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 import { ConferenceParticipantListInstance } from "./conference/conferenceParticipant";
 
-type ConferenceConferenceEndReason =
+export type ConferenceConferenceEndReason =
   | "last_participant_left"
   | "conference_ended_via_api"
   | "participant_with_end_conference_on_exit_left"
   | "last_participant_kicked"
   | "participant_with_end_conference_on_exit_kicked";
 
-type ConferenceConferenceStatus =
+export type ConferenceConferenceStatus =
   | "in_progress"
   | "not_started"
   | "completed"
   | "summary_timeout";
 
-type ConferenceProcessingState = "complete" | "in_progress" | "timeout";
+export type ConferenceProcessingState = "complete" | "in_progress" | "timeout";
 
-type ConferenceRegion = "us1" | "au1" | "br1" | "ie1" | "jp1" | "sg1" | "de1";
+export type ConferenceRegion =
+  | "us1"
+  | "au1"
+  | "br1"
+  | "ie1"
+  | "jp1"
+  | "sg1"
+  | "de1";
 
-type ConferenceTag =
+export type ConferenceTag =
   | "invalid_requested_region"
   | "duplicate_identity"
   | "start_failure"

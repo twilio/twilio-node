@@ -21,7 +21,7 @@ const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 import { DependentHostedNumberOrderListInstance } from "./authorizationDocument/dependentHostedNumberOrder";
 
-type AuthorizationDocumentStatus =
+export type AuthorizationDocumentStatus =
   | "opened"
   | "signing"
   | "signed"

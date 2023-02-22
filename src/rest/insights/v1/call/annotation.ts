@@ -18,9 +18,9 @@ const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
 
-type AnnotationAnsweredBy = "unknown_answered_by" | "human" | "machine";
+export type AnnotationAnsweredBy = "unknown_answered_by" | "human" | "machine";
 
-type AnnotationConnectivityIssue =
+export type AnnotationConnectivityIssue =
   | "unknown_connectivity_issue"
   | "no_connectivity_issue"
   | "invalid_number"

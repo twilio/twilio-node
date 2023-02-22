@@ -18,7 +18,7 @@ const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
 
-type BuildStatusStatus = "building" | "completed" | "failed";
+export type BuildStatusStatus = "building" | "completed" | "failed";
 
 export interface BuildStatusContext {
   /**

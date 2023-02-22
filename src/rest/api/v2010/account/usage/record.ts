@@ -28,7 +28,7 @@ import { TodayListInstance } from "./record/today";
 import { YearlyListInstance } from "./record/yearly";
 import { YesterdayListInstance } from "./record/yesterday";
 
-type UsageRecordCategory =
+export type UsageRecordCategory =
   | "a2p-registration-fees"
   | "agent-conference"
   | "amazon-polly"

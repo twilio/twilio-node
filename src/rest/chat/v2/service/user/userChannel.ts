@@ -20,11 +20,14 @@ const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
 
-type UserChannelChannelStatus = "joined" | "invited" | "not_participating";
+export type UserChannelChannelStatus =
+  | "joined"
+  | "invited"
+  | "not_participating";
 
-type UserChannelNotificationLevel = "default" | "muted";
+export type UserChannelNotificationLevel = "default" | "muted";
 
-type UserChannelWebhookEnabledType = "true" | "false";
+export type UserChannelWebhookEnabledType = "true" | "false";
 
 /**
  * Options to pass to remove a UserChannelInstance

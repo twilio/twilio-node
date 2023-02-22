@@ -20,11 +20,11 @@ const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 
-type IpCommandDirection = "to_sim" | "from_sim";
+export type IpCommandDirection = "to_sim" | "from_sim";
 
-type IpCommandPayloadType = "text" | "binary";
+export type IpCommandPayloadType = "text" | "binary";
 
-type IpCommandStatus = "queued" | "sent" | "received" | "failed";
+export type IpCommandStatus = "queued" | "sent" | "received" | "failed";
 
 /**
  * Options to pass to create a IpCommandInstance

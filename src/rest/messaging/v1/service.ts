@@ -25,7 +25,7 @@ import { ShortCodeListInstance } from "./service/shortCode";
 import { UsAppToPersonListInstance } from "./service/usAppToPerson";
 import { UsAppToPersonUsecaseListInstance } from "./service/usAppToPersonUsecase";
 
-type ServiceScanMessageContent = "inherit" | "enable" | "disable";
+export type ServiceScanMessageContent = "inherit" | "enable" | "disable";
 
 /**
  * Options to pass to update a ServiceInstance

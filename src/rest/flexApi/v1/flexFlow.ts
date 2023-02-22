@@ -20,7 +20,7 @@ const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 
-type FlexFlowChannelType =
+export type FlexFlowChannelType =
   | "web"
   | "sms"
   | "facebook"
@@ -28,7 +28,7 @@ type FlexFlowChannelType =
   | "line"
   | "custom";
 
-type FlexFlowIntegrationType = "studio" | "external" | "task";
+export type FlexFlowIntegrationType = "studio" | "external" | "task";
 
 /**
  * Options to pass to update a FlexFlowInstance

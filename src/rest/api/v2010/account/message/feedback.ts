@@ -18,7 +18,7 @@ const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
 
-type MessageFeedbackOutcome = "confirmed" | "unconfirmed";
+export type MessageFeedbackOutcome = "confirmed" | "unconfirmed";
 
 /**
  * Options to pass to create a FeedbackInstance

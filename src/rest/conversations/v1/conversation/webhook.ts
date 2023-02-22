@@ -20,9 +20,9 @@ const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
 
-type ConversationScopedWebhookMethod = "GET" | "POST";
+export type ConversationScopedWebhookMethod = "GET" | "POST";
 
-type ConversationScopedWebhookTarget = "webhook" | "trigger" | "studio";
+export type ConversationScopedWebhookTarget = "webhook" | "trigger" | "studio";
 
 /**
  * Options to pass to update a WebhookInstance

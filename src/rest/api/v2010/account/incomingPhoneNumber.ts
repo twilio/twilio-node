@@ -25,13 +25,13 @@ import { MobileListInstance } from "./incomingPhoneNumber/mobile";
 import { TollFreeListInstance } from "./incomingPhoneNumber/tollFree";
 import { PhoneNumberCapabilities } from "../../../../interfaces";
 
-type IncomingPhoneNumberAddressRequirement =
+export type IncomingPhoneNumberAddressRequirement =
   | "none"
   | "any"
   | "local"
   | "foreign";
 
-type IncomingPhoneNumberEmergencyAddressStatus =
+export type IncomingPhoneNumberEmergencyAddressStatus =
   | "registered"
   | "unregistered"
   | "pending-registration"
@@ -39,9 +39,9 @@ type IncomingPhoneNumberEmergencyAddressStatus =
   | "pending-unregistration"
   | "unregistration-failure";
 
-type IncomingPhoneNumberEmergencyStatus = "Active" | "Inactive";
+export type IncomingPhoneNumberEmergencyStatus = "Active" | "Inactive";
 
-type IncomingPhoneNumberVoiceReceiveMode = "voice" | "fax";
+export type IncomingPhoneNumberVoiceReceiveMode = "voice" | "fax";
 
 /**
  * Options to pass to update a IncomingPhoneNumberInstance

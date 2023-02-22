@@ -22,11 +22,15 @@ import { isValidPathParam } from "../../../../base/utility";
 import { InteractionChannelInviteListInstance } from "./interactionChannel/interactionChannelInvite";
 import { InteractionChannelParticipantListInstance } from "./interactionChannel/interactionChannelParticipant";
 
-type InteractionChannelChannelStatus = "setup" | "active" | "failed" | "closed";
+export type InteractionChannelChannelStatus =
+  | "setup"
+  | "active"
+  | "failed"
+  | "closed";
 
-type InteractionChannelStatus = "closed" | "wrapup";
+export type InteractionChannelStatus = "closed" | "wrapup";
 
-type InteractionChannelType =
+export type InteractionChannelType =
   | "voice"
   | "sms"
   | "email"

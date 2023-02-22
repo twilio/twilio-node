@@ -22,7 +22,7 @@ import { isValidPathParam } from "../../../base/utility";
 import { EngagementListInstance } from "./flow/engagement";
 import { ExecutionListInstance } from "./flow/execution";
 
-type FlowStatus = "draft" | "published";
+export type FlowStatus = "draft" | "published";
 
 /**
  * Options to pass to each

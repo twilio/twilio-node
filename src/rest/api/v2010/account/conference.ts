@@ -22,16 +22,16 @@ import { isValidPathParam } from "../../../../base/utility";
 import { ParticipantListInstance } from "./conference/participant";
 import { RecordingListInstance } from "./conference/recording";
 
-type ConferenceReasonConferenceEnded =
+export type ConferenceReasonConferenceEnded =
   | "conference-ended-via-api"
   | "participant-with-end-conference-on-exit-left"
   | "participant-with-end-conference-on-exit-kicked"
   | "last-participant-kicked"
   | "last-participant-left";
 
-type ConferenceStatus = "init" | "in-progress" | "completed";
+export type ConferenceStatus = "init" | "in-progress" | "completed";
 
-type ConferenceUpdateStatus = "completed";
+export type ConferenceUpdateStatus = "completed";
 
 /**
  * Options to pass to update a ConferenceInstance

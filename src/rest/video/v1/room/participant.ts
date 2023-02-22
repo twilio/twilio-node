@@ -24,7 +24,7 @@ import { PublishedTrackListInstance } from "./participant/publishedTrack";
 import { SubscribeRulesListInstance } from "./participant/subscribeRules";
 import { SubscribedTrackListInstance } from "./participant/subscribedTrack";
 
-type RoomParticipantStatus = "connected" | "disconnected";
+export type RoomParticipantStatus = "connected" | "disconnected";
 
 /**
  * Options to pass to update a ParticipantInstance

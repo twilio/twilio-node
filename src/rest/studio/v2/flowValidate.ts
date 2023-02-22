@@ -18,7 +18,7 @@ const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 
-type FlowValidateStatus = "draft" | "published";
+export type FlowValidateStatus = "draft" | "published";
 
 /**
  * Options to pass to update a FlowValidateInstance

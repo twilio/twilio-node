@@ -18,7 +18,7 @@ const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
 
-type CallFeedbackSummaryStatus =
+export type CallFeedbackSummaryStatus =
   | "queued"
   | "in-progress"
   | "completed"

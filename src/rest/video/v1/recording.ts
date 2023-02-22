@@ -20,13 +20,13 @@ const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 
-type RecordingCodec = "VP8" | "H264" | "OPUS" | "PCMU";
+export type RecordingCodec = "VP8" | "H264" | "OPUS" | "PCMU";
 
-type RecordingFormat = "mka" | "mkv";
+export type RecordingFormat = "mka" | "mkv";
 
-type RecordingStatus = "processing" | "completed" | "deleted" | "failed";
+export type RecordingStatus = "processing" | "completed" | "deleted" | "failed";
 
-type RecordingType = "audio" | "video" | "data";
+export type RecordingType = "audio" | "video" | "data";
 
 /**
  * Options to pass to each

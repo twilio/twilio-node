@@ -20,7 +20,7 @@ const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
 
-type UsageRecordGranularity = "hourly" | "daily" | "all";
+export type UsageRecordGranularity = "hourly" | "daily" | "all";
 
 /**
  * Options to pass to each

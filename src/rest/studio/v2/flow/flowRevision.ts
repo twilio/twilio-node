@@ -20,7 +20,7 @@ const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
 
-type FlowRevisionStatus = "draft" | "published";
+export type FlowRevisionStatus = "draft" | "published";
 
 /**
  * Options to pass to each

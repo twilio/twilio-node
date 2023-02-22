@@ -20,11 +20,11 @@ const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
 
-type WebhookMethods = "GET" | "POST";
+export type WebhookMethods = "GET" | "POST";
 
-type WebhookStatus = "enabled" | "disabled";
+export type WebhookStatus = "enabled" | "disabled";
 
-type WebhookVersion = "v1" | "v2";
+export type WebhookVersion = "v1" | "v2";
 
 /**
  * Options to pass to update a WebhookInstance

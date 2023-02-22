@@ -22,7 +22,7 @@ import { isValidPathParam } from "../../../../base/utility";
 import { ExecutionContextListInstance } from "./execution/executionContext";
 import { ExecutionStepListInstance } from "./execution/executionStep";
 
-type ExecutionStatus = "active" | "ended";
+export type ExecutionStatus = "active" | "ended";
 
 /**
  * Options to pass to update a ExecutionInstance

@@ -18,7 +18,7 @@ const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
 
-type RoomParticipantAnonymizeStatus = "connected" | "disconnected";
+export type RoomParticipantAnonymizeStatus = "connected" | "disconnected";
 
 export interface AnonymizeContext {
   /**

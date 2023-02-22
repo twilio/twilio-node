@@ -20,9 +20,9 @@ const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
 
-type VideoParticipantSummaryCodec = "VP8" | "H264" | "VP9";
+export type VideoParticipantSummaryCodec = "VP8" | "H264" | "VP9";
 
-type VideoParticipantSummaryEdgeLocation =
+export type VideoParticipantSummaryEdgeLocation =
   | "ashburn"
   | "dublin"
   | "frankfurt"
@@ -33,9 +33,9 @@ type VideoParticipantSummaryEdgeLocation =
   | "umatilla"
   | "tokyo";
 
-type VideoParticipantSummaryRoomStatus = "in_progress" | "completed";
+export type VideoParticipantSummaryRoomStatus = "in_progress" | "completed";
 
-type VideoParticipantSummaryTwilioRealm =
+export type VideoParticipantSummaryTwilioRealm =
   | "us1"
   | "us2"
   | "au1"

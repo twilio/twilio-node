@@ -18,7 +18,7 @@ const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
 
-type AccessTokenFactorTypes = "push";
+export type AccessTokenFactorTypes = "push";
 
 /**
  * Options to pass to create a AccessTokenInstance

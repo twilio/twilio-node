@@ -20,7 +20,7 @@ const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
 
-type CallRecordingSource =
+export type CallRecordingSource =
   | "DialVerb"
   | "Conference"
   | "OutboundAPI"
@@ -29,7 +29,7 @@ type CallRecordingSource =
   | "StartCallRecordingAPI"
   | "StartConferenceRecordingAPI";
 
-type CallRecordingStatus =
+export type CallRecordingStatus =
   | "in-progress"
   | "paused"
   | "stopped"

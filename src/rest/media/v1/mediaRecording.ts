@@ -20,11 +20,15 @@ const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 
-type MediaRecordingFormat = "mp4" | "webm";
+export type MediaRecordingFormat = "mp4" | "webm";
 
-type MediaRecordingOrder = "asc" | "desc";
+export type MediaRecordingOrder = "asc" | "desc";
 
-type MediaRecordingStatus = "processing" | "completed" | "deleted" | "failed";
+export type MediaRecordingStatus =
+  | "processing"
+  | "completed"
+  | "deleted"
+  | "failed";
 
 /**
  * Options to pass to each

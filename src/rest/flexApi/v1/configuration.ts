@@ -18,7 +18,7 @@ const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 
-type ConfigurationStatus = "ok" | "inprogress" | "notstarted";
+export type ConfigurationStatus = "ok" | "inprogress" | "notstarted";
 
 /**
  * Options to pass to fetch a ConfigurationInstance

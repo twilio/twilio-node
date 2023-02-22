@@ -21,9 +21,9 @@ const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
 import { DeliveryReceiptListInstance } from "./message/deliveryReceipt";
 
-type ConversationMessageOrderType = "asc" | "desc";
+export type ConversationMessageOrderType = "asc" | "desc";
 
-type ConversationMessageWebhookEnabledType = "true" | "false";
+export type ConversationMessageWebhookEnabledType = "true" | "false";
 
 /**
  * Options to pass to remove a MessageInstance

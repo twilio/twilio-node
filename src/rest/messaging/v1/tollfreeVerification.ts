@@ -20,14 +20,14 @@ const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 
-type TollfreeVerificationOptInType =
+export type TollfreeVerificationOptInType =
   | "VERBAL"
   | "WEB_FORM"
   | "PAPER_FORM"
   | "VIA_TEXT"
   | "MOBILE_QR_CODE";
 
-type TollfreeVerificationStatus =
+export type TollfreeVerificationStatus =
   | "PENDING_REVIEW"
   | "IN_REVIEW"
   | "TWILIO_APPROVED"

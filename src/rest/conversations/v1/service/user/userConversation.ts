@@ -20,9 +20,9 @@ const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
 
-type ServiceUserConversationNotificationLevel = "default" | "muted";
+export type ServiceUserConversationNotificationLevel = "default" | "muted";
 
-type ServiceUserConversationState = "inactive" | "active" | "closed";
+export type ServiceUserConversationState = "inactive" | "active" | "closed";
 
 /**
  * Options to pass to update a UserConversationInstance

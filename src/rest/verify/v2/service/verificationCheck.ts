@@ -18,7 +18,12 @@ const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
 
-type VerificationCheckChannel = "sms" | "call" | "email" | "whatsapp" | "sna";
+export type VerificationCheckChannel =
+  | "sms"
+  | "call"
+  | "email"
+  | "whatsapp"
+  | "sna";
 
 /**
  * Options to pass to create a VerificationCheckInstance

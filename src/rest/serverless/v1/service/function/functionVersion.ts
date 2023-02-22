@@ -21,7 +21,7 @@ const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
 import { FunctionVersionContentListInstance } from "./functionVersion/functionVersionContent";
 
-type FunctionVersionVisibility = "public" | "private" | "protected";
+export type FunctionVersionVisibility = "public" | "private" | "protected";
 
 /**
  * Options to pass to each

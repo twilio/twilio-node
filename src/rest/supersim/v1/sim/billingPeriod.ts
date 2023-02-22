@@ -20,7 +20,7 @@ const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
 
-type BillingPeriodBpType = "ready" | "active";
+export type BillingPeriodBpType = "ready" | "active";
 
 /**
  * Options to pass to each

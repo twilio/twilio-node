@@ -23,9 +23,9 @@ import { MessageListInstance } from "./conversation/message";
 import { ParticipantListInstance } from "./conversation/participant";
 import { WebhookListInstance } from "./conversation/webhook";
 
-type ServiceConversationState = "inactive" | "active" | "closed";
+export type ServiceConversationState = "inactive" | "active" | "closed";
 
-type ServiceConversationWebhookEnabledType = "true" | "false";
+export type ServiceConversationWebhookEnabledType = "true" | "false";
 
 /**
  * Options to pass to remove a ConversationInstance

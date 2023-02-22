@@ -23,7 +23,7 @@ import { ExecutionListInstance } from "./flow/execution";
 import { FlowRevisionListInstance } from "./flow/flowRevision";
 import { FlowTestUserListInstance } from "./flow/flowTestUser";
 
-type FlowStatus = "draft" | "published";
+export type FlowStatus = "draft" | "published";
 
 /**
  * Options to pass to update a FlowInstance

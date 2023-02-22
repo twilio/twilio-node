@@ -20,11 +20,11 @@ const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 
-type MediaProcessorOrder = "asc" | "desc";
+export type MediaProcessorOrder = "asc" | "desc";
 
-type MediaProcessorStatus = "failed" | "started" | "ended";
+export type MediaProcessorStatus = "failed" | "started" | "ended";
 
-type MediaProcessorUpdateStatus = "ended";
+export type MediaProcessorUpdateStatus = "ended";
 
 /**
  * Options to pass to update a MediaProcessorInstance

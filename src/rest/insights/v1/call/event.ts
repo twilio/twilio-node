@@ -20,9 +20,9 @@ const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
 
-type EventLevel = "UNKNOWN" | "DEBUG" | "INFO" | "WARNING" | "ERROR";
+export type EventLevel = "UNKNOWN" | "DEBUG" | "INFO" | "WARNING" | "ERROR";
 
-type EventTwilioEdge =
+export type EventTwilioEdge =
   | "unknown_edge"
   | "carrier_edge"
   | "sip_edge"

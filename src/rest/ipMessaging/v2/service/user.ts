@@ -22,7 +22,7 @@ import { isValidPathParam } from "../../../../base/utility";
 import { UserBindingListInstance } from "./user/userBinding";
 import { UserChannelListInstance } from "./user/userChannel";
 
-type UserWebhookEnabledType = "true" | "false";
+export type UserWebhookEnabledType = "true" | "false";
 
 /**
  * Options to pass to update a UserInstance

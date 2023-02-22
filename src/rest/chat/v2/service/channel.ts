@@ -24,9 +24,9 @@ import { MemberListInstance } from "./channel/member";
 import { MessageListInstance } from "./channel/message";
 import { WebhookListInstance } from "./channel/webhook";
 
-type ChannelChannelType = "public" | "private";
+export type ChannelChannelType = "public" | "private";
 
-type ChannelWebhookEnabledType = "true" | "false";
+export type ChannelWebhookEnabledType = "true" | "false";
 
 /**
  * Options to pass to remove a ChannelInstance

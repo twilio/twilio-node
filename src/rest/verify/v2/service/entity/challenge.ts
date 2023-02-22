@@ -21,13 +21,17 @@ const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
 import { NotificationListInstance } from "./challenge/notification";
 
-type ChallengeChallengeReasons = "none" | "not_needed" | "not_requested";
+export type ChallengeChallengeReasons = "none" | "not_needed" | "not_requested";
 
-type ChallengeChallengeStatuses = "pending" | "expired" | "approved" | "denied";
+export type ChallengeChallengeStatuses =
+  | "pending"
+  | "expired"
+  | "approved"
+  | "denied";
 
-type ChallengeFactorTypes = "push" | "totp";
+export type ChallengeFactorTypes = "push" | "totp";
 
-type ChallengeListOrders = "asc" | "desc";
+export type ChallengeListOrders = "asc" | "desc";
 
 /**
  * Options to pass to update a ChallengeInstance

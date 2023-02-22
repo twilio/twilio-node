@@ -21,20 +21,20 @@ const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 import { BrandVettingListInstance } from "./brandRegistration/brandVetting";
 
-type BrandRegistrationsBrandFeedback =
+export type BrandRegistrationsBrandFeedback =
   | "TAX_ID"
   | "STOCK_SYMBOL"
   | "NONPROFIT"
   | "GOVERNMENT_ENTITY"
   | "OTHERS";
 
-type BrandRegistrationsIdentityStatus =
+export type BrandRegistrationsIdentityStatus =
   | "SELF_DECLARED"
   | "UNVERIFIED"
   | "VERIFIED"
   | "VETTED_VERIFIED";
 
-type BrandRegistrationsStatus =
+export type BrandRegistrationsStatus =
   | "PENDING"
   | "APPROVED"
   | "FAILED"

@@ -20,7 +20,7 @@ const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
 
-type UserBindingBindingType = "gcm" | "apn" | "fcm";
+export type UserBindingBindingType = "gcm" | "apn" | "fcm";
 
 /**
  * Options to pass to each

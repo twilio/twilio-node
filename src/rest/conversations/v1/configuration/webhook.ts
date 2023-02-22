@@ -18,9 +18,9 @@ const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
 
-type ConfigurationWebhookMethod = "GET" | "POST";
+export type ConfigurationWebhookMethod = "GET" | "POST";
 
-type ConfigurationWebhookTarget = "webhook" | "flex";
+export type ConfigurationWebhookTarget = "webhook" | "flex";
 
 /**
  * Options to pass to update a WebhookInstance

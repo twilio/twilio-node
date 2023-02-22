@@ -22,19 +22,19 @@ import { isValidPathParam } from "../../../../base/utility";
 import { FeedbackListInstance } from "./message/feedback";
 import { MediaListInstance } from "./message/media";
 
-type MessageAddressRetention = "retain";
+export type MessageAddressRetention = "retain";
 
-type MessageContentRetention = "retain";
+export type MessageContentRetention = "retain";
 
-type MessageDirection =
+export type MessageDirection =
   | "inbound"
   | "outbound-api"
   | "outbound-call"
   | "outbound-reply";
 
-type MessageScheduleType = "fixed";
+export type MessageScheduleType = "fixed";
 
-type MessageStatus =
+export type MessageStatus =
   | "queued"
   | "sending"
   | "sent"
@@ -49,7 +49,7 @@ type MessageStatus =
   | "partially_delivered"
   | "canceled";
 
-type MessageUpdateStatus = "canceled";
+export type MessageUpdateStatus = "canceled";
 
 /**
  * Options to pass to update a MessageInstance

@@ -31,7 +31,7 @@ import { UserDefinedMessageListInstance } from "./call/userDefinedMessage";
 import { UserDefinedMessageSubscriptionListInstance } from "./call/userDefinedMessageSubscription";
 import TwiML from "../../../../twiml/TwiML";
 
-type CallStatus =
+export type CallStatus =
   | "queued"
   | "ringing"
   | "in-progress"
@@ -41,7 +41,7 @@ type CallStatus =
   | "no-answer"
   | "canceled";
 
-type CallUpdateStatus = "canceled" | "completed";
+export type CallUpdateStatus = "canceled" | "completed";
 
 /**
  * Options to pass to update a CallInstance

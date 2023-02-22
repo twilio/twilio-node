@@ -25,9 +25,9 @@ import { OriginationUrlListInstance } from "./trunk/originationUrl";
 import { PhoneNumberListInstance } from "./trunk/phoneNumber";
 import { RecordingListInstance } from "./trunk/recording";
 
-type TrunkTransferCallerId = "from-transferee" | "from-transferor";
+export type TrunkTransferCallerId = "from-transferee" | "from-transferor";
 
-type TrunkTransferSetting = "disable-all" | "enable-all" | "sip-only";
+export type TrunkTransferSetting = "disable-all" | "enable-all" | "sip-only";
 
 /**
  * Options to pass to update a TrunkInstance

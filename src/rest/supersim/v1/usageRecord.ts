@@ -20,9 +20,9 @@ const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 
-type UsageRecordGranularity = "hour" | "day" | "all";
+export type UsageRecordGranularity = "hour" | "day" | "all";
 
-type UsageRecordGroup = "sim" | "fleet" | "network" | "isoCountry";
+export type UsageRecordGroup = "sim" | "fleet" | "network" | "isoCountry";
 
 /**
  * Options to pass to each

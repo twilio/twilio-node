@@ -23,11 +23,11 @@ import { ParticipantListInstance } from "./room/participant";
 import { RecordingRulesListInstance } from "./room/recordingRules";
 import { RoomRecordingListInstance } from "./room/roomRecording";
 
-type RoomRoomStatus = "in-progress" | "completed" | "failed";
+export type RoomRoomStatus = "in-progress" | "completed" | "failed";
 
-type RoomRoomType = "go" | "peer-to-peer" | "group" | "group-small";
+export type RoomRoomType = "go" | "peer-to-peer" | "group" | "group-small";
 
-type RoomVideoCodec = "VP8" | "H264";
+export type RoomVideoCodec = "VP8" | "H264";
 
 /**
  * Options to pass to update a RoomInstance

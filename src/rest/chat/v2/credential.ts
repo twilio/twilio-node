@@ -20,7 +20,7 @@ const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 
-type CredentialPushService = "gcm" | "apn" | "fcm";
+export type CredentialPushService = "gcm" | "apn" | "fcm";
 
 /**
  * Options to pass to update a CredentialInstance

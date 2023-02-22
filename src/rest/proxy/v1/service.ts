@@ -23,9 +23,13 @@ import { PhoneNumberListInstance } from "./service/phoneNumber";
 import { SessionListInstance } from "./service/session";
 import { ShortCodeListInstance } from "./service/shortCode";
 
-type ServiceGeoMatchLevel = "area-code" | "overlay" | "radius" | "country";
+export type ServiceGeoMatchLevel =
+  | "area-code"
+  | "overlay"
+  | "radius"
+  | "country";
 
-type ServiceNumberSelectionBehavior = "avoid-sticky" | "prefer-sticky";
+export type ServiceNumberSelectionBehavior = "avoid-sticky" | "prefer-sticky";
 
 /**
  * Options to pass to update a ServiceInstance

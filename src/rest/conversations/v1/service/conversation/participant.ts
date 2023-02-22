@@ -20,7 +20,7 @@ const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
 
-type ServiceConversationParticipantWebhookEnabledType = "true" | "false";
+export type ServiceConversationParticipantWebhookEnabledType = "true" | "false";
 
 /**
  * Options to pass to remove a ParticipantInstance

@@ -18,12 +18,12 @@ const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
 
-type PaymentsBankAccountType =
+export type PaymentsBankAccountType =
   | "consumer-checking"
   | "consumer-savings"
   | "commercial-checking";
 
-type PaymentsCapture =
+export type PaymentsCapture =
   | "payment-card-number"
   | "expiration-date"
   | "security-code"
@@ -31,11 +31,11 @@ type PaymentsCapture =
   | "bank-routing-number"
   | "bank-account-number";
 
-type PaymentsPaymentMethod = "credit-card" | "ach-debit";
+export type PaymentsPaymentMethod = "credit-card" | "ach-debit";
 
-type PaymentsStatus = "complete" | "cancel";
+export type PaymentsStatus = "complete" | "cancel";
 
-type PaymentsTokenType = "one-time" | "reusable";
+export type PaymentsTokenType = "one-time" | "reusable";
 
 /**
  * Options to pass to update a PaymentInstance

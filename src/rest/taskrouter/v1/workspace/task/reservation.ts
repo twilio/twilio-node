@@ -20,13 +20,13 @@ const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
 
-type TaskReservationCallStatus =
+export type TaskReservationCallStatus =
   | "initiated"
   | "ringing"
   | "answered"
   | "completed";
 
-type TaskReservationConferenceEvent =
+export type TaskReservationConferenceEvent =
   | "start"
   | "end"
   | "join"
@@ -35,7 +35,7 @@ type TaskReservationConferenceEvent =
   | "hold"
   | "speaker";
 
-type TaskReservationStatus =
+export type TaskReservationStatus =
   | "pending"
   | "accepted"
   | "rejected"
@@ -45,7 +45,7 @@ type TaskReservationStatus =
   | "wrapping"
   | "completed";
 
-type TaskReservationSupervisorMode = "monitor" | "whisper" | "barge";
+export type TaskReservationSupervisorMode = "monitor" | "whisper" | "barge";
 
 /**
  * Options to pass to update a ReservationInstance

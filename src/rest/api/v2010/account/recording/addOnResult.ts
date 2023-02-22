@@ -21,7 +21,7 @@ const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
 import { PayloadListInstance } from "./addOnResult/payload";
 
-type RecordingAddOnResultStatus =
+export type RecordingAddOnResultStatus =
   | "canceled"
   | "completed"
   | "deleted"

@@ -18,7 +18,7 @@ const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
 
-type CallFeedbackIssues =
+export type CallFeedbackIssues =
   | "audio-latency"
   | "digits-not-captured"
   | "dropped-call"

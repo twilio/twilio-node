@@ -20,11 +20,11 @@ const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
 
-type UsageTriggerRecurring = "daily" | "monthly" | "yearly" | "alltime";
+export type UsageTriggerRecurring = "daily" | "monthly" | "yearly" | "alltime";
 
-type UsageTriggerTriggerField = "count" | "usage" | "price";
+export type UsageTriggerTriggerField = "count" | "usage" | "price";
 
-type UsageTriggerUsageCategory =
+export type UsageTriggerUsageCategory =
   | "a2p-registration-fees"
   | "agent-conference"
   | "amazon-polly"

@@ -20,7 +20,7 @@ const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 
-type WebChannelChatStatus = "inactive";
+export type WebChannelChatStatus = "inactive";
 
 /**
  * Options to pass to update a WebChannelInstance

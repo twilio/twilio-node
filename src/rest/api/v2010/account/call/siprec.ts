@@ -18,11 +18,11 @@ const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
 
-type SiprecStatus = "in-progress" | "stopped";
+export type SiprecStatus = "in-progress" | "stopped";
 
-type SiprecTrack = "inbound_track" | "outbound_track" | "both_tracks";
+export type SiprecTrack = "inbound_track" | "outbound_track" | "both_tracks";
 
-type SiprecUpdateStatus = "stopped";
+export type SiprecUpdateStatus = "stopped";
 
 /**
  * Options to pass to update a SiprecInstance

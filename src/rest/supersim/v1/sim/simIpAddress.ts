@@ -20,7 +20,7 @@ const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
 
-type SimIpAddressIpAddressVersion = "IPv4" | "IPv6";
+export type SimIpAddressIpAddressVersion = "IPv4" | "IPv6";
 
 /**
  * Options to pass to each
