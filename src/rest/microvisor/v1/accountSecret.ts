@@ -21,6 +21,14 @@ const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 
 /**
+ * Options to pass to update a AccountSecretInstance
+ */
+export interface AccountSecretContextUpdateOptions {
+  /** The secret value; up to 4096 characters. */
+  value: string;
+}
+
+/**
  * Options to pass to create a AccountSecretInstance
  */
 export interface AccountSecretListInstanceCreateOptions {
@@ -89,6 +97,19 @@ export interface AccountSecretContext {
   ): Promise<AccountSecretInstance>;
 
   /**
+   * Update a AccountSecretInstance
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed AccountSecretInstance
+   */
+  update(
+    params: AccountSecretContextUpdateOptions,
+    callback?: (error: Error | null, item?: AccountSecretInstance) => any
+  ): Promise<AccountSecretInstance>;
+
+  /**
    * Provide a user-friendly representation
    */
   toJSON(): any;
@@ -137,6 +158,50 @@ export class AccountSecretContextImpl implements AccountSecretContext {
       operationPromise = operationVersion.fetch({
         uri: instance._uri,
         method: "get",
+      });
+
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new AccountSecretInstance(
+          operationVersion,
+          payload,
+          instance._solution.key
+        )
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
+  update(
+    params: AccountSecretContextUpdateOptions,
+    callback?: (error: Error | null, item?: AccountSecretInstance) => any
+  ): Promise<AccountSecretInstance> {
+    if (params === null || params === undefined) {
+      throw new Error('Required parameter "params" missing.');
+    }
+
+    if (params["value"] === null || params["value"] === undefined) {
+      throw new Error("Required parameter \"params['value']\" missing.");
+    }
+
+    let data: any = {};
+
+    data["Value"] = params["value"];
+
+    const headers: any = {};
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+
+    const instance = this;
+    let operationVersion = instance._version,
+      operationPromise = operationVersion.update({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
       });
 
     operationPromise = operationPromise.then(
@@ -236,6 +301,26 @@ export class AccountSecretInstance {
     callback?: (error: Error | null, item?: AccountSecretInstance) => any
   ): Promise<AccountSecretInstance> {
     return this._proxy.fetch(callback);
+  }
+
+  /**
+   * Update a AccountSecretInstance
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed AccountSecretInstance
+   */
+  update(
+    params: AccountSecretContextUpdateOptions,
+    callback?: (error: Error | null, item?: AccountSecretInstance) => any
+  ): Promise<AccountSecretInstance>;
+
+  update(
+    params?: any,
+    callback?: (error: Error | null, item?: AccountSecretInstance) => any
+  ): Promise<AccountSecretInstance> {
+    return this._proxy.update(params, callback);
   }
 
   /**

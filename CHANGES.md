@@ -1,6 +1,22 @@
 twilio-node changelog
 =====================
 
+[2023-02-22] Version 4.8.0
+--------------------------
+**Library - Feature**
+- [PR #917](https://github.com/twilio/twilio-node/pull/917): export enum types. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+
+**Library - Test**
+- [PR #916](https://github.com/twilio/twilio-node/pull/916): refactor cluster tests for pack output. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+
+**Library - Fix**
+- [PR #914](https://github.com/twilio/twilio-node/pull/914): Export values and all type information. Thanks to [@aaronhuggins-carewell](https://github.com/aaronhuggins-carewell)!
+
+**Api**
+- Remove `scheduled_for` property from message resource
+- Add `scheduled_for` property to message resource
+
+
 [2023-02-08] Version 4.7.2
 --------------------------
 **Library - Fix**

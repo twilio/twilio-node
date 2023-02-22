@@ -18,15 +18,63 @@ const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 
+/**
+ * Options to pass to update a AssessmentsInstance
+ */
+export interface AssessmentsContextUpdateOptions {
+  /** The offset of the conversation */
+  offset: number;
+  /** The answer text selected by user */
+  answerText: string;
+  /** The id of the answer selected by user */
+  answerId: string;
+  /** The Token HTTP request header */
+  token?: string;
+}
+
+/**
+ * Options to pass to create a AssessmentsInstance
+ */
+export interface AssessmentsListInstanceCreateOptions {
+  /** The id of the category  */
+  categoryId: string;
+  /** The name of the category */
+  categoryName: string;
+  /** Segment Id of the conversation */
+  segmentId: string;
+  /** Name of the user assessing conversation */
+  userName: string;
+  /** Email of the user assessing conversation */
+  userEmail: string;
+  /** The id of the Agent */
+  agentId: string;
+  /** The offset of the conversation. */
+  offset: number;
+  /** The question Id selected for assessment */
+  metricId: string;
+  /** The question name of the assessment */
+  metricName: string;
+  /** The answer text selected by user */
+  answerText: string;
+  /** The id of the answer selected by user */
+  answerId: string;
+  /** Questionnaire Id of the associated question */
+  questionnaireId: string;
+  /** The Token HTTP request header */
+  token?: string;
+}
+
 export interface AssessmentsContext {
   /**
-   * Create a AssessmentsInstance
+   * Update a AssessmentsInstance
    *
+   * @param params - Parameter for request
    * @param callback - Callback to handle processed record
    *
    * @returns Resolves to processed AssessmentsInstance
    */
-  create(
+  update(
+    params: AssessmentsContextUpdateOptions,
     callback?: (error: Error | null, item?: AssessmentsInstance) => any
   ): Promise<AssessmentsInstance>;
 
@@ -37,29 +85,71 @@ export interface AssessmentsContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface AssessmentsContextSolution {}
+export interface AssessmentsContextSolution {
+  assessmentId: string;
+}
 
 export class AssessmentsContextImpl implements AssessmentsContext {
   protected _solution: AssessmentsContextSolution;
   protected _uri: string;
 
-  constructor(protected _version: V1) {
-    this._solution = {};
-    this._uri = `/Accounts/Assessments`;
+  constructor(protected _version: V1, assessmentId: string) {
+    if (!isValidPathParam(assessmentId)) {
+      throw new Error("Parameter 'assessmentId' is not valid.");
+    }
+
+    this._solution = { assessmentId };
+    this._uri = `/Insights/QM/Assessments/${assessmentId}`;
   }
 
-  create(
+  update(
+    params: AssessmentsContextUpdateOptions,
     callback?: (error: Error | null, item?: AssessmentsInstance) => any
   ): Promise<AssessmentsInstance> {
+    if (params === null || params === undefined) {
+      throw new Error('Required parameter "params" missing.');
+    }
+
+    if (params["offset"] === null || params["offset"] === undefined) {
+      throw new Error("Required parameter \"params['offset']\" missing.");
+    }
+
+    if (params["answerText"] === null || params["answerText"] === undefined) {
+      throw new Error("Required parameter \"params['answerText']\" missing.");
+    }
+
+    if (params["answerId"] === null || params["answerId"] === undefined) {
+      throw new Error("Required parameter \"params['answerId']\" missing.");
+    }
+
+    let data: any = {};
+
+    data["Offset"] = params["offset"];
+
+    data["AnswerText"] = params["answerText"];
+
+    data["AnswerId"] = params["answerId"];
+
+    const headers: any = {};
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    if (params["token"] !== undefined) headers["Token"] = params["token"];
+
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.create({
+      operationPromise = operationVersion.update({
         uri: instance._uri,
         method: "post",
+        data,
+        headers,
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new AssessmentsInstance(operationVersion, payload)
+      (payload) =>
+        new AssessmentsInstance(
+          operationVersion,
+          payload,
+          instance._solution.assessmentId
+        )
     );
 
     operationPromise = instance._version.setPromiseCallback(
@@ -86,6 +176,19 @@ export class AssessmentsContextImpl implements AssessmentsContext {
 interface AssessmentsPayload extends AssessmentsResource {}
 
 interface AssessmentsResource {
+  account_sid: string;
+  assessment_id: string;
+  offset: number;
+  report: boolean;
+  weight: number;
+  agent_id: string;
+  segment_id: string;
+  user_name: string;
+  user_email: string;
+  answer_text: string;
+  answer_id: string;
+  assessment: any;
+  timestamp: number;
   url: string;
 }
 
@@ -93,33 +196,105 @@ export class AssessmentsInstance {
   protected _solution: AssessmentsContextSolution;
   protected _context?: AssessmentsContext;
 
-  constructor(protected _version: V1, payload: AssessmentsResource) {
+  constructor(
+    protected _version: V1,
+    payload: AssessmentsResource,
+    assessmentId?: string
+  ) {
+    this.accountSid = payload.account_sid;
+    this.assessmentId = payload.assessment_id;
+    this.offset = payload.offset;
+    this.report = payload.report;
+    this.weight = payload.weight;
+    this.agentId = payload.agent_id;
+    this.segmentId = payload.segment_id;
+    this.userName = payload.user_name;
+    this.userEmail = payload.user_email;
+    this.answerText = payload.answer_text;
+    this.answerId = payload.answer_id;
+    this.assessment = payload.assessment;
+    this.timestamp = payload.timestamp;
     this.url = payload.url;
 
-    this._solution = {};
+    this._solution = { assessmentId: assessmentId || this.assessmentId };
   }
 
   /**
-   * The URL of this resource.
+   * The unique SID identifier of the Account.
    */
+  accountSid: string;
+  /**
+   * The unique id of the assessment
+   */
+  assessmentId: string;
+  /**
+   * Offset of the conversation
+   */
+  offset: number;
+  /**
+   * The flag indicating if this assessment is part of report
+   */
+  report: boolean;
+  /**
+   * The weightage given to this comment
+   */
+  weight: number;
+  /**
+   * The id of the Agent
+   */
+  agentId: string;
+  /**
+   * Segment Id of conversation
+   */
+  segmentId: string;
+  /**
+   * The name of the user.
+   */
+  userName: string;
+  /**
+   * The email id of the user.
+   */
+  userEmail: string;
+  /**
+   * The answer text selected by user
+   */
+  answerText: string;
+  /**
+   * The id of the answer selected by user
+   */
+  answerId: string;
+  /**
+   * Assessment Details associated with an assessment
+   */
+  assessment: any;
+  timestamp: number;
   url: string;
 
   private get _proxy(): AssessmentsContext {
-    this._context = this._context || new AssessmentsContextImpl(this._version);
+    this._context =
+      this._context ||
+      new AssessmentsContextImpl(this._version, this._solution.assessmentId);
     return this._context;
   }
 
   /**
-   * Create a AssessmentsInstance
+   * Update a AssessmentsInstance
    *
+   * @param params - Parameter for request
    * @param callback - Callback to handle processed record
    *
    * @returns Resolves to processed AssessmentsInstance
    */
-  create(
+  update(
+    params: AssessmentsContextUpdateOptions,
+    callback?: (error: Error | null, item?: AssessmentsInstance) => any
+  ): Promise<AssessmentsInstance>;
+
+  update(
+    params?: any,
     callback?: (error: Error | null, item?: AssessmentsInstance) => any
   ): Promise<AssessmentsInstance> {
-    return this._proxy.create(callback);
+    return this._proxy.update(params, callback);
   }
 
   /**
@@ -129,6 +304,19 @@ export class AssessmentsInstance {
    */
   toJSON() {
     return {
+      accountSid: this.accountSid,
+      assessmentId: this.assessmentId,
+      offset: this.offset,
+      report: this.report,
+      weight: this.weight,
+      agentId: this.agentId,
+      segmentId: this.segmentId,
+      userName: this.userName,
+      userEmail: this.userEmail,
+      answerText: this.answerText,
+      answerId: this.answerId,
+      assessment: this.assessment,
+      timestamp: this.timestamp,
       url: this.url,
     };
   }
@@ -145,8 +333,21 @@ export interface AssessmentsListInstance {
   _solution: AssessmentsSolution;
   _uri: string;
 
-  (): AssessmentsContext;
-  get(): AssessmentsContext;
+  (assessmentId: string): AssessmentsContext;
+  get(assessmentId: string): AssessmentsContext;
+
+  /**
+   * Create a AssessmentsInstance
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed AssessmentsInstance
+   */
+  create(
+    params: AssessmentsListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: AssessmentsInstance) => any
+  ): Promise<AssessmentsInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -156,15 +357,129 @@ export interface AssessmentsListInstance {
 }
 
 export function AssessmentsListInstance(version: V1): AssessmentsListInstance {
-  const instance = (() => instance.get()) as AssessmentsListInstance;
+  const instance = ((assessmentId) =>
+    instance.get(assessmentId)) as AssessmentsListInstance;
 
-  instance.get = function get(): AssessmentsContext {
-    return new AssessmentsContextImpl(version);
+  instance.get = function get(assessmentId): AssessmentsContext {
+    return new AssessmentsContextImpl(version, assessmentId);
   };
 
   instance._version = version;
   instance._solution = {};
-  instance._uri = ``;
+  instance._uri = `/Insights/QM/Assessments`;
+
+  instance.create = function create(
+    params: AssessmentsListInstanceCreateOptions,
+    callback?: (error: Error | null, items: AssessmentsInstance) => any
+  ): Promise<AssessmentsInstance> {
+    if (params === null || params === undefined) {
+      throw new Error('Required parameter "params" missing.');
+    }
+
+    if (params["categoryId"] === null || params["categoryId"] === undefined) {
+      throw new Error("Required parameter \"params['categoryId']\" missing.");
+    }
+
+    if (
+      params["categoryName"] === null ||
+      params["categoryName"] === undefined
+    ) {
+      throw new Error("Required parameter \"params['categoryName']\" missing.");
+    }
+
+    if (params["segmentId"] === null || params["segmentId"] === undefined) {
+      throw new Error("Required parameter \"params['segmentId']\" missing.");
+    }
+
+    if (params["userName"] === null || params["userName"] === undefined) {
+      throw new Error("Required parameter \"params['userName']\" missing.");
+    }
+
+    if (params["userEmail"] === null || params["userEmail"] === undefined) {
+      throw new Error("Required parameter \"params['userEmail']\" missing.");
+    }
+
+    if (params["agentId"] === null || params["agentId"] === undefined) {
+      throw new Error("Required parameter \"params['agentId']\" missing.");
+    }
+
+    if (params["offset"] === null || params["offset"] === undefined) {
+      throw new Error("Required parameter \"params['offset']\" missing.");
+    }
+
+    if (params["metricId"] === null || params["metricId"] === undefined) {
+      throw new Error("Required parameter \"params['metricId']\" missing.");
+    }
+
+    if (params["metricName"] === null || params["metricName"] === undefined) {
+      throw new Error("Required parameter \"params['metricName']\" missing.");
+    }
+
+    if (params["answerText"] === null || params["answerText"] === undefined) {
+      throw new Error("Required parameter \"params['answerText']\" missing.");
+    }
+
+    if (params["answerId"] === null || params["answerId"] === undefined) {
+      throw new Error("Required parameter \"params['answerId']\" missing.");
+    }
+
+    if (
+      params["questionnaireId"] === null ||
+      params["questionnaireId"] === undefined
+    ) {
+      throw new Error(
+        "Required parameter \"params['questionnaireId']\" missing."
+      );
+    }
+
+    let data: any = {};
+
+    data["CategoryId"] = params["categoryId"];
+
+    data["CategoryName"] = params["categoryName"];
+
+    data["SegmentId"] = params["segmentId"];
+
+    data["UserName"] = params["userName"];
+
+    data["UserEmail"] = params["userEmail"];
+
+    data["AgentId"] = params["agentId"];
+
+    data["Offset"] = params["offset"];
+
+    data["MetricId"] = params["metricId"];
+
+    data["MetricName"] = params["metricName"];
+
+    data["AnswerText"] = params["answerText"];
+
+    data["AnswerId"] = params["answerId"];
+
+    data["QuestionnaireId"] = params["questionnaireId"];
+
+    const headers: any = {};
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    if (params["token"] !== undefined) headers["Token"] = params["token"];
+
+    let operationVersion = version,
+      operationPromise = operationVersion.create({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      });
+
+    operationPromise = operationPromise.then(
+      (payload) => new AssessmentsInstance(operationVersion, payload)
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  };
 
   instance.toJSON = function toJSON() {
     return instance._solution;

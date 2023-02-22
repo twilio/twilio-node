@@ -296,6 +296,7 @@ interface InsightsQuestionnairesQuestionResource {
   answer_set_id: string;
   allow_na: boolean;
   usage: number;
+  answer_set: any;
   url: string;
 }
 
@@ -316,6 +317,7 @@ export class InsightsQuestionnairesQuestionInstance {
     this.answerSetId = payload.answer_set_id;
     this.allowNa = payload.allow_na;
     this.usage = deserialize.integer(payload.usage);
+    this.answerSet = payload.answer_set;
     this.url = payload.url;
 
     this._solution = { questionId: questionId || this.questionId };
@@ -353,6 +355,10 @@ export class InsightsQuestionnairesQuestionInstance {
    * Integer value that tells a particular question is used by how many questionnaires
    */
   usage: number;
+  /**
+   * Set of answers for the question
+   */
+  answerSet: any;
   url: string;
 
   private get _proxy(): InsightsQuestionnairesQuestionContext {
@@ -436,6 +442,7 @@ export class InsightsQuestionnairesQuestionInstance {
       answerSetId: this.answerSetId,
       allowNa: this.allowNa,
       usage: this.usage,
+      answerSet: this.answerSet,
       url: this.url,
     };
   }

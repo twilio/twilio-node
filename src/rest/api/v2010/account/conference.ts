@@ -373,7 +373,7 @@ export class ConferenceInstance {
    */
   apiVersion: string;
   /**
-   * A string that you assigned to describe this conference room.
+   * A string that you assigned to describe this conference room. Maxiumum length is 128 characters.
    */
   friendlyName: string;
   /**
