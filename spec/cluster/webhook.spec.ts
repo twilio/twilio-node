@@ -1,7 +1,7 @@
-import { FlowInstance } from "./lib/rest/studio/v2/flow";
+import { FlowInstance } from "twilio/lib/rest/studio/v2/flow";
 jest.setTimeout(15000);
 
-const twilio = require("./lib/index.js");
+const twilio = require("twilio");
 const localtunnel = require("localtunnel");
 const http = require("http");
 

@@ -1,0 +1,12 @@
+{
+  "dependencies": {
+    "jest": "^29.4.3",
+    "localtunnel": "^2.0.2",
+    "twilio": "../../package"
+  },
+  "scripts": {
+    "prepare": "tsc",
+    "test": "jest lib --testPathIgnorePatterns=lib/webhook",
+    "webhook-test": "jest --testPathPattern=lib/webhook"
+  }
+}
