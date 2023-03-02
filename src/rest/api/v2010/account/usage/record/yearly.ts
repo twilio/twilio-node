@@ -20,7 +20,7 @@ const deserialize = require("../../../../../../base/deserialize");
 const serialize = require("../../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../../base/utility";
 
-export type UsageRecordYearlyCategory =
+export type YearlyCategory =
   | "a2p-registration-fees"
   | "agent-conference"
   | "amazon-polly"
@@ -272,7 +272,7 @@ export type UsageRecordYearlyCategory =
  */
 export interface YearlyListInstanceEachOptions {
   /** The [usage category](https://www.twilio.com/docs/usage/api/usage-record#usage-categories) of the UsageRecord resources to read. Only UsageRecord resources in the specified category are retrieved. */
-  category?: UsageRecordYearlyCategory;
+  category?: YearlyCategory;
   /** Only include usage that has occurred on or after this date. Specify the date in GMT and format as `YYYY-MM-DD`. You can also specify offsets from the current date, such as: `-30days`, which will set the start date to be 30 days before the current date. */
   startDate?: Date;
   /** Only include usage that occurred on or before this date. Specify the date in GMT and format as `YYYY-MM-DD`.  You can also specify offsets from the current date, such as: `+30days`, which will set the end date to 30 days from the current date. */
@@ -294,7 +294,7 @@ export interface YearlyListInstanceEachOptions {
  */
 export interface YearlyListInstanceOptions {
   /** The [usage category](https://www.twilio.com/docs/usage/api/usage-record#usage-categories) of the UsageRecord resources to read. Only UsageRecord resources in the specified category are retrieved. */
-  category?: UsageRecordYearlyCategory;
+  category?: YearlyCategory;
   /** Only include usage that has occurred on or after this date. Specify the date in GMT and format as `YYYY-MM-DD`. You can also specify offsets from the current date, such as: `-30days`, which will set the start date to be 30 days before the current date. */
   startDate?: Date;
   /** Only include usage that occurred on or before this date. Specify the date in GMT and format as `YYYY-MM-DD`.  You can also specify offsets from the current date, such as: `+30days`, which will set the end date to 30 days from the current date. */
@@ -312,7 +312,7 @@ export interface YearlyListInstanceOptions {
  */
 export interface YearlyListInstancePageOptions {
   /** The [usage category](https://www.twilio.com/docs/usage/api/usage-record#usage-categories) of the UsageRecord resources to read. Only UsageRecord resources in the specified category are retrieved. */
-  category?: UsageRecordYearlyCategory;
+  category?: YearlyCategory;
   /** Only include usage that has occurred on or after this date. Specify the date in GMT and format as `YYYY-MM-DD`. You can also specify offsets from the current date, such as: `-30days`, which will set the start date to be 30 days before the current date. */
   startDate?: Date;
   /** Only include usage that occurred on or before this date. Specify the date in GMT and format as `YYYY-MM-DD`.  You can also specify offsets from the current date, such as: `+30days`, which will set the end date to 30 days from the current date. */
@@ -515,7 +515,7 @@ interface YearlyResource {
   account_sid: string;
   api_version: string;
   as_of: string;
-  category: UsageRecordYearlyCategory;
+  category: YearlyCategory;
   count: string;
   count_unit: string;
   description: string;
@@ -564,7 +564,7 @@ export class YearlyInstance {
    * Usage records up to date as of this timestamp, formatted as YYYY-MM-DDTHH:MM:SS+00:00. All timestamps are in GMT
    */
   asOf: string;
-  category: UsageRecordYearlyCategory;
+  category: YearlyCategory;
   /**
    * The number of usage events, such as the number of calls.
    */

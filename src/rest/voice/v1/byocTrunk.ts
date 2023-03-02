@@ -289,28 +289,6 @@ export class ByocTrunkContextImpl implements ByocTrunkContext {
   }
 }
 
-export type ByocTrunkVoiceMethod =
-  | "HEAD"
-  | "GET"
-  | "POST"
-  | "PATCH"
-  | "PUT"
-  | "DELETE";
-export type ByocTrunkVoiceFallbackMethod =
-  | "HEAD"
-  | "GET"
-  | "POST"
-  | "PATCH"
-  | "PUT"
-  | "DELETE";
-export type ByocTrunkStatusCallbackMethod =
-  | "HEAD"
-  | "GET"
-  | "POST"
-  | "PATCH"
-  | "PUT"
-  | "DELETE";
-
 interface ByocTrunkPayload extends TwilioResponsePayload {
   byoc_trunks: ByocTrunkResource[];
 }
@@ -320,11 +298,11 @@ interface ByocTrunkResource {
   sid: string;
   friendly_name: string;
   voice_url: string;
-  voice_method: ByocTrunkVoiceMethod;
+  voice_method: string;
   voice_fallback_url: string;
-  voice_fallback_method: ByocTrunkVoiceFallbackMethod;
+  voice_fallback_method: string;
   status_callback_url: string;
-  status_callback_method: ByocTrunkStatusCallbackMethod;
+  status_callback_method: string;
   cnam_lookup_enabled: boolean;
   connection_policy_sid: string;
   from_domain_sid: string;
@@ -380,7 +358,7 @@ export class ByocTrunkInstance {
   /**
    * The HTTP method we use to call `voice_url`. Can be: `GET` or `POST`.
    */
-  voiceMethod: ByocTrunkVoiceMethod;
+  voiceMethod: string;
   /**
    * The URL that we call when an error occurs while retrieving or executing the TwiML requested from `voice_url`.
    */
@@ -388,7 +366,7 @@ export class ByocTrunkInstance {
   /**
    * The HTTP method we use to call `voice_fallback_url`. Can be: `GET` or `POST`.
    */
-  voiceFallbackMethod: ByocTrunkVoiceFallbackMethod;
+  voiceFallbackMethod: string;
   /**
    * The URL that we call to pass status parameters (such as call ended) to your application.
    */
@@ -396,7 +374,7 @@ export class ByocTrunkInstance {
   /**
    * The HTTP method we use to call `status_callback_url`. Either `GET` or `POST`.
    */
-  statusCallbackMethod: ByocTrunkStatusCallbackMethod;
+  statusCallbackMethod: string;
   /**
    * Whether Caller ID Name (CNAM) lookup is enabled for the trunk. If enabled, all inbound calls to the BYOC Trunk from the United States and Canada automatically perform a CNAM Lookup and display Caller ID data on your phone. See [CNAM Lookups](https://www.twilio.com/docs/sip-trunking#CNAM) for more information.
    */

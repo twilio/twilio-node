@@ -18,9 +18,9 @@ const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
 
-export type ConfigurationWebhookMethod = "GET" | "POST";
+export type WebhookMethod = "GET" | "POST";
 
-export type ConfigurationWebhookTarget = "webhook" | "flex";
+export type WebhookTarget = "webhook" | "flex";
 
 /**
  * Options to pass to update a WebhookInstance
@@ -35,7 +35,7 @@ export interface WebhookContextUpdateOptions {
   /** The absolute url the post-event webhook request should be sent to. */
   postWebhookUrl?: string;
   /**  */
-  target?: ConfigurationWebhookTarget;
+  target?: WebhookTarget;
 }
 
 export interface WebhookContext {
@@ -177,11 +177,11 @@ interface WebhookPayload extends WebhookResource {}
 
 interface WebhookResource {
   account_sid: string;
-  method: ConfigurationWebhookMethod;
+  method: WebhookMethod;
   filters: Array<string>;
   pre_webhook_url: string;
   post_webhook_url: string;
-  target: ConfigurationWebhookTarget;
+  target: WebhookTarget;
   url: string;
 }
 
@@ -205,7 +205,7 @@ export class WebhookInstance {
    * The unique ID of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this conversation.
    */
   accountSid: string;
-  method: ConfigurationWebhookMethod;
+  method: WebhookMethod;
   /**
    * The list of webhook event triggers that are enabled for this Service: `onMessageAdded`, `onMessageUpdated`, `onMessageRemoved`, `onConversationUpdated`, `onConversationRemoved`, `onParticipantAdded`, `onParticipantUpdated`, `onParticipantRemoved`
    */
@@ -218,7 +218,7 @@ export class WebhookInstance {
    * The absolute url the post-event webhook request should be sent to.
    */
   postWebhookUrl: string;
-  target: ConfigurationWebhookTarget;
+  target: WebhookTarget;
   /**
    * An absolute API resource API resource URL for this webhook.
    */

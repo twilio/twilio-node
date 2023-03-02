@@ -20,11 +20,11 @@ const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
 
-export type UsageTriggerRecurring = "daily" | "monthly" | "yearly" | "alltime";
+export type TriggerRecurring = "daily" | "monthly" | "yearly" | "alltime";
 
-export type UsageTriggerTriggerField = "count" | "usage" | "price";
+export type TriggerTriggerField = "count" | "usage" | "price";
 
-export type UsageTriggerUsageCategory =
+export type TriggerUsageCategory =
   | "a2p-registration-fees"
   | "agent-conference"
   | "amazon-polly"
@@ -292,26 +292,26 @@ export interface TriggerListInstanceCreateOptions {
   /** The usage value at which the trigger should fire.  For convenience, you can use an offset value such as `+30` to specify a trigger_value that is 30 units more than the current usage value. Be sure to urlencode a `+` as `%2B`. */
   triggerValue: string;
   /**  */
-  usageCategory: UsageTriggerUsageCategory;
+  usageCategory: TriggerUsageCategory;
   /** The HTTP method we should use to call `callback_url`. Can be: `GET` or `POST` and the default is `POST`. */
   callbackMethod?: string;
   /** A descriptive string that you create to describe the resource. It can be up to 64 characters long. */
   friendlyName?: string;
   /**  */
-  recurring?: UsageTriggerRecurring;
+  recurring?: TriggerRecurring;
   /**  */
-  triggerBy?: UsageTriggerTriggerField;
+  triggerBy?: TriggerTriggerField;
 }
 /**
  * Options to pass to each
  */
 export interface TriggerListInstanceEachOptions {
   /** The frequency of recurring UsageTriggers to read. Can be: `daily`, `monthly`, or `yearly` to read recurring UsageTriggers. An empty value or a value of `alltime` reads non-recurring UsageTriggers. */
-  recurring?: UsageTriggerRecurring;
+  recurring?: TriggerRecurring;
   /** The trigger field of the UsageTriggers to read.  Can be: `count`, `usage`, or `price` as described in the [UsageRecords documentation](https://www.twilio.com/docs/usage/api/usage-record#usage-count-price). */
-  triggerBy?: UsageTriggerTriggerField;
+  triggerBy?: TriggerTriggerField;
   /** The usage category of the UsageTriggers to read. Must be a supported [usage categories](https://www.twilio.com/docs/usage/api/usage-record#usage-categories). */
-  usageCategory?: UsageTriggerUsageCategory;
+  usageCategory?: TriggerUsageCategory;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
@@ -327,11 +327,11 @@ export interface TriggerListInstanceEachOptions {
  */
 export interface TriggerListInstanceOptions {
   /** The frequency of recurring UsageTriggers to read. Can be: `daily`, `monthly`, or `yearly` to read recurring UsageTriggers. An empty value or a value of `alltime` reads non-recurring UsageTriggers. */
-  recurring?: UsageTriggerRecurring;
+  recurring?: TriggerRecurring;
   /** The trigger field of the UsageTriggers to read.  Can be: `count`, `usage`, or `price` as described in the [UsageRecords documentation](https://www.twilio.com/docs/usage/api/usage-record#usage-count-price). */
-  triggerBy?: UsageTriggerTriggerField;
+  triggerBy?: TriggerTriggerField;
   /** The usage category of the UsageTriggers to read. Must be a supported [usage categories](https://www.twilio.com/docs/usage/api/usage-record#usage-categories). */
-  usageCategory?: UsageTriggerUsageCategory;
+  usageCategory?: TriggerUsageCategory;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
   /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
@@ -343,11 +343,11 @@ export interface TriggerListInstanceOptions {
  */
 export interface TriggerListInstancePageOptions {
   /** The frequency of recurring UsageTriggers to read. Can be: `daily`, `monthly`, or `yearly` to read recurring UsageTriggers. An empty value or a value of `alltime` reads non-recurring UsageTriggers. */
-  recurring?: UsageTriggerRecurring;
+  recurring?: TriggerRecurring;
   /** The trigger field of the UsageTriggers to read.  Can be: `count`, `usage`, or `price` as described in the [UsageRecords documentation](https://www.twilio.com/docs/usage/api/usage-record#usage-count-price). */
-  triggerBy?: UsageTriggerTriggerField;
+  triggerBy?: TriggerTriggerField;
   /** The usage category of the UsageTriggers to read. Must be a supported [usage categories](https://www.twilio.com/docs/usage/api/usage-record#usage-categories). */
-  usageCategory?: UsageTriggerUsageCategory;
+  usageCategory?: TriggerUsageCategory;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
   /** Page Number, this value is simply for client state */
@@ -540,14 +540,6 @@ export class TriggerContextImpl implements TriggerContext {
   }
 }
 
-export type TriggerCallbackMethod =
-  | "HEAD"
-  | "GET"
-  | "POST"
-  | "PATCH"
-  | "PUT"
-  | "DELETE";
-
 interface TriggerPayload extends TwilioResponsePayload {
   usage_triggers: TriggerResource[];
 }
@@ -555,19 +547,19 @@ interface TriggerPayload extends TwilioResponsePayload {
 interface TriggerResource {
   account_sid: string;
   api_version: string;
-  callback_method: TriggerCallbackMethod;
+  callback_method: string;
   callback_url: string;
   current_value: string;
   date_created: Date;
   date_fired: Date;
   date_updated: Date;
   friendly_name: string;
-  recurring: UsageTriggerRecurring;
+  recurring: TriggerRecurring;
   sid: string;
-  trigger_by: UsageTriggerTriggerField;
+  trigger_by: TriggerTriggerField;
   trigger_value: string;
   uri: string;
-  usage_category: UsageTriggerUsageCategory;
+  usage_category: TriggerUsageCategory;
   usage_record_uri: string;
 }
 
@@ -612,7 +604,7 @@ export class TriggerInstance {
   /**
    * The HTTP method we use to call `callback_url`. Can be: `GET` or `POST`.
    */
-  callbackMethod: TriggerCallbackMethod;
+  callbackMethod: string;
   /**
    * The URL we call using the `callback_method` when the trigger fires.
    */
@@ -637,12 +629,12 @@ export class TriggerInstance {
    * The string that you assigned to describe the trigger.
    */
   friendlyName: string;
-  recurring: UsageTriggerRecurring;
+  recurring: TriggerRecurring;
   /**
    * The unique string that that we created to identify the UsageTrigger resource.
    */
   sid: string;
-  triggerBy: UsageTriggerTriggerField;
+  triggerBy: TriggerTriggerField;
   /**
    * The value at which the trigger will fire.  Must be a positive, numeric value.
    */
@@ -651,7 +643,7 @@ export class TriggerInstance {
    * The URI of the resource, relative to `https://api.twilio.com`.
    */
   uri: string;
-  usageCategory: UsageTriggerUsageCategory;
+  usageCategory: TriggerUsageCategory;
   /**
    * The URI of the [UsageRecord](https://www.twilio.com/docs/usage/api/usage-record) resource this trigger watches, relative to `https://api.twilio.com`.
    */

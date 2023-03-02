@@ -20,9 +20,9 @@ const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
 
-export type VideoParticipantSummaryCodec = "VP8" | "H264" | "VP9";
+export type ParticipantCodec = "VP8" | "H264" | "VP9";
 
-export type VideoParticipantSummaryEdgeLocation =
+export type ParticipantEdgeLocation =
   | "ashburn"
   | "dublin"
   | "frankfurt"
@@ -33,9 +33,9 @@ export type VideoParticipantSummaryEdgeLocation =
   | "umatilla"
   | "tokyo";
 
-export type VideoParticipantSummaryRoomStatus = "in_progress" | "completed";
+export type ParticipantRoomStatus = "in_progress" | "completed";
 
-export type VideoParticipantSummaryTwilioRealm =
+export type ParticipantTwilioRealm =
   | "us1"
   | "us2"
   | "au1"
@@ -177,14 +177,14 @@ interface ParticipantResource {
   duration_sec: number;
   account_sid: string;
   room_sid: string;
-  status: VideoParticipantSummaryRoomStatus;
-  codecs: Array<VideoParticipantSummaryCodec>;
+  status: ParticipantRoomStatus;
+  codecs: Array<ParticipantCodec>;
   end_reason: string;
   error_code: number;
   error_code_url: string;
-  media_region: VideoParticipantSummaryTwilioRealm;
+  media_region: ParticipantTwilioRealm;
   properties: any;
-  edge_location: VideoParticipantSummaryEdgeLocation;
+  edge_location: ParticipantEdgeLocation;
   publisher_info: any;
   url: string;
 }
@@ -251,11 +251,11 @@ export class ParticipantInstance {
    * Unique identifier for the room.
    */
   roomSid: string;
-  status: VideoParticipantSummaryRoomStatus;
+  status: ParticipantRoomStatus;
   /**
    * Codecs detected from the participant. Can be `VP8`, `H264`, or `VP9`.
    */
-  codecs: Array<VideoParticipantSummaryCodec>;
+  codecs: Array<ParticipantCodec>;
   /**
    * Reason the participant left the room. See [the list of possible values here](https://www.twilio.com/docs/video/video-log-analyzer/video-log-analyzer-api#end_reason).
    */
@@ -268,12 +268,12 @@ export class ParticipantInstance {
    * Twilio error code dictionary link.
    */
   errorCodeUrl: string;
-  mediaRegion: VideoParticipantSummaryTwilioRealm;
+  mediaRegion: ParticipantTwilioRealm;
   /**
    * Object containing information about the participant\'s data from the room. See [below](https://www.twilio.com/docs/video/video-log-analyzer/video-log-analyzer-api#properties) for more information.
    */
   properties: any;
-  edgeLocation: VideoParticipantSummaryEdgeLocation;
+  edgeLocation: ParticipantEdgeLocation;
   /**
    * Object containing information about the SDK name and version. See [below](https://www.twilio.com/docs/video/video-log-analyzer/video-log-analyzer-api#publisher_info) for more information.
    */

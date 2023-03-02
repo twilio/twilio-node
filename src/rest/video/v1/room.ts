@@ -286,14 +286,6 @@ export class RoomContextImpl implements RoomContext {
   }
 }
 
-export type RoomStatusCallbackMethod =
-  | "HEAD"
-  | "GET"
-  | "POST"
-  | "PATCH"
-  | "PUT"
-  | "DELETE";
-
 interface RoomPayload extends TwilioResponsePayload {
   rooms: RoomResource[];
 }
@@ -307,7 +299,7 @@ interface RoomResource {
   enable_turn: boolean;
   unique_name: string;
   status_callback: string;
-  status_callback_method: RoomStatusCallbackMethod;
+  status_callback_method: string;
   end_time: Date;
   duration: number;
   type: RoomRoomType;
@@ -394,7 +386,7 @@ export class RoomInstance {
   /**
    * The HTTP method we use to call `status_callback`. Can be `POST` or `GET` and defaults to `POST`.
    */
-  statusCallbackMethod: RoomStatusCallbackMethod;
+  statusCallbackMethod: string;
   /**
    * The UTC end time of the room in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601#UTC) format.
    */

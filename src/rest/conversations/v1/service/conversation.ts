@@ -23,16 +23,16 @@ import { MessageListInstance } from "./conversation/message";
 import { ParticipantListInstance } from "./conversation/participant";
 import { WebhookListInstance } from "./conversation/webhook";
 
-export type ServiceConversationState = "inactive" | "active" | "closed";
+export type ConversationState = "inactive" | "active" | "closed";
 
-export type ServiceConversationWebhookEnabledType = "true" | "false";
+export type ConversationWebhookEnabledType = "true" | "false";
 
 /**
  * Options to pass to remove a ConversationInstance
  */
 export interface ConversationContextRemoveOptions {
   /** The X-Twilio-Webhook-Enabled HTTP request header */
-  xTwilioWebhookEnabled?: ServiceConversationWebhookEnabledType;
+  xTwilioWebhookEnabled?: ConversationWebhookEnabledType;
 }
 
 /**
@@ -40,7 +40,7 @@ export interface ConversationContextRemoveOptions {
  */
 export interface ConversationContextUpdateOptions {
   /** The X-Twilio-Webhook-Enabled HTTP request header */
-  xTwilioWebhookEnabled?: ServiceConversationWebhookEnabledType;
+  xTwilioWebhookEnabled?: ConversationWebhookEnabledType;
   /** The human-readable name of this conversation, limited to 256 characters. Optional. */
   friendlyName?: string;
   /** The date that this resource was created. */
@@ -52,7 +52,7 @@ export interface ConversationContextUpdateOptions {
   /** The unique ID of the [Messaging Service](https://www.twilio.com/docs/sms/services/api) this conversation belongs to. */
   messagingServiceSid?: string;
   /**  */
-  state?: ServiceConversationState;
+  state?: ConversationState;
   /** ISO8601 duration when conversation will be switched to `inactive` state. Minimum value for this timer is 1 minute. */
   "timers.inactive"?: string;
   /** ISO8601 duration when conversation will be switched to `closed` state. Minimum value for this timer is 10 minutes. */
@@ -66,7 +66,7 @@ export interface ConversationContextUpdateOptions {
  */
 export interface ConversationListInstanceCreateOptions {
   /** The X-Twilio-Webhook-Enabled HTTP request header */
-  xTwilioWebhookEnabled?: ServiceConversationWebhookEnabledType;
+  xTwilioWebhookEnabled?: ConversationWebhookEnabledType;
   /** The human-readable name of this conversation, limited to 256 characters. Optional. */
   friendlyName?: string;
   /** An application-defined string that uniquely identifies the resource. It can be used to address the resource in place of the resource\\\'s `sid` in the URL. */
@@ -80,7 +80,7 @@ export interface ConversationListInstanceCreateOptions {
   /** The date that this resource was last updated. */
   dateUpdated?: Date;
   /**  */
-  state?: ServiceConversationState;
+  state?: ConversationState;
   /** ISO8601 duration when conversation will be switched to `inactive` state. Minimum value for this timer is 1 minute. */
   "timers.inactive"?: string;
   /** ISO8601 duration when conversation will be switched to `closed` state. Minimum value for this timer is 10 minutes. */
@@ -402,7 +402,7 @@ interface ConversationResource {
   friendly_name: string;
   unique_name: string;
   attributes: string;
-  state: ServiceConversationState;
+  state: ConversationState;
   date_created: Date;
   date_updated: Date;
   timers: any;
@@ -467,7 +467,7 @@ export class ConversationInstance {
    * An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \"{}\" will be returned.
    */
   attributes: string;
-  state: ServiceConversationState;
+  state: ConversationState;
   /**
    * The date that this resource was created.
    */

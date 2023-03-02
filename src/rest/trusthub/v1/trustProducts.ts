@@ -23,7 +23,7 @@ import { TrustProductsChannelEndpointAssignmentListInstance } from "./trustProdu
 import { TrustProductsEntityAssignmentsListInstance } from "./trustProducts/trustProductsEntityAssignments";
 import { TrustProductsEvaluationsListInstance } from "./trustProducts/trustProductsEvaluations";
 
-export type TrustProductStatus =
+export type TrustProductsStatus =
   | "draft"
   | "pending-review"
   | "in-review"
@@ -35,7 +35,7 @@ export type TrustProductStatus =
  */
 export interface TrustProductsContextUpdateOptions {
   /**  */
-  status?: TrustProductStatus;
+  status?: TrustProductsStatus;
   /** The URL we call to inform your application of status changes. */
   statusCallback?: string;
   /** The string that you assigned to describe the resource. */
@@ -62,7 +62,7 @@ export interface TrustProductsListInstanceCreateOptions {
  */
 export interface TrustProductsListInstanceEachOptions {
   /** The verification status of the Customer-Profile resource. */
-  status?: TrustProductStatus;
+  status?: TrustProductsStatus;
   /** The string that you assigned to describe the resource. */
   friendlyName?: string;
   /** The unique string of a policy that is associated to the Customer-Profile resource. */
@@ -82,7 +82,7 @@ export interface TrustProductsListInstanceEachOptions {
  */
 export interface TrustProductsListInstanceOptions {
   /** The verification status of the Customer-Profile resource. */
-  status?: TrustProductStatus;
+  status?: TrustProductsStatus;
   /** The string that you assigned to describe the resource. */
   friendlyName?: string;
   /** The unique string of a policy that is associated to the Customer-Profile resource. */
@@ -98,7 +98,7 @@ export interface TrustProductsListInstanceOptions {
  */
 export interface TrustProductsListInstancePageOptions {
   /** The verification status of the Customer-Profile resource. */
-  status?: TrustProductStatus;
+  status?: TrustProductsStatus;
   /** The string that you assigned to describe the resource. */
   friendlyName?: string;
   /** The unique string of a policy that is associated to the Customer-Profile resource. */
@@ -332,7 +332,7 @@ interface TrustProductsResource {
   account_sid: string;
   policy_sid: string;
   friendly_name: string;
-  status: TrustProductStatus;
+  status: TrustProductsStatus;
   valid_until: Date;
   email: string;
   status_callback: string;
@@ -383,7 +383,7 @@ export class TrustProductsInstance {
    * The string that you assigned to describe the resource.
    */
   friendlyName: string;
-  status: TrustProductStatus;
+  status: TrustProductsStatus;
   /**
    * The date and time in GMT in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format when the resource will be valid until.
    */

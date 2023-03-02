@@ -20,14 +20,14 @@ const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 
-export type ConfigurationAddressAutoCreationType =
+export type AddressConfigurationAutoCreationType =
   | "webhook"
   | "studio"
   | "default";
 
-export type ConfigurationAddressMethod = "GET" | "POST";
+export type AddressConfigurationMethod = "GET" | "POST";
 
-export type ConfigurationAddressType = "sms" | "whatsapp" | "messenger" | "gbm";
+export type AddressConfigurationType = "sms" | "whatsapp" | "messenger" | "gbm";
 
 /**
  * Options to pass to update a AddressConfigurationInstance
@@ -38,13 +38,13 @@ export interface AddressConfigurationContextUpdateOptions {
   /** Enable/Disable auto-creating conversations for messages to this address */
   "autoCreation.enabled"?: boolean;
   /**  */
-  "autoCreation.type"?: ConfigurationAddressAutoCreationType;
+  "autoCreation.type"?: AddressConfigurationAutoCreationType;
   /** Conversation Service for the auto-created conversation. If not set, the conversation is created in the default service. */
   "autoCreation.conversationServiceSid"?: string;
   /** For type `webhook`, the url for the webhook request. */
   "autoCreation.webhookUrl"?: string;
   /**  */
-  "autoCreation.webhookMethod"?: ConfigurationAddressMethod;
+  "autoCreation.webhookMethod"?: AddressConfigurationMethod;
   /** The list of events, firing webhook event for this Conversation. Values can be any of the following: `onMessageAdded`, `onMessageUpdated`, `onMessageRemoved`, `onConversationUpdated`, `onConversationStateUpdated`, `onConversationRemoved`, `onParticipantAdded`, `onParticipantUpdated`, `onParticipantRemoved`, `onDeliveryUpdated` */
   "autoCreation.webhookFilters"?: Array<string>;
   /** For type `studio`, the studio flow SID where the webhook should be sent to. */
@@ -58,7 +58,7 @@ export interface AddressConfigurationContextUpdateOptions {
  */
 export interface AddressConfigurationListInstanceCreateOptions {
   /**  */
-  type: ConfigurationAddressType;
+  type: AddressConfigurationType;
   /** The unique address to be configured. The address can be a whatsapp address or phone number */
   address: string;
   /** The human-readable name of this configuration, limited to 256 characters. Optional. */
@@ -66,13 +66,13 @@ export interface AddressConfigurationListInstanceCreateOptions {
   /** Enable/Disable auto-creating conversations for messages to this address */
   "autoCreation.enabled"?: boolean;
   /**  */
-  "autoCreation.type"?: ConfigurationAddressAutoCreationType;
+  "autoCreation.type"?: AddressConfigurationAutoCreationType;
   /** Conversation Service for the auto-created conversation. If not set, the conversation is created in the default service. */
   "autoCreation.conversationServiceSid"?: string;
   /** For type `webhook`, the url for the webhook request. */
   "autoCreation.webhookUrl"?: string;
   /**  */
-  "autoCreation.webhookMethod"?: ConfigurationAddressMethod;
+  "autoCreation.webhookMethod"?: AddressConfigurationMethod;
   /** The list of events, firing webhook event for this Conversation. Values can be any of the following: `onMessageAdded`, `onMessageUpdated`, `onMessageRemoved`, `onConversationUpdated`, `onConversationStateUpdated`, `onConversationRemoved`, `onParticipantAdded`, `onParticipantUpdated`, `onParticipantRemoved`, `onDeliveryUpdated` */
   "autoCreation.webhookFilters"?: Array<string>;
   /** For type `studio`, the studio flow SID where the webhook should be sent to. */

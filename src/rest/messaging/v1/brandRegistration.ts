@@ -21,20 +21,20 @@ const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 import { BrandVettingListInstance } from "./brandRegistration/brandVetting";
 
-export type BrandRegistrationsBrandFeedback =
+export type BrandRegistrationBrandFeedback =
   | "TAX_ID"
   | "STOCK_SYMBOL"
   | "NONPROFIT"
   | "GOVERNMENT_ENTITY"
   | "OTHERS";
 
-export type BrandRegistrationsIdentityStatus =
+export type BrandRegistrationIdentityStatus =
   | "SELF_DECLARED"
   | "UNVERIFIED"
   | "VERIFIED"
   | "VETTED_VERIFIED";
 
-export type BrandRegistrationsStatus =
+export type BrandRegistrationStatus =
   | "PENDING"
   | "APPROVED"
   | "FAILED"
@@ -231,13 +231,13 @@ interface BrandRegistrationResource {
   date_created: Date;
   date_updated: Date;
   brand_type: string;
-  status: BrandRegistrationsStatus;
+  status: BrandRegistrationStatus;
   tcr_id: string;
   failure_reason: string;
   url: string;
   brand_score: number;
-  brand_feedback: Array<BrandRegistrationsBrandFeedback>;
-  identity_status: BrandRegistrationsIdentityStatus;
+  brand_feedback: Array<BrandRegistrationBrandFeedback>;
+  identity_status: BrandRegistrationIdentityStatus;
   russell_3000: boolean;
   government_entity: boolean;
   tax_exempt_status: string;
@@ -307,7 +307,7 @@ export class BrandRegistrationInstance {
    * Type of brand. One of: \"STANDARD\", \"STARTER\". STARTER is for the low volume, STARTER campaign use case. There can only be one STARTER campaign created per STARTER brand. STANDARD is for all other campaign use cases. Multiple campaign use cases can be created per STANDARD brand.
    */
   brandType: string;
-  status: BrandRegistrationsStatus;
+  status: BrandRegistrationStatus;
   /**
    * Campaign Registry (TCR) Brand ID. Assigned only after successful brand registration.
    */
@@ -327,8 +327,8 @@ export class BrandRegistrationInstance {
   /**
    * Feedback on how to improve brand score
    */
-  brandFeedback: Array<BrandRegistrationsBrandFeedback>;
-  identityStatus: BrandRegistrationsIdentityStatus;
+  brandFeedback: Array<BrandRegistrationBrandFeedback>;
+  identityStatus: BrandRegistrationIdentityStatus;
   /**
    * Publicly traded company identified in the Russell 3000 Index
    */

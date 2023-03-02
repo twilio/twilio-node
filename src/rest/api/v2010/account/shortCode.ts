@@ -246,21 +246,6 @@ export class ShortCodeContextImpl implements ShortCodeContext {
   }
 }
 
-export type ShortCodeSmsFallbackMethod =
-  | "HEAD"
-  | "GET"
-  | "POST"
-  | "PATCH"
-  | "PUT"
-  | "DELETE";
-export type ShortCodeSmsMethod =
-  | "HEAD"
-  | "GET"
-  | "POST"
-  | "PATCH"
-  | "PUT"
-  | "DELETE";
-
 interface ShortCodePayload extends TwilioResponsePayload {
   short_codes: ShortCodeResource[];
 }
@@ -273,9 +258,9 @@ interface ShortCodeResource {
   friendly_name: string;
   short_code: string;
   sid: string;
-  sms_fallback_method: ShortCodeSmsFallbackMethod;
+  sms_fallback_method: string;
   sms_fallback_url: string;
-  sms_method: ShortCodeSmsMethod;
+  sms_method: string;
   sms_url: string;
   uri: string;
 }
@@ -337,7 +322,7 @@ export class ShortCodeInstance {
   /**
    * The HTTP method we use to call the `sms_fallback_url`. Can be: `GET` or `POST`.
    */
-  smsFallbackMethod: ShortCodeSmsFallbackMethod;
+  smsFallbackMethod: string;
   /**
    * The URL that we call if an error occurs while retrieving or executing the TwiML from `sms_url`.
    */
@@ -345,7 +330,7 @@ export class ShortCodeInstance {
   /**
    * The HTTP method we use to call the `sms_url`. Can be: `GET` or `POST`.
    */
-  smsMethod: ShortCodeSmsMethod;
+  smsMethod: string;
   /**
    * The URL we call when receiving an incoming SMS message to this short code.
    */

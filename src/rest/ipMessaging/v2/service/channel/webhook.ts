@@ -20,9 +20,9 @@ const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
 
-export type ChannelWebhookMethod = "GET" | "POST";
+export type WebhookMethod = "GET" | "POST";
 
-export type ChannelWebhookType = "webhook" | "trigger" | "studio";
+export type WebhookType = "webhook" | "trigger" | "studio";
 
 /**
  * Options to pass to update a WebhookInstance
@@ -31,7 +31,7 @@ export interface WebhookContextUpdateOptions {
   /**  */
   "configuration.url"?: string;
   /**  */
-  "configuration.method"?: ChannelWebhookMethod;
+  "configuration.method"?: WebhookMethod;
   /**  */
   "configuration.filters"?: Array<string>;
   /**  */
@@ -47,11 +47,11 @@ export interface WebhookContextUpdateOptions {
  */
 export interface WebhookListInstanceCreateOptions {
   /**  */
-  type: ChannelWebhookType;
+  type: WebhookType;
   /**  */
   "configuration.url"?: string;
   /**  */
-  "configuration.method"?: ChannelWebhookMethod;
+  "configuration.method"?: WebhookMethod;
   /**  */
   "configuration.filters"?: Array<string>;
   /**  */

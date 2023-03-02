@@ -20,10 +20,7 @@ const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
 
-export type ServiceParticipantConversationState =
-  | "inactive"
-  | "active"
-  | "closed";
+export type ParticipantConversationState = "inactive" | "active" | "closed";
 
 /**
  * Options to pass to each
@@ -290,7 +287,7 @@ interface ParticipantConversationResource {
   conversation_date_created: Date;
   conversation_date_updated: Date;
   conversation_created_by: string;
-  conversation_state: ServiceParticipantConversationState;
+  conversation_state: ParticipantConversationState;
   conversation_timers: any;
   links: Record<string, string>;
 }
@@ -375,7 +372,7 @@ export class ParticipantConversationInstance {
    * Identity of the creator of this Conversation.
    */
   conversationCreatedBy: string;
-  conversationState: ServiceParticipantConversationState;
+  conversationState: ParticipantConversationState;
   /**
    * Timer date values representing state update for this conversation.
    */

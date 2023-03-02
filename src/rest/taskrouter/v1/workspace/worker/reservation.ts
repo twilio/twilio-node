@@ -20,13 +20,13 @@ const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
 
-export type WorkerReservationCallStatus =
+export type ReservationCallStatus =
   | "initiated"
   | "ringing"
   | "answered"
   | "completed";
 
-export type WorkerReservationConferenceEvent =
+export type ReservationConferenceEvent =
   | "start"
   | "end"
   | "join"
@@ -35,7 +35,7 @@ export type WorkerReservationConferenceEvent =
   | "hold"
   | "speaker";
 
-export type WorkerReservationStatus =
+export type ReservationStatus =
   | "pending"
   | "accepted"
   | "rejected"
@@ -52,7 +52,7 @@ export interface ReservationContextUpdateOptions {
   /** The If-Match HTTP request header */
   ifMatch?: string;
   /**  */
-  reservationStatus?: WorkerReservationStatus;
+  reservationStatus?: ReservationStatus;
   /** The new worker activity SID if rejecting a reservation. */
   workerActivitySid?: string;
   /** The assignment instruction for the reservation. */
@@ -98,7 +98,7 @@ export interface ReservationContextUpdateOptions {
   /** The HTTP method we should use to call `status_callback`. Can be: `POST` or `GET` and the default is `POST`. */
   statusCallbackMethod?: string;
   /** The call progress events that we will send to `status_callback`. Can be: `initiated`, `ringing`, `answered`, or `completed`. */
-  statusCallbackEvent?: Array<WorkerReservationCallStatus>;
+  statusCallbackEvent?: Array<ReservationCallStatus>;
   /** The timeout for a call when executing a Conference instruction. */
   timeout?: number;
   /** Whether to record the participant and their conferences, including the time between conferences. Can be `true` or `false` and the default is `false`. */
@@ -124,7 +124,7 @@ export interface ReservationContextUpdateOptions {
   /** The HTTP method we should use to call `conference_status_callback`. Can be: `GET` or `POST` and defaults to `POST`. */
   conferenceStatusCallbackMethod?: string;
   /** The conference status events that we will send to `conference_status_callback`. Can be: `start`, `end`, `join`, `leave`, `mute`, `hold`, `speaker`. */
-  conferenceStatusCallbackEvent?: Array<WorkerReservationConferenceEvent>;
+  conferenceStatusCallbackEvent?: Array<ReservationConferenceEvent>;
   /** Whether to record the conference the participant is joining or when to record the conference. Can be: `true`, `false`, `record-from-start`, and `do-not-record`. The default value is `false`. */
   conferenceRecord?: string;
   /** Whether to trim leading and trailing silence from your recorded conference audio files. Can be: `trim-silence` or `do-not-trim` and defaults to `trim-silence`. */
@@ -159,7 +159,7 @@ export interface ReservationContextUpdateOptions {
  */
 export interface ReservationListInstanceEachOptions {
   /** Returns the list of reservations for a worker with a specified ReservationStatus. Can be: `pending`, `accepted`, `rejected`, `timeout`, `canceled`, or `rescinded`. */
-  reservationStatus?: WorkerReservationStatus;
+  reservationStatus?: ReservationStatus;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
@@ -175,7 +175,7 @@ export interface ReservationListInstanceEachOptions {
  */
 export interface ReservationListInstanceOptions {
   /** Returns the list of reservations for a worker with a specified ReservationStatus. Can be: `pending`, `accepted`, `rejected`, `timeout`, `canceled`, or `rescinded`. */
-  reservationStatus?: WorkerReservationStatus;
+  reservationStatus?: ReservationStatus;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
   /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
@@ -187,7 +187,7 @@ export interface ReservationListInstanceOptions {
  */
 export interface ReservationListInstancePageOptions {
   /** Returns the list of reservations for a worker with a specified ReservationStatus. Can be: `pending`, `accepted`, `rejected`, `timeout`, `canceled`, or `rescinded`. */
-  reservationStatus?: WorkerReservationStatus;
+  reservationStatus?: ReservationStatus;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
   /** Page Number, this value is simply for client state */
@@ -357,7 +357,7 @@ export class ReservationContextImpl implements ReservationContext {
     if (params["statusCallbackEvent"] !== undefined)
       data["StatusCallbackEvent"] = serialize.map(
         params["statusCallbackEvent"],
-        (e: WorkerReservationCallStatus) => e
+        (e: ReservationCallStatus) => e
       );
     if (params["timeout"] !== undefined) data["Timeout"] = params["timeout"];
     if (params["record"] !== undefined)
@@ -388,7 +388,7 @@ export class ReservationContextImpl implements ReservationContext {
     if (params["conferenceStatusCallbackEvent"] !== undefined)
       data["ConferenceStatusCallbackEvent"] = serialize.map(
         params["conferenceStatusCallbackEvent"],
-        (e: WorkerReservationConferenceEvent) => e
+        (e: ReservationConferenceEvent) => e
       );
     if (params["conferenceRecord"] !== undefined)
       data["ConferenceRecord"] = params["conferenceRecord"];
@@ -482,7 +482,7 @@ interface ReservationResource {
   account_sid: string;
   date_created: Date;
   date_updated: Date;
-  reservation_status: WorkerReservationStatus;
+  reservation_status: ReservationStatus;
   sid: string;
   task_sid: string;
   worker_name: string;
@@ -530,7 +530,7 @@ export class ReservationInstance {
    * The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
   dateUpdated: Date;
-  reservationStatus: WorkerReservationStatus;
+  reservationStatus: ReservationStatus;
   /**
    * The unique string that we created to identify the WorkerReservation resource.
    */

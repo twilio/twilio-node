@@ -21,7 +21,7 @@ const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
 import { PayloadListInstance } from "./addOnResult/payload";
 
-export type RecordingAddOnResultStatus =
+export type AddOnResultStatus =
   | "canceled"
   | "completed"
   | "deleted"
@@ -211,7 +211,7 @@ interface AddOnResultPayload extends TwilioResponsePayload {
 interface AddOnResultResource {
   sid: string;
   account_sid: string;
-  status: RecordingAddOnResultStatus;
+  status: AddOnResultStatus;
   add_on_sid: string;
   add_on_configuration_sid: string;
   date_created: Date;
@@ -254,7 +254,7 @@ export class AddOnResultInstance {
    * The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Recording AddOnResult resource.
    */
   accountSid: string;
-  status: RecordingAddOnResultStatus;
+  status: AddOnResultStatus;
   /**
    * The SID of the Add-on to which the result belongs.
    */

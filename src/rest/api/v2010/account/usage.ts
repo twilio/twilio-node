@@ -20,7 +20,7 @@ import { isValidPathParam } from "../../../../base/utility";
 import { RecordListInstance } from "./usage/record";
 import { TriggerListInstance } from "./usage/trigger";
 
-export type UsageRecordCategory =
+export type UsageCategory =
   | "a2p-registration-fees"
   | "agent-conference"
   | "amazon-polly"

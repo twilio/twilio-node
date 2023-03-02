@@ -18,7 +18,7 @@ const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
 
-export type CallFeedbackIssues =
+export type FeedbackIssues =
   | "audio-latency"
   | "digits-not-captured"
   | "dropped-call"
@@ -35,7 +35,7 @@ export interface FeedbackContextUpdateOptions {
   /** The call quality expressed as an integer from `1` to `5` where `1` represents very poor call quality and `5` represents a perfect call. */
   qualityScore?: number;
   /** One or more issues experienced during the call. The issues can be: `imperfect-audio`, `dropped-call`, `incorrect-caller-id`, `post-dial-delay`, `digits-not-captured`, `audio-latency`, `unsolicited-call`, or `one-way-audio`. */
-  issue?: Array<CallFeedbackIssues>;
+  issue?: Array<FeedbackIssues>;
 }
 
 export interface FeedbackContext {
@@ -147,10 +147,7 @@ export class FeedbackContextImpl implements FeedbackContext {
     if (params["qualityScore"] !== undefined)
       data["QualityScore"] = params["qualityScore"];
     if (params["issue"] !== undefined)
-      data["Issue"] = serialize.map(
-        params["issue"],
-        (e: CallFeedbackIssues) => e
-      );
+      data["Issue"] = serialize.map(params["issue"], (e: FeedbackIssues) => e);
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
@@ -201,7 +198,7 @@ interface FeedbackResource {
   account_sid: string;
   date_created: Date;
   date_updated: Date;
-  issues: Array<CallFeedbackIssues>;
+  issues: Array<FeedbackIssues>;
   quality_score: number;
   sid: string;
 }
@@ -241,7 +238,7 @@ export class FeedbackInstance {
   /**
    * A list of issues experienced during the call. The issues can be: `imperfect-audio`, `dropped-call`, `incorrect-caller-id`, `post-dial-delay`, `digits-not-captured`, `audio-latency`, `unsolicited-call`, or `one-way-audio`.
    */
-  issues: Array<CallFeedbackIssues>;
+  issues: Array<FeedbackIssues>;
   /**
    * `1` to `5` quality score where `1` represents imperfect experience and `5` represents a perfect call.
    */

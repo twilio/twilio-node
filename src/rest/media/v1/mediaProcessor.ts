@@ -235,14 +235,6 @@ export class MediaProcessorContextImpl implements MediaProcessorContext {
   }
 }
 
-export type MediaProcessorStatusCallbackMethod =
-  | "HEAD"
-  | "GET"
-  | "POST"
-  | "PATCH"
-  | "PUT"
-  | "DELETE";
-
 interface MediaProcessorPayload extends TwilioResponsePayload {
   media_processors: MediaProcessorResource[];
 }
@@ -258,7 +250,7 @@ interface MediaProcessorResource {
   url: string;
   ended_reason: string;
   status_callback: string;
-  status_callback_method: MediaProcessorStatusCallbackMethod;
+  status_callback_method: string;
   max_duration: number;
 }
 
@@ -327,7 +319,7 @@ export class MediaProcessorInstance {
   /**
    * The HTTP method Twilio should use to call the `status_callback` URL. Can be `POST` or `GET` and the default is `POST`.
    */
-  statusCallbackMethod: MediaProcessorStatusCallbackMethod;
+  statusCallbackMethod: string;
   /**
    * The maximum time, in seconds, that the MediaProcessor can run before automatically ends. The default value is 300 seconds, and the maximum value is 90000 seconds. Once this maximum duration is reached, Twilio will end the MediaProcessor, regardless of whether media is still streaming.
    */

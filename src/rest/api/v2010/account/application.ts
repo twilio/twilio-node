@@ -349,42 +349,6 @@ export class ApplicationContextImpl implements ApplicationContext {
   }
 }
 
-export type ApplicationSmsFallbackMethod =
-  | "HEAD"
-  | "GET"
-  | "POST"
-  | "PATCH"
-  | "PUT"
-  | "DELETE";
-export type ApplicationSmsMethod =
-  | "HEAD"
-  | "GET"
-  | "POST"
-  | "PATCH"
-  | "PUT"
-  | "DELETE";
-export type ApplicationStatusCallbackMethod =
-  | "HEAD"
-  | "GET"
-  | "POST"
-  | "PATCH"
-  | "PUT"
-  | "DELETE";
-export type ApplicationVoiceFallbackMethod =
-  | "HEAD"
-  | "GET"
-  | "POST"
-  | "PATCH"
-  | "PUT"
-  | "DELETE";
-export type ApplicationVoiceMethod =
-  | "HEAD"
-  | "GET"
-  | "POST"
-  | "PATCH"
-  | "PUT"
-  | "DELETE";
-
 interface ApplicationPayload extends TwilioResponsePayload {
   applications: ApplicationResource[];
 }
@@ -397,18 +361,18 @@ interface ApplicationResource {
   friendly_name: string;
   message_status_callback: string;
   sid: string;
-  sms_fallback_method: ApplicationSmsFallbackMethod;
+  sms_fallback_method: string;
   sms_fallback_url: string;
-  sms_method: ApplicationSmsMethod;
+  sms_method: string;
   sms_status_callback: string;
   sms_url: string;
   status_callback: string;
-  status_callback_method: ApplicationStatusCallbackMethod;
+  status_callback_method: string;
   uri: string;
   voice_caller_id_lookup: boolean;
-  voice_fallback_method: ApplicationVoiceFallbackMethod;
+  voice_fallback_method: string;
   voice_fallback_url: string;
-  voice_method: ApplicationVoiceMethod;
+  voice_method: string;
   voice_url: string;
   public_application_connect_enabled: boolean;
 }
@@ -480,7 +444,7 @@ export class ApplicationInstance {
   /**
    * The HTTP method we use to call `sms_fallback_url`. Can be: `GET` or `POST`.
    */
-  smsFallbackMethod: ApplicationSmsFallbackMethod;
+  smsFallbackMethod: string;
   /**
    * The URL that we call when an error occurs while retrieving or executing the TwiML from `sms_url`.
    */
@@ -488,7 +452,7 @@ export class ApplicationInstance {
   /**
    * The HTTP method we use to call `sms_url`. Can be: `GET` or `POST`.
    */
-  smsMethod: ApplicationSmsMethod;
+  smsMethod: string;
   /**
    * The URL we call using a POST method to send status information to your application about SMS messages that refer to the application.
    */
@@ -504,7 +468,7 @@ export class ApplicationInstance {
   /**
    * The HTTP method we use to call `status_callback`. Can be: `GET` or `POST`.
    */
-  statusCallbackMethod: ApplicationStatusCallbackMethod;
+  statusCallbackMethod: string;
   /**
    * The URI of the resource, relative to `https://api.twilio.com`.
    */
@@ -516,7 +480,7 @@ export class ApplicationInstance {
   /**
    * The HTTP method we use to call `voice_fallback_url`. Can be: `GET` or `POST`.
    */
-  voiceFallbackMethod: ApplicationVoiceFallbackMethod;
+  voiceFallbackMethod: string;
   /**
    * The URL that we call when an error occurs retrieving or executing the TwiML requested by `url`.
    */
@@ -524,7 +488,7 @@ export class ApplicationInstance {
   /**
    * The HTTP method we use to call `voice_url`. Can be: `GET` or `POST`.
    */
-  voiceMethod: ApplicationVoiceMethod;
+  voiceMethod: string;
   /**
    * The URL we call when the phone number assigned to this application receives a call.
    */

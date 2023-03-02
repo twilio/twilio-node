@@ -24,21 +24,21 @@ import { PublishedTrackListInstance } from "./participant/publishedTrack";
 import { SubscribeRulesListInstance } from "./participant/subscribeRules";
 import { SubscribedTrackListInstance } from "./participant/subscribedTrack";
 
-export type RoomParticipantStatus = "connected" | "disconnected";
+export type ParticipantStatus = "connected" | "disconnected";
 
 /**
  * Options to pass to update a ParticipantInstance
  */
 export interface ParticipantContextUpdateOptions {
   /**  */
-  status?: RoomParticipantStatus;
+  status?: ParticipantStatus;
 }
 /**
  * Options to pass to each
  */
 export interface ParticipantListInstanceEachOptions {
   /** Read only the participants with this status. Can be: `connected` or `disconnected`. For `in-progress` Rooms the default Status is `connected`, for `completed` Rooms only `disconnected` Participants are returned. */
-  status?: RoomParticipantStatus;
+  status?: ParticipantStatus;
   /** Read only the Participants with this [User](https://www.twilio.com/docs/chat/rest/user-resource) `identity` value. */
   identity?: string;
   /** Read only Participants that started after this date in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601#UTC) format. */
@@ -60,7 +60,7 @@ export interface ParticipantListInstanceEachOptions {
  */
 export interface ParticipantListInstanceOptions {
   /** Read only the participants with this status. Can be: `connected` or `disconnected`. For `in-progress` Rooms the default Status is `connected`, for `completed` Rooms only `disconnected` Participants are returned. */
-  status?: RoomParticipantStatus;
+  status?: ParticipantStatus;
   /** Read only the Participants with this [User](https://www.twilio.com/docs/chat/rest/user-resource) `identity` value. */
   identity?: string;
   /** Read only Participants that started after this date in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601#UTC) format. */
@@ -78,7 +78,7 @@ export interface ParticipantListInstanceOptions {
  */
 export interface ParticipantListInstancePageOptions {
   /** Read only the participants with this status. Can be: `connected` or `disconnected`. For `in-progress` Rooms the default Status is `connected`, for `completed` Rooms only `disconnected` Participants are returned. */
-  status?: RoomParticipantStatus;
+  status?: ParticipantStatus;
   /** Read only the Participants with this [User](https://www.twilio.com/docs/chat/rest/user-resource) `identity` value. */
   identity?: string;
   /** Read only Participants that started after this date in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601#UTC) format. */
@@ -306,7 +306,7 @@ interface ParticipantResource {
   sid: string;
   room_sid: string;
   account_sid: string;
-  status: RoomParticipantStatus;
+  status: ParticipantStatus;
   identity: string;
   date_created: Date;
   date_updated: Date;
@@ -355,7 +355,7 @@ export class ParticipantInstance {
    * The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the RoomParticipant resource.
    */
   accountSid: string;
-  status: RoomParticipantStatus;
+  status: ParticipantStatus;
   /**
    * The application-defined string that uniquely identifies the resource\'s User within a Room. If a client joins with an existing Identity, the existing client is disconnected. See [access tokens](https://www.twilio.com/docs/video/tutorials/user-identity-access-tokens) and [limits](https://www.twilio.com/docs/video/programmable-video-limits) for more info.
    */

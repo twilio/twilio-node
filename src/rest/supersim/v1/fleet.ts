@@ -256,21 +256,6 @@ export class FleetContextImpl implements FleetContext {
   }
 }
 
-export type FleetSmsCommandsMethod =
-  | "HEAD"
-  | "GET"
-  | "POST"
-  | "PATCH"
-  | "PUT"
-  | "DELETE";
-export type FleetIpCommandsMethod =
-  | "HEAD"
-  | "GET"
-  | "POST"
-  | "PATCH"
-  | "PUT"
-  | "DELETE";
-
 interface FleetPayload extends TwilioResponsePayload {
   fleets: FleetResource[];
 }
@@ -287,10 +272,10 @@ interface FleetResource {
   data_metering: FleetDataMetering;
   sms_commands_enabled: boolean;
   sms_commands_url: string;
-  sms_commands_method: FleetSmsCommandsMethod;
+  sms_commands_method: string;
   network_access_profile_sid: string;
   ip_commands_url: string;
-  ip_commands_method: FleetIpCommandsMethod;
+  ip_commands_method: string;
 }
 
 export class FleetInstance {
@@ -361,7 +346,7 @@ export class FleetInstance {
   /**
    * A string representing the HTTP method to use when making a request to `sms_commands_url`. Can be one of `POST` or `GET`. Defaults to `POST`.
    */
-  smsCommandsMethod: FleetSmsCommandsMethod;
+  smsCommandsMethod: string;
   /**
    * The SID of the Network Access Profile that controls which cellular networks the Fleet\'s SIMs can connect to.
    */
@@ -373,7 +358,7 @@ export class FleetInstance {
   /**
    * A string representing the HTTP method to use when making a request to `ip_commands_url`. Can be one of `POST` or `GET`. Defaults to `POST`.
    */
-  ipCommandsMethod: FleetIpCommandsMethod;
+  ipCommandsMethod: string;
 
   private get _proxy(): FleetContext {
     this._context =

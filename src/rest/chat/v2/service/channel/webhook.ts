@@ -20,9 +20,9 @@ const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
 
-export type ChannelWebhookMethod = "GET" | "POST";
+export type WebhookMethod = "GET" | "POST";
 
-export type ChannelWebhookType = "webhook" | "trigger" | "studio";
+export type WebhookType = "webhook" | "trigger" | "studio";
 
 /**
  * Options to pass to update a WebhookInstance
@@ -31,7 +31,7 @@ export interface WebhookContextUpdateOptions {
   /** The URL of the webhook to call using the `configuration.method`. */
   "configuration.url"?: string;
   /**  */
-  "configuration.method"?: ChannelWebhookMethod;
+  "configuration.method"?: WebhookMethod;
   /** The events that cause us to call the Channel Webhook. Used when `type` is `webhook`. This parameter takes only one event. To specify more than one event, repeat this parameter for each event. For the list of possible events, see [Webhook Event Triggers](https://www.twilio.com/docs/chat/webhook-events#webhook-event-trigger). */
   "configuration.filters"?: Array<string>;
   /** A string that will cause us to call the webhook when it is present in a message body. This parameter takes only one trigger string. To specify more than one, repeat this parameter for each trigger string up to a total of 5 trigger strings. Used only when `type` = `trigger`. */
@@ -47,11 +47,11 @@ export interface WebhookContextUpdateOptions {
  */
 export interface WebhookListInstanceCreateOptions {
   /**  */
-  type: ChannelWebhookType;
+  type: WebhookType;
   /** The URL of the webhook to call using the `configuration.method`. */
   "configuration.url"?: string;
   /**  */
-  "configuration.method"?: ChannelWebhookMethod;
+  "configuration.method"?: WebhookMethod;
   /** The events that cause us to call the Channel Webhook. Used when `type` is `webhook`. This parameter takes only one event. To specify more than one event, repeat this parameter for each event. For the list of possible events, see [Webhook Event Triggers](https://www.twilio.com/docs/chat/webhook-events#webhook-event-trigger). */
   "configuration.filters"?: Array<string>;
   /** A string that will cause us to call the webhook when it is present in a message body. This parameter takes only one trigger string. To specify more than one, repeat this parameter for each trigger string up to a total of 5 trigger strings. Used only when `type` = `trigger`. */

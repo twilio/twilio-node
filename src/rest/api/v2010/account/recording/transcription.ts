@@ -20,10 +20,7 @@ const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
 
-export type RecordingTranscriptionStatus =
-  | "in-progress"
-  | "completed"
-  | "failed";
+export type TranscriptionStatus = "in-progress" | "completed" | "failed";
 
 /**
  * Options to pass to each
@@ -196,7 +193,7 @@ interface TranscriptionResource {
   price_unit: string;
   recording_sid: string;
   sid: string;
-  status: RecordingTranscriptionStatus;
+  status: TranscriptionStatus;
   transcription_text: string;
   type: string;
   uri: string;
@@ -266,7 +263,7 @@ export class TranscriptionInstance {
    * The unique string that that we created to identify the Transcription resource.
    */
   sid: string;
-  status: RecordingTranscriptionStatus;
+  status: TranscriptionStatus;
   /**
    * The text content of the transcription.
    */

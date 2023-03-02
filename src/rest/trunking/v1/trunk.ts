@@ -334,14 +334,6 @@ export class TrunkContextImpl implements TrunkContext {
   }
 }
 
-export type TrunkDisasterRecoveryMethod =
-  | "HEAD"
-  | "GET"
-  | "POST"
-  | "PATCH"
-  | "PUT"
-  | "DELETE";
-
 interface TrunkPayload extends TwilioResponsePayload {
   trunks: TrunkResource[];
 }
@@ -349,7 +341,7 @@ interface TrunkPayload extends TwilioResponsePayload {
 interface TrunkResource {
   account_sid: string;
   domain_name: string;
-  disaster_recovery_method: TrunkDisasterRecoveryMethod;
+  disaster_recovery_method: string;
   disaster_recovery_url: string;
   friendly_name: string;
   secure: boolean;
@@ -403,7 +395,7 @@ export class TrunkInstance {
   /**
    * The HTTP method we use to call the `disaster_recovery_url`. Can be: `GET` or `POST`.
    */
-  disasterRecoveryMethod: TrunkDisasterRecoveryMethod;
+  disasterRecoveryMethod: string;
   /**
    * The URL we call using the `disaster_recovery_method` if an error occurs while sending SIP traffic towards the configured Origination URL. We retrieve TwiML from this URL and execute the instructions like any other normal TwiML call. See [Disaster Recovery](https://www.twilio.com/docs/sip-trunking#disaster-recovery) for more information.
    */

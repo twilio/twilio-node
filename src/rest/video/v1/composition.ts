@@ -216,14 +216,6 @@ export class CompositionContextImpl implements CompositionContext {
   }
 }
 
-export type CompositionStatusCallbackMethod =
-  | "HEAD"
-  | "GET"
-  | "POST"
-  | "PATCH"
-  | "PUT"
-  | "DELETE";
-
 interface CompositionPayload extends TwilioResponsePayload {
   compositions: CompositionResource[];
 }
@@ -247,7 +239,7 @@ interface CompositionResource {
   duration: number;
   media_external_location: string;
   status_callback: string;
-  status_callback_method: CompositionStatusCallbackMethod;
+  status_callback_method: string;
   url: string;
   links: Record<string, string>;
 }
@@ -355,7 +347,7 @@ export class CompositionInstance {
   /**
    * The HTTP method used to call `status_callback`. Can be: `POST` or `GET`, defaults to `POST`.
    */
-  statusCallbackMethod: CompositionStatusCallbackMethod;
+  statusCallbackMethod: string;
   /**
    * The absolute URL of the resource.
    */

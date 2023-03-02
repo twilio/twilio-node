@@ -18,14 +18,14 @@ const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
 
-export type MessageFeedbackOutcome = "confirmed" | "unconfirmed";
+export type FeedbackOutcome = "confirmed" | "unconfirmed";
 
 /**
  * Options to pass to create a FeedbackInstance
  */
 export interface FeedbackListInstanceCreateOptions {
   /**  */
-  outcome?: MessageFeedbackOutcome;
+  outcome?: FeedbackOutcome;
 }
 
 export interface FeedbackSolution {
@@ -151,7 +151,7 @@ interface FeedbackPayload extends FeedbackResource {}
 interface FeedbackResource {
   account_sid: string;
   message_sid: string;
-  outcome: MessageFeedbackOutcome;
+  outcome: FeedbackOutcome;
   date_created: Date;
   date_updated: Date;
   uri: string;
@@ -180,7 +180,7 @@ export class FeedbackInstance {
    * The SID of the Message resource for which the feedback was provided.
    */
   messageSid: string;
-  outcome: MessageFeedbackOutcome;
+  outcome: FeedbackOutcome;
   /**
    * The date and time in GMT that the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
    */

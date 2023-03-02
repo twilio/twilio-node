@@ -20,14 +20,14 @@ const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
 
-export type ServiceBindingBindingType = "apn" | "gcm" | "fcm";
+export type BindingBindingType = "apn" | "gcm" | "fcm";
 
 /**
  * Options to pass to each
  */
 export interface BindingListInstanceEachOptions {
   /** The push technology used by the Binding resources to read.  Can be: `apn`, `gcm`, or `fcm`.  See [push notification configuration](https://www.twilio.com/docs/chat/push-notification-configuration) for more info. */
-  bindingType?: Array<ServiceBindingBindingType>;
+  bindingType?: Array<BindingBindingType>;
   /** The identity of a [Conversation User](https://www.twilio.com/docs/conversations/api/user-resource) this binding belongs to. See [access tokens](https://www.twilio.com/docs/conversations/create-tokens) for more details. */
   identity?: Array<string>;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
@@ -45,7 +45,7 @@ export interface BindingListInstanceEachOptions {
  */
 export interface BindingListInstanceOptions {
   /** The push technology used by the Binding resources to read.  Can be: `apn`, `gcm`, or `fcm`.  See [push notification configuration](https://www.twilio.com/docs/chat/push-notification-configuration) for more info. */
-  bindingType?: Array<ServiceBindingBindingType>;
+  bindingType?: Array<BindingBindingType>;
   /** The identity of a [Conversation User](https://www.twilio.com/docs/conversations/api/user-resource) this binding belongs to. See [access tokens](https://www.twilio.com/docs/conversations/create-tokens) for more details. */
   identity?: Array<string>;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
@@ -59,7 +59,7 @@ export interface BindingListInstanceOptions {
  */
 export interface BindingListInstancePageOptions {
   /** The push technology used by the Binding resources to read.  Can be: `apn`, `gcm`, or `fcm`.  See [push notification configuration](https://www.twilio.com/docs/chat/push-notification-configuration) for more info. */
-  bindingType?: Array<ServiceBindingBindingType>;
+  bindingType?: Array<BindingBindingType>;
   /** The identity of a [Conversation User](https://www.twilio.com/docs/conversations/api/user-resource) this binding belongs to. See [access tokens](https://www.twilio.com/docs/conversations/create-tokens) for more details. */
   identity?: Array<string>;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
@@ -193,7 +193,7 @@ interface BindingResource {
   date_updated: Date;
   endpoint: string;
   identity: string;
-  binding_type: ServiceBindingBindingType;
+  binding_type: BindingBindingType;
   message_types: Array<string>;
   url: string;
 }
@@ -255,7 +255,7 @@ export class BindingInstance {
    * The application-defined string that uniquely identifies the [Conversation User](https://www.twilio.com/docs/conversations/api/user-resource) within the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource). See [access tokens](https://www.twilio.com/docs/conversations/create-tokens) for more info.
    */
   identity: string;
-  bindingType: ServiceBindingBindingType;
+  bindingType: BindingBindingType;
   /**
    * The [Conversation message types](https://www.twilio.com/docs/chat/push-notification-configuration#push-types) the binding is subscribed to.
    */
@@ -452,7 +452,7 @@ export function BindingListInstance(
     if (params["bindingType"] !== undefined)
       data["BindingType"] = serialize.map(
         params["bindingType"],
-        (e: ServiceBindingBindingType) => e
+        (e: BindingBindingType) => e
       );
     if (params["identity"] !== undefined)
       data["Identity"] = serialize.map(params["identity"], (e: string) => e);

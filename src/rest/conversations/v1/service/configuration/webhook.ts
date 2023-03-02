@@ -18,7 +18,7 @@ const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
 
-export type ServiceWebhookConfigurationMethod = "GET" | "POST";
+export type WebhookMethod = "GET" | "POST";
 
 /**
  * Options to pass to update a WebhookInstance
@@ -192,7 +192,7 @@ interface WebhookResource {
   pre_webhook_url: string;
   post_webhook_url: string;
   filters: Array<string>;
-  method: ServiceWebhookConfigurationMethod;
+  method: WebhookMethod;
   url: string;
 }
 
@@ -236,7 +236,7 @@ export class WebhookInstance {
    * The list of events that your configured webhook targets will receive. Events not configured here will not fire. Possible values are `onParticipantAdd`, `onParticipantAdded`, `onDeliveryUpdated`, `onConversationUpdated`, `onConversationRemove`, `onParticipantRemove`, `onConversationUpdate`, `onMessageAdd`, `onMessageRemoved`, `onParticipantUpdated`, `onConversationAdded`, `onMessageAdded`, `onConversationAdd`, `onConversationRemoved`, `onParticipantUpdate`, `onMessageRemove`, `onMessageUpdated`, `onParticipantRemoved`, `onMessageUpdate` or `onConversationStateUpdated`.
    */
   filters: Array<string>;
-  method: ServiceWebhookConfigurationMethod;
+  method: WebhookMethod;
   /**
    * An absolute API resource URL for this webhook.
    */
