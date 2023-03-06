@@ -20,7 +20,7 @@ const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
 
-export type ConferenceRecordingSource =
+export type RecordingSource =
   | "DialVerb"
   | "Conference"
   | "OutboundAPI"
@@ -29,7 +29,7 @@ export type ConferenceRecordingSource =
   | "StartCallRecordingAPI"
   | "StartConferenceRecordingAPI";
 
-export type ConferenceRecordingStatus =
+export type RecordingStatus =
   | "in-progress"
   | "paused"
   | "stopped"
@@ -42,7 +42,7 @@ export type ConferenceRecordingStatus =
  */
 export interface RecordingContextUpdateOptions {
   /**  */
-  status: ConferenceRecordingStatus;
+  status: RecordingStatus;
   /** Whether to record during a pause. Can be: `skip` or `silence` and the default is `silence`. `skip` does not record during the pause period, while `silence` will replace the actual audio of the call with silence during the pause period. This parameter only applies when setting `status` is set to `paused`. */
   pauseBehavior?: string;
 }
@@ -298,9 +298,9 @@ interface RecordingResource {
   sid: string;
   price: string;
   price_unit: string;
-  status: ConferenceRecordingStatus;
+  status: RecordingStatus;
   channels: number;
-  source: ConferenceRecordingSource;
+  source: RecordingSource;
   error_code: number;
   encryption_details: any;
   uri: string;
@@ -382,12 +382,12 @@ export class RecordingInstance {
    * The currency used in the `price` property. Example: `USD`.
    */
   priceUnit: string;
-  status: ConferenceRecordingStatus;
+  status: RecordingStatus;
   /**
    * The number of channels in the final recording file.  Can be: `1`, or `2`. Separating a two leg call into two separate channels of the recording file is supported in [Dial](https://www.twilio.com/docs/voice/twiml/dial#attributes-record) and [Outbound Rest API](https://www.twilio.com/docs/voice/make-calls) record options.
    */
   channels: number;
-  source: ConferenceRecordingSource;
+  source: RecordingSource;
   /**
    * The error code that describes why the recording is `absent`. The error code is described in our [Error Dictionary](https://www.twilio.com/docs/api/errors). This value is null if the recording `status` is not `absent`.
    */

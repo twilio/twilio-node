@@ -21,11 +21,11 @@ const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 import { ParticipantListInstance } from "./room/participant";
 
-export type VideoRoomSummaryCodec = "VP8" | "H264" | "VP9";
+export type RoomCodec = "VP8" | "H264" | "VP9";
 
-export type VideoRoomSummaryCreatedMethod = "sdk" | "ad_hoc" | "api";
+export type RoomCreatedMethod = "sdk" | "ad_hoc" | "api";
 
-export type VideoRoomSummaryEdgeLocation =
+export type RoomEdgeLocation =
   | "ashburn"
   | "dublin"
   | "frankfurt"
@@ -36,19 +36,15 @@ export type VideoRoomSummaryEdgeLocation =
   | "umatilla"
   | "tokyo";
 
-export type VideoRoomSummaryEndReason = "room_ended_via_api" | "timeout";
+export type RoomEndReason = "room_ended_via_api" | "timeout";
 
-export type VideoRoomSummaryProcessingState = "complete" | "in_progress";
+export type RoomProcessingState = "complete" | "in_progress";
 
-export type VideoRoomSummaryRoomStatus = "in_progress" | "completed";
+export type RoomRoomStatus = "in_progress" | "completed";
 
-export type VideoRoomSummaryRoomType =
-  | "go"
-  | "peer_to_peer"
-  | "group"
-  | "group_small";
+export type RoomRoomType = "go" | "peer_to_peer" | "group" | "group_small";
 
-export type VideoRoomSummaryTwilioRealm =
+export type RoomTwilioRealm =
   | "us1"
   | "us2"
   | "au1"
@@ -65,9 +61,9 @@ export type VideoRoomSummaryTwilioRealm =
  */
 export interface RoomListInstanceEachOptions {
   /** Type of room. Can be `go`, `peer_to_peer`, `group`, or `group_small`. */
-  roomType?: Array<VideoRoomSummaryRoomType>;
+  roomType?: Array<RoomRoomType>;
   /** Codecs used by participants in the room. Can be `VP8`, `H264`, or `VP9`. */
-  codec?: Array<VideoRoomSummaryCodec>;
+  codec?: Array<RoomCodec>;
   /** Room friendly name. */
   roomName?: string;
   /** Only read rooms that started on or after this ISO 8601 timestamp. */
@@ -89,9 +85,9 @@ export interface RoomListInstanceEachOptions {
  */
 export interface RoomListInstanceOptions {
   /** Type of room. Can be `go`, `peer_to_peer`, `group`, or `group_small`. */
-  roomType?: Array<VideoRoomSummaryRoomType>;
+  roomType?: Array<RoomRoomType>;
   /** Codecs used by participants in the room. Can be `VP8`, `H264`, or `VP9`. */
-  codec?: Array<VideoRoomSummaryCodec>;
+  codec?: Array<RoomCodec>;
   /** Room friendly name. */
   roomName?: string;
   /** Only read rooms that started on or after this ISO 8601 timestamp. */
@@ -109,9 +105,9 @@ export interface RoomListInstanceOptions {
  */
 export interface RoomListInstancePageOptions {
   /** Type of room. Can be `go`, `peer_to_peer`, `group`, or `group_small`. */
-  roomType?: Array<VideoRoomSummaryRoomType>;
+  roomType?: Array<RoomRoomType>;
   /** Codecs used by participants in the room. Can be `VP8`, `H264`, or `VP9`. */
-  codec?: Array<VideoRoomSummaryCodec>;
+  codec?: Array<RoomCodec>;
   /** Room friendly name. */
   roomName?: string;
   /** Only read rooms that started on or after this ISO 8601 timestamp. */
@@ -209,14 +205,6 @@ export class RoomContextImpl implements RoomContext {
   }
 }
 
-export type RoomStatusCallbackMethod =
-  | "HEAD"
-  | "GET"
-  | "POST"
-  | "PATCH"
-  | "PUT"
-  | "DELETE";
-
 interface RoomPayload extends TwilioResponsePayload {
   rooms: RoomResource[];
 }
@@ -227,25 +215,25 @@ interface RoomResource {
   room_name: string;
   create_time: Date;
   end_time: Date;
-  room_type: VideoRoomSummaryRoomType;
-  room_status: VideoRoomSummaryRoomStatus;
+  room_type: RoomRoomType;
+  room_status: RoomRoomStatus;
   status_callback: string;
-  status_callback_method: RoomStatusCallbackMethod;
-  created_method: VideoRoomSummaryCreatedMethod;
-  end_reason: VideoRoomSummaryEndReason;
+  status_callback_method: string;
+  created_method: RoomCreatedMethod;
+  end_reason: RoomEndReason;
   max_participants: number;
   unique_participants: number;
   unique_participant_identities: number;
   concurrent_participants: number;
   max_concurrent_participants: number;
-  codecs: Array<VideoRoomSummaryCodec>;
-  media_region: VideoRoomSummaryTwilioRealm;
+  codecs: Array<RoomCodec>;
+  media_region: RoomTwilioRealm;
   duration_sec: number;
   total_participant_duration_sec: number;
   total_recording_duration_sec: number;
-  processing_state: VideoRoomSummaryProcessingState;
+  processing_state: RoomProcessingState;
   recording_enabled: boolean;
-  edge_location: VideoRoomSummaryEdgeLocation;
+  edge_location: RoomEdgeLocation;
   url: string;
   links: Record<string, string>;
 }
@@ -311,8 +299,8 @@ export class RoomInstance {
    * End time for the room.
    */
   endTime: Date;
-  roomType: VideoRoomSummaryRoomType;
-  roomStatus: VideoRoomSummaryRoomStatus;
+  roomType: RoomRoomType;
+  roomStatus: RoomRoomStatus;
   /**
    * Webhook provided for status callbacks.
    */
@@ -320,9 +308,9 @@ export class RoomInstance {
   /**
    * HTTP method provided for status callback URL.
    */
-  statusCallbackMethod: RoomStatusCallbackMethod;
-  createdMethod: VideoRoomSummaryCreatedMethod;
-  endReason: VideoRoomSummaryEndReason;
+  statusCallbackMethod: string;
+  createdMethod: RoomCreatedMethod;
+  endReason: RoomEndReason;
   /**
    * Max number of total participants allowed by the application settings.
    */
@@ -346,8 +334,8 @@ export class RoomInstance {
   /**
    * Codecs used by participants in the room. Can be `VP8`, `H264`, or `VP9`.
    */
-  codecs: Array<VideoRoomSummaryCodec>;
-  mediaRegion: VideoRoomSummaryTwilioRealm;
+  codecs: Array<RoomCodec>;
+  mediaRegion: RoomTwilioRealm;
   /**
    * Total room duration from create time to end time.
    */
@@ -360,12 +348,12 @@ export class RoomInstance {
    * Combined amount of recorded seconds for participants in the room.
    */
   totalRecordingDurationSec: number;
-  processingState: VideoRoomSummaryProcessingState;
+  processingState: RoomProcessingState;
   /**
    * Boolean indicating if recording is enabled for the room.
    */
   recordingEnabled: boolean;
-  edgeLocation: VideoRoomSummaryEdgeLocation;
+  edgeLocation: RoomEdgeLocation;
   /**
    * URL for the room resource.
    */
@@ -558,13 +546,10 @@ export function RoomListInstance(version: V1): RoomListInstance {
     if (params["roomType"] !== undefined)
       data["RoomType"] = serialize.map(
         params["roomType"],
-        (e: VideoRoomSummaryRoomType) => e
+        (e: RoomRoomType) => e
       );
     if (params["codec"] !== undefined)
-      data["Codec"] = serialize.map(
-        params["codec"],
-        (e: VideoRoomSummaryCodec) => e
-      );
+      data["Codec"] = serialize.map(params["codec"], (e: RoomCodec) => e);
     if (params["roomName"] !== undefined) data["RoomName"] = params["roomName"];
     if (params["createdAfter"] !== undefined)
       data["CreatedAfter"] = serialize.iso8601DateTime(params["createdAfter"]);

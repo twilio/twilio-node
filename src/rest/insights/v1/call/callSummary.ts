@@ -18,7 +18,7 @@ const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
 
-export type SummaryAnsweredBy =
+export type CallSummaryAnsweredBy =
   | "unknown"
   | "machine_start"
   | "machine_end_beep"
@@ -27,7 +27,7 @@ export type SummaryAnsweredBy =
   | "human"
   | "fax";
 
-export type SummaryCallState =
+export type CallSummaryCallState =
   | "ringing"
   | "completed"
   | "busy"
@@ -37,16 +37,16 @@ export type SummaryCallState =
   | "answered"
   | "undialed";
 
-export type SummaryCallType = "carrier" | "sip" | "trunking" | "client";
+export type CallSummaryCallType = "carrier" | "sip" | "trunking" | "client";
 
-export type SummaryProcessingState = "complete" | "partial";
+export type CallSummaryProcessingState = "complete" | "partial";
 
 /**
  * Options to pass to fetch a CallSummaryInstance
  */
 export interface CallSummaryContextFetchOptions {
   /**  */
-  processingState?: SummaryProcessingState;
+  processingState?: CallSummaryProcessingState;
 }
 
 export interface CallSummaryContext {
@@ -161,10 +161,10 @@ interface CallSummaryPayload extends CallSummaryResource {}
 interface CallSummaryResource {
   account_sid: string;
   call_sid: string;
-  call_type: SummaryCallType;
-  call_state: SummaryCallState;
-  answered_by: SummaryAnsweredBy;
-  processing_state: SummaryProcessingState;
+  call_type: CallSummaryCallType;
+  call_state: CallSummaryCallState;
+  answered_by: CallSummaryAnsweredBy;
+  processing_state: CallSummaryProcessingState;
   created_time: Date;
   start_time: Date;
   end_time: Date;
@@ -222,10 +222,10 @@ export class CallSummaryInstance {
 
   accountSid: string;
   callSid: string;
-  callType: SummaryCallType;
-  callState: SummaryCallState;
-  answeredBy: SummaryAnsweredBy;
-  processingState: SummaryProcessingState;
+  callType: CallSummaryCallType;
+  callState: CallSummaryCallState;
+  answeredBy: CallSummaryAnsweredBy;
+  processingState: CallSummaryProcessingState;
   createdTime: Date;
   startTime: Date;
   endTime: Date;

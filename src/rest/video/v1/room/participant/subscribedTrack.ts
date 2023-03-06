@@ -20,7 +20,7 @@ const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
 
-export type RoomParticipantSubscribedTrackKind = "audio" | "video" | "data";
+export type SubscribedTrackKind = "audio" | "video" | "data";
 
 /**
  * Options to pass to each
@@ -167,7 +167,7 @@ interface SubscribedTrackResource {
   date_created: Date;
   date_updated: Date;
   enabled: boolean;
-  kind: RoomParticipantSubscribedTrackKind;
+  kind: SubscribedTrackKind;
   url: string;
 }
 
@@ -228,7 +228,7 @@ export class SubscribedTrackInstance {
    * Whether the track is enabled.
    */
   enabled: boolean;
-  kind: RoomParticipantSubscribedTrackKind;
+  kind: SubscribedTrackKind;
   /**
    * The absolute URL of the resource.
    */

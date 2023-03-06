@@ -197,14 +197,6 @@ export class MediaRecordingContextImpl implements MediaRecordingContext {
   }
 }
 
-export type MediaRecordingStatusCallbackMethod =
-  | "HEAD"
-  | "GET"
-  | "POST"
-  | "PATCH"
-  | "PUT"
-  | "DELETE";
-
 interface MediaRecordingPayload extends TwilioResponsePayload {
   media_recordings: MediaRecordingResource[];
 }
@@ -223,7 +215,7 @@ interface MediaRecordingResource {
   media_size: number;
   status: MediaRecordingStatus;
   status_callback: string;
-  status_callback_method: MediaRecordingStatusCallbackMethod;
+  status_callback_method: string;
   url: string;
 }
 
@@ -304,7 +296,7 @@ export class MediaRecordingInstance {
   /**
    * The HTTP method Twilio should use to call the `status_callback` URL. Can be `POST` or `GET` and the default is `POST`.
    */
-  statusCallbackMethod: MediaRecordingStatusCallbackMethod;
+  statusCallbackMethod: string;
   /**
    * The absolute URL of the resource.
    */

@@ -23,7 +23,7 @@ import { CustomerProfilesChannelEndpointAssignmentListInstance } from "./custome
 import { CustomerProfilesEntityAssignmentsListInstance } from "./customerProfiles/customerProfilesEntityAssignments";
 import { CustomerProfilesEvaluationsListInstance } from "./customerProfiles/customerProfilesEvaluations";
 
-export type CustomerProfileStatus =
+export type CustomerProfilesStatus =
   | "draft"
   | "pending-review"
   | "in-review"
@@ -35,7 +35,7 @@ export type CustomerProfileStatus =
  */
 export interface CustomerProfilesContextUpdateOptions {
   /**  */
-  status?: CustomerProfileStatus;
+  status?: CustomerProfilesStatus;
   /** The URL we call to inform your application of status changes. */
   statusCallback?: string;
   /** The string that you assigned to describe the resource. */
@@ -62,7 +62,7 @@ export interface CustomerProfilesListInstanceCreateOptions {
  */
 export interface CustomerProfilesListInstanceEachOptions {
   /** The verification status of the Customer-Profile resource. */
-  status?: CustomerProfileStatus;
+  status?: CustomerProfilesStatus;
   /** The string that you assigned to describe the resource. */
   friendlyName?: string;
   /** The unique string of a policy that is associated to the Customer-Profile resource. */
@@ -85,7 +85,7 @@ export interface CustomerProfilesListInstanceEachOptions {
  */
 export interface CustomerProfilesListInstanceOptions {
   /** The verification status of the Customer-Profile resource. */
-  status?: CustomerProfileStatus;
+  status?: CustomerProfilesStatus;
   /** The string that you assigned to describe the resource. */
   friendlyName?: string;
   /** The unique string of a policy that is associated to the Customer-Profile resource. */
@@ -101,7 +101,7 @@ export interface CustomerProfilesListInstanceOptions {
  */
 export interface CustomerProfilesListInstancePageOptions {
   /** The verification status of the Customer-Profile resource. */
-  status?: CustomerProfileStatus;
+  status?: CustomerProfilesStatus;
   /** The string that you assigned to describe the resource. */
   friendlyName?: string;
   /** The unique string of a policy that is associated to the Customer-Profile resource. */
@@ -338,7 +338,7 @@ interface CustomerProfilesResource {
   account_sid: string;
   policy_sid: string;
   friendly_name: string;
-  status: CustomerProfileStatus;
+  status: CustomerProfilesStatus;
   valid_until: Date;
   email: string;
   status_callback: string;
@@ -389,7 +389,7 @@ export class CustomerProfilesInstance {
    * The string that you assigned to describe the resource.
    */
   friendlyName: string;
-  status: CustomerProfileStatus;
+  status: CustomerProfilesStatus;
   /**
    * The date and time in GMT in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format when the resource will be valid until.
    */

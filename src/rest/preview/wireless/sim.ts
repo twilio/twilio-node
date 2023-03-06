@@ -297,29 +297,6 @@ export class SimContextImpl implements SimContext {
   }
 }
 
-export type SimSmsFallbackMethod =
-  | "HEAD"
-  | "GET"
-  | "POST"
-  | "PATCH"
-  | "PUT"
-  | "DELETE";
-export type SimSmsMethod = "HEAD" | "GET" | "POST" | "PATCH" | "PUT" | "DELETE";
-export type SimVoiceFallbackMethod =
-  | "HEAD"
-  | "GET"
-  | "POST"
-  | "PATCH"
-  | "PUT"
-  | "DELETE";
-export type SimVoiceMethod =
-  | "HEAD"
-  | "GET"
-  | "POST"
-  | "PATCH"
-  | "PUT"
-  | "DELETE";
-
 interface SimPayload extends TwilioResponsePayload {
   sims: SimResource[];
 }
@@ -335,13 +312,13 @@ interface SimResource {
   status: string;
   commands_callback_url: string;
   commands_callback_method: string;
-  sms_fallback_method: SimSmsFallbackMethod;
+  sms_fallback_method: string;
   sms_fallback_url: string;
-  sms_method: SimSmsMethod;
+  sms_method: string;
   sms_url: string;
-  voice_fallback_method: SimVoiceFallbackMethod;
+  voice_fallback_method: string;
   voice_fallback_url: string;
-  voice_method: SimVoiceMethod;
+  voice_method: string;
   voice_url: string;
   date_created: Date;
   date_updated: Date;
@@ -394,13 +371,13 @@ export class SimInstance {
   status: string;
   commandsCallbackUrl: string;
   commandsCallbackMethod: string;
-  smsFallbackMethod: SimSmsFallbackMethod;
+  smsFallbackMethod: string;
   smsFallbackUrl: string;
-  smsMethod: SimSmsMethod;
+  smsMethod: string;
   smsUrl: string;
-  voiceFallbackMethod: SimVoiceFallbackMethod;
+  voiceFallbackMethod: string;
   voiceFallbackUrl: string;
-  voiceMethod: SimVoiceMethod;
+  voiceMethod: string;
   voiceUrl: string;
   dateCreated: Date;
   dateUpdated: Date;

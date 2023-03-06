@@ -20,7 +20,7 @@ const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
 
-export type TrustProductEvaluationStatus = "compliant" | "noncompliant";
+export type TrustProductsEvaluationsStatus = "compliant" | "noncompliant";
 
 /**
  * Options to pass to create a TrustProductsEvaluationsInstance
@@ -167,7 +167,7 @@ interface TrustProductsEvaluationsResource {
   account_sid: string;
   policy_sid: string;
   trust_product_sid: string;
-  status: TrustProductEvaluationStatus;
+  status: TrustProductsEvaluationsStatus;
   results: Array<any>;
   date_created: Date;
   url: string;
@@ -211,7 +211,7 @@ export class TrustProductsEvaluationsInstance {
    * The unique string that we created to identify the trust_product resource.
    */
   trustProductSid: string;
-  status: TrustProductEvaluationStatus;
+  status: TrustProductsEvaluationsStatus;
   /**
    * The results of the Evaluation which includes the valid and invalid attributes.
    */

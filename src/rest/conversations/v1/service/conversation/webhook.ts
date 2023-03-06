@@ -20,12 +20,9 @@ const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
 
-export type ServiceConversationScopedWebhookMethod = "GET" | "POST";
+export type WebhookMethod = "GET" | "POST";
 
-export type ServiceConversationScopedWebhookTarget =
-  | "webhook"
-  | "trigger"
-  | "studio";
+export type WebhookTarget = "webhook" | "trigger" | "studio";
 
 /**
  * Options to pass to update a WebhookInstance
@@ -34,7 +31,7 @@ export interface WebhookContextUpdateOptions {
   /** The absolute url the webhook request should be sent to. */
   "configuration.url"?: string;
   /**  */
-  "configuration.method"?: ServiceConversationScopedWebhookMethod;
+  "configuration.method"?: WebhookMethod;
   /** The list of events, firing webhook event for this Conversation. */
   "configuration.filters"?: Array<string>;
   /** The list of keywords, firing webhook event for this Conversation. */
@@ -48,11 +45,11 @@ export interface WebhookContextUpdateOptions {
  */
 export interface WebhookListInstanceCreateOptions {
   /**  */
-  target: ServiceConversationScopedWebhookTarget;
+  target: WebhookTarget;
   /** The absolute url the webhook request should be sent to. */
   "configuration.url"?: string;
   /**  */
-  "configuration.method"?: ServiceConversationScopedWebhookMethod;
+  "configuration.method"?: WebhookMethod;
   /** The list of events, firing webhook event for this Conversation. */
   "configuration.filters"?: Array<string>;
   /** The list of keywords, firing webhook event for this Conversation. */

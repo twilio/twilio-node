@@ -20,7 +20,7 @@ const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
 
-export type CustomerProfileEvaluationStatus = "compliant" | "noncompliant";
+export type CustomerProfilesEvaluationsStatus = "compliant" | "noncompliant";
 
 /**
  * Options to pass to create a CustomerProfilesEvaluationsInstance
@@ -167,7 +167,7 @@ interface CustomerProfilesEvaluationsResource {
   account_sid: string;
   policy_sid: string;
   customer_profile_sid: string;
-  status: CustomerProfileEvaluationStatus;
+  status: CustomerProfilesEvaluationsStatus;
   results: Array<any>;
   date_created: Date;
   url: string;
@@ -211,7 +211,7 @@ export class CustomerProfilesEvaluationsInstance {
    * The unique string that we created to identify the customer_profile resource.
    */
   customerProfileSid: string;
-  status: CustomerProfileEvaluationStatus;
+  status: CustomerProfilesEvaluationsStatus;
   /**
    * The results of the Evaluation which includes the valid and invalid attributes.
    */

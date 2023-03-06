@@ -20,7 +20,7 @@ const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 
-export type AccountUsageRecordGranularity = "hourly" | "daily" | "all";
+export type UsageRecordGranularity = "hourly" | "daily" | "all";
 
 /**
  * Options to pass to each
@@ -31,7 +31,7 @@ export interface UsageRecordListInstanceEachOptions {
   /** Only include usage that has occurred on or after this date. Format is [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html). */
   start?: Date;
   /** How to summarize the usage by time. Can be: `daily`, `hourly`, or `all`. A value of `all` returns one Usage Record that describes the usage for the entire period. */
-  granularity?: AccountUsageRecordGranularity;
+  granularity?: UsageRecordGranularity;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
@@ -51,7 +51,7 @@ export interface UsageRecordListInstanceOptions {
   /** Only include usage that has occurred on or after this date. Format is [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html). */
   start?: Date;
   /** How to summarize the usage by time. Can be: `daily`, `hourly`, or `all`. A value of `all` returns one Usage Record that describes the usage for the entire period. */
-  granularity?: AccountUsageRecordGranularity;
+  granularity?: UsageRecordGranularity;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
   /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
@@ -67,7 +67,7 @@ export interface UsageRecordListInstancePageOptions {
   /** Only include usage that has occurred on or after this date. Format is [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html). */
   start?: Date;
   /** How to summarize the usage by time. Can be: `daily`, `hourly`, or `all`. A value of `all` returns one Usage Record that describes the usage for the entire period. */
-  granularity?: AccountUsageRecordGranularity;
+  granularity?: UsageRecordGranularity;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
   /** Page Number, this value is simply for client state */

@@ -18,7 +18,7 @@ const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
 
-export type CallFeedbackSummaryStatus =
+export type FeedbackSummaryStatus =
   | "queued"
   | "in-progress"
   | "completed"
@@ -166,7 +166,7 @@ interface FeedbackSummaryResource {
   quality_score_standard_deviation: number;
   sid: string;
   start_date: Date;
-  status: CallFeedbackSummaryStatus;
+  status: FeedbackSummaryStatus;
 }
 
 export class FeedbackSummaryInstance {
@@ -250,7 +250,7 @@ export class FeedbackSummaryInstance {
    * The first date for which feedback entries are included in this feedback summary, formatted as `YYYY-MM-DD` and specified in UTC.
    */
   startDate: Date;
-  status: CallFeedbackSummaryStatus;
+  status: FeedbackSummaryStatus;
 
   private get _proxy(): FeedbackSummaryContext {
     this._context =

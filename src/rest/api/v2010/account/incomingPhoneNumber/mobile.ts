@@ -21,13 +21,9 @@ const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
 import { PhoneNumberCapabilities } from "../../../../../interfaces";
 
-export type IncomingPhoneNumberMobileAddressRequirement =
-  | "none"
-  | "any"
-  | "local"
-  | "foreign";
+export type MobileAddressRequirement = "none" | "any" | "local" | "foreign";
 
-export type IncomingPhoneNumberMobileEmergencyAddressStatus =
+export type MobileEmergencyAddressStatus =
   | "registered"
   | "unregistered"
   | "pending-registration"
@@ -35,9 +31,9 @@ export type IncomingPhoneNumberMobileEmergencyAddressStatus =
   | "pending-unregistration"
   | "unregistration-failure";
 
-export type IncomingPhoneNumberMobileEmergencyStatus = "Active" | "Inactive";
+export type MobileEmergencyStatus = "Active" | "Inactive";
 
-export type IncomingPhoneNumberMobileVoiceReceiveMode = "voice" | "fax";
+export type MobileVoiceReceiveMode = "voice" | "fax";
 
 /**
  * Options to pass to create a MobileInstance
@@ -80,13 +76,13 @@ export interface MobileListInstanceCreateOptions {
   /** The SID of the Address resource we should associate with the new phone number. Some regions require addresses to meet local regulations. */
   addressSid?: string;
   /**  */
-  emergencyStatus?: IncomingPhoneNumberMobileEmergencyStatus;
+  emergencyStatus?: MobileEmergencyStatus;
   /** The SID of the emergency address configuration to use for emergency calling from the new phone number. */
   emergencyAddressSid?: string;
   /** The SID of the Trunk we should use to handle calls to the new phone number. If a `trunk_sid` is present, we ignore all of the voice urls and voice applications and use only those set on the Trunk. Setting a `trunk_sid` will automatically delete your `voice_application_sid` and vice versa. */
   trunkSid?: string;
   /**  */
-  voiceReceiveMode?: IncomingPhoneNumberMobileVoiceReceiveMode;
+  voiceReceiveMode?: MobileVoiceReceiveMode;
   /** The SID of the Bundle resource that you associate with the phone number. Some regions require a Bundle to meet local Regulations. */
   bundleSid?: string;
 }
@@ -428,41 +424,6 @@ export function MobileListInstance(
 
   return instance;
 }
-export type MobileSmsFallbackMethod =
-  | "HEAD"
-  | "GET"
-  | "POST"
-  | "PATCH"
-  | "PUT"
-  | "DELETE";
-export type MobileSmsMethod =
-  | "HEAD"
-  | "GET"
-  | "POST"
-  | "PATCH"
-  | "PUT"
-  | "DELETE";
-export type MobileStatusCallbackMethod =
-  | "HEAD"
-  | "GET"
-  | "POST"
-  | "PATCH"
-  | "PUT"
-  | "DELETE";
-export type MobileVoiceFallbackMethod =
-  | "HEAD"
-  | "GET"
-  | "POST"
-  | "PATCH"
-  | "PUT"
-  | "DELETE";
-export type MobileVoiceMethod =
-  | "HEAD"
-  | "GET"
-  | "POST"
-  | "PATCH"
-  | "PUT"
-  | "DELETE";
 
 interface MobilePayload extends TwilioResponsePayload {
   incoming_phone_numbers: MobileResource[];
@@ -471,7 +432,7 @@ interface MobilePayload extends TwilioResponsePayload {
 interface MobileResource {
   account_sid: string;
   address_sid: string;
-  address_requirements: IncomingPhoneNumberMobileAddressRequirement;
+  address_requirements: MobileAddressRequirement;
   api_version: string;
   beta: boolean;
   capabilities: PhoneNumberCapabilities;
@@ -483,24 +444,24 @@ interface MobileResource {
   origin: string;
   sid: string;
   sms_application_sid: string;
-  sms_fallback_method: MobileSmsFallbackMethod;
+  sms_fallback_method: string;
   sms_fallback_url: string;
-  sms_method: MobileSmsMethod;
+  sms_method: string;
   sms_url: string;
   status_callback: string;
-  status_callback_method: MobileStatusCallbackMethod;
+  status_callback_method: string;
   trunk_sid: string;
   uri: string;
-  voice_receive_mode: IncomingPhoneNumberMobileVoiceReceiveMode;
+  voice_receive_mode: MobileVoiceReceiveMode;
   voice_application_sid: string;
   voice_caller_id_lookup: boolean;
-  voice_fallback_method: MobileVoiceFallbackMethod;
+  voice_fallback_method: string;
   voice_fallback_url: string;
-  voice_method: MobileVoiceMethod;
+  voice_method: string;
   voice_url: string;
-  emergency_status: IncomingPhoneNumberMobileEmergencyStatus;
+  emergency_status: MobileEmergencyStatus;
   emergency_address_sid: string;
-  emergency_address_status: IncomingPhoneNumberMobileEmergencyAddressStatus;
+  emergency_address_status: MobileEmergencyAddressStatus;
   bundle_sid: string;
   status: string;
 }
@@ -555,7 +516,7 @@ export class MobileInstance {
    * The SID of the Address resource associated with the phone number.
    */
   addressSid: string;
-  addressRequirements: IncomingPhoneNumberMobileAddressRequirement;
+  addressRequirements: MobileAddressRequirement;
   /**
    * The API version used to start a new TwiML session.
    */
@@ -600,7 +561,7 @@ export class MobileInstance {
   /**
    * The HTTP method we use to call `sms_fallback_url`. Can be: `GET` or `POST`.
    */
-  smsFallbackMethod: MobileSmsFallbackMethod;
+  smsFallbackMethod: string;
   /**
    * The URL that we call when an error occurs while retrieving or executing the TwiML from `sms_url`.
    */
@@ -608,7 +569,7 @@ export class MobileInstance {
   /**
    * The HTTP method we use to call `sms_url`. Can be: `GET` or `POST`.
    */
-  smsMethod: MobileSmsMethod;
+  smsMethod: string;
   /**
    * The URL we call when the phone number receives an incoming SMS message.
    */
@@ -620,7 +581,7 @@ export class MobileInstance {
   /**
    * The HTTP method we use to call `status_callback`. Can be: `GET` or `POST`.
    */
-  statusCallbackMethod: MobileStatusCallbackMethod;
+  statusCallbackMethod: string;
   /**
    * The SID of the Trunk that handles calls to the phone number. If a `trunk_sid` is present, we ignore all of the voice urls and voice applications and use those set on the Trunk. Setting a `trunk_sid` will automatically delete your `voice_application_sid` and vice versa.
    */
@@ -629,7 +590,7 @@ export class MobileInstance {
    * The URI of the resource, relative to `https://api.twilio.com`.
    */
   uri: string;
-  voiceReceiveMode: IncomingPhoneNumberMobileVoiceReceiveMode;
+  voiceReceiveMode: MobileVoiceReceiveMode;
   /**
    * The SID of the application that handles calls to the phone number. If a `voice_application_sid` is present, we ignore all of the voice urls and use those set on the application. Setting a `voice_application_sid` will automatically delete your `trunk_sid` and vice versa.
    */
@@ -641,7 +602,7 @@ export class MobileInstance {
   /**
    * The HTTP method we use to call `voice_fallback_url`. Can be: `GET` or `POST`.
    */
-  voiceFallbackMethod: MobileVoiceFallbackMethod;
+  voiceFallbackMethod: string;
   /**
    * The URL that we call when an error occurs retrieving or executing the TwiML requested by `url`.
    */
@@ -649,17 +610,17 @@ export class MobileInstance {
   /**
    * The HTTP method we use to call `voice_url`. Can be: `GET` or `POST`.
    */
-  voiceMethod: MobileVoiceMethod;
+  voiceMethod: string;
   /**
    * The URL we call when the phone number receives a call. The `voice_url` will not be used if a `voice_application_sid` or a `trunk_sid` is set.
    */
   voiceUrl: string;
-  emergencyStatus: IncomingPhoneNumberMobileEmergencyStatus;
+  emergencyStatus: MobileEmergencyStatus;
   /**
    * The SID of the emergency address configuration that we use for emergency calling from this phone number.
    */
   emergencyAddressSid: string;
-  emergencyAddressStatus: IncomingPhoneNumberMobileEmergencyAddressStatus;
+  emergencyAddressStatus: MobileEmergencyAddressStatus;
   /**
    * The SID of the Bundle resource that you associate with the phone number. Some regions require a Bundle to meet local Regulations.
    */

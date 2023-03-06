@@ -21,14 +21,14 @@ const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
 import { UserConversationListInstance } from "./user/userConversation";
 
-export type ServiceUserWebhookEnabledType = "true" | "false";
+export type UserWebhookEnabledType = "true" | "false";
 
 /**
  * Options to pass to remove a UserInstance
  */
 export interface UserContextRemoveOptions {
   /** The X-Twilio-Webhook-Enabled HTTP request header */
-  xTwilioWebhookEnabled?: ServiceUserWebhookEnabledType;
+  xTwilioWebhookEnabled?: UserWebhookEnabledType;
 }
 
 /**
@@ -36,7 +36,7 @@ export interface UserContextRemoveOptions {
  */
 export interface UserContextUpdateOptions {
   /** The X-Twilio-Webhook-Enabled HTTP request header */
-  xTwilioWebhookEnabled?: ServiceUserWebhookEnabledType;
+  xTwilioWebhookEnabled?: UserWebhookEnabledType;
   /** The string that you assigned to describe the resource. */
   friendlyName?: string;
   /** The JSON Object string that stores application-specific data. If attributes have not been set, `{}` is returned. */
@@ -52,7 +52,7 @@ export interface UserListInstanceCreateOptions {
   /** The application-defined string that uniquely identifies the resource\\\'s User within the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource). This value is often a username or an email address, and is case-sensitive. */
   identity: string;
   /** The X-Twilio-Webhook-Enabled HTTP request header */
-  xTwilioWebhookEnabled?: ServiceUserWebhookEnabledType;
+  xTwilioWebhookEnabled?: UserWebhookEnabledType;
   /** The string that you assigned to describe the resource. */
   friendlyName?: string;
   /** The JSON Object string that stores application-specific data. If attributes have not been set, `{}` is returned. */

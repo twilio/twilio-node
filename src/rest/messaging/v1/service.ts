@@ -383,21 +383,6 @@ export class ServiceContextImpl implements ServiceContext {
   }
 }
 
-export type ServiceInboundMethod =
-  | "HEAD"
-  | "GET"
-  | "POST"
-  | "PATCH"
-  | "PUT"
-  | "DELETE";
-export type ServiceFallbackMethod =
-  | "HEAD"
-  | "GET"
-  | "POST"
-  | "PATCH"
-  | "PUT"
-  | "DELETE";
-
 interface ServicePayload extends TwilioResponsePayload {
   services: ServiceResource[];
 }
@@ -409,9 +394,9 @@ interface ServiceResource {
   date_created: Date;
   date_updated: Date;
   inbound_request_url: string;
-  inbound_method: ServiceInboundMethod;
+  inbound_method: string;
   fallback_url: string;
-  fallback_method: ServiceFallbackMethod;
+  fallback_method: string;
   status_callback: string;
   sticky_sender: boolean;
   mms_converter: boolean;
@@ -487,7 +472,7 @@ export class ServiceInstance {
   /**
    * The HTTP method we use to call `inbound_request_url`. Can be `GET` or `POST`.
    */
-  inboundMethod: ServiceInboundMethod;
+  inboundMethod: string;
   /**
    * The URL that we call using `fallback_method` if an error occurs while retrieving or executing the TwiML from the Inbound Request URL. If the `use_inbound_webhook_on_number` field is enabled then the webhook url defined on the phone number will override the `fallback_url` defined for the Messaging Service.
    */
@@ -495,7 +480,7 @@ export class ServiceInstance {
   /**
    * The HTTP method we use to call `fallback_url`. Can be: `GET` or `POST`.
    */
-  fallbackMethod: ServiceFallbackMethod;
+  fallbackMethod: string;
   /**
    * The URL we call to [pass status updates](https://www.twilio.com/docs/sms/api/message-resource#message-status-values) about message delivery.
    */
