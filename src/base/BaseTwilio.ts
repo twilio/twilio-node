@@ -1,5 +1,6 @@
 import RequestClient from "./RequestClient"; /* jshint ignore:line */
 import { HttpMethod } from "../interfaces"; /* jshint ignore:line */
+import { Headers } from "../http/request"; /* jshint ignore:line */
 
 const os = require("os"); /* jshint ignore:line */
 const url = require("url"); /* jshint ignore:line */
@@ -143,7 +144,7 @@ namespace Twilio {
       const username = opts.username || this.username;
       const password = opts.password || this.password;
 
-      const headers: any = opts.headers || {};
+      const headers = opts.headers || {};
 
       const pkgVersion = moduleInfo.version;
       const osName = os.platform();
