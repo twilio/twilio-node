@@ -2,7 +2,7 @@
   "dependencies": {
     "jest": "^29.4.3",
     "localtunnel": "^2.0.2",
-    "twilio": "../../package"
+    "twilio": "../../"
   },
   "scripts": {
     "prepare": "tsc",
