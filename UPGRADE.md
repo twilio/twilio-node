@@ -24,7 +24,7 @@ _All `MAJOR` version bumps will have upgrade notes posted here._
   * [`<Refer>`](https://www.twilio.com/docs/voice/twiml/refer)
     * `Refer.referSip()` replaced by `Refer.sip()`
   * [`<Say>`](https://www.twilio.com/docs/voice/twiml/say/text-speech#generating-ssml-via-helper-libraries)
-    * `Say.ssmlBreak()` replaced by `Say.break()`
+    * `Say.ssmlBreak()` and `Say.break_()` replaced by `Say.break()`
     * `Say.ssmlEmphasis()` replaced by `Say.emphasis()`
     * `Say.ssmlLang()` replaced by `Say.lang()`
     * `Say.ssmlP()` replaced by `Say.p()`
