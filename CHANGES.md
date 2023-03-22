@@ -1,6 +1,33 @@
 twilio-node changelog
 =====================
 
+[2023-03-22] Version 4.9.0
+--------------------------
+**Library - Fix**
+- [PR #925](https://github.com/twilio/twilio-node/pull/925): use correct Headers type. Thanks to [@Methuselah96](https://github.com/Methuselah96)!
+- [PR #921](https://github.com/twilio/twilio-node/pull/921): correct the enum names. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+- [PR #920](https://github.com/twilio/twilio-node/pull/920): revert the structural changes to the AccessToken class/namespace. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+
+**Library - Docs**
+- [PR #918](https://github.com/twilio/twilio-node/pull/918): Show auth token in webhook validation example. Thanks to [@asportnoy](https://github.com/asportnoy)!
+
+**Api**
+- Revert Corrected the data type for `friendly_name` in Available Phone Number Local, Mobile and TollFree resources
+- Corrected the data type for `friendly_name` in Available Phone Number Local, Mobile and TollFree resources **(breaking change)**
+- Add new categories for whatsapp template
+
+**Lookups**
+- Remove `validation_results` from the `default_output_properties`
+
+**Messaging**
+- Add `linkshortening_messaging_service` resource
+- Add new endpoint for GetDomainConfigByMessagingServiceSid
+- Remove `validated` parameter and add `cert_in_validation` parameter to Link Shortening API **(breaking change)**
+
+**Supersim**
+- Add ESimProfile's `matching_id` and `activation_code` parameters to libraries
+
+
 [2023-02-22] Version 4.8.0
 --------------------------
 **Library - Feature**

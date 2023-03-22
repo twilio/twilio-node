@@ -27,7 +27,7 @@ import { MemberListInstance } from "./queue/member";
 export interface QueueContextUpdateOptions {
   /** A descriptive string that you created to describe this resource. It can be up to 64 characters long. */
   friendlyName?: string;
-  /** The maximum number of calls allowed to be in the queue. The default is 100. The maximum is 5000. */
+  /** The maximum number of calls allowed to be in the queue. The default is 1000. The maximum is 5000. */
   maxSize?: number;
 }
 
@@ -37,7 +37,7 @@ export interface QueueContextUpdateOptions {
 export interface QueueListInstanceCreateOptions {
   /** A descriptive string that you created to describe this resource. It can be up to 64 characters long. */
   friendlyName: string;
-  /** The maximum number of calls allowed to be in the queue. The default is 100. The maximum is 5000. */
+  /** The maximum number of calls allowed to be in the queue. The default is 1000. The maximum is 5000. */
   maxSize?: number;
 }
 /**
@@ -344,7 +344,7 @@ export class QueueInstance {
    */
   dateCreated: Date;
   /**
-   *  The maximum number of calls that can be in the queue. The default is 100 and the maximum is 5000.
+   *  The maximum number of calls that can be in the queue. The default is 1000 and the maximum is 5000.
    */
   maxSize: number;
 

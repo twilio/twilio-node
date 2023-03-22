@@ -54,14 +54,14 @@ export interface InsightsQuestionnairesQuestionListInstanceCreateOptions {
   categoryId: string;
   /** The question. */
   question: string;
-  /** The description for the question. */
-  description: string;
   /** The answer_set for the question. */
   answerSetId: string;
   /** The flag to enable for disable NA for answer. */
   allowNa: boolean;
   /** The Token HTTP request header */
   token?: string;
+  /** The description for the question. */
+  description?: string;
 }
 /**
  * Options to pass to each
@@ -610,10 +610,6 @@ export function InsightsQuestionnairesQuestionListInstance(
       throw new Error("Required parameter \"params['question']\" missing.");
     }
 
-    if (params["description"] === null || params["description"] === undefined) {
-      throw new Error("Required parameter \"params['description']\" missing.");
-    }
-
     if (params["answerSetId"] === null || params["answerSetId"] === undefined) {
       throw new Error("Required parameter \"params['answerSetId']\" missing.");
     }
@@ -628,11 +624,11 @@ export function InsightsQuestionnairesQuestionListInstance(
 
     data["Question"] = params["question"];
 
-    data["Description"] = params["description"];
-
     data["AnswerSetId"] = params["answerSetId"];
 
     data["AllowNa"] = serialize.bool(params["allowNa"]);
+    if (params["description"] !== undefined)
+      data["Description"] = params["description"];
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";

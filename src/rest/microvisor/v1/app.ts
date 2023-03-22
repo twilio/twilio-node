@@ -19,6 +19,7 @@ import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
+import { AppManifestListInstance } from "./app/appManifest";
 
 /**
  * Options to pass to each
@@ -57,6 +58,8 @@ export interface AppListInstancePageOptions {
 }
 
 export interface AppContext {
+  appManifests: AppManifestListInstance;
+
   /**
    * Remove a AppInstance
    *
@@ -94,6 +97,8 @@ export class AppContextImpl implements AppContext {
   protected _solution: AppContextSolution;
   protected _uri: string;
 
+  protected _appManifests?: AppManifestListInstance;
+
   constructor(protected _version: V1, sid: string) {
     if (!isValidPathParam(sid)) {
       throw new Error("Parameter 'sid' is not valid.");
@@ -101,6 +106,13 @@ export class AppContextImpl implements AppContext {
 
     this._solution = { sid };
     this._uri = `/Apps/${sid}`;
+  }
+
+  get appManifests(): AppManifestListInstance {
+    this._appManifests =
+      this._appManifests ||
+      AppManifestListInstance(this._version, this._solution.sid);
+    return this._appManifests;
   }
 
   remove(
@@ -168,6 +180,7 @@ interface AppResource {
   date_created: Date;
   date_updated: Date;
   url: string;
+  links: Record<string, string>;
 }
 
 export class AppInstance {
@@ -182,6 +195,7 @@ export class AppInstance {
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
     this.url = payload.url;
+    this.links = payload.links;
 
     this._solution = { sid: sid || this.sid };
   }
@@ -214,6 +228,7 @@ export class AppInstance {
    * The URL of this resource.
    */
   url: string;
+  links: Record<string, string>;
 
   private get _proxy(): AppContext {
     this._context =
@@ -248,6 +263,13 @@ export class AppInstance {
   }
 
   /**
+   * Access the appManifests.
+   */
+  appManifests(): AppManifestListInstance {
+    return this._proxy.appManifests;
+  }
+
+  /**
    * Provide a user-friendly representation
    *
    * @returns Object
@@ -261,6 +283,7 @@ export class AppInstance {
       dateCreated: this.dateCreated,
       dateUpdated: this.dateUpdated,
       url: this.url,
+      links: this.links,
     };
   }
 

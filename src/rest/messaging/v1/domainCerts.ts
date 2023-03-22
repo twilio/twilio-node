@@ -197,7 +197,7 @@ interface DomainCertsResource {
   domain_name: string;
   certificate_sid: string;
   url: string;
-  validated: boolean;
+  cert_in_validation: any;
 }
 
 export class DomainCertsInstance {
@@ -216,7 +216,7 @@ export class DomainCertsInstance {
     this.domainName = payload.domain_name;
     this.certificateSid = payload.certificate_sid;
     this.url = payload.url;
-    this.validated = payload.validated;
+    this.certInValidation = payload.cert_in_validation;
 
     this._solution = { domainSid: domainSid || this.domainSid };
   }
@@ -247,9 +247,9 @@ export class DomainCertsInstance {
   certificateSid: string;
   url: string;
   /**
-   * Boolean value indicating whether certificate has been validated
+   * Optional JSON field describing the status and upload date of a new certificate in the process of validation
    */
-  validated: boolean;
+  certInValidation: any;
 
   private get _proxy(): DomainCertsContext {
     this._context =
@@ -318,7 +318,7 @@ export class DomainCertsInstance {
       domainName: this.domainName,
       certificateSid: this.certificateSid,
       url: this.url,
-      validated: this.validated,
+      certInValidation: this.certInValidation,
     };
   }
 

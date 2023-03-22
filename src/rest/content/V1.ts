@@ -15,6 +15,7 @@
 import ContentBase from "../ContentBase";
 import Version from "../../base/Version";
 import { ContentListInstance } from "./v1/content";
+import { ContentAndApprovalsListInstance } from "./v1/contentAndApprovals";
 import { LegacyContentListInstance } from "./v1/legacyContent";
 
 export default class V1 extends Version {
@@ -29,6 +30,8 @@ export default class V1 extends Version {
 
   /** contents - { Twilio.Content.V1.ContentListInstance } resource */
   protected _contents?: ContentListInstance;
+  /** contentAndApprovals - { Twilio.Content.V1.ContentAndApprovalsListInstance } resource */
+  protected _contentAndApprovals?: ContentAndApprovalsListInstance;
   /** legacyContents - { Twilio.Content.V1.LegacyContentListInstance } resource */
   protected _legacyContents?: LegacyContentListInstance;
 
@@ -36,6 +39,13 @@ export default class V1 extends Version {
   get contents(): ContentListInstance {
     this._contents = this._contents || ContentListInstance(this);
     return this._contents;
+  }
+
+  /** Getter for contentAndApprovals resource */
+  get contentAndApprovals(): ContentAndApprovalsListInstance {
+    this._contentAndApprovals =
+      this._contentAndApprovals || ContentAndApprovalsListInstance(this);
+    return this._contentAndApprovals;
   }
 
   /** Getter for legacyContents resource */

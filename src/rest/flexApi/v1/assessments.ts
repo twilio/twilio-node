@@ -13,6 +13,8 @@
  */
 
 import { inspect, InspectOptions } from "util";
+import Page, { TwilioResponsePayload } from "../../../base/Page";
+import Response from "../../../http/response";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
@@ -62,6 +64,53 @@ export interface AssessmentsListInstanceCreateOptions {
   questionnaireId: string;
   /** The Token HTTP request header */
   token?: string;
+}
+/**
+ * Options to pass to each
+ */
+export interface AssessmentsListInstanceEachOptions {
+  /** The Token HTTP request header */
+  token?: string;
+  /** The id of the segment. */
+  segmentId?: string;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
+  pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
+  callback?: (item: AssessmentsInstance, done: (err?: Error) => void) => void;
+  /** Function to be called upon completion of streaming */
+  done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
+  limit?: number;
+}
+
+/**
+ * Options to pass to list
+ */
+export interface AssessmentsListInstanceOptions {
+  /** The Token HTTP request header */
+  token?: string;
+  /** The id of the segment. */
+  segmentId?: string;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
+  pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
+  limit?: number;
+}
+
+/**
+ * Options to pass to page
+ */
+export interface AssessmentsListInstancePageOptions {
+  /** The Token HTTP request header */
+  token?: string;
+  /** The id of the segment. */
+  segmentId?: string;
+  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
+  pageSize?: number;
+  /** Page Number, this value is simply for client state */
+  pageNumber?: number;
+  /** PageToken provided by the API */
+  pageToken?: string;
 }
 
 export interface AssessmentsContext {
@@ -173,7 +222,9 @@ export class AssessmentsContextImpl implements AssessmentsContext {
   }
 }
 
-interface AssessmentsPayload extends AssessmentsResource {}
+interface AssessmentsPayload extends TwilioResponsePayload {
+  assessments: AssessmentsResource[];
+}
 
 interface AssessmentsResource {
   account_sid: string;
@@ -350,6 +401,75 @@ export interface AssessmentsListInstance {
   ): Promise<AssessmentsInstance>;
 
   /**
+   * Streams AssessmentsInstance records from the API.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { AssessmentsListInstanceEachOptions } [params] - Options for request
+   * @param { function } [callback] - Function to process each record
+   */
+  each(
+    callback?: (item: AssessmentsInstance, done: (err?: Error) => void) => void
+  ): void;
+  each(
+    params: AssessmentsListInstanceEachOptions,
+    callback?: (item: AssessmentsInstance, done: (err?: Error) => void) => void
+  ): void;
+  /**
+   * Retrieve a single target page of AssessmentsInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * @param { string } [targetUrl] - API-generated URL for the requested results page
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  getPage(
+    targetUrl: string,
+    callback?: (error: Error | null, items: AssessmentsPage) => any
+  ): Promise<AssessmentsPage>;
+  /**
+   * Lists AssessmentsInstance records from the API as a list.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { AssessmentsListInstanceOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  list(
+    callback?: (error: Error | null, items: AssessmentsInstance[]) => any
+  ): Promise<AssessmentsInstance[]>;
+  list(
+    params: AssessmentsListInstanceOptions,
+    callback?: (error: Error | null, items: AssessmentsInstance[]) => any
+  ): Promise<AssessmentsInstance[]>;
+  /**
+   * Retrieve a single page of AssessmentsInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { AssessmentsListInstancePageOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  page(
+    callback?: (error: Error | null, items: AssessmentsPage) => any
+  ): Promise<AssessmentsPage>;
+  page(
+    params: AssessmentsListInstancePageOptions,
+    callback?: (error: Error | null, items: AssessmentsPage) => any
+  ): Promise<AssessmentsPage>;
+
+  /**
    * Provide a user-friendly representation
    */
   toJSON(): any;
@@ -481,6 +601,70 @@ export function AssessmentsListInstance(version: V1): AssessmentsListInstance {
     return operationPromise;
   };
 
+  instance.page = function page(
+    params?:
+      | AssessmentsListInstancePageOptions
+      | ((error: Error | null, items: AssessmentsPage) => any),
+    callback?: (error: Error | null, items: AssessmentsPage) => any
+  ): Promise<AssessmentsPage> {
+    if (params instanceof Function) {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    let data: any = {};
+
+    if (params["segmentId"] !== undefined)
+      data["SegmentId"] = params["segmentId"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+
+    if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
+
+    const headers: any = {};
+    if (params["token"] !== undefined) headers["Token"] = params["token"];
+
+    let operationVersion = version,
+      operationPromise = operationVersion.page({
+        uri: instance._uri,
+        method: "get",
+        params: data,
+        headers,
+      });
+
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new AssessmentsPage(operationVersion, payload, instance._solution)
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  };
+  instance.each = instance._version.each;
+  instance.list = instance._version.list;
+
+  instance.getPage = function getPage(
+    targetUrl: string,
+    callback?: (error: Error | null, items: AssessmentsPage) => any
+  ): Promise<AssessmentsPage> {
+    const operationPromise = instance._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
+
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new AssessmentsPage(instance._version, payload, instance._solution)
+    );
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
+  };
+
   instance.toJSON = function toJSON() {
     return instance._solution;
   };
@@ -493,4 +677,39 @@ export function AssessmentsListInstance(version: V1): AssessmentsListInstance {
   };
 
   return instance;
+}
+
+export class AssessmentsPage extends Page<
+  V1,
+  AssessmentsPayload,
+  AssessmentsResource,
+  AssessmentsInstance
+> {
+  /**
+   * Initialize the AssessmentsPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(
+    version: V1,
+    response: Response<string>,
+    solution: AssessmentsSolution
+  ) {
+    super(version, response, solution);
+  }
+
+  /**
+   * Build an instance of AssessmentsInstance
+   *
+   * @param payload - Payload response from the API
+   */
+  getInstance(payload: AssessmentsResource): AssessmentsInstance {
+    return new AssessmentsInstance(this._version, payload);
+  }
+
+  [inspect.custom](depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+  }
 }

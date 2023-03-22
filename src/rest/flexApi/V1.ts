@@ -19,6 +19,7 @@ import { ChannelListInstance } from "./v1/channel";
 import { ConfigurationListInstance } from "./v1/configuration";
 import { FlexFlowListInstance } from "./v1/flexFlow";
 import { InsightsAssessmentsCommentListInstance } from "./v1/insightsAssessmentsComment";
+import { InsightsConversationsListInstance } from "./v1/insightsConversations";
 import { InsightsQuestionnairesListInstance } from "./v1/insightsQuestionnaires";
 import { InsightsQuestionnairesCategoryListInstance } from "./v1/insightsQuestionnairesCategory";
 import { InsightsQuestionnairesQuestionListInstance } from "./v1/insightsQuestionnairesQuestion";
@@ -50,6 +51,8 @@ export default class V1 extends Version {
   protected _flexFlow?: FlexFlowListInstance;
   /** insightsAssessmentsComment - { Twilio.FlexApi.V1.InsightsAssessmentsCommentListInstance } resource */
   protected _insightsAssessmentsComment?: InsightsAssessmentsCommentListInstance;
+  /** insightsConversations - { Twilio.FlexApi.V1.InsightsConversationsListInstance } resource */
+  protected _insightsConversations?: InsightsConversationsListInstance;
   /** insightsQuestionnaires - { Twilio.FlexApi.V1.InsightsQuestionnairesListInstance } resource */
   protected _insightsQuestionnaires?: InsightsQuestionnairesListInstance;
   /** insightsQuestionnairesCategory - { Twilio.FlexApi.V1.InsightsQuestionnairesCategoryListInstance } resource */
@@ -102,6 +105,13 @@ export default class V1 extends Version {
       this._insightsAssessmentsComment ||
       InsightsAssessmentsCommentListInstance(this);
     return this._insightsAssessmentsComment;
+  }
+
+  /** Getter for insightsConversations resource */
+  get insightsConversations(): InsightsConversationsListInstance {
+    this._insightsConversations =
+      this._insightsConversations || InsightsConversationsListInstance(this);
+    return this._insightsConversations;
   }
 
   /** Getter for insightsQuestionnaires resource */

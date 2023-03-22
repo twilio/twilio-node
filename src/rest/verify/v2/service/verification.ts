@@ -62,7 +62,7 @@ export interface VerificationListInstanceCreateOptions {
   templateSid?: string;
   /** A stringified JSON object in which the keys are the template\\\'s special variables and the values are the variables substitutions. */
   templateCustomSubstitutions?: string;
-  /** The IP address of the client\\\'s device. If provided, it has to be a valid IPv4 or IPv6 address. */
+  /** Strongly encouraged if using the auto channel. The IP address of the client\\\'s device. If provided, it has to be a valid IPv4 or IPv6 address. */
   deviceIp?: string;
 }
 
