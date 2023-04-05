@@ -68,10 +68,6 @@ you're working on.
 For large fixes, please build and test the documentation before submitting the
 PR to be sure you haven't accidentally introduced layout or formatting issues.
 
-If you want to help improve the docs at
-[https://www.twilio.com/docs/libraries/node][docs-link], please contact
-[help@twilio.com](mailto:help@twilio.com).
-
 ## <a name="submit"></a> Submission Guidelines
 
 ### Submitting an Issue
@@ -156,6 +152,5 @@ you are working:
 * All classes and methods **must be documented**.
 
 
-[docs-link]: https://www.twilio.com/docs/libraries/node
 [issue-link]: https://github.com/twilio/twilio-node/issues/new
 [github]: https://github.com/twilio/twilio-node
