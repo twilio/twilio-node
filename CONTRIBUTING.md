@@ -21,7 +21,7 @@ it can be.
 ## <a name="question"></a> Got an API/Product Question or Problem?
 
 If you have questions about how to use `twilio-node`, please see our
-[docs][docs-link], and if you don't find the answer there, please contact
+[docs](./README.md), and if you don't find the answer there, please contact
 [help@twilio.com](mailto:help@twilio.com) with any issues you have.
 
 ## <a name="issue"></a> Found an Issue?
