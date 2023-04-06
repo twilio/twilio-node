@@ -19,6 +19,7 @@ import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
+import { BrandRegistrationOtpListInstance } from "./brandRegistration/brandRegistrationOtp";
 import { BrandVettingListInstance } from "./brandRegistration/brandVetting";
 
 export type BrandRegistrationBrandFeedback =
@@ -49,7 +50,7 @@ export interface BrandRegistrationListInstanceCreateOptions {
   customerProfileBundleSid: string;
   /** A2P Messaging Profile Bundle Sid. */
   a2PProfileBundleSid: string;
-  /** Type of brand being created. One of: \\\"STANDARD\\\", \\\"STARTER\\\". STARTER is for low volume, starter use cases. STANDARD is for all other use cases. */
+  /** Type of brand being created. One of: \\\"STANDARD\\\", \\\"SOLE_PROPRIETOR\\\". SOLE_PROPRIETOR is for low volume, SOLE_PROPRIETOR use cases. STANDARD is for all other use cases. */
   brandType?: string;
   /** A boolean that specifies whether brand should be a mock or not. If true, brand will be registered as a mock brand. Defaults to false if no value is provided. */
   mock?: boolean;
@@ -96,6 +97,7 @@ export interface BrandRegistrationListInstancePageOptions {
 }
 
 export interface BrandRegistrationContext {
+  brandRegistrationOtps: BrandRegistrationOtpListInstance;
   brandVettings: BrandVettingListInstance;
 
   /**
@@ -135,6 +137,7 @@ export class BrandRegistrationContextImpl implements BrandRegistrationContext {
   protected _solution: BrandRegistrationContextSolution;
   protected _uri: string;
 
+  protected _brandRegistrationOtps?: BrandRegistrationOtpListInstance;
   protected _brandVettings?: BrandVettingListInstance;
 
   constructor(protected _version: V1, sid: string) {
@@ -144,6 +147,13 @@ export class BrandRegistrationContextImpl implements BrandRegistrationContext {
 
     this._solution = { sid };
     this._uri = `/a2p/BrandRegistrations/${sid}`;
+  }
+
+  get brandRegistrationOtps(): BrandRegistrationOtpListInstance {
+    this._brandRegistrationOtps =
+      this._brandRegistrationOtps ||
+      BrandRegistrationOtpListInstance(this._version, this._solution.sid);
+    return this._brandRegistrationOtps;
   }
 
   get brandVettings(): BrandVettingListInstance {
@@ -304,7 +314,7 @@ export class BrandRegistrationInstance {
    */
   dateUpdated: Date;
   /**
-   * Type of brand. One of: \"STANDARD\", \"STARTER\". STARTER is for the low volume, STARTER campaign use case. There can only be one STARTER campaign created per STARTER brand. STANDARD is for all other campaign use cases. Multiple campaign use cases can be created per STANDARD brand.
+   * Type of brand. One of: \"STANDARD\", \"SOLE_PROPRIETOR\". SOLE_PROPRIETOR is for the low volume, SOLE_PROPRIETOR campaign use case. There can only be one SOLE_PROPRIETOR campaign created per SOLE_PROPRIETOR brand. STANDARD is for all other campaign use cases. Multiple campaign use cases can be created per STANDARD brand.
    */
   brandType: string;
   status: BrandRegistrationStatus;
@@ -382,6 +392,13 @@ export class BrandRegistrationInstance {
     callback?: (error: Error | null, item?: BrandRegistrationInstance) => any
   ): Promise<BrandRegistrationInstance> {
     return this._proxy.update(callback);
+  }
+
+  /**
+   * Access the brandRegistrationOtps.
+   */
+  brandRegistrationOtps(): BrandRegistrationOtpListInstance {
+    return this._proxy.brandRegistrationOtps;
   }
 
   /**
