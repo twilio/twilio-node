@@ -76,7 +76,7 @@ export function InsightsSettingsAnswerSetsListInstance(
 
   instance._version = version;
   instance._solution = {};
-  instance._uri = `/Insights/QM/Settings/AnswerSets`;
+  instance._uri = `/Insights/QualityManagement/Settings/AnswerSets`;
 
   instance.fetch = function fetch(
     params?:

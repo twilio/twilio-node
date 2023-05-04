@@ -21,18 +21,13 @@ const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 
 /**
- * Options to pass to fetch a InsightsSegmentsInstance
- */
-export interface InsightsSegmentsContextFetchOptions {
-  /** The Token HTTP request header */
-  token?: string;
-}
-/**
  * Options to pass to each
  */
 export interface InsightsSegmentsListInstanceEachOptions {
   /** The Token HTTP request header */
   token?: string;
+  /** To unique id of the segment */
+  segmentId?: string;
   /** The list of reservation Ids */
   reservationId?: Array<string>;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
@@ -54,6 +49,8 @@ export interface InsightsSegmentsListInstanceEachOptions {
 export interface InsightsSegmentsListInstanceOptions {
   /** The Token HTTP request header */
   token?: string;
+  /** To unique id of the segment */
+  segmentId?: string;
   /** The list of reservation Ids */
   reservationId?: Array<string>;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
@@ -68,6 +65,8 @@ export interface InsightsSegmentsListInstanceOptions {
 export interface InsightsSegmentsListInstancePageOptions {
   /** The Token HTTP request header */
   token?: string;
+  /** To unique id of the segment */
+  segmentId?: string;
   /** The list of reservation Ids */
   reservationId?: Array<string>;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
@@ -78,338 +77,12 @@ export interface InsightsSegmentsListInstancePageOptions {
   pageToken?: string;
 }
 
-export interface InsightsSegmentsContext {
-  /**
-   * Fetch a InsightsSegmentsInstance
-   *
-   * @param callback - Callback to handle processed record
-   *
-   * @returns Resolves to processed InsightsSegmentsInstance
-   */
-  fetch(
-    callback?: (error: Error | null, item?: InsightsSegmentsInstance) => any
-  ): Promise<InsightsSegmentsInstance>;
-  /**
-   * Fetch a InsightsSegmentsInstance
-   *
-   * @param params - Parameter for request
-   * @param callback - Callback to handle processed record
-   *
-   * @returns Resolves to processed InsightsSegmentsInstance
-   */
-  fetch(
-    params: InsightsSegmentsContextFetchOptions,
-    callback?: (error: Error | null, item?: InsightsSegmentsInstance) => any
-  ): Promise<InsightsSegmentsInstance>;
-
-  /**
-   * Provide a user-friendly representation
-   */
-  toJSON(): any;
-  [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export interface InsightsSegmentsContextSolution {
-  segmentId: string;
-}
-
-export class InsightsSegmentsContextImpl implements InsightsSegmentsContext {
-  protected _solution: InsightsSegmentsContextSolution;
-  protected _uri: string;
-
-  constructor(protected _version: V1, segmentId: string) {
-    if (!isValidPathParam(segmentId)) {
-      throw new Error("Parameter 'segmentId' is not valid.");
-    }
-
-    this._solution = { segmentId };
-    this._uri = `/Insights/Segments/${segmentId}`;
-  }
-
-  fetch(
-    params?:
-      | InsightsSegmentsContextFetchOptions
-      | ((error: Error | null, item?: InsightsSegmentsInstance) => any),
-    callback?: (error: Error | null, item?: InsightsSegmentsInstance) => any
-  ): Promise<InsightsSegmentsInstance> {
-    if (params instanceof Function) {
-      callback = params;
-      params = {};
-    } else {
-      params = params || {};
-    }
-
-    let data: any = {};
-
-    const headers: any = {};
-    if (params["token"] !== undefined) headers["Token"] = params["token"];
-
-    const instance = this;
-    let operationVersion = instance._version,
-      operationPromise = operationVersion.fetch({
-        uri: instance._uri,
-        method: "get",
-        params: data,
-        headers,
-      });
-
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new InsightsSegmentsInstance(
-          operationVersion,
-          payload,
-          instance._solution.segmentId
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
-  }
-
-  /**
-   * Provide a user-friendly representation
-   *
-   * @returns Object
-   */
-  toJSON() {
-    return this._solution;
-  }
-
-  [inspect.custom](_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-}
-
-interface InsightsSegmentsPayload extends TwilioResponsePayload {
-  segments: InsightsSegmentsResource[];
-}
-
-interface InsightsSegmentsResource {
-  segment_id: string;
-  external_id: string;
-  queue: string;
-  external_contact: string;
-  external_segment_link_id: string;
-  date: string;
-  account_id: string;
-  external_segment_link: string;
-  agent_id: string;
-  agent_phone: string;
-  agent_name: string;
-  agent_team_name: string;
-  agent_team_name_in_hierarchy: string;
-  agent_link: string;
-  customer_phone: string;
-  customer_name: string;
-  customer_link: string;
-  segment_recording_offset: string;
-  media: any;
-  assessment_type: any;
-  assessment_percentage: any;
-  url: string;
-}
-
-export class InsightsSegmentsInstance {
-  protected _solution: InsightsSegmentsContextSolution;
-  protected _context?: InsightsSegmentsContext;
-
-  constructor(
-    protected _version: V1,
-    payload: InsightsSegmentsResource,
-    segmentId?: string
-  ) {
-    this.segmentId = payload.segment_id;
-    this.externalId = payload.external_id;
-    this.queue = payload.queue;
-    this.externalContact = payload.external_contact;
-    this.externalSegmentLinkId = payload.external_segment_link_id;
-    this.date = payload.date;
-    this.accountId = payload.account_id;
-    this.externalSegmentLink = payload.external_segment_link;
-    this.agentId = payload.agent_id;
-    this.agentPhone = payload.agent_phone;
-    this.agentName = payload.agent_name;
-    this.agentTeamName = payload.agent_team_name;
-    this.agentTeamNameInHierarchy = payload.agent_team_name_in_hierarchy;
-    this.agentLink = payload.agent_link;
-    this.customerPhone = payload.customer_phone;
-    this.customerName = payload.customer_name;
-    this.customerLink = payload.customer_link;
-    this.segmentRecordingOffset = payload.segment_recording_offset;
-    this.media = payload.media;
-    this.assessmentType = payload.assessment_type;
-    this.assessmentPercentage = payload.assessment_percentage;
-    this.url = payload.url;
-
-    this._solution = { segmentId: segmentId || this.segmentId };
-  }
-
-  /**
-   * To unique id of the segment
-   */
-  segmentId: string;
-  /**
-   * The unique id for the conversation.
-   */
-  externalId: string;
-  queue: string;
-  externalContact: string;
-  /**
-   * The uuid for the external_segment_link.
-   */
-  externalSegmentLinkId: string;
-  /**
-   * The date of the conversation.
-   */
-  date: string;
-  /**
-   * The unique id for the account.
-   */
-  accountId: string;
-  /**
-   * The hyperlink to recording of the task event.
-   */
-  externalSegmentLink: string;
-  /**
-   * The unique id for the agent.
-   */
-  agentId: string;
-  /**
-   * The phone number of the agent.
-   */
-  agentPhone: string;
-  /**
-   * The name of the agent.
-   */
-  agentName: string;
-  /**
-   * The team name to which agent belongs.
-   */
-  agentTeamName: string;
-  /**
-   * he team name to which agent belongs.
-   */
-  agentTeamNameInHierarchy: string;
-  /**
-   * The link to the agent conversation.
-   */
-  agentLink: string;
-  /**
-   * The phone number of the customer.
-   */
-  customerPhone: string;
-  /**
-   * The name of the customer.
-   */
-  customerName: string;
-  /**
-   * The link to the customer conversation.
-   */
-  customerLink: string;
-  /**
-   * The offset value for the recording.
-   */
-  segmentRecordingOffset: string;
-  /**
-   * The media identifiers of the conversation.
-   */
-  media: any;
-  /**
-   * The type of the assessment.
-   */
-  assessmentType: any;
-  /**
-   * The percentage scored on the Assessments.
-   */
-  assessmentPercentage: any;
-  url: string;
-
-  private get _proxy(): InsightsSegmentsContext {
-    this._context =
-      this._context ||
-      new InsightsSegmentsContextImpl(this._version, this._solution.segmentId);
-    return this._context;
-  }
-
-  /**
-   * Fetch a InsightsSegmentsInstance
-   *
-   * @param callback - Callback to handle processed record
-   *
-   * @returns Resolves to processed InsightsSegmentsInstance
-   */
-  fetch(
-    callback?: (error: Error | null, item?: InsightsSegmentsInstance) => any
-  ): Promise<InsightsSegmentsInstance>;
-  /**
-   * Fetch a InsightsSegmentsInstance
-   *
-   * @param params - Parameter for request
-   * @param callback - Callback to handle processed record
-   *
-   * @returns Resolves to processed InsightsSegmentsInstance
-   */
-  fetch(
-    params: InsightsSegmentsContextFetchOptions,
-    callback?: (error: Error | null, item?: InsightsSegmentsInstance) => any
-  ): Promise<InsightsSegmentsInstance>;
-
-  fetch(
-    params?: any,
-    callback?: (error: Error | null, item?: InsightsSegmentsInstance) => any
-  ): Promise<InsightsSegmentsInstance> {
-    return this._proxy.fetch(params, callback);
-  }
-
-  /**
-   * Provide a user-friendly representation
-   *
-   * @returns Object
-   */
-  toJSON() {
-    return {
-      segmentId: this.segmentId,
-      externalId: this.externalId,
-      queue: this.queue,
-      externalContact: this.externalContact,
-      externalSegmentLinkId: this.externalSegmentLinkId,
-      date: this.date,
-      accountId: this.accountId,
-      externalSegmentLink: this.externalSegmentLink,
-      agentId: this.agentId,
-      agentPhone: this.agentPhone,
-      agentName: this.agentName,
-      agentTeamName: this.agentTeamName,
-      agentTeamNameInHierarchy: this.agentTeamNameInHierarchy,
-      agentLink: this.agentLink,
-      customerPhone: this.customerPhone,
-      customerName: this.customerName,
-      customerLink: this.customerLink,
-      segmentRecordingOffset: this.segmentRecordingOffset,
-      media: this.media,
-      assessmentType: this.assessmentType,
-      assessmentPercentage: this.assessmentPercentage,
-      url: this.url,
-    };
-  }
-
-  [inspect.custom](_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-}
-
 export interface InsightsSegmentsSolution {}
 
 export interface InsightsSegmentsListInstance {
   _version: V1;
   _solution: InsightsSegmentsSolution;
   _uri: string;
-
-  (segmentId: string): InsightsSegmentsContext;
-  get(segmentId: string): InsightsSegmentsContext;
 
   /**
    * Streams InsightsSegmentsInstance records from the API.
@@ -496,12 +169,7 @@ export interface InsightsSegmentsListInstance {
 export function InsightsSegmentsListInstance(
   version: V1
 ): InsightsSegmentsListInstance {
-  const instance = ((segmentId) =>
-    instance.get(segmentId)) as InsightsSegmentsListInstance;
-
-  instance.get = function get(segmentId): InsightsSegmentsContext {
-    return new InsightsSegmentsContextImpl(version, segmentId);
-  };
+  const instance = {} as InsightsSegmentsListInstance;
 
   instance._version = version;
   instance._solution = {};
@@ -522,6 +190,8 @@ export function InsightsSegmentsListInstance(
 
     let data: any = {};
 
+    if (params["segmentId"] !== undefined)
+      data["SegmentId"] = params["segmentId"];
     if (params["reservationId"] !== undefined)
       data["ReservationId"] = serialize.map(
         params["reservationId"],
@@ -586,6 +256,178 @@ export function InsightsSegmentsListInstance(
   };
 
   return instance;
+}
+
+interface InsightsSegmentsPayload extends TwilioResponsePayload {
+  segments: InsightsSegmentsResource[];
+}
+
+interface InsightsSegmentsResource {
+  segment_id: string;
+  external_id: string;
+  queue: string;
+  external_contact: string;
+  external_segment_link_id: string;
+  date: string;
+  account_id: string;
+  external_segment_link: string;
+  agent_id: string;
+  agent_phone: string;
+  agent_name: string;
+  agent_team_name: string;
+  agent_team_name_in_hierarchy: string;
+  agent_link: string;
+  customer_phone: string;
+  customer_name: string;
+  customer_link: string;
+  segment_recording_offset: string;
+  media: any;
+  assessment_type: any;
+  assessment_percentage: any;
+  url: string;
+}
+
+export class InsightsSegmentsInstance {
+  constructor(protected _version: V1, payload: InsightsSegmentsResource) {
+    this.segmentId = payload.segment_id;
+    this.externalId = payload.external_id;
+    this.queue = payload.queue;
+    this.externalContact = payload.external_contact;
+    this.externalSegmentLinkId = payload.external_segment_link_id;
+    this.date = payload.date;
+    this.accountId = payload.account_id;
+    this.externalSegmentLink = payload.external_segment_link;
+    this.agentId = payload.agent_id;
+    this.agentPhone = payload.agent_phone;
+    this.agentName = payload.agent_name;
+    this.agentTeamName = payload.agent_team_name;
+    this.agentTeamNameInHierarchy = payload.agent_team_name_in_hierarchy;
+    this.agentLink = payload.agent_link;
+    this.customerPhone = payload.customer_phone;
+    this.customerName = payload.customer_name;
+    this.customerLink = payload.customer_link;
+    this.segmentRecordingOffset = payload.segment_recording_offset;
+    this.media = payload.media;
+    this.assessmentType = payload.assessment_type;
+    this.assessmentPercentage = payload.assessment_percentage;
+    this.url = payload.url;
+  }
+
+  /**
+   * To unique id of the segment
+   */
+  segmentId: string;
+  /**
+   * The unique id for the conversation.
+   */
+  externalId: string;
+  queue: string;
+  externalContact: string;
+  /**
+   * The uuid for the external_segment_link.
+   */
+  externalSegmentLinkId: string;
+  /**
+   * The date of the conversation.
+   */
+  date: string;
+  /**
+   * The unique id for the account.
+   */
+  accountId: string;
+  /**
+   * The hyperlink to recording of the task event.
+   */
+  externalSegmentLink: string;
+  /**
+   * The unique id for the agent.
+   */
+  agentId: string;
+  /**
+   * The phone number of the agent.
+   */
+  agentPhone: string;
+  /**
+   * The name of the agent.
+   */
+  agentName: string;
+  /**
+   * The team name to which agent belongs.
+   */
+  agentTeamName: string;
+  /**
+   * he team name to which agent belongs.
+   */
+  agentTeamNameInHierarchy: string;
+  /**
+   * The link to the agent conversation.
+   */
+  agentLink: string;
+  /**
+   * The phone number of the customer.
+   */
+  customerPhone: string;
+  /**
+   * The name of the customer.
+   */
+  customerName: string;
+  /**
+   * The link to the customer conversation.
+   */
+  customerLink: string;
+  /**
+   * The offset value for the recording.
+   */
+  segmentRecordingOffset: string;
+  /**
+   * The media identifiers of the conversation.
+   */
+  media: any;
+  /**
+   * The type of the assessment.
+   */
+  assessmentType: any;
+  /**
+   * The percentage scored on the Assessments.
+   */
+  assessmentPercentage: any;
+  url: string;
+
+  /**
+   * Provide a user-friendly representation
+   *
+   * @returns Object
+   */
+  toJSON() {
+    return {
+      segmentId: this.segmentId,
+      externalId: this.externalId,
+      queue: this.queue,
+      externalContact: this.externalContact,
+      externalSegmentLinkId: this.externalSegmentLinkId,
+      date: this.date,
+      accountId: this.accountId,
+      externalSegmentLink: this.externalSegmentLink,
+      agentId: this.agentId,
+      agentPhone: this.agentPhone,
+      agentName: this.agentName,
+      agentTeamName: this.agentTeamName,
+      agentTeamNameInHierarchy: this.agentTeamNameInHierarchy,
+      agentLink: this.agentLink,
+      customerPhone: this.customerPhone,
+      customerName: this.customerName,
+      customerLink: this.customerLink,
+      segmentRecordingOffset: this.segmentRecordingOffset,
+      media: this.media,
+      assessmentType: this.assessmentType,
+      assessmentPercentage: this.assessmentPercentage,
+      url: this.url,
+    };
+  }
+
+  [inspect.custom](_depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+  }
 }
 
 export class InsightsSegmentsPage extends Page<

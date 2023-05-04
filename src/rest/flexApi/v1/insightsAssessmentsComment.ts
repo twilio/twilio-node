@@ -227,7 +227,7 @@ export function InsightsAssessmentsCommentListInstance(
 
   instance._version = version;
   instance._solution = {};
-  instance._uri = `/Insights/QM/Assessments/Comments`;
+  instance._uri = `/Insights/QualityManagement/Assessments/Comments`;
 
   instance.create = function create(
     params: InsightsAssessmentsCommentListInstanceCreateOptions,
@@ -416,7 +416,7 @@ interface InsightsAssessmentsCommentPayload extends TwilioResponsePayload {
 
 interface InsightsAssessmentsCommentResource {
   account_sid: string;
-  assessment_id: string;
+  assessment_sid: string;
   comment: any;
   offset: number;
   report: boolean;
@@ -435,7 +435,7 @@ export class InsightsAssessmentsCommentInstance {
     payload: InsightsAssessmentsCommentResource
   ) {
     this.accountSid = payload.account_sid;
-    this.assessmentId = payload.assessment_id;
+    this.assessmentSid = payload.assessment_sid;
     this.comment = payload.comment;
     this.offset = payload.offset;
     this.report = payload.report;
@@ -453,9 +453,9 @@ export class InsightsAssessmentsCommentInstance {
    */
   accountSid: string;
   /**
-   * The unique ID of the assessment.
+   * The SID of the assessment.
    */
-  assessmentId: string;
+  assessmentSid: string;
   /**
    * The comment added for assessment.
    */
@@ -502,7 +502,7 @@ export class InsightsAssessmentsCommentInstance {
   toJSON() {
     return {
       accountSid: this.accountSid,
-      assessmentId: this.assessmentId,
+      assessmentSid: this.assessmentSid,
       comment: this.comment,
       offset: this.offset,
       report: this.report,

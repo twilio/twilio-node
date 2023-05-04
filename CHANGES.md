@@ -1,6 +1,25 @@
 twilio-node changelog
 =====================
 
+[2023-05-04] Version 4.11.0
+---------------------------
+**Library - Docs**
+- [PR #928](https://github.com/twilio/twilio-node/pull/928): consolidate. Thanks to [@stern-shawn](https://github.com/stern-shawn)!
+
+**Conversations**
+- Remove `start_date`, `end_date` and `state` query parameters from list operation on Conversations resource **(breaking change)**
+
+**Messaging**
+- Remove `messaging_service_sids` and `messaging_service_sid_action` from domain config endpoint **(breaking change)**
+- Add error_code and rejection_reason properties to tollfree verification API response
+
+**Numbers**
+- Added the new Eligibility API under version `/v1`.
+
+**Twiml**
+- Add support for new Amazon Polly voices (Q1 2023) for `Say` verb
+
+
 [2023-04-05] Version 4.10.0
 ---------------------------
 **Conversations**

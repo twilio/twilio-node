@@ -48,8 +48,8 @@ export interface InsightsQuestionnairesContextUpdateOptions {
   name?: string;
   /** The description of this questionnaire */
   description?: string;
-  /** The list of questions ids under a questionnaire */
-  questionIds?: Array<string>;
+  /** The list of questions sids under a questionnaire */
+  questionSids?: Array<string>;
 }
 
 /**
@@ -64,8 +64,8 @@ export interface InsightsQuestionnairesListInstanceCreateOptions {
   description?: string;
   /** The flag to enable or disable questionnaire */
   active?: boolean;
-  /** The list of questions ids under a questionnaire */
-  questionIds?: Array<string>;
+  /** The list of questions sids under a questionnaire */
+  questionSids?: Array<string>;
 }
 /**
  * Options to pass to each
@@ -195,7 +195,7 @@ export interface InsightsQuestionnairesContext {
 }
 
 export interface InsightsQuestionnairesContextSolution {
-  id: string;
+  questionnaireSid: string;
 }
 
 export class InsightsQuestionnairesContextImpl
@@ -204,13 +204,13 @@ export class InsightsQuestionnairesContextImpl
   protected _solution: InsightsQuestionnairesContextSolution;
   protected _uri: string;
 
-  constructor(protected _version: V1, id: string) {
-    if (!isValidPathParam(id)) {
-      throw new Error("Parameter 'id' is not valid.");
+  constructor(protected _version: V1, questionnaireSid: string) {
+    if (!isValidPathParam(questionnaireSid)) {
+      throw new Error("Parameter 'questionnaireSid' is not valid.");
     }
 
-    this._solution = { id };
-    this._uri = `/Insights/QM/Questionnaires/${id}`;
+    this._solution = { questionnaireSid };
+    this._uri = `/Insights/QualityManagement/Questionnaires/${questionnaireSid}`;
   }
 
   remove(
@@ -282,7 +282,7 @@ export class InsightsQuestionnairesContextImpl
         new InsightsQuestionnairesInstance(
           operationVersion,
           payload,
-          instance._solution.id
+          instance._solution.questionnaireSid
         )
     );
 
@@ -314,9 +314,9 @@ export class InsightsQuestionnairesContextImpl
     if (params["name"] !== undefined) data["Name"] = params["name"];
     if (params["description"] !== undefined)
       data["Description"] = params["description"];
-    if (params["questionIds"] !== undefined)
-      data["QuestionIds"] = serialize.map(
-        params["questionIds"],
+    if (params["questionSids"] !== undefined)
+      data["QuestionSids"] = serialize.map(
+        params["questionSids"],
         (e: string) => e
       );
 
@@ -338,7 +338,7 @@ export class InsightsQuestionnairesContextImpl
         new InsightsQuestionnairesInstance(
           operationVersion,
           payload,
-          instance._solution.id
+          instance._solution.questionnaireSid
         )
     );
 
@@ -369,7 +369,7 @@ interface InsightsQuestionnairesPayload extends TwilioResponsePayload {
 
 interface InsightsQuestionnairesResource {
   account_sid: string;
-  id: string;
+  questionnaire_sid: string;
   name: string;
   description: string;
   active: boolean;
@@ -384,17 +384,19 @@ export class InsightsQuestionnairesInstance {
   constructor(
     protected _version: V1,
     payload: InsightsQuestionnairesResource,
-    id?: string
+    questionnaireSid?: string
   ) {
     this.accountSid = payload.account_sid;
-    this.id = payload.id;
+    this.questionnaireSid = payload.questionnaire_sid;
     this.name = payload.name;
     this.description = payload.description;
     this.active = payload.active;
     this.questions = payload.questions;
     this.url = payload.url;
 
-    this._solution = { id: id || this.id };
+    this._solution = {
+      questionnaireSid: questionnaireSid || this.questionnaireSid,
+    };
   }
 
   /**
@@ -402,9 +404,9 @@ export class InsightsQuestionnairesInstance {
    */
   accountSid: string;
   /**
-   * The unique id of this questionnaire
+   * The sid of this questionnaire
    */
-  id: string;
+  questionnaireSid: string;
   /**
    * The name of this category.
    */
@@ -426,7 +428,10 @@ export class InsightsQuestionnairesInstance {
   private get _proxy(): InsightsQuestionnairesContext {
     this._context =
       this._context ||
-      new InsightsQuestionnairesContextImpl(this._version, this._solution.id);
+      new InsightsQuestionnairesContextImpl(
+        this._version,
+        this._solution.questionnaireSid
+      );
     return this._context;
   }
 
@@ -533,7 +538,7 @@ export class InsightsQuestionnairesInstance {
   toJSON() {
     return {
       accountSid: this.accountSid,
-      id: this.id,
+      questionnaireSid: this.questionnaireSid,
       name: this.name,
       description: this.description,
       active: this.active,
@@ -554,8 +559,8 @@ export interface InsightsQuestionnairesListInstance {
   _solution: InsightsQuestionnairesSolution;
   _uri: string;
 
-  (id: string): InsightsQuestionnairesContext;
-  get(id: string): InsightsQuestionnairesContext;
+  (questionnaireSid: string): InsightsQuestionnairesContext;
+  get(questionnaireSid: string): InsightsQuestionnairesContext;
 
   /**
    * Create a InsightsQuestionnairesInstance
@@ -664,16 +669,16 @@ export interface InsightsQuestionnairesListInstance {
 export function InsightsQuestionnairesListInstance(
   version: V1
 ): InsightsQuestionnairesListInstance {
-  const instance = ((id) =>
-    instance.get(id)) as InsightsQuestionnairesListInstance;
+  const instance = ((questionnaireSid) =>
+    instance.get(questionnaireSid)) as InsightsQuestionnairesListInstance;
 
-  instance.get = function get(id): InsightsQuestionnairesContext {
-    return new InsightsQuestionnairesContextImpl(version, id);
+  instance.get = function get(questionnaireSid): InsightsQuestionnairesContext {
+    return new InsightsQuestionnairesContextImpl(version, questionnaireSid);
   };
 
   instance._version = version;
   instance._solution = {};
-  instance._uri = `/Insights/QM/Questionnaires`;
+  instance._uri = `/Insights/QualityManagement/Questionnaires`;
 
   instance.create = function create(
     params: InsightsQuestionnairesListInstanceCreateOptions,
@@ -697,9 +702,9 @@ export function InsightsQuestionnairesListInstance(
       data["Description"] = params["description"];
     if (params["active"] !== undefined)
       data["Active"] = serialize.bool(params["active"]);
-    if (params["questionIds"] !== undefined)
-      data["QuestionIds"] = serialize.map(
-        params["questionIds"],
+    if (params["questionSids"] !== undefined)
+      data["QuestionSids"] = serialize.map(
+        params["questionSids"],
         (e: string) => e
       );
 

@@ -31,7 +31,7 @@ import { WebhookListInstance } from "./service/webhook";
  * Options to pass to update a ServiceInstance
  */
 export interface ServiceContextUpdateOptions {
-  /** A descriptive string that you create to describe the verification service. It can be up to 30 characters long. **This value should not contain PII.** */
+  /** A descriptive string that you create to describe the verification service. It can be up to 32 characters long. **This value should not contain PII.** */
   friendlyName?: string;
   /** The length of the verification code to generate. Must be an integer value between 4 and 10, inclusive. */
   codeLength?: number;
@@ -71,7 +71,7 @@ export interface ServiceContextUpdateOptions {
  * Options to pass to create a ServiceInstance
  */
 export interface ServiceListInstanceCreateOptions {
-  /** A descriptive string that you create to describe the verification service. It can be up to 30 characters long. **This value should not contain PII.** */
+  /** A descriptive string that you create to describe the verification service. It can be up to 32 characters long. **This value should not contain PII.** */
   friendlyName: string;
   /** The length of the verification code to generate. Must be an integer value between 4 and 10, inclusive. */
   codeLength?: number;
@@ -464,7 +464,7 @@ export class ServiceInstance {
    */
   accountSid: string;
   /**
-   * The string that you assigned to describe the verification service. **This value should not contain PII.**
+   * The string that you assigned to describe the verification service. It can be up to 32 characters long. **This value should not contain PII.**
    */
   friendlyName: string;
   /**

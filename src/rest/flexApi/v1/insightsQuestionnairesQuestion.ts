@@ -36,8 +36,8 @@ export interface InsightsQuestionnairesQuestionContextUpdateOptions {
   allowNa: boolean;
   /** The Token HTTP request header */
   token?: string;
-  /** The ID of the category */
-  categoryId?: string;
+  /** The SID of the category */
+  categorySid?: string;
   /** The question. */
   question?: string;
   /** The description for the question. */
@@ -50,8 +50,8 @@ export interface InsightsQuestionnairesQuestionContextUpdateOptions {
  * Options to pass to create a InsightsQuestionnairesQuestionInstance
  */
 export interface InsightsQuestionnairesQuestionListInstanceCreateOptions {
-  /** The ID of the category */
-  categoryId: string;
+  /** The SID of the category */
+  categorySid: string;
   /** The question. */
   question: string;
   /** The answer_set for the question. */
@@ -69,8 +69,8 @@ export interface InsightsQuestionnairesQuestionListInstanceCreateOptions {
 export interface InsightsQuestionnairesQuestionListInstanceEachOptions {
   /** The Token HTTP request header */
   token?: string;
-  /** The list of category IDs */
-  categoryId?: Array<string>;
+  /** The list of category SIDs */
+  categorySid?: Array<string>;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
@@ -90,8 +90,8 @@ export interface InsightsQuestionnairesQuestionListInstanceEachOptions {
 export interface InsightsQuestionnairesQuestionListInstanceOptions {
   /** The Token HTTP request header */
   token?: string;
-  /** The list of category IDs */
-  categoryId?: Array<string>;
+  /** The list of category SIDs */
+  categorySid?: Array<string>;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
   /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
@@ -104,8 +104,8 @@ export interface InsightsQuestionnairesQuestionListInstanceOptions {
 export interface InsightsQuestionnairesQuestionListInstancePageOptions {
   /** The Token HTTP request header */
   token?: string;
-  /** The list of category IDs */
-  categoryId?: Array<string>;
+  /** The list of category SIDs */
+  categorySid?: Array<string>;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
   /** Page Number, this value is simply for client state */
@@ -162,7 +162,7 @@ export interface InsightsQuestionnairesQuestionContext {
 }
 
 export interface InsightsQuestionnairesQuestionContextSolution {
-  questionId: string;
+  questionSid: string;
 }
 
 export class InsightsQuestionnairesQuestionContextImpl
@@ -171,13 +171,13 @@ export class InsightsQuestionnairesQuestionContextImpl
   protected _solution: InsightsQuestionnairesQuestionContextSolution;
   protected _uri: string;
 
-  constructor(protected _version: V1, questionId: string) {
-    if (!isValidPathParam(questionId)) {
-      throw new Error("Parameter 'questionId' is not valid.");
+  constructor(protected _version: V1, questionSid: string) {
+    if (!isValidPathParam(questionSid)) {
+      throw new Error("Parameter 'questionSid' is not valid.");
     }
 
-    this._solution = { questionId };
-    this._uri = `/Insights/QM/Questions/${questionId}`;
+    this._solution = { questionSid };
+    this._uri = `/Insights/QualityManagement/Questions/${questionSid}`;
   }
 
   remove(
@@ -232,8 +232,8 @@ export class InsightsQuestionnairesQuestionContextImpl
     let data: any = {};
 
     data["AllowNa"] = serialize.bool(params["allowNa"]);
-    if (params["categoryId"] !== undefined)
-      data["CategoryId"] = params["categoryId"];
+    if (params["categorySid"] !== undefined)
+      data["CategorySid"] = params["categorySid"];
     if (params["question"] !== undefined) data["Question"] = params["question"];
     if (params["description"] !== undefined)
       data["Description"] = params["description"];
@@ -258,7 +258,7 @@ export class InsightsQuestionnairesQuestionContextImpl
         new InsightsQuestionnairesQuestionInstance(
           operationVersion,
           payload,
-          instance._solution.questionId
+          instance._solution.questionSid
         )
     );
 
@@ -289,7 +289,7 @@ interface InsightsQuestionnairesQuestionPayload extends TwilioResponsePayload {
 
 interface InsightsQuestionnairesQuestionResource {
   account_sid: string;
-  question_id: string;
+  question_sid: string;
   question: string;
   description: string;
   category: any;
@@ -307,10 +307,10 @@ export class InsightsQuestionnairesQuestionInstance {
   constructor(
     protected _version: V1,
     payload: InsightsQuestionnairesQuestionResource,
-    questionId?: string
+    questionSid?: string
   ) {
     this.accountSid = payload.account_sid;
-    this.questionId = payload.question_id;
+    this.questionSid = payload.question_sid;
     this.question = payload.question;
     this.description = payload.description;
     this.category = payload.category;
@@ -320,7 +320,7 @@ export class InsightsQuestionnairesQuestionInstance {
     this.answerSet = payload.answer_set;
     this.url = payload.url;
 
-    this._solution = { questionId: questionId || this.questionId };
+    this._solution = { questionSid: questionSid || this.questionSid };
   }
 
   /**
@@ -328,9 +328,9 @@ export class InsightsQuestionnairesQuestionInstance {
    */
   accountSid: string;
   /**
-   * The unique ID of the question
+   * The SID of the question
    */
-  questionId: string;
+  questionSid: string;
   /**
    * The question.
    */
@@ -366,7 +366,7 @@ export class InsightsQuestionnairesQuestionInstance {
       this._context ||
       new InsightsQuestionnairesQuestionContextImpl(
         this._version,
-        this._solution.questionId
+        this._solution.questionSid
       );
     return this._context;
   }
@@ -435,7 +435,7 @@ export class InsightsQuestionnairesQuestionInstance {
   toJSON() {
     return {
       accountSid: this.accountSid,
-      questionId: this.questionId,
+      questionSid: this.questionSid,
       question: this.question,
       description: this.description,
       category: this.category,
@@ -459,8 +459,8 @@ export interface InsightsQuestionnairesQuestionListInstance {
   _solution: InsightsQuestionnairesQuestionSolution;
   _uri: string;
 
-  (questionId: string): InsightsQuestionnairesQuestionContext;
-  get(questionId: string): InsightsQuestionnairesQuestionContext;
+  (questionSid: string): InsightsQuestionnairesQuestionContext;
+  get(questionSid: string): InsightsQuestionnairesQuestionContext;
 
   /**
    * Create a InsightsQuestionnairesQuestionInstance
@@ -578,18 +578,18 @@ export interface InsightsQuestionnairesQuestionListInstance {
 export function InsightsQuestionnairesQuestionListInstance(
   version: V1
 ): InsightsQuestionnairesQuestionListInstance {
-  const instance = ((questionId) =>
-    instance.get(questionId)) as InsightsQuestionnairesQuestionListInstance;
+  const instance = ((questionSid) =>
+    instance.get(questionSid)) as InsightsQuestionnairesQuestionListInstance;
 
   instance.get = function get(
-    questionId
+    questionSid
   ): InsightsQuestionnairesQuestionContext {
-    return new InsightsQuestionnairesQuestionContextImpl(version, questionId);
+    return new InsightsQuestionnairesQuestionContextImpl(version, questionSid);
   };
 
   instance._version = version;
   instance._solution = {};
-  instance._uri = `/Insights/QM/Questions`;
+  instance._uri = `/Insights/QualityManagement/Questions`;
 
   instance.create = function create(
     params: InsightsQuestionnairesQuestionListInstanceCreateOptions,
@@ -602,8 +602,8 @@ export function InsightsQuestionnairesQuestionListInstance(
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params["categoryId"] === null || params["categoryId"] === undefined) {
-      throw new Error("Required parameter \"params['categoryId']\" missing.");
+    if (params["categorySid"] === null || params["categorySid"] === undefined) {
+      throw new Error("Required parameter \"params['categorySid']\" missing.");
     }
 
     if (params["question"] === null || params["question"] === undefined) {
@@ -620,7 +620,7 @@ export function InsightsQuestionnairesQuestionListInstance(
 
     let data: any = {};
 
-    data["CategoryId"] = params["categoryId"];
+    data["CategorySid"] = params["categorySid"];
 
     data["Question"] = params["question"];
 
@@ -675,9 +675,9 @@ export function InsightsQuestionnairesQuestionListInstance(
 
     let data: any = {};
 
-    if (params["categoryId"] !== undefined)
-      data["CategoryId"] = serialize.map(
-        params["categoryId"],
+    if (params["categorySid"] !== undefined)
+      data["CategorySid"] = serialize.map(
+        params["categorySid"],
         (e: string) => e
       );
     if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];

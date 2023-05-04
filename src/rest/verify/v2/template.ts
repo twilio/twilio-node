@@ -24,7 +24,7 @@ import { isValidPathParam } from "../../../base/utility";
  * Options to pass to each
  */
 export interface TemplateListInstanceEachOptions {
-  /** String filter used to query templates with a given friendly name */
+  /** String filter used to query templates with a given friendly name. */
   friendlyName?: string;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
@@ -40,7 +40,7 @@ export interface TemplateListInstanceEachOptions {
  * Options to pass to list
  */
 export interface TemplateListInstanceOptions {
-  /** String filter used to query templates with a given friendly name */
+  /** String filter used to query templates with a given friendly name. */
   friendlyName?: string;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
@@ -52,7 +52,7 @@ export interface TemplateListInstanceOptions {
  * Options to pass to page
  */
 export interface TemplateListInstancePageOptions {
-  /** String filter used to query templates with a given friendly name */
+  /** String filter used to query templates with a given friendly name. */
   friendlyName?: string;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
@@ -259,11 +259,11 @@ export class TemplateInstance {
    */
   accountSid: string;
   /**
-   * A descriptive string that you create to describe a Template.
+   * A descriptive string that you create to describe a Template. It can be up to 32 characters long.
    */
   friendlyName: string;
   /**
-   * A list of channels that support the Template. Can include: sms, voice
+   * A list of channels that support the Template. Can include: sms, voice.
    */
   channels: Array<string>;
   /**

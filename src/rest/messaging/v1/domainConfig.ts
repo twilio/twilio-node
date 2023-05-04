@@ -22,14 +22,10 @@ import { isValidPathParam } from "../../../base/utility";
  * Options to pass to update a DomainConfigInstance
  */
 export interface DomainConfigContextUpdateOptions {
-  /** A list of messagingServiceSids (with prefix MG) */
-  messagingServiceSids: Array<string>;
   /** Any requests we receive to this domain that do not match an existing shortened message will be redirected to the fallback url. These will likely be either expired messages, random misdirected traffic, or intentional scraping. */
   fallbackUrl?: string;
   /** URL to receive click events to your webhook whenever the recipients click on the shortened links */
   callbackUrl?: string;
-  /** An action type for messaging_service_sids operation (ADD, DELETE, REPLACE) */
-  messagingServiceSidsAction?: string;
 }
 
 export interface DomainConfigContext {
@@ -44,6 +40,16 @@ export interface DomainConfigContext {
     callback?: (error: Error | null, item?: DomainConfigInstance) => any
   ): Promise<DomainConfigInstance>;
 
+  /**
+   * Update a DomainConfigInstance
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed DomainConfigInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: DomainConfigInstance) => any
+  ): Promise<DomainConfigInstance>;
   /**
    * Update a DomainConfigInstance
    *
@@ -108,34 +114,24 @@ export class DomainConfigContextImpl implements DomainConfigContext {
   }
 
   update(
-    params: DomainConfigContextUpdateOptions,
+    params?:
+      | DomainConfigContextUpdateOptions
+      | ((error: Error | null, item?: DomainConfigInstance) => any),
     callback?: (error: Error | null, item?: DomainConfigInstance) => any
   ): Promise<DomainConfigInstance> {
-    if (params === null || params === undefined) {
-      throw new Error('Required parameter "params" missing.');
-    }
-
-    if (
-      params["messagingServiceSids"] === null ||
-      params["messagingServiceSids"] === undefined
-    ) {
-      throw new Error(
-        "Required parameter \"params['messagingServiceSids']\" missing."
-      );
+    if (params instanceof Function) {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
     }
 
     let data: any = {};
 
-    data["MessagingServiceSids"] = serialize.map(
-      params["messagingServiceSids"],
-      (e: string) => e
-    );
     if (params["fallbackUrl"] !== undefined)
       data["FallbackUrl"] = params["fallbackUrl"];
     if (params["callbackUrl"] !== undefined)
       data["CallbackUrl"] = params["callbackUrl"];
-    if (params["messagingServiceSidsAction"] !== undefined)
-      data["MessagingServiceSidsAction"] = params["messagingServiceSidsAction"];
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
@@ -184,7 +180,6 @@ interface DomainConfigPayload extends DomainConfigResource {}
 interface DomainConfigResource {
   domain_sid: string;
   config_sid: string;
-  messaging_service_sids: Array<string>;
   fallback_url: string;
   callback_url: string;
   date_created: Date;
@@ -203,7 +198,6 @@ export class DomainConfigInstance {
   ) {
     this.domainSid = payload.domain_sid;
     this.configSid = payload.config_sid;
-    this.messagingServiceSids = payload.messaging_service_sids;
     this.fallbackUrl = payload.fallback_url;
     this.callbackUrl = payload.callback_url;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
@@ -221,10 +215,6 @@ export class DomainConfigInstance {
    * The unique string that we created to identify the Domain config (prefix ZK).
    */
   configSid: string;
-  /**
-   * A list of messagingServiceSids (with prefix MG).
-   */
-  messagingServiceSids: Array<string>;
   /**
    * Any requests we receive to this domain that do not match an existing shortened message will be redirected to the fallback url. These will likely be either expired messages, random misdirected traffic, or intentional scraping.
    */
@@ -266,6 +256,16 @@ export class DomainConfigInstance {
   /**
    * Update a DomainConfigInstance
    *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed DomainConfigInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: DomainConfigInstance) => any
+  ): Promise<DomainConfigInstance>;
+  /**
+   * Update a DomainConfigInstance
+   *
    * @param params - Parameter for request
    * @param callback - Callback to handle processed record
    *
@@ -292,7 +292,6 @@ export class DomainConfigInstance {
     return {
       domainSid: this.domainSid,
       configSid: this.configSid,
-      messagingServiceSids: this.messagingServiceSids,
       fallbackUrl: this.fallbackUrl,
       callbackUrl: this.callbackUrl,
       dateCreated: this.dateCreated,

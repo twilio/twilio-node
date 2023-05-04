@@ -140,7 +140,7 @@ export interface InsightsQuestionnairesCategoryContext {
 }
 
 export interface InsightsQuestionnairesCategoryContextSolution {
-  categoryId: string;
+  categorySid: string;
 }
 
 export class InsightsQuestionnairesCategoryContextImpl
@@ -149,13 +149,13 @@ export class InsightsQuestionnairesCategoryContextImpl
   protected _solution: InsightsQuestionnairesCategoryContextSolution;
   protected _uri: string;
 
-  constructor(protected _version: V1, categoryId: string) {
-    if (!isValidPathParam(categoryId)) {
-      throw new Error("Parameter 'categoryId' is not valid.");
+  constructor(protected _version: V1, categorySid: string) {
+    if (!isValidPathParam(categorySid)) {
+      throw new Error("Parameter 'categorySid' is not valid.");
     }
 
-    this._solution = { categoryId };
-    this._uri = `/Insights/QM/Categories/${categoryId}`;
+    this._solution = { categorySid };
+    this._uri = `/Insights/QualityManagement/Categories/${categorySid}`;
   }
 
   remove(
@@ -229,7 +229,7 @@ export class InsightsQuestionnairesCategoryContextImpl
         new InsightsQuestionnairesCategoryInstance(
           operationVersion,
           payload,
-          instance._solution.categoryId
+          instance._solution.categorySid
         )
     );
 
@@ -260,7 +260,7 @@ interface InsightsQuestionnairesCategoryPayload extends TwilioResponsePayload {
 
 interface InsightsQuestionnairesCategoryResource {
   account_sid: string;
-  category_id: string;
+  category_sid: string;
   name: string;
   url: string;
 }
@@ -272,14 +272,14 @@ export class InsightsQuestionnairesCategoryInstance {
   constructor(
     protected _version: V1,
     payload: InsightsQuestionnairesCategoryResource,
-    categoryId?: string
+    categorySid?: string
   ) {
     this.accountSid = payload.account_sid;
-    this.categoryId = payload.category_id;
+    this.categorySid = payload.category_sid;
     this.name = payload.name;
     this.url = payload.url;
 
-    this._solution = { categoryId: categoryId || this.categoryId };
+    this._solution = { categorySid: categorySid || this.categorySid };
   }
 
   /**
@@ -287,9 +287,9 @@ export class InsightsQuestionnairesCategoryInstance {
    */
   accountSid: string;
   /**
-   * The unique ID for the category
+   * The SID of the category
    */
-  categoryId: string;
+  categorySid: string;
   /**
    * The name of this category.
    */
@@ -301,7 +301,7 @@ export class InsightsQuestionnairesCategoryInstance {
       this._context ||
       new InsightsQuestionnairesCategoryContextImpl(
         this._version,
-        this._solution.categoryId
+        this._solution.categorySid
       );
     return this._context;
   }
@@ -370,7 +370,7 @@ export class InsightsQuestionnairesCategoryInstance {
   toJSON() {
     return {
       accountSid: this.accountSid,
-      categoryId: this.categoryId,
+      categorySid: this.categorySid,
       name: this.name,
       url: this.url,
     };
@@ -388,8 +388,8 @@ export interface InsightsQuestionnairesCategoryListInstance {
   _solution: InsightsQuestionnairesCategorySolution;
   _uri: string;
 
-  (categoryId: string): InsightsQuestionnairesCategoryContext;
-  get(categoryId: string): InsightsQuestionnairesCategoryContext;
+  (categorySid: string): InsightsQuestionnairesCategoryContext;
+  get(categorySid: string): InsightsQuestionnairesCategoryContext;
 
   /**
    * Create a InsightsQuestionnairesCategoryInstance
@@ -507,18 +507,18 @@ export interface InsightsQuestionnairesCategoryListInstance {
 export function InsightsQuestionnairesCategoryListInstance(
   version: V1
 ): InsightsQuestionnairesCategoryListInstance {
-  const instance = ((categoryId) =>
-    instance.get(categoryId)) as InsightsQuestionnairesCategoryListInstance;
+  const instance = ((categorySid) =>
+    instance.get(categorySid)) as InsightsQuestionnairesCategoryListInstance;
 
   instance.get = function get(
-    categoryId
+    categorySid
   ): InsightsQuestionnairesCategoryContext {
-    return new InsightsQuestionnairesCategoryContextImpl(version, categoryId);
+    return new InsightsQuestionnairesCategoryContextImpl(version, categorySid);
   };
 
   instance._version = version;
   instance._solution = {};
-  instance._uri = `/Insights/QM/Categories`;
+  instance._uri = `/Insights/QualityManagement/Categories`;
 
   instance.create = function create(
     params: InsightsQuestionnairesCategoryListInstanceCreateOptions,

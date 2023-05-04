@@ -76,7 +76,7 @@ export function InsightsSettingsCommentListInstance(
 
   instance._version = version;
   instance._solution = {};
-  instance._uri = `/Insights/QM/Settings/CommentTags`;
+  instance._uri = `/Insights/QualityManagement/Settings/CommentTags`;
 
   instance.fetch = function fetch(
     params?:

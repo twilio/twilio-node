@@ -38,8 +38,8 @@ export interface AssessmentsContextUpdateOptions {
  * Options to pass to create a AssessmentsInstance
  */
 export interface AssessmentsListInstanceCreateOptions {
-  /** The id of the category  */
-  categoryId: string;
+  /** The SID of the category  */
+  categorySid: string;
   /** The name of the category */
   categoryName: string;
   /** Segment Id of the conversation */
@@ -52,7 +52,7 @@ export interface AssessmentsListInstanceCreateOptions {
   agentId: string;
   /** The offset of the conversation. */
   offset: number;
-  /** The question Id selected for assessment */
+  /** The question SID selected for assessment */
   metricId: string;
   /** The question name of the assessment */
   metricName: string;
@@ -60,8 +60,8 @@ export interface AssessmentsListInstanceCreateOptions {
   answerText: string;
   /** The id of the answer selected by user */
   answerId: string;
-  /** Questionnaire Id of the associated question */
-  questionnaireId: string;
+  /** Questionnaire SID of the associated question */
+  questionnaireSid: string;
   /** The Token HTTP request header */
   token?: string;
 }
@@ -135,20 +135,20 @@ export interface AssessmentsContext {
 }
 
 export interface AssessmentsContextSolution {
-  assessmentId: string;
+  assessmentSid: string;
 }
 
 export class AssessmentsContextImpl implements AssessmentsContext {
   protected _solution: AssessmentsContextSolution;
   protected _uri: string;
 
-  constructor(protected _version: V1, assessmentId: string) {
-    if (!isValidPathParam(assessmentId)) {
-      throw new Error("Parameter 'assessmentId' is not valid.");
+  constructor(protected _version: V1, assessmentSid: string) {
+    if (!isValidPathParam(assessmentSid)) {
+      throw new Error("Parameter 'assessmentSid' is not valid.");
     }
 
-    this._solution = { assessmentId };
-    this._uri = `/Insights/QM/Assessments/${assessmentId}`;
+    this._solution = { assessmentSid };
+    this._uri = `/Insights/QualityManagement/Assessments/${assessmentSid}`;
   }
 
   update(
@@ -197,7 +197,7 @@ export class AssessmentsContextImpl implements AssessmentsContext {
         new AssessmentsInstance(
           operationVersion,
           payload,
-          instance._solution.assessmentId
+          instance._solution.assessmentSid
         )
     );
 
@@ -228,7 +228,7 @@ interface AssessmentsPayload extends TwilioResponsePayload {
 
 interface AssessmentsResource {
   account_sid: string;
-  assessment_id: string;
+  assessment_sid: string;
   offset: number;
   report: boolean;
   weight: number;
@@ -250,10 +250,10 @@ export class AssessmentsInstance {
   constructor(
     protected _version: V1,
     payload: AssessmentsResource,
-    assessmentId?: string
+    assessmentSid?: string
   ) {
     this.accountSid = payload.account_sid;
-    this.assessmentId = payload.assessment_id;
+    this.assessmentSid = payload.assessment_sid;
     this.offset = payload.offset;
     this.report = payload.report;
     this.weight = payload.weight;
@@ -267,7 +267,7 @@ export class AssessmentsInstance {
     this.timestamp = payload.timestamp;
     this.url = payload.url;
 
-    this._solution = { assessmentId: assessmentId || this.assessmentId };
+    this._solution = { assessmentSid: assessmentSid || this.assessmentSid };
   }
 
   /**
@@ -275,9 +275,9 @@ export class AssessmentsInstance {
    */
   accountSid: string;
   /**
-   * The unique id of the assessment
+   * The SID of the assessment
    */
-  assessmentId: string;
+  assessmentSid: string;
   /**
    * Offset of the conversation
    */
@@ -324,7 +324,7 @@ export class AssessmentsInstance {
   private get _proxy(): AssessmentsContext {
     this._context =
       this._context ||
-      new AssessmentsContextImpl(this._version, this._solution.assessmentId);
+      new AssessmentsContextImpl(this._version, this._solution.assessmentSid);
     return this._context;
   }
 
@@ -356,7 +356,7 @@ export class AssessmentsInstance {
   toJSON() {
     return {
       accountSid: this.accountSid,
-      assessmentId: this.assessmentId,
+      assessmentSid: this.assessmentSid,
       offset: this.offset,
       report: this.report,
       weight: this.weight,
@@ -384,8 +384,8 @@ export interface AssessmentsListInstance {
   _solution: AssessmentsSolution;
   _uri: string;
 
-  (assessmentId: string): AssessmentsContext;
-  get(assessmentId: string): AssessmentsContext;
+  (assessmentSid: string): AssessmentsContext;
+  get(assessmentSid: string): AssessmentsContext;
 
   /**
    * Create a AssessmentsInstance
@@ -477,16 +477,16 @@ export interface AssessmentsListInstance {
 }
 
 export function AssessmentsListInstance(version: V1): AssessmentsListInstance {
-  const instance = ((assessmentId) =>
-    instance.get(assessmentId)) as AssessmentsListInstance;
+  const instance = ((assessmentSid) =>
+    instance.get(assessmentSid)) as AssessmentsListInstance;
 
-  instance.get = function get(assessmentId): AssessmentsContext {
-    return new AssessmentsContextImpl(version, assessmentId);
+  instance.get = function get(assessmentSid): AssessmentsContext {
+    return new AssessmentsContextImpl(version, assessmentSid);
   };
 
   instance._version = version;
   instance._solution = {};
-  instance._uri = `/Insights/QM/Assessments`;
+  instance._uri = `/Insights/QualityManagement/Assessments`;
 
   instance.create = function create(
     params: AssessmentsListInstanceCreateOptions,
@@ -496,8 +496,8 @@ export function AssessmentsListInstance(version: V1): AssessmentsListInstance {
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (params["categoryId"] === null || params["categoryId"] === undefined) {
-      throw new Error("Required parameter \"params['categoryId']\" missing.");
+    if (params["categorySid"] === null || params["categorySid"] === undefined) {
+      throw new Error("Required parameter \"params['categorySid']\" missing.");
     }
 
     if (
@@ -544,17 +544,17 @@ export function AssessmentsListInstance(version: V1): AssessmentsListInstance {
     }
 
     if (
-      params["questionnaireId"] === null ||
-      params["questionnaireId"] === undefined
+      params["questionnaireSid"] === null ||
+      params["questionnaireSid"] === undefined
     ) {
       throw new Error(
-        "Required parameter \"params['questionnaireId']\" missing."
+        "Required parameter \"params['questionnaireSid']\" missing."
       );
     }
 
     let data: any = {};
 
-    data["CategoryId"] = params["categoryId"];
+    data["CategorySid"] = params["categorySid"];
 
     data["CategoryName"] = params["categoryName"];
 
@@ -576,7 +576,7 @@ export function AssessmentsListInstance(version: V1): AssessmentsListInstance {
 
     data["AnswerId"] = params["answerId"];
 
-    data["QuestionnaireId"] = params["questionnaireId"];
+    data["QuestionnaireSid"] = params["questionnaireSid"];
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
