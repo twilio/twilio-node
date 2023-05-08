@@ -91,9 +91,14 @@ namespace Twilio {
           throw new Error("password is required");
         })();
       this.accountSid = this.opts.accountSid || this.username;
-      this.edge = this.opts.edge || this.env.TWILIO_EDGE || process.env.TWILIO_EDGE;
-      this.region = this.opts.region || this.env.TWILIO_REGION || process.env.TWILIO_REGION;
-      this.logLevel = this.opts.logLevel || this.env.TWILIO_LOG_LEVEL || process.env.TWILIO_LOG_LEVEL;
+      this.edge =
+        this.opts.edge || this.env.TWILIO_EDGE || process.env.TWILIO_EDGE;
+      this.region =
+        this.opts.region || this.env.TWILIO_REGION || process.env.TWILIO_REGION;
+      this.logLevel =
+        this.opts.logLevel ||
+        this.env.TWILIO_LOG_LEVEL ||
+        process.env.TWILIO_LOG_LEVEL;
       this.autoRetry = this.opts.autoRetry || false;
       this.maxRetries = this.opts.maxRetries;
       this.userAgentExtensions = this.opts.userAgentExtensions || [];
