@@ -75,23 +75,24 @@ namespace Twilio {
 
     constructor(username?: string, password?: string, opts?: ClientOpts) {
       this.opts = opts || {};
-      this.env = this.opts.env || process.env;
       this.username =
         username ||
-        this.env.TWILIO_ACCOUNT_SID ||
+        this.opts.env.TWILIO_ACCOUNT_SID ||
+        process.env.TWILIO_ACCOUNT_SID ||
         (() => {
           throw new Error("username is required");
         })();
       this.password =
         password ||
-        this.env.TWILIO_AUTH_TOKEN ||
+        this.opts.env.TWILIO_AUTH_TOKEN ||
+        process.env.TWILIO_AUTH_TOKEN ||
         (() => {
           throw new Error("password is required");
         })();
       this.accountSid = this.opts.accountSid || this.username;
-      this.edge = this.opts.edge || this.env.TWILIO_EDGE;
-      this.region = this.opts.region || this.env.TWILIO_REGION;
-      this.logLevel = this.opts.logLevel || this.env.TWILIO_LOG_LEVEL;
+      this.edge = this.opts.edge || this.opts.env.TWILIO_EDGE || process.env.TWILIO_EDGE;
+      this.region = this.opts.region || this.opts.env.TWILIO_REGION || process.env.TWILIO_REGION;
+      this.logLevel = this.opts.logLevel || this.opts.env.TWILIO_LOG_LEVEL || process.env.TWILIO_LOG_LEVEL;
       this.autoRetry = this.opts.autoRetry || false;
       this.maxRetries = this.opts.maxRetries;
       this.userAgentExtensions = this.opts.userAgentExtensions || [];
