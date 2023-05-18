@@ -24,8 +24,8 @@ import { isValidPathParam } from "../../../base/utility";
  * Options to pass to remove a InsightsQuestionnairesQuestionInstance
  */
 export interface InsightsQuestionnairesQuestionContextRemoveOptions {
-  /** The Token HTTP request header */
-  token?: string;
+  /** The Authorization HTTP request header */
+  authorization?: string;
 }
 
 /**
@@ -34,8 +34,8 @@ export interface InsightsQuestionnairesQuestionContextRemoveOptions {
 export interface InsightsQuestionnairesQuestionContextUpdateOptions {
   /** The flag to enable for disable NA for answer. */
   allowNa: boolean;
-  /** The Token HTTP request header */
-  token?: string;
+  /** The Authorization HTTP request header */
+  authorization?: string;
   /** The SID of the category */
   categorySid?: string;
   /** The question. */
@@ -58,8 +58,8 @@ export interface InsightsQuestionnairesQuestionListInstanceCreateOptions {
   answerSetId: string;
   /** The flag to enable for disable NA for answer. */
   allowNa: boolean;
-  /** The Token HTTP request header */
-  token?: string;
+  /** The Authorization HTTP request header */
+  authorization?: string;
   /** The description for the question. */
   description?: string;
 }
@@ -67,8 +67,8 @@ export interface InsightsQuestionnairesQuestionListInstanceCreateOptions {
  * Options to pass to each
  */
 export interface InsightsQuestionnairesQuestionListInstanceEachOptions {
-  /** The Token HTTP request header */
-  token?: string;
+  /** The Authorization HTTP request header */
+  authorization?: string;
   /** The list of category SIDs */
   categorySid?: Array<string>;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
@@ -88,8 +88,8 @@ export interface InsightsQuestionnairesQuestionListInstanceEachOptions {
  * Options to pass to list
  */
 export interface InsightsQuestionnairesQuestionListInstanceOptions {
-  /** The Token HTTP request header */
-  token?: string;
+  /** The Authorization HTTP request header */
+  authorization?: string;
   /** The list of category SIDs */
   categorySid?: Array<string>;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
@@ -102,8 +102,8 @@ export interface InsightsQuestionnairesQuestionListInstanceOptions {
  * Options to pass to page
  */
 export interface InsightsQuestionnairesQuestionListInstancePageOptions {
-  /** The Token HTTP request header */
-  token?: string;
+  /** The Authorization HTTP request header */
+  authorization?: string;
   /** The list of category SIDs */
   categorySid?: Array<string>;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
@@ -196,7 +196,8 @@ export class InsightsQuestionnairesQuestionContextImpl
     let data: any = {};
 
     const headers: any = {};
-    if (params["token"] !== undefined) headers["Token"] = params["token"];
+    if (params["authorization"] !== undefined)
+      headers["Authorization"] = params["authorization"];
 
     const instance = this;
     let operationVersion = instance._version,
@@ -242,7 +243,8 @@ export class InsightsQuestionnairesQuestionContextImpl
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
-    if (params["token"] !== undefined) headers["Token"] = params["token"];
+    if (params["authorization"] !== undefined)
+      headers["Authorization"] = params["authorization"];
 
     const instance = this;
     let operationVersion = instance._version,
@@ -632,7 +634,8 @@ export function InsightsQuestionnairesQuestionListInstance(
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
-    if (params["token"] !== undefined) headers["Token"] = params["token"];
+    if (params["authorization"] !== undefined)
+      headers["Authorization"] = params["authorization"];
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
@@ -686,7 +689,8 @@ export function InsightsQuestionnairesQuestionListInstance(
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
-    if (params["token"] !== undefined) headers["Token"] = params["token"];
+    if (params["authorization"] !== undefined)
+      headers["Authorization"] = params["authorization"];
 
     let operationVersion = version,
       operationPromise = operationVersion.page({

@@ -24,8 +24,8 @@ import { isValidPathParam } from "../../../base/utility";
  * Options to pass to each
  */
 export interface InsightsConversationsListInstanceEachOptions {
-  /** The Token HTTP request header */
-  token?: string;
+  /** The Authorization HTTP request header */
+  authorization?: string;
   /** Unique Id of the segment for which conversation details needs to be fetched */
   segmentId?: string;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
@@ -45,8 +45,8 @@ export interface InsightsConversationsListInstanceEachOptions {
  * Options to pass to list
  */
 export interface InsightsConversationsListInstanceOptions {
-  /** The Token HTTP request header */
-  token?: string;
+  /** The Authorization HTTP request header */
+  authorization?: string;
   /** Unique Id of the segment for which conversation details needs to be fetched */
   segmentId?: string;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
@@ -59,8 +59,8 @@ export interface InsightsConversationsListInstanceOptions {
  * Options to pass to page
  */
 export interface InsightsConversationsListInstancePageOptions {
-  /** The Token HTTP request header */
-  token?: string;
+  /** The Authorization HTTP request header */
+  authorization?: string;
   /** Unique Id of the segment for which conversation details needs to be fetched */
   segmentId?: string;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
@@ -198,7 +198,8 @@ export function InsightsConversationsListInstance(
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
-    if (params["token"] !== undefined) headers["Token"] = params["token"];
+    if (params["authorization"] !== undefined)
+      headers["Authorization"] = params["authorization"];
 
     let operationVersion = version,
       operationPromise = operationVersion.page({

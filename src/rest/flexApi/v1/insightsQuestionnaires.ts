@@ -24,16 +24,16 @@ import { isValidPathParam } from "../../../base/utility";
  * Options to pass to remove a InsightsQuestionnairesInstance
  */
 export interface InsightsQuestionnairesContextRemoveOptions {
-  /** The Token HTTP request header */
-  token?: string;
+  /** The Authorization HTTP request header */
+  authorization?: string;
 }
 
 /**
  * Options to pass to fetch a InsightsQuestionnairesInstance
  */
 export interface InsightsQuestionnairesContextFetchOptions {
-  /** The Token HTTP request header */
-  token?: string;
+  /** The Authorization HTTP request header */
+  authorization?: string;
 }
 
 /**
@@ -42,8 +42,8 @@ export interface InsightsQuestionnairesContextFetchOptions {
 export interface InsightsQuestionnairesContextUpdateOptions {
   /** The flag to enable or disable questionnaire */
   active: boolean;
-  /** The Token HTTP request header */
-  token?: string;
+  /** The Authorization HTTP request header */
+  authorization?: string;
   /** The name of this questionnaire */
   name?: string;
   /** The description of this questionnaire */
@@ -58,8 +58,8 @@ export interface InsightsQuestionnairesContextUpdateOptions {
 export interface InsightsQuestionnairesListInstanceCreateOptions {
   /** The name of this questionnaire */
   name: string;
-  /** The Token HTTP request header */
-  token?: string;
+  /** The Authorization HTTP request header */
+  authorization?: string;
   /** The description of this questionnaire */
   description?: string;
   /** The flag to enable or disable questionnaire */
@@ -71,8 +71,8 @@ export interface InsightsQuestionnairesListInstanceCreateOptions {
  * Options to pass to each
  */
 export interface InsightsQuestionnairesListInstanceEachOptions {
-  /** The Token HTTP request header */
-  token?: string;
+  /** The Authorization HTTP request header */
+  authorization?: string;
   /** Flag indicating whether to include inactive questionnaires or not */
   includeInactive?: boolean;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
@@ -92,8 +92,8 @@ export interface InsightsQuestionnairesListInstanceEachOptions {
  * Options to pass to list
  */
 export interface InsightsQuestionnairesListInstanceOptions {
-  /** The Token HTTP request header */
-  token?: string;
+  /** The Authorization HTTP request header */
+  authorization?: string;
   /** Flag indicating whether to include inactive questionnaires or not */
   includeInactive?: boolean;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
@@ -106,8 +106,8 @@ export interface InsightsQuestionnairesListInstanceOptions {
  * Options to pass to page
  */
 export interface InsightsQuestionnairesListInstancePageOptions {
-  /** The Token HTTP request header */
-  token?: string;
+  /** The Authorization HTTP request header */
+  authorization?: string;
   /** Flag indicating whether to include inactive questionnaires or not */
   includeInactive?: boolean;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
@@ -229,7 +229,8 @@ export class InsightsQuestionnairesContextImpl
     let data: any = {};
 
     const headers: any = {};
-    if (params["token"] !== undefined) headers["Token"] = params["token"];
+    if (params["authorization"] !== undefined)
+      headers["Authorization"] = params["authorization"];
 
     const instance = this;
     let operationVersion = instance._version,
@@ -266,7 +267,8 @@ export class InsightsQuestionnairesContextImpl
     let data: any = {};
 
     const headers: any = {};
-    if (params["token"] !== undefined) headers["Token"] = params["token"];
+    if (params["authorization"] !== undefined)
+      headers["Authorization"] = params["authorization"];
 
     const instance = this;
     let operationVersion = instance._version,
@@ -322,7 +324,8 @@ export class InsightsQuestionnairesContextImpl
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
-    if (params["token"] !== undefined) headers["Token"] = params["token"];
+    if (params["authorization"] !== undefined)
+      headers["Authorization"] = params["authorization"];
 
     const instance = this;
     let operationVersion = instance._version,
@@ -710,7 +713,8 @@ export function InsightsQuestionnairesListInstance(
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
-    if (params["token"] !== undefined) headers["Token"] = params["token"];
+    if (params["authorization"] !== undefined)
+      headers["Authorization"] = params["authorization"];
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
@@ -754,7 +758,8 @@ export function InsightsQuestionnairesListInstance(
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
-    if (params["token"] !== undefined) headers["Token"] = params["token"];
+    if (params["authorization"] !== undefined)
+      headers["Authorization"] = params["authorization"];
 
     let operationVersion = version,
       operationPromise = operationVersion.page({

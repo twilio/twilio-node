@@ -18,20 +18,20 @@ const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 
-export interface DomainConfigMessagingServiceContext {
+export interface LinkshorteningMessagingServiceDomainAssociationContext {
   /**
-   * Fetch a DomainConfigMessagingServiceInstance
+   * Fetch a LinkshorteningMessagingServiceDomainAssociationInstance
    *
    * @param callback - Callback to handle processed record
    *
-   * @returns Resolves to processed DomainConfigMessagingServiceInstance
+   * @returns Resolves to processed LinkshorteningMessagingServiceDomainAssociationInstance
    */
   fetch(
     callback?: (
       error: Error | null,
-      item?: DomainConfigMessagingServiceInstance
+      item?: LinkshorteningMessagingServiceDomainAssociationInstance
     ) => any
-  ): Promise<DomainConfigMessagingServiceInstance>;
+  ): Promise<LinkshorteningMessagingServiceDomainAssociationInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -40,14 +40,14 @@ export interface DomainConfigMessagingServiceContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface DomainConfigMessagingServiceContextSolution {
+export interface LinkshorteningMessagingServiceDomainAssociationContextSolution {
   messagingServiceSid: string;
 }
 
-export class DomainConfigMessagingServiceContextImpl
-  implements DomainConfigMessagingServiceContext
+export class LinkshorteningMessagingServiceDomainAssociationContextImpl
+  implements LinkshorteningMessagingServiceDomainAssociationContext
 {
-  protected _solution: DomainConfigMessagingServiceContextSolution;
+  protected _solution: LinkshorteningMessagingServiceDomainAssociationContextSolution;
   protected _uri: string;
 
   constructor(protected _version: V1, messagingServiceSid: string) {
@@ -56,15 +56,15 @@ export class DomainConfigMessagingServiceContextImpl
     }
 
     this._solution = { messagingServiceSid };
-    this._uri = `/LinkShortening/MessagingService/${messagingServiceSid}/DomainConfig`;
+    this._uri = `/LinkShortening/MessagingServices/${messagingServiceSid}/Domain`;
   }
 
   fetch(
     callback?: (
       error: Error | null,
-      item?: DomainConfigMessagingServiceInstance
+      item?: LinkshorteningMessagingServiceDomainAssociationInstance
     ) => any
-  ): Promise<DomainConfigMessagingServiceInstance> {
+  ): Promise<LinkshorteningMessagingServiceDomainAssociationInstance> {
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
@@ -74,7 +74,7 @@ export class DomainConfigMessagingServiceContextImpl
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new DomainConfigMessagingServiceInstance(
+        new LinkshorteningMessagingServiceDomainAssociationInstance(
           operationVersion,
           payload,
           instance._solution.messagingServiceSid
@@ -102,38 +102,26 @@ export class DomainConfigMessagingServiceContextImpl
   }
 }
 
-interface DomainConfigMessagingServicePayload
-  extends DomainConfigMessagingServiceResource {}
+interface LinkshorteningMessagingServiceDomainAssociationPayload
+  extends LinkshorteningMessagingServiceDomainAssociationResource {}
 
-interface DomainConfigMessagingServiceResource {
+interface LinkshorteningMessagingServiceDomainAssociationResource {
   domain_sid: string;
-  config_sid: string;
   messaging_service_sid: string;
-  fallback_url: string;
-  callback_url: string;
-  continue_on_failure: boolean;
-  date_created: Date;
-  date_updated: Date;
   url: string;
 }
 
-export class DomainConfigMessagingServiceInstance {
-  protected _solution: DomainConfigMessagingServiceContextSolution;
-  protected _context?: DomainConfigMessagingServiceContext;
+export class LinkshorteningMessagingServiceDomainAssociationInstance {
+  protected _solution: LinkshorteningMessagingServiceDomainAssociationContextSolution;
+  protected _context?: LinkshorteningMessagingServiceDomainAssociationContext;
 
   constructor(
     protected _version: V1,
-    payload: DomainConfigMessagingServiceResource,
+    payload: LinkshorteningMessagingServiceDomainAssociationResource,
     messagingServiceSid?: string
   ) {
     this.domainSid = payload.domain_sid;
-    this.configSid = payload.config_sid;
     this.messagingServiceSid = payload.messaging_service_sid;
-    this.fallbackUrl = payload.fallback_url;
-    this.callbackUrl = payload.callback_url;
-    this.continueOnFailure = payload.continue_on_failure;
-    this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
-    this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
     this.url = payload.url;
 
     this._solution = {
@@ -146,39 +134,15 @@ export class DomainConfigMessagingServiceInstance {
    */
   domainSid: string;
   /**
-   * The unique string that we created to identify the Domain config (prefix ZK).
-   */
-  configSid: string;
-  /**
    * The unique string that identifies the messaging service
    */
   messagingServiceSid: string;
-  /**
-   * Any requests we receive to this domain that do not match an existing shortened message will be redirected to the fallback url. These will likely be either expired messages, random misdirected traffic, or intentional scraping.
-   */
-  fallbackUrl: string;
-  /**
-   * URL to receive click events to your webhook whenever the recipients click on the shortened links.
-   */
-  callbackUrl: string;
-  /**
-   * Boolean field to set customer delivery preference when there is a failure in linkShortening service
-   */
-  continueOnFailure: boolean;
-  /**
-   * Date this Domain Config was created.
-   */
-  dateCreated: Date;
-  /**
-   * Date that this Domain Config was last updated.
-   */
-  dateUpdated: Date;
   url: string;
 
-  private get _proxy(): DomainConfigMessagingServiceContext {
+  private get _proxy(): LinkshorteningMessagingServiceDomainAssociationContext {
     this._context =
       this._context ||
-      new DomainConfigMessagingServiceContextImpl(
+      new LinkshorteningMessagingServiceDomainAssociationContextImpl(
         this._version,
         this._solution.messagingServiceSid
       );
@@ -186,18 +150,18 @@ export class DomainConfigMessagingServiceInstance {
   }
 
   /**
-   * Fetch a DomainConfigMessagingServiceInstance
+   * Fetch a LinkshorteningMessagingServiceDomainAssociationInstance
    *
    * @param callback - Callback to handle processed record
    *
-   * @returns Resolves to processed DomainConfigMessagingServiceInstance
+   * @returns Resolves to processed LinkshorteningMessagingServiceDomainAssociationInstance
    */
   fetch(
     callback?: (
       error: Error | null,
-      item?: DomainConfigMessagingServiceInstance
+      item?: LinkshorteningMessagingServiceDomainAssociationInstance
     ) => any
-  ): Promise<DomainConfigMessagingServiceInstance> {
+  ): Promise<LinkshorteningMessagingServiceDomainAssociationInstance> {
     return this._proxy.fetch(callback);
   }
 
@@ -209,13 +173,7 @@ export class DomainConfigMessagingServiceInstance {
   toJSON() {
     return {
       domainSid: this.domainSid,
-      configSid: this.configSid,
       messagingServiceSid: this.messagingServiceSid,
-      fallbackUrl: this.fallbackUrl,
-      callbackUrl: this.callbackUrl,
-      continueOnFailure: this.continueOnFailure,
-      dateCreated: this.dateCreated,
-      dateUpdated: this.dateUpdated,
       url: this.url,
     };
   }
@@ -225,15 +183,19 @@ export class DomainConfigMessagingServiceInstance {
   }
 }
 
-export interface DomainConfigMessagingServiceSolution {}
+export interface LinkshorteningMessagingServiceDomainAssociationSolution {}
 
-export interface DomainConfigMessagingServiceListInstance {
+export interface LinkshorteningMessagingServiceDomainAssociationListInstance {
   _version: V1;
-  _solution: DomainConfigMessagingServiceSolution;
+  _solution: LinkshorteningMessagingServiceDomainAssociationSolution;
   _uri: string;
 
-  (messagingServiceSid: string): DomainConfigMessagingServiceContext;
-  get(messagingServiceSid: string): DomainConfigMessagingServiceContext;
+  (
+    messagingServiceSid: string
+  ): LinkshorteningMessagingServiceDomainAssociationContext;
+  get(
+    messagingServiceSid: string
+  ): LinkshorteningMessagingServiceDomainAssociationContext;
 
   /**
    * Provide a user-friendly representation
@@ -242,18 +204,18 @@ export interface DomainConfigMessagingServiceListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function DomainConfigMessagingServiceListInstance(
+export function LinkshorteningMessagingServiceDomainAssociationListInstance(
   version: V1
-): DomainConfigMessagingServiceListInstance {
+): LinkshorteningMessagingServiceDomainAssociationListInstance {
   const instance = ((messagingServiceSid) =>
     instance.get(
       messagingServiceSid
-    )) as DomainConfigMessagingServiceListInstance;
+    )) as LinkshorteningMessagingServiceDomainAssociationListInstance;
 
   instance.get = function get(
     messagingServiceSid
-  ): DomainConfigMessagingServiceContext {
-    return new DomainConfigMessagingServiceContextImpl(
+  ): LinkshorteningMessagingServiceDomainAssociationContext {
+    return new LinkshorteningMessagingServiceDomainAssociationContextImpl(
       version,
       messagingServiceSid
     );
