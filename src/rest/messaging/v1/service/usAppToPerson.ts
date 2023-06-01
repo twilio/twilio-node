@@ -230,6 +230,7 @@ interface UsAppToPersonResource {
   date_updated: Date;
   url: string;
   mock: boolean;
+  errors: Array<any>;
 }
 
 export class UsAppToPersonInstance {
@@ -266,6 +267,7 @@ export class UsAppToPersonInstance {
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
     this.url = payload.url;
     this.mock = payload.mock;
+    this.errors = payload.errors;
 
     this._solution = { messagingServiceSid, sid: sid || this.sid };
   }
@@ -366,6 +368,10 @@ export class UsAppToPersonInstance {
    * A boolean that specifies whether campaign is a mock or not. Mock campaigns will be automatically created if using a mock brand. Mock campaigns should only be used for testing purposes.
    */
   mock: boolean;
+  /**
+   * Details indicating why a campaign registration failed. These errors can indicate one or more fields that were incorrect or did not meet review requirements.
+   */
+  errors: Array<any>;
 
   private get _proxy(): UsAppToPersonContext {
     this._context =
@@ -435,6 +441,7 @@ export class UsAppToPersonInstance {
       dateUpdated: this.dateUpdated,
       url: this.url,
       mock: this.mock,
+      errors: this.errors,
     };
   }
 

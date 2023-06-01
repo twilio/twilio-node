@@ -21,6 +21,7 @@ import Events from "./Events";
 import FlexApi from "./FlexApi";
 import FrontlineApi from "./FrontlineApi";
 import Insights from "./Insights";
+import Intelligence from "./Intelligence";
 import IpMessaging from "./IpMessaging";
 import Lookups from "./Lookups";
 import Media from "./Media";
@@ -99,6 +100,8 @@ class Twilio extends Client {
   _frontlineApi?: FrontlineApi;
   /** (Twilio.Insights) - insights domain */
   _insights?: Insights;
+  /** (Twilio.Intelligence) - intelligence domain */
+  _intelligence?: Intelligence;
   /** (Twilio.IpMessaging) - ipMessaging domain */
   _ipMessaging?: IpMessaging;
   /** (Twilio.Lookups) - lookups domain */
@@ -176,6 +179,7 @@ class Twilio extends Client {
       this.flexApi;
       this.frontlineApi;
       this.insights;
+      this.intelligence;
       this.ipMessaging;
       this.lookups;
       this.media;
@@ -261,6 +265,13 @@ class Twilio extends Client {
   get insights(): Insights {
     return (
       this._insights ?? (this._insights = new (require("./Insights"))(this))
+    );
+  }
+  /** Getter for (Twilio.Intelligence) domain */
+  get intelligence(): Intelligence {
+    return (
+      this._intelligence ??
+      (this._intelligence = new (require("./Intelligence"))(this))
     );
   }
   /** Getter for (Twilio.IpMessaging) domain */
