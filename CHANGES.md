@@ -1,6 +1,16 @@
 twilio-node changelog
 =====================
 
+[2023-06-15] Version 4.12.0
+---------------------------
+**Api**
+- Added `content_sid` as conditional parameter
+- Removed `content_sid` as optional field **(breaking change)**
+
+**Insights**
+- Added `annotation` to list summary output
+
+
 [2023-06-01] Version 4.11.2
 ---------------------------
 **Api**
