@@ -75,7 +75,7 @@ namespace Twilio {
 
     constructor(username?: string, password?: string, opts?: ClientOpts) {
       this.opts = opts || {};
-      this.env = this.opts.env || process.env;
+      this.env = this.opts.env || {};
       this.username =
         username ||
         this.env.TWILIO_ACCOUNT_SID ||
