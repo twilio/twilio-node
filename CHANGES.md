@@ -1,6 +1,21 @@
 twilio-node changelog
 =====================
 
+[2023-06-28] Version 4.13.0
+---------------------------
+**Library - Fix**
+- [PR #933](https://github.com/twilio/twilio-node/pull/933): Refer only required values from process.env instead of fetching all. Thanks to [@AsabuHere](https://github.com/AsabuHere)!
+
+**Lookups**
+- Add `reassigned_number` package to the lookup response
+
+**Numbers**
+- Add hosted_number_order under version `/v2`.
+- Update properties in Porting and Bulk Porting APIs. **(breaking change)**
+- Added bulk Portability API under version `/v1`.
+- Added Portability API under version `/v1`.
+
+
 [2023-06-15] Version 4.12.0
 ---------------------------
 **Api**

@@ -45,7 +45,7 @@ export type CallSummaryProcessingState = "complete" | "partial";
  * Options to pass to fetch a CallSummaryInstance
  */
 export interface CallSummaryContextFetchOptions {
-  /**  */
+  /** The Processing State of this Call Summary. One of `complete`, `partial` or `all`. */
   processingState?: CallSummaryProcessingState;
 }
 
@@ -220,28 +220,85 @@ export class CallSummaryInstance {
     this._solution = { callSid };
   }
 
+  /**
+   * The unique SID identifier of the Account.
+   */
   accountSid: string;
+  /**
+   * The unique SID identifier of the Call.
+   */
   callSid: string;
   callType: CallSummaryCallType;
   callState: CallSummaryCallState;
   answeredBy: CallSummaryAnsweredBy;
   processingState: CallSummaryProcessingState;
+  /**
+   * The time at which the Call was created, given in ISO 8601 format. Can be different from `start_time` in the event of queueing due to CPS
+   */
   createdTime: Date;
+  /**
+   * The time at which the Call was started, given in ISO 8601 format.
+   */
   startTime: Date;
+  /**
+   * The time at which the Call was ended, given in ISO 8601 format.
+   */
   endTime: Date;
+  /**
+   * Duration between when the call was initiated and the call was ended
+   */
   duration: number;
+  /**
+   * Duration between when the call was answered and when it ended
+   */
   connectDuration: number;
+  /**
+   * The calling party.
+   */
   from: any;
+  /**
+   * The called party.
+   */
   to: any;
+  /**
+   * Contains metrics and properties for the Twilio media gateway of a PSTN call.
+   */
   carrierEdge: any;
+  /**
+   * Contains metrics and properties for the Twilio media gateway of a Client call.
+   */
   clientEdge: any;
+  /**
+   * Contains metrics and properties for the SDK sensor library for Client calls.
+   */
   sdkEdge: any;
+  /**
+   * Contains metrics and properties for the Twilio media gateway of a SIP Interface or Trunking call.
+   */
   sipEdge: any;
+  /**
+   * Tags applied to calls by Voice Insights analysis indicating a condition that could result in subjective degradation of the call quality.
+   */
   tags: Array<string>;
+  /**
+   * The URL of this resource.
+   */
   url: string;
+  /**
+   * Attributes capturing call-flow-specific details.
+   */
   attributes: any;
+  /**
+   * Contains edge-agnostic call-level details.
+   */
   properties: any;
+  /**
+   * Contains trusted communications details including Branded Call and verified caller ID.
+   */
   trust: any;
+  /**
+   * Programmatically labeled annotations for the Call. Developers can update the Call Summary records with Annotation during or after a Call. Annotations can be updated as long as the Call Summary record is addressable via the API.
+   */
   annotation: any;
 
   private get _proxy(): CallSummaryContext {

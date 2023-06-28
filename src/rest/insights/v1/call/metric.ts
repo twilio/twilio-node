@@ -33,9 +33,9 @@ export type MetricTwilioEdge =
  * Options to pass to each
  */
 export interface MetricListInstanceEachOptions {
-  /**  */
+  /** The Edge of this Metric. One of `unknown_edge`, `carrier_edge`, `sip_edge`, `sdk_edge` or `client_edge`. */
   edge?: MetricTwilioEdge;
-  /**  */
+  /** The Direction of this Metric. One of `unknown`, `inbound`, `outbound` or `both`. */
   direction?: MetricStreamDirection;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
@@ -51,9 +51,9 @@ export interface MetricListInstanceEachOptions {
  * Options to pass to list
  */
 export interface MetricListInstanceOptions {
-  /**  */
+  /** The Edge of this Metric. One of `unknown_edge`, `carrier_edge`, `sip_edge`, `sdk_edge` or `client_edge`. */
   edge?: MetricTwilioEdge;
-  /**  */
+  /** The Direction of this Metric. One of `unknown`, `inbound`, `outbound` or `both`. */
   direction?: MetricStreamDirection;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
@@ -65,9 +65,9 @@ export interface MetricListInstanceOptions {
  * Options to pass to page
  */
 export interface MetricListInstancePageOptions {
-  /**  */
+  /** The Edge of this Metric. One of `unknown_edge`, `carrier_edge`, `sip_edge`, `sdk_edge` or `client_edge`. */
   edge?: MetricTwilioEdge;
-  /**  */
+  /** The Direction of this Metric. One of `unknown`, `inbound`, `outbound` or `both`. */
   direction?: MetricStreamDirection;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
@@ -286,14 +286,35 @@ export class MetricInstance {
     this.clientEdge = payload.client_edge;
   }
 
+  /**
+   * Timestamp of metric sample. Samples are taken every 10 seconds and contain the metrics for the previous 10 seconds.
+   */
   timestamp: string;
+  /**
+   * The unique SID identifier of the Call.
+   */
   callSid: string;
+  /**
+   * The unique SID identifier of the Account.
+   */
   accountSid: string;
   edge: MetricTwilioEdge;
   direction: MetricStreamDirection;
+  /**
+   * Contains metrics and properties for the Twilio media gateway of a PSTN call.
+   */
   carrierEdge: any;
+  /**
+   * Contains metrics and properties for the Twilio media gateway of a SIP Interface or Trunking call.
+   */
   sipEdge: any;
+  /**
+   * Contains metrics and properties for the SDK sensor library for Client calls.
+   */
   sdkEdge: any;
+  /**
+   * Contains metrics and properties for the Twilio media gateway of a Client call.
+   */
   clientEdge: any;
 
   /**

@@ -73,7 +73,7 @@ export interface WorkerListInstanceEachOptions {
   available?: string;
   /** The `friendly_name` of the Worker resources to read. */
   friendlyName?: string;
-  /** Filter by Workers that would match an expression on a TaskQueue. This is helpful for debugging which Workers would match a potential queue. */
+  /** Filter by Workers that would match an expression. In addition to fields in the workers\' attributes, the expression can include the following worker fields: `sid`, `friendly_name`, `activity_sid`, or `activity_name` */
   targetWorkersExpression?: string;
   /** The `friendly_name` of the TaskQueue that the Workers to read are eligible for. */
   taskQueueName?: string;
@@ -103,7 +103,7 @@ export interface WorkerListInstanceOptions {
   available?: string;
   /** The `friendly_name` of the Worker resources to read. */
   friendlyName?: string;
-  /** Filter by Workers that would match an expression on a TaskQueue. This is helpful for debugging which Workers would match a potential queue. */
+  /** Filter by Workers that would match an expression. In addition to fields in the workers\' attributes, the expression can include the following worker fields: `sid`, `friendly_name`, `activity_sid`, or `activity_name` */
   targetWorkersExpression?: string;
   /** The `friendly_name` of the TaskQueue that the Workers to read are eligible for. */
   taskQueueName?: string;
@@ -129,7 +129,7 @@ export interface WorkerListInstancePageOptions {
   available?: string;
   /** The `friendly_name` of the Worker resources to read. */
   friendlyName?: string;
-  /** Filter by Workers that would match an expression on a TaskQueue. This is helpful for debugging which Workers would match a potential queue. */
+  /** Filter by Workers that would match an expression. In addition to fields in the workers\' attributes, the expression can include the following worker fields: `sid`, `friendly_name`, `activity_sid`, or `activity_name` */
   targetWorkersExpression?: string;
   /** The `friendly_name` of the TaskQueue that the Workers to read are eligible for. */
   taskQueueName?: string;

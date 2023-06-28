@@ -14,6 +14,8 @@
 
 import NumbersBase from "../NumbersBase";
 import Version from "../../base/Version";
+import { AuthorizationDocumentListInstance } from "./v2/authorizationDocument";
+import { HostedNumberOrderListInstance } from "./v2/hostedNumberOrder";
 import { RegulatoryComplianceListInstance } from "./v2/regulatoryCompliance";
 
 export default class V2 extends Version {
@@ -26,8 +28,26 @@ export default class V2 extends Version {
     super(domain, "v2");
   }
 
+  /** authorizationDocuments - { Twilio.Numbers.V2.AuthorizationDocumentListInstance } resource */
+  protected _authorizationDocuments?: AuthorizationDocumentListInstance;
+  /** hostedNumberOrders - { Twilio.Numbers.V2.HostedNumberOrderListInstance } resource */
+  protected _hostedNumberOrders?: HostedNumberOrderListInstance;
   /** regulatoryCompliance - { Twilio.Numbers.V2.RegulatoryComplianceListInstance } resource */
   protected _regulatoryCompliance?: RegulatoryComplianceListInstance;
+
+  /** Getter for authorizationDocuments resource */
+  get authorizationDocuments(): AuthorizationDocumentListInstance {
+    this._authorizationDocuments =
+      this._authorizationDocuments || AuthorizationDocumentListInstance(this);
+    return this._authorizationDocuments;
+  }
+
+  /** Getter for hostedNumberOrders resource */
+  get hostedNumberOrders(): HostedNumberOrderListInstance {
+    this._hostedNumberOrders =
+      this._hostedNumberOrders || HostedNumberOrderListInstance(this);
+    return this._hostedNumberOrders;
+  }
 
   /** Getter for regulatoryCompliance resource */
   get regulatoryCompliance(): RegulatoryComplianceListInstance {

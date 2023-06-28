@@ -55,51 +55,51 @@ export type CallSummariesSortBy = "start_time" | "end_time";
  * Options to pass to each
  */
 export interface CallSummariesListInstanceEachOptions {
-  /**  */
+  /** A calling party. Could be an E.164 number, a SIP URI, or a Twilio Client registered name. */
   from?: string;
-  /**  */
+  /** A called party. Could be an E.164 number, a SIP URI, or a Twilio Client registered name. */
   to?: string;
-  /**  */
+  /** An origination carrier. */
   fromCarrier?: string;
-  /**  */
+  /** A destination carrier. */
   toCarrier?: string;
-  /**  */
+  /** A source country code based on phone number in From. */
   fromCountryCode?: string;
-  /**  */
+  /** A destination country code. Based on phone number in To. */
   toCountryCode?: string;
-  /**  */
+  /** A boolean flag indicating whether or not the calls were branded using Twilio Branded Calls. */
   branded?: boolean;
-  /**  */
+  /** A boolean flag indicating whether or not the caller was verified using SHAKEN/STIR. */
   verifiedCaller?: boolean;
-  /**  */
+  /** A boolean flag indicating the presence of one or more [Voice Insights Call Tags](https://www.twilio.com/docs/voice/voice-insights/api/call/details-call-tags). */
   hasTag?: boolean;
-  /**  */
+  /** A Start time of the calls. xm (x minutes), xh (x hours), xd (x days), 1w, 30m, 3d, 4w or datetime-ISO. Defaults to 4h. */
   startTime?: string;
-  /**  */
+  /** An End Time of the calls. xm (x minutes), xh (x hours), xd (x days), 1w, 30m, 3d, 4w or datetime-ISO. Defaults to 0m. */
   endTime?: string;
-  /**  */
+  /** A Call Type of the calls. One of `carrier`, `sip`, `trunking` or `client`. */
   callType?: string;
-  /**  */
+  /** A Call State of the calls. One of `ringing`, `completed`, `busy`, `fail`, `noanswer`, `canceled`, `answered`, `undialed`. */
   callState?: string;
-  /**  */
+  /** A Direction of the calls. One of `outbound_api`, `outbound_dial`, `inbound`, `trunking_originating`, `trunking_terminating`. */
   direction?: string;
-  /**  */
+  /** A Processing State of the Call Summaries. One of `completed`, `partial` or `all`. */
   processingState?: CallSummariesProcessingStateRequest;
-  /**  */
+  /** A Sort By criterion for the returned list of Call Summaries. One of `start_time` or `end_time`. */
   sortBy?: CallSummariesSortBy;
-  /**  */
+  /** A unique SID identifier of a Subaccount. */
   subaccount?: string;
-  /**  */
+  /** A boolean flag indicating an abnormal session where the last SIP response was not 200 OK. */
   abnormalSession?: boolean;
-  /**  */
+  /** An Answered By value for the calls based on `Answering Machine Detection (AMD)`. One of `unknown`, `machine_start`, `machine_end_beep`, `machine_end_silence`, `machine_end_other`, `human` or `fax`. */
   answeredBy?: CallSummariesAnsweredBy;
-  /**  */
+  /** A Connectivity Issue with the calls. One of `no_connectivity_issue`, `invalid_number`, `caller_id`, `dropped_call`, or `number_reachability`. */
   connectivityIssue?: string;
-  /**  */
+  /** A subjective Quality Issue with the calls. One of `no_quality_issue`, `low_volume`, `choppy_robotic`, `echo`, `dtmf`, `latency`, `owa`, `static_noise`. */
   qualityIssue?: string;
-  /**  */
+  /** A boolean flag indicating spam calls. */
   spam?: boolean;
-  /**  */
+  /** A Call Score of the calls. Use a range of 1-5 to indicate the call experience score, with the following mapping as a reference for the rated call [5: Excellent, 4: Good, 3 : Fair, 2 : Poor, 1: Bad]. */
   callScore?: string;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
@@ -115,51 +115,51 @@ export interface CallSummariesListInstanceEachOptions {
  * Options to pass to list
  */
 export interface CallSummariesListInstanceOptions {
-  /**  */
+  /** A calling party. Could be an E.164 number, a SIP URI, or a Twilio Client registered name. */
   from?: string;
-  /**  */
+  /** A called party. Could be an E.164 number, a SIP URI, or a Twilio Client registered name. */
   to?: string;
-  /**  */
+  /** An origination carrier. */
   fromCarrier?: string;
-  /**  */
+  /** A destination carrier. */
   toCarrier?: string;
-  /**  */
+  /** A source country code based on phone number in From. */
   fromCountryCode?: string;
-  /**  */
+  /** A destination country code. Based on phone number in To. */
   toCountryCode?: string;
-  /**  */
+  /** A boolean flag indicating whether or not the calls were branded using Twilio Branded Calls. */
   branded?: boolean;
-  /**  */
+  /** A boolean flag indicating whether or not the caller was verified using SHAKEN/STIR. */
   verifiedCaller?: boolean;
-  /**  */
+  /** A boolean flag indicating the presence of one or more [Voice Insights Call Tags](https://www.twilio.com/docs/voice/voice-insights/api/call/details-call-tags). */
   hasTag?: boolean;
-  /**  */
+  /** A Start time of the calls. xm (x minutes), xh (x hours), xd (x days), 1w, 30m, 3d, 4w or datetime-ISO. Defaults to 4h. */
   startTime?: string;
-  /**  */
+  /** An End Time of the calls. xm (x minutes), xh (x hours), xd (x days), 1w, 30m, 3d, 4w or datetime-ISO. Defaults to 0m. */
   endTime?: string;
-  /**  */
+  /** A Call Type of the calls. One of `carrier`, `sip`, `trunking` or `client`. */
   callType?: string;
-  /**  */
+  /** A Call State of the calls. One of `ringing`, `completed`, `busy`, `fail`, `noanswer`, `canceled`, `answered`, `undialed`. */
   callState?: string;
-  /**  */
+  /** A Direction of the calls. One of `outbound_api`, `outbound_dial`, `inbound`, `trunking_originating`, `trunking_terminating`. */
   direction?: string;
-  /**  */
+  /** A Processing State of the Call Summaries. One of `completed`, `partial` or `all`. */
   processingState?: CallSummariesProcessingStateRequest;
-  /**  */
+  /** A Sort By criterion for the returned list of Call Summaries. One of `start_time` or `end_time`. */
   sortBy?: CallSummariesSortBy;
-  /**  */
+  /** A unique SID identifier of a Subaccount. */
   subaccount?: string;
-  /**  */
+  /** A boolean flag indicating an abnormal session where the last SIP response was not 200 OK. */
   abnormalSession?: boolean;
-  /**  */
+  /** An Answered By value for the calls based on `Answering Machine Detection (AMD)`. One of `unknown`, `machine_start`, `machine_end_beep`, `machine_end_silence`, `machine_end_other`, `human` or `fax`. */
   answeredBy?: CallSummariesAnsweredBy;
-  /**  */
+  /** A Connectivity Issue with the calls. One of `no_connectivity_issue`, `invalid_number`, `caller_id`, `dropped_call`, or `number_reachability`. */
   connectivityIssue?: string;
-  /**  */
+  /** A subjective Quality Issue with the calls. One of `no_quality_issue`, `low_volume`, `choppy_robotic`, `echo`, `dtmf`, `latency`, `owa`, `static_noise`. */
   qualityIssue?: string;
-  /**  */
+  /** A boolean flag indicating spam calls. */
   spam?: boolean;
-  /**  */
+  /** A Call Score of the calls. Use a range of 1-5 to indicate the call experience score, with the following mapping as a reference for the rated call [5: Excellent, 4: Good, 3 : Fair, 2 : Poor, 1: Bad]. */
   callScore?: string;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
@@ -171,51 +171,51 @@ export interface CallSummariesListInstanceOptions {
  * Options to pass to page
  */
 export interface CallSummariesListInstancePageOptions {
-  /**  */
+  /** A calling party. Could be an E.164 number, a SIP URI, or a Twilio Client registered name. */
   from?: string;
-  /**  */
+  /** A called party. Could be an E.164 number, a SIP URI, or a Twilio Client registered name. */
   to?: string;
-  /**  */
+  /** An origination carrier. */
   fromCarrier?: string;
-  /**  */
+  /** A destination carrier. */
   toCarrier?: string;
-  /**  */
+  /** A source country code based on phone number in From. */
   fromCountryCode?: string;
-  /**  */
+  /** A destination country code. Based on phone number in To. */
   toCountryCode?: string;
-  /**  */
+  /** A boolean flag indicating whether or not the calls were branded using Twilio Branded Calls. */
   branded?: boolean;
-  /**  */
+  /** A boolean flag indicating whether or not the caller was verified using SHAKEN/STIR. */
   verifiedCaller?: boolean;
-  /**  */
+  /** A boolean flag indicating the presence of one or more [Voice Insights Call Tags](https://www.twilio.com/docs/voice/voice-insights/api/call/details-call-tags). */
   hasTag?: boolean;
-  /**  */
+  /** A Start time of the calls. xm (x minutes), xh (x hours), xd (x days), 1w, 30m, 3d, 4w or datetime-ISO. Defaults to 4h. */
   startTime?: string;
-  /**  */
+  /** An End Time of the calls. xm (x minutes), xh (x hours), xd (x days), 1w, 30m, 3d, 4w or datetime-ISO. Defaults to 0m. */
   endTime?: string;
-  /**  */
+  /** A Call Type of the calls. One of `carrier`, `sip`, `trunking` or `client`. */
   callType?: string;
-  /**  */
+  /** A Call State of the calls. One of `ringing`, `completed`, `busy`, `fail`, `noanswer`, `canceled`, `answered`, `undialed`. */
   callState?: string;
-  /**  */
+  /** A Direction of the calls. One of `outbound_api`, `outbound_dial`, `inbound`, `trunking_originating`, `trunking_terminating`. */
   direction?: string;
-  /**  */
+  /** A Processing State of the Call Summaries. One of `completed`, `partial` or `all`. */
   processingState?: CallSummariesProcessingStateRequest;
-  /**  */
+  /** A Sort By criterion for the returned list of Call Summaries. One of `start_time` or `end_time`. */
   sortBy?: CallSummariesSortBy;
-  /**  */
+  /** A unique SID identifier of a Subaccount. */
   subaccount?: string;
-  /**  */
+  /** A boolean flag indicating an abnormal session where the last SIP response was not 200 OK. */
   abnormalSession?: boolean;
-  /**  */
+  /** An Answered By value for the calls based on `Answering Machine Detection (AMD)`. One of `unknown`, `machine_start`, `machine_end_beep`, `machine_end_silence`, `machine_end_other`, `human` or `fax`. */
   answeredBy?: CallSummariesAnsweredBy;
-  /**  */
+  /** A Connectivity Issue with the calls. One of `no_connectivity_issue`, `invalid_number`, `caller_id`, `dropped_call`, or `number_reachability`. */
   connectivityIssue?: string;
-  /**  */
+  /** A subjective Quality Issue with the calls. One of `no_quality_issue`, `low_volume`, `choppy_robotic`, `echo`, `dtmf`, `latency`, `owa`, `static_noise`. */
   qualityIssue?: string;
-  /**  */
+  /** A boolean flag indicating spam calls. */
   spam?: boolean;
-  /**  */
+  /** A Call Score of the calls. Use a range of 1-5 to indicate the call experience score, with the following mapping as a reference for the rated call [5: Excellent, 4: Good, 3 : Fair, 2 : Poor, 1: Bad]. */
   callScore?: string;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
@@ -496,27 +496,81 @@ export class CallSummariesInstance {
     this.annotation = payload.annotation;
   }
 
+  /**
+   * The unique SID identifier of the Account.
+   */
   accountSid: string;
+  /**
+   * The unique SID identifier of the Call.
+   */
   callSid: string;
   answeredBy: CallSummariesAnsweredBy;
   callType: CallSummariesCallType;
   callState: CallSummariesCallState;
   processingState: CallSummariesProcessingState;
+  /**
+   * The time at which the Call was created, given in ISO 8601 format. Can be different from `start_time` in the event of queueing due to CPS
+   */
   createdTime: Date;
+  /**
+   * The time at which the Call was started, given in ISO 8601 format.
+   */
   startTime: Date;
+  /**
+   * The time at which the Call was ended, given in ISO 8601 format.
+   */
   endTime: Date;
+  /**
+   * Duration between when the call was initiated and the call was ended
+   */
   duration: number;
+  /**
+   * Duration between when the call was answered and when it ended
+   */
   connectDuration: number;
+  /**
+   * The calling party.
+   */
   from: any;
+  /**
+   * The called party.
+   */
   to: any;
+  /**
+   * Contains metrics and properties for the Twilio media gateway of a PSTN call.
+   */
   carrierEdge: any;
+  /**
+   * Contains metrics and properties for the Twilio media gateway of a Client call.
+   */
   clientEdge: any;
+  /**
+   * Contains metrics and properties for the SDK sensor library for Client calls.
+   */
   sdkEdge: any;
+  /**
+   * Contains metrics and properties for the Twilio media gateway of a SIP Interface or Trunking call.
+   */
   sipEdge: any;
+  /**
+   * Tags applied to calls by Voice Insights analysis indicating a condition that could result in subjective degradation of the call quality.
+   */
   tags: Array<string>;
+  /**
+   * The URL of this resource.
+   */
   url: string;
+  /**
+   * Attributes capturing call-flow-specific details.
+   */
   attributes: any;
+  /**
+   * Contains edge-agnostic call-level details.
+   */
   properties: any;
+  /**
+   * Contains trusted communications details including Branded Call and verified caller ID.
+   */
   trust: any;
   annotation: any;
 

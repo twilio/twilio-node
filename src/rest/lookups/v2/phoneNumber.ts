@@ -30,7 +30,7 @@ export type PhoneNumberValidationError =
  * Options to pass to fetch a PhoneNumberInstance
  */
 export interface PhoneNumberContextFetchOptions {
-  /** A comma-separated list of fields to return. Possible values are caller_name, sim_swap, call_forwarding, live_activity, line_type_intelligence, identity_match. */
+  /** A comma-separated list of fields to return. Possible values are caller_name, sim_swap, call_forwarding, live_activity, line_type_intelligence, identity_match, reassigned_number. */
   fields?: string;
   /** The [country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) used if the phone number provided is in national format. */
   countryCode?: string;
@@ -54,6 +54,8 @@ export interface PhoneNumberContextFetchOptions {
   nationalId?: string;
   /** User’s date of birth, in YYYYMMDD format. This query parameter is only used (optionally) for identity_match package requests. */
   dateOfBirth?: string;
+  /** The date you obtained consent to call or text the end-user of the phone number or a date on which you are reasonably certain that the end-user could still be reached at that number. This query parameter is only used (optionally) for reassigned_number package requests. */
+  lastVerifiedDate?: string;
 }
 
 export interface PhoneNumberContext {
@@ -139,6 +141,8 @@ export class PhoneNumberContextImpl implements PhoneNumberContext {
       data["NationalId"] = params["nationalId"];
     if (params["dateOfBirth"] !== undefined)
       data["DateOfBirth"] = params["dateOfBirth"];
+    if (params["lastVerifiedDate"] !== undefined)
+      data["LastVerifiedDate"] = params["lastVerifiedDate"];
 
     const headers: any = {};
 
@@ -196,6 +200,7 @@ interface PhoneNumberResource {
   live_activity: any;
   line_type_intelligence: any;
   identity_match: any;
+  reassigned_number: any;
   sms_pumping_risk: any;
   url: string;
 }
@@ -221,6 +226,7 @@ export class PhoneNumberInstance {
     this.liveActivity = payload.live_activity;
     this.lineTypeIntelligence = payload.line_type_intelligence;
     this.identityMatch = payload.identity_match;
+    this.reassignedNumber = payload.reassigned_number;
     this.smsPumpingRisk = payload.sms_pumping_risk;
     this.url = payload.url;
 
@@ -275,6 +281,10 @@ export class PhoneNumberInstance {
    * An object that contains identity match information. The result of comparing user-provided information including name, address, date of birth, national ID, against authoritative phone-based data sources
    */
   identityMatch: any;
+  /**
+   * An object that contains reassigned number information. Reassigned Numbers will return a phone number\'s reassignment status given a phone number and date
+   */
+  reassignedNumber: any;
   /**
    * An object that contains information on if a phone number has been currently or previously blocked by Verify Fraud Guard for receiving malicious SMS pumping traffic as well as other signals associated with risky carriers and low conversion rates.
    */
@@ -340,6 +350,7 @@ export class PhoneNumberInstance {
       liveActivity: this.liveActivity,
       lineTypeIntelligence: this.lineTypeIntelligence,
       identityMatch: this.identityMatch,
+      reassignedNumber: this.reassignedNumber,
       smsPumpingRisk: this.smsPumpingRisk,
       url: this.url,
     };

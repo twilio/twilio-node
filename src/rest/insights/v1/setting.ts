@@ -22,7 +22,7 @@ import { isValidPathParam } from "../../../base/utility";
  * Options to pass to fetch a SettingInstance
  */
 export interface SettingContextFetchOptions {
-  /**  */
+  /** The unique SID identifier of the Subaccount. */
   subaccountSid?: string;
 }
 
@@ -30,11 +30,11 @@ export interface SettingContextFetchOptions {
  * Options to pass to update a SettingInstance
  */
 export interface SettingContextUpdateOptions {
-  /**  */
+  /** A boolean flag to enable Advanced Features for Voice Insights. */
   advancedFeatures?: boolean;
-  /**  */
+  /** A boolean flag to enable Voice Trace. */
   voiceTrace?: boolean;
-  /**  */
+  /** The unique SID identifier of the Subaccount. */
   subaccountSid?: string;
 }
 
@@ -224,9 +224,21 @@ export class SettingInstance {
     this._solution = {};
   }
 
+  /**
+   * The unique SID identifier of the Account.
+   */
   accountSid: string;
+  /**
+   * A boolean flag indicating whether Advanced Features for Voice Insights are enabled.
+   */
   advancedFeatures: boolean;
+  /**
+   * A boolean flag indicating whether Voice Trace is enabled.
+   */
   voiceTrace: boolean;
+  /**
+   * The URL of this resource.
+   */
   url: string;
 
   private get _proxy(): SettingContext {

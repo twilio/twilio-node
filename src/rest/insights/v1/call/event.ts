@@ -33,7 +33,7 @@ export type EventTwilioEdge =
  * Options to pass to each
  */
 export interface EventListInstanceEachOptions {
-  /**  */
+  /** The Edge of this Event. One of `unknown_edge`, `carrier_edge`, `sip_edge`, `sdk_edge` or `client_edge`. */
   edge?: EventTwilioEdge;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
@@ -49,7 +49,7 @@ export interface EventListInstanceEachOptions {
  * Options to pass to list
  */
 export interface EventListInstanceOptions {
-  /**  */
+  /** The Edge of this Event. One of `unknown_edge`, `carrier_edge`, `sip_edge`, `sdk_edge` or `client_edge`. */
   edge?: EventTwilioEdge;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
@@ -61,7 +61,7 @@ export interface EventListInstanceOptions {
  * Options to pass to page
  */
 export interface EventListInstancePageOptions {
-  /**  */
+  /** The Edge of this Event. One of `unknown_edge`, `carrier_edge`, `sip_edge`, `sdk_edge` or `client_edge`. */
   edge?: EventTwilioEdge;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
@@ -277,16 +277,43 @@ export class EventInstance {
     this.clientEdge = payload.client_edge;
   }
 
+  /**
+   * Event time.
+   */
   timestamp: string;
+  /**
+   * The unique SID identifier of the Call.
+   */
   callSid: string;
+  /**
+   * The unique SID identifier of the Account.
+   */
   accountSid: string;
   edge: EventTwilioEdge;
+  /**
+   * Event group.
+   */
   group: string;
   level: EventLevel;
+  /**
+   * Event name.
+   */
   name: string;
+  /**
+   * Represents the connection between Twilio and our immediate carrier partners. The events here describe the call lifecycle as reported by Twilio\'s carrier media gateways.
+   */
   carrierEdge: any;
+  /**
+   * Represents the Twilio media gateway for SIP interface and SIP trunking calls. The events here describe the call lifecycle as reported by Twilio\'s public media gateways.
+   */
   sipEdge: any;
+  /**
+   * Represents the Voice SDK running locally in the browser or in the Android/iOS application. The events here are emitted by the Voice SDK in response to certain call progress events, network changes, or call quality conditions.
+   */
   sdkEdge: any;
+  /**
+   * Represents the Twilio media gateway for Client calls. The events here describe the call lifecycle as reported by Twilio\'s Voice SDK media gateways.
+   */
   clientEdge: any;
 
   /**
