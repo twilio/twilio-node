@@ -24,8 +24,8 @@ import { isValidPathParam } from "../../../base/utility";
  * Options to pass to each
  */
 export interface InsightsSegmentsListInstanceEachOptions {
-  /** The Token HTTP request header */
-  token?: string;
+  /** The Authorization HTTP request header */
+  authorization?: string;
   /** To unique id of the segment */
   segmentId?: string;
   /** The list of reservation Ids */
@@ -47,8 +47,8 @@ export interface InsightsSegmentsListInstanceEachOptions {
  * Options to pass to list
  */
 export interface InsightsSegmentsListInstanceOptions {
-  /** The Token HTTP request header */
-  token?: string;
+  /** The Authorization HTTP request header */
+  authorization?: string;
   /** To unique id of the segment */
   segmentId?: string;
   /** The list of reservation Ids */
@@ -63,8 +63,8 @@ export interface InsightsSegmentsListInstanceOptions {
  * Options to pass to page
  */
 export interface InsightsSegmentsListInstancePageOptions {
-  /** The Token HTTP request header */
-  token?: string;
+  /** The Authorization HTTP request header */
+  authorization?: string;
   /** To unique id of the segment */
   segmentId?: string;
   /** The list of reservation Ids */
@@ -203,7 +203,8 @@ export function InsightsSegmentsListInstance(
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
-    if (params["token"] !== undefined) headers["Token"] = params["token"];
+    if (params["authorization"] !== undefined)
+      headers["Authorization"] = params["authorization"];
 
     let operationVersion = version,
       operationPromise = operationVersion.page({

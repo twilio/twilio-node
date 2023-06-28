@@ -22,8 +22,8 @@ import { isValidPathParam } from "../../../base/utility";
  * Options to pass to fetch a InsightsSettingsAnswerSetsInstance
  */
 export interface InsightsSettingsAnswerSetsListInstanceFetchOptions {
-  /** The Token HTTP request header */
-  token?: string;
+  /** The Authorization HTTP request header */
+  authorization?: string;
 }
 
 export interface InsightsSettingsAnswerSetsSolution {}
@@ -100,7 +100,8 @@ export function InsightsSettingsAnswerSetsListInstance(
     let data: any = {};
 
     const headers: any = {};
-    if (params["token"] !== undefined) headers["Token"] = params["token"];
+    if (params["authorization"] !== undefined)
+      headers["Authorization"] = params["authorization"];
 
     let operationVersion = version,
       operationPromise = operationVersion.fetch({

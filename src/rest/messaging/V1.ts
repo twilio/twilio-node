@@ -21,6 +21,7 @@ import { DomainConfigListInstance } from "./v1/domainConfig";
 import { DomainConfigMessagingServiceListInstance } from "./v1/domainConfigMessagingService";
 import { ExternalCampaignListInstance } from "./v1/externalCampaign";
 import { LinkshorteningMessagingServiceListInstance } from "./v1/linkshorteningMessagingService";
+import { LinkshorteningMessagingServiceDomainAssociationListInstance } from "./v1/linkshorteningMessagingServiceDomainAssociation";
 import { ServiceListInstance } from "./v1/service";
 import { UsecaseListInstance } from "./v1/usecase";
 
@@ -48,6 +49,8 @@ export default class V1 extends Version {
   protected _externalCampaign?: ExternalCampaignListInstance;
   /** linkshorteningMessagingService - { Twilio.Messaging.V1.LinkshorteningMessagingServiceListInstance } resource */
   protected _linkshorteningMessagingService?: LinkshorteningMessagingServiceListInstance;
+  /** linkshorteningMessagingServiceDomainAssociation - { Twilio.Messaging.V1.LinkshorteningMessagingServiceDomainAssociationListInstance } resource */
+  protected _linkshorteningMessagingServiceDomainAssociation?: LinkshorteningMessagingServiceDomainAssociationListInstance;
   /** services - { Twilio.Messaging.V1.ServiceListInstance } resource */
   protected _services?: ServiceListInstance;
   /** usecases - { Twilio.Messaging.V1.UsecaseListInstance } resource */
@@ -100,6 +103,14 @@ export default class V1 extends Version {
       this._linkshorteningMessagingService ||
       LinkshorteningMessagingServiceListInstance(this);
     return this._linkshorteningMessagingService;
+  }
+
+  /** Getter for linkshorteningMessagingServiceDomainAssociation resource */
+  get linkshorteningMessagingServiceDomainAssociation(): LinkshorteningMessagingServiceDomainAssociationListInstance {
+    this._linkshorteningMessagingServiceDomainAssociation =
+      this._linkshorteningMessagingServiceDomainAssociation ||
+      LinkshorteningMessagingServiceDomainAssociationListInstance(this);
+    return this._linkshorteningMessagingServiceDomainAssociation;
   }
 
   /** Getter for services resource */

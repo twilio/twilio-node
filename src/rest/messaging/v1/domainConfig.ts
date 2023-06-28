@@ -26,6 +26,10 @@ export interface DomainConfigContextUpdateOptions {
   fallbackUrl?: string;
   /** URL to receive click events to your webhook whenever the recipients click on the shortened links */
   callbackUrl?: string;
+  /** Boolean field to set customer delivery preference when there is a failure in linkShortening service */
+  continueOnFailure?: boolean;
+  /** Customer\\\'s choice to send links with/without \\\"https://\\\" attached to shortened url. If true, messages will not be sent with https:// at the beginning of the url. If false, messages will be sent with https:// at the beginning of the url. False is the default behavior if it is not specified. */
+  disableHttps?: boolean;
 }
 
 export interface DomainConfigContext {
@@ -132,6 +136,10 @@ export class DomainConfigContextImpl implements DomainConfigContext {
       data["FallbackUrl"] = params["fallbackUrl"];
     if (params["callbackUrl"] !== undefined)
       data["CallbackUrl"] = params["callbackUrl"];
+    if (params["continueOnFailure"] !== undefined)
+      data["ContinueOnFailure"] = serialize.bool(params["continueOnFailure"]);
+    if (params["disableHttps"] !== undefined)
+      data["DisableHttps"] = serialize.bool(params["disableHttps"]);
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
@@ -182,9 +190,11 @@ interface DomainConfigResource {
   config_sid: string;
   fallback_url: string;
   callback_url: string;
+  continue_on_failure: boolean;
   date_created: Date;
   date_updated: Date;
   url: string;
+  disable_https: boolean;
 }
 
 export class DomainConfigInstance {
@@ -200,9 +210,11 @@ export class DomainConfigInstance {
     this.configSid = payload.config_sid;
     this.fallbackUrl = payload.fallback_url;
     this.callbackUrl = payload.callback_url;
+    this.continueOnFailure = payload.continue_on_failure;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
     this.url = payload.url;
+    this.disableHttps = payload.disable_https;
 
     this._solution = { domainSid: domainSid || this.domainSid };
   }
@@ -224,6 +236,10 @@ export class DomainConfigInstance {
    */
   callbackUrl: string;
   /**
+   * Boolean field to set customer delivery preference when there is a failure in linkShortening service
+   */
+  continueOnFailure: boolean;
+  /**
    * Date this Domain Config was created.
    */
   dateCreated: Date;
@@ -232,6 +248,10 @@ export class DomainConfigInstance {
    */
   dateUpdated: Date;
   url: string;
+  /**
+   * Customer\'s choice to send links with/without \"https://\" attached to shortened url. If true, messages will not be sent with https:// at the beginning of the url. If false, messages will be sent with https:// at the beginning of the url. False is the default behavior if it is not specified.
+   */
+  disableHttps: boolean;
 
   private get _proxy(): DomainConfigContext {
     this._context =
@@ -294,9 +314,11 @@ export class DomainConfigInstance {
       configSid: this.configSid,
       fallbackUrl: this.fallbackUrl,
       callbackUrl: this.callbackUrl,
+      continueOnFailure: this.continueOnFailure,
       dateCreated: this.dateCreated,
       dateUpdated: this.dateUpdated,
       url: this.url,
+      disableHttps: this.disableHttps,
     };
   }
 

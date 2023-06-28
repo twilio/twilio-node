@@ -79,6 +79,8 @@ export interface AddressConfigurationListInstanceCreateOptions {
   "autoCreation.studioFlowSid"?: string;
   /** For type `studio`, number of times to retry the webhook request */
   "autoCreation.studioRetryCount"?: number;
+  /** An ISO 3166-1 alpha-2n country code which the address belongs to. This is currently only applicable to short code addresses. */
+  addressCountry?: string;
 }
 /**
  * Options to pass to each
@@ -337,6 +339,7 @@ interface AddressConfigurationResource {
   date_created: Date;
   date_updated: Date;
   url: string;
+  address_country: string;
 }
 
 export class AddressConfigurationInstance {
@@ -357,6 +360,7 @@ export class AddressConfigurationInstance {
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
     this.url = payload.url;
+    this.addressCountry = payload.address_country;
 
     this._solution = { sid: sid || this.sid };
   }
@@ -397,6 +401,10 @@ export class AddressConfigurationInstance {
    * An absolute API resource URL for this address configuration.
    */
   url: string;
+  /**
+   * An ISO 3166-1 alpha-2n country code which the address belongs to. This is currently only applicable to short code addresses.
+   */
+  addressCountry: string;
 
   private get _proxy(): AddressConfigurationContext {
     this._context =
@@ -477,6 +485,7 @@ export class AddressConfigurationInstance {
       dateCreated: this.dateCreated,
       dateUpdated: this.dateUpdated,
       url: this.url,
+      addressCountry: this.addressCountry,
     };
   }
 
@@ -656,6 +665,8 @@ export function AddressConfigurationListInstance(
     if (params["autoCreation.studioRetryCount"] !== undefined)
       data["AutoCreation.StudioRetryCount"] =
         params["autoCreation.studioRetryCount"];
+    if (params["addressCountry"] !== undefined)
+      data["AddressCountry"] = params["addressCountry"];
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";

@@ -93,6 +93,14 @@ export interface CallSummariesListInstanceEachOptions {
   abnormalSession?: boolean;
   /**  */
   answeredBy?: CallSummariesAnsweredBy;
+  /**  */
+  connectivityIssue?: string;
+  /**  */
+  qualityIssue?: string;
+  /**  */
+  spam?: boolean;
+  /**  */
+  callScore?: string;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
@@ -145,6 +153,14 @@ export interface CallSummariesListInstanceOptions {
   abnormalSession?: boolean;
   /**  */
   answeredBy?: CallSummariesAnsweredBy;
+  /**  */
+  connectivityIssue?: string;
+  /**  */
+  qualityIssue?: string;
+  /**  */
+  spam?: boolean;
+  /**  */
+  callScore?: string;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
   /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
@@ -193,6 +209,14 @@ export interface CallSummariesListInstancePageOptions {
   abnormalSession?: boolean;
   /**  */
   answeredBy?: CallSummariesAnsweredBy;
+  /**  */
+  connectivityIssue?: string;
+  /**  */
+  qualityIssue?: string;
+  /**  */
+  spam?: boolean;
+  /**  */
+  callScore?: string;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
   /** Page Number, this value is simply for client state */
@@ -347,6 +371,14 @@ export function CallSummariesListInstance(
       data["AbnormalSession"] = serialize.bool(params["abnormalSession"]);
     if (params["answeredBy"] !== undefined)
       data["AnsweredBy"] = params["answeredBy"];
+    if (params["connectivityIssue"] !== undefined)
+      data["ConnectivityIssue"] = params["connectivityIssue"];
+    if (params["qualityIssue"] !== undefined)
+      data["QualityIssue"] = params["qualityIssue"];
+    if (params["spam"] !== undefined)
+      data["Spam"] = serialize.bool(params["spam"]);
+    if (params["callScore"] !== undefined)
+      data["CallScore"] = params["callScore"];
     if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
@@ -434,6 +466,7 @@ interface CallSummariesResource {
   attributes: any;
   properties: any;
   trust: any;
+  annotation: any;
 }
 
 export class CallSummariesInstance {
@@ -460,6 +493,7 @@ export class CallSummariesInstance {
     this.attributes = payload.attributes;
     this.properties = payload.properties;
     this.trust = payload.trust;
+    this.annotation = payload.annotation;
   }
 
   accountSid: string;
@@ -484,6 +518,7 @@ export class CallSummariesInstance {
   attributes: any;
   properties: any;
   trust: any;
+  annotation: any;
 
   /**
    * Provide a user-friendly representation
@@ -514,6 +549,7 @@ export class CallSummariesInstance {
       attributes: this.attributes,
       properties: this.properties,
       trust: this.trust,
+      annotation: this.annotation,
     };
   }
 

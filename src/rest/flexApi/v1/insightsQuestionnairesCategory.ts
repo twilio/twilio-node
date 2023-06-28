@@ -24,8 +24,8 @@ import { isValidPathParam } from "../../../base/utility";
  * Options to pass to remove a InsightsQuestionnairesCategoryInstance
  */
 export interface InsightsQuestionnairesCategoryContextRemoveOptions {
-  /** The Token HTTP request header */
-  token?: string;
+  /** The Authorization HTTP request header */
+  authorization?: string;
 }
 
 /**
@@ -34,8 +34,8 @@ export interface InsightsQuestionnairesCategoryContextRemoveOptions {
 export interface InsightsQuestionnairesCategoryContextUpdateOptions {
   /** The name of this category. */
   name: string;
-  /** The Token HTTP request header */
-  token?: string;
+  /** The Authorization HTTP request header */
+  authorization?: string;
 }
 
 /**
@@ -44,15 +44,15 @@ export interface InsightsQuestionnairesCategoryContextUpdateOptions {
 export interface InsightsQuestionnairesCategoryListInstanceCreateOptions {
   /** The name of this category. */
   name: string;
-  /** The Token HTTP request header */
-  token?: string;
+  /** The Authorization HTTP request header */
+  authorization?: string;
 }
 /**
  * Options to pass to each
  */
 export interface InsightsQuestionnairesCategoryListInstanceEachOptions {
-  /** The Token HTTP request header */
-  token?: string;
+  /** The Authorization HTTP request header */
+  authorization?: string;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
@@ -70,8 +70,8 @@ export interface InsightsQuestionnairesCategoryListInstanceEachOptions {
  * Options to pass to list
  */
 export interface InsightsQuestionnairesCategoryListInstanceOptions {
-  /** The Token HTTP request header */
-  token?: string;
+  /** The Authorization HTTP request header */
+  authorization?: string;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
   /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
@@ -82,8 +82,8 @@ export interface InsightsQuestionnairesCategoryListInstanceOptions {
  * Options to pass to page
  */
 export interface InsightsQuestionnairesCategoryListInstancePageOptions {
-  /** The Token HTTP request header */
-  token?: string;
+  /** The Authorization HTTP request header */
+  authorization?: string;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
   /** Page Number, this value is simply for client state */
@@ -174,7 +174,8 @@ export class InsightsQuestionnairesCategoryContextImpl
     let data: any = {};
 
     const headers: any = {};
-    if (params["token"] !== undefined) headers["Token"] = params["token"];
+    if (params["authorization"] !== undefined)
+      headers["Authorization"] = params["authorization"];
 
     const instance = this;
     let operationVersion = instance._version,
@@ -213,7 +214,8 @@ export class InsightsQuestionnairesCategoryContextImpl
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
-    if (params["token"] !== undefined) headers["Token"] = params["token"];
+    if (params["authorization"] !== undefined)
+      headers["Authorization"] = params["authorization"];
 
     const instance = this;
     let operationVersion = instance._version,
@@ -541,7 +543,8 @@ export function InsightsQuestionnairesCategoryListInstance(
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
-    if (params["token"] !== undefined) headers["Token"] = params["token"];
+    if (params["authorization"] !== undefined)
+      headers["Authorization"] = params["authorization"];
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
@@ -590,7 +593,8 @@ export function InsightsQuestionnairesCategoryListInstance(
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
-    if (params["token"] !== undefined) headers["Token"] = params["token"];
+    if (params["authorization"] !== undefined)
+      headers["Authorization"] = params["authorization"];
 
     let operationVersion = version,
       operationPromise = operationVersion.page({

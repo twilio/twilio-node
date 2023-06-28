@@ -32,23 +32,19 @@ export interface InsightsAssessmentsCommentListInstanceCreateOptions {
   comment: string;
   /** The id of the segment. */
   segmentId: string;
-  /** The name of the user. */
-  userName: string;
-  /** The email id of the user. */
-  userEmail: string;
   /** The id of the agent. */
   agentId: string;
   /** The offset */
   offset: number;
-  /** The Token HTTP request header */
-  token?: string;
+  /** The Authorization HTTP request header */
+  authorization?: string;
 }
 /**
  * Options to pass to each
  */
 export interface InsightsAssessmentsCommentListInstanceEachOptions {
-  /** The Token HTTP request header */
-  token?: string;
+  /** The Authorization HTTP request header */
+  authorization?: string;
   /** The id of the segment. */
   segmentId?: string;
   /** The id of the agent. */
@@ -70,8 +66,8 @@ export interface InsightsAssessmentsCommentListInstanceEachOptions {
  * Options to pass to list
  */
 export interface InsightsAssessmentsCommentListInstanceOptions {
-  /** The Token HTTP request header */
-  token?: string;
+  /** The Authorization HTTP request header */
+  authorization?: string;
   /** The id of the segment. */
   segmentId?: string;
   /** The id of the agent. */
@@ -86,8 +82,8 @@ export interface InsightsAssessmentsCommentListInstanceOptions {
  * Options to pass to page
  */
 export interface InsightsAssessmentsCommentListInstancePageOptions {
-  /** The Token HTTP request header */
-  token?: string;
+  /** The Authorization HTTP request header */
+  authorization?: string;
   /** The id of the segment. */
   segmentId?: string;
   /** The id of the agent. */
@@ -259,14 +255,6 @@ export function InsightsAssessmentsCommentListInstance(
       throw new Error("Required parameter \"params['segmentId']\" missing.");
     }
 
-    if (params["userName"] === null || params["userName"] === undefined) {
-      throw new Error("Required parameter \"params['userName']\" missing.");
-    }
-
-    if (params["userEmail"] === null || params["userEmail"] === undefined) {
-      throw new Error("Required parameter \"params['userEmail']\" missing.");
-    }
-
     if (params["agentId"] === null || params["agentId"] === undefined) {
       throw new Error("Required parameter \"params['agentId']\" missing.");
     }
@@ -285,17 +273,14 @@ export function InsightsAssessmentsCommentListInstance(
 
     data["SegmentId"] = params["segmentId"];
 
-    data["UserName"] = params["userName"];
-
-    data["UserEmail"] = params["userEmail"];
-
     data["AgentId"] = params["agentId"];
 
     data["Offset"] = params["offset"];
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
-    if (params["token"] !== undefined) headers["Token"] = params["token"];
+    if (params["authorization"] !== undefined)
+      headers["Authorization"] = params["authorization"];
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
@@ -344,7 +329,8 @@ export function InsightsAssessmentsCommentListInstance(
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
-    if (params["token"] !== undefined) headers["Token"] = params["token"];
+    if (params["authorization"] !== undefined)
+      headers["Authorization"] = params["authorization"];
 
     let operationVersion = version,
       operationPromise = operationVersion.page({

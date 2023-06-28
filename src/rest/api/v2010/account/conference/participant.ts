@@ -96,7 +96,7 @@ export interface ParticipantListInstanceCreateOptions {
   maxParticipants?: number;
   /** Whether to record the conference the participant is joining. Can be: `true`, `false`, `record-from-start`, and `do-not-record`. The default value is `false`. */
   conferenceRecord?: string;
-  /** Whether to trim leading and trailing silence from your recorded conference audio files. Can be: `trim-silence` or `do-not-trim` and defaults to `trim-silence`. */
+  /** Whether to trim leading and trailing silence from the conference recording. Can be: `trim-silence` or `do-not-trim` and defaults to `trim-silence`. */
   conferenceTrim?: string;
   /** The URL we should call using the `conference_status_callback_method` when the conference events in `conference_status_callback_event` occur. Only the value set by the first participant to join the conference is used. Subsequent `conference_status_callback` values are ignored. */
   conferenceStatusCallback?: string;
@@ -154,6 +154,8 @@ export interface ParticipantListInstanceCreateOptions {
   amdStatusCallback?: string;
   /** The HTTP method we should use when calling the `amd_status_callback` URL. Can be: `GET` or `POST` and the default is `POST`. */
   amdStatusCallbackMethod?: string;
+  /** Whether to trim any leading and trailing silence from the participant recording. Can be: `trim-silence` or `do-not-trim` and the default is `trim-silence`. */
+  trim?: string;
 }
 /**
  * Options to pass to each
@@ -884,6 +886,7 @@ export function ParticipantListInstance(
       data["AmdStatusCallback"] = params["amdStatusCallback"];
     if (params["amdStatusCallbackMethod"] !== undefined)
       data["AmdStatusCallbackMethod"] = params["amdStatusCallbackMethod"];
+    if (params["trim"] !== undefined) data["Trim"] = params["trim"];
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";

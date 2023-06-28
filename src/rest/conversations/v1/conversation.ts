@@ -90,6 +90,12 @@ export interface ConversationListInstanceCreateOptions {
  * Options to pass to each
  */
 export interface ConversationListInstanceEachOptions {
+  /** Start date or time in ISO8601 format for filtering list of Conversations. If a date is provided, the start time of the date is used (YYYY-MM-DDT00:00:00Z). Can be combined with other filters. */
+  startDate?: string;
+  /** End date or time in ISO8601 format for filtering list of Conversations. If a date is provided, the end time of the date is used (YYYY-MM-DDT23:59:59Z). Can be combined with other filters. */
+  endDate?: string;
+  /** State for sorting and filtering list of Conversations. Can be `active`, `inactive` or `closed` */
+  state?: ConversationState;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
@@ -104,6 +110,12 @@ export interface ConversationListInstanceEachOptions {
  * Options to pass to list
  */
 export interface ConversationListInstanceOptions {
+  /** Start date or time in ISO8601 format for filtering list of Conversations. If a date is provided, the start time of the date is used (YYYY-MM-DDT00:00:00Z). Can be combined with other filters. */
+  startDate?: string;
+  /** End date or time in ISO8601 format for filtering list of Conversations. If a date is provided, the end time of the date is used (YYYY-MM-DDT23:59:59Z). Can be combined with other filters. */
+  endDate?: string;
+  /** State for sorting and filtering list of Conversations. Can be `active`, `inactive` or `closed` */
+  state?: ConversationState;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
   /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
@@ -114,6 +126,12 @@ export interface ConversationListInstanceOptions {
  * Options to pass to page
  */
 export interface ConversationListInstancePageOptions {
+  /** Start date or time in ISO8601 format for filtering list of Conversations. If a date is provided, the start time of the date is used (YYYY-MM-DDT00:00:00Z). Can be combined with other filters. */
+  startDate?: string;
+  /** End date or time in ISO8601 format for filtering list of Conversations. If a date is provided, the end time of the date is used (YYYY-MM-DDT23:59:59Z). Can be combined with other filters. */
+  endDate?: string;
+  /** State for sorting and filtering list of Conversations. Can be `active`, `inactive` or `closed` */
+  state?: ConversationState;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
   /** Page Number, this value is simply for client state */
@@ -792,6 +810,10 @@ export function ConversationListInstance(
 
     let data: any = {};
 
+    if (params["startDate"] !== undefined)
+      data["StartDate"] = params["startDate"];
+    if (params["endDate"] !== undefined) data["EndDate"] = params["endDate"];
+    if (params["state"] !== undefined) data["State"] = params["state"];
     if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;

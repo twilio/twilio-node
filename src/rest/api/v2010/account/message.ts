@@ -97,8 +97,6 @@ export interface MessageListInstanceCreateOptions {
   sendAt?: Date;
   /** If set to True, Twilio will deliver the message as a single MMS message, regardless of the presence of media. */
   sendAsMms?: boolean;
-  /** The SID of the Content object returned at Content API content create time (https://www.twilio.com/docs/content-api/create-and-send-your-first-content-api-template#create-a-template). If this parameter is not specified, then the Content API will not be utilized. */
-  contentSid?: string;
   /** Key-value pairs of variable names to substitution values, used alongside a content_sid. If not specified, Content API will default to the default variables defined at create time. */
   contentVariables?: string;
   /** A Twilio phone number in [E.164](https://www.twilio.com/docs/glossary/what-e164) format, an [alphanumeric sender ID](https://www.twilio.com/docs/sms/send-messages#use-an-alphanumeric-sender-id), or a [Channel Endpoint address](https://www.twilio.com/docs/sms/channels#channel-addresses) that is enabled for the type of message you want to send. Phone numbers or [short codes](https://www.twilio.com/docs/sms/api/short-code) purchased from Twilio also work here. You cannot, for example, spoof messages from a private cell phone number. If you are using `messaging_service_sid`, this parameter must be empty. */
@@ -109,6 +107,8 @@ export interface MessageListInstanceCreateOptions {
   body?: string;
   /** The URL of the media to send with the message. The media can be of type `gif`, `png`, and `jpeg` and will be formatted correctly on the recipient\\\'s device. The media size limit is 5MB for supported file types (JPEG, PNG, GIF) and 500KB for [other types](https://www.twilio.com/docs/sms/accepted-mime-types) of accepted media. To send more than one image in the message body, provide multiple `media_url` parameters in the POST request. You can include up to 10 `media_url` parameters per message. You can send images in an SMS message in only the US and Canada. */
   mediaUrl?: Array<string>;
+  /** The SID of the Content object returned at Content API content create time (https://www.twilio.com/docs/content-api/create-and-send-your-first-content-api-template#create-a-template). If this parameter is not specified, then the Content API will not be utilized. */
+  contentSid?: string;
 }
 /**
  * Options to pass to each
@@ -801,8 +801,6 @@ export function MessageListInstance(
       data["SendAt"] = serialize.iso8601DateTime(params["sendAt"]);
     if (params["sendAsMms"] !== undefined)
       data["SendAsMms"] = serialize.bool(params["sendAsMms"]);
-    if (params["contentSid"] !== undefined)
-      data["ContentSid"] = params["contentSid"];
     if (params["contentVariables"] !== undefined)
       data["ContentVariables"] = params["contentVariables"];
     if (params["from"] !== undefined) data["From"] = params["from"];
@@ -811,6 +809,8 @@ export function MessageListInstance(
     if (params["body"] !== undefined) data["Body"] = params["body"];
     if (params["mediaUrl"] !== undefined)
       data["MediaUrl"] = serialize.map(params["mediaUrl"], (e: string) => e);
+    if (params["contentSid"] !== undefined)
+      data["ContentSid"] = params["contentSid"];
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";

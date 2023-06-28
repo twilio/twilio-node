@@ -30,8 +30,8 @@ export interface AssessmentsContextUpdateOptions {
   answerText: string;
   /** The id of the answer selected by user */
   answerId: string;
-  /** The Token HTTP request header */
-  token?: string;
+  /** The Authorization HTTP request header */
+  authorization?: string;
 }
 
 /**
@@ -44,10 +44,6 @@ export interface AssessmentsListInstanceCreateOptions {
   categoryName: string;
   /** Segment Id of the conversation */
   segmentId: string;
-  /** Name of the user assessing conversation */
-  userName: string;
-  /** Email of the user assessing conversation */
-  userEmail: string;
   /** The id of the Agent */
   agentId: string;
   /** The offset of the conversation. */
@@ -62,15 +58,15 @@ export interface AssessmentsListInstanceCreateOptions {
   answerId: string;
   /** Questionnaire SID of the associated question */
   questionnaireSid: string;
-  /** The Token HTTP request header */
-  token?: string;
+  /** The Authorization HTTP request header */
+  authorization?: string;
 }
 /**
  * Options to pass to each
  */
 export interface AssessmentsListInstanceEachOptions {
-  /** The Token HTTP request header */
-  token?: string;
+  /** The Authorization HTTP request header */
+  authorization?: string;
   /** The id of the segment. */
   segmentId?: string;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
@@ -87,8 +83,8 @@ export interface AssessmentsListInstanceEachOptions {
  * Options to pass to list
  */
 export interface AssessmentsListInstanceOptions {
-  /** The Token HTTP request header */
-  token?: string;
+  /** The Authorization HTTP request header */
+  authorization?: string;
   /** The id of the segment. */
   segmentId?: string;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
@@ -101,8 +97,8 @@ export interface AssessmentsListInstanceOptions {
  * Options to pass to page
  */
 export interface AssessmentsListInstancePageOptions {
-  /** The Token HTTP request header */
-  token?: string;
+  /** The Authorization HTTP request header */
+  authorization?: string;
   /** The id of the segment. */
   segmentId?: string;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
@@ -181,7 +177,8 @@ export class AssessmentsContextImpl implements AssessmentsContext {
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
-    if (params["token"] !== undefined) headers["Token"] = params["token"];
+    if (params["authorization"] !== undefined)
+      headers["Authorization"] = params["authorization"];
 
     const instance = this;
     let operationVersion = instance._version,
@@ -511,14 +508,6 @@ export function AssessmentsListInstance(version: V1): AssessmentsListInstance {
       throw new Error("Required parameter \"params['segmentId']\" missing.");
     }
 
-    if (params["userName"] === null || params["userName"] === undefined) {
-      throw new Error("Required parameter \"params['userName']\" missing.");
-    }
-
-    if (params["userEmail"] === null || params["userEmail"] === undefined) {
-      throw new Error("Required parameter \"params['userEmail']\" missing.");
-    }
-
     if (params["agentId"] === null || params["agentId"] === undefined) {
       throw new Error("Required parameter \"params['agentId']\" missing.");
     }
@@ -560,10 +549,6 @@ export function AssessmentsListInstance(version: V1): AssessmentsListInstance {
 
     data["SegmentId"] = params["segmentId"];
 
-    data["UserName"] = params["userName"];
-
-    data["UserEmail"] = params["userEmail"];
-
     data["AgentId"] = params["agentId"];
 
     data["Offset"] = params["offset"];
@@ -580,7 +565,8 @@ export function AssessmentsListInstance(version: V1): AssessmentsListInstance {
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
-    if (params["token"] !== undefined) headers["Token"] = params["token"];
+    if (params["authorization"] !== undefined)
+      headers["Authorization"] = params["authorization"];
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
@@ -624,7 +610,8 @@ export function AssessmentsListInstance(version: V1): AssessmentsListInstance {
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
-    if (params["token"] !== undefined) headers["Token"] = params["token"];
+    if (params["authorization"] !== undefined)
+      headers["Authorization"] = params["authorization"];
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
