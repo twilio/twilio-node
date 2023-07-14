@@ -32,6 +32,8 @@ export interface DeviceContextUpdateOptions {
   targetApp?: string;
   /** A Boolean flag specifying whether to enable application logging. Logs will be enabled or extended for 24 hours. */
   loggingEnabled?: boolean;
+  /** Set to true to restart the App running on the Device. */
+  restartApp?: boolean;
 }
 /**
  * Options to pass to each
@@ -191,6 +193,8 @@ export class DeviceContextImpl implements DeviceContext {
       data["TargetApp"] = params["targetApp"];
     if (params["loggingEnabled"] !== undefined)
       data["LoggingEnabled"] = serialize.bool(params["loggingEnabled"]);
+    if (params["restartApp"] !== undefined)
+      data["RestartApp"] = serialize.bool(params["restartApp"]);
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";

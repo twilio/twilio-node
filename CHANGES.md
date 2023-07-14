@@ -1,6 +1,31 @@
 twilio-node changelog
 =====================
 
+[2023-07-14] Version 4.14.0
+---------------------------
+**Library - Fix**
+- [PR #945](https://github.com/twilio/twilio-node/pull/945): bump dayjs version (fixes #934). Thanks to [@titanism](https://github.com/titanism)!
+
+**Flex**
+- Adding `interaction_context_sid` as optional parameter in Interactions API
+
+**Messaging**
+- Making visiblity public for tollfree_verification API
+
+**Numbers**
+- Remove Sms capability property from HNO creation under version `/v2` of HNO API. **(breaking change)**
+- Update required properties in LOA creation under version `/v2` of Authorization document API. **(breaking change)**
+
+**Taskrouter**
+- Add api to fetch task queue statistics for multiple TaskQueues
+
+**Verify**
+- Add `RiskCheck` optional parameter on Verification creation.
+
+**Twiml**
+- Add Google Voices and languages
+
+
 [2023-06-28] Version 4.13.0
 ---------------------------
 **Library - Fix**

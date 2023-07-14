@@ -20,6 +20,8 @@ import { isValidPathParam } from "../../../../base/utility";
 
 export type VerificationChannel = "sms" | "call" | "email" | "whatsapp" | "sna";
 
+export type VerificationRiskCheck = "enable" | "disable";
+
 export type VerificationStatus = "canceled" | "approved";
 
 /**
@@ -64,6 +66,8 @@ export interface VerificationListInstanceCreateOptions {
   templateCustomSubstitutions?: string;
   /** Strongly encouraged if using the auto channel. The IP address of the client\\\'s device. If provided, it has to be a valid IPv4 or IPv6 address. */
   deviceIp?: string;
+  /**  */
+  riskCheck?: VerificationRiskCheck;
 }
 
 export interface VerificationContext {
@@ -482,6 +486,8 @@ export function VerificationListInstance(
       data["TemplateCustomSubstitutions"] =
         params["templateCustomSubstitutions"];
     if (params["deviceIp"] !== undefined) data["DeviceIp"] = params["deviceIp"];
+    if (params["riskCheck"] !== undefined)
+      data["RiskCheck"] = params["riskCheck"];
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";

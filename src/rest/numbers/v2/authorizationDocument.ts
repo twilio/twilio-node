@@ -38,6 +38,8 @@ export interface AuthorizationDocumentListInstanceCreateOptions {
   email: string;
   /** The contact phone number of the person authorized to sign the Authorization Document. */
   contactPhoneNumber: string;
+  /** A list of HostedNumberOrder sids that this AuthorizationDocument will authorize for hosting phone number capabilities on Twilio\\\'s platform. */
+  hostedNumberOrderSids: Array<string>;
   /** The title of the person authorized to sign the Authorization Document for this phone number. */
   contactTitle?: string;
   /** Email recipients who will be informed when an Authorization Document has been sent and signed. */
@@ -506,6 +508,15 @@ export function AuthorizationDocumentListInstance(
       );
     }
 
+    if (
+      params["hostedNumberOrderSids"] === null ||
+      params["hostedNumberOrderSids"] === undefined
+    ) {
+      throw new Error(
+        "Required parameter \"params['hostedNumberOrderSids']\" missing."
+      );
+    }
+
     let data: any = {};
 
     data["AddressSid"] = params["addressSid"];
@@ -513,6 +524,11 @@ export function AuthorizationDocumentListInstance(
     data["Email"] = params["email"];
 
     data["ContactPhoneNumber"] = params["contactPhoneNumber"];
+
+    data["HostedNumberOrderSids"] = serialize.map(
+      params["hostedNumberOrderSids"],
+      (e: string) => e
+    );
     if (params["contactTitle"] !== undefined)
       data["ContactTitle"] = params["contactTitle"];
     if (params["ccEmails"] !== undefined)

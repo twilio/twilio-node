@@ -27,6 +27,8 @@ export interface InteractionListInstanceCreateOptions {
   channel: any;
   /** The Interaction\\\'s routing logic. */
   routing: any;
+  /** The Interaction context sid is used for adding a context lookup sid */
+  interactionContextSid?: string;
 }
 
 export interface InteractionContext {
@@ -124,6 +126,7 @@ interface InteractionResource {
   routing: any;
   url: string;
   links: Record<string, string>;
+  interaction_context_sid: string;
 }
 
 export class InteractionInstance {
@@ -140,6 +143,7 @@ export class InteractionInstance {
     this.routing = payload.routing;
     this.url = payload.url;
     this.links = payload.links;
+    this.interactionContextSid = payload.interaction_context_sid;
 
     this._solution = { sid: sid || this.sid };
   }
@@ -158,6 +162,7 @@ export class InteractionInstance {
   routing: any;
   url: string;
   links: Record<string, string>;
+  interactionContextSid: string;
 
   private get _proxy(): InteractionContext {
     this._context =
@@ -198,6 +203,7 @@ export class InteractionInstance {
       routing: this.routing,
       url: this.url,
       links: this.links,
+      interactionContextSid: this.interactionContextSid,
     };
   }
 
@@ -268,6 +274,8 @@ export function InteractionListInstance(version: V1): InteractionListInstance {
     data["Channel"] = serialize.object(params["channel"]);
 
     data["Routing"] = serialize.object(params["routing"]);
+    if (params["interactionContextSid"] !== undefined)
+      data["InteractionContextSid"] = params["interactionContextSid"];
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";

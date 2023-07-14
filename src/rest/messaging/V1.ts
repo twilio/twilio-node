@@ -23,6 +23,7 @@ import { ExternalCampaignListInstance } from "./v1/externalCampaign";
 import { LinkshorteningMessagingServiceListInstance } from "./v1/linkshorteningMessagingService";
 import { LinkshorteningMessagingServiceDomainAssociationListInstance } from "./v1/linkshorteningMessagingServiceDomainAssociation";
 import { ServiceListInstance } from "./v1/service";
+import { TollfreeVerificationListInstance } from "./v1/tollfreeVerification";
 import { UsecaseListInstance } from "./v1/usecase";
 
 export default class V1 extends Version {
@@ -53,6 +54,8 @@ export default class V1 extends Version {
   protected _linkshorteningMessagingServiceDomainAssociation?: LinkshorteningMessagingServiceDomainAssociationListInstance;
   /** services - { Twilio.Messaging.V1.ServiceListInstance } resource */
   protected _services?: ServiceListInstance;
+  /** tollfreeVerifications - { Twilio.Messaging.V1.TollfreeVerificationListInstance } resource */
+  protected _tollfreeVerifications?: TollfreeVerificationListInstance;
   /** usecases - { Twilio.Messaging.V1.UsecaseListInstance } resource */
   protected _usecases?: UsecaseListInstance;
 
@@ -117,6 +120,13 @@ export default class V1 extends Version {
   get services(): ServiceListInstance {
     this._services = this._services || ServiceListInstance(this);
     return this._services;
+  }
+
+  /** Getter for tollfreeVerifications resource */
+  get tollfreeVerifications(): TollfreeVerificationListInstance {
+    this._tollfreeVerifications =
+      this._tollfreeVerifications || TollfreeVerificationListInstance(this);
+    return this._tollfreeVerifications;
   }
 
   /** Getter for usecases resource */

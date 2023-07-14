@@ -256,7 +256,6 @@ interface HostedNumberOrderResource {
   status: HostedNumberOrderStatus;
   failure_reason: string;
   date_created: Date;
-  sms_capability: boolean;
   date_updated: Date;
   email: string;
   cc_emails: Array<string>;
@@ -287,7 +286,6 @@ export class HostedNumberOrderInstance {
     this.status = payload.status;
     this.failureReason = payload.failure_reason;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
-    this.smsCapability = payload.sms_capability;
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
     this.email = payload.email;
     this.ccEmails = payload.cc_emails;
@@ -338,10 +336,6 @@ export class HostedNumberOrderInstance {
    * The date this resource was created, given as [GMT RFC 2822](http://www.ietf.org/rfc/rfc2822.txt) format.
    */
   dateCreated: Date;
-  /**
-   * Whether the SMS capability will be hosted on our platform. Can be `true` of `false`.
-   */
-  smsCapability: boolean;
   /**
    * The date that this resource was updated, given as [GMT RFC 2822](http://www.ietf.org/rfc/rfc2822.txt) format.
    */
@@ -426,7 +420,6 @@ export class HostedNumberOrderInstance {
       status: this.status,
       failureReason: this.failureReason,
       dateCreated: this.dateCreated,
-      smsCapability: this.smsCapability,
       dateUpdated: this.dateUpdated,
       email: this.email,
       ccEmails: this.ccEmails,
