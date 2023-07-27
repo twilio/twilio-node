@@ -654,6 +654,7 @@ namespace VoiceResponse {
     | "fr-CA"
     | "fr-FR"
     | "gu-IN"
+    | "he-IL"
     | "hi-IN"
     | "hu-HU"
     | "id-ID"
@@ -1189,6 +1190,8 @@ namespace VoiceResponse {
 
   type SipEvent = "initiated" | "ringing" | "answered" | "completed";
 
+  type SiprecStatusCallbackMethod = "GET" | "POST";
+
   type SiprecTrack = "inbound_track" | "outbound_track" | "both_tracks";
 
   type SsmlBreakStrength =
@@ -1223,6 +1226,7 @@ namespace VoiceResponse {
     | "fi-FI"
     | "fr-CA"
     | "fr-FR"
+    | "he-IL"
     | "hi-IN"
     | "is-IS"
     | "it-IT"
@@ -1599,6 +1603,10 @@ namespace VoiceResponse {
     connectorName?: string;
     /** name - Friendly name given to SIPREC */
     name?: string;
+    /** statusCallback - Status Callback URL */
+    statusCallback?: string;
+    /** statusCallbackMethod - Status Callback URL method */
+    statusCallbackMethod?: SiprecStatusCallbackMethod;
     /** track - Track to be streamed to remote service */
     track?: SiprecTrack;
   }
@@ -1649,6 +1657,10 @@ namespace VoiceResponse {
     connectorName?: string;
     /** name - Friendly name given to SIPREC */
     name?: string;
+    /** statusCallback - Status Callback URL */
+    statusCallback?: string;
+    /** statusCallbackMethod - Status Callback URL method */
+    statusCallbackMethod?: SiprecStatusCallbackMethod;
     /** track - Track to be streamed to remote service */
     track?: SiprecTrack;
   }

@@ -28,9 +28,9 @@ export type VerificationAttemptConversionStatus = "converted" | "unconverted";
  * Options to pass to each
  */
 export interface VerificationAttemptListInstanceEachOptions {
-  /** Datetime filter used to query Verification Attempts created after this datetime. Given as GMT in RFC 2822 format. */
+  /** Datetime filter used to consider only Verification Attempts created after this datetime on the summary aggregation. Given as GMT in ISO 8601 formatted datetime string: yyyy-MM-dd\'T\'HH:mm:ss\'Z. */
   dateCreatedAfter?: Date;
-  /** Datetime filter used to query Verification Attempts created before this datetime. Given as GMT in RFC 2822 format. */
+  /** Datetime filter used to consider only Verification Attempts created before this datetime on the summary aggregation. Given as GMT in ISO 8601 formatted datetime string: yyyy-MM-dd\'T\'HH:mm:ss\'Z. */
   dateCreatedBefore?: Date;
   /** Destination of a verification. It is phone number in E.164 format. */
   "channelData.to"?: string;
@@ -61,9 +61,9 @@ export interface VerificationAttemptListInstanceEachOptions {
  * Options to pass to list
  */
 export interface VerificationAttemptListInstanceOptions {
-  /** Datetime filter used to query Verification Attempts created after this datetime. Given as GMT in RFC 2822 format. */
+  /** Datetime filter used to consider only Verification Attempts created after this datetime on the summary aggregation. Given as GMT in ISO 8601 formatted datetime string: yyyy-MM-dd\'T\'HH:mm:ss\'Z. */
   dateCreatedAfter?: Date;
-  /** Datetime filter used to query Verification Attempts created before this datetime. Given as GMT in RFC 2822 format. */
+  /** Datetime filter used to consider only Verification Attempts created before this datetime on the summary aggregation. Given as GMT in ISO 8601 formatted datetime string: yyyy-MM-dd\'T\'HH:mm:ss\'Z. */
   dateCreatedBefore?: Date;
   /** Destination of a verification. It is phone number in E.164 format. */
   "channelData.to"?: string;
@@ -87,9 +87,9 @@ export interface VerificationAttemptListInstanceOptions {
  * Options to pass to page
  */
 export interface VerificationAttemptListInstancePageOptions {
-  /** Datetime filter used to query Verification Attempts created after this datetime. Given as GMT in RFC 2822 format. */
+  /** Datetime filter used to consider only Verification Attempts created after this datetime on the summary aggregation. Given as GMT in ISO 8601 formatted datetime string: yyyy-MM-dd\'T\'HH:mm:ss\'Z. */
   dateCreatedAfter?: Date;
-  /** Datetime filter used to query Verification Attempts created before this datetime. Given as GMT in RFC 2822 format. */
+  /** Datetime filter used to consider only Verification Attempts created before this datetime on the summary aggregation. Given as GMT in ISO 8601 formatted datetime string: yyyy-MM-dd\'T\'HH:mm:ss\'Z. */
   dateCreatedBefore?: Date;
   /** Destination of a verification. It is phone number in E.164 format. */
   "channelData.to"?: string;

@@ -44,7 +44,7 @@ export interface HostedNumberOrderListInstanceCreateOptions {
   email: string;
   /** This defaults to the AccountSid of the authorization the user is using. This can be provided to specify a subaccount to add the HostedNumberOrder to. */
   accountSid?: string;
-  /** A 64 character string that is a human readable text that describes this resource. */
+  /** A 128 character string that is a human readable text that describes this resource. */
   friendlyName?: string;
   /** Optional. A list of emails that the LOA document for this HostedNumberOrder will be carbon copied to. */
   ccEmails?: Array<string>;
@@ -79,7 +79,7 @@ export interface HostedNumberOrderListInstanceEachOptions {
   phoneNumber?: string;
   /** A 34 character string that uniquely identifies the IncomingPhoneNumber resource created by this HostedNumberOrder. */
   incomingPhoneNumberSid?: string;
-  /** A human readable description of this resource, up to 64 characters. */
+  /** A human readable description of this resource, up to 128 characters. */
   friendlyName?: string;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
@@ -106,7 +106,7 @@ export interface HostedNumberOrderListInstanceOptions {
   phoneNumber?: string;
   /** A 34 character string that uniquely identifies the IncomingPhoneNumber resource created by this HostedNumberOrder. */
   incomingPhoneNumberSid?: string;
-  /** A human readable description of this resource, up to 64 characters. */
+  /** A human readable description of this resource, up to 128 characters. */
   friendlyName?: string;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
@@ -126,7 +126,7 @@ export interface HostedNumberOrderListInstancePageOptions {
   phoneNumber?: string;
   /** A 34 character string that uniquely identifies the IncomingPhoneNumber resource created by this HostedNumberOrder. */
   incomingPhoneNumberSid?: string;
-  /** A human readable description of this resource, up to 64 characters. */
+  /** A human readable description of this resource, up to 128 characters. */
   friendlyName?: string;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
@@ -324,7 +324,7 @@ export class HostedNumberOrderInstance {
   phoneNumber: string;
   capabilities: PhoneNumberCapabilities;
   /**
-   * A 64 character string that is a human-readable text that describes this resource.
+   * A 128 character string that is a human-readable text that describes this resource.
    */
   friendlyName: string;
   status: HostedNumberOrderStatus;

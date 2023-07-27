@@ -40,7 +40,7 @@ export interface DependentHostedNumberOrderListInstanceEachOptions {
   phoneNumber?: string;
   /** A 34 character string that uniquely identifies the IncomingPhoneNumber resource created by this HostedNumberOrder. */
   incomingPhoneNumberSid?: string;
-  /** A human readable description of this resource, up to 64 characters. */
+  /** A human readable description of this resource, up to 128 characters. */
   friendlyName?: string;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
@@ -65,7 +65,7 @@ export interface DependentHostedNumberOrderListInstanceOptions {
   phoneNumber?: string;
   /** A 34 character string that uniquely identifies the IncomingPhoneNumber resource created by this HostedNumberOrder. */
   incomingPhoneNumberSid?: string;
-  /** A human readable description of this resource, up to 64 characters. */
+  /** A human readable description of this resource, up to 128 characters. */
   friendlyName?: string;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
@@ -83,7 +83,7 @@ export interface DependentHostedNumberOrderListInstancePageOptions {
   phoneNumber?: string;
   /** A 34 character string that uniquely identifies the IncomingPhoneNumber resource created by this HostedNumberOrder. */
   incomingPhoneNumberSid?: string;
-  /** A human readable description of this resource, up to 64 characters. */
+  /** A human readable description of this resource, up to 128 characters. */
   friendlyName?: string;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
@@ -394,7 +394,7 @@ export class DependentHostedNumberOrderInstance {
   phoneNumber: string;
   capabilities: PhoneNumberCapabilities;
   /**
-   * A human readable description of this resource, up to 64 characters.
+   * A human readable description of this resource, up to 128 characters.
    */
   friendlyName: string;
   status: DependentHostedNumberOrderStatus;
