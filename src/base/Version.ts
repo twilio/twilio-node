@@ -335,8 +335,7 @@ export default class Version {
         } else {
           onComplete();
         }
-      });
-      promise.catch(onComplete);
+      }).catch(onComplete);
     }
 
     return new Promise((resolve, reject) => {
