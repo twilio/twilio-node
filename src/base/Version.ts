@@ -311,31 +311,33 @@ export default class Version {
         return;
       }
 
-      promise.then((page: any) => {
-        try {
-          page.instances.forEach(function (instance: any) {
-            if (
-              done ||
-              (typeof params.limit !== "undefined" &&
-                currentResource >= params.limit)
-            ) {
-              done = true;
-              return false;
-            }
-            currentResource++;
-            callback?.(instance, onComplete);
-          });
-        } catch (e) {
-          return onComplete(e);
-        }
+      promise
+        .then((page: any) => {
+          try {
+            page.instances.forEach(function (instance: any) {
+              if (
+                done ||
+                (typeof params.limit !== "undefined" &&
+                  currentResource >= params.limit)
+              ) {
+                done = true;
+                return false;
+              }
+              currentResource++;
+              callback?.(instance, onComplete);
+            });
+          } catch (e) {
+            return onComplete(e);
+          }
 
-        if (!done) {
-          currentPage++;
-          fetchNextPage(page.nextPage.bind(page));
-        } else {
-          onComplete();
-        }
-      }).catch(onComplete);
+          if (!done) {
+            currentPage++;
+            fetchNextPage(page.nextPage.bind(page));
+          } else {
+            onComplete();
+          }
+        })
+        .catch(onComplete);
     }
 
     return new Promise((resolve, reject) => {
