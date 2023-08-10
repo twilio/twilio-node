@@ -39,7 +39,7 @@ export type CommandTransport = "sms" | "ip";
 export interface CommandListInstanceCreateOptions {
   /** The message body of the Command. Can be plain text in text mode or a Base64 encoded byte string in binary mode. */
   command: string;
-  /** The `sid` or `unique_name` of the [SIM](https://www.twilio.com/docs/wireless/api/sim-resource) to send the Command to. */
+  /** The `sid` or `unique_name` of the [SIM](https://www.twilio.com/docs/iot/wireless/api/sim-resource) to send the Command to. */
   sim?: string;
   /** The HTTP method we use to call `callback_url`. Can be: `POST` or `GET`, and the default is `POST`. */
   callbackMethod?: string;
@@ -56,7 +56,7 @@ export interface CommandListInstanceCreateOptions {
  * Options to pass to each
  */
 export interface CommandListInstanceEachOptions {
-  /** The `sid` or `unique_name` of the [Sim resources](https://www.twilio.com/docs/wireless/api/sim-resource) to read. */
+  /** The `sid` or `unique_name` of the [Sim resources](https://www.twilio.com/docs/iot/wireless/api/sim-resource) to read. */
   sim?: string;
   /** The status of the resources to read. Can be: `queued`, `sent`, `delivered`, `received`, or `failed`. */
   status?: CommandStatus;
@@ -78,7 +78,7 @@ export interface CommandListInstanceEachOptions {
  * Options to pass to list
  */
 export interface CommandListInstanceOptions {
-  /** The `sid` or `unique_name` of the [Sim resources](https://www.twilio.com/docs/wireless/api/sim-resource) to read. */
+  /** The `sid` or `unique_name` of the [Sim resources](https://www.twilio.com/docs/iot/wireless/api/sim-resource) to read. */
   sim?: string;
   /** The status of the resources to read. Can be: `queued`, `sent`, `delivered`, `received`, or `failed`. */
   status?: CommandStatus;
@@ -96,7 +96,7 @@ export interface CommandListInstanceOptions {
  * Options to pass to page
  */
 export interface CommandListInstancePageOptions {
-  /** The `sid` or `unique_name` of the [Sim resources](https://www.twilio.com/docs/wireless/api/sim-resource) to read. */
+  /** The `sid` or `unique_name` of the [Sim resources](https://www.twilio.com/docs/iot/wireless/api/sim-resource) to read. */
   sim?: string;
   /** The status of the resources to read. Can be: `queued`, `sent`, `delivered`, `received`, or `failed`. */
   status?: CommandStatus;
@@ -261,7 +261,7 @@ export class CommandInstance {
    */
   accountSid: string;
   /**
-   * The SID of the [Sim resource](https://www.twilio.com/docs/wireless/api/sim-resource) that the Command was sent to or from.
+   * The SID of the [Sim resource](https://www.twilio.com/docs/iot/wireless/api/sim-resource) that the Command was sent to or from.
    */
   simSid: string;
   /**

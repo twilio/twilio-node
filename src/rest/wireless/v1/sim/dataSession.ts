@@ -282,7 +282,7 @@ export class DataSessionInstance {
    */
   sid: string;
   /**
-   * The SID of the [Sim resource](https://www.twilio.com/docs/wireless/api/sim-resource) that the Data Session is for.
+   * The SID of the [Sim resource](https://www.twilio.com/docs/iot/wireless/api/sim-resource) that the Data Session is for.
    */
   simSid: string;
   /**
@@ -306,7 +306,7 @@ export class DataSessionInstance {
    */
   operatorCountry: string;
   /**
-   * The friendly name of the mobile operator network that the [SIM](https://www.twilio.com/docs/wireless/api/sim-resource)-connected device is attached to. This is determined by looking up the `operator_mnc`.
+   * The friendly name of the mobile operator network that the [SIM](https://www.twilio.com/docs/iot/wireless/api/sim-resource)-connected device is attached to. This is determined by looking up the `operator_mnc`.
    */
   operatorName: string;
   /**
@@ -314,7 +314,7 @@ export class DataSessionInstance {
    */
   cellId: string;
   /**
-   * An object that describes the estimated location in latitude and longitude where the device\'s Data Session took place. The location is derived from the `cell_id` when the Data Session was last updated. See [Cell Location Estimate Object](https://www.twilio.com/docs/wireless/api/datasession-resource#cell-location-estimate-object).
+   * An object that describes the estimated location in latitude and longitude where the device\'s Data Session took place. The location is derived from the `cell_id` when the Data Session was last updated. See [Cell Location Estimate Object](https://www.twilio.com/docs/iot/wireless/api/datasession-resource#cell-location-estimate-object).
    */
   cellLocationEstimate: any;
   /**

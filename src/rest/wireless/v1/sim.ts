@@ -46,13 +46,13 @@ export interface SimContextUpdateOptions {
   callbackUrl?: string;
   /** A descriptive string that you create to describe the Sim resource. It does not need to be unique. */
   friendlyName?: string;
-  /** The SID or unique name of the [RatePlan resource](https://www.twilio.com/docs/wireless/api/rateplan-resource) to which the Sim resource should be assigned. */
+  /** The SID or unique name of the [RatePlan resource](https://www.twilio.com/docs/iot/wireless/api/rateplan-resource) to which the Sim resource should be assigned. */
   ratePlan?: string;
   /**  */
   status?: SimStatus;
   /** The HTTP method we should use to call `commands_callback_url`. Can be: `POST` or `GET`. The default is `POST`. */
   commandsCallbackMethod?: string;
-  /** The URL we should call using the `commands_callback_method` when the SIM sends a [Command](https://www.twilio.com/docs/wireless/api/command-resource). Your server should respond with an HTTP status code in the 200 range; any response body is ignored. */
+  /** The URL we should call using the `commands_callback_method` when the SIM sends a [Command](https://www.twilio.com/docs/iot/wireless/api/command-resource). Your server should respond with an HTTP status code in the 200 range; any response body is ignored. */
   commandsCallbackUrl?: string;
   /** The HTTP method we should use to call `sms_fallback_url`. Can be: `GET` or `POST`. Default is `POST`. */
   smsFallbackMethod?: string;
@@ -60,7 +60,7 @@ export interface SimContextUpdateOptions {
   smsFallbackUrl?: string;
   /** The HTTP method we should use to call `sms_url`. Can be: `GET` or `POST`. Default is `POST`. */
   smsMethod?: string;
-  /** The URL we should call using the `sms_method` when the SIM-connected device sends an SMS message that is not a [Command](https://www.twilio.com/docs/wireless/api/command-resource). */
+  /** The URL we should call using the `sms_method` when the SIM-connected device sends an SMS message that is not a [Command](https://www.twilio.com/docs/iot/wireless/api/command-resource). */
   smsUrl?: string;
   /** Deprecated. */
   voiceFallbackMethod?: string;
@@ -72,7 +72,7 @@ export interface SimContextUpdateOptions {
   voiceUrl?: string;
   /**  */
   resetStatus?: SimResetStatus;
-  /** The SID of the [Account](https://www.twilio.com/docs/iam/api/account) to which the Sim resource should belong. The Account SID can only be that of the requesting Account or that of a [Subaccount](https://www.twilio.com/docs/iam/api/subaccounts) of the requesting Account. Only valid when the Sim resource\\\'s status is `new`. For more information, see the [Move SIMs between Subaccounts documentation](https://www.twilio.com/docs/wireless/api/sim-resource#move-sims-between-subaccounts). */
+  /** The SID of the [Account](https://www.twilio.com/docs/iam/api/account) to which the Sim resource should belong. The Account SID can only be that of the requesting Account or that of a [Subaccount](https://www.twilio.com/docs/iam/api/subaccounts) of the requesting Account. Only valid when the Sim resource\\\'s status is `new`. For more information, see the [Move SIMs between Subaccounts documentation](https://www.twilio.com/docs/iot/wireless/api/sim-resource#move-sims-between-subaccounts). */
   accountSid?: string;
 }
 /**
@@ -83,7 +83,7 @@ export interface SimListInstanceEachOptions {
   status?: SimStatus;
   /** Only return Sim resources with this ICCID. This will return a list with a maximum size of 1. */
   iccid?: string;
-  /** The SID or unique name of a [RatePlan resource](https://www.twilio.com/docs/wireless/api/rateplan-resource). Only return Sim resources assigned to this RatePlan resource. */
+  /** The SID or unique name of a [RatePlan resource](https://www.twilio.com/docs/iot/wireless/api/rateplan-resource). Only return Sim resources assigned to this RatePlan resource. */
   ratePlan?: string;
   /** Deprecated. */
   eId?: string;
@@ -107,7 +107,7 @@ export interface SimListInstanceOptions {
   status?: SimStatus;
   /** Only return Sim resources with this ICCID. This will return a list with a maximum size of 1. */
   iccid?: string;
-  /** The SID or unique name of a [RatePlan resource](https://www.twilio.com/docs/wireless/api/rateplan-resource). Only return Sim resources assigned to this RatePlan resource. */
+  /** The SID or unique name of a [RatePlan resource](https://www.twilio.com/docs/iot/wireless/api/rateplan-resource). Only return Sim resources assigned to this RatePlan resource. */
   ratePlan?: string;
   /** Deprecated. */
   eId?: string;
@@ -127,7 +127,7 @@ export interface SimListInstancePageOptions {
   status?: SimStatus;
   /** Only return Sim resources with this ICCID. This will return a list with a maximum size of 1. */
   iccid?: string;
-  /** The SID or unique name of a [RatePlan resource](https://www.twilio.com/docs/wireless/api/rateplan-resource). Only return Sim resources assigned to this RatePlan resource. */
+  /** The SID or unique name of a [RatePlan resource](https://www.twilio.com/docs/iot/wireless/api/rateplan-resource). Only return Sim resources assigned to this RatePlan resource. */
   ratePlan?: string;
   /** Deprecated. */
   eId?: string;
@@ -433,7 +433,7 @@ export class SimInstance {
    */
   accountSid: string;
   /**
-   * The SID of the [RatePlan resource](https://www.twilio.com/docs/wireless/api/rateplan-resource) to which the Sim resource is assigned.
+   * The SID of the [RatePlan resource](https://www.twilio.com/docs/iot/wireless/api/rateplan-resource) to which the Sim resource is assigned.
    */
   ratePlanSid: string;
   /**
@@ -451,7 +451,7 @@ export class SimInstance {
   status: SimStatus;
   resetStatus: SimResetStatus;
   /**
-   * The URL we call using the `commands_callback_method` when the SIM originates a machine-to-machine [Command](https://www.twilio.com/docs/wireless/api/command-resource). Your server should respond with an HTTP status code in the 200 range; any response body will be ignored.
+   * The URL we call using the `commands_callback_method` when the SIM originates a machine-to-machine [Command](https://www.twilio.com/docs/iot/wireless/api/command-resource). Your server should respond with an HTTP status code in the 200 range; any response body will be ignored.
    */
   commandsCallbackUrl: string;
   /**

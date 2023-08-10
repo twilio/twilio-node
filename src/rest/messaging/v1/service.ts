@@ -43,17 +43,17 @@ export interface ServiceContextUpdateOptions {
   fallbackMethod?: string;
   /** The URL we should call to [pass status updates](https://www.twilio.com/docs/sms/api/message-resource#message-status-values) about message delivery. */
   statusCallback?: string;
-  /** Whether to enable [Sticky Sender](https://www.twilio.com/docs/sms/services#sticky-sender) on the Service instance. */
+  /** Whether to enable [Sticky Sender](https://www.twilio.com/docs/messaging/services#sticky-sender) on the Service instance. */
   stickySender?: boolean;
-  /** Whether to enable the [MMS Converter](https://www.twilio.com/docs/sms/services#mms-converter) for messages sent through the Service instance. */
+  /** Whether to enable the [MMS Converter](https://www.twilio.com/docs/messaging/services#mms-converter) for messages sent through the Service instance. */
   mmsConverter?: boolean;
-  /** Whether to enable [Smart Encoding](https://www.twilio.com/docs/sms/services#smart-encoding) for messages sent through the Service instance. */
+  /** Whether to enable [Smart Encoding](https://www.twilio.com/docs/messaging/services#smart-encoding) for messages sent through the Service instance. */
   smartEncoding?: boolean;
   /**  */
   scanMessageContent?: ServiceScanMessageContent;
-  /** Whether to enable [Fallback to Long Code](https://www.twilio.com/docs/sms/services#fallback-to-long-code) for messages sent through the Service instance. */
+  /** Whether to enable [Fallback to Long Code](https://www.twilio.com/docs/messaging/services#fallback-to-long-code) for messages sent through the Service instance. */
   fallbackToLongCode?: boolean;
-  /** Whether to enable [Area Code Geomatch](https://www.twilio.com/docs/sms/services#area-code-geomatch) on the Service Instance. */
+  /** Whether to enable [Area Code Geomatch](https://www.twilio.com/docs/messaging/services#area-code-geomatch) on the Service Instance. */
   areaCodeGeomatch?: boolean;
   /** How long, in seconds, messages sent from the Service are valid. Can be an integer from `1` to `14,400`. */
   validityPeriod?: number;
@@ -81,17 +81,17 @@ export interface ServiceListInstanceCreateOptions {
   fallbackMethod?: string;
   /** The URL we should call to [pass status updates](https://www.twilio.com/docs/sms/api/message-resource#message-status-values) about message delivery. */
   statusCallback?: string;
-  /** Whether to enable [Sticky Sender](https://www.twilio.com/docs/sms/services#sticky-sender) on the Service instance. */
+  /** Whether to enable [Sticky Sender](https://www.twilio.com/docs/messaging/services#sticky-sender) on the Service instance. */
   stickySender?: boolean;
-  /** Whether to enable the [MMS Converter](https://www.twilio.com/docs/sms/services#mms-converter) for messages sent through the Service instance. */
+  /** Whether to enable the [MMS Converter](https://www.twilio.com/docs/messaging/services#mms-converter) for messages sent through the Service instance. */
   mmsConverter?: boolean;
-  /** Whether to enable [Smart Encoding](https://www.twilio.com/docs/sms/services#smart-encoding) for messages sent through the Service instance. */
+  /** Whether to enable [Smart Encoding](https://www.twilio.com/docs/messaging/services#smart-encoding) for messages sent through the Service instance. */
   smartEncoding?: boolean;
   /**  */
   scanMessageContent?: ServiceScanMessageContent;
-  /** Whether to enable [Fallback to Long Code](https://www.twilio.com/docs/sms/services#fallback-to-long-code) for messages sent through the Service instance. */
+  /** Whether to enable [Fallback to Long Code](https://www.twilio.com/docs/messaging/services#fallback-to-long-code) for messages sent through the Service instance. */
   fallbackToLongCode?: boolean;
-  /** Whether to enable [Area Code Geomatch](https://www.twilio.com/docs/sms/services#area-code-geomatch) on the Service Instance. */
+  /** Whether to enable [Area Code Geomatch](https://www.twilio.com/docs/messaging/services#area-code-geomatch) on the Service Instance. */
   areaCodeGeomatch?: boolean;
   /** How long, in seconds, messages sent from the Service are valid. Can be an integer from `1` to `14,400`. */
   validityPeriod?: number;
@@ -486,24 +486,24 @@ export class ServiceInstance {
    */
   statusCallback: string;
   /**
-   * Whether to enable [Sticky Sender](https://www.twilio.com/docs/sms/services#sticky-sender) on the Service instance.
+   * Whether to enable [Sticky Sender](https://www.twilio.com/docs/messaging/services#sticky-sender) on the Service instance.
    */
   stickySender: boolean;
   /**
-   * Whether to enable the [MMS Converter](https://www.twilio.com/docs/sms/services#mms-converter) for messages sent through the Service instance.
+   * Whether to enable the [MMS Converter](https://www.twilio.com/docs/messaging/services#mms-converter) for messages sent through the Service instance.
    */
   mmsConverter: boolean;
   /**
-   * Whether to enable [Smart Encoding](https://www.twilio.com/docs/sms/services#smart-encoding) for messages sent through the Service instance.
+   * Whether to enable [Smart Encoding](https://www.twilio.com/docs/messaging/services#smart-encoding) for messages sent through the Service instance.
    */
   smartEncoding: boolean;
   scanMessageContent: ServiceScanMessageContent;
   /**
-   * Whether to enable [Fallback to Long Code](https://www.twilio.com/docs/sms/services#fallback-to-long-code) for messages sent through the Service instance.
+   * Whether to enable [Fallback to Long Code](https://www.twilio.com/docs/messaging/services#fallback-to-long-code) for messages sent through the Service instance.
    */
   fallbackToLongCode: boolean;
   /**
-   * Whether to enable [Area Code Geomatch](https://www.twilio.com/docs/sms/services#area-code-geomatch) on the Service Instance.
+   * Whether to enable [Area Code Geomatch](https://www.twilio.com/docs/messaging/services#area-code-geomatch) on the Service Instance.
    */
   areaCodeGeomatch: boolean;
   /**

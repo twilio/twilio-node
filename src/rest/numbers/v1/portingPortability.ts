@@ -24,6 +24,14 @@ export type PortingPortabilityNumberType =
   | "MOBILE"
   | "TOLL-FREE";
 
+/**
+ * Options to pass to fetch a PortingPortabilityInstance
+ */
+export interface PortingPortabilityContextFetchOptions {
+  /** The SID of the account where the phone number(s) will be ported. */
+  targetAccountSid?: string;
+}
+
 export interface PortingPortabilityContext {
   /**
    * Fetch a PortingPortabilityInstance
@@ -33,6 +41,18 @@ export interface PortingPortabilityContext {
    * @returns Resolves to processed PortingPortabilityInstance
    */
   fetch(
+    callback?: (error: Error | null, item?: PortingPortabilityInstance) => any
+  ): Promise<PortingPortabilityInstance>;
+  /**
+   * Fetch a PortingPortabilityInstance
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed PortingPortabilityInstance
+   */
+  fetch(
+    params: PortingPortabilityContextFetchOptions,
     callback?: (error: Error | null, item?: PortingPortabilityInstance) => any
   ): Promise<PortingPortabilityInstance>;
 
@@ -63,13 +83,32 @@ export class PortingPortabilityContextImpl
   }
 
   fetch(
+    params?:
+      | PortingPortabilityContextFetchOptions
+      | ((error: Error | null, item?: PortingPortabilityInstance) => any),
     callback?: (error: Error | null, item?: PortingPortabilityInstance) => any
   ): Promise<PortingPortabilityInstance> {
+    if (params instanceof Function) {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    let data: any = {};
+
+    if (params["targetAccountSid"] !== undefined)
+      data["TargetAccountSid"] = params["targetAccountSid"];
+
+    const headers: any = {};
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
         uri: instance._uri,
         method: "get",
+        params: data,
+        headers,
       });
 
     operationPromise = operationPromise.then(
@@ -106,6 +145,7 @@ interface PortingPortabilityPayload extends PortingPortabilityResource {}
 
 interface PortingPortabilityResource {
   phone_number: string;
+  account_sid: string;
   portable: boolean;
   pin_and_account_number_required: boolean;
   not_portable_reason: string;
@@ -127,6 +167,7 @@ export class PortingPortabilityInstance {
     phoneNumber?: string
   ) {
     this.phoneNumber = payload.phone_number;
+    this.accountSid = payload.account_sid;
     this.portable = payload.portable;
     this.pinAndAccountNumberRequired = payload.pin_and_account_number_required;
     this.notPortableReason = payload.not_portable_reason;
@@ -146,6 +187,10 @@ export class PortingPortabilityInstance {
    * The phone number which portability is to be checked. Phone numbers are in E.164 format (e.g. +16175551212).
    */
   phoneNumber: string;
+  /**
+   * The target account sid to which the number will be ported
+   */
+  accountSid: string;
   /**
    * Boolean flag specifying if phone number is portable or not.
    */
@@ -199,8 +244,25 @@ export class PortingPortabilityInstance {
    */
   fetch(
     callback?: (error: Error | null, item?: PortingPortabilityInstance) => any
+  ): Promise<PortingPortabilityInstance>;
+  /**
+   * Fetch a PortingPortabilityInstance
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed PortingPortabilityInstance
+   */
+  fetch(
+    params: PortingPortabilityContextFetchOptions,
+    callback?: (error: Error | null, item?: PortingPortabilityInstance) => any
+  ): Promise<PortingPortabilityInstance>;
+
+  fetch(
+    params?: any,
+    callback?: (error: Error | null, item?: PortingPortabilityInstance) => any
   ): Promise<PortingPortabilityInstance> {
-    return this._proxy.fetch(callback);
+    return this._proxy.fetch(params, callback);
   }
 
   /**
@@ -211,6 +273,7 @@ export class PortingPortabilityInstance {
   toJSON() {
     return {
       phoneNumber: this.phoneNumber,
+      accountSid: this.accountSid,
       portable: this.portable,
       pinAndAccountNumberRequired: this.pinAndAccountNumberRequired,
       notPortableReason: this.notPortableReason,

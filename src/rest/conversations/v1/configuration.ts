@@ -25,7 +25,7 @@ import { WebhookListInstance } from "./configuration/webhook";
 export interface ConfigurationContextUpdateOptions {
   /** The SID of the default [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) to use when creating a conversation. */
   defaultChatServiceSid?: string;
-  /** The SID of the default [Messaging Service](https://www.twilio.com/docs/sms/services/api) to use when creating a conversation. */
+  /** The SID of the default [Messaging Service](https://www.twilio.com/docs/messaging/services/api) to use when creating a conversation. */
   defaultMessagingServiceSid?: string;
   /** Default ISO8601 duration when conversation will be switched to `inactive` state. Minimum value for this timer is 1 minute. */
   defaultInactiveTimer?: string;
@@ -205,7 +205,7 @@ export class ConfigurationInstance {
    */
   defaultChatServiceSid: string;
   /**
-   * The SID of the default [Messaging Service](https://www.twilio.com/docs/sms/services/api) used when creating a conversation.
+   * The SID of the default [Messaging Service](https://www.twilio.com/docs/messaging/services/api) used when creating a conversation.
    */
   defaultMessagingServiceSid: string;
   /**

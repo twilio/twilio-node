@@ -93,14 +93,16 @@ export interface CallSummariesListInstanceEachOptions {
   abnormalSession?: boolean;
   /** An Answered By value for the calls based on `Answering Machine Detection (AMD)`. One of `unknown`, `machine_start`, `machine_end_beep`, `machine_end_silence`, `machine_end_other`, `human` or `fax`. */
   answeredBy?: CallSummariesAnsweredBy;
+  /** Either machine or human. */
+  answeredByAnnotation?: string;
   /** A Connectivity Issue with the calls. One of `no_connectivity_issue`, `invalid_number`, `caller_id`, `dropped_call`, or `number_reachability`. */
-  connectivityIssue?: string;
+  connectivityIssueAnnotation?: string;
   /** A subjective Quality Issue with the calls. One of `no_quality_issue`, `low_volume`, `choppy_robotic`, `echo`, `dtmf`, `latency`, `owa`, `static_noise`. */
-  qualityIssue?: string;
+  qualityIssueAnnotation?: string;
   /** A boolean flag indicating spam calls. */
-  spam?: boolean;
+  spamAnnotation?: boolean;
   /** A Call Score of the calls. Use a range of 1-5 to indicate the call experience score, with the following mapping as a reference for the rated call [5: Excellent, 4: Good, 3 : Fair, 2 : Poor, 1: Bad]. */
-  callScore?: string;
+  callScoreAnnotation?: string;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
@@ -153,14 +155,16 @@ export interface CallSummariesListInstanceOptions {
   abnormalSession?: boolean;
   /** An Answered By value for the calls based on `Answering Machine Detection (AMD)`. One of `unknown`, `machine_start`, `machine_end_beep`, `machine_end_silence`, `machine_end_other`, `human` or `fax`. */
   answeredBy?: CallSummariesAnsweredBy;
+  /** Either machine or human. */
+  answeredByAnnotation?: string;
   /** A Connectivity Issue with the calls. One of `no_connectivity_issue`, `invalid_number`, `caller_id`, `dropped_call`, or `number_reachability`. */
-  connectivityIssue?: string;
+  connectivityIssueAnnotation?: string;
   /** A subjective Quality Issue with the calls. One of `no_quality_issue`, `low_volume`, `choppy_robotic`, `echo`, `dtmf`, `latency`, `owa`, `static_noise`. */
-  qualityIssue?: string;
+  qualityIssueAnnotation?: string;
   /** A boolean flag indicating spam calls. */
-  spam?: boolean;
+  spamAnnotation?: boolean;
   /** A Call Score of the calls. Use a range of 1-5 to indicate the call experience score, with the following mapping as a reference for the rated call [5: Excellent, 4: Good, 3 : Fair, 2 : Poor, 1: Bad]. */
-  callScore?: string;
+  callScoreAnnotation?: string;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
   /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
@@ -209,14 +213,16 @@ export interface CallSummariesListInstancePageOptions {
   abnormalSession?: boolean;
   /** An Answered By value for the calls based on `Answering Machine Detection (AMD)`. One of `unknown`, `machine_start`, `machine_end_beep`, `machine_end_silence`, `machine_end_other`, `human` or `fax`. */
   answeredBy?: CallSummariesAnsweredBy;
+  /** Either machine or human. */
+  answeredByAnnotation?: string;
   /** A Connectivity Issue with the calls. One of `no_connectivity_issue`, `invalid_number`, `caller_id`, `dropped_call`, or `number_reachability`. */
-  connectivityIssue?: string;
+  connectivityIssueAnnotation?: string;
   /** A subjective Quality Issue with the calls. One of `no_quality_issue`, `low_volume`, `choppy_robotic`, `echo`, `dtmf`, `latency`, `owa`, `static_noise`. */
-  qualityIssue?: string;
+  qualityIssueAnnotation?: string;
   /** A boolean flag indicating spam calls. */
-  spam?: boolean;
+  spamAnnotation?: boolean;
   /** A Call Score of the calls. Use a range of 1-5 to indicate the call experience score, with the following mapping as a reference for the rated call [5: Excellent, 4: Good, 3 : Fair, 2 : Poor, 1: Bad]. */
-  callScore?: string;
+  callScoreAnnotation?: string;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
   /** Page Number, this value is simply for client state */
@@ -371,14 +377,17 @@ export function CallSummariesListInstance(
       data["AbnormalSession"] = serialize.bool(params["abnormalSession"]);
     if (params["answeredBy"] !== undefined)
       data["AnsweredBy"] = params["answeredBy"];
-    if (params["connectivityIssue"] !== undefined)
-      data["ConnectivityIssue"] = params["connectivityIssue"];
-    if (params["qualityIssue"] !== undefined)
-      data["QualityIssue"] = params["qualityIssue"];
-    if (params["spam"] !== undefined)
-      data["Spam"] = serialize.bool(params["spam"]);
-    if (params["callScore"] !== undefined)
-      data["CallScore"] = params["callScore"];
+    if (params["answeredByAnnotation"] !== undefined)
+      data["AnsweredByAnnotation"] = params["answeredByAnnotation"];
+    if (params["connectivityIssueAnnotation"] !== undefined)
+      data["ConnectivityIssueAnnotation"] =
+        params["connectivityIssueAnnotation"];
+    if (params["qualityIssueAnnotation"] !== undefined)
+      data["QualityIssueAnnotation"] = params["qualityIssueAnnotation"];
+    if (params["spamAnnotation"] !== undefined)
+      data["SpamAnnotation"] = serialize.bool(params["spamAnnotation"]);
+    if (params["callScoreAnnotation"] !== undefined)
+      data["CallScoreAnnotation"] = params["callScoreAnnotation"];
     if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;

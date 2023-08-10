@@ -51,7 +51,7 @@ export interface IpCommandListInstanceEachOptions {
   sim?: string;
   /** The ICCID of the Sim resource that IP Command was sent to or from. */
   simIccid?: string;
-  /** The status of the IP Command. Can be: `queued`, `sent`, `received` or `failed`. See the [IP Command Status Values](https://www.twilio.com/docs/wireless/api/ipcommand-resource#status-values) for a description of each. */
+  /** The status of the IP Command. Can be: `queued`, `sent`, `received` or `failed`. See the [IP Command Status Values](https://www.twilio.com/docs/iot/supersim/api/ipcommand-resource#status-values) for a description of each. */
   status?: IpCommandStatus;
   /** The direction of the IP Command. Can be `to_sim` or `from_sim`. The value of `to_sim` is synonymous with the term `mobile terminated`, and `from_sim` is synonymous with the term `mobile originated`. */
   direction?: IpCommandDirection;
@@ -73,7 +73,7 @@ export interface IpCommandListInstanceOptions {
   sim?: string;
   /** The ICCID of the Sim resource that IP Command was sent to or from. */
   simIccid?: string;
-  /** The status of the IP Command. Can be: `queued`, `sent`, `received` or `failed`. See the [IP Command Status Values](https://www.twilio.com/docs/wireless/api/ipcommand-resource#status-values) for a description of each. */
+  /** The status of the IP Command. Can be: `queued`, `sent`, `received` or `failed`. See the [IP Command Status Values](https://www.twilio.com/docs/iot/supersim/api/ipcommand-resource#status-values) for a description of each. */
   status?: IpCommandStatus;
   /** The direction of the IP Command. Can be `to_sim` or `from_sim`. The value of `to_sim` is synonymous with the term `mobile terminated`, and `from_sim` is synonymous with the term `mobile originated`. */
   direction?: IpCommandDirection;
@@ -91,7 +91,7 @@ export interface IpCommandListInstancePageOptions {
   sim?: string;
   /** The ICCID of the Sim resource that IP Command was sent to or from. */
   simIccid?: string;
-  /** The status of the IP Command. Can be: `queued`, `sent`, `received` or `failed`. See the [IP Command Status Values](https://www.twilio.com/docs/wireless/api/ipcommand-resource#status-values) for a description of each. */
+  /** The status of the IP Command. Can be: `queued`, `sent`, `received` or `failed`. See the [IP Command Status Values](https://www.twilio.com/docs/iot/supersim/api/ipcommand-resource#status-values) for a description of each. */
   status?: IpCommandStatus;
   /** The direction of the IP Command. Can be `to_sim` or `from_sim`. The value of `to_sim` is synonymous with the term `mobile terminated`, and `from_sim` is synonymous with the term `mobile originated`. */
   direction?: IpCommandDirection;

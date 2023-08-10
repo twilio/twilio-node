@@ -24,7 +24,7 @@ import { isValidPathParam } from "../../../../base/utility";
  * Options to pass to update a MessagingConfigurationInstance
  */
 export interface MessagingConfigurationContextUpdateOptions {
-  /** The SID of the [Messaging Service](https://www.twilio.com/docs/sms/services/api) to be used to send SMS to the country of this configuration. */
+  /** The SID of the [Messaging Service](https://www.twilio.com/docs/messaging/services/api) to be used to send SMS to the country of this configuration. */
   messagingServiceSid: string;
 }
 
@@ -34,7 +34,7 @@ export interface MessagingConfigurationContextUpdateOptions {
 export interface MessagingConfigurationListInstanceCreateOptions {
   /** The [ISO-3166-1](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code of the country this configuration will be applied to. If this is a global configuration, Country will take the value `all`. */
   country: string;
-  /** The SID of the [Messaging Service](https://www.twilio.com/docs/sms/services/api) to be used to send SMS to the country of this configuration. */
+  /** The SID of the [Messaging Service](https://www.twilio.com/docs/messaging/services/api) to be used to send SMS to the country of this configuration. */
   messagingServiceSid: string;
 }
 /**
@@ -311,7 +311,7 @@ export class MessagingConfigurationInstance {
    */
   country: string;
   /**
-   * The SID of the [Messaging Service](https://www.twilio.com/docs/sms/services/api) to be used to send SMS to the country of this configuration.
+   * The SID of the [Messaging Service](https://www.twilio.com/docs/messaging/services/api) to be used to send SMS to the country of this configuration.
    */
   messagingServiceSid: string;
   /**

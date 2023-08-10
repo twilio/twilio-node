@@ -49,7 +49,7 @@ export interface ConversationContextUpdateOptions {
   dateUpdated?: Date;
   /** An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned. */
   attributes?: string;
-  /** The unique ID of the [Messaging Service](https://www.twilio.com/docs/sms/services/api) this conversation belongs to. */
+  /** The unique ID of the [Messaging Service](https://www.twilio.com/docs/messaging/services/api) this conversation belongs to. */
   messagingServiceSid?: string;
   /**  */
   state?: ConversationState;
@@ -75,7 +75,7 @@ export interface ConversationListInstanceCreateOptions {
   dateCreated?: Date;
   /** The date that this resource was last updated. */
   dateUpdated?: Date;
-  /** The unique ID of the [Messaging Service](https://www.twilio.com/docs/sms/services/api) this conversation belongs to. */
+  /** The unique ID of the [Messaging Service](https://www.twilio.com/docs/messaging/services/api) this conversation belongs to. */
   messagingServiceSid?: string;
   /** An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned. */
   attributes?: string;
@@ -444,7 +444,7 @@ export class ConversationInstance {
    */
   chatServiceSid: string;
   /**
-   * The unique ID of the [Messaging Service](https://www.twilio.com/docs/sms/services/api) this conversation belongs to.
+   * The unique ID of the [Messaging Service](https://www.twilio.com/docs/messaging/services/api) this conversation belongs to.
    */
   messagingServiceSid: string;
   /**

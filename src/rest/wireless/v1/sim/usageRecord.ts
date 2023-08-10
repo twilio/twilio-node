@@ -282,7 +282,7 @@ export class UsageRecordInstance {
   }
 
   /**
-   * The SID of the [Sim resource](https://www.twilio.com/docs/wireless/api/sim-resource) that this Usage Record is for.
+   * The SID of the [Sim resource](https://www.twilio.com/docs/iot/wireless/api/sim-resource) that this Usage Record is for.
    */
   simSid: string;
   /**
@@ -294,11 +294,11 @@ export class UsageRecordInstance {
    */
   period: any;
   /**
-   * An object that describes the SIM\'s usage of Commands during the specified period. See [Commands Usage Object](https://www.twilio.com/docs/wireless/api/sim-usagerecord-resource#commands-usage-object).
+   * An object that describes the SIM\'s usage of Commands during the specified period. See [Commands Usage Object](https://www.twilio.com/docs/iot/wireless/api/sim-usagerecord-resource#commands-usage-object).
    */
   commands: any;
   /**
-   * An object that describes the SIM\'s data usage during the specified period. See [Data Usage Object](https://www.twilio.com/docs/wireless/api/sim-usagerecord-resource#data-usage-object).
+   * An object that describes the SIM\'s data usage during the specified period. See [Data Usage Object](https://www.twilio.com/docs/iot/wireless/api/sim-usagerecord-resource#data-usage-object).
    */
   data: any;
 
