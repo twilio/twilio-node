@@ -290,7 +290,7 @@ export class MediaRecordingInstance {
   mediaSize: number;
   status: MediaRecordingStatus;
   /**
-   * The URL to which Twilio will send asynchronous webhook requests for every MediaRecording event. See [Status Callbacks](/docs/live/status-callbacks) for more details.
+   * The URL to which Twilio will send asynchronous webhook requests for every MediaRecording event. See [Status Callbacks](/docs/live/api/status-callbacks) for more details.
    */
   statusCallback: string;
   /**

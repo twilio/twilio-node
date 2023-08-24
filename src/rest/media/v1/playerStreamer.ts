@@ -47,7 +47,7 @@ export interface PlayerStreamerContextUpdateOptions {
 export interface PlayerStreamerListInstanceCreateOptions {
   /** Specifies whether the PlayerStreamer is configured to stream video. Defaults to `true`. */
   video?: boolean;
-  /** The URL to which Twilio will send asynchronous webhook requests for every PlayerStreamer event. See [Status Callbacks](/docs/live/status-callbacks) for more details. */
+  /** The URL to which Twilio will send asynchronous webhook requests for every PlayerStreamer event. See [Status Callbacks](/docs/live/api/status-callbacks) for more details. */
   statusCallback?: string;
   /** The HTTP method Twilio should use to call the `status_callback` URL. Can be `POST` or `GET` and the default is `POST`. */
   statusCallbackMethod?: string;
@@ -323,7 +323,7 @@ export class PlayerStreamerInstance {
    */
   url: string;
   /**
-   * The URL to which Twilio will send asynchronous webhook requests for every PlayerStreamer event. See [Status Callbacks](/docs/live/status-callbacks) for more details.
+   * The URL to which Twilio will send asynchronous webhook requests for every PlayerStreamer event. See [Status Callbacks](/docs/live/api/status-callbacks) for more details.
    */
   statusCallback: string;
   /**

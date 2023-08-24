@@ -32,6 +32,8 @@ export type MessageDirection =
   | "outbound-call"
   | "outbound-reply";
 
+export type MessageRiskCheck = "enable" | "disable";
+
 export type MessageScheduleType = "fixed";
 
 export type MessageStatus =
@@ -65,9 +67,9 @@ export interface MessageContextUpdateOptions {
  * Options to pass to create a MessageInstance
  */
 export interface MessageListInstanceCreateOptions {
-  /** The recipient\\\'s phone number in [E.164](https://www.twilio.com/docs/glossary/what-e164) format (for SMS/MMS) or [channel address](https://www.twilio.com/docs/sms/channels#channel-addresses), e.g. `whatsapp:+15552229999`. */
+  /** The recipient\\\'s phone number in [E.164](https://www.twilio.com/docs/glossary/what-e164) format (for SMS/MMS) or [channel address](https://www.twilio.com/docs/messaging/channels), e.g. `whatsapp:+15552229999`. */
   to: string;
-  /** The URL of the endpoint to which Twilio sends [Message status callback requests](https://www.twilio.com/docs/sms/api/message-resource#twilios-request-to-the-statuscallback-url). URL must contain a valid hostname and underscores are not allowed. If you include this parameter with the `messaging_service_sid`, Twilio uses this URL instead of the Status Callback URL of the [Messaging Service](https://www.twilio.com/docs/messaging/services/api).  */
+  /** The URL of the endpoint to which Twilio sends [Message status callback requests](https://www.twilio.com/docs/sms/api/message-resource#twilios-request-to-the-statuscallback-url). URL must contain a valid hostname and underscores are not allowed. If you include this parameter with the `messaging_service_sid`, Twilio uses this URL instead of the Status Callback URL of the [Messaging Service](https://www.twilio.com/docs/messaging/api/service-resource).  */
   statusCallback?: string;
   /** The SID of the associated [TwiML Application](https://www.twilio.com/docs/usage/api/applications). If this parameter is provided, the `status_callback` parameter of this request is ignored; [Message status callback requests](https://www.twilio.com/docs/sms/api/message-resource#twilios-request-to-the-statuscallback-url) are sent to the TwiML App\\\'s `message_status_callback` URL. */
   applicationSid?: string;
@@ -99,7 +101,9 @@ export interface MessageListInstanceCreateOptions {
   sendAsMms?: boolean;
   /** For [Content Editor/API](https://www.twilio.com/docs/content) only: Key-value pairs of [Template variables](https://www.twilio.com/docs/content/using-variables-with-content-api) and their substitution values. `content_sid` parameter must also be provided. If values are not defined in the `content_variables` parameter, the [Template\\\'s default placeholder values](https://www.twilio.com/docs/content/content-api-resources#create-templates) are used. */
   contentVariables?: string;
-  /** The sender\\\'s Twilio phone number (in [E.164](https://en.wikipedia.org/wiki/E.164) format), [alphanumeric sender ID](https://www.twilio.com/docs/sms/send-messages#use-an-alphanumeric-sender-id), [Wireless SIM](https://www.twilio.com/docs/wireless/tutorials/communications-guides/how-to-send-and-receive-text-messages), [short code](https://www.twilio.com/docs/sms/api/short-code), or [channel address](https://www.twilio.com/docs/sms/channels#channel-addresses) (e.g., `whatsapp:+15554449999`). The value of the `from` parameter must be a sender that is hosted within Twilio and belong to the Account creating the Message. If you are using `messaging_service_sid`, this parameter can be empty (Twilio assigns a `from` value from the Messaging Service\\\'s Sender Pool) or you can provide a specific sender from your Sender Pool. */
+  /**  */
+  riskCheck?: MessageRiskCheck;
+  /** The sender\\\'s Twilio phone number (in [E.164](https://en.wikipedia.org/wiki/E.164) format), [alphanumeric sender ID](https://www.twilio.com/docs/sms/send-messages#use-an-alphanumeric-sender-id), [Wireless SIM](https://www.twilio.com/docs/iot/wireless/programmable-wireless-send-machine-machine-sms-commands), [short code](https://www.twilio.com/docs/sms/api/short-code), or [channel address](https://www.twilio.com/docs/messaging/channels) (e.g., `whatsapp:+15554449999`). The value of the `from` parameter must be a sender that is hosted within Twilio and belong to the Account creating the Message. If you are using `messaging_service_sid`, this parameter can be empty (Twilio assigns a `from` value from the Messaging Service\\\'s Sender Pool) or you can provide a specific sender from your Sender Pool. */
   from?: string;
   /** The SID of the [Messaging Service](https://www.twilio.com/docs/messaging/services) you want to associate with the Message. When this parameter is provided and the `from` parameter is omitted, Twilio selects the optimal sender from the Messaging Service\\\'s Sender Pool. You may also provide a `from` parameter if you want to use a specific Sender from the Sender Pool. */
   messagingServiceSid?: string;
@@ -455,11 +459,11 @@ export class MessageInstance {
   numSegments: string;
   direction: MessageDirection;
   /**
-   * The sender\'s phone number (in [E.164](https://en.wikipedia.org/wiki/E.164) format), [alphanumeric sender ID](https://www.twilio.com/docs/sms/send-messages#use-an-alphanumeric-sender-id), [Wireless SIM](https://www.twilio.com/docs/wireless/tutorials/communications-guides/how-to-send-and-receive-text-messages), [short code](https://www.twilio.com/docs/sms/api/short-code), or  [channel address](https://www.twilio.com/docs/sms/channels#channel-addresses) (e.g., `whatsapp:+15554449999`). For incoming messages, this is the number or channel address of the sender. For outgoing messages, this value is a Twilio phone number, alphanumeric sender ID, short code, or channel address from which the message is sent.
+   * The sender\'s phone number (in [E.164](https://en.wikipedia.org/wiki/E.164) format), [alphanumeric sender ID](https://www.twilio.com/docs/sms/send-messages#use-an-alphanumeric-sender-id), [Wireless SIM](https://www.twilio.com/docs/iot/wireless/programmable-wireless-send-machine-machine-sms-commands), [short code](https://www.twilio.com/docs/sms/api/short-code), or  [channel address](https://www.twilio.com/docs/messaging/channels) (e.g., `whatsapp:+15554449999`). For incoming messages, this is the number or channel address of the sender. For outgoing messages, this value is a Twilio phone number, alphanumeric sender ID, short code, or channel address from which the message is sent.
    */
   from: string;
   /**
-   * The recipient\'s phone number (in [E.164](https://en.wikipedia.org/wiki/E.164) format) or [channel address](https://www.twilio.com/docs/sms/channels#channel-addresses) (e.g. `whatsapp:+15552229999`)
+   * The recipient\'s phone number (in [E.164](https://en.wikipedia.org/wiki/E.164) format) or [channel address](https://www.twilio.com/docs/messaging/channels) (e.g. `whatsapp:+15552229999`)
    */
   to: string;
   /**
@@ -488,7 +492,7 @@ export class MessageInstance {
   numMedia: string;
   status: MessageStatus;
   /**
-   * The SID of the [Messaging Service](https://www.twilio.com/docs/messaging/services/api) associated with the Message resource. The value is `null` if a Messaging Service was not used.
+   * The SID of the [Messaging Service](https://www.twilio.com/docs/messaging/api/service-resource) associated with the Message resource. The value is `null` if a Messaging Service was not used.
    */
   messagingServiceSid: string;
   /**
@@ -803,6 +807,8 @@ export function MessageListInstance(
       data["SendAsMms"] = serialize.bool(params["sendAsMms"]);
     if (params["contentVariables"] !== undefined)
       data["ContentVariables"] = params["contentVariables"];
+    if (params["riskCheck"] !== undefined)
+      data["RiskCheck"] = params["riskCheck"];
     if (params["from"] !== undefined) data["From"] = params["from"];
     if (params["messagingServiceSid"] !== undefined)
       data["MessagingServiceSid"] = params["messagingServiceSid"];

@@ -20,6 +20,7 @@ const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 import { AlphaSenderListInstance } from "./service/alphaSender";
+import { ChannelSenderListInstance } from "./service/channelSender";
 import { PhoneNumberListInstance } from "./service/phoneNumber";
 import { ShortCodeListInstance } from "./service/shortCode";
 import { UsAppToPersonListInstance } from "./service/usAppToPerson";
@@ -140,6 +141,7 @@ export interface ServiceListInstancePageOptions {
 
 export interface ServiceContext {
   alphaSenders: AlphaSenderListInstance;
+  channelSenders: ChannelSenderListInstance;
   phoneNumbers: PhoneNumberListInstance;
   shortCodes: ShortCodeListInstance;
   usAppToPerson: UsAppToPersonListInstance;
@@ -206,6 +208,7 @@ export class ServiceContextImpl implements ServiceContext {
   protected _uri: string;
 
   protected _alphaSenders?: AlphaSenderListInstance;
+  protected _channelSenders?: ChannelSenderListInstance;
   protected _phoneNumbers?: PhoneNumberListInstance;
   protected _shortCodes?: ShortCodeListInstance;
   protected _usAppToPerson?: UsAppToPersonListInstance;
@@ -225,6 +228,13 @@ export class ServiceContextImpl implements ServiceContext {
       this._alphaSenders ||
       AlphaSenderListInstance(this._version, this._solution.sid);
     return this._alphaSenders;
+  }
+
+  get channelSenders(): ChannelSenderListInstance {
+    this._channelSenders =
+      this._channelSenders ||
+      ChannelSenderListInstance(this._version, this._solution.sid);
+    return this._channelSenders;
   }
 
   get phoneNumbers(): PhoneNumberListInstance {
@@ -603,6 +613,13 @@ export class ServiceInstance {
    */
   alphaSenders(): AlphaSenderListInstance {
     return this._proxy.alphaSenders;
+  }
+
+  /**
+   * Access the channelSenders.
+   */
+  channelSenders(): ChannelSenderListInstance {
+    return this._proxy.channelSenders;
   }
 
   /**

@@ -36,13 +36,13 @@ export interface ParticipantContextRemoveOptions {
 export interface ParticipantContextUpdateOptions {
   /** The X-Twilio-Webhook-Enabled HTTP request header */
   xTwilioWebhookEnabled?: ParticipantWebhookEnabledType;
-  /** The date that this resource was created. */
+  /** The date on which this resource was created. */
   dateCreated?: Date;
-  /** The date that this resource was last updated. */
+  /** The date on which this resource was last updated. */
   dateUpdated?: Date;
-  /** A unique string identifier for the conversation participant as [Conversation User](https://www.twilio.com/docs/conversations/api/user-resource). This parameter is non-null if (and only if) the participant is using the Conversation SDK to communicate. Limited to 256 characters. */
+  /** A unique string identifier for the conversation participant as [Conversation User](https://www.twilio.com/docs/conversations/api/user-resource). This parameter is non-null if (and only if) the participant is using the [Conversation SDK](https://www.twilio.com/docs/conversations/sdk-overview) to communicate. Limited to 256 characters. */
   identity?: string;
-  /** An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned. */
+  /** An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set `{}` will be returned. */
   attributes?: string;
   /** The SID of a conversation-level [Role](https://www.twilio.com/docs/conversations/api/role-resource) to assign to the participant. */
   roleSid?: string;
@@ -62,19 +62,19 @@ export interface ParticipantContextUpdateOptions {
 export interface ParticipantListInstanceCreateOptions {
   /** The X-Twilio-Webhook-Enabled HTTP request header */
   xTwilioWebhookEnabled?: ParticipantWebhookEnabledType;
-  /** A unique string identifier for the conversation participant as [Conversation User](https://www.twilio.com/docs/conversations/api/user-resource). This parameter is non-null if (and only if) the participant is using the Conversation SDK to communicate. Limited to 256 characters. */
+  /** A unique string identifier for the conversation participant as [Conversation User](https://www.twilio.com/docs/conversations/api/user-resource). This parameter is non-null if (and only if) the participant is using the [Conversation SDK](https://www.twilio.com/docs/conversations/sdk-overview) to communicate. Limited to 256 characters. */
   identity?: string;
-  /** The address of the participant\\\'s device, e.g. a phone or WhatsApp number. Together with the Proxy address, this determines a participant uniquely. This field (with proxy_address) is only null when the participant is interacting from an SDK endpoint (see the \\\'identity\\\' field). */
+  /** The address of the participant\\\'s device, e.g. a phone or WhatsApp number. Together with the Proxy address, this determines a participant uniquely. This field (with `proxy_address`) is only null when the participant is interacting from an SDK endpoint (see the `identity` field). */
   "messagingBinding.address"?: string;
-  /** The address of the Twilio phone number (or WhatsApp number) that the participant is in contact with. This field, together with participant address, is only null when the participant is interacting from an SDK endpoint (see the \\\'identity\\\' field). */
+  /** The address of the Twilio phone number (or WhatsApp number) that the participant is in contact with. This field, together with participant address, is only null when the participant is interacting from an SDK endpoint (see the `identity` field). */
   "messagingBinding.proxyAddress"?: string;
-  /** The date that this resource was created. */
+  /** The date on which this resource was created. */
   dateCreated?: Date;
-  /** The date that this resource was last updated. */
+  /** The date on which this resource was last updated. */
   dateUpdated?: Date;
-  /** An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned. */
+  /** An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set `{}` will be returned. */
   attributes?: string;
-  /** The address of the Twilio phone number that is used in Group MMS. Communication mask for the Conversation participant with Identity. */
+  /** The address of the Twilio phone number that is used in Group MMS. */
   "messagingBinding.projectedAddress"?: string;
   /** The SID of a conversation-level [Role](https://www.twilio.com/docs/conversations/api/role-resource) to assign to the participant. */
   roleSid?: string;
@@ -422,11 +422,11 @@ export class ParticipantInstance {
    */
   sid: string;
   /**
-   * A unique string identifier for the conversation participant as [Conversation User](https://www.twilio.com/docs/conversations/api/user-resource). This parameter is non-null if (and only if) the participant is using the Conversation SDK to communicate. Limited to 256 characters.
+   * A unique string identifier for the conversation participant as [Conversation User](https://www.twilio.com/docs/conversations/api/user-resource). This parameter is non-null if (and only if) the participant is using the [Conversation SDK](https://www.twilio.com/docs/conversations/sdk-overview) to communicate. Limited to 256 characters.
    */
   identity: string;
   /**
-   * An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \"{}\" will be returned.
+   * An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set `{}` will be returned.
    */
   attributes: string;
   /**
@@ -438,11 +438,11 @@ export class ParticipantInstance {
    */
   roleSid: string;
   /**
-   * The date that this resource was created.
+   * The date on which this resource was created.
    */
   dateCreated: Date;
   /**
-   * The date that this resource was last updated.
+   * The date on which this resource was last updated.
    */
   dateUpdated: Date;
   /**

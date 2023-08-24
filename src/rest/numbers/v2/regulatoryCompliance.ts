@@ -24,6 +24,8 @@ import { RegulationListInstance } from "./regulatoryCompliance/regulation";
 import { SupportingDocumentListInstance } from "./regulatoryCompliance/supportingDocument";
 import { SupportingDocumentTypeListInstance } from "./regulatoryCompliance/supportingDocumentType";
 
+export type RegulatoryComplianceEndUserType = "individual" | "business";
+
 export interface RegulatoryComplianceSolution {}
 
 export interface RegulatoryComplianceListInstance {

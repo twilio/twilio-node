@@ -35,7 +35,7 @@ export interface CountryListInstanceEachOptions {
   lowRiskNumbersEnabled?: boolean;
   /** Filter to retrieve the country permissions with dialing to high-risk special service numbers enabled. Can be: `true` or `false` */
   highRiskSpecialNumbersEnabled?: boolean;
-  /** Filter to retrieve the country permissions with dialing to high-risk [toll fraud](https://www.twilio.com/learn/voice-and-video/toll-fraud) numbers enabled. Can be: `true` or `false`. */
+  /** Filter to retrieve the country permissions with dialing to high-risk [toll fraud](https://www.twilio.com/blog/how-to-protect-your-account-from-toll-fraud-with-voice-dialing-geo-permissions-html) numbers enabled. Can be: `true` or `false`. */
   highRiskTollfraudNumbersEnabled?: boolean;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
@@ -61,7 +61,7 @@ export interface CountryListInstanceOptions {
   lowRiskNumbersEnabled?: boolean;
   /** Filter to retrieve the country permissions with dialing to high-risk special service numbers enabled. Can be: `true` or `false` */
   highRiskSpecialNumbersEnabled?: boolean;
-  /** Filter to retrieve the country permissions with dialing to high-risk [toll fraud](https://www.twilio.com/learn/voice-and-video/toll-fraud) numbers enabled. Can be: `true` or `false`. */
+  /** Filter to retrieve the country permissions with dialing to high-risk [toll fraud](https://www.twilio.com/blog/how-to-protect-your-account-from-toll-fraud-with-voice-dialing-geo-permissions-html) numbers enabled. Can be: `true` or `false`. */
   highRiskTollfraudNumbersEnabled?: boolean;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
@@ -83,7 +83,7 @@ export interface CountryListInstancePageOptions {
   lowRiskNumbersEnabled?: boolean;
   /** Filter to retrieve the country permissions with dialing to high-risk special service numbers enabled. Can be: `true` or `false` */
   highRiskSpecialNumbersEnabled?: boolean;
-  /** Filter to retrieve the country permissions with dialing to high-risk [toll fraud](https://www.twilio.com/learn/voice-and-video/toll-fraud) numbers enabled. Can be: `true` or `false`. */
+  /** Filter to retrieve the country permissions with dialing to high-risk [toll fraud](https://www.twilio.com/blog/how-to-protect-your-account-from-toll-fraud-with-voice-dialing-geo-permissions-html) numbers enabled. Can be: `true` or `false`. */
   highRiskTollfraudNumbersEnabled?: boolean;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
@@ -245,7 +245,7 @@ export class CountryInstance {
    */
   highRiskSpecialNumbersEnabled: boolean;
   /**
-   * Whether dialing to high-risk [toll fraud](https://www.twilio.com/learn/voice-and-video/toll-fraud) numbers is enabled. These prefixes include narrow number ranges that have a high-risk of international revenue sharing fraud (IRSF) attacks, also known as [toll fraud](https://www.twilio.com/learn/voice-and-video/toll-fraud). These prefixes are collected from anti-fraud databases and verified by analyzing calls on our network. These prefixes are not available for download and are updated frequently
+   * Whether dialing to high-risk [toll fraud](https://www.twilio.com/blog/how-to-protect-your-account-from-toll-fraud-with-voice-dialing-geo-permissions-html) numbers is enabled. These prefixes include narrow number ranges that have a high-risk of international revenue sharing fraud (IRSF) attacks, also known as [toll fraud](https://www.twilio.com/blog/how-to-protect-your-account-from-toll-fraud-with-voice-dialing-geo-permissions-html). These prefixes are collected from anti-fraud databases and verified by analyzing calls on our network. These prefixes are not available for download and are updated frequently
    */
   highRiskTollfraudNumbersEnabled: boolean;
   /**

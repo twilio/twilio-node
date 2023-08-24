@@ -15,6 +15,7 @@
 import NumbersBase from "../NumbersBase";
 import Version from "../../base/Version";
 import { AuthorizationDocumentListInstance } from "./v2/authorizationDocument";
+import { BulkHostedNumberOrderListInstance } from "./v2/bulkHostedNumberOrder";
 import { HostedNumberOrderListInstance } from "./v2/hostedNumberOrder";
 import { RegulatoryComplianceListInstance } from "./v2/regulatoryCompliance";
 
@@ -30,6 +31,8 @@ export default class V2 extends Version {
 
   /** authorizationDocuments - { Twilio.Numbers.V2.AuthorizationDocumentListInstance } resource */
   protected _authorizationDocuments?: AuthorizationDocumentListInstance;
+  /** bulkHostedNumberOrders - { Twilio.Numbers.V2.BulkHostedNumberOrderListInstance } resource */
+  protected _bulkHostedNumberOrders?: BulkHostedNumberOrderListInstance;
   /** hostedNumberOrders - { Twilio.Numbers.V2.HostedNumberOrderListInstance } resource */
   protected _hostedNumberOrders?: HostedNumberOrderListInstance;
   /** regulatoryCompliance - { Twilio.Numbers.V2.RegulatoryComplianceListInstance } resource */
@@ -40,6 +43,13 @@ export default class V2 extends Version {
     this._authorizationDocuments =
       this._authorizationDocuments || AuthorizationDocumentListInstance(this);
     return this._authorizationDocuments;
+  }
+
+  /** Getter for bulkHostedNumberOrders resource */
+  get bulkHostedNumberOrders(): BulkHostedNumberOrderListInstance {
+    this._bulkHostedNumberOrders =
+      this._bulkHostedNumberOrders || BulkHostedNumberOrderListInstance(this);
+    return this._bulkHostedNumberOrders;
   }
 
   /** Getter for hostedNumberOrders resource */
