@@ -69,7 +69,7 @@ export interface BulkHostedNumberOrderContext {
 }
 
 export interface BulkHostedNumberOrderContextSolution {
-  sid: string;
+  bulkHostingSid: string;
 }
 
 export class BulkHostedNumberOrderContextImpl
@@ -78,13 +78,13 @@ export class BulkHostedNumberOrderContextImpl
   protected _solution: BulkHostedNumberOrderContextSolution;
   protected _uri: string;
 
-  constructor(protected _version: V2, sid: string) {
-    if (!isValidPathParam(sid)) {
-      throw new Error("Parameter 'sid' is not valid.");
+  constructor(protected _version: V2, bulkHostingSid: string) {
+    if (!isValidPathParam(bulkHostingSid)) {
+      throw new Error("Parameter 'bulkHostingSid' is not valid.");
     }
 
-    this._solution = { sid };
-    this._uri = `/HostedNumber/Orders/Bulk/${sid}`;
+    this._solution = { bulkHostingSid };
+    this._uri = `/HostedNumber/Orders/Bulk/${bulkHostingSid}`;
   }
 
   fetch(
@@ -124,7 +124,7 @@ export class BulkHostedNumberOrderContextImpl
         new BulkHostedNumberOrderInstance(
           operationVersion,
           payload,
-          instance._solution.sid
+          instance._solution.bulkHostingSid
         )
     );
 
@@ -152,8 +152,7 @@ export class BulkHostedNumberOrderContextImpl
 interface BulkHostedNumberOrderPayload extends BulkHostedNumberOrderResource {}
 
 interface BulkHostedNumberOrderResource {
-  sid: string;
-  account_sid: string;
+  bulk_hosting_sid: string;
   request_status: BulkHostedNumberOrderRequestStatus;
   friendly_name: string;
   notification_email: string;
@@ -171,10 +170,9 @@ export class BulkHostedNumberOrderInstance {
   constructor(
     protected _version: V2,
     payload: BulkHostedNumberOrderResource,
-    sid?: string
+    bulkHostingSid?: string
   ) {
-    this.sid = payload.sid;
-    this.accountSid = payload.account_sid;
+    this.bulkHostingSid = payload.bulk_hosting_sid;
     this.requestStatus = payload.request_status;
     this.friendlyName = payload.friendly_name;
     this.notificationEmail = payload.notification_email;
@@ -184,17 +182,13 @@ export class BulkHostedNumberOrderInstance {
     this.totalCount = deserialize.integer(payload.total_count);
     this.results = payload.results;
 
-    this._solution = { sid: sid || this.sid };
+    this._solution = { bulkHostingSid: bulkHostingSid || this.bulkHostingSid };
   }
 
   /**
    * A 34 character string that uniquely identifies this BulkHostedNumberOrder.
    */
-  sid: string;
-  /**
-   * A 34 character string that uniquely identifies the account.
-   */
-  accountSid: string;
+  bulkHostingSid: string;
   requestStatus: BulkHostedNumberOrderRequestStatus;
   /**
    * A 128 character string that is a human-readable text that describes this resource.
@@ -228,7 +222,10 @@ export class BulkHostedNumberOrderInstance {
   private get _proxy(): BulkHostedNumberOrderContext {
     this._context =
       this._context ||
-      new BulkHostedNumberOrderContextImpl(this._version, this._solution.sid);
+      new BulkHostedNumberOrderContextImpl(
+        this._version,
+        this._solution.bulkHostingSid
+      );
     return this._context;
   }
 
@@ -278,8 +275,7 @@ export class BulkHostedNumberOrderInstance {
    */
   toJSON() {
     return {
-      sid: this.sid,
-      accountSid: this.accountSid,
+      bulkHostingSid: this.bulkHostingSid,
       requestStatus: this.requestStatus,
       friendlyName: this.friendlyName,
       notificationEmail: this.notificationEmail,
@@ -303,8 +299,8 @@ export interface BulkHostedNumberOrderListInstance {
   _solution: BulkHostedNumberOrderSolution;
   _uri: string;
 
-  (sid: string): BulkHostedNumberOrderContext;
-  get(sid: string): BulkHostedNumberOrderContext;
+  (bulkHostingSid: string): BulkHostedNumberOrderContext;
+  get(bulkHostingSid: string): BulkHostedNumberOrderContext;
 
   /**
    * Provide a user-friendly representation
@@ -316,11 +312,11 @@ export interface BulkHostedNumberOrderListInstance {
 export function BulkHostedNumberOrderListInstance(
   version: V2
 ): BulkHostedNumberOrderListInstance {
-  const instance = ((sid) =>
-    instance.get(sid)) as BulkHostedNumberOrderListInstance;
+  const instance = ((bulkHostingSid) =>
+    instance.get(bulkHostingSid)) as BulkHostedNumberOrderListInstance;
 
-  instance.get = function get(sid): BulkHostedNumberOrderContext {
-    return new BulkHostedNumberOrderContextImpl(version, sid);
+  instance.get = function get(bulkHostingSid): BulkHostedNumberOrderContext {
+    return new BulkHostedNumberOrderContextImpl(version, bulkHostingSid);
   };
 
   instance._version = version;

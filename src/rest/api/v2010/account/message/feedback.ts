@@ -173,20 +173,20 @@ export class FeedbackInstance {
   }
 
   /**
-   * The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the MessageFeedback resource.
+   * The SID of the [Account](https://www.twilio.com/docs/iam/api/account) associated with this MessageFeedback resource.
    */
   accountSid: string;
   /**
-   * The SID of the Message resource for which the feedback was provided.
+   * The SID of the Message resource associated with this MessageFeedback resource.
    */
   messageSid: string;
   outcome: FeedbackOutcome;
   /**
-   * The date and time in GMT that the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
+   * The date and time in GMT when this MessageFeedback resource was created, specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
    */
   dateCreated: Date;
   /**
-   * The date and time in GMT that the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
+   * The date and time in GMT when this MessageFeedback resource was last updated, specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
    */
   dateUpdated: Date;
   /**

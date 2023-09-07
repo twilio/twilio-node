@@ -52,7 +52,7 @@ export interface ServiceContextUpdateOptions {
   smartEncoding?: boolean;
   /**  */
   scanMessageContent?: ServiceScanMessageContent;
-  /** Whether to enable [Fallback to Long Code](https://www.twilio.com/docs/messaging/services#fallback-to-long-code) for messages sent through the Service instance. */
+  /** [OBSOLETE] Former feature used to fallback to long code sender after certain short code message failures. */
   fallbackToLongCode?: boolean;
   /** Whether to enable [Area Code Geomatch](https://www.twilio.com/docs/messaging/services#area-code-geomatch) on the Service Instance. */
   areaCodeGeomatch?: boolean;
@@ -90,7 +90,7 @@ export interface ServiceListInstanceCreateOptions {
   smartEncoding?: boolean;
   /**  */
   scanMessageContent?: ServiceScanMessageContent;
-  /** Whether to enable [Fallback to Long Code](https://www.twilio.com/docs/messaging/services#fallback-to-long-code) for messages sent through the Service instance. */
+  /** [OBSOLETE] Former feature used to fallback to long code sender after certain short code message failures. */
   fallbackToLongCode?: boolean;
   /** Whether to enable [Area Code Geomatch](https://www.twilio.com/docs/messaging/services#area-code-geomatch) on the Service Instance. */
   areaCodeGeomatch?: boolean;
@@ -509,7 +509,7 @@ export class ServiceInstance {
   smartEncoding: boolean;
   scanMessageContent: ServiceScanMessageContent;
   /**
-   * Whether to enable [Fallback to Long Code](https://www.twilio.com/docs/messaging/services#fallback-to-long-code) for messages sent through the Service instance.
+   * [OBSOLETE] Former feature used to fallback to long code sender after certain short code message failures.
    */
   fallbackToLongCode: boolean;
   /**

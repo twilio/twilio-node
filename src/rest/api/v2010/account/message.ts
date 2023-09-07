@@ -101,6 +101,8 @@ export interface MessageListInstanceCreateOptions {
   sendAsMms?: boolean;
   /** For [Content Editor/API](https://www.twilio.com/docs/content) only: Key-value pairs of [Template variables](https://www.twilio.com/docs/content/using-variables-with-content-api) and their substitution values. `content_sid` parameter must also be provided. If values are not defined in the `content_variables` parameter, the [Template\\\'s default placeholder values](https://www.twilio.com/docs/content/content-api-resources#create-templates) are used. */
   contentVariables?: string;
+  /** A string containing a JSON map of key value pairs of tags to be recorded as metadata for the message. The object may contain up to 10 tags. Keys and values can each be up to 128 characters in length. */
+  tags?: string;
   /**  */
   riskCheck?: MessageRiskCheck;
   /** The sender\\\'s Twilio phone number (in [E.164](https://en.wikipedia.org/wiki/E.164) format), [alphanumeric sender ID](https://www.twilio.com/docs/sms/send-messages#use-an-alphanumeric-sender-id), [Wireless SIM](https://www.twilio.com/docs/iot/wireless/programmable-wireless-send-machine-machine-sms-commands), [short code](https://www.twilio.com/docs/sms/api/short-code), or [channel address](https://www.twilio.com/docs/messaging/channels) (e.g., `whatsapp:+15554449999`). The value of the `from` parameter must be a sender that is hosted within Twilio and belong to the Account creating the Message. If you are using `messaging_service_sid`, this parameter can be empty (Twilio assigns a `from` value from the Messaging Service\\\'s Sender Pool) or you can provide a specific sender from your Sender Pool. */
@@ -413,6 +415,7 @@ interface MessageResource {
   price_unit: string;
   api_version: string;
   subresource_uris: Record<string, string>;
+  tags: any;
 }
 
 export class MessageInstance {
@@ -445,6 +448,7 @@ export class MessageInstance {
     this.priceUnit = payload.price_unit;
     this.apiVersion = payload.api_version;
     this.subresourceUris = payload.subresource_uris;
+    this.tags = payload.tags;
 
     this._solution = { accountSid, sid: sid || this.sid };
   }
@@ -523,6 +527,10 @@ export class MessageInstance {
    * A list of related resources identified by their URIs relative to `https://api.twilio.com`
    */
   subresourceUris: Record<string, string>;
+  /**
+   * A string containing a JSON map of key value pairs of tags to be recorded as metadata for the message.
+   */
+  tags: any;
 
   private get _proxy(): MessageContext {
     this._context =
@@ -632,6 +640,7 @@ export class MessageInstance {
       priceUnit: this.priceUnit,
       apiVersion: this.apiVersion,
       subresourceUris: this.subresourceUris,
+      tags: this.tags,
     };
   }
 
@@ -807,6 +816,7 @@ export function MessageListInstance(
       data["SendAsMms"] = serialize.bool(params["sendAsMms"]);
     if (params["contentVariables"] !== undefined)
       data["ContentVariables"] = params["contentVariables"];
+    if (params["tags"] !== undefined) data["Tags"] = params["tags"];
     if (params["riskCheck"] !== undefined)
       data["RiskCheck"] = params["riskCheck"];
     if (params["from"] !== undefined) data["From"] = params["from"];

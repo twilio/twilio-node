@@ -172,6 +172,7 @@ interface ConfigurationResource {
   channel_configs: Array<any>;
   debugger_integration: any;
   flex_ui_status_report: any;
+  agent_conv_end_methods: any;
 }
 
 export class ConfigurationInstance {
@@ -224,6 +225,7 @@ export class ConfigurationInstance {
     this.channelConfigs = payload.channel_configs;
     this.debuggerIntegration = payload.debugger_integration;
     this.flexUiStatusReport = payload.flex_ui_status_report;
+    this.agentConvEndMethods = payload.agent_conv_end_methods;
 
     this._solution = {};
   }
@@ -405,6 +407,10 @@ export class ConfigurationInstance {
    * Configurable parameters for Flex UI Status report.
    */
   flexUiStatusReport: any;
+  /**
+   * Agent conversation end methods.
+   */
+  agentConvEndMethods: any;
 
   private get _proxy(): ConfigurationContext {
     this._context =
@@ -494,6 +500,7 @@ export class ConfigurationInstance {
       channelConfigs: this.channelConfigs,
       debuggerIntegration: this.debuggerIntegration,
       flexUiStatusReport: this.flexUiStatusReport,
+      agentConvEndMethods: this.agentConvEndMethods,
     };
   }
 
