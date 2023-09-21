@@ -285,7 +285,7 @@ export class UsAppToPersonInstance {
    */
   brandRegistrationSid: string;
   /**
-   * The SID of the [Messaging Service](https://www.twilio.com/docs/messaging/services/api) that the resource is associated with.
+   * The SID of the [Messaging Service](https://www.twilio.com/docs/messaging/api/service-resource) that the resource is associated with.
    */
   messagingServiceSid: string;
   /**

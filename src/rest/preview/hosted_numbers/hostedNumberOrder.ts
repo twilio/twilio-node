@@ -434,7 +434,7 @@ export class HostedNumberOrderInstance {
    */
   accountSid: string;
   /**
-   * A 34 character string that uniquely identifies the [IncomingPhoneNumber](https://www.twilio.com/docs/api/rest/incoming-phone-numbers) resource that represents the phone number being hosted.
+   * A 34 character string that uniquely identifies the [IncomingPhoneNumber](https://www.twilio.com/docs/phone-numbers/api/incomingphonenumber-resource) resource that represents the phone number being hosted.
    */
   incomingPhoneNumberSid: string;
   /**
@@ -442,7 +442,7 @@ export class HostedNumberOrderInstance {
    */
   addressSid: string;
   /**
-   * A 34 character string that uniquely identifies the [Authorization Document](https://www.twilio.com/docs/api/phone-numbers/hosted-number-authorization-documents) the user needs to sign.
+   * A 34 character string that uniquely identifies the [Authorization Document](https://www.twilio.com/docs/phone-numbers/hosted-numbers/hosted-numbers-api/authorization-document-resource) the user needs to sign.
    */
   signingDocumentSid: string;
   /**

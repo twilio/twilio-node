@@ -30,7 +30,7 @@ export interface ChannelContextUpdateOptions {
   xTwilioWebhookEnabled?: ChannelWebhookEnabledType;
   /**  */
   type?: ChannelChannelType;
-  /** The unique ID of the [Messaging Service](https://www.twilio.com/docs/messaging/services/api) this channel belongs to. */
+  /** The unique ID of the [Messaging Service](https://www.twilio.com/docs/messaging/api/service-resource) this channel belongs to. */
   messagingServiceSid?: string;
 }
 
@@ -247,7 +247,7 @@ export class ChannelInstance {
    */
   messagesCount: number;
   /**
-   * The unique ID of the [Messaging Service](https://www.twilio.com/docs/messaging/services/api) this channel belongs to.
+   * The unique ID of the [Messaging Service](https://www.twilio.com/docs/messaging/api/service-resource) this channel belongs to.
    */
   messagingServiceSid: string;
   /**

@@ -49,7 +49,7 @@ export interface ConversationContextUpdateOptions {
   dateUpdated?: Date;
   /** An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned. */
   attributes?: string;
-  /** The unique ID of the [Messaging Service](https://www.twilio.com/docs/messaging/services/api) this conversation belongs to. */
+  /** The unique ID of the [Messaging Service](https://www.twilio.com/docs/messaging/api/service-resource) this conversation belongs to. */
   messagingServiceSid?: string;
   /**  */
   state?: ConversationState;
@@ -59,6 +59,10 @@ export interface ConversationContextUpdateOptions {
   "timers.closed"?: string;
   /** An application-defined string that uniquely identifies the resource. It can be used to address the resource in place of the resource\\\'s `sid` in the URL. */
   uniqueName?: string;
+  /** The default email address that will be used when sending outbound emails in this conversation. */
+  "bindings.email.address"?: string;
+  /** The default name that will be used when sending outbound emails in this conversation. */
+  "bindings.email.name"?: string;
 }
 
 /**
@@ -75,7 +79,7 @@ export interface ConversationListInstanceCreateOptions {
   dateCreated?: Date;
   /** The date that this resource was last updated. */
   dateUpdated?: Date;
-  /** The unique ID of the [Messaging Service](https://www.twilio.com/docs/messaging/services/api) this conversation belongs to. */
+  /** The unique ID of the [Messaging Service](https://www.twilio.com/docs/messaging/api/service-resource) this conversation belongs to. */
   messagingServiceSid?: string;
   /** An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned. */
   attributes?: string;
@@ -85,6 +89,10 @@ export interface ConversationListInstanceCreateOptions {
   "timers.inactive"?: string;
   /** ISO8601 duration when conversation will be switched to `closed` state. Minimum value for this timer is 10 minutes. */
   "timers.closed"?: string;
+  /** The default email address that will be used when sending outbound emails in this conversation. */
+  "bindings.email.address"?: string;
+  /** The default name that will be used when sending outbound emails in this conversation. */
+  "bindings.email.name"?: string;
 }
 /**
  * Options to pass to each
@@ -342,6 +350,10 @@ export class ConversationContextImpl implements ConversationContext {
       data["Timers.Closed"] = params["timers.closed"];
     if (params["uniqueName"] !== undefined)
       data["UniqueName"] = params["uniqueName"];
+    if (params["bindings.email.address"] !== undefined)
+      data["Bindings.Email.Address"] = params["bindings.email.address"];
+    if (params["bindings.email.name"] !== undefined)
+      data["Bindings.Email.Name"] = params["bindings.email.name"];
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
@@ -444,7 +456,7 @@ export class ConversationInstance {
    */
   chatServiceSid: string;
   /**
-   * The unique ID of the [Messaging Service](https://www.twilio.com/docs/messaging/services/api) this conversation belongs to.
+   * The unique ID of the [Messaging Service](https://www.twilio.com/docs/messaging/api/service-resource) this conversation belongs to.
    */
   messagingServiceSid: string;
   /**
@@ -770,6 +782,10 @@ export function ConversationListInstance(
       data["Timers.Inactive"] = params["timers.inactive"];
     if (params["timers.closed"] !== undefined)
       data["Timers.Closed"] = params["timers.closed"];
+    if (params["bindings.email.address"] !== undefined)
+      data["Bindings.Email.Address"] = params["bindings.email.address"];
+    if (params["bindings.email.name"] !== undefined)
+      data["Bindings.Email.Name"] = params["bindings.email.name"];
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";

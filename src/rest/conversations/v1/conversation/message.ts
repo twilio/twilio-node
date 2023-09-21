@@ -49,6 +49,8 @@ export interface MessageContextUpdateOptions {
   dateUpdated?: Date;
   /** A string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned. */
   attributes?: string;
+  /** The subject of the message, can be up to 256 characters long. */
+  subject?: string;
 }
 
 /**
@@ -73,6 +75,8 @@ export interface MessageListInstanceCreateOptions {
   contentSid?: string;
   /** A structurally valid JSON string that contains values to resolve Rich Content template variables. */
   contentVariables?: string;
+  /** The subject of the message, can be up to 256 characters long. */
+  subject?: string;
 }
 /**
  * Options to pass to each
@@ -303,6 +307,7 @@ export class MessageContextImpl implements MessageContext {
       data["DateUpdated"] = serialize.iso8601DateTime(params["dateUpdated"]);
     if (params["attributes"] !== undefined)
       data["Attributes"] = params["attributes"];
+    if (params["subject"] !== undefined) data["Subject"] = params["subject"];
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
@@ -739,6 +744,7 @@ export function MessageListInstance(
       data["ContentSid"] = params["contentSid"];
     if (params["contentVariables"] !== undefined)
       data["ContentVariables"] = params["contentVariables"];
+    if (params["subject"] !== undefined) data["Subject"] = params["subject"];
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
