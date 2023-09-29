@@ -27,7 +27,12 @@ export type AddressConfigurationAutoCreationType =
 
 export type AddressConfigurationMethod = "GET" | "POST";
 
-export type AddressConfigurationType = "sms" | "whatsapp" | "messenger" | "gbm";
+export type AddressConfigurationType =
+  | "sms"
+  | "whatsapp"
+  | "messenger"
+  | "gbm"
+  | "email";
 
 /**
  * Options to pass to update a AddressConfigurationInstance

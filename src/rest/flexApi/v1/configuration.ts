@@ -173,6 +173,7 @@ interface ConfigurationResource {
   debugger_integration: any;
   flex_ui_status_report: any;
   agent_conv_end_methods: any;
+  citrix_voice_vdi: any;
 }
 
 export class ConfigurationInstance {
@@ -226,6 +227,7 @@ export class ConfigurationInstance {
     this.debuggerIntegration = payload.debugger_integration;
     this.flexUiStatusReport = payload.flex_ui_status_report;
     this.agentConvEndMethods = payload.agent_conv_end_methods;
+    this.citrixVoiceVdi = payload.citrix_voice_vdi;
 
     this._solution = {};
   }
@@ -411,6 +413,10 @@ export class ConfigurationInstance {
    * Agent conversation end methods.
    */
   agentConvEndMethods: any;
+  /**
+   * Citrix voice vdi configuration and settings.
+   */
+  citrixVoiceVdi: any;
 
   private get _proxy(): ConfigurationContext {
     this._context =
@@ -501,6 +507,7 @@ export class ConfigurationInstance {
       debuggerIntegration: this.debuggerIntegration,
       flexUiStatusReport: this.flexUiStatusReport,
       agentConvEndMethods: this.agentConvEndMethods,
+      citrixVoiceVdi: this.citrixVoiceVdi,
     };
   }
 

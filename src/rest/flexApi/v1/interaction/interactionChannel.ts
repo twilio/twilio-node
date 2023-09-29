@@ -26,9 +26,8 @@ export type InteractionChannelChannelStatus =
   | "setup"
   | "active"
   | "failed"
-  | "closed";
-
-export type InteractionChannelStatus = "closed" | "wrapup";
+  | "closed"
+  | "inactive";
 
 export type InteractionChannelType =
   | "voice"
@@ -40,13 +39,15 @@ export type InteractionChannelType =
   | "messenger"
   | "gbm";
 
+export type InteractionChannelUpdateChannelStatus = "closed" | "inactive";
+
 /**
  * Options to pass to update a InteractionChannelInstance
  */
 export interface InteractionChannelContextUpdateOptions {
   /**  */
-  status: InteractionChannelStatus;
-  /** Optional. The state of associated tasks. If not specified, all tasks will be set to `wrapping`. */
+  status: InteractionChannelUpdateChannelStatus;
+  /** It changes the state of associated tasks. Routing status is required, When the channel status is set to `inactive`. Allowed Value for routing status is `closed`. Otherwise Optional, if not specified, all tasks will be set to `wrapping`. */
   routing?: any;
 }
 /**
