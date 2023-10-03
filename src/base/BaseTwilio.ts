@@ -244,7 +244,7 @@ namespace Twilio {
       return this.httpClient
         ?.request({
           method: "get",
-          uri: "https://api.twilio.com:8443/2010-04-01/.json",
+          uri: "https://tls-test.twilio.com:443",
         })
         .then((response: any) => {
           if (response["statusCode"] < 200 || response["statusCode"] >= 300) {
