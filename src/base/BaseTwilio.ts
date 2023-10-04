@@ -232,7 +232,8 @@ namespace Twilio {
 
     /* jshint ignore:start */
     /**
-     * Validates that a request to the new SSL certificate is successful.
+     * Test if your environment is impacted by a TLS or certificate
+     * change is by sending an HTTP request to the test endpoint
      *
      * @throws RestException if the request fails
      *
@@ -244,7 +245,7 @@ namespace Twilio {
       return this.httpClient
         ?.request({
           method: "get",
-          uri: "https://api.twilio.com:8443/2010-04-01/.json",
+          uri: "https://tls-test.twilio.com:443",
         })
         .then((response: any) => {
           if (response["statusCode"] < 200 || response["statusCode"] >= 300) {
