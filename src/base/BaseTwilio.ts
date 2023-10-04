@@ -232,7 +232,7 @@ namespace Twilio {
 
     /* jshint ignore:start */
     /**
-     * Test if your environment is impacted by a TLS or certificate 
+     * Test if your environment is impacted by a TLS or certificate
      * change is by sending an HTTP request to the test endpoint
      *
      * @throws RestException if the request fails
