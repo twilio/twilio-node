@@ -14,6 +14,7 @@
 
 import TrusthubBase from "../TrusthubBase";
 import Version from "../../base/Version";
+import { ComplianceInquiriesListInstance } from "./v1/complianceInquiries";
 import { CustomerProfilesListInstance } from "./v1/customerProfiles";
 import { EndUserListInstance } from "./v1/endUser";
 import { EndUserTypeListInstance } from "./v1/endUserType";
@@ -32,6 +33,8 @@ export default class V1 extends Version {
     super(domain, "v1");
   }
 
+  /** complianceInquiries - { Twilio.Trusthub.V1.ComplianceInquiriesListInstance } resource */
+  protected _complianceInquiries?: ComplianceInquiriesListInstance;
   /** customerProfiles - { Twilio.Trusthub.V1.CustomerProfilesListInstance } resource */
   protected _customerProfiles?: CustomerProfilesListInstance;
   /** endUsers - { Twilio.Trusthub.V1.EndUserListInstance } resource */
@@ -46,6 +49,13 @@ export default class V1 extends Version {
   protected _supportingDocumentTypes?: SupportingDocumentTypeListInstance;
   /** trustProducts - { Twilio.Trusthub.V1.TrustProductsListInstance } resource */
   protected _trustProducts?: TrustProductsListInstance;
+
+  /** Getter for complianceInquiries resource */
+  get complianceInquiries(): ComplianceInquiriesListInstance {
+    this._complianceInquiries =
+      this._complianceInquiries || ComplianceInquiriesListInstance(this);
+    return this._complianceInquiries;
+  }
 
   /** Getter for customerProfiles resource */
   get customerProfiles(): CustomerProfilesListInstance {

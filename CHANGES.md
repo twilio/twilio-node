@@ -1,6 +1,15 @@
 twilio-node changelog
 =====================
 
+[2023-10-05] Version 4.18.1
+---------------------------
+**Library - Fix**
+- [PR #961](https://github.com/twilio/twilio-node/pull/961): update security method validatessl. Thanks to [@AsabuHere](https://github.com/AsabuHere)!
+
+**Lookups**
+- Add test api support for Lookup v2
+
+
 [2023-09-21] Version 4.18.0
 ---------------------------
 **Conversations**
