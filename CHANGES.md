@@ -1,6 +1,10 @@
 twilio-node changelog
 =====================
 
+[2023-10-17] Version 5.0.0-rc.0
+---------------------------
+- Release Candidate preparation
+
 [2023-10-05] Version 4.18.1
 ---------------------------
 **Library - Fix**
