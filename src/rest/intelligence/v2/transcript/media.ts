@@ -22,7 +22,7 @@ import { isValidPathParam } from "../../../../base/utility";
  * Options to pass to fetch a MediaInstance
  */
 export interface MediaContextFetchOptions {
-  /** Grant access to PII Redacted/Unredacted Media. The default is `true` to access redacted media. */
+  /** Grant access to PII Redacted/Unredacted Media. If redaction is enabled, the default is `true` to access redacted media. */
   redacted?: boolean;
 }
 

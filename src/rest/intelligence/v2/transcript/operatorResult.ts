@@ -31,14 +31,14 @@ export type OperatorResultOperatorType =
  * Options to pass to fetch a OperatorResultInstance
  */
 export interface OperatorResultContextFetchOptions {
-  /** Grant access to PII redacted/unredacted Language Understanding operator. The default is True. */
+  /** Grant access to PII redacted/unredacted Language Understanding operator. If redaction is enabled, the default is True. */
   redacted?: boolean;
 }
 /**
  * Options to pass to each
  */
 export interface OperatorResultListInstanceEachOptions {
-  /** Grant access to PII redacted/unredacted Language Understanding operator. The default is True. */
+  /** Grant access to PII redacted/unredacted Language Understanding operator. If redaction is enabled, the default is True. */
   redacted?: boolean;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
@@ -57,7 +57,7 @@ export interface OperatorResultListInstanceEachOptions {
  * Options to pass to list
  */
 export interface OperatorResultListInstanceOptions {
-  /** Grant access to PII redacted/unredacted Language Understanding operator. The default is True. */
+  /** Grant access to PII redacted/unredacted Language Understanding operator. If redaction is enabled, the default is True. */
   redacted?: boolean;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
@@ -69,7 +69,7 @@ export interface OperatorResultListInstanceOptions {
  * Options to pass to page
  */
 export interface OperatorResultListInstancePageOptions {
-  /** Grant access to PII redacted/unredacted Language Understanding operator. The default is True. */
+  /** Grant access to PII redacted/unredacted Language Understanding operator. If redaction is enabled, the default is True. */
   redacted?: boolean;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
