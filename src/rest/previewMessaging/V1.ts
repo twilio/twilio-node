@@ -43,5 +43,4 @@ export default class V1 extends Version {
     this._messages = this._messages || MessageListInstance(this);
     return this._messages;
   }
-
 }

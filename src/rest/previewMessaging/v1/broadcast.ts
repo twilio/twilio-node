@@ -12,13 +12,11 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
-
 
 /**
  * Details on the statuses of messages sent to recipients
@@ -38,26 +36,20 @@ export class MessagingV1BroadcastExecutionDetails {
   "totalErrors"?: number;
 }
 
-
-
 /**
  * Options to pass to create a BroadcastInstance
  */
 export interface BroadcastListInstanceCreateOptions {
   /** Idempotency key provided by the client */
-  "xTwilioRequestKey"?: string;
+  xTwilioRequestKey?: string;
 }
 
-
-export interface BroadcastSolution {
-}
+export interface BroadcastSolution {}
 
 export interface BroadcastListInstance {
   _version: V1;
   _solution: BroadcastSolution;
   _uri: string;
-
-
 
   /**
    * Create a BroadcastInstance
@@ -66,7 +58,9 @@ export interface BroadcastListInstance {
    *
    * @returns Resolves to processed BroadcastInstance
    */
-  create(callback?: (error: Error | null, item?: BroadcastInstance) => any): Promise<BroadcastInstance>;
+  create(
+    callback?: (error: Error | null, item?: BroadcastInstance) => any
+  ): Promise<BroadcastInstance>;
   /**
    * Create a BroadcastInstance
    *
@@ -75,8 +69,10 @@ export interface BroadcastListInstance {
    *
    * @returns Resolves to processed BroadcastInstance
    */
-  create(params: BroadcastListInstanceCreateOptions, callback?: (error: Error | null, item?: BroadcastInstance) => any): Promise<BroadcastInstance>;
-
+  create(
+    params: BroadcastListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: BroadcastInstance) => any
+  ): Promise<BroadcastInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -89,10 +85,15 @@ export function BroadcastListInstance(version: V1): BroadcastListInstance {
   const instance = {} as BroadcastListInstance;
 
   instance._version = version;
-  instance._solution = {  };
+  instance._solution = {};
   instance._uri = `/Broadcasts`;
 
-  instance.create = function create(params?: BroadcastListInstanceCreateOptions | ((error: Error | null, items: BroadcastInstance) => any), callback?: (error: Error | null, items: BroadcastInstance) => any): Promise<BroadcastInstance> {
+  instance.create = function create(
+    params?:
+      | BroadcastListInstanceCreateOptions
+      | ((error: Error | null, items: BroadcastInstance) => any),
+    callback?: (error: Error | null, items: BroadcastInstance) => any
+  ): Promise<BroadcastInstance> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -102,32 +103,39 @@ export function BroadcastListInstance(version: V1): BroadcastListInstance {
 
     let data: any = {};
 
-    
-    
-    
-
     const headers: any = {};
-    if (params["xTwilioRequestKey"] !== undefined) headers["X-Twilio-Request-Key"] = params["xTwilioRequestKey"];
+    if (params["xTwilioRequestKey"] !== undefined)
+      headers["X-Twilio-Request-Key"] = params["xTwilioRequestKey"];
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: instance._uri, method: "post", data, headers });
-    
-    operationPromise = operationPromise.then(payload => new BroadcastInstance(operationVersion, payload));
-    
+      operationPromise = operationVersion.create({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new BroadcastInstance(operationVersion, payload)
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
-    }
+  };
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions
+  ) {
     return inspect(instance.toJSON(), options);
-  }
+  };
 
   return instance;
 }
@@ -147,15 +155,13 @@ interface BroadcastResource {
  * Details of a Broadcast
  */
 export class BroadcastInstance {
-
   constructor(protected _version: V1, payload: BroadcastResource) {
-    this.broadcastSid = (payload.broadcast_sid);
+    this.broadcastSid = payload.broadcast_sid;
     this.createdDate = deserialize.iso8601DateTime(payload.created_date);
     this.updatedDate = deserialize.iso8601DateTime(payload.updated_date);
-    this.broadcastStatus = (payload.broadcast_status);
-    this.executionDetails = (payload.execution_details);
-    this.errorsFile = (payload.errors_file);
-
+    this.broadcastStatus = payload.broadcast_status;
+    this.executionDetails = payload.execution_details;
+    this.errorsFile = payload.errors_file;
   }
 
   /**
@@ -193,12 +199,10 @@ export class BroadcastInstance {
       broadcastStatus: this.broadcastStatus,
       executionDetails: this.executionDetails,
       errorsFile: this.errorsFile,
-    }
+    };
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
 }
-
-

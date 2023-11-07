@@ -12,13 +12,11 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
-
 
 export class CreateMessagesRequest {
   "messages"?: Array<MessagingV1Message>;
@@ -88,7 +86,6 @@ export class CreateMessagesRequest {
   "applicationSid"?: string;
 }
 
-
 export class MessagingV1FailedMessageReceipt {
   /**
    * The recipient phone number
@@ -104,7 +101,6 @@ export class MessagingV1FailedMessageReceipt {
   "errorCode"?: number;
 }
 
-
 export class MessagingV1Message {
   /**
    * The destination phone number in [E.164](https://www.twilio.com/docs/glossary/what-e164) format for SMS/MMS or [Channel user address](https://www.twilio.com/docs/sms/channels#channel-addresses) for other 3rd-party channels.
@@ -117,9 +113,8 @@ export class MessagingV1Message {
   /**
    * Key-value pairs of variable names to substitution values. Refer to the [Twilio Content API Resources](https://www.twilio.com/docs/content-api/content-api-resources#send-a-message-with-preconfigured-content) for more details.
    */
-  "contentVariables"?: { [key: string]: string; };
+  "contentVariables"?: { [key: string]: string };
 }
-
 
 export class MessagingV1MessageReceipt {
   /**
@@ -132,26 +127,20 @@ export class MessagingV1MessageReceipt {
   "sid"?: string | null;
 }
 
-
-
 /**
  * Options to pass to create a MessageInstance
  */
 export interface MessageListInstanceCreateOptions {
   /**  */
-  "createMessagesRequest": CreateMessagesRequest;
+  createMessagesRequest: CreateMessagesRequest;
 }
 
-
-export interface MessageSolution {
-}
+export interface MessageSolution {}
 
 export interface MessageListInstance {
   _version: V1;
   _solution: MessageSolution;
   _uri: string;
-
-
 
   /**
    * Create a MessageInstance
@@ -161,8 +150,10 @@ export interface MessageListInstance {
    *
    * @returns Resolves to processed MessageInstance
    */
-  create(params: CreateMessagesRequest, callback?: (error: Error | null, item?: MessageInstance) => any): Promise<MessageInstance>;
-
+  create(
+    params: CreateMessagesRequest,
+    callback?: (error: Error | null, item?: MessageInstance) => any
+  ): Promise<MessageInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -175,42 +166,53 @@ export function MessageListInstance(version: V1): MessageListInstance {
   const instance = {} as MessageListInstance;
 
   instance._version = version;
-  instance._solution = {  };
+  instance._solution = {};
   instance._uri = `/Messages`;
 
-  instance.create = function create(params: CreateMessagesRequest, callback?: (error: Error | null, items: MessageInstance) => any): Promise<MessageInstance> {
+  instance.create = function create(
+    params: CreateMessagesRequest,
+    callback?: (error: Error | null, items: MessageInstance) => any
+  ): Promise<MessageInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     let data: any = {};
 
-    
-    
-    data = params
+    data = params;
 
     const headers: any = {};
-    headers["Content-Type"] = "application/json"
+    headers["Content-Type"] = "application/json";
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: instance._uri, method: "post", data, headers });
-    
-    operationPromise = operationPromise.then(payload => new MessageInstance(operationVersion, payload));
-    
+      operationPromise = operationVersion.create({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new MessageInstance(operationVersion, payload)
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
-    }
+  };
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions
+  ) {
     return inspect(instance.toJSON(), options);
-  }
+  };
 
   return instance;
 }
@@ -226,14 +228,12 @@ interface MessageResource {
 }
 
 export class MessageInstance {
-
   constructor(protected _version: V1, payload: MessageResource) {
     this.totalMessageCount = deserialize.integer(payload.total_message_count);
     this.successCount = deserialize.integer(payload.success_count);
     this.errorCount = deserialize.integer(payload.error_count);
-    this.messageReceipts = (payload.message_receipts);
-    this.failedMessageReceipts = (payload.failed_message_receipts);
-
+    this.messageReceipts = payload.message_receipts;
+    this.failedMessageReceipts = payload.failed_message_receipts;
   }
 
   /**
@@ -263,12 +263,10 @@ export class MessageInstance {
       errorCount: this.errorCount,
       messageReceipts: this.messageReceipts,
       failedMessageReceipts: this.failedMessageReceipts,
-    }
+    };
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
 }
-
-
