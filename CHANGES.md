@@ -1,9 +1,27 @@
 twilio-node changelog
 =====================
 
-[2023-10-17] Version 5.0.0-rc.0
+[2023-11-07] Version 5.0.0-rc.0
 ---------------------------
 - Release Candidate preparation
+
+[2023-11-06] Version 4.19.1
+---------------------------
+**Flex**
+- Adding `provisioning_status` for Email Manager
+
+**Intelligence**
+- Add text-generation operator (for example conversation summary) results to existing OperatorResults collection.
+
+**Messaging**
+- Add DELETE support to Tollfree Verification resource
+
+**Serverless**
+- Add node18 as a valid Build runtime
+
+**Verify**
+- Update Verify TOTP maturity to GA.
+
 
 [2023-10-19] Version 4.19.0
 ---------------------------

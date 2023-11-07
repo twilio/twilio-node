@@ -29,6 +29,7 @@ import { InsightsSettingsAnswerSetsListInstance } from "./v1/insightsSettingsAns
 import { InsightsSettingsCommentListInstance } from "./v1/insightsSettingsComment";
 import { InsightsUserRolesListInstance } from "./v1/insightsUserRoles";
 import { InteractionListInstance } from "./v1/interaction";
+import { ProvisioningStatusListInstance } from "./v1/provisioningStatus";
 import { WebChannelListInstance } from "./v1/webChannel";
 
 export default class V1 extends Version {
@@ -71,6 +72,8 @@ export default class V1 extends Version {
   protected _insightsUserRoles?: InsightsUserRolesListInstance;
   /** interaction - { Twilio.FlexApi.V1.InteractionListInstance } resource */
   protected _interaction?: InteractionListInstance;
+  /** provisioningStatus - { Twilio.FlexApi.V1.ProvisioningStatusListInstance } resource */
+  protected _provisioningStatus?: ProvisioningStatusListInstance;
   /** webChannel - { Twilio.FlexApi.V1.WebChannelListInstance } resource */
   protected _webChannel?: WebChannelListInstance;
 
@@ -178,6 +181,13 @@ export default class V1 extends Version {
   get interaction(): InteractionListInstance {
     this._interaction = this._interaction || InteractionListInstance(this);
     return this._interaction;
+  }
+
+  /** Getter for provisioningStatus resource */
+  get provisioningStatus(): ProvisioningStatusListInstance {
+    this._provisioningStatus =
+      this._provisioningStatus || ProvisioningStatusListInstance(this);
+    return this._provisioningStatus;
   }
 
   /** Getter for webChannel resource */
