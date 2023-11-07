@@ -183,6 +183,17 @@ export interface TollfreeVerificationListInstancePageOptions {
 
 export interface TollfreeVerificationContext {
   /**
+   * Remove a TollfreeVerificationInstance
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed boolean
+   */
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean>;
+
+  /**
    * Fetch a TollfreeVerificationInstance
    *
    * @param callback - Callback to handle processed record
@@ -240,6 +251,23 @@ export class TollfreeVerificationContextImpl
 
     this._solution = { sid };
     this._uri = `/Tollfree/Verifications/${sid}`;
+  }
+
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
+    const instance = this;
+    let operationVersion = instance._version,
+      operationPromise = operationVersion.remove({
+        uri: instance._uri,
+        method: "delete",
+      });
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
   }
 
   fetch(
@@ -603,6 +631,19 @@ export class TollfreeVerificationInstance {
       this._context ||
       new TollfreeVerificationContextImpl(this._version, this._solution.sid);
     return this._context;
+  }
+
+  /**
+   * Remove a TollfreeVerificationInstance
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed boolean
+   */
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
+    return this._proxy.remove(callback);
   }
 
   /**
