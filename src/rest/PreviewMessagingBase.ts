@@ -10,7 +10,7 @@
  */
 
 import Domain from "../base/Domain";
-import V1 from "./previewMessaging/v1";
+import V1 from "./previewMessaging/V1";
 
 class PreviewMessagingBase extends Domain {
   _v1?: V1;
