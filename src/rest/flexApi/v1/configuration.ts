@@ -174,6 +174,7 @@ interface ConfigurationResource {
   flex_ui_status_report: any;
   agent_conv_end_methods: any;
   citrix_voice_vdi: any;
+  offline_config: any;
 }
 
 export class ConfigurationInstance {
@@ -228,6 +229,7 @@ export class ConfigurationInstance {
     this.flexUiStatusReport = payload.flex_ui_status_report;
     this.agentConvEndMethods = payload.agent_conv_end_methods;
     this.citrixVoiceVdi = payload.citrix_voice_vdi;
+    this.offlineConfig = payload.offline_config;
 
     this._solution = {};
   }
@@ -417,6 +419,10 @@ export class ConfigurationInstance {
    * Citrix voice vdi configuration and settings.
    */
   citrixVoiceVdi: any;
+  /**
+   * Presence and presence ttl configuration
+   */
+  offlineConfig: any;
 
   private get _proxy(): ConfigurationContext {
     this._context =
@@ -508,6 +514,7 @@ export class ConfigurationInstance {
       flexUiStatusReport: this.flexUiStatusReport,
       agentConvEndMethods: this.agentConvEndMethods,
       citrixVoiceVdi: this.citrixVoiceVdi,
+      offlineConfig: this.offlineConfig,
     };
   }
 

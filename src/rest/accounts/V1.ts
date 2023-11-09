@@ -16,6 +16,7 @@ import AccountsBase from "../AccountsBase";
 import Version from "../../base/Version";
 import { AuthTokenPromotionListInstance } from "./v1/authTokenPromotion";
 import { CredentialListInstance } from "./v1/credential";
+import { SafelistListInstance } from "./v1/safelist";
 import { SecondaryAuthTokenListInstance } from "./v1/secondaryAuthToken";
 
 export default class V1 extends Version {
@@ -32,6 +33,8 @@ export default class V1 extends Version {
   protected _authTokenPromotion?: AuthTokenPromotionListInstance;
   /** credentials - { Twilio.Accounts.V1.CredentialListInstance } resource */
   protected _credentials?: CredentialListInstance;
+  /** safelist - { Twilio.Accounts.V1.SafelistListInstance } resource */
+  protected _safelist?: SafelistListInstance;
   /** secondaryAuthToken - { Twilio.Accounts.V1.SecondaryAuthTokenListInstance } resource */
   protected _secondaryAuthToken?: SecondaryAuthTokenListInstance;
 
@@ -46,6 +49,12 @@ export default class V1 extends Version {
   get credentials(): CredentialListInstance {
     this._credentials = this._credentials || CredentialListInstance(this);
     return this._credentials;
+  }
+
+  /** Getter for safelist resource */
+  get safelist(): SafelistListInstance {
+    this._safelist = this._safelist || SafelistListInstance(this);
+    return this._safelist;
   }
 
   /** Getter for secondaryAuthToken resource */
