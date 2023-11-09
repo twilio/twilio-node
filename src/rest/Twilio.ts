@@ -30,7 +30,6 @@ import Microvisor from "./Microvisor";
 import Monitor from "./Monitor";
 import Notify from "./Notify";
 import Numbers from "./Numbers";
-import Oauth from "./Oauth";
 import Preview from "./Preview";
 import Pricing from "./Pricing";
 import Proxy from "./Proxy";
@@ -118,8 +117,6 @@ class Twilio extends Client {
   _notify?: Notify;
   /** (Twilio.Numbers) - numbers domain */
   _numbers?: Numbers;
-  /** (Twilio.Oauth) - oauth domain */
-  _oauth?: Oauth;
   /** (Twilio.Preview) - preview domain */
   _preview?: Preview;
   /** (Twilio.Pricing) - pricing domain */
@@ -188,7 +185,6 @@ class Twilio extends Client {
       this.monitor;
       this.notify;
       this.numbers;
-      this.oauth;
       this.preview;
       this.pricing;
       this.proxy;
@@ -313,10 +309,6 @@ class Twilio extends Client {
   /** Getter for (Twilio.Numbers) domain */
   get numbers(): Numbers {
     return this._numbers ?? (this._numbers = new (require("./Numbers"))(this));
-  }
-  /** Getter for (Twilio.Oauth) domain */
-  get oauth(): Oauth {
-    return this._oauth ?? (this._oauth = new (require("./Oauth"))(this));
   }
   /** Getter for (Twilio.Preview) domain */
   get preview(): Preview {
