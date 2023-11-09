@@ -31,14 +31,6 @@ export type TranscriptStatus =
   | "canceled";
 
 /**
- * Options to pass to fetch a TranscriptInstance
- */
-export interface TranscriptContextFetchOptions {
-  /** Grant access to PII Redacted/Unredacted Transcript. The default is `true` to access redacted Transcript. */
-  redacted?: boolean;
-}
-
-/**
  * Options to pass to create a TranscriptInstance
  */
 export interface TranscriptListInstanceCreateOptions {
@@ -161,18 +153,6 @@ export interface TranscriptContext {
   fetch(
     callback?: (error: Error | null, item?: TranscriptInstance) => any
   ): Promise<TranscriptInstance>;
-  /**
-   * Fetch a TranscriptInstance
-   *
-   * @param params - Parameter for request
-   * @param callback - Callback to handle processed record
-   *
-   * @returns Resolves to processed TranscriptInstance
-   */
-  fetch(
-    params: TranscriptContextFetchOptions,
-    callback?: (error: Error | null, item?: TranscriptInstance) => any
-  ): Promise<TranscriptInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -240,32 +220,13 @@ export class TranscriptContextImpl implements TranscriptContext {
   }
 
   fetch(
-    params?:
-      | TranscriptContextFetchOptions
-      | ((error: Error | null, item?: TranscriptInstance) => any),
     callback?: (error: Error | null, item?: TranscriptInstance) => any
   ): Promise<TranscriptInstance> {
-    if (params instanceof Function) {
-      callback = params;
-      params = {};
-    } else {
-      params = params || {};
-    }
-
-    let data: any = {};
-
-    if (params["redacted"] !== undefined)
-      data["Redacted"] = serialize.bool(params["redacted"]);
-
-    const headers: any = {};
-
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
         uri: instance._uri,
         method: "get",
-        params: data,
-        headers,
       });
 
     operationPromise = operationPromise.then(
@@ -429,25 +390,8 @@ export class TranscriptInstance {
    */
   fetch(
     callback?: (error: Error | null, item?: TranscriptInstance) => any
-  ): Promise<TranscriptInstance>;
-  /**
-   * Fetch a TranscriptInstance
-   *
-   * @param params - Parameter for request
-   * @param callback - Callback to handle processed record
-   *
-   * @returns Resolves to processed TranscriptInstance
-   */
-  fetch(
-    params: TranscriptContextFetchOptions,
-    callback?: (error: Error | null, item?: TranscriptInstance) => any
-  ): Promise<TranscriptInstance>;
-
-  fetch(
-    params?: any,
-    callback?: (error: Error | null, item?: TranscriptInstance) => any
   ): Promise<TranscriptInstance> {
-    return this._proxy.fetch(params, callback);
+    return this._proxy.fetch(callback);
   }
 
   /**

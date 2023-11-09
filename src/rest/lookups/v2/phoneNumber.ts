@@ -202,7 +202,7 @@ interface PhoneNumberResource {
   identity_match: any;
   reassigned_number: any;
   sms_pumping_risk: any;
-  disposable_phone_number_risk: any;
+  phone_number_quality_score: any;
   url: string;
 }
 
@@ -229,7 +229,7 @@ export class PhoneNumberInstance {
     this.identityMatch = payload.identity_match;
     this.reassignedNumber = payload.reassigned_number;
     this.smsPumpingRisk = payload.sms_pumping_risk;
-    this.disposablePhoneNumberRisk = payload.disposable_phone_number_risk;
+    this.phoneNumberQualityScore = payload.phone_number_quality_score;
     this.url = payload.url;
 
     this._solution = { phoneNumber: phoneNumber || this.phoneNumber };
@@ -292,9 +292,9 @@ export class PhoneNumberInstance {
    */
   smsPumpingRisk: any;
   /**
-   * An object that contains information on if a mobile phone number could be a disposable or burner number.
+   * An object that contains information of a mobile phone number quality score. Quality score will return a risk score about the phone number.
    */
-  disposablePhoneNumberRisk: any;
+  phoneNumberQualityScore: any;
   /**
    * The absolute URL of the resource.
    */
@@ -358,7 +358,7 @@ export class PhoneNumberInstance {
       identityMatch: this.identityMatch,
       reassignedNumber: this.reassignedNumber,
       smsPumpingRisk: this.smsPumpingRisk,
-      disposablePhoneNumberRisk: this.disposablePhoneNumberRisk,
+      phoneNumberQualityScore: this.phoneNumberQualityScore,
       url: this.url,
     };
   }

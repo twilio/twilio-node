@@ -191,10 +191,11 @@ class RequestClient {
     };
 
     if (opts.data && options.headers) {
-      if(options.headers["Content-Type"] === "application/x-www-form-urlencoded") {
+      if (
+        options.headers["Content-Type"] === "application/x-www-form-urlencoded"
+      ) {
         options.data = qs.stringify(opts.data, { arrayFormat: "repeat" });
-      }
-      else if(options.headers["Content-Type"] === "application/json") {
+      } else if (options.headers["Content-Type"] === "application/json") {
         options.data = opts.data;
       }
     }

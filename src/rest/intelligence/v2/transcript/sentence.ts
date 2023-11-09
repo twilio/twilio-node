@@ -24,7 +24,7 @@ import { isValidPathParam } from "../../../../base/utility";
  * Options to pass to each
  */
 export interface SentenceListInstanceEachOptions {
-  /** Grant access to PII Redacted/Unredacted Sentences. The default is `true` to access redacted sentences. */
+  /** Grant access to PII Redacted/Unredacted Sentences. If redaction is enabled, the default is `true` to access redacted sentences. */
   redacted?: boolean;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
@@ -40,7 +40,7 @@ export interface SentenceListInstanceEachOptions {
  * Options to pass to list
  */
 export interface SentenceListInstanceOptions {
-  /** Grant access to PII Redacted/Unredacted Sentences. The default is `true` to access redacted sentences. */
+  /** Grant access to PII Redacted/Unredacted Sentences. If redaction is enabled, the default is `true` to access redacted sentences. */
   redacted?: boolean;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
@@ -52,7 +52,7 @@ export interface SentenceListInstanceOptions {
  * Options to pass to page
  */
 export interface SentenceListInstancePageOptions {
-  /** Grant access to PII Redacted/Unredacted Sentences. The default is `true` to access redacted sentences. */
+  /** Grant access to PII Redacted/Unredacted Sentences. If redaction is enabled, the default is `true` to access redacted sentences. */
   redacted?: boolean;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;

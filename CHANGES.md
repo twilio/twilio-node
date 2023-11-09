@@ -1,9 +1,59 @@
 twilio-node changelog
 =====================
 
-[2023-10-17] Version 5.0.0-rc.0
+[2023-11-07] Version 5.0.0-rc.0
 ---------------------------
 - Release Candidate preparation
+
+[2023-11-06] Version 4.19.1
+---------------------------
+**Flex**
+- Adding `provisioning_status` for Email Manager
+
+**Intelligence**
+- Add text-generation operator (for example conversation summary) results to existing OperatorResults collection.
+
+**Messaging**
+- Add DELETE support to Tollfree Verification resource
+
+**Serverless**
+- Add node18 as a valid Build runtime
+
+**Verify**
+- Update Verify TOTP maturity to GA.
+
+
+[2023-10-19] Version 4.19.0
+---------------------------
+**Library - Chore**
+- [PR #966](https://github.com/twilio/twilio-node/pull/966): upgraded semver versions. Thanks to [@sbansla](https://github.com/sbansla)!
+- [PR #964](https://github.com/twilio/twilio-node/pull/964): added feature request issue template. Thanks to [@sbansla](https://github.com/sbansla)!
+
+**Accounts**
+- Updated Safelist metadata to correct the docs.
+- Add Global SafeList API changes
+
+**Api**
+- Added optional parameter `CallToken` for create participant api
+
+**Flex**
+- Adding `offline_config` to Flex Configuration
+
+**Intelligence**
+- Deleted `redacted` parameter from fetching transcript in v2 **(breaking change)**
+
+**Lookups**
+- Add new `phone_number_quality_score` package to the lookup response
+- Remove `disposable_phone_number_risk` package **(breaking change)**
+
+**Messaging**
+- Update US App To Person documentation with current `message_samples` requirements
+
+**Taskrouter**
+- Remove beta_feature check on task_queue_bulk_real_time_statistics endpoint
+- Add `virtual_start_time` property to tasks
+- Updating `task_queue_data` format from `map` to `array` in the response of bulk get endpoint of TaskQueue Real Time Statistics API **(breaking change)**
+
 
 [2023-10-05] Version 4.18.1
 ---------------------------

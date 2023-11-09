@@ -2,7 +2,7 @@
 
 _All `MAJOR` version bumps will have upgrade notes posted here._
 
-## [2023-01-25] 4.x.x to 5.x.x-rc.x
+## [2023-10-17] 4.x.x to 5.x.x-rc.x
 
 ---
 ### Overview
