@@ -31,14 +31,14 @@ export type OperatorResultOperatorType =
  * Options to pass to fetch a OperatorResultInstance
  */
 export interface OperatorResultContextFetchOptions {
-  /** Grant access to PII redacted/unredacted Language Understanding operator. The default is True. */
+  /** Grant access to PII redacted/unredacted Language Understanding operator. If redaction is enabled, the default is True. */
   redacted?: boolean;
 }
 /**
  * Options to pass to each
  */
 export interface OperatorResultListInstanceEachOptions {
-  /** Grant access to PII redacted/unredacted Language Understanding operator. The default is True. */
+  /** Grant access to PII redacted/unredacted Language Understanding operator. If redaction is enabled, the default is True. */
   redacted?: boolean;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
@@ -57,7 +57,7 @@ export interface OperatorResultListInstanceEachOptions {
  * Options to pass to list
  */
 export interface OperatorResultListInstanceOptions {
-  /** Grant access to PII redacted/unredacted Language Understanding operator. The default is True. */
+  /** Grant access to PII redacted/unredacted Language Understanding operator. If redaction is enabled, the default is True. */
   redacted?: boolean;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
@@ -69,7 +69,7 @@ export interface OperatorResultListInstanceOptions {
  * Options to pass to page
  */
 export interface OperatorResultListInstancePageOptions {
-  /** Grant access to PII redacted/unredacted Language Understanding operator. The default is True. */
+  /** Grant access to PII redacted/unredacted Language Understanding operator. If redaction is enabled, the default is True. */
   redacted?: boolean;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
@@ -213,6 +213,7 @@ interface OperatorResultResource {
   predicted_probability: number;
   label_probabilities: any;
   extract_results: any;
+  text_generation_results: any;
   transcript_sid: string;
   url: string;
 }
@@ -239,6 +240,7 @@ export class OperatorResultInstance {
     this.predictedProbability = payload.predicted_probability;
     this.labelProbabilities = payload.label_probabilities;
     this.extractResults = payload.extract_results;
+    this.textGenerationResults = payload.text_generation_results;
     this.transcriptSid = payload.transcript_sid;
     this.url = payload.url;
 
@@ -293,6 +295,10 @@ export class OperatorResultInstance {
    * List of text extraction results. This might be available on classify-extract model outputs.
    */
   extractResults: any;
+  /**
+   * Output of a text generation operator for example Conversation Sumamary.
+   */
+  textGenerationResults: any;
   /**
    * A 34 character string that uniquely identifies this Transcript.
    */
@@ -362,6 +368,7 @@ export class OperatorResultInstance {
       predictedProbability: this.predictedProbability,
       labelProbabilities: this.labelProbabilities,
       extractResults: this.extractResults,
+      textGenerationResults: this.textGenerationResults,
       transcriptSid: this.transcriptSid,
       url: this.url,
     };

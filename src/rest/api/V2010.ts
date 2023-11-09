@@ -15,7 +15,6 @@
 import ApiBase from "../ApiBase";
 import Version from "../../base/Version";
 import { AccountListInstance } from "./v2010/account";
-import { SafelistListInstance } from "./v2010/safelist";
 import { AccountContext } from "./v2010/account";
 
 export default class V2010 extends Version {
@@ -30,8 +29,6 @@ export default class V2010 extends Version {
 
   /** accounts - { Twilio.Api.V2010.AccountListInstance } resource */
   protected _accounts?: AccountListInstance;
-  /** safelist - { Twilio.Api.V2010.SafelistListInstance } resource */
-  protected _safelist?: SafelistListInstance;
   /** account - { Twilio.Api.V2010.AccountContext } resource */
   protected _account?: AccountContext;
 
@@ -39,12 +36,6 @@ export default class V2010 extends Version {
   get accounts(): AccountListInstance {
     this._accounts = this._accounts || AccountListInstance(this);
     return this._accounts;
-  }
-
-  /** Getter for safelist resource */
-  get safelist(): SafelistListInstance {
-    this._safelist = this._safelist || SafelistListInstance(this);
-    return this._safelist;
   }
 
   /** Getter for account resource */

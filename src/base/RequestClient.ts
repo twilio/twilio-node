@@ -57,7 +57,7 @@ function getExponentialBackoffResponseHandler(
       );
       const delay = Math.floor(baseDelay * Math.random()); // Full jitter backoff
 
-      return new Promise((resolve) => {
+      return new Promise((resolve: (value: Promise<AxiosResponse>) => void) => {
         setTimeout(() => resolve(axios(config)), delay);
       });
     }

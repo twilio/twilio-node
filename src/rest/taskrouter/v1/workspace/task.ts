@@ -53,6 +53,8 @@ export interface TaskContextUpdateOptions {
   priority?: number;
   /** When MultiTasking is enabled, specify the TaskChannel with the task to update. Can be the TaskChannel\\\'s SID or its `unique_name`, such as `voice`, `sms`, or `default`. */
   taskChannel?: string;
+  /** The task\\\'s new virtual start time value. When supplied, the Task takes on the specified virtual start time. Value can\\\'t be in the future. */
+  virtualStartTime?: Date;
 }
 
 /**
@@ -69,6 +71,8 @@ export interface TaskListInstanceCreateOptions {
   workflowSid?: string;
   /** A URL-encoded JSON string with the attributes of the new task. This value is passed to the Workflow\\\'s `assignment_callback_url` when the Task is assigned to a Worker. For example: `{ \\\"task_type\\\": \\\"call\\\", \\\"twilio_call_sid\\\": \\\"CAxxx\\\", \\\"customer_ticket_number\\\": \\\"12345\\\" }`. */
   attributes?: string;
+  /** The virtual start time to assign the new task and override the default. When supplied, the new task will have this virtual start time. When not supplied, the new task will have the virtual start time equal to `date_created`. Value can\\\'t be in the future. */
+  virtualStartTime?: Date;
 }
 /**
  * Options to pass to each
@@ -88,7 +92,7 @@ export interface TaskListInstanceEachOptions {
   taskQueueName?: string;
   /** The attributes of the Tasks to read. Returns the Tasks that match the attributes specified in this parameter. */
   evaluateTaskAttributes?: string;
-  /** How to order the returned Task resources. y default, Tasks are sorted by ascending DateCreated. This value is specified as: `Attribute:Order`, where `Attribute` can be either `Priority` or `DateCreated` and `Order` can be either `asc` or `desc`. For example, `Priority:desc` returns Tasks ordered in descending order of their Priority. Multiple sort orders can be specified in a comma-separated list such as `Priority:desc,DateCreated:asc`, which returns the Tasks in descending Priority order and ascending DateCreated Order. */
+  /** How to order the returned Task resources. By default, Tasks are sorted by ascending DateCreated. This value is specified as: `Attribute:Order`, where `Attribute` can be either `DateCreated`, `Priority`, or `VirtualStartTime` and `Order` can be either `asc` or `desc`. For example, `Priority:desc` returns Tasks ordered in descending order of their Priority. Pairings of sort orders can be specified in a comma-separated list such as `Priority:desc,DateCreated:asc`, which returns the Tasks in descending Priority order and ascending DateCreated Order. The only ordering pairing not allowed is DateCreated and VirtualStartTime. */
   ordering?: string;
   /** Whether to read Tasks with addons. If `true`, returns only Tasks with addons. If `false`, returns only Tasks without addons. */
   hasAddons?: boolean;
@@ -120,7 +124,7 @@ export interface TaskListInstanceOptions {
   taskQueueName?: string;
   /** The attributes of the Tasks to read. Returns the Tasks that match the attributes specified in this parameter. */
   evaluateTaskAttributes?: string;
-  /** How to order the returned Task resources. y default, Tasks are sorted by ascending DateCreated. This value is specified as: `Attribute:Order`, where `Attribute` can be either `Priority` or `DateCreated` and `Order` can be either `asc` or `desc`. For example, `Priority:desc` returns Tasks ordered in descending order of their Priority. Multiple sort orders can be specified in a comma-separated list such as `Priority:desc,DateCreated:asc`, which returns the Tasks in descending Priority order and ascending DateCreated Order. */
+  /** How to order the returned Task resources. By default, Tasks are sorted by ascending DateCreated. This value is specified as: `Attribute:Order`, where `Attribute` can be either `DateCreated`, `Priority`, or `VirtualStartTime` and `Order` can be either `asc` or `desc`. For example, `Priority:desc` returns Tasks ordered in descending order of their Priority. Pairings of sort orders can be specified in a comma-separated list such as `Priority:desc,DateCreated:asc`, which returns the Tasks in descending Priority order and ascending DateCreated Order. The only ordering pairing not allowed is DateCreated and VirtualStartTime. */
   ordering?: string;
   /** Whether to read Tasks with addons. If `true`, returns only Tasks with addons. If `false`, returns only Tasks without addons. */
   hasAddons?: boolean;
@@ -148,7 +152,7 @@ export interface TaskListInstancePageOptions {
   taskQueueName?: string;
   /** The attributes of the Tasks to read. Returns the Tasks that match the attributes specified in this parameter. */
   evaluateTaskAttributes?: string;
-  /** How to order the returned Task resources. y default, Tasks are sorted by ascending DateCreated. This value is specified as: `Attribute:Order`, where `Attribute` can be either `Priority` or `DateCreated` and `Order` can be either `asc` or `desc`. For example, `Priority:desc` returns Tasks ordered in descending order of their Priority. Multiple sort orders can be specified in a comma-separated list such as `Priority:desc,DateCreated:asc`, which returns the Tasks in descending Priority order and ascending DateCreated Order. */
+  /** How to order the returned Task resources. By default, Tasks are sorted by ascending DateCreated. This value is specified as: `Attribute:Order`, where `Attribute` can be either `DateCreated`, `Priority`, or `VirtualStartTime` and `Order` can be either `asc` or `desc`. For example, `Priority:desc` returns Tasks ordered in descending order of their Priority. Pairings of sort orders can be specified in a comma-separated list such as `Priority:desc,DateCreated:asc`, which returns the Tasks in descending Priority order and ascending DateCreated Order. The only ordering pairing not allowed is DateCreated and VirtualStartTime. */
   ordering?: string;
   /** Whether to read Tasks with addons. If `true`, returns only Tasks with addons. If `false`, returns only Tasks without addons. */
   hasAddons?: boolean;
@@ -347,6 +351,10 @@ export class TaskContextImpl implements TaskContext {
     if (params["priority"] !== undefined) data["Priority"] = params["priority"];
     if (params["taskChannel"] !== undefined)
       data["TaskChannel"] = params["taskChannel"];
+    if (params["virtualStartTime"] !== undefined)
+      data["VirtualStartTime"] = serialize.iso8601DateTime(
+        params["virtualStartTime"]
+      );
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
@@ -419,6 +427,7 @@ interface TaskResource {
   workspace_sid: string;
   url: string;
   links: Record<string, string>;
+  virtual_start_time: Date;
 }
 
 export class TaskInstance {
@@ -454,6 +463,9 @@ export class TaskInstance {
     this.workspaceSid = payload.workspace_sid;
     this.url = payload.url;
     this.links = payload.links;
+    this.virtualStartTime = deserialize.iso8601DateTime(
+      payload.virtual_start_time
+    );
 
     this._solution = { workspaceSid, sid: sid || this.sid };
   }
@@ -539,6 +551,10 @@ export class TaskInstance {
    * The URLs of related resources.
    */
   links: Record<string, string>;
+  /**
+   * The date and time in GMT indicating the ordering for routing of the Task specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+   */
+  virtualStartTime: Date;
 
   private get _proxy(): TaskContext {
     this._context =
@@ -659,6 +675,7 @@ export class TaskInstance {
       workspaceSid: this.workspaceSid,
       url: this.url,
       links: this.links,
+      virtualStartTime: this.virtualStartTime,
     };
   }
 
@@ -819,6 +836,10 @@ export function TaskListInstance(
       data["WorkflowSid"] = params["workflowSid"];
     if (params["attributes"] !== undefined)
       data["Attributes"] = params["attributes"];
+    if (params["virtualStartTime"] !== undefined)
+      data["VirtualStartTime"] = serialize.iso8601DateTime(
+        params["virtualStartTime"]
+      );
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
