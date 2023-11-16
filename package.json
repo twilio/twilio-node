@@ -1,7 +1,7 @@
 {
   "name": "twilio",
   "description": "A Twilio helper library",
-  "version": "4.19.1",
+  "version": "5.0.0-rc.0",
   "author": "API Team <api@twilio.com>",
   "contributors": [
     {
@@ -20,7 +20,7 @@
     "url": "https://github.com/twilio/twilio-node.git"
   },
   "dependencies": {
-    "axios": "^0.26.1",
+    "axios": "^1.6.0",
     "dayjs": "^1.11.9",
     "https-proxy-agent": "^5.0.0",
     "jsonwebtoken": "^9.0.0",

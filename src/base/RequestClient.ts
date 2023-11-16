@@ -57,7 +57,7 @@ function getExponentialBackoffResponseHandler(
       );
       const delay = Math.floor(baseDelay * Math.random()); // Full jitter backoff
 
-      return new Promise((resolve) => {
+      return new Promise((resolve: (value: Promise<AxiosResponse>) => void) => {
         setTimeout(() => resolve(axios(config)), delay);
       });
     }
@@ -190,8 +190,14 @@ class RequestClient {
       validateStatus: (status) => status >= 100 && status < 600,
     };
 
-    if (opts.data) {
-      options.data = qs.stringify(opts.data, { arrayFormat: "repeat" });
+    if (opts.data && options.headers) {
+      if (
+        options.headers["Content-Type"] === "application/x-www-form-urlencoded"
+      ) {
+        options.data = qs.stringify(opts.data, { arrayFormat: "repeat" });
+      } else if (options.headers["Content-Type"] === "application/json") {
+        options.data = opts.data;
+      }
     }
 
     if (opts.params) {

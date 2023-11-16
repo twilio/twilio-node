@@ -10,18 +10,18 @@
  */
 
 import Domain from "../base/Domain";
-import V1 from "./oauth/V1";
+import V1 from "./previewMessaging/V1";
 
-class OauthBase extends Domain {
+class PreviewMessagingBase extends Domain {
   _v1?: V1;
 
   /**
-   * Initialize oauth domain
+   * Initialize accounts domain
    *
    * @param twilio - The twilio client
    */
   constructor(twilio: any) {
-    super(twilio, "https://oauth.twilio.com");
+    super(twilio, "https://preview.messaging.twilio.com");
   }
 
   get v1(): V1 {
@@ -30,4 +30,4 @@ class OauthBase extends Domain {
   }
 }
 
-export = OauthBase;
+export = PreviewMessagingBase;
