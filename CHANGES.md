@@ -1,6 +1,32 @@
 twilio-node changelog
 =====================
 
+[2023-11-17] Version 4.19.2
+---------------------------
+**Library - Chore**
+- [PR #971](https://github.com/twilio/twilio-node/pull/971): Update axios to 1.6 to pull in fix for CVE 2023 45857. Thanks to [@kitu-apietila](https://github.com/kitu-apietila)!
+- [PR #963](https://github.com/twilio/twilio-node/pull/963): Removing Test Related To Deprecated Endpoint - OAuth. Thanks to [@KobeBrooks](https://github.com/KobeBrooks)!
+- [PR #958](https://github.com/twilio/twilio-node/pull/958): twilio help changes. Thanks to [@kridai](https://github.com/kridai)!
+- [PR #978](https://github.com/twilio/twilio-node/pull/978): Removed LTS version. Thanks to [@tiwarishubham635](https://github.com/tiwarishubham635)!
+
+**Api**
+- Update documentation to reflect RiskCheck GA
+
+**Messaging**
+- Add tollfree edit_allowed and edit_reason fields
+- Update Phone Number, Short Code, Alpha Sender, US A2P and Channel Sender documentation
+
+**Taskrouter**
+- Add container attribute to task_queue_bulk_real_time_statistics endpoint
+
+**Trusthub**
+- Rename did to tollfree_phone_number in compliance_tollfree_inquiry.json
+- Add new optional field notification_email to compliance_tollfree_inquiry.json
+
+**Verify**
+- Add `Tags` optional parameter on Verification creation.
+
+
 [2023-11-06] Version 4.19.1
 ---------------------------
 **Flex**
