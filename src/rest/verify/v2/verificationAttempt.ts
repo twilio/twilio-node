@@ -258,7 +258,7 @@ export class VerificationAttemptInstance {
   conversionStatus: VerificationAttemptConversionStatus;
   channel: VerificationAttemptChannels;
   /**
-   * An object containing the charge for this verification attempt related to the channel costs and the currency used. The costs related to the succeeded verifications are not included. May not be immediately available. More information on pricing is available [here](https://www.twilio.com/verify/pricing).
+   * An object containing the charge for this verification attempt related to the channel costs and the currency used. The costs related to the succeeded verifications are not included. May not be immediately available. More information on pricing is available [here](https://www.twilio.com/en-us/verify/pricing).
    */
   price: any;
   /**
