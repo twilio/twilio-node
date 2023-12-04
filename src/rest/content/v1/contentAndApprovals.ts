@@ -304,7 +304,7 @@ export class ContentAndApprovalsInstance {
    */
   variables: any;
   /**
-   * The [Content types](https://www.twilio.com/docs/content-api/content-types-overview) (e.g. twilio/text) for this Content resource.
+   * The [Content types](https://www.twilio.com/docs/content/content-types-overview) (e.g. twilio/text) for this Content resource.
    */
   types: any;
   /**

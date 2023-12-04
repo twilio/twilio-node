@@ -71,7 +71,7 @@ export interface MessageListInstanceCreateOptions {
   attributes?: string;
   /** The Media SID to be attached to the new Message. */
   mediaSid?: string;
-  /** The unique ID of the multi-channel [Rich Content](https://www.twilio.com/docs/content-api) template, required for template-generated messages.  **Note** that if this field is set, `Body` and `MediaSid` parameters are ignored. */
+  /** The unique ID of the multi-channel [Rich Content](https://www.twilio.com/docs/content) template, required for template-generated messages.  **Note** that if this field is set, `Body` and `MediaSid` parameters are ignored. */
   contentSid?: string;
   /** A structurally valid JSON string that contains values to resolve Rich Content template variables. */
   contentVariables?: string;
@@ -462,7 +462,7 @@ export class MessageInstance {
    */
   links: Record<string, string>;
   /**
-   * The unique ID of the multi-channel [Rich Content](https://www.twilio.com/docs/content-api) template.
+   * The unique ID of the multi-channel [Rich Content](https://www.twilio.com/docs/content) template.
    */
   contentSid: string;
 
