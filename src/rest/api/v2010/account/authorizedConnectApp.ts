@@ -160,8 +160,6 @@ interface AuthorizedConnectAppResource {
   connect_app_friendly_name: string;
   connect_app_homepage_url: string;
   connect_app_sid: string;
-  date_created: Date;
-  date_updated: Date;
   permissions: Array<AuthorizedConnectAppPermission>;
   uri: string;
 }
@@ -182,8 +180,6 @@ export class AuthorizedConnectAppInstance {
     this.connectAppFriendlyName = payload.connect_app_friendly_name;
     this.connectAppHomepageUrl = payload.connect_app_homepage_url;
     this.connectAppSid = payload.connect_app_sid;
-    this.dateCreated = deserialize.rfc2822DateTime(payload.date_created);
-    this.dateUpdated = deserialize.rfc2822DateTime(payload.date_updated);
     this.permissions = payload.permissions;
     this.uri = payload.uri;
 
@@ -217,14 +213,6 @@ export class AuthorizedConnectAppInstance {
    * The SID that we assigned to the Connect App.
    */
   connectAppSid: string;
-  /**
-   * The date and time in GMT that the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
-   */
-  dateCreated: Date;
-  /**
-   * The date and time in GMT that the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
-   */
-  dateUpdated: Date;
   /**
    * The set of permissions that you authorized for the Connect App.  Can be: `get-all` or `post-all`.
    */
@@ -271,8 +259,6 @@ export class AuthorizedConnectAppInstance {
       connectAppFriendlyName: this.connectAppFriendlyName,
       connectAppHomepageUrl: this.connectAppHomepageUrl,
       connectAppSid: this.connectAppSid,
-      dateCreated: this.dateCreated,
-      dateUpdated: this.dateUpdated,
       permissions: this.permissions,
       uri: this.uri,
     };
