@@ -50,16 +50,8 @@ export interface ConferenceContextUpdateOptions {
 export interface ConferenceListInstanceEachOptions {
   /** The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that started on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify  conferences that started on or after midnight on a date, use `>=YYYY-MM-DD`. */
   dateCreated?: Date;
-  /** The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that started on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify  conferences that started on or after midnight on a date, use `>=YYYY-MM-DD`. */
-  dateCreatedBefore?: Date;
-  /** The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that started on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify  conferences that started on or after midnight on a date, use `>=YYYY-MM-DD`. */
-  dateCreatedAfter?: Date;
   /** The `date_updated` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that were last updated on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify conferences that were last updated on or after midnight on a given date, use  `>=YYYY-MM-DD`. */
   dateUpdated?: Date;
-  /** The `date_updated` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that were last updated on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify conferences that were last updated on or after midnight on a given date, use  `>=YYYY-MM-DD`. */
-  dateUpdatedBefore?: Date;
-  /** The `date_updated` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that were last updated on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify conferences that were last updated on or after midnight on a given date, use  `>=YYYY-MM-DD`. */
-  dateUpdatedAfter?: Date;
   /** The string that identifies the Conference resources to read. */
   friendlyName?: string;
   /** The status of the resources to read. Can be: `init`, `in-progress`, or `completed`. */
@@ -80,16 +72,8 @@ export interface ConferenceListInstanceEachOptions {
 export interface ConferenceListInstanceOptions {
   /** The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that started on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify  conferences that started on or after midnight on a date, use `>=YYYY-MM-DD`. */
   dateCreated?: Date;
-  /** The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that started on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify  conferences that started on or after midnight on a date, use `>=YYYY-MM-DD`. */
-  dateCreatedBefore?: Date;
-  /** The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that started on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify  conferences that started on or after midnight on a date, use `>=YYYY-MM-DD`. */
-  dateCreatedAfter?: Date;
   /** The `date_updated` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that were last updated on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify conferences that were last updated on or after midnight on a given date, use  `>=YYYY-MM-DD`. */
   dateUpdated?: Date;
-  /** The `date_updated` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that were last updated on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify conferences that were last updated on or after midnight on a given date, use  `>=YYYY-MM-DD`. */
-  dateUpdatedBefore?: Date;
-  /** The `date_updated` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that were last updated on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify conferences that were last updated on or after midnight on a given date, use  `>=YYYY-MM-DD`. */
-  dateUpdatedAfter?: Date;
   /** The string that identifies the Conference resources to read. */
   friendlyName?: string;
   /** The status of the resources to read. Can be: `init`, `in-progress`, or `completed`. */
@@ -106,16 +90,8 @@ export interface ConferenceListInstanceOptions {
 export interface ConferenceListInstancePageOptions {
   /** The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that started on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify  conferences that started on or after midnight on a date, use `>=YYYY-MM-DD`. */
   dateCreated?: Date;
-  /** The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that started on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify  conferences that started on or after midnight on a date, use `>=YYYY-MM-DD`. */
-  dateCreatedBefore?: Date;
-  /** The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that started on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify  conferences that started on or after midnight on a date, use `>=YYYY-MM-DD`. */
-  dateCreatedAfter?: Date;
   /** The `date_updated` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that were last updated on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify conferences that were last updated on or after midnight on a given date, use  `>=YYYY-MM-DD`. */
   dateUpdated?: Date;
-  /** The `date_updated` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that were last updated on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify conferences that were last updated on or after midnight on a given date, use  `>=YYYY-MM-DD`. */
-  dateUpdatedBefore?: Date;
-  /** The `date_updated` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that were last updated on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify conferences that were last updated on or after midnight on a given date, use  `>=YYYY-MM-DD`. */
-  dateUpdatedAfter?: Date;
   /** The string that identifies the Conference resources to read. */
   friendlyName?: string;
   /** The status of the resources to read. Can be: `init`, `in-progress`, or `completed`. */
@@ -617,16 +593,8 @@ export function ConferenceListInstance(
 
     if (params["dateCreated"] !== undefined)
       data["DateCreated"] = serialize.iso8601Date(params["dateCreated"]);
-    if (params["dateCreatedBefore"] !== undefined)
-      data["DateCreated<"] = serialize.iso8601Date(params["dateCreatedBefore"]);
-    if (params["dateCreatedAfter"] !== undefined)
-      data["DateCreated>"] = serialize.iso8601Date(params["dateCreatedAfter"]);
     if (params["dateUpdated"] !== undefined)
       data["DateUpdated"] = serialize.iso8601Date(params["dateUpdated"]);
-    if (params["dateUpdatedBefore"] !== undefined)
-      data["DateUpdated<"] = serialize.iso8601Date(params["dateUpdatedBefore"]);
-    if (params["dateUpdatedAfter"] !== undefined)
-      data["DateUpdated>"] = serialize.iso8601Date(params["dateUpdatedAfter"]);
     if (params["friendlyName"] !== undefined)
       data["FriendlyName"] = params["friendlyName"];
     if (params["status"] !== undefined) data["Status"] = params["status"];

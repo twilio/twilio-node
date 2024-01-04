@@ -18,59 +18,14 @@ const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 
-export type ComplianceTollfreeInquiriesOptInType =
-  | "VERBAL"
-  | "WEB_FORM"
-  | "PAPER_FORM"
-  | "VIA_TEXT"
-  | "MOBILE_QR_CODE";
-
 /**
  * Options to pass to create a ComplianceTollfreeInquiriesInstance
  */
 export interface ComplianceTollfreeInquiriesListInstanceCreateOptions {
   /** The Tollfree phone number to be verified */
   tollfreePhoneNumber: string;
-  /** The email address to receive the notification about the verification result. */
+  /** The notification email to be triggered when verification status is changed */
   notificationEmail: string;
-  /** The name of the business or organization using the Tollfree number. */
-  businessName?: string;
-  /** The website of the business or organization using the Tollfree number. */
-  businessWebsite?: string;
-  /** The category of the use case for the Tollfree Number. List as many are applicable.. */
-  useCaseCategories?: Array<string>;
-  /** Use this to further explain how messaging is used by the business or organization. */
-  useCaseSummary?: string;
-  /** An example of message content, i.e. a sample message. */
-  productionMessageSample?: string;
-  /** Link to an image that shows the opt-in workflow. Multiple images allowed and must be a publicly hosted URL. */
-  optInImageUrls?: Array<string>;
-  /**  */
-  optInType?: ComplianceTollfreeInquiriesOptInType;
-  /** Estimate monthly volume of messages from the Tollfree Number. */
-  messageVolume?: string;
-  /** The address of the business or organization using the Tollfree number. */
-  businessStreetAddress?: string;
-  /** The address of the business or organization using the Tollfree number. */
-  businessStreetAddress2?: string;
-  /** The city of the business or organization using the Tollfree number. */
-  businessCity?: string;
-  /** The state/province/region of the business or organization using the Tollfree number. */
-  businessStateProvinceRegion?: string;
-  /** The postal code of the business or organization using the Tollfree number. */
-  businessPostalCode?: string;
-  /** The country of the business or organization using the Tollfree number. */
-  businessCountry?: string;
-  /** Additional information to be provided for verification. */
-  additionalInformation?: string;
-  /** The first name of the contact for the business or organization using the Tollfree number. */
-  businessContactFirstName?: string;
-  /** The last name of the contact for the business or organization using the Tollfree number. */
-  businessContactLastName?: string;
-  /** The email address of the contact for the business or organization using the Tollfree number. */
-  businessContactEmail?: string;
-  /** The phone number of the contact for the business or organization using the Tollfree number. */
-  businessContactPhone?: string;
 }
 
 export interface ComplianceTollfreeInquiriesSolution {}
@@ -146,51 +101,6 @@ export function ComplianceTollfreeInquiriesListInstance(
     data["TollfreePhoneNumber"] = params["tollfreePhoneNumber"];
 
     data["NotificationEmail"] = params["notificationEmail"];
-    if (params["businessName"] !== undefined)
-      data["BusinessName"] = params["businessName"];
-    if (params["businessWebsite"] !== undefined)
-      data["BusinessWebsite"] = params["businessWebsite"];
-    if (params["useCaseCategories"] !== undefined)
-      data["UseCaseCategories"] = serialize.map(
-        params["useCaseCategories"],
-        (e: string) => e
-      );
-    if (params["useCaseSummary"] !== undefined)
-      data["UseCaseSummary"] = params["useCaseSummary"];
-    if (params["productionMessageSample"] !== undefined)
-      data["ProductionMessageSample"] = params["productionMessageSample"];
-    if (params["optInImageUrls"] !== undefined)
-      data["OptInImageUrls"] = serialize.map(
-        params["optInImageUrls"],
-        (e: string) => e
-      );
-    if (params["optInType"] !== undefined)
-      data["OptInType"] = params["optInType"];
-    if (params["messageVolume"] !== undefined)
-      data["MessageVolume"] = params["messageVolume"];
-    if (params["businessStreetAddress"] !== undefined)
-      data["BusinessStreetAddress"] = params["businessStreetAddress"];
-    if (params["businessStreetAddress2"] !== undefined)
-      data["BusinessStreetAddress2"] = params["businessStreetAddress2"];
-    if (params["businessCity"] !== undefined)
-      data["BusinessCity"] = params["businessCity"];
-    if (params["businessStateProvinceRegion"] !== undefined)
-      data["BusinessStateProvinceRegion"] =
-        params["businessStateProvinceRegion"];
-    if (params["businessPostalCode"] !== undefined)
-      data["BusinessPostalCode"] = params["businessPostalCode"];
-    if (params["businessCountry"] !== undefined)
-      data["BusinessCountry"] = params["businessCountry"];
-    if (params["additionalInformation"] !== undefined)
-      data["AdditionalInformation"] = params["additionalInformation"];
-    if (params["businessContactFirstName"] !== undefined)
-      data["BusinessContactFirstName"] = params["businessContactFirstName"];
-    if (params["businessContactLastName"] !== undefined)
-      data["BusinessContactLastName"] = params["businessContactLastName"];
-    if (params["businessContactEmail"] !== undefined)
-      data["BusinessContactEmail"] = params["businessContactEmail"];
-    if (params["businessContactPhone"] !== undefined)
-      data["BusinessContactPhone"] = params["businessContactPhone"];
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";

@@ -148,7 +148,7 @@ interface BroadcastResource {
   updated_date: Date;
   broadcast_status: string;
   execution_details: MessagingV1BroadcastExecutionDetails;
-  errors_file: string;
+  results_file: string;
 }
 
 /**
@@ -161,7 +161,7 @@ export class BroadcastInstance {
     this.updatedDate = deserialize.iso8601DateTime(payload.updated_date);
     this.broadcastStatus = payload.broadcast_status;
     this.executionDetails = payload.execution_details;
-    this.errorsFile = payload.errors_file;
+    this.resultsFile = payload.results_file;
   }
 
   /**
@@ -182,9 +182,9 @@ export class BroadcastInstance {
   broadcastStatus: string;
   executionDetails: MessagingV1BroadcastExecutionDetails;
   /**
-   * Path to a file detailing errors from Broadcast execution
+   * Path to a file detailing successful requests and errors from Broadcast execution
    */
-  errorsFile: string;
+  resultsFile: string;
 
   /**
    * Provide a user-friendly representation
@@ -198,7 +198,7 @@ export class BroadcastInstance {
       updatedDate: this.updatedDate,
       broadcastStatus: this.broadcastStatus,
       executionDetails: this.executionDetails,
-      errorsFile: this.errorsFile,
+      resultsFile: this.resultsFile,
     };
   }
 

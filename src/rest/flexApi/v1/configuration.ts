@@ -53,6 +53,17 @@ export interface ConfigurationContext {
   ): Promise<ConfigurationInstance>;
 
   /**
+   * Update a ConfigurationInstance
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed ConfigurationInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: ConfigurationInstance) => any
+  ): Promise<ConfigurationInstance>;
+
+  /**
    * Provide a user-friendly representation
    */
   toJSON(): any;
@@ -97,6 +108,27 @@ export class ConfigurationContextImpl implements ConfigurationContext {
         method: "get",
         params: data,
         headers,
+      });
+
+    operationPromise = operationPromise.then(
+      (payload) => new ConfigurationInstance(operationVersion, payload)
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
+  update(
+    callback?: (error: Error | null, item?: ConfigurationInstance) => any
+  ): Promise<ConfigurationInstance> {
+    const instance = this;
+    let operationVersion = instance._version,
+      operationPromise = operationVersion.update({
+        uri: instance._uri,
+        method: "post",
       });
 
     operationPromise = operationPromise.then(
@@ -458,6 +490,19 @@ export class ConfigurationInstance {
     callback?: (error: Error | null, item?: ConfigurationInstance) => any
   ): Promise<ConfigurationInstance> {
     return this._proxy.fetch(params, callback);
+  }
+
+  /**
+   * Update a ConfigurationInstance
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed ConfigurationInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: ConfigurationInstance) => any
+  ): Promise<ConfigurationInstance> {
+    return this._proxy.update(callback);
   }
 
   /**

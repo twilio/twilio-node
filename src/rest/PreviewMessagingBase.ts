@@ -16,7 +16,7 @@ class PreviewMessagingBase extends Domain {
   _v1?: V1;
 
   /**
-   * Initialize accounts domain
+   * Initialize previewMessaging domain
    *
    * @param twilio - The twilio client
    */

@@ -19,6 +19,7 @@ import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
+import { TaskQueueBulkRealTimeStatisticsListInstance } from "./taskQueue/taskQueueBulkRealTimeStatistics";
 import { TaskQueueCumulativeStatisticsListInstance } from "./taskQueue/taskQueueCumulativeStatistics";
 import { TaskQueueRealTimeStatisticsListInstance } from "./taskQueue/taskQueueRealTimeStatistics";
 import { TaskQueueStatisticsListInstance } from "./taskQueue/taskQueueStatistics";
@@ -591,6 +592,8 @@ export interface TaskQueueListInstance {
   (sid: string): TaskQueueContext;
   get(sid: string): TaskQueueContext;
 
+  _bulkRealTimeStatistics?: TaskQueueBulkRealTimeStatisticsListInstance;
+  bulkRealTimeStatistics: TaskQueueBulkRealTimeStatisticsListInstance;
   _statistics?: TaskQueuesStatisticsListInstance;
   statistics: TaskQueuesStatisticsListInstance;
 
@@ -700,6 +703,19 @@ export function TaskQueueListInstance(
   instance._version = version;
   instance._solution = { workspaceSid };
   instance._uri = `/Workspaces/${workspaceSid}/TaskQueues`;
+
+  Object.defineProperty(instance, "bulkRealTimeStatistics", {
+    get: function bulkRealTimeStatistics() {
+      if (!instance._bulkRealTimeStatistics) {
+        instance._bulkRealTimeStatistics =
+          TaskQueueBulkRealTimeStatisticsListInstance(
+            instance._version,
+            instance._solution.workspaceSid
+          );
+      }
+      return instance._bulkRealTimeStatistics;
+    },
+  });
 
   Object.defineProperty(instance, "statistics", {
     get: function statistics() {

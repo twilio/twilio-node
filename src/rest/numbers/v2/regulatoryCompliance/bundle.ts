@@ -93,10 +93,6 @@ export interface BundleListInstanceEachOptions {
   sortDirection?: BundleSortDirection;
   /** Date to filter Bundles having their `valid_until_date` before or after the specified date. Can be `ValidUntilDate>=` or `ValidUntilDate<=`. Both can be used in conjunction as well. [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) is the acceptable date format. */
   validUntilDate?: Date;
-  /** Date to filter Bundles having their `valid_until_date` before or after the specified date. Can be `ValidUntilDate>=` or `ValidUntilDate<=`. Both can be used in conjunction as well. [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) is the acceptable date format. */
-  validUntilDateBefore?: Date;
-  /** Date to filter Bundles having their `valid_until_date` before or after the specified date. Can be `ValidUntilDate>=` or `ValidUntilDate<=`. Both can be used in conjunction as well. [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) is the acceptable date format. */
-  validUntilDateAfter?: Date;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
@@ -129,10 +125,6 @@ export interface BundleListInstanceOptions {
   sortDirection?: BundleSortDirection;
   /** Date to filter Bundles having their `valid_until_date` before or after the specified date. Can be `ValidUntilDate>=` or `ValidUntilDate<=`. Both can be used in conjunction as well. [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) is the acceptable date format. */
   validUntilDate?: Date;
-  /** Date to filter Bundles having their `valid_until_date` before or after the specified date. Can be `ValidUntilDate>=` or `ValidUntilDate<=`. Both can be used in conjunction as well. [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) is the acceptable date format. */
-  validUntilDateBefore?: Date;
-  /** Date to filter Bundles having their `valid_until_date` before or after the specified date. Can be `ValidUntilDate>=` or `ValidUntilDate<=`. Both can be used in conjunction as well. [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) is the acceptable date format. */
-  validUntilDateAfter?: Date;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
   /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
@@ -161,10 +153,6 @@ export interface BundleListInstancePageOptions {
   sortDirection?: BundleSortDirection;
   /** Date to filter Bundles having their `valid_until_date` before or after the specified date. Can be `ValidUntilDate>=` or `ValidUntilDate<=`. Both can be used in conjunction as well. [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) is the acceptable date format. */
   validUntilDate?: Date;
-  /** Date to filter Bundles having their `valid_until_date` before or after the specified date. Can be `ValidUntilDate>=` or `ValidUntilDate<=`. Both can be used in conjunction as well. [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) is the acceptable date format. */
-  validUntilDateBefore?: Date;
-  /** Date to filter Bundles having their `valid_until_date` before or after the specified date. Can be `ValidUntilDate>=` or `ValidUntilDate<=`. Both can be used in conjunction as well. [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) is the acceptable date format. */
-  validUntilDateAfter?: Date;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
   /** Page Number, this value is simply for client state */
@@ -782,14 +770,6 @@ export function BundleListInstance(version: V2): BundleListInstance {
     if (params["validUntilDate"] !== undefined)
       data["ValidUntilDate"] = serialize.iso8601DateTime(
         params["validUntilDate"]
-      );
-    if (params["validUntilDateBefore"] !== undefined)
-      data["ValidUntilDate<"] = serialize.iso8601DateTime(
-        params["validUntilDateBefore"]
-      );
-    if (params["validUntilDateAfter"] !== undefined)
-      data["ValidUntilDate>"] = serialize.iso8601DateTime(
-        params["validUntilDateAfter"]
       );
     if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
