@@ -24,7 +24,7 @@ import { isValidPathParam } from "../../../../base/utility";
  * Options to pass to update a SubscribedEventInstance
  */
 export interface SubscribedEventContextUpdateOptions {
-  /** The schema version that the subscription should use. */
+  /** The schema version that the Subscription should use. */
   schemaVersion?: number;
 }
 
@@ -34,7 +34,7 @@ export interface SubscribedEventContextUpdateOptions {
 export interface SubscribedEventListInstanceCreateOptions {
   /** Type of event being subscribed to. */
   type: string;
-  /** The schema version that the subscription should use. */
+  /** The schema version that the Subscription should use. */
   schemaVersion?: number;
 }
 /**
@@ -296,7 +296,7 @@ export class SubscribedEventInstance {
    */
   type: string;
   /**
-   * The schema version that the subscription should use.
+   * The schema version that the Subscription should use.
    */
   schemaVersion: number;
   /**
