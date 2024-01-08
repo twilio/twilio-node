@@ -4,7 +4,6 @@ import { HostedNumberOrderListInstance } from "./preview/hosted_numbers/hostedNu
 import { AvailableAddOnListInstance } from "./preview/marketplace/availableAddOn";
 import { InstalledAddOnListInstance } from "./preview/marketplace/installedAddOn";
 import { ServiceListInstance } from "./preview/sync/service";
-import { AssistantListInstance } from "./preview/understand/assistant";
 import { CommandListInstance } from "./preview/wireless/command";
 import { RatePlanListInstance } from "./preview/wireless/ratePlan";
 import { SimListInstance } from "./preview/wireless/sim";
@@ -65,16 +64,6 @@ class Preview extends PreviewBase {
   get services(): ServiceListInstance {
     console.warn("services is deprecated. Use sync.services instead.");
     return this.sync.services;
-  }
-
-  /**
-   * @deprecated - Use understand.assistants instead
-   */
-  get assistants(): AssistantListInstance {
-    console.warn(
-      "assistants is deprecated. Use understand.assistants instead."
-    );
-    return this.understand.assistants;
   }
 
   /**
