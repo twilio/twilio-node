@@ -1,6 +1,16 @@
 twilio-node changelog
 =====================
 
+[2024-01-14] Version 4.20.1
+---------------------------
+**Library - Chore**
+- [PR #985](https://github.com/twilio/twilio-node/pull/985): Removing tests for Autopilot and Understand Endpoints - product EoL. Thanks to [@miriamela](https://github.com/miriamela)!
+- [PR #989](https://github.com/twilio/twilio-node/pull/989): add lts version. Thanks to [@tiwarishubham635](https://github.com/tiwarishubham635)!
+
+**Push**
+- Migrated to new Push API V4 with Resilient Notification Delivery.
+
+
 [2023-12-14] Version 4.20.0
 ---------------------------
 **Api**
