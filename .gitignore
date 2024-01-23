@@ -1,3 +1,6 @@
+### Dot files ###
+.*
+
 ### Logs ###
 logs
 *.log
@@ -12,6 +15,12 @@ pids
 
 ### NPM modules ###
 node_modules
+
+### Travis ###
+!/.travis.yml
+
+### Spec and test coverage ###
+spec
 
 ### Test coverage ###
 coverage
