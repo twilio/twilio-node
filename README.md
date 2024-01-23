@@ -1,9 +1,9 @@
 # twilio-node
 
-[![Tests](https://github.com/twilio/twilio-node/actions/workflows/test-and-deploy.yml/badge.svg)](https://github.com/twilio/twilio-node/actions/workflows/test-and-deploy.yml)
-[![NPM Version][npm-version-image]][npm-url]
-[![NPM Install Size][npm-install-size-image]][npm-install-size-url]
-[![NPM Downloads][npm-downloads-image]][npm-downloads-url]
+[![][test-workflow-image]][test-workflow-url]
+[![][npm-version-image]][npm-url]
+[![][npm-install-size-image]][npm-install-size-url]
+[![][npm-downloads-image]][npm-downloads-url]
 
 ## Documentation
 
@@ -295,10 +295,11 @@ npm run test:javascript -- -m .\*client.\*
 [apidocs]: https://www.twilio.com/docs/api
 [libdocs]: https://twilio.github.io/twilio-node
 
-
-[npm-downloads-image]: https://badgen.net/npm/dm/twilio
+[test-workflow-image]: https://github.com/twilio/twilio-node/actions/workflows/test-and-deploy.yml/badge.svg
+[test-workflow-url]: https://github.com/twilio/twilio-node/actions/workflows/test-and-deploy.yml
+[npm-downloads-image]: https://img.shields.io/npm/dm/twilio.svg
 [npm-downloads-url]: https://npmcharts.com/compare/twilio?minimal=true
 [npm-install-size-image]: https://badgen.net/packagephobia/install/twilio
 [npm-install-size-url]: https://packagephobia.com/result?p=twilio
 [npm-url]: https://npmjs.org/package/twilio
-[npm-version-image]: https://badgen.net/npm/v/twilio
+[npm-version-image]: https://img.shields.io/npm/v/twilio.svg
