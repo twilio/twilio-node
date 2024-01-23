@@ -16,9 +16,6 @@ pids
 ### NPM modules ###
 node_modules
 
-### Travis ###
-!/.travis.yml
-
 ### Spec and test coverage ###
 spec
 
