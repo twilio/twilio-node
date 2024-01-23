@@ -295,12 +295,7 @@ npm run test:javascript -- -m .\*client.\*
 [apidocs]: https://www.twilio.com/docs/api
 [libdocs]: https://twilio.github.io/twilio-node
 
-[appveyor-image]: https://badgen.net/appveyor/ci/dougwilson/express/master?label=windows
-[appveyor-url]: https://ci.appveyor.com/project/dougwilson/express
-[coveralls-image]: https://badgen.net/coveralls/c/github/expressjs/express/master
-[coveralls-url]: https://coveralls.io/r/expressjs/express?branch=master
-[github-actions-ci-image]: https://badgen.net/github/checks/expressjs/express/master?label=linux
-[github-actions-ci-url]: https://github.com/expressjs/express/actions/workflows/ci.yml
+
 [npm-downloads-image]: https://badgen.net/npm/dm/twilio
 [npm-downloads-url]: https://npmcharts.com/compare/twilio?minimal=true
 [npm-install-size-image]: https://badgen.net/packagephobia/install/twilio
