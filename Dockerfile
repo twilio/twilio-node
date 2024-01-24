@@ -1,4 +1,4 @@
-FROM node:18
+FROM node:20
 
 RUN mkdir /twilio
 WORKDIR /twilio
@@ -10,7 +10,7 @@ COPY spec ./spec
 COPY examples ./examples
 COPY index.* package.json babel.config.js tsconfig.json ./
 
-RUN npm config set unsafe-perm true # Needed to run prepublish as root.
+RUN npm install --unsafe-perm true # Needed to run prepublish as root.
 
 RUN npm install . --include=dev
 RUN npm install -g .
