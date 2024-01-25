@@ -68,8 +68,6 @@ export interface VerificationListInstanceCreateOptions {
   deviceIp?: string;
   /**  */
   riskCheck?: VerificationRiskCheck;
-  /** A string containing a JSON map of key value pairs of tags to be recorded as metadata for the message. The object may contain up to 10 tags. Keys and values can each be up to 128 characters in length. */
-  tags?: string;
 }
 
 export interface VerificationContext {
@@ -490,7 +488,6 @@ export function VerificationListInstance(
     if (params["deviceIp"] !== undefined) data["DeviceIp"] = params["deviceIp"];
     if (params["riskCheck"] !== undefined)
       data["RiskCheck"] = params["riskCheck"];
-    if (params["tags"] !== undefined) data["Tags"] = params["tags"];
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";

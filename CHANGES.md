@@ -1,6 +1,24 @@
 twilio-node changelog
 =====================
 
+[2024-01-25] Version 4.21.0
+---------------------------
+**Library - Fix**
+- [PR #996](https://github.com/twilio/twilio-node/pull/996): Update Dockerfile with node version which has security support as of now. Thanks to [@AsabuHere](https://github.com/AsabuHere)!
+
+**Library - Chore**
+- [PR #994](https://github.com/twilio/twilio-node/pull/994): removed .npmignore. Thanks to [@tiwarishubham635](https://github.com/tiwarishubham635)!
+- [PR #995](https://github.com/twilio/twilio-node/pull/995): removed unnecessary badge and added relevant badges. Thanks to [@tiwarishubham635](https://github.com/tiwarishubham635)!
+
+**Oauth**
+- updated openid discovery endpoint uri **(breaking change)**
+- Added device code authorization endpoint
+- added oauth JWKS endpoint
+- Get userinfo resource
+- OpenID discovery resource
+- Add new API for token endpoint
+
+
 [2024-01-14] Version 4.20.1
 ---------------------------
 **Library - Chore**

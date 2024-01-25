@@ -21,13 +21,7 @@ const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
 import { BuildStatusListInstance } from "./build/buildStatus";
 
-export type BuildRuntime =
-  | "node8"
-  | "node10"
-  | "node12"
-  | "node14"
-  | "node16"
-  | "node18";
+export type BuildRuntime = "node8" | "node10" | "node12" | "node14" | "node16";
 
 export type BuildStatus = "building" | "completed" | "failed";
 

@@ -32,7 +32,7 @@ export interface ServiceContextUpdateOptions {
   apnCredentialSid?: string;
   /** The SID of the [Credential](https://www.twilio.com/docs/notify/api/credential-resource) to use for GCM Bindings. */
   gcmCredentialSid?: string;
-  /** The SID of the [Messaging Service](https://www.twilio.com/docs/sms/quickstart#messaging-services) to use for SMS Bindings. This parameter must be set in order to send SMS notifications. */
+  /** The SID of the [Messaging Service](https://www.twilio.com/docs/sms/send-messages#messaging-services) to use for SMS Bindings. This parameter must be set in order to send SMS notifications. */
   messagingServiceSid?: string;
   /** Deprecated. */
   facebookMessengerPageId?: string;
@@ -66,7 +66,7 @@ export interface ServiceListInstanceCreateOptions {
   apnCredentialSid?: string;
   /** The SID of the [Credential](https://www.twilio.com/docs/notify/api/credential-resource) to use for GCM Bindings. */
   gcmCredentialSid?: string;
-  /** The SID of the [Messaging Service](https://www.twilio.com/docs/sms/quickstart#messaging-services) to use for SMS Bindings. This parameter must be set in order to send SMS notifications. */
+  /** The SID of the [Messaging Service](https://www.twilio.com/docs/sms/send-messages#messaging-services) to use for SMS Bindings. This parameter must be set in order to send SMS notifications. */
   messagingServiceSid?: string;
   /** Deprecated. */
   facebookMessengerPageId?: string;
@@ -440,7 +440,7 @@ export class ServiceInstance {
    */
   fcmCredentialSid: string;
   /**
-   * The SID of the [Messaging Service](https://www.twilio.com/docs/sms/quickstart#messaging-services) to use for SMS Bindings. In order to send SMS notifications this parameter has to be set.
+   * The SID of the [Messaging Service](https://www.twilio.com/docs/sms/send-messages#messaging-services) to use for SMS Bindings. In order to send SMS notifications this parameter has to be set.
    */
   messagingServiceSid: string;
   /**
