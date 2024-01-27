@@ -1,7 +1,6 @@
 const scmp = require("scmp");
 import crypto from "crypto";
 import urllib from "url";
-import Url from "url-parse";
 import { IncomingHttpHeaders } from "http2";
 
 export interface Request {
@@ -65,7 +64,7 @@ export interface WebhookOptions {
  * @param parsedUrl - The parsed url object that Twilio requested on your server
  * @returns URL with standard port number included
  */
-function buildUrlWithStandardPort(parsedUrl: Url<string>): string {
+function buildUrlWithStandardPort(parsedUrl: URL): string {
   let url = "";
   const port = parsedUrl.protocol === "https:" ? ":443" : ":80";
 
@@ -74,7 +73,7 @@ function buildUrlWithStandardPort(parsedUrl: Url<string>): string {
   url += parsedUrl.password ? ":" + parsedUrl.password : "";
   url += parsedUrl.username || parsedUrl.password ? "@" : "";
   url += parsedUrl.host ? parsedUrl.host + port : "";
-  url += parsedUrl.pathname + parsedUrl.query + parsedUrl.hash;
+  url += parsedUrl.pathname + parsedUrl.search + parsedUrl.hash;
 
   return url;
 }
@@ -85,7 +84,7 @@ function buildUrlWithStandardPort(parsedUrl: Url<string>): string {
  @param parsedUrl - The parsed url object that Twilio requested on your server
  @returns URL with port
  */
-function addPort(parsedUrl: Url<string>): string {
+function addPort(parsedUrl: URL): string {
   if (!parsedUrl.port) {
     return buildUrlWithStandardPort(parsedUrl);
   }
@@ -98,8 +97,8 @@ function addPort(parsedUrl: Url<string>): string {
  @param parsedUrl - The parsed url object that Twilio requested on your server
  @returns URL without port
  */
-function removePort(parsedUrl: Url<string>): string {
-  parsedUrl.set("port", "");
+function removePort(parsedUrl: URL): string {
+  parsedUrl.port = '';
   return parsedUrl.toString();
 }
 
@@ -179,7 +178,7 @@ export function validateRequest(
   params: Record<string, any>
 ): boolean {
   twilioHeader = twilioHeader || "";
-  const urlObject = new Url(url);
+  const urlObject = new URL(url);
   const urlWithPort = addPort(urlObject);
   const urlWithoutPort = removePort(urlObject);
 
@@ -233,10 +232,10 @@ export function validateRequestWithBody(
   url: string,
   body: string
 ): boolean {
-  const urlObject = new Url(url, true);
+  const urlObject = new URL(url);
   return (
     validateRequest(authToken, twilioHeader, url, {}) &&
-    validateBody(body, urlObject.query.bodySHA256 || "")
+    validateBody(body, urlObject.searchParams.get('bodySHA256') || "")
   );
 }
 
