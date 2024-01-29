@@ -12,7 +12,6 @@
 import { Client, ClientOpts, RequestOpts } from "../base/BaseTwilio";
 import Accounts from "./Accounts";
 import Api from "./Api";
-import Autopilot from "./Autopilot";
 import Bulkexports from "./Bulkexports";
 import Chat from "./Chat";
 import Content from "./Content";
@@ -30,7 +29,6 @@ import Microvisor from "./Microvisor";
 import Monitor from "./Monitor";
 import Notify from "./Notify";
 import Numbers from "./Numbers";
-import Oauth from "./Oauth";
 import Preview from "./Preview";
 import Pricing from "./Pricing";
 import Proxy from "./Proxy";
@@ -82,8 +80,6 @@ class Twilio extends Client {
   _accounts?: Accounts;
   /** (Twilio.Api) - api domain */
   _api?: Api;
-  /** (Twilio.Autopilot) - autopilot domain */
-  _autopilot?: Autopilot;
   /** (Twilio.Bulkexports) - bulkexports domain */
   _bulkexports?: Bulkexports;
   /** (Twilio.Chat) - chat domain */
@@ -118,8 +114,6 @@ class Twilio extends Client {
   _notify?: Notify;
   /** (Twilio.Numbers) - numbers domain */
   _numbers?: Numbers;
-  /** (Twilio.Oauth) - oauth domain */
-  _oauth?: Oauth;
   /** (Twilio.Preview) - preview domain */
   _preview?: Preview;
   /** (Twilio.Pricing) - pricing domain */
@@ -170,7 +164,6 @@ class Twilio extends Client {
     if (this.opts?.lazyLoading === false) {
       this.accounts;
       this.api;
-      this.autopilot;
       this.bulkexports;
       this.chat;
       this.content;
@@ -188,7 +181,6 @@ class Twilio extends Client {
       this.monitor;
       this.notify;
       this.numbers;
-      this.oauth;
       this.preview;
       this.pricing;
       this.proxy;
@@ -217,12 +209,6 @@ class Twilio extends Client {
   /** Getter for (Twilio.Api) domain */
   get api(): Api {
     return this._api ?? (this._api = new (require("./Api"))(this));
-  }
-  /** Getter for (Twilio.Autopilot) domain */
-  get autopilot(): Autopilot {
-    return (
-      this._autopilot ?? (this._autopilot = new (require("./Autopilot"))(this))
-    );
   }
   /** Getter for (Twilio.Bulkexports) domain */
   get bulkexports(): Bulkexports {
@@ -313,10 +299,6 @@ class Twilio extends Client {
   /** Getter for (Twilio.Numbers) domain */
   get numbers(): Numbers {
     return this._numbers ?? (this._numbers = new (require("./Numbers"))(this));
-  }
-  /** Getter for (Twilio.Oauth) domain */
-  get oauth(): Oauth {
-    return this._oauth ?? (this._oauth = new (require("./Oauth"))(this));
   }
   /** Getter for (Twilio.Preview) domain */
   get preview(): Preview {
