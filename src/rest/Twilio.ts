@@ -101,8 +101,6 @@ class Twilio extends Client {
   _ipMessaging?: IpMessaging;
   /** (Twilio.Lookups) - lookups domain */
   _lookups?: Lookups;
-  /** (Twilio.Media) - media domain */
-  _media?: Media;
   /** (Twilio.Messaging) - messaging domain */
   _messaging?: Messaging;
   /** (Twilio.Microvisor) - microvisor domain */
@@ -174,7 +172,6 @@ class Twilio extends Client {
       this.intelligence;
       this.ipMessaging;
       this.lookups;
-      this.media;
       this.messaging;
       this.microvisor;
       this.monitor;
