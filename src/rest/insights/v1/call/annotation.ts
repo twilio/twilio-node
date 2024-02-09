@@ -271,9 +271,6 @@ export class AnnotationInstance {
    * Incident or support ticket associated with this call. The `incident` property is of type string with a maximum character limit of 100. Twilio does not treat this field as PII, so no PII should be included in `incident`.
    */
   incident: string;
-  /**
-   * The URL of this resource.
-   */
   url: string;
 
   private get _proxy(): AnnotationContext {

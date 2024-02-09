@@ -19,6 +19,8 @@ import { ChannelListInstance } from "./v1/channel";
 import { ConfigurationListInstance } from "./v1/configuration";
 import { FlexFlowListInstance } from "./v1/flexFlow";
 import { InsightsAssessmentsCommentListInstance } from "./v1/insightsAssessmentsComment";
+import { InsightsConversationalAiListInstance } from "./v1/insightsConversationalAi";
+import { InsightsConversationalAiReportInsightsListInstance } from "./v1/insightsConversationalAiReportInsights";
 import { InsightsConversationsListInstance } from "./v1/insightsConversations";
 import { InsightsQuestionnairesListInstance } from "./v1/insightsQuestionnaires";
 import { InsightsQuestionnairesCategoryListInstance } from "./v1/insightsQuestionnairesCategory";
@@ -29,6 +31,7 @@ import { InsightsSettingsAnswerSetsListInstance } from "./v1/insightsSettingsAns
 import { InsightsSettingsCommentListInstance } from "./v1/insightsSettingsComment";
 import { InsightsUserRolesListInstance } from "./v1/insightsUserRoles";
 import { InteractionListInstance } from "./v1/interaction";
+import { ProvisioningStatusListInstance } from "./v1/provisioningStatus";
 import { WebChannelListInstance } from "./v1/webChannel";
 
 export default class V1 extends Version {
@@ -51,6 +54,10 @@ export default class V1 extends Version {
   protected _flexFlow?: FlexFlowListInstance;
   /** insightsAssessmentsComment - { Twilio.FlexApi.V1.InsightsAssessmentsCommentListInstance } resource */
   protected _insightsAssessmentsComment?: InsightsAssessmentsCommentListInstance;
+  /** insightsConversationalAi - { Twilio.FlexApi.V1.InsightsConversationalAiListInstance } resource */
+  protected _insightsConversationalAi?: InsightsConversationalAiListInstance;
+  /** insightsConversationalAiReportInsights - { Twilio.FlexApi.V1.InsightsConversationalAiReportInsightsListInstance } resource */
+  protected _insightsConversationalAiReportInsights?: InsightsConversationalAiReportInsightsListInstance;
   /** insightsConversations - { Twilio.FlexApi.V1.InsightsConversationsListInstance } resource */
   protected _insightsConversations?: InsightsConversationsListInstance;
   /** insightsQuestionnaires - { Twilio.FlexApi.V1.InsightsQuestionnairesListInstance } resource */
@@ -71,6 +78,8 @@ export default class V1 extends Version {
   protected _insightsUserRoles?: InsightsUserRolesListInstance;
   /** interaction - { Twilio.FlexApi.V1.InteractionListInstance } resource */
   protected _interaction?: InteractionListInstance;
+  /** provisioningStatus - { Twilio.FlexApi.V1.ProvisioningStatusListInstance } resource */
+  protected _provisioningStatus?: ProvisioningStatusListInstance;
   /** webChannel - { Twilio.FlexApi.V1.WebChannelListInstance } resource */
   protected _webChannel?: WebChannelListInstance;
 
@@ -105,6 +114,22 @@ export default class V1 extends Version {
       this._insightsAssessmentsComment ||
       InsightsAssessmentsCommentListInstance(this);
     return this._insightsAssessmentsComment;
+  }
+
+  /** Getter for insightsConversationalAi resource */
+  get insightsConversationalAi(): InsightsConversationalAiListInstance {
+    this._insightsConversationalAi =
+      this._insightsConversationalAi ||
+      InsightsConversationalAiListInstance(this);
+    return this._insightsConversationalAi;
+  }
+
+  /** Getter for insightsConversationalAiReportInsights resource */
+  get insightsConversationalAiReportInsights(): InsightsConversationalAiReportInsightsListInstance {
+    this._insightsConversationalAiReportInsights =
+      this._insightsConversationalAiReportInsights ||
+      InsightsConversationalAiReportInsightsListInstance(this);
+    return this._insightsConversationalAiReportInsights;
   }
 
   /** Getter for insightsConversations resource */
@@ -178,6 +203,13 @@ export default class V1 extends Version {
   get interaction(): InteractionListInstance {
     this._interaction = this._interaction || InteractionListInstance(this);
     return this._interaction;
+  }
+
+  /** Getter for provisioningStatus resource */
+  get provisioningStatus(): ProvisioningStatusListInstance {
+    this._provisioningStatus =
+      this._provisioningStatus || ProvisioningStatusListInstance(this);
+    return this._provisioningStatus;
   }
 
   /** Getter for webChannel resource */
