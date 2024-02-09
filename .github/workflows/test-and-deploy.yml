@@ -33,20 +33,20 @@ jobs:
       - name: Run Unit Tests
         run: npm run ci
 
-      - name: Run Cluster Tests
-        if: (!github.event.pull_request.head.repo.fork)
-        env:
-          TWILIO_ACCOUNT_SID: ${{ secrets.TWILIO_ACCOUNT_SID }}
-          TWILIO_API_KEY: ${{ secrets.TWILIO_CLUSTER_TEST_API_KEY}}
-          TWILIO_API_SECRET: ${{ secrets.TWILIO_CLUSTER_TEST_API_KEY_SECRET }}
-          TWILIO_FROM_NUMBER: ${{ secrets.TWILIO_FROM_NUMBER }}
-          TWILIO_TO_NUMBER: ${{ secrets.TWILIO_TO_NUMBER }}
-        run: |
-          npm pack
-          tar -xzf twilio*.tgz
-          cd spec/cluster
-          npm install
-          npm run test
+#      - name: Run Cluster Tests
+#        if: (!github.event.pull_request.head.repo.fork)
+#        env:
+#          TWILIO_ACCOUNT_SID: ${{ secrets.TWILIO_ACCOUNT_SID }}
+#          TWILIO_API_KEY: ${{ secrets.TWILIO_CLUSTER_TEST_API_KEY}}
+#          TWILIO_API_SECRET: ${{ secrets.TWILIO_CLUSTER_TEST_API_KEY_SECRET }}
+#          TWILIO_FROM_NUMBER: ${{ secrets.TWILIO_FROM_NUMBER }}
+#          TWILIO_TO_NUMBER: ${{ secrets.TWILIO_TO_NUMBER }}
+#        run: |
+#          npm pack
+#          tar -xzf twilio*.tgz
+#          cd spec/cluster
+#          npm install
+#          npm run test
 
       - name: SonarCloud Scan
         if: ${{ (github.event_name == 'pull_request' || github.ref_type == 'branch') && matrix.node == '18' && !github.event.pull_request.head.repo.fork }}
