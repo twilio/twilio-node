@@ -213,6 +213,9 @@ export class ChannelSenderInstance {
    * The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
   dateUpdated: Date;
+  /**
+   * The absolute URL of the ChannelSender resource.
+   */
   url: string;
 
   private get _proxy(): ChannelSenderContext {

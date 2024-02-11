@@ -144,6 +144,7 @@ interface ConfigurationResource {
   messaging_service_instance_sid: string;
   chat_service_instance_sid: string;
   flex_service_instance_sid: string;
+  flex_instance_sid: string;
   ui_language: string;
   ui_attributes: any;
   ui_dependencies: any;
@@ -174,6 +175,7 @@ interface ConfigurationResource {
   flex_ui_status_report: any;
   agent_conv_end_methods: any;
   citrix_voice_vdi: any;
+  offline_config: any;
 }
 
 export class ConfigurationInstance {
@@ -198,6 +200,7 @@ export class ConfigurationInstance {
     this.messagingServiceInstanceSid = payload.messaging_service_instance_sid;
     this.chatServiceInstanceSid = payload.chat_service_instance_sid;
     this.flexServiceInstanceSid = payload.flex_service_instance_sid;
+    this.flexInstanceSid = payload.flex_instance_sid;
     this.uiLanguage = payload.ui_language;
     this.uiAttributes = payload.ui_attributes;
     this.uiDependencies = payload.ui_dependencies;
@@ -228,6 +231,7 @@ export class ConfigurationInstance {
     this.flexUiStatusReport = payload.flex_ui_status_report;
     this.agentConvEndMethods = payload.agent_conv_end_methods;
     this.citrixVoiceVdi = payload.citrix_voice_vdi;
+    this.offlineConfig = payload.offline_config;
 
     this._solution = {};
   }
@@ -297,6 +301,10 @@ export class ConfigurationInstance {
    * The SID of the Flex service instance.
    */
   flexServiceInstanceSid: string;
+  /**
+   * The SID of the Flex instance.
+   */
+  flexInstanceSid: string;
   /**
    * The primary language of the Flex UI.
    */
@@ -417,6 +425,10 @@ export class ConfigurationInstance {
    * Citrix voice vdi configuration and settings.
    */
   citrixVoiceVdi: any;
+  /**
+   * Presence and presence ttl configuration
+   */
+  offlineConfig: any;
 
   private get _proxy(): ConfigurationContext {
     this._context =
@@ -478,6 +490,7 @@ export class ConfigurationInstance {
       messagingServiceInstanceSid: this.messagingServiceInstanceSid,
       chatServiceInstanceSid: this.chatServiceInstanceSid,
       flexServiceInstanceSid: this.flexServiceInstanceSid,
+      flexInstanceSid: this.flexInstanceSid,
       uiLanguage: this.uiLanguage,
       uiAttributes: this.uiAttributes,
       uiDependencies: this.uiDependencies,
@@ -508,6 +521,7 @@ export class ConfigurationInstance {
       flexUiStatusReport: this.flexUiStatusReport,
       agentConvEndMethods: this.agentConvEndMethods,
       citrixVoiceVdi: this.citrixVoiceVdi,
+      offlineConfig: this.offlineConfig,
     };
   }
 

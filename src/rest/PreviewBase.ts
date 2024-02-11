@@ -14,7 +14,6 @@ import DeployedDevices from "./preview/DeployedDevices";
 import HostedNumbers from "./preview/HostedNumbers";
 import Sync from "./preview/Sync";
 import Marketplace from "./preview/Marketplace";
-import Understand from "./preview/Understand";
 import Wireless from "./preview/Wireless";
 
 class PreviewBase extends Domain {
@@ -22,7 +21,6 @@ class PreviewBase extends Domain {
   _hosted_numbers?: HostedNumbers;
   _sync?: Sync;
   _marketplace?: Marketplace;
-  _understand?: Understand;
   _wireless?: Wireless;
 
   /**
@@ -50,10 +48,6 @@ class PreviewBase extends Domain {
   get marketplace(): Marketplace {
     this._marketplace = this._marketplace || new Marketplace(this);
     return this._marketplace;
-  }
-  get understand(): Understand {
-    this._understand = this._understand || new Understand(this);
-    return this._understand;
   }
   get wireless(): Wireless {
     this._wireless = this._wireless || new Wireless(this);
