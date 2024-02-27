@@ -20,8 +20,6 @@ const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
 import { EventListInstance } from "./call/event";
-import { FeedbackListInstance } from "./call/feedback";
-import { FeedbackSummaryListInstance } from "./call/feedbackSummary";
 import { NotificationListInstance } from "./call/notification";
 import { PaymentListInstance } from "./call/payment";
 import { RecordingListInstance } from "./call/recording";
@@ -240,7 +238,6 @@ export interface CallListInstancePageOptions {
 
 export interface CallContext {
   events: EventListInstance;
-  feedback: FeedbackListInstance;
   notifications: NotificationListInstance;
   payments: PaymentListInstance;
   recordings: RecordingListInstance;
@@ -311,7 +308,6 @@ export class CallContextImpl implements CallContext {
   protected _uri: string;
 
   protected _events?: EventListInstance;
-  protected _feedback?: FeedbackListInstance;
   protected _notifications?: NotificationListInstance;
   protected _payments?: PaymentListInstance;
   protected _recordings?: RecordingListInstance;
@@ -342,17 +338,6 @@ export class CallContextImpl implements CallContext {
         this._solution.sid
       );
     return this._events;
-  }
-
-  get feedback(): FeedbackListInstance {
-    this._feedback =
-      this._feedback ||
-      FeedbackListInstance(
-        this._version,
-        this._solution.accountSid,
-        this._solution.sid
-      );
-    return this._feedback;
   }
 
   get notifications(): NotificationListInstance {
@@ -800,13 +785,6 @@ export class CallInstance {
   }
 
   /**
-   * Access the feedback.
-   */
-  feedback(): FeedbackListInstance {
-    return this._proxy.feedback;
-  }
-
-  /**
    * Access the notifications.
    */
   notifications(): NotificationListInstance {
@@ -907,9 +885,6 @@ export interface CallListInstance {
 
   (sid: string): CallContext;
   get(sid: string): CallContext;
-
-  _feedbackSummaries?: FeedbackSummaryListInstance;
-  feedbackSummaries: FeedbackSummaryListInstance;
 
   /**
    * Create a CallInstance
@@ -1017,18 +992,6 @@ export function CallListInstance(
   instance._version = version;
   instance._solution = { accountSid };
   instance._uri = `/Accounts/${accountSid}/Calls.json`;
-
-  Object.defineProperty(instance, "feedbackSummaries", {
-    get: function feedbackSummaries() {
-      if (!instance._feedbackSummaries) {
-        instance._feedbackSummaries = FeedbackSummaryListInstance(
-          instance._version,
-          instance._solution.accountSid
-        );
-      }
-      return instance._feedbackSummaries;
-    },
-  });
 
   instance.create = function create(
     params: CallListInstanceCreateOptions,

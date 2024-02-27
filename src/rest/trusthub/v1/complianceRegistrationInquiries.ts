@@ -23,6 +23,13 @@ export type ComplianceRegistrationInquiriesBusinessIdentityType =
   | "isv_reseller_or_partner"
   | "unknown";
 
+export type ComplianceRegistrationInquiriesBusinessRegistrationAuthority =
+  | "UK:CRN"
+  | "US:EIN"
+  | "CA:CBN"
+  | "AU:ACN"
+  | "Other";
+
 export type ComplianceRegistrationInquiriesEndUserType =
   | "Individual"
   | "Business";
@@ -43,8 +50,8 @@ export interface ComplianceRegistrationInquiriesListInstanceCreateOptions {
   phoneNumberType: ComplianceRegistrationInquiriesPhoneNumberType;
   /**  */
   businessIdentityType?: ComplianceRegistrationInquiriesBusinessIdentityType;
-  /** The authority that registered the business */
-  businessRegistrationAuthority?: string;
+  /**  */
+  businessRegistrationAuthority?: ComplianceRegistrationInquiriesBusinessRegistrationAuthority;
   /** he name of the business or organization using the Tollfree number. */
   businessLegalName?: string;
   /** he email address to receive the notification about the verification result. */
@@ -97,6 +104,18 @@ export interface ComplianceRegistrationInquiriesListInstanceCreateOptions {
   fileName?: string;
   /** The verification document to upload */
   file?: string;
+  /** The first name of the Individual User. */
+  firstName?: string;
+  /** The last name of the Individual User. */
+  lastName?: string;
+  /** The date of birth of the Individual User. */
+  dateOfBirth?: string;
+  /** The email address of the Individual User. */
+  individualEmail?: string;
+  /** The phone number of the Individual User. */
+  individualPhone?: string;
+  /** Indicates if the inquiry is being started from an ISV embedded component. */
+  isIsvEmbed?: boolean;
 }
 
 export interface ComplianceRegistrationInquiriesSolution {}
@@ -234,6 +253,17 @@ export function ComplianceRegistrationInquiriesListInstance(
       );
     if (params["fileName"] !== undefined) data["FileName"] = params["fileName"];
     if (params["file"] !== undefined) data["File"] = params["file"];
+    if (params["firstName"] !== undefined)
+      data["FirstName"] = params["firstName"];
+    if (params["lastName"] !== undefined) data["LastName"] = params["lastName"];
+    if (params["dateOfBirth"] !== undefined)
+      data["DateOfBirth"] = params["dateOfBirth"];
+    if (params["individualEmail"] !== undefined)
+      data["IndividualEmail"] = params["individualEmail"];
+    if (params["individualPhone"] !== undefined)
+      data["IndividualPhone"] = params["individualPhone"];
+    if (params["isIsvEmbed"] !== undefined)
+      data["IsIsvEmbed"] = serialize.bool(params["isIsvEmbed"]);
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";

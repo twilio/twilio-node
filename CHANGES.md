@@ -1,6 +1,33 @@
 twilio-node changelog
 =====================
 
+[2024-02-27] Version 4.23.0
+---------------------------
+**Library - Chore**
+- [PR #1005](https://github.com/twilio/twilio-node/pull/1005): cluster tests enabled. Thanks to [@sbansla](https://github.com/sbansla)!
+
+**Api**
+- remove feedback and feedback summary from call resource
+
+**Flex**
+- Adding `routing_properties` to Interactions Channels Participant
+
+**Lookups**
+- Add new `line_status` package to the lookup response
+- Remove `live_activity` package from the lookup response **(breaking change)**
+
+**Messaging**
+- Add tollfree multiple rejection reasons response array
+
+**Trusthub**
+- Add ENUM for businessRegistrationAuthority in compliance_registration. **(breaking change)**
+- Add new field in isIsvEmbed in compliance_registration.
+- Add additional optional fields in compliance_registration for Individual business type.
+
+**Twiml**
+- Add support for new Amazon Polly and Google voices (Q1 2024) for `Say` verb
+
+
 [2024-02-09] Version 4.22.0
 ---------------------------
 **Library - Chore**

@@ -19,8 +19,6 @@ import { ChannelListInstance } from "./v1/channel";
 import { ConfigurationListInstance } from "./v1/configuration";
 import { FlexFlowListInstance } from "./v1/flexFlow";
 import { InsightsAssessmentsCommentListInstance } from "./v1/insightsAssessmentsComment";
-import { InsightsConversationalAiListInstance } from "./v1/insightsConversationalAi";
-import { InsightsConversationalAiReportInsightsListInstance } from "./v1/insightsConversationalAiReportInsights";
 import { InsightsConversationsListInstance } from "./v1/insightsConversations";
 import { InsightsQuestionnairesListInstance } from "./v1/insightsQuestionnaires";
 import { InsightsQuestionnairesCategoryListInstance } from "./v1/insightsQuestionnairesCategory";
@@ -54,10 +52,6 @@ export default class V1 extends Version {
   protected _flexFlow?: FlexFlowListInstance;
   /** insightsAssessmentsComment - { Twilio.FlexApi.V1.InsightsAssessmentsCommentListInstance } resource */
   protected _insightsAssessmentsComment?: InsightsAssessmentsCommentListInstance;
-  /** insightsConversationalAi - { Twilio.FlexApi.V1.InsightsConversationalAiListInstance } resource */
-  protected _insightsConversationalAi?: InsightsConversationalAiListInstance;
-  /** insightsConversationalAiReportInsights - { Twilio.FlexApi.V1.InsightsConversationalAiReportInsightsListInstance } resource */
-  protected _insightsConversationalAiReportInsights?: InsightsConversationalAiReportInsightsListInstance;
   /** insightsConversations - { Twilio.FlexApi.V1.InsightsConversationsListInstance } resource */
   protected _insightsConversations?: InsightsConversationsListInstance;
   /** insightsQuestionnaires - { Twilio.FlexApi.V1.InsightsQuestionnairesListInstance } resource */
@@ -114,22 +108,6 @@ export default class V1 extends Version {
       this._insightsAssessmentsComment ||
       InsightsAssessmentsCommentListInstance(this);
     return this._insightsAssessmentsComment;
-  }
-
-  /** Getter for insightsConversationalAi resource */
-  get insightsConversationalAi(): InsightsConversationalAiListInstance {
-    this._insightsConversationalAi =
-      this._insightsConversationalAi ||
-      InsightsConversationalAiListInstance(this);
-    return this._insightsConversationalAi;
-  }
-
-  /** Getter for insightsConversationalAiReportInsights resource */
-  get insightsConversationalAiReportInsights(): InsightsConversationalAiReportInsightsListInstance {
-    this._insightsConversationalAiReportInsights =
-      this._insightsConversationalAiReportInsights ||
-      InsightsConversationalAiReportInsightsListInstance(this);
-    return this._insightsConversationalAiReportInsights;
   }
 
   /** Getter for insightsConversations resource */
