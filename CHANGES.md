@@ -1,16 +1,6 @@
 twilio-node changelog
 =====================
 
-[2024-01-04] Version 5.0.0-rc.1
--------------------------------
-**Library - Chore**
-- [PR #991](https://github.com/twilio/twilio-node/pull/991): sync with main. Thanks to [@tiwarishubham635](https://github.com/tiwarishubham635)!
-
-
-[2023-12-15] Version 5.0.0-rc.0
----------------------------
-- Release Candidate preparation
-
 [2023-12-14] Version 4.20.0
 ---------------------------
 **Api**
