@@ -32,6 +32,8 @@ export interface ComplianceInquiriesContextUpdateOptions {
 export interface ComplianceInquiriesListInstanceCreateOptions {
   /** The unique SID identifier of the Primary Customer Profile that should be used as a parent. Only necessary when creating a secondary Customer Profile. */
   primaryProfileSid: string;
+  /** The email address that approval status updates will be sent to. If not specified, the email address associated with your primary customer profile will be used. */
+  notificationEmail?: string;
 }
 
 export interface ComplianceInquiriesContext {
@@ -293,6 +295,8 @@ export function ComplianceInquiriesListInstance(
     let data: any = {};
 
     data["PrimaryProfileSid"] = params["primaryProfileSid"];
+    if (params["notificationEmail"] !== undefined)
+      data["NotificationEmail"] = params["notificationEmail"];
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";

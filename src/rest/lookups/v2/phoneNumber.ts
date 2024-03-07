@@ -30,7 +30,7 @@ export type PhoneNumberValidationError =
  * Options to pass to fetch a PhoneNumberInstance
  */
 export interface PhoneNumberContextFetchOptions {
-  /** A comma-separated list of fields to return. Possible values are caller_name, sim_swap, call_forwarding, live_activity, line_type_intelligence, identity_match, reassigned_number. */
+  /** A comma-separated list of fields to return. Possible values are validation, caller_name, sim_swap, call_forwarding, line_status, line_type_intelligence, identity_match, reassigned_number, sms_pumping_risk, phone_number_quality_score. */
   fields?: string;
   /** The [country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) used if the phone number provided is in national format. */
   countryCode?: string;
@@ -197,7 +197,7 @@ interface PhoneNumberResource {
   caller_name: any;
   sim_swap: any;
   call_forwarding: any;
-  live_activity: any;
+  line_status: any;
   line_type_intelligence: any;
   identity_match: any;
   reassigned_number: any;
@@ -224,7 +224,7 @@ export class PhoneNumberInstance {
     this.callerName = payload.caller_name;
     this.simSwap = payload.sim_swap;
     this.callForwarding = payload.call_forwarding;
-    this.liveActivity = payload.live_activity;
+    this.lineStatus = payload.line_status;
     this.lineTypeIntelligence = payload.line_type_intelligence;
     this.identityMatch = payload.identity_match;
     this.reassignedNumber = payload.reassigned_number;
@@ -272,9 +272,9 @@ export class PhoneNumberInstance {
    */
   callForwarding: any;
   /**
-   * An object that contains live activity information for a mobile phone number.
+   * An object that contains line status information for a mobile phone number.
    */
-  liveActivity: any;
+  lineStatus: any;
   /**
    * An object that contains line type information including the carrier name, mobile country code, and mobile network code.
    */
@@ -353,7 +353,7 @@ export class PhoneNumberInstance {
       callerName: this.callerName,
       simSwap: this.simSwap,
       callForwarding: this.callForwarding,
-      liveActivity: this.liveActivity,
+      lineStatus: this.lineStatus,
       lineTypeIntelligence: this.lineTypeIntelligence,
       identityMatch: this.identityMatch,
       reassignedNumber: this.reassignedNumber,

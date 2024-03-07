@@ -75,7 +75,7 @@ export interface TollfreeVerificationContextUpdateOptions {
   businessContactLastName?: string;
   /** The email address of the contact for the business or organization using the Tollfree number. */
   businessContactEmail?: string;
-  /** The phone number of the contact for the business or organization using the Tollfree number. */
+  /** The E.164 formatted phone number of the contact for the business or organization using the Tollfree number. */
   businessContactPhone?: string;
   /** Describe why the verification is being edited. If the verification was rejected because of a technical issue, such as the website being down, and the issue has been resolved this parameter should be set to something similar to \\\'Website fixed\\\'. */
   editReason?: string;
@@ -127,7 +127,7 @@ export interface TollfreeVerificationListInstanceCreateOptions {
   businessContactLastName?: string;
   /** The email address of the contact for the business or organization using the Tollfree number. */
   businessContactEmail?: string;
-  /** The phone number of the contact for the business or organization using the Tollfree number. */
+  /** The E.164 formatted phone number of the contact for the business or organization using the Tollfree number. */
   businessContactPhone?: string;
   /** An optional external reference ID supplied by customer and echoed back on status retrieval. */
   externalReferenceId?: string;
@@ -444,6 +444,7 @@ interface TollfreeVerificationResource {
   error_code: number;
   edit_expiration: Date;
   edit_allowed: boolean;
+  rejection_reasons: Array<any>;
   resource_links: any;
   external_reference_id: string;
 }
@@ -491,6 +492,7 @@ export class TollfreeVerificationInstance {
     this.errorCode = deserialize.integer(payload.error_code);
     this.editExpiration = deserialize.iso8601DateTime(payload.edit_expiration);
     this.editAllowed = payload.edit_allowed;
+    this.rejectionReasons = payload.rejection_reasons;
     this.resourceLinks = payload.resource_links;
     this.externalReferenceId = payload.external_reference_id;
 
@@ -570,7 +572,7 @@ export class TollfreeVerificationInstance {
    */
   businessContactEmail: string;
   /**
-   * The phone number of the contact for the business or organization using the Tollfree number.
+   * The E.164 formatted phone number of the contact for the business or organization using the Tollfree number.
    */
   businessContactPhone: string;
   /**
@@ -627,6 +629,10 @@ export class TollfreeVerificationInstance {
    * If a rejected verification is allowed to be edited/resubmitted. Some rejection reasons allow editing and some do not.
    */
   editAllowed: boolean;
+  /**
+   * A list of rejection reasons and codes describing why a Tollfree Verification has been rejected.
+   */
+  rejectionReasons: Array<any>;
   /**
    * The URLs of the documents associated with the Tollfree Verification resource.
    */
@@ -740,6 +746,7 @@ export class TollfreeVerificationInstance {
       errorCode: this.errorCode,
       editExpiration: this.editExpiration,
       editAllowed: this.editAllowed,
+      rejectionReasons: this.rejectionReasons,
       resourceLinks: this.resourceLinks,
       externalReferenceId: this.externalReferenceId,
     };

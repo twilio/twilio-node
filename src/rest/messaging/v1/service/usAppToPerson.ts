@@ -21,6 +21,26 @@ const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
 
 /**
+ * Options to pass to update a UsAppToPersonInstance
+ */
+export interface UsAppToPersonContextUpdateOptions {
+  /** Indicates that this SMS campaign will send messages that contain links. */
+  hasEmbeddedLinks: boolean;
+  /** Indicates that this SMS campaign will send messages that contain phone numbers. */
+  hasEmbeddedPhone: boolean;
+  /** An array of sample message strings, min two and max five. Min length for each sample: 20 chars. Max length for each sample: 1024 chars. */
+  messageSamples: Array<string>;
+  /** Required for all Campaigns. Details around how a consumer opts-in to their campaign, therefore giving consent to receive their messages. If multiple opt-in methods can be used for the same campaign, they must all be listed. 40 character minimum. 2048 character maximum. */
+  messageFlow: string;
+  /** A short description of what this SMS campaign does. Min length: 40 characters. Max length: 4096 characters. */
+  description: string;
+  /** A boolean that specifies whether campaign requires age gate for federally legal content. */
+  ageGated: boolean;
+  /** A boolean that specifies whether campaign allows direct lending or not. */
+  directLending: boolean;
+}
+
+/**
  * Options to pass to create a UsAppToPersonInstance
  */
 export interface UsAppToPersonListInstanceCreateOptions {
@@ -50,6 +70,12 @@ export interface UsAppToPersonListInstanceCreateOptions {
   optOutKeywords?: Array<string>;
   /** End users should be able to text in a keyword to receive help. Those keywords must be provided as part of the campaign registration request. This field is required if managing help keywords yourself (i.e. not using Twilio\\\'s Default or Advanced Opt Out features). Values must be alphanumeric. 255 character maximum. */
   helpKeywords?: Array<string>;
+  /** A boolean that specifies whether campaign has Subscriber Optin or not. */
+  subscriberOptIn?: boolean;
+  /** A boolean that specifies whether campaign is age gated or not. */
+  ageGated?: boolean;
+  /** A boolean that specifies whether campaign allows direct lending or not. */
+  directLending?: boolean;
 }
 /**
  * Options to pass to each
@@ -107,6 +133,19 @@ export interface UsAppToPersonContext {
    * @returns Resolves to processed UsAppToPersonInstance
    */
   fetch(
+    callback?: (error: Error | null, item?: UsAppToPersonInstance) => any
+  ): Promise<UsAppToPersonInstance>;
+
+  /**
+   * Update a UsAppToPersonInstance
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed UsAppToPersonInstance
+   */
+  update(
+    params: UsAppToPersonContextUpdateOptions,
     callback?: (error: Error | null, item?: UsAppToPersonInstance) => any
   ): Promise<UsAppToPersonInstance>;
 
@@ -187,6 +226,110 @@ export class UsAppToPersonContextImpl implements UsAppToPersonContext {
     return operationPromise;
   }
 
+  update(
+    params: UsAppToPersonContextUpdateOptions,
+    callback?: (error: Error | null, item?: UsAppToPersonInstance) => any
+  ): Promise<UsAppToPersonInstance> {
+    if (params === null || params === undefined) {
+      throw new Error('Required parameter "params" missing.');
+    }
+
+    if (
+      params["hasEmbeddedLinks"] === null ||
+      params["hasEmbeddedLinks"] === undefined
+    ) {
+      throw new Error(
+        "Required parameter \"params['hasEmbeddedLinks']\" missing."
+      );
+    }
+
+    if (
+      params["hasEmbeddedPhone"] === null ||
+      params["hasEmbeddedPhone"] === undefined
+    ) {
+      throw new Error(
+        "Required parameter \"params['hasEmbeddedPhone']\" missing."
+      );
+    }
+
+    if (
+      params["messageSamples"] === null ||
+      params["messageSamples"] === undefined
+    ) {
+      throw new Error(
+        "Required parameter \"params['messageSamples']\" missing."
+      );
+    }
+
+    if (params["messageFlow"] === null || params["messageFlow"] === undefined) {
+      throw new Error("Required parameter \"params['messageFlow']\" missing.");
+    }
+
+    if (params["description"] === null || params["description"] === undefined) {
+      throw new Error("Required parameter \"params['description']\" missing.");
+    }
+
+    if (params["ageGated"] === null || params["ageGated"] === undefined) {
+      throw new Error("Required parameter \"params['ageGated']\" missing.");
+    }
+
+    if (
+      params["directLending"] === null ||
+      params["directLending"] === undefined
+    ) {
+      throw new Error(
+        "Required parameter \"params['directLending']\" missing."
+      );
+    }
+
+    let data: any = {};
+
+    data["HasEmbeddedLinks"] = serialize.bool(params["hasEmbeddedLinks"]);
+
+    data["HasEmbeddedPhone"] = serialize.bool(params["hasEmbeddedPhone"]);
+
+    data["MessageSamples"] = serialize.map(
+      params["messageSamples"],
+      (e: string) => e
+    );
+
+    data["MessageFlow"] = params["messageFlow"];
+
+    data["Description"] = params["description"];
+
+    data["AgeGated"] = serialize.bool(params["ageGated"]);
+
+    data["DirectLending"] = serialize.bool(params["directLending"]);
+
+    const headers: any = {};
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+
+    const instance = this;
+    let operationVersion = instance._version,
+      operationPromise = operationVersion.update({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      });
+
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new UsAppToPersonInstance(
+          operationVersion,
+          payload,
+          instance._solution.messagingServiceSid,
+          instance._solution.sid
+        )
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
   /**
    * Provide a user-friendly representation
    *
@@ -215,6 +358,9 @@ interface UsAppToPersonResource {
   us_app_to_person_usecase: string;
   has_embedded_links: boolean;
   has_embedded_phone: boolean;
+  subscriber_opt_in: boolean;
+  age_gated: boolean;
+  direct_lending: boolean;
   campaign_status: string;
   campaign_id: string;
   is_externally_registered: boolean;
@@ -252,6 +398,9 @@ export class UsAppToPersonInstance {
     this.usAppToPersonUsecase = payload.us_app_to_person_usecase;
     this.hasEmbeddedLinks = payload.has_embedded_links;
     this.hasEmbeddedPhone = payload.has_embedded_phone;
+    this.subscriberOptIn = payload.subscriber_opt_in;
+    this.ageGated = payload.age_gated;
+    this.directLending = payload.direct_lending;
     this.campaignStatus = payload.campaign_status;
     this.campaignId = payload.campaign_id;
     this.isExternallyRegistered = payload.is_externally_registered;
@@ -308,6 +457,18 @@ export class UsAppToPersonInstance {
    * Indicates that this SMS campaign will send messages that contain phone numbers.
    */
   hasEmbeddedPhone: boolean;
+  /**
+   * A boolean that specifies whether campaign has Subscriber Optin or not.
+   */
+  subscriberOptIn: boolean;
+  /**
+   * A boolean that specifies whether campaign is age gated or not.
+   */
+  ageGated: boolean;
+  /**
+   * A boolean that specifies whether campaign allows direct lending or not.
+   */
+  directLending: boolean;
   /**
    * Campaign status. Examples: IN_PROGRESS, VERIFIED, FAILED.
    */
@@ -411,6 +572,26 @@ export class UsAppToPersonInstance {
   }
 
   /**
+   * Update a UsAppToPersonInstance
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed UsAppToPersonInstance
+   */
+  update(
+    params: UsAppToPersonContextUpdateOptions,
+    callback?: (error: Error | null, item?: UsAppToPersonInstance) => any
+  ): Promise<UsAppToPersonInstance>;
+
+  update(
+    params?: any,
+    callback?: (error: Error | null, item?: UsAppToPersonInstance) => any
+  ): Promise<UsAppToPersonInstance> {
+    return this._proxy.update(params, callback);
+  }
+
+  /**
    * Provide a user-friendly representation
    *
    * @returns Object
@@ -426,6 +607,9 @@ export class UsAppToPersonInstance {
       usAppToPersonUsecase: this.usAppToPersonUsecase,
       hasEmbeddedLinks: this.hasEmbeddedLinks,
       hasEmbeddedPhone: this.hasEmbeddedPhone,
+      subscriberOptIn: this.subscriberOptIn,
+      ageGated: this.ageGated,
+      directLending: this.directLending,
       campaignStatus: this.campaignStatus,
       campaignId: this.campaignId,
       isExternallyRegistered: this.isExternallyRegistered,
@@ -675,6 +859,12 @@ export function UsAppToPersonListInstance(
         params["helpKeywords"],
         (e: string) => e
       );
+    if (params["subscriberOptIn"] !== undefined)
+      data["SubscriberOptIn"] = serialize.bool(params["subscriberOptIn"]);
+    if (params["ageGated"] !== undefined)
+      data["AgeGated"] = serialize.bool(params["ageGated"]);
+    if (params["directLending"] !== undefined)
+      data["DirectLending"] = serialize.bool(params["directLending"]);
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";

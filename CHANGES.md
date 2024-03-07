@@ -1,6 +1,126 @@
 twilio-node changelog
 =====================
 
+[2024-02-27] Version 4.23.0
+---------------------------
+**Library - Chore**
+- [PR #1005](https://github.com/twilio/twilio-node/pull/1005): cluster tests enabled. Thanks to [@sbansla](https://github.com/sbansla)!
+
+**Api**
+- remove feedback and feedback summary from call resource
+
+**Flex**
+- Adding `routing_properties` to Interactions Channels Participant
+
+**Lookups**
+- Add new `line_status` package to the lookup response
+- Remove `live_activity` package from the lookup response **(breaking change)**
+
+**Messaging**
+- Add tollfree multiple rejection reasons response array
+
+**Trusthub**
+- Add ENUM for businessRegistrationAuthority in compliance_registration. **(breaking change)**
+- Add new field in isIsvEmbed in compliance_registration.
+- Add additional optional fields in compliance_registration for Individual business type.
+
+**Twiml**
+- Add support for new Amazon Polly and Google voices (Q1 2024) for `Say` verb
+
+
+[2024-02-09] Version 4.22.0
+---------------------------
+**Library - Chore**
+- [PR #1002](https://github.com/twilio/twilio-node/pull/1002): disable cluster test. Thanks to [@sbansla](https://github.com/sbansla)!
+- [PR #1001](https://github.com/twilio/twilio-node/pull/1001): Remove Media V1. Thanks to [@califlower](https://github.com/califlower)!
+- [PR #997](https://github.com/twilio/twilio-node/pull/997): removing oauth and autopilot references. Thanks to [@tiwarishubham635](https://github.com/tiwarishubham635)!
+
+**Api**
+- Updated service base url for connect apps and authorized connect apps APIs **(breaking change)**
+- Update documentation to reflect RiskCheck GA
+- Added optional parameter `CallToken` for create participant api
+
+**Events**
+- Marked as GA
+
+**Flex**
+- Adding `flex_instance_sid` to Flex Configuration
+- Adding `provisioning_status` for Email Manager
+- Adding `offline_config` to Flex Configuration
+
+**Insights**
+- add flag to restrict access to unapid customers
+- decommission voice-qualitystats-endpoint role
+
+**Intelligence**
+- Add text-generation operator (for example conversation summary) results to existing OperatorResults collection.
+
+**Lookups**
+- Remove `carrier` field from `sms_pumping_risk` and leave `carrier_risk_category` **(breaking change)**
+- Remove carrier information from call forwarding package **(breaking change)**
+
+**Messaging**
+- Add update instance endpoints to us_app_to_person api
+- Add tollfree edit_allowed and edit_reason fields
+- Update Phone Number, Short Code, Alpha Sender, US A2P and Channel Sender documentation
+- Add DELETE support to Tollfree Verification resource
+
+**Numbers**
+- Add Get Port In request api
+
+**Push**
+- Migrated to new Push API V4 with Resilient Notification Delivery.
+
+**Serverless**
+- Add node18 as a valid Build runtime
+
+**Taskrouter**
+- Add `jitter_buffer_size` param in update reservation
+- Add container attribute to task_queue_bulk_real_time_statistics endpoint
+- Remove beta_feature check on task_queue_bulk_real_time_statistics endpoint
+
+**Trusthub**
+- Add optional field NotificationEmail to the POST /v1/ComplianceInquiries/Customers/Initialize API
+- Add additional optional fields in compliance_tollfree_inquiry.json
+- Rename did to tollfree_phone_number in compliance_tollfree_inquiry.json
+- Add new optional field notification_email to compliance_tollfree_inquiry.json
+
+**Verify**
+- `Tags` property added again to Public Docs **(breaking change)**
+- Remove `Tags` from Public Docs **(breaking change)**
+- Add `VerifyEventSubscriptionEnabled` parameter to service create and update endpoints.
+- Add `Tags` optional parameter on Verification creation.
+- Update Verify TOTP maturity to GA.
+
+
+[2024-01-25] Version 4.21.0
+---------------------------
+**Library - Fix**
+- [PR #996](https://github.com/twilio/twilio-node/pull/996): Update Dockerfile with node version which has security support as of now. Thanks to [@AsabuHere](https://github.com/AsabuHere)!
+
+**Library - Chore**
+- [PR #994](https://github.com/twilio/twilio-node/pull/994): removed .npmignore. Thanks to [@tiwarishubham635](https://github.com/tiwarishubham635)!
+- [PR #995](https://github.com/twilio/twilio-node/pull/995): removed unnecessary badge and added relevant badges. Thanks to [@tiwarishubham635](https://github.com/tiwarishubham635)!
+
+**Oauth**
+- updated openid discovery endpoint uri **(breaking change)**
+- Added device code authorization endpoint
+- added oauth JWKS endpoint
+- Get userinfo resource
+- OpenID discovery resource
+- Add new API for token endpoint
+
+
+[2024-01-14] Version 4.20.1
+---------------------------
+**Library - Chore**
+- [PR #985](https://github.com/twilio/twilio-node/pull/985): Removing tests for Autopilot and Understand Endpoints - product EoL. Thanks to [@miriamela](https://github.com/miriamela)!
+- [PR #989](https://github.com/twilio/twilio-node/pull/989): add lts version. Thanks to [@tiwarishubham635](https://github.com/tiwarishubham635)!
+
+**Push**
+- Migrated to new Push API V4 with Resilient Notification Delivery.
+
+
 [2023-12-14] Version 4.20.0
 ---------------------------
 **Api**
