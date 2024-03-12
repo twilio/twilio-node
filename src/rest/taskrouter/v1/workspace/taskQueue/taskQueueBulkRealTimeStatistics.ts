@@ -18,6 +18,14 @@ const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
 
+/**
+ * Options to pass to create a TaskQueueBulkRealTimeStatisticsInstance
+ */
+export interface TaskQueueBulkRealTimeStatisticsListInstanceCreateOptions {
+  /**  */
+  body?: object;
+}
+
 export interface TaskQueueBulkRealTimeStatisticsSolution {
   workspaceSid: string;
 }
@@ -35,6 +43,21 @@ export interface TaskQueueBulkRealTimeStatisticsListInstance {
    * @returns Resolves to processed TaskQueueBulkRealTimeStatisticsInstance
    */
   create(
+    callback?: (
+      error: Error | null,
+      item?: TaskQueueBulkRealTimeStatisticsInstance
+    ) => any
+  ): Promise<TaskQueueBulkRealTimeStatisticsInstance>;
+  /**
+   * Create a TaskQueueBulkRealTimeStatisticsInstance
+   *
+   * @param params - Body for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed TaskQueueBulkRealTimeStatisticsInstance
+   */
+  create(
+    params: object,
     callback?: (
       error: Error | null,
       item?: TaskQueueBulkRealTimeStatisticsInstance
@@ -63,15 +86,37 @@ export function TaskQueueBulkRealTimeStatisticsListInstance(
   instance._uri = `/Workspaces/${workspaceSid}/TaskQueues/RealTimeStatistics`;
 
   instance.create = function create(
+    params?:
+      | object
+      | ((
+          error: Error | null,
+          items: TaskQueueBulkRealTimeStatisticsInstance
+        ) => any),
     callback?: (
       error: Error | null,
       items: TaskQueueBulkRealTimeStatisticsInstance
     ) => any
   ): Promise<TaskQueueBulkRealTimeStatisticsInstance> {
+    if (params instanceof Function) {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    let data: any = {};
+
+    data = params;
+
+    const headers: any = {};
+    headers["Content-Type"] = "application/json";
+
     let operationVersion = version,
       operationPromise = operationVersion.create({
         uri: instance._uri,
         method: "post",
+        data,
+        headers,
       });
 
     operationPromise = operationPromise.then(
@@ -139,7 +184,7 @@ export class TaskQueueBulkRealTimeStatisticsInstance {
    */
   workspaceSid: string;
   /**
-   * The real time statistics for each requested TaskQueue SID. `task_queue_data` returns the following attributes:  `task_queue_sid`: The SID of the TaskQueue from which these statistics were calculated.  `total_available_workers`: The total number of Workers available for Tasks in the TaskQueue.  `total_eligible_workers`: The total number of Workers eligible for Tasks in the TaskQueue, regardless of their Activity state.  `total_tasks`: The total number of Tasks.  `longest_task_waiting_age`: The age of the longest waiting Task.  `longest_task_waiting_sid`: The SID of the longest waiting Task.  `tasks_by_status`: The number of Tasks grouped by their current status.  `tasks_by_priority`: The number of Tasks grouped by priority.  `activity_statistics`: The number of current Workers grouped by Activity.
+   * The real-time statistics for each requested TaskQueue SID. `task_queue_data` returns the following attributes:  `task_queue_sid`: The SID of the TaskQueue from which these statistics were calculated.  `total_available_workers`: The total number of Workers available for Tasks in the TaskQueue.  `total_eligible_workers`: The total number of Workers eligible for Tasks in the TaskQueue, regardless of their Activity state.  `total_tasks`: The total number of Tasks.  `longest_task_waiting_age`: The age of the longest waiting Task.  `longest_task_waiting_sid`: The SID of the longest waiting Task.  `tasks_by_status`: The number of Tasks grouped by their current status.  `tasks_by_priority`: The number of Tasks grouped by priority.  `activity_statistics`: The number of current Workers grouped by Activity.
    */
   taskQueueData: Array<any>;
   /**

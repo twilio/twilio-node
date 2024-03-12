@@ -18,6 +18,14 @@ const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 
+/**
+ * Options to pass to create a EligibilityInstance
+ */
+export interface EligibilityListInstanceCreateOptions {
+  /**  */
+  body?: object;
+}
+
 export interface EligibilitySolution {}
 
 export interface EligibilityListInstance {
@@ -33,6 +41,18 @@ export interface EligibilityListInstance {
    * @returns Resolves to processed EligibilityInstance
    */
   create(
+    callback?: (error: Error | null, item?: EligibilityInstance) => any
+  ): Promise<EligibilityInstance>;
+  /**
+   * Create a EligibilityInstance
+   *
+   * @param params - Body for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed EligibilityInstance
+   */
+  create(
+    params: object,
     callback?: (error: Error | null, item?: EligibilityInstance) => any
   ): Promise<EligibilityInstance>;
 
@@ -51,12 +71,31 @@ export function EligibilityListInstance(version: V1): EligibilityListInstance {
   instance._uri = `/HostedNumber/Eligibility`;
 
   instance.create = function create(
+    params?:
+      | object
+      | ((error: Error | null, items: EligibilityInstance) => any),
     callback?: (error: Error | null, items: EligibilityInstance) => any
   ): Promise<EligibilityInstance> {
+    if (params instanceof Function) {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    let data: any = {};
+
+    data = params;
+
+    const headers: any = {};
+    headers["Content-Type"] = "application/json";
+
     let operationVersion = version,
       operationPromise = operationVersion.create({
         uri: instance._uri,
         method: "post",
+        data,
+        headers,
       });
 
     operationPromise = operationPromise.then(

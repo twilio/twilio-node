@@ -116,6 +116,10 @@ export interface ComplianceRegistrationInquiriesListInstanceCreateOptions {
   individualPhone?: string;
   /** Indicates if the inquiry is being started from an ISV embedded component. */
   isIsvEmbed?: boolean;
+  /** Indicates if the isv registering for self or tenant. */
+  isvRegisteringForSelfOrTenant?: string;
+  /** The url we call to inform you of bundle changes. */
+  statusCallbackUrl?: string;
 }
 
 export interface ComplianceRegistrationInquiriesSolution {}
@@ -264,6 +268,11 @@ export function ComplianceRegistrationInquiriesListInstance(
       data["IndividualPhone"] = params["individualPhone"];
     if (params["isIsvEmbed"] !== undefined)
       data["IsIsvEmbed"] = serialize.bool(params["isIsvEmbed"]);
+    if (params["isvRegisteringForSelfOrTenant"] !== undefined)
+      data["IsvRegisteringForSelfOrTenant"] =
+        params["isvRegisteringForSelfOrTenant"];
+    if (params["statusCallbackUrl"] !== undefined)
+      data["StatusCallbackUrl"] = params["statusCallbackUrl"];
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";

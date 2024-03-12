@@ -18,6 +18,14 @@ const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 
+/**
+ * Options to pass to create a PortingPortInInstance
+ */
+export interface PortingPortInListInstanceCreateOptions {
+  /**  */
+  body?: object;
+}
+
 export interface PortingPortInSolution {}
 
 export interface PortingPortInListInstance {
@@ -33,6 +41,18 @@ export interface PortingPortInListInstance {
    * @returns Resolves to processed PortingPortInInstance
    */
   create(
+    callback?: (error: Error | null, item?: PortingPortInInstance) => any
+  ): Promise<PortingPortInInstance>;
+  /**
+   * Create a PortingPortInInstance
+   *
+   * @param params - Body for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed PortingPortInInstance
+   */
+  create(
+    params: object,
     callback?: (error: Error | null, item?: PortingPortInInstance) => any
   ): Promise<PortingPortInInstance>;
 
@@ -53,12 +73,31 @@ export function PortingPortInListInstance(
   instance._uri = `/Porting/PortIn`;
 
   instance.create = function create(
+    params?:
+      | object
+      | ((error: Error | null, items: PortingPortInInstance) => any),
     callback?: (error: Error | null, items: PortingPortInInstance) => any
   ): Promise<PortingPortInInstance> {
+    if (params instanceof Function) {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    let data: any = {};
+
+    data = params;
+
+    const headers: any = {};
+    headers["Content-Type"] = "application/json";
+
     let operationVersion = version,
       operationPromise = operationVersion.create({
         uri: instance._uri,
         method: "post",
+        data,
+        headers,
       });
 
     operationPromise = operationPromise.then(
@@ -100,7 +139,7 @@ export class PortingPortInInstance {
   }
 
   /**
-   * The SID of the Port In request, It is the request identifier
+   * The SID of the Port In request. This is a unique identifier of the port in request.
    */
   portInRequestSid: string;
   url: string;

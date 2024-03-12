@@ -31,6 +31,14 @@ export interface BulkHostedNumberOrderContextFetchOptions {
   orderStatus?: string;
 }
 
+/**
+ * Options to pass to create a BulkHostedNumberOrderInstance
+ */
+export interface BulkHostedNumberOrderListInstanceCreateOptions {
+  /**  */
+  body?: object;
+}
+
 export interface BulkHostedNumberOrderContext {
   /**
    * Fetch a BulkHostedNumberOrderInstance
@@ -315,6 +323,21 @@ export interface BulkHostedNumberOrderListInstance {
       item?: BulkHostedNumberOrderInstance
     ) => any
   ): Promise<BulkHostedNumberOrderInstance>;
+  /**
+   * Create a BulkHostedNumberOrderInstance
+   *
+   * @param params - Body for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed BulkHostedNumberOrderInstance
+   */
+  create(
+    params: object,
+    callback?: (
+      error: Error | null,
+      item?: BulkHostedNumberOrderInstance
+    ) => any
+  ): Promise<BulkHostedNumberOrderInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -338,15 +361,34 @@ export function BulkHostedNumberOrderListInstance(
   instance._uri = `/HostedNumber/Orders/Bulk`;
 
   instance.create = function create(
+    params?:
+      | object
+      | ((error: Error | null, items: BulkHostedNumberOrderInstance) => any),
     callback?: (
       error: Error | null,
       items: BulkHostedNumberOrderInstance
     ) => any
   ): Promise<BulkHostedNumberOrderInstance> {
+    if (params instanceof Function) {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    let data: any = {};
+
+    data = params;
+
+    const headers: any = {};
+    headers["Content-Type"] = "application/json";
+
     let operationVersion = version,
       operationPromise = operationVersion.create({
         uri: instance._uri,
         method: "post",
+        data,
+        headers,
       });
 
     operationPromise = operationPromise.then(

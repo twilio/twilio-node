@@ -153,6 +153,8 @@ export interface ReservationContextUpdateOptions {
   endConferenceOnCustomerExit?: boolean;
   /** Whether to play a notification beep when the customer joins. */
   beepOnCustomerEntrance?: boolean;
+  /** The jitter buffer size for conference. Can be: `small`, `medium`, `large`, `off`. */
+  jitterBufferSize?: string;
 }
 /**
  * Options to pass to each
@@ -427,6 +429,8 @@ export class ReservationContextImpl implements ReservationContext {
       data["BeepOnCustomerEntrance"] = serialize.bool(
         params["beepOnCustomerEntrance"]
       );
+    if (params["jitterBufferSize"] !== undefined)
+      data["JitterBufferSize"] = params["jitterBufferSize"];
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";

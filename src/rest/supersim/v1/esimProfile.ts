@@ -47,7 +47,7 @@ export interface EsimProfileListInstanceCreateOptions {
 export interface EsimProfileListInstanceEachOptions {
   /** List the eSIM Profiles that have been associated with an EId. */
   eid?: string;
-  /** Find the eSIM Profile resource related to a [Sim](https://www.twilio.com/docs/iot/wireless/api/sim-resource) resource by providing the SIM SID. Will always return an array with either 1 or 0 records. */
+  /** Find the eSIM Profile resource related to a [Sim](https://www.twilio.com/docs/iot/supersim/api/sim-resource) resource by providing the SIM SID. Will always return an array with either 1 or 0 records. */
   simSid?: string;
   /** List the eSIM Profiles that are in a given status. */
   status?: EsimProfileStatus;
@@ -67,7 +67,7 @@ export interface EsimProfileListInstanceEachOptions {
 export interface EsimProfileListInstanceOptions {
   /** List the eSIM Profiles that have been associated with an EId. */
   eid?: string;
-  /** Find the eSIM Profile resource related to a [Sim](https://www.twilio.com/docs/iot/wireless/api/sim-resource) resource by providing the SIM SID. Will always return an array with either 1 or 0 records. */
+  /** Find the eSIM Profile resource related to a [Sim](https://www.twilio.com/docs/iot/supersim/api/sim-resource) resource by providing the SIM SID. Will always return an array with either 1 or 0 records. */
   simSid?: string;
   /** List the eSIM Profiles that are in a given status. */
   status?: EsimProfileStatus;
@@ -83,7 +83,7 @@ export interface EsimProfileListInstanceOptions {
 export interface EsimProfileListInstancePageOptions {
   /** List the eSIM Profiles that have been associated with an EId. */
   eid?: string;
-  /** Find the eSIM Profile resource related to a [Sim](https://www.twilio.com/docs/iot/wireless/api/sim-resource) resource by providing the SIM SID. Will always return an array with either 1 or 0 records. */
+  /** Find the eSIM Profile resource related to a [Sim](https://www.twilio.com/docs/iot/supersim/api/sim-resource) resource by providing the SIM SID. Will always return an array with either 1 or 0 records. */
   simSid?: string;
   /** List the eSIM Profiles that are in a given status. */
   status?: EsimProfileStatus;
@@ -232,7 +232,7 @@ export class EsimProfileInstance {
    */
   iccid: string;
   /**
-   * The SID of the [Sim](https://www.twilio.com/docs/iot/wireless/api/sim-resource) resource that this eSIM Profile controls.
+   * The SID of the [Sim](https://www.twilio.com/docs/iot/supersim/api/sim-resource) resource that this eSIM Profile controls.
    */
   simSid: string;
   status: EsimProfileStatus;
