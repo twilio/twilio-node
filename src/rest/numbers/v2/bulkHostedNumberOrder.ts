@@ -303,6 +303,20 @@ export interface BulkHostedNumberOrderListInstance {
   get(bulkHostingSid: string): BulkHostedNumberOrderContext;
 
   /**
+   * Create a BulkHostedNumberOrderInstance
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed BulkHostedNumberOrderInstance
+   */
+  create(
+    callback?: (
+      error: Error | null,
+      item?: BulkHostedNumberOrderInstance
+    ) => any
+  ): Promise<BulkHostedNumberOrderInstance>;
+
+  /**
    * Provide a user-friendly representation
    */
   toJSON(): any;
@@ -321,7 +335,30 @@ export function BulkHostedNumberOrderListInstance(
 
   instance._version = version;
   instance._solution = {};
-  instance._uri = ``;
+  instance._uri = `/HostedNumber/Orders/Bulk`;
+
+  instance.create = function create(
+    callback?: (
+      error: Error | null,
+      items: BulkHostedNumberOrderInstance
+    ) => any
+  ): Promise<BulkHostedNumberOrderInstance> {
+    let operationVersion = version,
+      operationPromise = operationVersion.create({
+        uri: instance._uri,
+        method: "post",
+      });
+
+    operationPromise = operationPromise.then(
+      (payload) => new BulkHostedNumberOrderInstance(operationVersion, payload)
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  };
 
   instance.toJSON = function toJSON() {
     return instance._solution;

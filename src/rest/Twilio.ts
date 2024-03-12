@@ -24,6 +24,7 @@ import Intelligence from "./Intelligence";
 import IpMessaging from "./IpMessaging";
 import Lookups from "./Lookups";
 import Media from "./Media";
+import PreviewMessaging from "./PreviewMessaging";
 import Messaging from "./Messaging";
 import Microvisor from "./Microvisor";
 import Monitor from "./Monitor";
@@ -104,6 +105,8 @@ class Twilio extends Client {
   _lookups?: Lookups;
   /** (Twilio.Media) - media domain */
   _media?: Media;
+  /** (Twilio.PreviewMessaging) - previewMessaging domain */
+  _previewMessaging?: PreviewMessaging;
   /** (Twilio.Messaging) - messaging domain */
   _messaging?: Messaging;
   /** (Twilio.Microvisor) - microvisor domain */
@@ -176,6 +179,7 @@ class Twilio extends Client {
       this.ipMessaging;
       this.lookups;
       this.media;
+      this.previewMessaging;
       this.messaging;
       this.microvisor;
       this.monitor;
@@ -274,6 +278,13 @@ class Twilio extends Client {
   /** Getter for (Twilio.Media) domain */
   get media(): Media {
     return this._media ?? (this._media = new (require("./Media"))(this));
+  }
+  /** Getter for (Twilio.PreviewMessaging) domain */
+  get previewMessaging(): PreviewMessaging {
+    return (
+      this._previewMessaging ??
+      (this._previewMessaging = new (require("./PreviewMessaging"))(this))
+    );
   }
   /** Getter for (Twilio.Messaging) domain */
   get messaging(): Messaging {

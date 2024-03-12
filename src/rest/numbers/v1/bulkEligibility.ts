@@ -202,6 +202,17 @@ export interface BulkEligibilityListInstance {
   get(requestId: string): BulkEligibilityContext;
 
   /**
+   * Create a BulkEligibilityInstance
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed BulkEligibilityInstance
+   */
+  create(
+    callback?: (error: Error | null, item?: BulkEligibilityInstance) => any
+  ): Promise<BulkEligibilityInstance>;
+
+  /**
    * Provide a user-friendly representation
    */
   toJSON(): any;
@@ -220,7 +231,27 @@ export function BulkEligibilityListInstance(
 
   instance._version = version;
   instance._solution = {};
-  instance._uri = ``;
+  instance._uri = `/HostedNumber/Eligibility/Bulk`;
+
+  instance.create = function create(
+    callback?: (error: Error | null, items: BulkEligibilityInstance) => any
+  ): Promise<BulkEligibilityInstance> {
+    let operationVersion = version,
+      operationPromise = operationVersion.create({
+        uri: instance._uri,
+        method: "post",
+      });
+
+    operationPromise = operationPromise.then(
+      (payload) => new BulkEligibilityInstance(operationVersion, payload)
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  };
 
   instance.toJSON = function toJSON() {
     return instance._solution;
