@@ -49,6 +49,15 @@ export class CardAction {
 
 export type CardActionType = "URL" | "PHONE_NUMBER" | "QUICK_REPLY";
 
+export class CatalogItem {
+  "id"?: string;
+  "sectionTitle"?: string;
+  "name"?: string;
+  "mediaUrl"?: string;
+  "price"?: number;
+  "description"?: string;
+}
+
 /**
  * Content creation request body
  */
@@ -98,6 +107,18 @@ export class TwilioCard {
   "subtitle"?: string;
   "media"?: Array<string>;
   "actions"?: Array<CardAction>;
+}
+
+/**
+ * twilio/catalog type lets recipients view list of catalog products, ask questions about products, order products.
+ */
+export class TwilioCatalog {
+  "title"?: string;
+  "body": string;
+  "subtitle"?: string;
+  "id"?: string;
+  "items"?: Array<CatalogItem>;
+  "dynamicItems"?: string;
 }
 
 /**
@@ -152,6 +173,7 @@ export class Types {
   "twilioCallToAction"?: TwilioCallToAction | null;
   "twilioQuickReply"?: TwilioQuickReply | null;
   "twilioCard"?: TwilioCard | null;
+  "twilioCatalog"?: TwilioCatalog | null;
   "whatsappCard"?: WhatsappCard | null;
   "whatsappAuthentication"?: WhatsappAuthentication | null;
 }

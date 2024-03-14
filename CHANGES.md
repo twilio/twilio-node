@@ -1,6 +1,12 @@
 twilio-node changelog
 =====================
 
+[2024-03-14] Version 5.0.1
+--------------------------
+**Oauth**
+- Add new APIs for vendor authorize and token endpoints
+
+
 [2024-03-12] Version 5.0.0
 --------------------------
 **Note:** This release contains breaking changes, check our [upgrade guide](./UPGRADE.md###-2024-03-07-4xx-to-5xx) for detailed migration notes.
