@@ -26,7 +26,6 @@
     "jsonwebtoken": "^9.0.0",
     "qs": "^6.9.4",
     "scmp": "^2.1.0",
-    "url-parse": "^1.5.9",
     "xmlbuilder": "^13.0.2"
   },
   "devDependencies": {
@@ -36,7 +35,6 @@
     "@types/jsonwebtoken": "^9.0.0",
     "@types/node": "^18.11.18",
     "@types/qs": "^6.9.7",
-    "@types/url-parse": "^1.4.8",
     "babel-plugin-replace-ts-export-assignment": "^0.0.2",
     "eslint": "^8.31.0",
     "express": "^4.17.1",
