@@ -27,13 +27,17 @@ export interface TokenListInstanceCreateOptions {
   /** A 34 character string that uniquely identifies this OAuth App. */
   clientId: string;
   /** The credential for confidential OAuth App. */
-  clientSecret: string;
+  clientSecret?: string;
   /** JWT token related to the authorization code grant type. */
   code?: string;
   /** The redirect uri */
   redirectUri?: string;
   /** The targeted audience uri */
   audience?: string;
+  /** JWT token related to refresh access token. */
+  refreshToken?: string;
+  /** The scope of token */
+  scope?: string;
 }
 
 export interface TokenSolution {}
@@ -86,24 +90,20 @@ export function TokenListInstance(version: V1): TokenListInstance {
       throw new Error("Required parameter \"params['clientId']\" missing.");
     }
 
-    if (
-      params["clientSecret"] === null ||
-      params["clientSecret"] === undefined
-    ) {
-      throw new Error("Required parameter \"params['clientSecret']\" missing.");
-    }
-
     let data: any = {};
 
     data["GrantType"] = params["grantType"];
 
     data["ClientId"] = params["clientId"];
-
-    data["ClientSecret"] = params["clientSecret"];
+    if (params["clientSecret"] !== undefined)
+      data["ClientSecret"] = params["clientSecret"];
     if (params["code"] !== undefined) data["Code"] = params["code"];
     if (params["redirectUri"] !== undefined)
       data["RedirectUri"] = params["redirectUri"];
     if (params["audience"] !== undefined) data["Audience"] = params["audience"];
+    if (params["refreshToken"] !== undefined)
+      data["RefreshToken"] = params["refreshToken"];
+    if (params["scope"] !== undefined) data["Scope"] = params["scope"];
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
@@ -148,7 +148,7 @@ interface TokenResource {
   refresh_token: string;
   id_token: string;
   token_type: string;
-  expires_in: Date;
+  expires_in: number;
 }
 
 export class TokenInstance {
@@ -157,7 +157,7 @@ export class TokenInstance {
     this.refreshToken = payload.refresh_token;
     this.idToken = payload.id_token;
     this.tokenType = payload.token_type;
-    this.expiresIn = deserialize.iso8601DateTime(payload.expires_in);
+    this.expiresIn = payload.expires_in;
   }
 
   /**
@@ -176,7 +176,7 @@ export class TokenInstance {
    * Token type
    */
   tokenType: string;
-  expiresIn: Date;
+  expiresIn: number;
 
   /**
    * Provide a user-friendly representation

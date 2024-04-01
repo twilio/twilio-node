@@ -41,6 +41,16 @@ export type ComplianceRegistrationInquiriesPhoneNumberType =
   | "toll-free";
 
 /**
+ * Options to pass to update a ComplianceRegistrationInquiriesInstance
+ */
+export interface ComplianceRegistrationInquiriesContextUpdateOptions {
+  /** Indicates if the inquiry is being started from an ISV embedded component. */
+  isIsvEmbed?: boolean;
+  /** Theme id for styling the inquiry form. */
+  themeSetId?: string;
+}
+
+/**
  * Options to pass to create a ComplianceRegistrationInquiriesInstance
  */
 export interface ComplianceRegistrationInquiriesListInstanceCreateOptions {
@@ -120,6 +130,244 @@ export interface ComplianceRegistrationInquiriesListInstanceCreateOptions {
   isvRegisteringForSelfOrTenant?: string;
   /** The url we call to inform you of bundle changes. */
   statusCallbackUrl?: string;
+  /** Theme id for styling the inquiry form. */
+  themeSetId?: string;
+}
+
+export interface ComplianceRegistrationInquiriesContext {
+  /**
+   * Update a ComplianceRegistrationInquiriesInstance
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed ComplianceRegistrationInquiriesInstance
+   */
+  update(
+    callback?: (
+      error: Error | null,
+      item?: ComplianceRegistrationInquiriesInstance
+    ) => any
+  ): Promise<ComplianceRegistrationInquiriesInstance>;
+  /**
+   * Update a ComplianceRegistrationInquiriesInstance
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed ComplianceRegistrationInquiriesInstance
+   */
+  update(
+    params: ComplianceRegistrationInquiriesContextUpdateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ComplianceRegistrationInquiriesInstance
+    ) => any
+  ): Promise<ComplianceRegistrationInquiriesInstance>;
+
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
+  [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface ComplianceRegistrationInquiriesContextSolution {
+  registrationId: string;
+}
+
+export class ComplianceRegistrationInquiriesContextImpl
+  implements ComplianceRegistrationInquiriesContext
+{
+  protected _solution: ComplianceRegistrationInquiriesContextSolution;
+  protected _uri: string;
+
+  constructor(protected _version: V1, registrationId: string) {
+    if (!isValidPathParam(registrationId)) {
+      throw new Error("Parameter 'registrationId' is not valid.");
+    }
+
+    this._solution = { registrationId };
+    this._uri = `/ComplianceInquiries/Registration/${registrationId}/RegulatoryCompliance/GB/Initialize`;
+  }
+
+  update(
+    params?:
+      | ComplianceRegistrationInquiriesContextUpdateOptions
+      | ((
+          error: Error | null,
+          item?: ComplianceRegistrationInquiriesInstance
+        ) => any),
+    callback?: (
+      error: Error | null,
+      item?: ComplianceRegistrationInquiriesInstance
+    ) => any
+  ): Promise<ComplianceRegistrationInquiriesInstance> {
+    if (params instanceof Function) {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    let data: any = {};
+
+    if (params["isIsvEmbed"] !== undefined)
+      data["IsIsvEmbed"] = serialize.bool(params["isIsvEmbed"]);
+    if (params["themeSetId"] !== undefined)
+      data["ThemeSetId"] = params["themeSetId"];
+
+    const headers: any = {};
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+
+    const instance = this;
+    let operationVersion = instance._version,
+      operationPromise = operationVersion.update({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      });
+
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new ComplianceRegistrationInquiriesInstance(
+          operationVersion,
+          payload,
+          instance._solution.registrationId
+        )
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
+  /**
+   * Provide a user-friendly representation
+   *
+   * @returns Object
+   */
+  toJSON() {
+    return this._solution;
+  }
+
+  [inspect.custom](_depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+  }
+}
+
+interface ComplianceRegistrationInquiriesPayload
+  extends ComplianceRegistrationInquiriesResource {}
+
+interface ComplianceRegistrationInquiriesResource {
+  inquiry_id: string;
+  inquiry_session_token: string;
+  registration_id: string;
+  url: string;
+}
+
+export class ComplianceRegistrationInquiriesInstance {
+  protected _solution: ComplianceRegistrationInquiriesContextSolution;
+  protected _context?: ComplianceRegistrationInquiriesContext;
+
+  constructor(
+    protected _version: V1,
+    payload: ComplianceRegistrationInquiriesResource,
+    registrationId?: string
+  ) {
+    this.inquiryId = payload.inquiry_id;
+    this.inquirySessionToken = payload.inquiry_session_token;
+    this.registrationId = payload.registration_id;
+    this.url = payload.url;
+
+    this._solution = { registrationId: registrationId || this.registrationId };
+  }
+
+  /**
+   * The unique ID used to start an embedded compliance registration session.
+   */
+  inquiryId: string;
+  /**
+   * The session token used to start an embedded compliance registration session.
+   */
+  inquirySessionToken: string;
+  /**
+   * The RegistrationId matching the Registration Profile that should be resumed or resubmitted for editing.
+   */
+  registrationId: string;
+  /**
+   * The URL of this resource.
+   */
+  url: string;
+
+  private get _proxy(): ComplianceRegistrationInquiriesContext {
+    this._context =
+      this._context ||
+      new ComplianceRegistrationInquiriesContextImpl(
+        this._version,
+        this._solution.registrationId
+      );
+    return this._context;
+  }
+
+  /**
+   * Update a ComplianceRegistrationInquiriesInstance
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed ComplianceRegistrationInquiriesInstance
+   */
+  update(
+    callback?: (
+      error: Error | null,
+      item?: ComplianceRegistrationInquiriesInstance
+    ) => any
+  ): Promise<ComplianceRegistrationInquiriesInstance>;
+  /**
+   * Update a ComplianceRegistrationInquiriesInstance
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed ComplianceRegistrationInquiriesInstance
+   */
+  update(
+    params: ComplianceRegistrationInquiriesContextUpdateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ComplianceRegistrationInquiriesInstance
+    ) => any
+  ): Promise<ComplianceRegistrationInquiriesInstance>;
+
+  update(
+    params?: any,
+    callback?: (
+      error: Error | null,
+      item?: ComplianceRegistrationInquiriesInstance
+    ) => any
+  ): Promise<ComplianceRegistrationInquiriesInstance> {
+    return this._proxy.update(params, callback);
+  }
+
+  /**
+   * Provide a user-friendly representation
+   *
+   * @returns Object
+   */
+  toJSON() {
+    return {
+      inquiryId: this.inquiryId,
+      inquirySessionToken: this.inquirySessionToken,
+      registrationId: this.registrationId,
+      url: this.url,
+    };
+  }
+
+  [inspect.custom](_depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+  }
 }
 
 export interface ComplianceRegistrationInquiriesSolution {}
@@ -128,6 +376,9 @@ export interface ComplianceRegistrationInquiriesListInstance {
   _version: V1;
   _solution: ComplianceRegistrationInquiriesSolution;
   _uri: string;
+
+  (registrationId: string): ComplianceRegistrationInquiriesContext;
+  get(registrationId: string): ComplianceRegistrationInquiriesContext;
 
   /**
    * Create a ComplianceRegistrationInquiriesInstance
@@ -155,7 +406,19 @@ export interface ComplianceRegistrationInquiriesListInstance {
 export function ComplianceRegistrationInquiriesListInstance(
   version: V1
 ): ComplianceRegistrationInquiriesListInstance {
-  const instance = {} as ComplianceRegistrationInquiriesListInstance;
+  const instance = ((registrationId) =>
+    instance.get(
+      registrationId
+    )) as ComplianceRegistrationInquiriesListInstance;
+
+  instance.get = function get(
+    registrationId
+  ): ComplianceRegistrationInquiriesContext {
+    return new ComplianceRegistrationInquiriesContextImpl(
+      version,
+      registrationId
+    );
+  };
 
   instance._version = version;
   instance._solution = {};
@@ -273,6 +536,8 @@ export function ComplianceRegistrationInquiriesListInstance(
         params["isvRegisteringForSelfOrTenant"];
     if (params["statusCallbackUrl"] !== undefined)
       data["StatusCallbackUrl"] = params["statusCallbackUrl"];
+    if (params["themeSetId"] !== undefined)
+      data["ThemeSetId"] = params["themeSetId"];
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
@@ -309,61 +574,4 @@ export function ComplianceRegistrationInquiriesListInstance(
   };
 
   return instance;
-}
-
-interface ComplianceRegistrationInquiriesPayload
-  extends ComplianceRegistrationInquiriesResource {}
-
-interface ComplianceRegistrationInquiriesResource {
-  inquiry_id: string;
-  inquiry_session_token: string;
-  registration_id: string;
-  url: string;
-}
-
-export class ComplianceRegistrationInquiriesInstance {
-  constructor(
-    protected _version: V1,
-    payload: ComplianceRegistrationInquiriesResource
-  ) {
-    this.inquiryId = payload.inquiry_id;
-    this.inquirySessionToken = payload.inquiry_session_token;
-    this.registrationId = payload.registration_id;
-    this.url = payload.url;
-  }
-
-  /**
-   * The unique ID used to start an embedded compliance registration session.
-   */
-  inquiryId: string;
-  /**
-   * The session token used to start an embedded compliance registration session.
-   */
-  inquirySessionToken: string;
-  /**
-   * The RegistrationId matching the Registration Profile that should be resumed or resubmitted for editing.
-   */
-  registrationId: string;
-  /**
-   * The URL of this resource.
-   */
-  url: string;
-
-  /**
-   * Provide a user-friendly representation
-   *
-   * @returns Object
-   */
-  toJSON() {
-    return {
-      inquiryId: this.inquiryId,
-      inquirySessionToken: this.inquirySessionToken,
-      registrationId: this.registrationId,
-      url: this.url,
-    };
-  }
-
-  [inspect.custom](_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
 }

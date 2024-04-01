@@ -40,7 +40,7 @@ export interface TrustProductsContextUpdateOptions {
   statusCallback?: string;
   /** The string that you assigned to describe the resource. */
   friendlyName?: string;
-  /** The email address that will receive updates when the Customer-Profile resource changes status. */
+  /** The email address that will receive updates when the Trust Product resource changes status. */
   email?: string;
 }
 
@@ -50,9 +50,9 @@ export interface TrustProductsContextUpdateOptions {
 export interface TrustProductsListInstanceCreateOptions {
   /** The string that you assigned to describe the resource. */
   friendlyName: string;
-  /** The email address that will receive updates when the Customer-Profile resource changes status. */
+  /** The email address that will receive updates when the Trust Product resource changes status. */
   email: string;
-  /** The unique string of a policy that is associated to the Customer-Profile resource. */
+  /** The unique string of a policy that is associated to the Trust Product resource. */
   policySid: string;
   /** The URL we call to inform your application of status changes. */
   statusCallback?: string;
@@ -61,11 +61,11 @@ export interface TrustProductsListInstanceCreateOptions {
  * Options to pass to each
  */
 export interface TrustProductsListInstanceEachOptions {
-  /** The verification status of the Customer-Profile resource. */
+  /** The verification status of the Trust Product resource. */
   status?: TrustProductsStatus;
   /** The string that you assigned to describe the resource. */
   friendlyName?: string;
-  /** The unique string of a policy that is associated to the Customer-Profile resource. */
+  /** The unique string of a policy that is associated to the Trust Product resource. */
   policySid?: string;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
@@ -81,11 +81,11 @@ export interface TrustProductsListInstanceEachOptions {
  * Options to pass to list
  */
 export interface TrustProductsListInstanceOptions {
-  /** The verification status of the Customer-Profile resource. */
+  /** The verification status of the Trust Product resource. */
   status?: TrustProductsStatus;
   /** The string that you assigned to describe the resource. */
   friendlyName?: string;
-  /** The unique string of a policy that is associated to the Customer-Profile resource. */
+  /** The unique string of a policy that is associated to the Trust Product resource. */
   policySid?: string;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
@@ -97,11 +97,11 @@ export interface TrustProductsListInstanceOptions {
  * Options to pass to page
  */
 export interface TrustProductsListInstancePageOptions {
-  /** The verification status of the Customer-Profile resource. */
+  /** The verification status of the Trust Product resource. */
   status?: TrustProductsStatus;
   /** The string that you assigned to describe the resource. */
   friendlyName?: string;
-  /** The unique string of a policy that is associated to the Customer-Profile resource. */
+  /** The unique string of a policy that is associated to the Trust Product resource. */
   policySid?: string;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
@@ -368,15 +368,15 @@ export class TrustProductsInstance {
   }
 
   /**
-   * The unique string that we created to identify the Customer-Profile resource.
+   * The unique string that we created to identify the Trust Product resource.
    */
   sid: string;
   /**
-   * The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Customer-Profile resource.
+   * The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Trust Product resource.
    */
   accountSid: string;
   /**
-   * The unique string of a policy that is associated to the Customer-Profile resource.
+   * The unique string of the policy that is associated with the Trust Product resource.
    */
   policySid: string;
   /**
@@ -385,11 +385,11 @@ export class TrustProductsInstance {
   friendlyName: string;
   status: TrustProductsStatus;
   /**
-   * The date and time in GMT in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format when the resource will be valid until.
+   * The date and time in GMT in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format until which the resource will be valid.
    */
   validUntil: Date;
   /**
-   * The email address that will receive updates when the Customer-Profile resource changes status.
+   * The email address that will receive updates when the Trust Product resource changes status.
    */
   email: string;
   /**
@@ -405,11 +405,11 @@ export class TrustProductsInstance {
    */
   dateUpdated: Date;
   /**
-   * The absolute URL of the Customer-Profile resource.
+   * The absolute URL of the Trust Product resource.
    */
   url: string;
   /**
-   * The URLs of the Assigned Items of the Customer-Profile resource.
+   * The URLs of the Assigned Items of the Trust Product resource.
    */
   links: Record<string, string>;
 

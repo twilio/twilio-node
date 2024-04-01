@@ -41,7 +41,7 @@ export interface ApprovalCreateListInstanceCreateOptions {
 }
 
 export interface ApprovalCreateSolution {
-  sid: string;
+  contentSid: string;
 }
 
 export interface ApprovalCreateListInstance {
@@ -71,17 +71,17 @@ export interface ApprovalCreateListInstance {
 
 export function ApprovalCreateListInstance(
   version: V1,
-  sid: string
+  contentSid: string
 ): ApprovalCreateListInstance {
-  if (!isValidPathParam(sid)) {
-    throw new Error("Parameter 'sid' is not valid.");
+  if (!isValidPathParam(contentSid)) {
+    throw new Error("Parameter 'contentSid' is not valid.");
   }
 
   const instance = {} as ApprovalCreateListInstance;
 
   instance._version = version;
-  instance._solution = { sid };
-  instance._uri = `/Content/${sid}/ApprovalRequests/whatsapp`;
+  instance._solution = { contentSid };
+  instance._uri = `/Content/${contentSid}/ApprovalRequests/whatsapp`;
 
   instance.create = function create(
     params: ContentApprovalRequest,
@@ -111,7 +111,7 @@ export function ApprovalCreateListInstance(
         new ApprovalCreateInstance(
           operationVersion,
           payload,
-          instance._solution.sid
+          instance._solution.contentSid
         )
     );
 
@@ -151,7 +151,7 @@ export class ApprovalCreateInstance {
   constructor(
     protected _version: V1,
     payload: ApprovalCreateResource,
-    sid: string
+    contentSid: string
   ) {
     this.name = payload.name;
     this.category = payload.category;

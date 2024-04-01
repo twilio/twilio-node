@@ -53,6 +53,10 @@ export interface PluginListInstanceCreateOptions {
   friendlyName?: string;
   /** A descriptive string that you create to describe the plugin resource. It can be up to 500 characters long */
   description?: string;
+  /** The version of Flex Plugins CLI used to create this plugin */
+  cliVersion?: string;
+  /** The validation status of the plugin, indicating whether it has been validated */
+  validateStatus?: string;
 }
 /**
  * Options to pass to each
@@ -579,6 +583,10 @@ export function PluginListInstance(version: V1): PluginListInstance {
       data["FriendlyName"] = params["friendlyName"];
     if (params["description"] !== undefined)
       data["Description"] = params["description"];
+    if (params["cliVersion"] !== undefined)
+      data["CliVersion"] = params["cliVersion"];
+    if (params["validateStatus"] !== undefined)
+      data["ValidateStatus"] = params["validateStatus"];
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
