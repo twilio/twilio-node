@@ -244,6 +244,7 @@ interface BrandRegistrationResource {
   status: BrandRegistrationStatus;
   tcr_id: string;
   failure_reason: string;
+  errors: Array<any>;
   url: string;
   brand_score: number;
   brand_feedback: Array<BrandRegistrationBrandFeedback>;
@@ -275,6 +276,7 @@ export class BrandRegistrationInstance {
     this.status = payload.status;
     this.tcrId = payload.tcr_id;
     this.failureReason = payload.failure_reason;
+    this.errors = payload.errors;
     this.url = payload.url;
     this.brandScore = deserialize.integer(payload.brand_score);
     this.brandFeedback = payload.brand_feedback;
@@ -323,9 +325,13 @@ export class BrandRegistrationInstance {
    */
   tcrId: string;
   /**
-   * A reason why brand registration has failed. Only applicable when status is FAILED.
+   * DEPRECATED. A reason why brand registration has failed. Only applicable when status is FAILED.
    */
   failureReason: string;
+  /**
+   * A list of errors that occurred during the brand registration process.
+   */
+  errors: Array<any>;
   /**
    * The absolute URL of the Brand Registration resource.
    */
@@ -335,7 +341,7 @@ export class BrandRegistrationInstance {
    */
   brandScore: number;
   /**
-   * Feedback on how to improve brand score
+   * DEPRECATED. Feedback on how to improve brand score
    */
   brandFeedback: Array<BrandRegistrationBrandFeedback>;
   identityStatus: BrandRegistrationIdentityStatus;
@@ -425,6 +431,7 @@ export class BrandRegistrationInstance {
       status: this.status,
       tcrId: this.tcrId,
       failureReason: this.failureReason,
+      errors: this.errors,
       url: this.url,
       brandScore: this.brandScore,
       brandFeedback: this.brandFeedback,

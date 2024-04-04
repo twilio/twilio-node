@@ -10,18 +10,18 @@
  */
 
 import Domain from "../base/Domain";
-import V1 from "./media/V1";
+import V1 from "./previewMessaging/V1";
 
-class MediaBase extends Domain {
+class PreviewMessagingBase extends Domain {
   _v1?: V1;
 
   /**
-   * Initialize media domain
+   * Initialize previewMessaging domain
    *
    * @param twilio - The twilio client
    */
   constructor(twilio: any) {
-    super(twilio, "https://media.twilio.com");
+    super(twilio, "https://preview.messaging.twilio.com");
   }
 
   get v1(): V1 {
@@ -30,4 +30,4 @@ class MediaBase extends Domain {
   }
 }
 
-export = MediaBase;
+export = PreviewMessagingBase;

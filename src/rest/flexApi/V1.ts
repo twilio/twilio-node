@@ -19,8 +19,6 @@ import { ChannelListInstance } from "./v1/channel";
 import { ConfigurationListInstance } from "./v1/configuration";
 import { FlexFlowListInstance } from "./v1/flexFlow";
 import { InsightsAssessmentsCommentListInstance } from "./v1/insightsAssessmentsComment";
-import { InsightsConversationalAiListInstance } from "./v1/insightsConversationalAi";
-import { InsightsConversationalAiReportInsightsListInstance } from "./v1/insightsConversationalAiReportInsights";
 import { InsightsConversationsListInstance } from "./v1/insightsConversations";
 import { InsightsQuestionnairesListInstance } from "./v1/insightsQuestionnaires";
 import { InsightsQuestionnairesCategoryListInstance } from "./v1/insightsQuestionnairesCategory";
@@ -31,6 +29,12 @@ import { InsightsSettingsAnswerSetsListInstance } from "./v1/insightsSettingsAns
 import { InsightsSettingsCommentListInstance } from "./v1/insightsSettingsComment";
 import { InsightsUserRolesListInstance } from "./v1/insightsUserRoles";
 import { InteractionListInstance } from "./v1/interaction";
+import { PluginListInstance } from "./v1/plugin";
+import { PluginArchiveListInstance } from "./v1/pluginArchive";
+import { PluginConfigurationListInstance } from "./v1/pluginConfiguration";
+import { PluginConfigurationArchiveListInstance } from "./v1/pluginConfigurationArchive";
+import { PluginReleaseListInstance } from "./v1/pluginRelease";
+import { PluginVersionArchiveListInstance } from "./v1/pluginVersionArchive";
 import { ProvisioningStatusListInstance } from "./v1/provisioningStatus";
 import { WebChannelListInstance } from "./v1/webChannel";
 
@@ -54,10 +58,6 @@ export default class V1 extends Version {
   protected _flexFlow?: FlexFlowListInstance;
   /** insightsAssessmentsComment - { Twilio.FlexApi.V1.InsightsAssessmentsCommentListInstance } resource */
   protected _insightsAssessmentsComment?: InsightsAssessmentsCommentListInstance;
-  /** insightsConversationalAi - { Twilio.FlexApi.V1.InsightsConversationalAiListInstance } resource */
-  protected _insightsConversationalAi?: InsightsConversationalAiListInstance;
-  /** insightsConversationalAiReportInsights - { Twilio.FlexApi.V1.InsightsConversationalAiReportInsightsListInstance } resource */
-  protected _insightsConversationalAiReportInsights?: InsightsConversationalAiReportInsightsListInstance;
   /** insightsConversations - { Twilio.FlexApi.V1.InsightsConversationsListInstance } resource */
   protected _insightsConversations?: InsightsConversationsListInstance;
   /** insightsQuestionnaires - { Twilio.FlexApi.V1.InsightsQuestionnairesListInstance } resource */
@@ -78,6 +78,18 @@ export default class V1 extends Version {
   protected _insightsUserRoles?: InsightsUserRolesListInstance;
   /** interaction - { Twilio.FlexApi.V1.InteractionListInstance } resource */
   protected _interaction?: InteractionListInstance;
+  /** plugins - { Twilio.FlexApi.V1.PluginListInstance } resource */
+  protected _plugins?: PluginListInstance;
+  /** pluginArchive - { Twilio.FlexApi.V1.PluginArchiveListInstance } resource */
+  protected _pluginArchive?: PluginArchiveListInstance;
+  /** pluginConfigurations - { Twilio.FlexApi.V1.PluginConfigurationListInstance } resource */
+  protected _pluginConfigurations?: PluginConfigurationListInstance;
+  /** pluginConfigurationArchive - { Twilio.FlexApi.V1.PluginConfigurationArchiveListInstance } resource */
+  protected _pluginConfigurationArchive?: PluginConfigurationArchiveListInstance;
+  /** pluginReleases - { Twilio.FlexApi.V1.PluginReleaseListInstance } resource */
+  protected _pluginReleases?: PluginReleaseListInstance;
+  /** pluginVersionArchive - { Twilio.FlexApi.V1.PluginVersionArchiveListInstance } resource */
+  protected _pluginVersionArchive?: PluginVersionArchiveListInstance;
   /** provisioningStatus - { Twilio.FlexApi.V1.ProvisioningStatusListInstance } resource */
   protected _provisioningStatus?: ProvisioningStatusListInstance;
   /** webChannel - { Twilio.FlexApi.V1.WebChannelListInstance } resource */
@@ -114,22 +126,6 @@ export default class V1 extends Version {
       this._insightsAssessmentsComment ||
       InsightsAssessmentsCommentListInstance(this);
     return this._insightsAssessmentsComment;
-  }
-
-  /** Getter for insightsConversationalAi resource */
-  get insightsConversationalAi(): InsightsConversationalAiListInstance {
-    this._insightsConversationalAi =
-      this._insightsConversationalAi ||
-      InsightsConversationalAiListInstance(this);
-    return this._insightsConversationalAi;
-  }
-
-  /** Getter for insightsConversationalAiReportInsights resource */
-  get insightsConversationalAiReportInsights(): InsightsConversationalAiReportInsightsListInstance {
-    this._insightsConversationalAiReportInsights =
-      this._insightsConversationalAiReportInsights ||
-      InsightsConversationalAiReportInsightsListInstance(this);
-    return this._insightsConversationalAiReportInsights;
   }
 
   /** Getter for insightsConversations resource */
@@ -203,6 +199,48 @@ export default class V1 extends Version {
   get interaction(): InteractionListInstance {
     this._interaction = this._interaction || InteractionListInstance(this);
     return this._interaction;
+  }
+
+  /** Getter for plugins resource */
+  get plugins(): PluginListInstance {
+    this._plugins = this._plugins || PluginListInstance(this);
+    return this._plugins;
+  }
+
+  /** Getter for pluginArchive resource */
+  get pluginArchive(): PluginArchiveListInstance {
+    this._pluginArchive =
+      this._pluginArchive || PluginArchiveListInstance(this);
+    return this._pluginArchive;
+  }
+
+  /** Getter for pluginConfigurations resource */
+  get pluginConfigurations(): PluginConfigurationListInstance {
+    this._pluginConfigurations =
+      this._pluginConfigurations || PluginConfigurationListInstance(this);
+    return this._pluginConfigurations;
+  }
+
+  /** Getter for pluginConfigurationArchive resource */
+  get pluginConfigurationArchive(): PluginConfigurationArchiveListInstance {
+    this._pluginConfigurationArchive =
+      this._pluginConfigurationArchive ||
+      PluginConfigurationArchiveListInstance(this);
+    return this._pluginConfigurationArchive;
+  }
+
+  /** Getter for pluginReleases resource */
+  get pluginReleases(): PluginReleaseListInstance {
+    this._pluginReleases =
+      this._pluginReleases || PluginReleaseListInstance(this);
+    return this._pluginReleases;
+  }
+
+  /** Getter for pluginVersionArchive resource */
+  get pluginVersionArchive(): PluginVersionArchiveListInstance {
+    this._pluginVersionArchive =
+      this._pluginVersionArchive || PluginVersionArchiveListInstance(this);
+    return this._pluginVersionArchive;
   }
 
   /** Getter for provisioningStatus resource */

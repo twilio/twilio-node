@@ -35,7 +35,7 @@ export type PaymentPaymentMethod = "credit-card" | "ach-debit";
 
 export type PaymentStatus = "complete" | "cancel";
 
-export type PaymentTokenType = "one-time" | "reusable";
+export type PaymentTokenType = "one-time" | "reusable" | "payment-method";
 
 /**
  * Options to pass to update a PaymentInstance
