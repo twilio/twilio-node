@@ -421,6 +421,7 @@ interface ServiceResource {
   usecase: string;
   us_app_to_person_registered: boolean;
   use_inbound_webhook_on_number: boolean;
+  sending_windows: any;
 }
 
 export class ServiceInstance {
@@ -451,6 +452,7 @@ export class ServiceInstance {
     this.usecase = payload.usecase;
     this.usAppToPersonRegistered = payload.us_app_to_person_registered;
     this.useInboundWebhookOnNumber = payload.use_inbound_webhook_on_number;
+    this.sendingWindows = payload.sending_windows;
 
     this._solution = { sid: sid || this.sid };
   }
@@ -544,6 +546,10 @@ export class ServiceInstance {
    * A boolean value that indicates either the webhook url configured on the phone number will be used or `inbound_request_url`/`fallback_url` url will be called when a message is received from the phone number. If this field is enabled then the webhook url defined on the phone number will override the `inbound_request_url`/`fallback_url` defined for the Messaging Service.
    */
   useInboundWebhookOnNumber: boolean;
+  /**
+   * A list of Sending Windows, which indicate defined time ranges in which a message can be sent, in the UTC time zone. Each window is defined by two strings, labeled \"start_time\" and \"end_time\".
+   */
+  sendingWindows: any;
 
   private get _proxy(): ServiceContext {
     this._context =
@@ -680,6 +686,7 @@ export class ServiceInstance {
       usecase: this.usecase,
       usAppToPersonRegistered: this.usAppToPersonRegistered,
       useInboundWebhookOnNumber: this.useInboundWebhookOnNumber,
+      sendingWindows: this.sendingWindows,
     };
   }
 

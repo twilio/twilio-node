@@ -30,7 +30,7 @@ export type PhoneNumberValidationError =
  * Options to pass to fetch a PhoneNumberInstance
  */
 export interface PhoneNumberContextFetchOptions {
-  /** A comma-separated list of fields to return. Possible values are validation, caller_name, sim_swap, call_forwarding, line_status, line_type_intelligence, identity_match, reassigned_number, sms_pumping_risk, phone_number_quality_score. */
+  /** A comma-separated list of fields to return. Possible values are validation, caller_name, sim_swap, call_forwarding, line_status, line_type_intelligence, identity_match, reassigned_number, sms_pumping_risk, phone_number_quality_score, pre_fill. */
   fields?: string;
   /** The [country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) used if the phone number provided is in national format. */
   countryCode?: string;
@@ -56,6 +56,8 @@ export interface PhoneNumberContextFetchOptions {
   dateOfBirth?: string;
   /** The date you obtained consent to call or text the end-user of the phone number or a date on which you are reasonably certain that the end-user could still be reached at that number. This query parameter is only used (optionally) for reassigned_number package requests. */
   lastVerifiedDate?: string;
+  /** The unique identifier associated with a verification process through verify API. This query parameter is only used (optionally) for pre_fill package requests. */
+  verificationSid?: string;
 }
 
 export interface PhoneNumberContext {
@@ -143,6 +145,8 @@ export class PhoneNumberContextImpl implements PhoneNumberContext {
       data["DateOfBirth"] = params["dateOfBirth"];
     if (params["lastVerifiedDate"] !== undefined)
       data["LastVerifiedDate"] = params["lastVerifiedDate"];
+    if (params["verificationSid"] !== undefined)
+      data["VerificationSid"] = params["verificationSid"];
 
     const headers: any = {};
 
@@ -203,6 +207,7 @@ interface PhoneNumberResource {
   reassigned_number: any;
   sms_pumping_risk: any;
   phone_number_quality_score: any;
+  pre_fill: any;
   url: string;
 }
 
@@ -230,6 +235,7 @@ export class PhoneNumberInstance {
     this.reassignedNumber = payload.reassigned_number;
     this.smsPumpingRisk = payload.sms_pumping_risk;
     this.phoneNumberQualityScore = payload.phone_number_quality_score;
+    this.preFill = payload.pre_fill;
     this.url = payload.url;
 
     this._solution = { phoneNumber: phoneNumber || this.phoneNumber };
@@ -296,6 +302,10 @@ export class PhoneNumberInstance {
    */
   phoneNumberQualityScore: any;
   /**
+   * An object that contains pre fill information. pre_fill will return PII information associated with the phone number like first name, last name, address line, country code, state and postal code.
+   */
+  preFill: any;
+  /**
    * The absolute URL of the resource.
    */
   url: string;
@@ -359,6 +369,7 @@ export class PhoneNumberInstance {
       reassignedNumber: this.reassignedNumber,
       smsPumpingRisk: this.smsPumpingRisk,
       phoneNumberQualityScore: this.phoneNumberQualityScore,
+      preFill: this.preFill,
       url: this.url,
     };
   }

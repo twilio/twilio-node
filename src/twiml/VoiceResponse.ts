@@ -575,7 +575,7 @@ namespace VoiceResponse {
 
   type PayStatusCallbackMethod = "GET" | "POST";
 
-  type PayTokenType = "one-time" | "reusable";
+  type PayTokenType = "one-time" | "reusable" | "payment-method";
 
   type PayValidCardTypes =
     | "visa"

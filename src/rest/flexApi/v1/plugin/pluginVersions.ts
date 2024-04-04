@@ -42,6 +42,10 @@ export interface PluginVersionsListInstanceCreateOptions {
   changelog?: string;
   /** Whether this Flex Plugin Version requires authorization. */
   private?: boolean;
+  /** The version of Flex Plugins CLI used to create this plugin */
+  cliVersion?: string;
+  /** The validation status of the plugin, indicating whether it has been validated */
+  validateStatus?: string;
 }
 /**
  * Options to pass to each
@@ -498,6 +502,10 @@ export function PluginVersionsListInstance(
       data["Changelog"] = params["changelog"];
     if (params["private"] !== undefined)
       data["Private"] = serialize.bool(params["private"]);
+    if (params["cliVersion"] !== undefined)
+      data["CliVersion"] = params["cliVersion"];
+    if (params["validateStatus"] !== undefined)
+      data["ValidateStatus"] = params["validateStatus"];
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
