@@ -445,6 +445,7 @@ interface ParticipantResource {
   hold: boolean;
   start_conference_on_enter: boolean;
   status: ParticipantStatus;
+  queue_time: string;
   uri: string;
 }
 
@@ -472,6 +473,7 @@ export class ParticipantInstance {
     this.hold = payload.hold;
     this.startConferenceOnEnter = payload.start_conference_on_enter;
     this.status = payload.status;
+    this.queueTime = payload.queue_time;
     this.uri = payload.uri;
 
     this._solution = {
@@ -530,6 +532,10 @@ export class ParticipantInstance {
    */
   startConferenceOnEnter: boolean;
   status: ParticipantStatus;
+  /**
+   * The wait time in milliseconds before participant\'s call is placed. Only available in the response to a create participant request.
+   */
+  queueTime: string;
   /**
    * The URI of the resource, relative to `https://api.twilio.com`.
    */
@@ -623,6 +629,7 @@ export class ParticipantInstance {
       hold: this.hold,
       startConferenceOnEnter: this.startConferenceOnEnter,
       status: this.status,
+      queueTime: this.queueTime,
       uri: this.uri,
     };
   }

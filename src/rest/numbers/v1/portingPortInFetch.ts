@@ -106,6 +106,7 @@ interface PortingPortInFetchResource {
   target_port_in_date: Date;
   target_port_in_time_range_start: string;
   target_port_in_time_range_end: string;
+  port_in_request_status: string;
   losing_carrier_information: any;
   phone_numbers: Array<any>;
   documents: Array<string>;
@@ -129,6 +130,7 @@ export class PortingPortInFetchInstance {
     );
     this.targetPortInTimeRangeStart = payload.target_port_in_time_range_start;
     this.targetPortInTimeRangeEnd = payload.target_port_in_time_range_end;
+    this.portInRequestStatus = payload.port_in_request_status;
     this.losingCarrierInformation = payload.losing_carrier_information;
     this.phoneNumbers = payload.phone_numbers;
     this.documents = payload.documents;
@@ -166,6 +168,10 @@ export class PortingPortInFetchInstance {
    * Maximum hour in the future needs to be established with the Ops team for validation.
    */
   targetPortInTimeRangeEnd: string;
+  /**
+   * The status of the port in request. The possible values are: In progress, Completed, Expired, In review, Waiting for Signature, Action Required, and Canceled.
+   */
+  portInRequestStatus: string;
   /**
    * The information for the losing carrier.
    */
@@ -216,6 +222,7 @@ export class PortingPortInFetchInstance {
       targetPortInDate: this.targetPortInDate,
       targetPortInTimeRangeStart: this.targetPortInTimeRangeStart,
       targetPortInTimeRangeEnd: this.targetPortInTimeRangeEnd,
+      portInRequestStatus: this.portInRequestStatus,
       losingCarrierInformation: this.losingCarrierInformation,
       phoneNumbers: this.phoneNumbers,
       documents: this.documents,

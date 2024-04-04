@@ -23,12 +23,13 @@ import Insights from "./Insights";
 import Intelligence from "./Intelligence";
 import IpMessaging from "./IpMessaging";
 import Lookups from "./Lookups";
-import Media from "./Media";
+import PreviewMessaging from "./PreviewMessaging";
 import Messaging from "./Messaging";
 import Microvisor from "./Microvisor";
 import Monitor from "./Monitor";
 import Notify from "./Notify";
 import Numbers from "./Numbers";
+import Oauth from "./Oauth";
 import Preview from "./Preview";
 import Pricing from "./Pricing";
 import Proxy from "./Proxy";
@@ -102,8 +103,8 @@ class Twilio extends Client {
   _ipMessaging?: IpMessaging;
   /** (Twilio.Lookups) - lookups domain */
   _lookups?: Lookups;
-  /** (Twilio.Media) - media domain */
-  _media?: Media;
+  /** (Twilio.PreviewMessaging) - previewMessaging domain */
+  _previewMessaging?: PreviewMessaging;
   /** (Twilio.Messaging) - messaging domain */
   _messaging?: Messaging;
   /** (Twilio.Microvisor) - microvisor domain */
@@ -114,6 +115,8 @@ class Twilio extends Client {
   _notify?: Notify;
   /** (Twilio.Numbers) - numbers domain */
   _numbers?: Numbers;
+  /** (Twilio.Oauth) - oauth domain */
+  _oauth?: Oauth;
   /** (Twilio.Preview) - preview domain */
   _preview?: Preview;
   /** (Twilio.Pricing) - pricing domain */
@@ -175,12 +178,13 @@ class Twilio extends Client {
       this.intelligence;
       this.ipMessaging;
       this.lookups;
-      this.media;
+      this.previewMessaging;
       this.messaging;
       this.microvisor;
       this.monitor;
       this.notify;
       this.numbers;
+      this.oauth;
       this.preview;
       this.pricing;
       this.proxy;
@@ -271,9 +275,12 @@ class Twilio extends Client {
   get lookups(): Lookups {
     return this._lookups ?? (this._lookups = new (require("./Lookups"))(this));
   }
-  /** Getter for (Twilio.Media) domain */
-  get media(): Media {
-    return this._media ?? (this._media = new (require("./Media"))(this));
+  /** Getter for (Twilio.PreviewMessaging) domain */
+  get previewMessaging(): PreviewMessaging {
+    return (
+      this._previewMessaging ??
+      (this._previewMessaging = new (require("./PreviewMessaging"))(this))
+    );
   }
   /** Getter for (Twilio.Messaging) domain */
   get messaging(): Messaging {
@@ -299,6 +306,10 @@ class Twilio extends Client {
   /** Getter for (Twilio.Numbers) domain */
   get numbers(): Numbers {
     return this._numbers ?? (this._numbers = new (require("./Numbers"))(this));
+  }
+  /** Getter for (Twilio.Oauth) domain */
+  get oauth(): Oauth {
+    return this._oauth ?? (this._oauth = new (require("./Oauth"))(this));
   }
   /** Getter for (Twilio.Preview) domain */
   get preview(): Preview {
