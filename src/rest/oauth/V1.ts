@@ -14,11 +14,8 @@
 
 import OauthBase from "../OauthBase";
 import Version from "../../base/Version";
-import { DeviceCodeListInstance } from "./v1/deviceCode";
-import { OauthListInstance } from "./v1/oauth";
-import { OpenidDiscoveryListInstance } from "./v1/openidDiscovery";
+import { AuthorizeListInstance } from "./v1/authorize";
 import { TokenListInstance } from "./v1/token";
-import { UserInfoListInstance } from "./v1/userInfo";
 
 export default class V1 extends Version {
   /**
@@ -30,45 +27,20 @@ export default class V1 extends Version {
     super(domain, "v1");
   }
 
-  /** deviceCode - { Twilio.Oauth.V1.DeviceCodeListInstance } resource */
-  protected _deviceCode?: DeviceCodeListInstance;
-  /** oauth - { Twilio.Oauth.V1.OauthListInstance } resource */
-  protected _oauth?: OauthListInstance;
-  /** openidDiscovery - { Twilio.Oauth.V1.OpenidDiscoveryListInstance } resource */
-  protected _openidDiscovery?: OpenidDiscoveryListInstance;
+  /** authorize - { Twilio.Oauth.V1.AuthorizeListInstance } resource */
+  protected _authorize?: AuthorizeListInstance;
   /** token - { Twilio.Oauth.V1.TokenListInstance } resource */
   protected _token?: TokenListInstance;
-  /** userInfo - { Twilio.Oauth.V1.UserInfoListInstance } resource */
-  protected _userInfo?: UserInfoListInstance;
 
-  /** Getter for deviceCode resource */
-  get deviceCode(): DeviceCodeListInstance {
-    this._deviceCode = this._deviceCode || DeviceCodeListInstance(this);
-    return this._deviceCode;
-  }
-
-  /** Getter for oauth resource */
-  get oauth(): OauthListInstance {
-    this._oauth = this._oauth || OauthListInstance(this);
-    return this._oauth;
-  }
-
-  /** Getter for openidDiscovery resource */
-  get openidDiscovery(): OpenidDiscoveryListInstance {
-    this._openidDiscovery =
-      this._openidDiscovery || OpenidDiscoveryListInstance(this);
-    return this._openidDiscovery;
+  /** Getter for authorize resource */
+  get authorize(): AuthorizeListInstance {
+    this._authorize = this._authorize || AuthorizeListInstance(this);
+    return this._authorize;
   }
 
   /** Getter for token resource */
   get token(): TokenListInstance {
     this._token = this._token || TokenListInstance(this);
     return this._token;
-  }
-
-  /** Getter for userInfo resource */
-  get userInfo(): UserInfoListInstance {
-    this._userInfo = this._userInfo || UserInfoListInstance(this);
-    return this._userInfo;
   }
 }

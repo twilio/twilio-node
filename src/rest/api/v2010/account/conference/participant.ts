@@ -156,6 +156,8 @@ export interface ParticipantListInstanceCreateOptions {
   amdStatusCallbackMethod?: string;
   /** Whether to trim any leading and trailing silence from the participant recording. Can be: `trim-silence` or `do-not-trim` and the default is `trim-silence`. */
   trim?: string;
+  /** A token string needed to invoke a forwarded call. A call_token is generated when an incoming call is received on a Twilio number. Pass an incoming call\\\'s call_token value to a forwarded call via the call_token parameter when creating a new call. A forwarded call should bear the same CallerID of the original incoming call. */
+  callToken?: string;
 }
 /**
  * Options to pass to each
@@ -443,6 +445,7 @@ interface ParticipantResource {
   hold: boolean;
   start_conference_on_enter: boolean;
   status: ParticipantStatus;
+  queue_time: string;
   uri: string;
 }
 
@@ -470,6 +473,7 @@ export class ParticipantInstance {
     this.hold = payload.hold;
     this.startConferenceOnEnter = payload.start_conference_on_enter;
     this.status = payload.status;
+    this.queueTime = payload.queue_time;
     this.uri = payload.uri;
 
     this._solution = {
@@ -528,6 +532,10 @@ export class ParticipantInstance {
    */
   startConferenceOnEnter: boolean;
   status: ParticipantStatus;
+  /**
+   * The wait time in milliseconds before participant\'s call is placed. Only available in the response to a create participant request.
+   */
+  queueTime: string;
   /**
    * The URI of the resource, relative to `https://api.twilio.com`.
    */
@@ -621,6 +629,7 @@ export class ParticipantInstance {
       hold: this.hold,
       startConferenceOnEnter: this.startConferenceOnEnter,
       status: this.status,
+      queueTime: this.queueTime,
       uri: this.uri,
     };
   }
@@ -887,6 +896,8 @@ export function ParticipantListInstance(
     if (params["amdStatusCallbackMethod"] !== undefined)
       data["AmdStatusCallbackMethod"] = params["amdStatusCallbackMethod"];
     if (params["trim"] !== undefined) data["Trim"] = params["trim"];
+    if (params["callToken"] !== undefined)
+      data["CallToken"] = params["callToken"];
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";

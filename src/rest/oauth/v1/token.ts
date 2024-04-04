@@ -25,19 +25,19 @@ export interface TokenListInstanceCreateOptions {
   /** Grant type is a credential representing resource owner\\\'s authorization which can be used by client to obtain access token. */
   grantType: string;
   /** A 34 character string that uniquely identifies this OAuth App. */
-  clientSid: string;
+  clientId: string;
   /** The credential for confidential OAuth App. */
   clientSecret?: string;
   /** JWT token related to the authorization code grant type. */
   code?: string;
-  /** A code which is generation cryptographically. */
-  codeVerifier?: string;
-  /** JWT token related to the device code grant type. */
-  deviceCode?: string;
-  /** JWT token related to the refresh token grant type. */
+  /** The redirect uri */
+  redirectUri?: string;
+  /** The targeted audience uri */
+  audience?: string;
+  /** JWT token related to refresh access token. */
   refreshToken?: string;
-  /** The Id of the device associated with the token (refresh token). */
-  deviceId?: string;
+  /** The scope of token */
+  scope?: string;
 }
 
 export interface TokenSolution {}
@@ -86,25 +86,24 @@ export function TokenListInstance(version: V1): TokenListInstance {
       throw new Error("Required parameter \"params['grantType']\" missing.");
     }
 
-    if (params["clientSid"] === null || params["clientSid"] === undefined) {
-      throw new Error("Required parameter \"params['clientSid']\" missing.");
+    if (params["clientId"] === null || params["clientId"] === undefined) {
+      throw new Error("Required parameter \"params['clientId']\" missing.");
     }
 
     let data: any = {};
 
     data["GrantType"] = params["grantType"];
 
-    data["ClientSid"] = params["clientSid"];
+    data["ClientId"] = params["clientId"];
     if (params["clientSecret"] !== undefined)
       data["ClientSecret"] = params["clientSecret"];
     if (params["code"] !== undefined) data["Code"] = params["code"];
-    if (params["codeVerifier"] !== undefined)
-      data["CodeVerifier"] = params["codeVerifier"];
-    if (params["deviceCode"] !== undefined)
-      data["DeviceCode"] = params["deviceCode"];
+    if (params["redirectUri"] !== undefined)
+      data["RedirectUri"] = params["redirectUri"];
+    if (params["audience"] !== undefined) data["Audience"] = params["audience"];
     if (params["refreshToken"] !== undefined)
       data["RefreshToken"] = params["refreshToken"];
-    if (params["deviceId"] !== undefined) data["DeviceId"] = params["deviceId"];
+    if (params["scope"] !== undefined) data["Scope"] = params["scope"];
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
@@ -148,8 +147,8 @@ interface TokenResource {
   access_token: string;
   refresh_token: string;
   id_token: string;
-  refresh_token_expires_at: Date;
-  access_token_expires_at: Date;
+  token_type: string;
+  expires_in: number;
 }
 
 export class TokenInstance {
@@ -157,12 +156,8 @@ export class TokenInstance {
     this.accessToken = payload.access_token;
     this.refreshToken = payload.refresh_token;
     this.idToken = payload.id_token;
-    this.refreshTokenExpiresAt = deserialize.iso8601DateTime(
-      payload.refresh_token_expires_at
-    );
-    this.accessTokenExpiresAt = deserialize.iso8601DateTime(
-      payload.access_token_expires_at
-    );
+    this.tokenType = payload.token_type;
+    this.expiresIn = payload.expires_in;
   }
 
   /**
@@ -173,15 +168,15 @@ export class TokenInstance {
    * Token which carries the information necessary to get a new access token.
    */
   refreshToken: string;
+  /**
+   * Token which carries the information necessary of user profile.
+   */
   idToken: string;
   /**
-   * The date and time in GMT when the refresh token expires in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
+   * Token type
    */
-  refreshTokenExpiresAt: Date;
-  /**
-   * The date and time in GMT when the refresh token expires in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
-   */
-  accessTokenExpiresAt: Date;
+  tokenType: string;
+  expiresIn: number;
 
   /**
    * Provide a user-friendly representation
@@ -193,8 +188,8 @@ export class TokenInstance {
       accessToken: this.accessToken,
       refreshToken: this.refreshToken,
       idToken: this.idToken,
-      refreshTokenExpiresAt: this.refreshTokenExpiresAt,
-      accessTokenExpiresAt: this.accessTokenExpiresAt,
+      tokenType: this.tokenType,
+      expiresIn: this.expiresIn,
     };
   }
 

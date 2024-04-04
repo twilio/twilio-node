@@ -15,7 +15,10 @@
 import NumbersBase from "../NumbersBase";
 import Version from "../../base/Version";
 import { BulkEligibilityListInstance } from "./v1/bulkEligibility";
+import { EligibilityListInstance } from "./v1/eligibility";
 import { PortingBulkPortabilityListInstance } from "./v1/portingBulkPortability";
+import { PortingPortInListInstance } from "./v1/portingPortIn";
+import { PortingPortInFetchListInstance } from "./v1/portingPortInFetch";
 import { PortingPortabilityListInstance } from "./v1/portingPortability";
 
 export default class V1 extends Version {
@@ -30,8 +33,14 @@ export default class V1 extends Version {
 
   /** bulkEligibilities - { Twilio.Numbers.V1.BulkEligibilityListInstance } resource */
   protected _bulkEligibilities?: BulkEligibilityListInstance;
+  /** eligibilities - { Twilio.Numbers.V1.EligibilityListInstance } resource */
+  protected _eligibilities?: EligibilityListInstance;
   /** portingBulkPortabilities - { Twilio.Numbers.V1.PortingBulkPortabilityListInstance } resource */
   protected _portingBulkPortabilities?: PortingBulkPortabilityListInstance;
+  /** portingPortIns - { Twilio.Numbers.V1.PortingPortInListInstance } resource */
+  protected _portingPortIns?: PortingPortInListInstance;
+  /** portingPortInsFetch - { Twilio.Numbers.V1.PortingPortInFetchListInstance } resource */
+  protected _portingPortInsFetch?: PortingPortInFetchListInstance;
   /** portingPortabilities - { Twilio.Numbers.V1.PortingPortabilityListInstance } resource */
   protected _portingPortabilities?: PortingPortabilityListInstance;
 
@@ -42,12 +51,32 @@ export default class V1 extends Version {
     return this._bulkEligibilities;
   }
 
+  /** Getter for eligibilities resource */
+  get eligibilities(): EligibilityListInstance {
+    this._eligibilities = this._eligibilities || EligibilityListInstance(this);
+    return this._eligibilities;
+  }
+
   /** Getter for portingBulkPortabilities resource */
   get portingBulkPortabilities(): PortingBulkPortabilityListInstance {
     this._portingBulkPortabilities =
       this._portingBulkPortabilities ||
       PortingBulkPortabilityListInstance(this);
     return this._portingBulkPortabilities;
+  }
+
+  /** Getter for portingPortIns resource */
+  get portingPortIns(): PortingPortInListInstance {
+    this._portingPortIns =
+      this._portingPortIns || PortingPortInListInstance(this);
+    return this._portingPortIns;
+  }
+
+  /** Getter for portingPortInsFetch resource */
+  get portingPortInsFetch(): PortingPortInFetchListInstance {
+    this._portingPortInsFetch =
+      this._portingPortInsFetch || PortingPortInFetchListInstance(this);
+    return this._portingPortInsFetch;
   }
 
   /** Getter for portingPortabilities resource */

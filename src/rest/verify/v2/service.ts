@@ -65,6 +65,12 @@ export interface ServiceContextUpdateOptions {
   "totp.skew"?: number;
   /** The default message [template](https://www.twilio.com/docs/verify/api/templates). Will be used for all SMS verifications unless explicitly overriden. SMS channel only. */
   defaultTemplateSid?: string;
+  /** The SID of the [Messaging Service](https://www.twilio.com/docs/messaging/services) to associate with the Verification Service. */
+  "whatsapp.msgServiceSid"?: string;
+  /** The WhatsApp number to use as the sender of the verification messages. This number must be associated with the WhatsApp Message Service. */
+  "whatsapp.from"?: string;
+  /** Whether to allow verifications from the service to reach the stream-events sinks if configured */
+  verifyEventSubscriptionEnabled?: boolean;
 }
 
 /**
@@ -105,6 +111,12 @@ export interface ServiceListInstanceCreateOptions {
   "totp.skew"?: number;
   /** The default message [template](https://www.twilio.com/docs/verify/api/templates). Will be used for all SMS verifications unless explicitly overriden. SMS channel only. */
   defaultTemplateSid?: string;
+  /** The SID of the Messaging Service containing WhatsApp Sender(s) that Verify will use to send WhatsApp messages to your users. */
+  "whatsapp.msgServiceSid"?: string;
+  /** The number to use as the WhatsApp Sender that Verify will use to send WhatsApp messages to your users.This WhatsApp Sender must be associated with a Messaging Service SID. */
+  "whatsapp.from"?: string;
+  /** Whether to allow verifications from the service to reach the stream-events sinks if configured */
+  verifyEventSubscriptionEnabled?: boolean;
 }
 /**
  * Options to pass to each
@@ -364,6 +376,14 @@ export class ServiceContextImpl implements ServiceContext {
       data["Totp.Skew"] = params["totp.skew"];
     if (params["defaultTemplateSid"] !== undefined)
       data["DefaultTemplateSid"] = params["defaultTemplateSid"];
+    if (params["whatsapp.msgServiceSid"] !== undefined)
+      data["Whatsapp.MsgServiceSid"] = params["whatsapp.msgServiceSid"];
+    if (params["whatsapp.from"] !== undefined)
+      data["Whatsapp.From"] = params["whatsapp.from"];
+    if (params["verifyEventSubscriptionEnabled"] !== undefined)
+      data["VerifyEventSubscriptionEnabled"] = serialize.bool(
+        params["verifyEventSubscriptionEnabled"]
+      );
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
@@ -422,6 +442,8 @@ interface ServiceResource {
   push: any;
   totp: any;
   default_template_sid: string;
+  whatsapp: any;
+  verify_event_subscription_enabled: boolean;
   date_created: Date;
   date_updated: Date;
   url: string;
@@ -447,6 +469,9 @@ export class ServiceInstance {
     this.push = payload.push;
     this.totp = payload.totp;
     this.defaultTemplateSid = payload.default_template_sid;
+    this.whatsapp = payload.whatsapp;
+    this.verifyEventSubscriptionEnabled =
+      payload.verify_event_subscription_enabled;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
     this.url = payload.url;
@@ -508,6 +533,11 @@ export class ServiceInstance {
    */
   totp: any;
   defaultTemplateSid: string;
+  whatsapp: any;
+  /**
+   * Whether to allow verifications from the service to reach the stream-events sinks if configured
+   */
+  verifyEventSubscriptionEnabled: boolean;
   /**
    * The date and time in GMT when the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
    */
@@ -658,6 +688,8 @@ export class ServiceInstance {
       push: this.push,
       totp: this.totp,
       defaultTemplateSid: this.defaultTemplateSid,
+      whatsapp: this.whatsapp,
+      verifyEventSubscriptionEnabled: this.verifyEventSubscriptionEnabled,
       dateCreated: this.dateCreated,
       dateUpdated: this.dateUpdated,
       url: this.url,
@@ -831,6 +863,14 @@ export function ServiceListInstance(version: V2): ServiceListInstance {
       data["Totp.Skew"] = params["totp.skew"];
     if (params["defaultTemplateSid"] !== undefined)
       data["DefaultTemplateSid"] = params["defaultTemplateSid"];
+    if (params["whatsapp.msgServiceSid"] !== undefined)
+      data["Whatsapp.MsgServiceSid"] = params["whatsapp.msgServiceSid"];
+    if (params["whatsapp.from"] !== undefined)
+      data["Whatsapp.From"] = params["whatsapp.from"];
+    if (params["verifyEventSubscriptionEnabled"] !== undefined)
+      data["VerifyEventSubscriptionEnabled"] = serialize.bool(
+        params["verifyEventSubscriptionEnabled"]
+      );
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";

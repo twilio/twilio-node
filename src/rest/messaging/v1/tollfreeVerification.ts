@@ -75,8 +75,10 @@ export interface TollfreeVerificationContextUpdateOptions {
   businessContactLastName?: string;
   /** The email address of the contact for the business or organization using the Tollfree number. */
   businessContactEmail?: string;
-  /** The phone number of the contact for the business or organization using the Tollfree number. */
+  /** The E.164 formatted phone number of the contact for the business or organization using the Tollfree number. */
   businessContactPhone?: string;
+  /** Describe why the verification is being edited. If the verification was rejected because of a technical issue, such as the website being down, and the issue has been resolved this parameter should be set to something similar to \\\'Website fixed\\\'. */
+  editReason?: string;
 }
 
 /**
@@ -125,7 +127,7 @@ export interface TollfreeVerificationListInstanceCreateOptions {
   businessContactLastName?: string;
   /** The email address of the contact for the business or organization using the Tollfree number. */
   businessContactEmail?: string;
-  /** The phone number of the contact for the business or organization using the Tollfree number. */
+  /** The E.164 formatted phone number of the contact for the business or organization using the Tollfree number. */
   businessContactPhone?: string;
   /** An optional external reference ID supplied by customer and echoed back on status retrieval. */
   externalReferenceId?: string;
@@ -182,6 +184,17 @@ export interface TollfreeVerificationListInstancePageOptions {
 }
 
 export interface TollfreeVerificationContext {
+  /**
+   * Remove a TollfreeVerificationInstance
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed boolean
+   */
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean>;
+
   /**
    * Fetch a TollfreeVerificationInstance
    *
@@ -240,6 +253,23 @@ export class TollfreeVerificationContextImpl
 
     this._solution = { sid };
     this._uri = `/Tollfree/Verifications/${sid}`;
+  }
+
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
+    const instance = this;
+    let operationVersion = instance._version,
+      operationPromise = operationVersion.remove({
+        uri: instance._uri,
+        method: "delete",
+      });
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
   }
 
   fetch(
@@ -330,6 +360,8 @@ export class TollfreeVerificationContextImpl
       data["BusinessContactEmail"] = params["businessContactEmail"];
     if (params["businessContactPhone"] !== undefined)
       data["BusinessContactPhone"] = params["businessContactPhone"];
+    if (params["editReason"] !== undefined)
+      data["EditReason"] = params["editReason"];
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
@@ -411,6 +443,8 @@ interface TollfreeVerificationResource {
   rejection_reason: string;
   error_code: number;
   edit_expiration: Date;
+  edit_allowed: boolean;
+  rejection_reasons: Array<any>;
   resource_links: any;
   external_reference_id: string;
 }
@@ -457,6 +491,8 @@ export class TollfreeVerificationInstance {
     this.rejectionReason = payload.rejection_reason;
     this.errorCode = deserialize.integer(payload.error_code);
     this.editExpiration = deserialize.iso8601DateTime(payload.edit_expiration);
+    this.editAllowed = payload.edit_allowed;
+    this.rejectionReasons = payload.rejection_reasons;
     this.resourceLinks = payload.resource_links;
     this.externalReferenceId = payload.external_reference_id;
 
@@ -536,7 +572,7 @@ export class TollfreeVerificationInstance {
    */
   businessContactEmail: string;
   /**
-   * The phone number of the contact for the business or organization using the Tollfree number.
+   * The E.164 formatted phone number of the contact for the business or organization using the Tollfree number.
    */
   businessContactPhone: string;
   /**
@@ -590,6 +626,14 @@ export class TollfreeVerificationInstance {
    */
   editExpiration: Date;
   /**
+   * If a rejected verification is allowed to be edited/resubmitted. Some rejection reasons allow editing and some do not.
+   */
+  editAllowed: boolean;
+  /**
+   * A list of rejection reasons and codes describing why a Tollfree Verification has been rejected.
+   */
+  rejectionReasons: Array<any>;
+  /**
    * The URLs of the documents associated with the Tollfree Verification resource.
    */
   resourceLinks: any;
@@ -603,6 +647,19 @@ export class TollfreeVerificationInstance {
       this._context ||
       new TollfreeVerificationContextImpl(this._version, this._solution.sid);
     return this._context;
+  }
+
+  /**
+   * Remove a TollfreeVerificationInstance
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed boolean
+   */
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
+    return this._proxy.remove(callback);
   }
 
   /**
@@ -688,6 +745,8 @@ export class TollfreeVerificationInstance {
       rejectionReason: this.rejectionReason,
       errorCode: this.errorCode,
       editExpiration: this.editExpiration,
+      editAllowed: this.editAllowed,
+      rejectionReasons: this.rejectionReasons,
       resourceLinks: this.resourceLinks,
       externalReferenceId: this.externalReferenceId,
     };

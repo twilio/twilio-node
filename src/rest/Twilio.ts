@@ -12,7 +12,6 @@
 import { Client, ClientOpts, RequestOpts } from "../base/BaseTwilio";
 import Accounts from "./Accounts";
 import Api from "./Api";
-import Autopilot from "./Autopilot";
 import Bulkexports from "./Bulkexports";
 import Chat from "./Chat";
 import Content from "./Content";
@@ -24,7 +23,7 @@ import Insights from "./Insights";
 import Intelligence from "./Intelligence";
 import IpMessaging from "./IpMessaging";
 import Lookups from "./Lookups";
-import Media from "./Media";
+import PreviewMessaging from "./PreviewMessaging";
 import Messaging from "./Messaging";
 import Microvisor from "./Microvisor";
 import Monitor from "./Monitor";
@@ -82,8 +81,6 @@ class Twilio extends Client {
   _accounts?: Accounts;
   /** (Twilio.Api) - api domain */
   _api?: Api;
-  /** (Twilio.Autopilot) - autopilot domain */
-  _autopilot?: Autopilot;
   /** (Twilio.Bulkexports) - bulkexports domain */
   _bulkexports?: Bulkexports;
   /** (Twilio.Chat) - chat domain */
@@ -106,8 +103,8 @@ class Twilio extends Client {
   _ipMessaging?: IpMessaging;
   /** (Twilio.Lookups) - lookups domain */
   _lookups?: Lookups;
-  /** (Twilio.Media) - media domain */
-  _media?: Media;
+  /** (Twilio.PreviewMessaging) - previewMessaging domain */
+  _previewMessaging?: PreviewMessaging;
   /** (Twilio.Messaging) - messaging domain */
   _messaging?: Messaging;
   /** (Twilio.Microvisor) - microvisor domain */
@@ -170,7 +167,6 @@ class Twilio extends Client {
     if (this.opts?.lazyLoading === false) {
       this.accounts;
       this.api;
-      this.autopilot;
       this.bulkexports;
       this.chat;
       this.content;
@@ -182,7 +178,7 @@ class Twilio extends Client {
       this.intelligence;
       this.ipMessaging;
       this.lookups;
-      this.media;
+      this.previewMessaging;
       this.messaging;
       this.microvisor;
       this.monitor;
@@ -217,12 +213,6 @@ class Twilio extends Client {
   /** Getter for (Twilio.Api) domain */
   get api(): Api {
     return this._api ?? (this._api = new (require("./Api"))(this));
-  }
-  /** Getter for (Twilio.Autopilot) domain */
-  get autopilot(): Autopilot {
-    return (
-      this._autopilot ?? (this._autopilot = new (require("./Autopilot"))(this))
-    );
   }
   /** Getter for (Twilio.Bulkexports) domain */
   get bulkexports(): Bulkexports {
@@ -285,9 +275,12 @@ class Twilio extends Client {
   get lookups(): Lookups {
     return this._lookups ?? (this._lookups = new (require("./Lookups"))(this));
   }
-  /** Getter for (Twilio.Media) domain */
-  get media(): Media {
-    return this._media ?? (this._media = new (require("./Media"))(this));
+  /** Getter for (Twilio.PreviewMessaging) domain */
+  get previewMessaging(): PreviewMessaging {
+    return (
+      this._previewMessaging ??
+      (this._previewMessaging = new (require("./PreviewMessaging"))(this))
+    );
   }
   /** Getter for (Twilio.Messaging) domain */
   get messaging(): Messaging {

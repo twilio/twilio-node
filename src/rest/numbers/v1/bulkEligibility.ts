@@ -18,6 +18,14 @@ const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 
+/**
+ * Options to pass to create a BulkEligibilityInstance
+ */
+export interface BulkEligibilityListInstanceCreateOptions {
+  /**  */
+  body?: object;
+}
+
 export interface BulkEligibilityContext {
   /**
    * Fetch a BulkEligibilityInstance
@@ -202,6 +210,29 @@ export interface BulkEligibilityListInstance {
   get(requestId: string): BulkEligibilityContext;
 
   /**
+   * Create a BulkEligibilityInstance
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed BulkEligibilityInstance
+   */
+  create(
+    callback?: (error: Error | null, item?: BulkEligibilityInstance) => any
+  ): Promise<BulkEligibilityInstance>;
+  /**
+   * Create a BulkEligibilityInstance
+   *
+   * @param params - Body for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed BulkEligibilityInstance
+   */
+  create(
+    params: object,
+    callback?: (error: Error | null, item?: BulkEligibilityInstance) => any
+  ): Promise<BulkEligibilityInstance>;
+
+  /**
    * Provide a user-friendly representation
    */
   toJSON(): any;
@@ -220,7 +251,46 @@ export function BulkEligibilityListInstance(
 
   instance._version = version;
   instance._solution = {};
-  instance._uri = ``;
+  instance._uri = `/HostedNumber/Eligibility/Bulk`;
+
+  instance.create = function create(
+    params?:
+      | object
+      | ((error: Error | null, items: BulkEligibilityInstance) => any),
+    callback?: (error: Error | null, items: BulkEligibilityInstance) => any
+  ): Promise<BulkEligibilityInstance> {
+    if (params instanceof Function) {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    let data: any = {};
+
+    data = params;
+
+    const headers: any = {};
+    headers["Content-Type"] = "application/json";
+
+    let operationVersion = version,
+      operationPromise = operationVersion.create({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      });
+
+    operationPromise = operationPromise.then(
+      (payload) => new BulkEligibilityInstance(operationVersion, payload)
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  };
 
   instance.toJSON = function toJSON() {
     return instance._solution;

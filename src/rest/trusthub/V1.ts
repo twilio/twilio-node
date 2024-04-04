@@ -15,6 +15,8 @@
 import TrusthubBase from "../TrusthubBase";
 import Version from "../../base/Version";
 import { ComplianceInquiriesListInstance } from "./v1/complianceInquiries";
+import { ComplianceRegistrationInquiriesListInstance } from "./v1/complianceRegistrationInquiries";
+import { ComplianceTollfreeInquiriesListInstance } from "./v1/complianceTollfreeInquiries";
 import { CustomerProfilesListInstance } from "./v1/customerProfiles";
 import { EndUserListInstance } from "./v1/endUser";
 import { EndUserTypeListInstance } from "./v1/endUserType";
@@ -35,6 +37,10 @@ export default class V1 extends Version {
 
   /** complianceInquiries - { Twilio.Trusthub.V1.ComplianceInquiriesListInstance } resource */
   protected _complianceInquiries?: ComplianceInquiriesListInstance;
+  /** complianceRegistrationInquiries - { Twilio.Trusthub.V1.ComplianceRegistrationInquiriesListInstance } resource */
+  protected _complianceRegistrationInquiries?: ComplianceRegistrationInquiriesListInstance;
+  /** complianceTollfreeInquiries - { Twilio.Trusthub.V1.ComplianceTollfreeInquiriesListInstance } resource */
+  protected _complianceTollfreeInquiries?: ComplianceTollfreeInquiriesListInstance;
   /** customerProfiles - { Twilio.Trusthub.V1.CustomerProfilesListInstance } resource */
   protected _customerProfiles?: CustomerProfilesListInstance;
   /** endUsers - { Twilio.Trusthub.V1.EndUserListInstance } resource */
@@ -55,6 +61,22 @@ export default class V1 extends Version {
     this._complianceInquiries =
       this._complianceInquiries || ComplianceInquiriesListInstance(this);
     return this._complianceInquiries;
+  }
+
+  /** Getter for complianceRegistrationInquiries resource */
+  get complianceRegistrationInquiries(): ComplianceRegistrationInquiriesListInstance {
+    this._complianceRegistrationInquiries =
+      this._complianceRegistrationInquiries ||
+      ComplianceRegistrationInquiriesListInstance(this);
+    return this._complianceRegistrationInquiries;
+  }
+
+  /** Getter for complianceTollfreeInquiries resource */
+  get complianceTollfreeInquiries(): ComplianceTollfreeInquiriesListInstance {
+    this._complianceTollfreeInquiries =
+      this._complianceTollfreeInquiries ||
+      ComplianceTollfreeInquiriesListInstance(this);
+    return this._complianceTollfreeInquiries;
   }
 
   /** Getter for customerProfiles resource */

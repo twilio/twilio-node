@@ -29,6 +29,13 @@ import { InsightsSettingsAnswerSetsListInstance } from "./v1/insightsSettingsAns
 import { InsightsSettingsCommentListInstance } from "./v1/insightsSettingsComment";
 import { InsightsUserRolesListInstance } from "./v1/insightsUserRoles";
 import { InteractionListInstance } from "./v1/interaction";
+import { PluginListInstance } from "./v1/plugin";
+import { PluginArchiveListInstance } from "./v1/pluginArchive";
+import { PluginConfigurationListInstance } from "./v1/pluginConfiguration";
+import { PluginConfigurationArchiveListInstance } from "./v1/pluginConfigurationArchive";
+import { PluginReleaseListInstance } from "./v1/pluginRelease";
+import { PluginVersionArchiveListInstance } from "./v1/pluginVersionArchive";
+import { ProvisioningStatusListInstance } from "./v1/provisioningStatus";
 import { WebChannelListInstance } from "./v1/webChannel";
 
 export default class V1 extends Version {
@@ -71,6 +78,20 @@ export default class V1 extends Version {
   protected _insightsUserRoles?: InsightsUserRolesListInstance;
   /** interaction - { Twilio.FlexApi.V1.InteractionListInstance } resource */
   protected _interaction?: InteractionListInstance;
+  /** plugins - { Twilio.FlexApi.V1.PluginListInstance } resource */
+  protected _plugins?: PluginListInstance;
+  /** pluginArchive - { Twilio.FlexApi.V1.PluginArchiveListInstance } resource */
+  protected _pluginArchive?: PluginArchiveListInstance;
+  /** pluginConfigurations - { Twilio.FlexApi.V1.PluginConfigurationListInstance } resource */
+  protected _pluginConfigurations?: PluginConfigurationListInstance;
+  /** pluginConfigurationArchive - { Twilio.FlexApi.V1.PluginConfigurationArchiveListInstance } resource */
+  protected _pluginConfigurationArchive?: PluginConfigurationArchiveListInstance;
+  /** pluginReleases - { Twilio.FlexApi.V1.PluginReleaseListInstance } resource */
+  protected _pluginReleases?: PluginReleaseListInstance;
+  /** pluginVersionArchive - { Twilio.FlexApi.V1.PluginVersionArchiveListInstance } resource */
+  protected _pluginVersionArchive?: PluginVersionArchiveListInstance;
+  /** provisioningStatus - { Twilio.FlexApi.V1.ProvisioningStatusListInstance } resource */
+  protected _provisioningStatus?: ProvisioningStatusListInstance;
   /** webChannel - { Twilio.FlexApi.V1.WebChannelListInstance } resource */
   protected _webChannel?: WebChannelListInstance;
 
@@ -178,6 +199,55 @@ export default class V1 extends Version {
   get interaction(): InteractionListInstance {
     this._interaction = this._interaction || InteractionListInstance(this);
     return this._interaction;
+  }
+
+  /** Getter for plugins resource */
+  get plugins(): PluginListInstance {
+    this._plugins = this._plugins || PluginListInstance(this);
+    return this._plugins;
+  }
+
+  /** Getter for pluginArchive resource */
+  get pluginArchive(): PluginArchiveListInstance {
+    this._pluginArchive =
+      this._pluginArchive || PluginArchiveListInstance(this);
+    return this._pluginArchive;
+  }
+
+  /** Getter for pluginConfigurations resource */
+  get pluginConfigurations(): PluginConfigurationListInstance {
+    this._pluginConfigurations =
+      this._pluginConfigurations || PluginConfigurationListInstance(this);
+    return this._pluginConfigurations;
+  }
+
+  /** Getter for pluginConfigurationArchive resource */
+  get pluginConfigurationArchive(): PluginConfigurationArchiveListInstance {
+    this._pluginConfigurationArchive =
+      this._pluginConfigurationArchive ||
+      PluginConfigurationArchiveListInstance(this);
+    return this._pluginConfigurationArchive;
+  }
+
+  /** Getter for pluginReleases resource */
+  get pluginReleases(): PluginReleaseListInstance {
+    this._pluginReleases =
+      this._pluginReleases || PluginReleaseListInstance(this);
+    return this._pluginReleases;
+  }
+
+  /** Getter for pluginVersionArchive resource */
+  get pluginVersionArchive(): PluginVersionArchiveListInstance {
+    this._pluginVersionArchive =
+      this._pluginVersionArchive || PluginVersionArchiveListInstance(this);
+    return this._pluginVersionArchive;
+  }
+
+  /** Getter for provisioningStatus resource */
+  get provisioningStatus(): ProvisioningStatusListInstance {
+    this._provisioningStatus =
+      this._provisioningStatus || ProvisioningStatusListInstance(this);
+    return this._provisioningStatus;
   }
 
   /** Getter for webChannel resource */

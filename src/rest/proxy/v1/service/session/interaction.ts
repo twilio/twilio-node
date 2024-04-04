@@ -288,7 +288,7 @@ export class InteractionInstance {
    */
   inboundParticipantSid: string;
   /**
-   * The SID of the inbound resource; either the [Call](https://www.twilio.com/docs/voice/api/call-resource) or [Message](https://www.twilio.com/docs/sms/api/message.
+   * The SID of the inbound resource; either the [Call](https://www.twilio.com/docs/voice/api/call-resource) or [Message](https://www.twilio.com/docs/sms/api/message-resource).
    */
   inboundResourceSid: string;
   inboundResourceStatus: InteractionResourceStatus;
