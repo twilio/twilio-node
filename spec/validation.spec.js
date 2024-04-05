@@ -216,7 +216,7 @@ describe("Request validation", () => {
 
   it("should validate urls with special characters", () => {
     const specialRequestUrl = requestUrl + "&Body=It's+amazing";
-    const signature = "dsq4Ehbj6cs+KdTkpF5sSSplOWw=";
+    const signature = "TfZzewPq8wqrGlMfyAud8+/IvJ0=";
     const isValid = validateRequest(
       token,
       signature,
