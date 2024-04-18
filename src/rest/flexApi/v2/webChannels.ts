@@ -24,6 +24,8 @@ import { isValidPathParam } from "../../../base/utility";
 export interface WebChannelsListInstanceCreateOptions {
   /** The SID of the Conversations Address. See [Address Configuration Resource](https://www.twilio.com/docs/conversations/api/address-configuration-resource) for configuration details. When a conversation is created on the Flex backend, the callback URL will be set to the corresponding Studio Flow SID or webhook URL in your address configuration. */
   addressSid: string;
+  /** The Ui-Version HTTP request header */
+  uiVersion?: string;
   /** The Conversation\\\'s friendly name. See the [Conversation resource](https://www.twilio.com/docs/conversations/api/conversation-resource) for an example. */
   chatFriendlyName?: string;
   /** The Conversation participant\\\'s friendly name. See the [Conversation Participant Resource](https://www.twilio.com/docs/conversations/api/conversation-participant-resource) for an example. */
@@ -90,6 +92,8 @@ export function WebChannelsListInstance(version: V2): WebChannelsListInstance {
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    if (params["uiVersion"] !== undefined)
+      headers["Ui-Version"] = params["uiVersion"];
 
     let operationVersion = version,
       operationPromise = operationVersion.create({

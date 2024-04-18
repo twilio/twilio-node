@@ -1,6 +1,26 @@
 twilio-node changelog
 =====================
 
+[2024-04-18] Version 5.0.4
+--------------------------
+**Library - Chore**
+- [PR #1018](https://github.com/twilio/twilio-node/pull/1018): upgrading jsonwebtoken to fix vulnerability. Thanks to [@tiwarishubham635](https://github.com/tiwarishubham635)!
+- [PR #1017](https://github.com/twilio/twilio-node/pull/1017): moving off from url-parse. Thanks to [@tiwarishubham635](https://github.com/tiwarishubham635)!
+- [PR #993](https://github.com/twilio/twilio-node/pull/993): Upgrade axios to version 1.6.8. Thanks to [@robertbagge](https://github.com/robertbagge)!
+
+**Library - Docs**
+- [PR #1000](https://github.com/twilio/twilio-node/pull/1000): update README node version. Thanks to [@yashvesikar](https://github.com/yashvesikar)!
+
+**Flex**
+- Add header `ui_version` to `web_channels` API
+
+**Messaging**
+- Redeploy after failed pipeline
+
+**Numbers**
+- Add Delete Port In request phone number api and Add Delete Port In request api
+
+
 [2024-04-04] Version 5.0.3
 --------------------------
 **Api**

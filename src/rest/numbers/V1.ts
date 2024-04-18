@@ -19,6 +19,7 @@ import { EligibilityListInstance } from "./v1/eligibility";
 import { PortingBulkPortabilityListInstance } from "./v1/portingBulkPortability";
 import { PortingPortInListInstance } from "./v1/portingPortIn";
 import { PortingPortInFetchListInstance } from "./v1/portingPortInFetch";
+import { PortingPortInPhoneNumberListInstance } from "./v1/portingPortInPhoneNumber";
 import { PortingPortabilityListInstance } from "./v1/portingPortability";
 
 export default class V1 extends Version {
@@ -41,6 +42,8 @@ export default class V1 extends Version {
   protected _portingPortIns?: PortingPortInListInstance;
   /** portingPortInsFetch - { Twilio.Numbers.V1.PortingPortInFetchListInstance } resource */
   protected _portingPortInsFetch?: PortingPortInFetchListInstance;
+  /** portingPortInPhoneNumber - { Twilio.Numbers.V1.PortingPortInPhoneNumberListInstance } resource */
+  protected _portingPortInPhoneNumber?: PortingPortInPhoneNumberListInstance;
   /** portingPortabilities - { Twilio.Numbers.V1.PortingPortabilityListInstance } resource */
   protected _portingPortabilities?: PortingPortabilityListInstance;
 
@@ -77,6 +80,14 @@ export default class V1 extends Version {
     this._portingPortInsFetch =
       this._portingPortInsFetch || PortingPortInFetchListInstance(this);
     return this._portingPortInsFetch;
+  }
+
+  /** Getter for portingPortInPhoneNumber resource */
+  get portingPortInPhoneNumber(): PortingPortInPhoneNumberListInstance {
+    this._portingPortInPhoneNumber =
+      this._portingPortInPhoneNumber ||
+      PortingPortInPhoneNumberListInstance(this);
+    return this._portingPortInPhoneNumber;
   }
 
   /** Getter for portingPortabilities resource */

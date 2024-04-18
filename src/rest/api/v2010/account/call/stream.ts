@@ -36,15 +36,15 @@ export interface StreamContextUpdateOptions {
  * Options to pass to create a StreamInstance
  */
 export interface StreamListInstanceCreateOptions {
-  /** Relative or absolute url where WebSocket connection will be established. */
+  /** Relative or absolute URL where WebSocket connection will be established. */
   url: string;
-  /** The user-specified name of this Stream, if one was given when the Stream was created. This may be used to stop the Stream. */
+  /** The user-specified name of this Stream, if one was given when the Stream was created. This can be used to stop the Stream. */
   name?: string;
   /**  */
   track?: StreamTrack;
-  /** Absolute URL of the status callback. */
+  /** Absolute URL to which Twilio sends status callback HTTP requests. */
   statusCallback?: string;
-  /** The http method for the status_callback (one of GET, POST). */
+  /** The HTTP method Twilio uses when sending `status_callback` requests. Possible values are `GET` and `POST`. Default is `POST`. */
   statusCallbackMethod?: string;
   /** Parameter name */
   "parameter1.name"?: string;
@@ -604,7 +604,7 @@ export class StreamInstance {
    */
   callSid: string;
   /**
-   * The user-specified name of this Stream, if one was given when the Stream was created. This may be used to stop the Stream.
+   * The user-specified name of this Stream, if one was given when the Stream was created. This can be used to stop the Stream.
    */
   name: string;
   status: StreamStatus;

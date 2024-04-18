@@ -26,12 +26,152 @@ export interface PortingPortInListInstanceCreateOptions {
   body?: object;
 }
 
+export interface PortingPortInContext {
+  /**
+   * Remove a PortingPortInInstance
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed boolean
+   */
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean>;
+
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
+  [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface PortingPortInContextSolution {
+  portInRequestSid: string;
+}
+
+export class PortingPortInContextImpl implements PortingPortInContext {
+  protected _solution: PortingPortInContextSolution;
+  protected _uri: string;
+
+  constructor(protected _version: V1, portInRequestSid: string) {
+    if (!isValidPathParam(portInRequestSid)) {
+      throw new Error("Parameter 'portInRequestSid' is not valid.");
+    }
+
+    this._solution = { portInRequestSid };
+    this._uri = `/Porting/PortIn/${portInRequestSid}`;
+  }
+
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
+    const instance = this;
+    let operationVersion = instance._version,
+      operationPromise = operationVersion.remove({
+        uri: instance._uri,
+        method: "delete",
+      });
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
+  /**
+   * Provide a user-friendly representation
+   *
+   * @returns Object
+   */
+  toJSON() {
+    return this._solution;
+  }
+
+  [inspect.custom](_depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+  }
+}
+
+interface PortingPortInPayload extends PortingPortInResource {}
+
+interface PortingPortInResource {
+  port_in_request_sid: string;
+  url: string;
+}
+
+export class PortingPortInInstance {
+  protected _solution: PortingPortInContextSolution;
+  protected _context?: PortingPortInContext;
+
+  constructor(
+    protected _version: V1,
+    payload: PortingPortInResource,
+    portInRequestSid?: string
+  ) {
+    this.portInRequestSid = payload.port_in_request_sid;
+    this.url = payload.url;
+
+    this._solution = {
+      portInRequestSid: portInRequestSid || this.portInRequestSid,
+    };
+  }
+
+  /**
+   * The SID of the Port In request. This is a unique identifier of the port in request.
+   */
+  portInRequestSid: string;
+  url: string;
+
+  private get _proxy(): PortingPortInContext {
+    this._context =
+      this._context ||
+      new PortingPortInContextImpl(
+        this._version,
+        this._solution.portInRequestSid
+      );
+    return this._context;
+  }
+
+  /**
+   * Remove a PortingPortInInstance
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed boolean
+   */
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
+    return this._proxy.remove(callback);
+  }
+
+  /**
+   * Provide a user-friendly representation
+   *
+   * @returns Object
+   */
+  toJSON() {
+    return {
+      portInRequestSid: this.portInRequestSid,
+      url: this.url,
+    };
+  }
+
+  [inspect.custom](_depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+  }
+}
+
 export interface PortingPortInSolution {}
 
 export interface PortingPortInListInstance {
   _version: V1;
   _solution: PortingPortInSolution;
   _uri: string;
+
+  (portInRequestSid: string): PortingPortInContext;
+  get(portInRequestSid: string): PortingPortInContext;
 
   /**
    * Create a PortingPortInInstance
@@ -66,7 +206,12 @@ export interface PortingPortInListInstance {
 export function PortingPortInListInstance(
   version: V1
 ): PortingPortInListInstance {
-  const instance = {} as PortingPortInListInstance;
+  const instance = ((portInRequestSid) =>
+    instance.get(portInRequestSid)) as PortingPortInListInstance;
+
+  instance.get = function get(portInRequestSid): PortingPortInContext {
+    return new PortingPortInContextImpl(version, portInRequestSid);
+  };
 
   instance._version = version;
   instance._solution = {};
@@ -123,40 +268,4 @@ export function PortingPortInListInstance(
   };
 
   return instance;
-}
-
-interface PortingPortInPayload extends PortingPortInResource {}
-
-interface PortingPortInResource {
-  port_in_request_sid: string;
-  url: string;
-}
-
-export class PortingPortInInstance {
-  constructor(protected _version: V1, payload: PortingPortInResource) {
-    this.portInRequestSid = payload.port_in_request_sid;
-    this.url = payload.url;
-  }
-
-  /**
-   * The SID of the Port In request. This is a unique identifier of the port in request.
-   */
-  portInRequestSid: string;
-  url: string;
-
-  /**
-   * Provide a user-friendly representation
-   *
-   * @returns Object
-   */
-  toJSON() {
-    return {
-      portInRequestSid: this.portInRequestSid,
-      url: this.url,
-    };
-  }
-
-  [inspect.custom](_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
 }

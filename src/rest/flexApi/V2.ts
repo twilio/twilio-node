@@ -14,6 +14,7 @@
 
 import FlexApiBase from "../FlexApiBase";
 import Version from "../../base/Version";
+import { FlexUserListInstance } from "./v2/flexUser";
 import { WebChannelsListInstance } from "./v2/webChannels";
 
 export default class V2 extends Version {
@@ -26,8 +27,16 @@ export default class V2 extends Version {
     super(domain, "v2");
   }
 
+  /** flexUser - { Twilio.FlexApi.V2.FlexUserListInstance } resource */
+  protected _flexUser?: FlexUserListInstance;
   /** webChannels - { Twilio.FlexApi.V2.WebChannelsListInstance } resource */
   protected _webChannels?: WebChannelsListInstance;
+
+  /** Getter for flexUser resource */
+  get flexUser(): FlexUserListInstance {
+    this._flexUser = this._flexUser || FlexUserListInstance(this);
+    return this._flexUser;
+  }
 
   /** Getter for webChannels resource */
   get webChannels(): WebChannelsListInstance {
