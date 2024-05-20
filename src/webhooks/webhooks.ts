@@ -356,7 +356,7 @@ export function webhook(
   }
 
   if (!options) options = {};
-  if (!options.validate) options.validate = true;
+  if (options.validate == undefined) options.validate = true;
 
   // Process arguments
   var tokenString;
