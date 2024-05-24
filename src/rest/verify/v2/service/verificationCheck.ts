@@ -212,7 +212,7 @@ export class VerificationCheckInstance {
   to: string;
   channel: VerificationCheckChannel;
   /**
-   * The status of the verification. Can be: `pending`, `approved`, or `canceled`.
+   * The status of the verification. Can be: `pending`, `approved`, `canceled`, `max_attempts_reached`, `deleted`, `failed` or `expired`.
    */
   status: string;
   /**

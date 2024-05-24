@@ -217,6 +217,7 @@ interface PluginVersionsResource {
   changelog: string;
   private: boolean;
   archived: boolean;
+  validated: boolean;
   date_created: Date;
   url: string;
 }
@@ -239,6 +240,7 @@ export class PluginVersionsInstance {
     this.changelog = payload.changelog;
     this._private = payload.private;
     this.archived = payload.archived;
+    this.validated = payload.validated;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.url = payload.url;
 
@@ -270,13 +272,14 @@ export class PluginVersionsInstance {
    */
   changelog: string;
   /**
-   * Whether to inject credentials while accessing this Plugin Version. The default value is false.
+   * Whether the Flex Plugin Version is validated. The default value is false.
    */
   _private: boolean;
   /**
    * Whether the Flex Plugin Version is archived. The default value is false.
    */
   archived: boolean;
+  validated: boolean;
   /**
    * The date and time in GMT when the Flex Plugin Version was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
@@ -342,6 +345,7 @@ export class PluginVersionsInstance {
       changelog: this.changelog,
       _private: this._private,
       archived: this.archived,
+      validated: this.validated,
       dateCreated: this.dateCreated,
       url: this.url,
     };

@@ -34,8 +34,6 @@ export interface ServiceContextUpdateOptions {
   dataLogging?: boolean;
   /** A human readable description of this resource, up to 64 characters. */
   friendlyName?: string;
-  /** The default language code of the audio. */
-  languageCode?: string;
   /** Provides a unique and addressable name to be assigned to this Service, assigned by the developer, to be optionally used in addition to SID. */
   uniqueName?: string;
   /** Instructs the Speech Recognition service to automatically redact PII from all transcripts made on this service. */
@@ -60,7 +58,7 @@ export interface ServiceListInstanceCreateOptions {
   dataLogging?: boolean;
   /** A human readable description of this resource, up to 64 characters. */
   friendlyName?: string;
-  /** The default language code of the audio. */
+  /** The language code set during Service creation determines the Transcription language for all call recordings processed by that Service. The default is en-US if no language code is set. A Service can only support one language code, and it cannot be updated once it\\\'s set. */
   languageCode?: string;
   /** Instructs the Speech Recognition service to automatically redact PII from all transcripts made on this service. */
   autoRedaction?: boolean;
@@ -237,8 +235,6 @@ export class ServiceContextImpl implements ServiceContext {
       data["DataLogging"] = serialize.bool(params["dataLogging"]);
     if (params["friendlyName"] !== undefined)
       data["FriendlyName"] = params["friendlyName"];
-    if (params["languageCode"] !== undefined)
-      data["LanguageCode"] = params["languageCode"];
     if (params["uniqueName"] !== undefined)
       data["UniqueName"] = params["uniqueName"];
     if (params["autoRedaction"] !== undefined)
@@ -309,6 +305,7 @@ interface ServiceResource {
   url: string;
   webhook_url: string;
   webhook_http_method: ServiceHttpMethod;
+  read_only_attached_operator_sids: Array<string>;
   version: number;
 }
 
@@ -331,6 +328,8 @@ export class ServiceInstance {
     this.url = payload.url;
     this.webhookUrl = payload.webhook_url;
     this.webhookHttpMethod = payload.webhook_http_method;
+    this.readOnlyAttachedOperatorSids =
+      payload.read_only_attached_operator_sids;
     this.version = deserialize.integer(payload.version);
 
     this._solution = { sid: sid || this.sid };
@@ -369,7 +368,7 @@ export class ServiceInstance {
    */
   friendlyName: string;
   /**
-   * The default language code of the audio.
+   * The language code set during Service creation determines the Transcription language for all call recordings processed by that Service. The default is en-US if no language code is set. A Service can only support one language code, and it cannot be updated once it\'s set.
    */
   languageCode: string;
   /**
@@ -389,6 +388,10 @@ export class ServiceInstance {
    */
   webhookUrl: string;
   webhookHttpMethod: ServiceHttpMethod;
+  /**
+   * Operator sids attached to this service, read only
+   */
+  readOnlyAttachedOperatorSids: Array<string>;
   /**
    * The version number of this Service.
    */
@@ -478,6 +481,7 @@ export class ServiceInstance {
       url: this.url,
       webhookUrl: this.webhookUrl,
       webhookHttpMethod: this.webhookHttpMethod,
+      readOnlyAttachedOperatorSids: this.readOnlyAttachedOperatorSids,
       version: this.version,
     };
   }

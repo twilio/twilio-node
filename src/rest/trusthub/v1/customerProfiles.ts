@@ -346,6 +346,7 @@ interface CustomerProfilesResource {
   date_updated: Date;
   url: string;
   links: Record<string, string>;
+  errors: Array<any>;
 }
 
 export class CustomerProfilesInstance {
@@ -369,6 +370,7 @@ export class CustomerProfilesInstance {
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
     this.url = payload.url;
     this.links = payload.links;
+    this.errors = payload.errors;
 
     this._solution = { sid: sid || this.sid };
   }
@@ -418,6 +420,10 @@ export class CustomerProfilesInstance {
    * The URLs of the Assigned Items of the Customer-Profile resource.
    */
   links: Record<string, string>;
+  /**
+   * The error codes associated with the rejection of the Customer-Profile.
+   */
+  errors: Array<any>;
 
   private get _proxy(): CustomerProfilesContext {
     this._context =
@@ -522,6 +528,7 @@ export class CustomerProfilesInstance {
       dateUpdated: this.dateUpdated,
       url: this.url,
       links: this.links,
+      errors: this.errors,
     };
   }
 

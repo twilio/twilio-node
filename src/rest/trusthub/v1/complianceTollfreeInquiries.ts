@@ -71,6 +71,8 @@ export interface ComplianceTollfreeInquiriesListInstanceCreateOptions {
   businessContactEmail?: string;
   /** The phone number of the contact for the business or organization using the Tollfree number. */
   businessContactPhone?: string;
+  /** Theme id for styling the inquiry form. */
+  themeSetId?: string;
 }
 
 export interface ComplianceTollfreeInquiriesSolution {}
@@ -191,6 +193,8 @@ export function ComplianceTollfreeInquiriesListInstance(
       data["BusinessContactEmail"] = params["businessContactEmail"];
     if (params["businessContactPhone"] !== undefined)
       data["BusinessContactPhone"] = params["businessContactPhone"];
+    if (params["themeSetId"] !== undefined)
+      data["ThemeSetId"] = params["themeSetId"];
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";

@@ -26,7 +26,7 @@ export interface InteractionListInstanceCreateOptions {
   /** The Interaction\\\'s channel. */
   channel: any;
   /** The Interaction\\\'s routing logic. */
-  routing: any;
+  routing?: any;
   /** The Interaction context sid is used for adding a context lookup sid */
   interactionContextSid?: string;
 }
@@ -265,15 +265,11 @@ export function InteractionListInstance(version: V1): InteractionListInstance {
       throw new Error("Required parameter \"params['channel']\" missing.");
     }
 
-    if (params["routing"] === null || params["routing"] === undefined) {
-      throw new Error("Required parameter \"params['routing']\" missing.");
-    }
-
     let data: any = {};
 
     data["Channel"] = serialize.object(params["channel"]);
-
-    data["Routing"] = serialize.object(params["routing"]);
+    if (params["routing"] !== undefined)
+      data["Routing"] = serialize.object(params["routing"]);
     if (params["interactionContextSid"] !== undefined)
       data["InteractionContextSid"] = params["interactionContextSid"];
 

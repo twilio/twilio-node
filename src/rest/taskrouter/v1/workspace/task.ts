@@ -73,6 +73,12 @@ export interface TaskListInstanceCreateOptions {
   attributes?: string;
   /** The virtual start time to assign the new task and override the default. When supplied, the new task will have this virtual start time. When not supplied, the new task will have the virtual start time equal to `date_created`. Value can\\\'t be in the future. */
   virtualStartTime?: Date;
+  /** A SID of a Worker, Queue, or Workflow to route a Task to */
+  routingTarget?: string;
+  /** A boolean indicating if a new task should respect a worker\\\'s capacity during assignment */
+  ignoreCapacity?: string;
+  /** The SID of the TaskQueue in which the Task belongs */
+  taskQueueSid?: string;
 }
 /**
  * Options to pass to each
@@ -92,6 +98,8 @@ export interface TaskListInstanceEachOptions {
   taskQueueName?: string;
   /** The attributes of the Tasks to read. Returns the Tasks that match the attributes specified in this parameter. */
   evaluateTaskAttributes?: string;
+  /** A SID of a Worker, Queue, or Workflow to route a Task to */
+  routingTarget?: string;
   /** How to order the returned Task resources. By default, Tasks are sorted by ascending DateCreated. This value is specified as: `Attribute:Order`, where `Attribute` can be either `DateCreated`, `Priority`, or `VirtualStartTime` and `Order` can be either `asc` or `desc`. For example, `Priority:desc` returns Tasks ordered in descending order of their Priority. Pairings of sort orders can be specified in a comma-separated list such as `Priority:desc,DateCreated:asc`, which returns the Tasks in descending Priority order and ascending DateCreated Order. The only ordering pairing not allowed is DateCreated and VirtualStartTime. */
   ordering?: string;
   /** Whether to read Tasks with Add-ons. If `true`, returns only Tasks with Add-ons. If `false`, returns only Tasks without Add-ons. */
@@ -124,6 +132,8 @@ export interface TaskListInstanceOptions {
   taskQueueName?: string;
   /** The attributes of the Tasks to read. Returns the Tasks that match the attributes specified in this parameter. */
   evaluateTaskAttributes?: string;
+  /** A SID of a Worker, Queue, or Workflow to route a Task to */
+  routingTarget?: string;
   /** How to order the returned Task resources. By default, Tasks are sorted by ascending DateCreated. This value is specified as: `Attribute:Order`, where `Attribute` can be either `DateCreated`, `Priority`, or `VirtualStartTime` and `Order` can be either `asc` or `desc`. For example, `Priority:desc` returns Tasks ordered in descending order of their Priority. Pairings of sort orders can be specified in a comma-separated list such as `Priority:desc,DateCreated:asc`, which returns the Tasks in descending Priority order and ascending DateCreated Order. The only ordering pairing not allowed is DateCreated and VirtualStartTime. */
   ordering?: string;
   /** Whether to read Tasks with Add-ons. If `true`, returns only Tasks with Add-ons. If `false`, returns only Tasks without Add-ons. */
@@ -152,6 +162,8 @@ export interface TaskListInstancePageOptions {
   taskQueueName?: string;
   /** The attributes of the Tasks to read. Returns the Tasks that match the attributes specified in this parameter. */
   evaluateTaskAttributes?: string;
+  /** A SID of a Worker, Queue, or Workflow to route a Task to */
+  routingTarget?: string;
   /** How to order the returned Task resources. By default, Tasks are sorted by ascending DateCreated. This value is specified as: `Attribute:Order`, where `Attribute` can be either `DateCreated`, `Priority`, or `VirtualStartTime` and `Order` can be either `asc` or `desc`. For example, `Priority:desc` returns Tasks ordered in descending order of their Priority. Pairings of sort orders can be specified in a comma-separated list such as `Priority:desc,DateCreated:asc`, which returns the Tasks in descending Priority order and ascending DateCreated Order. The only ordering pairing not allowed is DateCreated and VirtualStartTime. */
   ordering?: string;
   /** Whether to read Tasks with Add-ons. If `true`, returns only Tasks with Add-ons. If `false`, returns only Tasks without Add-ons. */
@@ -428,6 +440,8 @@ interface TaskResource {
   url: string;
   links: Record<string, string>;
   virtual_start_time: Date;
+  ignore_capacity: boolean;
+  routing_target: string;
 }
 
 export class TaskInstance {
@@ -466,6 +480,8 @@ export class TaskInstance {
     this.virtualStartTime = deserialize.iso8601DateTime(
       payload.virtual_start_time
     );
+    this.ignoreCapacity = payload.ignore_capacity;
+    this.routingTarget = payload.routing_target;
 
     this._solution = { workspaceSid, sid: sid || this.sid };
   }
@@ -555,6 +571,14 @@ export class TaskInstance {
    * The date and time in GMT indicating the ordering for routing of the Task specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
   virtualStartTime: Date;
+  /**
+   * A boolean indicating if a new task should respect a worker\'s capacity during assignment
+   */
+  ignoreCapacity: boolean;
+  /**
+   * A SID of a Worker, Queue, or Workflow to route a Task to
+   */
+  routingTarget: string;
 
   private get _proxy(): TaskContext {
     this._context =
@@ -676,6 +700,8 @@ export class TaskInstance {
       url: this.url,
       links: this.links,
       virtualStartTime: this.virtualStartTime,
+      ignoreCapacity: this.ignoreCapacity,
+      routingTarget: this.routingTarget,
     };
   }
 
@@ -840,6 +866,12 @@ export function TaskListInstance(
       data["VirtualStartTime"] = serialize.iso8601DateTime(
         params["virtualStartTime"]
       );
+    if (params["routingTarget"] !== undefined)
+      data["RoutingTarget"] = params["routingTarget"];
+    if (params["ignoreCapacity"] !== undefined)
+      data["IgnoreCapacity"] = params["ignoreCapacity"];
+    if (params["taskQueueSid"] !== undefined)
+      data["TaskQueueSid"] = params["taskQueueSid"];
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
@@ -899,6 +931,8 @@ export function TaskListInstance(
       data["TaskQueueName"] = params["taskQueueName"];
     if (params["evaluateTaskAttributes"] !== undefined)
       data["EvaluateTaskAttributes"] = params["evaluateTaskAttributes"];
+    if (params["routingTarget"] !== undefined)
+      data["RoutingTarget"] = params["routingTarget"];
     if (params["ordering"] !== undefined) data["Ordering"] = params["ordering"];
     if (params["hasAddons"] !== undefined)
       data["HasAddons"] = serialize.bool(params["hasAddons"]);

@@ -340,6 +340,7 @@ interface TrustProductsResource {
   date_updated: Date;
   url: string;
   links: Record<string, string>;
+  errors: Array<any>;
 }
 
 export class TrustProductsInstance {
@@ -363,6 +364,7 @@ export class TrustProductsInstance {
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
     this.url = payload.url;
     this.links = payload.links;
+    this.errors = payload.errors;
 
     this._solution = { sid: sid || this.sid };
   }
@@ -412,6 +414,10 @@ export class TrustProductsInstance {
    * The URLs of the Assigned Items of the Trust Product resource.
    */
   links: Record<string, string>;
+  /**
+   * The error codes associated with the rejection of the Trust Product.
+   */
+  errors: Array<any>;
 
   private get _proxy(): TrustProductsContext {
     this._context =
@@ -516,6 +522,7 @@ export class TrustProductsInstance {
       dateUpdated: this.dateUpdated,
       url: this.url,
       links: this.links,
+      errors: this.errors,
     };
   }
 

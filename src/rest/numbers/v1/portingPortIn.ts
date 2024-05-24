@@ -39,6 +39,17 @@ export interface PortingPortInContext {
   ): Promise<boolean>;
 
   /**
+   * Fetch a PortingPortInInstance
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed PortingPortInInstance
+   */
+  fetch(
+    callback?: (error: Error | null, item?: PortingPortInInstance) => any
+  ): Promise<PortingPortInInstance>;
+
+  /**
    * Provide a user-friendly representation
    */
   toJSON(): any;
@@ -79,6 +90,32 @@ export class PortingPortInContextImpl implements PortingPortInContext {
     return operationPromise;
   }
 
+  fetch(
+    callback?: (error: Error | null, item?: PortingPortInInstance) => any
+  ): Promise<PortingPortInInstance> {
+    const instance = this;
+    let operationVersion = instance._version,
+      operationPromise = operationVersion.fetch({
+        uri: instance._uri,
+        method: "get",
+      });
+
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new PortingPortInInstance(
+          operationVersion,
+          payload,
+          instance._solution.portInRequestSid
+        )
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
   /**
    * Provide a user-friendly representation
    *
@@ -98,6 +135,15 @@ interface PortingPortInPayload extends PortingPortInResource {}
 interface PortingPortInResource {
   port_in_request_sid: string;
   url: string;
+  account_sid: string;
+  notification_emails: Array<string>;
+  target_port_in_date: Date;
+  target_port_in_time_range_start: string;
+  target_port_in_time_range_end: string;
+  port_in_request_status: string;
+  losing_carrier_information: any;
+  phone_numbers: Array<any>;
+  documents: Array<string>;
 }
 
 export class PortingPortInInstance {
@@ -111,6 +157,17 @@ export class PortingPortInInstance {
   ) {
     this.portInRequestSid = payload.port_in_request_sid;
     this.url = payload.url;
+    this.accountSid = payload.account_sid;
+    this.notificationEmails = payload.notification_emails;
+    this.targetPortInDate = deserialize.iso8601Date(
+      payload.target_port_in_date
+    );
+    this.targetPortInTimeRangeStart = payload.target_port_in_time_range_start;
+    this.targetPortInTimeRangeEnd = payload.target_port_in_time_range_end;
+    this.portInRequestStatus = payload.port_in_request_status;
+    this.losingCarrierInformation = payload.losing_carrier_information;
+    this.phoneNumbers = payload.phone_numbers;
+    this.documents = payload.documents;
 
     this._solution = {
       portInRequestSid: portInRequestSid || this.portInRequestSid,
@@ -121,7 +178,46 @@ export class PortingPortInInstance {
    * The SID of the Port In request. This is a unique identifier of the port in request.
    */
   portInRequestSid: string;
+  /**
+   * The URL of this Port In request
+   */
   url: string;
+  /**
+   * The Account SID that the numbers will be added to after they are ported into Twilio.
+   */
+  accountSid: string;
+  /**
+   * List of emails for getting notifications about the LOA signing process. Allowed Max 10 emails.
+   */
+  notificationEmails: Array<string>;
+  /**
+   * Minimum number of days in the future (at least 2 days) needs to be established with the Ops team for validation.
+   */
+  targetPortInDate: Date;
+  /**
+   * Minimum hour in the future needs to be established with the Ops team for validation.
+   */
+  targetPortInTimeRangeStart: string;
+  /**
+   * Maximum hour in the future needs to be established with the Ops team for validation.
+   */
+  targetPortInTimeRangeEnd: string;
+  /**
+   * The status of the port in request. The possible values are: In progress, Completed, Expired, In review, Waiting for Signature, Action Required, and Canceled.
+   */
+  portInRequestStatus: string;
+  /**
+   * The information for the losing carrier.
+   */
+  losingCarrierInformation: any;
+  /**
+   * The list of phone numbers to Port in. Phone numbers are in E.164 format (e.g. +16175551212).
+   */
+  phoneNumbers: Array<any>;
+  /**
+   * The list of documents SID referencing a utility bills
+   */
+  documents: Array<string>;
 
   private get _proxy(): PortingPortInContext {
     this._context =
@@ -147,6 +243,19 @@ export class PortingPortInInstance {
   }
 
   /**
+   * Fetch a PortingPortInInstance
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed PortingPortInInstance
+   */
+  fetch(
+    callback?: (error: Error | null, item?: PortingPortInInstance) => any
+  ): Promise<PortingPortInInstance> {
+    return this._proxy.fetch(callback);
+  }
+
+  /**
    * Provide a user-friendly representation
    *
    * @returns Object
@@ -155,6 +264,15 @@ export class PortingPortInInstance {
     return {
       portInRequestSid: this.portInRequestSid,
       url: this.url,
+      accountSid: this.accountSid,
+      notificationEmails: this.notificationEmails,
+      targetPortInDate: this.targetPortInDate,
+      targetPortInTimeRangeStart: this.targetPortInTimeRangeStart,
+      targetPortInTimeRangeEnd: this.targetPortInTimeRangeEnd,
+      portInRequestStatus: this.portInRequestStatus,
+      losingCarrierInformation: this.losingCarrierInformation,
+      phoneNumbers: this.phoneNumbers,
+      documents: this.documents,
     };
   }
 
