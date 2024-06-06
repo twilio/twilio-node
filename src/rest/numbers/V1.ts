@@ -22,6 +22,7 @@ import { PortingPortabilityListInstance } from "./v1/portingPortability";
 import { PortingWebhookConfigurationListInstance } from "./v1/portingWebhookConfiguration";
 import { PortingWebhookConfigurationDeleteListInstance } from "./v1/portingWebhookConfigurationDelete";
 import { PortingWebhookConfigurationFetchListInstance } from "./v1/portingWebhookConfigurationFetch";
+import { SigningRequestConfigurationListInstance } from "./v1/signingRequestConfiguration";
 
 export default class V1 extends Version {
   /**
@@ -49,6 +50,8 @@ export default class V1 extends Version {
   protected _portingWebhookConfigurationsDelete?: PortingWebhookConfigurationDeleteListInstance;
   /** portingWebhookConfigurationFetch - { Twilio.Numbers.V1.PortingWebhookConfigurationFetchListInstance } resource */
   protected _portingWebhookConfigurationFetch?: PortingWebhookConfigurationFetchListInstance;
+  /** signingRequestConfigurations - { Twilio.Numbers.V1.SigningRequestConfigurationListInstance } resource */
+  protected _signingRequestConfigurations?: SigningRequestConfigurationListInstance;
 
   /** Getter for bulkEligibilities resource */
   get bulkEligibilities(): BulkEligibilityListInstance {
@@ -107,5 +110,13 @@ export default class V1 extends Version {
       this._portingWebhookConfigurationFetch ||
       PortingWebhookConfigurationFetchListInstance(this);
     return this._portingWebhookConfigurationFetch;
+  }
+
+  /** Getter for signingRequestConfigurations resource */
+  get signingRequestConfigurations(): SigningRequestConfigurationListInstance {
+    this._signingRequestConfigurations =
+      this._signingRequestConfigurations ||
+      SigningRequestConfigurationListInstance(this);
+    return this._signingRequestConfigurations;
   }
 }

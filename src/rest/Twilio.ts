@@ -23,6 +23,7 @@ import Insights from "./Insights";
 import Intelligence from "./Intelligence";
 import IpMessaging from "./IpMessaging";
 import Lookups from "./Lookups";
+import Marketplace from "./Marketplace";
 import Messaging from "./Messaging";
 import Microvisor from "./Microvisor";
 import Monitor from "./Monitor";
@@ -102,6 +103,8 @@ class Twilio extends Client {
   _ipMessaging?: IpMessaging;
   /** (Twilio.Lookups) - lookups domain */
   _lookups?: Lookups;
+  /** (Twilio.Marketplace) - marketplace domain */
+  _marketplace?: Marketplace;
   /** (Twilio.Messaging) - messaging domain */
   _messaging?: Messaging;
   /** (Twilio.Microvisor) - microvisor domain */
@@ -175,6 +178,7 @@ class Twilio extends Client {
       this.intelligence;
       this.ipMessaging;
       this.lookups;
+      this.marketplace;
       this.messaging;
       this.microvisor;
       this.monitor;
@@ -270,6 +274,13 @@ class Twilio extends Client {
   /** Getter for (Twilio.Lookups) domain */
   get lookups(): Lookups {
     return this._lookups ?? (this._lookups = new (require("./Lookups"))(this));
+  }
+  /** Getter for (Twilio.Marketplace) domain */
+  get marketplace(): Marketplace {
+    return (
+      this._marketplace ??
+      (this._marketplace = new (require("./Marketplace"))(this))
+    );
   }
   /** Getter for (Twilio.Messaging) domain */
   get messaging(): Messaging {

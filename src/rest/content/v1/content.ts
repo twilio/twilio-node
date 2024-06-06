@@ -22,188 +22,12 @@ import { isValidPathParam } from "../../../base/utility";
 import { ApprovalCreateListInstance } from "./content/approvalCreate";
 import { ApprovalFetchListInstance } from "./content/approvalFetch";
 
-export class AuthenticationAction {
-  "type": AuthenticationActionType;
-  "copyCodeText": string;
-}
-
-export type AuthenticationActionType = "COPY_CODE";
-
-export class CallToActionAction {
-  "type": CallToActionActionType;
-  "title": string;
-  "url"?: string;
-  "phone"?: string;
-  "id"?: string;
-}
-
-export type CallToActionActionType = "URL" | "PHONE_NUMBER";
-
-export class CardAction {
-  "type": CardActionType;
-  "title": string;
-  "url"?: string;
-  "phone"?: string;
-  "id"?: string;
-}
-
-export type CardActionType = "URL" | "PHONE_NUMBER" | "QUICK_REPLY";
-
-export class CatalogItem {
-  "id"?: string;
-  "sectionTitle"?: string;
-  "name"?: string;
-  "mediaUrl"?: string;
-  "price"?: number;
-  "description"?: string;
-}
-
-/**
- * Content creation request body
- */
-export class ContentCreateRequest {
-  /**
-   * User defined name of the content
-   */
-  "friendlyName"?: string;
-  /**
-   * Key value pairs of variable name to value
-   */
-  "variables"?: { [key: string]: string };
-  /**
-   * Language code for the content
-   */
-  "language": string;
-  "types": Types;
-}
-
-export class ListItem {
-  "id": string;
-  "item": string;
-  "description"?: string;
-}
-
-export class QuickReplyAction {
-  "type": QuickReplyActionType;
-  "title": string;
-  "id"?: string;
-}
-
-export type QuickReplyActionType = "QUICK_REPLY";
-
-/**
- * twilio/call-to-action buttons let recipients tap to trigger actions such as launching a website or making a phone call.
- */
-export class TwilioCallToAction {
-  "body"?: string;
-  "actions"?: Array<CallToActionAction>;
-}
-
-/**
- * twilio/card is a structured template which can be used to send a series of related information. It must include a title and at least one additional field.
- */
-export class TwilioCard {
-  "title": string;
-  "subtitle"?: string;
-  "media"?: Array<string>;
-  "actions"?: Array<CardAction>;
-}
-
-/**
- * twilio/catalog type lets recipients view list of catalog products, ask questions about products, order products.
- */
-export class TwilioCatalog {
-  "title"?: string;
-  "body": string;
-  "subtitle"?: string;
-  "id"?: string;
-  "items"?: Array<CatalogItem>;
-  "dynamicItems"?: string;
-}
-
-/**
- * twilio/list-picker includes a menu of up to 10 options, which offers a simple way for users to make a selection.
- */
-export class TwilioListPicker {
-  "body": string;
-  "button": string;
-  "items": Array<ListItem>;
-}
-
-/**
- * twilio/location type contains a location pin and an optional label, which can be used to enhance delivery notifications or connect recipients to physical experiences you offer.
- */
-export class TwilioLocation {
-  "latitude": number;
-  "longitude": number;
-  "label"?: string;
-}
-
-/**
- * twilio/media is used to send file attachments, or to send long text via MMS in the US and Canada. As such, the twilio/media type must contain at least ONE of text or media content.
- */
-export class TwilioMedia {
-  "body"?: string;
-  "media": Array<string>;
-}
-
-/**
- * twilio/quick-reply templates let recipients tap, rather than type, to respond to the message.
- */
-export class TwilioQuickReply {
-  "body": string;
-  "actions": Array<QuickReplyAction>;
-}
-
-/**
- * Type containing only plain text-based content
- */
-export class TwilioText {
-  "body": string;
-}
-
-/**
- * Content types
- */
-export class Types {
-  "twilioText"?: TwilioText | null;
-  "twilioMedia"?: TwilioMedia | null;
-  "twilioLocation"?: TwilioLocation | null;
-  "twilioListPicker"?: TwilioListPicker | null;
-  "twilioCallToAction"?: TwilioCallToAction | null;
-  "twilioQuickReply"?: TwilioQuickReply | null;
-  "twilioCard"?: TwilioCard | null;
-  "twilioCatalog"?: TwilioCatalog | null;
-  "whatsappCard"?: WhatsappCard | null;
-  "whatsappAuthentication"?: WhatsappAuthentication | null;
-}
-
-/**
- * whatsApp/authentication templates let companies deliver WA approved one-time-password button.
- */
-export class WhatsappAuthentication {
-  "addSecurityRecommendation"?: boolean;
-  "codeExpirationMinutes"?: number;
-  "actions": Array<AuthenticationAction>;
-}
-
-/**
- * whatsapp/card is a structured template which can be used to send a series of related information. It must include a body and at least one additional field.
- */
-export class WhatsappCard {
-  "body": string;
-  "footer"?: string;
-  "media"?: Array<string>;
-  "headerText"?: string;
-  "actions"?: Array<CardAction>;
-}
-
 /**
  * Options to pass to create a ContentInstance
  */
 export interface ContentListInstanceCreateOptions {
   /**  */
-  contentCreateRequest: ContentCreateRequest;
+  body?: object;
 }
 /**
  * Options to pass to each
@@ -426,7 +250,7 @@ export class ContentInstance {
    */
   variables: any;
   /**
-   * The [Content types](https://www.twilio.com/docs/content-api/content-types-overview) (e.g. twilio/text) for this Content resource.
+   * The [Content types](https://www.twilio.com/docs/content/content-types-overview) (e.g. twilio/text) for this Content resource.
    */
   types: any;
   /**
@@ -523,13 +347,23 @@ export interface ContentListInstance {
   /**
    * Create a ContentInstance
    *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed ContentInstance
+   */
+  create(
+    callback?: (error: Error | null, item?: ContentInstance) => any
+  ): Promise<ContentInstance>;
+  /**
+   * Create a ContentInstance
+   *
    * @param params - Body for request
    * @param callback - Callback to handle processed record
    *
    * @returns Resolves to processed ContentInstance
    */
   create(
-    params: ContentCreateRequest,
+    params: object,
     callback?: (error: Error | null, item?: ContentInstance) => any
   ): Promise<ContentInstance>;
 
@@ -621,11 +455,14 @@ export function ContentListInstance(version: V1): ContentListInstance {
   instance._uri = `/Content`;
 
   instance.create = function create(
-    params: ContentCreateRequest,
+    params?: object | ((error: Error | null, items: ContentInstance) => any),
     callback?: (error: Error | null, items: ContentInstance) => any
   ): Promise<ContentInstance> {
-    if (params === null || params === undefined) {
-      throw new Error('Required parameter "params" missing.');
+    if (params instanceof Function) {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
     }
 
     let data: any = {};

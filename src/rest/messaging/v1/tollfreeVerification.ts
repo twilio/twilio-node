@@ -25,7 +25,8 @@ export type TollfreeVerificationOptInType =
   | "WEB_FORM"
   | "PAPER_FORM"
   | "VIA_TEXT"
-  | "MOBILE_QR_CODE";
+  | "MOBILE_QR_CODE"
+  | "IMPORT";
 
 export type TollfreeVerificationStatus =
   | "PENDING_REVIEW"
@@ -140,6 +141,10 @@ export interface TollfreeVerificationListInstanceEachOptions {
   tollfreePhoneNumberSid?: string;
   /** The compliance status of the Tollfree Verification record. */
   status?: TollfreeVerificationStatus;
+  /** Customer supplied reference id for the Tollfree Verification record. */
+  externalReferenceId?: string;
+  /** Whether to include Tollfree Verifications from sub accounts in list response. */
+  includeSubAccounts?: boolean;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
@@ -161,6 +166,10 @@ export interface TollfreeVerificationListInstanceOptions {
   tollfreePhoneNumberSid?: string;
   /** The compliance status of the Tollfree Verification record. */
   status?: TollfreeVerificationStatus;
+  /** Customer supplied reference id for the Tollfree Verification record. */
+  externalReferenceId?: string;
+  /** Whether to include Tollfree Verifications from sub accounts in list response. */
+  includeSubAccounts?: boolean;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
   /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
@@ -175,6 +184,10 @@ export interface TollfreeVerificationListInstancePageOptions {
   tollfreePhoneNumberSid?: string;
   /** The compliance status of the Tollfree Verification record. */
   status?: TollfreeVerificationStatus;
+  /** Customer supplied reference id for the Tollfree Verification record. */
+  externalReferenceId?: string;
+  /** Whether to include Tollfree Verifications from sub accounts in list response. */
+  includeSubAccounts?: boolean;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
   /** Page Number, this value is simply for client state */
@@ -1068,6 +1081,10 @@ export function TollfreeVerificationListInstance(
     if (params["tollfreePhoneNumberSid"] !== undefined)
       data["TollfreePhoneNumberSid"] = params["tollfreePhoneNumberSid"];
     if (params["status"] !== undefined) data["Status"] = params["status"];
+    if (params["externalReferenceId"] !== undefined)
+      data["ExternalReferenceId"] = params["externalReferenceId"];
+    if (params["includeSubAccounts"] !== undefined)
+      data["IncludeSubAccounts"] = serialize.bool(params["includeSubAccounts"]);
     if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;

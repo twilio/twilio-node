@@ -26,6 +26,24 @@ import { isValidPathParam } from "../../../base/utility";
 export interface ContentAndApprovalsListInstanceEachOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Whether to sort by ascending or descending date updated */
+  sortByDate?: string;
+  /** Whether to sort by ascending or descending content name */
+  sortByContentName?: string;
+  /** Filter by >=[date-time] */
+  dateCreatedAfter?: Date;
+  /** Filter by <=[date-time] */
+  dateCreatedBefore?: Date;
+  /** Filter by Regex Pattern in content name */
+  contentName?: string;
+  /** Filter by Regex Pattern in template content */
+  content?: string;
+  /** Filter by array of valid language(s) */
+  language?: Array<string>;
+  /** Filter by array of contentType(s) */
+  contentType?: Array<string>;
+  /** Filter by array of ChannelEligibility(s), where ChannelEligibility=<channel>:<status> */
+  channelEligibility?: Array<string>;
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (
     item: ContentAndApprovalsInstance,
@@ -43,6 +61,24 @@ export interface ContentAndApprovalsListInstanceEachOptions {
 export interface ContentAndApprovalsListInstanceOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Whether to sort by ascending or descending date updated */
+  sortByDate?: string;
+  /** Whether to sort by ascending or descending content name */
+  sortByContentName?: string;
+  /** Filter by >=[date-time] */
+  dateCreatedAfter?: Date;
+  /** Filter by <=[date-time] */
+  dateCreatedBefore?: Date;
+  /** Filter by Regex Pattern in content name */
+  contentName?: string;
+  /** Filter by Regex Pattern in template content */
+  content?: string;
+  /** Filter by array of valid language(s) */
+  language?: Array<string>;
+  /** Filter by array of contentType(s) */
+  contentType?: Array<string>;
+  /** Filter by array of ChannelEligibility(s), where ChannelEligibility=<channel>:<status> */
+  channelEligibility?: Array<string>;
   /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
@@ -53,6 +89,24 @@ export interface ContentAndApprovalsListInstanceOptions {
 export interface ContentAndApprovalsListInstancePageOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
+  /** Whether to sort by ascending or descending date updated */
+  sortByDate?: string;
+  /** Whether to sort by ascending or descending content name */
+  sortByContentName?: string;
+  /** Filter by >=[date-time] */
+  dateCreatedAfter?: Date;
+  /** Filter by <=[date-time] */
+  dateCreatedBefore?: Date;
+  /** Filter by Regex Pattern in content name */
+  contentName?: string;
+  /** Filter by Regex Pattern in template content */
+  content?: string;
+  /** Filter by array of valid language(s) */
+  language?: Array<string>;
+  /** Filter by array of contentType(s) */
+  contentType?: Array<string>;
+  /** Filter by array of ChannelEligibility(s), where ChannelEligibility=<channel>:<status> */
+  channelEligibility?: Array<string>;
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
   /** PageToken provided by the API */
@@ -179,6 +233,33 @@ export function ContentAndApprovalsListInstance(
     let data: any = {};
 
     if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+    if (params["sortByDate"] !== undefined)
+      data["SortByDate"] = params["sortByDate"];
+    if (params["sortByContentName"] !== undefined)
+      data["SortByContentName"] = params["sortByContentName"];
+    if (params["dateCreatedAfter"] !== undefined)
+      data["DateCreatedAfter"] = serialize.iso8601DateTime(
+        params["dateCreatedAfter"]
+      );
+    if (params["dateCreatedBefore"] !== undefined)
+      data["DateCreatedBefore"] = serialize.iso8601DateTime(
+        params["dateCreatedBefore"]
+      );
+    if (params["contentName"] !== undefined)
+      data["ContentName"] = params["contentName"];
+    if (params["content"] !== undefined) data["Content"] = params["content"];
+    if (params["language"] !== undefined)
+      data["Language"] = serialize.map(params["language"], (e: string) => e);
+    if (params["contentType"] !== undefined)
+      data["ContentType"] = serialize.map(
+        params["contentType"],
+        (e: string) => e
+      );
+    if (params["channelEligibility"] !== undefined)
+      data["ChannelEligibility"] = serialize.map(
+        params["channelEligibility"],
+        (e: string) => e
+      );
 
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
