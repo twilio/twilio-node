@@ -19,7 +19,7 @@ import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
-import { PhoneNumberCapabilities } from "../../../../interfaces";
+import { PhoneNumberCapabilities, PhoneNumberCapabilitiesResource } from "../../../../interfaces";
 
 /**
  * Options to pass to update a ShortCodeInstance
@@ -264,7 +264,7 @@ interface ShortCodeResource {
   date_updated: Date;
   short_code: string;
   iso_country: string;
-  capabilities: PhoneNumberCapabilities;
+  capabilities: PhoneNumberCapabilitiesResource;
   url: string;
   is_reserved: boolean;
 }
@@ -286,7 +286,12 @@ export class ShortCodeInstance {
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
     this.shortCode = payload.short_code;
     this.isoCountry = payload.iso_country;
-    this.capabilities = payload.capabilities;
+    this.capabilities = {
+      voice: payload.capabilities.voice,
+      sms: payload.capabilities.SMS,
+      mms: payload.capabilities.MMS,
+      fax: payload.capabilities.fax ?? false,
+    };
     this.url = payload.url;
     this.isReserved = payload.is_reserved;
 

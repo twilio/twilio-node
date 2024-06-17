@@ -19,7 +19,7 @@ import V2010 from "../../../V2010";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
-import { PhoneNumberCapabilities } from "../../../../../interfaces";
+import { PhoneNumberCapabilities, PhoneNumberCapabilitiesResource } from "../../../../../interfaces";
 
 /**
  * Options to pass to each
@@ -408,7 +408,7 @@ interface MachineToMachineResource {
   iso_country: string;
   address_requirements: string;
   beta: boolean;
-  capabilities: PhoneNumberCapabilities;
+  capabilities: PhoneNumberCapabilitiesResource;
 }
 
 export class MachineToMachineInstance {
@@ -430,7 +430,12 @@ export class MachineToMachineInstance {
     this.isoCountry = payload.iso_country;
     this.addressRequirements = payload.address_requirements;
     this.beta = payload.beta;
-    this.capabilities = payload.capabilities;
+    this.capabilities = {
+      voice: payload.capabilities.voice,
+      sms: payload.capabilities.SMS,
+      mms: payload.capabilities.MMS,
+      fax: payload.capabilities.fax ?? false,
+    };
   }
 
   /**
