@@ -662,7 +662,7 @@ export class CallInstance {
    */
   duration: string;
   /**
-   * The charge for this call, in the currency associated with the account. Populated after the call is completed. May not be immediately available.
+   * The charge for this call, in the currency associated with the account. Populated after the call is completed. May not be immediately available. The price associated with a call only reflects the charge for connectivity.  Charges for other call-related features such as Answering Machine Detection, Text-To-Speech, and SIP REFER are not included in this value.
    */
   price: string;
   /**

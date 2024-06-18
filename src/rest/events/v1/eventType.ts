@@ -148,6 +148,8 @@ interface EventTypeResource {
   date_created: Date;
   date_updated: Date;
   description: string;
+  status: string;
+  documentation_url: string;
   url: string;
   links: Record<string, string>;
 }
@@ -166,6 +168,8 @@ export class EventTypeInstance {
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
     this.description = payload.description;
+    this.status = payload.status;
+    this.documentationUrl = payload.documentation_url;
     this.url = payload.url;
     this.links = payload.links;
 
@@ -192,6 +196,14 @@ export class EventTypeInstance {
    * A human readable description for this Event Type.
    */
   description: string;
+  /**
+   * A string that describes how this Event Type can be used. For example: `available`, `deprecated`, `restricted`, `discontinued`. When the status is `available`, the Event Type can be used normally.
+   */
+  status: string;
+  /**
+   * The URL to the documentation or to the most relevant Twilio Changelog entry of this Event Type.
+   */
+  documentationUrl: string;
   /**
    * The URL of this resource.
    */
@@ -230,6 +242,8 @@ export class EventTypeInstance {
       dateCreated: this.dateCreated,
       dateUpdated: this.dateUpdated,
       description: this.description,
+      status: this.status,
+      documentationUrl: this.documentationUrl,
       url: this.url,
       links: this.links,
     };

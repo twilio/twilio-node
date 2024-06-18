@@ -144,6 +144,7 @@ interface PortingPortInResource {
   losing_carrier_information: any;
   phone_numbers: Array<any>;
   documents: Array<string>;
+  date_created: Date;
 }
 
 export class PortingPortInInstance {
@@ -168,6 +169,7 @@ export class PortingPortInInstance {
     this.losingCarrierInformation = payload.losing_carrier_information;
     this.phoneNumbers = payload.phone_numbers;
     this.documents = payload.documents;
+    this.dateCreated = deserialize.iso8601Date(payload.date_created);
 
     this._solution = {
       portInRequestSid: portInRequestSid || this.portInRequestSid,
@@ -218,6 +220,7 @@ export class PortingPortInInstance {
    * The list of documents SID referencing a utility bills
    */
   documents: Array<string>;
+  dateCreated: Date;
 
   private get _proxy(): PortingPortInContext {
     this._context =
@@ -273,6 +276,7 @@ export class PortingPortInInstance {
       losingCarrierInformation: this.losingCarrierInformation,
       phoneNumbers: this.phoneNumbers,
       documents: this.documents,
+      dateCreated: this.dateCreated,
     };
   }
 

@@ -393,7 +393,7 @@ export class RecordingInstance {
   priceUnit: string;
   status: RecordingStatus;
   /**
-   * The number of channels in the final recording file. Can be: `1` or `2`. You can split a call with two legs into two separate recording channels if you record using [TwiML Dial](https://www.twilio.com/docs/voice/twiml/dial#record) or the [Outbound Rest API](https://www.twilio.com/docs/voice/make-calls#manage-your-outbound-call).
+   * The number of channels in the final recording file. Can be: `1` or `2`.
    */
   channels: number;
   source: RecordingSource;

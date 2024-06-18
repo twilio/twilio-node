@@ -19,15 +19,29 @@ const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
 
 /**
+ * Content approval request body
+ */
+export class ContentApprovalRequest {
+  /**
+   * Name of the template.
+   */
+  "name": string;
+  /**
+   * A WhatsApp recognized template category.
+   */
+  "category": string;
+}
+
+/**
  * Options to pass to create a ApprovalCreateInstance
  */
 export interface ApprovalCreateListInstanceCreateOptions {
   /**  */
-  body?: object;
+  contentApprovalRequest: ContentApprovalRequest;
 }
 
 export interface ApprovalCreateSolution {
-  sid: string;
+  contentSid: string;
 }
 
 export interface ApprovalCreateListInstance {
@@ -38,23 +52,13 @@ export interface ApprovalCreateListInstance {
   /**
    * Create a ApprovalCreateInstance
    *
-   * @param callback - Callback to handle processed record
-   *
-   * @returns Resolves to processed ApprovalCreateInstance
-   */
-  create(
-    callback?: (error: Error | null, item?: ApprovalCreateInstance) => any
-  ): Promise<ApprovalCreateInstance>;
-  /**
-   * Create a ApprovalCreateInstance
-   *
    * @param params - Body for request
    * @param callback - Callback to handle processed record
    *
    * @returns Resolves to processed ApprovalCreateInstance
    */
   create(
-    params: object,
+    params: ContentApprovalRequest,
     callback?: (error: Error | null, item?: ApprovalCreateInstance) => any
   ): Promise<ApprovalCreateInstance>;
 
@@ -67,29 +71,24 @@ export interface ApprovalCreateListInstance {
 
 export function ApprovalCreateListInstance(
   version: V1,
-  sid: string
+  contentSid: string
 ): ApprovalCreateListInstance {
-  if (!isValidPathParam(sid)) {
-    throw new Error("Parameter 'sid' is not valid.");
+  if (!isValidPathParam(contentSid)) {
+    throw new Error("Parameter 'contentSid' is not valid.");
   }
 
   const instance = {} as ApprovalCreateListInstance;
 
   instance._version = version;
-  instance._solution = { sid };
-  instance._uri = `/Content/${sid}/ApprovalRequests/whatsapp`;
+  instance._solution = { contentSid };
+  instance._uri = `/Content/${contentSid}/ApprovalRequests/whatsapp`;
 
   instance.create = function create(
-    params?:
-      | object
-      | ((error: Error | null, items: ApprovalCreateInstance) => any),
+    params: ContentApprovalRequest,
     callback?: (error: Error | null, items: ApprovalCreateInstance) => any
   ): Promise<ApprovalCreateInstance> {
-    if (params instanceof Function) {
-      callback = params;
-      params = {};
-    } else {
-      params = params || {};
+    if (params === null || params === undefined) {
+      throw new Error('Required parameter "params" missing.');
     }
 
     let data: any = {};
@@ -112,7 +111,7 @@ export function ApprovalCreateListInstance(
         new ApprovalCreateInstance(
           operationVersion,
           payload,
-          instance._solution.sid
+          instance._solution.contentSid
         )
     );
 
@@ -152,7 +151,7 @@ export class ApprovalCreateInstance {
   constructor(
     protected _version: V1,
     payload: ApprovalCreateResource,
-    sid: string
+    contentSid: string
   ) {
     this.name = payload.name;
     this.category = payload.category;

@@ -152,12 +152,15 @@ interface PortingPortInPhoneNumberResource {
   date_created: Date;
   country: string;
   missing_required_fields: boolean;
-  status_last_time_updated_timestamp: Date;
+  last_updated: Date;
   phone_number: string;
   portable: boolean;
   not_portability_reason: string;
-  not_portability_reason_code: string;
+  not_portability_reason_code: number;
   port_in_phone_number_status: string;
+  port_out_pin: number;
+  rejection_reason: string;
+  rejection_reason_code: number;
 }
 
 export class PortingPortInPhoneNumberInstance {
@@ -178,14 +181,19 @@ export class PortingPortInPhoneNumberInstance {
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.country = payload.country;
     this.missingRequiredFields = payload.missing_required_fields;
-    this.statusLastTimeUpdatedTimestamp = deserialize.iso8601DateTime(
-      payload.status_last_time_updated_timestamp
-    );
+    this.lastUpdated = deserialize.iso8601DateTime(payload.last_updated);
     this.phoneNumber = payload.phone_number;
     this.portable = payload.portable;
     this.notPortabilityReason = payload.not_portability_reason;
-    this.notPortabilityReasonCode = payload.not_portability_reason_code;
+    this.notPortabilityReasonCode = deserialize.integer(
+      payload.not_portability_reason_code
+    );
     this.portInPhoneNumberStatus = payload.port_in_phone_number_status;
+    this.portOutPin = deserialize.integer(payload.port_out_pin);
+    this.rejectionReason = payload.rejection_reason;
+    this.rejectionReasonCode = deserialize.integer(
+      payload.rejection_reason_code
+    );
 
     this._solution = {
       portInRequestSid: portInRequestSid || this.portInRequestSid,
@@ -225,7 +233,7 @@ export class PortingPortInPhoneNumberInstance {
   /**
    * The timestamp when the status was last updated.
    */
-  statusLastTimeUpdatedTimestamp: Date;
+  lastUpdated: Date;
   /**
    * The phone number.
    */
@@ -241,11 +249,23 @@ export class PortingPortInPhoneNumberInstance {
   /**
    * The code of the reason why the phone number is not portable.
    */
-  notPortabilityReasonCode: string;
+  notPortabilityReasonCode: number;
   /**
    * The status of the phone number in the port in request.
    */
   portInPhoneNumberStatus: string;
+  /**
+   * The pin required for the losing carrier to port out the phone number.
+   */
+  portOutPin: number;
+  /**
+   * The rejection reason returned by the vendor.
+   */
+  rejectionReason: string;
+  /**
+   * The rejection reason code returned by the vendor.
+   */
+  rejectionReasonCode: number;
 
   private get _proxy(): PortingPortInPhoneNumberContext {
     this._context =
@@ -302,12 +322,15 @@ export class PortingPortInPhoneNumberInstance {
       dateCreated: this.dateCreated,
       country: this.country,
       missingRequiredFields: this.missingRequiredFields,
-      statusLastTimeUpdatedTimestamp: this.statusLastTimeUpdatedTimestamp,
+      lastUpdated: this.lastUpdated,
       phoneNumber: this.phoneNumber,
       portable: this.portable,
       notPortabilityReason: this.notPortabilityReason,
       notPortabilityReasonCode: this.notPortabilityReasonCode,
       portInPhoneNumberStatus: this.portInPhoneNumberStatus,
+      portOutPin: this.portOutPin,
+      rejectionReason: this.rejectionReason,
+      rejectionReasonCode: this.rejectionReasonCode,
     };
   }
 
