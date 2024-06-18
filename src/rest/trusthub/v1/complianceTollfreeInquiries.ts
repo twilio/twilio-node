@@ -73,6 +73,8 @@ export interface ComplianceTollfreeInquiriesListInstanceCreateOptions {
   businessContactPhone?: string;
   /** Theme id for styling the inquiry form. */
   themeSetId?: string;
+  /** Skip the messaging use case screen of the inquiry form. */
+  skipMessagingUseCase?: boolean;
 }
 
 export interface ComplianceTollfreeInquiriesSolution {}
@@ -195,6 +197,10 @@ export function ComplianceTollfreeInquiriesListInstance(
       data["BusinessContactPhone"] = params["businessContactPhone"];
     if (params["themeSetId"] !== undefined)
       data["ThemeSetId"] = params["themeSetId"];
+    if (params["skipMessagingUseCase"] !== undefined)
+      data["SkipMessagingUseCase"] = serialize.bool(
+        params["skipMessagingUseCase"]
+      );
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";

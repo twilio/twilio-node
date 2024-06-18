@@ -152,8 +152,6 @@ interface PortingPortabilityResource {
   not_portable_reason_code: number;
   number_type: PortingPortabilityNumberType;
   country: string;
-  messaging_carrier: string;
-  voice_carrier: string;
   url: string;
 }
 
@@ -176,8 +174,6 @@ export class PortingPortabilityInstance {
     );
     this.numberType = payload.number_type;
     this.country = payload.country;
-    this.messagingCarrier = payload.messaging_carrier;
-    this.voiceCarrier = payload.voice_carrier;
     this.url = payload.url;
 
     this._solution = { phoneNumber: phoneNumber || this.phoneNumber };
@@ -212,14 +208,6 @@ export class PortingPortabilityInstance {
    * Country the phone number belongs to.
    */
   country: string;
-  /**
-   * Current messaging carrier of the phone number
-   */
-  messagingCarrier: string;
-  /**
-   * Current voice carrier of the phone number
-   */
-  voiceCarrier: string;
   /**
    * This is the url of the request that you\'re trying to reach out to locate the resource.
    */
@@ -280,8 +268,6 @@ export class PortingPortabilityInstance {
       notPortableReasonCode: this.notPortableReasonCode,
       numberType: this.numberType,
       country: this.country,
-      messagingCarrier: this.messagingCarrier,
-      voiceCarrier: this.voiceCarrier,
       url: this.url,
     };
   }
