@@ -170,11 +170,12 @@ namespace Twilio {
       });
       headers["Accept-Charset"] = "utf-8";
 
-      // if (
-      //   opts.method !== "get" && !headers["Content-Type"]
-      // ) {
-      //   headers["Content-Type"] = "application/x-www-form-urlencoded";
-      // }
+      if (
+        (opts.method === "post" || opts.method === "put") &&
+        !headers["Content-Type"]
+      ) {
+        headers["Content-Type"] = "application/x-www-form-urlencoded";
+      }
 
       if (!headers["Accept"]) {
         headers["Accept"] = "application/json";
