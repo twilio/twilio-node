@@ -18,11 +18,11 @@ const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
 
-export class CreateMarketplaceBillingUsageRequest {
-  "billableItems"?: Array<CreateMarketplaceBillingUsageRequestBillableItems>;
+export class CreateBillingUsageRequest {
+  "billableItems"?: Array<CreateBillingUsageRequestBillableItems>;
 }
 
-export class CreateMarketplaceBillingUsageRequestBillableItems {
+export class CreateBillingUsageRequestBillableItems {
   /**
    *
    */
@@ -33,7 +33,7 @@ export class CreateMarketplaceBillingUsageRequestBillableItems {
   "sid": string;
 }
 
-export class MarketplaceInstalledAddOnBillingUsageResponseBillableItems {
+export class MarketplaceV1InstalledAddOnBillingUsageResponseBillableItems {
   /**
    *
    */
@@ -53,7 +53,7 @@ export class MarketplaceInstalledAddOnBillingUsageResponseBillableItems {
  */
 export interface InstalledAddOnUsageListInstanceCreateOptions {
   /**  */
-  createMarketplaceBillingUsageRequest: CreateMarketplaceBillingUsageRequest;
+  createBillingUsageRequest: CreateBillingUsageRequest;
 }
 
 export interface InstalledAddOnUsageSolution {
@@ -74,7 +74,7 @@ export interface InstalledAddOnUsageListInstance {
    * @returns Resolves to processed InstalledAddOnUsageInstance
    */
   create(
-    params: CreateMarketplaceBillingUsageRequest,
+    params: CreateBillingUsageRequest,
     callback?: (error: Error | null, item?: InstalledAddOnUsageInstance) => any
   ): Promise<InstalledAddOnUsageInstance>;
 
@@ -100,7 +100,7 @@ export function InstalledAddOnUsageListInstance(
   instance._uri = `/InstalledAddOns/${installedAddOnSid}/Usage`;
 
   instance.create = function create(
-    params: CreateMarketplaceBillingUsageRequest,
+    params: CreateBillingUsageRequest,
     callback?: (error: Error | null, items: InstalledAddOnUsageInstance) => any
   ): Promise<InstalledAddOnUsageInstance> {
     if (params === null || params === undefined) {
@@ -155,7 +155,7 @@ export function InstalledAddOnUsageListInstance(
 interface InstalledAddOnUsagePayload extends InstalledAddOnUsageResource {}
 
 interface InstalledAddOnUsageResource {
-  billable_items: Array<MarketplaceInstalledAddOnBillingUsageResponseBillableItems>;
+  billable_items: Array<MarketplaceV1InstalledAddOnBillingUsageResponseBillableItems>;
   total_submitted: number;
 }
 
@@ -169,7 +169,7 @@ export class InstalledAddOnUsageInstance {
     this.totalSubmitted = payload.total_submitted;
   }
 
-  billableItems: Array<MarketplaceInstalledAddOnBillingUsageResponseBillableItems>;
+  billableItems: Array<MarketplaceV1InstalledAddOnBillingUsageResponseBillableItems>;
   /**
    * Represents the total quantity submitted.
    */

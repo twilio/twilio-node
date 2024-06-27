@@ -23,6 +23,13 @@ import { isValidPathParam } from "../../../../base/utility";
 export type RegulationEndUserType = "individual" | "business";
 
 /**
+ * Options to pass to fetch a RegulationInstance
+ */
+export interface RegulationContextFetchOptions {
+  /** A boolean parameter indicating whether to include constraints or not for supporting end user, documents and their fields */
+  includeConstraints?: boolean;
+}
+/**
  * Options to pass to each
  */
 export interface RegulationListInstanceEachOptions {
@@ -32,6 +39,8 @@ export interface RegulationListInstanceEachOptions {
   isoCountry?: string;
   /** The type of phone number that the regulatory requiremnt is restricting. */
   numberType?: string;
+  /** A boolean parameter indicating whether to include constraints or not for supporting end user, documents and their fields */
+  includeConstraints?: boolean;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
@@ -52,6 +61,8 @@ export interface RegulationListInstanceOptions {
   isoCountry?: string;
   /** The type of phone number that the regulatory requiremnt is restricting. */
   numberType?: string;
+  /** A boolean parameter indicating whether to include constraints or not for supporting end user, documents and their fields */
+  includeConstraints?: boolean;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
   /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
@@ -68,6 +79,8 @@ export interface RegulationListInstancePageOptions {
   isoCountry?: string;
   /** The type of phone number that the regulatory requiremnt is restricting. */
   numberType?: string;
+  /** A boolean parameter indicating whether to include constraints or not for supporting end user, documents and their fields */
+  includeConstraints?: boolean;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
   /** Page Number, this value is simply for client state */
@@ -85,6 +98,18 @@ export interface RegulationContext {
    * @returns Resolves to processed RegulationInstance
    */
   fetch(
+    callback?: (error: Error | null, item?: RegulationInstance) => any
+  ): Promise<RegulationInstance>;
+  /**
+   * Fetch a RegulationInstance
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed RegulationInstance
+   */
+  fetch(
+    params: RegulationContextFetchOptions,
     callback?: (error: Error | null, item?: RegulationInstance) => any
   ): Promise<RegulationInstance>;
 
@@ -113,13 +138,32 @@ export class RegulationContextImpl implements RegulationContext {
   }
 
   fetch(
+    params?:
+      | RegulationContextFetchOptions
+      | ((error: Error | null, item?: RegulationInstance) => any),
     callback?: (error: Error | null, item?: RegulationInstance) => any
   ): Promise<RegulationInstance> {
+    if (params instanceof Function) {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    let data: any = {};
+
+    if (params["includeConstraints"] !== undefined)
+      data["IncludeConstraints"] = serialize.bool(params["includeConstraints"]);
+
+    const headers: any = {};
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
         uri: instance._uri,
         method: "get",
+        params: data,
+        headers,
       });
 
     operationPromise = operationPromise.then(
@@ -228,8 +272,25 @@ export class RegulationInstance {
    */
   fetch(
     callback?: (error: Error | null, item?: RegulationInstance) => any
+  ): Promise<RegulationInstance>;
+  /**
+   * Fetch a RegulationInstance
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed RegulationInstance
+   */
+  fetch(
+    params: RegulationContextFetchOptions,
+    callback?: (error: Error | null, item?: RegulationInstance) => any
+  ): Promise<RegulationInstance>;
+
+  fetch(
+    params?: any,
+    callback?: (error: Error | null, item?: RegulationInstance) => any
   ): Promise<RegulationInstance> {
-    return this._proxy.fetch(callback);
+    return this._proxy.fetch(params, callback);
   }
 
   /**
@@ -372,6 +433,8 @@ export function RegulationListInstance(version: V2): RegulationListInstance {
       data["IsoCountry"] = params["isoCountry"];
     if (params["numberType"] !== undefined)
       data["NumberType"] = params["numberType"];
+    if (params["includeConstraints"] !== undefined)
+      data["IncludeConstraints"] = serialize.bool(params["includeConstraints"]);
     if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;

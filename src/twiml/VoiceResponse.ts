@@ -1315,6 +1315,10 @@ namespace VoiceResponse {
 
   type StreamTrack = "inbound_track" | "outbound_track" | "both_tracks";
 
+  type TranscriptionStatusCallbackMethod = "GET" | "POST";
+
+  type TranscriptionTrack = "inbound_track" | "outbound_track" | "both_tracks";
+
   /**
    * Attributes to pass to connect
    */
@@ -1644,6 +1648,58 @@ namespace VoiceResponse {
   }
 
   /**
+   * Attributes to pass to transcription
+   */
+  export interface TranscriptionAttributes {
+    /** enableAutomaticPunctuation - Enable Automatic Punctuation */
+    enableAutomaticPunctuation?: boolean;
+    /** hints - Hints to be provided to the transcription engine */
+    hints?: string;
+    /** inboundTrackLabel - Friendly name given to the Inbound Track */
+    inboundTrackLabel?: string;
+    /** languageCode - Language Code used by the transcription engine */
+    languageCode?: string;
+    /** name - Friendly name given to the Transcription */
+    name?: string;
+    /** outboundTrackLabel - Friendly name given to the Outbound Track Label */
+    outboundTrackLabel?: string;
+    /** partialResults - Indicates if partial results are going to be send to the customer */
+    partialResults?: boolean;
+    /** profanityFilter - Enable Profanity Filter */
+    profanityFilter?: boolean;
+    /** speechModel - Speech Model used by the transcription engine */
+    speechModel?: string;
+    /** statusCallbackMethod - Status Callback URL method */
+    statusCallbackMethod?: TranscriptionStatusCallbackMethod;
+    /** statusCallbackUrl - Status Callback URL */
+    statusCallbackUrl?: string;
+    /** track - Track to be analyze by the provider */
+    track?: TranscriptionTrack;
+    /** transcriptionEngine - Transcription Engine to be used */
+    transcriptionEngine?: string;
+  }
+
+  /**
+   * Attributes to pass to config
+   */
+  export interface ConfigAttributes {
+    /** name - The name of the custom config */
+    name?: string;
+    /** value - The value of the custom config */
+    value?: string;
+  }
+
+  /**
+   * Attributes to pass to parameter
+   */
+  export interface ParameterAttributes {
+    /** name - The name of the custom parameter */
+    name?: string;
+    /** value - The value of the custom parameter */
+    value?: string;
+  }
+
+  /**
    * Attributes to pass to parameter
    */
   export interface ParameterAttributes {
@@ -1695,6 +1751,38 @@ namespace VoiceResponse {
     statusCallbackMethod?: SiprecStatusCallbackMethod;
     /** track - Track to be streamed to remote service */
     track?: SiprecTrack;
+  }
+
+  /**
+   * Attributes to pass to transcription
+   */
+  export interface TranscriptionAttributes {
+    /** enableAutomaticPunctuation - Enable Automatic Punctuation */
+    enableAutomaticPunctuation?: boolean;
+    /** hints - Hints to be provided to the transcription engine */
+    hints?: string;
+    /** inboundTrackLabel - Friendly name given to the Inbound Track */
+    inboundTrackLabel?: string;
+    /** languageCode - Language Code used by the transcription engine */
+    languageCode?: string;
+    /** name - Friendly name given to the Transcription */
+    name?: string;
+    /** outboundTrackLabel - Friendly name given to the Outbound Track Label */
+    outboundTrackLabel?: string;
+    /** partialResults - Indicates if partial results are going to be send to the customer */
+    partialResults?: boolean;
+    /** profanityFilter - Enable Profanity Filter */
+    profanityFilter?: boolean;
+    /** speechModel - Speech Model used by the transcription engine */
+    speechModel?: string;
+    /** statusCallbackMethod - Status Callback URL method */
+    statusCallbackMethod?: TranscriptionStatusCallbackMethod;
+    /** statusCallbackUrl - Status Callback URL */
+    statusCallbackUrl?: string;
+    /** track - Track to be analyze by the provider */
+    track?: TranscriptionTrack;
+    /** transcriptionEngine - Transcription Engine to be used */
+    transcriptionEngine?: string;
   }
 
   /**
@@ -4877,6 +4965,18 @@ namespace VoiceResponse {
     stream(attributes?: VoiceResponse.StreamAttributes): VoiceResponse.Stream {
       return new VoiceResponse.Stream(this.start.ele("Stream", attributes));
     }
+    /**
+     * <Transcription> TwiML Noun
+     *
+     * @param attributes - TwiML attributes
+     */
+    transcription(
+      attributes?: VoiceResponse.TranscriptionAttributes
+    ): VoiceResponse.Transcription {
+      return new VoiceResponse.Transcription(
+        this.start.ele("Transcription", attributes)
+      );
+    }
   }
 
   export class Stop extends TwiML {
@@ -4904,6 +5004,18 @@ namespace VoiceResponse {
      */
     stream(attributes?: VoiceResponse.StreamAttributes): VoiceResponse.Stream {
       return new VoiceResponse.Stream(this.stop.ele("Stream", attributes));
+    }
+    /**
+     * <Transcription> TwiML Noun
+     *
+     * @param attributes - TwiML attributes
+     */
+    transcription(
+      attributes?: VoiceResponse.TranscriptionAttributes
+    ): VoiceResponse.Transcription {
+      return new VoiceResponse.Transcription(
+        this.stop.ele("Transcription", attributes)
+      );
     }
   }
 
@@ -4940,6 +5052,40 @@ namespace VoiceResponse {
       super();
       this.task = task;
       this._propertyName = "task";
+    }
+  }
+
+  export class Transcription extends TwiML {
+    transcription: XMLElement;
+    /**
+     * <Transcription> TwiML Noun
+     */
+    constructor(transcription: XMLElement) {
+      super();
+      this.transcription = transcription;
+      this._propertyName = "transcription";
+    }
+    /**
+     * <Config> TwiML Noun
+     *
+     * @param attributes - TwiML attributes
+     */
+    config(attributes?: VoiceResponse.ConfigAttributes): VoiceResponse.Config {
+      return new VoiceResponse.Config(
+        this.transcription.ele("Config", attributes)
+      );
+    }
+    /**
+     * <Parameter> TwiML Noun
+     *
+     * @param attributes - TwiML attributes
+     */
+    parameter(
+      attributes?: VoiceResponse.ParameterAttributes
+    ): VoiceResponse.Parameter {
+      return new VoiceResponse.Parameter(
+        this.transcription.ele("Parameter", attributes)
+      );
     }
   }
 
