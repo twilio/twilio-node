@@ -1,6 +1,12 @@
 twilio-node changelog
 =====================
 
+[2024-07-02] Version 5.2.2
+--------------------------
+**Intelligence**
+- Deprecate account flag api.twilio-intelligence.v2
+
+
 [2024-06-27] Version 5.2.1
 --------------------------
 **Api**
