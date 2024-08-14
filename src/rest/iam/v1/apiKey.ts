@@ -12,29 +12,23 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 
-
-
-
-
 /**
  * Options to pass to update a ApiKeyInstance
  */
 export interface ApiKeyContextUpdateOptions {
   /** A descriptive string that you create to describe the resource. It can be up to 64 characters long. */
-  "friendlyName"?: string;
+  friendlyName?: string;
   /** Collection of allow assertions. */
-  "policy"?: any;
+  policy?: any;
 }
 
 export interface ApiKeyContext {
-
   /**
    * Remove a ApiKeyInstance
    *
@@ -42,7 +36,9 @@ export interface ApiKeyContext {
    *
    * @returns Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean>;
 
   /**
    * Fetch a ApiKeyInstance
@@ -51,7 +47,9 @@ export interface ApiKeyContext {
    *
    * @returns Resolves to processed ApiKeyInstance
    */
-  fetch(callback?: (error: Error | null, item?: ApiKeyInstance) => any): Promise<ApiKeyInstance>
+  fetch(
+    callback?: (error: Error | null, item?: ApiKeyInstance) => any
+  ): Promise<ApiKeyInstance>;
 
   /**
    * Update a ApiKeyInstance
@@ -60,7 +58,9 @@ export interface ApiKeyContext {
    *
    * @returns Resolves to processed ApiKeyInstance
    */
-  update(callback?: (error: Error | null, item?: ApiKeyInstance) => any): Promise<ApiKeyInstance>;
+  update(
+    callback?: (error: Error | null, item?: ApiKeyInstance) => any
+  ): Promise<ApiKeyInstance>;
   /**
    * Update a ApiKeyInstance
    *
@@ -69,7 +69,10 @@ export interface ApiKeyContext {
    *
    * @returns Resolves to processed ApiKeyInstance
    */
-  update(params: ApiKeyContextUpdateOptions, callback?: (error: Error | null, item?: ApiKeyInstance) => any): Promise<ApiKeyInstance>;
+  update(
+    params: ApiKeyContextUpdateOptions,
+    callback?: (error: Error | null, item?: ApiKeyInstance) => any
+  ): Promise<ApiKeyInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -79,58 +82,78 @@ export interface ApiKeyContext {
 }
 
 export interface ApiKeyContextSolution {
-  "accountSid": string;
-  "sid": string;
+  accountSid: string;
+  sid: string;
 }
 
 export class ApiKeyContextImpl implements ApiKeyContext {
   protected _solution: ApiKeyContextSolution;
   protected _uri: string;
 
-
   constructor(protected _version: V1, accountSid: string, sid: string) {
     if (!isValidPathParam(accountSid)) {
-      throw new Error('Parameter \'accountSid\' is not valid.');
+      throw new Error("Parameter 'accountSid' is not valid.");
     }
 
     if (!isValidPathParam(sid)) {
-      throw new Error('Parameter \'sid\' is not valid.');
+      throw new Error("Parameter 'sid' is not valid.");
     }
 
-    this._solution = { accountSid, sid,  };
+    this._solution = { accountSid, sid };
     this._uri = `/Accounts/${accountSid}/Keys/${sid}`;
   }
 
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean> {
-  
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     const instance = this;
     let operationVersion = instance._version,
-        operationPromise = operationVersion.remove({ uri: instance._uri, method: "delete" });
-    
+      operationPromise = operationVersion.remove({
+        uri: instance._uri,
+        method: "delete",
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
-  fetch(callback?: (error: Error | null, item?: ApiKeyInstance) => any): Promise<ApiKeyInstance> {
-  
+  fetch(
+    callback?: (error: Error | null, item?: ApiKeyInstance) => any
+  ): Promise<ApiKeyInstance> {
     const instance = this;
     let operationVersion = instance._version,
-        operationPromise = operationVersion.fetch({ uri: instance._uri, method: "get" });
-    
-    operationPromise = operationPromise.then(payload => new ApiKeyInstance(operationVersion, payload, instance._solution.accountSid, instance._solution.sid));
-    
+      operationPromise = operationVersion.fetch({
+        uri: instance._uri,
+        method: "get",
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new ApiKeyInstance(
+          operationVersion,
+          payload,
+          instance._solution.accountSid,
+          instance._solution.sid
+        )
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
-  update(params?: ApiKeyContextUpdateOptions | ((error: Error | null, item?: ApiKeyInstance) => any), callback?: (error: Error | null, item?: ApiKeyInstance) => any): Promise<ApiKeyInstance> {
-      if (params instanceof Function) {
+  update(
+    params?:
+      | ApiKeyContextUpdateOptions
+      | ((error: Error | null, item?: ApiKeyInstance) => any),
+    callback?: (error: Error | null, item?: ApiKeyInstance) => any
+  ): Promise<ApiKeyInstance> {
+    if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -139,28 +162,38 @@ export class ApiKeyContextImpl implements ApiKeyContext {
 
     let data: any = {};
 
-    
-        if (params["friendlyName"] !== undefined)
-    data["FriendlyName"] = params["friendlyName"];
+    if (params["friendlyName"] !== undefined)
+      data["FriendlyName"] = params["friendlyName"];
     if (params["policy"] !== undefined)
-    data["Policy"] = serialize.object(params["policy"]);
-
-    
+      data["Policy"] = serialize.object(params["policy"]);
 
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
 
     const instance = this;
     let operationVersion = instance._version,
-        operationPromise = operationVersion.update({ uri: instance._uri, method: "post", data, headers });
-    
-    operationPromise = operationPromise.then(payload => new ApiKeyInstance(operationVersion, payload, instance._solution.accountSid, instance._solution.sid));
-    
+      operationPromise = operationVersion.update({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new ApiKeyInstance(
+          operationVersion,
+          payload,
+          instance._solution.accountSid,
+          instance._solution.sid
+        )
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   /**
@@ -177,7 +210,6 @@ export class ApiKeyContextImpl implements ApiKeyContext {
   }
 }
 
-
 interface ApiKeyPayload extends ApiKeyResource {}
 
 interface ApiKeyResource {
@@ -192,14 +224,19 @@ export class ApiKeyInstance {
   protected _solution: ApiKeyContextSolution;
   protected _context?: ApiKeyContext;
 
-  constructor(protected _version: V1, payload: ApiKeyResource, accountSid: string, sid?: string) {
-    this.sid = (payload.sid);
-    this.friendlyName = (payload.friendly_name);
+  constructor(
+    protected _version: V1,
+    payload: ApiKeyResource,
+    accountSid: string,
+    sid?: string
+  ) {
+    this.sid = payload.sid;
+    this.friendlyName = payload.friendly_name;
     this.dateCreated = deserialize.rfc2822DateTime(payload.date_created);
     this.dateUpdated = deserialize.rfc2822DateTime(payload.date_updated);
-    this.policy = (payload.policy);
+    this.policy = payload.policy;
 
-    this._solution = { accountSid, sid: sid || this.sid,  };
+    this._solution = { accountSid, sid: sid || this.sid };
   }
 
   /**
@@ -224,7 +261,13 @@ export class ApiKeyInstance {
   policy: any;
 
   private get _proxy(): ApiKeyContext {
-    this._context = this._context || new ApiKeyContextImpl(this._version, this._solution.accountSid, this._solution.sid);
+    this._context =
+      this._context ||
+      new ApiKeyContextImpl(
+        this._version,
+        this._solution.accountSid,
+        this._solution.sid
+      );
     return this._context;
   }
 
@@ -235,9 +278,9 @@ export class ApiKeyInstance {
    *
    * @returns Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
-
-    {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     return this._proxy.remove(callback);
   }
 
@@ -248,9 +291,9 @@ export class ApiKeyInstance {
    *
    * @returns Resolves to processed ApiKeyInstance
    */
-  fetch(callback?: (error: Error | null, item?: ApiKeyInstance) => any): Promise<ApiKeyInstance>
-
-    {
+  fetch(
+    callback?: (error: Error | null, item?: ApiKeyInstance) => any
+  ): Promise<ApiKeyInstance> {
     return this._proxy.fetch(callback);
   }
 
@@ -261,7 +304,9 @@ export class ApiKeyInstance {
    *
    * @returns Resolves to processed ApiKeyInstance
    */
-  update(callback?: (error: Error | null, item?: ApiKeyInstance) => any): Promise<ApiKeyInstance>;
+  update(
+    callback?: (error: Error | null, item?: ApiKeyInstance) => any
+  ): Promise<ApiKeyInstance>;
   /**
    * Update a ApiKeyInstance
    *
@@ -270,10 +315,15 @@ export class ApiKeyInstance {
    *
    * @returns Resolves to processed ApiKeyInstance
    */
-  update(params: ApiKeyContextUpdateOptions, callback?: (error: Error | null, item?: ApiKeyInstance) => any): Promise<ApiKeyInstance>;
+  update(
+    params: ApiKeyContextUpdateOptions,
+    callback?: (error: Error | null, item?: ApiKeyInstance) => any
+  ): Promise<ApiKeyInstance>;
 
-    update(params?: any, callback?: (error: Error | null, item?: ApiKeyInstance) => any): Promise<ApiKeyInstance>
-    {
+  update(
+    params?: any,
+    callback?: (error: Error | null, item?: ApiKeyInstance) => any
+  ): Promise<ApiKeyInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -289,7 +339,7 @@ export class ApiKeyInstance {
       dateCreated: this.dateCreated,
       dateUpdated: this.dateUpdated,
       policy: this.policy,
-    }
+    };
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
@@ -297,24 +347,15 @@ export class ApiKeyInstance {
   }
 }
 
-
-export interface ApiKeySolution {
-}
+export interface ApiKeySolution {}
 
 export interface ApiKeyListInstance {
   _version: V1;
   _solution: ApiKeySolution;
   _uri: string;
 
-  (accountSid: string, sid: string, ): ApiKeyContext;
-  get(accountSid: string, sid: string, ): ApiKeyContext;
-
-
-
-
-
-
-
+  (accountSid: string, sid: string): ApiKeyContext;
+  get(accountSid: string, sid: string): ApiKeyContext;
 
   /**
    * Provide a user-friendly representation
@@ -324,26 +365,28 @@ export interface ApiKeyListInstance {
 }
 
 export function ApiKeyListInstance(version: V1): ApiKeyListInstance {
-  const instance = ((sid, accountSid?, ) => instance.get(sid, accountSid, )) as ApiKeyListInstance;
+  const instance = ((sid, accountSid?) =>
+    instance.get(sid, accountSid)) as ApiKeyListInstance;
 
-  instance.get = function get(sid, accountSid?, ): ApiKeyContext {
+  instance.get = function get(sid, accountSid?): ApiKeyContext {
     accountSid = accountSid || version.domain.twilio.accountSid;
     return new ApiKeyContextImpl(version, accountSid, sid);
-  }
+  };
 
   instance._version = version;
-  instance._solution = {  };
+  instance._solution = {};
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions
+  ) {
     return inspect(instance.toJSON(), options);
-  }
+  };
 
   return instance;
 }
-
-

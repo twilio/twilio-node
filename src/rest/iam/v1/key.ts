@@ -12,29 +12,25 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 
-
-export type KeyKeytype = 'restricted';
-
+export type KeyKeytype = "restricted";
 
 /**
  * Options to pass to create a KeyInstance
  */
 export interface KeyListInstanceCreateOptions {
   /** A descriptive string that you create to describe the resource. It can be up to 64 characters long. */
-  "friendlyName"?: string;
+  friendlyName?: string;
   /**  */
-  "keyType"?: KeyKeytype;
+  keyType?: KeyKeytype;
   /** Collection of allow assertions. */
-  "policy"?: any;
+  policy?: any;
 }
-
 
 export interface KeySolution {
   accountSid: string;
@@ -45,8 +41,6 @@ export interface KeyListInstance {
   _solution: KeySolution;
   _uri: string;
 
-
-
   /**
    * Create a KeyInstance
    *
@@ -54,7 +48,9 @@ export interface KeyListInstance {
    *
    * @returns Resolves to processed KeyInstance
    */
-  create(callback?: (error: Error | null, item?: KeyInstance) => any): Promise<KeyInstance>;
+  create(
+    callback?: (error: Error | null, item?: KeyInstance) => any
+  ): Promise<KeyInstance>;
   /**
    * Create a KeyInstance
    *
@@ -63,8 +59,10 @@ export interface KeyListInstance {
    *
    * @returns Resolves to processed KeyInstance
    */
-  create(params: KeyListInstanceCreateOptions, callback?: (error: Error | null, item?: KeyInstance) => any): Promise<KeyInstance>;
-
+  create(
+    params: KeyListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: KeyInstance) => any
+  ): Promise<KeyInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -76,16 +74,21 @@ export interface KeyListInstance {
 export function KeyListInstance(version: V1): KeyListInstance {
   const accountSid = version.domain.twilio.accountSid;
   if (!isValidPathParam(accountSid)) {
-    throw new Error('Parameter \'accountSid\' is not valid.');
+    throw new Error("Parameter 'accountSid' is not valid.");
   }
 
   const instance = {} as KeyListInstance;
 
   instance._version = version;
-  instance._solution = { accountSid,  };
+  instance._solution = { accountSid };
   instance._uri = `/Accounts/${accountSid}/Keys`;
 
-  instance.create = function create(params?: KeyListInstanceCreateOptions | ((error: Error | null, items: KeyInstance) => any), callback?: (error: Error | null, items: KeyInstance) => any): Promise<KeyInstance> {
+  instance.create = function create(
+    params?:
+      | KeyListInstanceCreateOptions
+      | ((error: Error | null, items: KeyInstance) => any),
+    callback?: (error: Error | null, items: KeyInstance) => any
+  ): Promise<KeyInstance> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -95,38 +98,49 @@ export function KeyListInstance(version: V1): KeyListInstance {
 
     let data: any = {};
 
-    
-        if (params["friendlyName"] !== undefined)
-    data["FriendlyName"] = params["friendlyName"];
-    if (params["keyType"] !== undefined)
-    data["KeyType"] = params["keyType"];
+    if (params["friendlyName"] !== undefined)
+      data["FriendlyName"] = params["friendlyName"];
+    if (params["keyType"] !== undefined) data["KeyType"] = params["keyType"];
     if (params["policy"] !== undefined)
-    data["Policy"] = serialize.object(params["policy"]);
-
-    
+      data["Policy"] = serialize.object(params["policy"]);
 
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: instance._uri, method: "post", data, headers });
-    
-    operationPromise = operationPromise.then(payload => new KeyInstance(operationVersion, payload, instance._solution.accountSid));
-    
+      operationPromise = operationVersion.create({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new KeyInstance(
+          operationVersion,
+          payload,
+          instance._solution.accountSid
+        )
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
-    }
+  };
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions
+  ) {
     return inspect(instance.toJSON(), options);
-  }
+  };
 
   return instance;
 }
@@ -143,15 +157,17 @@ interface KeyResource {
 }
 
 export class KeyInstance {
-
-  constructor(protected _version: V1, payload: KeyResource, accountSid?: string) {
-    this.sid = (payload.sid);
-    this.friendlyName = (payload.friendly_name);
+  constructor(
+    protected _version: V1,
+    payload: KeyResource,
+    accountSid?: string
+  ) {
+    this.sid = payload.sid;
+    this.friendlyName = payload.friendly_name;
     this.dateCreated = deserialize.rfc2822DateTime(payload.date_created);
     this.dateUpdated = deserialize.rfc2822DateTime(payload.date_updated);
-    this.secret = (payload.secret);
-    this.policy = (payload.policy);
-
+    this.secret = payload.secret;
+    this.policy = payload.policy;
   }
 
   /**
@@ -192,12 +208,10 @@ export class KeyInstance {
       dateUpdated: this.dateUpdated,
       secret: this.secret,
       policy: this.policy,
-    }
+    };
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
 }
-
-

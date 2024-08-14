@@ -12,7 +12,6 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import Page, { TwilioResponsePayload } from "../../../base/Page";
 import Response from "../../../http/response";
@@ -21,13 +20,12 @@ const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 
-
 /**
  * Options to pass to each
  */
 export interface GetApiKeysListInstanceEachOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  "pageSize"?: number;
+  pageSize?: number;
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: GetApiKeysInstance, done: (err?: Error) => void) => void;
   /** Function to be called upon completion of streaming */
@@ -41,7 +39,7 @@ export interface GetApiKeysListInstanceEachOptions {
  */
 export interface GetApiKeysListInstanceOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  "pageSize"?: number;
+  pageSize?: number;
   /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
@@ -51,14 +49,12 @@ export interface GetApiKeysListInstanceOptions {
  */
 export interface GetApiKeysListInstancePageOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  "pageSize"?: number;
+  pageSize?: number;
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
   /** PageToken provided by the API */
   pageToken?: string;
 }
-
-
 
 export interface GetApiKeysSolution {
   accountSid: string;
@@ -68,9 +64,6 @@ export interface GetApiKeysListInstance {
   _version: V1;
   _solution: GetApiKeysSolution;
   _uri: string;
-
-
-
 
   /**
    * Streams GetApiKeysInstance records from the API.
@@ -87,8 +80,13 @@ export interface GetApiKeysListInstance {
    * @param { GetApiKeysListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(callback?: (item: GetApiKeysInstance, done: (err?: Error) => void) => void): void;
-  each(params: GetApiKeysListInstanceEachOptions, callback?: (item: GetApiKeysInstance, done: (err?: Error) => void) => void): void;
+  each(
+    callback?: (item: GetApiKeysInstance, done: (err?: Error) => void) => void
+  ): void;
+  each(
+    params: GetApiKeysListInstanceEachOptions,
+    callback?: (item: GetApiKeysInstance, done: (err?: Error) => void) => void
+  ): void;
   /**
    * Retrieve a single target page of GetApiKeysInstance records from the API.
    *
@@ -97,7 +95,10 @@ export interface GetApiKeysListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(targetUrl: string, callback?: (error: Error | null, items: GetApiKeysPage) => any): Promise<GetApiKeysPage>;
+  getPage(
+    targetUrl: string,
+    callback?: (error: Error | null, items: GetApiKeysPage) => any
+  ): Promise<GetApiKeysPage>;
   /**
    * Lists GetApiKeysInstance records from the API as a list.
    *
@@ -107,8 +108,13 @@ export interface GetApiKeysListInstance {
    * @param { GetApiKeysListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(callback?: (error: Error | null, items: GetApiKeysInstance[]) => any): Promise<GetApiKeysInstance[]>;
-  list(params: GetApiKeysListInstanceOptions, callback?: (error: Error | null, items: GetApiKeysInstance[]) => any): Promise<GetApiKeysInstance[]>;
+  list(
+    callback?: (error: Error | null, items: GetApiKeysInstance[]) => any
+  ): Promise<GetApiKeysInstance[]>;
+  list(
+    params: GetApiKeysListInstanceOptions,
+    callback?: (error: Error | null, items: GetApiKeysInstance[]) => any
+  ): Promise<GetApiKeysInstance[]>;
   /**
    * Retrieve a single page of GetApiKeysInstance records from the API.
    *
@@ -120,8 +126,13 @@ export interface GetApiKeysListInstance {
    * @param { GetApiKeysListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(callback?: (error: Error | null, items: GetApiKeysPage) => any): Promise<GetApiKeysPage>;
-  page(params: GetApiKeysListInstancePageOptions, callback?: (error: Error | null, items: GetApiKeysPage) => any): Promise<GetApiKeysPage>;
+  page(
+    callback?: (error: Error | null, items: GetApiKeysPage) => any
+  ): Promise<GetApiKeysPage>;
+  page(
+    params: GetApiKeysListInstancePageOptions,
+    callback?: (error: Error | null, items: GetApiKeysPage) => any
+  ): Promise<GetApiKeysPage>;
 
   /**
    * Provide a user-friendly representation
@@ -133,16 +144,21 @@ export interface GetApiKeysListInstance {
 export function GetApiKeysListInstance(version: V1): GetApiKeysListInstance {
   const accountSid = version.domain.twilio.accountSid;
   if (!isValidPathParam(accountSid)) {
-    throw new Error('Parameter \'accountSid\' is not valid.');
+    throw new Error("Parameter 'accountSid' is not valid.");
   }
 
   const instance = {} as GetApiKeysListInstance;
 
   instance._version = version;
-  instance._solution = { accountSid,  };
+  instance._solution = { accountSid };
   instance._uri = `/Accounts/${accountSid}/Keys`;
 
-  instance.page = function page(params?: GetApiKeysListInstancePageOptions | ((error: Error | null, items: GetApiKeysPage) => any), callback?: (error: Error | null, items: GetApiKeysPage) => any): Promise<GetApiKeysPage> {
+  instance.page = function page(
+    params?:
+      | GetApiKeysListInstancePageOptions
+      | ((error: Error | null, items: GetApiKeysPage) => any),
+    callback?: (error: Error | null, items: GetApiKeysPage) => any
+  ): Promise<GetApiKeysPage> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -152,50 +168,68 @@ export function GetApiKeysListInstance(version: V1): GetApiKeysListInstance {
 
     let data: any = {};
 
-        if (params["pageSize"] !== undefined)
-    data["PageSize"] = params["pageSize"];
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
-    
-    
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers });
-    
-    operationPromise = operationPromise.then(payload => new GetApiKeysPage(operationVersion, payload, instance._solution));
+      operationPromise = operationVersion.page({
+        uri: instance._uri,
+        method: "get",
+        params: data,
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new GetApiKeysPage(operationVersion, payload, instance._solution)
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-  }
+  };
   instance.each = instance._version.each;
   instance.list = instance._version.list;
 
-  instance.getPage = function getPage(targetUrl: string, callback?: (error: Error | null, items: GetApiKeysPage) => any): Promise<GetApiKeysPage> {
-    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
+  instance.getPage = function getPage(
+    targetUrl: string,
+    callback?: (error: Error | null, items: GetApiKeysPage) => any
+  ): Promise<GetApiKeysPage> {
+    const operationPromise = instance._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
 
-    let pagePromise = operationPromise.then(payload => new GetApiKeysPage(instance._version, payload, instance._solution));
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new GetApiKeysPage(instance._version, payload, instance._solution)
+    );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  }
-
+  };
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions
+  ) {
     return inspect(instance.toJSON(), options);
-  }
+  };
 
   return instance;
 }
 
 interface GetApiKeysPayload extends TwilioResponsePayload {
-    keys: GetApiKeysResource[];
+  keys: GetApiKeysResource[];
 }
 
 interface GetApiKeysResource {
@@ -206,13 +240,15 @@ interface GetApiKeysResource {
 }
 
 export class GetApiKeysInstance {
-
-  constructor(protected _version: V1, payload: GetApiKeysResource, accountSid?: string) {
-    this.sid = (payload.sid);
-    this.friendlyName = (payload.friendly_name);
+  constructor(
+    protected _version: V1,
+    payload: GetApiKeysResource,
+    accountSid?: string
+  ) {
+    this.sid = payload.sid;
+    this.friendlyName = payload.friendly_name;
     this.dateCreated = deserialize.rfc2822DateTime(payload.date_created);
     this.dateUpdated = deserialize.rfc2822DateTime(payload.date_updated);
-
   }
 
   /**
@@ -243,7 +279,7 @@ export class GetApiKeysInstance {
       friendlyName: this.friendlyName,
       dateCreated: this.dateCreated,
       dateUpdated: this.dateUpdated,
-    }
+    };
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
@@ -251,33 +287,41 @@ export class GetApiKeysInstance {
   }
 }
 
-export class GetApiKeysPage extends Page<V1, GetApiKeysPayload, GetApiKeysResource, GetApiKeysInstance> {
-/**
-* Initialize the GetApiKeysPage
-*
-* @param version - Version of the resource
-* @param response - Response from the API
-* @param solution - Path solution
-*/
-constructor(version: V1, response: Response<string>, solution: GetApiKeysSolution) {
+export class GetApiKeysPage extends Page<
+  V1,
+  GetApiKeysPayload,
+  GetApiKeysResource,
+  GetApiKeysInstance
+> {
+  /**
+   * Initialize the GetApiKeysPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(
+    version: V1,
+    response: Response<string>,
+    solution: GetApiKeysSolution
+  ) {
     super(version, response, solution);
-    }
+  }
 
-    /**
-    * Build an instance of GetApiKeysInstance
-    *
-    * @param payload - Payload response from the API
-    */
-    getInstance(payload: GetApiKeysResource): GetApiKeysInstance {
+  /**
+   * Build an instance of GetApiKeysInstance
+   *
+   * @param payload - Payload response from the API
+   */
+  getInstance(payload: GetApiKeysResource): GetApiKeysInstance {
     return new GetApiKeysInstance(
-    this._version,
-    payload,
-        this._solution.accountSid,
+      this._version,
+      payload,
+      this._solution.accountSid
     );
-    }
+  }
 
-    [inspect.custom](depth: any, options: InspectOptions) {
+  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-    }
-    }
-
+  }
+}

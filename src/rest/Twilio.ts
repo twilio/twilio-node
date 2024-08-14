@@ -257,10 +257,7 @@ class Twilio extends Client {
   }
   /** Getter for (Twilio.FrontlineApi) domain */
   get iam(): Iam {
-    return (
-        this._iam ??
-        (this._iam = new (require("./Iam"))(this))
-    );
+    return this._iam ?? (this._iam = new (require("./Iam"))(this));
   }
   /** Getter for (Twilio.Insights) domain */
   get insights(): Insights {

@@ -52,5 +52,4 @@ export default class V1 extends Version {
     this._keys = this._keys || KeyListInstance(this);
     return this._keys;
   }
-
 }
