@@ -17,6 +17,7 @@ import Version from "../../base/Version";
 import { AvailableAddOnListInstance } from "./v1/availableAddOn";
 import { InstalledAddOnListInstance } from "./v1/installedAddOn";
 import { ModuleDataManagementListInstance } from "./v1/moduleDataManagement";
+import { ReferralConversionListInstance } from "./v1/referralConversion";
 
 export default class V1 extends Version {
   /**
@@ -34,6 +35,8 @@ export default class V1 extends Version {
   protected _installedAddOns?: InstalledAddOnListInstance;
   /** moduleDataManagement - { Twilio.Marketplace.V1.ModuleDataManagementListInstance } resource */
   protected _moduleDataManagement?: ModuleDataManagementListInstance;
+  /** referralConversion - { Twilio.Marketplace.V1.ReferralConversionListInstance } resource */
+  protected _referralConversion?: ReferralConversionListInstance;
 
   /** Getter for availableAddOns resource */
   get availableAddOns(): AvailableAddOnListInstance {
@@ -54,5 +57,12 @@ export default class V1 extends Version {
     this._moduleDataManagement =
       this._moduleDataManagement || ModuleDataManagementListInstance(this);
     return this._moduleDataManagement;
+  }
+
+  /** Getter for referralConversion resource */
+  get referralConversion(): ReferralConversionListInstance {
+    this._referralConversion =
+      this._referralConversion || ReferralConversionListInstance(this);
+    return this._referralConversion;
   }
 }

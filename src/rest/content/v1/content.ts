@@ -49,6 +49,23 @@ export class CardAction {
 
 export type CardActionType = "URL" | "PHONE_NUMBER" | "QUICK_REPLY";
 
+export class CarouselAction {
+  "type": CarouselActionType;
+  "title": string;
+  "url"?: string;
+  "phone"?: string;
+  "id"?: string;
+}
+
+export type CarouselActionType = "URL" | "PHONE_NUMBER" | "QUICK_REPLY";
+
+export class CarouselCard {
+  "title"?: string;
+  "body"?: string;
+  "media"?: string;
+  "actions"?: Array<CarouselAction>;
+}
+
 export class CatalogItem {
   "id"?: string;
   "sectionTitle"?: string;
@@ -107,6 +124,14 @@ export class TwilioCard {
   "subtitle"?: string;
   "media"?: Array<string>;
   "actions"?: Array<CardAction>;
+}
+
+/**
+ * twilio/carousel templates allow you to send a single text message accompanied by a set of up to 10 carousel cards in a horizontally scrollable view
+ */
+export class TwilioCarousel {
+  "body": string;
+  "cards": Array<CarouselCard>;
 }
 
 /**
@@ -174,6 +199,7 @@ export class Types {
   "twilioQuickReply"?: TwilioQuickReply | null;
   "twilioCard"?: TwilioCard | null;
   "twilioCatalog"?: TwilioCatalog | null;
+  "twilioCarousel"?: TwilioCarousel | null;
   "whatsappCard"?: WhatsappCard | null;
   "whatsappAuthentication"?: WhatsappAuthentication | null;
 }

@@ -16,6 +16,7 @@ import NumbersBase from "../NumbersBase";
 import Version from "../../base/Version";
 import { AuthorizationDocumentListInstance } from "./v2/authorizationDocument";
 import { BulkHostedNumberOrderListInstance } from "./v2/bulkHostedNumberOrder";
+import { BundleCloneListInstance } from "./v2/bundleClone";
 import { HostedNumberOrderListInstance } from "./v2/hostedNumberOrder";
 import { RegulatoryComplianceListInstance } from "./v2/regulatoryCompliance";
 
@@ -33,6 +34,8 @@ export default class V2 extends Version {
   protected _authorizationDocuments?: AuthorizationDocumentListInstance;
   /** bulkHostedNumberOrders - { Twilio.Numbers.V2.BulkHostedNumberOrderListInstance } resource */
   protected _bulkHostedNumberOrders?: BulkHostedNumberOrderListInstance;
+  /** bundleClone - { Twilio.Numbers.V2.BundleCloneListInstance } resource */
+  protected _bundleClone?: BundleCloneListInstance;
   /** hostedNumberOrders - { Twilio.Numbers.V2.HostedNumberOrderListInstance } resource */
   protected _hostedNumberOrders?: HostedNumberOrderListInstance;
   /** regulatoryCompliance - { Twilio.Numbers.V2.RegulatoryComplianceListInstance } resource */
@@ -50,6 +53,12 @@ export default class V2 extends Version {
     this._bulkHostedNumberOrders =
       this._bulkHostedNumberOrders || BulkHostedNumberOrderListInstance(this);
     return this._bulkHostedNumberOrders;
+  }
+
+  /** Getter for bundleClone resource */
+  get bundleClone(): BundleCloneListInstance {
+    this._bundleClone = this._bundleClone || BundleCloneListInstance(this);
+    return this._bundleClone;
   }
 
   /** Getter for hostedNumberOrders resource */

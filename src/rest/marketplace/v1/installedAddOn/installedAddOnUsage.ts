@@ -18,21 +18,6 @@ const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
 
-export class CreateBillingUsageRequest {
-  "billableItems"?: Array<CreateBillingUsageRequestBillableItems>;
-}
-
-export class CreateBillingUsageRequestBillableItems {
-  /**
-   *
-   */
-  "quantity": number;
-  /**
-   *
-   */
-  "sid": string;
-}
-
 export class MarketplaceV1InstalledAddOnBillingUsageResponseBillableItems {
   /**
    *
@@ -48,12 +33,27 @@ export class MarketplaceV1InstalledAddOnBillingUsageResponseBillableItems {
   "submitted"?: boolean;
 }
 
+export class MarketplaceV1InstalledAddOnInstalledAddOnUsage {
+  "billableItems": Array<MarketplaceV1InstalledAddOnInstalledAddOnUsageBillableItems>;
+}
+
+export class MarketplaceV1InstalledAddOnInstalledAddOnUsageBillableItems {
+  /**
+   * Any floating number greater than 0.
+   */
+  "quantity": number;
+  /**
+   * BillingSid to use for billing.
+   */
+  "sid": string;
+}
+
 /**
  * Options to pass to create a InstalledAddOnUsageInstance
  */
 export interface InstalledAddOnUsageListInstanceCreateOptions {
   /**  */
-  createBillingUsageRequest: CreateBillingUsageRequest;
+  marketplaceV1InstalledAddOnInstalledAddOnUsage: MarketplaceV1InstalledAddOnInstalledAddOnUsage;
 }
 
 export interface InstalledAddOnUsageSolution {
@@ -74,7 +74,7 @@ export interface InstalledAddOnUsageListInstance {
    * @returns Resolves to processed InstalledAddOnUsageInstance
    */
   create(
-    params: CreateBillingUsageRequest,
+    params: MarketplaceV1InstalledAddOnInstalledAddOnUsage,
     callback?: (error: Error | null, item?: InstalledAddOnUsageInstance) => any
   ): Promise<InstalledAddOnUsageInstance>;
 
@@ -100,7 +100,7 @@ export function InstalledAddOnUsageListInstance(
   instance._uri = `/InstalledAddOns/${installedAddOnSid}/Usage`;
 
   instance.create = function create(
-    params: CreateBillingUsageRequest,
+    params: MarketplaceV1InstalledAddOnInstalledAddOnUsage,
     callback?: (error: Error | null, items: InstalledAddOnUsageInstance) => any
   ): Promise<InstalledAddOnUsageInstance> {
     if (params === null || params === undefined) {

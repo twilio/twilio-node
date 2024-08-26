@@ -19,6 +19,7 @@ import V2010 from "../../../../V2010";
 const deserialize = require("../../../../../../base/deserialize");
 const serialize = require("../../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../../base/utility";
+import { DataListInstance } from "./payload/data";
 
 /**
  * Options to pass to each
@@ -57,6 +58,8 @@ export interface PayloadListInstancePageOptions {
 }
 
 export interface PayloadContext {
+  data: DataListInstance;
+
   /**
    * Remove a PayloadInstance
    *
@@ -97,6 +100,8 @@ export class PayloadContextImpl implements PayloadContext {
   protected _solution: PayloadContextSolution;
   protected _uri: string;
 
+  protected _data?: DataListInstance;
+
   constructor(
     protected _version: V2010,
     accountSid: string,
@@ -122,6 +127,19 @@ export class PayloadContextImpl implements PayloadContext {
 
     this._solution = { accountSid, referenceSid, addOnResultSid, sid };
     this._uri = `/Accounts/${accountSid}/Recordings/${referenceSid}/AddOnResults/${addOnResultSid}/Payloads/${sid}.json`;
+  }
+
+  get data(): DataListInstance {
+    this._data =
+      this._data ||
+      DataListInstance(
+        this._version,
+        this._solution.accountSid,
+        this._solution.referenceSid,
+        this._solution.addOnResultSid,
+        this._solution.sid
+      );
+    return this._data;
   }
 
   remove(
@@ -316,6 +334,13 @@ export class PayloadInstance {
     callback?: (error: Error | null, item?: PayloadInstance) => any
   ): Promise<PayloadInstance> {
     return this._proxy.fetch(callback);
+  }
+
+  /**
+   * Access the data.
+   */
+  data(): DataListInstance {
+    return this._proxy.data;
   }
 
   /**
