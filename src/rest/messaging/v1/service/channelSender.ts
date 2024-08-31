@@ -21,6 +21,13 @@ const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
 
 /**
+ * Options to pass to create a ChannelSenderInstance
+ */
+export interface ChannelSenderListInstanceCreateOptions {
+  /** The SID of the Channel Sender being added to the Service. */
+  sid: string;
+}
+/**
  * Options to pass to each
  */
 export interface ChannelSenderListInstanceEachOptions {
@@ -57,6 +64,17 @@ export interface ChannelSenderListInstancePageOptions {
 }
 
 export interface ChannelSenderContext {
+  /**
+   * Remove a ChannelSenderInstance
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed boolean
+   */
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean>;
+
   /**
    * Fetch a ChannelSenderInstance
    *
@@ -99,6 +117,23 @@ export class ChannelSenderContextImpl implements ChannelSenderContext {
 
     this._solution = { messagingServiceSid, sid };
     this._uri = `/Services/${messagingServiceSid}/ChannelSenders/${sid}`;
+  }
+
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
+    const instance = this;
+    let operationVersion = instance._version,
+      operationPromise = operationVersion.remove({
+        uri: instance._uri,
+        method: "delete",
+      });
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
   }
 
   fetch(
@@ -230,6 +265,19 @@ export class ChannelSenderInstance {
   }
 
   /**
+   * Remove a ChannelSenderInstance
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed boolean
+   */
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
+    return this._proxy.remove(callback);
+  }
+
+  /**
    * Fetch a ChannelSenderInstance
    *
    * @param callback - Callback to handle processed record
@@ -277,6 +325,19 @@ export interface ChannelSenderListInstance {
 
   (sid: string): ChannelSenderContext;
   get(sid: string): ChannelSenderContext;
+
+  /**
+   * Create a ChannelSenderInstance
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed ChannelSenderInstance
+   */
+  create(
+    params: ChannelSenderListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: ChannelSenderInstance) => any
+  ): Promise<ChannelSenderInstance>;
 
   /**
    * Streams ChannelSenderInstance records from the API.
@@ -377,6 +438,49 @@ export function ChannelSenderListInstance(
   instance._version = version;
   instance._solution = { messagingServiceSid };
   instance._uri = `/Services/${messagingServiceSid}/ChannelSenders`;
+
+  instance.create = function create(
+    params: ChannelSenderListInstanceCreateOptions,
+    callback?: (error: Error | null, items: ChannelSenderInstance) => any
+  ): Promise<ChannelSenderInstance> {
+    if (params === null || params === undefined) {
+      throw new Error('Required parameter "params" missing.');
+    }
+
+    if (params["sid"] === null || params["sid"] === undefined) {
+      throw new Error("Required parameter \"params['sid']\" missing.");
+    }
+
+    let data: any = {};
+
+    data["Sid"] = params["sid"];
+
+    const headers: any = {};
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+
+    let operationVersion = version,
+      operationPromise = operationVersion.create({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      });
+
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new ChannelSenderInstance(
+          operationVersion,
+          payload,
+          instance._solution.messagingServiceSid
+        )
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  };
 
   instance.page = function page(
     params?:

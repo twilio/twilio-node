@@ -18,6 +18,24 @@ const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 
+/**
+ * Options to pass to update a FlexUserInstance
+ */
+export interface FlexUserContextUpdateOptions {
+  /** First name of the User. */
+  firstName?: string;
+  /** Last name of the User. */
+  lastName?: string;
+  /** Email of the User. */
+  email?: string;
+  /** Friendly name of the User. */
+  friendlyName?: string;
+  /** The unique SID identifier of the Twilio Unified User. */
+  userSid?: string;
+  /** The locale preference of the user. */
+  locale?: string;
+}
+
 export interface FlexUserContext {
   /**
    * Fetch a FlexUserInstance
@@ -27,6 +45,29 @@ export interface FlexUserContext {
    * @returns Resolves to processed FlexUserInstance
    */
   fetch(
+    callback?: (error: Error | null, item?: FlexUserInstance) => any
+  ): Promise<FlexUserInstance>;
+
+  /**
+   * Update a FlexUserInstance
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed FlexUserInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: FlexUserInstance) => any
+  ): Promise<FlexUserInstance>;
+  /**
+   * Update a FlexUserInstance
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed FlexUserInstance
+   */
+  update(
+    params: FlexUserContextUpdateOptions,
     callback?: (error: Error | null, item?: FlexUserInstance) => any
   ): Promise<FlexUserInstance>;
 
@@ -90,6 +131,59 @@ export class FlexUserContextImpl implements FlexUserContext {
     return operationPromise;
   }
 
+  update(
+    params?:
+      | FlexUserContextUpdateOptions
+      | ((error: Error | null, item?: FlexUserInstance) => any),
+    callback?: (error: Error | null, item?: FlexUserInstance) => any
+  ): Promise<FlexUserInstance> {
+    if (params instanceof Function) {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    let data: any = {};
+
+    if (params["firstName"] !== undefined)
+      data["FirstName"] = params["firstName"];
+    if (params["lastName"] !== undefined) data["LastName"] = params["lastName"];
+    if (params["email"] !== undefined) data["Email"] = params["email"];
+    if (params["friendlyName"] !== undefined)
+      data["FriendlyName"] = params["friendlyName"];
+    if (params["userSid"] !== undefined) data["UserSid"] = params["userSid"];
+    if (params["locale"] !== undefined) data["Locale"] = params["locale"];
+
+    const headers: any = {};
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+
+    const instance = this;
+    let operationVersion = instance._version,
+      operationPromise = operationVersion.update({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      });
+
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new FlexUserInstance(
+          operationVersion,
+          payload,
+          instance._solution.instanceSid,
+          instance._solution.flexUserSid
+        )
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
   /**
    * Provide a user-friendly representation
    *
@@ -119,6 +213,8 @@ interface FlexUserResource {
   username: string;
   email: string;
   friendly_name: string;
+  locale: string;
+  roles: Array<string>;
   created_date: Date;
   updated_date: Date;
   version: number;
@@ -147,6 +243,8 @@ export class FlexUserInstance {
     this.username = payload.username;
     this.email = payload.email;
     this.friendlyName = payload.friendly_name;
+    this.locale = payload.locale;
+    this.roles = payload.roles;
     this.createdDate = deserialize.iso8601DateTime(payload.created_date);
     this.updatedDate = deserialize.iso8601DateTime(payload.updated_date);
     this.version = deserialize.integer(payload.version);
@@ -207,6 +305,14 @@ export class FlexUserInstance {
    */
   friendlyName: string;
   /**
+   * The locale preference of the user.
+   */
+  locale: string;
+  /**
+   * The roles of the user.
+   */
+  roles: Array<string>;
+  /**
    * The date that this user was created, given in ISO 8601 format.
    */
   createdDate: Date;
@@ -245,6 +351,36 @@ export class FlexUserInstance {
   }
 
   /**
+   * Update a FlexUserInstance
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed FlexUserInstance
+   */
+  update(
+    callback?: (error: Error | null, item?: FlexUserInstance) => any
+  ): Promise<FlexUserInstance>;
+  /**
+   * Update a FlexUserInstance
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed FlexUserInstance
+   */
+  update(
+    params: FlexUserContextUpdateOptions,
+    callback?: (error: Error | null, item?: FlexUserInstance) => any
+  ): Promise<FlexUserInstance>;
+
+  update(
+    params?: any,
+    callback?: (error: Error | null, item?: FlexUserInstance) => any
+  ): Promise<FlexUserInstance> {
+    return this._proxy.update(params, callback);
+  }
+
+  /**
    * Provide a user-friendly representation
    *
    * @returns Object
@@ -263,6 +399,8 @@ export class FlexUserInstance {
       username: this.username,
       email: this.email,
       friendlyName: this.friendlyName,
+      locale: this.locale,
+      roles: this.roles,
       createdDate: this.createdDate,
       updatedDate: this.updatedDate,
       version: this.version,

@@ -67,9 +67,7 @@ export interface CallSummariesListInstanceEachOptions {
   fromCountryCode?: string;
   /** A destination country code. Based on phone number in To. */
   toCountryCode?: string;
-  /** A boolean flag indicating whether or not the calls were branded using Twilio Branded Calls. */
-  branded?: boolean;
-  /** A boolean flag indicating whether or not the caller was verified using SHAKEN/STIR. */
+  /** A boolean flag indicating whether or not the caller was verified using SHAKEN/STIR.One of \'true\' or \'false\'. */
   verifiedCaller?: boolean;
   /** A boolean flag indicating the presence of one or more [Voice Insights Call Tags](https://www.twilio.com/docs/voice/voice-insights/api/call/details-call-tags). */
   hasTag?: boolean;
@@ -103,6 +101,24 @@ export interface CallSummariesListInstanceEachOptions {
   spamAnnotation?: boolean;
   /** A Call Score of the calls. Use a range of 1-5 to indicate the call experience score, with the following mapping as a reference for the rated call [5: Excellent, 4: Good, 3 : Fair, 2 : Poor, 1: Bad]. */
   callScoreAnnotation?: string;
+  /** A boolean flag indicating whether or not the calls were branded using Twilio Branded Calls. One of \'true\' or \'false\' */
+  brandedEnabled?: boolean;
+  /** A boolean flag indicating whether or not the phone number had voice integrity enabled.One of \'true\' or \'false\' */
+  voiceIntegrityEnabled?: boolean;
+  /** A unique SID identifier of the Branded Call. */
+  brandedBundleSid?: string;
+  /** A unique SID identifier of the Voice Integrity Profile. */
+  voiceIntegrityBundleSid?: string;
+  /** A Voice Integrity Use Case . Is of type enum. One of \'abandoned_cart\', \'appointment_reminders\', \'appointment_scheduling\', \'asset_management\', \'automated_support\', \'call_tracking\', \'click_to_call\', \'contact_tracing\', \'contactless_delivery\', \'customer_support\', \'dating/social\', \'delivery_notifications\', \'distance_learning\', \'emergency_notifications\', \'employee_notifications\', \'exam_proctoring\', \'field_notifications\', \'first_responder\', \'fraud_alerts\', \'group_messaging\', \'identify_&_verification\', \'intelligent_routing\', \'lead_alerts\', \'lead_distribution\', \'lead_generation\', \'lead_management\', \'lead_nurturing\', \'marketing_events\', \'mass_alerts\', \'meetings/collaboration\', \'order_notifications\', \'outbound_dialer\', \'pharmacy\', \'phone_system\', \'purchase_confirmation\', \'remote_appointments\', \'rewards_program\', \'self-service\', \'service_alerts\', \'shift_management\', \'survey/research\', \'telehealth\', \'telemarketing\', \'therapy_(individual+group)\'. */
+  voiceIntegrityUseCase?: string;
+  /** A Business Identity of the calls. Is of type enum. One of \'direct_customer\', \'isv_reseller_or_partner\'.  */
+  businessProfileIdentity?: string;
+  /** A Business Industry of the calls. Is of type enum. One of \'automotive\', \'agriculture\', \'banking\', \'consumer\', \'construction\', \'education\', \'engineering\', \'energy\', \'oil_and_gas\', \'fast_moving_consumer_goods\', \'financial\', \'fintech\', \'food_and_beverage\', \'government\', \'healthcare\', \'hospitality\', \'insurance\', \'legal\', \'manufacturing\', \'media\', \'online\', \'professional_services\', \'raw_materials\', \'real_estate\', \'religion\', \'retail\', \'jewelry\', \'technology\', \'telecommunications\', \'transportation\', \'travel\', \'electronics\', \'not_for_profit\'  */
+  businessProfileIndustry?: string;
+  /** A unique SID identifier of the Business Profile. */
+  businessProfileBundleSid?: string;
+  /** A Business Profile Type of the calls. Is of type enum. One of \'primary\', \'secondary\'. */
+  businessProfileType?: string;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
@@ -129,9 +145,7 @@ export interface CallSummariesListInstanceOptions {
   fromCountryCode?: string;
   /** A destination country code. Based on phone number in To. */
   toCountryCode?: string;
-  /** A boolean flag indicating whether or not the calls were branded using Twilio Branded Calls. */
-  branded?: boolean;
-  /** A boolean flag indicating whether or not the caller was verified using SHAKEN/STIR. */
+  /** A boolean flag indicating whether or not the caller was verified using SHAKEN/STIR.One of \'true\' or \'false\'. */
   verifiedCaller?: boolean;
   /** A boolean flag indicating the presence of one or more [Voice Insights Call Tags](https://www.twilio.com/docs/voice/voice-insights/api/call/details-call-tags). */
   hasTag?: boolean;
@@ -165,6 +179,24 @@ export interface CallSummariesListInstanceOptions {
   spamAnnotation?: boolean;
   /** A Call Score of the calls. Use a range of 1-5 to indicate the call experience score, with the following mapping as a reference for the rated call [5: Excellent, 4: Good, 3 : Fair, 2 : Poor, 1: Bad]. */
   callScoreAnnotation?: string;
+  /** A boolean flag indicating whether or not the calls were branded using Twilio Branded Calls. One of \'true\' or \'false\' */
+  brandedEnabled?: boolean;
+  /** A boolean flag indicating whether or not the phone number had voice integrity enabled.One of \'true\' or \'false\' */
+  voiceIntegrityEnabled?: boolean;
+  /** A unique SID identifier of the Branded Call. */
+  brandedBundleSid?: string;
+  /** A unique SID identifier of the Voice Integrity Profile. */
+  voiceIntegrityBundleSid?: string;
+  /** A Voice Integrity Use Case . Is of type enum. One of \'abandoned_cart\', \'appointment_reminders\', \'appointment_scheduling\', \'asset_management\', \'automated_support\', \'call_tracking\', \'click_to_call\', \'contact_tracing\', \'contactless_delivery\', \'customer_support\', \'dating/social\', \'delivery_notifications\', \'distance_learning\', \'emergency_notifications\', \'employee_notifications\', \'exam_proctoring\', \'field_notifications\', \'first_responder\', \'fraud_alerts\', \'group_messaging\', \'identify_&_verification\', \'intelligent_routing\', \'lead_alerts\', \'lead_distribution\', \'lead_generation\', \'lead_management\', \'lead_nurturing\', \'marketing_events\', \'mass_alerts\', \'meetings/collaboration\', \'order_notifications\', \'outbound_dialer\', \'pharmacy\', \'phone_system\', \'purchase_confirmation\', \'remote_appointments\', \'rewards_program\', \'self-service\', \'service_alerts\', \'shift_management\', \'survey/research\', \'telehealth\', \'telemarketing\', \'therapy_(individual+group)\'. */
+  voiceIntegrityUseCase?: string;
+  /** A Business Identity of the calls. Is of type enum. One of \'direct_customer\', \'isv_reseller_or_partner\'.  */
+  businessProfileIdentity?: string;
+  /** A Business Industry of the calls. Is of type enum. One of \'automotive\', \'agriculture\', \'banking\', \'consumer\', \'construction\', \'education\', \'engineering\', \'energy\', \'oil_and_gas\', \'fast_moving_consumer_goods\', \'financial\', \'fintech\', \'food_and_beverage\', \'government\', \'healthcare\', \'hospitality\', \'insurance\', \'legal\', \'manufacturing\', \'media\', \'online\', \'professional_services\', \'raw_materials\', \'real_estate\', \'religion\', \'retail\', \'jewelry\', \'technology\', \'telecommunications\', \'transportation\', \'travel\', \'electronics\', \'not_for_profit\'  */
+  businessProfileIndustry?: string;
+  /** A unique SID identifier of the Business Profile. */
+  businessProfileBundleSid?: string;
+  /** A Business Profile Type of the calls. Is of type enum. One of \'primary\', \'secondary\'. */
+  businessProfileType?: string;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
   /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
@@ -187,9 +219,7 @@ export interface CallSummariesListInstancePageOptions {
   fromCountryCode?: string;
   /** A destination country code. Based on phone number in To. */
   toCountryCode?: string;
-  /** A boolean flag indicating whether or not the calls were branded using Twilio Branded Calls. */
-  branded?: boolean;
-  /** A boolean flag indicating whether or not the caller was verified using SHAKEN/STIR. */
+  /** A boolean flag indicating whether or not the caller was verified using SHAKEN/STIR.One of \'true\' or \'false\'. */
   verifiedCaller?: boolean;
   /** A boolean flag indicating the presence of one or more [Voice Insights Call Tags](https://www.twilio.com/docs/voice/voice-insights/api/call/details-call-tags). */
   hasTag?: boolean;
@@ -223,6 +253,24 @@ export interface CallSummariesListInstancePageOptions {
   spamAnnotation?: boolean;
   /** A Call Score of the calls. Use a range of 1-5 to indicate the call experience score, with the following mapping as a reference for the rated call [5: Excellent, 4: Good, 3 : Fair, 2 : Poor, 1: Bad]. */
   callScoreAnnotation?: string;
+  /** A boolean flag indicating whether or not the calls were branded using Twilio Branded Calls. One of \'true\' or \'false\' */
+  brandedEnabled?: boolean;
+  /** A boolean flag indicating whether or not the phone number had voice integrity enabled.One of \'true\' or \'false\' */
+  voiceIntegrityEnabled?: boolean;
+  /** A unique SID identifier of the Branded Call. */
+  brandedBundleSid?: string;
+  /** A unique SID identifier of the Voice Integrity Profile. */
+  voiceIntegrityBundleSid?: string;
+  /** A Voice Integrity Use Case . Is of type enum. One of \'abandoned_cart\', \'appointment_reminders\', \'appointment_scheduling\', \'asset_management\', \'automated_support\', \'call_tracking\', \'click_to_call\', \'contact_tracing\', \'contactless_delivery\', \'customer_support\', \'dating/social\', \'delivery_notifications\', \'distance_learning\', \'emergency_notifications\', \'employee_notifications\', \'exam_proctoring\', \'field_notifications\', \'first_responder\', \'fraud_alerts\', \'group_messaging\', \'identify_&_verification\', \'intelligent_routing\', \'lead_alerts\', \'lead_distribution\', \'lead_generation\', \'lead_management\', \'lead_nurturing\', \'marketing_events\', \'mass_alerts\', \'meetings/collaboration\', \'order_notifications\', \'outbound_dialer\', \'pharmacy\', \'phone_system\', \'purchase_confirmation\', \'remote_appointments\', \'rewards_program\', \'self-service\', \'service_alerts\', \'shift_management\', \'survey/research\', \'telehealth\', \'telemarketing\', \'therapy_(individual+group)\'. */
+  voiceIntegrityUseCase?: string;
+  /** A Business Identity of the calls. Is of type enum. One of \'direct_customer\', \'isv_reseller_or_partner\'.  */
+  businessProfileIdentity?: string;
+  /** A Business Industry of the calls. Is of type enum. One of \'automotive\', \'agriculture\', \'banking\', \'consumer\', \'construction\', \'education\', \'engineering\', \'energy\', \'oil_and_gas\', \'fast_moving_consumer_goods\', \'financial\', \'fintech\', \'food_and_beverage\', \'government\', \'healthcare\', \'hospitality\', \'insurance\', \'legal\', \'manufacturing\', \'media\', \'online\', \'professional_services\', \'raw_materials\', \'real_estate\', \'religion\', \'retail\', \'jewelry\', \'technology\', \'telecommunications\', \'transportation\', \'travel\', \'electronics\', \'not_for_profit\'  */
+  businessProfileIndustry?: string;
+  /** A unique SID identifier of the Business Profile. */
+  businessProfileBundleSid?: string;
+  /** A Business Profile Type of the calls. Is of type enum. One of \'primary\', \'secondary\'. */
+  businessProfileType?: string;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
   /** Page Number, this value is simply for client state */
@@ -354,8 +402,6 @@ export function CallSummariesListInstance(
       data["FromCountryCode"] = params["fromCountryCode"];
     if (params["toCountryCode"] !== undefined)
       data["ToCountryCode"] = params["toCountryCode"];
-    if (params["branded"] !== undefined)
-      data["Branded"] = serialize.bool(params["branded"]);
     if (params["verifiedCaller"] !== undefined)
       data["VerifiedCaller"] = serialize.bool(params["verifiedCaller"]);
     if (params["hasTag"] !== undefined)
@@ -388,6 +434,26 @@ export function CallSummariesListInstance(
       data["SpamAnnotation"] = serialize.bool(params["spamAnnotation"]);
     if (params["callScoreAnnotation"] !== undefined)
       data["CallScoreAnnotation"] = params["callScoreAnnotation"];
+    if (params["brandedEnabled"] !== undefined)
+      data["BrandedEnabled"] = serialize.bool(params["brandedEnabled"]);
+    if (params["voiceIntegrityEnabled"] !== undefined)
+      data["VoiceIntegrityEnabled"] = serialize.bool(
+        params["voiceIntegrityEnabled"]
+      );
+    if (params["brandedBundleSid"] !== undefined)
+      data["BrandedBundleSid"] = params["brandedBundleSid"];
+    if (params["voiceIntegrityBundleSid"] !== undefined)
+      data["VoiceIntegrityBundleSid"] = params["voiceIntegrityBundleSid"];
+    if (params["voiceIntegrityUseCase"] !== undefined)
+      data["VoiceIntegrityUseCase"] = params["voiceIntegrityUseCase"];
+    if (params["businessProfileIdentity"] !== undefined)
+      data["BusinessProfileIdentity"] = params["businessProfileIdentity"];
+    if (params["businessProfileIndustry"] !== undefined)
+      data["BusinessProfileIndustry"] = params["businessProfileIndustry"];
+    if (params["businessProfileBundleSid"] !== undefined)
+      data["BusinessProfileBundleSid"] = params["businessProfileBundleSid"];
+    if (params["businessProfileType"] !== undefined)
+      data["BusinessProfileType"] = params["businessProfileType"];
     if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;

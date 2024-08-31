@@ -26,6 +26,8 @@ import { isValidPathParam } from "../../../../base/utility";
 export interface SentenceListInstanceEachOptions {
   /** Grant access to PII Redacted/Unredacted Sentences. If redaction is enabled, the default is `true` to access redacted sentences. */
   redacted?: boolean;
+  /** Returns word level timestamps information, if word_timestamps is enabled. The default is `false`. */
+  wordTimestamps?: boolean;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
@@ -42,6 +44,8 @@ export interface SentenceListInstanceEachOptions {
 export interface SentenceListInstanceOptions {
   /** Grant access to PII Redacted/Unredacted Sentences. If redaction is enabled, the default is `true` to access redacted sentences. */
   redacted?: boolean;
+  /** Returns word level timestamps information, if word_timestamps is enabled. The default is `false`. */
+  wordTimestamps?: boolean;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
   /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
@@ -54,6 +58,8 @@ export interface SentenceListInstanceOptions {
 export interface SentenceListInstancePageOptions {
   /** Grant access to PII Redacted/Unredacted Sentences. If redaction is enabled, the default is `true` to access redacted sentences. */
   redacted?: boolean;
+  /** Returns word level timestamps information, if word_timestamps is enabled. The default is `false`. */
+  wordTimestamps?: boolean;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
   /** Page Number, this value is simply for client state */
@@ -178,6 +184,8 @@ export function SentenceListInstance(
 
     if (params["redacted"] !== undefined)
       data["Redacted"] = serialize.bool(params["redacted"]);
+    if (params["wordTimestamps"] !== undefined)
+      data["WordTimestamps"] = serialize.bool(params["wordTimestamps"]);
     if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
@@ -250,6 +258,7 @@ interface SentenceResource {
   transcript: string;
   sid: string;
   confidence: number;
+  words: Array<any>;
 }
 
 export class SentenceInstance {
@@ -265,6 +274,7 @@ export class SentenceInstance {
     this.transcript = payload.transcript;
     this.sid = payload.sid;
     this.confidence = payload.confidence;
+    this.words = payload.words;
   }
 
   /**
@@ -292,6 +302,10 @@ export class SentenceInstance {
    */
   sid: string;
   confidence: number;
+  /**
+   * Detailed information for each of the words of the given Sentence.
+   */
+  words: Array<any>;
 
   /**
    * Provide a user-friendly representation
@@ -307,6 +321,7 @@ export class SentenceInstance {
       transcript: this.transcript,
       sid: this.sid,
       confidence: this.confidence,
+      words: this.words,
     };
   }
 

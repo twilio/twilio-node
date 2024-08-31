@@ -70,6 +70,8 @@ export interface BundleListInstanceCreateOptions {
   endUserType?: BundleEndUserType;
   /** The type of phone number of the Bundle\\\'s ownership request. Can be `local`, `mobile`, `national`, or `toll free`. */
   numberType?: string;
+  /** Indicates that Bundle is a Test Bundle and will be Auto-Rejected */
+  isTest?: boolean;
 }
 /**
  * Options to pass to each
@@ -727,6 +729,8 @@ export function BundleListInstance(version: V2): BundleListInstance {
       data["EndUserType"] = params["endUserType"];
     if (params["numberType"] !== undefined)
       data["NumberType"] = params["numberType"];
+    if (params["isTest"] !== undefined)
+      data["IsTest"] = serialize.bool(params["isTest"]);
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
