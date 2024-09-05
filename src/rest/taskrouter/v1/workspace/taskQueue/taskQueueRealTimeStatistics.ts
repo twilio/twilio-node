@@ -251,7 +251,7 @@ export class TaskQueueRealTimeStatisticsInstance {
    */
   tasksByStatus: any;
   /**
-   * The total number of Workers available for Tasks in the TaskQueue.
+   * The total number of Workers in the TaskQueue with an `available` status. Workers with an `available` status may already have active interactions or may have none.
    */
   totalAvailableWorkers: number;
   /**

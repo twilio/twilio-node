@@ -1,6 +1,19 @@
 twilio-node changelog
 =====================
 
+[2024-09-05] Version 5.3.0
+--------------------------
+**Library - Chore**
+- [PR #1032](https://github.com/twilio/twilio-node/pull/1032): upgrade axios from 1.6.8 to 1.7.4. Thanks to [@jl-yang](https://github.com/jl-yang)!
+
+**Iam**
+- updated library_visibility public for new public apikeys
+
+**Numbers**
+- Add new field in Error Codes for Regulatory Compliance.
+- Change typing of Port In Request date_created field to date_time instead of date **(breaking change)**
+
+
 [2024-08-26] Version 5.2.3
 --------------------------
 **Library - Chore**

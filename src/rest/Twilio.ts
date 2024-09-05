@@ -19,6 +19,7 @@ import Conversations from "./Conversations";
 import Events from "./Events";
 import FlexApi from "./FlexApi";
 import FrontlineApi from "./FrontlineApi";
+import Iam from "./Iam";
 import Insights from "./Insights";
 import Intelligence from "./Intelligence";
 import IpMessaging from "./IpMessaging";
@@ -95,6 +96,8 @@ class Twilio extends Client {
   _flexApi?: FlexApi;
   /** (Twilio.FrontlineApi) - frontlineApi domain */
   _frontlineApi?: FrontlineApi;
+  /** (Twilio.Iam) - iam domain */
+  _iam?: Iam;
   /** (Twilio.Insights) - insights domain */
   _insights?: Insights;
   /** (Twilio.Intelligence) - intelligence domain */
@@ -174,6 +177,7 @@ class Twilio extends Client {
       this.events;
       this.flexApi;
       this.frontlineApi;
+      this.iam;
       this.insights;
       this.intelligence;
       this.ipMessaging;
@@ -250,6 +254,10 @@ class Twilio extends Client {
       this._frontlineApi ??
       (this._frontlineApi = new (require("./FrontlineApi"))(this))
     );
+  }
+  /** Getter for (Twilio.Iam) domain */
+  get iam(): Iam {
+    return this._iam ?? (this._iam = new (require("./Iam"))(this));
   }
   /** Getter for (Twilio.Insights) domain */
   get insights(): Insights {

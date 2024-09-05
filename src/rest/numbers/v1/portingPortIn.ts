@@ -169,7 +169,7 @@ export class PortingPortInInstance {
     this.losingCarrierInformation = payload.losing_carrier_information;
     this.phoneNumbers = payload.phone_numbers;
     this.documents = payload.documents;
-    this.dateCreated = deserialize.iso8601Date(payload.date_created);
+    this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
 
     this._solution = {
       portInRequestSid: portInRequestSid || this.portInRequestSid,

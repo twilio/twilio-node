@@ -34,10 +34,14 @@ export class CallToActionAction {
   "title": string;
   "url"?: string;
   "phone"?: string;
-  "id"?: string;
+  "code"?: string;
 }
 
-export type CallToActionActionType = "URL" | "PHONE_NUMBER";
+export type CallToActionActionType =
+  | "URL"
+  | "PHONE_NUMBER"
+  | "COPY_CODE"
+  | "VOICE_CALL";
 
 export class CardAction {
   "type": CardActionType;
@@ -45,9 +49,15 @@ export class CardAction {
   "url"?: string;
   "phone"?: string;
   "id"?: string;
+  "code"?: string;
 }
 
-export type CardActionType = "URL" | "PHONE_NUMBER" | "QUICK_REPLY";
+export type CardActionType =
+  | "URL"
+  | "PHONE_NUMBER"
+  | "QUICK_REPLY"
+  | "COPY_CODE"
+  | "VOICE_CALL";
 
 export class CarouselAction {
   "type": CarouselActionType;
@@ -92,6 +102,26 @@ export class ContentCreateRequest {
    */
   "language": string;
   "types": Types;
+}
+
+export class FlowsPage {
+  "id": string;
+  "nextPageId"?: string;
+  "title"?: string;
+  "subtitle"?: string;
+  "layout": Array<FlowsPageComponent>;
+}
+
+export class FlowsPageComponent {
+  "label": string;
+  "type": string;
+  "text"?: string;
+  "options"?: Array<FlowsPageComponentSelectItem>;
+}
+
+export class FlowsPageComponentSelectItem {
+  "id": string;
+  "title": string;
 }
 
 export class ListItem {
@@ -144,6 +174,18 @@ export class TwilioCatalog {
   "id"?: string;
   "items"?: Array<CatalogItem>;
   "dynamicItems"?: string;
+}
+
+/**
+ * twilio/flows templates allow you to send multiple messages in a set order with text or select options
+ */
+export class TwilioFlows {
+  "body": string;
+  "buttonText": string;
+  "subtitle": string;
+  "mediaUrl": string;
+  "pages": Array<FlowsPage>;
+  "type": string;
 }
 
 /**
@@ -200,6 +242,7 @@ export class Types {
   "twilioCard"?: TwilioCard | null;
   "twilioCatalog"?: TwilioCatalog | null;
   "twilioCarousel"?: TwilioCarousel | null;
+  "twilioFlows"?: TwilioFlows | null;
   "whatsappCard"?: WhatsappCard | null;
   "whatsappAuthentication"?: WhatsappAuthentication | null;
 }
