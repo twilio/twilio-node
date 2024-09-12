@@ -12,6 +12,7 @@
  * Do not edit the class manually.
  */
 
+
 import { inspect, InspectOptions } from "util";
 import Page, { TwilioResponsePayload } from "../../../../../base/Page";
 import Response from "../../../../../http/response";
@@ -20,18 +21,21 @@ const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
 
+
+
+
 /**
  * Options to pass to each
  */
 export interface MediaListInstanceEachOptions {
   /** Only include Media resources that were created on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read Media that were created on this date. You can also specify an inequality, such as `StartTime<=YYYY-MM-DD`, to read Media that were created on or before midnight of this date, and `StartTime>=YYYY-MM-DD` to read Media that were created on or after midnight of this date. */
-  dateCreated?: Date;
+  "dateCreated"?: Date;
   /** Only include Media resources that were created on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read Media that were created on this date. You can also specify an inequality, such as `StartTime<=YYYY-MM-DD`, to read Media that were created on or before midnight of this date, and `StartTime>=YYYY-MM-DD` to read Media that were created on or after midnight of this date. */
-  dateCreatedBefore?: Date;
+  "dateCreatedBefore"?: Date;
   /** Only include Media resources that were created on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read Media that were created on this date. You can also specify an inequality, such as `StartTime<=YYYY-MM-DD`, to read Media that were created on or before midnight of this date, and `StartTime>=YYYY-MM-DD` to read Media that were created on or after midnight of this date. */
-  dateCreatedAfter?: Date;
+  "dateCreatedAfter"?: Date;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: MediaInstance, done: (err?: Error) => void) => void;
   /** Function to be called upon completion of streaming */
@@ -45,13 +49,13 @@ export interface MediaListInstanceEachOptions {
  */
 export interface MediaListInstanceOptions {
   /** Only include Media resources that were created on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read Media that were created on this date. You can also specify an inequality, such as `StartTime<=YYYY-MM-DD`, to read Media that were created on or before midnight of this date, and `StartTime>=YYYY-MM-DD` to read Media that were created on or after midnight of this date. */
-  dateCreated?: Date;
+  "dateCreated"?: Date;
   /** Only include Media resources that were created on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read Media that were created on this date. You can also specify an inequality, such as `StartTime<=YYYY-MM-DD`, to read Media that were created on or before midnight of this date, and `StartTime>=YYYY-MM-DD` to read Media that were created on or after midnight of this date. */
-  dateCreatedBefore?: Date;
+  "dateCreatedBefore"?: Date;
   /** Only include Media resources that were created on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read Media that were created on this date. You can also specify an inequality, such as `StartTime<=YYYY-MM-DD`, to read Media that were created on or before midnight of this date, and `StartTime>=YYYY-MM-DD` to read Media that were created on or after midnight of this date. */
-  dateCreatedAfter?: Date;
+  "dateCreatedAfter"?: Date;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
@@ -61,20 +65,22 @@ export interface MediaListInstanceOptions {
  */
 export interface MediaListInstancePageOptions {
   /** Only include Media resources that were created on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read Media that were created on this date. You can also specify an inequality, such as `StartTime<=YYYY-MM-DD`, to read Media that were created on or before midnight of this date, and `StartTime>=YYYY-MM-DD` to read Media that were created on or after midnight of this date. */
-  dateCreated?: Date;
+  "dateCreated"?: Date;
   /** Only include Media resources that were created on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read Media that were created on this date. You can also specify an inequality, such as `StartTime<=YYYY-MM-DD`, to read Media that were created on or before midnight of this date, and `StartTime>=YYYY-MM-DD` to read Media that were created on or after midnight of this date. */
-  dateCreatedBefore?: Date;
+  "dateCreatedBefore"?: Date;
   /** Only include Media resources that were created on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read Media that were created on this date. You can also specify an inequality, such as `StartTime<=YYYY-MM-DD`, to read Media that were created on or before midnight of this date, and `StartTime>=YYYY-MM-DD` to read Media that were created on or after midnight of this date. */
-  dateCreatedAfter?: Date;
+  "dateCreatedAfter"?: Date;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
   /** PageToken provided by the API */
   pageToken?: string;
 }
 
+
 export interface MediaContext {
+
   /**
    * Remove a MediaInstance
    *
@@ -82,9 +88,7 @@ export interface MediaContext {
    *
    * @returns Resolves to processed boolean
    */
-  remove(
-    callback?: (error: Error | null, item?: boolean) => any
-  ): Promise<boolean>;
+  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
 
   /**
    * Fetch a MediaInstance
@@ -93,9 +97,8 @@ export interface MediaContext {
    *
    * @returns Resolves to processed MediaInstance
    */
-  fetch(
-    callback?: (error: Error | null, item?: MediaInstance) => any
-  ): Promise<MediaInstance>;
+  fetch(callback?: (error: Error | null, item?: MediaInstance) => any): Promise<MediaInstance>
+
 
   /**
    * Provide a user-friendly representation
@@ -105,80 +108,59 @@ export interface MediaContext {
 }
 
 export interface MediaContextSolution {
-  accountSid: string;
-  messageSid: string;
-  sid: string;
+  "accountSid": string;
+  "messageSid": string;
+  "sid": string;
 }
 
 export class MediaContextImpl implements MediaContext {
   protected _solution: MediaContextSolution;
   protected _uri: string;
 
-  constructor(
-    protected _version: V2010,
-    accountSid: string,
-    messageSid: string,
-    sid: string
-  ) {
+
+  constructor(protected _version: V2010, accountSid: string, messageSid: string, sid: string) {
     if (!isValidPathParam(accountSid)) {
-      throw new Error("Parameter 'accountSid' is not valid.");
+      throw new Error('Parameter \'accountSid\' is not valid.');
     }
 
     if (!isValidPathParam(messageSid)) {
-      throw new Error("Parameter 'messageSid' is not valid.");
+      throw new Error('Parameter \'messageSid\' is not valid.');
     }
 
     if (!isValidPathParam(sid)) {
-      throw new Error("Parameter 'sid' is not valid.");
+      throw new Error('Parameter \'sid\' is not valid.');
     }
 
-    this._solution = { accountSid, messageSid, sid };
+    this._solution = { accountSid, messageSid, sid,  };
     this._uri = `/Accounts/${accountSid}/Messages/${messageSid}/Media/${sid}.json`;
   }
 
-  remove(
-    callback?: (error: Error | null, item?: boolean) => any
-  ): Promise<boolean> {
+  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean> {
+  
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.remove({
-        uri: instance._uri,
-        method: "delete",
-      });
+        operationPromise = operationVersion.remove({ uri: instance._uri, method: "delete" });
+    
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
-  fetch(
-    callback?: (error: Error | null, item?: MediaInstance) => any
-  ): Promise<MediaInstance> {
+  fetch(callback?: (error: Error | null, item?: MediaInstance) => any): Promise<MediaInstance> {
+  
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.fetch({
-        uri: instance._uri,
-        method: "get",
-      });
+        operationPromise = operationVersion.fetch({ uri: instance._uri, method: "get" });
+    
+    operationPromise = operationPromise.then(payload => new MediaInstance(operationVersion, payload, instance._solution.accountSid, instance._solution.messageSid, instance._solution.sid));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new MediaInstance(
-          operationVersion,
-          payload,
-          instance._solution.accountSid,
-          instance._solution.messageSid,
-          instance._solution.sid
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
   /**
@@ -195,8 +177,9 @@ export class MediaContextImpl implements MediaContext {
   }
 }
 
+
 interface MediaPayload extends TwilioResponsePayload {
-  media_list: MediaResource[];
+    media_list: MediaResource[];
 }
 
 interface MediaResource {
@@ -213,22 +196,16 @@ export class MediaInstance {
   protected _solution: MediaContextSolution;
   protected _context?: MediaContext;
 
-  constructor(
-    protected _version: V2010,
-    payload: MediaResource,
-    accountSid: string,
-    messageSid: string,
-    sid?: string
-  ) {
-    this.accountSid = payload.account_sid;
-    this.contentType = payload.content_type;
+  constructor(protected _version: V2010, payload: MediaResource, accountSid: string, messageSid: string, sid?: string) {
+    this.accountSid = (payload.account_sid);
+    this.contentType = (payload.content_type);
     this.dateCreated = deserialize.rfc2822DateTime(payload.date_created);
     this.dateUpdated = deserialize.rfc2822DateTime(payload.date_updated);
-    this.parentSid = payload.parent_sid;
-    this.sid = payload.sid;
-    this.uri = payload.uri;
+    this.parentSid = (payload.parent_sid);
+    this.sid = (payload.sid);
+    this.uri = (payload.uri);
 
-    this._solution = { accountSid, messageSid, sid: sid || this.sid };
+    this._solution = { accountSid, messageSid, sid: sid || this.sid,  };
   }
 
   /**
@@ -261,14 +238,7 @@ export class MediaInstance {
   uri: string;
 
   private get _proxy(): MediaContext {
-    this._context =
-      this._context ||
-      new MediaContextImpl(
-        this._version,
-        this._solution.accountSid,
-        this._solution.messageSid,
-        this._solution.sid
-      );
+    this._context = this._context || new MediaContextImpl(this._version, this._solution.accountSid, this._solution.messageSid, this._solution.sid);
     return this._context;
   }
 
@@ -279,9 +249,9 @@ export class MediaInstance {
    *
    * @returns Resolves to processed boolean
    */
-  remove(
-    callback?: (error: Error | null, item?: boolean) => any
-  ): Promise<boolean> {
+  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
+
+    {
     return this._proxy.remove(callback);
   }
 
@@ -292,9 +262,9 @@ export class MediaInstance {
    *
    * @returns Resolves to processed MediaInstance
    */
-  fetch(
-    callback?: (error: Error | null, item?: MediaInstance) => any
-  ): Promise<MediaInstance> {
+  fetch(callback?: (error: Error | null, item?: MediaInstance) => any): Promise<MediaInstance>
+
+    {
     return this._proxy.fetch(callback);
   }
 
@@ -312,13 +282,14 @@ export class MediaInstance {
       parentSid: this.parentSid,
       sid: this.sid,
       uri: this.uri,
-    };
+    }
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
 }
+
 
 export interface MediaSolution {
   accountSid: string;
@@ -330,8 +301,14 @@ export interface MediaListInstance {
   _solution: MediaSolution;
   _uri: string;
 
-  (sid: string): MediaContext;
-  get(sid: string): MediaContext;
+  (sid: string, ): MediaContext;
+  get(sid: string, ): MediaContext;
+
+
+
+
+
+
 
   /**
    * Streams MediaInstance records from the API.
@@ -348,13 +325,8 @@ export interface MediaListInstance {
    * @param { MediaListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(
-    callback?: (item: MediaInstance, done: (err?: Error) => void) => void
-  ): void;
-  each(
-    params: MediaListInstanceEachOptions,
-    callback?: (item: MediaInstance, done: (err?: Error) => void) => void
-  ): void;
+  each(callback?: (item: MediaInstance, done: (err?: Error) => void) => void): void;
+  each(params: MediaListInstanceEachOptions, callback?: (item: MediaInstance, done: (err?: Error) => void) => void): void;
   /**
    * Retrieve a single target page of MediaInstance records from the API.
    *
@@ -363,10 +335,7 @@ export interface MediaListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(
-    targetUrl: string,
-    callback?: (error: Error | null, items: MediaPage) => any
-  ): Promise<MediaPage>;
+  getPage(targetUrl: string, callback?: (error: Error | null, items: MediaPage) => any): Promise<MediaPage>;
   /**
    * Lists MediaInstance records from the API as a list.
    *
@@ -376,13 +345,8 @@ export interface MediaListInstance {
    * @param { MediaListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(
-    callback?: (error: Error | null, items: MediaInstance[]) => any
-  ): Promise<MediaInstance[]>;
-  list(
-    params: MediaListInstanceOptions,
-    callback?: (error: Error | null, items: MediaInstance[]) => any
-  ): Promise<MediaInstance[]>;
+  list(callback?: (error: Error | null, items: MediaInstance[]) => any): Promise<MediaInstance[]>;
+  list(params: MediaListInstanceOptions, callback?: (error: Error | null, items: MediaInstance[]) => any): Promise<MediaInstance[]>;
   /**
    * Retrieve a single page of MediaInstance records from the API.
    *
@@ -394,13 +358,8 @@ export interface MediaListInstance {
    * @param { MediaListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(
-    callback?: (error: Error | null, items: MediaPage) => any
-  ): Promise<MediaPage>;
-  page(
-    params: MediaListInstancePageOptions,
-    callback?: (error: Error | null, items: MediaPage) => any
-  ): Promise<MediaPage>;
+  page(callback?: (error: Error | null, items: MediaPage) => any): Promise<MediaPage>;
+  page(params: MediaListInstancePageOptions, callback?: (error: Error | null, items: MediaPage) => any): Promise<MediaPage>;
 
   /**
    * Provide a user-friendly representation
@@ -409,35 +368,26 @@ export interface MediaListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function MediaListInstance(
-  version: V2010,
-  accountSid: string,
-  messageSid: string
-): MediaListInstance {
+export function MediaListInstance(version: V2010, accountSid: string, messageSid: string): MediaListInstance {
   if (!isValidPathParam(accountSid)) {
-    throw new Error("Parameter 'accountSid' is not valid.");
+    throw new Error('Parameter \'accountSid\' is not valid.');
   }
 
   if (!isValidPathParam(messageSid)) {
-    throw new Error("Parameter 'messageSid' is not valid.");
+    throw new Error('Parameter \'messageSid\' is not valid.');
   }
 
-  const instance = ((sid) => instance.get(sid)) as MediaListInstance;
+  const instance = ((sid, ) => instance.get(sid, )) as MediaListInstance;
 
-  instance.get = function get(sid): MediaContext {
+  instance.get = function get(sid, ): MediaContext {
     return new MediaContextImpl(version, accountSid, messageSid, sid);
-  };
+  }
 
   instance._version = version;
-  instance._solution = { accountSid, messageSid };
+  instance._solution = { accountSid, messageSid,  };
   instance._uri = `/Accounts/${accountSid}/Messages/${messageSid}/Media.json`;
 
-  instance.page = function page(
-    params?:
-      | MediaListInstancePageOptions
-      | ((error: Error | null, items: MediaPage) => any),
-    callback?: (error: Error | null, items: MediaPage) => any
-  ): Promise<MediaPage> {
+  instance.page = function page(params?: MediaListInstancePageOptions | ((error: Error | null, items: MediaPage) => any), callback?: (error: Error | null, items: MediaPage) => any): Promise<MediaPage> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -447,110 +397,82 @@ export function MediaListInstance(
 
     let data: any = {};
 
-    if (params["dateCreated"] !== undefined)
-      data["DateCreated"] = serialize.iso8601DateTime(params["dateCreated"]);
+        if (params["dateCreated"] !== undefined)
+    data["DateCreated"] = serialize.iso8601DateTime(params["dateCreated"]);
     if (params["dateCreatedBefore"] !== undefined)
-      data["DateCreated<"] = serialize.iso8601DateTime(
-        params["dateCreatedBefore"]
-      );
+    data["DateCreated<"] = serialize.iso8601DateTime(params["dateCreatedBefore"]);
     if (params["dateCreatedAfter"] !== undefined)
-      data["DateCreated>"] = serialize.iso8601DateTime(
-        params["dateCreatedAfter"]
-      );
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+    data["DateCreated>"] = serialize.iso8601DateTime(params["dateCreatedAfter"]);
+    if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
 
+    
+    
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-      operationPromise = operationVersion.page({
-        uri: instance._uri,
-        method: "get",
-        params: data,
-        headers,
-      });
+        operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers });
+    
+    operationPromise = operationPromise.then(payload => new MediaPage(operationVersion, payload, instance._solution));
 
-    operationPromise = operationPromise.then(
-      (payload) => new MediaPage(operationVersion, payload, instance._solution)
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
+
+  }
   instance.each = instance._version.each;
   instance.list = instance._version.list;
 
-  instance.getPage = function getPage(
-    targetUrl: string,
-    callback?: (error: Error | null, items: MediaPage) => any
-  ): Promise<MediaPage> {
-    const operationPromise = instance._version._domain.twilio.request({
-      method: "get",
-      uri: targetUrl,
-    });
+  instance.getPage = function getPage(targetUrl: string, callback?: (error: Error | null, items: MediaPage) => any): Promise<MediaPage> {
+    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
 
-    let pagePromise = operationPromise.then(
-      (payload) => new MediaPage(instance._version, payload, instance._solution)
-    );
+    let pagePromise = operationPromise.then(payload => new MediaPage(instance._version, payload, instance._solution));
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  };
+  }
+
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  };
+  }
 
-  instance[inspect.custom] = function inspectImpl(
-    _depth: any,
-    options: InspectOptions
-  ) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(instance.toJSON(), options);
-  };
+  }
 
   return instance;
 }
 
-export class MediaPage extends Page<
-  V2010,
-  MediaPayload,
-  MediaResource,
-  MediaInstance
-> {
-  /**
-   * Initialize the MediaPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(
-    version: V2010,
-    response: Response<string>,
-    solution: MediaSolution
-  ) {
+export class MediaPage extends Page<V2010, MediaPayload, MediaResource, MediaInstance> {
+/**
+* Initialize the MediaPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V2010, response: Response<string>, solution: MediaSolution) {
     super(version, response, solution);
-  }
+    }
 
-  /**
-   * Build an instance of MediaInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: MediaResource): MediaInstance {
+    /**
+    * Build an instance of MediaInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: MediaResource): MediaInstance {
     return new MediaInstance(
-      this._version,
-      payload,
-      this._solution.accountSid,
-      this._solution.messageSid
+    this._version,
+    payload,
+        this._solution.accountSid,
+        this._solution.messageSid,
     );
-  }
+    }
 
-  [inspect.custom](depth: any, options: InspectOptions) {
+    [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-  }
-}
+    }
+    }
+

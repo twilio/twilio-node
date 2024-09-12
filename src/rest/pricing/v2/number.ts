@@ -12,11 +12,13 @@
  * Do not edit the class manually.
  */
 
+
 import { inspect, InspectOptions } from "util";
 import V2 from "../V2";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
+
 
 export class PricingV2TrunkingCountryInstanceTerminatingPrefixPrices {
   "originationPrefixes"?: Array<string>;
@@ -25,6 +27,7 @@ export class PricingV2TrunkingCountryInstanceTerminatingPrefixPrices {
   "currentPrice"?: number;
   "friendlyName"?: string;
 }
+
 
 /**
  * The [OriginatingCallPrice](https://www.twilio.com/docs/voice/pricing#inbound-call-price) record.
@@ -35,15 +38,18 @@ export class PricingV2TrunkingNumberOriginatingCallPrice {
   "numberType"?: string;
 }
 
+
+
 /**
  * Options to pass to fetch a NumberInstance
  */
 export interface NumberContextFetchOptions {
   /** The origination phone number, in [E.164](https://www.twilio.com/docs/glossary/what-e164) format, for which to fetch the origin-based voice pricing information. E.164 format consists of a + followed by the country code and subscriber number. */
-  originationNumber?: string;
+  "originationNumber"?: string;
 }
 
 export interface NumberContext {
+
   /**
    * Fetch a NumberInstance
    *
@@ -51,9 +57,7 @@ export interface NumberContext {
    *
    * @returns Resolves to processed NumberInstance
    */
-  fetch(
-    callback?: (error: Error | null, item?: NumberInstance) => any
-  ): Promise<NumberInstance>;
+  fetch(callback?: (error: Error | null, item?: NumberInstance) => any): Promise<NumberInstance>;
   /**
    * Fetch a NumberInstance
    *
@@ -62,10 +66,7 @@ export interface NumberContext {
    *
    * @returns Resolves to processed NumberInstance
    */
-  fetch(
-    params: NumberContextFetchOptions,
-    callback?: (error: Error | null, item?: NumberInstance) => any
-  ): Promise<NumberInstance>;
+  fetch(params: NumberContextFetchOptions, callback?: (error: Error | null, item?: NumberInstance) => any): Promise<NumberInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -75,29 +76,25 @@ export interface NumberContext {
 }
 
 export interface NumberContextSolution {
-  destinationNumber: string;
+  "destinationNumber": string;
 }
 
 export class NumberContextImpl implements NumberContext {
   protected _solution: NumberContextSolution;
   protected _uri: string;
 
+
   constructor(protected _version: V2, destinationNumber: string) {
     if (!isValidPathParam(destinationNumber)) {
-      throw new Error("Parameter 'destinationNumber' is not valid.");
+      throw new Error('Parameter \'destinationNumber\' is not valid.');
     }
 
-    this._solution = { destinationNumber };
+    this._solution = { destinationNumber,  };
     this._uri = `/Trunking/Numbers/${destinationNumber}`;
   }
 
-  fetch(
-    params?:
-      | NumberContextFetchOptions
-      | ((error: Error | null, item?: NumberInstance) => any),
-    callback?: (error: Error | null, item?: NumberInstance) => any
-  ): Promise<NumberInstance> {
-    if (params instanceof Function) {
+  fetch(params?: NumberContextFetchOptions | ((error: Error | null, item?: NumberInstance) => any), callback?: (error: Error | null, item?: NumberInstance) => any): Promise<NumberInstance> {
+      if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -106,34 +103,25 @@ export class NumberContextImpl implements NumberContext {
 
     let data: any = {};
 
-    if (params["originationNumber"] !== undefined)
-      data["OriginationNumber"] = params["originationNumber"];
+        if (params["originationNumber"] !== undefined)
+    data["OriginationNumber"] = params["originationNumber"];
+
+    
+    
 
     const headers: any = {};
 
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.fetch({
-        uri: instance._uri,
-        method: "get",
-        params: data,
-        headers,
-      });
+        operationPromise = operationVersion.fetch({ uri: instance._uri, method: "get", params: data, headers });
+    
+    operationPromise = operationPromise.then(payload => new NumberInstance(operationVersion, payload, instance._solution.destinationNumber));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new NumberInstance(
-          operationVersion,
-          payload,
-          instance._solution.destinationNumber
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
   /**
@@ -149,6 +137,7 @@ export class NumberContextImpl implements NumberContext {
     return inspect(this.toJSON(), options);
   }
 }
+
 
 interface NumberPayload extends NumberResource {}
 
@@ -167,23 +156,17 @@ export class NumberInstance {
   protected _solution: NumberContextSolution;
   protected _context?: NumberContext;
 
-  constructor(
-    protected _version: V2,
-    payload: NumberResource,
-    destinationNumber?: string
-  ) {
-    this.destinationNumber = payload.destination_number;
-    this.originationNumber = payload.origination_number;
-    this.country = payload.country;
-    this.isoCountry = payload.iso_country;
-    this.terminatingPrefixPrices = payload.terminating_prefix_prices;
-    this.originatingCallPrice = payload.originating_call_price;
-    this.priceUnit = payload.price_unit;
-    this.url = payload.url;
+  constructor(protected _version: V2, payload: NumberResource, destinationNumber?: string) {
+    this.destinationNumber = (payload.destination_number);
+    this.originationNumber = (payload.origination_number);
+    this.country = (payload.country);
+    this.isoCountry = (payload.iso_country);
+    this.terminatingPrefixPrices = (payload.terminating_prefix_prices);
+    this.originatingCallPrice = (payload.originating_call_price);
+    this.priceUnit = (payload.price_unit);
+    this.url = (payload.url);
 
-    this._solution = {
-      destinationNumber: destinationNumber || this.destinationNumber,
-    };
+    this._solution = { destinationNumber: destinationNumber || this.destinationNumber,  };
   }
 
   /**
@@ -214,9 +197,7 @@ export class NumberInstance {
   url: string;
 
   private get _proxy(): NumberContext {
-    this._context =
-      this._context ||
-      new NumberContextImpl(this._version, this._solution.destinationNumber);
+    this._context = this._context || new NumberContextImpl(this._version, this._solution.destinationNumber);
     return this._context;
   }
 
@@ -227,9 +208,7 @@ export class NumberInstance {
    *
    * @returns Resolves to processed NumberInstance
    */
-  fetch(
-    callback?: (error: Error | null, item?: NumberInstance) => any
-  ): Promise<NumberInstance>;
+  fetch(callback?: (error: Error | null, item?: NumberInstance) => any): Promise<NumberInstance>;
   /**
    * Fetch a NumberInstance
    *
@@ -238,15 +217,10 @@ export class NumberInstance {
    *
    * @returns Resolves to processed NumberInstance
    */
-  fetch(
-    params: NumberContextFetchOptions,
-    callback?: (error: Error | null, item?: NumberInstance) => any
-  ): Promise<NumberInstance>;
+  fetch(params: NumberContextFetchOptions, callback?: (error: Error | null, item?: NumberInstance) => any): Promise<NumberInstance>;
 
-  fetch(
-    params?: any,
-    callback?: (error: Error | null, item?: NumberInstance) => any
-  ): Promise<NumberInstance> {
+    fetch(params?: any, callback?: (error: Error | null, item?: NumberInstance) => any): Promise<NumberInstance>
+    {
     return this._proxy.fetch(params, callback);
   }
 
@@ -265,7 +239,7 @@ export class NumberInstance {
       originatingCallPrice: this.originatingCallPrice,
       priceUnit: this.priceUnit,
       url: this.url,
-    };
+    }
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
@@ -273,15 +247,20 @@ export class NumberInstance {
   }
 }
 
-export interface NumberSolution {}
+
+export interface NumberSolution {
+}
 
 export interface NumberListInstance {
   _version: V2;
   _solution: NumberSolution;
   _uri: string;
 
-  (destinationNumber: string): NumberContext;
-  get(destinationNumber: string): NumberContext;
+  (destinationNumber: string, ): NumberContext;
+  get(destinationNumber: string, ): NumberContext;
+
+
+
 
   /**
    * Provide a user-friendly representation
@@ -291,27 +270,25 @@ export interface NumberListInstance {
 }
 
 export function NumberListInstance(version: V2): NumberListInstance {
-  const instance = ((destinationNumber) =>
-    instance.get(destinationNumber)) as NumberListInstance;
+  const instance = ((destinationNumber, ) => instance.get(destinationNumber, )) as NumberListInstance;
 
-  instance.get = function get(destinationNumber): NumberContext {
+  instance.get = function get(destinationNumber, ): NumberContext {
     return new NumberContextImpl(version, destinationNumber);
-  };
+  }
 
   instance._version = version;
-  instance._solution = {};
+  instance._solution = {  };
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  };
+  }
 
-  instance[inspect.custom] = function inspectImpl(
-    _depth: any,
-    options: InspectOptions
-  ) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(instance.toJSON(), options);
-  };
+  }
 
   return instance;
 }
+
+

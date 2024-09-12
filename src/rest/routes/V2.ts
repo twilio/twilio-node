@@ -52,4 +52,5 @@ export default class V2 extends Version {
     this._trunks = this._trunks || TrunkListInstance(this);
     return this._trunks;
   }
+
 }

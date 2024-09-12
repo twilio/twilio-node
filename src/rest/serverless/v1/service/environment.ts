@@ -12,6 +12,7 @@
  * Do not edit the class manually.
  */
 
+
 import { inspect, InspectOptions } from "util";
 import Page, { TwilioResponsePayload } from "../../../../base/Page";
 import Response from "../../../../http/response";
@@ -23,21 +24,25 @@ import { DeploymentListInstance } from "./environment/deployment";
 import { LogListInstance } from "./environment/log";
 import { VariableListInstance } from "./environment/variable";
 
+
+
+
+
 /**
  * Options to pass to create a EnvironmentInstance
  */
 export interface EnvironmentListInstanceCreateOptions {
   /** A user-defined string that uniquely identifies the Environment resource. It can be a maximum of 100 characters. */
-  uniqueName: string;
+  "uniqueName": string;
   /** A URL-friendly name that represents the environment and forms part of the domain name. It can be a maximum of 16 characters. */
-  domainSuffix?: string;
+  "domainSuffix"?: string;
 }
 /**
  * Options to pass to each
  */
 export interface EnvironmentListInstanceEachOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: EnvironmentInstance, done: (err?: Error) => void) => void;
   /** Function to be called upon completion of streaming */
@@ -51,7 +56,7 @@ export interface EnvironmentListInstanceEachOptions {
  */
 export interface EnvironmentListInstanceOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
@@ -61,12 +66,13 @@ export interface EnvironmentListInstanceOptions {
  */
 export interface EnvironmentListInstancePageOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
   /** PageToken provided by the API */
   pageToken?: string;
 }
+
 
 export interface EnvironmentContext {
   deployments: DeploymentListInstance;
@@ -80,9 +86,7 @@ export interface EnvironmentContext {
    *
    * @returns Resolves to processed boolean
    */
-  remove(
-    callback?: (error: Error | null, item?: boolean) => any
-  ): Promise<boolean>;
+  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
 
   /**
    * Fetch a EnvironmentInstance
@@ -91,9 +95,9 @@ export interface EnvironmentContext {
    *
    * @returns Resolves to processed EnvironmentInstance
    */
-  fetch(
-    callback?: (error: Error | null, item?: EnvironmentInstance) => any
-  ): Promise<EnvironmentInstance>;
+  fetch(callback?: (error: Error | null, item?: EnvironmentInstance) => any): Promise<EnvironmentInstance>
+
+
 
   /**
    * Provide a user-friendly representation
@@ -103,8 +107,8 @@ export interface EnvironmentContext {
 }
 
 export interface EnvironmentContextSolution {
-  serviceSid: string;
-  sid: string;
+  "serviceSid": string;
+  "sid": string;
 }
 
 export class EnvironmentContextImpl implements EnvironmentContext {
@@ -117,92 +121,58 @@ export class EnvironmentContextImpl implements EnvironmentContext {
 
   constructor(protected _version: V1, serviceSid: string, sid: string) {
     if (!isValidPathParam(serviceSid)) {
-      throw new Error("Parameter 'serviceSid' is not valid.");
+      throw new Error('Parameter \'serviceSid\' is not valid.');
     }
 
     if (!isValidPathParam(sid)) {
-      throw new Error("Parameter 'sid' is not valid.");
+      throw new Error('Parameter \'sid\' is not valid.');
     }
 
-    this._solution = { serviceSid, sid };
+    this._solution = { serviceSid, sid,  };
     this._uri = `/Services/${serviceSid}/Environments/${sid}`;
   }
 
   get deployments(): DeploymentListInstance {
-    this._deployments =
-      this._deployments ||
-      DeploymentListInstance(
-        this._version,
-        this._solution.serviceSid,
-        this._solution.sid
-      );
+    this._deployments = this._deployments || DeploymentListInstance(this._version, this._solution.serviceSid, this._solution.sid);
     return this._deployments;
   }
 
   get logs(): LogListInstance {
-    this._logs =
-      this._logs ||
-      LogListInstance(
-        this._version,
-        this._solution.serviceSid,
-        this._solution.sid
-      );
+    this._logs = this._logs || LogListInstance(this._version, this._solution.serviceSid, this._solution.sid);
     return this._logs;
   }
 
   get variables(): VariableListInstance {
-    this._variables =
-      this._variables ||
-      VariableListInstance(
-        this._version,
-        this._solution.serviceSid,
-        this._solution.sid
-      );
+    this._variables = this._variables || VariableListInstance(this._version, this._solution.serviceSid, this._solution.sid);
     return this._variables;
   }
 
-  remove(
-    callback?: (error: Error | null, item?: boolean) => any
-  ): Promise<boolean> {
+  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean> {
+  
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.remove({
-        uri: instance._uri,
-        method: "delete",
-      });
+        operationPromise = operationVersion.remove({ uri: instance._uri, method: "delete" });
+    
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
-  fetch(
-    callback?: (error: Error | null, item?: EnvironmentInstance) => any
-  ): Promise<EnvironmentInstance> {
+  fetch(callback?: (error: Error | null, item?: EnvironmentInstance) => any): Promise<EnvironmentInstance> {
+  
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.fetch({
-        uri: instance._uri,
-        method: "get",
-      });
+        operationPromise = operationVersion.fetch({ uri: instance._uri, method: "get" });
+    
+    operationPromise = operationPromise.then(payload => new EnvironmentInstance(operationVersion, payload, instance._solution.serviceSid, instance._solution.sid));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new EnvironmentInstance(
-          operationVersion,
-          payload,
-          instance._solution.serviceSid,
-          instance._solution.sid
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
   /**
@@ -219,8 +189,9 @@ export class EnvironmentContextImpl implements EnvironmentContext {
   }
 }
 
+
 interface EnvironmentPayload extends TwilioResponsePayload {
-  environments: EnvironmentResource[];
+    environments: EnvironmentResource[];
 }
 
 interface EnvironmentResource {
@@ -241,25 +212,20 @@ export class EnvironmentInstance {
   protected _solution: EnvironmentContextSolution;
   protected _context?: EnvironmentContext;
 
-  constructor(
-    protected _version: V1,
-    payload: EnvironmentResource,
-    serviceSid: string,
-    sid?: string
-  ) {
-    this.sid = payload.sid;
-    this.accountSid = payload.account_sid;
-    this.serviceSid = payload.service_sid;
-    this.buildSid = payload.build_sid;
-    this.uniqueName = payload.unique_name;
-    this.domainSuffix = payload.domain_suffix;
-    this.domainName = payload.domain_name;
+  constructor(protected _version: V1, payload: EnvironmentResource, serviceSid: string, sid?: string) {
+    this.sid = (payload.sid);
+    this.accountSid = (payload.account_sid);
+    this.serviceSid = (payload.service_sid);
+    this.buildSid = (payload.build_sid);
+    this.uniqueName = (payload.unique_name);
+    this.domainSuffix = (payload.domain_suffix);
+    this.domainName = (payload.domain_name);
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
-    this.url = payload.url;
-    this.links = payload.links;
+    this.url = (payload.url);
+    this.links = (payload.links);
 
-    this._solution = { serviceSid, sid: sid || this.sid };
+    this._solution = { serviceSid, sid: sid || this.sid,  };
   }
 
   /**
@@ -308,13 +274,7 @@ export class EnvironmentInstance {
   links: Record<string, string>;
 
   private get _proxy(): EnvironmentContext {
-    this._context =
-      this._context ||
-      new EnvironmentContextImpl(
-        this._version,
-        this._solution.serviceSid,
-        this._solution.sid
-      );
+    this._context = this._context || new EnvironmentContextImpl(this._version, this._solution.serviceSid, this._solution.sid);
     return this._context;
   }
 
@@ -325,9 +285,9 @@ export class EnvironmentInstance {
    *
    * @returns Resolves to processed boolean
    */
-  remove(
-    callback?: (error: Error | null, item?: boolean) => any
-  ): Promise<boolean> {
+  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
+
+    {
     return this._proxy.remove(callback);
   }
 
@@ -338,9 +298,9 @@ export class EnvironmentInstance {
    *
    * @returns Resolves to processed EnvironmentInstance
    */
-  fetch(
-    callback?: (error: Error | null, item?: EnvironmentInstance) => any
-  ): Promise<EnvironmentInstance> {
+  fetch(callback?: (error: Error | null, item?: EnvironmentInstance) => any): Promise<EnvironmentInstance>
+
+    {
     return this._proxy.fetch(callback);
   }
 
@@ -383,13 +343,14 @@ export class EnvironmentInstance {
       dateUpdated: this.dateUpdated,
       url: this.url,
       links: this.links,
-    };
+    }
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
 }
+
 
 export interface EnvironmentSolution {
   serviceSid: string;
@@ -400,8 +361,13 @@ export interface EnvironmentListInstance {
   _solution: EnvironmentSolution;
   _uri: string;
 
-  (sid: string): EnvironmentContext;
-  get(sid: string): EnvironmentContext;
+  (sid: string, ): EnvironmentContext;
+  get(sid: string, ): EnvironmentContext;
+
+
+
+
+
 
   /**
    * Create a EnvironmentInstance
@@ -411,10 +377,9 @@ export interface EnvironmentListInstance {
    *
    * @returns Resolves to processed EnvironmentInstance
    */
-  create(
-    params: EnvironmentListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: EnvironmentInstance) => any
-  ): Promise<EnvironmentInstance>;
+  create(params: EnvironmentListInstanceCreateOptions, callback?: (error: Error | null, item?: EnvironmentInstance) => any): Promise<EnvironmentInstance>;
+
+
 
   /**
    * Streams EnvironmentInstance records from the API.
@@ -431,13 +396,8 @@ export interface EnvironmentListInstance {
    * @param { EnvironmentListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(
-    callback?: (item: EnvironmentInstance, done: (err?: Error) => void) => void
-  ): void;
-  each(
-    params: EnvironmentListInstanceEachOptions,
-    callback?: (item: EnvironmentInstance, done: (err?: Error) => void) => void
-  ): void;
+  each(callback?: (item: EnvironmentInstance, done: (err?: Error) => void) => void): void;
+  each(params: EnvironmentListInstanceEachOptions, callback?: (item: EnvironmentInstance, done: (err?: Error) => void) => void): void;
   /**
    * Retrieve a single target page of EnvironmentInstance records from the API.
    *
@@ -446,10 +406,7 @@ export interface EnvironmentListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(
-    targetUrl: string,
-    callback?: (error: Error | null, items: EnvironmentPage) => any
-  ): Promise<EnvironmentPage>;
+  getPage(targetUrl: string, callback?: (error: Error | null, items: EnvironmentPage) => any): Promise<EnvironmentPage>;
   /**
    * Lists EnvironmentInstance records from the API as a list.
    *
@@ -459,13 +416,8 @@ export interface EnvironmentListInstance {
    * @param { EnvironmentListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(
-    callback?: (error: Error | null, items: EnvironmentInstance[]) => any
-  ): Promise<EnvironmentInstance[]>;
-  list(
-    params: EnvironmentListInstanceOptions,
-    callback?: (error: Error | null, items: EnvironmentInstance[]) => any
-  ): Promise<EnvironmentInstance[]>;
+  list(callback?: (error: Error | null, items: EnvironmentInstance[]) => any): Promise<EnvironmentInstance[]>;
+  list(params: EnvironmentListInstanceOptions, callback?: (error: Error | null, items: EnvironmentInstance[]) => any): Promise<EnvironmentInstance[]>;
   /**
    * Retrieve a single page of EnvironmentInstance records from the API.
    *
@@ -477,13 +429,8 @@ export interface EnvironmentListInstance {
    * @param { EnvironmentListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(
-    callback?: (error: Error | null, items: EnvironmentPage) => any
-  ): Promise<EnvironmentPage>;
-  page(
-    params: EnvironmentListInstancePageOptions,
-    callback?: (error: Error | null, items: EnvironmentPage) => any
-  ): Promise<EnvironmentPage>;
+  page(callback?: (error: Error | null, items: EnvironmentPage) => any): Promise<EnvironmentPage>;
+  page(params: EnvironmentListInstancePageOptions, callback?: (error: Error | null, items: EnvironmentPage) => any): Promise<EnvironmentPage>;
 
   /**
    * Provide a user-friendly representation
@@ -492,75 +439,56 @@ export interface EnvironmentListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function EnvironmentListInstance(
-  version: V1,
-  serviceSid: string
-): EnvironmentListInstance {
+export function EnvironmentListInstance(version: V1, serviceSid: string): EnvironmentListInstance {
   if (!isValidPathParam(serviceSid)) {
-    throw new Error("Parameter 'serviceSid' is not valid.");
+    throw new Error('Parameter \'serviceSid\' is not valid.');
   }
 
-  const instance = ((sid) => instance.get(sid)) as EnvironmentListInstance;
+  const instance = ((sid, ) => instance.get(sid, )) as EnvironmentListInstance;
 
-  instance.get = function get(sid): EnvironmentContext {
+  instance.get = function get(sid, ): EnvironmentContext {
     return new EnvironmentContextImpl(version, serviceSid, sid);
-  };
+  }
 
   instance._version = version;
-  instance._solution = { serviceSid };
+  instance._solution = { serviceSid,  };
   instance._uri = `/Services/${serviceSid}/Environments`;
 
-  instance.create = function create(
-    params: EnvironmentListInstanceCreateOptions,
-    callback?: (error: Error | null, items: EnvironmentInstance) => any
-  ): Promise<EnvironmentInstance> {
+  instance.create = function create(params: EnvironmentListInstanceCreateOptions, callback?: (error: Error | null, items: EnvironmentInstance) => any): Promise<EnvironmentInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     if (params["uniqueName"] === null || params["uniqueName"] === undefined) {
-      throw new Error("Required parameter \"params['uniqueName']\" missing.");
+      throw new Error('Required parameter "params[\'uniqueName\']" missing.');
     }
 
     let data: any = {};
 
+    
+        
     data["UniqueName"] = params["uniqueName"];
     if (params["domainSuffix"] !== undefined)
-      data["DomainSuffix"] = params["domainSuffix"];
+    data["DomainSuffix"] = params["domainSuffix"];
+
+    
 
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = version,
-      operationPromise = operationVersion.create({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      });
+        operationPromise = operationVersion.create({ uri: instance._uri, method: "post", data, headers });
+    
+    operationPromise = operationPromise.then(payload => new EnvironmentInstance(operationVersion, payload, instance._solution.serviceSid));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new EnvironmentInstance(
-          operationVersion,
-          payload,
-          instance._solution.serviceSid
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
 
-  instance.page = function page(
-    params?:
-      | EnvironmentListInstancePageOptions
-      | ((error: Error | null, items: EnvironmentPage) => any),
-    callback?: (error: Error | null, items: EnvironmentPage) => any
-  ): Promise<EnvironmentPage> {
+
+    }
+
+  instance.page = function page(params?: EnvironmentListInstancePageOptions | ((error: Error | null, items: EnvironmentPage) => any), callback?: (error: Error | null, items: EnvironmentPage) => any): Promise<EnvironmentPage> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -570,101 +498,75 @@ export function EnvironmentListInstance(
 
     let data: any = {};
 
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
 
+    
+    
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-      operationPromise = operationVersion.page({
-        uri: instance._uri,
-        method: "get",
-        params: data,
-        headers,
-      });
+        operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers });
+    
+    operationPromise = operationPromise.then(payload => new EnvironmentPage(operationVersion, payload, instance._solution));
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new EnvironmentPage(operationVersion, payload, instance._solution)
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
+
+  }
   instance.each = instance._version.each;
   instance.list = instance._version.list;
 
-  instance.getPage = function getPage(
-    targetUrl: string,
-    callback?: (error: Error | null, items: EnvironmentPage) => any
-  ): Promise<EnvironmentPage> {
-    const operationPromise = instance._version._domain.twilio.request({
-      method: "get",
-      uri: targetUrl,
-    });
+  instance.getPage = function getPage(targetUrl: string, callback?: (error: Error | null, items: EnvironmentPage) => any): Promise<EnvironmentPage> {
+    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
 
-    let pagePromise = operationPromise.then(
-      (payload) =>
-        new EnvironmentPage(instance._version, payload, instance._solution)
-    );
+    let pagePromise = operationPromise.then(payload => new EnvironmentPage(instance._version, payload, instance._solution));
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  };
+  }
+
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  };
+  }
 
-  instance[inspect.custom] = function inspectImpl(
-    _depth: any,
-    options: InspectOptions
-  ) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(instance.toJSON(), options);
-  };
+  }
 
   return instance;
 }
 
-export class EnvironmentPage extends Page<
-  V1,
-  EnvironmentPayload,
-  EnvironmentResource,
-  EnvironmentInstance
-> {
-  /**
-   * Initialize the EnvironmentPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(
-    version: V1,
-    response: Response<string>,
-    solution: EnvironmentSolution
-  ) {
+export class EnvironmentPage extends Page<V1, EnvironmentPayload, EnvironmentResource, EnvironmentInstance> {
+/**
+* Initialize the EnvironmentPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V1, response: Response<string>, solution: EnvironmentSolution) {
     super(version, response, solution);
-  }
+    }
 
-  /**
-   * Build an instance of EnvironmentInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: EnvironmentResource): EnvironmentInstance {
+    /**
+    * Build an instance of EnvironmentInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: EnvironmentResource): EnvironmentInstance {
     return new EnvironmentInstance(
-      this._version,
-      payload,
-      this._solution.serviceSid
+    this._version,
+    payload,
+        this._solution.serviceSid,
     );
-  }
+    }
 
-  [inspect.custom](depth: any, options: InspectOptions) {
+    [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-  }
-}
+    }
+    }
+

@@ -12,13 +12,18 @@
  * Do not edit the class manually.
  */
 
+
 import { inspect, InspectOptions } from "util";
 import V2010 from "../../../../../V2010";
 const deserialize = require("../../../../../../../base/deserialize");
 const serialize = require("../../../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../../../base/utility";
 
+
+
+
 export interface DataContext {
+
   /**
    * Fetch a DataInstance
    *
@@ -26,9 +31,7 @@ export interface DataContext {
    *
    * @returns Resolves to processed DataInstance
    */
-  fetch(
-    callback?: (error: Error | null, item?: DataInstance) => any
-  ): Promise<DataInstance>;
+  fetch(callback?: (error: Error | null, item?: DataInstance) => any): Promise<DataInstance>
 
   /**
    * Provide a user-friendly representation
@@ -38,70 +41,51 @@ export interface DataContext {
 }
 
 export interface DataContextSolution {
-  accountSid: string;
-  referenceSid: string;
-  addOnResultSid: string;
-  payloadSid: string;
+  "accountSid": string;
+  "referenceSid": string;
+  "addOnResultSid": string;
+  "payloadSid": string;
 }
 
 export class DataContextImpl implements DataContext {
   protected _solution: DataContextSolution;
   protected _uri: string;
 
-  constructor(
-    protected _version: V2010,
-    accountSid: string,
-    referenceSid: string,
-    addOnResultSid: string,
-    payloadSid: string
-  ) {
+
+  constructor(protected _version: V2010, accountSid: string, referenceSid: string, addOnResultSid: string, payloadSid: string) {
     if (!isValidPathParam(accountSid)) {
-      throw new Error("Parameter 'accountSid' is not valid.");
+      throw new Error('Parameter \'accountSid\' is not valid.');
     }
 
     if (!isValidPathParam(referenceSid)) {
-      throw new Error("Parameter 'referenceSid' is not valid.");
+      throw new Error('Parameter \'referenceSid\' is not valid.');
     }
 
     if (!isValidPathParam(addOnResultSid)) {
-      throw new Error("Parameter 'addOnResultSid' is not valid.");
+      throw new Error('Parameter \'addOnResultSid\' is not valid.');
     }
 
     if (!isValidPathParam(payloadSid)) {
-      throw new Error("Parameter 'payloadSid' is not valid.");
+      throw new Error('Parameter \'payloadSid\' is not valid.');
     }
 
-    this._solution = { accountSid, referenceSid, addOnResultSid, payloadSid };
+    this._solution = { accountSid, referenceSid, addOnResultSid, payloadSid,  };
     this._uri = `/Accounts/${accountSid}/Recordings/${referenceSid}/AddOnResults/${addOnResultSid}/Payloads/${payloadSid}/Data.json`;
   }
 
-  fetch(
-    callback?: (error: Error | null, item?: DataInstance) => any
-  ): Promise<DataInstance> {
+  fetch(callback?: (error: Error | null, item?: DataInstance) => any): Promise<DataInstance> {
+  
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.fetch({
-        uri: instance._uri,
-        method: "get",
-      });
+        operationPromise = operationVersion.fetch({ uri: instance._uri, method: "get" });
+    
+    operationPromise = operationPromise.then(payload => new DataInstance(operationVersion, payload, instance._solution.accountSid, instance._solution.referenceSid, instance._solution.addOnResultSid, instance._solution.payloadSid));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new DataInstance(
-          operationVersion,
-          payload,
-          instance._solution.accountSid,
-          instance._solution.referenceSid,
-          instance._solution.addOnResultSid,
-          instance._solution.payloadSid
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
   /**
@@ -118,6 +102,7 @@ export class DataContextImpl implements DataContext {
   }
 }
 
+
 interface DataPayload extends DataResource {}
 
 interface DataResource {
@@ -128,17 +113,10 @@ export class DataInstance {
   protected _solution: DataContextSolution;
   protected _context?: DataContext;
 
-  constructor(
-    protected _version: V2010,
-    payload: DataResource,
-    accountSid: string,
-    referenceSid: string,
-    addOnResultSid: string,
-    payloadSid: string
-  ) {
-    this.redirectTo = payload.redirect_to;
+  constructor(protected _version: V2010, payload: DataResource, accountSid: string, referenceSid: string, addOnResultSid: string, payloadSid: string) {
+    this.redirectTo = (payload.redirect_to);
 
-    this._solution = { accountSid, referenceSid, addOnResultSid, payloadSid };
+    this._solution = { accountSid, referenceSid, addOnResultSid, payloadSid,  };
   }
 
   /**
@@ -147,15 +125,7 @@ export class DataInstance {
   redirectTo: string;
 
   private get _proxy(): DataContext {
-    this._context =
-      this._context ||
-      new DataContextImpl(
-        this._version,
-        this._solution.accountSid,
-        this._solution.referenceSid,
-        this._solution.addOnResultSid,
-        this._solution.payloadSid
-      );
+    this._context = this._context || new DataContextImpl(this._version, this._solution.accountSid, this._solution.referenceSid, this._solution.addOnResultSid, this._solution.payloadSid);
     return this._context;
   }
 
@@ -166,9 +136,9 @@ export class DataInstance {
    *
    * @returns Resolves to processed DataInstance
    */
-  fetch(
-    callback?: (error: Error | null, item?: DataInstance) => any
-  ): Promise<DataInstance> {
+  fetch(callback?: (error: Error | null, item?: DataInstance) => any): Promise<DataInstance>
+
+    {
     return this._proxy.fetch(callback);
   }
 
@@ -180,13 +150,14 @@ export class DataInstance {
   toJSON() {
     return {
       redirectTo: this.redirectTo,
-    };
+    }
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
 }
+
 
 export interface DataSolution {
   accountSid: string;
@@ -203,6 +174,9 @@ export interface DataListInstance {
   (): DataContext;
   get(): DataContext;
 
+
+
+
   /**
    * Provide a user-friendly representation
    */
@@ -210,55 +184,42 @@ export interface DataListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function DataListInstance(
-  version: V2010,
-  accountSid: string,
-  referenceSid: string,
-  addOnResultSid: string,
-  payloadSid: string
-): DataListInstance {
+export function DataListInstance(version: V2010, accountSid: string, referenceSid: string, addOnResultSid: string, payloadSid: string): DataListInstance {
   if (!isValidPathParam(accountSid)) {
-    throw new Error("Parameter 'accountSid' is not valid.");
+    throw new Error('Parameter \'accountSid\' is not valid.');
   }
 
   if (!isValidPathParam(referenceSid)) {
-    throw new Error("Parameter 'referenceSid' is not valid.");
+    throw new Error('Parameter \'referenceSid\' is not valid.');
   }
 
   if (!isValidPathParam(addOnResultSid)) {
-    throw new Error("Parameter 'addOnResultSid' is not valid.");
+    throw new Error('Parameter \'addOnResultSid\' is not valid.');
   }
 
   if (!isValidPathParam(payloadSid)) {
-    throw new Error("Parameter 'payloadSid' is not valid.");
+    throw new Error('Parameter \'payloadSid\' is not valid.');
   }
 
   const instance = (() => instance.get()) as DataListInstance;
 
   instance.get = function get(): DataContext {
-    return new DataContextImpl(
-      version,
-      accountSid,
-      referenceSid,
-      addOnResultSid,
-      payloadSid
-    );
-  };
+    return new DataContextImpl(version, accountSid, referenceSid, addOnResultSid, payloadSid);
+  }
 
   instance._version = version;
-  instance._solution = { accountSid, referenceSid, addOnResultSid, payloadSid };
+  instance._solution = { accountSid, referenceSid, addOnResultSid, payloadSid,  };
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  };
+  }
 
-  instance[inspect.custom] = function inspectImpl(
-    _depth: any,
-    options: InspectOptions
-  ) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(instance.toJSON(), options);
-  };
+  }
 
   return instance;
 }
+
+

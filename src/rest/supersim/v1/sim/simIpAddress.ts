@@ -12,6 +12,7 @@
  * Do not edit the class manually.
  */
 
+
 import { inspect, InspectOptions } from "util";
 import Page, { TwilioResponsePayload } from "../../../../base/Page";
 import Response from "../../../../http/response";
@@ -20,14 +21,15 @@ const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
 
-export type SimIpAddressIpAddressVersion = "IPv4" | "IPv6";
+
+export type SimIpAddressIpAddressVersion = 'IPv4'|'IPv6';
 
 /**
  * Options to pass to each
  */
 export interface SimIpAddressListInstanceEachOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: SimIpAddressInstance, done: (err?: Error) => void) => void;
   /** Function to be called upon completion of streaming */
@@ -41,7 +43,7 @@ export interface SimIpAddressListInstanceEachOptions {
  */
 export interface SimIpAddressListInstanceOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
@@ -51,12 +53,14 @@ export interface SimIpAddressListInstanceOptions {
  */
 export interface SimIpAddressListInstancePageOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
   /** PageToken provided by the API */
   pageToken?: string;
 }
+
+
 
 export interface SimIpAddressSolution {
   simSid: string;
@@ -66,6 +70,9 @@ export interface SimIpAddressListInstance {
   _version: V1;
   _solution: SimIpAddressSolution;
   _uri: string;
+
+
+
 
   /**
    * Streams SimIpAddressInstance records from the API.
@@ -82,13 +89,8 @@ export interface SimIpAddressListInstance {
    * @param { SimIpAddressListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(
-    callback?: (item: SimIpAddressInstance, done: (err?: Error) => void) => void
-  ): void;
-  each(
-    params: SimIpAddressListInstanceEachOptions,
-    callback?: (item: SimIpAddressInstance, done: (err?: Error) => void) => void
-  ): void;
+  each(callback?: (item: SimIpAddressInstance, done: (err?: Error) => void) => void): void;
+  each(params: SimIpAddressListInstanceEachOptions, callback?: (item: SimIpAddressInstance, done: (err?: Error) => void) => void): void;
   /**
    * Retrieve a single target page of SimIpAddressInstance records from the API.
    *
@@ -97,10 +99,7 @@ export interface SimIpAddressListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(
-    targetUrl: string,
-    callback?: (error: Error | null, items: SimIpAddressPage) => any
-  ): Promise<SimIpAddressPage>;
+  getPage(targetUrl: string, callback?: (error: Error | null, items: SimIpAddressPage) => any): Promise<SimIpAddressPage>;
   /**
    * Lists SimIpAddressInstance records from the API as a list.
    *
@@ -110,13 +109,8 @@ export interface SimIpAddressListInstance {
    * @param { SimIpAddressListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(
-    callback?: (error: Error | null, items: SimIpAddressInstance[]) => any
-  ): Promise<SimIpAddressInstance[]>;
-  list(
-    params: SimIpAddressListInstanceOptions,
-    callback?: (error: Error | null, items: SimIpAddressInstance[]) => any
-  ): Promise<SimIpAddressInstance[]>;
+  list(callback?: (error: Error | null, items: SimIpAddressInstance[]) => any): Promise<SimIpAddressInstance[]>;
+  list(params: SimIpAddressListInstanceOptions, callback?: (error: Error | null, items: SimIpAddressInstance[]) => any): Promise<SimIpAddressInstance[]>;
   /**
    * Retrieve a single page of SimIpAddressInstance records from the API.
    *
@@ -128,13 +122,8 @@ export interface SimIpAddressListInstance {
    * @param { SimIpAddressListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(
-    callback?: (error: Error | null, items: SimIpAddressPage) => any
-  ): Promise<SimIpAddressPage>;
-  page(
-    params: SimIpAddressListInstancePageOptions,
-    callback?: (error: Error | null, items: SimIpAddressPage) => any
-  ): Promise<SimIpAddressPage>;
+  page(callback?: (error: Error | null, items: SimIpAddressPage) => any): Promise<SimIpAddressPage>;
+  page(params: SimIpAddressListInstancePageOptions, callback?: (error: Error | null, items: SimIpAddressPage) => any): Promise<SimIpAddressPage>;
 
   /**
    * Provide a user-friendly representation
@@ -143,26 +132,18 @@ export interface SimIpAddressListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function SimIpAddressListInstance(
-  version: V1,
-  simSid: string
-): SimIpAddressListInstance {
+export function SimIpAddressListInstance(version: V1, simSid: string): SimIpAddressListInstance {
   if (!isValidPathParam(simSid)) {
-    throw new Error("Parameter 'simSid' is not valid.");
+    throw new Error('Parameter \'simSid\' is not valid.');
   }
 
   const instance = {} as SimIpAddressListInstance;
 
   instance._version = version;
-  instance._solution = { simSid };
+  instance._solution = { simSid,  };
   instance._uri = `/Sims/${simSid}/IpAddresses`;
 
-  instance.page = function page(
-    params?:
-      | SimIpAddressListInstancePageOptions
-      | ((error: Error | null, items: SimIpAddressPage) => any),
-    callback?: (error: Error | null, items: SimIpAddressPage) => any
-  ): Promise<SimIpAddressPage> {
+  instance.page = function page(params?: SimIpAddressListInstancePageOptions | ((error: Error | null, items: SimIpAddressPage) => any), callback?: (error: Error | null, items: SimIpAddressPage) => any): Promise<SimIpAddressPage> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -172,68 +153,50 @@ export function SimIpAddressListInstance(
 
     let data: any = {};
 
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
 
+    
+    
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-      operationPromise = operationVersion.page({
-        uri: instance._uri,
-        method: "get",
-        params: data,
-        headers,
-      });
+        operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers });
+    
+    operationPromise = operationPromise.then(payload => new SimIpAddressPage(operationVersion, payload, instance._solution));
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new SimIpAddressPage(operationVersion, payload, instance._solution)
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
+
+  }
   instance.each = instance._version.each;
   instance.list = instance._version.list;
 
-  instance.getPage = function getPage(
-    targetUrl: string,
-    callback?: (error: Error | null, items: SimIpAddressPage) => any
-  ): Promise<SimIpAddressPage> {
-    const operationPromise = instance._version._domain.twilio.request({
-      method: "get",
-      uri: targetUrl,
-    });
+  instance.getPage = function getPage(targetUrl: string, callback?: (error: Error | null, items: SimIpAddressPage) => any): Promise<SimIpAddressPage> {
+    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
 
-    let pagePromise = operationPromise.then(
-      (payload) =>
-        new SimIpAddressPage(instance._version, payload, instance._solution)
-    );
+    let pagePromise = operationPromise.then(payload => new SimIpAddressPage(instance._version, payload, instance._solution));
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  };
+  }
+
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  };
+  }
 
-  instance[inspect.custom] = function inspectImpl(
-    _depth: any,
-    options: InspectOptions
-  ) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(instance.toJSON(), options);
-  };
+  }
 
   return instance;
 }
 
 interface SimIpAddressPayload extends TwilioResponsePayload {
-  ip_addresses: SimIpAddressResource[];
+    ip_addresses: SimIpAddressResource[];
 }
 
 interface SimIpAddressResource {
@@ -242,13 +205,11 @@ interface SimIpAddressResource {
 }
 
 export class SimIpAddressInstance {
-  constructor(
-    protected _version: V1,
-    payload: SimIpAddressResource,
-    simSid: string
-  ) {
-    this.ipAddress = payload.ip_address;
-    this.ipAddressVersion = payload.ip_address_version;
+
+  constructor(protected _version: V1, payload: SimIpAddressResource, simSid: string) {
+    this.ipAddress = (payload.ip_address);
+    this.ipAddressVersion = (payload.ip_address_version);
+
   }
 
   /**
@@ -266,7 +227,7 @@ export class SimIpAddressInstance {
     return {
       ipAddress: this.ipAddress,
       ipAddressVersion: this.ipAddressVersion,
-    };
+    }
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
@@ -274,41 +235,33 @@ export class SimIpAddressInstance {
   }
 }
 
-export class SimIpAddressPage extends Page<
-  V1,
-  SimIpAddressPayload,
-  SimIpAddressResource,
-  SimIpAddressInstance
-> {
-  /**
-   * Initialize the SimIpAddressPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(
-    version: V1,
-    response: Response<string>,
-    solution: SimIpAddressSolution
-  ) {
+export class SimIpAddressPage extends Page<V1, SimIpAddressPayload, SimIpAddressResource, SimIpAddressInstance> {
+/**
+* Initialize the SimIpAddressPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V1, response: Response<string>, solution: SimIpAddressSolution) {
     super(version, response, solution);
-  }
+    }
 
-  /**
-   * Build an instance of SimIpAddressInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: SimIpAddressResource): SimIpAddressInstance {
+    /**
+    * Build an instance of SimIpAddressInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: SimIpAddressResource): SimIpAddressInstance {
     return new SimIpAddressInstance(
-      this._version,
-      payload,
-      this._solution.simSid
+    this._version,
+    payload,
+        this._solution.simSid,
     );
-  }
+    }
 
-  [inspect.custom](depth: any, options: InspectOptions) {
+    [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-  }
-}
+    }
+    }
+

@@ -12,6 +12,7 @@
  * Do not edit the class manually.
  */
 
+
 import { inspect, InspectOptions } from "util";
 import Page, { TwilioResponsePayload } from "../../../../../base/Page";
 import Response from "../../../../../http/response";
@@ -20,29 +21,27 @@ const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
 
+
 /**
  * Options to pass to each
  */
 export interface TaskQueuesStatisticsListInstanceEachOptions {
   /** Only calculate statistics from this date and time and earlier, specified in GMT as an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time. */
-  endDate?: Date;
+  "endDate"?: Date;
   /** The `friendly_name` of the TaskQueue statistics to read. */
-  friendlyName?: string;
+  "friendlyName"?: string;
   /** Only calculate statistics since this many minutes in the past. The default is 15 minutes. */
-  minutes?: number;
+  "minutes"?: number;
   /** Only calculate statistics from this date and time and later, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. */
-  startDate?: Date;
+  "startDate"?: Date;
   /** Only calculate statistics on this TaskChannel. Can be the TaskChannel\'s SID or its `unique_name`, such as `voice`, `sms`, or `default`. */
-  taskChannel?: string;
+  "taskChannel"?: string;
   /** A comma separated list of values that describes the thresholds, in seconds, to calculate statistics on. For each threshold specified, the number of Tasks canceled and reservations accepted above and below the specified thresholds in seconds are computed. */
-  splitByWaitTime?: string;
+  "splitByWaitTime"?: string;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
-  callback?: (
-    item: TaskQueuesStatisticsInstance,
-    done: (err?: Error) => void
-  ) => void;
+  callback?: (item: TaskQueuesStatisticsInstance, done: (err?: Error) => void) => void;
   /** Function to be called upon completion of streaming */
   done?: Function;
   /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
@@ -54,19 +53,19 @@ export interface TaskQueuesStatisticsListInstanceEachOptions {
  */
 export interface TaskQueuesStatisticsListInstanceOptions {
   /** Only calculate statistics from this date and time and earlier, specified in GMT as an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time. */
-  endDate?: Date;
+  "endDate"?: Date;
   /** The `friendly_name` of the TaskQueue statistics to read. */
-  friendlyName?: string;
+  "friendlyName"?: string;
   /** Only calculate statistics since this many minutes in the past. The default is 15 minutes. */
-  minutes?: number;
+  "minutes"?: number;
   /** Only calculate statistics from this date and time and later, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. */
-  startDate?: Date;
+  "startDate"?: Date;
   /** Only calculate statistics on this TaskChannel. Can be the TaskChannel\'s SID or its `unique_name`, such as `voice`, `sms`, or `default`. */
-  taskChannel?: string;
+  "taskChannel"?: string;
   /** A comma separated list of values that describes the thresholds, in seconds, to calculate statistics on. For each threshold specified, the number of Tasks canceled and reservations accepted above and below the specified thresholds in seconds are computed. */
-  splitByWaitTime?: string;
+  "splitByWaitTime"?: string;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
@@ -76,24 +75,26 @@ export interface TaskQueuesStatisticsListInstanceOptions {
  */
 export interface TaskQueuesStatisticsListInstancePageOptions {
   /** Only calculate statistics from this date and time and earlier, specified in GMT as an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time. */
-  endDate?: Date;
+  "endDate"?: Date;
   /** The `friendly_name` of the TaskQueue statistics to read. */
-  friendlyName?: string;
+  "friendlyName"?: string;
   /** Only calculate statistics since this many minutes in the past. The default is 15 minutes. */
-  minutes?: number;
+  "minutes"?: number;
   /** Only calculate statistics from this date and time and later, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. */
-  startDate?: Date;
+  "startDate"?: Date;
   /** Only calculate statistics on this TaskChannel. Can be the TaskChannel\'s SID or its `unique_name`, such as `voice`, `sms`, or `default`. */
-  taskChannel?: string;
+  "taskChannel"?: string;
   /** A comma separated list of values that describes the thresholds, in seconds, to calculate statistics on. For each threshold specified, the number of Tasks canceled and reservations accepted above and below the specified thresholds in seconds are computed. */
-  splitByWaitTime?: string;
+  "splitByWaitTime"?: string;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
   /** PageToken provided by the API */
   pageToken?: string;
 }
+
+
 
 export interface TaskQueuesStatisticsSolution {
   workspaceSid: string;
@@ -103,6 +104,9 @@ export interface TaskQueuesStatisticsListInstance {
   _version: V1;
   _solution: TaskQueuesStatisticsSolution;
   _uri: string;
+
+
+
 
   /**
    * Streams TaskQueuesStatisticsInstance records from the API.
@@ -119,19 +123,8 @@ export interface TaskQueuesStatisticsListInstance {
    * @param { TaskQueuesStatisticsListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(
-    callback?: (
-      item: TaskQueuesStatisticsInstance,
-      done: (err?: Error) => void
-    ) => void
-  ): void;
-  each(
-    params: TaskQueuesStatisticsListInstanceEachOptions,
-    callback?: (
-      item: TaskQueuesStatisticsInstance,
-      done: (err?: Error) => void
-    ) => void
-  ): void;
+  each(callback?: (item: TaskQueuesStatisticsInstance, done: (err?: Error) => void) => void): void;
+  each(params: TaskQueuesStatisticsListInstanceEachOptions, callback?: (item: TaskQueuesStatisticsInstance, done: (err?: Error) => void) => void): void;
   /**
    * Retrieve a single target page of TaskQueuesStatisticsInstance records from the API.
    *
@@ -140,10 +133,7 @@ export interface TaskQueuesStatisticsListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(
-    targetUrl: string,
-    callback?: (error: Error | null, items: TaskQueuesStatisticsPage) => any
-  ): Promise<TaskQueuesStatisticsPage>;
+  getPage(targetUrl: string, callback?: (error: Error | null, items: TaskQueuesStatisticsPage) => any): Promise<TaskQueuesStatisticsPage>;
   /**
    * Lists TaskQueuesStatisticsInstance records from the API as a list.
    *
@@ -153,19 +143,8 @@ export interface TaskQueuesStatisticsListInstance {
    * @param { TaskQueuesStatisticsListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(
-    callback?: (
-      error: Error | null,
-      items: TaskQueuesStatisticsInstance[]
-    ) => any
-  ): Promise<TaskQueuesStatisticsInstance[]>;
-  list(
-    params: TaskQueuesStatisticsListInstanceOptions,
-    callback?: (
-      error: Error | null,
-      items: TaskQueuesStatisticsInstance[]
-    ) => any
-  ): Promise<TaskQueuesStatisticsInstance[]>;
+  list(callback?: (error: Error | null, items: TaskQueuesStatisticsInstance[]) => any): Promise<TaskQueuesStatisticsInstance[]>;
+  list(params: TaskQueuesStatisticsListInstanceOptions, callback?: (error: Error | null, items: TaskQueuesStatisticsInstance[]) => any): Promise<TaskQueuesStatisticsInstance[]>;
   /**
    * Retrieve a single page of TaskQueuesStatisticsInstance records from the API.
    *
@@ -177,13 +156,8 @@ export interface TaskQueuesStatisticsListInstance {
    * @param { TaskQueuesStatisticsListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(
-    callback?: (error: Error | null, items: TaskQueuesStatisticsPage) => any
-  ): Promise<TaskQueuesStatisticsPage>;
-  page(
-    params: TaskQueuesStatisticsListInstancePageOptions,
-    callback?: (error: Error | null, items: TaskQueuesStatisticsPage) => any
-  ): Promise<TaskQueuesStatisticsPage>;
+  page(callback?: (error: Error | null, items: TaskQueuesStatisticsPage) => any): Promise<TaskQueuesStatisticsPage>;
+  page(params: TaskQueuesStatisticsListInstancePageOptions, callback?: (error: Error | null, items: TaskQueuesStatisticsPage) => any): Promise<TaskQueuesStatisticsPage>;
 
   /**
    * Provide a user-friendly representation
@@ -192,26 +166,18 @@ export interface TaskQueuesStatisticsListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function TaskQueuesStatisticsListInstance(
-  version: V1,
-  workspaceSid: string
-): TaskQueuesStatisticsListInstance {
+export function TaskQueuesStatisticsListInstance(version: V1, workspaceSid: string): TaskQueuesStatisticsListInstance {
   if (!isValidPathParam(workspaceSid)) {
-    throw new Error("Parameter 'workspaceSid' is not valid.");
+    throw new Error('Parameter \'workspaceSid\' is not valid.');
   }
 
   const instance = {} as TaskQueuesStatisticsListInstance;
 
   instance._version = version;
-  instance._solution = { workspaceSid };
+  instance._solution = { workspaceSid,  };
   instance._uri = `/Workspaces/${workspaceSid}/TaskQueues/Statistics`;
 
-  instance.page = function page(
-    params?:
-      | TaskQueuesStatisticsListInstancePageOptions
-      | ((error: Error | null, items: TaskQueuesStatisticsPage) => any),
-    callback?: (error: Error | null, items: TaskQueuesStatisticsPage) => any
-  ): Promise<TaskQueuesStatisticsPage> {
+  instance.page = function page(params?: TaskQueuesStatisticsListInstancePageOptions | ((error: Error | null, items: TaskQueuesStatisticsPage) => any), callback?: (error: Error | null, items: TaskQueuesStatisticsPage) => any): Promise<TaskQueuesStatisticsPage> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -221,87 +187,62 @@ export function TaskQueuesStatisticsListInstance(
 
     let data: any = {};
 
-    if (params["endDate"] !== undefined)
-      data["EndDate"] = serialize.iso8601DateTime(params["endDate"]);
+        if (params["endDate"] !== undefined)
+    data["EndDate"] = serialize.iso8601DateTime(params["endDate"]);
     if (params["friendlyName"] !== undefined)
-      data["FriendlyName"] = params["friendlyName"];
-    if (params["minutes"] !== undefined) data["Minutes"] = params["minutes"];
+    data["FriendlyName"] = params["friendlyName"];
+    if (params["minutes"] !== undefined)
+    data["Minutes"] = params["minutes"];
     if (params["startDate"] !== undefined)
-      data["StartDate"] = serialize.iso8601DateTime(params["startDate"]);
+    data["StartDate"] = serialize.iso8601DateTime(params["startDate"]);
     if (params["taskChannel"] !== undefined)
-      data["TaskChannel"] = params["taskChannel"];
+    data["TaskChannel"] = params["taskChannel"];
     if (params["splitByWaitTime"] !== undefined)
-      data["SplitByWaitTime"] = params["splitByWaitTime"];
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+    data["SplitByWaitTime"] = params["splitByWaitTime"];
+    if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
 
+    
+    
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-      operationPromise = operationVersion.page({
-        uri: instance._uri,
-        method: "get",
-        params: data,
-        headers,
-      });
+        operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers });
+    
+    operationPromise = operationPromise.then(payload => new TaskQueuesStatisticsPage(operationVersion, payload, instance._solution));
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new TaskQueuesStatisticsPage(
-          operationVersion,
-          payload,
-          instance._solution
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
+
+  }
   instance.each = instance._version.each;
   instance.list = instance._version.list;
 
-  instance.getPage = function getPage(
-    targetUrl: string,
-    callback?: (error: Error | null, items: TaskQueuesStatisticsPage) => any
-  ): Promise<TaskQueuesStatisticsPage> {
-    const operationPromise = instance._version._domain.twilio.request({
-      method: "get",
-      uri: targetUrl,
-    });
+  instance.getPage = function getPage(targetUrl: string, callback?: (error: Error | null, items: TaskQueuesStatisticsPage) => any): Promise<TaskQueuesStatisticsPage> {
+    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
 
-    let pagePromise = operationPromise.then(
-      (payload) =>
-        new TaskQueuesStatisticsPage(
-          instance._version,
-          payload,
-          instance._solution
-        )
-    );
+    let pagePromise = operationPromise.then(payload => new TaskQueuesStatisticsPage(instance._version, payload, instance._solution));
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  };
+  }
+
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  };
+  }
 
-  instance[inspect.custom] = function inspectImpl(
-    _depth: any,
-    options: InspectOptions
-  ) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(instance.toJSON(), options);
-  };
+  }
 
   return instance;
 }
 
 interface TaskQueuesStatisticsPayload extends TwilioResponsePayload {
-  task_queues_statistics: TaskQueuesStatisticsResource[];
+    task_queues_statistics: TaskQueuesStatisticsResource[];
 }
 
 interface TaskQueuesStatisticsResource {
@@ -313,16 +254,14 @@ interface TaskQueuesStatisticsResource {
 }
 
 export class TaskQueuesStatisticsInstance {
-  constructor(
-    protected _version: V1,
-    payload: TaskQueuesStatisticsResource,
-    workspaceSid: string
-  ) {
-    this.accountSid = payload.account_sid;
-    this.cumulative = payload.cumulative;
-    this.realtime = payload.realtime;
-    this.taskQueueSid = payload.task_queue_sid;
-    this.workspaceSid = payload.workspace_sid;
+
+  constructor(protected _version: V1, payload: TaskQueuesStatisticsResource, workspaceSid: string) {
+    this.accountSid = (payload.account_sid);
+    this.cumulative = (payload.cumulative);
+    this.realtime = (payload.realtime);
+    this.taskQueueSid = (payload.task_queue_sid);
+    this.workspaceSid = (payload.workspace_sid);
+
   }
 
   /**
@@ -358,7 +297,7 @@ export class TaskQueuesStatisticsInstance {
       realtime: this.realtime,
       taskQueueSid: this.taskQueueSid,
       workspaceSid: this.workspaceSid,
-    };
+    }
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
@@ -366,43 +305,33 @@ export class TaskQueuesStatisticsInstance {
   }
 }
 
-export class TaskQueuesStatisticsPage extends Page<
-  V1,
-  TaskQueuesStatisticsPayload,
-  TaskQueuesStatisticsResource,
-  TaskQueuesStatisticsInstance
-> {
-  /**
-   * Initialize the TaskQueuesStatisticsPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(
-    version: V1,
-    response: Response<string>,
-    solution: TaskQueuesStatisticsSolution
-  ) {
+export class TaskQueuesStatisticsPage extends Page<V1, TaskQueuesStatisticsPayload, TaskQueuesStatisticsResource, TaskQueuesStatisticsInstance> {
+/**
+* Initialize the TaskQueuesStatisticsPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V1, response: Response<string>, solution: TaskQueuesStatisticsSolution) {
     super(version, response, solution);
-  }
+    }
 
-  /**
-   * Build an instance of TaskQueuesStatisticsInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(
-    payload: TaskQueuesStatisticsResource
-  ): TaskQueuesStatisticsInstance {
+    /**
+    * Build an instance of TaskQueuesStatisticsInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: TaskQueuesStatisticsResource): TaskQueuesStatisticsInstance {
     return new TaskQueuesStatisticsInstance(
-      this._version,
-      payload,
-      this._solution.workspaceSid
+    this._version,
+    payload,
+        this._solution.workspaceSid,
     );
-  }
+    }
 
-  [inspect.custom](depth: any, options: InspectOptions) {
+    [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-  }
-}
+    }
+    }
+

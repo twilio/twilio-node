@@ -12,19 +12,23 @@
  * Do not edit the class manually.
  */
 
+
 import { inspect, InspectOptions } from "util";
 import V2010 from "../../V2010";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
 
+
+
 /**
  * Options to pass to create a NewSigningKeyInstance
  */
 export interface NewSigningKeyListInstanceCreateOptions {
   /** A descriptive string that you create to describe the resource. It can be up to 64 characters long. */
-  friendlyName?: string;
+  "friendlyName"?: string;
 }
+
 
 export interface NewSigningKeySolution {
   accountSid: string;
@@ -35,6 +39,8 @@ export interface NewSigningKeyListInstance {
   _solution: NewSigningKeySolution;
   _uri: string;
 
+
+
   /**
    * Create a NewSigningKeyInstance
    *
@@ -42,9 +48,7 @@ export interface NewSigningKeyListInstance {
    *
    * @returns Resolves to processed NewSigningKeyInstance
    */
-  create(
-    callback?: (error: Error | null, item?: NewSigningKeyInstance) => any
-  ): Promise<NewSigningKeyInstance>;
+  create(callback?: (error: Error | null, item?: NewSigningKeyInstance) => any): Promise<NewSigningKeyInstance>;
   /**
    * Create a NewSigningKeyInstance
    *
@@ -53,10 +57,8 @@ export interface NewSigningKeyListInstance {
    *
    * @returns Resolves to processed NewSigningKeyInstance
    */
-  create(
-    params: NewSigningKeyListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: NewSigningKeyInstance) => any
-  ): Promise<NewSigningKeyInstance>;
+  create(params: NewSigningKeyListInstanceCreateOptions, callback?: (error: Error | null, item?: NewSigningKeyInstance) => any): Promise<NewSigningKeyInstance>;
+
 
   /**
    * Provide a user-friendly representation
@@ -65,26 +67,18 @@ export interface NewSigningKeyListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function NewSigningKeyListInstance(
-  version: V2010,
-  accountSid: string
-): NewSigningKeyListInstance {
+export function NewSigningKeyListInstance(version: V2010, accountSid: string): NewSigningKeyListInstance {
   if (!isValidPathParam(accountSid)) {
-    throw new Error("Parameter 'accountSid' is not valid.");
+    throw new Error('Parameter \'accountSid\' is not valid.');
   }
 
   const instance = {} as NewSigningKeyListInstance;
 
   instance._version = version;
-  instance._solution = { accountSid };
+  instance._solution = { accountSid,  };
   instance._uri = `/Accounts/${accountSid}/SigningKeys.json`;
 
-  instance.create = function create(
-    params?:
-      | NewSigningKeyListInstanceCreateOptions
-      | ((error: Error | null, items: NewSigningKeyInstance) => any),
-    callback?: (error: Error | null, items: NewSigningKeyInstance) => any
-  ): Promise<NewSigningKeyInstance> {
+  instance.create = function create(params?: NewSigningKeyListInstanceCreateOptions | ((error: Error | null, items: NewSigningKeyInstance) => any), callback?: (error: Error | null, items: NewSigningKeyInstance) => any): Promise<NewSigningKeyInstance> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -94,46 +88,34 @@ export function NewSigningKeyListInstance(
 
     let data: any = {};
 
-    if (params["friendlyName"] !== undefined)
-      data["FriendlyName"] = params["friendlyName"];
+    
+        if (params["friendlyName"] !== undefined)
+    data["FriendlyName"] = params["friendlyName"];
+
+    
 
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = version,
-      operationPromise = operationVersion.create({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      });
+        operationPromise = operationVersion.create({ uri: instance._uri, method: "post", data, headers });
+    
+    operationPromise = operationPromise.then(payload => new NewSigningKeyInstance(operationVersion, payload, instance._solution.accountSid));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new NewSigningKeyInstance(
-          operationVersion,
-          payload,
-          instance._solution.accountSid
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
+
+
+    }
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  };
+  }
 
-  instance[inspect.custom] = function inspectImpl(
-    _depth: any,
-    options: InspectOptions
-  ) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(instance.toJSON(), options);
-  };
+  }
 
   return instance;
 }
@@ -149,16 +131,14 @@ interface NewSigningKeyResource {
 }
 
 export class NewSigningKeyInstance {
-  constructor(
-    protected _version: V2010,
-    payload: NewSigningKeyResource,
-    accountSid: string
-  ) {
-    this.sid = payload.sid;
-    this.friendlyName = payload.friendly_name;
+
+  constructor(protected _version: V2010, payload: NewSigningKeyResource, accountSid: string) {
+    this.sid = (payload.sid);
+    this.friendlyName = (payload.friendly_name);
     this.dateCreated = deserialize.rfc2822DateTime(payload.date_created);
     this.dateUpdated = deserialize.rfc2822DateTime(payload.date_updated);
-    this.secret = payload.secret;
+    this.secret = (payload.secret);
+
   }
 
   /**
@@ -194,10 +174,12 @@ export class NewSigningKeyInstance {
       dateCreated: this.dateCreated,
       dateUpdated: this.dateUpdated,
       secret: this.secret,
-    };
+    }
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
 }
+
+

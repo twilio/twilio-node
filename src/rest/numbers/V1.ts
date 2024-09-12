@@ -55,8 +55,7 @@ export default class V1 extends Version {
 
   /** Getter for bulkEligibilities resource */
   get bulkEligibilities(): BulkEligibilityListInstance {
-    this._bulkEligibilities =
-      this._bulkEligibilities || BulkEligibilityListInstance(this);
+    this._bulkEligibilities = this._bulkEligibilities || BulkEligibilityListInstance(this);
     return this._bulkEligibilities;
   }
 
@@ -68,55 +67,44 @@ export default class V1 extends Version {
 
   /** Getter for portingPortIns resource */
   get portingPortIns(): PortingPortInListInstance {
-    this._portingPortIns =
-      this._portingPortIns || PortingPortInListInstance(this);
+    this._portingPortIns = this._portingPortIns || PortingPortInListInstance(this);
     return this._portingPortIns;
   }
 
   /** Getter for portingPortInPhoneNumber resource */
   get portingPortInPhoneNumber(): PortingPortInPhoneNumberListInstance {
-    this._portingPortInPhoneNumber =
-      this._portingPortInPhoneNumber ||
-      PortingPortInPhoneNumberListInstance(this);
+    this._portingPortInPhoneNumber = this._portingPortInPhoneNumber || PortingPortInPhoneNumberListInstance(this);
     return this._portingPortInPhoneNumber;
   }
 
   /** Getter for portingPortabilities resource */
   get portingPortabilities(): PortingPortabilityListInstance {
-    this._portingPortabilities =
-      this._portingPortabilities || PortingPortabilityListInstance(this);
+    this._portingPortabilities = this._portingPortabilities || PortingPortabilityListInstance(this);
     return this._portingPortabilities;
   }
 
   /** Getter for portingWebhookConfigurations resource */
   get portingWebhookConfigurations(): PortingWebhookConfigurationListInstance {
-    this._portingWebhookConfigurations =
-      this._portingWebhookConfigurations ||
-      PortingWebhookConfigurationListInstance(this);
+    this._portingWebhookConfigurations = this._portingWebhookConfigurations || PortingWebhookConfigurationListInstance(this);
     return this._portingWebhookConfigurations;
   }
 
   /** Getter for portingWebhookConfigurationsDelete resource */
   get portingWebhookConfigurationsDelete(): PortingWebhookConfigurationDeleteListInstance {
-    this._portingWebhookConfigurationsDelete =
-      this._portingWebhookConfigurationsDelete ||
-      PortingWebhookConfigurationDeleteListInstance(this);
+    this._portingWebhookConfigurationsDelete = this._portingWebhookConfigurationsDelete || PortingWebhookConfigurationDeleteListInstance(this);
     return this._portingWebhookConfigurationsDelete;
   }
 
   /** Getter for portingWebhookConfigurationFetch resource */
   get portingWebhookConfigurationFetch(): PortingWebhookConfigurationFetchListInstance {
-    this._portingWebhookConfigurationFetch =
-      this._portingWebhookConfigurationFetch ||
-      PortingWebhookConfigurationFetchListInstance(this);
+    this._portingWebhookConfigurationFetch = this._portingWebhookConfigurationFetch || PortingWebhookConfigurationFetchListInstance(this);
     return this._portingWebhookConfigurationFetch;
   }
 
   /** Getter for signingRequestConfigurations resource */
   get signingRequestConfigurations(): SigningRequestConfigurationListInstance {
-    this._signingRequestConfigurations =
-      this._signingRequestConfigurations ||
-      SigningRequestConfigurationListInstance(this);
+    this._signingRequestConfigurations = this._signingRequestConfigurations || SigningRequestConfigurationListInstance(this);
     return this._signingRequestConfigurations;
   }
+
 }

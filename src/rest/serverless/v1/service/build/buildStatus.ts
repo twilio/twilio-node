@@ -12,15 +12,20 @@
  * Do not edit the class manually.
  */
 
+
 import { inspect, InspectOptions } from "util";
 import V1 from "../../../V1";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
 
-export type BuildStatusStatus = "building" | "completed" | "failed";
+
+export type BuildStatusStatus = 'building'|'completed'|'failed';
+
+
 
 export interface BuildStatusContext {
+
   /**
    * Fetch a BuildStatusInstance
    *
@@ -28,9 +33,7 @@ export interface BuildStatusContext {
    *
    * @returns Resolves to processed BuildStatusInstance
    */
-  fetch(
-    callback?: (error: Error | null, item?: BuildStatusInstance) => any
-  ): Promise<BuildStatusInstance>;
+  fetch(callback?: (error: Error | null, item?: BuildStatusInstance) => any): Promise<BuildStatusInstance>
 
   /**
    * Provide a user-friendly representation
@@ -40,52 +43,41 @@ export interface BuildStatusContext {
 }
 
 export interface BuildStatusContextSolution {
-  serviceSid: string;
-  sid: string;
+  "serviceSid": string;
+  "sid": string;
 }
 
 export class BuildStatusContextImpl implements BuildStatusContext {
   protected _solution: BuildStatusContextSolution;
   protected _uri: string;
 
+
   constructor(protected _version: V1, serviceSid: string, sid: string) {
     if (!isValidPathParam(serviceSid)) {
-      throw new Error("Parameter 'serviceSid' is not valid.");
+      throw new Error('Parameter \'serviceSid\' is not valid.');
     }
 
     if (!isValidPathParam(sid)) {
-      throw new Error("Parameter 'sid' is not valid.");
+      throw new Error('Parameter \'sid\' is not valid.');
     }
 
-    this._solution = { serviceSid, sid };
+    this._solution = { serviceSid, sid,  };
     this._uri = `/Services/${serviceSid}/Builds/${sid}/Status`;
   }
 
-  fetch(
-    callback?: (error: Error | null, item?: BuildStatusInstance) => any
-  ): Promise<BuildStatusInstance> {
+  fetch(callback?: (error: Error | null, item?: BuildStatusInstance) => any): Promise<BuildStatusInstance> {
+  
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.fetch({
-        uri: instance._uri,
-        method: "get",
-      });
+        operationPromise = operationVersion.fetch({ uri: instance._uri, method: "get" });
+    
+    operationPromise = operationPromise.then(payload => new BuildStatusInstance(operationVersion, payload, instance._solution.serviceSid, instance._solution.sid));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new BuildStatusInstance(
-          operationVersion,
-          payload,
-          instance._solution.serviceSid,
-          instance._solution.sid
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
   /**
@@ -102,6 +94,7 @@ export class BuildStatusContextImpl implements BuildStatusContext {
   }
 }
 
+
 interface BuildStatusPayload extends BuildStatusResource {}
 
 interface BuildStatusResource {
@@ -116,19 +109,14 @@ export class BuildStatusInstance {
   protected _solution: BuildStatusContextSolution;
   protected _context?: BuildStatusContext;
 
-  constructor(
-    protected _version: V1,
-    payload: BuildStatusResource,
-    serviceSid: string,
-    sid: string
-  ) {
-    this.sid = payload.sid;
-    this.accountSid = payload.account_sid;
-    this.serviceSid = payload.service_sid;
-    this.status = payload.status;
-    this.url = payload.url;
+  constructor(protected _version: V1, payload: BuildStatusResource, serviceSid: string, sid: string) {
+    this.sid = (payload.sid);
+    this.accountSid = (payload.account_sid);
+    this.serviceSid = (payload.service_sid);
+    this.status = (payload.status);
+    this.url = (payload.url);
 
-    this._solution = { serviceSid, sid };
+    this._solution = { serviceSid, sid,  };
   }
 
   /**
@@ -150,13 +138,7 @@ export class BuildStatusInstance {
   url: string;
 
   private get _proxy(): BuildStatusContext {
-    this._context =
-      this._context ||
-      new BuildStatusContextImpl(
-        this._version,
-        this._solution.serviceSid,
-        this._solution.sid
-      );
+    this._context = this._context || new BuildStatusContextImpl(this._version, this._solution.serviceSid, this._solution.sid);
     return this._context;
   }
 
@@ -167,9 +149,9 @@ export class BuildStatusInstance {
    *
    * @returns Resolves to processed BuildStatusInstance
    */
-  fetch(
-    callback?: (error: Error | null, item?: BuildStatusInstance) => any
-  ): Promise<BuildStatusInstance> {
+  fetch(callback?: (error: Error | null, item?: BuildStatusInstance) => any): Promise<BuildStatusInstance>
+
+    {
     return this._proxy.fetch(callback);
   }
 
@@ -185,13 +167,14 @@ export class BuildStatusInstance {
       serviceSid: this.serviceSid,
       status: this.status,
       url: this.url,
-    };
+    }
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
 }
+
 
 export interface BuildStatusSolution {
   serviceSid: string;
@@ -206,6 +189,9 @@ export interface BuildStatusListInstance {
   (): BuildStatusContext;
   get(): BuildStatusContext;
 
+
+
+
   /**
    * Provide a user-friendly representation
    */
@@ -213,39 +199,34 @@ export interface BuildStatusListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function BuildStatusListInstance(
-  version: V1,
-  serviceSid: string,
-  sid: string
-): BuildStatusListInstance {
+export function BuildStatusListInstance(version: V1, serviceSid: string, sid: string): BuildStatusListInstance {
   if (!isValidPathParam(serviceSid)) {
-    throw new Error("Parameter 'serviceSid' is not valid.");
+    throw new Error('Parameter \'serviceSid\' is not valid.');
   }
 
   if (!isValidPathParam(sid)) {
-    throw new Error("Parameter 'sid' is not valid.");
+    throw new Error('Parameter \'sid\' is not valid.');
   }
 
   const instance = (() => instance.get()) as BuildStatusListInstance;
 
   instance.get = function get(): BuildStatusContext {
     return new BuildStatusContextImpl(version, serviceSid, sid);
-  };
+  }
 
   instance._version = version;
-  instance._solution = { serviceSid, sid };
+  instance._solution = { serviceSid, sid,  };
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  };
+  }
 
-  instance[inspect.custom] = function inspectImpl(
-    _depth: any,
-    options: InspectOptions
-  ) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(instance.toJSON(), options);
-  };
+  }
 
   return instance;
 }
+
+

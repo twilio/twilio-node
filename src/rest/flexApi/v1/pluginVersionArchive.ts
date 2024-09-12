@@ -12,21 +12,25 @@
  * Do not edit the class manually.
  */
 
+
 import { inspect, InspectOptions } from "util";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 
+
+
 /**
  * Options to pass to update a PluginVersionArchiveInstance
  */
 export interface PluginVersionArchiveContextUpdateOptions {
   /** The Flex-Metadata HTTP request header */
-  flexMetadata?: string;
+  "flexMetadata"?: string;
 }
 
 export interface PluginVersionArchiveContext {
+
   /**
    * Update a PluginVersionArchiveInstance
    *
@@ -34,9 +38,7 @@ export interface PluginVersionArchiveContext {
    *
    * @returns Resolves to processed PluginVersionArchiveInstance
    */
-  update(
-    callback?: (error: Error | null, item?: PluginVersionArchiveInstance) => any
-  ): Promise<PluginVersionArchiveInstance>;
+  update(callback?: (error: Error | null, item?: PluginVersionArchiveInstance) => any): Promise<PluginVersionArchiveInstance>;
   /**
    * Update a PluginVersionArchiveInstance
    *
@@ -45,10 +47,7 @@ export interface PluginVersionArchiveContext {
    *
    * @returns Resolves to processed PluginVersionArchiveInstance
    */
-  update(
-    params: PluginVersionArchiveContextUpdateOptions,
-    callback?: (error: Error | null, item?: PluginVersionArchiveInstance) => any
-  ): Promise<PluginVersionArchiveInstance>;
+  update(params: PluginVersionArchiveContextUpdateOptions, callback?: (error: Error | null, item?: PluginVersionArchiveInstance) => any): Promise<PluginVersionArchiveInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -58,36 +57,30 @@ export interface PluginVersionArchiveContext {
 }
 
 export interface PluginVersionArchiveContextSolution {
-  pluginSid: string;
-  sid: string;
+  "pluginSid": string;
+  "sid": string;
 }
 
-export class PluginVersionArchiveContextImpl
-  implements PluginVersionArchiveContext
-{
+export class PluginVersionArchiveContextImpl implements PluginVersionArchiveContext {
   protected _solution: PluginVersionArchiveContextSolution;
   protected _uri: string;
 
+
   constructor(protected _version: V1, pluginSid: string, sid: string) {
     if (!isValidPathParam(pluginSid)) {
-      throw new Error("Parameter 'pluginSid' is not valid.");
+      throw new Error('Parameter \'pluginSid\' is not valid.');
     }
 
     if (!isValidPathParam(sid)) {
-      throw new Error("Parameter 'sid' is not valid.");
+      throw new Error('Parameter \'sid\' is not valid.');
     }
 
-    this._solution = { pluginSid, sid };
+    this._solution = { pluginSid, sid,  };
     this._uri = `/PluginService/Plugins/${pluginSid}/Versions/${sid}/Archive`;
   }
 
-  update(
-    params?:
-      | PluginVersionArchiveContextUpdateOptions
-      | ((error: Error | null, item?: PluginVersionArchiveInstance) => any),
-    callback?: (error: Error | null, item?: PluginVersionArchiveInstance) => any
-  ): Promise<PluginVersionArchiveInstance> {
-    if (params instanceof Function) {
+  update(params?: PluginVersionArchiveContextUpdateOptions | ((error: Error | null, item?: PluginVersionArchiveInstance) => any), callback?: (error: Error | null, item?: PluginVersionArchiveInstance) => any): Promise<PluginVersionArchiveInstance> {
+      if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -96,34 +89,24 @@ export class PluginVersionArchiveContextImpl
 
     let data: any = {};
 
+    
+    
+    
+
     const headers: any = {};
-    if (params["flexMetadata"] !== undefined)
-      headers["Flex-Metadata"] = params["flexMetadata"];
+    if (params["flexMetadata"] !== undefined) headers["Flex-Metadata"] = params["flexMetadata"];
 
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.update({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      });
+        operationPromise = operationVersion.update({ uri: instance._uri, method: "post", data, headers });
+    
+    operationPromise = operationPromise.then(payload => new PluginVersionArchiveInstance(operationVersion, payload, instance._solution.pluginSid, instance._solution.sid));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new PluginVersionArchiveInstance(
-          operationVersion,
-          payload,
-          instance._solution.pluginSid,
-          instance._solution.sid
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
   /**
@@ -139,6 +122,7 @@ export class PluginVersionArchiveContextImpl
     return inspect(this.toJSON(), options);
   }
 }
+
 
 interface PluginVersionArchivePayload extends PluginVersionArchiveResource {}
 
@@ -159,27 +143,19 @@ export class PluginVersionArchiveInstance {
   protected _solution: PluginVersionArchiveContextSolution;
   protected _context?: PluginVersionArchiveContext;
 
-  constructor(
-    protected _version: V1,
-    payload: PluginVersionArchiveResource,
-    pluginSid?: string,
-    sid?: string
-  ) {
-    this.sid = payload.sid;
-    this.pluginSid = payload.plugin_sid;
-    this.accountSid = payload.account_sid;
-    this.version = payload.version;
-    this.pluginUrl = payload.plugin_url;
-    this.changelog = payload.changelog;
-    this._private = payload.private;
-    this.archived = payload.archived;
+  constructor(protected _version: V1, payload: PluginVersionArchiveResource, pluginSid?: string, sid?: string) {
+    this.sid = (payload.sid);
+    this.pluginSid = (payload.plugin_sid);
+    this.accountSid = (payload.account_sid);
+    this.version = (payload.version);
+    this.pluginUrl = (payload.plugin_url);
+    this.changelog = (payload.changelog);
+    this._private = (payload.private);
+    this.archived = (payload.archived);
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
-    this.url = payload.url;
+    this.url = (payload.url);
 
-    this._solution = {
-      pluginSid: pluginSid || this.pluginSid,
-      sid: sid || this.sid,
-    };
+    this._solution = { pluginSid: pluginSid || this.pluginSid, sid: sid || this.sid,  };
   }
 
   /**
@@ -224,13 +200,7 @@ export class PluginVersionArchiveInstance {
   url: string;
 
   private get _proxy(): PluginVersionArchiveContext {
-    this._context =
-      this._context ||
-      new PluginVersionArchiveContextImpl(
-        this._version,
-        this._solution.pluginSid,
-        this._solution.sid
-      );
+    this._context = this._context || new PluginVersionArchiveContextImpl(this._version, this._solution.pluginSid, this._solution.sid);
     return this._context;
   }
 
@@ -241,9 +211,7 @@ export class PluginVersionArchiveInstance {
    *
    * @returns Resolves to processed PluginVersionArchiveInstance
    */
-  update(
-    callback?: (error: Error | null, item?: PluginVersionArchiveInstance) => any
-  ): Promise<PluginVersionArchiveInstance>;
+  update(callback?: (error: Error | null, item?: PluginVersionArchiveInstance) => any): Promise<PluginVersionArchiveInstance>;
   /**
    * Update a PluginVersionArchiveInstance
    *
@@ -252,15 +220,10 @@ export class PluginVersionArchiveInstance {
    *
    * @returns Resolves to processed PluginVersionArchiveInstance
    */
-  update(
-    params: PluginVersionArchiveContextUpdateOptions,
-    callback?: (error: Error | null, item?: PluginVersionArchiveInstance) => any
-  ): Promise<PluginVersionArchiveInstance>;
+  update(params: PluginVersionArchiveContextUpdateOptions, callback?: (error: Error | null, item?: PluginVersionArchiveInstance) => any): Promise<PluginVersionArchiveInstance>;
 
-  update(
-    params?: any,
-    callback?: (error: Error | null, item?: PluginVersionArchiveInstance) => any
-  ): Promise<PluginVersionArchiveInstance> {
+    update(params?: any, callback?: (error: Error | null, item?: PluginVersionArchiveInstance) => any): Promise<PluginVersionArchiveInstance>
+    {
     return this._proxy.update(params, callback);
   }
 
@@ -281,7 +244,7 @@ export class PluginVersionArchiveInstance {
       archived: this.archived,
       dateCreated: this.dateCreated,
       url: this.url,
-    };
+    }
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
@@ -289,15 +252,20 @@ export class PluginVersionArchiveInstance {
   }
 }
 
-export interface PluginVersionArchiveSolution {}
+
+export interface PluginVersionArchiveSolution {
+}
 
 export interface PluginVersionArchiveListInstance {
   _version: V1;
   _solution: PluginVersionArchiveSolution;
   _uri: string;
 
-  (pluginSid: string, sid: string): PluginVersionArchiveContext;
-  get(pluginSid: string, sid: string): PluginVersionArchiveContext;
+  (pluginSid: string, sid: string, ): PluginVersionArchiveContext;
+  get(pluginSid: string, sid: string, ): PluginVersionArchiveContext;
+
+
+
 
   /**
    * Provide a user-friendly representation
@@ -306,30 +274,26 @@ export interface PluginVersionArchiveListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function PluginVersionArchiveListInstance(
-  version: V1
-): PluginVersionArchiveListInstance {
-  const instance = ((pluginSid, sid) =>
-    instance.get(pluginSid, sid)) as PluginVersionArchiveListInstance;
+export function PluginVersionArchiveListInstance(version: V1): PluginVersionArchiveListInstance {
+  const instance = ((pluginSid, sid, ) => instance.get(pluginSid, sid, )) as PluginVersionArchiveListInstance;
 
-  instance.get = function get(pluginSid, sid): PluginVersionArchiveContext {
+  instance.get = function get(pluginSid, sid, ): PluginVersionArchiveContext {
     return new PluginVersionArchiveContextImpl(version, pluginSid, sid);
-  };
+  }
 
   instance._version = version;
-  instance._solution = {};
+  instance._solution = {  };
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  };
+  }
 
-  instance[inspect.custom] = function inspectImpl(
-    _depth: any,
-    options: InspectOptions
-  ) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(instance.toJSON(), options);
-  };
+  }
 
   return instance;
 }
+
+

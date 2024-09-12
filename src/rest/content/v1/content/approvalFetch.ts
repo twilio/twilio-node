@@ -12,13 +12,18 @@
  * Do not edit the class manually.
  */
 
+
 import { inspect, InspectOptions } from "util";
 import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
 
+
+
+
 export interface ApprovalFetchContext {
+
   /**
    * Fetch a ApprovalFetchInstance
    *
@@ -26,9 +31,7 @@ export interface ApprovalFetchContext {
    *
    * @returns Resolves to processed ApprovalFetchInstance
    */
-  fetch(
-    callback?: (error: Error | null, item?: ApprovalFetchInstance) => any
-  ): Promise<ApprovalFetchInstance>;
+  fetch(callback?: (error: Error | null, item?: ApprovalFetchInstance) => any): Promise<ApprovalFetchInstance>
 
   /**
    * Provide a user-friendly representation
@@ -38,46 +41,36 @@ export interface ApprovalFetchContext {
 }
 
 export interface ApprovalFetchContextSolution {
-  contentSid: string;
+  "contentSid": string;
 }
 
 export class ApprovalFetchContextImpl implements ApprovalFetchContext {
   protected _solution: ApprovalFetchContextSolution;
   protected _uri: string;
 
+
   constructor(protected _version: V1, contentSid: string) {
     if (!isValidPathParam(contentSid)) {
-      throw new Error("Parameter 'contentSid' is not valid.");
+      throw new Error('Parameter \'contentSid\' is not valid.');
     }
 
-    this._solution = { contentSid };
+    this._solution = { contentSid,  };
     this._uri = `/Content/${contentSid}/ApprovalRequests`;
   }
 
-  fetch(
-    callback?: (error: Error | null, item?: ApprovalFetchInstance) => any
-  ): Promise<ApprovalFetchInstance> {
+  fetch(callback?: (error: Error | null, item?: ApprovalFetchInstance) => any): Promise<ApprovalFetchInstance> {
+  
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.fetch({
-        uri: instance._uri,
-        method: "get",
-      });
+        operationPromise = operationVersion.fetch({ uri: instance._uri, method: "get" });
+    
+    operationPromise = operationPromise.then(payload => new ApprovalFetchInstance(operationVersion, payload, instance._solution.contentSid));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new ApprovalFetchInstance(
-          operationVersion,
-          payload,
-          instance._solution.contentSid
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
   /**
@@ -94,6 +87,7 @@ export class ApprovalFetchContextImpl implements ApprovalFetchContext {
   }
 }
 
+
 interface ApprovalFetchPayload extends ApprovalFetchResource {}
 
 interface ApprovalFetchResource {
@@ -107,17 +101,13 @@ export class ApprovalFetchInstance {
   protected _solution: ApprovalFetchContextSolution;
   protected _context?: ApprovalFetchContext;
 
-  constructor(
-    protected _version: V1,
-    payload: ApprovalFetchResource,
-    contentSid: string
-  ) {
-    this.sid = payload.sid;
-    this.accountSid = payload.account_sid;
-    this.whatsapp = payload.whatsapp;
-    this.url = payload.url;
+  constructor(protected _version: V1, payload: ApprovalFetchResource, contentSid: string) {
+    this.sid = (payload.sid);
+    this.accountSid = (payload.account_sid);
+    this.whatsapp = (payload.whatsapp);
+    this.url = (payload.url);
 
-    this._solution = { contentSid };
+    this._solution = { contentSid,  };
   }
 
   /**
@@ -138,9 +128,7 @@ export class ApprovalFetchInstance {
   url: string;
 
   private get _proxy(): ApprovalFetchContext {
-    this._context =
-      this._context ||
-      new ApprovalFetchContextImpl(this._version, this._solution.contentSid);
+    this._context = this._context || new ApprovalFetchContextImpl(this._version, this._solution.contentSid);
     return this._context;
   }
 
@@ -151,9 +139,9 @@ export class ApprovalFetchInstance {
    *
    * @returns Resolves to processed ApprovalFetchInstance
    */
-  fetch(
-    callback?: (error: Error | null, item?: ApprovalFetchInstance) => any
-  ): Promise<ApprovalFetchInstance> {
+  fetch(callback?: (error: Error | null, item?: ApprovalFetchInstance) => any): Promise<ApprovalFetchInstance>
+
+    {
     return this._proxy.fetch(callback);
   }
 
@@ -168,13 +156,14 @@ export class ApprovalFetchInstance {
       accountSid: this.accountSid,
       whatsapp: this.whatsapp,
       url: this.url,
-    };
+    }
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
 }
+
 
 export interface ApprovalFetchSolution {
   contentSid: string;
@@ -188,6 +177,9 @@ export interface ApprovalFetchListInstance {
   (): ApprovalFetchContext;
   get(): ApprovalFetchContext;
 
+
+
+
   /**
    * Provide a user-friendly representation
    */
@@ -195,34 +187,30 @@ export interface ApprovalFetchListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function ApprovalFetchListInstance(
-  version: V1,
-  contentSid: string
-): ApprovalFetchListInstance {
+export function ApprovalFetchListInstance(version: V1, contentSid: string): ApprovalFetchListInstance {
   if (!isValidPathParam(contentSid)) {
-    throw new Error("Parameter 'contentSid' is not valid.");
+    throw new Error('Parameter \'contentSid\' is not valid.');
   }
 
   const instance = (() => instance.get()) as ApprovalFetchListInstance;
 
   instance.get = function get(): ApprovalFetchContext {
     return new ApprovalFetchContextImpl(version, contentSid);
-  };
+  }
 
   instance._version = version;
-  instance._solution = { contentSid };
+  instance._solution = { contentSid,  };
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  };
+  }
 
-  instance[inspect.custom] = function inspectImpl(
-    _depth: any,
-    options: InspectOptions
-  ) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(instance.toJSON(), options);
-  };
+  }
 
   return instance;
 }
+
+

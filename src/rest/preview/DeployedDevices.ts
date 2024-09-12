@@ -34,4 +34,5 @@ export default class DeployedDevices extends Version {
     this._fleets = this._fleets || FleetListInstance(this);
     return this._fleets;
   }
+
 }

@@ -12,6 +12,7 @@
  * Do not edit the class manually.
  */
 
+
 import { inspect, InspectOptions } from "util";
 import Page, { TwilioResponsePayload } from "../../../../base/Page";
 import Response from "../../../../http/response";
@@ -20,12 +21,16 @@ const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
 
+
+
+
+
 /**
  * Options to pass to update a DeviceSecretInstance
  */
 export interface DeviceSecretContextUpdateOptions {
   /** The secret value; up to 4096 characters. */
-  value: string;
+  "value": string;
 }
 
 /**
@@ -33,16 +38,16 @@ export interface DeviceSecretContextUpdateOptions {
  */
 export interface DeviceSecretListInstanceCreateOptions {
   /** The secret key; up to 100 characters. */
-  key: string;
+  "key": string;
   /** The secret value; up to 4096 characters. */
-  value: string;
+  "value": string;
 }
 /**
  * Options to pass to each
  */
 export interface DeviceSecretListInstanceEachOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: DeviceSecretInstance, done: (err?: Error) => void) => void;
   /** Function to be called upon completion of streaming */
@@ -56,7 +61,7 @@ export interface DeviceSecretListInstanceEachOptions {
  */
 export interface DeviceSecretListInstanceOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
@@ -66,14 +71,16 @@ export interface DeviceSecretListInstanceOptions {
  */
 export interface DeviceSecretListInstancePageOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
   /** PageToken provided by the API */
   pageToken?: string;
 }
 
+
 export interface DeviceSecretContext {
+
   /**
    * Remove a DeviceSecretInstance
    *
@@ -81,9 +88,7 @@ export interface DeviceSecretContext {
    *
    * @returns Resolves to processed boolean
    */
-  remove(
-    callback?: (error: Error | null, item?: boolean) => any
-  ): Promise<boolean>;
+  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
 
   /**
    * Fetch a DeviceSecretInstance
@@ -92,9 +97,7 @@ export interface DeviceSecretContext {
    *
    * @returns Resolves to processed DeviceSecretInstance
    */
-  fetch(
-    callback?: (error: Error | null, item?: DeviceSecretInstance) => any
-  ): Promise<DeviceSecretInstance>;
+  fetch(callback?: (error: Error | null, item?: DeviceSecretInstance) => any): Promise<DeviceSecretInstance>
 
   /**
    * Update a DeviceSecretInstance
@@ -104,10 +107,9 @@ export interface DeviceSecretContext {
    *
    * @returns Resolves to processed DeviceSecretInstance
    */
-  update(
-    params: DeviceSecretContextUpdateOptions,
-    callback?: (error: Error | null, item?: DeviceSecretInstance) => any
-  ): Promise<DeviceSecretInstance>;
+  update(params: DeviceSecretContextUpdateOptions, callback?: (error: Error | null, item?: DeviceSecretInstance) => any): Promise<DeviceSecretInstance>;
+
+
 
   /**
    * Provide a user-friendly representation
@@ -117,114 +119,87 @@ export interface DeviceSecretContext {
 }
 
 export interface DeviceSecretContextSolution {
-  deviceSid: string;
-  key: string;
+  "deviceSid": string;
+  "key": string;
 }
 
 export class DeviceSecretContextImpl implements DeviceSecretContext {
   protected _solution: DeviceSecretContextSolution;
   protected _uri: string;
 
+
   constructor(protected _version: V1, deviceSid: string, key: string) {
     if (!isValidPathParam(deviceSid)) {
-      throw new Error("Parameter 'deviceSid' is not valid.");
+      throw new Error('Parameter \'deviceSid\' is not valid.');
     }
 
     if (!isValidPathParam(key)) {
-      throw new Error("Parameter 'key' is not valid.");
+      throw new Error('Parameter \'key\' is not valid.');
     }
 
-    this._solution = { deviceSid, key };
+    this._solution = { deviceSid, key,  };
     this._uri = `/Devices/${deviceSid}/Secrets/${key}`;
   }
 
-  remove(
-    callback?: (error: Error | null, item?: boolean) => any
-  ): Promise<boolean> {
+  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean> {
+  
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.remove({
-        uri: instance._uri,
-        method: "delete",
-      });
+        operationPromise = operationVersion.remove({ uri: instance._uri, method: "delete" });
+    
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
-  fetch(
-    callback?: (error: Error | null, item?: DeviceSecretInstance) => any
-  ): Promise<DeviceSecretInstance> {
+  fetch(callback?: (error: Error | null, item?: DeviceSecretInstance) => any): Promise<DeviceSecretInstance> {
+  
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.fetch({
-        uri: instance._uri,
-        method: "get",
-      });
+        operationPromise = operationVersion.fetch({ uri: instance._uri, method: "get" });
+    
+    operationPromise = operationPromise.then(payload => new DeviceSecretInstance(operationVersion, payload, instance._solution.deviceSid, instance._solution.key));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new DeviceSecretInstance(
-          operationVersion,
-          payload,
-          instance._solution.deviceSid,
-          instance._solution.key
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
-  update(
-    params: DeviceSecretContextUpdateOptions,
-    callback?: (error: Error | null, item?: DeviceSecretInstance) => any
-  ): Promise<DeviceSecretInstance> {
-    if (params === null || params === undefined) {
+  update(params: DeviceSecretContextUpdateOptions, callback?: (error: Error | null, item?: DeviceSecretInstance) => any): Promise<DeviceSecretInstance> {
+      if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     if (params["value"] === null || params["value"] === undefined) {
-      throw new Error("Required parameter \"params['value']\" missing.");
+      throw new Error('Required parameter "params[\'value\']" missing.');
     }
 
     let data: any = {};
 
+    
+        
     data["Value"] = params["value"];
 
+    
+
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.update({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      });
+        operationPromise = operationVersion.update({ uri: instance._uri, method: "post", data, headers });
+    
+    operationPromise = operationPromise.then(payload => new DeviceSecretInstance(operationVersion, payload, instance._solution.deviceSid, instance._solution.key));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new DeviceSecretInstance(
-          operationVersion,
-          payload,
-          instance._solution.deviceSid,
-          instance._solution.key
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
   /**
@@ -241,8 +216,9 @@ export class DeviceSecretContextImpl implements DeviceSecretContext {
   }
 }
 
+
 interface DeviceSecretPayload extends TwilioResponsePayload {
-  secrets: DeviceSecretResource[];
+    secrets: DeviceSecretResource[];
 }
 
 interface DeviceSecretResource {
@@ -256,18 +232,13 @@ export class DeviceSecretInstance {
   protected _solution: DeviceSecretContextSolution;
   protected _context?: DeviceSecretContext;
 
-  constructor(
-    protected _version: V1,
-    payload: DeviceSecretResource,
-    deviceSid: string,
-    key?: string
-  ) {
-    this.deviceSid = payload.device_sid;
-    this.key = payload.key;
+  constructor(protected _version: V1, payload: DeviceSecretResource, deviceSid: string, key?: string) {
+    this.deviceSid = (payload.device_sid);
+    this.key = (payload.key);
     this.dateRotated = deserialize.iso8601DateTime(payload.date_rotated);
-    this.url = payload.url;
+    this.url = (payload.url);
 
-    this._solution = { deviceSid, key: key || this.key };
+    this._solution = { deviceSid, key: key || this.key,  };
   }
 
   /**
@@ -285,13 +256,7 @@ export class DeviceSecretInstance {
   url: string;
 
   private get _proxy(): DeviceSecretContext {
-    this._context =
-      this._context ||
-      new DeviceSecretContextImpl(
-        this._version,
-        this._solution.deviceSid,
-        this._solution.key
-      );
+    this._context = this._context || new DeviceSecretContextImpl(this._version, this._solution.deviceSid, this._solution.key);
     return this._context;
   }
 
@@ -302,9 +267,9 @@ export class DeviceSecretInstance {
    *
    * @returns Resolves to processed boolean
    */
-  remove(
-    callback?: (error: Error | null, item?: boolean) => any
-  ): Promise<boolean> {
+  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
+
+    {
     return this._proxy.remove(callback);
   }
 
@@ -315,9 +280,9 @@ export class DeviceSecretInstance {
    *
    * @returns Resolves to processed DeviceSecretInstance
    */
-  fetch(
-    callback?: (error: Error | null, item?: DeviceSecretInstance) => any
-  ): Promise<DeviceSecretInstance> {
+  fetch(callback?: (error: Error | null, item?: DeviceSecretInstance) => any): Promise<DeviceSecretInstance>
+
+    {
     return this._proxy.fetch(callback);
   }
 
@@ -329,15 +294,10 @@ export class DeviceSecretInstance {
    *
    * @returns Resolves to processed DeviceSecretInstance
    */
-  update(
-    params: DeviceSecretContextUpdateOptions,
-    callback?: (error: Error | null, item?: DeviceSecretInstance) => any
-  ): Promise<DeviceSecretInstance>;
+  update(params: DeviceSecretContextUpdateOptions, callback?: (error: Error | null, item?: DeviceSecretInstance) => any): Promise<DeviceSecretInstance>;
 
-  update(
-    params?: any,
-    callback?: (error: Error | null, item?: DeviceSecretInstance) => any
-  ): Promise<DeviceSecretInstance> {
+    update(params?: any, callback?: (error: Error | null, item?: DeviceSecretInstance) => any): Promise<DeviceSecretInstance>
+    {
     return this._proxy.update(params, callback);
   }
 
@@ -352,13 +312,14 @@ export class DeviceSecretInstance {
       key: this.key,
       dateRotated: this.dateRotated,
       url: this.url,
-    };
+    }
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
 }
+
 
 export interface DeviceSecretSolution {
   deviceSid: string;
@@ -369,8 +330,15 @@ export interface DeviceSecretListInstance {
   _solution: DeviceSecretSolution;
   _uri: string;
 
-  (key: string): DeviceSecretContext;
-  get(key: string): DeviceSecretContext;
+  (key: string, ): DeviceSecretContext;
+  get(key: string, ): DeviceSecretContext;
+
+
+
+
+
+
+
 
   /**
    * Create a DeviceSecretInstance
@@ -380,10 +348,9 @@ export interface DeviceSecretListInstance {
    *
    * @returns Resolves to processed DeviceSecretInstance
    */
-  create(
-    params: DeviceSecretListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: DeviceSecretInstance) => any
-  ): Promise<DeviceSecretInstance>;
+  create(params: DeviceSecretListInstanceCreateOptions, callback?: (error: Error | null, item?: DeviceSecretInstance) => any): Promise<DeviceSecretInstance>;
+
+
 
   /**
    * Streams DeviceSecretInstance records from the API.
@@ -400,13 +367,8 @@ export interface DeviceSecretListInstance {
    * @param { DeviceSecretListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(
-    callback?: (item: DeviceSecretInstance, done: (err?: Error) => void) => void
-  ): void;
-  each(
-    params: DeviceSecretListInstanceEachOptions,
-    callback?: (item: DeviceSecretInstance, done: (err?: Error) => void) => void
-  ): void;
+  each(callback?: (item: DeviceSecretInstance, done: (err?: Error) => void) => void): void;
+  each(params: DeviceSecretListInstanceEachOptions, callback?: (item: DeviceSecretInstance, done: (err?: Error) => void) => void): void;
   /**
    * Retrieve a single target page of DeviceSecretInstance records from the API.
    *
@@ -415,10 +377,7 @@ export interface DeviceSecretListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(
-    targetUrl: string,
-    callback?: (error: Error | null, items: DeviceSecretPage) => any
-  ): Promise<DeviceSecretPage>;
+  getPage(targetUrl: string, callback?: (error: Error | null, items: DeviceSecretPage) => any): Promise<DeviceSecretPage>;
   /**
    * Lists DeviceSecretInstance records from the API as a list.
    *
@@ -428,13 +387,8 @@ export interface DeviceSecretListInstance {
    * @param { DeviceSecretListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(
-    callback?: (error: Error | null, items: DeviceSecretInstance[]) => any
-  ): Promise<DeviceSecretInstance[]>;
-  list(
-    params: DeviceSecretListInstanceOptions,
-    callback?: (error: Error | null, items: DeviceSecretInstance[]) => any
-  ): Promise<DeviceSecretInstance[]>;
+  list(callback?: (error: Error | null, items: DeviceSecretInstance[]) => any): Promise<DeviceSecretInstance[]>;
+  list(params: DeviceSecretListInstanceOptions, callback?: (error: Error | null, items: DeviceSecretInstance[]) => any): Promise<DeviceSecretInstance[]>;
   /**
    * Retrieve a single page of DeviceSecretInstance records from the API.
    *
@@ -446,13 +400,8 @@ export interface DeviceSecretListInstance {
    * @param { DeviceSecretListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(
-    callback?: (error: Error | null, items: DeviceSecretPage) => any
-  ): Promise<DeviceSecretPage>;
-  page(
-    params: DeviceSecretListInstancePageOptions,
-    callback?: (error: Error | null, items: DeviceSecretPage) => any
-  ): Promise<DeviceSecretPage>;
+  page(callback?: (error: Error | null, items: DeviceSecretPage) => any): Promise<DeviceSecretPage>;
+  page(params: DeviceSecretListInstancePageOptions, callback?: (error: Error | null, items: DeviceSecretPage) => any): Promise<DeviceSecretPage>;
 
   /**
    * Provide a user-friendly representation
@@ -461,79 +410,60 @@ export interface DeviceSecretListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function DeviceSecretListInstance(
-  version: V1,
-  deviceSid: string
-): DeviceSecretListInstance {
+export function DeviceSecretListInstance(version: V1, deviceSid: string): DeviceSecretListInstance {
   if (!isValidPathParam(deviceSid)) {
-    throw new Error("Parameter 'deviceSid' is not valid.");
+    throw new Error('Parameter \'deviceSid\' is not valid.');
   }
 
-  const instance = ((key) => instance.get(key)) as DeviceSecretListInstance;
+  const instance = ((key, ) => instance.get(key, )) as DeviceSecretListInstance;
 
-  instance.get = function get(key): DeviceSecretContext {
+  instance.get = function get(key, ): DeviceSecretContext {
     return new DeviceSecretContextImpl(version, deviceSid, key);
-  };
+  }
 
   instance._version = version;
-  instance._solution = { deviceSid };
+  instance._solution = { deviceSid,  };
   instance._uri = `/Devices/${deviceSid}/Secrets`;
 
-  instance.create = function create(
-    params: DeviceSecretListInstanceCreateOptions,
-    callback?: (error: Error | null, items: DeviceSecretInstance) => any
-  ): Promise<DeviceSecretInstance> {
+  instance.create = function create(params: DeviceSecretListInstanceCreateOptions, callback?: (error: Error | null, items: DeviceSecretInstance) => any): Promise<DeviceSecretInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     if (params["key"] === null || params["key"] === undefined) {
-      throw new Error("Required parameter \"params['key']\" missing.");
+      throw new Error('Required parameter "params[\'key\']" missing.');
     }
 
     if (params["value"] === null || params["value"] === undefined) {
-      throw new Error("Required parameter \"params['value']\" missing.");
+      throw new Error('Required parameter "params[\'value\']" missing.');
     }
 
     let data: any = {};
 
+    
+        
     data["Key"] = params["key"];
-
+    
     data["Value"] = params["value"];
 
+    
+
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = version,
-      operationPromise = operationVersion.create({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      });
+        operationPromise = operationVersion.create({ uri: instance._uri, method: "post", data, headers });
+    
+    operationPromise = operationPromise.then(payload => new DeviceSecretInstance(operationVersion, payload, instance._solution.deviceSid));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new DeviceSecretInstance(
-          operationVersion,
-          payload,
-          instance._solution.deviceSid
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
 
-  instance.page = function page(
-    params?:
-      | DeviceSecretListInstancePageOptions
-      | ((error: Error | null, items: DeviceSecretPage) => any),
-    callback?: (error: Error | null, items: DeviceSecretPage) => any
-  ): Promise<DeviceSecretPage> {
+
+    }
+
+  instance.page = function page(params?: DeviceSecretListInstancePageOptions | ((error: Error | null, items: DeviceSecretPage) => any), callback?: (error: Error | null, items: DeviceSecretPage) => any): Promise<DeviceSecretPage> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -543,101 +473,75 @@ export function DeviceSecretListInstance(
 
     let data: any = {};
 
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
 
+    
+    
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-      operationPromise = operationVersion.page({
-        uri: instance._uri,
-        method: "get",
-        params: data,
-        headers,
-      });
+        operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers });
+    
+    operationPromise = operationPromise.then(payload => new DeviceSecretPage(operationVersion, payload, instance._solution));
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new DeviceSecretPage(operationVersion, payload, instance._solution)
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
+
+  }
   instance.each = instance._version.each;
   instance.list = instance._version.list;
 
-  instance.getPage = function getPage(
-    targetUrl: string,
-    callback?: (error: Error | null, items: DeviceSecretPage) => any
-  ): Promise<DeviceSecretPage> {
-    const operationPromise = instance._version._domain.twilio.request({
-      method: "get",
-      uri: targetUrl,
-    });
+  instance.getPage = function getPage(targetUrl: string, callback?: (error: Error | null, items: DeviceSecretPage) => any): Promise<DeviceSecretPage> {
+    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
 
-    let pagePromise = operationPromise.then(
-      (payload) =>
-        new DeviceSecretPage(instance._version, payload, instance._solution)
-    );
+    let pagePromise = operationPromise.then(payload => new DeviceSecretPage(instance._version, payload, instance._solution));
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  };
+  }
+
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  };
+  }
 
-  instance[inspect.custom] = function inspectImpl(
-    _depth: any,
-    options: InspectOptions
-  ) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(instance.toJSON(), options);
-  };
+  }
 
   return instance;
 }
 
-export class DeviceSecretPage extends Page<
-  V1,
-  DeviceSecretPayload,
-  DeviceSecretResource,
-  DeviceSecretInstance
-> {
-  /**
-   * Initialize the DeviceSecretPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(
-    version: V1,
-    response: Response<string>,
-    solution: DeviceSecretSolution
-  ) {
+export class DeviceSecretPage extends Page<V1, DeviceSecretPayload, DeviceSecretResource, DeviceSecretInstance> {
+/**
+* Initialize the DeviceSecretPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V1, response: Response<string>, solution: DeviceSecretSolution) {
     super(version, response, solution);
-  }
+    }
 
-  /**
-   * Build an instance of DeviceSecretInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: DeviceSecretResource): DeviceSecretInstance {
+    /**
+    * Build an instance of DeviceSecretInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: DeviceSecretResource): DeviceSecretInstance {
     return new DeviceSecretInstance(
-      this._version,
-      payload,
-      this._solution.deviceSid
+    this._version,
+    payload,
+        this._solution.deviceSid,
     );
-  }
+    }
 
-  [inspect.custom](depth: any, options: InspectOptions) {
+    [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-  }
-}
+    }
+    }
+

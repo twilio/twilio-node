@@ -12,27 +12,25 @@
  * Do not edit the class manually.
  */
 
+
 import { inspect, InspectOptions } from "util";
 import V2 from "../../../V2";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
 
-export type ReplaceItemsStatus =
-  | "draft"
-  | "pending-review"
-  | "in-review"
-  | "twilio-rejected"
-  | "twilio-approved"
-  | "provisionally-approved";
+
+export type ReplaceItemsStatus = 'draft'|'pending-review'|'in-review'|'twilio-rejected'|'twilio-approved'|'provisionally-approved';
+
 
 /**
  * Options to pass to create a ReplaceItemsInstance
  */
 export interface ReplaceItemsListInstanceCreateOptions {
   /** The source bundle sid to copy the item assignments from. */
-  fromBundleSid: string;
+  "fromBundleSid": string;
 }
+
 
 export interface ReplaceItemsSolution {
   bundleSid: string;
@@ -43,6 +41,8 @@ export interface ReplaceItemsListInstance {
   _solution: ReplaceItemsSolution;
   _uri: string;
 
+
+
   /**
    * Create a ReplaceItemsInstance
    *
@@ -51,10 +51,8 @@ export interface ReplaceItemsListInstance {
    *
    * @returns Resolves to processed ReplaceItemsInstance
    */
-  create(
-    params: ReplaceItemsListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: ReplaceItemsInstance) => any
-  ): Promise<ReplaceItemsInstance>;
+  create(params: ReplaceItemsListInstanceCreateOptions, callback?: (error: Error | null, item?: ReplaceItemsInstance) => any): Promise<ReplaceItemsInstance>;
+
 
   /**
    * Provide a user-friendly representation
@@ -63,78 +61,56 @@ export interface ReplaceItemsListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function ReplaceItemsListInstance(
-  version: V2,
-  bundleSid: string
-): ReplaceItemsListInstance {
+export function ReplaceItemsListInstance(version: V2, bundleSid: string): ReplaceItemsListInstance {
   if (!isValidPathParam(bundleSid)) {
-    throw new Error("Parameter 'bundleSid' is not valid.");
+    throw new Error('Parameter \'bundleSid\' is not valid.');
   }
 
   const instance = {} as ReplaceItemsListInstance;
 
   instance._version = version;
-  instance._solution = { bundleSid };
+  instance._solution = { bundleSid,  };
   instance._uri = `/RegulatoryCompliance/Bundles/${bundleSid}/ReplaceItems`;
 
-  instance.create = function create(
-    params: ReplaceItemsListInstanceCreateOptions,
-    callback?: (error: Error | null, items: ReplaceItemsInstance) => any
-  ): Promise<ReplaceItemsInstance> {
+  instance.create = function create(params: ReplaceItemsListInstanceCreateOptions, callback?: (error: Error | null, items: ReplaceItemsInstance) => any): Promise<ReplaceItemsInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (
-      params["fromBundleSid"] === null ||
-      params["fromBundleSid"] === undefined
-    ) {
-      throw new Error(
-        "Required parameter \"params['fromBundleSid']\" missing."
-      );
+    if (params["fromBundleSid"] === null || params["fromBundleSid"] === undefined) {
+      throw new Error('Required parameter "params[\'fromBundleSid\']" missing.');
     }
 
     let data: any = {};
 
+    
+        
     data["FromBundleSid"] = params["fromBundleSid"];
 
+    
+
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = version,
-      operationPromise = operationVersion.create({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      });
+        operationPromise = operationVersion.create({ uri: instance._uri, method: "post", data, headers });
+    
+    operationPromise = operationPromise.then(payload => new ReplaceItemsInstance(operationVersion, payload, instance._solution.bundleSid));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new ReplaceItemsInstance(
-          operationVersion,
-          payload,
-          instance._solution.bundleSid
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
+
+
+    }
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  };
+  }
 
-  instance[inspect.custom] = function inspectImpl(
-    _depth: any,
-    options: InspectOptions
-  ) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(instance.toJSON(), options);
-  };
+  }
 
   return instance;
 }
@@ -155,21 +131,19 @@ interface ReplaceItemsResource {
 }
 
 export class ReplaceItemsInstance {
-  constructor(
-    protected _version: V2,
-    payload: ReplaceItemsResource,
-    bundleSid: string
-  ) {
-    this.sid = payload.sid;
-    this.accountSid = payload.account_sid;
-    this.regulationSid = payload.regulation_sid;
-    this.friendlyName = payload.friendly_name;
-    this.status = payload.status;
+
+  constructor(protected _version: V2, payload: ReplaceItemsResource, bundleSid: string) {
+    this.sid = (payload.sid);
+    this.accountSid = (payload.account_sid);
+    this.regulationSid = (payload.regulation_sid);
+    this.friendlyName = (payload.friendly_name);
+    this.status = (payload.status);
     this.validUntil = deserialize.iso8601DateTime(payload.valid_until);
-    this.email = payload.email;
-    this.statusCallback = payload.status_callback;
+    this.email = (payload.email);
+    this.statusCallback = (payload.status_callback);
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
+
   }
 
   /**
@@ -227,10 +201,12 @@ export class ReplaceItemsInstance {
       statusCallback: this.statusCallback,
       dateCreated: this.dateCreated,
       dateUpdated: this.dateUpdated,
-    };
+    }
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
 }
+
+

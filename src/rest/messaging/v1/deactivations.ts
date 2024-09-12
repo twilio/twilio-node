@@ -12,21 +12,25 @@
  * Do not edit the class manually.
  */
 
+
 import { inspect, InspectOptions } from "util";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 
+
+
 /**
  * Options to pass to fetch a DeactivationsInstance
  */
 export interface DeactivationsContextFetchOptions {
   /** The request will return a list of all United States Phone Numbers that were deactivated on the day specified by this parameter. This date should be specified in YYYY-MM-DD format. */
-  date?: Date;
+  "date"?: Date;
 }
 
 export interface DeactivationsContext {
+
   /**
    * Fetch a DeactivationsInstance
    *
@@ -34,9 +38,7 @@ export interface DeactivationsContext {
    *
    * @returns Resolves to processed DeactivationsInstance
    */
-  fetch(
-    callback?: (error: Error | null, item?: DeactivationsInstance) => any
-  ): Promise<DeactivationsInstance>;
+  fetch(callback?: (error: Error | null, item?: DeactivationsInstance) => any): Promise<DeactivationsInstance>;
   /**
    * Fetch a DeactivationsInstance
    *
@@ -45,10 +47,7 @@ export interface DeactivationsContext {
    *
    * @returns Resolves to processed DeactivationsInstance
    */
-  fetch(
-    params: DeactivationsContextFetchOptions,
-    callback?: (error: Error | null, item?: DeactivationsInstance) => any
-  ): Promise<DeactivationsInstance>;
+  fetch(params: DeactivationsContextFetchOptions, callback?: (error: Error | null, item?: DeactivationsInstance) => any): Promise<DeactivationsInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -57,24 +56,21 @@ export interface DeactivationsContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface DeactivationsContextSolution {}
+export interface DeactivationsContextSolution {
+}
 
 export class DeactivationsContextImpl implements DeactivationsContext {
   protected _solution: DeactivationsContextSolution;
   protected _uri: string;
 
+
   constructor(protected _version: V1) {
-    this._solution = {};
+    this._solution = {  };
     this._uri = `/Deactivations`;
   }
 
-  fetch(
-    params?:
-      | DeactivationsContextFetchOptions
-      | ((error: Error | null, item?: DeactivationsInstance) => any),
-    callback?: (error: Error | null, item?: DeactivationsInstance) => any
-  ): Promise<DeactivationsInstance> {
-    if (params instanceof Function) {
+  fetch(params?: DeactivationsContextFetchOptions | ((error: Error | null, item?: DeactivationsInstance) => any), callback?: (error: Error | null, item?: DeactivationsInstance) => any): Promise<DeactivationsInstance> {
+      if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -83,29 +79,25 @@ export class DeactivationsContextImpl implements DeactivationsContext {
 
     let data: any = {};
 
-    if (params["date"] !== undefined)
-      data["Date"] = serialize.iso8601Date(params["date"]);
+        if (params["date"] !== undefined)
+    data["Date"] = serialize.iso8601Date(params["date"]);
+
+    
+    
 
     const headers: any = {};
 
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.fetch({
-        uri: instance._uri,
-        method: "get",
-        params: data,
-        headers,
-      });
+        operationPromise = operationVersion.fetch({ uri: instance._uri, method: "get", params: data, headers });
+    
+    operationPromise = operationPromise.then(payload => new DeactivationsInstance(operationVersion, payload));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) => new DeactivationsInstance(operationVersion, payload)
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
   /**
@@ -122,6 +114,7 @@ export class DeactivationsContextImpl implements DeactivationsContext {
   }
 }
 
+
 interface DeactivationsPayload extends DeactivationsResource {}
 
 interface DeactivationsResource {
@@ -133,9 +126,9 @@ export class DeactivationsInstance {
   protected _context?: DeactivationsContext;
 
   constructor(protected _version: V1, payload: DeactivationsResource) {
-    this.redirectTo = payload.redirect_to;
+    this.redirectTo = (payload.redirect_to);
 
-    this._solution = {};
+    this._solution = {  };
   }
 
   /**
@@ -144,8 +137,7 @@ export class DeactivationsInstance {
   redirectTo: string;
 
   private get _proxy(): DeactivationsContext {
-    this._context =
-      this._context || new DeactivationsContextImpl(this._version);
+    this._context = this._context || new DeactivationsContextImpl(this._version);
     return this._context;
   }
 
@@ -156,9 +148,7 @@ export class DeactivationsInstance {
    *
    * @returns Resolves to processed DeactivationsInstance
    */
-  fetch(
-    callback?: (error: Error | null, item?: DeactivationsInstance) => any
-  ): Promise<DeactivationsInstance>;
+  fetch(callback?: (error: Error | null, item?: DeactivationsInstance) => any): Promise<DeactivationsInstance>;
   /**
    * Fetch a DeactivationsInstance
    *
@@ -167,15 +157,10 @@ export class DeactivationsInstance {
    *
    * @returns Resolves to processed DeactivationsInstance
    */
-  fetch(
-    params: DeactivationsContextFetchOptions,
-    callback?: (error: Error | null, item?: DeactivationsInstance) => any
-  ): Promise<DeactivationsInstance>;
+  fetch(params: DeactivationsContextFetchOptions, callback?: (error: Error | null, item?: DeactivationsInstance) => any): Promise<DeactivationsInstance>;
 
-  fetch(
-    params?: any,
-    callback?: (error: Error | null, item?: DeactivationsInstance) => any
-  ): Promise<DeactivationsInstance> {
+    fetch(params?: any, callback?: (error: Error | null, item?: DeactivationsInstance) => any): Promise<DeactivationsInstance>
+    {
     return this._proxy.fetch(params, callback);
   }
 
@@ -187,7 +172,7 @@ export class DeactivationsInstance {
   toJSON() {
     return {
       redirectTo: this.redirectTo,
-    };
+    }
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
@@ -195,7 +180,9 @@ export class DeactivationsInstance {
   }
 }
 
-export interface DeactivationsSolution {}
+
+export interface DeactivationsSolution {
+}
 
 export interface DeactivationsListInstance {
   _version: V1;
@@ -205,6 +192,9 @@ export interface DeactivationsListInstance {
   (): DeactivationsContext;
   get(): DeactivationsContext;
 
+
+
+
   /**
    * Provide a user-friendly representation
    */
@@ -212,29 +202,26 @@ export interface DeactivationsListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function DeactivationsListInstance(
-  version: V1
-): DeactivationsListInstance {
+export function DeactivationsListInstance(version: V1): DeactivationsListInstance {
   const instance = (() => instance.get()) as DeactivationsListInstance;
 
   instance.get = function get(): DeactivationsContext {
     return new DeactivationsContextImpl(version);
-  };
+  }
 
   instance._version = version;
-  instance._solution = {};
+  instance._solution = {  };
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  };
+  }
 
-  instance[inspect.custom] = function inspectImpl(
-    _depth: any,
-    options: InspectOptions
-  ) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(instance.toJSON(), options);
-  };
+  }
 
   return instance;
 }
+
+

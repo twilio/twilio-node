@@ -12,6 +12,7 @@
  * Do not edit the class manually.
  */
 
+
 import { inspect, InspectOptions } from "util";
 import Page, { TwilioResponsePayload } from "../../../base/Page";
 import Response from "../../../http/response";
@@ -20,24 +21,26 @@ const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 
+
+
 /**
  * Options to pass to each
  */
 export interface EventListInstanceEachOptions {
   /** Only include events initiated by this Actor. Useful for auditing actions taken by specific users or API credentials. */
-  actorSid?: string;
+  "actorSid"?: string;
   /** Only include events of this [Event Type](https://www.twilio.com/docs/usage/monitor-events#event-types). */
-  eventType?: string;
+  "eventType"?: string;
   /** Only include events that refer to this resource. Useful for discovering the history of a specific resource. */
-  resourceSid?: string;
+  "resourceSid"?: string;
   /** Only include events that originated from this IP address. Useful for tracking suspicious activity originating from the API or the Twilio Console. */
-  sourceIpAddress?: string;
+  "sourceIpAddress"?: string;
   /** Only include events that occurred on or after this date. Specify the date in GMT and [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. */
-  startDate?: Date;
+  "startDate"?: Date;
   /** Only include events that occurred on or before this date. Specify the date in GMT and [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. */
-  endDate?: Date;
+  "endDate"?: Date;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: EventInstance, done: (err?: Error) => void) => void;
   /** Function to be called upon completion of streaming */
@@ -51,19 +54,19 @@ export interface EventListInstanceEachOptions {
  */
 export interface EventListInstanceOptions {
   /** Only include events initiated by this Actor. Useful for auditing actions taken by specific users or API credentials. */
-  actorSid?: string;
+  "actorSid"?: string;
   /** Only include events of this [Event Type](https://www.twilio.com/docs/usage/monitor-events#event-types). */
-  eventType?: string;
+  "eventType"?: string;
   /** Only include events that refer to this resource. Useful for discovering the history of a specific resource. */
-  resourceSid?: string;
+  "resourceSid"?: string;
   /** Only include events that originated from this IP address. Useful for tracking suspicious activity originating from the API or the Twilio Console. */
-  sourceIpAddress?: string;
+  "sourceIpAddress"?: string;
   /** Only include events that occurred on or after this date. Specify the date in GMT and [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. */
-  startDate?: Date;
+  "startDate"?: Date;
   /** Only include events that occurred on or before this date. Specify the date in GMT and [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. */
-  endDate?: Date;
+  "endDate"?: Date;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
@@ -73,26 +76,28 @@ export interface EventListInstanceOptions {
  */
 export interface EventListInstancePageOptions {
   /** Only include events initiated by this Actor. Useful for auditing actions taken by specific users or API credentials. */
-  actorSid?: string;
+  "actorSid"?: string;
   /** Only include events of this [Event Type](https://www.twilio.com/docs/usage/monitor-events#event-types). */
-  eventType?: string;
+  "eventType"?: string;
   /** Only include events that refer to this resource. Useful for discovering the history of a specific resource. */
-  resourceSid?: string;
+  "resourceSid"?: string;
   /** Only include events that originated from this IP address. Useful for tracking suspicious activity originating from the API or the Twilio Console. */
-  sourceIpAddress?: string;
+  "sourceIpAddress"?: string;
   /** Only include events that occurred on or after this date. Specify the date in GMT and [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. */
-  startDate?: Date;
+  "startDate"?: Date;
   /** Only include events that occurred on or before this date. Specify the date in GMT and [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. */
-  endDate?: Date;
+  "endDate"?: Date;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
   /** PageToken provided by the API */
   pageToken?: string;
 }
 
+
 export interface EventContext {
+
   /**
    * Fetch a EventInstance
    *
@@ -100,9 +105,8 @@ export interface EventContext {
    *
    * @returns Resolves to processed EventInstance
    */
-  fetch(
-    callback?: (error: Error | null, item?: EventInstance) => any
-  ): Promise<EventInstance>;
+  fetch(callback?: (error: Error | null, item?: EventInstance) => any): Promise<EventInstance>
+
 
   /**
    * Provide a user-friendly representation
@@ -112,42 +116,36 @@ export interface EventContext {
 }
 
 export interface EventContextSolution {
-  sid: string;
+  "sid": string;
 }
 
 export class EventContextImpl implements EventContext {
   protected _solution: EventContextSolution;
   protected _uri: string;
 
+
   constructor(protected _version: V1, sid: string) {
     if (!isValidPathParam(sid)) {
-      throw new Error("Parameter 'sid' is not valid.");
+      throw new Error('Parameter \'sid\' is not valid.');
     }
 
-    this._solution = { sid };
+    this._solution = { sid,  };
     this._uri = `/Events/${sid}`;
   }
 
-  fetch(
-    callback?: (error: Error | null, item?: EventInstance) => any
-  ): Promise<EventInstance> {
+  fetch(callback?: (error: Error | null, item?: EventInstance) => any): Promise<EventInstance> {
+  
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.fetch({
-        uri: instance._uri,
-        method: "get",
-      });
+        operationPromise = operationVersion.fetch({ uri: instance._uri, method: "get" });
+    
+    operationPromise = operationPromise.then(payload => new EventInstance(operationVersion, payload, instance._solution.sid));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new EventInstance(operationVersion, payload, instance._solution.sid)
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
   /**
@@ -164,8 +162,9 @@ export class EventContextImpl implements EventContext {
   }
 }
 
+
 interface EventPayload extends TwilioResponsePayload {
-  events: EventResource[];
+    events: EventResource[];
 }
 
 interface EventResource {
@@ -190,22 +189,22 @@ export class EventInstance {
   protected _context?: EventContext;
 
   constructor(protected _version: V1, payload: EventResource, sid?: string) {
-    this.accountSid = payload.account_sid;
-    this.actorSid = payload.actor_sid;
-    this.actorType = payload.actor_type;
-    this.description = payload.description;
-    this.eventData = payload.event_data;
+    this.accountSid = (payload.account_sid);
+    this.actorSid = (payload.actor_sid);
+    this.actorType = (payload.actor_type);
+    this.description = (payload.description);
+    this.eventData = (payload.event_data);
     this.eventDate = deserialize.iso8601DateTime(payload.event_date);
-    this.eventType = payload.event_type;
-    this.resourceSid = payload.resource_sid;
-    this.resourceType = payload.resource_type;
-    this.sid = payload.sid;
-    this.source = payload.source;
-    this.sourceIpAddress = payload.source_ip_address;
-    this.url = payload.url;
-    this.links = payload.links;
+    this.eventType = (payload.event_type);
+    this.resourceSid = (payload.resource_sid);
+    this.resourceType = (payload.resource_type);
+    this.sid = (payload.sid);
+    this.source = (payload.source);
+    this.sourceIpAddress = (payload.source_ip_address);
+    this.url = (payload.url);
+    this.links = (payload.links);
 
-    this._solution = { sid: sid || this.sid };
+    this._solution = { sid: sid || this.sid,  };
   }
 
   /**
@@ -266,8 +265,7 @@ export class EventInstance {
   links: Record<string, string>;
 
   private get _proxy(): EventContext {
-    this._context =
-      this._context || new EventContextImpl(this._version, this._solution.sid);
+    this._context = this._context || new EventContextImpl(this._version, this._solution.sid);
     return this._context;
   }
 
@@ -278,9 +276,9 @@ export class EventInstance {
    *
    * @returns Resolves to processed EventInstance
    */
-  fetch(
-    callback?: (error: Error | null, item?: EventInstance) => any
-  ): Promise<EventInstance> {
+  fetch(callback?: (error: Error | null, item?: EventInstance) => any): Promise<EventInstance>
+
+    {
     return this._proxy.fetch(callback);
   }
 
@@ -305,7 +303,7 @@ export class EventInstance {
       sourceIpAddress: this.sourceIpAddress,
       url: this.url,
       links: this.links,
-    };
+    }
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
@@ -313,15 +311,21 @@ export class EventInstance {
   }
 }
 
-export interface EventSolution {}
+
+export interface EventSolution {
+}
 
 export interface EventListInstance {
   _version: V1;
   _solution: EventSolution;
   _uri: string;
 
-  (sid: string): EventContext;
-  get(sid: string): EventContext;
+  (sid: string, ): EventContext;
+  get(sid: string, ): EventContext;
+
+
+
+
 
   /**
    * Streams EventInstance records from the API.
@@ -338,13 +342,8 @@ export interface EventListInstance {
    * @param { EventListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(
-    callback?: (item: EventInstance, done: (err?: Error) => void) => void
-  ): void;
-  each(
-    params: EventListInstanceEachOptions,
-    callback?: (item: EventInstance, done: (err?: Error) => void) => void
-  ): void;
+  each(callback?: (item: EventInstance, done: (err?: Error) => void) => void): void;
+  each(params: EventListInstanceEachOptions, callback?: (item: EventInstance, done: (err?: Error) => void) => void): void;
   /**
    * Retrieve a single target page of EventInstance records from the API.
    *
@@ -353,10 +352,7 @@ export interface EventListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(
-    targetUrl: string,
-    callback?: (error: Error | null, items: EventPage) => any
-  ): Promise<EventPage>;
+  getPage(targetUrl: string, callback?: (error: Error | null, items: EventPage) => any): Promise<EventPage>;
   /**
    * Lists EventInstance records from the API as a list.
    *
@@ -366,13 +362,8 @@ export interface EventListInstance {
    * @param { EventListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(
-    callback?: (error: Error | null, items: EventInstance[]) => any
-  ): Promise<EventInstance[]>;
-  list(
-    params: EventListInstanceOptions,
-    callback?: (error: Error | null, items: EventInstance[]) => any
-  ): Promise<EventInstance[]>;
+  list(callback?: (error: Error | null, items: EventInstance[]) => any): Promise<EventInstance[]>;
+  list(params: EventListInstanceOptions, callback?: (error: Error | null, items: EventInstance[]) => any): Promise<EventInstance[]>;
   /**
    * Retrieve a single page of EventInstance records from the API.
    *
@@ -384,13 +375,8 @@ export interface EventListInstance {
    * @param { EventListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(
-    callback?: (error: Error | null, items: EventPage) => any
-  ): Promise<EventPage>;
-  page(
-    params: EventListInstancePageOptions,
-    callback?: (error: Error | null, items: EventPage) => any
-  ): Promise<EventPage>;
+  page(callback?: (error: Error | null, items: EventPage) => any): Promise<EventPage>;
+  page(params: EventListInstancePageOptions, callback?: (error: Error | null, items: EventPage) => any): Promise<EventPage>;
 
   /**
    * Provide a user-friendly representation
@@ -400,22 +386,17 @@ export interface EventListInstance {
 }
 
 export function EventListInstance(version: V1): EventListInstance {
-  const instance = ((sid) => instance.get(sid)) as EventListInstance;
+  const instance = ((sid, ) => instance.get(sid, )) as EventListInstance;
 
-  instance.get = function get(sid): EventContext {
+  instance.get = function get(sid, ): EventContext {
     return new EventContextImpl(version, sid);
-  };
+  }
 
   instance._version = version;
-  instance._solution = {};
+  instance._solution = {  };
   instance._uri = `/Events`;
 
-  instance.page = function page(
-    params?:
-      | EventListInstancePageOptions
-      | ((error: Error | null, items: EventPage) => any),
-    callback?: (error: Error | null, items: EventPage) => any
-  ): Promise<EventPage> {
+  instance.page = function page(params?: EventListInstancePageOptions | ((error: Error | null, items: EventPage) => any), callback?: (error: Error | null, items: EventPage) => any): Promise<EventPage> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -425,106 +406,86 @@ export function EventListInstance(version: V1): EventListInstance {
 
     let data: any = {};
 
-    if (params["actorSid"] !== undefined) data["ActorSid"] = params["actorSid"];
+        if (params["actorSid"] !== undefined)
+    data["ActorSid"] = params["actorSid"];
     if (params["eventType"] !== undefined)
-      data["EventType"] = params["eventType"];
+    data["EventType"] = params["eventType"];
     if (params["resourceSid"] !== undefined)
-      data["ResourceSid"] = params["resourceSid"];
+    data["ResourceSid"] = params["resourceSid"];
     if (params["sourceIpAddress"] !== undefined)
-      data["SourceIpAddress"] = params["sourceIpAddress"];
+    data["SourceIpAddress"] = params["sourceIpAddress"];
     if (params["startDate"] !== undefined)
-      data["StartDate"] = serialize.iso8601DateTime(params["startDate"]);
+    data["StartDate"] = serialize.iso8601DateTime(params["startDate"]);
     if (params["endDate"] !== undefined)
-      data["EndDate"] = serialize.iso8601DateTime(params["endDate"]);
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+    data["EndDate"] = serialize.iso8601DateTime(params["endDate"]);
+    if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
 
+    
+    
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-      operationPromise = operationVersion.page({
-        uri: instance._uri,
-        method: "get",
-        params: data,
-        headers,
-      });
+        operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers });
+    
+    operationPromise = operationPromise.then(payload => new EventPage(operationVersion, payload, instance._solution));
 
-    operationPromise = operationPromise.then(
-      (payload) => new EventPage(operationVersion, payload, instance._solution)
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
+
+  }
   instance.each = instance._version.each;
   instance.list = instance._version.list;
 
-  instance.getPage = function getPage(
-    targetUrl: string,
-    callback?: (error: Error | null, items: EventPage) => any
-  ): Promise<EventPage> {
-    const operationPromise = instance._version._domain.twilio.request({
-      method: "get",
-      uri: targetUrl,
-    });
+  instance.getPage = function getPage(targetUrl: string, callback?: (error: Error | null, items: EventPage) => any): Promise<EventPage> {
+    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
 
-    let pagePromise = operationPromise.then(
-      (payload) => new EventPage(instance._version, payload, instance._solution)
-    );
+    let pagePromise = operationPromise.then(payload => new EventPage(instance._version, payload, instance._solution));
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  };
+  }
+
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  };
+  }
 
-  instance[inspect.custom] = function inspectImpl(
-    _depth: any,
-    options: InspectOptions
-  ) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(instance.toJSON(), options);
-  };
+  }
 
   return instance;
 }
 
-export class EventPage extends Page<
-  V1,
-  EventPayload,
-  EventResource,
-  EventInstance
-> {
-  /**
-   * Initialize the EventPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(
-    version: V1,
-    response: Response<string>,
-    solution: EventSolution
-  ) {
+export class EventPage extends Page<V1, EventPayload, EventResource, EventInstance> {
+/**
+* Initialize the EventPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V1, response: Response<string>, solution: EventSolution) {
     super(version, response, solution);
-  }
+    }
 
-  /**
-   * Build an instance of EventInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: EventResource): EventInstance {
-    return new EventInstance(this._version, payload);
-  }
+    /**
+    * Build an instance of EventInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: EventResource): EventInstance {
+    return new EventInstance(
+    this._version,
+    payload,
+    );
+    }
 
-  [inspect.custom](depth: any, options: InspectOptions) {
+    [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-  }
-}
+    }
+    }
+

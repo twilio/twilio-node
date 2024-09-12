@@ -12,6 +12,7 @@
  * Do not edit the class manually.
  */
 
+
 import { inspect, InspectOptions } from "util";
 import Page, { TwilioResponsePayload } from "../../../../../base/Page";
 import Response from "../../../../../http/response";
@@ -20,17 +21,15 @@ const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
 
+
 /**
  * Options to pass to each
  */
 export interface HighriskSpecialPrefixListInstanceEachOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
-  callback?: (
-    item: HighriskSpecialPrefixInstance,
-    done: (err?: Error) => void
-  ) => void;
+  callback?: (item: HighriskSpecialPrefixInstance, done: (err?: Error) => void) => void;
   /** Function to be called upon completion of streaming */
   done?: Function;
   /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
@@ -42,7 +41,7 @@ export interface HighriskSpecialPrefixListInstanceEachOptions {
  */
 export interface HighriskSpecialPrefixListInstanceOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
@@ -52,12 +51,14 @@ export interface HighriskSpecialPrefixListInstanceOptions {
  */
 export interface HighriskSpecialPrefixListInstancePageOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
   /** PageToken provided by the API */
   pageToken?: string;
 }
+
+
 
 export interface HighriskSpecialPrefixSolution {
   isoCode: string;
@@ -67,6 +68,9 @@ export interface HighriskSpecialPrefixListInstance {
   _version: V1;
   _solution: HighriskSpecialPrefixSolution;
   _uri: string;
+
+
+
 
   /**
    * Streams HighriskSpecialPrefixInstance records from the API.
@@ -83,19 +87,8 @@ export interface HighriskSpecialPrefixListInstance {
    * @param { HighriskSpecialPrefixListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(
-    callback?: (
-      item: HighriskSpecialPrefixInstance,
-      done: (err?: Error) => void
-    ) => void
-  ): void;
-  each(
-    params: HighriskSpecialPrefixListInstanceEachOptions,
-    callback?: (
-      item: HighriskSpecialPrefixInstance,
-      done: (err?: Error) => void
-    ) => void
-  ): void;
+  each(callback?: (item: HighriskSpecialPrefixInstance, done: (err?: Error) => void) => void): void;
+  each(params: HighriskSpecialPrefixListInstanceEachOptions, callback?: (item: HighriskSpecialPrefixInstance, done: (err?: Error) => void) => void): void;
   /**
    * Retrieve a single target page of HighriskSpecialPrefixInstance records from the API.
    *
@@ -104,10 +97,7 @@ export interface HighriskSpecialPrefixListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(
-    targetUrl: string,
-    callback?: (error: Error | null, items: HighriskSpecialPrefixPage) => any
-  ): Promise<HighriskSpecialPrefixPage>;
+  getPage(targetUrl: string, callback?: (error: Error | null, items: HighriskSpecialPrefixPage) => any): Promise<HighriskSpecialPrefixPage>;
   /**
    * Lists HighriskSpecialPrefixInstance records from the API as a list.
    *
@@ -117,19 +107,8 @@ export interface HighriskSpecialPrefixListInstance {
    * @param { HighriskSpecialPrefixListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(
-    callback?: (
-      error: Error | null,
-      items: HighriskSpecialPrefixInstance[]
-    ) => any
-  ): Promise<HighriskSpecialPrefixInstance[]>;
-  list(
-    params: HighriskSpecialPrefixListInstanceOptions,
-    callback?: (
-      error: Error | null,
-      items: HighriskSpecialPrefixInstance[]
-    ) => any
-  ): Promise<HighriskSpecialPrefixInstance[]>;
+  list(callback?: (error: Error | null, items: HighriskSpecialPrefixInstance[]) => any): Promise<HighriskSpecialPrefixInstance[]>;
+  list(params: HighriskSpecialPrefixListInstanceOptions, callback?: (error: Error | null, items: HighriskSpecialPrefixInstance[]) => any): Promise<HighriskSpecialPrefixInstance[]>;
   /**
    * Retrieve a single page of HighriskSpecialPrefixInstance records from the API.
    *
@@ -141,13 +120,8 @@ export interface HighriskSpecialPrefixListInstance {
    * @param { HighriskSpecialPrefixListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(
-    callback?: (error: Error | null, items: HighriskSpecialPrefixPage) => any
-  ): Promise<HighriskSpecialPrefixPage>;
-  page(
-    params: HighriskSpecialPrefixListInstancePageOptions,
-    callback?: (error: Error | null, items: HighriskSpecialPrefixPage) => any
-  ): Promise<HighriskSpecialPrefixPage>;
+  page(callback?: (error: Error | null, items: HighriskSpecialPrefixPage) => any): Promise<HighriskSpecialPrefixPage>;
+  page(params: HighriskSpecialPrefixListInstancePageOptions, callback?: (error: Error | null, items: HighriskSpecialPrefixPage) => any): Promise<HighriskSpecialPrefixPage>;
 
   /**
    * Provide a user-friendly representation
@@ -156,26 +130,18 @@ export interface HighriskSpecialPrefixListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function HighriskSpecialPrefixListInstance(
-  version: V1,
-  isoCode: string
-): HighriskSpecialPrefixListInstance {
+export function HighriskSpecialPrefixListInstance(version: V1, isoCode: string): HighriskSpecialPrefixListInstance {
   if (!isValidPathParam(isoCode)) {
-    throw new Error("Parameter 'isoCode' is not valid.");
+    throw new Error('Parameter \'isoCode\' is not valid.');
   }
 
   const instance = {} as HighriskSpecialPrefixListInstance;
 
   instance._version = version;
-  instance._solution = { isoCode };
+  instance._solution = { isoCode,  };
   instance._uri = `/DialingPermissions/Countries/${isoCode}/HighRiskSpecialPrefixes`;
 
-  instance.page = function page(
-    params?:
-      | HighriskSpecialPrefixListInstancePageOptions
-      | ((error: Error | null, items: HighriskSpecialPrefixPage) => any),
-    callback?: (error: Error | null, items: HighriskSpecialPrefixPage) => any
-  ): Promise<HighriskSpecialPrefixPage> {
+  instance.page = function page(params?: HighriskSpecialPrefixListInstancePageOptions | ((error: Error | null, items: HighriskSpecialPrefixPage) => any), callback?: (error: Error | null, items: HighriskSpecialPrefixPage) => any): Promise<HighriskSpecialPrefixPage> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -185,76 +151,50 @@ export function HighriskSpecialPrefixListInstance(
 
     let data: any = {};
 
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
 
+    
+    
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-      operationPromise = operationVersion.page({
-        uri: instance._uri,
-        method: "get",
-        params: data,
-        headers,
-      });
+        operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers });
+    
+    operationPromise = operationPromise.then(payload => new HighriskSpecialPrefixPage(operationVersion, payload, instance._solution));
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new HighriskSpecialPrefixPage(
-          operationVersion,
-          payload,
-          instance._solution
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
+
+  }
   instance.each = instance._version.each;
   instance.list = instance._version.list;
 
-  instance.getPage = function getPage(
-    targetUrl: string,
-    callback?: (error: Error | null, items: HighriskSpecialPrefixPage) => any
-  ): Promise<HighriskSpecialPrefixPage> {
-    const operationPromise = instance._version._domain.twilio.request({
-      method: "get",
-      uri: targetUrl,
-    });
+  instance.getPage = function getPage(targetUrl: string, callback?: (error: Error | null, items: HighriskSpecialPrefixPage) => any): Promise<HighriskSpecialPrefixPage> {
+    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
 
-    let pagePromise = operationPromise.then(
-      (payload) =>
-        new HighriskSpecialPrefixPage(
-          instance._version,
-          payload,
-          instance._solution
-        )
-    );
+    let pagePromise = operationPromise.then(payload => new HighriskSpecialPrefixPage(instance._version, payload, instance._solution));
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  };
+  }
+
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  };
+  }
 
-  instance[inspect.custom] = function inspectImpl(
-    _depth: any,
-    options: InspectOptions
-  ) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(instance.toJSON(), options);
-  };
+  }
 
   return instance;
 }
 
 interface HighriskSpecialPrefixPayload extends TwilioResponsePayload {
-  content: HighriskSpecialPrefixResource[];
+    content: HighriskSpecialPrefixResource[];
 }
 
 interface HighriskSpecialPrefixResource {
@@ -262,12 +202,10 @@ interface HighriskSpecialPrefixResource {
 }
 
 export class HighriskSpecialPrefixInstance {
-  constructor(
-    protected _version: V1,
-    payload: HighriskSpecialPrefixResource,
-    isoCode: string
-  ) {
-    this.prefix = payload.prefix;
+
+  constructor(protected _version: V1, payload: HighriskSpecialPrefixResource, isoCode: string) {
+    this.prefix = (payload.prefix);
+
   }
 
   /**
@@ -283,7 +221,7 @@ export class HighriskSpecialPrefixInstance {
   toJSON() {
     return {
       prefix: this.prefix,
-    };
+    }
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
@@ -291,43 +229,33 @@ export class HighriskSpecialPrefixInstance {
   }
 }
 
-export class HighriskSpecialPrefixPage extends Page<
-  V1,
-  HighriskSpecialPrefixPayload,
-  HighriskSpecialPrefixResource,
-  HighriskSpecialPrefixInstance
-> {
-  /**
-   * Initialize the HighriskSpecialPrefixPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(
-    version: V1,
-    response: Response<string>,
-    solution: HighriskSpecialPrefixSolution
-  ) {
+export class HighriskSpecialPrefixPage extends Page<V1, HighriskSpecialPrefixPayload, HighriskSpecialPrefixResource, HighriskSpecialPrefixInstance> {
+/**
+* Initialize the HighriskSpecialPrefixPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V1, response: Response<string>, solution: HighriskSpecialPrefixSolution) {
     super(version, response, solution);
-  }
+    }
 
-  /**
-   * Build an instance of HighriskSpecialPrefixInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(
-    payload: HighriskSpecialPrefixResource
-  ): HighriskSpecialPrefixInstance {
+    /**
+    * Build an instance of HighriskSpecialPrefixInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: HighriskSpecialPrefixResource): HighriskSpecialPrefixInstance {
     return new HighriskSpecialPrefixInstance(
-      this._version,
-      payload,
-      this._solution.isoCode
+    this._version,
+    payload,
+        this._solution.isoCode,
     );
-  }
+    }
 
-  [inspect.custom](depth: any, options: InspectOptions) {
+    [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-  }
-}
+    }
+    }
+

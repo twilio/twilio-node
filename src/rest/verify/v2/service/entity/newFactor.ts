@@ -12,28 +12,31 @@
  * Do not edit the class manually.
  */
 
+
 import { inspect, InspectOptions } from "util";
 import V2 from "../../../V2";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
 
-export type NewFactorFactorStatuses = "unverified" | "verified";
 
-export type NewFactorFactorTypes = "push" | "totp";
+export type NewFactorFactorStatuses = 'unverified'|'verified';
 
-export type NewFactorNotificationPlatforms = "apn" | "fcm" | "none";
+export type NewFactorFactorTypes = 'push'|'totp';
 
-export type NewFactorTotpAlgorithms = "sha1" | "sha256" | "sha512";
+export type NewFactorNotificationPlatforms = 'apn'|'fcm'|'none';
+
+export type NewFactorTotpAlgorithms = 'sha1'|'sha256'|'sha512';
+
 
 /**
  * Options to pass to create a NewFactorInstance
  */
 export interface NewFactorListInstanceCreateOptions {
   /** The friendly name of this Factor. This can be any string up to 64 characters, meant for humans to distinguish between Factors. For `factor_type` `push`, this could be a device name. For `factor_type` `totp`, this value is used as the “account name” in constructing the `binding.uri` property. At the same time, we recommend avoiding providing PII. */
-  friendlyName: string;
+  "friendlyName": string;
   /**  */
-  factorType: NewFactorFactorTypes;
+  "factorType": NewFactorFactorTypes;
   /** The algorithm used when `factor_type` is `push`. Algorithm supported: `ES256` */
   "binding.alg"?: string;
   /** The Ecdsa public key in PKIX, ASN.1 DER format encoded in Base64.  Required when `factor_type` is `push` */
@@ -57,8 +60,9 @@ export interface NewFactorListInstanceCreateOptions {
   /**  */
   "config.alg"?: NewFactorTotpAlgorithms;
   /** Custom metadata associated with the factor. This is added by the Device/SDK directly to allow for the inclusion of device information. It must be a stringified JSON with only strings values eg. `{\\\"os\\\": \\\"Android\\\"}`. Can be up to 1024 characters in length. */
-  metadata?: any;
+  "metadata"?: any;
 }
+
 
 export interface NewFactorSolution {
   serviceSid: string;
@@ -70,6 +74,8 @@ export interface NewFactorListInstance {
   _solution: NewFactorSolution;
   _uri: string;
 
+
+
   /**
    * Create a NewFactorInstance
    *
@@ -78,10 +84,8 @@ export interface NewFactorListInstance {
    *
    * @returns Resolves to processed NewFactorInstance
    */
-  create(
-    params: NewFactorListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: NewFactorInstance) => any
-  ): Promise<NewFactorInstance>;
+  create(params: NewFactorListInstanceCreateOptions, callback?: (error: Error | null, item?: NewFactorInstance) => any): Promise<NewFactorInstance>;
+
 
   /**
    * Provide a user-friendly representation
@@ -90,113 +94,90 @@ export interface NewFactorListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function NewFactorListInstance(
-  version: V2,
-  serviceSid: string,
-  identity: string
-): NewFactorListInstance {
+export function NewFactorListInstance(version: V2, serviceSid: string, identity: string): NewFactorListInstance {
   if (!isValidPathParam(serviceSid)) {
-    throw new Error("Parameter 'serviceSid' is not valid.");
+    throw new Error('Parameter \'serviceSid\' is not valid.');
   }
 
   if (!isValidPathParam(identity)) {
-    throw new Error("Parameter 'identity' is not valid.");
+    throw new Error('Parameter \'identity\' is not valid.');
   }
 
   const instance = {} as NewFactorListInstance;
 
   instance._version = version;
-  instance._solution = { serviceSid, identity };
+  instance._solution = { serviceSid, identity,  };
   instance._uri = `/Services/${serviceSid}/Entities/${identity}/Factors`;
 
-  instance.create = function create(
-    params: NewFactorListInstanceCreateOptions,
-    callback?: (error: Error | null, items: NewFactorInstance) => any
-  ): Promise<NewFactorInstance> {
+  instance.create = function create(params: NewFactorListInstanceCreateOptions, callback?: (error: Error | null, items: NewFactorInstance) => any): Promise<NewFactorInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (
-      params["friendlyName"] === null ||
-      params["friendlyName"] === undefined
-    ) {
-      throw new Error("Required parameter \"params['friendlyName']\" missing.");
+    if (params["friendlyName"] === null || params["friendlyName"] === undefined) {
+      throw new Error('Required parameter "params[\'friendlyName\']" missing.');
     }
 
     if (params["factorType"] === null || params["factorType"] === undefined) {
-      throw new Error("Required parameter \"params['factorType']\" missing.");
+      throw new Error('Required parameter "params[\'factorType\']" missing.');
     }
 
     let data: any = {};
 
+    
+        
     data["FriendlyName"] = params["friendlyName"];
-
+    
     data["FactorType"] = params["factorType"];
     if (params["binding.alg"] !== undefined)
-      data["Binding.Alg"] = params["binding.alg"];
+    data["Binding.Alg"] = params["binding.alg"];
     if (params["binding.publicKey"] !== undefined)
-      data["Binding.PublicKey"] = params["binding.publicKey"];
+    data["Binding.PublicKey"] = params["binding.publicKey"];
     if (params["config.appId"] !== undefined)
-      data["Config.AppId"] = params["config.appId"];
+    data["Config.AppId"] = params["config.appId"];
     if (params["config.notificationPlatform"] !== undefined)
-      data["Config.NotificationPlatform"] =
-        params["config.notificationPlatform"];
+    data["Config.NotificationPlatform"] = params["config.notificationPlatform"];
     if (params["config.notificationToken"] !== undefined)
-      data["Config.NotificationToken"] = params["config.notificationToken"];
+    data["Config.NotificationToken"] = params["config.notificationToken"];
     if (params["config.sdkVersion"] !== undefined)
-      data["Config.SdkVersion"] = params["config.sdkVersion"];
+    data["Config.SdkVersion"] = params["config.sdkVersion"];
     if (params["binding.secret"] !== undefined)
-      data["Binding.Secret"] = params["binding.secret"];
+    data["Binding.Secret"] = params["binding.secret"];
     if (params["config.timeStep"] !== undefined)
-      data["Config.TimeStep"] = params["config.timeStep"];
+    data["Config.TimeStep"] = params["config.timeStep"];
     if (params["config.skew"] !== undefined)
-      data["Config.Skew"] = params["config.skew"];
+    data["Config.Skew"] = params["config.skew"];
     if (params["config.codeLength"] !== undefined)
-      data["Config.CodeLength"] = params["config.codeLength"];
+    data["Config.CodeLength"] = params["config.codeLength"];
     if (params["config.alg"] !== undefined)
-      data["Config.Alg"] = params["config.alg"];
+    data["Config.Alg"] = params["config.alg"];
     if (params["metadata"] !== undefined)
-      data["Metadata"] = serialize.object(params["metadata"]);
+    data["Metadata"] = serialize.object(params["metadata"]);
+
+    
 
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = version,
-      operationPromise = operationVersion.create({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      });
+        operationPromise = operationVersion.create({ uri: instance._uri, method: "post", data, headers });
+    
+    operationPromise = operationPromise.then(payload => new NewFactorInstance(operationVersion, payload, instance._solution.serviceSid, instance._solution.identity));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new NewFactorInstance(
-          operationVersion,
-          payload,
-          instance._solution.serviceSid,
-          instance._solution.identity
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
+
+
+    }
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  };
+  }
 
-  instance[inspect.custom] = function inspectImpl(
-    _depth: any,
-    options: InspectOptions
-  ) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(instance.toJSON(), options);
-  };
+  }
 
   return instance;
 }
@@ -221,26 +202,23 @@ interface NewFactorResource {
 }
 
 export class NewFactorInstance {
-  constructor(
-    protected _version: V2,
-    payload: NewFactorResource,
-    serviceSid: string,
-    identity: string
-  ) {
-    this.sid = payload.sid;
-    this.accountSid = payload.account_sid;
-    this.serviceSid = payload.service_sid;
-    this.entitySid = payload.entity_sid;
-    this.identity = payload.identity;
-    this.binding = payload.binding;
+
+  constructor(protected _version: V2, payload: NewFactorResource, serviceSid: string, identity: string) {
+    this.sid = (payload.sid);
+    this.accountSid = (payload.account_sid);
+    this.serviceSid = (payload.service_sid);
+    this.entitySid = (payload.entity_sid);
+    this.identity = (payload.identity);
+    this.binding = (payload.binding);
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
-    this.friendlyName = payload.friendly_name;
-    this.status = payload.status;
-    this.factorType = payload.factor_type;
-    this.config = payload.config;
-    this.metadata = payload.metadata;
-    this.url = payload.url;
+    this.friendlyName = (payload.friendly_name);
+    this.status = (payload.status);
+    this.factorType = (payload.factor_type);
+    this.config = (payload.config);
+    this.metadata = (payload.metadata);
+    this.url = (payload.url);
+
   }
 
   /**
@@ -315,10 +293,12 @@ export class NewFactorInstance {
       config: this.config,
       metadata: this.metadata,
       url: this.url,
-    };
+    }
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
 }
+
+

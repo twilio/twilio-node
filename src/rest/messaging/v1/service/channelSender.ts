@@ -12,6 +12,7 @@
  * Do not edit the class manually.
  */
 
+
 import { inspect, InspectOptions } from "util";
 import Page, { TwilioResponsePayload } from "../../../../base/Page";
 import Response from "../../../../http/response";
@@ -20,19 +21,23 @@ const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
 
+
+
+
+
 /**
  * Options to pass to create a ChannelSenderInstance
  */
 export interface ChannelSenderListInstanceCreateOptions {
   /** The SID of the Channel Sender being added to the Service. */
-  sid: string;
+  "sid": string;
 }
 /**
  * Options to pass to each
  */
 export interface ChannelSenderListInstanceEachOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: ChannelSenderInstance, done: (err?: Error) => void) => void;
   /** Function to be called upon completion of streaming */
@@ -46,7 +51,7 @@ export interface ChannelSenderListInstanceEachOptions {
  */
 export interface ChannelSenderListInstanceOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
@@ -56,14 +61,16 @@ export interface ChannelSenderListInstanceOptions {
  */
 export interface ChannelSenderListInstancePageOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
   /** PageToken provided by the API */
   pageToken?: string;
 }
 
+
 export interface ChannelSenderContext {
+
   /**
    * Remove a ChannelSenderInstance
    *
@@ -71,9 +78,7 @@ export interface ChannelSenderContext {
    *
    * @returns Resolves to processed boolean
    */
-  remove(
-    callback?: (error: Error | null, item?: boolean) => any
-  ): Promise<boolean>;
+  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
 
   /**
    * Fetch a ChannelSenderInstance
@@ -82,9 +87,9 @@ export interface ChannelSenderContext {
    *
    * @returns Resolves to processed ChannelSenderInstance
    */
-  fetch(
-    callback?: (error: Error | null, item?: ChannelSenderInstance) => any
-  ): Promise<ChannelSenderInstance>;
+  fetch(callback?: (error: Error | null, item?: ChannelSenderInstance) => any): Promise<ChannelSenderInstance>
+
+
 
   /**
    * Provide a user-friendly representation
@@ -94,73 +99,54 @@ export interface ChannelSenderContext {
 }
 
 export interface ChannelSenderContextSolution {
-  messagingServiceSid: string;
-  sid: string;
+  "messagingServiceSid": string;
+  "sid": string;
 }
 
 export class ChannelSenderContextImpl implements ChannelSenderContext {
   protected _solution: ChannelSenderContextSolution;
   protected _uri: string;
 
-  constructor(
-    protected _version: V1,
-    messagingServiceSid: string,
-    sid: string
-  ) {
+
+  constructor(protected _version: V1, messagingServiceSid: string, sid: string) {
     if (!isValidPathParam(messagingServiceSid)) {
-      throw new Error("Parameter 'messagingServiceSid' is not valid.");
+      throw new Error('Parameter \'messagingServiceSid\' is not valid.');
     }
 
     if (!isValidPathParam(sid)) {
-      throw new Error("Parameter 'sid' is not valid.");
+      throw new Error('Parameter \'sid\' is not valid.');
     }
 
-    this._solution = { messagingServiceSid, sid };
+    this._solution = { messagingServiceSid, sid,  };
     this._uri = `/Services/${messagingServiceSid}/ChannelSenders/${sid}`;
   }
 
-  remove(
-    callback?: (error: Error | null, item?: boolean) => any
-  ): Promise<boolean> {
+  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean> {
+  
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.remove({
-        uri: instance._uri,
-        method: "delete",
-      });
+        operationPromise = operationVersion.remove({ uri: instance._uri, method: "delete" });
+    
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
-  fetch(
-    callback?: (error: Error | null, item?: ChannelSenderInstance) => any
-  ): Promise<ChannelSenderInstance> {
+  fetch(callback?: (error: Error | null, item?: ChannelSenderInstance) => any): Promise<ChannelSenderInstance> {
+  
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.fetch({
-        uri: instance._uri,
-        method: "get",
-      });
+        operationPromise = operationVersion.fetch({ uri: instance._uri, method: "get" });
+    
+    operationPromise = operationPromise.then(payload => new ChannelSenderInstance(operationVersion, payload, instance._solution.messagingServiceSid, instance._solution.sid));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new ChannelSenderInstance(
-          operationVersion,
-          payload,
-          instance._solution.messagingServiceSid,
-          instance._solution.sid
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
   /**
@@ -177,8 +163,9 @@ export class ChannelSenderContextImpl implements ChannelSenderContext {
   }
 }
 
+
 interface ChannelSenderPayload extends TwilioResponsePayload {
-  senders: ChannelSenderResource[];
+    senders: ChannelSenderResource[];
 }
 
 interface ChannelSenderResource {
@@ -197,23 +184,18 @@ export class ChannelSenderInstance {
   protected _solution: ChannelSenderContextSolution;
   protected _context?: ChannelSenderContext;
 
-  constructor(
-    protected _version: V1,
-    payload: ChannelSenderResource,
-    messagingServiceSid: string,
-    sid?: string
-  ) {
-    this.accountSid = payload.account_sid;
-    this.messagingServiceSid = payload.messaging_service_sid;
-    this.sid = payload.sid;
-    this.sender = payload.sender;
-    this.senderType = payload.sender_type;
-    this.countryCode = payload.country_code;
+  constructor(protected _version: V1, payload: ChannelSenderResource, messagingServiceSid: string, sid?: string) {
+    this.accountSid = (payload.account_sid);
+    this.messagingServiceSid = (payload.messaging_service_sid);
+    this.sid = (payload.sid);
+    this.sender = (payload.sender);
+    this.senderType = (payload.sender_type);
+    this.countryCode = (payload.country_code);
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
-    this.url = payload.url;
+    this.url = (payload.url);
 
-    this._solution = { messagingServiceSid, sid: sid || this.sid };
+    this._solution = { messagingServiceSid, sid: sid || this.sid,  };
   }
 
   /**
@@ -254,13 +236,7 @@ export class ChannelSenderInstance {
   url: string;
 
   private get _proxy(): ChannelSenderContext {
-    this._context =
-      this._context ||
-      new ChannelSenderContextImpl(
-        this._version,
-        this._solution.messagingServiceSid,
-        this._solution.sid
-      );
+    this._context = this._context || new ChannelSenderContextImpl(this._version, this._solution.messagingServiceSid, this._solution.sid);
     return this._context;
   }
 
@@ -271,9 +247,9 @@ export class ChannelSenderInstance {
    *
    * @returns Resolves to processed boolean
    */
-  remove(
-    callback?: (error: Error | null, item?: boolean) => any
-  ): Promise<boolean> {
+  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
+
+    {
     return this._proxy.remove(callback);
   }
 
@@ -284,9 +260,9 @@ export class ChannelSenderInstance {
    *
    * @returns Resolves to processed ChannelSenderInstance
    */
-  fetch(
-    callback?: (error: Error | null, item?: ChannelSenderInstance) => any
-  ): Promise<ChannelSenderInstance> {
+  fetch(callback?: (error: Error | null, item?: ChannelSenderInstance) => any): Promise<ChannelSenderInstance>
+
+    {
     return this._proxy.fetch(callback);
   }
 
@@ -306,13 +282,14 @@ export class ChannelSenderInstance {
       dateCreated: this.dateCreated,
       dateUpdated: this.dateUpdated,
       url: this.url,
-    };
+    }
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
 }
+
 
 export interface ChannelSenderSolution {
   messagingServiceSid: string;
@@ -323,8 +300,13 @@ export interface ChannelSenderListInstance {
   _solution: ChannelSenderSolution;
   _uri: string;
 
-  (sid: string): ChannelSenderContext;
-  get(sid: string): ChannelSenderContext;
+  (sid: string, ): ChannelSenderContext;
+  get(sid: string, ): ChannelSenderContext;
+
+
+
+
+
 
   /**
    * Create a ChannelSenderInstance
@@ -334,10 +316,9 @@ export interface ChannelSenderListInstance {
    *
    * @returns Resolves to processed ChannelSenderInstance
    */
-  create(
-    params: ChannelSenderListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: ChannelSenderInstance) => any
-  ): Promise<ChannelSenderInstance>;
+  create(params: ChannelSenderListInstanceCreateOptions, callback?: (error: Error | null, item?: ChannelSenderInstance) => any): Promise<ChannelSenderInstance>;
+
+
 
   /**
    * Streams ChannelSenderInstance records from the API.
@@ -354,19 +335,8 @@ export interface ChannelSenderListInstance {
    * @param { ChannelSenderListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(
-    callback?: (
-      item: ChannelSenderInstance,
-      done: (err?: Error) => void
-    ) => void
-  ): void;
-  each(
-    params: ChannelSenderListInstanceEachOptions,
-    callback?: (
-      item: ChannelSenderInstance,
-      done: (err?: Error) => void
-    ) => void
-  ): void;
+  each(callback?: (item: ChannelSenderInstance, done: (err?: Error) => void) => void): void;
+  each(params: ChannelSenderListInstanceEachOptions, callback?: (item: ChannelSenderInstance, done: (err?: Error) => void) => void): void;
   /**
    * Retrieve a single target page of ChannelSenderInstance records from the API.
    *
@@ -375,10 +345,7 @@ export interface ChannelSenderListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(
-    targetUrl: string,
-    callback?: (error: Error | null, items: ChannelSenderPage) => any
-  ): Promise<ChannelSenderPage>;
+  getPage(targetUrl: string, callback?: (error: Error | null, items: ChannelSenderPage) => any): Promise<ChannelSenderPage>;
   /**
    * Lists ChannelSenderInstance records from the API as a list.
    *
@@ -388,13 +355,8 @@ export interface ChannelSenderListInstance {
    * @param { ChannelSenderListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(
-    callback?: (error: Error | null, items: ChannelSenderInstance[]) => any
-  ): Promise<ChannelSenderInstance[]>;
-  list(
-    params: ChannelSenderListInstanceOptions,
-    callback?: (error: Error | null, items: ChannelSenderInstance[]) => any
-  ): Promise<ChannelSenderInstance[]>;
+  list(callback?: (error: Error | null, items: ChannelSenderInstance[]) => any): Promise<ChannelSenderInstance[]>;
+  list(params: ChannelSenderListInstanceOptions, callback?: (error: Error | null, items: ChannelSenderInstance[]) => any): Promise<ChannelSenderInstance[]>;
   /**
    * Retrieve a single page of ChannelSenderInstance records from the API.
    *
@@ -406,13 +368,8 @@ export interface ChannelSenderListInstance {
    * @param { ChannelSenderListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(
-    callback?: (error: Error | null, items: ChannelSenderPage) => any
-  ): Promise<ChannelSenderPage>;
-  page(
-    params: ChannelSenderListInstancePageOptions,
-    callback?: (error: Error | null, items: ChannelSenderPage) => any
-  ): Promise<ChannelSenderPage>;
+  page(callback?: (error: Error | null, items: ChannelSenderPage) => any): Promise<ChannelSenderPage>;
+  page(params: ChannelSenderListInstancePageOptions, callback?: (error: Error | null, items: ChannelSenderPage) => any): Promise<ChannelSenderPage>;
 
   /**
    * Provide a user-friendly representation
@@ -421,73 +378,54 @@ export interface ChannelSenderListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function ChannelSenderListInstance(
-  version: V1,
-  messagingServiceSid: string
-): ChannelSenderListInstance {
+export function ChannelSenderListInstance(version: V1, messagingServiceSid: string): ChannelSenderListInstance {
   if (!isValidPathParam(messagingServiceSid)) {
-    throw new Error("Parameter 'messagingServiceSid' is not valid.");
+    throw new Error('Parameter \'messagingServiceSid\' is not valid.');
   }
 
-  const instance = ((sid) => instance.get(sid)) as ChannelSenderListInstance;
+  const instance = ((sid, ) => instance.get(sid, )) as ChannelSenderListInstance;
 
-  instance.get = function get(sid): ChannelSenderContext {
+  instance.get = function get(sid, ): ChannelSenderContext {
     return new ChannelSenderContextImpl(version, messagingServiceSid, sid);
-  };
+  }
 
   instance._version = version;
-  instance._solution = { messagingServiceSid };
+  instance._solution = { messagingServiceSid,  };
   instance._uri = `/Services/${messagingServiceSid}/ChannelSenders`;
 
-  instance.create = function create(
-    params: ChannelSenderListInstanceCreateOptions,
-    callback?: (error: Error | null, items: ChannelSenderInstance) => any
-  ): Promise<ChannelSenderInstance> {
+  instance.create = function create(params: ChannelSenderListInstanceCreateOptions, callback?: (error: Error | null, items: ChannelSenderInstance) => any): Promise<ChannelSenderInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     if (params["sid"] === null || params["sid"] === undefined) {
-      throw new Error("Required parameter \"params['sid']\" missing.");
+      throw new Error('Required parameter "params[\'sid\']" missing.');
     }
 
     let data: any = {};
 
+    
+        
     data["Sid"] = params["sid"];
 
+    
+
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = version,
-      operationPromise = operationVersion.create({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      });
+        operationPromise = operationVersion.create({ uri: instance._uri, method: "post", data, headers });
+    
+    operationPromise = operationPromise.then(payload => new ChannelSenderInstance(operationVersion, payload, instance._solution.messagingServiceSid));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new ChannelSenderInstance(
-          operationVersion,
-          payload,
-          instance._solution.messagingServiceSid
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
 
-  instance.page = function page(
-    params?:
-      | ChannelSenderListInstancePageOptions
-      | ((error: Error | null, items: ChannelSenderPage) => any),
-    callback?: (error: Error | null, items: ChannelSenderPage) => any
-  ): Promise<ChannelSenderPage> {
+
+    }
+
+  instance.page = function page(params?: ChannelSenderListInstancePageOptions | ((error: Error | null, items: ChannelSenderPage) => any), callback?: (error: Error | null, items: ChannelSenderPage) => any): Promise<ChannelSenderPage> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -497,101 +435,75 @@ export function ChannelSenderListInstance(
 
     let data: any = {};
 
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
 
+    
+    
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-      operationPromise = operationVersion.page({
-        uri: instance._uri,
-        method: "get",
-        params: data,
-        headers,
-      });
+        operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers });
+    
+    operationPromise = operationPromise.then(payload => new ChannelSenderPage(operationVersion, payload, instance._solution));
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new ChannelSenderPage(operationVersion, payload, instance._solution)
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
+
+  }
   instance.each = instance._version.each;
   instance.list = instance._version.list;
 
-  instance.getPage = function getPage(
-    targetUrl: string,
-    callback?: (error: Error | null, items: ChannelSenderPage) => any
-  ): Promise<ChannelSenderPage> {
-    const operationPromise = instance._version._domain.twilio.request({
-      method: "get",
-      uri: targetUrl,
-    });
+  instance.getPage = function getPage(targetUrl: string, callback?: (error: Error | null, items: ChannelSenderPage) => any): Promise<ChannelSenderPage> {
+    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
 
-    let pagePromise = operationPromise.then(
-      (payload) =>
-        new ChannelSenderPage(instance._version, payload, instance._solution)
-    );
+    let pagePromise = operationPromise.then(payload => new ChannelSenderPage(instance._version, payload, instance._solution));
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  };
+  }
+
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  };
+  }
 
-  instance[inspect.custom] = function inspectImpl(
-    _depth: any,
-    options: InspectOptions
-  ) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(instance.toJSON(), options);
-  };
+  }
 
   return instance;
 }
 
-export class ChannelSenderPage extends Page<
-  V1,
-  ChannelSenderPayload,
-  ChannelSenderResource,
-  ChannelSenderInstance
-> {
-  /**
-   * Initialize the ChannelSenderPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(
-    version: V1,
-    response: Response<string>,
-    solution: ChannelSenderSolution
-  ) {
+export class ChannelSenderPage extends Page<V1, ChannelSenderPayload, ChannelSenderResource, ChannelSenderInstance> {
+/**
+* Initialize the ChannelSenderPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V1, response: Response<string>, solution: ChannelSenderSolution) {
     super(version, response, solution);
-  }
+    }
 
-  /**
-   * Build an instance of ChannelSenderInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: ChannelSenderResource): ChannelSenderInstance {
+    /**
+    * Build an instance of ChannelSenderInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: ChannelSenderResource): ChannelSenderInstance {
     return new ChannelSenderInstance(
-      this._version,
-      payload,
-      this._solution.messagingServiceSid
+    this._version,
+    payload,
+        this._solution.messagingServiceSid,
     );
-  }
+    }
 
-  [inspect.custom](depth: any, options: InspectOptions) {
+    [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-  }
-}
+    }
+    }
+

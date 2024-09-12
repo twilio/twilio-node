@@ -58,31 +58,25 @@ export default class V1 extends Version {
 
   /** Getter for complianceInquiries resource */
   get complianceInquiries(): ComplianceInquiriesListInstance {
-    this._complianceInquiries =
-      this._complianceInquiries || ComplianceInquiriesListInstance(this);
+    this._complianceInquiries = this._complianceInquiries || ComplianceInquiriesListInstance(this);
     return this._complianceInquiries;
   }
 
   /** Getter for complianceRegistrationInquiries resource */
   get complianceRegistrationInquiries(): ComplianceRegistrationInquiriesListInstance {
-    this._complianceRegistrationInquiries =
-      this._complianceRegistrationInquiries ||
-      ComplianceRegistrationInquiriesListInstance(this);
+    this._complianceRegistrationInquiries = this._complianceRegistrationInquiries || ComplianceRegistrationInquiriesListInstance(this);
     return this._complianceRegistrationInquiries;
   }
 
   /** Getter for complianceTollfreeInquiries resource */
   get complianceTollfreeInquiries(): ComplianceTollfreeInquiriesListInstance {
-    this._complianceTollfreeInquiries =
-      this._complianceTollfreeInquiries ||
-      ComplianceTollfreeInquiriesListInstance(this);
+    this._complianceTollfreeInquiries = this._complianceTollfreeInquiries || ComplianceTollfreeInquiriesListInstance(this);
     return this._complianceTollfreeInquiries;
   }
 
   /** Getter for customerProfiles resource */
   get customerProfiles(): CustomerProfilesListInstance {
-    this._customerProfiles =
-      this._customerProfiles || CustomerProfilesListInstance(this);
+    this._customerProfiles = this._customerProfiles || CustomerProfilesListInstance(this);
     return this._customerProfiles;
   }
 
@@ -106,22 +100,20 @@ export default class V1 extends Version {
 
   /** Getter for supportingDocuments resource */
   get supportingDocuments(): SupportingDocumentListInstance {
-    this._supportingDocuments =
-      this._supportingDocuments || SupportingDocumentListInstance(this);
+    this._supportingDocuments = this._supportingDocuments || SupportingDocumentListInstance(this);
     return this._supportingDocuments;
   }
 
   /** Getter for supportingDocumentTypes resource */
   get supportingDocumentTypes(): SupportingDocumentTypeListInstance {
-    this._supportingDocumentTypes =
-      this._supportingDocumentTypes || SupportingDocumentTypeListInstance(this);
+    this._supportingDocumentTypes = this._supportingDocumentTypes || SupportingDocumentTypeListInstance(this);
     return this._supportingDocumentTypes;
   }
 
   /** Getter for trustProducts resource */
   get trustProducts(): TrustProductsListInstance {
-    this._trustProducts =
-      this._trustProducts || TrustProductsListInstance(this);
+    this._trustProducts = this._trustProducts || TrustProductsListInstance(this);
     return this._trustProducts;
   }
+
 }

@@ -12,6 +12,7 @@
  * Do not edit the class manually.
  */
 
+
 import { inspect, InspectOptions } from "util";
 import Page, { TwilioResponsePayload } from "../../../base/Page";
 import Response from "../../../http/response";
@@ -23,25 +24,24 @@ import { TrustProductsChannelEndpointAssignmentListInstance } from "./trustProdu
 import { TrustProductsEntityAssignmentsListInstance } from "./trustProducts/trustProductsEntityAssignments";
 import { TrustProductsEvaluationsListInstance } from "./trustProducts/trustProductsEvaluations";
 
-export type TrustProductsStatus =
-  | "draft"
-  | "pending-review"
-  | "in-review"
-  | "twilio-rejected"
-  | "twilio-approved";
+
+export type TrustProductsStatus = 'draft'|'pending-review'|'in-review'|'twilio-rejected'|'twilio-approved';
+
+
+
 
 /**
  * Options to pass to update a TrustProductsInstance
  */
 export interface TrustProductsContextUpdateOptions {
   /**  */
-  status?: TrustProductsStatus;
+  "status"?: TrustProductsStatus;
   /** The URL we call to inform your application of status changes. */
-  statusCallback?: string;
+  "statusCallback"?: string;
   /** The string that you assigned to describe the resource. */
-  friendlyName?: string;
+  "friendlyName"?: string;
   /** The email address that will receive updates when the Trust Product resource changes status. */
-  email?: string;
+  "email"?: string;
 }
 
 /**
@@ -49,26 +49,26 @@ export interface TrustProductsContextUpdateOptions {
  */
 export interface TrustProductsListInstanceCreateOptions {
   /** The string that you assigned to describe the resource. */
-  friendlyName: string;
+  "friendlyName": string;
   /** The email address that will receive updates when the Trust Product resource changes status. */
-  email: string;
+  "email": string;
   /** The unique string of a policy that is associated to the Trust Product resource. */
-  policySid: string;
+  "policySid": string;
   /** The URL we call to inform your application of status changes. */
-  statusCallback?: string;
+  "statusCallback"?: string;
 }
 /**
  * Options to pass to each
  */
 export interface TrustProductsListInstanceEachOptions {
   /** The verification status of the Trust Product resource. */
-  status?: TrustProductsStatus;
+  "status"?: TrustProductsStatus;
   /** The string that you assigned to describe the resource. */
-  friendlyName?: string;
+  "friendlyName"?: string;
   /** The unique string of a policy that is associated to the Trust Product resource. */
-  policySid?: string;
+  "policySid"?: string;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: TrustProductsInstance, done: (err?: Error) => void) => void;
   /** Function to be called upon completion of streaming */
@@ -82,13 +82,13 @@ export interface TrustProductsListInstanceEachOptions {
  */
 export interface TrustProductsListInstanceOptions {
   /** The verification status of the Trust Product resource. */
-  status?: TrustProductsStatus;
+  "status"?: TrustProductsStatus;
   /** The string that you assigned to describe the resource. */
-  friendlyName?: string;
+  "friendlyName"?: string;
   /** The unique string of a policy that is associated to the Trust Product resource. */
-  policySid?: string;
+  "policySid"?: string;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
@@ -98,18 +98,19 @@ export interface TrustProductsListInstanceOptions {
  */
 export interface TrustProductsListInstancePageOptions {
   /** The verification status of the Trust Product resource. */
-  status?: TrustProductsStatus;
+  "status"?: TrustProductsStatus;
   /** The string that you assigned to describe the resource. */
-  friendlyName?: string;
+  "friendlyName"?: string;
   /** The unique string of a policy that is associated to the Trust Product resource. */
-  policySid?: string;
+  "policySid"?: string;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
   /** PageToken provided by the API */
   pageToken?: string;
 }
+
 
 export interface TrustProductsContext {
   trustProductsChannelEndpointAssignment: TrustProductsChannelEndpointAssignmentListInstance;
@@ -123,9 +124,7 @@ export interface TrustProductsContext {
    *
    * @returns Resolves to processed boolean
    */
-  remove(
-    callback?: (error: Error | null, item?: boolean) => any
-  ): Promise<boolean>;
+  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
 
   /**
    * Fetch a TrustProductsInstance
@@ -134,9 +133,7 @@ export interface TrustProductsContext {
    *
    * @returns Resolves to processed TrustProductsInstance
    */
-  fetch(
-    callback?: (error: Error | null, item?: TrustProductsInstance) => any
-  ): Promise<TrustProductsInstance>;
+  fetch(callback?: (error: Error | null, item?: TrustProductsInstance) => any): Promise<TrustProductsInstance>
 
   /**
    * Update a TrustProductsInstance
@@ -145,9 +142,7 @@ export interface TrustProductsContext {
    *
    * @returns Resolves to processed TrustProductsInstance
    */
-  update(
-    callback?: (error: Error | null, item?: TrustProductsInstance) => any
-  ): Promise<TrustProductsInstance>;
+  update(callback?: (error: Error | null, item?: TrustProductsInstance) => any): Promise<TrustProductsInstance>;
   /**
    * Update a TrustProductsInstance
    *
@@ -156,10 +151,9 @@ export interface TrustProductsContext {
    *
    * @returns Resolves to processed TrustProductsInstance
    */
-  update(
-    params: TrustProductsContextUpdateOptions,
-    callback?: (error: Error | null, item?: TrustProductsInstance) => any
-  ): Promise<TrustProductsInstance>;
+  update(params: TrustProductsContextUpdateOptions, callback?: (error: Error | null, item?: TrustProductsInstance) => any): Promise<TrustProductsInstance>;
+
+
 
   /**
    * Provide a user-friendly representation
@@ -169,7 +163,7 @@ export interface TrustProductsContext {
 }
 
 export interface TrustProductsContextSolution {
-  sid: string;
+  "sid": string;
 }
 
 export class TrustProductsContextImpl implements TrustProductsContext {
@@ -182,90 +176,58 @@ export class TrustProductsContextImpl implements TrustProductsContext {
 
   constructor(protected _version: V1, sid: string) {
     if (!isValidPathParam(sid)) {
-      throw new Error("Parameter 'sid' is not valid.");
+      throw new Error('Parameter \'sid\' is not valid.');
     }
 
-    this._solution = { sid };
+    this._solution = { sid,  };
     this._uri = `/TrustProducts/${sid}`;
   }
 
   get trustProductsChannelEndpointAssignment(): TrustProductsChannelEndpointAssignmentListInstance {
-    this._trustProductsChannelEndpointAssignment =
-      this._trustProductsChannelEndpointAssignment ||
-      TrustProductsChannelEndpointAssignmentListInstance(
-        this._version,
-        this._solution.sid
-      );
+    this._trustProductsChannelEndpointAssignment = this._trustProductsChannelEndpointAssignment || TrustProductsChannelEndpointAssignmentListInstance(this._version, this._solution.sid);
     return this._trustProductsChannelEndpointAssignment;
   }
 
   get trustProductsEntityAssignments(): TrustProductsEntityAssignmentsListInstance {
-    this._trustProductsEntityAssignments =
-      this._trustProductsEntityAssignments ||
-      TrustProductsEntityAssignmentsListInstance(
-        this._version,
-        this._solution.sid
-      );
+    this._trustProductsEntityAssignments = this._trustProductsEntityAssignments || TrustProductsEntityAssignmentsListInstance(this._version, this._solution.sid);
     return this._trustProductsEntityAssignments;
   }
 
   get trustProductsEvaluations(): TrustProductsEvaluationsListInstance {
-    this._trustProductsEvaluations =
-      this._trustProductsEvaluations ||
-      TrustProductsEvaluationsListInstance(this._version, this._solution.sid);
+    this._trustProductsEvaluations = this._trustProductsEvaluations || TrustProductsEvaluationsListInstance(this._version, this._solution.sid);
     return this._trustProductsEvaluations;
   }
 
-  remove(
-    callback?: (error: Error | null, item?: boolean) => any
-  ): Promise<boolean> {
+  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean> {
+  
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.remove({
-        uri: instance._uri,
-        method: "delete",
-      });
+        operationPromise = operationVersion.remove({ uri: instance._uri, method: "delete" });
+    
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
-  fetch(
-    callback?: (error: Error | null, item?: TrustProductsInstance) => any
-  ): Promise<TrustProductsInstance> {
+  fetch(callback?: (error: Error | null, item?: TrustProductsInstance) => any): Promise<TrustProductsInstance> {
+  
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.fetch({
-        uri: instance._uri,
-        method: "get",
-      });
+        operationPromise = operationVersion.fetch({ uri: instance._uri, method: "get" });
+    
+    operationPromise = operationPromise.then(payload => new TrustProductsInstance(operationVersion, payload, instance._solution.sid));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new TrustProductsInstance(
-          operationVersion,
-          payload,
-          instance._solution.sid
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
-  update(
-    params?:
-      | TrustProductsContextUpdateOptions
-      | ((error: Error | null, item?: TrustProductsInstance) => any),
-    callback?: (error: Error | null, item?: TrustProductsInstance) => any
-  ): Promise<TrustProductsInstance> {
-    if (params instanceof Function) {
+  update(params?: TrustProductsContextUpdateOptions | ((error: Error | null, item?: TrustProductsInstance) => any), callback?: (error: Error | null, item?: TrustProductsInstance) => any): Promise<TrustProductsInstance> {
+      if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -274,39 +236,32 @@ export class TrustProductsContextImpl implements TrustProductsContext {
 
     let data: any = {};
 
-    if (params["status"] !== undefined) data["Status"] = params["status"];
+    
+        if (params["status"] !== undefined)
+    data["Status"] = params["status"];
     if (params["statusCallback"] !== undefined)
-      data["StatusCallback"] = params["statusCallback"];
+    data["StatusCallback"] = params["statusCallback"];
     if (params["friendlyName"] !== undefined)
-      data["FriendlyName"] = params["friendlyName"];
-    if (params["email"] !== undefined) data["Email"] = params["email"];
+    data["FriendlyName"] = params["friendlyName"];
+    if (params["email"] !== undefined)
+    data["Email"] = params["email"];
+
+    
 
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.update({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      });
+        operationPromise = operationVersion.update({ uri: instance._uri, method: "post", data, headers });
+    
+    operationPromise = operationPromise.then(payload => new TrustProductsInstance(operationVersion, payload, instance._solution.sid));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new TrustProductsInstance(
-          operationVersion,
-          payload,
-          instance._solution.sid
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
   /**
@@ -323,8 +278,9 @@ export class TrustProductsContextImpl implements TrustProductsContext {
   }
 }
 
+
 interface TrustProductsPayload extends TwilioResponsePayload {
-  results: TrustProductsResource[];
+    results: TrustProductsResource[];
 }
 
 interface TrustProductsResource {
@@ -347,26 +303,22 @@ export class TrustProductsInstance {
   protected _solution: TrustProductsContextSolution;
   protected _context?: TrustProductsContext;
 
-  constructor(
-    protected _version: V1,
-    payload: TrustProductsResource,
-    sid?: string
-  ) {
-    this.sid = payload.sid;
-    this.accountSid = payload.account_sid;
-    this.policySid = payload.policy_sid;
-    this.friendlyName = payload.friendly_name;
-    this.status = payload.status;
+  constructor(protected _version: V1, payload: TrustProductsResource, sid?: string) {
+    this.sid = (payload.sid);
+    this.accountSid = (payload.account_sid);
+    this.policySid = (payload.policy_sid);
+    this.friendlyName = (payload.friendly_name);
+    this.status = (payload.status);
     this.validUntil = deserialize.iso8601DateTime(payload.valid_until);
-    this.email = payload.email;
-    this.statusCallback = payload.status_callback;
+    this.email = (payload.email);
+    this.statusCallback = (payload.status_callback);
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
-    this.url = payload.url;
-    this.links = payload.links;
-    this.errors = payload.errors;
+    this.url = (payload.url);
+    this.links = (payload.links);
+    this.errors = (payload.errors);
 
-    this._solution = { sid: sid || this.sid };
+    this._solution = { sid: sid || this.sid,  };
   }
 
   /**
@@ -420,9 +372,7 @@ export class TrustProductsInstance {
   errors: Array<any>;
 
   private get _proxy(): TrustProductsContext {
-    this._context =
-      this._context ||
-      new TrustProductsContextImpl(this._version, this._solution.sid);
+    this._context = this._context || new TrustProductsContextImpl(this._version, this._solution.sid);
     return this._context;
   }
 
@@ -433,9 +383,9 @@ export class TrustProductsInstance {
    *
    * @returns Resolves to processed boolean
    */
-  remove(
-    callback?: (error: Error | null, item?: boolean) => any
-  ): Promise<boolean> {
+  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
+
+    {
     return this._proxy.remove(callback);
   }
 
@@ -446,9 +396,9 @@ export class TrustProductsInstance {
    *
    * @returns Resolves to processed TrustProductsInstance
    */
-  fetch(
-    callback?: (error: Error | null, item?: TrustProductsInstance) => any
-  ): Promise<TrustProductsInstance> {
+  fetch(callback?: (error: Error | null, item?: TrustProductsInstance) => any): Promise<TrustProductsInstance>
+
+    {
     return this._proxy.fetch(callback);
   }
 
@@ -459,9 +409,7 @@ export class TrustProductsInstance {
    *
    * @returns Resolves to processed TrustProductsInstance
    */
-  update(
-    callback?: (error: Error | null, item?: TrustProductsInstance) => any
-  ): Promise<TrustProductsInstance>;
+  update(callback?: (error: Error | null, item?: TrustProductsInstance) => any): Promise<TrustProductsInstance>;
   /**
    * Update a TrustProductsInstance
    *
@@ -470,15 +418,10 @@ export class TrustProductsInstance {
    *
    * @returns Resolves to processed TrustProductsInstance
    */
-  update(
-    params: TrustProductsContextUpdateOptions,
-    callback?: (error: Error | null, item?: TrustProductsInstance) => any
-  ): Promise<TrustProductsInstance>;
+  update(params: TrustProductsContextUpdateOptions, callback?: (error: Error | null, item?: TrustProductsInstance) => any): Promise<TrustProductsInstance>;
 
-  update(
-    params?: any,
-    callback?: (error: Error | null, item?: TrustProductsInstance) => any
-  ): Promise<TrustProductsInstance> {
+    update(params?: any, callback?: (error: Error | null, item?: TrustProductsInstance) => any): Promise<TrustProductsInstance>
+    {
     return this._proxy.update(params, callback);
   }
 
@@ -523,7 +466,7 @@ export class TrustProductsInstance {
       url: this.url,
       links: this.links,
       errors: this.errors,
-    };
+    }
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
@@ -531,15 +474,24 @@ export class TrustProductsInstance {
   }
 }
 
-export interface TrustProductsSolution {}
+
+export interface TrustProductsSolution {
+}
 
 export interface TrustProductsListInstance {
   _version: V1;
   _solution: TrustProductsSolution;
   _uri: string;
 
-  (sid: string): TrustProductsContext;
-  get(sid: string): TrustProductsContext;
+  (sid: string, ): TrustProductsContext;
+  get(sid: string, ): TrustProductsContext;
+
+
+
+
+
+
+
 
   /**
    * Create a TrustProductsInstance
@@ -549,10 +501,9 @@ export interface TrustProductsListInstance {
    *
    * @returns Resolves to processed TrustProductsInstance
    */
-  create(
-    params: TrustProductsListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: TrustProductsInstance) => any
-  ): Promise<TrustProductsInstance>;
+  create(params: TrustProductsListInstanceCreateOptions, callback?: (error: Error | null, item?: TrustProductsInstance) => any): Promise<TrustProductsInstance>;
+
+
 
   /**
    * Streams TrustProductsInstance records from the API.
@@ -569,19 +520,8 @@ export interface TrustProductsListInstance {
    * @param { TrustProductsListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(
-    callback?: (
-      item: TrustProductsInstance,
-      done: (err?: Error) => void
-    ) => void
-  ): void;
-  each(
-    params: TrustProductsListInstanceEachOptions,
-    callback?: (
-      item: TrustProductsInstance,
-      done: (err?: Error) => void
-    ) => void
-  ): void;
+  each(callback?: (item: TrustProductsInstance, done: (err?: Error) => void) => void): void;
+  each(params: TrustProductsListInstanceEachOptions, callback?: (item: TrustProductsInstance, done: (err?: Error) => void) => void): void;
   /**
    * Retrieve a single target page of TrustProductsInstance records from the API.
    *
@@ -590,10 +530,7 @@ export interface TrustProductsListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(
-    targetUrl: string,
-    callback?: (error: Error | null, items: TrustProductsPage) => any
-  ): Promise<TrustProductsPage>;
+  getPage(targetUrl: string, callback?: (error: Error | null, items: TrustProductsPage) => any): Promise<TrustProductsPage>;
   /**
    * Lists TrustProductsInstance records from the API as a list.
    *
@@ -603,13 +540,8 @@ export interface TrustProductsListInstance {
    * @param { TrustProductsListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(
-    callback?: (error: Error | null, items: TrustProductsInstance[]) => any
-  ): Promise<TrustProductsInstance[]>;
-  list(
-    params: TrustProductsListInstanceOptions,
-    callback?: (error: Error | null, items: TrustProductsInstance[]) => any
-  ): Promise<TrustProductsInstance[]>;
+  list(callback?: (error: Error | null, items: TrustProductsInstance[]) => any): Promise<TrustProductsInstance[]>;
+  list(params: TrustProductsListInstanceOptions, callback?: (error: Error | null, items: TrustProductsInstance[]) => any): Promise<TrustProductsInstance[]>;
   /**
    * Retrieve a single page of TrustProductsInstance records from the API.
    *
@@ -621,13 +553,8 @@ export interface TrustProductsListInstance {
    * @param { TrustProductsListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(
-    callback?: (error: Error | null, items: TrustProductsPage) => any
-  ): Promise<TrustProductsPage>;
-  page(
-    params: TrustProductsListInstancePageOptions,
-    callback?: (error: Error | null, items: TrustProductsPage) => any
-  ): Promise<TrustProductsPage>;
+  page(callback?: (error: Error | null, items: TrustProductsPage) => any): Promise<TrustProductsPage>;
+  page(params: TrustProductsListInstancePageOptions, callback?: (error: Error | null, items: TrustProductsPage) => any): Promise<TrustProductsPage>;
 
   /**
    * Provide a user-friendly representation
@@ -636,80 +563,64 @@ export interface TrustProductsListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function TrustProductsListInstance(
-  version: V1
-): TrustProductsListInstance {
-  const instance = ((sid) => instance.get(sid)) as TrustProductsListInstance;
+export function TrustProductsListInstance(version: V1): TrustProductsListInstance {
+  const instance = ((sid, ) => instance.get(sid, )) as TrustProductsListInstance;
 
-  instance.get = function get(sid): TrustProductsContext {
+  instance.get = function get(sid, ): TrustProductsContext {
     return new TrustProductsContextImpl(version, sid);
-  };
+  }
 
   instance._version = version;
-  instance._solution = {};
+  instance._solution = {  };
   instance._uri = `/TrustProducts`;
 
-  instance.create = function create(
-    params: TrustProductsListInstanceCreateOptions,
-    callback?: (error: Error | null, items: TrustProductsInstance) => any
-  ): Promise<TrustProductsInstance> {
+  instance.create = function create(params: TrustProductsListInstanceCreateOptions, callback?: (error: Error | null, items: TrustProductsInstance) => any): Promise<TrustProductsInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (
-      params["friendlyName"] === null ||
-      params["friendlyName"] === undefined
-    ) {
-      throw new Error("Required parameter \"params['friendlyName']\" missing.");
+    if (params["friendlyName"] === null || params["friendlyName"] === undefined) {
+      throw new Error('Required parameter "params[\'friendlyName\']" missing.');
     }
 
     if (params["email"] === null || params["email"] === undefined) {
-      throw new Error("Required parameter \"params['email']\" missing.");
+      throw new Error('Required parameter "params[\'email\']" missing.');
     }
 
     if (params["policySid"] === null || params["policySid"] === undefined) {
-      throw new Error("Required parameter \"params['policySid']\" missing.");
+      throw new Error('Required parameter "params[\'policySid\']" missing.');
     }
 
     let data: any = {};
 
+    
+        
     data["FriendlyName"] = params["friendlyName"];
-
+    
     data["Email"] = params["email"];
-
+    
     data["PolicySid"] = params["policySid"];
     if (params["statusCallback"] !== undefined)
-      data["StatusCallback"] = params["statusCallback"];
+    data["StatusCallback"] = params["statusCallback"];
+
+    
 
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = version,
-      operationPromise = operationVersion.create({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      });
+        operationPromise = operationVersion.create({ uri: instance._uri, method: "post", data, headers });
+    
+    operationPromise = operationPromise.then(payload => new TrustProductsInstance(operationVersion, payload));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) => new TrustProductsInstance(operationVersion, payload)
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
 
-  instance.page = function page(
-    params?:
-      | TrustProductsListInstancePageOptions
-      | ((error: Error | null, items: TrustProductsPage) => any),
-    callback?: (error: Error | null, items: TrustProductsPage) => any
-  ): Promise<TrustProductsPage> {
+
+    }
+
+  instance.page = function page(params?: TrustProductsListInstancePageOptions | ((error: Error | null, items: TrustProductsPage) => any), callback?: (error: Error | null, items: TrustProductsPage) => any): Promise<TrustProductsPage> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -719,102 +630,80 @@ export function TrustProductsListInstance(
 
     let data: any = {};
 
-    if (params["status"] !== undefined) data["Status"] = params["status"];
+        if (params["status"] !== undefined)
+    data["Status"] = params["status"];
     if (params["friendlyName"] !== undefined)
-      data["FriendlyName"] = params["friendlyName"];
+    data["FriendlyName"] = params["friendlyName"];
     if (params["policySid"] !== undefined)
-      data["PolicySid"] = params["policySid"];
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+    data["PolicySid"] = params["policySid"];
+    if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
 
+    
+    
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-      operationPromise = operationVersion.page({
-        uri: instance._uri,
-        method: "get",
-        params: data,
-        headers,
-      });
+        operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers });
+    
+    operationPromise = operationPromise.then(payload => new TrustProductsPage(operationVersion, payload, instance._solution));
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new TrustProductsPage(operationVersion, payload, instance._solution)
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
+
+  }
   instance.each = instance._version.each;
   instance.list = instance._version.list;
 
-  instance.getPage = function getPage(
-    targetUrl: string,
-    callback?: (error: Error | null, items: TrustProductsPage) => any
-  ): Promise<TrustProductsPage> {
-    const operationPromise = instance._version._domain.twilio.request({
-      method: "get",
-      uri: targetUrl,
-    });
+  instance.getPage = function getPage(targetUrl: string, callback?: (error: Error | null, items: TrustProductsPage) => any): Promise<TrustProductsPage> {
+    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
 
-    let pagePromise = operationPromise.then(
-      (payload) =>
-        new TrustProductsPage(instance._version, payload, instance._solution)
-    );
+    let pagePromise = operationPromise.then(payload => new TrustProductsPage(instance._version, payload, instance._solution));
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  };
+  }
+
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  };
+  }
 
-  instance[inspect.custom] = function inspectImpl(
-    _depth: any,
-    options: InspectOptions
-  ) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(instance.toJSON(), options);
-  };
+  }
 
   return instance;
 }
 
-export class TrustProductsPage extends Page<
-  V1,
-  TrustProductsPayload,
-  TrustProductsResource,
-  TrustProductsInstance
-> {
-  /**
-   * Initialize the TrustProductsPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(
-    version: V1,
-    response: Response<string>,
-    solution: TrustProductsSolution
-  ) {
+export class TrustProductsPage extends Page<V1, TrustProductsPayload, TrustProductsResource, TrustProductsInstance> {
+/**
+* Initialize the TrustProductsPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V1, response: Response<string>, solution: TrustProductsSolution) {
     super(version, response, solution);
-  }
+    }
 
-  /**
-   * Build an instance of TrustProductsInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: TrustProductsResource): TrustProductsInstance {
-    return new TrustProductsInstance(this._version, payload);
-  }
+    /**
+    * Build an instance of TrustProductsInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: TrustProductsResource): TrustProductsInstance {
+    return new TrustProductsInstance(
+    this._version,
+    payload,
+    );
+    }
 
-  [inspect.custom](depth: any, options: InspectOptions) {
+    [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-  }
-}
+    }
+    }
+

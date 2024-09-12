@@ -12,77 +12,79 @@
  * Do not edit the class manually.
  */
 
+
 import { inspect, InspectOptions } from "util";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 
-export type ComplianceTollfreeInquiriesOptInType =
-  | "VERBAL"
-  | "WEB_FORM"
-  | "PAPER_FORM"
-  | "VIA_TEXT"
-  | "MOBILE_QR_CODE";
+
+export type ComplianceTollfreeInquiriesOptInType = 'VERBAL'|'WEB_FORM'|'PAPER_FORM'|'VIA_TEXT'|'MOBILE_QR_CODE';
+
 
 /**
  * Options to pass to create a ComplianceTollfreeInquiriesInstance
  */
 export interface ComplianceTollfreeInquiriesListInstanceCreateOptions {
   /** The Tollfree phone number to be verified */
-  tollfreePhoneNumber: string;
+  "tollfreePhoneNumber": string;
   /** The email address to receive the notification about the verification result. */
-  notificationEmail: string;
+  "notificationEmail": string;
   /** The name of the business or organization using the Tollfree number. */
-  businessName?: string;
+  "businessName"?: string;
   /** The website of the business or organization using the Tollfree number. */
-  businessWebsite?: string;
+  "businessWebsite"?: string;
   /** The category of the use case for the Tollfree Number. List as many are applicable.. */
-  useCaseCategories?: Array<string>;
+  "useCaseCategories"?: Array<string>;
   /** Use this to further explain how messaging is used by the business or organization. */
-  useCaseSummary?: string;
+  "useCaseSummary"?: string;
   /** An example of message content, i.e. a sample message. */
-  productionMessageSample?: string;
+  "productionMessageSample"?: string;
   /** Link to an image that shows the opt-in workflow. Multiple images allowed and must be a publicly hosted URL. */
-  optInImageUrls?: Array<string>;
+  "optInImageUrls"?: Array<string>;
   /**  */
-  optInType?: ComplianceTollfreeInquiriesOptInType;
+  "optInType"?: ComplianceTollfreeInquiriesOptInType;
   /** Estimate monthly volume of messages from the Tollfree Number. */
-  messageVolume?: string;
+  "messageVolume"?: string;
   /** The address of the business or organization using the Tollfree number. */
-  businessStreetAddress?: string;
+  "businessStreetAddress"?: string;
   /** The address of the business or organization using the Tollfree number. */
-  businessStreetAddress2?: string;
+  "businessStreetAddress2"?: string;
   /** The city of the business or organization using the Tollfree number. */
-  businessCity?: string;
+  "businessCity"?: string;
   /** The state/province/region of the business or organization using the Tollfree number. */
-  businessStateProvinceRegion?: string;
+  "businessStateProvinceRegion"?: string;
   /** The postal code of the business or organization using the Tollfree number. */
-  businessPostalCode?: string;
+  "businessPostalCode"?: string;
   /** The country of the business or organization using the Tollfree number. */
-  businessCountry?: string;
+  "businessCountry"?: string;
   /** Additional information to be provided for verification. */
-  additionalInformation?: string;
+  "additionalInformation"?: string;
   /** The first name of the contact for the business or organization using the Tollfree number. */
-  businessContactFirstName?: string;
+  "businessContactFirstName"?: string;
   /** The last name of the contact for the business or organization using the Tollfree number. */
-  businessContactLastName?: string;
+  "businessContactLastName"?: string;
   /** The email address of the contact for the business or organization using the Tollfree number. */
-  businessContactEmail?: string;
+  "businessContactEmail"?: string;
   /** The phone number of the contact for the business or organization using the Tollfree number. */
-  businessContactPhone?: string;
+  "businessContactPhone"?: string;
   /** Theme id for styling the inquiry form. */
-  themeSetId?: string;
+  "themeSetId"?: string;
   /** Skip the messaging use case screen of the inquiry form. */
-  skipMessagingUseCase?: boolean;
+  "skipMessagingUseCase"?: boolean;
 }
 
-export interface ComplianceTollfreeInquiriesSolution {}
+
+export interface ComplianceTollfreeInquiriesSolution {
+}
 
 export interface ComplianceTollfreeInquiriesListInstance {
   _version: V1;
   _solution: ComplianceTollfreeInquiriesSolution;
   _uri: string;
+
+
 
   /**
    * Create a ComplianceTollfreeInquiriesInstance
@@ -92,13 +94,8 @@ export interface ComplianceTollfreeInquiriesListInstance {
    *
    * @returns Resolves to processed ComplianceTollfreeInquiriesInstance
    */
-  create(
-    params: ComplianceTollfreeInquiriesListInstanceCreateOptions,
-    callback?: (
-      error: Error | null,
-      item?: ComplianceTollfreeInquiriesInstance
-    ) => any
-  ): Promise<ComplianceTollfreeInquiriesInstance>;
+  create(params: ComplianceTollfreeInquiriesListInstanceCreateOptions, callback?: (error: Error | null, item?: ComplianceTollfreeInquiriesInstance) => any): Promise<ComplianceTollfreeInquiriesInstance>;
+
 
   /**
    * Provide a user-friendly representation
@@ -107,140 +104,105 @@ export interface ComplianceTollfreeInquiriesListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function ComplianceTollfreeInquiriesListInstance(
-  version: V1
-): ComplianceTollfreeInquiriesListInstance {
+export function ComplianceTollfreeInquiriesListInstance(version: V1): ComplianceTollfreeInquiriesListInstance {
   const instance = {} as ComplianceTollfreeInquiriesListInstance;
 
   instance._version = version;
-  instance._solution = {};
+  instance._solution = {  };
   instance._uri = `/ComplianceInquiries/Tollfree/Initialize`;
 
-  instance.create = function create(
-    params: ComplianceTollfreeInquiriesListInstanceCreateOptions,
-    callback?: (
-      error: Error | null,
-      items: ComplianceTollfreeInquiriesInstance
-    ) => any
-  ): Promise<ComplianceTollfreeInquiriesInstance> {
+  instance.create = function create(params: ComplianceTollfreeInquiriesListInstanceCreateOptions, callback?: (error: Error | null, items: ComplianceTollfreeInquiriesInstance) => any): Promise<ComplianceTollfreeInquiriesInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (
-      params["tollfreePhoneNumber"] === null ||
-      params["tollfreePhoneNumber"] === undefined
-    ) {
-      throw new Error(
-        "Required parameter \"params['tollfreePhoneNumber']\" missing."
-      );
+    if (params["tollfreePhoneNumber"] === null || params["tollfreePhoneNumber"] === undefined) {
+      throw new Error('Required parameter "params[\'tollfreePhoneNumber\']" missing.');
     }
 
-    if (
-      params["notificationEmail"] === null ||
-      params["notificationEmail"] === undefined
-    ) {
-      throw new Error(
-        "Required parameter \"params['notificationEmail']\" missing."
-      );
+    if (params["notificationEmail"] === null || params["notificationEmail"] === undefined) {
+      throw new Error('Required parameter "params[\'notificationEmail\']" missing.');
     }
 
     let data: any = {};
 
+    
+        
     data["TollfreePhoneNumber"] = params["tollfreePhoneNumber"];
-
+    
     data["NotificationEmail"] = params["notificationEmail"];
     if (params["businessName"] !== undefined)
-      data["BusinessName"] = params["businessName"];
+    data["BusinessName"] = params["businessName"];
     if (params["businessWebsite"] !== undefined)
-      data["BusinessWebsite"] = params["businessWebsite"];
+    data["BusinessWebsite"] = params["businessWebsite"];
     if (params["useCaseCategories"] !== undefined)
-      data["UseCaseCategories"] = serialize.map(
-        params["useCaseCategories"],
-        (e: string) => e
-      );
+    data["UseCaseCategories"] = serialize.map(params["useCaseCategories"], (e: string) => (e));
     if (params["useCaseSummary"] !== undefined)
-      data["UseCaseSummary"] = params["useCaseSummary"];
+    data["UseCaseSummary"] = params["useCaseSummary"];
     if (params["productionMessageSample"] !== undefined)
-      data["ProductionMessageSample"] = params["productionMessageSample"];
+    data["ProductionMessageSample"] = params["productionMessageSample"];
     if (params["optInImageUrls"] !== undefined)
-      data["OptInImageUrls"] = serialize.map(
-        params["optInImageUrls"],
-        (e: string) => e
-      );
+    data["OptInImageUrls"] = serialize.map(params["optInImageUrls"], (e: string) => (e));
     if (params["optInType"] !== undefined)
-      data["OptInType"] = params["optInType"];
+    data["OptInType"] = params["optInType"];
     if (params["messageVolume"] !== undefined)
-      data["MessageVolume"] = params["messageVolume"];
+    data["MessageVolume"] = params["messageVolume"];
     if (params["businessStreetAddress"] !== undefined)
-      data["BusinessStreetAddress"] = params["businessStreetAddress"];
+    data["BusinessStreetAddress"] = params["businessStreetAddress"];
     if (params["businessStreetAddress2"] !== undefined)
-      data["BusinessStreetAddress2"] = params["businessStreetAddress2"];
+    data["BusinessStreetAddress2"] = params["businessStreetAddress2"];
     if (params["businessCity"] !== undefined)
-      data["BusinessCity"] = params["businessCity"];
+    data["BusinessCity"] = params["businessCity"];
     if (params["businessStateProvinceRegion"] !== undefined)
-      data["BusinessStateProvinceRegion"] =
-        params["businessStateProvinceRegion"];
+    data["BusinessStateProvinceRegion"] = params["businessStateProvinceRegion"];
     if (params["businessPostalCode"] !== undefined)
-      data["BusinessPostalCode"] = params["businessPostalCode"];
+    data["BusinessPostalCode"] = params["businessPostalCode"];
     if (params["businessCountry"] !== undefined)
-      data["BusinessCountry"] = params["businessCountry"];
+    data["BusinessCountry"] = params["businessCountry"];
     if (params["additionalInformation"] !== undefined)
-      data["AdditionalInformation"] = params["additionalInformation"];
+    data["AdditionalInformation"] = params["additionalInformation"];
     if (params["businessContactFirstName"] !== undefined)
-      data["BusinessContactFirstName"] = params["businessContactFirstName"];
+    data["BusinessContactFirstName"] = params["businessContactFirstName"];
     if (params["businessContactLastName"] !== undefined)
-      data["BusinessContactLastName"] = params["businessContactLastName"];
+    data["BusinessContactLastName"] = params["businessContactLastName"];
     if (params["businessContactEmail"] !== undefined)
-      data["BusinessContactEmail"] = params["businessContactEmail"];
+    data["BusinessContactEmail"] = params["businessContactEmail"];
     if (params["businessContactPhone"] !== undefined)
-      data["BusinessContactPhone"] = params["businessContactPhone"];
+    data["BusinessContactPhone"] = params["businessContactPhone"];
     if (params["themeSetId"] !== undefined)
-      data["ThemeSetId"] = params["themeSetId"];
+    data["ThemeSetId"] = params["themeSetId"];
     if (params["skipMessagingUseCase"] !== undefined)
-      data["SkipMessagingUseCase"] = serialize.bool(
-        params["skipMessagingUseCase"]
-      );
+    data["SkipMessagingUseCase"] = serialize.bool(params["skipMessagingUseCase"]);
+
+    
 
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = version,
-      operationPromise = operationVersion.create({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      });
+        operationPromise = operationVersion.create({ uri: instance._uri, method: "post", data, headers });
+    
+    operationPromise = operationPromise.then(payload => new ComplianceTollfreeInquiriesInstance(operationVersion, payload));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new ComplianceTollfreeInquiriesInstance(operationVersion, payload)
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
+
+
+    }
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  };
+  }
 
-  instance[inspect.custom] = function inspectImpl(
-    _depth: any,
-    options: InspectOptions
-  ) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(instance.toJSON(), options);
-  };
+  }
 
   return instance;
 }
 
-interface ComplianceTollfreeInquiriesPayload
-  extends ComplianceTollfreeInquiriesResource {}
+interface ComplianceTollfreeInquiriesPayload extends ComplianceTollfreeInquiriesResource {}
 
 interface ComplianceTollfreeInquiriesResource {
   inquiry_id: string;
@@ -250,14 +212,13 @@ interface ComplianceTollfreeInquiriesResource {
 }
 
 export class ComplianceTollfreeInquiriesInstance {
-  constructor(
-    protected _version: V1,
-    payload: ComplianceTollfreeInquiriesResource
-  ) {
-    this.inquiryId = payload.inquiry_id;
-    this.inquirySessionToken = payload.inquiry_session_token;
-    this.registrationId = payload.registration_id;
-    this.url = payload.url;
+
+  constructor(protected _version: V1, payload: ComplianceTollfreeInquiriesResource) {
+    this.inquiryId = (payload.inquiry_id);
+    this.inquirySessionToken = (payload.inquiry_session_token);
+    this.registrationId = (payload.registration_id);
+    this.url = (payload.url);
+
   }
 
   /**
@@ -288,10 +249,12 @@ export class ComplianceTollfreeInquiriesInstance {
       inquirySessionToken: this.inquirySessionToken,
       registrationId: this.registrationId,
       url: this.url,
-    };
+    }
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
 }
+
+

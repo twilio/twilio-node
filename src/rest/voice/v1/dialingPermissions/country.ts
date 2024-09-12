@@ -12,6 +12,7 @@
  * Do not edit the class manually.
  */
 
+
 import { inspect, InspectOptions } from "util";
 import Page, { TwilioResponsePayload } from "../../../../base/Page";
 import Response from "../../../../http/response";
@@ -21,24 +22,26 @@ const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
 import { HighriskSpecialPrefixListInstance } from "./country/highriskSpecialPrefix";
 
+
+
 /**
  * Options to pass to each
  */
 export interface CountryListInstanceEachOptions {
   /** Filter to retrieve the country permissions by specifying the [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) */
-  isoCode?: string;
+  "isoCode"?: string;
   /** Filter to retrieve the country permissions by specifying the continent */
-  continent?: string;
+  "continent"?: string;
   /** Filter the results by specified [country codes](https://www.itu.int/itudoc/itu-t/ob-lists/icc/e164_763.html) */
-  countryCode?: string;
+  "countryCode"?: string;
   /** Filter to retrieve the country permissions with dialing to low-risk numbers enabled. Can be: `true` or `false`. */
-  lowRiskNumbersEnabled?: boolean;
+  "lowRiskNumbersEnabled"?: boolean;
   /** Filter to retrieve the country permissions with dialing to high-risk special service numbers enabled. Can be: `true` or `false` */
-  highRiskSpecialNumbersEnabled?: boolean;
+  "highRiskSpecialNumbersEnabled"?: boolean;
   /** Filter to retrieve the country permissions with dialing to high-risk [toll fraud](https://www.twilio.com/blog/how-to-protect-your-account-from-toll-fraud-with-voice-dialing-geo-permissions-html) numbers enabled. Can be: `true` or `false`. */
-  highRiskTollfraudNumbersEnabled?: boolean;
+  "highRiskTollfraudNumbersEnabled"?: boolean;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: CountryInstance, done: (err?: Error) => void) => void;
   /** Function to be called upon completion of streaming */
@@ -52,19 +55,19 @@ export interface CountryListInstanceEachOptions {
  */
 export interface CountryListInstanceOptions {
   /** Filter to retrieve the country permissions by specifying the [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) */
-  isoCode?: string;
+  "isoCode"?: string;
   /** Filter to retrieve the country permissions by specifying the continent */
-  continent?: string;
+  "continent"?: string;
   /** Filter the results by specified [country codes](https://www.itu.int/itudoc/itu-t/ob-lists/icc/e164_763.html) */
-  countryCode?: string;
+  "countryCode"?: string;
   /** Filter to retrieve the country permissions with dialing to low-risk numbers enabled. Can be: `true` or `false`. */
-  lowRiskNumbersEnabled?: boolean;
+  "lowRiskNumbersEnabled"?: boolean;
   /** Filter to retrieve the country permissions with dialing to high-risk special service numbers enabled. Can be: `true` or `false` */
-  highRiskSpecialNumbersEnabled?: boolean;
+  "highRiskSpecialNumbersEnabled"?: boolean;
   /** Filter to retrieve the country permissions with dialing to high-risk [toll fraud](https://www.twilio.com/blog/how-to-protect-your-account-from-toll-fraud-with-voice-dialing-geo-permissions-html) numbers enabled. Can be: `true` or `false`. */
-  highRiskTollfraudNumbersEnabled?: boolean;
+  "highRiskTollfraudNumbersEnabled"?: boolean;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
@@ -74,24 +77,25 @@ export interface CountryListInstanceOptions {
  */
 export interface CountryListInstancePageOptions {
   /** Filter to retrieve the country permissions by specifying the [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) */
-  isoCode?: string;
+  "isoCode"?: string;
   /** Filter to retrieve the country permissions by specifying the continent */
-  continent?: string;
+  "continent"?: string;
   /** Filter the results by specified [country codes](https://www.itu.int/itudoc/itu-t/ob-lists/icc/e164_763.html) */
-  countryCode?: string;
+  "countryCode"?: string;
   /** Filter to retrieve the country permissions with dialing to low-risk numbers enabled. Can be: `true` or `false`. */
-  lowRiskNumbersEnabled?: boolean;
+  "lowRiskNumbersEnabled"?: boolean;
   /** Filter to retrieve the country permissions with dialing to high-risk special service numbers enabled. Can be: `true` or `false` */
-  highRiskSpecialNumbersEnabled?: boolean;
+  "highRiskSpecialNumbersEnabled"?: boolean;
   /** Filter to retrieve the country permissions with dialing to high-risk [toll fraud](https://www.twilio.com/blog/how-to-protect-your-account-from-toll-fraud-with-voice-dialing-geo-permissions-html) numbers enabled. Can be: `true` or `false`. */
-  highRiskTollfraudNumbersEnabled?: boolean;
+  "highRiskTollfraudNumbersEnabled"?: boolean;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
   /** PageToken provided by the API */
   pageToken?: string;
 }
+
 
 export interface CountryContext {
   highriskSpecialPrefixes: HighriskSpecialPrefixListInstance;
@@ -103,9 +107,8 @@ export interface CountryContext {
    *
    * @returns Resolves to processed CountryInstance
    */
-  fetch(
-    callback?: (error: Error | null, item?: CountryInstance) => any
-  ): Promise<CountryInstance>;
+  fetch(callback?: (error: Error | null, item?: CountryInstance) => any): Promise<CountryInstance>
+
 
   /**
    * Provide a user-friendly representation
@@ -115,7 +118,7 @@ export interface CountryContext {
 }
 
 export interface CountryContextSolution {
-  isoCode: string;
+  "isoCode": string;
 }
 
 export class CountryContextImpl implements CountryContext {
@@ -126,44 +129,31 @@ export class CountryContextImpl implements CountryContext {
 
   constructor(protected _version: V1, isoCode: string) {
     if (!isValidPathParam(isoCode)) {
-      throw new Error("Parameter 'isoCode' is not valid.");
+      throw new Error('Parameter \'isoCode\' is not valid.');
     }
 
-    this._solution = { isoCode };
+    this._solution = { isoCode,  };
     this._uri = `/DialingPermissions/Countries/${isoCode}`;
   }
 
   get highriskSpecialPrefixes(): HighriskSpecialPrefixListInstance {
-    this._highriskSpecialPrefixes =
-      this._highriskSpecialPrefixes ||
-      HighriskSpecialPrefixListInstance(this._version, this._solution.isoCode);
+    this._highriskSpecialPrefixes = this._highriskSpecialPrefixes || HighriskSpecialPrefixListInstance(this._version, this._solution.isoCode);
     return this._highriskSpecialPrefixes;
   }
 
-  fetch(
-    callback?: (error: Error | null, item?: CountryInstance) => any
-  ): Promise<CountryInstance> {
+  fetch(callback?: (error: Error | null, item?: CountryInstance) => any): Promise<CountryInstance> {
+  
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.fetch({
-        uri: instance._uri,
-        method: "get",
-      });
+        operationPromise = operationVersion.fetch({ uri: instance._uri, method: "get" });
+    
+    operationPromise = operationPromise.then(payload => new CountryInstance(operationVersion, payload, instance._solution.isoCode));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new CountryInstance(
-          operationVersion,
-          payload,
-          instance._solution.isoCode
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
   /**
@@ -180,8 +170,9 @@ export class CountryContextImpl implements CountryContext {
   }
 }
 
+
 interface CountryPayload extends TwilioResponsePayload {
-  content: CountryResource[];
+    content: CountryResource[];
 }
 
 interface CountryResource {
@@ -200,24 +191,18 @@ export class CountryInstance {
   protected _solution: CountryContextSolution;
   protected _context?: CountryContext;
 
-  constructor(
-    protected _version: V1,
-    payload: CountryResource,
-    isoCode?: string
-  ) {
-    this.isoCode = payload.iso_code;
-    this.name = payload.name;
-    this.continent = payload.continent;
-    this.countryCodes = payload.country_codes;
-    this.lowRiskNumbersEnabled = payload.low_risk_numbers_enabled;
-    this.highRiskSpecialNumbersEnabled =
-      payload.high_risk_special_numbers_enabled;
-    this.highRiskTollfraudNumbersEnabled =
-      payload.high_risk_tollfraud_numbers_enabled;
-    this.url = payload.url;
-    this.links = payload.links;
+  constructor(protected _version: V1, payload: CountryResource, isoCode?: string) {
+    this.isoCode = (payload.iso_code);
+    this.name = (payload.name);
+    this.continent = (payload.continent);
+    this.countryCodes = (payload.country_codes);
+    this.lowRiskNumbersEnabled = (payload.low_risk_numbers_enabled);
+    this.highRiskSpecialNumbersEnabled = (payload.high_risk_special_numbers_enabled);
+    this.highRiskTollfraudNumbersEnabled = (payload.high_risk_tollfraud_numbers_enabled);
+    this.url = (payload.url);
+    this.links = (payload.links);
 
-    this._solution = { isoCode: isoCode || this.isoCode };
+    this._solution = { isoCode: isoCode || this.isoCode,  };
   }
 
   /**
@@ -258,9 +243,7 @@ export class CountryInstance {
   links: Record<string, string>;
 
   private get _proxy(): CountryContext {
-    this._context =
-      this._context ||
-      new CountryContextImpl(this._version, this._solution.isoCode);
+    this._context = this._context || new CountryContextImpl(this._version, this._solution.isoCode);
     return this._context;
   }
 
@@ -271,9 +254,9 @@ export class CountryInstance {
    *
    * @returns Resolves to processed CountryInstance
    */
-  fetch(
-    callback?: (error: Error | null, item?: CountryInstance) => any
-  ): Promise<CountryInstance> {
+  fetch(callback?: (error: Error | null, item?: CountryInstance) => any): Promise<CountryInstance>
+
+    {
     return this._proxy.fetch(callback);
   }
 
@@ -300,7 +283,7 @@ export class CountryInstance {
       highRiskTollfraudNumbersEnabled: this.highRiskTollfraudNumbersEnabled,
       url: this.url,
       links: this.links,
-    };
+    }
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
@@ -308,15 +291,21 @@ export class CountryInstance {
   }
 }
 
-export interface CountrySolution {}
+
+export interface CountrySolution {
+}
 
 export interface CountryListInstance {
   _version: V1;
   _solution: CountrySolution;
   _uri: string;
 
-  (isoCode: string): CountryContext;
-  get(isoCode: string): CountryContext;
+  (isoCode: string, ): CountryContext;
+  get(isoCode: string, ): CountryContext;
+
+
+
+
 
   /**
    * Streams CountryInstance records from the API.
@@ -333,13 +322,8 @@ export interface CountryListInstance {
    * @param { CountryListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(
-    callback?: (item: CountryInstance, done: (err?: Error) => void) => void
-  ): void;
-  each(
-    params: CountryListInstanceEachOptions,
-    callback?: (item: CountryInstance, done: (err?: Error) => void) => void
-  ): void;
+  each(callback?: (item: CountryInstance, done: (err?: Error) => void) => void): void;
+  each(params: CountryListInstanceEachOptions, callback?: (item: CountryInstance, done: (err?: Error) => void) => void): void;
   /**
    * Retrieve a single target page of CountryInstance records from the API.
    *
@@ -348,10 +332,7 @@ export interface CountryListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(
-    targetUrl: string,
-    callback?: (error: Error | null, items: CountryPage) => any
-  ): Promise<CountryPage>;
+  getPage(targetUrl: string, callback?: (error: Error | null, items: CountryPage) => any): Promise<CountryPage>;
   /**
    * Lists CountryInstance records from the API as a list.
    *
@@ -361,13 +342,8 @@ export interface CountryListInstance {
    * @param { CountryListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(
-    callback?: (error: Error | null, items: CountryInstance[]) => any
-  ): Promise<CountryInstance[]>;
-  list(
-    params: CountryListInstanceOptions,
-    callback?: (error: Error | null, items: CountryInstance[]) => any
-  ): Promise<CountryInstance[]>;
+  list(callback?: (error: Error | null, items: CountryInstance[]) => any): Promise<CountryInstance[]>;
+  list(params: CountryListInstanceOptions, callback?: (error: Error | null, items: CountryInstance[]) => any): Promise<CountryInstance[]>;
   /**
    * Retrieve a single page of CountryInstance records from the API.
    *
@@ -379,13 +355,8 @@ export interface CountryListInstance {
    * @param { CountryListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(
-    callback?: (error: Error | null, items: CountryPage) => any
-  ): Promise<CountryPage>;
-  page(
-    params: CountryListInstancePageOptions,
-    callback?: (error: Error | null, items: CountryPage) => any
-  ): Promise<CountryPage>;
+  page(callback?: (error: Error | null, items: CountryPage) => any): Promise<CountryPage>;
+  page(params: CountryListInstancePageOptions, callback?: (error: Error | null, items: CountryPage) => any): Promise<CountryPage>;
 
   /**
    * Provide a user-friendly representation
@@ -395,22 +366,17 @@ export interface CountryListInstance {
 }
 
 export function CountryListInstance(version: V1): CountryListInstance {
-  const instance = ((isoCode) => instance.get(isoCode)) as CountryListInstance;
+  const instance = ((isoCode, ) => instance.get(isoCode, )) as CountryListInstance;
 
-  instance.get = function get(isoCode): CountryContext {
+  instance.get = function get(isoCode, ): CountryContext {
     return new CountryContextImpl(version, isoCode);
-  };
+  }
 
   instance._version = version;
-  instance._solution = {};
+  instance._solution = {  };
   instance._uri = `/DialingPermissions/Countries`;
 
-  instance.page = function page(
-    params?:
-      | CountryListInstancePageOptions
-      | ((error: Error | null, items: CountryPage) => any),
-    callback?: (error: Error | null, items: CountryPage) => any
-  ): Promise<CountryPage> {
+  instance.page = function page(params?: CountryListInstancePageOptions | ((error: Error | null, items: CountryPage) => any), callback?: (error: Error | null, items: CountryPage) => any): Promise<CountryPage> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -420,114 +386,86 @@ export function CountryListInstance(version: V1): CountryListInstance {
 
     let data: any = {};
 
-    if (params["isoCode"] !== undefined) data["IsoCode"] = params["isoCode"];
+        if (params["isoCode"] !== undefined)
+    data["IsoCode"] = params["isoCode"];
     if (params["continent"] !== undefined)
-      data["Continent"] = params["continent"];
+    data["Continent"] = params["continent"];
     if (params["countryCode"] !== undefined)
-      data["CountryCode"] = params["countryCode"];
+    data["CountryCode"] = params["countryCode"];
     if (params["lowRiskNumbersEnabled"] !== undefined)
-      data["LowRiskNumbersEnabled"] = serialize.bool(
-        params["lowRiskNumbersEnabled"]
-      );
+    data["LowRiskNumbersEnabled"] = serialize.bool(params["lowRiskNumbersEnabled"]);
     if (params["highRiskSpecialNumbersEnabled"] !== undefined)
-      data["HighRiskSpecialNumbersEnabled"] = serialize.bool(
-        params["highRiskSpecialNumbersEnabled"]
-      );
+    data["HighRiskSpecialNumbersEnabled"] = serialize.bool(params["highRiskSpecialNumbersEnabled"]);
     if (params["highRiskTollfraudNumbersEnabled"] !== undefined)
-      data["HighRiskTollfraudNumbersEnabled"] = serialize.bool(
-        params["highRiskTollfraudNumbersEnabled"]
-      );
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+    data["HighRiskTollfraudNumbersEnabled"] = serialize.bool(params["highRiskTollfraudNumbersEnabled"]);
+    if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
 
+    
+    
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-      operationPromise = operationVersion.page({
-        uri: instance._uri,
-        method: "get",
-        params: data,
-        headers,
-      });
+        operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers });
+    
+    operationPromise = operationPromise.then(payload => new CountryPage(operationVersion, payload, instance._solution));
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new CountryPage(operationVersion, payload, instance._solution)
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
+
+  }
   instance.each = instance._version.each;
   instance.list = instance._version.list;
 
-  instance.getPage = function getPage(
-    targetUrl: string,
-    callback?: (error: Error | null, items: CountryPage) => any
-  ): Promise<CountryPage> {
-    const operationPromise = instance._version._domain.twilio.request({
-      method: "get",
-      uri: targetUrl,
-    });
+  instance.getPage = function getPage(targetUrl: string, callback?: (error: Error | null, items: CountryPage) => any): Promise<CountryPage> {
+    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
 
-    let pagePromise = operationPromise.then(
-      (payload) =>
-        new CountryPage(instance._version, payload, instance._solution)
-    );
+    let pagePromise = operationPromise.then(payload => new CountryPage(instance._version, payload, instance._solution));
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  };
+  }
+
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  };
+  }
 
-  instance[inspect.custom] = function inspectImpl(
-    _depth: any,
-    options: InspectOptions
-  ) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(instance.toJSON(), options);
-  };
+  }
 
   return instance;
 }
 
-export class CountryPage extends Page<
-  V1,
-  CountryPayload,
-  CountryResource,
-  CountryInstance
-> {
-  /**
-   * Initialize the CountryPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(
-    version: V1,
-    response: Response<string>,
-    solution: CountrySolution
-  ) {
+export class CountryPage extends Page<V1, CountryPayload, CountryResource, CountryInstance> {
+/**
+* Initialize the CountryPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V1, response: Response<string>, solution: CountrySolution) {
     super(version, response, solution);
-  }
+    }
 
-  /**
-   * Build an instance of CountryInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: CountryResource): CountryInstance {
-    return new CountryInstance(this._version, payload);
-  }
+    /**
+    * Build an instance of CountryInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: CountryResource): CountryInstance {
+    return new CountryInstance(
+    this._version,
+    payload,
+    );
+    }
 
-  [inspect.custom](depth: any, options: InspectOptions) {
+    [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-  }
-}
+    }
+    }
+

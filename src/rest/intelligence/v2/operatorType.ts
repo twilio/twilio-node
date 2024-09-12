@@ -12,6 +12,7 @@
  * Do not edit the class manually.
  */
 
+
 import { inspect, InspectOptions } from "util";
 import Page, { TwilioResponsePayload } from "../../../base/Page";
 import Response from "../../../http/response";
@@ -20,26 +21,20 @@ const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 
-export type OperatorTypeAvailability =
-  | "internal"
-  | "beta"
-  | "public"
-  | "retired";
 
-export type OperatorTypeOutputType =
-  | "text-classification"
-  | "text-extraction"
-  | "text-extraction-normalized"
-  | "text-generation";
+export type OperatorTypeAvailability = 'internal'|'beta'|'public'|'retired';
 
-export type OperatorTypeProvider = "twilio" | "amazon" | "openai";
+export type OperatorTypeOutputType = 'text-classification'|'text-extraction'|'text-extraction-normalized'|'text-generation';
+
+export type OperatorTypeProvider = 'twilio'|'amazon'|'openai';
+
 
 /**
  * Options to pass to each
  */
 export interface OperatorTypeListInstanceEachOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: OperatorTypeInstance, done: (err?: Error) => void) => void;
   /** Function to be called upon completion of streaming */
@@ -53,7 +48,7 @@ export interface OperatorTypeListInstanceEachOptions {
  */
 export interface OperatorTypeListInstanceOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
@@ -63,14 +58,16 @@ export interface OperatorTypeListInstanceOptions {
  */
 export interface OperatorTypeListInstancePageOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
   /** PageToken provided by the API */
   pageToken?: string;
 }
 
+
 export interface OperatorTypeContext {
+
   /**
    * Fetch a OperatorTypeInstance
    *
@@ -78,9 +75,8 @@ export interface OperatorTypeContext {
    *
    * @returns Resolves to processed OperatorTypeInstance
    */
-  fetch(
-    callback?: (error: Error | null, item?: OperatorTypeInstance) => any
-  ): Promise<OperatorTypeInstance>;
+  fetch(callback?: (error: Error | null, item?: OperatorTypeInstance) => any): Promise<OperatorTypeInstance>
+
 
   /**
    * Provide a user-friendly representation
@@ -90,46 +86,36 @@ export interface OperatorTypeContext {
 }
 
 export interface OperatorTypeContextSolution {
-  sid: string;
+  "sid": string;
 }
 
 export class OperatorTypeContextImpl implements OperatorTypeContext {
   protected _solution: OperatorTypeContextSolution;
   protected _uri: string;
 
+
   constructor(protected _version: V2, sid: string) {
     if (!isValidPathParam(sid)) {
-      throw new Error("Parameter 'sid' is not valid.");
+      throw new Error('Parameter \'sid\' is not valid.');
     }
 
-    this._solution = { sid };
+    this._solution = { sid,  };
     this._uri = `/OperatorTypes/${sid}`;
   }
 
-  fetch(
-    callback?: (error: Error | null, item?: OperatorTypeInstance) => any
-  ): Promise<OperatorTypeInstance> {
+  fetch(callback?: (error: Error | null, item?: OperatorTypeInstance) => any): Promise<OperatorTypeInstance> {
+  
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.fetch({
-        uri: instance._uri,
-        method: "get",
-      });
+        operationPromise = operationVersion.fetch({ uri: instance._uri, method: "get" });
+    
+    operationPromise = operationPromise.then(payload => new OperatorTypeInstance(operationVersion, payload, instance._solution.sid));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new OperatorTypeInstance(
-          operationVersion,
-          payload,
-          instance._solution.sid
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
   /**
@@ -146,8 +132,9 @@ export class OperatorTypeContextImpl implements OperatorTypeContext {
   }
 }
 
+
 interface OperatorTypePayload extends TwilioResponsePayload {
-  operator_types: OperatorTypeResource[];
+    operator_types: OperatorTypeResource[];
 }
 
 interface OperatorTypeResource {
@@ -171,27 +158,23 @@ export class OperatorTypeInstance {
   protected _solution: OperatorTypeContextSolution;
   protected _context?: OperatorTypeContext;
 
-  constructor(
-    protected _version: V2,
-    payload: OperatorTypeResource,
-    sid?: string
-  ) {
-    this.name = payload.name;
-    this.sid = payload.sid;
-    this.friendlyName = payload.friendly_name;
-    this.description = payload.description;
-    this.docsLink = payload.docs_link;
-    this.outputType = payload.output_type;
-    this.supportedLanguages = payload.supported_languages;
-    this.provider = payload.provider;
-    this.availability = payload.availability;
-    this.configurable = payload.configurable;
-    this.configSchema = payload.config_schema;
+  constructor(protected _version: V2, payload: OperatorTypeResource, sid?: string) {
+    this.name = (payload.name);
+    this.sid = (payload.sid);
+    this.friendlyName = (payload.friendly_name);
+    this.description = (payload.description);
+    this.docsLink = (payload.docs_link);
+    this.outputType = (payload.output_type);
+    this.supportedLanguages = (payload.supported_languages);
+    this.provider = (payload.provider);
+    this.availability = (payload.availability);
+    this.configurable = (payload.configurable);
+    this.configSchema = (payload.config_schema);
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
-    this.url = payload.url;
+    this.url = (payload.url);
 
-    this._solution = { sid: sid || this.sid };
+    this._solution = { sid: sid || this.sid,  };
   }
 
   /**
@@ -243,9 +226,7 @@ export class OperatorTypeInstance {
   url: string;
 
   private get _proxy(): OperatorTypeContext {
-    this._context =
-      this._context ||
-      new OperatorTypeContextImpl(this._version, this._solution.sid);
+    this._context = this._context || new OperatorTypeContextImpl(this._version, this._solution.sid);
     return this._context;
   }
 
@@ -256,9 +237,9 @@ export class OperatorTypeInstance {
    *
    * @returns Resolves to processed OperatorTypeInstance
    */
-  fetch(
-    callback?: (error: Error | null, item?: OperatorTypeInstance) => any
-  ): Promise<OperatorTypeInstance> {
+  fetch(callback?: (error: Error | null, item?: OperatorTypeInstance) => any): Promise<OperatorTypeInstance>
+
+    {
     return this._proxy.fetch(callback);
   }
 
@@ -283,7 +264,7 @@ export class OperatorTypeInstance {
       dateCreated: this.dateCreated,
       dateUpdated: this.dateUpdated,
       url: this.url,
-    };
+    }
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
@@ -291,15 +272,21 @@ export class OperatorTypeInstance {
   }
 }
 
-export interface OperatorTypeSolution {}
+
+export interface OperatorTypeSolution {
+}
 
 export interface OperatorTypeListInstance {
   _version: V2;
   _solution: OperatorTypeSolution;
   _uri: string;
 
-  (sid: string): OperatorTypeContext;
-  get(sid: string): OperatorTypeContext;
+  (sid: string, ): OperatorTypeContext;
+  get(sid: string, ): OperatorTypeContext;
+
+
+
+
 
   /**
    * Streams OperatorTypeInstance records from the API.
@@ -316,13 +303,8 @@ export interface OperatorTypeListInstance {
    * @param { OperatorTypeListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(
-    callback?: (item: OperatorTypeInstance, done: (err?: Error) => void) => void
-  ): void;
-  each(
-    params: OperatorTypeListInstanceEachOptions,
-    callback?: (item: OperatorTypeInstance, done: (err?: Error) => void) => void
-  ): void;
+  each(callback?: (item: OperatorTypeInstance, done: (err?: Error) => void) => void): void;
+  each(params: OperatorTypeListInstanceEachOptions, callback?: (item: OperatorTypeInstance, done: (err?: Error) => void) => void): void;
   /**
    * Retrieve a single target page of OperatorTypeInstance records from the API.
    *
@@ -331,10 +313,7 @@ export interface OperatorTypeListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(
-    targetUrl: string,
-    callback?: (error: Error | null, items: OperatorTypePage) => any
-  ): Promise<OperatorTypePage>;
+  getPage(targetUrl: string, callback?: (error: Error | null, items: OperatorTypePage) => any): Promise<OperatorTypePage>;
   /**
    * Lists OperatorTypeInstance records from the API as a list.
    *
@@ -344,13 +323,8 @@ export interface OperatorTypeListInstance {
    * @param { OperatorTypeListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(
-    callback?: (error: Error | null, items: OperatorTypeInstance[]) => any
-  ): Promise<OperatorTypeInstance[]>;
-  list(
-    params: OperatorTypeListInstanceOptions,
-    callback?: (error: Error | null, items: OperatorTypeInstance[]) => any
-  ): Promise<OperatorTypeInstance[]>;
+  list(callback?: (error: Error | null, items: OperatorTypeInstance[]) => any): Promise<OperatorTypeInstance[]>;
+  list(params: OperatorTypeListInstanceOptions, callback?: (error: Error | null, items: OperatorTypeInstance[]) => any): Promise<OperatorTypeInstance[]>;
   /**
    * Retrieve a single page of OperatorTypeInstance records from the API.
    *
@@ -362,13 +336,8 @@ export interface OperatorTypeListInstance {
    * @param { OperatorTypeListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(
-    callback?: (error: Error | null, items: OperatorTypePage) => any
-  ): Promise<OperatorTypePage>;
-  page(
-    params: OperatorTypeListInstancePageOptions,
-    callback?: (error: Error | null, items: OperatorTypePage) => any
-  ): Promise<OperatorTypePage>;
+  page(callback?: (error: Error | null, items: OperatorTypePage) => any): Promise<OperatorTypePage>;
+  page(params: OperatorTypeListInstancePageOptions, callback?: (error: Error | null, items: OperatorTypePage) => any): Promise<OperatorTypePage>;
 
   /**
    * Provide a user-friendly representation
@@ -377,25 +346,18 @@ export interface OperatorTypeListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function OperatorTypeListInstance(
-  version: V2
-): OperatorTypeListInstance {
-  const instance = ((sid) => instance.get(sid)) as OperatorTypeListInstance;
+export function OperatorTypeListInstance(version: V2): OperatorTypeListInstance {
+  const instance = ((sid, ) => instance.get(sid, )) as OperatorTypeListInstance;
 
-  instance.get = function get(sid): OperatorTypeContext {
+  instance.get = function get(sid, ): OperatorTypeContext {
     return new OperatorTypeContextImpl(version, sid);
-  };
+  }
 
   instance._version = version;
-  instance._solution = {};
+  instance._solution = {  };
   instance._uri = `/OperatorTypes`;
 
-  instance.page = function page(
-    params?:
-      | OperatorTypeListInstancePageOptions
-      | ((error: Error | null, items: OperatorTypePage) => any),
-    callback?: (error: Error | null, items: OperatorTypePage) => any
-  ): Promise<OperatorTypePage> {
+  instance.page = function page(params?: OperatorTypeListInstancePageOptions | ((error: Error | null, items: OperatorTypePage) => any), callback?: (error: Error | null, items: OperatorTypePage) => any): Promise<OperatorTypePage> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -405,97 +367,74 @@ export function OperatorTypeListInstance(
 
     let data: any = {};
 
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
 
+    
+    
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-      operationPromise = operationVersion.page({
-        uri: instance._uri,
-        method: "get",
-        params: data,
-        headers,
-      });
+        operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers });
+    
+    operationPromise = operationPromise.then(payload => new OperatorTypePage(operationVersion, payload, instance._solution));
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new OperatorTypePage(operationVersion, payload, instance._solution)
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
+
+  }
   instance.each = instance._version.each;
   instance.list = instance._version.list;
 
-  instance.getPage = function getPage(
-    targetUrl: string,
-    callback?: (error: Error | null, items: OperatorTypePage) => any
-  ): Promise<OperatorTypePage> {
-    const operationPromise = instance._version._domain.twilio.request({
-      method: "get",
-      uri: targetUrl,
-    });
+  instance.getPage = function getPage(targetUrl: string, callback?: (error: Error | null, items: OperatorTypePage) => any): Promise<OperatorTypePage> {
+    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
 
-    let pagePromise = operationPromise.then(
-      (payload) =>
-        new OperatorTypePage(instance._version, payload, instance._solution)
-    );
+    let pagePromise = operationPromise.then(payload => new OperatorTypePage(instance._version, payload, instance._solution));
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  };
+  }
+
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  };
+  }
 
-  instance[inspect.custom] = function inspectImpl(
-    _depth: any,
-    options: InspectOptions
-  ) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(instance.toJSON(), options);
-  };
+  }
 
   return instance;
 }
 
-export class OperatorTypePage extends Page<
-  V2,
-  OperatorTypePayload,
-  OperatorTypeResource,
-  OperatorTypeInstance
-> {
-  /**
-   * Initialize the OperatorTypePage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(
-    version: V2,
-    response: Response<string>,
-    solution: OperatorTypeSolution
-  ) {
+export class OperatorTypePage extends Page<V2, OperatorTypePayload, OperatorTypeResource, OperatorTypeInstance> {
+/**
+* Initialize the OperatorTypePage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V2, response: Response<string>, solution: OperatorTypeSolution) {
     super(version, response, solution);
-  }
+    }
 
-  /**
-   * Build an instance of OperatorTypeInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: OperatorTypeResource): OperatorTypeInstance {
-    return new OperatorTypeInstance(this._version, payload);
-  }
+    /**
+    * Build an instance of OperatorTypeInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: OperatorTypeResource): OperatorTypeInstance {
+    return new OperatorTypeInstance(
+    this._version,
+    payload,
+    );
+    }
 
-  [inspect.custom](depth: any, options: InspectOptions) {
+    [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-  }
-}
+    }
+    }
+

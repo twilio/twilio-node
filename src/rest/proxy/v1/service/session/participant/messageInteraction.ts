@@ -12,6 +12,7 @@
  * Do not edit the class manually.
  */
 
+
 import { inspect, InspectOptions } from "util";
 import Page, { TwilioResponsePayload } from "../../../../../../base/Page";
 import Response from "../../../../../../http/response";
@@ -20,51 +21,30 @@ const deserialize = require("../../../../../../base/deserialize");
 const serialize = require("../../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../../base/utility";
 
-export type MessageInteractionResourceStatus =
-  | "accepted"
-  | "answered"
-  | "busy"
-  | "canceled"
-  | "completed"
-  | "deleted"
-  | "delivered"
-  | "delivery-unknown"
-  | "failed"
-  | "in-progress"
-  | "initiated"
-  | "no-answer"
-  | "queued"
-  | "received"
-  | "receiving"
-  | "ringing"
-  | "scheduled"
-  | "sending"
-  | "sent"
-  | "undelivered"
-  | "unknown";
 
-export type MessageInteractionType = "message" | "voice" | "unknown";
+export type MessageInteractionResourceStatus = 'accepted'|'answered'|'busy'|'canceled'|'completed'|'deleted'|'delivered'|'delivery-unknown'|'failed'|'in-progress'|'initiated'|'no-answer'|'queued'|'received'|'receiving'|'ringing'|'scheduled'|'sending'|'sent'|'undelivered'|'unknown';
+
+export type MessageInteractionType = 'message'|'voice'|'unknown';
+
+
 
 /**
  * Options to pass to create a MessageInteractionInstance
  */
 export interface MessageInteractionListInstanceCreateOptions {
   /** The message to send to the participant */
-  body?: string;
+  "body"?: string;
   /** Reserved. Not currently supported. */
-  mediaUrl?: Array<string>;
+  "mediaUrl"?: Array<string>;
 }
 /**
  * Options to pass to each
  */
 export interface MessageInteractionListInstanceEachOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
-  callback?: (
-    item: MessageInteractionInstance,
-    done: (err?: Error) => void
-  ) => void;
+  callback?: (item: MessageInteractionInstance, done: (err?: Error) => void) => void;
   /** Function to be called upon completion of streaming */
   done?: Function;
   /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
@@ -76,7 +56,7 @@ export interface MessageInteractionListInstanceEachOptions {
  */
 export interface MessageInteractionListInstanceOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
@@ -86,14 +66,16 @@ export interface MessageInteractionListInstanceOptions {
  */
 export interface MessageInteractionListInstancePageOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
   /** PageToken provided by the API */
   pageToken?: string;
 }
 
+
 export interface MessageInteractionContext {
+
   /**
    * Fetch a MessageInteractionInstance
    *
@@ -101,9 +83,9 @@ export interface MessageInteractionContext {
    *
    * @returns Resolves to processed MessageInteractionInstance
    */
-  fetch(
-    callback?: (error: Error | null, item?: MessageInteractionInstance) => any
-  ): Promise<MessageInteractionInstance>;
+  fetch(callback?: (error: Error | null, item?: MessageInteractionInstance) => any): Promise<MessageInteractionInstance>
+
+
 
   /**
    * Provide a user-friendly representation
@@ -113,72 +95,51 @@ export interface MessageInteractionContext {
 }
 
 export interface MessageInteractionContextSolution {
-  serviceSid: string;
-  sessionSid: string;
-  participantSid: string;
-  sid: string;
+  "serviceSid": string;
+  "sessionSid": string;
+  "participantSid": string;
+  "sid": string;
 }
 
-export class MessageInteractionContextImpl
-  implements MessageInteractionContext
-{
+export class MessageInteractionContextImpl implements MessageInteractionContext {
   protected _solution: MessageInteractionContextSolution;
   protected _uri: string;
 
-  constructor(
-    protected _version: V1,
-    serviceSid: string,
-    sessionSid: string,
-    participantSid: string,
-    sid: string
-  ) {
+
+  constructor(protected _version: V1, serviceSid: string, sessionSid: string, participantSid: string, sid: string) {
     if (!isValidPathParam(serviceSid)) {
-      throw new Error("Parameter 'serviceSid' is not valid.");
+      throw new Error('Parameter \'serviceSid\' is not valid.');
     }
 
     if (!isValidPathParam(sessionSid)) {
-      throw new Error("Parameter 'sessionSid' is not valid.");
+      throw new Error('Parameter \'sessionSid\' is not valid.');
     }
 
     if (!isValidPathParam(participantSid)) {
-      throw new Error("Parameter 'participantSid' is not valid.");
+      throw new Error('Parameter \'participantSid\' is not valid.');
     }
 
     if (!isValidPathParam(sid)) {
-      throw new Error("Parameter 'sid' is not valid.");
+      throw new Error('Parameter \'sid\' is not valid.');
     }
 
-    this._solution = { serviceSid, sessionSid, participantSid, sid };
+    this._solution = { serviceSid, sessionSid, participantSid, sid,  };
     this._uri = `/Services/${serviceSid}/Sessions/${sessionSid}/Participants/${participantSid}/MessageInteractions/${sid}`;
   }
 
-  fetch(
-    callback?: (error: Error | null, item?: MessageInteractionInstance) => any
-  ): Promise<MessageInteractionInstance> {
+  fetch(callback?: (error: Error | null, item?: MessageInteractionInstance) => any): Promise<MessageInteractionInstance> {
+  
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.fetch({
-        uri: instance._uri,
-        method: "get",
-      });
+        operationPromise = operationVersion.fetch({ uri: instance._uri, method: "get" });
+    
+    operationPromise = operationPromise.then(payload => new MessageInteractionInstance(operationVersion, payload, instance._solution.serviceSid, instance._solution.sessionSid, instance._solution.participantSid, instance._solution.sid));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new MessageInteractionInstance(
-          operationVersion,
-          payload,
-          instance._solution.serviceSid,
-          instance._solution.sessionSid,
-          instance._solution.participantSid,
-          instance._solution.sid
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
   /**
@@ -195,8 +156,9 @@ export class MessageInteractionContextImpl
   }
 }
 
+
 interface MessageInteractionPayload extends TwilioResponsePayload {
-  interactions: MessageInteractionResource[];
+    interactions: MessageInteractionResource[];
 }
 
 interface MessageInteractionResource {
@@ -226,41 +188,29 @@ export class MessageInteractionInstance {
   protected _solution: MessageInteractionContextSolution;
   protected _context?: MessageInteractionContext;
 
-  constructor(
-    protected _version: V1,
-    payload: MessageInteractionResource,
-    serviceSid: string,
-    sessionSid: string,
-    participantSid: string,
-    sid?: string
-  ) {
-    this.sid = payload.sid;
-    this.sessionSid = payload.session_sid;
-    this.serviceSid = payload.service_sid;
-    this.accountSid = payload.account_sid;
-    this.data = payload.data;
-    this.type = payload.type;
-    this.participantSid = payload.participant_sid;
-    this.inboundParticipantSid = payload.inbound_participant_sid;
-    this.inboundResourceSid = payload.inbound_resource_sid;
-    this.inboundResourceStatus = payload.inbound_resource_status;
-    this.inboundResourceType = payload.inbound_resource_type;
-    this.inboundResourceUrl = payload.inbound_resource_url;
-    this.outboundParticipantSid = payload.outbound_participant_sid;
-    this.outboundResourceSid = payload.outbound_resource_sid;
-    this.outboundResourceStatus = payload.outbound_resource_status;
-    this.outboundResourceType = payload.outbound_resource_type;
-    this.outboundResourceUrl = payload.outbound_resource_url;
+  constructor(protected _version: V1, payload: MessageInteractionResource, serviceSid: string, sessionSid: string, participantSid: string, sid?: string) {
+    this.sid = (payload.sid);
+    this.sessionSid = (payload.session_sid);
+    this.serviceSid = (payload.service_sid);
+    this.accountSid = (payload.account_sid);
+    this.data = (payload.data);
+    this.type = (payload.type);
+    this.participantSid = (payload.participant_sid);
+    this.inboundParticipantSid = (payload.inbound_participant_sid);
+    this.inboundResourceSid = (payload.inbound_resource_sid);
+    this.inboundResourceStatus = (payload.inbound_resource_status);
+    this.inboundResourceType = (payload.inbound_resource_type);
+    this.inboundResourceUrl = (payload.inbound_resource_url);
+    this.outboundParticipantSid = (payload.outbound_participant_sid);
+    this.outboundResourceSid = (payload.outbound_resource_sid);
+    this.outboundResourceStatus = (payload.outbound_resource_status);
+    this.outboundResourceType = (payload.outbound_resource_type);
+    this.outboundResourceUrl = (payload.outbound_resource_url);
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
-    this.url = payload.url;
+    this.url = (payload.url);
 
-    this._solution = {
-      serviceSid,
-      sessionSid,
-      participantSid,
-      sid: sid || this.sid,
-    };
+    this._solution = { serviceSid, sessionSid, participantSid, sid: sid || this.sid,  };
   }
 
   /**
@@ -336,15 +286,7 @@ export class MessageInteractionInstance {
   url: string;
 
   private get _proxy(): MessageInteractionContext {
-    this._context =
-      this._context ||
-      new MessageInteractionContextImpl(
-        this._version,
-        this._solution.serviceSid,
-        this._solution.sessionSid,
-        this._solution.participantSid,
-        this._solution.sid
-      );
+    this._context = this._context || new MessageInteractionContextImpl(this._version, this._solution.serviceSid, this._solution.sessionSid, this._solution.participantSid, this._solution.sid);
     return this._context;
   }
 
@@ -355,9 +297,9 @@ export class MessageInteractionInstance {
    *
    * @returns Resolves to processed MessageInteractionInstance
    */
-  fetch(
-    callback?: (error: Error | null, item?: MessageInteractionInstance) => any
-  ): Promise<MessageInteractionInstance> {
+  fetch(callback?: (error: Error | null, item?: MessageInteractionInstance) => any): Promise<MessageInteractionInstance>
+
+    {
     return this._proxy.fetch(callback);
   }
 
@@ -388,13 +330,14 @@ export class MessageInteractionInstance {
       dateCreated: this.dateCreated,
       dateUpdated: this.dateUpdated,
       url: this.url,
-    };
+    }
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
 }
+
 
 export interface MessageInteractionSolution {
   serviceSid: string;
@@ -407,8 +350,11 @@ export interface MessageInteractionListInstance {
   _solution: MessageInteractionSolution;
   _uri: string;
 
-  (sid: string): MessageInteractionContext;
-  get(sid: string): MessageInteractionContext;
+  (sid: string, ): MessageInteractionContext;
+  get(sid: string, ): MessageInteractionContext;
+
+
+
 
   /**
    * Create a MessageInteractionInstance
@@ -417,9 +363,7 @@ export interface MessageInteractionListInstance {
    *
    * @returns Resolves to processed MessageInteractionInstance
    */
-  create(
-    callback?: (error: Error | null, item?: MessageInteractionInstance) => any
-  ): Promise<MessageInteractionInstance>;
+  create(callback?: (error: Error | null, item?: MessageInteractionInstance) => any): Promise<MessageInteractionInstance>;
   /**
    * Create a MessageInteractionInstance
    *
@@ -428,10 +372,9 @@ export interface MessageInteractionListInstance {
    *
    * @returns Resolves to processed MessageInteractionInstance
    */
-  create(
-    params: MessageInteractionListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: MessageInteractionInstance) => any
-  ): Promise<MessageInteractionInstance>;
+  create(params: MessageInteractionListInstanceCreateOptions, callback?: (error: Error | null, item?: MessageInteractionInstance) => any): Promise<MessageInteractionInstance>;
+
+
 
   /**
    * Streams MessageInteractionInstance records from the API.
@@ -448,19 +391,8 @@ export interface MessageInteractionListInstance {
    * @param { MessageInteractionListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(
-    callback?: (
-      item: MessageInteractionInstance,
-      done: (err?: Error) => void
-    ) => void
-  ): void;
-  each(
-    params: MessageInteractionListInstanceEachOptions,
-    callback?: (
-      item: MessageInteractionInstance,
-      done: (err?: Error) => void
-    ) => void
-  ): void;
+  each(callback?: (item: MessageInteractionInstance, done: (err?: Error) => void) => void): void;
+  each(params: MessageInteractionListInstanceEachOptions, callback?: (item: MessageInteractionInstance, done: (err?: Error) => void) => void): void;
   /**
    * Retrieve a single target page of MessageInteractionInstance records from the API.
    *
@@ -469,10 +401,7 @@ export interface MessageInteractionListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(
-    targetUrl: string,
-    callback?: (error: Error | null, items: MessageInteractionPage) => any
-  ): Promise<MessageInteractionPage>;
+  getPage(targetUrl: string, callback?: (error: Error | null, items: MessageInteractionPage) => any): Promise<MessageInteractionPage>;
   /**
    * Lists MessageInteractionInstance records from the API as a list.
    *
@@ -482,13 +411,8 @@ export interface MessageInteractionListInstance {
    * @param { MessageInteractionListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(
-    callback?: (error: Error | null, items: MessageInteractionInstance[]) => any
-  ): Promise<MessageInteractionInstance[]>;
-  list(
-    params: MessageInteractionListInstanceOptions,
-    callback?: (error: Error | null, items: MessageInteractionInstance[]) => any
-  ): Promise<MessageInteractionInstance[]>;
+  list(callback?: (error: Error | null, items: MessageInteractionInstance[]) => any): Promise<MessageInteractionInstance[]>;
+  list(params: MessageInteractionListInstanceOptions, callback?: (error: Error | null, items: MessageInteractionInstance[]) => any): Promise<MessageInteractionInstance[]>;
   /**
    * Retrieve a single page of MessageInteractionInstance records from the API.
    *
@@ -500,13 +424,8 @@ export interface MessageInteractionListInstance {
    * @param { MessageInteractionListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(
-    callback?: (error: Error | null, items: MessageInteractionPage) => any
-  ): Promise<MessageInteractionPage>;
-  page(
-    params: MessageInteractionListInstancePageOptions,
-    callback?: (error: Error | null, items: MessageInteractionPage) => any
-  ): Promise<MessageInteractionPage>;
+  page(callback?: (error: Error | null, items: MessageInteractionPage) => any): Promise<MessageInteractionPage>;
+  page(params: MessageInteractionListInstancePageOptions, callback?: (error: Error | null, items: MessageInteractionPage) => any): Promise<MessageInteractionPage>;
 
   /**
    * Provide a user-friendly representation
@@ -515,47 +434,30 @@ export interface MessageInteractionListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function MessageInteractionListInstance(
-  version: V1,
-  serviceSid: string,
-  sessionSid: string,
-  participantSid: string
-): MessageInteractionListInstance {
+export function MessageInteractionListInstance(version: V1, serviceSid: string, sessionSid: string, participantSid: string): MessageInteractionListInstance {
   if (!isValidPathParam(serviceSid)) {
-    throw new Error("Parameter 'serviceSid' is not valid.");
+    throw new Error('Parameter \'serviceSid\' is not valid.');
   }
 
   if (!isValidPathParam(sessionSid)) {
-    throw new Error("Parameter 'sessionSid' is not valid.");
+    throw new Error('Parameter \'sessionSid\' is not valid.');
   }
 
   if (!isValidPathParam(participantSid)) {
-    throw new Error("Parameter 'participantSid' is not valid.");
+    throw new Error('Parameter \'participantSid\' is not valid.');
   }
 
-  const instance = ((sid) =>
-    instance.get(sid)) as MessageInteractionListInstance;
+  const instance = ((sid, ) => instance.get(sid, )) as MessageInteractionListInstance;
 
-  instance.get = function get(sid): MessageInteractionContext {
-    return new MessageInteractionContextImpl(
-      version,
-      serviceSid,
-      sessionSid,
-      participantSid,
-      sid
-    );
-  };
+  instance.get = function get(sid, ): MessageInteractionContext {
+    return new MessageInteractionContextImpl(version, serviceSid, sessionSid, participantSid, sid);
+  }
 
   instance._version = version;
-  instance._solution = { serviceSid, sessionSid, participantSid };
+  instance._solution = { serviceSid, sessionSid, participantSid,  };
   instance._uri = `/Services/${serviceSid}/Sessions/${sessionSid}/Participants/${participantSid}/MessageInteractions`;
 
-  instance.create = function create(
-    params?:
-      | MessageInteractionListInstanceCreateOptions
-      | ((error: Error | null, items: MessageInteractionInstance) => any),
-    callback?: (error: Error | null, items: MessageInteractionInstance) => any
-  ): Promise<MessageInteractionInstance> {
+  instance.create = function create(params?: MessageInteractionListInstanceCreateOptions | ((error: Error | null, items: MessageInteractionInstance) => any), callback?: (error: Error | null, items: MessageInteractionInstance) => any): Promise<MessageInteractionInstance> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -565,45 +467,30 @@ export function MessageInteractionListInstance(
 
     let data: any = {};
 
-    if (params["body"] !== undefined) data["Body"] = params["body"];
+    
+        if (params["body"] !== undefined)
+    data["Body"] = params["body"];
     if (params["mediaUrl"] !== undefined)
-      data["MediaUrl"] = serialize.map(params["mediaUrl"], (e: string) => e);
+    data["MediaUrl"] = serialize.map(params["mediaUrl"], (e: string) => (e));
+
+    
 
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = version,
-      operationPromise = operationVersion.create({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      });
+        operationPromise = operationVersion.create({ uri: instance._uri, method: "post", data, headers });
+    
+    operationPromise = operationPromise.then(payload => new MessageInteractionInstance(operationVersion, payload, instance._solution.serviceSid, instance._solution.sessionSid, instance._solution.participantSid));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new MessageInteractionInstance(
-          operationVersion,
-          payload,
-          instance._solution.serviceSid,
-          instance._solution.sessionSid,
-          instance._solution.participantSid
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
 
-  instance.page = function page(
-    params?:
-      | MessageInteractionListInstancePageOptions
-      | ((error: Error | null, items: MessageInteractionPage) => any),
-    callback?: (error: Error | null, items: MessageInteractionPage) => any
-  ): Promise<MessageInteractionPage> {
+
+    }
+
+  instance.page = function page(params?: MessageInteractionListInstancePageOptions | ((error: Error | null, items: MessageInteractionPage) => any), callback?: (error: Error | null, items: MessageInteractionPage) => any): Promise<MessageInteractionPage> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -613,111 +500,77 @@ export function MessageInteractionListInstance(
 
     let data: any = {};
 
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
 
+    
+    
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-      operationPromise = operationVersion.page({
-        uri: instance._uri,
-        method: "get",
-        params: data,
-        headers,
-      });
+        operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers });
+    
+    operationPromise = operationPromise.then(payload => new MessageInteractionPage(operationVersion, payload, instance._solution));
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new MessageInteractionPage(
-          operationVersion,
-          payload,
-          instance._solution
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
+
+  }
   instance.each = instance._version.each;
   instance.list = instance._version.list;
 
-  instance.getPage = function getPage(
-    targetUrl: string,
-    callback?: (error: Error | null, items: MessageInteractionPage) => any
-  ): Promise<MessageInteractionPage> {
-    const operationPromise = instance._version._domain.twilio.request({
-      method: "get",
-      uri: targetUrl,
-    });
+  instance.getPage = function getPage(targetUrl: string, callback?: (error: Error | null, items: MessageInteractionPage) => any): Promise<MessageInteractionPage> {
+    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
 
-    let pagePromise = operationPromise.then(
-      (payload) =>
-        new MessageInteractionPage(
-          instance._version,
-          payload,
-          instance._solution
-        )
-    );
+    let pagePromise = operationPromise.then(payload => new MessageInteractionPage(instance._version, payload, instance._solution));
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  };
+  }
+
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  };
+  }
 
-  instance[inspect.custom] = function inspectImpl(
-    _depth: any,
-    options: InspectOptions
-  ) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(instance.toJSON(), options);
-  };
+  }
 
   return instance;
 }
 
-export class MessageInteractionPage extends Page<
-  V1,
-  MessageInteractionPayload,
-  MessageInteractionResource,
-  MessageInteractionInstance
-> {
-  /**
-   * Initialize the MessageInteractionPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(
-    version: V1,
-    response: Response<string>,
-    solution: MessageInteractionSolution
-  ) {
+export class MessageInteractionPage extends Page<V1, MessageInteractionPayload, MessageInteractionResource, MessageInteractionInstance> {
+/**
+* Initialize the MessageInteractionPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V1, response: Response<string>, solution: MessageInteractionSolution) {
     super(version, response, solution);
-  }
+    }
 
-  /**
-   * Build an instance of MessageInteractionInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: MessageInteractionResource): MessageInteractionInstance {
+    /**
+    * Build an instance of MessageInteractionInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: MessageInteractionResource): MessageInteractionInstance {
     return new MessageInteractionInstance(
-      this._version,
-      payload,
-      this._solution.serviceSid,
-      this._solution.sessionSid,
-      this._solution.participantSid
+    this._version,
+    payload,
+        this._solution.serviceSid,
+        this._solution.sessionSid,
+        this._solution.participantSid,
     );
-  }
+    }
 
-  [inspect.custom](depth: any, options: InspectOptions) {
+    [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-  }
-}
+    }
+    }
+

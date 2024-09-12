@@ -12,6 +12,7 @@
  * Do not edit the class manually.
  */
 
+
 import { inspect, InspectOptions } from "util";
 import Page, { TwilioResponsePayload } from "../../../../base/Page";
 import Response from "../../../../http/response";
@@ -20,23 +21,19 @@ const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
 
-export type EventLevel = "UNKNOWN" | "DEBUG" | "INFO" | "WARNING" | "ERROR";
 
-export type EventTwilioEdge =
-  | "unknown_edge"
-  | "carrier_edge"
-  | "sip_edge"
-  | "sdk_edge"
-  | "client_edge";
+export type EventLevel = 'UNKNOWN'|'DEBUG'|'INFO'|'WARNING'|'ERROR';
+
+export type EventTwilioEdge = 'unknown_edge'|'carrier_edge'|'sip_edge'|'sdk_edge'|'client_edge';
 
 /**
  * Options to pass to each
  */
 export interface EventListInstanceEachOptions {
   /** The Edge of this Event. One of `unknown_edge`, `carrier_edge`, `sip_edge`, `sdk_edge` or `client_edge`. */
-  edge?: EventTwilioEdge;
+  "edge"?: EventTwilioEdge;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: EventInstance, done: (err?: Error) => void) => void;
   /** Function to be called upon completion of streaming */
@@ -50,9 +47,9 @@ export interface EventListInstanceEachOptions {
  */
 export interface EventListInstanceOptions {
   /** The Edge of this Event. One of `unknown_edge`, `carrier_edge`, `sip_edge`, `sdk_edge` or `client_edge`. */
-  edge?: EventTwilioEdge;
+  "edge"?: EventTwilioEdge;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
@@ -62,14 +59,16 @@ export interface EventListInstanceOptions {
  */
 export interface EventListInstancePageOptions {
   /** The Edge of this Event. One of `unknown_edge`, `carrier_edge`, `sip_edge`, `sdk_edge` or `client_edge`. */
-  edge?: EventTwilioEdge;
+  "edge"?: EventTwilioEdge;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
   /** PageToken provided by the API */
   pageToken?: string;
 }
+
+
 
 export interface EventSolution {
   callSid: string;
@@ -79,6 +78,9 @@ export interface EventListInstance {
   _version: V1;
   _solution: EventSolution;
   _uri: string;
+
+
+
 
   /**
    * Streams EventInstance records from the API.
@@ -95,13 +97,8 @@ export interface EventListInstance {
    * @param { EventListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(
-    callback?: (item: EventInstance, done: (err?: Error) => void) => void
-  ): void;
-  each(
-    params: EventListInstanceEachOptions,
-    callback?: (item: EventInstance, done: (err?: Error) => void) => void
-  ): void;
+  each(callback?: (item: EventInstance, done: (err?: Error) => void) => void): void;
+  each(params: EventListInstanceEachOptions, callback?: (item: EventInstance, done: (err?: Error) => void) => void): void;
   /**
    * Retrieve a single target page of EventInstance records from the API.
    *
@@ -110,10 +107,7 @@ export interface EventListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(
-    targetUrl: string,
-    callback?: (error: Error | null, items: EventPage) => any
-  ): Promise<EventPage>;
+  getPage(targetUrl: string, callback?: (error: Error | null, items: EventPage) => any): Promise<EventPage>;
   /**
    * Lists EventInstance records from the API as a list.
    *
@@ -123,13 +117,8 @@ export interface EventListInstance {
    * @param { EventListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(
-    callback?: (error: Error | null, items: EventInstance[]) => any
-  ): Promise<EventInstance[]>;
-  list(
-    params: EventListInstanceOptions,
-    callback?: (error: Error | null, items: EventInstance[]) => any
-  ): Promise<EventInstance[]>;
+  list(callback?: (error: Error | null, items: EventInstance[]) => any): Promise<EventInstance[]>;
+  list(params: EventListInstanceOptions, callback?: (error: Error | null, items: EventInstance[]) => any): Promise<EventInstance[]>;
   /**
    * Retrieve a single page of EventInstance records from the API.
    *
@@ -141,13 +130,8 @@ export interface EventListInstance {
    * @param { EventListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(
-    callback?: (error: Error | null, items: EventPage) => any
-  ): Promise<EventPage>;
-  page(
-    params: EventListInstancePageOptions,
-    callback?: (error: Error | null, items: EventPage) => any
-  ): Promise<EventPage>;
+  page(callback?: (error: Error | null, items: EventPage) => any): Promise<EventPage>;
+  page(params: EventListInstancePageOptions, callback?: (error: Error | null, items: EventPage) => any): Promise<EventPage>;
 
   /**
    * Provide a user-friendly representation
@@ -156,26 +140,18 @@ export interface EventListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function EventListInstance(
-  version: V1,
-  callSid: string
-): EventListInstance {
+export function EventListInstance(version: V1, callSid: string): EventListInstance {
   if (!isValidPathParam(callSid)) {
-    throw new Error("Parameter 'callSid' is not valid.");
+    throw new Error('Parameter \'callSid\' is not valid.');
   }
 
   const instance = {} as EventListInstance;
 
   instance._version = version;
-  instance._solution = { callSid };
+  instance._solution = { callSid,  };
   instance._uri = `/Voice/${callSid}/Events`;
 
-  instance.page = function page(
-    params?:
-      | EventListInstancePageOptions
-      | ((error: Error | null, items: EventPage) => any),
-    callback?: (error: Error | null, items: EventPage) => any
-  ): Promise<EventPage> {
+  instance.page = function page(params?: EventListInstancePageOptions | ((error: Error | null, items: EventPage) => any), callback?: (error: Error | null, items: EventPage) => any): Promise<EventPage> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -185,67 +161,52 @@ export function EventListInstance(
 
     let data: any = {};
 
-    if (params["edge"] !== undefined) data["Edge"] = params["edge"];
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["edge"] !== undefined)
+    data["Edge"] = params["edge"];
+    if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
 
+    
+    
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-      operationPromise = operationVersion.page({
-        uri: instance._uri,
-        method: "get",
-        params: data,
-        headers,
-      });
+        operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers });
+    
+    operationPromise = operationPromise.then(payload => new EventPage(operationVersion, payload, instance._solution));
 
-    operationPromise = operationPromise.then(
-      (payload) => new EventPage(operationVersion, payload, instance._solution)
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
+
+  }
   instance.each = instance._version.each;
   instance.list = instance._version.list;
 
-  instance.getPage = function getPage(
-    targetUrl: string,
-    callback?: (error: Error | null, items: EventPage) => any
-  ): Promise<EventPage> {
-    const operationPromise = instance._version._domain.twilio.request({
-      method: "get",
-      uri: targetUrl,
-    });
+  instance.getPage = function getPage(targetUrl: string, callback?: (error: Error | null, items: EventPage) => any): Promise<EventPage> {
+    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
 
-    let pagePromise = operationPromise.then(
-      (payload) => new EventPage(instance._version, payload, instance._solution)
-    );
+    let pagePromise = operationPromise.then(payload => new EventPage(instance._version, payload, instance._solution));
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  };
+  }
+
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  };
+  }
 
-  instance[inspect.custom] = function inspectImpl(
-    _depth: any,
-    options: InspectOptions
-  ) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(instance.toJSON(), options);
-  };
+  }
 
   return instance;
 }
 
 interface EventPayload extends TwilioResponsePayload {
-  events: EventResource[];
+    events: EventResource[];
 }
 
 interface EventResource {
@@ -263,18 +224,20 @@ interface EventResource {
 }
 
 export class EventInstance {
+
   constructor(protected _version: V1, payload: EventResource, callSid: string) {
-    this.timestamp = payload.timestamp;
-    this.callSid = payload.call_sid;
-    this.accountSid = payload.account_sid;
-    this.edge = payload.edge;
-    this.group = payload.group;
-    this.level = payload.level;
-    this.name = payload.name;
-    this.carrierEdge = payload.carrier_edge;
-    this.sipEdge = payload.sip_edge;
-    this.sdkEdge = payload.sdk_edge;
-    this.clientEdge = payload.client_edge;
+    this.timestamp = (payload.timestamp);
+    this.callSid = (payload.call_sid);
+    this.accountSid = (payload.account_sid);
+    this.edge = (payload.edge);
+    this.group = (payload.group);
+    this.level = (payload.level);
+    this.name = (payload.name);
+    this.carrierEdge = (payload.carrier_edge);
+    this.sipEdge = (payload.sip_edge);
+    this.sdkEdge = (payload.sdk_edge);
+    this.clientEdge = (payload.client_edge);
+
   }
 
   /**
@@ -334,7 +297,7 @@ export class EventInstance {
       sipEdge: this.sipEdge,
       sdkEdge: this.sdkEdge,
       clientEdge: this.clientEdge,
-    };
+    }
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
@@ -342,37 +305,33 @@ export class EventInstance {
   }
 }
 
-export class EventPage extends Page<
-  V1,
-  EventPayload,
-  EventResource,
-  EventInstance
-> {
-  /**
-   * Initialize the EventPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(
-    version: V1,
-    response: Response<string>,
-    solution: EventSolution
-  ) {
+export class EventPage extends Page<V1, EventPayload, EventResource, EventInstance> {
+/**
+* Initialize the EventPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V1, response: Response<string>, solution: EventSolution) {
     super(version, response, solution);
-  }
+    }
 
-  /**
-   * Build an instance of EventInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: EventResource): EventInstance {
-    return new EventInstance(this._version, payload, this._solution.callSid);
-  }
+    /**
+    * Build an instance of EventInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: EventResource): EventInstance {
+    return new EventInstance(
+    this._version,
+    payload,
+        this._solution.callSid,
+    );
+    }
 
-  [inspect.custom](depth: any, options: InspectOptions) {
+    [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-  }
-}
+    }
+    }
+

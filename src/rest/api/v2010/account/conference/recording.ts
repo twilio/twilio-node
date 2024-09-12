@@ -12,6 +12,7 @@
  * Do not edit the class manually.
  */
 
+
 import { inspect, InspectOptions } from "util";
 import Page, { TwilioResponsePayload } from "../../../../../base/Page";
 import Response from "../../../../../http/response";
@@ -20,44 +21,35 @@ const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
 
-export type RecordingSource =
-  | "DialVerb"
-  | "Conference"
-  | "OutboundAPI"
-  | "Trunking"
-  | "RecordVerb"
-  | "StartCallRecordingAPI"
-  | "StartConferenceRecordingAPI";
 
-export type RecordingStatus =
-  | "in-progress"
-  | "paused"
-  | "stopped"
-  | "processing"
-  | "completed"
-  | "absent";
+export type RecordingSource = 'DialVerb'|'Conference'|'OutboundAPI'|'Trunking'|'RecordVerb'|'StartCallRecordingAPI'|'StartConferenceRecordingAPI';
+
+export type RecordingStatus = 'in-progress'|'paused'|'stopped'|'processing'|'completed'|'absent';
+
+
+
 
 /**
  * Options to pass to update a RecordingInstance
  */
 export interface RecordingContextUpdateOptions {
   /**  */
-  status: RecordingStatus;
+  "status": RecordingStatus;
   /** Whether to record during a pause. Can be: `skip` or `silence` and the default is `silence`. `skip` does not record during the pause period, while `silence` will replace the actual audio of the call with silence during the pause period. This parameter only applies when setting `status` is set to `paused`. */
-  pauseBehavior?: string;
+  "pauseBehavior"?: string;
 }
 /**
  * Options to pass to each
  */
 export interface RecordingListInstanceEachOptions {
   /** The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. You can also specify inequality: `DateCreated<=YYYY-MM-DD` will return recordings generated at or before midnight on a given date, and `DateCreated>=YYYY-MM-DD` returns recordings generated at or after midnight on a date. */
-  dateCreated?: Date;
+  "dateCreated"?: Date;
   /** The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. You can also specify inequality: `DateCreated<=YYYY-MM-DD` will return recordings generated at or before midnight on a given date, and `DateCreated>=YYYY-MM-DD` returns recordings generated at or after midnight on a date. */
-  dateCreatedBefore?: Date;
+  "dateCreatedBefore"?: Date;
   /** The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. You can also specify inequality: `DateCreated<=YYYY-MM-DD` will return recordings generated at or before midnight on a given date, and `DateCreated>=YYYY-MM-DD` returns recordings generated at or after midnight on a date. */
-  dateCreatedAfter?: Date;
+  "dateCreatedAfter"?: Date;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: RecordingInstance, done: (err?: Error) => void) => void;
   /** Function to be called upon completion of streaming */
@@ -71,13 +63,13 @@ export interface RecordingListInstanceEachOptions {
  */
 export interface RecordingListInstanceOptions {
   /** The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. You can also specify inequality: `DateCreated<=YYYY-MM-DD` will return recordings generated at or before midnight on a given date, and `DateCreated>=YYYY-MM-DD` returns recordings generated at or after midnight on a date. */
-  dateCreated?: Date;
+  "dateCreated"?: Date;
   /** The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. You can also specify inequality: `DateCreated<=YYYY-MM-DD` will return recordings generated at or before midnight on a given date, and `DateCreated>=YYYY-MM-DD` returns recordings generated at or after midnight on a date. */
-  dateCreatedBefore?: Date;
+  "dateCreatedBefore"?: Date;
   /** The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. You can also specify inequality: `DateCreated<=YYYY-MM-DD` will return recordings generated at or before midnight on a given date, and `DateCreated>=YYYY-MM-DD` returns recordings generated at or after midnight on a date. */
-  dateCreatedAfter?: Date;
+  "dateCreatedAfter"?: Date;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
@@ -87,20 +79,22 @@ export interface RecordingListInstanceOptions {
  */
 export interface RecordingListInstancePageOptions {
   /** The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. You can also specify inequality: `DateCreated<=YYYY-MM-DD` will return recordings generated at or before midnight on a given date, and `DateCreated>=YYYY-MM-DD` returns recordings generated at or after midnight on a date. */
-  dateCreated?: Date;
+  "dateCreated"?: Date;
   /** The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. You can also specify inequality: `DateCreated<=YYYY-MM-DD` will return recordings generated at or before midnight on a given date, and `DateCreated>=YYYY-MM-DD` returns recordings generated at or after midnight on a date. */
-  dateCreatedBefore?: Date;
+  "dateCreatedBefore"?: Date;
   /** The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. You can also specify inequality: `DateCreated<=YYYY-MM-DD` will return recordings generated at or before midnight on a given date, and `DateCreated>=YYYY-MM-DD` returns recordings generated at or after midnight on a date. */
-  dateCreatedAfter?: Date;
+  "dateCreatedAfter"?: Date;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
   /** PageToken provided by the API */
   pageToken?: string;
 }
 
+
 export interface RecordingContext {
+
   /**
    * Remove a RecordingInstance
    *
@@ -108,9 +102,7 @@ export interface RecordingContext {
    *
    * @returns Resolves to processed boolean
    */
-  remove(
-    callback?: (error: Error | null, item?: boolean) => any
-  ): Promise<boolean>;
+  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
 
   /**
    * Fetch a RecordingInstance
@@ -119,9 +111,7 @@ export interface RecordingContext {
    *
    * @returns Resolves to processed RecordingInstance
    */
-  fetch(
-    callback?: (error: Error | null, item?: RecordingInstance) => any
-  ): Promise<RecordingInstance>;
+  fetch(callback?: (error: Error | null, item?: RecordingInstance) => any): Promise<RecordingInstance>
 
   /**
    * Update a RecordingInstance
@@ -131,10 +121,8 @@ export interface RecordingContext {
    *
    * @returns Resolves to processed RecordingInstance
    */
-  update(
-    params: RecordingContextUpdateOptions,
-    callback?: (error: Error | null, item?: RecordingInstance) => any
-  ): Promise<RecordingInstance>;
+  update(params: RecordingContextUpdateOptions, callback?: (error: Error | null, item?: RecordingInstance) => any): Promise<RecordingInstance>;
+
 
   /**
    * Provide a user-friendly representation
@@ -144,128 +132,94 @@ export interface RecordingContext {
 }
 
 export interface RecordingContextSolution {
-  accountSid: string;
-  conferenceSid: string;
-  sid: string;
+  "accountSid": string;
+  "conferenceSid": string;
+  "sid": string;
 }
 
 export class RecordingContextImpl implements RecordingContext {
   protected _solution: RecordingContextSolution;
   protected _uri: string;
 
-  constructor(
-    protected _version: V2010,
-    accountSid: string,
-    conferenceSid: string,
-    sid: string
-  ) {
+
+  constructor(protected _version: V2010, accountSid: string, conferenceSid: string, sid: string) {
     if (!isValidPathParam(accountSid)) {
-      throw new Error("Parameter 'accountSid' is not valid.");
+      throw new Error('Parameter \'accountSid\' is not valid.');
     }
 
     if (!isValidPathParam(conferenceSid)) {
-      throw new Error("Parameter 'conferenceSid' is not valid.");
+      throw new Error('Parameter \'conferenceSid\' is not valid.');
     }
 
     if (!isValidPathParam(sid)) {
-      throw new Error("Parameter 'sid' is not valid.");
+      throw new Error('Parameter \'sid\' is not valid.');
     }
 
-    this._solution = { accountSid, conferenceSid, sid };
+    this._solution = { accountSid, conferenceSid, sid,  };
     this._uri = `/Accounts/${accountSid}/Conferences/${conferenceSid}/Recordings/${sid}.json`;
   }
 
-  remove(
-    callback?: (error: Error | null, item?: boolean) => any
-  ): Promise<boolean> {
+  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean> {
+  
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.remove({
-        uri: instance._uri,
-        method: "delete",
-      });
+        operationPromise = operationVersion.remove({ uri: instance._uri, method: "delete" });
+    
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
-  fetch(
-    callback?: (error: Error | null, item?: RecordingInstance) => any
-  ): Promise<RecordingInstance> {
+  fetch(callback?: (error: Error | null, item?: RecordingInstance) => any): Promise<RecordingInstance> {
+  
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.fetch({
-        uri: instance._uri,
-        method: "get",
-      });
+        operationPromise = operationVersion.fetch({ uri: instance._uri, method: "get" });
+    
+    operationPromise = operationPromise.then(payload => new RecordingInstance(operationVersion, payload, instance._solution.accountSid, instance._solution.conferenceSid, instance._solution.sid));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new RecordingInstance(
-          operationVersion,
-          payload,
-          instance._solution.accountSid,
-          instance._solution.conferenceSid,
-          instance._solution.sid
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
-  update(
-    params: RecordingContextUpdateOptions,
-    callback?: (error: Error | null, item?: RecordingInstance) => any
-  ): Promise<RecordingInstance> {
-    if (params === null || params === undefined) {
+  update(params: RecordingContextUpdateOptions, callback?: (error: Error | null, item?: RecordingInstance) => any): Promise<RecordingInstance> {
+      if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     if (params["status"] === null || params["status"] === undefined) {
-      throw new Error("Required parameter \"params['status']\" missing.");
+      throw new Error('Required parameter "params[\'status\']" missing.');
     }
 
     let data: any = {};
 
+    
+        
     data["Status"] = params["status"];
     if (params["pauseBehavior"] !== undefined)
-      data["PauseBehavior"] = params["pauseBehavior"];
+    data["PauseBehavior"] = params["pauseBehavior"];
+
+    
 
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.update({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      });
+        operationPromise = operationVersion.update({ uri: instance._uri, method: "post", data, headers });
+    
+    operationPromise = operationPromise.then(payload => new RecordingInstance(operationVersion, payload, instance._solution.accountSid, instance._solution.conferenceSid, instance._solution.sid));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new RecordingInstance(
-          operationVersion,
-          payload,
-          instance._solution.accountSid,
-          instance._solution.conferenceSid,
-          instance._solution.sid
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
   /**
@@ -282,8 +236,9 @@ export class RecordingContextImpl implements RecordingContext {
   }
 }
 
+
 interface RecordingPayload extends TwilioResponsePayload {
-  recordings: RecordingResource[];
+    recordings: RecordingResource[];
 }
 
 interface RecordingResource {
@@ -310,32 +265,26 @@ export class RecordingInstance {
   protected _solution: RecordingContextSolution;
   protected _context?: RecordingContext;
 
-  constructor(
-    protected _version: V2010,
-    payload: RecordingResource,
-    accountSid: string,
-    conferenceSid: string,
-    sid?: string
-  ) {
-    this.accountSid = payload.account_sid;
-    this.apiVersion = payload.api_version;
-    this.callSid = payload.call_sid;
-    this.conferenceSid = payload.conference_sid;
+  constructor(protected _version: V2010, payload: RecordingResource, accountSid: string, conferenceSid: string, sid?: string) {
+    this.accountSid = (payload.account_sid);
+    this.apiVersion = (payload.api_version);
+    this.callSid = (payload.call_sid);
+    this.conferenceSid = (payload.conference_sid);
     this.dateCreated = deserialize.rfc2822DateTime(payload.date_created);
     this.dateUpdated = deserialize.rfc2822DateTime(payload.date_updated);
     this.startTime = deserialize.rfc2822DateTime(payload.start_time);
-    this.duration = payload.duration;
-    this.sid = payload.sid;
-    this.price = payload.price;
-    this.priceUnit = payload.price_unit;
-    this.status = payload.status;
+    this.duration = (payload.duration);
+    this.sid = (payload.sid);
+    this.price = (payload.price);
+    this.priceUnit = (payload.price_unit);
+    this.status = (payload.status);
     this.channels = deserialize.integer(payload.channels);
-    this.source = payload.source;
+    this.source = (payload.source);
     this.errorCode = deserialize.integer(payload.error_code);
-    this.encryptionDetails = payload.encryption_details;
-    this.uri = payload.uri;
+    this.encryptionDetails = (payload.encryption_details);
+    this.uri = (payload.uri);
 
-    this._solution = { accountSid, conferenceSid, sid: sid || this.sid };
+    this._solution = { accountSid, conferenceSid, sid: sid || this.sid,  };
   }
 
   /**
@@ -402,14 +351,7 @@ export class RecordingInstance {
   uri: string;
 
   private get _proxy(): RecordingContext {
-    this._context =
-      this._context ||
-      new RecordingContextImpl(
-        this._version,
-        this._solution.accountSid,
-        this._solution.conferenceSid,
-        this._solution.sid
-      );
+    this._context = this._context || new RecordingContextImpl(this._version, this._solution.accountSid, this._solution.conferenceSid, this._solution.sid);
     return this._context;
   }
 
@@ -420,9 +362,9 @@ export class RecordingInstance {
    *
    * @returns Resolves to processed boolean
    */
-  remove(
-    callback?: (error: Error | null, item?: boolean) => any
-  ): Promise<boolean> {
+  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
+
+    {
     return this._proxy.remove(callback);
   }
 
@@ -433,9 +375,9 @@ export class RecordingInstance {
    *
    * @returns Resolves to processed RecordingInstance
    */
-  fetch(
-    callback?: (error: Error | null, item?: RecordingInstance) => any
-  ): Promise<RecordingInstance> {
+  fetch(callback?: (error: Error | null, item?: RecordingInstance) => any): Promise<RecordingInstance>
+
+    {
     return this._proxy.fetch(callback);
   }
 
@@ -447,15 +389,10 @@ export class RecordingInstance {
    *
    * @returns Resolves to processed RecordingInstance
    */
-  update(
-    params: RecordingContextUpdateOptions,
-    callback?: (error: Error | null, item?: RecordingInstance) => any
-  ): Promise<RecordingInstance>;
+  update(params: RecordingContextUpdateOptions, callback?: (error: Error | null, item?: RecordingInstance) => any): Promise<RecordingInstance>;
 
-  update(
-    params?: any,
-    callback?: (error: Error | null, item?: RecordingInstance) => any
-  ): Promise<RecordingInstance> {
+    update(params?: any, callback?: (error: Error | null, item?: RecordingInstance) => any): Promise<RecordingInstance>
+    {
     return this._proxy.update(params, callback);
   }
 
@@ -483,13 +420,14 @@ export class RecordingInstance {
       errorCode: this.errorCode,
       encryptionDetails: this.encryptionDetails,
       uri: this.uri,
-    };
+    }
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
 }
+
 
 export interface RecordingSolution {
   accountSid: string;
@@ -501,8 +439,16 @@ export interface RecordingListInstance {
   _solution: RecordingSolution;
   _uri: string;
 
-  (sid: string): RecordingContext;
-  get(sid: string): RecordingContext;
+  (sid: string, ): RecordingContext;
+  get(sid: string, ): RecordingContext;
+
+
+
+
+
+
+
+
 
   /**
    * Streams RecordingInstance records from the API.
@@ -519,13 +465,8 @@ export interface RecordingListInstance {
    * @param { RecordingListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(
-    callback?: (item: RecordingInstance, done: (err?: Error) => void) => void
-  ): void;
-  each(
-    params: RecordingListInstanceEachOptions,
-    callback?: (item: RecordingInstance, done: (err?: Error) => void) => void
-  ): void;
+  each(callback?: (item: RecordingInstance, done: (err?: Error) => void) => void): void;
+  each(params: RecordingListInstanceEachOptions, callback?: (item: RecordingInstance, done: (err?: Error) => void) => void): void;
   /**
    * Retrieve a single target page of RecordingInstance records from the API.
    *
@@ -534,10 +475,7 @@ export interface RecordingListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(
-    targetUrl: string,
-    callback?: (error: Error | null, items: RecordingPage) => any
-  ): Promise<RecordingPage>;
+  getPage(targetUrl: string, callback?: (error: Error | null, items: RecordingPage) => any): Promise<RecordingPage>;
   /**
    * Lists RecordingInstance records from the API as a list.
    *
@@ -547,13 +485,8 @@ export interface RecordingListInstance {
    * @param { RecordingListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(
-    callback?: (error: Error | null, items: RecordingInstance[]) => any
-  ): Promise<RecordingInstance[]>;
-  list(
-    params: RecordingListInstanceOptions,
-    callback?: (error: Error | null, items: RecordingInstance[]) => any
-  ): Promise<RecordingInstance[]>;
+  list(callback?: (error: Error | null, items: RecordingInstance[]) => any): Promise<RecordingInstance[]>;
+  list(params: RecordingListInstanceOptions, callback?: (error: Error | null, items: RecordingInstance[]) => any): Promise<RecordingInstance[]>;
   /**
    * Retrieve a single page of RecordingInstance records from the API.
    *
@@ -565,13 +498,8 @@ export interface RecordingListInstance {
    * @param { RecordingListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(
-    callback?: (error: Error | null, items: RecordingPage) => any
-  ): Promise<RecordingPage>;
-  page(
-    params: RecordingListInstancePageOptions,
-    callback?: (error: Error | null, items: RecordingPage) => any
-  ): Promise<RecordingPage>;
+  page(callback?: (error: Error | null, items: RecordingPage) => any): Promise<RecordingPage>;
+  page(params: RecordingListInstancePageOptions, callback?: (error: Error | null, items: RecordingPage) => any): Promise<RecordingPage>;
 
   /**
    * Provide a user-friendly representation
@@ -580,35 +508,26 @@ export interface RecordingListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function RecordingListInstance(
-  version: V2010,
-  accountSid: string,
-  conferenceSid: string
-): RecordingListInstance {
+export function RecordingListInstance(version: V2010, accountSid: string, conferenceSid: string): RecordingListInstance {
   if (!isValidPathParam(accountSid)) {
-    throw new Error("Parameter 'accountSid' is not valid.");
+    throw new Error('Parameter \'accountSid\' is not valid.');
   }
 
   if (!isValidPathParam(conferenceSid)) {
-    throw new Error("Parameter 'conferenceSid' is not valid.");
+    throw new Error('Parameter \'conferenceSid\' is not valid.');
   }
 
-  const instance = ((sid) => instance.get(sid)) as RecordingListInstance;
+  const instance = ((sid, ) => instance.get(sid, )) as RecordingListInstance;
 
-  instance.get = function get(sid): RecordingContext {
+  instance.get = function get(sid, ): RecordingContext {
     return new RecordingContextImpl(version, accountSid, conferenceSid, sid);
-  };
+  }
 
   instance._version = version;
-  instance._solution = { accountSid, conferenceSid };
+  instance._solution = { accountSid, conferenceSid,  };
   instance._uri = `/Accounts/${accountSid}/Conferences/${conferenceSid}/Recordings.json`;
 
-  instance.page = function page(
-    params?:
-      | RecordingListInstancePageOptions
-      | ((error: Error | null, items: RecordingPage) => any),
-    callback?: (error: Error | null, items: RecordingPage) => any
-  ): Promise<RecordingPage> {
+  instance.page = function page(params?: RecordingListInstancePageOptions | ((error: Error | null, items: RecordingPage) => any), callback?: (error: Error | null, items: RecordingPage) => any): Promise<RecordingPage> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -618,108 +537,82 @@ export function RecordingListInstance(
 
     let data: any = {};
 
-    if (params["dateCreated"] !== undefined)
-      data["DateCreated"] = serialize.iso8601Date(params["dateCreated"]);
+        if (params["dateCreated"] !== undefined)
+    data["DateCreated"] = serialize.iso8601Date(params["dateCreated"]);
     if (params["dateCreatedBefore"] !== undefined)
-      data["DateCreated<"] = serialize.iso8601Date(params["dateCreatedBefore"]);
+    data["DateCreated<"] = serialize.iso8601Date(params["dateCreatedBefore"]);
     if (params["dateCreatedAfter"] !== undefined)
-      data["DateCreated>"] = serialize.iso8601Date(params["dateCreatedAfter"]);
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+    data["DateCreated>"] = serialize.iso8601Date(params["dateCreatedAfter"]);
+    if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
 
+    
+    
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-      operationPromise = operationVersion.page({
-        uri: instance._uri,
-        method: "get",
-        params: data,
-        headers,
-      });
+        operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers });
+    
+    operationPromise = operationPromise.then(payload => new RecordingPage(operationVersion, payload, instance._solution));
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new RecordingPage(operationVersion, payload, instance._solution)
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
+
+  }
   instance.each = instance._version.each;
   instance.list = instance._version.list;
 
-  instance.getPage = function getPage(
-    targetUrl: string,
-    callback?: (error: Error | null, items: RecordingPage) => any
-  ): Promise<RecordingPage> {
-    const operationPromise = instance._version._domain.twilio.request({
-      method: "get",
-      uri: targetUrl,
-    });
+  instance.getPage = function getPage(targetUrl: string, callback?: (error: Error | null, items: RecordingPage) => any): Promise<RecordingPage> {
+    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
 
-    let pagePromise = operationPromise.then(
-      (payload) =>
-        new RecordingPage(instance._version, payload, instance._solution)
-    );
+    let pagePromise = operationPromise.then(payload => new RecordingPage(instance._version, payload, instance._solution));
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  };
+  }
+
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  };
+  }
 
-  instance[inspect.custom] = function inspectImpl(
-    _depth: any,
-    options: InspectOptions
-  ) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(instance.toJSON(), options);
-  };
+  }
 
   return instance;
 }
 
-export class RecordingPage extends Page<
-  V2010,
-  RecordingPayload,
-  RecordingResource,
-  RecordingInstance
-> {
-  /**
-   * Initialize the RecordingPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(
-    version: V2010,
-    response: Response<string>,
-    solution: RecordingSolution
-  ) {
+export class RecordingPage extends Page<V2010, RecordingPayload, RecordingResource, RecordingInstance> {
+/**
+* Initialize the RecordingPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V2010, response: Response<string>, solution: RecordingSolution) {
     super(version, response, solution);
-  }
+    }
 
-  /**
-   * Build an instance of RecordingInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: RecordingResource): RecordingInstance {
+    /**
+    * Build an instance of RecordingInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: RecordingResource): RecordingInstance {
     return new RecordingInstance(
-      this._version,
-      payload,
-      this._solution.accountSid,
-      this._solution.conferenceSid
+    this._version,
+    payload,
+        this._solution.accountSid,
+        this._solution.conferenceSid,
     );
-  }
+    }
 
-  [inspect.custom](depth: any, options: InspectOptions) {
+    [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-  }
-}
+    }
+    }
+

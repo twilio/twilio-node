@@ -12,6 +12,7 @@
  * Do not edit the class manually.
  */
 
+
 import { inspect, InspectOptions } from "util";
 import Page, { TwilioResponsePayload } from "../../../base/Page";
 import Response from "../../../http/response";
@@ -20,30 +21,31 @@ const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 
+
 /**
  * Options to pass to each
  */
 export interface ContentListInstanceEachOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Whether to sort by ascending or descending date updated */
-  sortByDate?: string;
+  "sortByDate"?: string;
   /** Whether to sort by ascending or descending content name */
-  sortByContentName?: string;
+  "sortByContentName"?: string;
   /** Filter by >=[date-time] */
-  dateCreatedAfter?: Date;
+  "dateCreatedAfter"?: Date;
   /** Filter by <=[date-time] */
-  dateCreatedBefore?: Date;
+  "dateCreatedBefore"?: Date;
   /** Filter by Regex Pattern in content name */
-  contentName?: string;
+  "contentName"?: string;
   /** Filter by Regex Pattern in template content */
-  content?: string;
+  "content"?: string;
   /** Filter by array of valid language(s) */
-  language?: Array<string>;
+  "language"?: Array<string>;
   /** Filter by array of contentType(s) */
-  contentType?: Array<string>;
+  "contentType"?: Array<string>;
   /** Filter by array of ChannelEligibility(s), where ChannelEligibility=<channel>:<status> */
-  channelEligibility?: Array<string>;
+  "channelEligibility"?: Array<string>;
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: ContentInstance, done: (err?: Error) => void) => void;
   /** Function to be called upon completion of streaming */
@@ -57,25 +59,25 @@ export interface ContentListInstanceEachOptions {
  */
 export interface ContentListInstanceOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Whether to sort by ascending or descending date updated */
-  sortByDate?: string;
+  "sortByDate"?: string;
   /** Whether to sort by ascending or descending content name */
-  sortByContentName?: string;
+  "sortByContentName"?: string;
   /** Filter by >=[date-time] */
-  dateCreatedAfter?: Date;
+  "dateCreatedAfter"?: Date;
   /** Filter by <=[date-time] */
-  dateCreatedBefore?: Date;
+  "dateCreatedBefore"?: Date;
   /** Filter by Regex Pattern in content name */
-  contentName?: string;
+  "contentName"?: string;
   /** Filter by Regex Pattern in template content */
-  content?: string;
+  "content"?: string;
   /** Filter by array of valid language(s) */
-  language?: Array<string>;
+  "language"?: Array<string>;
   /** Filter by array of contentType(s) */
-  contentType?: Array<string>;
+  "contentType"?: Array<string>;
   /** Filter by array of ChannelEligibility(s), where ChannelEligibility=<channel>:<status> */
-  channelEligibility?: Array<string>;
+  "channelEligibility"?: Array<string>;
   /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
@@ -85,37 +87,43 @@ export interface ContentListInstanceOptions {
  */
 export interface ContentListInstancePageOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Whether to sort by ascending or descending date updated */
-  sortByDate?: string;
+  "sortByDate"?: string;
   /** Whether to sort by ascending or descending content name */
-  sortByContentName?: string;
+  "sortByContentName"?: string;
   /** Filter by >=[date-time] */
-  dateCreatedAfter?: Date;
+  "dateCreatedAfter"?: Date;
   /** Filter by <=[date-time] */
-  dateCreatedBefore?: Date;
+  "dateCreatedBefore"?: Date;
   /** Filter by Regex Pattern in content name */
-  contentName?: string;
+  "contentName"?: string;
   /** Filter by Regex Pattern in template content */
-  content?: string;
+  "content"?: string;
   /** Filter by array of valid language(s) */
-  language?: Array<string>;
+  "language"?: Array<string>;
   /** Filter by array of contentType(s) */
-  contentType?: Array<string>;
+  "contentType"?: Array<string>;
   /** Filter by array of ChannelEligibility(s), where ChannelEligibility=<channel>:<status> */
-  channelEligibility?: Array<string>;
+  "channelEligibility"?: Array<string>;
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
   /** PageToken provided by the API */
   pageToken?: string;
 }
 
-export interface ContentSolution {}
+
+
+export interface ContentSolution {
+}
 
 export interface ContentListInstance {
   _version: V2;
   _solution: ContentSolution;
   _uri: string;
+
+
+
 
   /**
    * Streams ContentInstance records from the API.
@@ -132,13 +140,8 @@ export interface ContentListInstance {
    * @param { ContentListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(
-    callback?: (item: ContentInstance, done: (err?: Error) => void) => void
-  ): void;
-  each(
-    params: ContentListInstanceEachOptions,
-    callback?: (item: ContentInstance, done: (err?: Error) => void) => void
-  ): void;
+  each(callback?: (item: ContentInstance, done: (err?: Error) => void) => void): void;
+  each(params: ContentListInstanceEachOptions, callback?: (item: ContentInstance, done: (err?: Error) => void) => void): void;
   /**
    * Retrieve a single target page of ContentInstance records from the API.
    *
@@ -147,10 +150,7 @@ export interface ContentListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(
-    targetUrl: string,
-    callback?: (error: Error | null, items: ContentPage) => any
-  ): Promise<ContentPage>;
+  getPage(targetUrl: string, callback?: (error: Error | null, items: ContentPage) => any): Promise<ContentPage>;
   /**
    * Lists ContentInstance records from the API as a list.
    *
@@ -160,13 +160,8 @@ export interface ContentListInstance {
    * @param { ContentListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(
-    callback?: (error: Error | null, items: ContentInstance[]) => any
-  ): Promise<ContentInstance[]>;
-  list(
-    params: ContentListInstanceOptions,
-    callback?: (error: Error | null, items: ContentInstance[]) => any
-  ): Promise<ContentInstance[]>;
+  list(callback?: (error: Error | null, items: ContentInstance[]) => any): Promise<ContentInstance[]>;
+  list(params: ContentListInstanceOptions, callback?: (error: Error | null, items: ContentInstance[]) => any): Promise<ContentInstance[]>;
   /**
    * Retrieve a single page of ContentInstance records from the API.
    *
@@ -178,13 +173,8 @@ export interface ContentListInstance {
    * @param { ContentListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(
-    callback?: (error: Error | null, items: ContentPage) => any
-  ): Promise<ContentPage>;
-  page(
-    params: ContentListInstancePageOptions,
-    callback?: (error: Error | null, items: ContentPage) => any
-  ): Promise<ContentPage>;
+  page(callback?: (error: Error | null, items: ContentPage) => any): Promise<ContentPage>;
+  page(params: ContentListInstancePageOptions, callback?: (error: Error | null, items: ContentPage) => any): Promise<ContentPage>;
 
   /**
    * Provide a user-friendly representation
@@ -197,15 +187,10 @@ export function ContentListInstance(version: V2): ContentListInstance {
   const instance = {} as ContentListInstance;
 
   instance._version = version;
-  instance._solution = {};
+  instance._solution = {  };
   instance._uri = `/Content`;
 
-  instance.page = function page(
-    params?:
-      | ContentListInstancePageOptions
-      | ((error: Error | null, items: ContentPage) => any),
-    callback?: (error: Error | null, items: ContentPage) => any
-  ): Promise<ContentPage> {
+  instance.page = function page(params?: ContentListInstancePageOptions | ((error: Error | null, items: ContentPage) => any), callback?: (error: Error | null, items: ContentPage) => any): Promise<ContentPage> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -215,95 +200,68 @@ export function ContentListInstance(version: V2): ContentListInstance {
 
     let data: any = {};
 
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
     if (params["sortByDate"] !== undefined)
-      data["SortByDate"] = params["sortByDate"];
+    data["SortByDate"] = params["sortByDate"];
     if (params["sortByContentName"] !== undefined)
-      data["SortByContentName"] = params["sortByContentName"];
+    data["SortByContentName"] = params["sortByContentName"];
     if (params["dateCreatedAfter"] !== undefined)
-      data["DateCreatedAfter"] = serialize.iso8601DateTime(
-        params["dateCreatedAfter"]
-      );
+    data["DateCreatedAfter"] = serialize.iso8601DateTime(params["dateCreatedAfter"]);
     if (params["dateCreatedBefore"] !== undefined)
-      data["DateCreatedBefore"] = serialize.iso8601DateTime(
-        params["dateCreatedBefore"]
-      );
+    data["DateCreatedBefore"] = serialize.iso8601DateTime(params["dateCreatedBefore"]);
     if (params["contentName"] !== undefined)
-      data["ContentName"] = params["contentName"];
-    if (params["content"] !== undefined) data["Content"] = params["content"];
+    data["ContentName"] = params["contentName"];
+    if (params["content"] !== undefined)
+    data["Content"] = params["content"];
     if (params["language"] !== undefined)
-      data["Language"] = serialize.map(params["language"], (e: string) => e);
+    data["Language"] = serialize.map(params["language"], (e: string) => (e));
     if (params["contentType"] !== undefined)
-      data["ContentType"] = serialize.map(
-        params["contentType"],
-        (e: string) => e
-      );
+    data["ContentType"] = serialize.map(params["contentType"], (e: string) => (e));
     if (params["channelEligibility"] !== undefined)
-      data["ChannelEligibility"] = serialize.map(
-        params["channelEligibility"],
-        (e: string) => e
-      );
+    data["ChannelEligibility"] = serialize.map(params["channelEligibility"], (e: string) => (e));
 
+    
+    
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-      operationPromise = operationVersion.page({
-        uri: instance._uri,
-        method: "get",
-        params: data,
-        headers,
-      });
+        operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers });
+    
+    operationPromise = operationPromise.then(payload => new ContentPage(operationVersion, payload, instance._solution));
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new ContentPage(operationVersion, payload, instance._solution)
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
+
+  }
   instance.each = instance._version.each;
   instance.list = instance._version.list;
 
-  instance.getPage = function getPage(
-    targetUrl: string,
-    callback?: (error: Error | null, items: ContentPage) => any
-  ): Promise<ContentPage> {
-    const operationPromise = instance._version._domain.twilio.request({
-      method: "get",
-      uri: targetUrl,
-    });
+  instance.getPage = function getPage(targetUrl: string, callback?: (error: Error | null, items: ContentPage) => any): Promise<ContentPage> {
+    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
 
-    let pagePromise = operationPromise.then(
-      (payload) =>
-        new ContentPage(instance._version, payload, instance._solution)
-    );
+    let pagePromise = operationPromise.then(payload => new ContentPage(instance._version, payload, instance._solution));
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  };
+  }
+
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  };
+  }
 
-  instance[inspect.custom] = function inspectImpl(
-    _depth: any,
-    options: InspectOptions
-  ) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(instance.toJSON(), options);
-  };
+  }
 
   return instance;
 }
 
 interface ContentPayload extends TwilioResponsePayload {
-  contents: ContentResource[];
+    contents: ContentResource[];
 }
 
 interface ContentResource {
@@ -320,17 +278,19 @@ interface ContentResource {
 }
 
 export class ContentInstance {
+
   constructor(protected _version: V2, payload: ContentResource) {
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
-    this.sid = payload.sid;
-    this.accountSid = payload.account_sid;
-    this.friendlyName = payload.friendly_name;
-    this.language = payload.language;
-    this.variables = payload.variables;
-    this.types = payload.types;
-    this.url = payload.url;
-    this.links = payload.links;
+    this.sid = (payload.sid);
+    this.accountSid = (payload.account_sid);
+    this.friendlyName = (payload.friendly_name);
+    this.language = (payload.language);
+    this.variables = (payload.variables);
+    this.types = (payload.types);
+    this.url = (payload.url);
+    this.links = (payload.links);
+
   }
 
   /**
@@ -391,7 +351,7 @@ export class ContentInstance {
       types: this.types,
       url: this.url,
       links: this.links,
-    };
+    }
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
@@ -399,37 +359,32 @@ export class ContentInstance {
   }
 }
 
-export class ContentPage extends Page<
-  V2,
-  ContentPayload,
-  ContentResource,
-  ContentInstance
-> {
-  /**
-   * Initialize the ContentPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(
-    version: V2,
-    response: Response<string>,
-    solution: ContentSolution
-  ) {
+export class ContentPage extends Page<V2, ContentPayload, ContentResource, ContentInstance> {
+/**
+* Initialize the ContentPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V2, response: Response<string>, solution: ContentSolution) {
     super(version, response, solution);
-  }
+    }
 
-  /**
-   * Build an instance of ContentInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: ContentResource): ContentInstance {
-    return new ContentInstance(this._version, payload);
-  }
+    /**
+    * Build an instance of ContentInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: ContentResource): ContentInstance {
+    return new ContentInstance(
+    this._version,
+    payload,
+    );
+    }
 
-  [inspect.custom](depth: any, options: InspectOptions) {
+    [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-  }
-}
+    }
+    }
+

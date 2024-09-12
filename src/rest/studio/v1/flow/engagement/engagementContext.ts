@@ -12,13 +12,18 @@
  * Do not edit the class manually.
  */
 
+
 import { inspect, InspectOptions } from "util";
 import V1 from "../../../V1";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
 
+
+
+
 export interface EngagementContextContext {
+
   /**
    * Fetch a EngagementContextInstance
    *
@@ -26,9 +31,7 @@ export interface EngagementContextContext {
    *
    * @returns Resolves to processed EngagementContextInstance
    */
-  fetch(
-    callback?: (error: Error | null, item?: EngagementContextInstance) => any
-  ): Promise<EngagementContextInstance>;
+  fetch(callback?: (error: Error | null, item?: EngagementContextInstance) => any): Promise<EngagementContextInstance>
 
   /**
    * Provide a user-friendly representation
@@ -38,52 +41,41 @@ export interface EngagementContextContext {
 }
 
 export interface EngagementContextContextSolution {
-  flowSid: string;
-  engagementSid: string;
+  "flowSid": string;
+  "engagementSid": string;
 }
 
 export class EngagementContextContextImpl implements EngagementContextContext {
   protected _solution: EngagementContextContextSolution;
   protected _uri: string;
 
+
   constructor(protected _version: V1, flowSid: string, engagementSid: string) {
     if (!isValidPathParam(flowSid)) {
-      throw new Error("Parameter 'flowSid' is not valid.");
+      throw new Error('Parameter \'flowSid\' is not valid.');
     }
 
     if (!isValidPathParam(engagementSid)) {
-      throw new Error("Parameter 'engagementSid' is not valid.");
+      throw new Error('Parameter \'engagementSid\' is not valid.');
     }
 
-    this._solution = { flowSid, engagementSid };
+    this._solution = { flowSid, engagementSid,  };
     this._uri = `/Flows/${flowSid}/Engagements/${engagementSid}/Context`;
   }
 
-  fetch(
-    callback?: (error: Error | null, item?: EngagementContextInstance) => any
-  ): Promise<EngagementContextInstance> {
+  fetch(callback?: (error: Error | null, item?: EngagementContextInstance) => any): Promise<EngagementContextInstance> {
+  
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.fetch({
-        uri: instance._uri,
-        method: "get",
-      });
+        operationPromise = operationVersion.fetch({ uri: instance._uri, method: "get" });
+    
+    operationPromise = operationPromise.then(payload => new EngagementContextInstance(operationVersion, payload, instance._solution.flowSid, instance._solution.engagementSid));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new EngagementContextInstance(
-          operationVersion,
-          payload,
-          instance._solution.flowSid,
-          instance._solution.engagementSid
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
   /**
@@ -100,6 +92,7 @@ export class EngagementContextContextImpl implements EngagementContextContext {
   }
 }
 
+
 interface EngagementContextPayload extends EngagementContextResource {}
 
 interface EngagementContextResource {
@@ -114,19 +107,14 @@ export class EngagementContextInstance {
   protected _solution: EngagementContextContextSolution;
   protected _context?: EngagementContextContext;
 
-  constructor(
-    protected _version: V1,
-    payload: EngagementContextResource,
-    flowSid: string,
-    engagementSid: string
-  ) {
-    this.accountSid = payload.account_sid;
-    this.context = payload.context;
-    this.engagementSid = payload.engagement_sid;
-    this.flowSid = payload.flow_sid;
-    this.url = payload.url;
+  constructor(protected _version: V1, payload: EngagementContextResource, flowSid: string, engagementSid: string) {
+    this.accountSid = (payload.account_sid);
+    this.context = (payload.context);
+    this.engagementSid = (payload.engagement_sid);
+    this.flowSid = (payload.flow_sid);
+    this.url = (payload.url);
 
-    this._solution = { flowSid, engagementSid };
+    this._solution = { flowSid, engagementSid,  };
   }
 
   /**
@@ -151,13 +139,7 @@ export class EngagementContextInstance {
   url: string;
 
   private get _proxy(): EngagementContextContext {
-    this._context =
-      this._context ||
-      new EngagementContextContextImpl(
-        this._version,
-        this._solution.flowSid,
-        this._solution.engagementSid
-      );
+    this._context = this._context || new EngagementContextContextImpl(this._version, this._solution.flowSid, this._solution.engagementSid);
     return this._context;
   }
 
@@ -168,9 +150,9 @@ export class EngagementContextInstance {
    *
    * @returns Resolves to processed EngagementContextInstance
    */
-  fetch(
-    callback?: (error: Error | null, item?: EngagementContextInstance) => any
-  ): Promise<EngagementContextInstance> {
+  fetch(callback?: (error: Error | null, item?: EngagementContextInstance) => any): Promise<EngagementContextInstance>
+
+    {
     return this._proxy.fetch(callback);
   }
 
@@ -186,13 +168,14 @@ export class EngagementContextInstance {
       engagementSid: this.engagementSid,
       flowSid: this.flowSid,
       url: this.url,
-    };
+    }
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
 }
+
 
 export interface EngagementContextSolution {
   flowSid: string;
@@ -207,6 +190,9 @@ export interface EngagementContextListInstance {
   (): EngagementContextContext;
   get(): EngagementContextContext;
 
+
+
+
   /**
    * Provide a user-friendly representation
    */
@@ -214,39 +200,34 @@ export interface EngagementContextListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function EngagementContextListInstance(
-  version: V1,
-  flowSid: string,
-  engagementSid: string
-): EngagementContextListInstance {
+export function EngagementContextListInstance(version: V1, flowSid: string, engagementSid: string): EngagementContextListInstance {
   if (!isValidPathParam(flowSid)) {
-    throw new Error("Parameter 'flowSid' is not valid.");
+    throw new Error('Parameter \'flowSid\' is not valid.');
   }
 
   if (!isValidPathParam(engagementSid)) {
-    throw new Error("Parameter 'engagementSid' is not valid.");
+    throw new Error('Parameter \'engagementSid\' is not valid.');
   }
 
   const instance = (() => instance.get()) as EngagementContextListInstance;
 
   instance.get = function get(): EngagementContextContext {
     return new EngagementContextContextImpl(version, flowSid, engagementSid);
-  };
+  }
 
   instance._version = version;
-  instance._solution = { flowSid, engagementSid };
+  instance._solution = { flowSid, engagementSid,  };
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  };
+  }
 
-  instance[inspect.custom] = function inspectImpl(
-    _depth: any,
-    options: InspectOptions
-  ) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(instance.toJSON(), options);
-  };
+  }
 
   return instance;
 }
+
+

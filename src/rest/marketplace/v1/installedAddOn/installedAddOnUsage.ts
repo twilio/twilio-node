@@ -12,19 +12,21 @@
  * Do not edit the class manually.
  */
 
+
 import { inspect, InspectOptions } from "util";
 import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
 
+
 export class MarketplaceV1InstalledAddOnBillingUsageResponseBillableItems {
   /**
-   *
+   * 
    */
   "quantity"?: number;
   /**
-   *
+   * 
    */
   "sid"?: string;
   /**
@@ -33,9 +35,11 @@ export class MarketplaceV1InstalledAddOnBillingUsageResponseBillableItems {
   "submitted"?: boolean;
 }
 
+
 export class MarketplaceV1InstalledAddOnInstalledAddOnUsage {
   "billableItems": Array<MarketplaceV1InstalledAddOnInstalledAddOnUsageBillableItems>;
 }
+
 
 export class MarketplaceV1InstalledAddOnInstalledAddOnUsageBillableItems {
   /**
@@ -48,13 +52,16 @@ export class MarketplaceV1InstalledAddOnInstalledAddOnUsageBillableItems {
   "sid": string;
 }
 
+
+
 /**
  * Options to pass to create a InstalledAddOnUsageInstance
  */
 export interface InstalledAddOnUsageListInstanceCreateOptions {
   /**  */
-  marketplaceV1InstalledAddOnInstalledAddOnUsage: MarketplaceV1InstalledAddOnInstalledAddOnUsage;
+  "marketplaceV1InstalledAddOnInstalledAddOnUsage": MarketplaceV1InstalledAddOnInstalledAddOnUsage;
 }
+
 
 export interface InstalledAddOnUsageSolution {
   installedAddOnSid: string;
@@ -65,6 +72,8 @@ export interface InstalledAddOnUsageListInstance {
   _solution: InstalledAddOnUsageSolution;
   _uri: string;
 
+
+
   /**
    * Create a InstalledAddOnUsageInstance
    *
@@ -73,10 +82,8 @@ export interface InstalledAddOnUsageListInstance {
    *
    * @returns Resolves to processed InstalledAddOnUsageInstance
    */
-  create(
-    params: MarketplaceV1InstalledAddOnInstalledAddOnUsage,
-    callback?: (error: Error | null, item?: InstalledAddOnUsageInstance) => any
-  ): Promise<InstalledAddOnUsageInstance>;
+  create(params: MarketplaceV1InstalledAddOnInstalledAddOnUsage, callback?: (error: Error | null, item?: InstalledAddOnUsageInstance) => any): Promise<InstalledAddOnUsageInstance>;
+
 
   /**
    * Provide a user-friendly representation
@@ -85,69 +92,50 @@ export interface InstalledAddOnUsageListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function InstalledAddOnUsageListInstance(
-  version: V1,
-  installedAddOnSid: string
-): InstalledAddOnUsageListInstance {
+export function InstalledAddOnUsageListInstance(version: V1, installedAddOnSid: string): InstalledAddOnUsageListInstance {
   if (!isValidPathParam(installedAddOnSid)) {
-    throw new Error("Parameter 'installedAddOnSid' is not valid.");
+    throw new Error('Parameter \'installedAddOnSid\' is not valid.');
   }
 
   const instance = {} as InstalledAddOnUsageListInstance;
 
   instance._version = version;
-  instance._solution = { installedAddOnSid };
+  instance._solution = { installedAddOnSid,  };
   instance._uri = `/InstalledAddOns/${installedAddOnSid}/Usage`;
 
-  instance.create = function create(
-    params: MarketplaceV1InstalledAddOnInstalledAddOnUsage,
-    callback?: (error: Error | null, items: InstalledAddOnUsageInstance) => any
-  ): Promise<InstalledAddOnUsageInstance> {
+  instance.create = function create(params: MarketplaceV1InstalledAddOnInstalledAddOnUsage, callback?: (error: Error | null, items: InstalledAddOnUsageInstance) => any): Promise<InstalledAddOnUsageInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     let data: any = {};
 
-    data = params;
+    
+    
+    data = params
 
     const headers: any = {};
-    headers["Content-Type"] = "application/json";
+    headers["Content-Type"] = "application/json"
 
     let operationVersion = version,
-      operationPromise = operationVersion.create({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      });
+        operationPromise = operationVersion.create({ uri: instance._uri, method: "post", data, headers });
+    
+    operationPromise = operationPromise.then(payload => new InstalledAddOnUsageInstance(operationVersion, payload, instance._solution.installedAddOnSid));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new InstalledAddOnUsageInstance(
-          operationVersion,
-          payload,
-          instance._solution.installedAddOnSid
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
+
+
+    }
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  };
+  }
 
-  instance[inspect.custom] = function inspectImpl(
-    _depth: any,
-    options: InspectOptions
-  ) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(instance.toJSON(), options);
-  };
+  }
 
   return instance;
 }
@@ -160,13 +148,11 @@ interface InstalledAddOnUsageResource {
 }
 
 export class InstalledAddOnUsageInstance {
-  constructor(
-    protected _version: V1,
-    payload: InstalledAddOnUsageResource,
-    installedAddOnSid: string
-  ) {
-    this.billableItems = payload.billable_items;
-    this.totalSubmitted = payload.total_submitted;
+
+  constructor(protected _version: V1, payload: InstalledAddOnUsageResource, installedAddOnSid: string) {
+    this.billableItems = (payload.billable_items);
+    this.totalSubmitted = (payload.total_submitted);
+
   }
 
   billableItems: Array<MarketplaceV1InstalledAddOnBillingUsageResponseBillableItems>;
@@ -184,10 +170,12 @@ export class InstalledAddOnUsageInstance {
     return {
       billableItems: this.billableItems,
       totalSubmitted: this.totalSubmitted,
-    };
+    }
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
 }
+
+

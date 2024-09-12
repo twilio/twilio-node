@@ -12,6 +12,7 @@
  * Do not edit the class manually.
  */
 
+
 import { inspect, InspectOptions } from "util";
 import Page, { TwilioResponsePayload } from "../../../base/Page";
 import Response from "../../../http/response";
@@ -22,12 +23,14 @@ import { isValidPathParam } from "../../../base/utility";
 import { ApprovalCreateListInstance } from "./content/approvalCreate";
 import { ApprovalFetchListInstance } from "./content/approvalFetch";
 
+
 export class AuthenticationAction {
   "type": AuthenticationActionType;
   "copyCodeText": string;
 }
 
-export type AuthenticationActionType = "COPY_CODE";
+
+export type AuthenticationActionType = 'COPY_CODE';
 
 export class CallToActionAction {
   "type": CallToActionActionType;
@@ -37,7 +40,8 @@ export class CallToActionAction {
   "id"?: string;
 }
 
-export type CallToActionActionType = "URL" | "PHONE_NUMBER";
+
+export type CallToActionActionType = 'URL'|'PHONE_NUMBER';
 
 export class CardAction {
   "type": CardActionType;
@@ -47,7 +51,8 @@ export class CardAction {
   "id"?: string;
 }
 
-export type CardActionType = "URL" | "PHONE_NUMBER" | "QUICK_REPLY";
+
+export type CardActionType = 'URL'|'PHONE_NUMBER'|'QUICK_REPLY';
 
 export class CarouselAction {
   "type": CarouselActionType;
@@ -57,7 +62,8 @@ export class CarouselAction {
   "id"?: string;
 }
 
-export type CarouselActionType = "URL" | "PHONE_NUMBER" | "QUICK_REPLY";
+
+export type CarouselActionType = 'URL'|'PHONE_NUMBER'|'QUICK_REPLY';
 
 export class CarouselCard {
   "title"?: string;
@@ -65,6 +71,7 @@ export class CarouselCard {
   "media"?: string;
   "actions"?: Array<CarouselAction>;
 }
+
 
 export class CatalogItem {
   "id"?: string;
@@ -74,6 +81,7 @@ export class CatalogItem {
   "price"?: number;
   "description"?: string;
 }
+
 
 /**
  * Content creation request body
@@ -86,7 +94,7 @@ export class ContentCreateRequest {
   /**
    * Key value pairs of variable name to value
    */
-  "variables"?: { [key: string]: string };
+  "variables"?: { [key: string]: string; };
   /**
    * Language code for the content
    */
@@ -94,11 +102,13 @@ export class ContentCreateRequest {
   "types": Types;
 }
 
+
 export class ListItem {
   "id": string;
   "item": string;
   "description"?: string;
 }
+
 
 export class QuickReplyAction {
   "type": QuickReplyActionType;
@@ -106,7 +116,8 @@ export class QuickReplyAction {
   "id"?: string;
 }
 
-export type QuickReplyActionType = "QUICK_REPLY";
+
+export type QuickReplyActionType = 'QUICK_REPLY';
 
 /**
  * twilio/call-to-action buttons let recipients tap to trigger actions such as launching a website or making a phone call.
@@ -115,6 +126,7 @@ export class TwilioCallToAction {
   "body"?: string;
   "actions"?: Array<CallToActionAction>;
 }
+
 
 /**
  * twilio/card is a structured template which can be used to send a series of related information. It must include a title and at least one additional field.
@@ -126,6 +138,7 @@ export class TwilioCard {
   "actions"?: Array<CardAction>;
 }
 
+
 /**
  * twilio/carousel templates allow you to send a single text message accompanied by a set of up to 10 carousel cards in a horizontally scrollable view
  */
@@ -133,6 +146,7 @@ export class TwilioCarousel {
   "body": string;
   "cards": Array<CarouselCard>;
 }
+
 
 /**
  * twilio/catalog type lets recipients view list of catalog products, ask questions about products, order products.
@@ -146,6 +160,7 @@ export class TwilioCatalog {
   "dynamicItems"?: string;
 }
 
+
 /**
  * twilio/list-picker includes a menu of up to 10 options, which offers a simple way for users to make a selection.
  */
@@ -154,6 +169,7 @@ export class TwilioListPicker {
   "button": string;
   "items": Array<ListItem>;
 }
+
 
 /**
  * twilio/location type contains a location pin and an optional label, which can be used to enhance delivery notifications or connect recipients to physical experiences you offer.
@@ -164,6 +180,7 @@ export class TwilioLocation {
   "label"?: string;
 }
 
+
 /**
  * twilio/media is used to send file attachments, or to send long text via MMS in the US and Canada. As such, the twilio/media type must contain at least ONE of text or media content.
  */
@@ -171,6 +188,7 @@ export class TwilioMedia {
   "body"?: string;
   "media": Array<string>;
 }
+
 
 /**
  * twilio/quick-reply templates let recipients tap, rather than type, to respond to the message.
@@ -180,12 +198,14 @@ export class TwilioQuickReply {
   "actions": Array<QuickReplyAction>;
 }
 
+
 /**
  * Type containing only plain text-based content
  */
 export class TwilioText {
   "body": string;
 }
+
 
 /**
  * Content types
@@ -204,6 +224,7 @@ export class Types {
   "whatsappAuthentication"?: WhatsappAuthentication | null;
 }
 
+
 /**
  * whatsApp/authentication templates let companies deliver WA approved one-time-password button.
  */
@@ -212,6 +233,7 @@ export class WhatsappAuthentication {
   "codeExpirationMinutes"?: number;
   "actions": Array<AuthenticationAction>;
 }
+
 
 /**
  * whatsapp/card is a structured template which can be used to send a series of related information. It must include a body and at least one additional field.
@@ -224,19 +246,23 @@ export class WhatsappCard {
   "actions"?: Array<CardAction>;
 }
 
+
+
+
+
 /**
  * Options to pass to create a ContentInstance
  */
 export interface ContentListInstanceCreateOptions {
   /**  */
-  contentCreateRequest: ContentCreateRequest;
+  "contentCreateRequest": ContentCreateRequest;
 }
 /**
  * Options to pass to each
  */
 export interface ContentListInstanceEachOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: ContentInstance, done: (err?: Error) => void) => void;
   /** Function to be called upon completion of streaming */
@@ -250,7 +276,7 @@ export interface ContentListInstanceEachOptions {
  */
 export interface ContentListInstanceOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
@@ -260,12 +286,13 @@ export interface ContentListInstanceOptions {
  */
 export interface ContentListInstancePageOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
   /** PageToken provided by the API */
   pageToken?: string;
 }
+
 
 export interface ContentContext {
   approvalCreate: ApprovalCreateListInstance;
@@ -278,9 +305,7 @@ export interface ContentContext {
    *
    * @returns Resolves to processed boolean
    */
-  remove(
-    callback?: (error: Error | null, item?: boolean) => any
-  ): Promise<boolean>;
+  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
 
   /**
    * Fetch a ContentInstance
@@ -289,9 +314,9 @@ export interface ContentContext {
    *
    * @returns Resolves to processed ContentInstance
    */
-  fetch(
-    callback?: (error: Error | null, item?: ContentInstance) => any
-  ): Promise<ContentInstance>;
+  fetch(callback?: (error: Error | null, item?: ContentInstance) => any): Promise<ContentInstance>
+
+
 
   /**
    * Provide a user-friendly representation
@@ -301,7 +326,7 @@ export interface ContentContext {
 }
 
 export interface ContentContextSolution {
-  sid: string;
+  "sid": string;
 }
 
 export class ContentContextImpl implements ContentContext {
@@ -313,64 +338,49 @@ export class ContentContextImpl implements ContentContext {
 
   constructor(protected _version: V1, sid: string) {
     if (!isValidPathParam(sid)) {
-      throw new Error("Parameter 'sid' is not valid.");
+      throw new Error('Parameter \'sid\' is not valid.');
     }
 
-    this._solution = { sid };
+    this._solution = { sid,  };
     this._uri = `/Content/${sid}`;
   }
 
   get approvalCreate(): ApprovalCreateListInstance {
-    this._approvalCreate =
-      this._approvalCreate ||
-      ApprovalCreateListInstance(this._version, this._solution.sid);
+    this._approvalCreate = this._approvalCreate || ApprovalCreateListInstance(this._version, this._solution.sid);
     return this._approvalCreate;
   }
 
   get approvalFetch(): ApprovalFetchListInstance {
-    this._approvalFetch =
-      this._approvalFetch ||
-      ApprovalFetchListInstance(this._version, this._solution.sid);
+    this._approvalFetch = this._approvalFetch || ApprovalFetchListInstance(this._version, this._solution.sid);
     return this._approvalFetch;
   }
 
-  remove(
-    callback?: (error: Error | null, item?: boolean) => any
-  ): Promise<boolean> {
+  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean> {
+  
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.remove({
-        uri: instance._uri,
-        method: "delete",
-      });
+        operationPromise = operationVersion.remove({ uri: instance._uri, method: "delete" });
+    
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
-  fetch(
-    callback?: (error: Error | null, item?: ContentInstance) => any
-  ): Promise<ContentInstance> {
+  fetch(callback?: (error: Error | null, item?: ContentInstance) => any): Promise<ContentInstance> {
+  
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.fetch({
-        uri: instance._uri,
-        method: "get",
-      });
+        operationPromise = operationVersion.fetch({ uri: instance._uri, method: "get" });
+    
+    operationPromise = operationPromise.then(payload => new ContentInstance(operationVersion, payload, instance._solution.sid));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new ContentInstance(operationVersion, payload, instance._solution.sid)
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
   /**
@@ -387,8 +397,9 @@ export class ContentContextImpl implements ContentContext {
   }
 }
 
+
 interface ContentPayload extends TwilioResponsePayload {
-  contents: ContentResource[];
+    contents: ContentResource[];
 }
 
 interface ContentResource {
@@ -411,16 +422,16 @@ export class ContentInstance {
   constructor(protected _version: V1, payload: ContentResource, sid?: string) {
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
-    this.sid = payload.sid;
-    this.accountSid = payload.account_sid;
-    this.friendlyName = payload.friendly_name;
-    this.language = payload.language;
-    this.variables = payload.variables;
-    this.types = payload.types;
-    this.url = payload.url;
-    this.links = payload.links;
+    this.sid = (payload.sid);
+    this.accountSid = (payload.account_sid);
+    this.friendlyName = (payload.friendly_name);
+    this.language = (payload.language);
+    this.variables = (payload.variables);
+    this.types = (payload.types);
+    this.url = (payload.url);
+    this.links = (payload.links);
 
-    this._solution = { sid: sid || this.sid };
+    this._solution = { sid: sid || this.sid,  };
   }
 
   /**
@@ -465,9 +476,7 @@ export class ContentInstance {
   links: Record<string, string>;
 
   private get _proxy(): ContentContext {
-    this._context =
-      this._context ||
-      new ContentContextImpl(this._version, this._solution.sid);
+    this._context = this._context || new ContentContextImpl(this._version, this._solution.sid);
     return this._context;
   }
 
@@ -478,9 +487,9 @@ export class ContentInstance {
    *
    * @returns Resolves to processed boolean
    */
-  remove(
-    callback?: (error: Error | null, item?: boolean) => any
-  ): Promise<boolean> {
+  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
+
+    {
     return this._proxy.remove(callback);
   }
 
@@ -491,9 +500,9 @@ export class ContentInstance {
    *
    * @returns Resolves to processed ContentInstance
    */
-  fetch(
-    callback?: (error: Error | null, item?: ContentInstance) => any
-  ): Promise<ContentInstance> {
+  fetch(callback?: (error: Error | null, item?: ContentInstance) => any): Promise<ContentInstance>
+
+    {
     return this._proxy.fetch(callback);
   }
 
@@ -528,7 +537,7 @@ export class ContentInstance {
       types: this.types,
       url: this.url,
       links: this.links,
-    };
+    }
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
@@ -536,15 +545,22 @@ export class ContentInstance {
   }
 }
 
-export interface ContentSolution {}
+
+export interface ContentSolution {
+}
 
 export interface ContentListInstance {
   _version: V1;
   _solution: ContentSolution;
   _uri: string;
 
-  (sid: string): ContentContext;
-  get(sid: string): ContentContext;
+  (sid: string, ): ContentContext;
+  get(sid: string, ): ContentContext;
+
+
+
+
+
 
   /**
    * Create a ContentInstance
@@ -554,10 +570,9 @@ export interface ContentListInstance {
    *
    * @returns Resolves to processed ContentInstance
    */
-  create(
-    params: ContentCreateRequest,
-    callback?: (error: Error | null, item?: ContentInstance) => any
-  ): Promise<ContentInstance>;
+  create(params: ContentCreateRequest, callback?: (error: Error | null, item?: ContentInstance) => any): Promise<ContentInstance>;
+
+
 
   /**
    * Streams ContentInstance records from the API.
@@ -574,13 +589,8 @@ export interface ContentListInstance {
    * @param { ContentListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(
-    callback?: (item: ContentInstance, done: (err?: Error) => void) => void
-  ): void;
-  each(
-    params: ContentListInstanceEachOptions,
-    callback?: (item: ContentInstance, done: (err?: Error) => void) => void
-  ): void;
+  each(callback?: (item: ContentInstance, done: (err?: Error) => void) => void): void;
+  each(params: ContentListInstanceEachOptions, callback?: (item: ContentInstance, done: (err?: Error) => void) => void): void;
   /**
    * Retrieve a single target page of ContentInstance records from the API.
    *
@@ -589,10 +599,7 @@ export interface ContentListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(
-    targetUrl: string,
-    callback?: (error: Error | null, items: ContentPage) => any
-  ): Promise<ContentPage>;
+  getPage(targetUrl: string, callback?: (error: Error | null, items: ContentPage) => any): Promise<ContentPage>;
   /**
    * Lists ContentInstance records from the API as a list.
    *
@@ -602,13 +609,8 @@ export interface ContentListInstance {
    * @param { ContentListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(
-    callback?: (error: Error | null, items: ContentInstance[]) => any
-  ): Promise<ContentInstance[]>;
-  list(
-    params: ContentListInstanceOptions,
-    callback?: (error: Error | null, items: ContentInstance[]) => any
-  ): Promise<ContentInstance[]>;
+  list(callback?: (error: Error | null, items: ContentInstance[]) => any): Promise<ContentInstance[]>;
+  list(params: ContentListInstanceOptions, callback?: (error: Error | null, items: ContentInstance[]) => any): Promise<ContentInstance[]>;
   /**
    * Retrieve a single page of ContentInstance records from the API.
    *
@@ -620,13 +622,8 @@ export interface ContentListInstance {
    * @param { ContentListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(
-    callback?: (error: Error | null, items: ContentPage) => any
-  ): Promise<ContentPage>;
-  page(
-    params: ContentListInstancePageOptions,
-    callback?: (error: Error | null, items: ContentPage) => any
-  ): Promise<ContentPage>;
+  page(callback?: (error: Error | null, items: ContentPage) => any): Promise<ContentPage>;
+  page(params: ContentListInstancePageOptions, callback?: (error: Error | null, items: ContentPage) => any): Promise<ContentPage>;
 
   /**
    * Provide a user-friendly representation
@@ -636,56 +633,43 @@ export interface ContentListInstance {
 }
 
 export function ContentListInstance(version: V1): ContentListInstance {
-  const instance = ((sid) => instance.get(sid)) as ContentListInstance;
+  const instance = ((sid, ) => instance.get(sid, )) as ContentListInstance;
 
-  instance.get = function get(sid): ContentContext {
+  instance.get = function get(sid, ): ContentContext {
     return new ContentContextImpl(version, sid);
-  };
+  }
 
   instance._version = version;
-  instance._solution = {};
+  instance._solution = {  };
   instance._uri = `/Content`;
 
-  instance.create = function create(
-    params: ContentCreateRequest,
-    callback?: (error: Error | null, items: ContentInstance) => any
-  ): Promise<ContentInstance> {
+  instance.create = function create(params: ContentCreateRequest, callback?: (error: Error | null, items: ContentInstance) => any): Promise<ContentInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     let data: any = {};
 
-    data = params;
+    
+    
+    data = params
 
     const headers: any = {};
-    headers["Content-Type"] = "application/json";
+    headers["Content-Type"] = "application/json"
 
     let operationVersion = version,
-      operationPromise = operationVersion.create({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      });
+        operationPromise = operationVersion.create({ uri: instance._uri, method: "post", data, headers });
+    
+    operationPromise = operationPromise.then(payload => new ContentInstance(operationVersion, payload));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) => new ContentInstance(operationVersion, payload)
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
 
-  instance.page = function page(
-    params?:
-      | ContentListInstancePageOptions
-      | ((error: Error | null, items: ContentPage) => any),
-    callback?: (error: Error | null, items: ContentPage) => any
-  ): Promise<ContentPage> {
+
+    }
+
+  instance.page = function page(params?: ContentListInstancePageOptions | ((error: Error | null, items: ContentPage) => any), callback?: (error: Error | null, items: ContentPage) => any): Promise<ContentPage> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -695,97 +679,74 @@ export function ContentListInstance(version: V1): ContentListInstance {
 
     let data: any = {};
 
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
 
+    
+    
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-      operationPromise = operationVersion.page({
-        uri: instance._uri,
-        method: "get",
-        params: data,
-        headers,
-      });
+        operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers });
+    
+    operationPromise = operationPromise.then(payload => new ContentPage(operationVersion, payload, instance._solution));
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new ContentPage(operationVersion, payload, instance._solution)
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
+
+  }
   instance.each = instance._version.each;
   instance.list = instance._version.list;
 
-  instance.getPage = function getPage(
-    targetUrl: string,
-    callback?: (error: Error | null, items: ContentPage) => any
-  ): Promise<ContentPage> {
-    const operationPromise = instance._version._domain.twilio.request({
-      method: "get",
-      uri: targetUrl,
-    });
+  instance.getPage = function getPage(targetUrl: string, callback?: (error: Error | null, items: ContentPage) => any): Promise<ContentPage> {
+    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
 
-    let pagePromise = operationPromise.then(
-      (payload) =>
-        new ContentPage(instance._version, payload, instance._solution)
-    );
+    let pagePromise = operationPromise.then(payload => new ContentPage(instance._version, payload, instance._solution));
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  };
+  }
+
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  };
+  }
 
-  instance[inspect.custom] = function inspectImpl(
-    _depth: any,
-    options: InspectOptions
-  ) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(instance.toJSON(), options);
-  };
+  }
 
   return instance;
 }
 
-export class ContentPage extends Page<
-  V1,
-  ContentPayload,
-  ContentResource,
-  ContentInstance
-> {
-  /**
-   * Initialize the ContentPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(
-    version: V1,
-    response: Response<string>,
-    solution: ContentSolution
-  ) {
+export class ContentPage extends Page<V1, ContentPayload, ContentResource, ContentInstance> {
+/**
+* Initialize the ContentPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V1, response: Response<string>, solution: ContentSolution) {
     super(version, response, solution);
-  }
+    }
 
-  /**
-   * Build an instance of ContentInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: ContentResource): ContentInstance {
-    return new ContentInstance(this._version, payload);
-  }
+    /**
+    * Build an instance of ContentInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: ContentResource): ContentInstance {
+    return new ContentInstance(
+    this._version,
+    payload,
+    );
+    }
 
-  [inspect.custom](depth: any, options: InspectOptions) {
+    [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-  }
-}
+    }
+    }
+

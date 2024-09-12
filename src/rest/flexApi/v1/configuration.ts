@@ -12,20 +12,23 @@
  * Do not edit the class manually.
  */
 
+
 import { inspect, InspectOptions } from "util";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 
-export type ConfigurationStatus = "ok" | "inprogress" | "notstarted";
+
+export type ConfigurationStatus = 'ok'|'inprogress'|'notstarted';
+
 
 /**
  * Options to pass to fetch a ConfigurationInstance
  */
 export interface ConfigurationContextFetchOptions {
   /** The Pinned UI version of the Configuration resource to fetch. */
-  uiVersion?: string;
+  "uiVersion"?: string;
 }
 
 /**
@@ -33,10 +36,11 @@ export interface ConfigurationContextFetchOptions {
  */
 export interface ConfigurationContextUpdateOptions {
   /**  */
-  body?: object;
+  "body"?: object;
 }
 
 export interface ConfigurationContext {
+
   /**
    * Fetch a ConfigurationInstance
    *
@@ -44,9 +48,7 @@ export interface ConfigurationContext {
    *
    * @returns Resolves to processed ConfigurationInstance
    */
-  fetch(
-    callback?: (error: Error | null, item?: ConfigurationInstance) => any
-  ): Promise<ConfigurationInstance>;
+  fetch(callback?: (error: Error | null, item?: ConfigurationInstance) => any): Promise<ConfigurationInstance>;
   /**
    * Fetch a ConfigurationInstance
    *
@@ -55,10 +57,7 @@ export interface ConfigurationContext {
    *
    * @returns Resolves to processed ConfigurationInstance
    */
-  fetch(
-    params: ConfigurationContextFetchOptions,
-    callback?: (error: Error | null, item?: ConfigurationInstance) => any
-  ): Promise<ConfigurationInstance>;
+  fetch(params: ConfigurationContextFetchOptions, callback?: (error: Error | null, item?: ConfigurationInstance) => any): Promise<ConfigurationInstance>;
 
   /**
    * Update a ConfigurationInstance
@@ -67,9 +66,7 @@ export interface ConfigurationContext {
    *
    * @returns Resolves to processed ConfigurationInstance
    */
-  update(
-    callback?: (error: Error | null, item?: ConfigurationInstance) => any
-  ): Promise<ConfigurationInstance>;
+  update(callback?: (error: Error | null, item?: ConfigurationInstance) => any): Promise<ConfigurationInstance>;
   /**
    * Update a ConfigurationInstance
    *
@@ -78,10 +75,7 @@ export interface ConfigurationContext {
    *
    * @returns Resolves to processed ConfigurationInstance
    */
-  update(
-    params: object,
-    callback?: (error: Error | null, item?: ConfigurationInstance) => any
-  ): Promise<ConfigurationInstance>;
+  update(params: object, callback?: (error: Error | null, item?: ConfigurationInstance) => any): Promise<ConfigurationInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -90,24 +84,21 @@ export interface ConfigurationContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface ConfigurationContextSolution {}
+export interface ConfigurationContextSolution {
+}
 
 export class ConfigurationContextImpl implements ConfigurationContext {
   protected _solution: ConfigurationContextSolution;
   protected _uri: string;
 
+
   constructor(protected _version: V1) {
-    this._solution = {};
+    this._solution = {  };
     this._uri = `/Configuration`;
   }
 
-  fetch(
-    params?:
-      | ConfigurationContextFetchOptions
-      | ((error: Error | null, item?: ConfigurationInstance) => any),
-    callback?: (error: Error | null, item?: ConfigurationInstance) => any
-  ): Promise<ConfigurationInstance> {
-    if (params instanceof Function) {
+  fetch(params?: ConfigurationContextFetchOptions | ((error: Error | null, item?: ConfigurationInstance) => any), callback?: (error: Error | null, item?: ConfigurationInstance) => any): Promise<ConfigurationInstance> {
+      if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -116,38 +107,29 @@ export class ConfigurationContextImpl implements ConfigurationContext {
 
     let data: any = {};
 
-    if (params["uiVersion"] !== undefined)
-      data["UiVersion"] = params["uiVersion"];
+        if (params["uiVersion"] !== undefined)
+    data["UiVersion"] = params["uiVersion"];
+
+    
+    
 
     const headers: any = {};
 
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.fetch({
-        uri: instance._uri,
-        method: "get",
-        params: data,
-        headers,
-      });
+        operationPromise = operationVersion.fetch({ uri: instance._uri, method: "get", params: data, headers });
+    
+    operationPromise = operationPromise.then(payload => new ConfigurationInstance(operationVersion, payload));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) => new ConfigurationInstance(operationVersion, payload)
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
-  update(
-    params?:
-      | object
-      | ((error: Error | null, item?: ConfigurationInstance) => any),
-    callback?: (error: Error | null, item?: ConfigurationInstance) => any
-  ): Promise<ConfigurationInstance> {
-    if (params instanceof Function) {
+  update(params?: object | ((error: Error | null, item?: ConfigurationInstance) => any), callback?: (error: Error | null, item?: ConfigurationInstance) => any): Promise<ConfigurationInstance> {
+      if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -156,29 +138,24 @@ export class ConfigurationContextImpl implements ConfigurationContext {
 
     let data: any = {};
 
-    data = params;
+    
+    
+    data = params
 
     const headers: any = {};
-    headers["Content-Type"] = "application/json";
+    headers["Content-Type"] = "application/json"
 
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.update({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      });
+        operationPromise = operationVersion.update({ uri: instance._uri, method: "post", data, headers });
+    
+    operationPromise = operationPromise.then(payload => new ConfigurationInstance(operationVersion, payload));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) => new ConfigurationInstance(operationVersion, payload)
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
   /**
@@ -194,6 +171,7 @@ export class ConfigurationContextImpl implements ConfigurationContext {
     return inspect(this.toJSON(), options);
   }
 }
+
 
 interface ConfigurationPayload extends ConfigurationResource {}
 
@@ -254,57 +232,57 @@ export class ConfigurationInstance {
   protected _context?: ConfigurationContext;
 
   constructor(protected _version: V1, payload: ConfigurationResource) {
-    this.accountSid = payload.account_sid;
+    this.accountSid = (payload.account_sid);
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
-    this.attributes = payload.attributes;
-    this.status = payload.status;
-    this.taskrouterWorkspaceSid = payload.taskrouter_workspace_sid;
-    this.taskrouterTargetWorkflowSid = payload.taskrouter_target_workflow_sid;
-    this.taskrouterTargetTaskqueueSid = payload.taskrouter_target_taskqueue_sid;
-    this.taskrouterTaskqueues = payload.taskrouter_taskqueues;
-    this.taskrouterSkills = payload.taskrouter_skills;
-    this.taskrouterWorkerChannels = payload.taskrouter_worker_channels;
-    this.taskrouterWorkerAttributes = payload.taskrouter_worker_attributes;
-    this.taskrouterOfflineActivitySid = payload.taskrouter_offline_activity_sid;
-    this.runtimeDomain = payload.runtime_domain;
-    this.messagingServiceInstanceSid = payload.messaging_service_instance_sid;
-    this.chatServiceInstanceSid = payload.chat_service_instance_sid;
-    this.flexServiceInstanceSid = payload.flex_service_instance_sid;
-    this.flexInstanceSid = payload.flex_instance_sid;
-    this.uiLanguage = payload.ui_language;
-    this.uiAttributes = payload.ui_attributes;
-    this.uiDependencies = payload.ui_dependencies;
-    this.uiVersion = payload.ui_version;
-    this.serviceVersion = payload.service_version;
-    this.callRecordingEnabled = payload.call_recording_enabled;
-    this.callRecordingWebhookUrl = payload.call_recording_webhook_url;
-    this.crmEnabled = payload.crm_enabled;
-    this.crmType = payload.crm_type;
-    this.crmCallbackUrl = payload.crm_callback_url;
-    this.crmFallbackUrl = payload.crm_fallback_url;
-    this.crmAttributes = payload.crm_attributes;
-    this.publicAttributes = payload.public_attributes;
-    this.pluginServiceEnabled = payload.plugin_service_enabled;
-    this.pluginServiceAttributes = payload.plugin_service_attributes;
-    this.integrations = payload.integrations;
-    this.outboundCallFlows = payload.outbound_call_flows;
-    this.serverlessServiceSids = payload.serverless_service_sids;
-    this.queueStatsConfiguration = payload.queue_stats_configuration;
-    this.notifications = payload.notifications;
-    this.markdown = payload.markdown;
-    this.url = payload.url;
-    this.flexInsightsHr = payload.flex_insights_hr;
-    this.flexInsightsDrilldown = payload.flex_insights_drilldown;
-    this.flexUrl = payload.flex_url;
-    this.channelConfigs = payload.channel_configs;
-    this.debuggerIntegration = payload.debugger_integration;
-    this.flexUiStatusReport = payload.flex_ui_status_report;
-    this.agentConvEndMethods = payload.agent_conv_end_methods;
-    this.citrixVoiceVdi = payload.citrix_voice_vdi;
-    this.offlineConfig = payload.offline_config;
+    this.attributes = (payload.attributes);
+    this.status = (payload.status);
+    this.taskrouterWorkspaceSid = (payload.taskrouter_workspace_sid);
+    this.taskrouterTargetWorkflowSid = (payload.taskrouter_target_workflow_sid);
+    this.taskrouterTargetTaskqueueSid = (payload.taskrouter_target_taskqueue_sid);
+    this.taskrouterTaskqueues = (payload.taskrouter_taskqueues);
+    this.taskrouterSkills = (payload.taskrouter_skills);
+    this.taskrouterWorkerChannels = (payload.taskrouter_worker_channels);
+    this.taskrouterWorkerAttributes = (payload.taskrouter_worker_attributes);
+    this.taskrouterOfflineActivitySid = (payload.taskrouter_offline_activity_sid);
+    this.runtimeDomain = (payload.runtime_domain);
+    this.messagingServiceInstanceSid = (payload.messaging_service_instance_sid);
+    this.chatServiceInstanceSid = (payload.chat_service_instance_sid);
+    this.flexServiceInstanceSid = (payload.flex_service_instance_sid);
+    this.flexInstanceSid = (payload.flex_instance_sid);
+    this.uiLanguage = (payload.ui_language);
+    this.uiAttributes = (payload.ui_attributes);
+    this.uiDependencies = (payload.ui_dependencies);
+    this.uiVersion = (payload.ui_version);
+    this.serviceVersion = (payload.service_version);
+    this.callRecordingEnabled = (payload.call_recording_enabled);
+    this.callRecordingWebhookUrl = (payload.call_recording_webhook_url);
+    this.crmEnabled = (payload.crm_enabled);
+    this.crmType = (payload.crm_type);
+    this.crmCallbackUrl = (payload.crm_callback_url);
+    this.crmFallbackUrl = (payload.crm_fallback_url);
+    this.crmAttributes = (payload.crm_attributes);
+    this.publicAttributes = (payload.public_attributes);
+    this.pluginServiceEnabled = (payload.plugin_service_enabled);
+    this.pluginServiceAttributes = (payload.plugin_service_attributes);
+    this.integrations = (payload.integrations);
+    this.outboundCallFlows = (payload.outbound_call_flows);
+    this.serverlessServiceSids = (payload.serverless_service_sids);
+    this.queueStatsConfiguration = (payload.queue_stats_configuration);
+    this.notifications = (payload.notifications);
+    this.markdown = (payload.markdown);
+    this.url = (payload.url);
+    this.flexInsightsHr = (payload.flex_insights_hr);
+    this.flexInsightsDrilldown = (payload.flex_insights_drilldown);
+    this.flexUrl = (payload.flex_url);
+    this.channelConfigs = (payload.channel_configs);
+    this.debuggerIntegration = (payload.debugger_integration);
+    this.flexUiStatusReport = (payload.flex_ui_status_report);
+    this.agentConvEndMethods = (payload.agent_conv_end_methods);
+    this.citrixVoiceVdi = (payload.citrix_voice_vdi);
+    this.offlineConfig = (payload.offline_config);
 
-    this._solution = {};
+    this._solution = {  };
   }
 
   /**
@@ -502,8 +480,7 @@ export class ConfigurationInstance {
   offlineConfig: any;
 
   private get _proxy(): ConfigurationContext {
-    this._context =
-      this._context || new ConfigurationContextImpl(this._version);
+    this._context = this._context || new ConfigurationContextImpl(this._version);
     return this._context;
   }
 
@@ -514,9 +491,7 @@ export class ConfigurationInstance {
    *
    * @returns Resolves to processed ConfigurationInstance
    */
-  fetch(
-    callback?: (error: Error | null, item?: ConfigurationInstance) => any
-  ): Promise<ConfigurationInstance>;
+  fetch(callback?: (error: Error | null, item?: ConfigurationInstance) => any): Promise<ConfigurationInstance>;
   /**
    * Fetch a ConfigurationInstance
    *
@@ -525,15 +500,10 @@ export class ConfigurationInstance {
    *
    * @returns Resolves to processed ConfigurationInstance
    */
-  fetch(
-    params: ConfigurationContextFetchOptions,
-    callback?: (error: Error | null, item?: ConfigurationInstance) => any
-  ): Promise<ConfigurationInstance>;
+  fetch(params: ConfigurationContextFetchOptions, callback?: (error: Error | null, item?: ConfigurationInstance) => any): Promise<ConfigurationInstance>;
 
-  fetch(
-    params?: any,
-    callback?: (error: Error | null, item?: ConfigurationInstance) => any
-  ): Promise<ConfigurationInstance> {
+    fetch(params?: any, callback?: (error: Error | null, item?: ConfigurationInstance) => any): Promise<ConfigurationInstance>
+    {
     return this._proxy.fetch(params, callback);
   }
 
@@ -544,9 +514,7 @@ export class ConfigurationInstance {
    *
    * @returns Resolves to processed ConfigurationInstance
    */
-  update(
-    callback?: (error: Error | null, item?: ConfigurationInstance) => any
-  ): Promise<ConfigurationInstance>;
+  update(callback?: (error: Error | null, item?: ConfigurationInstance) => any): Promise<ConfigurationInstance>;
   /**
    * Update a ConfigurationInstance
    *
@@ -555,15 +523,10 @@ export class ConfigurationInstance {
    *
    * @returns Resolves to processed ConfigurationInstance
    */
-  update(
-    params: object,
-    callback?: (error: Error | null, item?: ConfigurationInstance) => any
-  ): Promise<ConfigurationInstance>;
+  update(params: object, callback?: (error: Error | null, item?: ConfigurationInstance) => any): Promise<ConfigurationInstance>;
 
-  update(
-    params?: any,
-    callback?: (error: Error | null, item?: ConfigurationInstance) => any
-  ): Promise<ConfigurationInstance> {
+    update(params?: any, callback?: (error: Error | null, item?: ConfigurationInstance) => any): Promise<ConfigurationInstance>
+    {
     return this._proxy.update(params, callback);
   }
 
@@ -623,7 +586,7 @@ export class ConfigurationInstance {
       agentConvEndMethods: this.agentConvEndMethods,
       citrixVoiceVdi: this.citrixVoiceVdi,
       offlineConfig: this.offlineConfig,
-    };
+    }
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
@@ -631,7 +594,9 @@ export class ConfigurationInstance {
   }
 }
 
-export interface ConfigurationSolution {}
+
+export interface ConfigurationSolution {
+}
 
 export interface ConfigurationListInstance {
   _version: V1;
@@ -641,6 +606,11 @@ export interface ConfigurationListInstance {
   (): ConfigurationContext;
   get(): ConfigurationContext;
 
+
+
+
+
+
   /**
    * Provide a user-friendly representation
    */
@@ -648,29 +618,26 @@ export interface ConfigurationListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function ConfigurationListInstance(
-  version: V1
-): ConfigurationListInstance {
+export function ConfigurationListInstance(version: V1): ConfigurationListInstance {
   const instance = (() => instance.get()) as ConfigurationListInstance;
 
   instance.get = function get(): ConfigurationContext {
     return new ConfigurationContextImpl(version);
-  };
+  }
 
   instance._version = version;
-  instance._solution = {};
+  instance._solution = {  };
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  };
+  }
 
-  instance[inspect.custom] = function inspectImpl(
-    _depth: any,
-    options: InspectOptions
-  ) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(instance.toJSON(), options);
-  };
+  }
 
   return instance;
 }
+
+

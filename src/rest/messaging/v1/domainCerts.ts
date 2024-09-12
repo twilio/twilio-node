@@ -12,21 +12,27 @@
  * Do not edit the class manually.
  */
 
+
 import { inspect, InspectOptions } from "util";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 
+
+
+
+
 /**
  * Options to pass to update a DomainCertsInstance
  */
 export interface DomainCertsContextUpdateOptions {
   /** Contains the full TLS certificate and private for this domain in PEM format: https://en.wikipedia.org/wiki/Privacy-Enhanced_Mail. Twilio uses this information to process HTTPS traffic sent to your domain. */
-  tlsCert: string;
+  "tlsCert": string;
 }
 
 export interface DomainCertsContext {
+
   /**
    * Remove a DomainCertsInstance
    *
@@ -34,9 +40,7 @@ export interface DomainCertsContext {
    *
    * @returns Resolves to processed boolean
    */
-  remove(
-    callback?: (error: Error | null, item?: boolean) => any
-  ): Promise<boolean>;
+  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
 
   /**
    * Fetch a DomainCertsInstance
@@ -45,9 +49,7 @@ export interface DomainCertsContext {
    *
    * @returns Resolves to processed DomainCertsInstance
    */
-  fetch(
-    callback?: (error: Error | null, item?: DomainCertsInstance) => any
-  ): Promise<DomainCertsInstance>;
+  fetch(callback?: (error: Error | null, item?: DomainCertsInstance) => any): Promise<DomainCertsInstance>
 
   /**
    * Update a DomainCertsInstance
@@ -57,10 +59,7 @@ export interface DomainCertsContext {
    *
    * @returns Resolves to processed DomainCertsInstance
    */
-  update(
-    params: DomainCertsContextUpdateOptions,
-    callback?: (error: Error | null, item?: DomainCertsInstance) => any
-  ): Promise<DomainCertsInstance>;
+  update(params: DomainCertsContextUpdateOptions, callback?: (error: Error | null, item?: DomainCertsInstance) => any): Promise<DomainCertsInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -70,107 +69,82 @@ export interface DomainCertsContext {
 }
 
 export interface DomainCertsContextSolution {
-  domainSid: string;
+  "domainSid": string;
 }
 
 export class DomainCertsContextImpl implements DomainCertsContext {
   protected _solution: DomainCertsContextSolution;
   protected _uri: string;
 
+
   constructor(protected _version: V1, domainSid: string) {
     if (!isValidPathParam(domainSid)) {
-      throw new Error("Parameter 'domainSid' is not valid.");
+      throw new Error('Parameter \'domainSid\' is not valid.');
     }
 
-    this._solution = { domainSid };
+    this._solution = { domainSid,  };
     this._uri = `/LinkShortening/Domains/${domainSid}/Certificate`;
   }
 
-  remove(
-    callback?: (error: Error | null, item?: boolean) => any
-  ): Promise<boolean> {
+  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean> {
+  
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.remove({
-        uri: instance._uri,
-        method: "delete",
-      });
+        operationPromise = operationVersion.remove({ uri: instance._uri, method: "delete" });
+    
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
-  fetch(
-    callback?: (error: Error | null, item?: DomainCertsInstance) => any
-  ): Promise<DomainCertsInstance> {
+  fetch(callback?: (error: Error | null, item?: DomainCertsInstance) => any): Promise<DomainCertsInstance> {
+  
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.fetch({
-        uri: instance._uri,
-        method: "get",
-      });
+        operationPromise = operationVersion.fetch({ uri: instance._uri, method: "get" });
+    
+    operationPromise = operationPromise.then(payload => new DomainCertsInstance(operationVersion, payload, instance._solution.domainSid));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new DomainCertsInstance(
-          operationVersion,
-          payload,
-          instance._solution.domainSid
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
-  update(
-    params: DomainCertsContextUpdateOptions,
-    callback?: (error: Error | null, item?: DomainCertsInstance) => any
-  ): Promise<DomainCertsInstance> {
-    if (params === null || params === undefined) {
+  update(params: DomainCertsContextUpdateOptions, callback?: (error: Error | null, item?: DomainCertsInstance) => any): Promise<DomainCertsInstance> {
+      if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     if (params["tlsCert"] === null || params["tlsCert"] === undefined) {
-      throw new Error("Required parameter \"params['tlsCert']\" missing.");
+      throw new Error('Required parameter "params[\'tlsCert\']" missing.');
     }
 
     let data: any = {};
 
+    
+        
     data["TlsCert"] = params["tlsCert"];
 
+    
+
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.update({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      });
+        operationPromise = operationVersion.update({ uri: instance._uri, method: "post", data, headers });
+    
+    operationPromise = operationPromise.then(payload => new DomainCertsInstance(operationVersion, payload, instance._solution.domainSid));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new DomainCertsInstance(
-          operationVersion,
-          payload,
-          instance._solution.domainSid
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
   /**
@@ -186,6 +160,7 @@ export class DomainCertsContextImpl implements DomainCertsContext {
     return inspect(this.toJSON(), options);
   }
 }
+
 
 interface DomainCertsPayload extends DomainCertsResource {}
 
@@ -204,21 +179,17 @@ export class DomainCertsInstance {
   protected _solution: DomainCertsContextSolution;
   protected _context?: DomainCertsContext;
 
-  constructor(
-    protected _version: V1,
-    payload: DomainCertsResource,
-    domainSid?: string
-  ) {
-    this.domainSid = payload.domain_sid;
+  constructor(protected _version: V1, payload: DomainCertsResource, domainSid?: string) {
+    this.domainSid = (payload.domain_sid);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
     this.dateExpires = deserialize.iso8601DateTime(payload.date_expires);
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
-    this.domainName = payload.domain_name;
-    this.certificateSid = payload.certificate_sid;
-    this.url = payload.url;
-    this.certInValidation = payload.cert_in_validation;
+    this.domainName = (payload.domain_name);
+    this.certificateSid = (payload.certificate_sid);
+    this.url = (payload.url);
+    this.certInValidation = (payload.cert_in_validation);
 
-    this._solution = { domainSid: domainSid || this.domainSid };
+    this._solution = { domainSid: domainSid || this.domainSid,  };
   }
 
   /**
@@ -252,9 +223,7 @@ export class DomainCertsInstance {
   certInValidation: any;
 
   private get _proxy(): DomainCertsContext {
-    this._context =
-      this._context ||
-      new DomainCertsContextImpl(this._version, this._solution.domainSid);
+    this._context = this._context || new DomainCertsContextImpl(this._version, this._solution.domainSid);
     return this._context;
   }
 
@@ -265,9 +234,9 @@ export class DomainCertsInstance {
    *
    * @returns Resolves to processed boolean
    */
-  remove(
-    callback?: (error: Error | null, item?: boolean) => any
-  ): Promise<boolean> {
+  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
+
+    {
     return this._proxy.remove(callback);
   }
 
@@ -278,9 +247,9 @@ export class DomainCertsInstance {
    *
    * @returns Resolves to processed DomainCertsInstance
    */
-  fetch(
-    callback?: (error: Error | null, item?: DomainCertsInstance) => any
-  ): Promise<DomainCertsInstance> {
+  fetch(callback?: (error: Error | null, item?: DomainCertsInstance) => any): Promise<DomainCertsInstance>
+
+    {
     return this._proxy.fetch(callback);
   }
 
@@ -292,15 +261,10 @@ export class DomainCertsInstance {
    *
    * @returns Resolves to processed DomainCertsInstance
    */
-  update(
-    params: DomainCertsContextUpdateOptions,
-    callback?: (error: Error | null, item?: DomainCertsInstance) => any
-  ): Promise<DomainCertsInstance>;
+  update(params: DomainCertsContextUpdateOptions, callback?: (error: Error | null, item?: DomainCertsInstance) => any): Promise<DomainCertsInstance>;
 
-  update(
-    params?: any,
-    callback?: (error: Error | null, item?: DomainCertsInstance) => any
-  ): Promise<DomainCertsInstance> {
+    update(params?: any, callback?: (error: Error | null, item?: DomainCertsInstance) => any): Promise<DomainCertsInstance>
+    {
     return this._proxy.update(params, callback);
   }
 
@@ -319,7 +283,7 @@ export class DomainCertsInstance {
       certificateSid: this.certificateSid,
       url: this.url,
       certInValidation: this.certInValidation,
-    };
+    }
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
@@ -327,15 +291,24 @@ export class DomainCertsInstance {
   }
 }
 
-export interface DomainCertsSolution {}
+
+export interface DomainCertsSolution {
+}
 
 export interface DomainCertsListInstance {
   _version: V1;
   _solution: DomainCertsSolution;
   _uri: string;
 
-  (domainSid: string): DomainCertsContext;
-  get(domainSid: string): DomainCertsContext;
+  (domainSid: string, ): DomainCertsContext;
+  get(domainSid: string, ): DomainCertsContext;
+
+
+
+
+
+
+
 
   /**
    * Provide a user-friendly representation
@@ -345,27 +318,25 @@ export interface DomainCertsListInstance {
 }
 
 export function DomainCertsListInstance(version: V1): DomainCertsListInstance {
-  const instance = ((domainSid) =>
-    instance.get(domainSid)) as DomainCertsListInstance;
+  const instance = ((domainSid, ) => instance.get(domainSid, )) as DomainCertsListInstance;
 
-  instance.get = function get(domainSid): DomainCertsContext {
+  instance.get = function get(domainSid, ): DomainCertsContext {
     return new DomainCertsContextImpl(version, domainSid);
-  };
+  }
 
   instance._version = version;
-  instance._solution = {};
+  instance._solution = {  };
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  };
+  }
 
-  instance[inspect.custom] = function inspectImpl(
-    _depth: any,
-    options: InspectOptions
-  ) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(instance.toJSON(), options);
-  };
+  }
 
   return instance;
 }
+
+

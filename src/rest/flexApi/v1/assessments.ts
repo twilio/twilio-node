@@ -12,6 +12,7 @@
  * Do not edit the class manually.
  */
 
+
 import { inspect, InspectOptions } from "util";
 import Page, { TwilioResponsePayload } from "../../../base/Page";
 import Response from "../../../http/response";
@@ -20,18 +21,20 @@ const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 
+
+
 /**
  * Options to pass to update a AssessmentsInstance
  */
 export interface AssessmentsContextUpdateOptions {
   /** The offset of the conversation */
-  offset: number;
+  "offset": number;
   /** The answer text selected by user */
-  answerText: string;
+  "answerText": string;
   /** The id of the answer selected by user */
-  answerId: string;
+  "answerId": string;
   /** The Authorization HTTP request header */
-  authorization?: string;
+  "authorization"?: string;
 }
 
 /**
@@ -39,38 +42,38 @@ export interface AssessmentsContextUpdateOptions {
  */
 export interface AssessmentsListInstanceCreateOptions {
   /** The SID of the category  */
-  categorySid: string;
+  "categorySid": string;
   /** The name of the category */
-  categoryName: string;
+  "categoryName": string;
   /** Segment Id of the conversation */
-  segmentId: string;
+  "segmentId": string;
   /** The id of the Agent */
-  agentId: string;
+  "agentId": string;
   /** The offset of the conversation. */
-  offset: number;
+  "offset": number;
   /** The question SID selected for assessment */
-  metricId: string;
+  "metricId": string;
   /** The question name of the assessment */
-  metricName: string;
+  "metricName": string;
   /** The answer text selected by user */
-  answerText: string;
+  "answerText": string;
   /** The id of the answer selected by user */
-  answerId: string;
+  "answerId": string;
   /** Questionnaire SID of the associated question */
-  questionnaireSid: string;
+  "questionnaireSid": string;
   /** The Authorization HTTP request header */
-  authorization?: string;
+  "authorization"?: string;
 }
 /**
  * Options to pass to each
  */
 export interface AssessmentsListInstanceEachOptions {
   /** The Authorization HTTP request header */
-  authorization?: string;
+  "authorization"?: string;
   /** The id of the segment. */
-  segmentId?: string;
+  "segmentId"?: string;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: AssessmentsInstance, done: (err?: Error) => void) => void;
   /** Function to be called upon completion of streaming */
@@ -84,11 +87,11 @@ export interface AssessmentsListInstanceEachOptions {
  */
 export interface AssessmentsListInstanceOptions {
   /** The Authorization HTTP request header */
-  authorization?: string;
+  "authorization"?: string;
   /** The id of the segment. */
-  segmentId?: string;
+  "segmentId"?: string;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
@@ -98,18 +101,20 @@ export interface AssessmentsListInstanceOptions {
  */
 export interface AssessmentsListInstancePageOptions {
   /** The Authorization HTTP request header */
-  authorization?: string;
+  "authorization"?: string;
   /** The id of the segment. */
-  segmentId?: string;
+  "segmentId"?: string;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
   /** PageToken provided by the API */
   pageToken?: string;
 }
 
+
 export interface AssessmentsContext {
+
   /**
    * Update a AssessmentsInstance
    *
@@ -118,10 +123,9 @@ export interface AssessmentsContext {
    *
    * @returns Resolves to processed AssessmentsInstance
    */
-  update(
-    params: AssessmentsContextUpdateOptions,
-    callback?: (error: Error | null, item?: AssessmentsInstance) => any
-  ): Promise<AssessmentsInstance>;
+  update(params: AssessmentsContextUpdateOptions, callback?: (error: Error | null, item?: AssessmentsInstance) => any): Promise<AssessmentsInstance>;
+
+
 
   /**
    * Provide a user-friendly representation
@@ -131,78 +135,67 @@ export interface AssessmentsContext {
 }
 
 export interface AssessmentsContextSolution {
-  assessmentSid: string;
+  "assessmentSid": string;
 }
 
 export class AssessmentsContextImpl implements AssessmentsContext {
   protected _solution: AssessmentsContextSolution;
   protected _uri: string;
 
+
   constructor(protected _version: V1, assessmentSid: string) {
     if (!isValidPathParam(assessmentSid)) {
-      throw new Error("Parameter 'assessmentSid' is not valid.");
+      throw new Error('Parameter \'assessmentSid\' is not valid.');
     }
 
-    this._solution = { assessmentSid };
+    this._solution = { assessmentSid,  };
     this._uri = `/Insights/QualityManagement/Assessments/${assessmentSid}`;
   }
 
-  update(
-    params: AssessmentsContextUpdateOptions,
-    callback?: (error: Error | null, item?: AssessmentsInstance) => any
-  ): Promise<AssessmentsInstance> {
-    if (params === null || params === undefined) {
+  update(params: AssessmentsContextUpdateOptions, callback?: (error: Error | null, item?: AssessmentsInstance) => any): Promise<AssessmentsInstance> {
+      if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     if (params["offset"] === null || params["offset"] === undefined) {
-      throw new Error("Required parameter \"params['offset']\" missing.");
+      throw new Error('Required parameter "params[\'offset\']" missing.');
     }
 
     if (params["answerText"] === null || params["answerText"] === undefined) {
-      throw new Error("Required parameter \"params['answerText']\" missing.");
+      throw new Error('Required parameter "params[\'answerText\']" missing.');
     }
 
     if (params["answerId"] === null || params["answerId"] === undefined) {
-      throw new Error("Required parameter \"params['answerId']\" missing.");
+      throw new Error('Required parameter "params[\'answerId\']" missing.');
     }
 
     let data: any = {};
 
+    
+        
     data["Offset"] = params["offset"];
-
+    
     data["AnswerText"] = params["answerText"];
-
+    
     data["AnswerId"] = params["answerId"];
 
+    
+
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded";
-    if (params["authorization"] !== undefined)
-      headers["Authorization"] = params["authorization"];
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    if (params["authorization"] !== undefined) headers["Authorization"] = params["authorization"];
 
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.update({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      });
+        operationPromise = operationVersion.update({ uri: instance._uri, method: "post", data, headers });
+    
+    operationPromise = operationPromise.then(payload => new AssessmentsInstance(operationVersion, payload, instance._solution.assessmentSid));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new AssessmentsInstance(
-          operationVersion,
-          payload,
-          instance._solution.assessmentSid
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
   /**
@@ -219,8 +212,9 @@ export class AssessmentsContextImpl implements AssessmentsContext {
   }
 }
 
+
 interface AssessmentsPayload extends TwilioResponsePayload {
-  assessments: AssessmentsResource[];
+    assessments: AssessmentsResource[];
 }
 
 interface AssessmentsResource {
@@ -244,27 +238,23 @@ export class AssessmentsInstance {
   protected _solution: AssessmentsContextSolution;
   protected _context?: AssessmentsContext;
 
-  constructor(
-    protected _version: V1,
-    payload: AssessmentsResource,
-    assessmentSid?: string
-  ) {
-    this.accountSid = payload.account_sid;
-    this.assessmentSid = payload.assessment_sid;
-    this.offset = payload.offset;
-    this.report = payload.report;
-    this.weight = payload.weight;
-    this.agentId = payload.agent_id;
-    this.segmentId = payload.segment_id;
-    this.userName = payload.user_name;
-    this.userEmail = payload.user_email;
-    this.answerText = payload.answer_text;
-    this.answerId = payload.answer_id;
-    this.assessment = payload.assessment;
-    this.timestamp = payload.timestamp;
-    this.url = payload.url;
+  constructor(protected _version: V1, payload: AssessmentsResource, assessmentSid?: string) {
+    this.accountSid = (payload.account_sid);
+    this.assessmentSid = (payload.assessment_sid);
+    this.offset = (payload.offset);
+    this.report = (payload.report);
+    this.weight = (payload.weight);
+    this.agentId = (payload.agent_id);
+    this.segmentId = (payload.segment_id);
+    this.userName = (payload.user_name);
+    this.userEmail = (payload.user_email);
+    this.answerText = (payload.answer_text);
+    this.answerId = (payload.answer_id);
+    this.assessment = (payload.assessment);
+    this.timestamp = (payload.timestamp);
+    this.url = (payload.url);
 
-    this._solution = { assessmentSid: assessmentSid || this.assessmentSid };
+    this._solution = { assessmentSid: assessmentSid || this.assessmentSid,  };
   }
 
   /**
@@ -280,7 +270,7 @@ export class AssessmentsInstance {
    */
   offset: number;
   /**
-   * The flag indicating if this assessment is part of report
+   * The flag indicating if this assessment is part of report 
    */
   report: boolean;
   /**
@@ -319,9 +309,7 @@ export class AssessmentsInstance {
   url: string;
 
   private get _proxy(): AssessmentsContext {
-    this._context =
-      this._context ||
-      new AssessmentsContextImpl(this._version, this._solution.assessmentSid);
+    this._context = this._context || new AssessmentsContextImpl(this._version, this._solution.assessmentSid);
     return this._context;
   }
 
@@ -333,15 +321,10 @@ export class AssessmentsInstance {
    *
    * @returns Resolves to processed AssessmentsInstance
    */
-  update(
-    params: AssessmentsContextUpdateOptions,
-    callback?: (error: Error | null, item?: AssessmentsInstance) => any
-  ): Promise<AssessmentsInstance>;
+  update(params: AssessmentsContextUpdateOptions, callback?: (error: Error | null, item?: AssessmentsInstance) => any): Promise<AssessmentsInstance>;
 
-  update(
-    params?: any,
-    callback?: (error: Error | null, item?: AssessmentsInstance) => any
-  ): Promise<AssessmentsInstance> {
+    update(params?: any, callback?: (error: Error | null, item?: AssessmentsInstance) => any): Promise<AssessmentsInstance>
+    {
     return this._proxy.update(params, callback);
   }
 
@@ -366,7 +349,7 @@ export class AssessmentsInstance {
       assessment: this.assessment,
       timestamp: this.timestamp,
       url: this.url,
-    };
+    }
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
@@ -374,15 +357,20 @@ export class AssessmentsInstance {
   }
 }
 
-export interface AssessmentsSolution {}
+
+export interface AssessmentsSolution {
+}
 
 export interface AssessmentsListInstance {
   _version: V1;
   _solution: AssessmentsSolution;
   _uri: string;
 
-  (assessmentSid: string): AssessmentsContext;
-  get(assessmentSid: string): AssessmentsContext;
+  (assessmentSid: string, ): AssessmentsContext;
+  get(assessmentSid: string, ): AssessmentsContext;
+
+
+
 
   /**
    * Create a AssessmentsInstance
@@ -392,10 +380,9 @@ export interface AssessmentsListInstance {
    *
    * @returns Resolves to processed AssessmentsInstance
    */
-  create(
-    params: AssessmentsListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: AssessmentsInstance) => any
-  ): Promise<AssessmentsInstance>;
+  create(params: AssessmentsListInstanceCreateOptions, callback?: (error: Error | null, item?: AssessmentsInstance) => any): Promise<AssessmentsInstance>;
+
+
 
   /**
    * Streams AssessmentsInstance records from the API.
@@ -412,13 +399,8 @@ export interface AssessmentsListInstance {
    * @param { AssessmentsListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(
-    callback?: (item: AssessmentsInstance, done: (err?: Error) => void) => void
-  ): void;
-  each(
-    params: AssessmentsListInstanceEachOptions,
-    callback?: (item: AssessmentsInstance, done: (err?: Error) => void) => void
-  ): void;
+  each(callback?: (item: AssessmentsInstance, done: (err?: Error) => void) => void): void;
+  each(params: AssessmentsListInstanceEachOptions, callback?: (item: AssessmentsInstance, done: (err?: Error) => void) => void): void;
   /**
    * Retrieve a single target page of AssessmentsInstance records from the API.
    *
@@ -427,10 +409,7 @@ export interface AssessmentsListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(
-    targetUrl: string,
-    callback?: (error: Error | null, items: AssessmentsPage) => any
-  ): Promise<AssessmentsPage>;
+  getPage(targetUrl: string, callback?: (error: Error | null, items: AssessmentsPage) => any): Promise<AssessmentsPage>;
   /**
    * Lists AssessmentsInstance records from the API as a list.
    *
@@ -440,13 +419,8 @@ export interface AssessmentsListInstance {
    * @param { AssessmentsListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(
-    callback?: (error: Error | null, items: AssessmentsInstance[]) => any
-  ): Promise<AssessmentsInstance[]>;
-  list(
-    params: AssessmentsListInstanceOptions,
-    callback?: (error: Error | null, items: AssessmentsInstance[]) => any
-  ): Promise<AssessmentsInstance[]>;
+  list(callback?: (error: Error | null, items: AssessmentsInstance[]) => any): Promise<AssessmentsInstance[]>;
+  list(params: AssessmentsListInstanceOptions, callback?: (error: Error | null, items: AssessmentsInstance[]) => any): Promise<AssessmentsInstance[]>;
   /**
    * Retrieve a single page of AssessmentsInstance records from the API.
    *
@@ -458,13 +432,8 @@ export interface AssessmentsListInstance {
    * @param { AssessmentsListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(
-    callback?: (error: Error | null, items: AssessmentsPage) => any
-  ): Promise<AssessmentsPage>;
-  page(
-    params: AssessmentsListInstancePageOptions,
-    callback?: (error: Error | null, items: AssessmentsPage) => any
-  ): Promise<AssessmentsPage>;
+  page(callback?: (error: Error | null, items: AssessmentsPage) => any): Promise<AssessmentsPage>;
+  page(params: AssessmentsListInstancePageOptions, callback?: (error: Error | null, items: AssessmentsPage) => any): Promise<AssessmentsPage>;
 
   /**
    * Provide a user-friendly representation
@@ -474,125 +443,104 @@ export interface AssessmentsListInstance {
 }
 
 export function AssessmentsListInstance(version: V1): AssessmentsListInstance {
-  const instance = ((assessmentSid) =>
-    instance.get(assessmentSid)) as AssessmentsListInstance;
+  const instance = ((assessmentSid, ) => instance.get(assessmentSid, )) as AssessmentsListInstance;
 
-  instance.get = function get(assessmentSid): AssessmentsContext {
+  instance.get = function get(assessmentSid, ): AssessmentsContext {
     return new AssessmentsContextImpl(version, assessmentSid);
-  };
+  }
 
   instance._version = version;
-  instance._solution = {};
+  instance._solution = {  };
   instance._uri = `/Insights/QualityManagement/Assessments`;
 
-  instance.create = function create(
-    params: AssessmentsListInstanceCreateOptions,
-    callback?: (error: Error | null, items: AssessmentsInstance) => any
-  ): Promise<AssessmentsInstance> {
+  instance.create = function create(params: AssessmentsListInstanceCreateOptions, callback?: (error: Error | null, items: AssessmentsInstance) => any): Promise<AssessmentsInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     if (params["categorySid"] === null || params["categorySid"] === undefined) {
-      throw new Error("Required parameter \"params['categorySid']\" missing.");
+      throw new Error('Required parameter "params[\'categorySid\']" missing.');
     }
 
-    if (
-      params["categoryName"] === null ||
-      params["categoryName"] === undefined
-    ) {
-      throw new Error("Required parameter \"params['categoryName']\" missing.");
+    if (params["categoryName"] === null || params["categoryName"] === undefined) {
+      throw new Error('Required parameter "params[\'categoryName\']" missing.');
     }
 
     if (params["segmentId"] === null || params["segmentId"] === undefined) {
-      throw new Error("Required parameter \"params['segmentId']\" missing.");
+      throw new Error('Required parameter "params[\'segmentId\']" missing.');
     }
 
     if (params["agentId"] === null || params["agentId"] === undefined) {
-      throw new Error("Required parameter \"params['agentId']\" missing.");
+      throw new Error('Required parameter "params[\'agentId\']" missing.');
     }
 
     if (params["offset"] === null || params["offset"] === undefined) {
-      throw new Error("Required parameter \"params['offset']\" missing.");
+      throw new Error('Required parameter "params[\'offset\']" missing.');
     }
 
     if (params["metricId"] === null || params["metricId"] === undefined) {
-      throw new Error("Required parameter \"params['metricId']\" missing.");
+      throw new Error('Required parameter "params[\'metricId\']" missing.');
     }
 
     if (params["metricName"] === null || params["metricName"] === undefined) {
-      throw new Error("Required parameter \"params['metricName']\" missing.");
+      throw new Error('Required parameter "params[\'metricName\']" missing.');
     }
 
     if (params["answerText"] === null || params["answerText"] === undefined) {
-      throw new Error("Required parameter \"params['answerText']\" missing.");
+      throw new Error('Required parameter "params[\'answerText\']" missing.');
     }
 
     if (params["answerId"] === null || params["answerId"] === undefined) {
-      throw new Error("Required parameter \"params['answerId']\" missing.");
+      throw new Error('Required parameter "params[\'answerId\']" missing.');
     }
 
-    if (
-      params["questionnaireSid"] === null ||
-      params["questionnaireSid"] === undefined
-    ) {
-      throw new Error(
-        "Required parameter \"params['questionnaireSid']\" missing."
-      );
+    if (params["questionnaireSid"] === null || params["questionnaireSid"] === undefined) {
+      throw new Error('Required parameter "params[\'questionnaireSid\']" missing.');
     }
 
     let data: any = {};
 
+    
+        
     data["CategorySid"] = params["categorySid"];
-
+    
     data["CategoryName"] = params["categoryName"];
-
+    
     data["SegmentId"] = params["segmentId"];
-
+    
     data["AgentId"] = params["agentId"];
-
+    
     data["Offset"] = params["offset"];
-
+    
     data["MetricId"] = params["metricId"];
-
+    
     data["MetricName"] = params["metricName"];
-
+    
     data["AnswerText"] = params["answerText"];
-
+    
     data["AnswerId"] = params["answerId"];
-
+    
     data["QuestionnaireSid"] = params["questionnaireSid"];
 
+    
+
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded";
-    if (params["authorization"] !== undefined)
-      headers["Authorization"] = params["authorization"];
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    if (params["authorization"] !== undefined) headers["Authorization"] = params["authorization"];
 
     let operationVersion = version,
-      operationPromise = operationVersion.create({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      });
+        operationPromise = operationVersion.create({ uri: instance._uri, method: "post", data, headers });
+    
+    operationPromise = operationPromise.then(payload => new AssessmentsInstance(operationVersion, payload));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) => new AssessmentsInstance(operationVersion, payload)
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
 
-  instance.page = function page(
-    params?:
-      | AssessmentsListInstancePageOptions
-      | ((error: Error | null, items: AssessmentsPage) => any),
-    callback?: (error: Error | null, items: AssessmentsPage) => any
-  ): Promise<AssessmentsPage> {
+
+    }
+
+  instance.page = function page(params?: AssessmentsListInstancePageOptions | ((error: Error | null, items: AssessmentsPage) => any), callback?: (error: Error | null, items: AssessmentsPage) => any): Promise<AssessmentsPage> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -602,101 +550,77 @@ export function AssessmentsListInstance(version: V1): AssessmentsListInstance {
 
     let data: any = {};
 
-    if (params["segmentId"] !== undefined)
-      data["SegmentId"] = params["segmentId"];
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["segmentId"] !== undefined)
+    data["SegmentId"] = params["segmentId"];
+    if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
 
+    
+    
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
-    if (params["authorization"] !== undefined)
-      headers["Authorization"] = params["authorization"];
+    if (params["authorization"] !== undefined) headers["Authorization"] = params["authorization"];
 
     let operationVersion = version,
-      operationPromise = operationVersion.page({
-        uri: instance._uri,
-        method: "get",
-        params: data,
-        headers,
-      });
+        operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers });
+    
+    operationPromise = operationPromise.then(payload => new AssessmentsPage(operationVersion, payload, instance._solution));
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new AssessmentsPage(operationVersion, payload, instance._solution)
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
+
+  }
   instance.each = instance._version.each;
   instance.list = instance._version.list;
 
-  instance.getPage = function getPage(
-    targetUrl: string,
-    callback?: (error: Error | null, items: AssessmentsPage) => any
-  ): Promise<AssessmentsPage> {
-    const operationPromise = instance._version._domain.twilio.request({
-      method: "get",
-      uri: targetUrl,
-    });
+  instance.getPage = function getPage(targetUrl: string, callback?: (error: Error | null, items: AssessmentsPage) => any): Promise<AssessmentsPage> {
+    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
 
-    let pagePromise = operationPromise.then(
-      (payload) =>
-        new AssessmentsPage(instance._version, payload, instance._solution)
-    );
+    let pagePromise = operationPromise.then(payload => new AssessmentsPage(instance._version, payload, instance._solution));
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  };
+  }
+
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  };
+  }
 
-  instance[inspect.custom] = function inspectImpl(
-    _depth: any,
-    options: InspectOptions
-  ) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(instance.toJSON(), options);
-  };
+  }
 
   return instance;
 }
 
-export class AssessmentsPage extends Page<
-  V1,
-  AssessmentsPayload,
-  AssessmentsResource,
-  AssessmentsInstance
-> {
-  /**
-   * Initialize the AssessmentsPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(
-    version: V1,
-    response: Response<string>,
-    solution: AssessmentsSolution
-  ) {
+export class AssessmentsPage extends Page<V1, AssessmentsPayload, AssessmentsResource, AssessmentsInstance> {
+/**
+* Initialize the AssessmentsPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V1, response: Response<string>, solution: AssessmentsSolution) {
     super(version, response, solution);
-  }
+    }
 
-  /**
-   * Build an instance of AssessmentsInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: AssessmentsResource): AssessmentsInstance {
-    return new AssessmentsInstance(this._version, payload);
-  }
+    /**
+    * Build an instance of AssessmentsInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: AssessmentsResource): AssessmentsInstance {
+    return new AssessmentsInstance(
+    this._version,
+    payload,
+    );
+    }
 
-  [inspect.custom](depth: any, options: InspectOptions) {
+    [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-  }
-}
+    }
+    }
+

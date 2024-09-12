@@ -12,25 +12,30 @@
  * Do not edit the class manually.
  */
 
+
 import { inspect, InspectOptions } from "util";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 
+
 export class CreateReferralConversionRequest {
   "referralAccountSid"?: string;
 }
+
+
 
 /**
  * Options to pass to create a ReferralConversionInstance
  */
 export interface ReferralConversionContextCreateOptions {
   /**  */
-  createReferralConversionRequest: CreateReferralConversionRequest;
+  "createReferralConversionRequest": CreateReferralConversionRequest;
 }
 
 export interface ReferralConversionContext {
+
   /**
    * Create a ReferralConversionInstance
    *
@@ -39,10 +44,7 @@ export interface ReferralConversionContext {
    *
    * @returns Resolves to processed ReferralConversionInstance
    */
-  create(
-    params: CreateReferralConversionRequest,
-    callback?: (error: Error | null, item?: ReferralConversionInstance) => any
-  ): Promise<ReferralConversionInstance>;
+  create(params: CreateReferralConversionRequest, callback?: (error: Error | null, item?: ReferralConversionInstance) => any): Promise<ReferralConversionInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -51,52 +53,44 @@ export interface ReferralConversionContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface ReferralConversionContextSolution {}
+export interface ReferralConversionContextSolution {
+}
 
-export class ReferralConversionContextImpl
-  implements ReferralConversionContext
-{
+export class ReferralConversionContextImpl implements ReferralConversionContext {
   protected _solution: ReferralConversionContextSolution;
   protected _uri: string;
 
+
   constructor(protected _version: V1) {
-    this._solution = {};
+    this._solution = {  };
     this._uri = `/ReferralConversion`;
   }
 
-  create(
-    params: CreateReferralConversionRequest,
-    callback?: (error: Error | null, item?: ReferralConversionInstance) => any
-  ): Promise<ReferralConversionInstance> {
-    if (params === null || params === undefined) {
+  create(params: CreateReferralConversionRequest, callback?: (error: Error | null, item?: ReferralConversionInstance) => any): Promise<ReferralConversionInstance> {
+      if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     let data: any = {};
 
-    data = params;
+    
+    
+    data = params
 
     const headers: any = {};
-    headers["Content-Type"] = "application/json";
+    headers["Content-Type"] = "application/json"
 
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.create({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      });
+        operationPromise = operationVersion.create({ uri: instance._uri, method: "post", data, headers });
+    
+    operationPromise = operationPromise.then(payload => new ReferralConversionInstance(operationVersion, payload));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) => new ReferralConversionInstance(operationVersion, payload)
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
   /**
@@ -113,6 +107,7 @@ export class ReferralConversionContextImpl
   }
 }
 
+
 interface ReferralConversionPayload extends ReferralConversionResource {}
 
 interface ReferralConversionResource {
@@ -124,16 +119,15 @@ export class ReferralConversionInstance {
   protected _context?: ReferralConversionContext;
 
   constructor(protected _version: V1, payload: ReferralConversionResource) {
-    this.convertedAccountSid = payload.converted_account_sid;
+    this.convertedAccountSid = (payload.converted_account_sid);
 
-    this._solution = {};
+    this._solution = {  };
   }
 
   convertedAccountSid: string;
 
   private get _proxy(): ReferralConversionContext {
-    this._context =
-      this._context || new ReferralConversionContextImpl(this._version);
+    this._context = this._context || new ReferralConversionContextImpl(this._version);
     return this._context;
   }
 
@@ -145,15 +139,10 @@ export class ReferralConversionInstance {
    *
    * @returns Resolves to processed ReferralConversionInstance
    */
-  create(
-    params: CreateReferralConversionRequest,
-    callback?: (error: Error | null, item?: ReferralConversionInstance) => any
-  ): Promise<ReferralConversionInstance>;
+  create(params: CreateReferralConversionRequest, callback?: (error: Error | null, item?: ReferralConversionInstance) => any): Promise<ReferralConversionInstance>;
 
-  create(
-    params?: any,
-    callback?: (error: Error | null, item?: ReferralConversionInstance) => any
-  ): Promise<ReferralConversionInstance> {
+    create(params?: any, callback?: (error: Error | null, item?: ReferralConversionInstance) => any): Promise<ReferralConversionInstance>
+    {
     return this._proxy.create(params, callback);
   }
 
@@ -165,7 +154,7 @@ export class ReferralConversionInstance {
   toJSON() {
     return {
       convertedAccountSid: this.convertedAccountSid,
-    };
+    }
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
@@ -173,7 +162,9 @@ export class ReferralConversionInstance {
   }
 }
 
-export interface ReferralConversionSolution {}
+
+export interface ReferralConversionSolution {
+}
 
 export interface ReferralConversionListInstance {
   _version: V1;
@@ -183,6 +174,9 @@ export interface ReferralConversionListInstance {
   (): ReferralConversionContext;
   get(): ReferralConversionContext;
 
+
+
+
   /**
    * Provide a user-friendly representation
    */
@@ -190,29 +184,26 @@ export interface ReferralConversionListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function ReferralConversionListInstance(
-  version: V1
-): ReferralConversionListInstance {
+export function ReferralConversionListInstance(version: V1): ReferralConversionListInstance {
   const instance = (() => instance.get()) as ReferralConversionListInstance;
 
   instance.get = function get(): ReferralConversionContext {
     return new ReferralConversionContextImpl(version);
-  };
+  }
 
   instance._version = version;
-  instance._solution = {};
+  instance._solution = {  };
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  };
+  }
 
-  instance[inspect.custom] = function inspectImpl(
-    _depth: any,
-    options: InspectOptions
-  ) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(instance.toJSON(), options);
-  };
+  }
 
   return instance;
 }
+
+

@@ -12,26 +12,33 @@
  * Do not edit the class manually.
  */
 
+
 import { inspect, InspectOptions } from "util";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 
+
+
 /**
  * Options to pass to fetch a InsightsSettingsAnswerSetsInstance
  */
 export interface InsightsSettingsAnswerSetsListInstanceFetchOptions {
   /** The Authorization HTTP request header */
-  authorization?: string;
+  "authorization"?: string;
 }
 
-export interface InsightsSettingsAnswerSetsSolution {}
+
+export interface InsightsSettingsAnswerSetsSolution {
+}
 
 export interface InsightsSettingsAnswerSetsListInstance {
   _version: V1;
   _solution: InsightsSettingsAnswerSetsSolution;
   _uri: string;
+
+
 
   /**
    * Fetch a InsightsSettingsAnswerSetsInstance
@@ -40,12 +47,7 @@ export interface InsightsSettingsAnswerSetsListInstance {
    *
    * @returns Resolves to processed InsightsSettingsAnswerSetsInstance
    */
-  fetch(
-    callback?: (
-      error: Error | null,
-      item?: InsightsSettingsAnswerSetsInstance
-    ) => any
-  ): Promise<InsightsSettingsAnswerSetsInstance>;
+  fetch(callback?: (error: Error | null, item?: InsightsSettingsAnswerSetsInstance) => any): Promise<InsightsSettingsAnswerSetsInstance>;
   /**
    * Fetch a InsightsSettingsAnswerSetsInstance
    *
@@ -54,13 +56,8 @@ export interface InsightsSettingsAnswerSetsListInstance {
    *
    * @returns Resolves to processed InsightsSettingsAnswerSetsInstance
    */
-  fetch(
-    params: InsightsSettingsAnswerSetsListInstanceFetchOptions,
-    callback?: (
-      error: Error | null,
-      item?: InsightsSettingsAnswerSetsInstance
-    ) => any
-  ): Promise<InsightsSettingsAnswerSetsInstance>;
+  fetch(params: InsightsSettingsAnswerSetsListInstanceFetchOptions, callback?: (error: Error | null, item?: InsightsSettingsAnswerSetsInstance) => any): Promise<InsightsSettingsAnswerSetsInstance>;
+
 
   /**
    * Provide a user-friendly representation
@@ -69,27 +66,14 @@ export interface InsightsSettingsAnswerSetsListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function InsightsSettingsAnswerSetsListInstance(
-  version: V1
-): InsightsSettingsAnswerSetsListInstance {
+export function InsightsSettingsAnswerSetsListInstance(version: V1): InsightsSettingsAnswerSetsListInstance {
   const instance = {} as InsightsSettingsAnswerSetsListInstance;
 
   instance._version = version;
-  instance._solution = {};
+  instance._solution = {  };
   instance._uri = `/Insights/QualityManagement/Settings/AnswerSets`;
 
-  instance.fetch = function fetch(
-    params?:
-      | InsightsSettingsAnswerSetsListInstanceFetchOptions
-      | ((
-          error: Error | null,
-          items: InsightsSettingsAnswerSetsInstance
-        ) => any),
-    callback?: (
-      error: Error | null,
-      items: InsightsSettingsAnswerSetsInstance
-    ) => any
-  ): Promise<InsightsSettingsAnswerSetsInstance> {
+  instance.fetch = function fetch(params?: InsightsSettingsAnswerSetsListInstanceFetchOptions | ((error: Error | null, items: InsightsSettingsAnswerSetsInstance) => any), callback?: (error: Error | null, items: InsightsSettingsAnswerSetsInstance) => any): Promise<InsightsSettingsAnswerSetsInstance> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -99,46 +83,37 @@ export function InsightsSettingsAnswerSetsListInstance(
 
     let data: any = {};
 
+    
+    
+    
+
     const headers: any = {};
-    if (params["authorization"] !== undefined)
-      headers["Authorization"] = params["authorization"];
+    if (params["authorization"] !== undefined) headers["Authorization"] = params["authorization"];
 
     let operationVersion = version,
-      operationPromise = operationVersion.fetch({
-        uri: instance._uri,
-        method: "get",
-        params: data,
-        headers,
-      });
+        operationPromise = operationVersion.fetch({ uri: instance._uri, method: "get", params: data, headers });
+    
+    operationPromise = operationPromise.then(payload => new InsightsSettingsAnswerSetsInstance(operationVersion, payload));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new InsightsSettingsAnswerSetsInstance(operationVersion, payload)
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
+
+
+    }
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  };
+  }
 
-  instance[inspect.custom] = function inspectImpl(
-    _depth: any,
-    options: InspectOptions
-  ) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(instance.toJSON(), options);
-  };
+  }
 
   return instance;
 }
 
-interface InsightsSettingsAnswerSetsPayload
-  extends InsightsSettingsAnswerSetsResource {}
+interface InsightsSettingsAnswerSetsPayload extends InsightsSettingsAnswerSetsResource {}
 
 interface InsightsSettingsAnswerSetsResource {
   account_sid: string;
@@ -149,15 +124,14 @@ interface InsightsSettingsAnswerSetsResource {
 }
 
 export class InsightsSettingsAnswerSetsInstance {
-  constructor(
-    protected _version: V1,
-    payload: InsightsSettingsAnswerSetsResource
-  ) {
-    this.accountSid = payload.account_sid;
-    this.answerSets = payload.answer_sets;
-    this.answerSetCategories = payload.answer_set_categories;
-    this.notApplicable = payload.not_applicable;
-    this.url = payload.url;
+
+  constructor(protected _version: V1, payload: InsightsSettingsAnswerSetsResource) {
+    this.accountSid = (payload.account_sid);
+    this.answerSets = (payload.answer_sets);
+    this.answerSetCategories = (payload.answer_set_categories);
+    this.notApplicable = (payload.not_applicable);
+    this.url = (payload.url);
+
   }
 
   /**
@@ -190,10 +164,12 @@ export class InsightsSettingsAnswerSetsInstance {
       answerSetCategories: this.answerSetCategories,
       notApplicable: this.notApplicable,
       url: this.url,
-    };
+    }
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
 }
+
+

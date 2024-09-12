@@ -40,8 +40,7 @@ export default class V1 extends Version {
 
   /** Getter for authTokenPromotion resource */
   get authTokenPromotion(): AuthTokenPromotionListInstance {
-    this._authTokenPromotion =
-      this._authTokenPromotion || AuthTokenPromotionListInstance(this);
+    this._authTokenPromotion = this._authTokenPromotion || AuthTokenPromotionListInstance(this);
     return this._authTokenPromotion;
   }
 
@@ -59,8 +58,8 @@ export default class V1 extends Version {
 
   /** Getter for secondaryAuthToken resource */
   get secondaryAuthToken(): SecondaryAuthTokenListInstance {
-    this._secondaryAuthToken =
-      this._secondaryAuthToken || SecondaryAuthTokenListInstance(this);
+    this._secondaryAuthToken = this._secondaryAuthToken || SecondaryAuthTokenListInstance(this);
     return this._secondaryAuthToken;
   }
+
 }

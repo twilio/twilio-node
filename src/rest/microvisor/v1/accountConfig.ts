@@ -12,6 +12,7 @@
  * Do not edit the class manually.
  */
 
+
 import { inspect, InspectOptions } from "util";
 import Page, { TwilioResponsePayload } from "../../../base/Page";
 import Response from "../../../http/response";
@@ -20,12 +21,16 @@ const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 
+
+
+
+
 /**
  * Options to pass to update a AccountConfigInstance
  */
 export interface AccountConfigContextUpdateOptions {
   /** The config value; up to 4096 characters. */
-  value: string;
+  "value": string;
 }
 
 /**
@@ -33,16 +38,16 @@ export interface AccountConfigContextUpdateOptions {
  */
 export interface AccountConfigListInstanceCreateOptions {
   /** The config key; up to 100 characters. */
-  key: string;
+  "key": string;
   /** The config value; up to 4096 characters. */
-  value: string;
+  "value": string;
 }
 /**
  * Options to pass to each
  */
 export interface AccountConfigListInstanceEachOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: AccountConfigInstance, done: (err?: Error) => void) => void;
   /** Function to be called upon completion of streaming */
@@ -56,7 +61,7 @@ export interface AccountConfigListInstanceEachOptions {
  */
 export interface AccountConfigListInstanceOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
@@ -66,14 +71,16 @@ export interface AccountConfigListInstanceOptions {
  */
 export interface AccountConfigListInstancePageOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
   /** PageToken provided by the API */
   pageToken?: string;
 }
 
+
 export interface AccountConfigContext {
+
   /**
    * Remove a AccountConfigInstance
    *
@@ -81,9 +88,7 @@ export interface AccountConfigContext {
    *
    * @returns Resolves to processed boolean
    */
-  remove(
-    callback?: (error: Error | null, item?: boolean) => any
-  ): Promise<boolean>;
+  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
 
   /**
    * Fetch a AccountConfigInstance
@@ -92,9 +97,7 @@ export interface AccountConfigContext {
    *
    * @returns Resolves to processed AccountConfigInstance
    */
-  fetch(
-    callback?: (error: Error | null, item?: AccountConfigInstance) => any
-  ): Promise<AccountConfigInstance>;
+  fetch(callback?: (error: Error | null, item?: AccountConfigInstance) => any): Promise<AccountConfigInstance>
 
   /**
    * Update a AccountConfigInstance
@@ -104,10 +107,9 @@ export interface AccountConfigContext {
    *
    * @returns Resolves to processed AccountConfigInstance
    */
-  update(
-    params: AccountConfigContextUpdateOptions,
-    callback?: (error: Error | null, item?: AccountConfigInstance) => any
-  ): Promise<AccountConfigInstance>;
+  update(params: AccountConfigContextUpdateOptions, callback?: (error: Error | null, item?: AccountConfigInstance) => any): Promise<AccountConfigInstance>;
+
+
 
   /**
    * Provide a user-friendly representation
@@ -117,107 +119,82 @@ export interface AccountConfigContext {
 }
 
 export interface AccountConfigContextSolution {
-  key: string;
+  "key": string;
 }
 
 export class AccountConfigContextImpl implements AccountConfigContext {
   protected _solution: AccountConfigContextSolution;
   protected _uri: string;
 
+
   constructor(protected _version: V1, key: string) {
     if (!isValidPathParam(key)) {
-      throw new Error("Parameter 'key' is not valid.");
+      throw new Error('Parameter \'key\' is not valid.');
     }
 
-    this._solution = { key };
+    this._solution = { key,  };
     this._uri = `/Configs/${key}`;
   }
 
-  remove(
-    callback?: (error: Error | null, item?: boolean) => any
-  ): Promise<boolean> {
+  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean> {
+  
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.remove({
-        uri: instance._uri,
-        method: "delete",
-      });
+        operationPromise = operationVersion.remove({ uri: instance._uri, method: "delete" });
+    
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
-  fetch(
-    callback?: (error: Error | null, item?: AccountConfigInstance) => any
-  ): Promise<AccountConfigInstance> {
+  fetch(callback?: (error: Error | null, item?: AccountConfigInstance) => any): Promise<AccountConfigInstance> {
+  
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.fetch({
-        uri: instance._uri,
-        method: "get",
-      });
+        operationPromise = operationVersion.fetch({ uri: instance._uri, method: "get" });
+    
+    operationPromise = operationPromise.then(payload => new AccountConfigInstance(operationVersion, payload, instance._solution.key));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new AccountConfigInstance(
-          operationVersion,
-          payload,
-          instance._solution.key
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
-  update(
-    params: AccountConfigContextUpdateOptions,
-    callback?: (error: Error | null, item?: AccountConfigInstance) => any
-  ): Promise<AccountConfigInstance> {
-    if (params === null || params === undefined) {
+  update(params: AccountConfigContextUpdateOptions, callback?: (error: Error | null, item?: AccountConfigInstance) => any): Promise<AccountConfigInstance> {
+      if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     if (params["value"] === null || params["value"] === undefined) {
-      throw new Error("Required parameter \"params['value']\" missing.");
+      throw new Error('Required parameter "params[\'value\']" missing.');
     }
 
     let data: any = {};
 
+    
+        
     data["Value"] = params["value"];
 
+    
+
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.update({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      });
+        operationPromise = operationVersion.update({ uri: instance._uri, method: "post", data, headers });
+    
+    operationPromise = operationPromise.then(payload => new AccountConfigInstance(operationVersion, payload, instance._solution.key));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new AccountConfigInstance(
-          operationVersion,
-          payload,
-          instance._solution.key
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
   /**
@@ -234,8 +211,9 @@ export class AccountConfigContextImpl implements AccountConfigContext {
   }
 }
 
+
 interface AccountConfigPayload extends TwilioResponsePayload {
-  configs: AccountConfigResource[];
+    configs: AccountConfigResource[];
 }
 
 interface AccountConfigResource {
@@ -249,17 +227,13 @@ export class AccountConfigInstance {
   protected _solution: AccountConfigContextSolution;
   protected _context?: AccountConfigContext;
 
-  constructor(
-    protected _version: V1,
-    payload: AccountConfigResource,
-    key?: string
-  ) {
-    this.key = payload.key;
+  constructor(protected _version: V1, payload: AccountConfigResource, key?: string) {
+    this.key = (payload.key);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
-    this.value = payload.value;
-    this.url = payload.url;
+    this.value = (payload.value);
+    this.url = (payload.url);
 
-    this._solution = { key: key || this.key };
+    this._solution = { key: key || this.key,  };
   }
 
   /**
@@ -277,9 +251,7 @@ export class AccountConfigInstance {
   url: string;
 
   private get _proxy(): AccountConfigContext {
-    this._context =
-      this._context ||
-      new AccountConfigContextImpl(this._version, this._solution.key);
+    this._context = this._context || new AccountConfigContextImpl(this._version, this._solution.key);
     return this._context;
   }
 
@@ -290,9 +262,9 @@ export class AccountConfigInstance {
    *
    * @returns Resolves to processed boolean
    */
-  remove(
-    callback?: (error: Error | null, item?: boolean) => any
-  ): Promise<boolean> {
+  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
+
+    {
     return this._proxy.remove(callback);
   }
 
@@ -303,9 +275,9 @@ export class AccountConfigInstance {
    *
    * @returns Resolves to processed AccountConfigInstance
    */
-  fetch(
-    callback?: (error: Error | null, item?: AccountConfigInstance) => any
-  ): Promise<AccountConfigInstance> {
+  fetch(callback?: (error: Error | null, item?: AccountConfigInstance) => any): Promise<AccountConfigInstance>
+
+    {
     return this._proxy.fetch(callback);
   }
 
@@ -317,15 +289,10 @@ export class AccountConfigInstance {
    *
    * @returns Resolves to processed AccountConfigInstance
    */
-  update(
-    params: AccountConfigContextUpdateOptions,
-    callback?: (error: Error | null, item?: AccountConfigInstance) => any
-  ): Promise<AccountConfigInstance>;
+  update(params: AccountConfigContextUpdateOptions, callback?: (error: Error | null, item?: AccountConfigInstance) => any): Promise<AccountConfigInstance>;
 
-  update(
-    params?: any,
-    callback?: (error: Error | null, item?: AccountConfigInstance) => any
-  ): Promise<AccountConfigInstance> {
+    update(params?: any, callback?: (error: Error | null, item?: AccountConfigInstance) => any): Promise<AccountConfigInstance>
+    {
     return this._proxy.update(params, callback);
   }
 
@@ -340,7 +307,7 @@ export class AccountConfigInstance {
       dateUpdated: this.dateUpdated,
       value: this.value,
       url: this.url,
-    };
+    }
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
@@ -348,15 +315,24 @@ export class AccountConfigInstance {
   }
 }
 
-export interface AccountConfigSolution {}
+
+export interface AccountConfigSolution {
+}
 
 export interface AccountConfigListInstance {
   _version: V1;
   _solution: AccountConfigSolution;
   _uri: string;
 
-  (key: string): AccountConfigContext;
-  get(key: string): AccountConfigContext;
+  (key: string, ): AccountConfigContext;
+  get(key: string, ): AccountConfigContext;
+
+
+
+
+
+
+
 
   /**
    * Create a AccountConfigInstance
@@ -366,10 +342,9 @@ export interface AccountConfigListInstance {
    *
    * @returns Resolves to processed AccountConfigInstance
    */
-  create(
-    params: AccountConfigListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: AccountConfigInstance) => any
-  ): Promise<AccountConfigInstance>;
+  create(params: AccountConfigListInstanceCreateOptions, callback?: (error: Error | null, item?: AccountConfigInstance) => any): Promise<AccountConfigInstance>;
+
+
 
   /**
    * Streams AccountConfigInstance records from the API.
@@ -386,19 +361,8 @@ export interface AccountConfigListInstance {
    * @param { AccountConfigListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(
-    callback?: (
-      item: AccountConfigInstance,
-      done: (err?: Error) => void
-    ) => void
-  ): void;
-  each(
-    params: AccountConfigListInstanceEachOptions,
-    callback?: (
-      item: AccountConfigInstance,
-      done: (err?: Error) => void
-    ) => void
-  ): void;
+  each(callback?: (item: AccountConfigInstance, done: (err?: Error) => void) => void): void;
+  each(params: AccountConfigListInstanceEachOptions, callback?: (item: AccountConfigInstance, done: (err?: Error) => void) => void): void;
   /**
    * Retrieve a single target page of AccountConfigInstance records from the API.
    *
@@ -407,10 +371,7 @@ export interface AccountConfigListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(
-    targetUrl: string,
-    callback?: (error: Error | null, items: AccountConfigPage) => any
-  ): Promise<AccountConfigPage>;
+  getPage(targetUrl: string, callback?: (error: Error | null, items: AccountConfigPage) => any): Promise<AccountConfigPage>;
   /**
    * Lists AccountConfigInstance records from the API as a list.
    *
@@ -420,13 +381,8 @@ export interface AccountConfigListInstance {
    * @param { AccountConfigListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(
-    callback?: (error: Error | null, items: AccountConfigInstance[]) => any
-  ): Promise<AccountConfigInstance[]>;
-  list(
-    params: AccountConfigListInstanceOptions,
-    callback?: (error: Error | null, items: AccountConfigInstance[]) => any
-  ): Promise<AccountConfigInstance[]>;
+  list(callback?: (error: Error | null, items: AccountConfigInstance[]) => any): Promise<AccountConfigInstance[]>;
+  list(params: AccountConfigListInstanceOptions, callback?: (error: Error | null, items: AccountConfigInstance[]) => any): Promise<AccountConfigInstance[]>;
   /**
    * Retrieve a single page of AccountConfigInstance records from the API.
    *
@@ -438,13 +394,8 @@ export interface AccountConfigListInstance {
    * @param { AccountConfigListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(
-    callback?: (error: Error | null, items: AccountConfigPage) => any
-  ): Promise<AccountConfigPage>;
-  page(
-    params: AccountConfigListInstancePageOptions,
-    callback?: (error: Error | null, items: AccountConfigPage) => any
-  ): Promise<AccountConfigPage>;
+  page(callback?: (error: Error | null, items: AccountConfigPage) => any): Promise<AccountConfigPage>;
+  page(params: AccountConfigListInstancePageOptions, callback?: (error: Error | null, items: AccountConfigPage) => any): Promise<AccountConfigPage>;
 
   /**
    * Provide a user-friendly representation
@@ -453,69 +404,56 @@ export interface AccountConfigListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function AccountConfigListInstance(
-  version: V1
-): AccountConfigListInstance {
-  const instance = ((key) => instance.get(key)) as AccountConfigListInstance;
+export function AccountConfigListInstance(version: V1): AccountConfigListInstance {
+  const instance = ((key, ) => instance.get(key, )) as AccountConfigListInstance;
 
-  instance.get = function get(key): AccountConfigContext {
+  instance.get = function get(key, ): AccountConfigContext {
     return new AccountConfigContextImpl(version, key);
-  };
+  }
 
   instance._version = version;
-  instance._solution = {};
+  instance._solution = {  };
   instance._uri = `/Configs`;
 
-  instance.create = function create(
-    params: AccountConfigListInstanceCreateOptions,
-    callback?: (error: Error | null, items: AccountConfigInstance) => any
-  ): Promise<AccountConfigInstance> {
+  instance.create = function create(params: AccountConfigListInstanceCreateOptions, callback?: (error: Error | null, items: AccountConfigInstance) => any): Promise<AccountConfigInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     if (params["key"] === null || params["key"] === undefined) {
-      throw new Error("Required parameter \"params['key']\" missing.");
+      throw new Error('Required parameter "params[\'key\']" missing.');
     }
 
     if (params["value"] === null || params["value"] === undefined) {
-      throw new Error("Required parameter \"params['value']\" missing.");
+      throw new Error('Required parameter "params[\'value\']" missing.');
     }
 
     let data: any = {};
 
+    
+        
     data["Key"] = params["key"];
-
+    
     data["Value"] = params["value"];
 
+    
+
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = version,
-      operationPromise = operationVersion.create({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      });
+        operationPromise = operationVersion.create({ uri: instance._uri, method: "post", data, headers });
+    
+    operationPromise = operationPromise.then(payload => new AccountConfigInstance(operationVersion, payload));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) => new AccountConfigInstance(operationVersion, payload)
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
 
-  instance.page = function page(
-    params?:
-      | AccountConfigListInstancePageOptions
-      | ((error: Error | null, items: AccountConfigPage) => any),
-    callback?: (error: Error | null, items: AccountConfigPage) => any
-  ): Promise<AccountConfigPage> {
+
+    }
+
+  instance.page = function page(params?: AccountConfigListInstancePageOptions | ((error: Error | null, items: AccountConfigPage) => any), callback?: (error: Error | null, items: AccountConfigPage) => any): Promise<AccountConfigPage> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -525,97 +463,74 @@ export function AccountConfigListInstance(
 
     let data: any = {};
 
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
 
+    
+    
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-      operationPromise = operationVersion.page({
-        uri: instance._uri,
-        method: "get",
-        params: data,
-        headers,
-      });
+        operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers });
+    
+    operationPromise = operationPromise.then(payload => new AccountConfigPage(operationVersion, payload, instance._solution));
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new AccountConfigPage(operationVersion, payload, instance._solution)
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
+
+  }
   instance.each = instance._version.each;
   instance.list = instance._version.list;
 
-  instance.getPage = function getPage(
-    targetUrl: string,
-    callback?: (error: Error | null, items: AccountConfigPage) => any
-  ): Promise<AccountConfigPage> {
-    const operationPromise = instance._version._domain.twilio.request({
-      method: "get",
-      uri: targetUrl,
-    });
+  instance.getPage = function getPage(targetUrl: string, callback?: (error: Error | null, items: AccountConfigPage) => any): Promise<AccountConfigPage> {
+    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
 
-    let pagePromise = operationPromise.then(
-      (payload) =>
-        new AccountConfigPage(instance._version, payload, instance._solution)
-    );
+    let pagePromise = operationPromise.then(payload => new AccountConfigPage(instance._version, payload, instance._solution));
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  };
+  }
+
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  };
+  }
 
-  instance[inspect.custom] = function inspectImpl(
-    _depth: any,
-    options: InspectOptions
-  ) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(instance.toJSON(), options);
-  };
+  }
 
   return instance;
 }
 
-export class AccountConfigPage extends Page<
-  V1,
-  AccountConfigPayload,
-  AccountConfigResource,
-  AccountConfigInstance
-> {
-  /**
-   * Initialize the AccountConfigPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(
-    version: V1,
-    response: Response<string>,
-    solution: AccountConfigSolution
-  ) {
+export class AccountConfigPage extends Page<V1, AccountConfigPayload, AccountConfigResource, AccountConfigInstance> {
+/**
+* Initialize the AccountConfigPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V1, response: Response<string>, solution: AccountConfigSolution) {
     super(version, response, solution);
-  }
+    }
 
-  /**
-   * Build an instance of AccountConfigInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: AccountConfigResource): AccountConfigInstance {
-    return new AccountConfigInstance(this._version, payload);
-  }
+    /**
+    * Build an instance of AccountConfigInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: AccountConfigResource): AccountConfigInstance {
+    return new AccountConfigInstance(
+    this._version,
+    payload,
+    );
+    }
 
-  [inspect.custom](depth: any, options: InspectOptions) {
+    [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-  }
-}
+    }
+    }
+

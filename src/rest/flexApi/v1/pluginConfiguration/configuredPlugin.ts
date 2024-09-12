@@ -12,6 +12,7 @@
  * Do not edit the class manually.
  */
 
+
 import { inspect, InspectOptions } from "util";
 import Page, { TwilioResponsePayload } from "../../../../base/Page";
 import Response from "../../../../http/response";
@@ -20,26 +21,25 @@ const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
 
+
+
 /**
  * Options to pass to fetch a ConfiguredPluginInstance
  */
 export interface ConfiguredPluginContextFetchOptions {
   /** The Flex-Metadata HTTP request header */
-  flexMetadata?: string;
+  "flexMetadata"?: string;
 }
 /**
  * Options to pass to each
  */
 export interface ConfiguredPluginListInstanceEachOptions {
   /** The Flex-Metadata HTTP request header */
-  flexMetadata?: string;
+  "flexMetadata"?: string;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
-  callback?: (
-    item: ConfiguredPluginInstance,
-    done: (err?: Error) => void
-  ) => void;
+  callback?: (item: ConfiguredPluginInstance, done: (err?: Error) => void) => void;
   /** Function to be called upon completion of streaming */
   done?: Function;
   /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
@@ -51,9 +51,9 @@ export interface ConfiguredPluginListInstanceEachOptions {
  */
 export interface ConfiguredPluginListInstanceOptions {
   /** The Flex-Metadata HTTP request header */
-  flexMetadata?: string;
+  "flexMetadata"?: string;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
@@ -63,16 +63,18 @@ export interface ConfiguredPluginListInstanceOptions {
  */
 export interface ConfiguredPluginListInstancePageOptions {
   /** The Flex-Metadata HTTP request header */
-  flexMetadata?: string;
+  "flexMetadata"?: string;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
   /** PageToken provided by the API */
   pageToken?: string;
 }
 
+
 export interface ConfiguredPluginContext {
+
   /**
    * Fetch a ConfiguredPluginInstance
    *
@@ -80,9 +82,7 @@ export interface ConfiguredPluginContext {
    *
    * @returns Resolves to processed ConfiguredPluginInstance
    */
-  fetch(
-    callback?: (error: Error | null, item?: ConfiguredPluginInstance) => any
-  ): Promise<ConfiguredPluginInstance>;
+  fetch(callback?: (error: Error | null, item?: ConfiguredPluginInstance) => any): Promise<ConfiguredPluginInstance>;
   /**
    * Fetch a ConfiguredPluginInstance
    *
@@ -91,10 +91,8 @@ export interface ConfiguredPluginContext {
    *
    * @returns Resolves to processed ConfiguredPluginInstance
    */
-  fetch(
-    params: ConfiguredPluginContextFetchOptions,
-    callback?: (error: Error | null, item?: ConfiguredPluginInstance) => any
-  ): Promise<ConfiguredPluginInstance>;
+  fetch(params: ConfiguredPluginContextFetchOptions, callback?: (error: Error | null, item?: ConfiguredPluginInstance) => any): Promise<ConfiguredPluginInstance>;
+
 
   /**
    * Provide a user-friendly representation
@@ -104,38 +102,30 @@ export interface ConfiguredPluginContext {
 }
 
 export interface ConfiguredPluginContextSolution {
-  configurationSid: string;
-  pluginSid: string;
+  "configurationSid": string;
+  "pluginSid": string;
 }
 
 export class ConfiguredPluginContextImpl implements ConfiguredPluginContext {
   protected _solution: ConfiguredPluginContextSolution;
   protected _uri: string;
 
-  constructor(
-    protected _version: V1,
-    configurationSid: string,
-    pluginSid: string
-  ) {
+
+  constructor(protected _version: V1, configurationSid: string, pluginSid: string) {
     if (!isValidPathParam(configurationSid)) {
-      throw new Error("Parameter 'configurationSid' is not valid.");
+      throw new Error('Parameter \'configurationSid\' is not valid.');
     }
 
     if (!isValidPathParam(pluginSid)) {
-      throw new Error("Parameter 'pluginSid' is not valid.");
+      throw new Error('Parameter \'pluginSid\' is not valid.');
     }
 
-    this._solution = { configurationSid, pluginSid };
+    this._solution = { configurationSid, pluginSid,  };
     this._uri = `/PluginService/Configurations/${configurationSid}/Plugins/${pluginSid}`;
   }
 
-  fetch(
-    params?:
-      | ConfiguredPluginContextFetchOptions
-      | ((error: Error | null, item?: ConfiguredPluginInstance) => any),
-    callback?: (error: Error | null, item?: ConfiguredPluginInstance) => any
-  ): Promise<ConfiguredPluginInstance> {
-    if (params instanceof Function) {
+  fetch(params?: ConfiguredPluginContextFetchOptions | ((error: Error | null, item?: ConfiguredPluginInstance) => any), callback?: (error: Error | null, item?: ConfiguredPluginInstance) => any): Promise<ConfiguredPluginInstance> {
+      if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -144,34 +134,24 @@ export class ConfiguredPluginContextImpl implements ConfiguredPluginContext {
 
     let data: any = {};
 
+    
+    
+    
+
     const headers: any = {};
-    if (params["flexMetadata"] !== undefined)
-      headers["Flex-Metadata"] = params["flexMetadata"];
+    if (params["flexMetadata"] !== undefined) headers["Flex-Metadata"] = params["flexMetadata"];
 
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.fetch({
-        uri: instance._uri,
-        method: "get",
-        params: data,
-        headers,
-      });
+        operationPromise = operationVersion.fetch({ uri: instance._uri, method: "get", params: data, headers });
+    
+    operationPromise = operationPromise.then(payload => new ConfiguredPluginInstance(operationVersion, payload, instance._solution.configurationSid, instance._solution.pluginSid));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new ConfiguredPluginInstance(
-          operationVersion,
-          payload,
-          instance._solution.configurationSid,
-          instance._solution.pluginSid
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
   /**
@@ -188,8 +168,9 @@ export class ConfiguredPluginContextImpl implements ConfiguredPluginContext {
   }
 }
 
+
 interface ConfiguredPluginPayload extends TwilioResponsePayload {
-  plugins: ConfiguredPluginResource[];
+    plugins: ConfiguredPluginResource[];
 }
 
 interface ConfiguredPluginResource {
@@ -215,33 +196,25 @@ export class ConfiguredPluginInstance {
   protected _solution: ConfiguredPluginContextSolution;
   protected _context?: ConfiguredPluginContext;
 
-  constructor(
-    protected _version: V1,
-    payload: ConfiguredPluginResource,
-    configurationSid: string,
-    pluginSid?: string
-  ) {
-    this.accountSid = payload.account_sid;
-    this.configurationSid = payload.configuration_sid;
-    this.pluginSid = payload.plugin_sid;
-    this.pluginVersionSid = payload.plugin_version_sid;
+  constructor(protected _version: V1, payload: ConfiguredPluginResource, configurationSid: string, pluginSid?: string) {
+    this.accountSid = (payload.account_sid);
+    this.configurationSid = (payload.configuration_sid);
+    this.pluginSid = (payload.plugin_sid);
+    this.pluginVersionSid = (payload.plugin_version_sid);
     this.phase = deserialize.integer(payload.phase);
-    this.pluginUrl = payload.plugin_url;
-    this.uniqueName = payload.unique_name;
-    this.friendlyName = payload.friendly_name;
-    this.description = payload.description;
-    this.pluginArchived = payload.plugin_archived;
-    this.version = payload.version;
-    this.changelog = payload.changelog;
-    this.pluginVersionArchived = payload.plugin_version_archived;
-    this._private = payload.private;
+    this.pluginUrl = (payload.plugin_url);
+    this.uniqueName = (payload.unique_name);
+    this.friendlyName = (payload.friendly_name);
+    this.description = (payload.description);
+    this.pluginArchived = (payload.plugin_archived);
+    this.version = (payload.version);
+    this.changelog = (payload.changelog);
+    this.pluginVersionArchived = (payload.plugin_version_archived);
+    this._private = (payload.private);
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
-    this.url = payload.url;
+    this.url = (payload.url);
 
-    this._solution = {
-      configurationSid,
-      pluginSid: pluginSid || this.pluginSid,
-    };
+    this._solution = { configurationSid, pluginSid: pluginSid || this.pluginSid,  };
   }
 
   /**
@@ -310,13 +283,7 @@ export class ConfiguredPluginInstance {
   url: string;
 
   private get _proxy(): ConfiguredPluginContext {
-    this._context =
-      this._context ||
-      new ConfiguredPluginContextImpl(
-        this._version,
-        this._solution.configurationSid,
-        this._solution.pluginSid
-      );
+    this._context = this._context || new ConfiguredPluginContextImpl(this._version, this._solution.configurationSid, this._solution.pluginSid);
     return this._context;
   }
 
@@ -327,9 +294,7 @@ export class ConfiguredPluginInstance {
    *
    * @returns Resolves to processed ConfiguredPluginInstance
    */
-  fetch(
-    callback?: (error: Error | null, item?: ConfiguredPluginInstance) => any
-  ): Promise<ConfiguredPluginInstance>;
+  fetch(callback?: (error: Error | null, item?: ConfiguredPluginInstance) => any): Promise<ConfiguredPluginInstance>;
   /**
    * Fetch a ConfiguredPluginInstance
    *
@@ -338,15 +303,10 @@ export class ConfiguredPluginInstance {
    *
    * @returns Resolves to processed ConfiguredPluginInstance
    */
-  fetch(
-    params: ConfiguredPluginContextFetchOptions,
-    callback?: (error: Error | null, item?: ConfiguredPluginInstance) => any
-  ): Promise<ConfiguredPluginInstance>;
+  fetch(params: ConfiguredPluginContextFetchOptions, callback?: (error: Error | null, item?: ConfiguredPluginInstance) => any): Promise<ConfiguredPluginInstance>;
 
-  fetch(
-    params?: any,
-    callback?: (error: Error | null, item?: ConfiguredPluginInstance) => any
-  ): Promise<ConfiguredPluginInstance> {
+    fetch(params?: any, callback?: (error: Error | null, item?: ConfiguredPluginInstance) => any): Promise<ConfiguredPluginInstance>
+    {
     return this._proxy.fetch(params, callback);
   }
 
@@ -373,13 +333,14 @@ export class ConfiguredPluginInstance {
       _private: this._private,
       dateCreated: this.dateCreated,
       url: this.url,
-    };
+    }
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
 }
+
 
 export interface ConfiguredPluginSolution {
   configurationSid: string;
@@ -390,8 +351,12 @@ export interface ConfiguredPluginListInstance {
   _solution: ConfiguredPluginSolution;
   _uri: string;
 
-  (pluginSid: string): ConfiguredPluginContext;
-  get(pluginSid: string): ConfiguredPluginContext;
+  (pluginSid: string, ): ConfiguredPluginContext;
+  get(pluginSid: string, ): ConfiguredPluginContext;
+
+
+
+
 
   /**
    * Streams ConfiguredPluginInstance records from the API.
@@ -408,19 +373,8 @@ export interface ConfiguredPluginListInstance {
    * @param { ConfiguredPluginListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(
-    callback?: (
-      item: ConfiguredPluginInstance,
-      done: (err?: Error) => void
-    ) => void
-  ): void;
-  each(
-    params: ConfiguredPluginListInstanceEachOptions,
-    callback?: (
-      item: ConfiguredPluginInstance,
-      done: (err?: Error) => void
-    ) => void
-  ): void;
+  each(callback?: (item: ConfiguredPluginInstance, done: (err?: Error) => void) => void): void;
+  each(params: ConfiguredPluginListInstanceEachOptions, callback?: (item: ConfiguredPluginInstance, done: (err?: Error) => void) => void): void;
   /**
    * Retrieve a single target page of ConfiguredPluginInstance records from the API.
    *
@@ -429,10 +383,7 @@ export interface ConfiguredPluginListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(
-    targetUrl: string,
-    callback?: (error: Error | null, items: ConfiguredPluginPage) => any
-  ): Promise<ConfiguredPluginPage>;
+  getPage(targetUrl: string, callback?: (error: Error | null, items: ConfiguredPluginPage) => any): Promise<ConfiguredPluginPage>;
   /**
    * Lists ConfiguredPluginInstance records from the API as a list.
    *
@@ -442,13 +393,8 @@ export interface ConfiguredPluginListInstance {
    * @param { ConfiguredPluginListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(
-    callback?: (error: Error | null, items: ConfiguredPluginInstance[]) => any
-  ): Promise<ConfiguredPluginInstance[]>;
-  list(
-    params: ConfiguredPluginListInstanceOptions,
-    callback?: (error: Error | null, items: ConfiguredPluginInstance[]) => any
-  ): Promise<ConfiguredPluginInstance[]>;
+  list(callback?: (error: Error | null, items: ConfiguredPluginInstance[]) => any): Promise<ConfiguredPluginInstance[]>;
+  list(params: ConfiguredPluginListInstanceOptions, callback?: (error: Error | null, items: ConfiguredPluginInstance[]) => any): Promise<ConfiguredPluginInstance[]>;
   /**
    * Retrieve a single page of ConfiguredPluginInstance records from the API.
    *
@@ -460,13 +406,8 @@ export interface ConfiguredPluginListInstance {
    * @param { ConfiguredPluginListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(
-    callback?: (error: Error | null, items: ConfiguredPluginPage) => any
-  ): Promise<ConfiguredPluginPage>;
-  page(
-    params: ConfiguredPluginListInstancePageOptions,
-    callback?: (error: Error | null, items: ConfiguredPluginPage) => any
-  ): Promise<ConfiguredPluginPage>;
+  page(callback?: (error: Error | null, items: ConfiguredPluginPage) => any): Promise<ConfiguredPluginPage>;
+  page(params: ConfiguredPluginListInstancePageOptions, callback?: (error: Error | null, items: ConfiguredPluginPage) => any): Promise<ConfiguredPluginPage>;
 
   /**
    * Provide a user-friendly representation
@@ -475,35 +416,22 @@ export interface ConfiguredPluginListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function ConfiguredPluginListInstance(
-  version: V1,
-  configurationSid: string
-): ConfiguredPluginListInstance {
+export function ConfiguredPluginListInstance(version: V1, configurationSid: string): ConfiguredPluginListInstance {
   if (!isValidPathParam(configurationSid)) {
-    throw new Error("Parameter 'configurationSid' is not valid.");
+    throw new Error('Parameter \'configurationSid\' is not valid.');
   }
 
-  const instance = ((pluginSid) =>
-    instance.get(pluginSid)) as ConfiguredPluginListInstance;
+  const instance = ((pluginSid, ) => instance.get(pluginSid, )) as ConfiguredPluginListInstance;
 
-  instance.get = function get(pluginSid): ConfiguredPluginContext {
-    return new ConfiguredPluginContextImpl(
-      version,
-      configurationSid,
-      pluginSid
-    );
-  };
+  instance.get = function get(pluginSid, ): ConfiguredPluginContext {
+    return new ConfiguredPluginContextImpl(version, configurationSid, pluginSid);
+  }
 
   instance._version = version;
-  instance._solution = { configurationSid };
+  instance._solution = { configurationSid,  };
   instance._uri = `/PluginService/Configurations/${configurationSid}/Plugins`;
 
-  instance.page = function page(
-    params?:
-      | ConfiguredPluginListInstancePageOptions
-      | ((error: Error | null, items: ConfiguredPluginPage) => any),
-    callback?: (error: Error | null, items: ConfiguredPluginPage) => any
-  ): Promise<ConfiguredPluginPage> {
+  instance.page = function page(params?: ConfiguredPluginListInstancePageOptions | ((error: Error | null, items: ConfiguredPluginPage) => any), callback?: (error: Error | null, items: ConfiguredPluginPage) => any): Promise<ConfiguredPluginPage> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -513,103 +441,76 @@ export function ConfiguredPluginListInstance(
 
     let data: any = {};
 
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
 
+    
+    
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
-    if (params["flexMetadata"] !== undefined)
-      headers["Flex-Metadata"] = params["flexMetadata"];
+    if (params["flexMetadata"] !== undefined) headers["Flex-Metadata"] = params["flexMetadata"];
 
     let operationVersion = version,
-      operationPromise = operationVersion.page({
-        uri: instance._uri,
-        method: "get",
-        params: data,
-        headers,
-      });
+        operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers });
+    
+    operationPromise = operationPromise.then(payload => new ConfiguredPluginPage(operationVersion, payload, instance._solution));
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new ConfiguredPluginPage(operationVersion, payload, instance._solution)
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
+
+  }
   instance.each = instance._version.each;
   instance.list = instance._version.list;
 
-  instance.getPage = function getPage(
-    targetUrl: string,
-    callback?: (error: Error | null, items: ConfiguredPluginPage) => any
-  ): Promise<ConfiguredPluginPage> {
-    const operationPromise = instance._version._domain.twilio.request({
-      method: "get",
-      uri: targetUrl,
-    });
+  instance.getPage = function getPage(targetUrl: string, callback?: (error: Error | null, items: ConfiguredPluginPage) => any): Promise<ConfiguredPluginPage> {
+    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
 
-    let pagePromise = operationPromise.then(
-      (payload) =>
-        new ConfiguredPluginPage(instance._version, payload, instance._solution)
-    );
+    let pagePromise = operationPromise.then(payload => new ConfiguredPluginPage(instance._version, payload, instance._solution));
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  };
+  }
+
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  };
+  }
 
-  instance[inspect.custom] = function inspectImpl(
-    _depth: any,
-    options: InspectOptions
-  ) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(instance.toJSON(), options);
-  };
+  }
 
   return instance;
 }
 
-export class ConfiguredPluginPage extends Page<
-  V1,
-  ConfiguredPluginPayload,
-  ConfiguredPluginResource,
-  ConfiguredPluginInstance
-> {
-  /**
-   * Initialize the ConfiguredPluginPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(
-    version: V1,
-    response: Response<string>,
-    solution: ConfiguredPluginSolution
-  ) {
+export class ConfiguredPluginPage extends Page<V1, ConfiguredPluginPayload, ConfiguredPluginResource, ConfiguredPluginInstance> {
+/**
+* Initialize the ConfiguredPluginPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V1, response: Response<string>, solution: ConfiguredPluginSolution) {
     super(version, response, solution);
-  }
+    }
 
-  /**
-   * Build an instance of ConfiguredPluginInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: ConfiguredPluginResource): ConfiguredPluginInstance {
+    /**
+    * Build an instance of ConfiguredPluginInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: ConfiguredPluginResource): ConfiguredPluginInstance {
     return new ConfiguredPluginInstance(
-      this._version,
-      payload,
-      this._solution.configurationSid
+    this._version,
+    payload,
+        this._solution.configurationSid,
     );
-  }
+    }
 
-  [inspect.custom](depth: any, options: InspectOptions) {
+    [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-  }
-}
+    }
+    }
+

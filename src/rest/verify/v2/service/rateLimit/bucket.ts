@@ -12,6 +12,7 @@
  * Do not edit the class manually.
  */
 
+
 import { inspect, InspectOptions } from "util";
 import Page, { TwilioResponsePayload } from "../../../../../base/Page";
 import Response from "../../../../../http/response";
@@ -20,14 +21,18 @@ const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
 
+
+
+
+
 /**
  * Options to pass to update a BucketInstance
  */
 export interface BucketContextUpdateOptions {
   /** Maximum number of requests permitted in during the interval. */
-  max?: number;
+  "max"?: number;
   /** Number of seconds that the rate limit will be enforced over. */
-  interval?: number;
+  "interval"?: number;
 }
 
 /**
@@ -35,16 +40,16 @@ export interface BucketContextUpdateOptions {
  */
 export interface BucketListInstanceCreateOptions {
   /** Maximum number of requests permitted in during the interval. */
-  max: number;
+  "max": number;
   /** Number of seconds that the rate limit will be enforced over. */
-  interval: number;
+  "interval": number;
 }
 /**
  * Options to pass to each
  */
 export interface BucketListInstanceEachOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: BucketInstance, done: (err?: Error) => void) => void;
   /** Function to be called upon completion of streaming */
@@ -58,7 +63,7 @@ export interface BucketListInstanceEachOptions {
  */
 export interface BucketListInstanceOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
@@ -68,14 +73,16 @@ export interface BucketListInstanceOptions {
  */
 export interface BucketListInstancePageOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
   /** PageToken provided by the API */
   pageToken?: string;
 }
 
+
 export interface BucketContext {
+
   /**
    * Remove a BucketInstance
    *
@@ -83,9 +90,7 @@ export interface BucketContext {
    *
    * @returns Resolves to processed boolean
    */
-  remove(
-    callback?: (error: Error | null, item?: boolean) => any
-  ): Promise<boolean>;
+  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
 
   /**
    * Fetch a BucketInstance
@@ -94,9 +99,7 @@ export interface BucketContext {
    *
    * @returns Resolves to processed BucketInstance
    */
-  fetch(
-    callback?: (error: Error | null, item?: BucketInstance) => any
-  ): Promise<BucketInstance>;
+  fetch(callback?: (error: Error | null, item?: BucketInstance) => any): Promise<BucketInstance>
 
   /**
    * Update a BucketInstance
@@ -105,9 +108,7 @@ export interface BucketContext {
    *
    * @returns Resolves to processed BucketInstance
    */
-  update(
-    callback?: (error: Error | null, item?: BucketInstance) => any
-  ): Promise<BucketInstance>;
+  update(callback?: (error: Error | null, item?: BucketInstance) => any): Promise<BucketInstance>;
   /**
    * Update a BucketInstance
    *
@@ -116,10 +117,9 @@ export interface BucketContext {
    *
    * @returns Resolves to processed BucketInstance
    */
-  update(
-    params: BucketContextUpdateOptions,
-    callback?: (error: Error | null, item?: BucketInstance) => any
-  ): Promise<BucketInstance>;
+  update(params: BucketContextUpdateOptions, callback?: (error: Error | null, item?: BucketInstance) => any): Promise<BucketInstance>;
+
+
 
   /**
    * Provide a user-friendly representation
@@ -129,89 +129,63 @@ export interface BucketContext {
 }
 
 export interface BucketContextSolution {
-  serviceSid: string;
-  rateLimitSid: string;
-  sid: string;
+  "serviceSid": string;
+  "rateLimitSid": string;
+  "sid": string;
 }
 
 export class BucketContextImpl implements BucketContext {
   protected _solution: BucketContextSolution;
   protected _uri: string;
 
-  constructor(
-    protected _version: V2,
-    serviceSid: string,
-    rateLimitSid: string,
-    sid: string
-  ) {
+
+  constructor(protected _version: V2, serviceSid: string, rateLimitSid: string, sid: string) {
     if (!isValidPathParam(serviceSid)) {
-      throw new Error("Parameter 'serviceSid' is not valid.");
+      throw new Error('Parameter \'serviceSid\' is not valid.');
     }
 
     if (!isValidPathParam(rateLimitSid)) {
-      throw new Error("Parameter 'rateLimitSid' is not valid.");
+      throw new Error('Parameter \'rateLimitSid\' is not valid.');
     }
 
     if (!isValidPathParam(sid)) {
-      throw new Error("Parameter 'sid' is not valid.");
+      throw new Error('Parameter \'sid\' is not valid.');
     }
 
-    this._solution = { serviceSid, rateLimitSid, sid };
+    this._solution = { serviceSid, rateLimitSid, sid,  };
     this._uri = `/Services/${serviceSid}/RateLimits/${rateLimitSid}/Buckets/${sid}`;
   }
 
-  remove(
-    callback?: (error: Error | null, item?: boolean) => any
-  ): Promise<boolean> {
+  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean> {
+  
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.remove({
-        uri: instance._uri,
-        method: "delete",
-      });
+        operationPromise = operationVersion.remove({ uri: instance._uri, method: "delete" });
+    
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
-  fetch(
-    callback?: (error: Error | null, item?: BucketInstance) => any
-  ): Promise<BucketInstance> {
+  fetch(callback?: (error: Error | null, item?: BucketInstance) => any): Promise<BucketInstance> {
+  
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.fetch({
-        uri: instance._uri,
-        method: "get",
-      });
+        operationPromise = operationVersion.fetch({ uri: instance._uri, method: "get" });
+    
+    operationPromise = operationPromise.then(payload => new BucketInstance(operationVersion, payload, instance._solution.serviceSid, instance._solution.rateLimitSid, instance._solution.sid));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new BucketInstance(
-          operationVersion,
-          payload,
-          instance._solution.serviceSid,
-          instance._solution.rateLimitSid,
-          instance._solution.sid
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
-  update(
-    params?:
-      | BucketContextUpdateOptions
-      | ((error: Error | null, item?: BucketInstance) => any),
-    callback?: (error: Error | null, item?: BucketInstance) => any
-  ): Promise<BucketInstance> {
-    if (params instanceof Function) {
+  update(params?: BucketContextUpdateOptions | ((error: Error | null, item?: BucketInstance) => any), callback?: (error: Error | null, item?: BucketInstance) => any): Promise<BucketInstance> {
+      if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -220,37 +194,28 @@ export class BucketContextImpl implements BucketContext {
 
     let data: any = {};
 
-    if (params["max"] !== undefined) data["Max"] = params["max"];
-    if (params["interval"] !== undefined) data["Interval"] = params["interval"];
+    
+        if (params["max"] !== undefined)
+    data["Max"] = params["max"];
+    if (params["interval"] !== undefined)
+    data["Interval"] = params["interval"];
+
+    
 
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.update({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      });
+        operationPromise = operationVersion.update({ uri: instance._uri, method: "post", data, headers });
+    
+    operationPromise = operationPromise.then(payload => new BucketInstance(operationVersion, payload, instance._solution.serviceSid, instance._solution.rateLimitSid, instance._solution.sid));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new BucketInstance(
-          operationVersion,
-          payload,
-          instance._solution.serviceSid,
-          instance._solution.rateLimitSid,
-          instance._solution.sid
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
   /**
@@ -267,8 +232,9 @@ export class BucketContextImpl implements BucketContext {
   }
 }
 
+
 interface BucketPayload extends TwilioResponsePayload {
-  buckets: BucketResource[];
+    buckets: BucketResource[];
 }
 
 interface BucketResource {
@@ -287,24 +253,18 @@ export class BucketInstance {
   protected _solution: BucketContextSolution;
   protected _context?: BucketContext;
 
-  constructor(
-    protected _version: V2,
-    payload: BucketResource,
-    serviceSid: string,
-    rateLimitSid: string,
-    sid?: string
-  ) {
-    this.sid = payload.sid;
-    this.rateLimitSid = payload.rate_limit_sid;
-    this.serviceSid = payload.service_sid;
-    this.accountSid = payload.account_sid;
+  constructor(protected _version: V2, payload: BucketResource, serviceSid: string, rateLimitSid: string, sid?: string) {
+    this.sid = (payload.sid);
+    this.rateLimitSid = (payload.rate_limit_sid);
+    this.serviceSid = (payload.service_sid);
+    this.accountSid = (payload.account_sid);
     this.max = deserialize.integer(payload.max);
     this.interval = deserialize.integer(payload.interval);
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
-    this.url = payload.url;
+    this.url = (payload.url);
 
-    this._solution = { serviceSid, rateLimitSid, sid: sid || this.sid };
+    this._solution = { serviceSid, rateLimitSid, sid: sid || this.sid,  };
   }
 
   /**
@@ -345,14 +305,7 @@ export class BucketInstance {
   url: string;
 
   private get _proxy(): BucketContext {
-    this._context =
-      this._context ||
-      new BucketContextImpl(
-        this._version,
-        this._solution.serviceSid,
-        this._solution.rateLimitSid,
-        this._solution.sid
-      );
+    this._context = this._context || new BucketContextImpl(this._version, this._solution.serviceSid, this._solution.rateLimitSid, this._solution.sid);
     return this._context;
   }
 
@@ -363,9 +316,9 @@ export class BucketInstance {
    *
    * @returns Resolves to processed boolean
    */
-  remove(
-    callback?: (error: Error | null, item?: boolean) => any
-  ): Promise<boolean> {
+  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
+
+    {
     return this._proxy.remove(callback);
   }
 
@@ -376,9 +329,9 @@ export class BucketInstance {
    *
    * @returns Resolves to processed BucketInstance
    */
-  fetch(
-    callback?: (error: Error | null, item?: BucketInstance) => any
-  ): Promise<BucketInstance> {
+  fetch(callback?: (error: Error | null, item?: BucketInstance) => any): Promise<BucketInstance>
+
+    {
     return this._proxy.fetch(callback);
   }
 
@@ -389,9 +342,7 @@ export class BucketInstance {
    *
    * @returns Resolves to processed BucketInstance
    */
-  update(
-    callback?: (error: Error | null, item?: BucketInstance) => any
-  ): Promise<BucketInstance>;
+  update(callback?: (error: Error | null, item?: BucketInstance) => any): Promise<BucketInstance>;
   /**
    * Update a BucketInstance
    *
@@ -400,15 +351,10 @@ export class BucketInstance {
    *
    * @returns Resolves to processed BucketInstance
    */
-  update(
-    params: BucketContextUpdateOptions,
-    callback?: (error: Error | null, item?: BucketInstance) => any
-  ): Promise<BucketInstance>;
+  update(params: BucketContextUpdateOptions, callback?: (error: Error | null, item?: BucketInstance) => any): Promise<BucketInstance>;
 
-  update(
-    params?: any,
-    callback?: (error: Error | null, item?: BucketInstance) => any
-  ): Promise<BucketInstance> {
+    update(params?: any, callback?: (error: Error | null, item?: BucketInstance) => any): Promise<BucketInstance>
+    {
     return this._proxy.update(params, callback);
   }
 
@@ -428,13 +374,14 @@ export class BucketInstance {
       dateCreated: this.dateCreated,
       dateUpdated: this.dateUpdated,
       url: this.url,
-    };
+    }
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
 }
+
 
 export interface BucketSolution {
   serviceSid: string;
@@ -446,8 +393,15 @@ export interface BucketListInstance {
   _solution: BucketSolution;
   _uri: string;
 
-  (sid: string): BucketContext;
-  get(sid: string): BucketContext;
+  (sid: string, ): BucketContext;
+  get(sid: string, ): BucketContext;
+
+
+
+
+
+
+
 
   /**
    * Create a BucketInstance
@@ -457,10 +411,9 @@ export interface BucketListInstance {
    *
    * @returns Resolves to processed BucketInstance
    */
-  create(
-    params: BucketListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: BucketInstance) => any
-  ): Promise<BucketInstance>;
+  create(params: BucketListInstanceCreateOptions, callback?: (error: Error | null, item?: BucketInstance) => any): Promise<BucketInstance>;
+
+
 
   /**
    * Streams BucketInstance records from the API.
@@ -477,13 +430,8 @@ export interface BucketListInstance {
    * @param { BucketListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(
-    callback?: (item: BucketInstance, done: (err?: Error) => void) => void
-  ): void;
-  each(
-    params: BucketListInstanceEachOptions,
-    callback?: (item: BucketInstance, done: (err?: Error) => void) => void
-  ): void;
+  each(callback?: (item: BucketInstance, done: (err?: Error) => void) => void): void;
+  each(params: BucketListInstanceEachOptions, callback?: (item: BucketInstance, done: (err?: Error) => void) => void): void;
   /**
    * Retrieve a single target page of BucketInstance records from the API.
    *
@@ -492,10 +440,7 @@ export interface BucketListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(
-    targetUrl: string,
-    callback?: (error: Error | null, items: BucketPage) => any
-  ): Promise<BucketPage>;
+  getPage(targetUrl: string, callback?: (error: Error | null, items: BucketPage) => any): Promise<BucketPage>;
   /**
    * Lists BucketInstance records from the API as a list.
    *
@@ -505,13 +450,8 @@ export interface BucketListInstance {
    * @param { BucketListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(
-    callback?: (error: Error | null, items: BucketInstance[]) => any
-  ): Promise<BucketInstance[]>;
-  list(
-    params: BucketListInstanceOptions,
-    callback?: (error: Error | null, items: BucketInstance[]) => any
-  ): Promise<BucketInstance[]>;
+  list(callback?: (error: Error | null, items: BucketInstance[]) => any): Promise<BucketInstance[]>;
+  list(params: BucketListInstanceOptions, callback?: (error: Error | null, items: BucketInstance[]) => any): Promise<BucketInstance[]>;
   /**
    * Retrieve a single page of BucketInstance records from the API.
    *
@@ -523,13 +463,8 @@ export interface BucketListInstance {
    * @param { BucketListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(
-    callback?: (error: Error | null, items: BucketPage) => any
-  ): Promise<BucketPage>;
-  page(
-    params: BucketListInstancePageOptions,
-    callback?: (error: Error | null, items: BucketPage) => any
-  ): Promise<BucketPage>;
+  page(callback?: (error: Error | null, items: BucketPage) => any): Promise<BucketPage>;
+  page(params: BucketListInstancePageOptions, callback?: (error: Error | null, items: BucketPage) => any): Promise<BucketPage>;
 
   /**
    * Provide a user-friendly representation
@@ -538,85 +473,64 @@ export interface BucketListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function BucketListInstance(
-  version: V2,
-  serviceSid: string,
-  rateLimitSid: string
-): BucketListInstance {
+export function BucketListInstance(version: V2, serviceSid: string, rateLimitSid: string): BucketListInstance {
   if (!isValidPathParam(serviceSid)) {
-    throw new Error("Parameter 'serviceSid' is not valid.");
+    throw new Error('Parameter \'serviceSid\' is not valid.');
   }
 
   if (!isValidPathParam(rateLimitSid)) {
-    throw new Error("Parameter 'rateLimitSid' is not valid.");
+    throw new Error('Parameter \'rateLimitSid\' is not valid.');
   }
 
-  const instance = ((sid) => instance.get(sid)) as BucketListInstance;
+  const instance = ((sid, ) => instance.get(sid, )) as BucketListInstance;
 
-  instance.get = function get(sid): BucketContext {
+  instance.get = function get(sid, ): BucketContext {
     return new BucketContextImpl(version, serviceSid, rateLimitSid, sid);
-  };
+  }
 
   instance._version = version;
-  instance._solution = { serviceSid, rateLimitSid };
+  instance._solution = { serviceSid, rateLimitSid,  };
   instance._uri = `/Services/${serviceSid}/RateLimits/${rateLimitSid}/Buckets`;
 
-  instance.create = function create(
-    params: BucketListInstanceCreateOptions,
-    callback?: (error: Error | null, items: BucketInstance) => any
-  ): Promise<BucketInstance> {
+  instance.create = function create(params: BucketListInstanceCreateOptions, callback?: (error: Error | null, items: BucketInstance) => any): Promise<BucketInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     if (params["max"] === null || params["max"] === undefined) {
-      throw new Error("Required parameter \"params['max']\" missing.");
+      throw new Error('Required parameter "params[\'max\']" missing.');
     }
 
     if (params["interval"] === null || params["interval"] === undefined) {
-      throw new Error("Required parameter \"params['interval']\" missing.");
+      throw new Error('Required parameter "params[\'interval\']" missing.');
     }
 
     let data: any = {};
 
+    
+        
     data["Max"] = params["max"];
-
+    
     data["Interval"] = params["interval"];
 
+    
+
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = version,
-      operationPromise = operationVersion.create({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      });
+        operationPromise = operationVersion.create({ uri: instance._uri, method: "post", data, headers });
+    
+    operationPromise = operationPromise.then(payload => new BucketInstance(operationVersion, payload, instance._solution.serviceSid, instance._solution.rateLimitSid));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new BucketInstance(
-          operationVersion,
-          payload,
-          instance._solution.serviceSid,
-          instance._solution.rateLimitSid
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
 
-  instance.page = function page(
-    params?:
-      | BucketListInstancePageOptions
-      | ((error: Error | null, items: BucketPage) => any),
-    callback?: (error: Error | null, items: BucketPage) => any
-  ): Promise<BucketPage> {
+
+    }
+
+  instance.page = function page(params?: BucketListInstancePageOptions | ((error: Error | null, items: BucketPage) => any), callback?: (error: Error | null, items: BucketPage) => any): Promise<BucketPage> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -626,101 +540,76 @@ export function BucketListInstance(
 
     let data: any = {};
 
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
 
+    
+    
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-      operationPromise = operationVersion.page({
-        uri: instance._uri,
-        method: "get",
-        params: data,
-        headers,
-      });
+        operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers });
+    
+    operationPromise = operationPromise.then(payload => new BucketPage(operationVersion, payload, instance._solution));
 
-    operationPromise = operationPromise.then(
-      (payload) => new BucketPage(operationVersion, payload, instance._solution)
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
+
+  }
   instance.each = instance._version.each;
   instance.list = instance._version.list;
 
-  instance.getPage = function getPage(
-    targetUrl: string,
-    callback?: (error: Error | null, items: BucketPage) => any
-  ): Promise<BucketPage> {
-    const operationPromise = instance._version._domain.twilio.request({
-      method: "get",
-      uri: targetUrl,
-    });
+  instance.getPage = function getPage(targetUrl: string, callback?: (error: Error | null, items: BucketPage) => any): Promise<BucketPage> {
+    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
 
-    let pagePromise = operationPromise.then(
-      (payload) =>
-        new BucketPage(instance._version, payload, instance._solution)
-    );
+    let pagePromise = operationPromise.then(payload => new BucketPage(instance._version, payload, instance._solution));
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  };
+  }
+
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  };
+  }
 
-  instance[inspect.custom] = function inspectImpl(
-    _depth: any,
-    options: InspectOptions
-  ) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(instance.toJSON(), options);
-  };
+  }
 
   return instance;
 }
 
-export class BucketPage extends Page<
-  V2,
-  BucketPayload,
-  BucketResource,
-  BucketInstance
-> {
-  /**
-   * Initialize the BucketPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(
-    version: V2,
-    response: Response<string>,
-    solution: BucketSolution
-  ) {
+export class BucketPage extends Page<V2, BucketPayload, BucketResource, BucketInstance> {
+/**
+* Initialize the BucketPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V2, response: Response<string>, solution: BucketSolution) {
     super(version, response, solution);
-  }
+    }
 
-  /**
-   * Build an instance of BucketInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: BucketResource): BucketInstance {
+    /**
+    * Build an instance of BucketInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: BucketResource): BucketInstance {
     return new BucketInstance(
-      this._version,
-      payload,
-      this._solution.serviceSid,
-      this._solution.rateLimitSid
+    this._version,
+    payload,
+        this._solution.serviceSid,
+        this._solution.rateLimitSid,
     );
-  }
+    }
 
-  [inspect.custom](depth: any, options: InspectOptions) {
+    [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-  }
-}
+    }
+    }
+

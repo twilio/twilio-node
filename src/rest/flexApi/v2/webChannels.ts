@@ -12,34 +12,41 @@
  * Do not edit the class manually.
  */
 
+
 import { inspect, InspectOptions } from "util";
 import V2 from "../V2";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 
+
+
 /**
  * Options to pass to create a WebChannelsInstance
  */
 export interface WebChannelsListInstanceCreateOptions {
   /** The SID of the Conversations Address. See [Address Configuration Resource](https://www.twilio.com/docs/conversations/api/address-configuration-resource) for configuration details. When a conversation is created on the Flex backend, the callback URL will be set to the corresponding Studio Flow SID or webhook URL in your address configuration. */
-  addressSid: string;
+  "addressSid": string;
   /** The Ui-Version HTTP request header */
-  uiVersion?: string;
+  "uiVersion"?: string;
   /** The Conversation\\\'s friendly name. See the [Conversation resource](https://www.twilio.com/docs/conversations/api/conversation-resource) for an example. */
-  chatFriendlyName?: string;
+  "chatFriendlyName"?: string;
   /** The Conversation participant\\\'s friendly name. See the [Conversation Participant Resource](https://www.twilio.com/docs/conversations/api/conversation-participant-resource) for an example. */
-  customerFriendlyName?: string;
+  "customerFriendlyName"?: string;
   /** The pre-engagement data. */
-  preEngagementData?: string;
+  "preEngagementData"?: string;
 }
 
-export interface WebChannelsSolution {}
+
+export interface WebChannelsSolution {
+}
 
 export interface WebChannelsListInstance {
   _version: V2;
   _solution: WebChannelsSolution;
   _uri: string;
+
+
 
   /**
    * Create a WebChannelsInstance
@@ -49,10 +56,8 @@ export interface WebChannelsListInstance {
    *
    * @returns Resolves to processed WebChannelsInstance
    */
-  create(
-    params: WebChannelsListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: WebChannelsInstance) => any
-  ): Promise<WebChannelsInstance>;
+  create(params: WebChannelsListInstanceCreateOptions, callback?: (error: Error | null, item?: WebChannelsInstance) => any): Promise<WebChannelsInstance>;
+
 
   /**
    * Provide a user-friendly representation
@@ -65,65 +70,55 @@ export function WebChannelsListInstance(version: V2): WebChannelsListInstance {
   const instance = {} as WebChannelsListInstance;
 
   instance._version = version;
-  instance._solution = {};
+  instance._solution = {  };
   instance._uri = `/WebChats`;
 
-  instance.create = function create(
-    params: WebChannelsListInstanceCreateOptions,
-    callback?: (error: Error | null, items: WebChannelsInstance) => any
-  ): Promise<WebChannelsInstance> {
+  instance.create = function create(params: WebChannelsListInstanceCreateOptions, callback?: (error: Error | null, items: WebChannelsInstance) => any): Promise<WebChannelsInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     if (params["addressSid"] === null || params["addressSid"] === undefined) {
-      throw new Error("Required parameter \"params['addressSid']\" missing.");
+      throw new Error('Required parameter "params[\'addressSid\']" missing.');
     }
 
     let data: any = {};
 
+    
+        
     data["AddressSid"] = params["addressSid"];
     if (params["chatFriendlyName"] !== undefined)
-      data["ChatFriendlyName"] = params["chatFriendlyName"];
+    data["ChatFriendlyName"] = params["chatFriendlyName"];
     if (params["customerFriendlyName"] !== undefined)
-      data["CustomerFriendlyName"] = params["customerFriendlyName"];
+    data["CustomerFriendlyName"] = params["customerFriendlyName"];
     if (params["preEngagementData"] !== undefined)
-      data["PreEngagementData"] = params["preEngagementData"];
+    data["PreEngagementData"] = params["preEngagementData"];
+
+    
 
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded";
-    if (params["uiVersion"] !== undefined)
-      headers["Ui-Version"] = params["uiVersion"];
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    if (params["uiVersion"] !== undefined) headers["Ui-Version"] = params["uiVersion"];
 
     let operationVersion = version,
-      operationPromise = operationVersion.create({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      });
+        operationPromise = operationVersion.create({ uri: instance._uri, method: "post", data, headers });
+    
+    operationPromise = operationPromise.then(payload => new WebChannelsInstance(operationVersion, payload));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) => new WebChannelsInstance(operationVersion, payload)
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
+
+
+    }
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  };
+  }
 
-  instance[inspect.custom] = function inspectImpl(
-    _depth: any,
-    options: InspectOptions
-  ) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(instance.toJSON(), options);
-  };
+  }
 
   return instance;
 }
@@ -136,9 +131,11 @@ interface WebChannelsResource {
 }
 
 export class WebChannelsInstance {
+
   constructor(protected _version: V2, payload: WebChannelsResource) {
-    this.conversationSid = payload.conversation_sid;
-    this.identity = payload.identity;
+    this.conversationSid = (payload.conversation_sid);
+    this.identity = (payload.identity);
+
   }
 
   /**
@@ -159,10 +156,12 @@ export class WebChannelsInstance {
     return {
       conversationSid: this.conversationSid,
       identity: this.identity,
-    };
+    }
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
 }
+
+

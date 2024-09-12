@@ -12,18 +12,26 @@
  * Do not edit the class manually.
  */
 
+
 import { inspect, InspectOptions } from "util";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 
-export interface PortingWebhookConfigurationFetchSolution {}
+
+
+
+
+export interface PortingWebhookConfigurationFetchSolution {
+}
 
 export interface PortingWebhookConfigurationFetchListInstance {
   _version: V1;
   _solution: PortingWebhookConfigurationFetchSolution;
   _uri: string;
+
+
 
   /**
    * Fetch a PortingWebhookConfigurationFetchInstance
@@ -32,12 +40,8 @@ export interface PortingWebhookConfigurationFetchListInstance {
    *
    * @returns Resolves to processed PortingWebhookConfigurationFetchInstance
    */
-  fetch(
-    callback?: (
-      error: Error | null,
-      item?: PortingWebhookConfigurationFetchInstance
-    ) => any
-  ): Promise<PortingWebhookConfigurationFetchInstance>;
+  fetch(callback?: (error: Error | null, item?: PortingWebhookConfigurationFetchInstance) => any): Promise<PortingWebhookConfigurationFetchInstance>
+
 
   /**
    * Provide a user-friendly representation
@@ -46,55 +50,39 @@ export interface PortingWebhookConfigurationFetchListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function PortingWebhookConfigurationFetchListInstance(
-  version: V1
-): PortingWebhookConfigurationFetchListInstance {
+export function PortingWebhookConfigurationFetchListInstance(version: V1): PortingWebhookConfigurationFetchListInstance {
   const instance = {} as PortingWebhookConfigurationFetchListInstance;
 
   instance._version = version;
-  instance._solution = {};
+  instance._solution = {  };
   instance._uri = `/Porting/Configuration/Webhook`;
 
-  instance.fetch = function fetch(
-    callback?: (
-      error: Error | null,
-      items: PortingWebhookConfigurationFetchInstance
-    ) => any
-  ): Promise<PortingWebhookConfigurationFetchInstance> {
+  instance.fetch = function fetch( callback?: (error: Error | null, items: PortingWebhookConfigurationFetchInstance) => any): Promise<PortingWebhookConfigurationFetchInstance> {
+
     let operationVersion = version,
-      operationPromise = operationVersion.fetch({
-        uri: instance._uri,
-        method: "get",
-      });
+        operationPromise = operationVersion.fetch({ uri: instance._uri, method: "get" });
+    
+    operationPromise = operationPromise.then(payload => new PortingWebhookConfigurationFetchInstance(operationVersion, payload));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new PortingWebhookConfigurationFetchInstance(operationVersion, payload)
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
+
+
+    }
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  };
+  }
 
-  instance[inspect.custom] = function inspectImpl(
-    _depth: any,
-    options: InspectOptions
-  ) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(instance.toJSON(), options);
-  };
+  }
 
   return instance;
 }
 
-interface PortingWebhookConfigurationFetchPayload
-  extends PortingWebhookConfigurationFetchResource {}
+interface PortingWebhookConfigurationFetchPayload extends PortingWebhookConfigurationFetchResource {}
 
 interface PortingWebhookConfigurationFetchResource {
   url: string;
@@ -106,20 +94,15 @@ interface PortingWebhookConfigurationFetchResource {
 }
 
 export class PortingWebhookConfigurationFetchInstance {
-  constructor(
-    protected _version: V1,
-    payload: PortingWebhookConfigurationFetchResource
-  ) {
-    this.url = payload.url;
-    this.portInTargetUrl = payload.port_in_target_url;
-    this.portOutTargetUrl = payload.port_out_target_url;
-    this.notificationsOf = payload.notifications_of;
-    this.portInTargetDateCreated = deserialize.iso8601DateTime(
-      payload.port_in_target_date_created
-    );
-    this.portOutTargetDateCreated = deserialize.iso8601DateTime(
-      payload.port_out_target_date_created
-    );
+
+  constructor(protected _version: V1, payload: PortingWebhookConfigurationFetchResource) {
+    this.url = (payload.url);
+    this.portInTargetUrl = (payload.port_in_target_url);
+    this.portOutTargetUrl = (payload.port_out_target_url);
+    this.notificationsOf = (payload.notifications_of);
+    this.portInTargetDateCreated = deserialize.iso8601DateTime(payload.port_in_target_date_created);
+    this.portOutTargetDateCreated = deserialize.iso8601DateTime(payload.port_out_target_date_created);
+
   }
 
   /**
@@ -160,10 +143,12 @@ export class PortingWebhookConfigurationFetchInstance {
       notificationsOf: this.notificationsOf,
       portInTargetDateCreated: this.portInTargetDateCreated,
       portOutTargetDateCreated: this.portOutTargetDateCreated,
-    };
+    }
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
 }
+
+

@@ -34,4 +34,5 @@ export default class V3 extends Version {
     this._channels = this._channels || ChannelListInstance(this);
     return this._channels;
   }
+
 }

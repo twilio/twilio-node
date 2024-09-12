@@ -12,6 +12,7 @@
  * Do not edit the class manually.
  */
 
+
 import { inspect, InspectOptions } from "util";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
@@ -19,16 +20,19 @@ const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 import { InteractionChannelListInstance } from "./interaction/interactionChannel";
 
+
+
+
 /**
  * Options to pass to create a InteractionInstance
  */
 export interface InteractionListInstanceCreateOptions {
   /** The Interaction\\\'s channel. */
-  channel: any;
+  "channel": any;
   /** The Interaction\\\'s routing logic. */
-  routing?: any;
+  "routing"?: any;
   /** The Interaction context sid is used for adding a context lookup sid */
-  interactionContextSid?: string;
+  "interactionContextSid"?: string;
 }
 
 export interface InteractionContext {
@@ -41,9 +45,8 @@ export interface InteractionContext {
    *
    * @returns Resolves to processed InteractionInstance
    */
-  fetch(
-    callback?: (error: Error | null, item?: InteractionInstance) => any
-  ): Promise<InteractionInstance>;
+  fetch(callback?: (error: Error | null, item?: InteractionInstance) => any): Promise<InteractionInstance>
+
 
   /**
    * Provide a user-friendly representation
@@ -53,7 +56,7 @@ export interface InteractionContext {
 }
 
 export interface InteractionContextSolution {
-  sid: string;
+  "sid": string;
 }
 
 export class InteractionContextImpl implements InteractionContext {
@@ -64,44 +67,31 @@ export class InteractionContextImpl implements InteractionContext {
 
   constructor(protected _version: V1, sid: string) {
     if (!isValidPathParam(sid)) {
-      throw new Error("Parameter 'sid' is not valid.");
+      throw new Error('Parameter \'sid\' is not valid.');
     }
 
-    this._solution = { sid };
+    this._solution = { sid,  };
     this._uri = `/Interactions/${sid}`;
   }
 
   get channels(): InteractionChannelListInstance {
-    this._channels =
-      this._channels ||
-      InteractionChannelListInstance(this._version, this._solution.sid);
+    this._channels = this._channels || InteractionChannelListInstance(this._version, this._solution.sid);
     return this._channels;
   }
 
-  fetch(
-    callback?: (error: Error | null, item?: InteractionInstance) => any
-  ): Promise<InteractionInstance> {
+  fetch(callback?: (error: Error | null, item?: InteractionInstance) => any): Promise<InteractionInstance> {
+  
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.fetch({
-        uri: instance._uri,
-        method: "get",
-      });
+        operationPromise = operationVersion.fetch({ uri: instance._uri, method: "get" });
+    
+    operationPromise = operationPromise.then(payload => new InteractionInstance(operationVersion, payload, instance._solution.sid));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new InteractionInstance(
-          operationVersion,
-          payload,
-          instance._solution.sid
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
   /**
@@ -118,6 +108,7 @@ export class InteractionContextImpl implements InteractionContext {
   }
 }
 
+
 interface InteractionPayload extends InteractionResource {}
 
 interface InteractionResource {
@@ -133,19 +124,15 @@ export class InteractionInstance {
   protected _solution: InteractionContextSolution;
   protected _context?: InteractionContext;
 
-  constructor(
-    protected _version: V1,
-    payload: InteractionResource,
-    sid?: string
-  ) {
-    this.sid = payload.sid;
-    this.channel = payload.channel;
-    this.routing = payload.routing;
-    this.url = payload.url;
-    this.links = payload.links;
-    this.interactionContextSid = payload.interaction_context_sid;
+  constructor(protected _version: V1, payload: InteractionResource, sid?: string) {
+    this.sid = (payload.sid);
+    this.channel = (payload.channel);
+    this.routing = (payload.routing);
+    this.url = (payload.url);
+    this.links = (payload.links);
+    this.interactionContextSid = (payload.interaction_context_sid);
 
-    this._solution = { sid: sid || this.sid };
+    this._solution = { sid: sid || this.sid,  };
   }
 
   /**
@@ -165,9 +152,7 @@ export class InteractionInstance {
   interactionContextSid: string;
 
   private get _proxy(): InteractionContext {
-    this._context =
-      this._context ||
-      new InteractionContextImpl(this._version, this._solution.sid);
+    this._context = this._context || new InteractionContextImpl(this._version, this._solution.sid);
     return this._context;
   }
 
@@ -178,9 +163,9 @@ export class InteractionInstance {
    *
    * @returns Resolves to processed InteractionInstance
    */
-  fetch(
-    callback?: (error: Error | null, item?: InteractionInstance) => any
-  ): Promise<InteractionInstance> {
+  fetch(callback?: (error: Error | null, item?: InteractionInstance) => any): Promise<InteractionInstance>
+
+    {
     return this._proxy.fetch(callback);
   }
 
@@ -204,7 +189,7 @@ export class InteractionInstance {
       url: this.url,
       links: this.links,
       interactionContextSid: this.interactionContextSid,
-    };
+    }
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
@@ -212,15 +197,20 @@ export class InteractionInstance {
   }
 }
 
-export interface InteractionSolution {}
+
+export interface InteractionSolution {
+}
 
 export interface InteractionListInstance {
   _version: V1;
   _solution: InteractionSolution;
   _uri: string;
 
-  (sid: string): InteractionContext;
-  get(sid: string): InteractionContext;
+  (sid: string, ): InteractionContext;
+  get(sid: string, ): InteractionContext;
+
+
+
 
   /**
    * Create a InteractionInstance
@@ -230,10 +220,8 @@ export interface InteractionListInstance {
    *
    * @returns Resolves to processed InteractionInstance
    */
-  create(
-    params: InteractionListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: InteractionInstance) => any
-  ): Promise<InteractionInstance>;
+  create(params: InteractionListInstanceCreateOptions, callback?: (error: Error | null, item?: InteractionInstance) => any): Promise<InteractionInstance>;
+
 
   /**
    * Provide a user-friendly representation
@@ -243,68 +231,61 @@ export interface InteractionListInstance {
 }
 
 export function InteractionListInstance(version: V1): InteractionListInstance {
-  const instance = ((sid) => instance.get(sid)) as InteractionListInstance;
+  const instance = ((sid, ) => instance.get(sid, )) as InteractionListInstance;
 
-  instance.get = function get(sid): InteractionContext {
+  instance.get = function get(sid, ): InteractionContext {
     return new InteractionContextImpl(version, sid);
-  };
+  }
 
   instance._version = version;
-  instance._solution = {};
+  instance._solution = {  };
   instance._uri = `/Interactions`;
 
-  instance.create = function create(
-    params: InteractionListInstanceCreateOptions,
-    callback?: (error: Error | null, items: InteractionInstance) => any
-  ): Promise<InteractionInstance> {
+  instance.create = function create(params: InteractionListInstanceCreateOptions, callback?: (error: Error | null, items: InteractionInstance) => any): Promise<InteractionInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     if (params["channel"] === null || params["channel"] === undefined) {
-      throw new Error("Required parameter \"params['channel']\" missing.");
+      throw new Error('Required parameter "params[\'channel\']" missing.');
     }
 
     let data: any = {};
 
+    
+        
     data["Channel"] = serialize.object(params["channel"]);
     if (params["routing"] !== undefined)
-      data["Routing"] = serialize.object(params["routing"]);
+    data["Routing"] = serialize.object(params["routing"]);
     if (params["interactionContextSid"] !== undefined)
-      data["InteractionContextSid"] = params["interactionContextSid"];
+    data["InteractionContextSid"] = params["interactionContextSid"];
+
+    
 
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = version,
-      operationPromise = operationVersion.create({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      });
+        operationPromise = operationVersion.create({ uri: instance._uri, method: "post", data, headers });
+    
+    operationPromise = operationPromise.then(payload => new InteractionInstance(operationVersion, payload));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) => new InteractionInstance(operationVersion, payload)
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
+
+
+    }
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  };
+  }
 
-  instance[inspect.custom] = function inspectImpl(
-    _depth: any,
-    options: InspectOptions
-  ) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(instance.toJSON(), options);
-  };
+  }
 
   return instance;
 }
+
+

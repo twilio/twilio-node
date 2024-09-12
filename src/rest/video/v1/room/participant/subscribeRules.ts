@@ -12,11 +12,13 @@
  * Do not edit the class manually.
  */
 
+
 import { inspect, InspectOptions } from "util";
 import V1 from "../../../V1";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
+
 
 export class VideoV1RoomRoomParticipantRoomParticipantSubscribeRuleRules {
   "type"?: string;
@@ -27,13 +29,17 @@ export class VideoV1RoomRoomParticipantRoomParticipantSubscribeRuleRules {
   "priority"?: string;
 }
 
+
+
+
 /**
  * Options to pass to update a SubscribeRulesInstance
  */
 export interface SubscribeRulesListInstanceUpdateOptions {
   /** A JSON-encoded array of subscribe rules. See the [Specifying Subscribe Rules](https://www.twilio.com/docs/video/api/track-subscriptions#specifying-sr) section for further information. */
-  rules?: any;
+  "rules"?: any;
 }
+
 
 export interface SubscribeRulesSolution {
   roomSid: string;
@@ -45,6 +51,8 @@ export interface SubscribeRulesListInstance {
   _solution: SubscribeRulesSolution;
   _uri: string;
 
+
+
   /**
    * Fetch a SubscribeRulesInstance
    *
@@ -52,9 +60,8 @@ export interface SubscribeRulesListInstance {
    *
    * @returns Resolves to processed SubscribeRulesInstance
    */
-  fetch(
-    callback?: (error: Error | null, item?: SubscribeRulesInstance) => any
-  ): Promise<SubscribeRulesInstance>;
+  fetch(callback?: (error: Error | null, item?: SubscribeRulesInstance) => any): Promise<SubscribeRulesInstance>
+
 
   /**
    * Update a SubscribeRulesInstance
@@ -63,9 +70,7 @@ export interface SubscribeRulesListInstance {
    *
    * @returns Resolves to processed SubscribeRulesInstance
    */
-  update(
-    callback?: (error: Error | null, item?: SubscribeRulesInstance) => any
-  ): Promise<SubscribeRulesInstance>;
+  update(callback?: (error: Error | null, item?: SubscribeRulesInstance) => any): Promise<SubscribeRulesInstance>;
   /**
    * Update a SubscribeRulesInstance
    *
@@ -74,10 +79,8 @@ export interface SubscribeRulesListInstance {
    *
    * @returns Resolves to processed SubscribeRulesInstance
    */
-  update(
-    params: SubscribeRulesListInstanceUpdateOptions,
-    callback?: (error: Error | null, item?: SubscribeRulesInstance) => any
-  ): Promise<SubscribeRulesInstance>;
+  update(params: SubscribeRulesListInstanceUpdateOptions, callback?: (error: Error | null, item?: SubscribeRulesInstance) => any): Promise<SubscribeRulesInstance>;
+
 
   /**
    * Provide a user-friendly representation
@@ -86,57 +89,36 @@ export interface SubscribeRulesListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function SubscribeRulesListInstance(
-  version: V1,
-  roomSid: string,
-  participantSid: string
-): SubscribeRulesListInstance {
+export function SubscribeRulesListInstance(version: V1, roomSid: string, participantSid: string): SubscribeRulesListInstance {
   if (!isValidPathParam(roomSid)) {
-    throw new Error("Parameter 'roomSid' is not valid.");
+    throw new Error('Parameter \'roomSid\' is not valid.');
   }
 
   if (!isValidPathParam(participantSid)) {
-    throw new Error("Parameter 'participantSid' is not valid.");
+    throw new Error('Parameter \'participantSid\' is not valid.');
   }
 
   const instance = {} as SubscribeRulesListInstance;
 
   instance._version = version;
-  instance._solution = { roomSid, participantSid };
+  instance._solution = { roomSid, participantSid,  };
   instance._uri = `/Rooms/${roomSid}/Participants/${participantSid}/SubscribeRules`;
 
-  instance.fetch = function fetch(
-    callback?: (error: Error | null, items: SubscribeRulesInstance) => any
-  ): Promise<SubscribeRulesInstance> {
+  instance.fetch = function fetch( callback?: (error: Error | null, items: SubscribeRulesInstance) => any): Promise<SubscribeRulesInstance> {
+
     let operationVersion = version,
-      operationPromise = operationVersion.fetch({
-        uri: instance._uri,
-        method: "get",
-      });
+        operationPromise = operationVersion.fetch({ uri: instance._uri, method: "get" });
+    
+    operationPromise = operationPromise.then(payload => new SubscribeRulesInstance(operationVersion, payload, instance._solution.roomSid, instance._solution.participantSid));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new SubscribeRulesInstance(
-          operationVersion,
-          payload,
-          instance._solution.roomSid,
-          instance._solution.participantSid
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
 
-  instance.update = function update(
-    params?:
-      | SubscribeRulesListInstanceUpdateOptions
-      | ((error: Error | null, items: SubscribeRulesInstance) => any),
-    callback?: (error: Error | null, items: SubscribeRulesInstance) => any
-  ): Promise<SubscribeRulesInstance> {
+
+    }
+
+  instance.update = function update(params?: SubscribeRulesListInstanceUpdateOptions | ((error: Error | null, items: SubscribeRulesInstance) => any), callback?: (error: Error | null, items: SubscribeRulesInstance) => any): Promise<SubscribeRulesInstance> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -146,47 +128,34 @@ export function SubscribeRulesListInstance(
 
     let data: any = {};
 
-    if (params["rules"] !== undefined)
-      data["Rules"] = serialize.object(params["rules"]);
+    
+        if (params["rules"] !== undefined)
+    data["Rules"] = serialize.object(params["rules"]);
+
+    
 
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = version,
-      operationPromise = operationVersion.update({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      });
+        operationPromise = operationVersion.update({ uri: instance._uri, method: "post", data, headers });
+    
+    operationPromise = operationPromise.then(payload => new SubscribeRulesInstance(operationVersion, payload, instance._solution.roomSid, instance._solution.participantSid));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new SubscribeRulesInstance(
-          operationVersion,
-          payload,
-          instance._solution.roomSid,
-          instance._solution.participantSid
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
+
+
+    }
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  };
+  }
 
-  instance[inspect.custom] = function inspectImpl(
-    _depth: any,
-    options: InspectOptions
-  ) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(instance.toJSON(), options);
-  };
+  }
 
   return instance;
 }
@@ -202,17 +171,14 @@ interface SubscribeRulesResource {
 }
 
 export class SubscribeRulesInstance {
-  constructor(
-    protected _version: V1,
-    payload: SubscribeRulesResource,
-    roomSid: string,
-    participantSid: string
-  ) {
-    this.participantSid = payload.participant_sid;
-    this.roomSid = payload.room_sid;
-    this.rules = payload.rules;
+
+  constructor(protected _version: V1, payload: SubscribeRulesResource, roomSid: string, participantSid: string) {
+    this.participantSid = (payload.participant_sid);
+    this.roomSid = (payload.room_sid);
+    this.rules = (payload.rules);
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
+
   }
 
   /**
@@ -248,10 +214,12 @@ export class SubscribeRulesInstance {
       rules: this.rules,
       dateCreated: this.dateCreated,
       dateUpdated: this.dateUpdated,
-    };
+    }
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
 }
+
+

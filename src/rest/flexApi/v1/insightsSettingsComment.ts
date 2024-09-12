@@ -12,26 +12,33 @@
  * Do not edit the class manually.
  */
 
+
 import { inspect, InspectOptions } from "util";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 
+
+
 /**
  * Options to pass to fetch a InsightsSettingsCommentInstance
  */
 export interface InsightsSettingsCommentListInstanceFetchOptions {
   /** The Authorization HTTP request header */
-  authorization?: string;
+  "authorization"?: string;
 }
 
-export interface InsightsSettingsCommentSolution {}
+
+export interface InsightsSettingsCommentSolution {
+}
 
 export interface InsightsSettingsCommentListInstance {
   _version: V1;
   _solution: InsightsSettingsCommentSolution;
   _uri: string;
+
+
 
   /**
    * Fetch a InsightsSettingsCommentInstance
@@ -40,12 +47,7 @@ export interface InsightsSettingsCommentListInstance {
    *
    * @returns Resolves to processed InsightsSettingsCommentInstance
    */
-  fetch(
-    callback?: (
-      error: Error | null,
-      item?: InsightsSettingsCommentInstance
-    ) => any
-  ): Promise<InsightsSettingsCommentInstance>;
+  fetch(callback?: (error: Error | null, item?: InsightsSettingsCommentInstance) => any): Promise<InsightsSettingsCommentInstance>;
   /**
    * Fetch a InsightsSettingsCommentInstance
    *
@@ -54,13 +56,8 @@ export interface InsightsSettingsCommentListInstance {
    *
    * @returns Resolves to processed InsightsSettingsCommentInstance
    */
-  fetch(
-    params: InsightsSettingsCommentListInstanceFetchOptions,
-    callback?: (
-      error: Error | null,
-      item?: InsightsSettingsCommentInstance
-    ) => any
-  ): Promise<InsightsSettingsCommentInstance>;
+  fetch(params: InsightsSettingsCommentListInstanceFetchOptions, callback?: (error: Error | null, item?: InsightsSettingsCommentInstance) => any): Promise<InsightsSettingsCommentInstance>;
+
 
   /**
    * Provide a user-friendly representation
@@ -69,24 +66,14 @@ export interface InsightsSettingsCommentListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function InsightsSettingsCommentListInstance(
-  version: V1
-): InsightsSettingsCommentListInstance {
+export function InsightsSettingsCommentListInstance(version: V1): InsightsSettingsCommentListInstance {
   const instance = {} as InsightsSettingsCommentListInstance;
 
   instance._version = version;
-  instance._solution = {};
+  instance._solution = {  };
   instance._uri = `/Insights/QualityManagement/Settings/CommentTags`;
 
-  instance.fetch = function fetch(
-    params?:
-      | InsightsSettingsCommentListInstanceFetchOptions
-      | ((error: Error | null, items: InsightsSettingsCommentInstance) => any),
-    callback?: (
-      error: Error | null,
-      items: InsightsSettingsCommentInstance
-    ) => any
-  ): Promise<InsightsSettingsCommentInstance> {
+  instance.fetch = function fetch(params?: InsightsSettingsCommentListInstanceFetchOptions | ((error: Error | null, items: InsightsSettingsCommentInstance) => any), callback?: (error: Error | null, items: InsightsSettingsCommentInstance) => any): Promise<InsightsSettingsCommentInstance> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -96,46 +83,37 @@ export function InsightsSettingsCommentListInstance(
 
     let data: any = {};
 
+    
+    
+    
+
     const headers: any = {};
-    if (params["authorization"] !== undefined)
-      headers["Authorization"] = params["authorization"];
+    if (params["authorization"] !== undefined) headers["Authorization"] = params["authorization"];
 
     let operationVersion = version,
-      operationPromise = operationVersion.fetch({
-        uri: instance._uri,
-        method: "get",
-        params: data,
-        headers,
-      });
+        operationPromise = operationVersion.fetch({ uri: instance._uri, method: "get", params: data, headers });
+    
+    operationPromise = operationPromise.then(payload => new InsightsSettingsCommentInstance(operationVersion, payload));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new InsightsSettingsCommentInstance(operationVersion, payload)
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
+
+
+    }
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  };
+  }
 
-  instance[inspect.custom] = function inspectImpl(
-    _depth: any,
-    options: InspectOptions
-  ) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(instance.toJSON(), options);
-  };
+  }
 
   return instance;
 }
 
-interface InsightsSettingsCommentPayload
-  extends InsightsSettingsCommentResource {}
+interface InsightsSettingsCommentPayload extends InsightsSettingsCommentResource {}
 
 interface InsightsSettingsCommentResource {
   account_sid: string;
@@ -144,13 +122,12 @@ interface InsightsSettingsCommentResource {
 }
 
 export class InsightsSettingsCommentInstance {
-  constructor(
-    protected _version: V1,
-    payload: InsightsSettingsCommentResource
-  ) {
-    this.accountSid = payload.account_sid;
-    this.comments = payload.comments;
-    this.url = payload.url;
+
+  constructor(protected _version: V1, payload: InsightsSettingsCommentResource) {
+    this.accountSid = (payload.account_sid);
+    this.comments = (payload.comments);
+    this.url = (payload.url);
+
   }
 
   /**
@@ -170,10 +147,12 @@ export class InsightsSettingsCommentInstance {
       accountSid: this.accountSid,
       comments: this.comments,
       url: this.url,
-    };
+    }
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
 }
+
+

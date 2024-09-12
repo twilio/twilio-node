@@ -12,19 +12,20 @@
  * Do not edit the class manually.
  */
 
+
 import { inspect, InspectOptions } from "util";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 
-export type ProvisioningStatusStatus =
-  | "active"
-  | "in-progress"
-  | "not-configured"
-  | "failed";
+
+export type ProvisioningStatusStatus = 'active'|'in-progress'|'not-configured'|'failed';
+
+
 
 export interface ProvisioningStatusContext {
+
   /**
    * Fetch a ProvisioningStatusInstance
    *
@@ -32,9 +33,7 @@ export interface ProvisioningStatusContext {
    *
    * @returns Resolves to processed ProvisioningStatusInstance
    */
-  fetch(
-    callback?: (error: Error | null, item?: ProvisioningStatusInstance) => any
-  ): Promise<ProvisioningStatusInstance>;
+  fetch(callback?: (error: Error | null, item?: ProvisioningStatusInstance) => any): Promise<ProvisioningStatusInstance>
 
   /**
    * Provide a user-friendly representation
@@ -43,38 +42,32 @@ export interface ProvisioningStatusContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface ProvisioningStatusContextSolution {}
+export interface ProvisioningStatusContextSolution {
+}
 
-export class ProvisioningStatusContextImpl
-  implements ProvisioningStatusContext
-{
+export class ProvisioningStatusContextImpl implements ProvisioningStatusContext {
   protected _solution: ProvisioningStatusContextSolution;
   protected _uri: string;
 
+
   constructor(protected _version: V1) {
-    this._solution = {};
+    this._solution = {  };
     this._uri = `/account/provision/status`;
   }
 
-  fetch(
-    callback?: (error: Error | null, item?: ProvisioningStatusInstance) => any
-  ): Promise<ProvisioningStatusInstance> {
+  fetch(callback?: (error: Error | null, item?: ProvisioningStatusInstance) => any): Promise<ProvisioningStatusInstance> {
+  
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.fetch({
-        uri: instance._uri,
-        method: "get",
-      });
+        operationPromise = operationVersion.fetch({ uri: instance._uri, method: "get" });
+    
+    operationPromise = operationPromise.then(payload => new ProvisioningStatusInstance(operationVersion, payload));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) => new ProvisioningStatusInstance(operationVersion, payload)
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
   /**
@@ -91,6 +84,7 @@ export class ProvisioningStatusContextImpl
   }
 }
 
+
 interface ProvisioningStatusPayload extends ProvisioningStatusResource {}
 
 interface ProvisioningStatusResource {
@@ -103,10 +97,10 @@ export class ProvisioningStatusInstance {
   protected _context?: ProvisioningStatusContext;
 
   constructor(protected _version: V1, payload: ProvisioningStatusResource) {
-    this.status = payload.status;
-    this.url = payload.url;
+    this.status = (payload.status);
+    this.url = (payload.url);
 
-    this._solution = {};
+    this._solution = {  };
   }
 
   status: ProvisioningStatusStatus;
@@ -116,8 +110,7 @@ export class ProvisioningStatusInstance {
   url: string;
 
   private get _proxy(): ProvisioningStatusContext {
-    this._context =
-      this._context || new ProvisioningStatusContextImpl(this._version);
+    this._context = this._context || new ProvisioningStatusContextImpl(this._version);
     return this._context;
   }
 
@@ -128,9 +121,9 @@ export class ProvisioningStatusInstance {
    *
    * @returns Resolves to processed ProvisioningStatusInstance
    */
-  fetch(
-    callback?: (error: Error | null, item?: ProvisioningStatusInstance) => any
-  ): Promise<ProvisioningStatusInstance> {
+  fetch(callback?: (error: Error | null, item?: ProvisioningStatusInstance) => any): Promise<ProvisioningStatusInstance>
+
+    {
     return this._proxy.fetch(callback);
   }
 
@@ -143,7 +136,7 @@ export class ProvisioningStatusInstance {
     return {
       status: this.status,
       url: this.url,
-    };
+    }
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
@@ -151,7 +144,9 @@ export class ProvisioningStatusInstance {
   }
 }
 
-export interface ProvisioningStatusSolution {}
+
+export interface ProvisioningStatusSolution {
+}
 
 export interface ProvisioningStatusListInstance {
   _version: V1;
@@ -161,6 +156,9 @@ export interface ProvisioningStatusListInstance {
   (): ProvisioningStatusContext;
   get(): ProvisioningStatusContext;
 
+
+
+
   /**
    * Provide a user-friendly representation
    */
@@ -168,29 +166,26 @@ export interface ProvisioningStatusListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function ProvisioningStatusListInstance(
-  version: V1
-): ProvisioningStatusListInstance {
+export function ProvisioningStatusListInstance(version: V1): ProvisioningStatusListInstance {
   const instance = (() => instance.get()) as ProvisioningStatusListInstance;
 
   instance.get = function get(): ProvisioningStatusContext {
     return new ProvisioningStatusContextImpl(version);
-  };
+  }
 
   instance._version = version;
-  instance._solution = {};
+  instance._solution = {  };
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  };
+  }
 
-  instance[inspect.custom] = function inspectImpl(
-    _depth: any,
-    options: InspectOptions
-  ) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(instance.toJSON(), options);
-  };
+  }
 
   return instance;
 }
+
+

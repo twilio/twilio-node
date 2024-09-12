@@ -12,6 +12,7 @@
  * Do not edit the class manually.
  */
 
+
 import { inspect, InspectOptions } from "util";
 import Page, { TwilioResponsePayload } from "../../../base/Page";
 import Response from "../../../http/response";
@@ -20,14 +21,15 @@ const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 
+
 /**
  * Options to pass to each
  */
 export interface TemplateListInstanceEachOptions {
   /** String filter used to query templates with a given friendly name. */
-  friendlyName?: string;
+  "friendlyName"?: string;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: TemplateInstance, done: (err?: Error) => void) => void;
   /** Function to be called upon completion of streaming */
@@ -41,9 +43,9 @@ export interface TemplateListInstanceEachOptions {
  */
 export interface TemplateListInstanceOptions {
   /** String filter used to query templates with a given friendly name. */
-  friendlyName?: string;
+  "friendlyName"?: string;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
@@ -53,21 +55,27 @@ export interface TemplateListInstanceOptions {
  */
 export interface TemplateListInstancePageOptions {
   /** String filter used to query templates with a given friendly name. */
-  friendlyName?: string;
+  "friendlyName"?: string;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
   /** PageToken provided by the API */
   pageToken?: string;
 }
 
-export interface TemplateSolution {}
+
+
+export interface TemplateSolution {
+}
 
 export interface TemplateListInstance {
   _version: V2;
   _solution: TemplateSolution;
   _uri: string;
+
+
+
 
   /**
    * Streams TemplateInstance records from the API.
@@ -84,13 +92,8 @@ export interface TemplateListInstance {
    * @param { TemplateListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(
-    callback?: (item: TemplateInstance, done: (err?: Error) => void) => void
-  ): void;
-  each(
-    params: TemplateListInstanceEachOptions,
-    callback?: (item: TemplateInstance, done: (err?: Error) => void) => void
-  ): void;
+  each(callback?: (item: TemplateInstance, done: (err?: Error) => void) => void): void;
+  each(params: TemplateListInstanceEachOptions, callback?: (item: TemplateInstance, done: (err?: Error) => void) => void): void;
   /**
    * Retrieve a single target page of TemplateInstance records from the API.
    *
@@ -99,10 +102,7 @@ export interface TemplateListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(
-    targetUrl: string,
-    callback?: (error: Error | null, items: TemplatePage) => any
-  ): Promise<TemplatePage>;
+  getPage(targetUrl: string, callback?: (error: Error | null, items: TemplatePage) => any): Promise<TemplatePage>;
   /**
    * Lists TemplateInstance records from the API as a list.
    *
@@ -112,13 +112,8 @@ export interface TemplateListInstance {
    * @param { TemplateListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(
-    callback?: (error: Error | null, items: TemplateInstance[]) => any
-  ): Promise<TemplateInstance[]>;
-  list(
-    params: TemplateListInstanceOptions,
-    callback?: (error: Error | null, items: TemplateInstance[]) => any
-  ): Promise<TemplateInstance[]>;
+  list(callback?: (error: Error | null, items: TemplateInstance[]) => any): Promise<TemplateInstance[]>;
+  list(params: TemplateListInstanceOptions, callback?: (error: Error | null, items: TemplateInstance[]) => any): Promise<TemplateInstance[]>;
   /**
    * Retrieve a single page of TemplateInstance records from the API.
    *
@@ -130,13 +125,8 @@ export interface TemplateListInstance {
    * @param { TemplateListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(
-    callback?: (error: Error | null, items: TemplatePage) => any
-  ): Promise<TemplatePage>;
-  page(
-    params: TemplateListInstancePageOptions,
-    callback?: (error: Error | null, items: TemplatePage) => any
-  ): Promise<TemplatePage>;
+  page(callback?: (error: Error | null, items: TemplatePage) => any): Promise<TemplatePage>;
+  page(params: TemplateListInstancePageOptions, callback?: (error: Error | null, items: TemplatePage) => any): Promise<TemplatePage>;
 
   /**
    * Provide a user-friendly representation
@@ -149,15 +139,10 @@ export function TemplateListInstance(version: V2): TemplateListInstance {
   const instance = {} as TemplateListInstance;
 
   instance._version = version;
-  instance._solution = {};
+  instance._solution = {  };
   instance._uri = `/Templates`;
 
-  instance.page = function page(
-    params?:
-      | TemplateListInstancePageOptions
-      | ((error: Error | null, items: TemplatePage) => any),
-    callback?: (error: Error | null, items: TemplatePage) => any
-  ): Promise<TemplatePage> {
+  instance.page = function page(params?: TemplateListInstancePageOptions | ((error: Error | null, items: TemplatePage) => any), callback?: (error: Error | null, items: TemplatePage) => any): Promise<TemplatePage> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -167,70 +152,52 @@ export function TemplateListInstance(version: V2): TemplateListInstance {
 
     let data: any = {};
 
-    if (params["friendlyName"] !== undefined)
-      data["FriendlyName"] = params["friendlyName"];
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["friendlyName"] !== undefined)
+    data["FriendlyName"] = params["friendlyName"];
+    if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
 
+    
+    
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-      operationPromise = operationVersion.page({
-        uri: instance._uri,
-        method: "get",
-        params: data,
-        headers,
-      });
+        operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers });
+    
+    operationPromise = operationPromise.then(payload => new TemplatePage(operationVersion, payload, instance._solution));
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new TemplatePage(operationVersion, payload, instance._solution)
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
+
+  }
   instance.each = instance._version.each;
   instance.list = instance._version.list;
 
-  instance.getPage = function getPage(
-    targetUrl: string,
-    callback?: (error: Error | null, items: TemplatePage) => any
-  ): Promise<TemplatePage> {
-    const operationPromise = instance._version._domain.twilio.request({
-      method: "get",
-      uri: targetUrl,
-    });
+  instance.getPage = function getPage(targetUrl: string, callback?: (error: Error | null, items: TemplatePage) => any): Promise<TemplatePage> {
+    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
 
-    let pagePromise = operationPromise.then(
-      (payload) =>
-        new TemplatePage(instance._version, payload, instance._solution)
-    );
+    let pagePromise = operationPromise.then(payload => new TemplatePage(instance._version, payload, instance._solution));
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  };
+  }
+
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  };
+  }
 
-  instance[inspect.custom] = function inspectImpl(
-    _depth: any,
-    options: InspectOptions
-  ) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(instance.toJSON(), options);
-  };
+  }
 
   return instance;
 }
 
 interface TemplatePayload extends TwilioResponsePayload {
-  templates: TemplateResource[];
+    templates: TemplateResource[];
 }
 
 interface TemplateResource {
@@ -242,12 +209,14 @@ interface TemplateResource {
 }
 
 export class TemplateInstance {
+
   constructor(protected _version: V2, payload: TemplateResource) {
-    this.sid = payload.sid;
-    this.accountSid = payload.account_sid;
-    this.friendlyName = payload.friendly_name;
-    this.channels = payload.channels;
-    this.translations = payload.translations;
+    this.sid = (payload.sid);
+    this.accountSid = (payload.account_sid);
+    this.friendlyName = (payload.friendly_name);
+    this.channels = (payload.channels);
+    this.translations = (payload.translations);
+
   }
 
   /**
@@ -283,7 +252,7 @@ export class TemplateInstance {
       friendlyName: this.friendlyName,
       channels: this.channels,
       translations: this.translations,
-    };
+    }
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
@@ -291,37 +260,32 @@ export class TemplateInstance {
   }
 }
 
-export class TemplatePage extends Page<
-  V2,
-  TemplatePayload,
-  TemplateResource,
-  TemplateInstance
-> {
-  /**
-   * Initialize the TemplatePage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(
-    version: V2,
-    response: Response<string>,
-    solution: TemplateSolution
-  ) {
+export class TemplatePage extends Page<V2, TemplatePayload, TemplateResource, TemplateInstance> {
+/**
+* Initialize the TemplatePage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V2, response: Response<string>, solution: TemplateSolution) {
     super(version, response, solution);
-  }
+    }
 
-  /**
-   * Build an instance of TemplateInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: TemplateResource): TemplateInstance {
-    return new TemplateInstance(this._version, payload);
-  }
+    /**
+    * Build an instance of TemplateInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: TemplateResource): TemplateInstance {
+    return new TemplateInstance(
+    this._version,
+    payload,
+    );
+    }
 
-  [inspect.custom](depth: any, options: InspectOptions) {
+    [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-  }
-}
+    }
+    }
+

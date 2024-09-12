@@ -12,6 +12,7 @@
  * Do not edit the class manually.
  */
 
+
 import { inspect, InspectOptions } from "util";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
@@ -21,6 +22,9 @@ import { AnnotationListInstance } from "./call/annotation";
 import { CallSummaryListInstance } from "./call/callSummary";
 import { EventListInstance } from "./call/event";
 import { MetricListInstance } from "./call/metric";
+
+
+
 
 export interface CallContext {
   annotation: AnnotationListInstance;
@@ -35,9 +39,7 @@ export interface CallContext {
    *
    * @returns Resolves to processed CallInstance
    */
-  fetch(
-    callback?: (error: Error | null, item?: CallInstance) => any
-  ): Promise<CallInstance>;
+  fetch(callback?: (error: Error | null, item?: CallInstance) => any): Promise<CallInstance>
 
   /**
    * Provide a user-friendly representation
@@ -47,7 +49,7 @@ export interface CallContext {
 }
 
 export interface CallContextSolution {
-  sid: string;
+  "sid": string;
 }
 
 export class CallContextImpl implements CallContext {
@@ -61,59 +63,46 @@ export class CallContextImpl implements CallContext {
 
   constructor(protected _version: V1, sid: string) {
     if (!isValidPathParam(sid)) {
-      throw new Error("Parameter 'sid' is not valid.");
+      throw new Error('Parameter \'sid\' is not valid.');
     }
 
-    this._solution = { sid };
+    this._solution = { sid,  };
     this._uri = `/Voice/${sid}`;
   }
 
   get annotation(): AnnotationListInstance {
-    this._annotation =
-      this._annotation ||
-      AnnotationListInstance(this._version, this._solution.sid);
+    this._annotation = this._annotation || AnnotationListInstance(this._version, this._solution.sid);
     return this._annotation;
   }
 
   get summary(): CallSummaryListInstance {
-    this._summary =
-      this._summary ||
-      CallSummaryListInstance(this._version, this._solution.sid);
+    this._summary = this._summary || CallSummaryListInstance(this._version, this._solution.sid);
     return this._summary;
   }
 
   get events(): EventListInstance {
-    this._events =
-      this._events || EventListInstance(this._version, this._solution.sid);
+    this._events = this._events || EventListInstance(this._version, this._solution.sid);
     return this._events;
   }
 
   get metrics(): MetricListInstance {
-    this._metrics =
-      this._metrics || MetricListInstance(this._version, this._solution.sid);
+    this._metrics = this._metrics || MetricListInstance(this._version, this._solution.sid);
     return this._metrics;
   }
 
-  fetch(
-    callback?: (error: Error | null, item?: CallInstance) => any
-  ): Promise<CallInstance> {
+  fetch(callback?: (error: Error | null, item?: CallInstance) => any): Promise<CallInstance> {
+  
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.fetch({
-        uri: instance._uri,
-        method: "get",
-      });
+        operationPromise = operationVersion.fetch({ uri: instance._uri, method: "get" });
+    
+    operationPromise = operationPromise.then(payload => new CallInstance(operationVersion, payload, instance._solution.sid));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new CallInstance(operationVersion, payload, instance._solution.sid)
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
   /**
@@ -130,6 +119,7 @@ export class CallContextImpl implements CallContext {
   }
 }
 
+
 interface CallPayload extends CallResource {}
 
 interface CallResource {
@@ -143,11 +133,11 @@ export class CallInstance {
   protected _context?: CallContext;
 
   constructor(protected _version: V1, payload: CallResource, sid?: string) {
-    this.sid = payload.sid;
-    this.url = payload.url;
-    this.links = payload.links;
+    this.sid = (payload.sid);
+    this.url = (payload.url);
+    this.links = (payload.links);
 
-    this._solution = { sid: sid || this.sid };
+    this._solution = { sid: sid || this.sid,  };
   }
 
   sid: string;
@@ -155,8 +145,7 @@ export class CallInstance {
   links: Record<string, string>;
 
   private get _proxy(): CallContext {
-    this._context =
-      this._context || new CallContextImpl(this._version, this._solution.sid);
+    this._context = this._context || new CallContextImpl(this._version, this._solution.sid);
     return this._context;
   }
 
@@ -167,9 +156,9 @@ export class CallInstance {
    *
    * @returns Resolves to processed CallInstance
    */
-  fetch(
-    callback?: (error: Error | null, item?: CallInstance) => any
-  ): Promise<CallInstance> {
+  fetch(callback?: (error: Error | null, item?: CallInstance) => any): Promise<CallInstance>
+
+    {
     return this._proxy.fetch(callback);
   }
 
@@ -211,7 +200,7 @@ export class CallInstance {
       sid: this.sid,
       url: this.url,
       links: this.links,
-    };
+    }
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
@@ -219,15 +208,20 @@ export class CallInstance {
   }
 }
 
-export interface CallSolution {}
+
+export interface CallSolution {
+}
 
 export interface CallListInstance {
   _version: V1;
   _solution: CallSolution;
   _uri: string;
 
-  (sid: string): CallContext;
-  get(sid: string): CallContext;
+  (sid: string, ): CallContext;
+  get(sid: string, ): CallContext;
+
+
+
 
   /**
    * Provide a user-friendly representation
@@ -237,26 +231,25 @@ export interface CallListInstance {
 }
 
 export function CallListInstance(version: V1): CallListInstance {
-  const instance = ((sid) => instance.get(sid)) as CallListInstance;
+  const instance = ((sid, ) => instance.get(sid, )) as CallListInstance;
 
-  instance.get = function get(sid): CallContext {
+  instance.get = function get(sid, ): CallContext {
     return new CallContextImpl(version, sid);
-  };
+  }
 
   instance._version = version;
-  instance._solution = {};
+  instance._solution = {  };
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  };
+  }
 
-  instance[inspect.custom] = function inspectImpl(
-    _depth: any,
-    options: InspectOptions
-  ) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(instance.toJSON(), options);
-  };
+  }
 
   return instance;
 }
+
+

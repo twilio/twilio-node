@@ -12,6 +12,7 @@
  * Do not edit the class manually.
  */
 
+
 import { inspect, InspectOptions } from "util";
 import Page, { TwilioResponsePayload } from "../../../../base/Page";
 import Response from "../../../../http/response";
@@ -20,12 +21,16 @@ const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
 
+
+
+
+
 /**
  * Options to pass to update a DeviceConfigInstance
  */
 export interface DeviceConfigContextUpdateOptions {
   /** The config value; up to 4096 characters. */
-  value: string;
+  "value": string;
 }
 
 /**
@@ -33,16 +38,16 @@ export interface DeviceConfigContextUpdateOptions {
  */
 export interface DeviceConfigListInstanceCreateOptions {
   /** The config key; up to 100 characters. */
-  key: string;
+  "key": string;
   /** The config value; up to 4096 characters. */
-  value: string;
+  "value": string;
 }
 /**
  * Options to pass to each
  */
 export interface DeviceConfigListInstanceEachOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: DeviceConfigInstance, done: (err?: Error) => void) => void;
   /** Function to be called upon completion of streaming */
@@ -56,7 +61,7 @@ export interface DeviceConfigListInstanceEachOptions {
  */
 export interface DeviceConfigListInstanceOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
@@ -66,14 +71,16 @@ export interface DeviceConfigListInstanceOptions {
  */
 export interface DeviceConfigListInstancePageOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
   /** PageToken provided by the API */
   pageToken?: string;
 }
 
+
 export interface DeviceConfigContext {
+
   /**
    * Remove a DeviceConfigInstance
    *
@@ -81,9 +88,7 @@ export interface DeviceConfigContext {
    *
    * @returns Resolves to processed boolean
    */
-  remove(
-    callback?: (error: Error | null, item?: boolean) => any
-  ): Promise<boolean>;
+  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
 
   /**
    * Fetch a DeviceConfigInstance
@@ -92,9 +97,7 @@ export interface DeviceConfigContext {
    *
    * @returns Resolves to processed DeviceConfigInstance
    */
-  fetch(
-    callback?: (error: Error | null, item?: DeviceConfigInstance) => any
-  ): Promise<DeviceConfigInstance>;
+  fetch(callback?: (error: Error | null, item?: DeviceConfigInstance) => any): Promise<DeviceConfigInstance>
 
   /**
    * Update a DeviceConfigInstance
@@ -104,10 +107,9 @@ export interface DeviceConfigContext {
    *
    * @returns Resolves to processed DeviceConfigInstance
    */
-  update(
-    params: DeviceConfigContextUpdateOptions,
-    callback?: (error: Error | null, item?: DeviceConfigInstance) => any
-  ): Promise<DeviceConfigInstance>;
+  update(params: DeviceConfigContextUpdateOptions, callback?: (error: Error | null, item?: DeviceConfigInstance) => any): Promise<DeviceConfigInstance>;
+
+
 
   /**
    * Provide a user-friendly representation
@@ -117,114 +119,87 @@ export interface DeviceConfigContext {
 }
 
 export interface DeviceConfigContextSolution {
-  deviceSid: string;
-  key: string;
+  "deviceSid": string;
+  "key": string;
 }
 
 export class DeviceConfigContextImpl implements DeviceConfigContext {
   protected _solution: DeviceConfigContextSolution;
   protected _uri: string;
 
+
   constructor(protected _version: V1, deviceSid: string, key: string) {
     if (!isValidPathParam(deviceSid)) {
-      throw new Error("Parameter 'deviceSid' is not valid.");
+      throw new Error('Parameter \'deviceSid\' is not valid.');
     }
 
     if (!isValidPathParam(key)) {
-      throw new Error("Parameter 'key' is not valid.");
+      throw new Error('Parameter \'key\' is not valid.');
     }
 
-    this._solution = { deviceSid, key };
+    this._solution = { deviceSid, key,  };
     this._uri = `/Devices/${deviceSid}/Configs/${key}`;
   }
 
-  remove(
-    callback?: (error: Error | null, item?: boolean) => any
-  ): Promise<boolean> {
+  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean> {
+  
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.remove({
-        uri: instance._uri,
-        method: "delete",
-      });
+        operationPromise = operationVersion.remove({ uri: instance._uri, method: "delete" });
+    
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
-  fetch(
-    callback?: (error: Error | null, item?: DeviceConfigInstance) => any
-  ): Promise<DeviceConfigInstance> {
+  fetch(callback?: (error: Error | null, item?: DeviceConfigInstance) => any): Promise<DeviceConfigInstance> {
+  
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.fetch({
-        uri: instance._uri,
-        method: "get",
-      });
+        operationPromise = operationVersion.fetch({ uri: instance._uri, method: "get" });
+    
+    operationPromise = operationPromise.then(payload => new DeviceConfigInstance(operationVersion, payload, instance._solution.deviceSid, instance._solution.key));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new DeviceConfigInstance(
-          operationVersion,
-          payload,
-          instance._solution.deviceSid,
-          instance._solution.key
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
-  update(
-    params: DeviceConfigContextUpdateOptions,
-    callback?: (error: Error | null, item?: DeviceConfigInstance) => any
-  ): Promise<DeviceConfigInstance> {
-    if (params === null || params === undefined) {
+  update(params: DeviceConfigContextUpdateOptions, callback?: (error: Error | null, item?: DeviceConfigInstance) => any): Promise<DeviceConfigInstance> {
+      if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     if (params["value"] === null || params["value"] === undefined) {
-      throw new Error("Required parameter \"params['value']\" missing.");
+      throw new Error('Required parameter "params[\'value\']" missing.');
     }
 
     let data: any = {};
 
+    
+        
     data["Value"] = params["value"];
 
+    
+
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.update({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      });
+        operationPromise = operationVersion.update({ uri: instance._uri, method: "post", data, headers });
+    
+    operationPromise = operationPromise.then(payload => new DeviceConfigInstance(operationVersion, payload, instance._solution.deviceSid, instance._solution.key));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new DeviceConfigInstance(
-          operationVersion,
-          payload,
-          instance._solution.deviceSid,
-          instance._solution.key
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
   /**
@@ -241,8 +216,9 @@ export class DeviceConfigContextImpl implements DeviceConfigContext {
   }
 }
 
+
 interface DeviceConfigPayload extends TwilioResponsePayload {
-  configs: DeviceConfigResource[];
+    configs: DeviceConfigResource[];
 }
 
 interface DeviceConfigResource {
@@ -257,19 +233,14 @@ export class DeviceConfigInstance {
   protected _solution: DeviceConfigContextSolution;
   protected _context?: DeviceConfigContext;
 
-  constructor(
-    protected _version: V1,
-    payload: DeviceConfigResource,
-    deviceSid: string,
-    key?: string
-  ) {
-    this.deviceSid = payload.device_sid;
-    this.key = payload.key;
-    this.value = payload.value;
+  constructor(protected _version: V1, payload: DeviceConfigResource, deviceSid: string, key?: string) {
+    this.deviceSid = (payload.device_sid);
+    this.key = (payload.key);
+    this.value = (payload.value);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
-    this.url = payload.url;
+    this.url = (payload.url);
 
-    this._solution = { deviceSid, key: key || this.key };
+    this._solution = { deviceSid, key: key || this.key,  };
   }
 
   /**
@@ -291,13 +262,7 @@ export class DeviceConfigInstance {
   url: string;
 
   private get _proxy(): DeviceConfigContext {
-    this._context =
-      this._context ||
-      new DeviceConfigContextImpl(
-        this._version,
-        this._solution.deviceSid,
-        this._solution.key
-      );
+    this._context = this._context || new DeviceConfigContextImpl(this._version, this._solution.deviceSid, this._solution.key);
     return this._context;
   }
 
@@ -308,9 +273,9 @@ export class DeviceConfigInstance {
    *
    * @returns Resolves to processed boolean
    */
-  remove(
-    callback?: (error: Error | null, item?: boolean) => any
-  ): Promise<boolean> {
+  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
+
+    {
     return this._proxy.remove(callback);
   }
 
@@ -321,9 +286,9 @@ export class DeviceConfigInstance {
    *
    * @returns Resolves to processed DeviceConfigInstance
    */
-  fetch(
-    callback?: (error: Error | null, item?: DeviceConfigInstance) => any
-  ): Promise<DeviceConfigInstance> {
+  fetch(callback?: (error: Error | null, item?: DeviceConfigInstance) => any): Promise<DeviceConfigInstance>
+
+    {
     return this._proxy.fetch(callback);
   }
 
@@ -335,15 +300,10 @@ export class DeviceConfigInstance {
    *
    * @returns Resolves to processed DeviceConfigInstance
    */
-  update(
-    params: DeviceConfigContextUpdateOptions,
-    callback?: (error: Error | null, item?: DeviceConfigInstance) => any
-  ): Promise<DeviceConfigInstance>;
+  update(params: DeviceConfigContextUpdateOptions, callback?: (error: Error | null, item?: DeviceConfigInstance) => any): Promise<DeviceConfigInstance>;
 
-  update(
-    params?: any,
-    callback?: (error: Error | null, item?: DeviceConfigInstance) => any
-  ): Promise<DeviceConfigInstance> {
+    update(params?: any, callback?: (error: Error | null, item?: DeviceConfigInstance) => any): Promise<DeviceConfigInstance>
+    {
     return this._proxy.update(params, callback);
   }
 
@@ -359,13 +319,14 @@ export class DeviceConfigInstance {
       value: this.value,
       dateUpdated: this.dateUpdated,
       url: this.url,
-    };
+    }
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
 }
+
 
 export interface DeviceConfigSolution {
   deviceSid: string;
@@ -376,8 +337,15 @@ export interface DeviceConfigListInstance {
   _solution: DeviceConfigSolution;
   _uri: string;
 
-  (key: string): DeviceConfigContext;
-  get(key: string): DeviceConfigContext;
+  (key: string, ): DeviceConfigContext;
+  get(key: string, ): DeviceConfigContext;
+
+
+
+
+
+
+
 
   /**
    * Create a DeviceConfigInstance
@@ -387,10 +355,9 @@ export interface DeviceConfigListInstance {
    *
    * @returns Resolves to processed DeviceConfigInstance
    */
-  create(
-    params: DeviceConfigListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: DeviceConfigInstance) => any
-  ): Promise<DeviceConfigInstance>;
+  create(params: DeviceConfigListInstanceCreateOptions, callback?: (error: Error | null, item?: DeviceConfigInstance) => any): Promise<DeviceConfigInstance>;
+
+
 
   /**
    * Streams DeviceConfigInstance records from the API.
@@ -407,13 +374,8 @@ export interface DeviceConfigListInstance {
    * @param { DeviceConfigListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(
-    callback?: (item: DeviceConfigInstance, done: (err?: Error) => void) => void
-  ): void;
-  each(
-    params: DeviceConfigListInstanceEachOptions,
-    callback?: (item: DeviceConfigInstance, done: (err?: Error) => void) => void
-  ): void;
+  each(callback?: (item: DeviceConfigInstance, done: (err?: Error) => void) => void): void;
+  each(params: DeviceConfigListInstanceEachOptions, callback?: (item: DeviceConfigInstance, done: (err?: Error) => void) => void): void;
   /**
    * Retrieve a single target page of DeviceConfigInstance records from the API.
    *
@@ -422,10 +384,7 @@ export interface DeviceConfigListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(
-    targetUrl: string,
-    callback?: (error: Error | null, items: DeviceConfigPage) => any
-  ): Promise<DeviceConfigPage>;
+  getPage(targetUrl: string, callback?: (error: Error | null, items: DeviceConfigPage) => any): Promise<DeviceConfigPage>;
   /**
    * Lists DeviceConfigInstance records from the API as a list.
    *
@@ -435,13 +394,8 @@ export interface DeviceConfigListInstance {
    * @param { DeviceConfigListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(
-    callback?: (error: Error | null, items: DeviceConfigInstance[]) => any
-  ): Promise<DeviceConfigInstance[]>;
-  list(
-    params: DeviceConfigListInstanceOptions,
-    callback?: (error: Error | null, items: DeviceConfigInstance[]) => any
-  ): Promise<DeviceConfigInstance[]>;
+  list(callback?: (error: Error | null, items: DeviceConfigInstance[]) => any): Promise<DeviceConfigInstance[]>;
+  list(params: DeviceConfigListInstanceOptions, callback?: (error: Error | null, items: DeviceConfigInstance[]) => any): Promise<DeviceConfigInstance[]>;
   /**
    * Retrieve a single page of DeviceConfigInstance records from the API.
    *
@@ -453,13 +407,8 @@ export interface DeviceConfigListInstance {
    * @param { DeviceConfigListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(
-    callback?: (error: Error | null, items: DeviceConfigPage) => any
-  ): Promise<DeviceConfigPage>;
-  page(
-    params: DeviceConfigListInstancePageOptions,
-    callback?: (error: Error | null, items: DeviceConfigPage) => any
-  ): Promise<DeviceConfigPage>;
+  page(callback?: (error: Error | null, items: DeviceConfigPage) => any): Promise<DeviceConfigPage>;
+  page(params: DeviceConfigListInstancePageOptions, callback?: (error: Error | null, items: DeviceConfigPage) => any): Promise<DeviceConfigPage>;
 
   /**
    * Provide a user-friendly representation
@@ -468,79 +417,60 @@ export interface DeviceConfigListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function DeviceConfigListInstance(
-  version: V1,
-  deviceSid: string
-): DeviceConfigListInstance {
+export function DeviceConfigListInstance(version: V1, deviceSid: string): DeviceConfigListInstance {
   if (!isValidPathParam(deviceSid)) {
-    throw new Error("Parameter 'deviceSid' is not valid.");
+    throw new Error('Parameter \'deviceSid\' is not valid.');
   }
 
-  const instance = ((key) => instance.get(key)) as DeviceConfigListInstance;
+  const instance = ((key, ) => instance.get(key, )) as DeviceConfigListInstance;
 
-  instance.get = function get(key): DeviceConfigContext {
+  instance.get = function get(key, ): DeviceConfigContext {
     return new DeviceConfigContextImpl(version, deviceSid, key);
-  };
+  }
 
   instance._version = version;
-  instance._solution = { deviceSid };
+  instance._solution = { deviceSid,  };
   instance._uri = `/Devices/${deviceSid}/Configs`;
 
-  instance.create = function create(
-    params: DeviceConfigListInstanceCreateOptions,
-    callback?: (error: Error | null, items: DeviceConfigInstance) => any
-  ): Promise<DeviceConfigInstance> {
+  instance.create = function create(params: DeviceConfigListInstanceCreateOptions, callback?: (error: Error | null, items: DeviceConfigInstance) => any): Promise<DeviceConfigInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     if (params["key"] === null || params["key"] === undefined) {
-      throw new Error("Required parameter \"params['key']\" missing.");
+      throw new Error('Required parameter "params[\'key\']" missing.');
     }
 
     if (params["value"] === null || params["value"] === undefined) {
-      throw new Error("Required parameter \"params['value']\" missing.");
+      throw new Error('Required parameter "params[\'value\']" missing.');
     }
 
     let data: any = {};
 
+    
+        
     data["Key"] = params["key"];
-
+    
     data["Value"] = params["value"];
 
+    
+
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = version,
-      operationPromise = operationVersion.create({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      });
+        operationPromise = operationVersion.create({ uri: instance._uri, method: "post", data, headers });
+    
+    operationPromise = operationPromise.then(payload => new DeviceConfigInstance(operationVersion, payload, instance._solution.deviceSid));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new DeviceConfigInstance(
-          operationVersion,
-          payload,
-          instance._solution.deviceSid
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
 
-  instance.page = function page(
-    params?:
-      | DeviceConfigListInstancePageOptions
-      | ((error: Error | null, items: DeviceConfigPage) => any),
-    callback?: (error: Error | null, items: DeviceConfigPage) => any
-  ): Promise<DeviceConfigPage> {
+
+    }
+
+  instance.page = function page(params?: DeviceConfigListInstancePageOptions | ((error: Error | null, items: DeviceConfigPage) => any), callback?: (error: Error | null, items: DeviceConfigPage) => any): Promise<DeviceConfigPage> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -550,101 +480,75 @@ export function DeviceConfigListInstance(
 
     let data: any = {};
 
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
 
+    
+    
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-      operationPromise = operationVersion.page({
-        uri: instance._uri,
-        method: "get",
-        params: data,
-        headers,
-      });
+        operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers });
+    
+    operationPromise = operationPromise.then(payload => new DeviceConfigPage(operationVersion, payload, instance._solution));
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new DeviceConfigPage(operationVersion, payload, instance._solution)
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
+
+  }
   instance.each = instance._version.each;
   instance.list = instance._version.list;
 
-  instance.getPage = function getPage(
-    targetUrl: string,
-    callback?: (error: Error | null, items: DeviceConfigPage) => any
-  ): Promise<DeviceConfigPage> {
-    const operationPromise = instance._version._domain.twilio.request({
-      method: "get",
-      uri: targetUrl,
-    });
+  instance.getPage = function getPage(targetUrl: string, callback?: (error: Error | null, items: DeviceConfigPage) => any): Promise<DeviceConfigPage> {
+    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
 
-    let pagePromise = operationPromise.then(
-      (payload) =>
-        new DeviceConfigPage(instance._version, payload, instance._solution)
-    );
+    let pagePromise = operationPromise.then(payload => new DeviceConfigPage(instance._version, payload, instance._solution));
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  };
+  }
+
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  };
+  }
 
-  instance[inspect.custom] = function inspectImpl(
-    _depth: any,
-    options: InspectOptions
-  ) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(instance.toJSON(), options);
-  };
+  }
 
   return instance;
 }
 
-export class DeviceConfigPage extends Page<
-  V1,
-  DeviceConfigPayload,
-  DeviceConfigResource,
-  DeviceConfigInstance
-> {
-  /**
-   * Initialize the DeviceConfigPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(
-    version: V1,
-    response: Response<string>,
-    solution: DeviceConfigSolution
-  ) {
+export class DeviceConfigPage extends Page<V1, DeviceConfigPayload, DeviceConfigResource, DeviceConfigInstance> {
+/**
+* Initialize the DeviceConfigPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V1, response: Response<string>, solution: DeviceConfigSolution) {
     super(version, response, solution);
-  }
+    }
 
-  /**
-   * Build an instance of DeviceConfigInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: DeviceConfigResource): DeviceConfigInstance {
+    /**
+    * Build an instance of DeviceConfigInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: DeviceConfigResource): DeviceConfigInstance {
     return new DeviceConfigInstance(
-      this._version,
-      payload,
-      this._solution.deviceSid
+    this._version,
+    payload,
+        this._solution.deviceSid,
     );
-  }
+    }
 
-  [inspect.custom](depth: any, options: InspectOptions) {
+    [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-  }
-}
+    }
+    }
+

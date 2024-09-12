@@ -40,29 +40,26 @@ export default class V1 extends Version {
 
   /** Getter for availableAddOns resource */
   get availableAddOns(): AvailableAddOnListInstance {
-    this._availableAddOns =
-      this._availableAddOns || AvailableAddOnListInstance(this);
+    this._availableAddOns = this._availableAddOns || AvailableAddOnListInstance(this);
     return this._availableAddOns;
   }
 
   /** Getter for installedAddOns resource */
   get installedAddOns(): InstalledAddOnListInstance {
-    this._installedAddOns =
-      this._installedAddOns || InstalledAddOnListInstance(this);
+    this._installedAddOns = this._installedAddOns || InstalledAddOnListInstance(this);
     return this._installedAddOns;
   }
 
   /** Getter for moduleDataManagement resource */
   get moduleDataManagement(): ModuleDataManagementListInstance {
-    this._moduleDataManagement =
-      this._moduleDataManagement || ModuleDataManagementListInstance(this);
+    this._moduleDataManagement = this._moduleDataManagement || ModuleDataManagementListInstance(this);
     return this._moduleDataManagement;
   }
 
   /** Getter for referralConversion resource */
   get referralConversion(): ReferralConversionListInstance {
-    this._referralConversion =
-      this._referralConversion || ReferralConversionListInstance(this);
+    this._referralConversion = this._referralConversion || ReferralConversionListInstance(this);
     return this._referralConversion;
   }
+
 }

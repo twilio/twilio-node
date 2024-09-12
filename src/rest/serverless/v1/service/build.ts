@@ -12,6 +12,7 @@
  * Do not edit the class manually.
  */
 
+
 import { inspect, InspectOptions } from "util";
 import Page, { TwilioResponsePayload } from "../../../../base/Page";
 import Response from "../../../../http/response";
@@ -21,35 +22,33 @@ const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
 import { BuildStatusListInstance } from "./build/buildStatus";
 
-export type BuildRuntime =
-  | "node8"
-  | "node10"
-  | "node12"
-  | "node14"
-  | "node16"
-  | "node18";
 
-export type BuildStatus = "building" | "completed" | "failed";
+export type BuildRuntime = 'node8'|'node10'|'node12'|'node14'|'node16'|'node18';
+
+export type BuildStatus = 'building'|'completed'|'failed';
+
+
+
 
 /**
  * Options to pass to create a BuildInstance
  */
 export interface BuildListInstanceCreateOptions {
   /** The list of Asset Version resource SIDs to include in the Build. */
-  assetVersions?: Array<string>;
+  "assetVersions"?: Array<string>;
   /** The list of the Function Version resource SIDs to include in the Build. */
-  functionVersions?: Array<string>;
+  "functionVersions"?: Array<string>;
   /** A list of objects that describe the Dependencies included in the Build. Each object contains the `name` and `version` of the dependency. */
-  dependencies?: string;
+  "dependencies"?: string;
   /** The Runtime version that will be used to run the Build resource when it is deployed. */
-  runtime?: string;
+  "runtime"?: string;
 }
 /**
  * Options to pass to each
  */
 export interface BuildListInstanceEachOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: BuildInstance, done: (err?: Error) => void) => void;
   /** Function to be called upon completion of streaming */
@@ -63,7 +62,7 @@ export interface BuildListInstanceEachOptions {
  */
 export interface BuildListInstanceOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
@@ -73,12 +72,13 @@ export interface BuildListInstanceOptions {
  */
 export interface BuildListInstancePageOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
   /** PageToken provided by the API */
   pageToken?: string;
 }
+
 
 export interface BuildContext {
   buildStatus: BuildStatusListInstance;
@@ -90,9 +90,7 @@ export interface BuildContext {
    *
    * @returns Resolves to processed boolean
    */
-  remove(
-    callback?: (error: Error | null, item?: boolean) => any
-  ): Promise<boolean>;
+  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
 
   /**
    * Fetch a BuildInstance
@@ -101,9 +99,9 @@ export interface BuildContext {
    *
    * @returns Resolves to processed BuildInstance
    */
-  fetch(
-    callback?: (error: Error | null, item?: BuildInstance) => any
-  ): Promise<BuildInstance>;
+  fetch(callback?: (error: Error | null, item?: BuildInstance) => any): Promise<BuildInstance>
+
+
 
   /**
    * Provide a user-friendly representation
@@ -113,8 +111,8 @@ export interface BuildContext {
 }
 
 export interface BuildContextSolution {
-  serviceSid: string;
-  sid: string;
+  "serviceSid": string;
+  "sid": string;
 }
 
 export class BuildContextImpl implements BuildContext {
@@ -125,70 +123,48 @@ export class BuildContextImpl implements BuildContext {
 
   constructor(protected _version: V1, serviceSid: string, sid: string) {
     if (!isValidPathParam(serviceSid)) {
-      throw new Error("Parameter 'serviceSid' is not valid.");
+      throw new Error('Parameter \'serviceSid\' is not valid.');
     }
 
     if (!isValidPathParam(sid)) {
-      throw new Error("Parameter 'sid' is not valid.");
+      throw new Error('Parameter \'sid\' is not valid.');
     }
 
-    this._solution = { serviceSid, sid };
+    this._solution = { serviceSid, sid,  };
     this._uri = `/Services/${serviceSid}/Builds/${sid}`;
   }
 
   get buildStatus(): BuildStatusListInstance {
-    this._buildStatus =
-      this._buildStatus ||
-      BuildStatusListInstance(
-        this._version,
-        this._solution.serviceSid,
-        this._solution.sid
-      );
+    this._buildStatus = this._buildStatus || BuildStatusListInstance(this._version, this._solution.serviceSid, this._solution.sid);
     return this._buildStatus;
   }
 
-  remove(
-    callback?: (error: Error | null, item?: boolean) => any
-  ): Promise<boolean> {
+  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean> {
+  
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.remove({
-        uri: instance._uri,
-        method: "delete",
-      });
+        operationPromise = operationVersion.remove({ uri: instance._uri, method: "delete" });
+    
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
-  fetch(
-    callback?: (error: Error | null, item?: BuildInstance) => any
-  ): Promise<BuildInstance> {
+  fetch(callback?: (error: Error | null, item?: BuildInstance) => any): Promise<BuildInstance> {
+  
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.fetch({
-        uri: instance._uri,
-        method: "get",
-      });
+        operationPromise = operationVersion.fetch({ uri: instance._uri, method: "get" });
+    
+    operationPromise = operationPromise.then(payload => new BuildInstance(operationVersion, payload, instance._solution.serviceSid, instance._solution.sid));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new BuildInstance(
-          operationVersion,
-          payload,
-          instance._solution.serviceSid,
-          instance._solution.sid
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
   /**
@@ -205,8 +181,9 @@ export class BuildContextImpl implements BuildContext {
   }
 }
 
+
 interface BuildPayload extends TwilioResponsePayload {
-  builds: BuildResource[];
+    builds: BuildResource[];
 }
 
 interface BuildResource {
@@ -228,26 +205,21 @@ export class BuildInstance {
   protected _solution: BuildContextSolution;
   protected _context?: BuildContext;
 
-  constructor(
-    protected _version: V1,
-    payload: BuildResource,
-    serviceSid: string,
-    sid?: string
-  ) {
-    this.sid = payload.sid;
-    this.accountSid = payload.account_sid;
-    this.serviceSid = payload.service_sid;
-    this.status = payload.status;
-    this.assetVersions = payload.asset_versions;
-    this.functionVersions = payload.function_versions;
-    this.dependencies = payload.dependencies;
-    this.runtime = payload.runtime;
+  constructor(protected _version: V1, payload: BuildResource, serviceSid: string, sid?: string) {
+    this.sid = (payload.sid);
+    this.accountSid = (payload.account_sid);
+    this.serviceSid = (payload.service_sid);
+    this.status = (payload.status);
+    this.assetVersions = (payload.asset_versions);
+    this.functionVersions = (payload.function_versions);
+    this.dependencies = (payload.dependencies);
+    this.runtime = (payload.runtime);
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
-    this.url = payload.url;
-    this.links = payload.links;
+    this.url = (payload.url);
+    this.links = (payload.links);
 
-    this._solution = { serviceSid, sid: sid || this.sid };
+    this._solution = { serviceSid, sid: sid || this.sid,  };
   }
 
   /**
@@ -291,13 +263,7 @@ export class BuildInstance {
   links: Record<string, string>;
 
   private get _proxy(): BuildContext {
-    this._context =
-      this._context ||
-      new BuildContextImpl(
-        this._version,
-        this._solution.serviceSid,
-        this._solution.sid
-      );
+    this._context = this._context || new BuildContextImpl(this._version, this._solution.serviceSid, this._solution.sid);
     return this._context;
   }
 
@@ -308,9 +274,9 @@ export class BuildInstance {
    *
    * @returns Resolves to processed boolean
    */
-  remove(
-    callback?: (error: Error | null, item?: boolean) => any
-  ): Promise<boolean> {
+  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
+
+    {
     return this._proxy.remove(callback);
   }
 
@@ -321,9 +287,9 @@ export class BuildInstance {
    *
    * @returns Resolves to processed BuildInstance
    */
-  fetch(
-    callback?: (error: Error | null, item?: BuildInstance) => any
-  ): Promise<BuildInstance> {
+  fetch(callback?: (error: Error | null, item?: BuildInstance) => any): Promise<BuildInstance>
+
+    {
     return this._proxy.fetch(callback);
   }
 
@@ -353,13 +319,14 @@ export class BuildInstance {
       dateUpdated: this.dateUpdated,
       url: this.url,
       links: this.links,
-    };
+    }
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
 }
+
 
 export interface BuildSolution {
   serviceSid: string;
@@ -370,8 +337,13 @@ export interface BuildListInstance {
   _solution: BuildSolution;
   _uri: string;
 
-  (sid: string): BuildContext;
-  get(sid: string): BuildContext;
+  (sid: string, ): BuildContext;
+  get(sid: string, ): BuildContext;
+
+
+
+
+
 
   /**
    * Create a BuildInstance
@@ -380,9 +352,7 @@ export interface BuildListInstance {
    *
    * @returns Resolves to processed BuildInstance
    */
-  create(
-    callback?: (error: Error | null, item?: BuildInstance) => any
-  ): Promise<BuildInstance>;
+  create(callback?: (error: Error | null, item?: BuildInstance) => any): Promise<BuildInstance>;
   /**
    * Create a BuildInstance
    *
@@ -391,10 +361,9 @@ export interface BuildListInstance {
    *
    * @returns Resolves to processed BuildInstance
    */
-  create(
-    params: BuildListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: BuildInstance) => any
-  ): Promise<BuildInstance>;
+  create(params: BuildListInstanceCreateOptions, callback?: (error: Error | null, item?: BuildInstance) => any): Promise<BuildInstance>;
+
+
 
   /**
    * Streams BuildInstance records from the API.
@@ -411,13 +380,8 @@ export interface BuildListInstance {
    * @param { BuildListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(
-    callback?: (item: BuildInstance, done: (err?: Error) => void) => void
-  ): void;
-  each(
-    params: BuildListInstanceEachOptions,
-    callback?: (item: BuildInstance, done: (err?: Error) => void) => void
-  ): void;
+  each(callback?: (item: BuildInstance, done: (err?: Error) => void) => void): void;
+  each(params: BuildListInstanceEachOptions, callback?: (item: BuildInstance, done: (err?: Error) => void) => void): void;
   /**
    * Retrieve a single target page of BuildInstance records from the API.
    *
@@ -426,10 +390,7 @@ export interface BuildListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(
-    targetUrl: string,
-    callback?: (error: Error | null, items: BuildPage) => any
-  ): Promise<BuildPage>;
+  getPage(targetUrl: string, callback?: (error: Error | null, items: BuildPage) => any): Promise<BuildPage>;
   /**
    * Lists BuildInstance records from the API as a list.
    *
@@ -439,13 +400,8 @@ export interface BuildListInstance {
    * @param { BuildListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(
-    callback?: (error: Error | null, items: BuildInstance[]) => any
-  ): Promise<BuildInstance[]>;
-  list(
-    params: BuildListInstanceOptions,
-    callback?: (error: Error | null, items: BuildInstance[]) => any
-  ): Promise<BuildInstance[]>;
+  list(callback?: (error: Error | null, items: BuildInstance[]) => any): Promise<BuildInstance[]>;
+  list(params: BuildListInstanceOptions, callback?: (error: Error | null, items: BuildInstance[]) => any): Promise<BuildInstance[]>;
   /**
    * Retrieve a single page of BuildInstance records from the API.
    *
@@ -457,13 +413,8 @@ export interface BuildListInstance {
    * @param { BuildListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(
-    callback?: (error: Error | null, items: BuildPage) => any
-  ): Promise<BuildPage>;
-  page(
-    params: BuildListInstancePageOptions,
-    callback?: (error: Error | null, items: BuildPage) => any
-  ): Promise<BuildPage>;
+  page(callback?: (error: Error | null, items: BuildPage) => any): Promise<BuildPage>;
+  page(params: BuildListInstancePageOptions, callback?: (error: Error | null, items: BuildPage) => any): Promise<BuildPage>;
 
   /**
    * Provide a user-friendly representation
@@ -472,30 +423,22 @@ export interface BuildListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function BuildListInstance(
-  version: V1,
-  serviceSid: string
-): BuildListInstance {
+export function BuildListInstance(version: V1, serviceSid: string): BuildListInstance {
   if (!isValidPathParam(serviceSid)) {
-    throw new Error("Parameter 'serviceSid' is not valid.");
+    throw new Error('Parameter \'serviceSid\' is not valid.');
   }
 
-  const instance = ((sid) => instance.get(sid)) as BuildListInstance;
+  const instance = ((sid, ) => instance.get(sid, )) as BuildListInstance;
 
-  instance.get = function get(sid): BuildContext {
+  instance.get = function get(sid, ): BuildContext {
     return new BuildContextImpl(version, serviceSid, sid);
-  };
+  }
 
   instance._version = version;
-  instance._solution = { serviceSid };
+  instance._solution = { serviceSid,  };
   instance._uri = `/Services/${serviceSid}/Builds`;
 
-  instance.create = function create(
-    params?:
-      | BuildListInstanceCreateOptions
-      | ((error: Error | null, items: BuildInstance) => any),
-    callback?: (error: Error | null, items: BuildInstance) => any
-  ): Promise<BuildInstance> {
+  instance.create = function create(params?: BuildListInstanceCreateOptions | ((error: Error | null, items: BuildInstance) => any), callback?: (error: Error | null, items: BuildInstance) => any): Promise<BuildInstance> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -505,53 +448,34 @@ export function BuildListInstance(
 
     let data: any = {};
 
-    if (params["assetVersions"] !== undefined)
-      data["AssetVersions"] = serialize.map(
-        params["assetVersions"],
-        (e: string) => e
-      );
+    
+        if (params["assetVersions"] !== undefined)
+    data["AssetVersions"] = serialize.map(params["assetVersions"], (e: string) => (e));
     if (params["functionVersions"] !== undefined)
-      data["FunctionVersions"] = serialize.map(
-        params["functionVersions"],
-        (e: string) => e
-      );
+    data["FunctionVersions"] = serialize.map(params["functionVersions"], (e: string) => (e));
     if (params["dependencies"] !== undefined)
-      data["Dependencies"] = params["dependencies"];
-    if (params["runtime"] !== undefined) data["Runtime"] = params["runtime"];
+    data["Dependencies"] = params["dependencies"];
+    if (params["runtime"] !== undefined)
+    data["Runtime"] = params["runtime"];
+
+    
 
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = version,
-      operationPromise = operationVersion.create({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      });
+        operationPromise = operationVersion.create({ uri: instance._uri, method: "post", data, headers });
+    
+    operationPromise = operationPromise.then(payload => new BuildInstance(operationVersion, payload, instance._solution.serviceSid));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new BuildInstance(
-          operationVersion,
-          payload,
-          instance._solution.serviceSid
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
 
-  instance.page = function page(
-    params?:
-      | BuildListInstancePageOptions
-      | ((error: Error | null, items: BuildPage) => any),
-    callback?: (error: Error | null, items: BuildPage) => any
-  ): Promise<BuildPage> {
+
+    }
+
+  instance.page = function page(params?: BuildListInstancePageOptions | ((error: Error | null, items: BuildPage) => any), callback?: (error: Error | null, items: BuildPage) => any): Promise<BuildPage> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -561,95 +485,75 @@ export function BuildListInstance(
 
     let data: any = {};
 
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
 
+    
+    
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-      operationPromise = operationVersion.page({
-        uri: instance._uri,
-        method: "get",
-        params: data,
-        headers,
-      });
+        operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers });
+    
+    operationPromise = operationPromise.then(payload => new BuildPage(operationVersion, payload, instance._solution));
 
-    operationPromise = operationPromise.then(
-      (payload) => new BuildPage(operationVersion, payload, instance._solution)
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
+
+  }
   instance.each = instance._version.each;
   instance.list = instance._version.list;
 
-  instance.getPage = function getPage(
-    targetUrl: string,
-    callback?: (error: Error | null, items: BuildPage) => any
-  ): Promise<BuildPage> {
-    const operationPromise = instance._version._domain.twilio.request({
-      method: "get",
-      uri: targetUrl,
-    });
+  instance.getPage = function getPage(targetUrl: string, callback?: (error: Error | null, items: BuildPage) => any): Promise<BuildPage> {
+    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
 
-    let pagePromise = operationPromise.then(
-      (payload) => new BuildPage(instance._version, payload, instance._solution)
-    );
+    let pagePromise = operationPromise.then(payload => new BuildPage(instance._version, payload, instance._solution));
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  };
+  }
+
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  };
+  }
 
-  instance[inspect.custom] = function inspectImpl(
-    _depth: any,
-    options: InspectOptions
-  ) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(instance.toJSON(), options);
-  };
+  }
 
   return instance;
 }
 
-export class BuildPage extends Page<
-  V1,
-  BuildPayload,
-  BuildResource,
-  BuildInstance
-> {
-  /**
-   * Initialize the BuildPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(
-    version: V1,
-    response: Response<string>,
-    solution: BuildSolution
-  ) {
+export class BuildPage extends Page<V1, BuildPayload, BuildResource, BuildInstance> {
+/**
+* Initialize the BuildPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V1, response: Response<string>, solution: BuildSolution) {
     super(version, response, solution);
-  }
+    }
 
-  /**
-   * Build an instance of BuildInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: BuildResource): BuildInstance {
-    return new BuildInstance(this._version, payload, this._solution.serviceSid);
-  }
+    /**
+    * Build an instance of BuildInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: BuildResource): BuildInstance {
+    return new BuildInstance(
+    this._version,
+    payload,
+        this._solution.serviceSid,
+    );
+    }
 
-  [inspect.custom](depth: any, options: InspectOptions) {
+    [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-  }
-}
+    }
+    }
+

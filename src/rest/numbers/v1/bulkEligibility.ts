@@ -12,21 +12,26 @@
  * Do not edit the class manually.
  */
 
+
 import { inspect, InspectOptions } from "util";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 
+
+
+
 /**
  * Options to pass to create a BulkEligibilityInstance
  */
 export interface BulkEligibilityListInstanceCreateOptions {
   /**  */
-  body?: object;
+  "body"?: object;
 }
 
 export interface BulkEligibilityContext {
+
   /**
    * Fetch a BulkEligibilityInstance
    *
@@ -34,9 +39,8 @@ export interface BulkEligibilityContext {
    *
    * @returns Resolves to processed BulkEligibilityInstance
    */
-  fetch(
-    callback?: (error: Error | null, item?: BulkEligibilityInstance) => any
-  ): Promise<BulkEligibilityInstance>;
+  fetch(callback?: (error: Error | null, item?: BulkEligibilityInstance) => any): Promise<BulkEligibilityInstance>
+
 
   /**
    * Provide a user-friendly representation
@@ -46,46 +50,36 @@ export interface BulkEligibilityContext {
 }
 
 export interface BulkEligibilityContextSolution {
-  requestId: string;
+  "requestId": string;
 }
 
 export class BulkEligibilityContextImpl implements BulkEligibilityContext {
   protected _solution: BulkEligibilityContextSolution;
   protected _uri: string;
 
+
   constructor(protected _version: V1, requestId: string) {
     if (!isValidPathParam(requestId)) {
-      throw new Error("Parameter 'requestId' is not valid.");
+      throw new Error('Parameter \'requestId\' is not valid.');
     }
 
-    this._solution = { requestId };
+    this._solution = { requestId,  };
     this._uri = `/HostedNumber/Eligibility/Bulk/${requestId}`;
   }
 
-  fetch(
-    callback?: (error: Error | null, item?: BulkEligibilityInstance) => any
-  ): Promise<BulkEligibilityInstance> {
+  fetch(callback?: (error: Error | null, item?: BulkEligibilityInstance) => any): Promise<BulkEligibilityInstance> {
+  
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.fetch({
-        uri: instance._uri,
-        method: "get",
-      });
+        operationPromise = operationVersion.fetch({ uri: instance._uri, method: "get" });
+    
+    operationPromise = operationPromise.then(payload => new BulkEligibilityInstance(operationVersion, payload, instance._solution.requestId));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new BulkEligibilityInstance(
-          operationVersion,
-          payload,
-          instance._solution.requestId
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
   /**
@@ -101,6 +95,7 @@ export class BulkEligibilityContextImpl implements BulkEligibilityContext {
     return inspect(this.toJSON(), options);
   }
 }
+
 
 interface BulkEligibilityPayload extends BulkEligibilityResource {}
 
@@ -118,20 +113,16 @@ export class BulkEligibilityInstance {
   protected _solution: BulkEligibilityContextSolution;
   protected _context?: BulkEligibilityContext;
 
-  constructor(
-    protected _version: V1,
-    payload: BulkEligibilityResource,
-    requestId?: string
-  ) {
-    this.requestId = payload.request_id;
-    this.url = payload.url;
-    this.results = payload.results;
-    this.friendlyName = payload.friendly_name;
-    this.status = payload.status;
+  constructor(protected _version: V1, payload: BulkEligibilityResource, requestId?: string) {
+    this.requestId = (payload.request_id);
+    this.url = (payload.url);
+    this.results = (payload.results);
+    this.friendlyName = (payload.friendly_name);
+    this.status = (payload.status);
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateCompleted = deserialize.iso8601DateTime(payload.date_completed);
 
-    this._solution = { requestId: requestId || this.requestId };
+    this._solution = { requestId: requestId || this.requestId,  };
   }
 
   /**
@@ -158,9 +149,7 @@ export class BulkEligibilityInstance {
   dateCompleted: Date;
 
   private get _proxy(): BulkEligibilityContext {
-    this._context =
-      this._context ||
-      new BulkEligibilityContextImpl(this._version, this._solution.requestId);
+    this._context = this._context || new BulkEligibilityContextImpl(this._version, this._solution.requestId);
     return this._context;
   }
 
@@ -171,9 +160,9 @@ export class BulkEligibilityInstance {
    *
    * @returns Resolves to processed BulkEligibilityInstance
    */
-  fetch(
-    callback?: (error: Error | null, item?: BulkEligibilityInstance) => any
-  ): Promise<BulkEligibilityInstance> {
+  fetch(callback?: (error: Error | null, item?: BulkEligibilityInstance) => any): Promise<BulkEligibilityInstance>
+
+    {
     return this._proxy.fetch(callback);
   }
 
@@ -191,7 +180,7 @@ export class BulkEligibilityInstance {
       status: this.status,
       dateCreated: this.dateCreated,
       dateCompleted: this.dateCompleted,
-    };
+    }
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
@@ -199,15 +188,20 @@ export class BulkEligibilityInstance {
   }
 }
 
-export interface BulkEligibilitySolution {}
+
+export interface BulkEligibilitySolution {
+}
 
 export interface BulkEligibilityListInstance {
   _version: V1;
   _solution: BulkEligibilitySolution;
   _uri: string;
 
-  (requestId: string): BulkEligibilityContext;
-  get(requestId: string): BulkEligibilityContext;
+  (requestId: string, ): BulkEligibilityContext;
+  get(requestId: string, ): BulkEligibilityContext;
+
+
+
 
   /**
    * Create a BulkEligibilityInstance
@@ -216,9 +210,7 @@ export interface BulkEligibilityListInstance {
    *
    * @returns Resolves to processed BulkEligibilityInstance
    */
-  create(
-    callback?: (error: Error | null, item?: BulkEligibilityInstance) => any
-  ): Promise<BulkEligibilityInstance>;
+  create(callback?: (error: Error | null, item?: BulkEligibilityInstance) => any): Promise<BulkEligibilityInstance>;
   /**
    * Create a BulkEligibilityInstance
    *
@@ -227,10 +219,8 @@ export interface BulkEligibilityListInstance {
    *
    * @returns Resolves to processed BulkEligibilityInstance
    */
-  create(
-    params: object,
-    callback?: (error: Error | null, item?: BulkEligibilityInstance) => any
-  ): Promise<BulkEligibilityInstance>;
+  create(params: object, callback?: (error: Error | null, item?: BulkEligibilityInstance) => any): Promise<BulkEligibilityInstance>;
+
 
   /**
    * Provide a user-friendly representation
@@ -239,26 +229,18 @@ export interface BulkEligibilityListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function BulkEligibilityListInstance(
-  version: V1
-): BulkEligibilityListInstance {
-  const instance = ((requestId) =>
-    instance.get(requestId)) as BulkEligibilityListInstance;
+export function BulkEligibilityListInstance(version: V1): BulkEligibilityListInstance {
+  const instance = ((requestId, ) => instance.get(requestId, )) as BulkEligibilityListInstance;
 
-  instance.get = function get(requestId): BulkEligibilityContext {
+  instance.get = function get(requestId, ): BulkEligibilityContext {
     return new BulkEligibilityContextImpl(version, requestId);
-  };
+  }
 
   instance._version = version;
-  instance._solution = {};
+  instance._solution = {  };
   instance._uri = `/HostedNumber/Eligibility/Bulk`;
 
-  instance.create = function create(
-    params?:
-      | object
-      | ((error: Error | null, items: BulkEligibilityInstance) => any),
-    callback?: (error: Error | null, items: BulkEligibilityInstance) => any
-  ): Promise<BulkEligibilityInstance> {
+  instance.create = function create(params?: object | ((error: Error | null, items: BulkEligibilityInstance) => any), callback?: (error: Error | null, items: BulkEligibilityInstance) => any): Promise<BulkEligibilityInstance> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -268,40 +250,34 @@ export function BulkEligibilityListInstance(
 
     let data: any = {};
 
-    data = params;
+    
+    
+    data = params
 
     const headers: any = {};
-    headers["Content-Type"] = "application/json";
+    headers["Content-Type"] = "application/json"
 
     let operationVersion = version,
-      operationPromise = operationVersion.create({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      });
+        operationPromise = operationVersion.create({ uri: instance._uri, method: "post", data, headers });
+    
+    operationPromise = operationPromise.then(payload => new BulkEligibilityInstance(operationVersion, payload));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) => new BulkEligibilityInstance(operationVersion, payload)
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
+
+
+    }
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  };
+  }
 
-  instance[inspect.custom] = function inspectImpl(
-    _depth: any,
-    options: InspectOptions
-  ) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(instance.toJSON(), options);
-  };
+  }
 
   return instance;
 }
+
+

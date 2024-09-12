@@ -12,6 +12,7 @@
  * Do not edit the class manually.
  */
 
+
 import { inspect, InspectOptions } from "util";
 import Page, { TwilioResponsePayload } from "../../../../base/Page";
 import Response from "../../../../http/response";
@@ -20,39 +21,22 @@ const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
 
-export type ParticipantCodec = "VP8" | "H264" | "VP9";
 
-export type ParticipantEdgeLocation =
-  | "ashburn"
-  | "dublin"
-  | "frankfurt"
-  | "singapore"
-  | "sydney"
-  | "sao_paulo"
-  | "roaming"
-  | "umatilla"
-  | "tokyo";
+export type ParticipantCodec = 'VP8'|'H264'|'VP9';
 
-export type ParticipantRoomStatus = "in_progress" | "completed";
+export type ParticipantEdgeLocation = 'ashburn'|'dublin'|'frankfurt'|'singapore'|'sydney'|'sao_paulo'|'roaming'|'umatilla'|'tokyo';
 
-export type ParticipantTwilioRealm =
-  | "us1"
-  | "us2"
-  | "au1"
-  | "br1"
-  | "ie1"
-  | "jp1"
-  | "sg1"
-  | "in1"
-  | "de1"
-  | "gll";
+export type ParticipantRoomStatus = 'in_progress'|'completed';
+
+export type ParticipantTwilioRealm = 'us1'|'us2'|'au1'|'br1'|'ie1'|'jp1'|'sg1'|'in1'|'de1'|'gll';
+
 
 /**
  * Options to pass to each
  */
 export interface ParticipantListInstanceEachOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: ParticipantInstance, done: (err?: Error) => void) => void;
   /** Function to be called upon completion of streaming */
@@ -66,7 +50,7 @@ export interface ParticipantListInstanceEachOptions {
  */
 export interface ParticipantListInstanceOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
@@ -76,14 +60,16 @@ export interface ParticipantListInstanceOptions {
  */
 export interface ParticipantListInstancePageOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
   /** PageToken provided by the API */
   pageToken?: string;
 }
 
+
 export interface ParticipantContext {
+
   /**
    * Fetch a ParticipantInstance
    *
@@ -91,9 +77,8 @@ export interface ParticipantContext {
    *
    * @returns Resolves to processed ParticipantInstance
    */
-  fetch(
-    callback?: (error: Error | null, item?: ParticipantInstance) => any
-  ): Promise<ParticipantInstance>;
+  fetch(callback?: (error: Error | null, item?: ParticipantInstance) => any): Promise<ParticipantInstance>
+
 
   /**
    * Provide a user-friendly representation
@@ -103,52 +88,41 @@ export interface ParticipantContext {
 }
 
 export interface ParticipantContextSolution {
-  roomSid: string;
-  participantSid: string;
+  "roomSid": string;
+  "participantSid": string;
 }
 
 export class ParticipantContextImpl implements ParticipantContext {
   protected _solution: ParticipantContextSolution;
   protected _uri: string;
 
+
   constructor(protected _version: V1, roomSid: string, participantSid: string) {
     if (!isValidPathParam(roomSid)) {
-      throw new Error("Parameter 'roomSid' is not valid.");
+      throw new Error('Parameter \'roomSid\' is not valid.');
     }
 
     if (!isValidPathParam(participantSid)) {
-      throw new Error("Parameter 'participantSid' is not valid.");
+      throw new Error('Parameter \'participantSid\' is not valid.');
     }
 
-    this._solution = { roomSid, participantSid };
+    this._solution = { roomSid, participantSid,  };
     this._uri = `/Video/Rooms/${roomSid}/Participants/${participantSid}`;
   }
 
-  fetch(
-    callback?: (error: Error | null, item?: ParticipantInstance) => any
-  ): Promise<ParticipantInstance> {
+  fetch(callback?: (error: Error | null, item?: ParticipantInstance) => any): Promise<ParticipantInstance> {
+  
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.fetch({
-        uri: instance._uri,
-        method: "get",
-      });
+        operationPromise = operationVersion.fetch({ uri: instance._uri, method: "get" });
+    
+    operationPromise = operationPromise.then(payload => new ParticipantInstance(operationVersion, payload, instance._solution.roomSid, instance._solution.participantSid));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new ParticipantInstance(
-          operationVersion,
-          payload,
-          instance._solution.roomSid,
-          instance._solution.participantSid
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
   /**
@@ -165,8 +139,9 @@ export class ParticipantContextImpl implements ParticipantContext {
   }
 }
 
+
 interface ParticipantPayload extends TwilioResponsePayload {
-  participants: ParticipantResource[];
+    participants: ParticipantResource[];
 }
 
 interface ParticipantResource {
@@ -193,34 +168,26 @@ export class ParticipantInstance {
   protected _solution: ParticipantContextSolution;
   protected _context?: ParticipantContext;
 
-  constructor(
-    protected _version: V1,
-    payload: ParticipantResource,
-    roomSid: string,
-    participantSid?: string
-  ) {
-    this.participantSid = payload.participant_sid;
-    this.participantIdentity = payload.participant_identity;
+  constructor(protected _version: V1, payload: ParticipantResource, roomSid: string, participantSid?: string) {
+    this.participantSid = (payload.participant_sid);
+    this.participantIdentity = (payload.participant_identity);
     this.joinTime = deserialize.iso8601DateTime(payload.join_time);
     this.leaveTime = deserialize.iso8601DateTime(payload.leave_time);
-    this.durationSec = payload.duration_sec;
-    this.accountSid = payload.account_sid;
-    this.roomSid = payload.room_sid;
-    this.status = payload.status;
-    this.codecs = payload.codecs;
-    this.endReason = payload.end_reason;
+    this.durationSec = (payload.duration_sec);
+    this.accountSid = (payload.account_sid);
+    this.roomSid = (payload.room_sid);
+    this.status = (payload.status);
+    this.codecs = (payload.codecs);
+    this.endReason = (payload.end_reason);
     this.errorCode = deserialize.integer(payload.error_code);
-    this.errorCodeUrl = payload.error_code_url;
-    this.mediaRegion = payload.media_region;
-    this.properties = payload.properties;
-    this.edgeLocation = payload.edge_location;
-    this.publisherInfo = payload.publisher_info;
-    this.url = payload.url;
+    this.errorCodeUrl = (payload.error_code_url);
+    this.mediaRegion = (payload.media_region);
+    this.properties = (payload.properties);
+    this.edgeLocation = (payload.edge_location);
+    this.publisherInfo = (payload.publisher_info);
+    this.url = (payload.url);
 
-    this._solution = {
-      roomSid,
-      participantSid: participantSid || this.participantSid,
-    };
+    this._solution = { roomSid, participantSid: participantSid || this.participantSid,  };
   }
 
   /**
@@ -284,13 +251,7 @@ export class ParticipantInstance {
   url: string;
 
   private get _proxy(): ParticipantContext {
-    this._context =
-      this._context ||
-      new ParticipantContextImpl(
-        this._version,
-        this._solution.roomSid,
-        this._solution.participantSid
-      );
+    this._context = this._context || new ParticipantContextImpl(this._version, this._solution.roomSid, this._solution.participantSid);
     return this._context;
   }
 
@@ -301,9 +262,9 @@ export class ParticipantInstance {
    *
    * @returns Resolves to processed ParticipantInstance
    */
-  fetch(
-    callback?: (error: Error | null, item?: ParticipantInstance) => any
-  ): Promise<ParticipantInstance> {
+  fetch(callback?: (error: Error | null, item?: ParticipantInstance) => any): Promise<ParticipantInstance>
+
+    {
     return this._proxy.fetch(callback);
   }
 
@@ -331,13 +292,14 @@ export class ParticipantInstance {
       edgeLocation: this.edgeLocation,
       publisherInfo: this.publisherInfo,
       url: this.url,
-    };
+    }
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
 }
+
 
 export interface ParticipantSolution {
   roomSid: string;
@@ -348,8 +310,12 @@ export interface ParticipantListInstance {
   _solution: ParticipantSolution;
   _uri: string;
 
-  (participantSid: string): ParticipantContext;
-  get(participantSid: string): ParticipantContext;
+  (participantSid: string, ): ParticipantContext;
+  get(participantSid: string, ): ParticipantContext;
+
+
+
+
 
   /**
    * Streams ParticipantInstance records from the API.
@@ -366,13 +332,8 @@ export interface ParticipantListInstance {
    * @param { ParticipantListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(
-    callback?: (item: ParticipantInstance, done: (err?: Error) => void) => void
-  ): void;
-  each(
-    params: ParticipantListInstanceEachOptions,
-    callback?: (item: ParticipantInstance, done: (err?: Error) => void) => void
-  ): void;
+  each(callback?: (item: ParticipantInstance, done: (err?: Error) => void) => void): void;
+  each(params: ParticipantListInstanceEachOptions, callback?: (item: ParticipantInstance, done: (err?: Error) => void) => void): void;
   /**
    * Retrieve a single target page of ParticipantInstance records from the API.
    *
@@ -381,10 +342,7 @@ export interface ParticipantListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(
-    targetUrl: string,
-    callback?: (error: Error | null, items: ParticipantPage) => any
-  ): Promise<ParticipantPage>;
+  getPage(targetUrl: string, callback?: (error: Error | null, items: ParticipantPage) => any): Promise<ParticipantPage>;
   /**
    * Lists ParticipantInstance records from the API as a list.
    *
@@ -394,13 +352,8 @@ export interface ParticipantListInstance {
    * @param { ParticipantListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(
-    callback?: (error: Error | null, items: ParticipantInstance[]) => any
-  ): Promise<ParticipantInstance[]>;
-  list(
-    params: ParticipantListInstanceOptions,
-    callback?: (error: Error | null, items: ParticipantInstance[]) => any
-  ): Promise<ParticipantInstance[]>;
+  list(callback?: (error: Error | null, items: ParticipantInstance[]) => any): Promise<ParticipantInstance[]>;
+  list(params: ParticipantListInstanceOptions, callback?: (error: Error | null, items: ParticipantInstance[]) => any): Promise<ParticipantInstance[]>;
   /**
    * Retrieve a single page of ParticipantInstance records from the API.
    *
@@ -412,13 +365,8 @@ export interface ParticipantListInstance {
    * @param { ParticipantListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(
-    callback?: (error: Error | null, items: ParticipantPage) => any
-  ): Promise<ParticipantPage>;
-  page(
-    params: ParticipantListInstancePageOptions,
-    callback?: (error: Error | null, items: ParticipantPage) => any
-  ): Promise<ParticipantPage>;
+  page(callback?: (error: Error | null, items: ParticipantPage) => any): Promise<ParticipantPage>;
+  page(params: ParticipantListInstancePageOptions, callback?: (error: Error | null, items: ParticipantPage) => any): Promise<ParticipantPage>;
 
   /**
    * Provide a user-friendly representation
@@ -427,31 +375,22 @@ export interface ParticipantListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function ParticipantListInstance(
-  version: V1,
-  roomSid: string
-): ParticipantListInstance {
+export function ParticipantListInstance(version: V1, roomSid: string): ParticipantListInstance {
   if (!isValidPathParam(roomSid)) {
-    throw new Error("Parameter 'roomSid' is not valid.");
+    throw new Error('Parameter \'roomSid\' is not valid.');
   }
 
-  const instance = ((participantSid) =>
-    instance.get(participantSid)) as ParticipantListInstance;
+  const instance = ((participantSid, ) => instance.get(participantSid, )) as ParticipantListInstance;
 
-  instance.get = function get(participantSid): ParticipantContext {
+  instance.get = function get(participantSid, ): ParticipantContext {
     return new ParticipantContextImpl(version, roomSid, participantSid);
-  };
+  }
 
   instance._version = version;
-  instance._solution = { roomSid };
+  instance._solution = { roomSid,  };
   instance._uri = `/Video/Rooms/${roomSid}/Participants`;
 
-  instance.page = function page(
-    params?:
-      | ParticipantListInstancePageOptions
-      | ((error: Error | null, items: ParticipantPage) => any),
-    callback?: (error: Error | null, items: ParticipantPage) => any
-  ): Promise<ParticipantPage> {
+  instance.page = function page(params?: ParticipantListInstancePageOptions | ((error: Error | null, items: ParticipantPage) => any), callback?: (error: Error | null, items: ParticipantPage) => any): Promise<ParticipantPage> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -461,101 +400,75 @@ export function ParticipantListInstance(
 
     let data: any = {};
 
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
 
+    
+    
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-      operationPromise = operationVersion.page({
-        uri: instance._uri,
-        method: "get",
-        params: data,
-        headers,
-      });
+        operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers });
+    
+    operationPromise = operationPromise.then(payload => new ParticipantPage(operationVersion, payload, instance._solution));
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new ParticipantPage(operationVersion, payload, instance._solution)
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
+
+  }
   instance.each = instance._version.each;
   instance.list = instance._version.list;
 
-  instance.getPage = function getPage(
-    targetUrl: string,
-    callback?: (error: Error | null, items: ParticipantPage) => any
-  ): Promise<ParticipantPage> {
-    const operationPromise = instance._version._domain.twilio.request({
-      method: "get",
-      uri: targetUrl,
-    });
+  instance.getPage = function getPage(targetUrl: string, callback?: (error: Error | null, items: ParticipantPage) => any): Promise<ParticipantPage> {
+    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
 
-    let pagePromise = operationPromise.then(
-      (payload) =>
-        new ParticipantPage(instance._version, payload, instance._solution)
-    );
+    let pagePromise = operationPromise.then(payload => new ParticipantPage(instance._version, payload, instance._solution));
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  };
+  }
+
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  };
+  }
 
-  instance[inspect.custom] = function inspectImpl(
-    _depth: any,
-    options: InspectOptions
-  ) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(instance.toJSON(), options);
-  };
+  }
 
   return instance;
 }
 
-export class ParticipantPage extends Page<
-  V1,
-  ParticipantPayload,
-  ParticipantResource,
-  ParticipantInstance
-> {
-  /**
-   * Initialize the ParticipantPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(
-    version: V1,
-    response: Response<string>,
-    solution: ParticipantSolution
-  ) {
+export class ParticipantPage extends Page<V1, ParticipantPayload, ParticipantResource, ParticipantInstance> {
+/**
+* Initialize the ParticipantPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V1, response: Response<string>, solution: ParticipantSolution) {
     super(version, response, solution);
-  }
+    }
 
-  /**
-   * Build an instance of ParticipantInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: ParticipantResource): ParticipantInstance {
+    /**
+    * Build an instance of ParticipantInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: ParticipantResource): ParticipantInstance {
     return new ParticipantInstance(
-      this._version,
-      payload,
-      this._solution.roomSid
+    this._version,
+    payload,
+        this._solution.roomSid,
     );
-  }
+    }
 
-  [inspect.custom](depth: any, options: InspectOptions) {
+    [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-  }
-}
+    }
+    }
+

@@ -12,6 +12,7 @@
  * Do not edit the class manually.
  */
 
+
 import { inspect, InspectOptions } from "util";
 import Page, { TwilioResponsePayload } from "../../../base/Page";
 import Response from "../../../http/response";
@@ -20,23 +21,21 @@ const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 
+
 /**
  * Options to pass to each
  */
 export interface InsightsSegmentsListInstanceEachOptions {
   /** The Authorization HTTP request header */
-  authorization?: string;
+  "authorization"?: string;
   /** To unique id of the segment */
-  segmentId?: string;
+  "segmentId"?: string;
   /** The list of reservation Ids */
-  reservationId?: Array<string>;
+  "reservationId"?: Array<string>;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
-  callback?: (
-    item: InsightsSegmentsInstance,
-    done: (err?: Error) => void
-  ) => void;
+  callback?: (item: InsightsSegmentsInstance, done: (err?: Error) => void) => void;
   /** Function to be called upon completion of streaming */
   done?: Function;
   /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
@@ -48,13 +47,13 @@ export interface InsightsSegmentsListInstanceEachOptions {
  */
 export interface InsightsSegmentsListInstanceOptions {
   /** The Authorization HTTP request header */
-  authorization?: string;
+  "authorization"?: string;
   /** To unique id of the segment */
-  segmentId?: string;
+  "segmentId"?: string;
   /** The list of reservation Ids */
-  reservationId?: Array<string>;
+  "reservationId"?: Array<string>;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
@@ -64,25 +63,31 @@ export interface InsightsSegmentsListInstanceOptions {
  */
 export interface InsightsSegmentsListInstancePageOptions {
   /** The Authorization HTTP request header */
-  authorization?: string;
+  "authorization"?: string;
   /** To unique id of the segment */
-  segmentId?: string;
+  "segmentId"?: string;
   /** The list of reservation Ids */
-  reservationId?: Array<string>;
+  "reservationId"?: Array<string>;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
   /** PageToken provided by the API */
   pageToken?: string;
 }
 
-export interface InsightsSegmentsSolution {}
+
+
+export interface InsightsSegmentsSolution {
+}
 
 export interface InsightsSegmentsListInstance {
   _version: V1;
   _solution: InsightsSegmentsSolution;
   _uri: string;
+
+
+
 
   /**
    * Streams InsightsSegmentsInstance records from the API.
@@ -99,19 +104,8 @@ export interface InsightsSegmentsListInstance {
    * @param { InsightsSegmentsListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(
-    callback?: (
-      item: InsightsSegmentsInstance,
-      done: (err?: Error) => void
-    ) => void
-  ): void;
-  each(
-    params: InsightsSegmentsListInstanceEachOptions,
-    callback?: (
-      item: InsightsSegmentsInstance,
-      done: (err?: Error) => void
-    ) => void
-  ): void;
+  each(callback?: (item: InsightsSegmentsInstance, done: (err?: Error) => void) => void): void;
+  each(params: InsightsSegmentsListInstanceEachOptions, callback?: (item: InsightsSegmentsInstance, done: (err?: Error) => void) => void): void;
   /**
    * Retrieve a single target page of InsightsSegmentsInstance records from the API.
    *
@@ -120,10 +114,7 @@ export interface InsightsSegmentsListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(
-    targetUrl: string,
-    callback?: (error: Error | null, items: InsightsSegmentsPage) => any
-  ): Promise<InsightsSegmentsPage>;
+  getPage(targetUrl: string, callback?: (error: Error | null, items: InsightsSegmentsPage) => any): Promise<InsightsSegmentsPage>;
   /**
    * Lists InsightsSegmentsInstance records from the API as a list.
    *
@@ -133,13 +124,8 @@ export interface InsightsSegmentsListInstance {
    * @param { InsightsSegmentsListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(
-    callback?: (error: Error | null, items: InsightsSegmentsInstance[]) => any
-  ): Promise<InsightsSegmentsInstance[]>;
-  list(
-    params: InsightsSegmentsListInstanceOptions,
-    callback?: (error: Error | null, items: InsightsSegmentsInstance[]) => any
-  ): Promise<InsightsSegmentsInstance[]>;
+  list(callback?: (error: Error | null, items: InsightsSegmentsInstance[]) => any): Promise<InsightsSegmentsInstance[]>;
+  list(params: InsightsSegmentsListInstanceOptions, callback?: (error: Error | null, items: InsightsSegmentsInstance[]) => any): Promise<InsightsSegmentsInstance[]>;
   /**
    * Retrieve a single page of InsightsSegmentsInstance records from the API.
    *
@@ -151,13 +137,8 @@ export interface InsightsSegmentsListInstance {
    * @param { InsightsSegmentsListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(
-    callback?: (error: Error | null, items: InsightsSegmentsPage) => any
-  ): Promise<InsightsSegmentsPage>;
-  page(
-    params: InsightsSegmentsListInstancePageOptions,
-    callback?: (error: Error | null, items: InsightsSegmentsPage) => any
-  ): Promise<InsightsSegmentsPage>;
+  page(callback?: (error: Error | null, items: InsightsSegmentsPage) => any): Promise<InsightsSegmentsPage>;
+  page(params: InsightsSegmentsListInstancePageOptions, callback?: (error: Error | null, items: InsightsSegmentsPage) => any): Promise<InsightsSegmentsPage>;
 
   /**
    * Provide a user-friendly representation
@@ -166,21 +147,14 @@ export interface InsightsSegmentsListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function InsightsSegmentsListInstance(
-  version: V1
-): InsightsSegmentsListInstance {
+export function InsightsSegmentsListInstance(version: V1): InsightsSegmentsListInstance {
   const instance = {} as InsightsSegmentsListInstance;
 
   instance._version = version;
-  instance._solution = {};
+  instance._solution = {  };
   instance._uri = `/Insights/Segments`;
 
-  instance.page = function page(
-    params?:
-      | InsightsSegmentsListInstancePageOptions
-      | ((error: Error | null, items: InsightsSegmentsPage) => any),
-    callback?: (error: Error | null, items: InsightsSegmentsPage) => any
-  ): Promise<InsightsSegmentsPage> {
+  instance.page = function page(params?: InsightsSegmentsListInstancePageOptions | ((error: Error | null, items: InsightsSegmentsPage) => any), callback?: (error: Error | null, items: InsightsSegmentsPage) => any): Promise<InsightsSegmentsPage> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -190,77 +164,55 @@ export function InsightsSegmentsListInstance(
 
     let data: any = {};
 
-    if (params["segmentId"] !== undefined)
-      data["SegmentId"] = params["segmentId"];
+        if (params["segmentId"] !== undefined)
+    data["SegmentId"] = params["segmentId"];
     if (params["reservationId"] !== undefined)
-      data["ReservationId"] = serialize.map(
-        params["reservationId"],
-        (e: string) => e
-      );
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+    data["ReservationId"] = serialize.map(params["reservationId"], (e: string) => (e));
+    if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
 
+    
+    
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
-    if (params["authorization"] !== undefined)
-      headers["Authorization"] = params["authorization"];
+    if (params["authorization"] !== undefined) headers["Authorization"] = params["authorization"];
 
     let operationVersion = version,
-      operationPromise = operationVersion.page({
-        uri: instance._uri,
-        method: "get",
-        params: data,
-        headers,
-      });
+        operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers });
+    
+    operationPromise = operationPromise.then(payload => new InsightsSegmentsPage(operationVersion, payload, instance._solution));
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new InsightsSegmentsPage(operationVersion, payload, instance._solution)
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
+
+  }
   instance.each = instance._version.each;
   instance.list = instance._version.list;
 
-  instance.getPage = function getPage(
-    targetUrl: string,
-    callback?: (error: Error | null, items: InsightsSegmentsPage) => any
-  ): Promise<InsightsSegmentsPage> {
-    const operationPromise = instance._version._domain.twilio.request({
-      method: "get",
-      uri: targetUrl,
-    });
+  instance.getPage = function getPage(targetUrl: string, callback?: (error: Error | null, items: InsightsSegmentsPage) => any): Promise<InsightsSegmentsPage> {
+    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
 
-    let pagePromise = operationPromise.then(
-      (payload) =>
-        new InsightsSegmentsPage(instance._version, payload, instance._solution)
-    );
+    let pagePromise = operationPromise.then(payload => new InsightsSegmentsPage(instance._version, payload, instance._solution));
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  };
+  }
+
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  };
+  }
 
-  instance[inspect.custom] = function inspectImpl(
-    _depth: any,
-    options: InspectOptions
-  ) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(instance.toJSON(), options);
-  };
+  }
 
   return instance;
 }
 
 interface InsightsSegmentsPayload extends TwilioResponsePayload {
-  segments: InsightsSegmentsResource[];
+    segments: InsightsSegmentsResource[];
 }
 
 interface InsightsSegmentsResource {
@@ -289,29 +241,31 @@ interface InsightsSegmentsResource {
 }
 
 export class InsightsSegmentsInstance {
+
   constructor(protected _version: V1, payload: InsightsSegmentsResource) {
-    this.segmentId = payload.segment_id;
-    this.externalId = payload.external_id;
-    this.queue = payload.queue;
-    this.externalContact = payload.external_contact;
-    this.externalSegmentLinkId = payload.external_segment_link_id;
-    this.date = payload.date;
-    this.accountId = payload.account_id;
-    this.externalSegmentLink = payload.external_segment_link;
-    this.agentId = payload.agent_id;
-    this.agentPhone = payload.agent_phone;
-    this.agentName = payload.agent_name;
-    this.agentTeamName = payload.agent_team_name;
-    this.agentTeamNameInHierarchy = payload.agent_team_name_in_hierarchy;
-    this.agentLink = payload.agent_link;
-    this.customerPhone = payload.customer_phone;
-    this.customerName = payload.customer_name;
-    this.customerLink = payload.customer_link;
-    this.segmentRecordingOffset = payload.segment_recording_offset;
-    this.media = payload.media;
-    this.assessmentType = payload.assessment_type;
-    this.assessmentPercentage = payload.assessment_percentage;
-    this.url = payload.url;
+    this.segmentId = (payload.segment_id);
+    this.externalId = (payload.external_id);
+    this.queue = (payload.queue);
+    this.externalContact = (payload.external_contact);
+    this.externalSegmentLinkId = (payload.external_segment_link_id);
+    this.date = (payload.date);
+    this.accountId = (payload.account_id);
+    this.externalSegmentLink = (payload.external_segment_link);
+    this.agentId = (payload.agent_id);
+    this.agentPhone = (payload.agent_phone);
+    this.agentName = (payload.agent_name);
+    this.agentTeamName = (payload.agent_team_name);
+    this.agentTeamNameInHierarchy = (payload.agent_team_name_in_hierarchy);
+    this.agentLink = (payload.agent_link);
+    this.customerPhone = (payload.customer_phone);
+    this.customerName = (payload.customer_name);
+    this.customerLink = (payload.customer_link);
+    this.segmentRecordingOffset = (payload.segment_recording_offset);
+    this.media = (payload.media);
+    this.assessmentType = (payload.assessment_type);
+    this.assessmentPercentage = (payload.assessment_percentage);
+    this.url = (payload.url);
+
   }
 
   /**
@@ -423,7 +377,7 @@ export class InsightsSegmentsInstance {
       assessmentType: this.assessmentType,
       assessmentPercentage: this.assessmentPercentage,
       url: this.url,
-    };
+    }
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
@@ -431,37 +385,32 @@ export class InsightsSegmentsInstance {
   }
 }
 
-export class InsightsSegmentsPage extends Page<
-  V1,
-  InsightsSegmentsPayload,
-  InsightsSegmentsResource,
-  InsightsSegmentsInstance
-> {
-  /**
-   * Initialize the InsightsSegmentsPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(
-    version: V1,
-    response: Response<string>,
-    solution: InsightsSegmentsSolution
-  ) {
+export class InsightsSegmentsPage extends Page<V1, InsightsSegmentsPayload, InsightsSegmentsResource, InsightsSegmentsInstance> {
+/**
+* Initialize the InsightsSegmentsPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V1, response: Response<string>, solution: InsightsSegmentsSolution) {
     super(version, response, solution);
-  }
+    }
 
-  /**
-   * Build an instance of InsightsSegmentsInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: InsightsSegmentsResource): InsightsSegmentsInstance {
-    return new InsightsSegmentsInstance(this._version, payload);
-  }
+    /**
+    * Build an instance of InsightsSegmentsInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: InsightsSegmentsResource): InsightsSegmentsInstance {
+    return new InsightsSegmentsInstance(
+    this._version,
+    payload,
+    );
+    }
 
-  [inspect.custom](depth: any, options: InspectOptions) {
+    [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-  }
-}
+    }
+    }
+

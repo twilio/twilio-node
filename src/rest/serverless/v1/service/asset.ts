@@ -12,6 +12,7 @@
  * Do not edit the class manually.
  */
 
+
 import { inspect, InspectOptions } from "util";
 import Page, { TwilioResponsePayload } from "../../../../base/Page";
 import Response from "../../../../http/response";
@@ -21,12 +22,16 @@ const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
 import { AssetVersionListInstance } from "./asset/assetVersion";
 
+
+
+
+
 /**
  * Options to pass to update a AssetInstance
  */
 export interface AssetContextUpdateOptions {
   /** A descriptive string that you create to describe the Asset resource. It can be a maximum of 255 characters. */
-  friendlyName: string;
+  "friendlyName": string;
 }
 
 /**
@@ -34,14 +39,14 @@ export interface AssetContextUpdateOptions {
  */
 export interface AssetListInstanceCreateOptions {
   /** A descriptive string that you create to describe the Asset resource. It can be a maximum of 255 characters. */
-  friendlyName: string;
+  "friendlyName": string;
 }
 /**
  * Options to pass to each
  */
 export interface AssetListInstanceEachOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: AssetInstance, done: (err?: Error) => void) => void;
   /** Function to be called upon completion of streaming */
@@ -55,7 +60,7 @@ export interface AssetListInstanceEachOptions {
  */
 export interface AssetListInstanceOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
@@ -65,12 +70,13 @@ export interface AssetListInstanceOptions {
  */
 export interface AssetListInstancePageOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
   /** PageToken provided by the API */
   pageToken?: string;
 }
+
 
 export interface AssetContext {
   assetVersions: AssetVersionListInstance;
@@ -82,9 +88,7 @@ export interface AssetContext {
    *
    * @returns Resolves to processed boolean
    */
-  remove(
-    callback?: (error: Error | null, item?: boolean) => any
-  ): Promise<boolean>;
+  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
 
   /**
    * Fetch a AssetInstance
@@ -93,9 +97,7 @@ export interface AssetContext {
    *
    * @returns Resolves to processed AssetInstance
    */
-  fetch(
-    callback?: (error: Error | null, item?: AssetInstance) => any
-  ): Promise<AssetInstance>;
+  fetch(callback?: (error: Error | null, item?: AssetInstance) => any): Promise<AssetInstance>
 
   /**
    * Update a AssetInstance
@@ -105,10 +107,9 @@ export interface AssetContext {
    *
    * @returns Resolves to processed AssetInstance
    */
-  update(
-    params: AssetContextUpdateOptions,
-    callback?: (error: Error | null, item?: AssetInstance) => any
-  ): Promise<AssetInstance>;
+  update(params: AssetContextUpdateOptions, callback?: (error: Error | null, item?: AssetInstance) => any): Promise<AssetInstance>;
+
+
 
   /**
    * Provide a user-friendly representation
@@ -118,8 +119,8 @@ export interface AssetContext {
 }
 
 export interface AssetContextSolution {
-  serviceSid: string;
-  sid: string;
+  "serviceSid": string;
+  "sid": string;
 }
 
 export class AssetContextImpl implements AssetContext {
@@ -130,118 +131,81 @@ export class AssetContextImpl implements AssetContext {
 
   constructor(protected _version: V1, serviceSid: string, sid: string) {
     if (!isValidPathParam(serviceSid)) {
-      throw new Error("Parameter 'serviceSid' is not valid.");
+      throw new Error('Parameter \'serviceSid\' is not valid.');
     }
 
     if (!isValidPathParam(sid)) {
-      throw new Error("Parameter 'sid' is not valid.");
+      throw new Error('Parameter \'sid\' is not valid.');
     }
 
-    this._solution = { serviceSid, sid };
+    this._solution = { serviceSid, sid,  };
     this._uri = `/Services/${serviceSid}/Assets/${sid}`;
   }
 
   get assetVersions(): AssetVersionListInstance {
-    this._assetVersions =
-      this._assetVersions ||
-      AssetVersionListInstance(
-        this._version,
-        this._solution.serviceSid,
-        this._solution.sid
-      );
+    this._assetVersions = this._assetVersions || AssetVersionListInstance(this._version, this._solution.serviceSid, this._solution.sid);
     return this._assetVersions;
   }
 
-  remove(
-    callback?: (error: Error | null, item?: boolean) => any
-  ): Promise<boolean> {
+  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean> {
+  
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.remove({
-        uri: instance._uri,
-        method: "delete",
-      });
+        operationPromise = operationVersion.remove({ uri: instance._uri, method: "delete" });
+    
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
-  fetch(
-    callback?: (error: Error | null, item?: AssetInstance) => any
-  ): Promise<AssetInstance> {
+  fetch(callback?: (error: Error | null, item?: AssetInstance) => any): Promise<AssetInstance> {
+  
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.fetch({
-        uri: instance._uri,
-        method: "get",
-      });
+        operationPromise = operationVersion.fetch({ uri: instance._uri, method: "get" });
+    
+    operationPromise = operationPromise.then(payload => new AssetInstance(operationVersion, payload, instance._solution.serviceSid, instance._solution.sid));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new AssetInstance(
-          operationVersion,
-          payload,
-          instance._solution.serviceSid,
-          instance._solution.sid
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
-  update(
-    params: AssetContextUpdateOptions,
-    callback?: (error: Error | null, item?: AssetInstance) => any
-  ): Promise<AssetInstance> {
-    if (params === null || params === undefined) {
+  update(params: AssetContextUpdateOptions, callback?: (error: Error | null, item?: AssetInstance) => any): Promise<AssetInstance> {
+      if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (
-      params["friendlyName"] === null ||
-      params["friendlyName"] === undefined
-    ) {
-      throw new Error("Required parameter \"params['friendlyName']\" missing.");
+    if (params["friendlyName"] === null || params["friendlyName"] === undefined) {
+      throw new Error('Required parameter "params[\'friendlyName\']" missing.');
     }
 
     let data: any = {};
 
+    
+        
     data["FriendlyName"] = params["friendlyName"];
 
+    
+
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.update({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      });
+        operationPromise = operationVersion.update({ uri: instance._uri, method: "post", data, headers });
+    
+    operationPromise = operationPromise.then(payload => new AssetInstance(operationVersion, payload, instance._solution.serviceSid, instance._solution.sid));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new AssetInstance(
-          operationVersion,
-          payload,
-          instance._solution.serviceSid,
-          instance._solution.sid
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
   /**
@@ -258,8 +222,9 @@ export class AssetContextImpl implements AssetContext {
   }
 }
 
+
 interface AssetPayload extends TwilioResponsePayload {
-  assets: AssetResource[];
+    assets: AssetResource[];
 }
 
 interface AssetResource {
@@ -277,22 +242,17 @@ export class AssetInstance {
   protected _solution: AssetContextSolution;
   protected _context?: AssetContext;
 
-  constructor(
-    protected _version: V1,
-    payload: AssetResource,
-    serviceSid: string,
-    sid?: string
-  ) {
-    this.sid = payload.sid;
-    this.accountSid = payload.account_sid;
-    this.serviceSid = payload.service_sid;
-    this.friendlyName = payload.friendly_name;
+  constructor(protected _version: V1, payload: AssetResource, serviceSid: string, sid?: string) {
+    this.sid = (payload.sid);
+    this.accountSid = (payload.account_sid);
+    this.serviceSid = (payload.service_sid);
+    this.friendlyName = (payload.friendly_name);
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
-    this.url = payload.url;
-    this.links = payload.links;
+    this.url = (payload.url);
+    this.links = (payload.links);
 
-    this._solution = { serviceSid, sid: sid || this.sid };
+    this._solution = { serviceSid, sid: sid || this.sid,  };
   }
 
   /**
@@ -329,13 +289,7 @@ export class AssetInstance {
   links: Record<string, string>;
 
   private get _proxy(): AssetContext {
-    this._context =
-      this._context ||
-      new AssetContextImpl(
-        this._version,
-        this._solution.serviceSid,
-        this._solution.sid
-      );
+    this._context = this._context || new AssetContextImpl(this._version, this._solution.serviceSid, this._solution.sid);
     return this._context;
   }
 
@@ -346,9 +300,9 @@ export class AssetInstance {
    *
    * @returns Resolves to processed boolean
    */
-  remove(
-    callback?: (error: Error | null, item?: boolean) => any
-  ): Promise<boolean> {
+  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
+
+    {
     return this._proxy.remove(callback);
   }
 
@@ -359,9 +313,9 @@ export class AssetInstance {
    *
    * @returns Resolves to processed AssetInstance
    */
-  fetch(
-    callback?: (error: Error | null, item?: AssetInstance) => any
-  ): Promise<AssetInstance> {
+  fetch(callback?: (error: Error | null, item?: AssetInstance) => any): Promise<AssetInstance>
+
+    {
     return this._proxy.fetch(callback);
   }
 
@@ -373,15 +327,10 @@ export class AssetInstance {
    *
    * @returns Resolves to processed AssetInstance
    */
-  update(
-    params: AssetContextUpdateOptions,
-    callback?: (error: Error | null, item?: AssetInstance) => any
-  ): Promise<AssetInstance>;
+  update(params: AssetContextUpdateOptions, callback?: (error: Error | null, item?: AssetInstance) => any): Promise<AssetInstance>;
 
-  update(
-    params?: any,
-    callback?: (error: Error | null, item?: AssetInstance) => any
-  ): Promise<AssetInstance> {
+    update(params?: any, callback?: (error: Error | null, item?: AssetInstance) => any): Promise<AssetInstance>
+    {
     return this._proxy.update(params, callback);
   }
 
@@ -407,13 +356,14 @@ export class AssetInstance {
       dateUpdated: this.dateUpdated,
       url: this.url,
       links: this.links,
-    };
+    }
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
 }
+
 
 export interface AssetSolution {
   serviceSid: string;
@@ -424,8 +374,15 @@ export interface AssetListInstance {
   _solution: AssetSolution;
   _uri: string;
 
-  (sid: string): AssetContext;
-  get(sid: string): AssetContext;
+  (sid: string, ): AssetContext;
+  get(sid: string, ): AssetContext;
+
+
+
+
+
+
+
 
   /**
    * Create a AssetInstance
@@ -435,10 +392,9 @@ export interface AssetListInstance {
    *
    * @returns Resolves to processed AssetInstance
    */
-  create(
-    params: AssetListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: AssetInstance) => any
-  ): Promise<AssetInstance>;
+  create(params: AssetListInstanceCreateOptions, callback?: (error: Error | null, item?: AssetInstance) => any): Promise<AssetInstance>;
+
+
 
   /**
    * Streams AssetInstance records from the API.
@@ -455,13 +411,8 @@ export interface AssetListInstance {
    * @param { AssetListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(
-    callback?: (item: AssetInstance, done: (err?: Error) => void) => void
-  ): void;
-  each(
-    params: AssetListInstanceEachOptions,
-    callback?: (item: AssetInstance, done: (err?: Error) => void) => void
-  ): void;
+  each(callback?: (item: AssetInstance, done: (err?: Error) => void) => void): void;
+  each(params: AssetListInstanceEachOptions, callback?: (item: AssetInstance, done: (err?: Error) => void) => void): void;
   /**
    * Retrieve a single target page of AssetInstance records from the API.
    *
@@ -470,10 +421,7 @@ export interface AssetListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(
-    targetUrl: string,
-    callback?: (error: Error | null, items: AssetPage) => any
-  ): Promise<AssetPage>;
+  getPage(targetUrl: string, callback?: (error: Error | null, items: AssetPage) => any): Promise<AssetPage>;
   /**
    * Lists AssetInstance records from the API as a list.
    *
@@ -483,13 +431,8 @@ export interface AssetListInstance {
    * @param { AssetListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(
-    callback?: (error: Error | null, items: AssetInstance[]) => any
-  ): Promise<AssetInstance[]>;
-  list(
-    params: AssetListInstanceOptions,
-    callback?: (error: Error | null, items: AssetInstance[]) => any
-  ): Promise<AssetInstance[]>;
+  list(callback?: (error: Error | null, items: AssetInstance[]) => any): Promise<AssetInstance[]>;
+  list(params: AssetListInstanceOptions, callback?: (error: Error | null, items: AssetInstance[]) => any): Promise<AssetInstance[]>;
   /**
    * Retrieve a single page of AssetInstance records from the API.
    *
@@ -501,13 +444,8 @@ export interface AssetListInstance {
    * @param { AssetListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(
-    callback?: (error: Error | null, items: AssetPage) => any
-  ): Promise<AssetPage>;
-  page(
-    params: AssetListInstancePageOptions,
-    callback?: (error: Error | null, items: AssetPage) => any
-  ): Promise<AssetPage>;
+  page(callback?: (error: Error | null, items: AssetPage) => any): Promise<AssetPage>;
+  page(params: AssetListInstancePageOptions, callback?: (error: Error | null, items: AssetPage) => any): Promise<AssetPage>;
 
   /**
    * Provide a user-friendly representation
@@ -516,76 +454,54 @@ export interface AssetListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function AssetListInstance(
-  version: V1,
-  serviceSid: string
-): AssetListInstance {
+export function AssetListInstance(version: V1, serviceSid: string): AssetListInstance {
   if (!isValidPathParam(serviceSid)) {
-    throw new Error("Parameter 'serviceSid' is not valid.");
+    throw new Error('Parameter \'serviceSid\' is not valid.');
   }
 
-  const instance = ((sid) => instance.get(sid)) as AssetListInstance;
+  const instance = ((sid, ) => instance.get(sid, )) as AssetListInstance;
 
-  instance.get = function get(sid): AssetContext {
+  instance.get = function get(sid, ): AssetContext {
     return new AssetContextImpl(version, serviceSid, sid);
-  };
+  }
 
   instance._version = version;
-  instance._solution = { serviceSid };
+  instance._solution = { serviceSid,  };
   instance._uri = `/Services/${serviceSid}/Assets`;
 
-  instance.create = function create(
-    params: AssetListInstanceCreateOptions,
-    callback?: (error: Error | null, items: AssetInstance) => any
-  ): Promise<AssetInstance> {
+  instance.create = function create(params: AssetListInstanceCreateOptions, callback?: (error: Error | null, items: AssetInstance) => any): Promise<AssetInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (
-      params["friendlyName"] === null ||
-      params["friendlyName"] === undefined
-    ) {
-      throw new Error("Required parameter \"params['friendlyName']\" missing.");
+    if (params["friendlyName"] === null || params["friendlyName"] === undefined) {
+      throw new Error('Required parameter "params[\'friendlyName\']" missing.');
     }
 
     let data: any = {};
 
+    
+        
     data["FriendlyName"] = params["friendlyName"];
 
+    
+
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = version,
-      operationPromise = operationVersion.create({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      });
+        operationPromise = operationVersion.create({ uri: instance._uri, method: "post", data, headers });
+    
+    operationPromise = operationPromise.then(payload => new AssetInstance(operationVersion, payload, instance._solution.serviceSid));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new AssetInstance(
-          operationVersion,
-          payload,
-          instance._solution.serviceSid
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
 
-  instance.page = function page(
-    params?:
-      | AssetListInstancePageOptions
-      | ((error: Error | null, items: AssetPage) => any),
-    callback?: (error: Error | null, items: AssetPage) => any
-  ): Promise<AssetPage> {
+
+    }
+
+  instance.page = function page(params?: AssetListInstancePageOptions | ((error: Error | null, items: AssetPage) => any), callback?: (error: Error | null, items: AssetPage) => any): Promise<AssetPage> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -595,95 +511,75 @@ export function AssetListInstance(
 
     let data: any = {};
 
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
 
+    
+    
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-      operationPromise = operationVersion.page({
-        uri: instance._uri,
-        method: "get",
-        params: data,
-        headers,
-      });
+        operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers });
+    
+    operationPromise = operationPromise.then(payload => new AssetPage(operationVersion, payload, instance._solution));
 
-    operationPromise = operationPromise.then(
-      (payload) => new AssetPage(operationVersion, payload, instance._solution)
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
+
+  }
   instance.each = instance._version.each;
   instance.list = instance._version.list;
 
-  instance.getPage = function getPage(
-    targetUrl: string,
-    callback?: (error: Error | null, items: AssetPage) => any
-  ): Promise<AssetPage> {
-    const operationPromise = instance._version._domain.twilio.request({
-      method: "get",
-      uri: targetUrl,
-    });
+  instance.getPage = function getPage(targetUrl: string, callback?: (error: Error | null, items: AssetPage) => any): Promise<AssetPage> {
+    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
 
-    let pagePromise = operationPromise.then(
-      (payload) => new AssetPage(instance._version, payload, instance._solution)
-    );
+    let pagePromise = operationPromise.then(payload => new AssetPage(instance._version, payload, instance._solution));
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  };
+  }
+
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  };
+  }
 
-  instance[inspect.custom] = function inspectImpl(
-    _depth: any,
-    options: InspectOptions
-  ) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(instance.toJSON(), options);
-  };
+  }
 
   return instance;
 }
 
-export class AssetPage extends Page<
-  V1,
-  AssetPayload,
-  AssetResource,
-  AssetInstance
-> {
-  /**
-   * Initialize the AssetPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(
-    version: V1,
-    response: Response<string>,
-    solution: AssetSolution
-  ) {
+export class AssetPage extends Page<V1, AssetPayload, AssetResource, AssetInstance> {
+/**
+* Initialize the AssetPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V1, response: Response<string>, solution: AssetSolution) {
     super(version, response, solution);
-  }
+    }
 
-  /**
-   * Build an instance of AssetInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: AssetResource): AssetInstance {
-    return new AssetInstance(this._version, payload, this._solution.serviceSid);
-  }
+    /**
+    * Build an instance of AssetInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: AssetResource): AssetInstance {
+    return new AssetInstance(
+    this._version,
+    payload,
+        this._solution.serviceSid,
+    );
+    }
 
-  [inspect.custom](depth: any, options: InspectOptions) {
+    [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-  }
-}
+    }
+    }
+

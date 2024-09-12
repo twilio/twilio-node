@@ -12,26 +12,33 @@
  * Do not edit the class manually.
  */
 
+
 import { inspect, InspectOptions } from "util";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 
+
+
 /**
  * Options to pass to create a PortingWebhookConfigurationInstance
  */
 export interface PortingWebhookConfigurationListInstanceCreateOptions {
   /**  */
-  body?: object;
+  "body"?: object;
 }
 
-export interface PortingWebhookConfigurationSolution {}
+
+export interface PortingWebhookConfigurationSolution {
+}
 
 export interface PortingWebhookConfigurationListInstance {
   _version: V1;
   _solution: PortingWebhookConfigurationSolution;
   _uri: string;
+
+
 
   /**
    * Create a PortingWebhookConfigurationInstance
@@ -40,12 +47,7 @@ export interface PortingWebhookConfigurationListInstance {
    *
    * @returns Resolves to processed PortingWebhookConfigurationInstance
    */
-  create(
-    callback?: (
-      error: Error | null,
-      item?: PortingWebhookConfigurationInstance
-    ) => any
-  ): Promise<PortingWebhookConfigurationInstance>;
+  create(callback?: (error: Error | null, item?: PortingWebhookConfigurationInstance) => any): Promise<PortingWebhookConfigurationInstance>;
   /**
    * Create a PortingWebhookConfigurationInstance
    *
@@ -54,13 +56,8 @@ export interface PortingWebhookConfigurationListInstance {
    *
    * @returns Resolves to processed PortingWebhookConfigurationInstance
    */
-  create(
-    params: object,
-    callback?: (
-      error: Error | null,
-      item?: PortingWebhookConfigurationInstance
-    ) => any
-  ): Promise<PortingWebhookConfigurationInstance>;
+  create(params: object, callback?: (error: Error | null, item?: PortingWebhookConfigurationInstance) => any): Promise<PortingWebhookConfigurationInstance>;
+
 
   /**
    * Provide a user-friendly representation
@@ -69,27 +66,14 @@ export interface PortingWebhookConfigurationListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function PortingWebhookConfigurationListInstance(
-  version: V1
-): PortingWebhookConfigurationListInstance {
+export function PortingWebhookConfigurationListInstance(version: V1): PortingWebhookConfigurationListInstance {
   const instance = {} as PortingWebhookConfigurationListInstance;
 
   instance._version = version;
-  instance._solution = {};
+  instance._solution = {  };
   instance._uri = `/Porting/Configuration/Webhook`;
 
-  instance.create = function create(
-    params?:
-      | object
-      | ((
-          error: Error | null,
-          items: PortingWebhookConfigurationInstance
-        ) => any),
-    callback?: (
-      error: Error | null,
-      items: PortingWebhookConfigurationInstance
-    ) => any
-  ): Promise<PortingWebhookConfigurationInstance> {
+  instance.create = function create(params?: object | ((error: Error | null, items: PortingWebhookConfigurationInstance) => any), callback?: (error: Error | null, items: PortingWebhookConfigurationInstance) => any): Promise<PortingWebhookConfigurationInstance> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -99,47 +83,37 @@ export function PortingWebhookConfigurationListInstance(
 
     let data: any = {};
 
-    data = params;
+    
+    
+    data = params
 
     const headers: any = {};
-    headers["Content-Type"] = "application/json";
+    headers["Content-Type"] = "application/json"
 
     let operationVersion = version,
-      operationPromise = operationVersion.create({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      });
+        operationPromise = operationVersion.create({ uri: instance._uri, method: "post", data, headers });
+    
+    operationPromise = operationPromise.then(payload => new PortingWebhookConfigurationInstance(operationVersion, payload));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new PortingWebhookConfigurationInstance(operationVersion, payload)
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
+
+
+    }
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  };
+  }
 
-  instance[inspect.custom] = function inspectImpl(
-    _depth: any,
-    options: InspectOptions
-  ) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(instance.toJSON(), options);
-  };
+  }
 
   return instance;
 }
 
-interface PortingWebhookConfigurationPayload
-  extends PortingWebhookConfigurationResource {}
+interface PortingWebhookConfigurationPayload extends PortingWebhookConfigurationResource {}
 
 interface PortingWebhookConfigurationResource {
   url: string;
@@ -149,14 +123,13 @@ interface PortingWebhookConfigurationResource {
 }
 
 export class PortingWebhookConfigurationInstance {
-  constructor(
-    protected _version: V1,
-    payload: PortingWebhookConfigurationResource
-  ) {
-    this.url = payload.url;
-    this.portInTargetUrl = payload.port_in_target_url;
-    this.portOutTargetUrl = payload.port_out_target_url;
-    this.notificationsOf = payload.notifications_of;
+
+  constructor(protected _version: V1, payload: PortingWebhookConfigurationResource) {
+    this.url = (payload.url);
+    this.portInTargetUrl = (payload.port_in_target_url);
+    this.portOutTargetUrl = (payload.port_out_target_url);
+    this.notificationsOf = (payload.notifications_of);
+
   }
 
   /**
@@ -187,10 +160,12 @@ export class PortingWebhookConfigurationInstance {
       portInTargetUrl: this.portInTargetUrl,
       portOutTargetUrl: this.portOutTargetUrl,
       notificationsOf: this.notificationsOf,
-    };
+    }
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
 }
+
+

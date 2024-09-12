@@ -12,6 +12,7 @@
  * Do not edit the class manually.
  */
 
+
 import { inspect, InspectOptions } from "util";
 import Page, { TwilioResponsePayload } from "../../../../base/Page";
 import Response from "../../../../http/response";
@@ -23,42 +24,45 @@ import { MessageListInstance } from "./conversation/message";
 import { ParticipantListInstance } from "./conversation/participant";
 import { WebhookListInstance } from "./conversation/webhook";
 
-export type ConversationState = "inactive" | "active" | "closed";
 
-export type ConversationWebhookEnabledType = "true" | "false";
+export type ConversationState = 'inactive'|'active'|'closed';
+
+export type ConversationWebhookEnabledType = 'true'|'false';
+
 
 /**
  * Options to pass to remove a ConversationInstance
  */
 export interface ConversationContextRemoveOptions {
   /** The X-Twilio-Webhook-Enabled HTTP request header */
-  xTwilioWebhookEnabled?: ConversationWebhookEnabledType;
+  "xTwilioWebhookEnabled"?: ConversationWebhookEnabledType;
 }
+
 
 /**
  * Options to pass to update a ConversationInstance
  */
 export interface ConversationContextUpdateOptions {
   /** The X-Twilio-Webhook-Enabled HTTP request header */
-  xTwilioWebhookEnabled?: ConversationWebhookEnabledType;
+  "xTwilioWebhookEnabled"?: ConversationWebhookEnabledType;
   /** The human-readable name of this conversation, limited to 256 characters. Optional. */
-  friendlyName?: string;
+  "friendlyName"?: string;
   /** The date that this resource was created. */
-  dateCreated?: Date;
+  "dateCreated"?: Date;
   /** The date that this resource was last updated. */
-  dateUpdated?: Date;
+  "dateUpdated"?: Date;
   /** An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned. */
-  attributes?: string;
+  "attributes"?: string;
   /** The unique ID of the [Messaging Service](https://www.twilio.com/docs/messaging/api/service-resource) this conversation belongs to. */
-  messagingServiceSid?: string;
+  "messagingServiceSid"?: string;
   /**  */
-  state?: ConversationState;
+  "state"?: ConversationState;
   /** ISO8601 duration when conversation will be switched to `inactive` state. Minimum value for this timer is 1 minute. */
   "timers.inactive"?: string;
   /** ISO8601 duration when conversation will be switched to `closed` state. Minimum value for this timer is 10 minutes. */
   "timers.closed"?: string;
   /** An application-defined string that uniquely identifies the resource. It can be used to address the resource in place of the resource\\\'s `sid` in the URL. */
-  uniqueName?: string;
+  "uniqueName"?: string;
   /** The default email address that will be used when sending outbound emails in this conversation. */
   "bindings.email.address"?: string;
   /** The default name that will be used when sending outbound emails in this conversation. */
@@ -70,21 +74,21 @@ export interface ConversationContextUpdateOptions {
  */
 export interface ConversationListInstanceCreateOptions {
   /** The X-Twilio-Webhook-Enabled HTTP request header */
-  xTwilioWebhookEnabled?: ConversationWebhookEnabledType;
+  "xTwilioWebhookEnabled"?: ConversationWebhookEnabledType;
   /** The human-readable name of this conversation, limited to 256 characters. Optional. */
-  friendlyName?: string;
+  "friendlyName"?: string;
   /** An application-defined string that uniquely identifies the resource. It can be used to address the resource in place of the resource\\\'s `sid` in the URL. */
-  uniqueName?: string;
+  "uniqueName"?: string;
   /** An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned. */
-  attributes?: string;
+  "attributes"?: string;
   /** The unique ID of the [Messaging Service](https://www.twilio.com/docs/messaging/api/service-resource) this conversation belongs to. */
-  messagingServiceSid?: string;
+  "messagingServiceSid"?: string;
   /** The date that this resource was created. */
-  dateCreated?: Date;
+  "dateCreated"?: Date;
   /** The date that this resource was last updated. */
-  dateUpdated?: Date;
+  "dateUpdated"?: Date;
   /**  */
-  state?: ConversationState;
+  "state"?: ConversationState;
   /** ISO8601 duration when conversation will be switched to `inactive` state. Minimum value for this timer is 1 minute. */
   "timers.inactive"?: string;
   /** ISO8601 duration when conversation will be switched to `closed` state. Minimum value for this timer is 10 minutes. */
@@ -99,13 +103,13 @@ export interface ConversationListInstanceCreateOptions {
  */
 export interface ConversationListInstanceEachOptions {
   /** Specifies the beginning of the date range for filtering Conversations based on their creation date. Conversations that were created on or after this date will be included in the results. The date must be in ISO8601 format, specifically starting at the beginning of the specified date (YYYY-MM-DDT00:00:00Z), for precise filtering. This parameter can be combined with other filters. If this filter is used, the returned list is sorted by latest conversation creation date in descending order. */
-  startDate?: string;
+  "startDate"?: string;
   /** Defines the end of the date range for filtering conversations by their creation date. Only conversations that were created on or before this date will appear in the results.  The date must be in ISO8601 format, specifically capturing up to the end of the specified date (YYYY-MM-DDT23:59:59Z), to ensure that conversations from the entire end day are included. This parameter can be combined with other filters. If this filter is used, the returned list is sorted by latest conversation creation date in descending order. */
-  endDate?: string;
+  "endDate"?: string;
   /** State for sorting and filtering list of Conversations. Can be `active`, `inactive` or `closed` */
-  state?: ConversationState;
+  "state"?: ConversationState;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: ConversationInstance, done: (err?: Error) => void) => void;
   /** Function to be called upon completion of streaming */
@@ -119,13 +123,13 @@ export interface ConversationListInstanceEachOptions {
  */
 export interface ConversationListInstanceOptions {
   /** Specifies the beginning of the date range for filtering Conversations based on their creation date. Conversations that were created on or after this date will be included in the results. The date must be in ISO8601 format, specifically starting at the beginning of the specified date (YYYY-MM-DDT00:00:00Z), for precise filtering. This parameter can be combined with other filters. If this filter is used, the returned list is sorted by latest conversation creation date in descending order. */
-  startDate?: string;
+  "startDate"?: string;
   /** Defines the end of the date range for filtering conversations by their creation date. Only conversations that were created on or before this date will appear in the results.  The date must be in ISO8601 format, specifically capturing up to the end of the specified date (YYYY-MM-DDT23:59:59Z), to ensure that conversations from the entire end day are included. This parameter can be combined with other filters. If this filter is used, the returned list is sorted by latest conversation creation date in descending order. */
-  endDate?: string;
+  "endDate"?: string;
   /** State for sorting and filtering list of Conversations. Can be `active`, `inactive` or `closed` */
-  state?: ConversationState;
+  "state"?: ConversationState;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
@@ -135,18 +139,19 @@ export interface ConversationListInstanceOptions {
  */
 export interface ConversationListInstancePageOptions {
   /** Specifies the beginning of the date range for filtering Conversations based on their creation date. Conversations that were created on or after this date will be included in the results. The date must be in ISO8601 format, specifically starting at the beginning of the specified date (YYYY-MM-DDT00:00:00Z), for precise filtering. This parameter can be combined with other filters. If this filter is used, the returned list is sorted by latest conversation creation date in descending order. */
-  startDate?: string;
+  "startDate"?: string;
   /** Defines the end of the date range for filtering conversations by their creation date. Only conversations that were created on or before this date will appear in the results.  The date must be in ISO8601 format, specifically capturing up to the end of the specified date (YYYY-MM-DDT23:59:59Z), to ensure that conversations from the entire end day are included. This parameter can be combined with other filters. If this filter is used, the returned list is sorted by latest conversation creation date in descending order. */
-  endDate?: string;
+  "endDate"?: string;
   /** State for sorting and filtering list of Conversations. Can be `active`, `inactive` or `closed` */
-  state?: ConversationState;
+  "state"?: ConversationState;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
   /** PageToken provided by the API */
   pageToken?: string;
 }
+
 
 export interface ConversationContext {
   messages: MessageListInstance;
@@ -160,9 +165,7 @@ export interface ConversationContext {
    *
    * @returns Resolves to processed boolean
    */
-  remove(
-    callback?: (error: Error | null, item?: boolean) => any
-  ): Promise<boolean>;
+  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>;
   /**
    * Remove a ConversationInstance
    *
@@ -171,10 +174,7 @@ export interface ConversationContext {
    *
    * @returns Resolves to processed ConversationInstance
    */
-  remove(
-    params: ConversationContextRemoveOptions,
-    callback?: (error: Error | null, item?: boolean) => any
-  ): Promise<boolean>;
+  remove(params: ConversationContextRemoveOptions, callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>;
 
   /**
    * Fetch a ConversationInstance
@@ -183,9 +183,7 @@ export interface ConversationContext {
    *
    * @returns Resolves to processed ConversationInstance
    */
-  fetch(
-    callback?: (error: Error | null, item?: ConversationInstance) => any
-  ): Promise<ConversationInstance>;
+  fetch(callback?: (error: Error | null, item?: ConversationInstance) => any): Promise<ConversationInstance>
 
   /**
    * Update a ConversationInstance
@@ -194,9 +192,7 @@ export interface ConversationContext {
    *
    * @returns Resolves to processed ConversationInstance
    */
-  update(
-    callback?: (error: Error | null, item?: ConversationInstance) => any
-  ): Promise<ConversationInstance>;
+  update(callback?: (error: Error | null, item?: ConversationInstance) => any): Promise<ConversationInstance>;
   /**
    * Update a ConversationInstance
    *
@@ -205,10 +201,9 @@ export interface ConversationContext {
    *
    * @returns Resolves to processed ConversationInstance
    */
-  update(
-    params: ConversationContextUpdateOptions,
-    callback?: (error: Error | null, item?: ConversationInstance) => any
-  ): Promise<ConversationInstance>;
+  update(params: ConversationContextUpdateOptions, callback?: (error: Error | null, item?: ConversationInstance) => any): Promise<ConversationInstance>;
+
+
 
   /**
    * Provide a user-friendly representation
@@ -218,8 +213,8 @@ export interface ConversationContext {
 }
 
 export interface ConversationContextSolution {
-  chatServiceSid: string;
-  sid: string;
+  "chatServiceSid": string;
+  "sid": string;
 }
 
 export class ConversationContextImpl implements ConversationContext {
@@ -232,57 +227,34 @@ export class ConversationContextImpl implements ConversationContext {
 
   constructor(protected _version: V1, chatServiceSid: string, sid: string) {
     if (!isValidPathParam(chatServiceSid)) {
-      throw new Error("Parameter 'chatServiceSid' is not valid.");
+      throw new Error('Parameter \'chatServiceSid\' is not valid.');
     }
 
     if (!isValidPathParam(sid)) {
-      throw new Error("Parameter 'sid' is not valid.");
+      throw new Error('Parameter \'sid\' is not valid.');
     }
 
-    this._solution = { chatServiceSid, sid };
+    this._solution = { chatServiceSid, sid,  };
     this._uri = `/Services/${chatServiceSid}/Conversations/${sid}`;
   }
 
   get messages(): MessageListInstance {
-    this._messages =
-      this._messages ||
-      MessageListInstance(
-        this._version,
-        this._solution.chatServiceSid,
-        this._solution.sid
-      );
+    this._messages = this._messages || MessageListInstance(this._version, this._solution.chatServiceSid, this._solution.sid);
     return this._messages;
   }
 
   get participants(): ParticipantListInstance {
-    this._participants =
-      this._participants ||
-      ParticipantListInstance(
-        this._version,
-        this._solution.chatServiceSid,
-        this._solution.sid
-      );
+    this._participants = this._participants || ParticipantListInstance(this._version, this._solution.chatServiceSid, this._solution.sid);
     return this._participants;
   }
 
   get webhooks(): WebhookListInstance {
-    this._webhooks =
-      this._webhooks ||
-      WebhookListInstance(
-        this._version,
-        this._solution.chatServiceSid,
-        this._solution.sid
-      );
+    this._webhooks = this._webhooks || WebhookListInstance(this._version, this._solution.chatServiceSid, this._solution.sid);
     return this._webhooks;
   }
 
-  remove(
-    params?:
-      | ConversationContextRemoveOptions
-      | ((error: Error | null, item?: boolean) => any),
-    callback?: (error: Error | null, item?: boolean) => any
-  ): Promise<boolean> {
-    if (params instanceof Function) {
+  remove(params?: ConversationContextRemoveOptions | ((error: Error | null, item?: boolean) => any), callback?: (error: Error | null, item?: boolean) => any): Promise<boolean> {
+      if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -290,61 +262,42 @@ export class ConversationContextImpl implements ConversationContext {
     }
 
     let data: any = {};
+
+    
+    
+    
 
     const headers: any = {};
-    if (params["xTwilioWebhookEnabled"] !== undefined)
-      headers["X-Twilio-Webhook-Enabled"] = params["xTwilioWebhookEnabled"];
+    if (params["xTwilioWebhookEnabled"] !== undefined) headers["X-Twilio-Webhook-Enabled"] = params["xTwilioWebhookEnabled"];
 
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.remove({
-        uri: instance._uri,
-        method: "delete",
-        params: data,
-        headers,
-      });
+        operationPromise = operationVersion.remove({ uri: instance._uri, method: "delete", params: data, headers });
+    
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
-  fetch(
-    callback?: (error: Error | null, item?: ConversationInstance) => any
-  ): Promise<ConversationInstance> {
+  fetch(callback?: (error: Error | null, item?: ConversationInstance) => any): Promise<ConversationInstance> {
+  
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.fetch({
-        uri: instance._uri,
-        method: "get",
-      });
+        operationPromise = operationVersion.fetch({ uri: instance._uri, method: "get" });
+    
+    operationPromise = operationPromise.then(payload => new ConversationInstance(operationVersion, payload, instance._solution.chatServiceSid, instance._solution.sid));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new ConversationInstance(
-          operationVersion,
-          payload,
-          instance._solution.chatServiceSid,
-          instance._solution.sid
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
-  update(
-    params?:
-      | ConversationContextUpdateOptions
-      | ((error: Error | null, item?: ConversationInstance) => any),
-    callback?: (error: Error | null, item?: ConversationInstance) => any
-  ): Promise<ConversationInstance> {
-    if (params instanceof Function) {
+  update(params?: ConversationContextUpdateOptions | ((error: Error | null, item?: ConversationInstance) => any), callback?: (error: Error | null, item?: ConversationInstance) => any): Promise<ConversationInstance> {
+      if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -353,57 +306,47 @@ export class ConversationContextImpl implements ConversationContext {
 
     let data: any = {};
 
-    if (params["friendlyName"] !== undefined)
-      data["FriendlyName"] = params["friendlyName"];
+    
+        if (params["friendlyName"] !== undefined)
+    data["FriendlyName"] = params["friendlyName"];
     if (params["dateCreated"] !== undefined)
-      data["DateCreated"] = serialize.iso8601DateTime(params["dateCreated"]);
+    data["DateCreated"] = serialize.iso8601DateTime(params["dateCreated"]);
     if (params["dateUpdated"] !== undefined)
-      data["DateUpdated"] = serialize.iso8601DateTime(params["dateUpdated"]);
+    data["DateUpdated"] = serialize.iso8601DateTime(params["dateUpdated"]);
     if (params["attributes"] !== undefined)
-      data["Attributes"] = params["attributes"];
+    data["Attributes"] = params["attributes"];
     if (params["messagingServiceSid"] !== undefined)
-      data["MessagingServiceSid"] = params["messagingServiceSid"];
-    if (params["state"] !== undefined) data["State"] = params["state"];
+    data["MessagingServiceSid"] = params["messagingServiceSid"];
+    if (params["state"] !== undefined)
+    data["State"] = params["state"];
     if (params["timers.inactive"] !== undefined)
-      data["Timers.Inactive"] = params["timers.inactive"];
+    data["Timers.Inactive"] = params["timers.inactive"];
     if (params["timers.closed"] !== undefined)
-      data["Timers.Closed"] = params["timers.closed"];
+    data["Timers.Closed"] = params["timers.closed"];
     if (params["uniqueName"] !== undefined)
-      data["UniqueName"] = params["uniqueName"];
+    data["UniqueName"] = params["uniqueName"];
     if (params["bindings.email.address"] !== undefined)
-      data["Bindings.Email.Address"] = params["bindings.email.address"];
+    data["Bindings.Email.Address"] = params["bindings.email.address"];
     if (params["bindings.email.name"] !== undefined)
-      data["Bindings.Email.Name"] = params["bindings.email.name"];
+    data["Bindings.Email.Name"] = params["bindings.email.name"];
+
+    
 
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded";
-    if (params["xTwilioWebhookEnabled"] !== undefined)
-      headers["X-Twilio-Webhook-Enabled"] = params["xTwilioWebhookEnabled"];
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    if (params["xTwilioWebhookEnabled"] !== undefined) headers["X-Twilio-Webhook-Enabled"] = params["xTwilioWebhookEnabled"];
 
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.update({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      });
+        operationPromise = operationVersion.update({ uri: instance._uri, method: "post", data, headers });
+    
+    operationPromise = operationPromise.then(payload => new ConversationInstance(operationVersion, payload, instance._solution.chatServiceSid, instance._solution.sid));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new ConversationInstance(
-          operationVersion,
-          payload,
-          instance._solution.chatServiceSid,
-          instance._solution.sid
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
   /**
@@ -420,8 +363,9 @@ export class ConversationContextImpl implements ConversationContext {
   }
 }
 
+
 interface ConversationPayload extends TwilioResponsePayload {
-  conversations: ConversationResource[];
+    conversations: ConversationResource[];
 }
 
 interface ConversationResource {
@@ -445,28 +389,23 @@ export class ConversationInstance {
   protected _solution: ConversationContextSolution;
   protected _context?: ConversationContext;
 
-  constructor(
-    protected _version: V1,
-    payload: ConversationResource,
-    chatServiceSid: string,
-    sid?: string
-  ) {
-    this.accountSid = payload.account_sid;
-    this.chatServiceSid = payload.chat_service_sid;
-    this.messagingServiceSid = payload.messaging_service_sid;
-    this.sid = payload.sid;
-    this.friendlyName = payload.friendly_name;
-    this.uniqueName = payload.unique_name;
-    this.attributes = payload.attributes;
-    this.state = payload.state;
+  constructor(protected _version: V1, payload: ConversationResource, chatServiceSid: string, sid?: string) {
+    this.accountSid = (payload.account_sid);
+    this.chatServiceSid = (payload.chat_service_sid);
+    this.messagingServiceSid = (payload.messaging_service_sid);
+    this.sid = (payload.sid);
+    this.friendlyName = (payload.friendly_name);
+    this.uniqueName = (payload.unique_name);
+    this.attributes = (payload.attributes);
+    this.state = (payload.state);
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
-    this.timers = payload.timers;
-    this.url = payload.url;
-    this.links = payload.links;
-    this.bindings = payload.bindings;
+    this.timers = (payload.timers);
+    this.url = (payload.url);
+    this.links = (payload.links);
+    this.bindings = (payload.bindings);
 
-    this._solution = { chatServiceSid, sid: sid || this.sid };
+    this._solution = { chatServiceSid, sid: sid || this.sid,  };
   }
 
   /**
@@ -521,13 +460,7 @@ export class ConversationInstance {
   bindings: any;
 
   private get _proxy(): ConversationContext {
-    this._context =
-      this._context ||
-      new ConversationContextImpl(
-        this._version,
-        this._solution.chatServiceSid,
-        this._solution.sid
-      );
+    this._context = this._context || new ConversationContextImpl(this._version, this._solution.chatServiceSid, this._solution.sid);
     return this._context;
   }
 
@@ -538,9 +471,7 @@ export class ConversationInstance {
    *
    * @returns Resolves to processed boolean
    */
-  remove(
-    callback?: (error: Error | null, item?: boolean) => any
-  ): Promise<boolean>;
+  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>;
   /**
    * Remove a ConversationInstance
    *
@@ -549,15 +480,10 @@ export class ConversationInstance {
    *
    * @returns Resolves to processed ConversationInstance
    */
-  remove(
-    params: ConversationContextRemoveOptions,
-    callback?: (error: Error | null, item?: boolean) => any
-  ): Promise<boolean>;
+  remove(params: ConversationContextRemoveOptions, callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>;
 
-  remove(
-    params?: any,
-    callback?: (error: Error | null, item?: boolean) => any
-  ): Promise<boolean> {
+    remove(params?: any, callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
+    {
     return this._proxy.remove(params, callback);
   }
 
@@ -568,9 +494,9 @@ export class ConversationInstance {
    *
    * @returns Resolves to processed ConversationInstance
    */
-  fetch(
-    callback?: (error: Error | null, item?: ConversationInstance) => any
-  ): Promise<ConversationInstance> {
+  fetch(callback?: (error: Error | null, item?: ConversationInstance) => any): Promise<ConversationInstance>
+
+    {
     return this._proxy.fetch(callback);
   }
 
@@ -581,9 +507,7 @@ export class ConversationInstance {
    *
    * @returns Resolves to processed ConversationInstance
    */
-  update(
-    callback?: (error: Error | null, item?: ConversationInstance) => any
-  ): Promise<ConversationInstance>;
+  update(callback?: (error: Error | null, item?: ConversationInstance) => any): Promise<ConversationInstance>;
   /**
    * Update a ConversationInstance
    *
@@ -592,15 +516,10 @@ export class ConversationInstance {
    *
    * @returns Resolves to processed ConversationInstance
    */
-  update(
-    params: ConversationContextUpdateOptions,
-    callback?: (error: Error | null, item?: ConversationInstance) => any
-  ): Promise<ConversationInstance>;
+  update(params: ConversationContextUpdateOptions, callback?: (error: Error | null, item?: ConversationInstance) => any): Promise<ConversationInstance>;
 
-  update(
-    params?: any,
-    callback?: (error: Error | null, item?: ConversationInstance) => any
-  ): Promise<ConversationInstance> {
+    update(params?: any, callback?: (error: Error | null, item?: ConversationInstance) => any): Promise<ConversationInstance>
+    {
     return this._proxy.update(params, callback);
   }
 
@@ -646,13 +565,14 @@ export class ConversationInstance {
       url: this.url,
       links: this.links,
       bindings: this.bindings,
-    };
+    }
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
 }
+
 
 export interface ConversationSolution {
   chatServiceSid: string;
@@ -663,8 +583,15 @@ export interface ConversationListInstance {
   _solution: ConversationSolution;
   _uri: string;
 
-  (sid: string): ConversationContext;
-  get(sid: string): ConversationContext;
+  (sid: string, ): ConversationContext;
+  get(sid: string, ): ConversationContext;
+
+
+
+
+
+
+
 
   /**
    * Create a ConversationInstance
@@ -673,9 +600,7 @@ export interface ConversationListInstance {
    *
    * @returns Resolves to processed ConversationInstance
    */
-  create(
-    callback?: (error: Error | null, item?: ConversationInstance) => any
-  ): Promise<ConversationInstance>;
+  create(callback?: (error: Error | null, item?: ConversationInstance) => any): Promise<ConversationInstance>;
   /**
    * Create a ConversationInstance
    *
@@ -684,10 +609,9 @@ export interface ConversationListInstance {
    *
    * @returns Resolves to processed ConversationInstance
    */
-  create(
-    params: ConversationListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: ConversationInstance) => any
-  ): Promise<ConversationInstance>;
+  create(params: ConversationListInstanceCreateOptions, callback?: (error: Error | null, item?: ConversationInstance) => any): Promise<ConversationInstance>;
+
+
 
   /**
    * Streams ConversationInstance records from the API.
@@ -704,13 +628,8 @@ export interface ConversationListInstance {
    * @param { ConversationListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(
-    callback?: (item: ConversationInstance, done: (err?: Error) => void) => void
-  ): void;
-  each(
-    params: ConversationListInstanceEachOptions,
-    callback?: (item: ConversationInstance, done: (err?: Error) => void) => void
-  ): void;
+  each(callback?: (item: ConversationInstance, done: (err?: Error) => void) => void): void;
+  each(params: ConversationListInstanceEachOptions, callback?: (item: ConversationInstance, done: (err?: Error) => void) => void): void;
   /**
    * Retrieve a single target page of ConversationInstance records from the API.
    *
@@ -719,10 +638,7 @@ export interface ConversationListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(
-    targetUrl: string,
-    callback?: (error: Error | null, items: ConversationPage) => any
-  ): Promise<ConversationPage>;
+  getPage(targetUrl: string, callback?: (error: Error | null, items: ConversationPage) => any): Promise<ConversationPage>;
   /**
    * Lists ConversationInstance records from the API as a list.
    *
@@ -732,13 +648,8 @@ export interface ConversationListInstance {
    * @param { ConversationListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(
-    callback?: (error: Error | null, items: ConversationInstance[]) => any
-  ): Promise<ConversationInstance[]>;
-  list(
-    params: ConversationListInstanceOptions,
-    callback?: (error: Error | null, items: ConversationInstance[]) => any
-  ): Promise<ConversationInstance[]>;
+  list(callback?: (error: Error | null, items: ConversationInstance[]) => any): Promise<ConversationInstance[]>;
+  list(params: ConversationListInstanceOptions, callback?: (error: Error | null, items: ConversationInstance[]) => any): Promise<ConversationInstance[]>;
   /**
    * Retrieve a single page of ConversationInstance records from the API.
    *
@@ -750,13 +661,8 @@ export interface ConversationListInstance {
    * @param { ConversationListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(
-    callback?: (error: Error | null, items: ConversationPage) => any
-  ): Promise<ConversationPage>;
-  page(
-    params: ConversationListInstancePageOptions,
-    callback?: (error: Error | null, items: ConversationPage) => any
-  ): Promise<ConversationPage>;
+  page(callback?: (error: Error | null, items: ConversationPage) => any): Promise<ConversationPage>;
+  page(params: ConversationListInstancePageOptions, callback?: (error: Error | null, items: ConversationPage) => any): Promise<ConversationPage>;
 
   /**
    * Provide a user-friendly representation
@@ -765,30 +671,22 @@ export interface ConversationListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function ConversationListInstance(
-  version: V1,
-  chatServiceSid: string
-): ConversationListInstance {
+export function ConversationListInstance(version: V1, chatServiceSid: string): ConversationListInstance {
   if (!isValidPathParam(chatServiceSid)) {
-    throw new Error("Parameter 'chatServiceSid' is not valid.");
+    throw new Error('Parameter \'chatServiceSid\' is not valid.');
   }
 
-  const instance = ((sid) => instance.get(sid)) as ConversationListInstance;
+  const instance = ((sid, ) => instance.get(sid, )) as ConversationListInstance;
 
-  instance.get = function get(sid): ConversationContext {
+  instance.get = function get(sid, ): ConversationContext {
     return new ConversationContextImpl(version, chatServiceSid, sid);
-  };
+  }
 
   instance._version = version;
-  instance._solution = { chatServiceSid };
+  instance._solution = { chatServiceSid,  };
   instance._uri = `/Services/${chatServiceSid}/Conversations`;
 
-  instance.create = function create(
-    params?:
-      | ConversationListInstanceCreateOptions
-      | ((error: Error | null, items: ConversationInstance) => any),
-    callback?: (error: Error | null, items: ConversationInstance) => any
-  ): Promise<ConversationInstance> {
+  instance.create = function create(params?: ConversationListInstanceCreateOptions | ((error: Error | null, items: ConversationInstance) => any), callback?: (error: Error | null, items: ConversationInstance) => any): Promise<ConversationInstance> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -798,63 +696,49 @@ export function ConversationListInstance(
 
     let data: any = {};
 
-    if (params["friendlyName"] !== undefined)
-      data["FriendlyName"] = params["friendlyName"];
+    
+        if (params["friendlyName"] !== undefined)
+    data["FriendlyName"] = params["friendlyName"];
     if (params["uniqueName"] !== undefined)
-      data["UniqueName"] = params["uniqueName"];
+    data["UniqueName"] = params["uniqueName"];
     if (params["attributes"] !== undefined)
-      data["Attributes"] = params["attributes"];
+    data["Attributes"] = params["attributes"];
     if (params["messagingServiceSid"] !== undefined)
-      data["MessagingServiceSid"] = params["messagingServiceSid"];
+    data["MessagingServiceSid"] = params["messagingServiceSid"];
     if (params["dateCreated"] !== undefined)
-      data["DateCreated"] = serialize.iso8601DateTime(params["dateCreated"]);
+    data["DateCreated"] = serialize.iso8601DateTime(params["dateCreated"]);
     if (params["dateUpdated"] !== undefined)
-      data["DateUpdated"] = serialize.iso8601DateTime(params["dateUpdated"]);
-    if (params["state"] !== undefined) data["State"] = params["state"];
+    data["DateUpdated"] = serialize.iso8601DateTime(params["dateUpdated"]);
+    if (params["state"] !== undefined)
+    data["State"] = params["state"];
     if (params["timers.inactive"] !== undefined)
-      data["Timers.Inactive"] = params["timers.inactive"];
+    data["Timers.Inactive"] = params["timers.inactive"];
     if (params["timers.closed"] !== undefined)
-      data["Timers.Closed"] = params["timers.closed"];
+    data["Timers.Closed"] = params["timers.closed"];
     if (params["bindings.email.address"] !== undefined)
-      data["Bindings.Email.Address"] = params["bindings.email.address"];
+    data["Bindings.Email.Address"] = params["bindings.email.address"];
     if (params["bindings.email.name"] !== undefined)
-      data["Bindings.Email.Name"] = params["bindings.email.name"];
+    data["Bindings.Email.Name"] = params["bindings.email.name"];
+
+    
 
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded";
-    if (params["xTwilioWebhookEnabled"] !== undefined)
-      headers["X-Twilio-Webhook-Enabled"] = params["xTwilioWebhookEnabled"];
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    if (params["xTwilioWebhookEnabled"] !== undefined) headers["X-Twilio-Webhook-Enabled"] = params["xTwilioWebhookEnabled"];
 
     let operationVersion = version,
-      operationPromise = operationVersion.create({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      });
+        operationPromise = operationVersion.create({ uri: instance._uri, method: "post", data, headers });
+    
+    operationPromise = operationPromise.then(payload => new ConversationInstance(operationVersion, payload, instance._solution.chatServiceSid));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new ConversationInstance(
-          operationVersion,
-          payload,
-          instance._solution.chatServiceSid
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
 
-  instance.page = function page(
-    params?:
-      | ConversationListInstancePageOptions
-      | ((error: Error | null, items: ConversationPage) => any),
-    callback?: (error: Error | null, items: ConversationPage) => any
-  ): Promise<ConversationPage> {
+
+    }
+
+  instance.page = function page(params?: ConversationListInstancePageOptions | ((error: Error | null, items: ConversationPage) => any), callback?: (error: Error | null, items: ConversationPage) => any): Promise<ConversationPage> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -864,105 +748,81 @@ export function ConversationListInstance(
 
     let data: any = {};
 
-    if (params["startDate"] !== undefined)
-      data["StartDate"] = params["startDate"];
-    if (params["endDate"] !== undefined) data["EndDate"] = params["endDate"];
-    if (params["state"] !== undefined) data["State"] = params["state"];
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["startDate"] !== undefined)
+    data["StartDate"] = params["startDate"];
+    if (params["endDate"] !== undefined)
+    data["EndDate"] = params["endDate"];
+    if (params["state"] !== undefined)
+    data["State"] = params["state"];
+    if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
 
+    
+    
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-      operationPromise = operationVersion.page({
-        uri: instance._uri,
-        method: "get",
-        params: data,
-        headers,
-      });
+        operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers });
+    
+    operationPromise = operationPromise.then(payload => new ConversationPage(operationVersion, payload, instance._solution));
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new ConversationPage(operationVersion, payload, instance._solution)
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
+
+  }
   instance.each = instance._version.each;
   instance.list = instance._version.list;
 
-  instance.getPage = function getPage(
-    targetUrl: string,
-    callback?: (error: Error | null, items: ConversationPage) => any
-  ): Promise<ConversationPage> {
-    const operationPromise = instance._version._domain.twilio.request({
-      method: "get",
-      uri: targetUrl,
-    });
+  instance.getPage = function getPage(targetUrl: string, callback?: (error: Error | null, items: ConversationPage) => any): Promise<ConversationPage> {
+    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
 
-    let pagePromise = operationPromise.then(
-      (payload) =>
-        new ConversationPage(instance._version, payload, instance._solution)
-    );
+    let pagePromise = operationPromise.then(payload => new ConversationPage(instance._version, payload, instance._solution));
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  };
+  }
+
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  };
+  }
 
-  instance[inspect.custom] = function inspectImpl(
-    _depth: any,
-    options: InspectOptions
-  ) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(instance.toJSON(), options);
-  };
+  }
 
   return instance;
 }
 
-export class ConversationPage extends Page<
-  V1,
-  ConversationPayload,
-  ConversationResource,
-  ConversationInstance
-> {
-  /**
-   * Initialize the ConversationPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(
-    version: V1,
-    response: Response<string>,
-    solution: ConversationSolution
-  ) {
+export class ConversationPage extends Page<V1, ConversationPayload, ConversationResource, ConversationInstance> {
+/**
+* Initialize the ConversationPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V1, response: Response<string>, solution: ConversationSolution) {
     super(version, response, solution);
-  }
+    }
 
-  /**
-   * Build an instance of ConversationInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: ConversationResource): ConversationInstance {
+    /**
+    * Build an instance of ConversationInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: ConversationResource): ConversationInstance {
     return new ConversationInstance(
-      this._version,
-      payload,
-      this._solution.chatServiceSid
+    this._version,
+    payload,
+        this._solution.chatServiceSid,
     );
-  }
+    }
 
-  [inspect.custom](depth: any, options: InspectOptions) {
+    [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-  }
-}
+    }
+    }
+

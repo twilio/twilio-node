@@ -12,13 +12,18 @@
  * Do not edit the class manually.
  */
 
+
 import { inspect, InspectOptions } from "util";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 
+
+
+
 export interface DomainConfigMessagingServiceContext {
+
   /**
    * Fetch a DomainConfigMessagingServiceInstance
    *
@@ -26,12 +31,7 @@ export interface DomainConfigMessagingServiceContext {
    *
    * @returns Resolves to processed DomainConfigMessagingServiceInstance
    */
-  fetch(
-    callback?: (
-      error: Error | null,
-      item?: DomainConfigMessagingServiceInstance
-    ) => any
-  ): Promise<DomainConfigMessagingServiceInstance>;
+  fetch(callback?: (error: Error | null, item?: DomainConfigMessagingServiceInstance) => any): Promise<DomainConfigMessagingServiceInstance>
 
   /**
    * Provide a user-friendly representation
@@ -41,51 +41,36 @@ export interface DomainConfigMessagingServiceContext {
 }
 
 export interface DomainConfigMessagingServiceContextSolution {
-  messagingServiceSid: string;
+  "messagingServiceSid": string;
 }
 
-export class DomainConfigMessagingServiceContextImpl
-  implements DomainConfigMessagingServiceContext
-{
+export class DomainConfigMessagingServiceContextImpl implements DomainConfigMessagingServiceContext {
   protected _solution: DomainConfigMessagingServiceContextSolution;
   protected _uri: string;
 
+
   constructor(protected _version: V1, messagingServiceSid: string) {
     if (!isValidPathParam(messagingServiceSid)) {
-      throw new Error("Parameter 'messagingServiceSid' is not valid.");
+      throw new Error('Parameter \'messagingServiceSid\' is not valid.');
     }
 
-    this._solution = { messagingServiceSid };
+    this._solution = { messagingServiceSid,  };
     this._uri = `/LinkShortening/MessagingService/${messagingServiceSid}/DomainConfig`;
   }
 
-  fetch(
-    callback?: (
-      error: Error | null,
-      item?: DomainConfigMessagingServiceInstance
-    ) => any
-  ): Promise<DomainConfigMessagingServiceInstance> {
+  fetch(callback?: (error: Error | null, item?: DomainConfigMessagingServiceInstance) => any): Promise<DomainConfigMessagingServiceInstance> {
+  
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.fetch({
-        uri: instance._uri,
-        method: "get",
-      });
+        operationPromise = operationVersion.fetch({ uri: instance._uri, method: "get" });
+    
+    operationPromise = operationPromise.then(payload => new DomainConfigMessagingServiceInstance(operationVersion, payload, instance._solution.messagingServiceSid));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new DomainConfigMessagingServiceInstance(
-          operationVersion,
-          payload,
-          instance._solution.messagingServiceSid
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
   /**
@@ -102,8 +87,8 @@ export class DomainConfigMessagingServiceContextImpl
   }
 }
 
-interface DomainConfigMessagingServicePayload
-  extends DomainConfigMessagingServiceResource {}
+
+interface DomainConfigMessagingServicePayload extends DomainConfigMessagingServiceResource {}
 
 interface DomainConfigMessagingServiceResource {
   domain_sid: string;
@@ -121,24 +106,18 @@ export class DomainConfigMessagingServiceInstance {
   protected _solution: DomainConfigMessagingServiceContextSolution;
   protected _context?: DomainConfigMessagingServiceContext;
 
-  constructor(
-    protected _version: V1,
-    payload: DomainConfigMessagingServiceResource,
-    messagingServiceSid?: string
-  ) {
-    this.domainSid = payload.domain_sid;
-    this.configSid = payload.config_sid;
-    this.messagingServiceSid = payload.messaging_service_sid;
-    this.fallbackUrl = payload.fallback_url;
-    this.callbackUrl = payload.callback_url;
-    this.continueOnFailure = payload.continue_on_failure;
+  constructor(protected _version: V1, payload: DomainConfigMessagingServiceResource, messagingServiceSid?: string) {
+    this.domainSid = (payload.domain_sid);
+    this.configSid = (payload.config_sid);
+    this.messagingServiceSid = (payload.messaging_service_sid);
+    this.fallbackUrl = (payload.fallback_url);
+    this.callbackUrl = (payload.callback_url);
+    this.continueOnFailure = (payload.continue_on_failure);
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
-    this.url = payload.url;
+    this.url = (payload.url);
 
-    this._solution = {
-      messagingServiceSid: messagingServiceSid || this.messagingServiceSid,
-    };
+    this._solution = { messagingServiceSid: messagingServiceSid || this.messagingServiceSid,  };
   }
 
   /**
@@ -176,12 +155,7 @@ export class DomainConfigMessagingServiceInstance {
   url: string;
 
   private get _proxy(): DomainConfigMessagingServiceContext {
-    this._context =
-      this._context ||
-      new DomainConfigMessagingServiceContextImpl(
-        this._version,
-        this._solution.messagingServiceSid
-      );
+    this._context = this._context || new DomainConfigMessagingServiceContextImpl(this._version, this._solution.messagingServiceSid);
     return this._context;
   }
 
@@ -192,12 +166,9 @@ export class DomainConfigMessagingServiceInstance {
    *
    * @returns Resolves to processed DomainConfigMessagingServiceInstance
    */
-  fetch(
-    callback?: (
-      error: Error | null,
-      item?: DomainConfigMessagingServiceInstance
-    ) => any
-  ): Promise<DomainConfigMessagingServiceInstance> {
+  fetch(callback?: (error: Error | null, item?: DomainConfigMessagingServiceInstance) => any): Promise<DomainConfigMessagingServiceInstance>
+
+    {
     return this._proxy.fetch(callback);
   }
 
@@ -217,7 +188,7 @@ export class DomainConfigMessagingServiceInstance {
       dateCreated: this.dateCreated,
       dateUpdated: this.dateUpdated,
       url: this.url,
-    };
+    }
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
@@ -225,15 +196,20 @@ export class DomainConfigMessagingServiceInstance {
   }
 }
 
-export interface DomainConfigMessagingServiceSolution {}
+
+export interface DomainConfigMessagingServiceSolution {
+}
 
 export interface DomainConfigMessagingServiceListInstance {
   _version: V1;
   _solution: DomainConfigMessagingServiceSolution;
   _uri: string;
 
-  (messagingServiceSid: string): DomainConfigMessagingServiceContext;
-  get(messagingServiceSid: string): DomainConfigMessagingServiceContext;
+  (messagingServiceSid: string, ): DomainConfigMessagingServiceContext;
+  get(messagingServiceSid: string, ): DomainConfigMessagingServiceContext;
+
+
+
 
   /**
    * Provide a user-friendly representation
@@ -242,37 +218,26 @@ export interface DomainConfigMessagingServiceListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function DomainConfigMessagingServiceListInstance(
-  version: V1
-): DomainConfigMessagingServiceListInstance {
-  const instance = ((messagingServiceSid) =>
-    instance.get(
-      messagingServiceSid
-    )) as DomainConfigMessagingServiceListInstance;
+export function DomainConfigMessagingServiceListInstance(version: V1): DomainConfigMessagingServiceListInstance {
+  const instance = ((messagingServiceSid, ) => instance.get(messagingServiceSid, )) as DomainConfigMessagingServiceListInstance;
 
-  instance.get = function get(
-    messagingServiceSid
-  ): DomainConfigMessagingServiceContext {
-    return new DomainConfigMessagingServiceContextImpl(
-      version,
-      messagingServiceSid
-    );
-  };
+  instance.get = function get(messagingServiceSid, ): DomainConfigMessagingServiceContext {
+    return new DomainConfigMessagingServiceContextImpl(version, messagingServiceSid);
+  }
 
   instance._version = version;
-  instance._solution = {};
+  instance._solution = {  };
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  };
+  }
 
-  instance[inspect.custom] = function inspectImpl(
-    _depth: any,
-    options: InspectOptions
-  ) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(instance.toJSON(), options);
-  };
+  }
 
   return instance;
 }
+
+

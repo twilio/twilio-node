@@ -12,24 +12,27 @@
  * Do not edit the class manually.
  */
 
+
 import { inspect, InspectOptions } from "util";
 import V2010 from "../../../V2010";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
 
-export type SiprecStatus = "in-progress" | "stopped";
 
-export type SiprecTrack = "inbound_track" | "outbound_track" | "both_tracks";
+export type SiprecStatus = 'in-progress'|'stopped';
 
-export type SiprecUpdateStatus = "stopped";
+export type SiprecTrack = 'inbound_track'|'outbound_track'|'both_tracks';
+
+export type SiprecUpdateStatus = 'stopped';
+
 
 /**
  * Options to pass to update a SiprecInstance
  */
 export interface SiprecContextUpdateOptions {
   /**  */
-  status: SiprecUpdateStatus;
+  "status": SiprecUpdateStatus;
 }
 
 /**
@@ -37,15 +40,15 @@ export interface SiprecContextUpdateOptions {
  */
 export interface SiprecListInstanceCreateOptions {
   /** The user-specified name of this Siprec, if one was given when the Siprec was created. This may be used to stop the Siprec. */
-  name?: string;
+  "name"?: string;
   /** Unique name used when configuring the connector via Marketplace Add-on. */
-  connectorName?: string;
+  "connectorName"?: string;
   /**  */
-  track?: SiprecTrack;
+  "track"?: SiprecTrack;
   /** Absolute URL of the status callback. */
-  statusCallback?: string;
+  "statusCallback"?: string;
   /** The http method for the status_callback (one of GET, POST). */
-  statusCallbackMethod?: string;
+  "statusCallbackMethod"?: string;
   /** Parameter name */
   "parameter1.name"?: string;
   /** Parameter value */
@@ -445,6 +448,7 @@ export interface SiprecListInstanceCreateOptions {
 }
 
 export interface SiprecContext {
+
   /**
    * Update a SiprecInstance
    *
@@ -453,10 +457,8 @@ export interface SiprecContext {
    *
    * @returns Resolves to processed SiprecInstance
    */
-  update(
-    params: SiprecContextUpdateOptions,
-    callback?: (error: Error | null, item?: SiprecInstance) => any
-  ): Promise<SiprecInstance>;
+  update(params: SiprecContextUpdateOptions, callback?: (error: Error | null, item?: SiprecInstance) => any): Promise<SiprecInstance>;
+
 
   /**
    * Provide a user-friendly representation
@@ -466,81 +468,64 @@ export interface SiprecContext {
 }
 
 export interface SiprecContextSolution {
-  accountSid: string;
-  callSid: string;
-  sid: string;
+  "accountSid": string;
+  "callSid": string;
+  "sid": string;
 }
 
 export class SiprecContextImpl implements SiprecContext {
   protected _solution: SiprecContextSolution;
   protected _uri: string;
 
-  constructor(
-    protected _version: V2010,
-    accountSid: string,
-    callSid: string,
-    sid: string
-  ) {
+
+  constructor(protected _version: V2010, accountSid: string, callSid: string, sid: string) {
     if (!isValidPathParam(accountSid)) {
-      throw new Error("Parameter 'accountSid' is not valid.");
+      throw new Error('Parameter \'accountSid\' is not valid.');
     }
 
     if (!isValidPathParam(callSid)) {
-      throw new Error("Parameter 'callSid' is not valid.");
+      throw new Error('Parameter \'callSid\' is not valid.');
     }
 
     if (!isValidPathParam(sid)) {
-      throw new Error("Parameter 'sid' is not valid.");
+      throw new Error('Parameter \'sid\' is not valid.');
     }
 
-    this._solution = { accountSid, callSid, sid };
+    this._solution = { accountSid, callSid, sid,  };
     this._uri = `/Accounts/${accountSid}/Calls/${callSid}/Siprec/${sid}.json`;
   }
 
-  update(
-    params: SiprecContextUpdateOptions,
-    callback?: (error: Error | null, item?: SiprecInstance) => any
-  ): Promise<SiprecInstance> {
-    if (params === null || params === undefined) {
+  update(params: SiprecContextUpdateOptions, callback?: (error: Error | null, item?: SiprecInstance) => any): Promise<SiprecInstance> {
+      if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     if (params["status"] === null || params["status"] === undefined) {
-      throw new Error("Required parameter \"params['status']\" missing.");
+      throw new Error('Required parameter "params[\'status\']" missing.');
     }
 
     let data: any = {};
 
+    
+        
     data["Status"] = params["status"];
 
+    
+
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.update({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      });
+        operationPromise = operationVersion.update({ uri: instance._uri, method: "post", data, headers });
+    
+    operationPromise = operationPromise.then(payload => new SiprecInstance(operationVersion, payload, instance._solution.accountSid, instance._solution.callSid, instance._solution.sid));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new SiprecInstance(
-          operationVersion,
-          payload,
-          instance._solution.accountSid,
-          instance._solution.callSid,
-          instance._solution.sid
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
   /**
@@ -556,6 +541,7 @@ export class SiprecContextImpl implements SiprecContext {
     return inspect(this.toJSON(), options);
   }
 }
+
 
 interface SiprecPayload extends SiprecResource {}
 
@@ -573,22 +559,16 @@ export class SiprecInstance {
   protected _solution: SiprecContextSolution;
   protected _context?: SiprecContext;
 
-  constructor(
-    protected _version: V2010,
-    payload: SiprecResource,
-    accountSid: string,
-    callSid: string,
-    sid?: string
-  ) {
-    this.sid = payload.sid;
-    this.accountSid = payload.account_sid;
-    this.callSid = payload.call_sid;
-    this.name = payload.name;
-    this.status = payload.status;
+  constructor(protected _version: V2010, payload: SiprecResource, accountSid: string, callSid: string, sid?: string) {
+    this.sid = (payload.sid);
+    this.accountSid = (payload.account_sid);
+    this.callSid = (payload.call_sid);
+    this.name = (payload.name);
+    this.status = (payload.status);
     this.dateUpdated = deserialize.rfc2822DateTime(payload.date_updated);
-    this.uri = payload.uri;
+    this.uri = (payload.uri);
 
-    this._solution = { accountSid, callSid, sid: sid || this.sid };
+    this._solution = { accountSid, callSid, sid: sid || this.sid,  };
   }
 
   /**
@@ -618,14 +598,7 @@ export class SiprecInstance {
   uri: string;
 
   private get _proxy(): SiprecContext {
-    this._context =
-      this._context ||
-      new SiprecContextImpl(
-        this._version,
-        this._solution.accountSid,
-        this._solution.callSid,
-        this._solution.sid
-      );
+    this._context = this._context || new SiprecContextImpl(this._version, this._solution.accountSid, this._solution.callSid, this._solution.sid);
     return this._context;
   }
 
@@ -637,15 +610,10 @@ export class SiprecInstance {
    *
    * @returns Resolves to processed SiprecInstance
    */
-  update(
-    params: SiprecContextUpdateOptions,
-    callback?: (error: Error | null, item?: SiprecInstance) => any
-  ): Promise<SiprecInstance>;
+  update(params: SiprecContextUpdateOptions, callback?: (error: Error | null, item?: SiprecInstance) => any): Promise<SiprecInstance>;
 
-  update(
-    params?: any,
-    callback?: (error: Error | null, item?: SiprecInstance) => any
-  ): Promise<SiprecInstance> {
+    update(params?: any, callback?: (error: Error | null, item?: SiprecInstance) => any): Promise<SiprecInstance>
+    {
     return this._proxy.update(params, callback);
   }
 
@@ -663,13 +631,14 @@ export class SiprecInstance {
       status: this.status,
       dateUpdated: this.dateUpdated,
       uri: this.uri,
-    };
+    }
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
 }
+
 
 export interface SiprecSolution {
   accountSid: string;
@@ -681,8 +650,11 @@ export interface SiprecListInstance {
   _solution: SiprecSolution;
   _uri: string;
 
-  (sid: string): SiprecContext;
-  get(sid: string): SiprecContext;
+  (sid: string, ): SiprecContext;
+  get(sid: string, ): SiprecContext;
+
+
+
 
   /**
    * Create a SiprecInstance
@@ -691,9 +663,7 @@ export interface SiprecListInstance {
    *
    * @returns Resolves to processed SiprecInstance
    */
-  create(
-    callback?: (error: Error | null, item?: SiprecInstance) => any
-  ): Promise<SiprecInstance>;
+  create(callback?: (error: Error | null, item?: SiprecInstance) => any): Promise<SiprecInstance>;
   /**
    * Create a SiprecInstance
    *
@@ -702,10 +672,8 @@ export interface SiprecListInstance {
    *
    * @returns Resolves to processed SiprecInstance
    */
-  create(
-    params: SiprecListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: SiprecInstance) => any
-  ): Promise<SiprecInstance>;
+  create(params: SiprecListInstanceCreateOptions, callback?: (error: Error | null, item?: SiprecInstance) => any): Promise<SiprecInstance>;
+
 
   /**
    * Provide a user-friendly representation
@@ -714,35 +682,26 @@ export interface SiprecListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function SiprecListInstance(
-  version: V2010,
-  accountSid: string,
-  callSid: string
-): SiprecListInstance {
+export function SiprecListInstance(version: V2010, accountSid: string, callSid: string): SiprecListInstance {
   if (!isValidPathParam(accountSid)) {
-    throw new Error("Parameter 'accountSid' is not valid.");
+    throw new Error('Parameter \'accountSid\' is not valid.');
   }
 
   if (!isValidPathParam(callSid)) {
-    throw new Error("Parameter 'callSid' is not valid.");
+    throw new Error('Parameter \'callSid\' is not valid.');
   }
 
-  const instance = ((sid) => instance.get(sid)) as SiprecListInstance;
+  const instance = ((sid, ) => instance.get(sid, )) as SiprecListInstance;
 
-  instance.get = function get(sid): SiprecContext {
+  instance.get = function get(sid, ): SiprecContext {
     return new SiprecContextImpl(version, accountSid, callSid, sid);
-  };
+  }
 
   instance._version = version;
-  instance._solution = { accountSid, callSid };
+  instance._solution = { accountSid, callSid,  };
   instance._uri = `/Accounts/${accountSid}/Calls/${callSid}/Siprec.json`;
 
-  instance.create = function create(
-    params?:
-      | SiprecListInstanceCreateOptions
-      | ((error: Error | null, items: SiprecInstance) => any),
-    callback?: (error: Error | null, items: SiprecInstance) => any
-  ): Promise<SiprecInstance> {
+  instance.create = function create(params?: SiprecListInstanceCreateOptions | ((error: Error | null, items: SiprecInstance) => any), callback?: (error: Error | null, items: SiprecInstance) => any): Promise<SiprecInstance> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -752,449 +711,440 @@ export function SiprecListInstance(
 
     let data: any = {};
 
-    if (params["name"] !== undefined) data["Name"] = params["name"];
+    
+        if (params["name"] !== undefined)
+    data["Name"] = params["name"];
     if (params["connectorName"] !== undefined)
-      data["ConnectorName"] = params["connectorName"];
-    if (params["track"] !== undefined) data["Track"] = params["track"];
+    data["ConnectorName"] = params["connectorName"];
+    if (params["track"] !== undefined)
+    data["Track"] = params["track"];
     if (params["statusCallback"] !== undefined)
-      data["StatusCallback"] = params["statusCallback"];
+    data["StatusCallback"] = params["statusCallback"];
     if (params["statusCallbackMethod"] !== undefined)
-      data["StatusCallbackMethod"] = params["statusCallbackMethod"];
+    data["StatusCallbackMethod"] = params["statusCallbackMethod"];
     if (params["parameter1.name"] !== undefined)
-      data["Parameter1.Name"] = params["parameter1.name"];
+    data["Parameter1.Name"] = params["parameter1.name"];
     if (params["parameter1.value"] !== undefined)
-      data["Parameter1.Value"] = params["parameter1.value"];
+    data["Parameter1.Value"] = params["parameter1.value"];
     if (params["parameter2.name"] !== undefined)
-      data["Parameter2.Name"] = params["parameter2.name"];
+    data["Parameter2.Name"] = params["parameter2.name"];
     if (params["parameter2.value"] !== undefined)
-      data["Parameter2.Value"] = params["parameter2.value"];
+    data["Parameter2.Value"] = params["parameter2.value"];
     if (params["parameter3.name"] !== undefined)
-      data["Parameter3.Name"] = params["parameter3.name"];
+    data["Parameter3.Name"] = params["parameter3.name"];
     if (params["parameter3.value"] !== undefined)
-      data["Parameter3.Value"] = params["parameter3.value"];
+    data["Parameter3.Value"] = params["parameter3.value"];
     if (params["parameter4.name"] !== undefined)
-      data["Parameter4.Name"] = params["parameter4.name"];
+    data["Parameter4.Name"] = params["parameter4.name"];
     if (params["parameter4.value"] !== undefined)
-      data["Parameter4.Value"] = params["parameter4.value"];
+    data["Parameter4.Value"] = params["parameter4.value"];
     if (params["parameter5.name"] !== undefined)
-      data["Parameter5.Name"] = params["parameter5.name"];
+    data["Parameter5.Name"] = params["parameter5.name"];
     if (params["parameter5.value"] !== undefined)
-      data["Parameter5.Value"] = params["parameter5.value"];
+    data["Parameter5.Value"] = params["parameter5.value"];
     if (params["parameter6.name"] !== undefined)
-      data["Parameter6.Name"] = params["parameter6.name"];
+    data["Parameter6.Name"] = params["parameter6.name"];
     if (params["parameter6.value"] !== undefined)
-      data["Parameter6.Value"] = params["parameter6.value"];
+    data["Parameter6.Value"] = params["parameter6.value"];
     if (params["parameter7.name"] !== undefined)
-      data["Parameter7.Name"] = params["parameter7.name"];
+    data["Parameter7.Name"] = params["parameter7.name"];
     if (params["parameter7.value"] !== undefined)
-      data["Parameter7.Value"] = params["parameter7.value"];
+    data["Parameter7.Value"] = params["parameter7.value"];
     if (params["parameter8.name"] !== undefined)
-      data["Parameter8.Name"] = params["parameter8.name"];
+    data["Parameter8.Name"] = params["parameter8.name"];
     if (params["parameter8.value"] !== undefined)
-      data["Parameter8.Value"] = params["parameter8.value"];
+    data["Parameter8.Value"] = params["parameter8.value"];
     if (params["parameter9.name"] !== undefined)
-      data["Parameter9.Name"] = params["parameter9.name"];
+    data["Parameter9.Name"] = params["parameter9.name"];
     if (params["parameter9.value"] !== undefined)
-      data["Parameter9.Value"] = params["parameter9.value"];
+    data["Parameter9.Value"] = params["parameter9.value"];
     if (params["parameter10.name"] !== undefined)
-      data["Parameter10.Name"] = params["parameter10.name"];
+    data["Parameter10.Name"] = params["parameter10.name"];
     if (params["parameter10.value"] !== undefined)
-      data["Parameter10.Value"] = params["parameter10.value"];
+    data["Parameter10.Value"] = params["parameter10.value"];
     if (params["parameter11.name"] !== undefined)
-      data["Parameter11.Name"] = params["parameter11.name"];
+    data["Parameter11.Name"] = params["parameter11.name"];
     if (params["parameter11.value"] !== undefined)
-      data["Parameter11.Value"] = params["parameter11.value"];
+    data["Parameter11.Value"] = params["parameter11.value"];
     if (params["parameter12.name"] !== undefined)
-      data["Parameter12.Name"] = params["parameter12.name"];
+    data["Parameter12.Name"] = params["parameter12.name"];
     if (params["parameter12.value"] !== undefined)
-      data["Parameter12.Value"] = params["parameter12.value"];
+    data["Parameter12.Value"] = params["parameter12.value"];
     if (params["parameter13.name"] !== undefined)
-      data["Parameter13.Name"] = params["parameter13.name"];
+    data["Parameter13.Name"] = params["parameter13.name"];
     if (params["parameter13.value"] !== undefined)
-      data["Parameter13.Value"] = params["parameter13.value"];
+    data["Parameter13.Value"] = params["parameter13.value"];
     if (params["parameter14.name"] !== undefined)
-      data["Parameter14.Name"] = params["parameter14.name"];
+    data["Parameter14.Name"] = params["parameter14.name"];
     if (params["parameter14.value"] !== undefined)
-      data["Parameter14.Value"] = params["parameter14.value"];
+    data["Parameter14.Value"] = params["parameter14.value"];
     if (params["parameter15.name"] !== undefined)
-      data["Parameter15.Name"] = params["parameter15.name"];
+    data["Parameter15.Name"] = params["parameter15.name"];
     if (params["parameter15.value"] !== undefined)
-      data["Parameter15.Value"] = params["parameter15.value"];
+    data["Parameter15.Value"] = params["parameter15.value"];
     if (params["parameter16.name"] !== undefined)
-      data["Parameter16.Name"] = params["parameter16.name"];
+    data["Parameter16.Name"] = params["parameter16.name"];
     if (params["parameter16.value"] !== undefined)
-      data["Parameter16.Value"] = params["parameter16.value"];
+    data["Parameter16.Value"] = params["parameter16.value"];
     if (params["parameter17.name"] !== undefined)
-      data["Parameter17.Name"] = params["parameter17.name"];
+    data["Parameter17.Name"] = params["parameter17.name"];
     if (params["parameter17.value"] !== undefined)
-      data["Parameter17.Value"] = params["parameter17.value"];
+    data["Parameter17.Value"] = params["parameter17.value"];
     if (params["parameter18.name"] !== undefined)
-      data["Parameter18.Name"] = params["parameter18.name"];
+    data["Parameter18.Name"] = params["parameter18.name"];
     if (params["parameter18.value"] !== undefined)
-      data["Parameter18.Value"] = params["parameter18.value"];
+    data["Parameter18.Value"] = params["parameter18.value"];
     if (params["parameter19.name"] !== undefined)
-      data["Parameter19.Name"] = params["parameter19.name"];
+    data["Parameter19.Name"] = params["parameter19.name"];
     if (params["parameter19.value"] !== undefined)
-      data["Parameter19.Value"] = params["parameter19.value"];
+    data["Parameter19.Value"] = params["parameter19.value"];
     if (params["parameter20.name"] !== undefined)
-      data["Parameter20.Name"] = params["parameter20.name"];
+    data["Parameter20.Name"] = params["parameter20.name"];
     if (params["parameter20.value"] !== undefined)
-      data["Parameter20.Value"] = params["parameter20.value"];
+    data["Parameter20.Value"] = params["parameter20.value"];
     if (params["parameter21.name"] !== undefined)
-      data["Parameter21.Name"] = params["parameter21.name"];
+    data["Parameter21.Name"] = params["parameter21.name"];
     if (params["parameter21.value"] !== undefined)
-      data["Parameter21.Value"] = params["parameter21.value"];
+    data["Parameter21.Value"] = params["parameter21.value"];
     if (params["parameter22.name"] !== undefined)
-      data["Parameter22.Name"] = params["parameter22.name"];
+    data["Parameter22.Name"] = params["parameter22.name"];
     if (params["parameter22.value"] !== undefined)
-      data["Parameter22.Value"] = params["parameter22.value"];
+    data["Parameter22.Value"] = params["parameter22.value"];
     if (params["parameter23.name"] !== undefined)
-      data["Parameter23.Name"] = params["parameter23.name"];
+    data["Parameter23.Name"] = params["parameter23.name"];
     if (params["parameter23.value"] !== undefined)
-      data["Parameter23.Value"] = params["parameter23.value"];
+    data["Parameter23.Value"] = params["parameter23.value"];
     if (params["parameter24.name"] !== undefined)
-      data["Parameter24.Name"] = params["parameter24.name"];
+    data["Parameter24.Name"] = params["parameter24.name"];
     if (params["parameter24.value"] !== undefined)
-      data["Parameter24.Value"] = params["parameter24.value"];
+    data["Parameter24.Value"] = params["parameter24.value"];
     if (params["parameter25.name"] !== undefined)
-      data["Parameter25.Name"] = params["parameter25.name"];
+    data["Parameter25.Name"] = params["parameter25.name"];
     if (params["parameter25.value"] !== undefined)
-      data["Parameter25.Value"] = params["parameter25.value"];
+    data["Parameter25.Value"] = params["parameter25.value"];
     if (params["parameter26.name"] !== undefined)
-      data["Parameter26.Name"] = params["parameter26.name"];
+    data["Parameter26.Name"] = params["parameter26.name"];
     if (params["parameter26.value"] !== undefined)
-      data["Parameter26.Value"] = params["parameter26.value"];
+    data["Parameter26.Value"] = params["parameter26.value"];
     if (params["parameter27.name"] !== undefined)
-      data["Parameter27.Name"] = params["parameter27.name"];
+    data["Parameter27.Name"] = params["parameter27.name"];
     if (params["parameter27.value"] !== undefined)
-      data["Parameter27.Value"] = params["parameter27.value"];
+    data["Parameter27.Value"] = params["parameter27.value"];
     if (params["parameter28.name"] !== undefined)
-      data["Parameter28.Name"] = params["parameter28.name"];
+    data["Parameter28.Name"] = params["parameter28.name"];
     if (params["parameter28.value"] !== undefined)
-      data["Parameter28.Value"] = params["parameter28.value"];
+    data["Parameter28.Value"] = params["parameter28.value"];
     if (params["parameter29.name"] !== undefined)
-      data["Parameter29.Name"] = params["parameter29.name"];
+    data["Parameter29.Name"] = params["parameter29.name"];
     if (params["parameter29.value"] !== undefined)
-      data["Parameter29.Value"] = params["parameter29.value"];
+    data["Parameter29.Value"] = params["parameter29.value"];
     if (params["parameter30.name"] !== undefined)
-      data["Parameter30.Name"] = params["parameter30.name"];
+    data["Parameter30.Name"] = params["parameter30.name"];
     if (params["parameter30.value"] !== undefined)
-      data["Parameter30.Value"] = params["parameter30.value"];
+    data["Parameter30.Value"] = params["parameter30.value"];
     if (params["parameter31.name"] !== undefined)
-      data["Parameter31.Name"] = params["parameter31.name"];
+    data["Parameter31.Name"] = params["parameter31.name"];
     if (params["parameter31.value"] !== undefined)
-      data["Parameter31.Value"] = params["parameter31.value"];
+    data["Parameter31.Value"] = params["parameter31.value"];
     if (params["parameter32.name"] !== undefined)
-      data["Parameter32.Name"] = params["parameter32.name"];
+    data["Parameter32.Name"] = params["parameter32.name"];
     if (params["parameter32.value"] !== undefined)
-      data["Parameter32.Value"] = params["parameter32.value"];
+    data["Parameter32.Value"] = params["parameter32.value"];
     if (params["parameter33.name"] !== undefined)
-      data["Parameter33.Name"] = params["parameter33.name"];
+    data["Parameter33.Name"] = params["parameter33.name"];
     if (params["parameter33.value"] !== undefined)
-      data["Parameter33.Value"] = params["parameter33.value"];
+    data["Parameter33.Value"] = params["parameter33.value"];
     if (params["parameter34.name"] !== undefined)
-      data["Parameter34.Name"] = params["parameter34.name"];
+    data["Parameter34.Name"] = params["parameter34.name"];
     if (params["parameter34.value"] !== undefined)
-      data["Parameter34.Value"] = params["parameter34.value"];
+    data["Parameter34.Value"] = params["parameter34.value"];
     if (params["parameter35.name"] !== undefined)
-      data["Parameter35.Name"] = params["parameter35.name"];
+    data["Parameter35.Name"] = params["parameter35.name"];
     if (params["parameter35.value"] !== undefined)
-      data["Parameter35.Value"] = params["parameter35.value"];
+    data["Parameter35.Value"] = params["parameter35.value"];
     if (params["parameter36.name"] !== undefined)
-      data["Parameter36.Name"] = params["parameter36.name"];
+    data["Parameter36.Name"] = params["parameter36.name"];
     if (params["parameter36.value"] !== undefined)
-      data["Parameter36.Value"] = params["parameter36.value"];
+    data["Parameter36.Value"] = params["parameter36.value"];
     if (params["parameter37.name"] !== undefined)
-      data["Parameter37.Name"] = params["parameter37.name"];
+    data["Parameter37.Name"] = params["parameter37.name"];
     if (params["parameter37.value"] !== undefined)
-      data["Parameter37.Value"] = params["parameter37.value"];
+    data["Parameter37.Value"] = params["parameter37.value"];
     if (params["parameter38.name"] !== undefined)
-      data["Parameter38.Name"] = params["parameter38.name"];
+    data["Parameter38.Name"] = params["parameter38.name"];
     if (params["parameter38.value"] !== undefined)
-      data["Parameter38.Value"] = params["parameter38.value"];
+    data["Parameter38.Value"] = params["parameter38.value"];
     if (params["parameter39.name"] !== undefined)
-      data["Parameter39.Name"] = params["parameter39.name"];
+    data["Parameter39.Name"] = params["parameter39.name"];
     if (params["parameter39.value"] !== undefined)
-      data["Parameter39.Value"] = params["parameter39.value"];
+    data["Parameter39.Value"] = params["parameter39.value"];
     if (params["parameter40.name"] !== undefined)
-      data["Parameter40.Name"] = params["parameter40.name"];
+    data["Parameter40.Name"] = params["parameter40.name"];
     if (params["parameter40.value"] !== undefined)
-      data["Parameter40.Value"] = params["parameter40.value"];
+    data["Parameter40.Value"] = params["parameter40.value"];
     if (params["parameter41.name"] !== undefined)
-      data["Parameter41.Name"] = params["parameter41.name"];
+    data["Parameter41.Name"] = params["parameter41.name"];
     if (params["parameter41.value"] !== undefined)
-      data["Parameter41.Value"] = params["parameter41.value"];
+    data["Parameter41.Value"] = params["parameter41.value"];
     if (params["parameter42.name"] !== undefined)
-      data["Parameter42.Name"] = params["parameter42.name"];
+    data["Parameter42.Name"] = params["parameter42.name"];
     if (params["parameter42.value"] !== undefined)
-      data["Parameter42.Value"] = params["parameter42.value"];
+    data["Parameter42.Value"] = params["parameter42.value"];
     if (params["parameter43.name"] !== undefined)
-      data["Parameter43.Name"] = params["parameter43.name"];
+    data["Parameter43.Name"] = params["parameter43.name"];
     if (params["parameter43.value"] !== undefined)
-      data["Parameter43.Value"] = params["parameter43.value"];
+    data["Parameter43.Value"] = params["parameter43.value"];
     if (params["parameter44.name"] !== undefined)
-      data["Parameter44.Name"] = params["parameter44.name"];
+    data["Parameter44.Name"] = params["parameter44.name"];
     if (params["parameter44.value"] !== undefined)
-      data["Parameter44.Value"] = params["parameter44.value"];
+    data["Parameter44.Value"] = params["parameter44.value"];
     if (params["parameter45.name"] !== undefined)
-      data["Parameter45.Name"] = params["parameter45.name"];
+    data["Parameter45.Name"] = params["parameter45.name"];
     if (params["parameter45.value"] !== undefined)
-      data["Parameter45.Value"] = params["parameter45.value"];
+    data["Parameter45.Value"] = params["parameter45.value"];
     if (params["parameter46.name"] !== undefined)
-      data["Parameter46.Name"] = params["parameter46.name"];
+    data["Parameter46.Name"] = params["parameter46.name"];
     if (params["parameter46.value"] !== undefined)
-      data["Parameter46.Value"] = params["parameter46.value"];
+    data["Parameter46.Value"] = params["parameter46.value"];
     if (params["parameter47.name"] !== undefined)
-      data["Parameter47.Name"] = params["parameter47.name"];
+    data["Parameter47.Name"] = params["parameter47.name"];
     if (params["parameter47.value"] !== undefined)
-      data["Parameter47.Value"] = params["parameter47.value"];
+    data["Parameter47.Value"] = params["parameter47.value"];
     if (params["parameter48.name"] !== undefined)
-      data["Parameter48.Name"] = params["parameter48.name"];
+    data["Parameter48.Name"] = params["parameter48.name"];
     if (params["parameter48.value"] !== undefined)
-      data["Parameter48.Value"] = params["parameter48.value"];
+    data["Parameter48.Value"] = params["parameter48.value"];
     if (params["parameter49.name"] !== undefined)
-      data["Parameter49.Name"] = params["parameter49.name"];
+    data["Parameter49.Name"] = params["parameter49.name"];
     if (params["parameter49.value"] !== undefined)
-      data["Parameter49.Value"] = params["parameter49.value"];
+    data["Parameter49.Value"] = params["parameter49.value"];
     if (params["parameter50.name"] !== undefined)
-      data["Parameter50.Name"] = params["parameter50.name"];
+    data["Parameter50.Name"] = params["parameter50.name"];
     if (params["parameter50.value"] !== undefined)
-      data["Parameter50.Value"] = params["parameter50.value"];
+    data["Parameter50.Value"] = params["parameter50.value"];
     if (params["parameter51.name"] !== undefined)
-      data["Parameter51.Name"] = params["parameter51.name"];
+    data["Parameter51.Name"] = params["parameter51.name"];
     if (params["parameter51.value"] !== undefined)
-      data["Parameter51.Value"] = params["parameter51.value"];
+    data["Parameter51.Value"] = params["parameter51.value"];
     if (params["parameter52.name"] !== undefined)
-      data["Parameter52.Name"] = params["parameter52.name"];
+    data["Parameter52.Name"] = params["parameter52.name"];
     if (params["parameter52.value"] !== undefined)
-      data["Parameter52.Value"] = params["parameter52.value"];
+    data["Parameter52.Value"] = params["parameter52.value"];
     if (params["parameter53.name"] !== undefined)
-      data["Parameter53.Name"] = params["parameter53.name"];
+    data["Parameter53.Name"] = params["parameter53.name"];
     if (params["parameter53.value"] !== undefined)
-      data["Parameter53.Value"] = params["parameter53.value"];
+    data["Parameter53.Value"] = params["parameter53.value"];
     if (params["parameter54.name"] !== undefined)
-      data["Parameter54.Name"] = params["parameter54.name"];
+    data["Parameter54.Name"] = params["parameter54.name"];
     if (params["parameter54.value"] !== undefined)
-      data["Parameter54.Value"] = params["parameter54.value"];
+    data["Parameter54.Value"] = params["parameter54.value"];
     if (params["parameter55.name"] !== undefined)
-      data["Parameter55.Name"] = params["parameter55.name"];
+    data["Parameter55.Name"] = params["parameter55.name"];
     if (params["parameter55.value"] !== undefined)
-      data["Parameter55.Value"] = params["parameter55.value"];
+    data["Parameter55.Value"] = params["parameter55.value"];
     if (params["parameter56.name"] !== undefined)
-      data["Parameter56.Name"] = params["parameter56.name"];
+    data["Parameter56.Name"] = params["parameter56.name"];
     if (params["parameter56.value"] !== undefined)
-      data["Parameter56.Value"] = params["parameter56.value"];
+    data["Parameter56.Value"] = params["parameter56.value"];
     if (params["parameter57.name"] !== undefined)
-      data["Parameter57.Name"] = params["parameter57.name"];
+    data["Parameter57.Name"] = params["parameter57.name"];
     if (params["parameter57.value"] !== undefined)
-      data["Parameter57.Value"] = params["parameter57.value"];
+    data["Parameter57.Value"] = params["parameter57.value"];
     if (params["parameter58.name"] !== undefined)
-      data["Parameter58.Name"] = params["parameter58.name"];
+    data["Parameter58.Name"] = params["parameter58.name"];
     if (params["parameter58.value"] !== undefined)
-      data["Parameter58.Value"] = params["parameter58.value"];
+    data["Parameter58.Value"] = params["parameter58.value"];
     if (params["parameter59.name"] !== undefined)
-      data["Parameter59.Name"] = params["parameter59.name"];
+    data["Parameter59.Name"] = params["parameter59.name"];
     if (params["parameter59.value"] !== undefined)
-      data["Parameter59.Value"] = params["parameter59.value"];
+    data["Parameter59.Value"] = params["parameter59.value"];
     if (params["parameter60.name"] !== undefined)
-      data["Parameter60.Name"] = params["parameter60.name"];
+    data["Parameter60.Name"] = params["parameter60.name"];
     if (params["parameter60.value"] !== undefined)
-      data["Parameter60.Value"] = params["parameter60.value"];
+    data["Parameter60.Value"] = params["parameter60.value"];
     if (params["parameter61.name"] !== undefined)
-      data["Parameter61.Name"] = params["parameter61.name"];
+    data["Parameter61.Name"] = params["parameter61.name"];
     if (params["parameter61.value"] !== undefined)
-      data["Parameter61.Value"] = params["parameter61.value"];
+    data["Parameter61.Value"] = params["parameter61.value"];
     if (params["parameter62.name"] !== undefined)
-      data["Parameter62.Name"] = params["parameter62.name"];
+    data["Parameter62.Name"] = params["parameter62.name"];
     if (params["parameter62.value"] !== undefined)
-      data["Parameter62.Value"] = params["parameter62.value"];
+    data["Parameter62.Value"] = params["parameter62.value"];
     if (params["parameter63.name"] !== undefined)
-      data["Parameter63.Name"] = params["parameter63.name"];
+    data["Parameter63.Name"] = params["parameter63.name"];
     if (params["parameter63.value"] !== undefined)
-      data["Parameter63.Value"] = params["parameter63.value"];
+    data["Parameter63.Value"] = params["parameter63.value"];
     if (params["parameter64.name"] !== undefined)
-      data["Parameter64.Name"] = params["parameter64.name"];
+    data["Parameter64.Name"] = params["parameter64.name"];
     if (params["parameter64.value"] !== undefined)
-      data["Parameter64.Value"] = params["parameter64.value"];
+    data["Parameter64.Value"] = params["parameter64.value"];
     if (params["parameter65.name"] !== undefined)
-      data["Parameter65.Name"] = params["parameter65.name"];
+    data["Parameter65.Name"] = params["parameter65.name"];
     if (params["parameter65.value"] !== undefined)
-      data["Parameter65.Value"] = params["parameter65.value"];
+    data["Parameter65.Value"] = params["parameter65.value"];
     if (params["parameter66.name"] !== undefined)
-      data["Parameter66.Name"] = params["parameter66.name"];
+    data["Parameter66.Name"] = params["parameter66.name"];
     if (params["parameter66.value"] !== undefined)
-      data["Parameter66.Value"] = params["parameter66.value"];
+    data["Parameter66.Value"] = params["parameter66.value"];
     if (params["parameter67.name"] !== undefined)
-      data["Parameter67.Name"] = params["parameter67.name"];
+    data["Parameter67.Name"] = params["parameter67.name"];
     if (params["parameter67.value"] !== undefined)
-      data["Parameter67.Value"] = params["parameter67.value"];
+    data["Parameter67.Value"] = params["parameter67.value"];
     if (params["parameter68.name"] !== undefined)
-      data["Parameter68.Name"] = params["parameter68.name"];
+    data["Parameter68.Name"] = params["parameter68.name"];
     if (params["parameter68.value"] !== undefined)
-      data["Parameter68.Value"] = params["parameter68.value"];
+    data["Parameter68.Value"] = params["parameter68.value"];
     if (params["parameter69.name"] !== undefined)
-      data["Parameter69.Name"] = params["parameter69.name"];
+    data["Parameter69.Name"] = params["parameter69.name"];
     if (params["parameter69.value"] !== undefined)
-      data["Parameter69.Value"] = params["parameter69.value"];
+    data["Parameter69.Value"] = params["parameter69.value"];
     if (params["parameter70.name"] !== undefined)
-      data["Parameter70.Name"] = params["parameter70.name"];
+    data["Parameter70.Name"] = params["parameter70.name"];
     if (params["parameter70.value"] !== undefined)
-      data["Parameter70.Value"] = params["parameter70.value"];
+    data["Parameter70.Value"] = params["parameter70.value"];
     if (params["parameter71.name"] !== undefined)
-      data["Parameter71.Name"] = params["parameter71.name"];
+    data["Parameter71.Name"] = params["parameter71.name"];
     if (params["parameter71.value"] !== undefined)
-      data["Parameter71.Value"] = params["parameter71.value"];
+    data["Parameter71.Value"] = params["parameter71.value"];
     if (params["parameter72.name"] !== undefined)
-      data["Parameter72.Name"] = params["parameter72.name"];
+    data["Parameter72.Name"] = params["parameter72.name"];
     if (params["parameter72.value"] !== undefined)
-      data["Parameter72.Value"] = params["parameter72.value"];
+    data["Parameter72.Value"] = params["parameter72.value"];
     if (params["parameter73.name"] !== undefined)
-      data["Parameter73.Name"] = params["parameter73.name"];
+    data["Parameter73.Name"] = params["parameter73.name"];
     if (params["parameter73.value"] !== undefined)
-      data["Parameter73.Value"] = params["parameter73.value"];
+    data["Parameter73.Value"] = params["parameter73.value"];
     if (params["parameter74.name"] !== undefined)
-      data["Parameter74.Name"] = params["parameter74.name"];
+    data["Parameter74.Name"] = params["parameter74.name"];
     if (params["parameter74.value"] !== undefined)
-      data["Parameter74.Value"] = params["parameter74.value"];
+    data["Parameter74.Value"] = params["parameter74.value"];
     if (params["parameter75.name"] !== undefined)
-      data["Parameter75.Name"] = params["parameter75.name"];
+    data["Parameter75.Name"] = params["parameter75.name"];
     if (params["parameter75.value"] !== undefined)
-      data["Parameter75.Value"] = params["parameter75.value"];
+    data["Parameter75.Value"] = params["parameter75.value"];
     if (params["parameter76.name"] !== undefined)
-      data["Parameter76.Name"] = params["parameter76.name"];
+    data["Parameter76.Name"] = params["parameter76.name"];
     if (params["parameter76.value"] !== undefined)
-      data["Parameter76.Value"] = params["parameter76.value"];
+    data["Parameter76.Value"] = params["parameter76.value"];
     if (params["parameter77.name"] !== undefined)
-      data["Parameter77.Name"] = params["parameter77.name"];
+    data["Parameter77.Name"] = params["parameter77.name"];
     if (params["parameter77.value"] !== undefined)
-      data["Parameter77.Value"] = params["parameter77.value"];
+    data["Parameter77.Value"] = params["parameter77.value"];
     if (params["parameter78.name"] !== undefined)
-      data["Parameter78.Name"] = params["parameter78.name"];
+    data["Parameter78.Name"] = params["parameter78.name"];
     if (params["parameter78.value"] !== undefined)
-      data["Parameter78.Value"] = params["parameter78.value"];
+    data["Parameter78.Value"] = params["parameter78.value"];
     if (params["parameter79.name"] !== undefined)
-      data["Parameter79.Name"] = params["parameter79.name"];
+    data["Parameter79.Name"] = params["parameter79.name"];
     if (params["parameter79.value"] !== undefined)
-      data["Parameter79.Value"] = params["parameter79.value"];
+    data["Parameter79.Value"] = params["parameter79.value"];
     if (params["parameter80.name"] !== undefined)
-      data["Parameter80.Name"] = params["parameter80.name"];
+    data["Parameter80.Name"] = params["parameter80.name"];
     if (params["parameter80.value"] !== undefined)
-      data["Parameter80.Value"] = params["parameter80.value"];
+    data["Parameter80.Value"] = params["parameter80.value"];
     if (params["parameter81.name"] !== undefined)
-      data["Parameter81.Name"] = params["parameter81.name"];
+    data["Parameter81.Name"] = params["parameter81.name"];
     if (params["parameter81.value"] !== undefined)
-      data["Parameter81.Value"] = params["parameter81.value"];
+    data["Parameter81.Value"] = params["parameter81.value"];
     if (params["parameter82.name"] !== undefined)
-      data["Parameter82.Name"] = params["parameter82.name"];
+    data["Parameter82.Name"] = params["parameter82.name"];
     if (params["parameter82.value"] !== undefined)
-      data["Parameter82.Value"] = params["parameter82.value"];
+    data["Parameter82.Value"] = params["parameter82.value"];
     if (params["parameter83.name"] !== undefined)
-      data["Parameter83.Name"] = params["parameter83.name"];
+    data["Parameter83.Name"] = params["parameter83.name"];
     if (params["parameter83.value"] !== undefined)
-      data["Parameter83.Value"] = params["parameter83.value"];
+    data["Parameter83.Value"] = params["parameter83.value"];
     if (params["parameter84.name"] !== undefined)
-      data["Parameter84.Name"] = params["parameter84.name"];
+    data["Parameter84.Name"] = params["parameter84.name"];
     if (params["parameter84.value"] !== undefined)
-      data["Parameter84.Value"] = params["parameter84.value"];
+    data["Parameter84.Value"] = params["parameter84.value"];
     if (params["parameter85.name"] !== undefined)
-      data["Parameter85.Name"] = params["parameter85.name"];
+    data["Parameter85.Name"] = params["parameter85.name"];
     if (params["parameter85.value"] !== undefined)
-      data["Parameter85.Value"] = params["parameter85.value"];
+    data["Parameter85.Value"] = params["parameter85.value"];
     if (params["parameter86.name"] !== undefined)
-      data["Parameter86.Name"] = params["parameter86.name"];
+    data["Parameter86.Name"] = params["parameter86.name"];
     if (params["parameter86.value"] !== undefined)
-      data["Parameter86.Value"] = params["parameter86.value"];
+    data["Parameter86.Value"] = params["parameter86.value"];
     if (params["parameter87.name"] !== undefined)
-      data["Parameter87.Name"] = params["parameter87.name"];
+    data["Parameter87.Name"] = params["parameter87.name"];
     if (params["parameter87.value"] !== undefined)
-      data["Parameter87.Value"] = params["parameter87.value"];
+    data["Parameter87.Value"] = params["parameter87.value"];
     if (params["parameter88.name"] !== undefined)
-      data["Parameter88.Name"] = params["parameter88.name"];
+    data["Parameter88.Name"] = params["parameter88.name"];
     if (params["parameter88.value"] !== undefined)
-      data["Parameter88.Value"] = params["parameter88.value"];
+    data["Parameter88.Value"] = params["parameter88.value"];
     if (params["parameter89.name"] !== undefined)
-      data["Parameter89.Name"] = params["parameter89.name"];
+    data["Parameter89.Name"] = params["parameter89.name"];
     if (params["parameter89.value"] !== undefined)
-      data["Parameter89.Value"] = params["parameter89.value"];
+    data["Parameter89.Value"] = params["parameter89.value"];
     if (params["parameter90.name"] !== undefined)
-      data["Parameter90.Name"] = params["parameter90.name"];
+    data["Parameter90.Name"] = params["parameter90.name"];
     if (params["parameter90.value"] !== undefined)
-      data["Parameter90.Value"] = params["parameter90.value"];
+    data["Parameter90.Value"] = params["parameter90.value"];
     if (params["parameter91.name"] !== undefined)
-      data["Parameter91.Name"] = params["parameter91.name"];
+    data["Parameter91.Name"] = params["parameter91.name"];
     if (params["parameter91.value"] !== undefined)
-      data["Parameter91.Value"] = params["parameter91.value"];
+    data["Parameter91.Value"] = params["parameter91.value"];
     if (params["parameter92.name"] !== undefined)
-      data["Parameter92.Name"] = params["parameter92.name"];
+    data["Parameter92.Name"] = params["parameter92.name"];
     if (params["parameter92.value"] !== undefined)
-      data["Parameter92.Value"] = params["parameter92.value"];
+    data["Parameter92.Value"] = params["parameter92.value"];
     if (params["parameter93.name"] !== undefined)
-      data["Parameter93.Name"] = params["parameter93.name"];
+    data["Parameter93.Name"] = params["parameter93.name"];
     if (params["parameter93.value"] !== undefined)
-      data["Parameter93.Value"] = params["parameter93.value"];
+    data["Parameter93.Value"] = params["parameter93.value"];
     if (params["parameter94.name"] !== undefined)
-      data["Parameter94.Name"] = params["parameter94.name"];
+    data["Parameter94.Name"] = params["parameter94.name"];
     if (params["parameter94.value"] !== undefined)
-      data["Parameter94.Value"] = params["parameter94.value"];
+    data["Parameter94.Value"] = params["parameter94.value"];
     if (params["parameter95.name"] !== undefined)
-      data["Parameter95.Name"] = params["parameter95.name"];
+    data["Parameter95.Name"] = params["parameter95.name"];
     if (params["parameter95.value"] !== undefined)
-      data["Parameter95.Value"] = params["parameter95.value"];
+    data["Parameter95.Value"] = params["parameter95.value"];
     if (params["parameter96.name"] !== undefined)
-      data["Parameter96.Name"] = params["parameter96.name"];
+    data["Parameter96.Name"] = params["parameter96.name"];
     if (params["parameter96.value"] !== undefined)
-      data["Parameter96.Value"] = params["parameter96.value"];
+    data["Parameter96.Value"] = params["parameter96.value"];
     if (params["parameter97.name"] !== undefined)
-      data["Parameter97.Name"] = params["parameter97.name"];
+    data["Parameter97.Name"] = params["parameter97.name"];
     if (params["parameter97.value"] !== undefined)
-      data["Parameter97.Value"] = params["parameter97.value"];
+    data["Parameter97.Value"] = params["parameter97.value"];
     if (params["parameter98.name"] !== undefined)
-      data["Parameter98.Name"] = params["parameter98.name"];
+    data["Parameter98.Name"] = params["parameter98.name"];
     if (params["parameter98.value"] !== undefined)
-      data["Parameter98.Value"] = params["parameter98.value"];
+    data["Parameter98.Value"] = params["parameter98.value"];
     if (params["parameter99.name"] !== undefined)
-      data["Parameter99.Name"] = params["parameter99.name"];
+    data["Parameter99.Name"] = params["parameter99.name"];
     if (params["parameter99.value"] !== undefined)
-      data["Parameter99.Value"] = params["parameter99.value"];
+    data["Parameter99.Value"] = params["parameter99.value"];
+
+    
 
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = version,
-      operationPromise = operationVersion.create({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      });
+        operationPromise = operationVersion.create({ uri: instance._uri, method: "post", data, headers });
+    
+    operationPromise = operationPromise.then(payload => new SiprecInstance(operationVersion, payload, instance._solution.accountSid, instance._solution.callSid));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new SiprecInstance(
-          operationVersion,
-          payload,
-          instance._solution.accountSid,
-          instance._solution.callSid
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
+
+
+    }
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  };
+  }
 
-  instance[inspect.custom] = function inspectImpl(
-    _depth: any,
-    options: InspectOptions
-  ) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(instance.toJSON(), options);
-  };
+  }
 
   return instance;
 }
+
+

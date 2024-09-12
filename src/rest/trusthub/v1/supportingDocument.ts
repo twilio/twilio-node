@@ -12,6 +12,7 @@
  * Do not edit the class manually.
  */
 
+
 import { inspect, InspectOptions } from "util";
 import Page, { TwilioResponsePayload } from "../../../base/Page";
 import Response from "../../../http/response";
@@ -20,22 +21,20 @@ const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 
-export type SupportingDocumentStatus =
-  | "draft"
-  | "pending-review"
-  | "rejected"
-  | "approved"
-  | "expired"
-  | "provisionally-approved";
+
+export type SupportingDocumentStatus = 'draft'|'pending-review'|'rejected'|'approved'|'expired'|'provisionally-approved';
+
+
+
 
 /**
  * Options to pass to update a SupportingDocumentInstance
  */
 export interface SupportingDocumentContextUpdateOptions {
   /** The string that you assigned to describe the resource. */
-  friendlyName?: string;
+  "friendlyName"?: string;
   /** The set of parameters that are the attributes of the Supporting Document resource which are derived Supporting Document Types. */
-  attributes?: any;
+  "attributes"?: any;
 }
 
 /**
@@ -43,23 +42,20 @@ export interface SupportingDocumentContextUpdateOptions {
  */
 export interface SupportingDocumentListInstanceCreateOptions {
   /** The string that you assigned to describe the resource. */
-  friendlyName: string;
+  "friendlyName": string;
   /** The type of the Supporting Document. */
-  type: string;
+  "type": string;
   /** The set of parameters that are the attributes of the Supporting Documents resource which are derived Supporting Document Types. */
-  attributes?: any;
+  "attributes"?: any;
 }
 /**
  * Options to pass to each
  */
 export interface SupportingDocumentListInstanceEachOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
-  callback?: (
-    item: SupportingDocumentInstance,
-    done: (err?: Error) => void
-  ) => void;
+  callback?: (item: SupportingDocumentInstance, done: (err?: Error) => void) => void;
   /** Function to be called upon completion of streaming */
   done?: Function;
   /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
@@ -71,7 +67,7 @@ export interface SupportingDocumentListInstanceEachOptions {
  */
 export interface SupportingDocumentListInstanceOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
@@ -81,14 +77,16 @@ export interface SupportingDocumentListInstanceOptions {
  */
 export interface SupportingDocumentListInstancePageOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
   /** PageToken provided by the API */
   pageToken?: string;
 }
 
+
 export interface SupportingDocumentContext {
+
   /**
    * Remove a SupportingDocumentInstance
    *
@@ -96,9 +94,7 @@ export interface SupportingDocumentContext {
    *
    * @returns Resolves to processed boolean
    */
-  remove(
-    callback?: (error: Error | null, item?: boolean) => any
-  ): Promise<boolean>;
+  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
 
   /**
    * Fetch a SupportingDocumentInstance
@@ -107,9 +103,7 @@ export interface SupportingDocumentContext {
    *
    * @returns Resolves to processed SupportingDocumentInstance
    */
-  fetch(
-    callback?: (error: Error | null, item?: SupportingDocumentInstance) => any
-  ): Promise<SupportingDocumentInstance>;
+  fetch(callback?: (error: Error | null, item?: SupportingDocumentInstance) => any): Promise<SupportingDocumentInstance>
 
   /**
    * Update a SupportingDocumentInstance
@@ -118,9 +112,7 @@ export interface SupportingDocumentContext {
    *
    * @returns Resolves to processed SupportingDocumentInstance
    */
-  update(
-    callback?: (error: Error | null, item?: SupportingDocumentInstance) => any
-  ): Promise<SupportingDocumentInstance>;
+  update(callback?: (error: Error | null, item?: SupportingDocumentInstance) => any): Promise<SupportingDocumentInstance>;
   /**
    * Update a SupportingDocumentInstance
    *
@@ -129,10 +121,9 @@ export interface SupportingDocumentContext {
    *
    * @returns Resolves to processed SupportingDocumentInstance
    */
-  update(
-    params: SupportingDocumentContextUpdateOptions,
-    callback?: (error: Error | null, item?: SupportingDocumentInstance) => any
-  ): Promise<SupportingDocumentInstance>;
+  update(params: SupportingDocumentContextUpdateOptions, callback?: (error: Error | null, item?: SupportingDocumentInstance) => any): Promise<SupportingDocumentInstance>;
+
+
 
   /**
    * Provide a user-friendly representation
@@ -142,74 +133,53 @@ export interface SupportingDocumentContext {
 }
 
 export interface SupportingDocumentContextSolution {
-  sid: string;
+  "sid": string;
 }
 
-export class SupportingDocumentContextImpl
-  implements SupportingDocumentContext
-{
+export class SupportingDocumentContextImpl implements SupportingDocumentContext {
   protected _solution: SupportingDocumentContextSolution;
   protected _uri: string;
 
+
   constructor(protected _version: V1, sid: string) {
     if (!isValidPathParam(sid)) {
-      throw new Error("Parameter 'sid' is not valid.");
+      throw new Error('Parameter \'sid\' is not valid.');
     }
 
-    this._solution = { sid };
+    this._solution = { sid,  };
     this._uri = `/SupportingDocuments/${sid}`;
   }
 
-  remove(
-    callback?: (error: Error | null, item?: boolean) => any
-  ): Promise<boolean> {
+  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean> {
+  
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.remove({
-        uri: instance._uri,
-        method: "delete",
-      });
+        operationPromise = operationVersion.remove({ uri: instance._uri, method: "delete" });
+    
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
-  fetch(
-    callback?: (error: Error | null, item?: SupportingDocumentInstance) => any
-  ): Promise<SupportingDocumentInstance> {
+  fetch(callback?: (error: Error | null, item?: SupportingDocumentInstance) => any): Promise<SupportingDocumentInstance> {
+  
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.fetch({
-        uri: instance._uri,
-        method: "get",
-      });
+        operationPromise = operationVersion.fetch({ uri: instance._uri, method: "get" });
+    
+    operationPromise = operationPromise.then(payload => new SupportingDocumentInstance(operationVersion, payload, instance._solution.sid));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new SupportingDocumentInstance(
-          operationVersion,
-          payload,
-          instance._solution.sid
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
-  update(
-    params?:
-      | SupportingDocumentContextUpdateOptions
-      | ((error: Error | null, item?: SupportingDocumentInstance) => any),
-    callback?: (error: Error | null, item?: SupportingDocumentInstance) => any
-  ): Promise<SupportingDocumentInstance> {
-    if (params instanceof Function) {
+  update(params?: SupportingDocumentContextUpdateOptions | ((error: Error | null, item?: SupportingDocumentInstance) => any), callback?: (error: Error | null, item?: SupportingDocumentInstance) => any): Promise<SupportingDocumentInstance> {
+      if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -218,37 +188,28 @@ export class SupportingDocumentContextImpl
 
     let data: any = {};
 
-    if (params["friendlyName"] !== undefined)
-      data["FriendlyName"] = params["friendlyName"];
+    
+        if (params["friendlyName"] !== undefined)
+    data["FriendlyName"] = params["friendlyName"];
     if (params["attributes"] !== undefined)
-      data["Attributes"] = serialize.object(params["attributes"]);
+    data["Attributes"] = serialize.object(params["attributes"]);
+
+    
 
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.update({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      });
+        operationPromise = operationVersion.update({ uri: instance._uri, method: "post", data, headers });
+    
+    operationPromise = operationPromise.then(payload => new SupportingDocumentInstance(operationVersion, payload, instance._solution.sid));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new SupportingDocumentInstance(
-          operationVersion,
-          payload,
-          instance._solution.sid
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
   /**
@@ -265,8 +226,9 @@ export class SupportingDocumentContextImpl
   }
 }
 
+
 interface SupportingDocumentPayload extends TwilioResponsePayload {
-  results: SupportingDocumentResource[];
+    results: SupportingDocumentResource[];
 }
 
 interface SupportingDocumentResource {
@@ -286,23 +248,19 @@ export class SupportingDocumentInstance {
   protected _solution: SupportingDocumentContextSolution;
   protected _context?: SupportingDocumentContext;
 
-  constructor(
-    protected _version: V1,
-    payload: SupportingDocumentResource,
-    sid?: string
-  ) {
-    this.sid = payload.sid;
-    this.accountSid = payload.account_sid;
-    this.friendlyName = payload.friendly_name;
-    this.mimeType = payload.mime_type;
-    this.status = payload.status;
-    this.type = payload.type;
-    this.attributes = payload.attributes;
+  constructor(protected _version: V1, payload: SupportingDocumentResource, sid?: string) {
+    this.sid = (payload.sid);
+    this.accountSid = (payload.account_sid);
+    this.friendlyName = (payload.friendly_name);
+    this.mimeType = (payload.mime_type);
+    this.status = (payload.status);
+    this.type = (payload.type);
+    this.attributes = (payload.attributes);
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
-    this.url = payload.url;
+    this.url = (payload.url);
 
-    this._solution = { sid: sid || this.sid };
+    this._solution = { sid: sid || this.sid,  };
   }
 
   /**
@@ -344,9 +302,7 @@ export class SupportingDocumentInstance {
   url: string;
 
   private get _proxy(): SupportingDocumentContext {
-    this._context =
-      this._context ||
-      new SupportingDocumentContextImpl(this._version, this._solution.sid);
+    this._context = this._context || new SupportingDocumentContextImpl(this._version, this._solution.sid);
     return this._context;
   }
 
@@ -357,9 +313,9 @@ export class SupportingDocumentInstance {
    *
    * @returns Resolves to processed boolean
    */
-  remove(
-    callback?: (error: Error | null, item?: boolean) => any
-  ): Promise<boolean> {
+  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
+
+    {
     return this._proxy.remove(callback);
   }
 
@@ -370,9 +326,9 @@ export class SupportingDocumentInstance {
    *
    * @returns Resolves to processed SupportingDocumentInstance
    */
-  fetch(
-    callback?: (error: Error | null, item?: SupportingDocumentInstance) => any
-  ): Promise<SupportingDocumentInstance> {
+  fetch(callback?: (error: Error | null, item?: SupportingDocumentInstance) => any): Promise<SupportingDocumentInstance>
+
+    {
     return this._proxy.fetch(callback);
   }
 
@@ -383,9 +339,7 @@ export class SupportingDocumentInstance {
    *
    * @returns Resolves to processed SupportingDocumentInstance
    */
-  update(
-    callback?: (error: Error | null, item?: SupportingDocumentInstance) => any
-  ): Promise<SupportingDocumentInstance>;
+  update(callback?: (error: Error | null, item?: SupportingDocumentInstance) => any): Promise<SupportingDocumentInstance>;
   /**
    * Update a SupportingDocumentInstance
    *
@@ -394,15 +348,10 @@ export class SupportingDocumentInstance {
    *
    * @returns Resolves to processed SupportingDocumentInstance
    */
-  update(
-    params: SupportingDocumentContextUpdateOptions,
-    callback?: (error: Error | null, item?: SupportingDocumentInstance) => any
-  ): Promise<SupportingDocumentInstance>;
+  update(params: SupportingDocumentContextUpdateOptions, callback?: (error: Error | null, item?: SupportingDocumentInstance) => any): Promise<SupportingDocumentInstance>;
 
-  update(
-    params?: any,
-    callback?: (error: Error | null, item?: SupportingDocumentInstance) => any
-  ): Promise<SupportingDocumentInstance> {
+    update(params?: any, callback?: (error: Error | null, item?: SupportingDocumentInstance) => any): Promise<SupportingDocumentInstance>
+    {
     return this._proxy.update(params, callback);
   }
 
@@ -423,7 +372,7 @@ export class SupportingDocumentInstance {
       dateCreated: this.dateCreated,
       dateUpdated: this.dateUpdated,
       url: this.url,
-    };
+    }
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
@@ -431,15 +380,24 @@ export class SupportingDocumentInstance {
   }
 }
 
-export interface SupportingDocumentSolution {}
+
+export interface SupportingDocumentSolution {
+}
 
 export interface SupportingDocumentListInstance {
   _version: V1;
   _solution: SupportingDocumentSolution;
   _uri: string;
 
-  (sid: string): SupportingDocumentContext;
-  get(sid: string): SupportingDocumentContext;
+  (sid: string, ): SupportingDocumentContext;
+  get(sid: string, ): SupportingDocumentContext;
+
+
+
+
+
+
+
 
   /**
    * Create a SupportingDocumentInstance
@@ -449,10 +407,9 @@ export interface SupportingDocumentListInstance {
    *
    * @returns Resolves to processed SupportingDocumentInstance
    */
-  create(
-    params: SupportingDocumentListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: SupportingDocumentInstance) => any
-  ): Promise<SupportingDocumentInstance>;
+  create(params: SupportingDocumentListInstanceCreateOptions, callback?: (error: Error | null, item?: SupportingDocumentInstance) => any): Promise<SupportingDocumentInstance>;
+
+
 
   /**
    * Streams SupportingDocumentInstance records from the API.
@@ -469,19 +426,8 @@ export interface SupportingDocumentListInstance {
    * @param { SupportingDocumentListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(
-    callback?: (
-      item: SupportingDocumentInstance,
-      done: (err?: Error) => void
-    ) => void
-  ): void;
-  each(
-    params: SupportingDocumentListInstanceEachOptions,
-    callback?: (
-      item: SupportingDocumentInstance,
-      done: (err?: Error) => void
-    ) => void
-  ): void;
+  each(callback?: (item: SupportingDocumentInstance, done: (err?: Error) => void) => void): void;
+  each(params: SupportingDocumentListInstanceEachOptions, callback?: (item: SupportingDocumentInstance, done: (err?: Error) => void) => void): void;
   /**
    * Retrieve a single target page of SupportingDocumentInstance records from the API.
    *
@@ -490,10 +436,7 @@ export interface SupportingDocumentListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(
-    targetUrl: string,
-    callback?: (error: Error | null, items: SupportingDocumentPage) => any
-  ): Promise<SupportingDocumentPage>;
+  getPage(targetUrl: string, callback?: (error: Error | null, items: SupportingDocumentPage) => any): Promise<SupportingDocumentPage>;
   /**
    * Lists SupportingDocumentInstance records from the API as a list.
    *
@@ -503,13 +446,8 @@ export interface SupportingDocumentListInstance {
    * @param { SupportingDocumentListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(
-    callback?: (error: Error | null, items: SupportingDocumentInstance[]) => any
-  ): Promise<SupportingDocumentInstance[]>;
-  list(
-    params: SupportingDocumentListInstanceOptions,
-    callback?: (error: Error | null, items: SupportingDocumentInstance[]) => any
-  ): Promise<SupportingDocumentInstance[]>;
+  list(callback?: (error: Error | null, items: SupportingDocumentInstance[]) => any): Promise<SupportingDocumentInstance[]>;
+  list(params: SupportingDocumentListInstanceOptions, callback?: (error: Error | null, items: SupportingDocumentInstance[]) => any): Promise<SupportingDocumentInstance[]>;
   /**
    * Retrieve a single page of SupportingDocumentInstance records from the API.
    *
@@ -521,13 +459,8 @@ export interface SupportingDocumentListInstance {
    * @param { SupportingDocumentListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(
-    callback?: (error: Error | null, items: SupportingDocumentPage) => any
-  ): Promise<SupportingDocumentPage>;
-  page(
-    params: SupportingDocumentListInstancePageOptions,
-    callback?: (error: Error | null, items: SupportingDocumentPage) => any
-  ): Promise<SupportingDocumentPage>;
+  page(callback?: (error: Error | null, items: SupportingDocumentPage) => any): Promise<SupportingDocumentPage>;
+  page(params: SupportingDocumentListInstancePageOptions, callback?: (error: Error | null, items: SupportingDocumentPage) => any): Promise<SupportingDocumentPage>;
 
   /**
    * Provide a user-friendly representation
@@ -536,75 +469,58 @@ export interface SupportingDocumentListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function SupportingDocumentListInstance(
-  version: V1
-): SupportingDocumentListInstance {
-  const instance = ((sid) =>
-    instance.get(sid)) as SupportingDocumentListInstance;
+export function SupportingDocumentListInstance(version: V1): SupportingDocumentListInstance {
+  const instance = ((sid, ) => instance.get(sid, )) as SupportingDocumentListInstance;
 
-  instance.get = function get(sid): SupportingDocumentContext {
+  instance.get = function get(sid, ): SupportingDocumentContext {
     return new SupportingDocumentContextImpl(version, sid);
-  };
+  }
 
   instance._version = version;
-  instance._solution = {};
+  instance._solution = {  };
   instance._uri = `/SupportingDocuments`;
 
-  instance.create = function create(
-    params: SupportingDocumentListInstanceCreateOptions,
-    callback?: (error: Error | null, items: SupportingDocumentInstance) => any
-  ): Promise<SupportingDocumentInstance> {
+  instance.create = function create(params: SupportingDocumentListInstanceCreateOptions, callback?: (error: Error | null, items: SupportingDocumentInstance) => any): Promise<SupportingDocumentInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (
-      params["friendlyName"] === null ||
-      params["friendlyName"] === undefined
-    ) {
-      throw new Error("Required parameter \"params['friendlyName']\" missing.");
+    if (params["friendlyName"] === null || params["friendlyName"] === undefined) {
+      throw new Error('Required parameter "params[\'friendlyName\']" missing.');
     }
 
     if (params["type"] === null || params["type"] === undefined) {
-      throw new Error("Required parameter \"params['type']\" missing.");
+      throw new Error('Required parameter "params[\'type\']" missing.');
     }
 
     let data: any = {};
 
+    
+        
     data["FriendlyName"] = params["friendlyName"];
-
+    
     data["Type"] = params["type"];
     if (params["attributes"] !== undefined)
-      data["Attributes"] = serialize.object(params["attributes"]);
+    data["Attributes"] = serialize.object(params["attributes"]);
+
+    
 
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = version,
-      operationPromise = operationVersion.create({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      });
+        operationPromise = operationVersion.create({ uri: instance._uri, method: "post", data, headers });
+    
+    operationPromise = operationPromise.then(payload => new SupportingDocumentInstance(operationVersion, payload));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) => new SupportingDocumentInstance(operationVersion, payload)
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
 
-  instance.page = function page(
-    params?:
-      | SupportingDocumentListInstancePageOptions
-      | ((error: Error | null, items: SupportingDocumentPage) => any),
-    callback?: (error: Error | null, items: SupportingDocumentPage) => any
-  ): Promise<SupportingDocumentPage> {
+
+    }
+
+  instance.page = function page(params?: SupportingDocumentListInstancePageOptions | ((error: Error | null, items: SupportingDocumentPage) => any), callback?: (error: Error | null, items: SupportingDocumentPage) => any): Promise<SupportingDocumentPage> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -614,105 +530,74 @@ export function SupportingDocumentListInstance(
 
     let data: any = {};
 
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
 
+    
+    
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-      operationPromise = operationVersion.page({
-        uri: instance._uri,
-        method: "get",
-        params: data,
-        headers,
-      });
+        operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers });
+    
+    operationPromise = operationPromise.then(payload => new SupportingDocumentPage(operationVersion, payload, instance._solution));
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new SupportingDocumentPage(
-          operationVersion,
-          payload,
-          instance._solution
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
+
+  }
   instance.each = instance._version.each;
   instance.list = instance._version.list;
 
-  instance.getPage = function getPage(
-    targetUrl: string,
-    callback?: (error: Error | null, items: SupportingDocumentPage) => any
-  ): Promise<SupportingDocumentPage> {
-    const operationPromise = instance._version._domain.twilio.request({
-      method: "get",
-      uri: targetUrl,
-    });
+  instance.getPage = function getPage(targetUrl: string, callback?: (error: Error | null, items: SupportingDocumentPage) => any): Promise<SupportingDocumentPage> {
+    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
 
-    let pagePromise = operationPromise.then(
-      (payload) =>
-        new SupportingDocumentPage(
-          instance._version,
-          payload,
-          instance._solution
-        )
-    );
+    let pagePromise = operationPromise.then(payload => new SupportingDocumentPage(instance._version, payload, instance._solution));
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  };
+  }
+
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  };
+  }
 
-  instance[inspect.custom] = function inspectImpl(
-    _depth: any,
-    options: InspectOptions
-  ) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(instance.toJSON(), options);
-  };
+  }
 
   return instance;
 }
 
-export class SupportingDocumentPage extends Page<
-  V1,
-  SupportingDocumentPayload,
-  SupportingDocumentResource,
-  SupportingDocumentInstance
-> {
-  /**
-   * Initialize the SupportingDocumentPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(
-    version: V1,
-    response: Response<string>,
-    solution: SupportingDocumentSolution
-  ) {
+export class SupportingDocumentPage extends Page<V1, SupportingDocumentPayload, SupportingDocumentResource, SupportingDocumentInstance> {
+/**
+* Initialize the SupportingDocumentPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V1, response: Response<string>, solution: SupportingDocumentSolution) {
     super(version, response, solution);
-  }
+    }
 
-  /**
-   * Build an instance of SupportingDocumentInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: SupportingDocumentResource): SupportingDocumentInstance {
-    return new SupportingDocumentInstance(this._version, payload);
-  }
+    /**
+    * Build an instance of SupportingDocumentInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: SupportingDocumentResource): SupportingDocumentInstance {
+    return new SupportingDocumentInstance(
+    this._version,
+    payload,
+    );
+    }
 
-  [inspect.custom](depth: any, options: InspectOptions) {
+    [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-  }
-}
+    }
+    }
+

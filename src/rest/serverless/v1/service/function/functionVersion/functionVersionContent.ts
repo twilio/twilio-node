@@ -12,13 +12,18 @@
  * Do not edit the class manually.
  */
 
+
 import { inspect, InspectOptions } from "util";
 import V1 from "../../../../V1";
 const deserialize = require("../../../../../../base/deserialize");
 const serialize = require("../../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../../base/utility";
 
+
+
+
 export interface FunctionVersionContentContext {
+
   /**
    * Fetch a FunctionVersionContentInstance
    *
@@ -26,12 +31,7 @@ export interface FunctionVersionContentContext {
    *
    * @returns Resolves to processed FunctionVersionContentInstance
    */
-  fetch(
-    callback?: (
-      error: Error | null,
-      item?: FunctionVersionContentInstance
-    ) => any
-  ): Promise<FunctionVersionContentInstance>;
+  fetch(callback?: (error: Error | null, item?: FunctionVersionContentInstance) => any): Promise<FunctionVersionContentInstance>
 
   /**
    * Provide a user-friendly representation
@@ -41,68 +41,46 @@ export interface FunctionVersionContentContext {
 }
 
 export interface FunctionVersionContentContextSolution {
-  serviceSid: string;
-  functionSid: string;
-  sid: string;
+  "serviceSid": string;
+  "functionSid": string;
+  "sid": string;
 }
 
-export class FunctionVersionContentContextImpl
-  implements FunctionVersionContentContext
-{
+export class FunctionVersionContentContextImpl implements FunctionVersionContentContext {
   protected _solution: FunctionVersionContentContextSolution;
   protected _uri: string;
 
-  constructor(
-    protected _version: V1,
-    serviceSid: string,
-    functionSid: string,
-    sid: string
-  ) {
+
+  constructor(protected _version: V1, serviceSid: string, functionSid: string, sid: string) {
     if (!isValidPathParam(serviceSid)) {
-      throw new Error("Parameter 'serviceSid' is not valid.");
+      throw new Error('Parameter \'serviceSid\' is not valid.');
     }
 
     if (!isValidPathParam(functionSid)) {
-      throw new Error("Parameter 'functionSid' is not valid.");
+      throw new Error('Parameter \'functionSid\' is not valid.');
     }
 
     if (!isValidPathParam(sid)) {
-      throw new Error("Parameter 'sid' is not valid.");
+      throw new Error('Parameter \'sid\' is not valid.');
     }
 
-    this._solution = { serviceSid, functionSid, sid };
+    this._solution = { serviceSid, functionSid, sid,  };
     this._uri = `/Services/${serviceSid}/Functions/${functionSid}/Versions/${sid}/Content`;
   }
 
-  fetch(
-    callback?: (
-      error: Error | null,
-      item?: FunctionVersionContentInstance
-    ) => any
-  ): Promise<FunctionVersionContentInstance> {
+  fetch(callback?: (error: Error | null, item?: FunctionVersionContentInstance) => any): Promise<FunctionVersionContentInstance> {
+  
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.fetch({
-        uri: instance._uri,
-        method: "get",
-      });
+        operationPromise = operationVersion.fetch({ uri: instance._uri, method: "get" });
+    
+    operationPromise = operationPromise.then(payload => new FunctionVersionContentInstance(operationVersion, payload, instance._solution.serviceSid, instance._solution.functionSid, instance._solution.sid));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new FunctionVersionContentInstance(
-          operationVersion,
-          payload,
-          instance._solution.serviceSid,
-          instance._solution.functionSid,
-          instance._solution.sid
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
   /**
@@ -119,8 +97,8 @@ export class FunctionVersionContentContextImpl
   }
 }
 
-interface FunctionVersionContentPayload
-  extends FunctionVersionContentResource {}
+
+interface FunctionVersionContentPayload extends FunctionVersionContentResource {}
 
 interface FunctionVersionContentResource {
   sid: string;
@@ -135,21 +113,15 @@ export class FunctionVersionContentInstance {
   protected _solution: FunctionVersionContentContextSolution;
   protected _context?: FunctionVersionContentContext;
 
-  constructor(
-    protected _version: V1,
-    payload: FunctionVersionContentResource,
-    serviceSid: string,
-    functionSid: string,
-    sid: string
-  ) {
-    this.sid = payload.sid;
-    this.accountSid = payload.account_sid;
-    this.serviceSid = payload.service_sid;
-    this.functionSid = payload.function_sid;
-    this.content = payload.content;
-    this.url = payload.url;
+  constructor(protected _version: V1, payload: FunctionVersionContentResource, serviceSid: string, functionSid: string, sid: string) {
+    this.sid = (payload.sid);
+    this.accountSid = (payload.account_sid);
+    this.serviceSid = (payload.service_sid);
+    this.functionSid = (payload.function_sid);
+    this.content = (payload.content);
+    this.url = (payload.url);
 
-    this._solution = { serviceSid, functionSid, sid };
+    this._solution = { serviceSid, functionSid, sid,  };
   }
 
   /**
@@ -175,14 +147,7 @@ export class FunctionVersionContentInstance {
   url: string;
 
   private get _proxy(): FunctionVersionContentContext {
-    this._context =
-      this._context ||
-      new FunctionVersionContentContextImpl(
-        this._version,
-        this._solution.serviceSid,
-        this._solution.functionSid,
-        this._solution.sid
-      );
+    this._context = this._context || new FunctionVersionContentContextImpl(this._version, this._solution.serviceSid, this._solution.functionSid, this._solution.sid);
     return this._context;
   }
 
@@ -193,12 +158,9 @@ export class FunctionVersionContentInstance {
    *
    * @returns Resolves to processed FunctionVersionContentInstance
    */
-  fetch(
-    callback?: (
-      error: Error | null,
-      item?: FunctionVersionContentInstance
-    ) => any
-  ): Promise<FunctionVersionContentInstance> {
+  fetch(callback?: (error: Error | null, item?: FunctionVersionContentInstance) => any): Promise<FunctionVersionContentInstance>
+
+    {
     return this._proxy.fetch(callback);
   }
 
@@ -215,13 +177,14 @@ export class FunctionVersionContentInstance {
       functionSid: this.functionSid,
       content: this.content,
       url: this.url,
-    };
+    }
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
 }
+
 
 export interface FunctionVersionContentSolution {
   serviceSid: string;
@@ -237,6 +200,9 @@ export interface FunctionVersionContentListInstance {
   (): FunctionVersionContentContext;
   get(): FunctionVersionContentContext;
 
+
+
+
   /**
    * Provide a user-friendly representation
    */
@@ -244,49 +210,38 @@ export interface FunctionVersionContentListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function FunctionVersionContentListInstance(
-  version: V1,
-  serviceSid: string,
-  functionSid: string,
-  sid: string
-): FunctionVersionContentListInstance {
+export function FunctionVersionContentListInstance(version: V1, serviceSid: string, functionSid: string, sid: string): FunctionVersionContentListInstance {
   if (!isValidPathParam(serviceSid)) {
-    throw new Error("Parameter 'serviceSid' is not valid.");
+    throw new Error('Parameter \'serviceSid\' is not valid.');
   }
 
   if (!isValidPathParam(functionSid)) {
-    throw new Error("Parameter 'functionSid' is not valid.");
+    throw new Error('Parameter \'functionSid\' is not valid.');
   }
 
   if (!isValidPathParam(sid)) {
-    throw new Error("Parameter 'sid' is not valid.");
+    throw new Error('Parameter \'sid\' is not valid.');
   }
 
   const instance = (() => instance.get()) as FunctionVersionContentListInstance;
 
   instance.get = function get(): FunctionVersionContentContext {
-    return new FunctionVersionContentContextImpl(
-      version,
-      serviceSid,
-      functionSid,
-      sid
-    );
-  };
+    return new FunctionVersionContentContextImpl(version, serviceSid, functionSid, sid);
+  }
 
   instance._version = version;
-  instance._solution = { serviceSid, functionSid, sid };
+  instance._solution = { serviceSid, functionSid, sid,  };
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  };
+  }
 
-  instance[inspect.custom] = function inspectImpl(
-    _depth: any,
-    options: InspectOptions
-  ) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(instance.toJSON(), options);
-  };
+  }
 
   return instance;
 }
+
+

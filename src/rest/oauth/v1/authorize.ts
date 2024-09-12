@@ -12,34 +12,41 @@
  * Do not edit the class manually.
  */
 
+
 import { inspect, InspectOptions } from "util";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 
+
+
 /**
  * Options to pass to fetch a AuthorizeInstance
  */
 export interface AuthorizeListInstanceFetchOptions {
   /** Response Type */
-  responseType?: string;
+  "responseType"?: string;
   /** The Client Identifier */
-  clientId?: string;
+  "clientId"?: string;
   /** The url to which response will be redirected to */
-  redirectUri?: string;
+  "redirectUri"?: string;
   /** The scope of the access request */
-  scope?: string;
+  "scope"?: string;
   /** An opaque value which can be used to maintain state between the request and callback */
-  state?: string;
+  "state"?: string;
 }
 
-export interface AuthorizeSolution {}
+
+export interface AuthorizeSolution {
+}
 
 export interface AuthorizeListInstance {
   _version: V1;
   _solution: AuthorizeSolution;
   _uri: string;
+
+
 
   /**
    * Fetch a AuthorizeInstance
@@ -48,9 +55,7 @@ export interface AuthorizeListInstance {
    *
    * @returns Resolves to processed AuthorizeInstance
    */
-  fetch(
-    callback?: (error: Error | null, item?: AuthorizeInstance) => any
-  ): Promise<AuthorizeInstance>;
+  fetch(callback?: (error: Error | null, item?: AuthorizeInstance) => any): Promise<AuthorizeInstance>;
   /**
    * Fetch a AuthorizeInstance
    *
@@ -59,10 +64,8 @@ export interface AuthorizeListInstance {
    *
    * @returns Resolves to processed AuthorizeInstance
    */
-  fetch(
-    params: AuthorizeListInstanceFetchOptions,
-    callback?: (error: Error | null, item?: AuthorizeInstance) => any
-  ): Promise<AuthorizeInstance>;
+  fetch(params: AuthorizeListInstanceFetchOptions, callback?: (error: Error | null, item?: AuthorizeInstance) => any): Promise<AuthorizeInstance>;
+
 
   /**
    * Provide a user-friendly representation
@@ -75,15 +78,10 @@ export function AuthorizeListInstance(version: V1): AuthorizeListInstance {
   const instance = {} as AuthorizeListInstance;
 
   instance._version = version;
-  instance._solution = {};
+  instance._solution = {  };
   instance._uri = `/authorize`;
 
-  instance.fetch = function fetch(
-    params?:
-      | AuthorizeListInstanceFetchOptions
-      | ((error: Error | null, items: AuthorizeInstance) => any),
-    callback?: (error: Error | null, items: AuthorizeInstance) => any
-  ): Promise<AuthorizeInstance> {
+  instance.fetch = function fetch(params?: AuthorizeListInstanceFetchOptions | ((error: Error | null, items: AuthorizeInstance) => any), callback?: (error: Error | null, items: AuthorizeInstance) => any): Promise<AuthorizeInstance> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -93,45 +91,41 @@ export function AuthorizeListInstance(version: V1): AuthorizeListInstance {
 
     let data: any = {};
 
-    if (params["responseType"] !== undefined)
-      data["ResponseType"] = params["responseType"];
-    if (params["clientId"] !== undefined) data["ClientId"] = params["clientId"];
+        if (params["responseType"] !== undefined)
+    data["ResponseType"] = params["responseType"];
+    if (params["clientId"] !== undefined)
+    data["ClientId"] = params["clientId"];
     if (params["redirectUri"] !== undefined)
-      data["RedirectUri"] = params["redirectUri"];
-    if (params["scope"] !== undefined) data["Scope"] = params["scope"];
-    if (params["state"] !== undefined) data["State"] = params["state"];
+    data["RedirectUri"] = params["redirectUri"];
+    if (params["scope"] !== undefined)
+    data["Scope"] = params["scope"];
+    if (params["state"] !== undefined)
+    data["State"] = params["state"];
+
+    
+    
 
     const headers: any = {};
 
     let operationVersion = version,
-      operationPromise = operationVersion.fetch({
-        uri: instance._uri,
-        method: "get",
-        params: data,
-        headers,
-      });
+        operationPromise = operationVersion.fetch({ uri: instance._uri, method: "get", params: data, headers });
+    
+    operationPromise = operationPromise.then(payload => new AuthorizeInstance(operationVersion, payload));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) => new AuthorizeInstance(operationVersion, payload)
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
+
+
+    }
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  };
+  }
 
-  instance[inspect.custom] = function inspectImpl(
-    _depth: any,
-    options: InspectOptions
-  ) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(instance.toJSON(), options);
-  };
+  }
 
   return instance;
 }
@@ -143,8 +137,10 @@ interface AuthorizeResource {
 }
 
 export class AuthorizeInstance {
+
   constructor(protected _version: V1, payload: AuthorizeResource) {
-    this.redirectTo = payload.redirect_to;
+    this.redirectTo = (payload.redirect_to);
+
   }
 
   /**
@@ -160,10 +156,12 @@ export class AuthorizeInstance {
   toJSON() {
     return {
       redirectTo: this.redirectTo,
-    };
+    }
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
 }
+
+

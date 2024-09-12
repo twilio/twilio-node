@@ -12,6 +12,7 @@
  * Do not edit the class manually.
  */
 
+
 import { inspect, InspectOptions } from "util";
 import Page, { TwilioResponsePayload } from "../../../../base/Page";
 import Response from "../../../../http/response";
@@ -20,25 +21,25 @@ const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
 
-export type PhoneNumberAddressRequirement =
-  | "none"
-  | "any"
-  | "local"
-  | "foreign";
+
+export type PhoneNumberAddressRequirement = 'none'|'any'|'local'|'foreign';
+
+
+
 
 /**
  * Options to pass to create a PhoneNumberInstance
  */
 export interface PhoneNumberListInstanceCreateOptions {
   /** The SID of the [Incoming Phone Number](https://www.twilio.com/docs/phone-numbers/api/incomingphonenumber-resource) that you want to associate with the trunk. */
-  phoneNumberSid: string;
+  "phoneNumberSid": string;
 }
 /**
  * Options to pass to each
  */
 export interface PhoneNumberListInstanceEachOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: PhoneNumberInstance, done: (err?: Error) => void) => void;
   /** Function to be called upon completion of streaming */
@@ -52,7 +53,7 @@ export interface PhoneNumberListInstanceEachOptions {
  */
 export interface PhoneNumberListInstanceOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
@@ -62,14 +63,16 @@ export interface PhoneNumberListInstanceOptions {
  */
 export interface PhoneNumberListInstancePageOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
   /** PageToken provided by the API */
   pageToken?: string;
 }
 
+
 export interface PhoneNumberContext {
+
   /**
    * Remove a PhoneNumberInstance
    *
@@ -77,9 +80,7 @@ export interface PhoneNumberContext {
    *
    * @returns Resolves to processed boolean
    */
-  remove(
-    callback?: (error: Error | null, item?: boolean) => any
-  ): Promise<boolean>;
+  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
 
   /**
    * Fetch a PhoneNumberInstance
@@ -88,9 +89,9 @@ export interface PhoneNumberContext {
    *
    * @returns Resolves to processed PhoneNumberInstance
    */
-  fetch(
-    callback?: (error: Error | null, item?: PhoneNumberInstance) => any
-  ): Promise<PhoneNumberInstance>;
+  fetch(callback?: (error: Error | null, item?: PhoneNumberInstance) => any): Promise<PhoneNumberInstance>
+
+
 
   /**
    * Provide a user-friendly representation
@@ -100,69 +101,54 @@ export interface PhoneNumberContext {
 }
 
 export interface PhoneNumberContextSolution {
-  trunkSid: string;
-  sid: string;
+  "trunkSid": string;
+  "sid": string;
 }
 
 export class PhoneNumberContextImpl implements PhoneNumberContext {
   protected _solution: PhoneNumberContextSolution;
   protected _uri: string;
 
+
   constructor(protected _version: V1, trunkSid: string, sid: string) {
     if (!isValidPathParam(trunkSid)) {
-      throw new Error("Parameter 'trunkSid' is not valid.");
+      throw new Error('Parameter \'trunkSid\' is not valid.');
     }
 
     if (!isValidPathParam(sid)) {
-      throw new Error("Parameter 'sid' is not valid.");
+      throw new Error('Parameter \'sid\' is not valid.');
     }
 
-    this._solution = { trunkSid, sid };
+    this._solution = { trunkSid, sid,  };
     this._uri = `/Trunks/${trunkSid}/PhoneNumbers/${sid}`;
   }
 
-  remove(
-    callback?: (error: Error | null, item?: boolean) => any
-  ): Promise<boolean> {
+  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean> {
+  
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.remove({
-        uri: instance._uri,
-        method: "delete",
-      });
+        operationPromise = operationVersion.remove({ uri: instance._uri, method: "delete" });
+    
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
-  fetch(
-    callback?: (error: Error | null, item?: PhoneNumberInstance) => any
-  ): Promise<PhoneNumberInstance> {
+  fetch(callback?: (error: Error | null, item?: PhoneNumberInstance) => any): Promise<PhoneNumberInstance> {
+  
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.fetch({
-        uri: instance._uri,
-        method: "get",
-      });
+        operationPromise = operationVersion.fetch({ uri: instance._uri, method: "get" });
+    
+    operationPromise = operationPromise.then(payload => new PhoneNumberInstance(operationVersion, payload, instance._solution.trunkSid, instance._solution.sid));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new PhoneNumberInstance(
-          operationVersion,
-          payload,
-          instance._solution.trunkSid,
-          instance._solution.sid
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
   /**
@@ -179,8 +165,9 @@ export class PhoneNumberContextImpl implements PhoneNumberContext {
   }
 }
 
+
 interface PhoneNumberPayload extends TwilioResponsePayload {
-  phone_numbers: PhoneNumberResource[];
+    phone_numbers: PhoneNumberResource[];
 }
 
 interface PhoneNumberResource {
@@ -216,40 +203,35 @@ export class PhoneNumberInstance {
   protected _solution: PhoneNumberContextSolution;
   protected _context?: PhoneNumberContext;
 
-  constructor(
-    protected _version: V1,
-    payload: PhoneNumberResource,
-    trunkSid: string,
-    sid?: string
-  ) {
-    this.accountSid = payload.account_sid;
-    this.addressRequirements = payload.address_requirements;
-    this.apiVersion = payload.api_version;
-    this.beta = payload.beta;
-    this.capabilities = payload.capabilities;
+  constructor(protected _version: V1, payload: PhoneNumberResource, trunkSid: string, sid?: string) {
+    this.accountSid = (payload.account_sid);
+    this.addressRequirements = (payload.address_requirements);
+    this.apiVersion = (payload.api_version);
+    this.beta = (payload.beta);
+    this.capabilities = (payload.capabilities);
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
-    this.friendlyName = payload.friendly_name;
-    this.links = payload.links;
-    this.phoneNumber = payload.phone_number;
-    this.sid = payload.sid;
-    this.smsApplicationSid = payload.sms_application_sid;
-    this.smsFallbackMethod = payload.sms_fallback_method;
-    this.smsFallbackUrl = payload.sms_fallback_url;
-    this.smsMethod = payload.sms_method;
-    this.smsUrl = payload.sms_url;
-    this.statusCallback = payload.status_callback;
-    this.statusCallbackMethod = payload.status_callback_method;
-    this.trunkSid = payload.trunk_sid;
-    this.url = payload.url;
-    this.voiceApplicationSid = payload.voice_application_sid;
-    this.voiceCallerIdLookup = payload.voice_caller_id_lookup;
-    this.voiceFallbackMethod = payload.voice_fallback_method;
-    this.voiceFallbackUrl = payload.voice_fallback_url;
-    this.voiceMethod = payload.voice_method;
-    this.voiceUrl = payload.voice_url;
+    this.friendlyName = (payload.friendly_name);
+    this.links = (payload.links);
+    this.phoneNumber = (payload.phone_number);
+    this.sid = (payload.sid);
+    this.smsApplicationSid = (payload.sms_application_sid);
+    this.smsFallbackMethod = (payload.sms_fallback_method);
+    this.smsFallbackUrl = (payload.sms_fallback_url);
+    this.smsMethod = (payload.sms_method);
+    this.smsUrl = (payload.sms_url);
+    this.statusCallback = (payload.status_callback);
+    this.statusCallbackMethod = (payload.status_callback_method);
+    this.trunkSid = (payload.trunk_sid);
+    this.url = (payload.url);
+    this.voiceApplicationSid = (payload.voice_application_sid);
+    this.voiceCallerIdLookup = (payload.voice_caller_id_lookup);
+    this.voiceFallbackMethod = (payload.voice_fallback_method);
+    this.voiceFallbackUrl = (payload.voice_fallback_url);
+    this.voiceMethod = (payload.voice_method);
+    this.voiceUrl = (payload.voice_url);
 
-    this._solution = { trunkSid, sid: sid || this.sid };
+    this._solution = { trunkSid, sid: sid || this.sid,  };
   }
 
   /**
@@ -355,13 +337,7 @@ export class PhoneNumberInstance {
   voiceUrl: string;
 
   private get _proxy(): PhoneNumberContext {
-    this._context =
-      this._context ||
-      new PhoneNumberContextImpl(
-        this._version,
-        this._solution.trunkSid,
-        this._solution.sid
-      );
+    this._context = this._context || new PhoneNumberContextImpl(this._version, this._solution.trunkSid, this._solution.sid);
     return this._context;
   }
 
@@ -372,9 +348,9 @@ export class PhoneNumberInstance {
    *
    * @returns Resolves to processed boolean
    */
-  remove(
-    callback?: (error: Error | null, item?: boolean) => any
-  ): Promise<boolean> {
+  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
+
+    {
     return this._proxy.remove(callback);
   }
 
@@ -385,9 +361,9 @@ export class PhoneNumberInstance {
    *
    * @returns Resolves to processed PhoneNumberInstance
    */
-  fetch(
-    callback?: (error: Error | null, item?: PhoneNumberInstance) => any
-  ): Promise<PhoneNumberInstance> {
+  fetch(callback?: (error: Error | null, item?: PhoneNumberInstance) => any): Promise<PhoneNumberInstance>
+
+    {
     return this._proxy.fetch(callback);
   }
 
@@ -424,13 +400,14 @@ export class PhoneNumberInstance {
       voiceFallbackUrl: this.voiceFallbackUrl,
       voiceMethod: this.voiceMethod,
       voiceUrl: this.voiceUrl,
-    };
+    }
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
 }
+
 
 export interface PhoneNumberSolution {
   trunkSid: string;
@@ -441,8 +418,13 @@ export interface PhoneNumberListInstance {
   _solution: PhoneNumberSolution;
   _uri: string;
 
-  (sid: string): PhoneNumberContext;
-  get(sid: string): PhoneNumberContext;
+  (sid: string, ): PhoneNumberContext;
+  get(sid: string, ): PhoneNumberContext;
+
+
+
+
+
 
   /**
    * Create a PhoneNumberInstance
@@ -452,10 +434,9 @@ export interface PhoneNumberListInstance {
    *
    * @returns Resolves to processed PhoneNumberInstance
    */
-  create(
-    params: PhoneNumberListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: PhoneNumberInstance) => any
-  ): Promise<PhoneNumberInstance>;
+  create(params: PhoneNumberListInstanceCreateOptions, callback?: (error: Error | null, item?: PhoneNumberInstance) => any): Promise<PhoneNumberInstance>;
+
+
 
   /**
    * Streams PhoneNumberInstance records from the API.
@@ -472,13 +453,8 @@ export interface PhoneNumberListInstance {
    * @param { PhoneNumberListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(
-    callback?: (item: PhoneNumberInstance, done: (err?: Error) => void) => void
-  ): void;
-  each(
-    params: PhoneNumberListInstanceEachOptions,
-    callback?: (item: PhoneNumberInstance, done: (err?: Error) => void) => void
-  ): void;
+  each(callback?: (item: PhoneNumberInstance, done: (err?: Error) => void) => void): void;
+  each(params: PhoneNumberListInstanceEachOptions, callback?: (item: PhoneNumberInstance, done: (err?: Error) => void) => void): void;
   /**
    * Retrieve a single target page of PhoneNumberInstance records from the API.
    *
@@ -487,10 +463,7 @@ export interface PhoneNumberListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(
-    targetUrl: string,
-    callback?: (error: Error | null, items: PhoneNumberPage) => any
-  ): Promise<PhoneNumberPage>;
+  getPage(targetUrl: string, callback?: (error: Error | null, items: PhoneNumberPage) => any): Promise<PhoneNumberPage>;
   /**
    * Lists PhoneNumberInstance records from the API as a list.
    *
@@ -500,13 +473,8 @@ export interface PhoneNumberListInstance {
    * @param { PhoneNumberListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(
-    callback?: (error: Error | null, items: PhoneNumberInstance[]) => any
-  ): Promise<PhoneNumberInstance[]>;
-  list(
-    params: PhoneNumberListInstanceOptions,
-    callback?: (error: Error | null, items: PhoneNumberInstance[]) => any
-  ): Promise<PhoneNumberInstance[]>;
+  list(callback?: (error: Error | null, items: PhoneNumberInstance[]) => any): Promise<PhoneNumberInstance[]>;
+  list(params: PhoneNumberListInstanceOptions, callback?: (error: Error | null, items: PhoneNumberInstance[]) => any): Promise<PhoneNumberInstance[]>;
   /**
    * Retrieve a single page of PhoneNumberInstance records from the API.
    *
@@ -518,13 +486,8 @@ export interface PhoneNumberListInstance {
    * @param { PhoneNumberListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(
-    callback?: (error: Error | null, items: PhoneNumberPage) => any
-  ): Promise<PhoneNumberPage>;
-  page(
-    params: PhoneNumberListInstancePageOptions,
-    callback?: (error: Error | null, items: PhoneNumberPage) => any
-  ): Promise<PhoneNumberPage>;
+  page(callback?: (error: Error | null, items: PhoneNumberPage) => any): Promise<PhoneNumberPage>;
+  page(params: PhoneNumberListInstancePageOptions, callback?: (error: Error | null, items: PhoneNumberPage) => any): Promise<PhoneNumberPage>;
 
   /**
    * Provide a user-friendly representation
@@ -533,78 +496,54 @@ export interface PhoneNumberListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function PhoneNumberListInstance(
-  version: V1,
-  trunkSid: string
-): PhoneNumberListInstance {
+export function PhoneNumberListInstance(version: V1, trunkSid: string): PhoneNumberListInstance {
   if (!isValidPathParam(trunkSid)) {
-    throw new Error("Parameter 'trunkSid' is not valid.");
+    throw new Error('Parameter \'trunkSid\' is not valid.');
   }
 
-  const instance = ((sid) => instance.get(sid)) as PhoneNumberListInstance;
+  const instance = ((sid, ) => instance.get(sid, )) as PhoneNumberListInstance;
 
-  instance.get = function get(sid): PhoneNumberContext {
+  instance.get = function get(sid, ): PhoneNumberContext {
     return new PhoneNumberContextImpl(version, trunkSid, sid);
-  };
+  }
 
   instance._version = version;
-  instance._solution = { trunkSid };
+  instance._solution = { trunkSid,  };
   instance._uri = `/Trunks/${trunkSid}/PhoneNumbers`;
 
-  instance.create = function create(
-    params: PhoneNumberListInstanceCreateOptions,
-    callback?: (error: Error | null, items: PhoneNumberInstance) => any
-  ): Promise<PhoneNumberInstance> {
+  instance.create = function create(params: PhoneNumberListInstanceCreateOptions, callback?: (error: Error | null, items: PhoneNumberInstance) => any): Promise<PhoneNumberInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (
-      params["phoneNumberSid"] === null ||
-      params["phoneNumberSid"] === undefined
-    ) {
-      throw new Error(
-        "Required parameter \"params['phoneNumberSid']\" missing."
-      );
+    if (params["phoneNumberSid"] === null || params["phoneNumberSid"] === undefined) {
+      throw new Error('Required parameter "params[\'phoneNumberSid\']" missing.');
     }
 
     let data: any = {};
 
+    
+        
     data["PhoneNumberSid"] = params["phoneNumberSid"];
 
+    
+
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = version,
-      operationPromise = operationVersion.create({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      });
+        operationPromise = operationVersion.create({ uri: instance._uri, method: "post", data, headers });
+    
+    operationPromise = operationPromise.then(payload => new PhoneNumberInstance(operationVersion, payload, instance._solution.trunkSid));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new PhoneNumberInstance(
-          operationVersion,
-          payload,
-          instance._solution.trunkSid
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
 
-  instance.page = function page(
-    params?:
-      | PhoneNumberListInstancePageOptions
-      | ((error: Error | null, items: PhoneNumberPage) => any),
-    callback?: (error: Error | null, items: PhoneNumberPage) => any
-  ): Promise<PhoneNumberPage> {
+
+    }
+
+  instance.page = function page(params?: PhoneNumberListInstancePageOptions | ((error: Error | null, items: PhoneNumberPage) => any), callback?: (error: Error | null, items: PhoneNumberPage) => any): Promise<PhoneNumberPage> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -614,101 +553,75 @@ export function PhoneNumberListInstance(
 
     let data: any = {};
 
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
 
+    
+    
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-      operationPromise = operationVersion.page({
-        uri: instance._uri,
-        method: "get",
-        params: data,
-        headers,
-      });
+        operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers });
+    
+    operationPromise = operationPromise.then(payload => new PhoneNumberPage(operationVersion, payload, instance._solution));
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new PhoneNumberPage(operationVersion, payload, instance._solution)
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
+
+  }
   instance.each = instance._version.each;
   instance.list = instance._version.list;
 
-  instance.getPage = function getPage(
-    targetUrl: string,
-    callback?: (error: Error | null, items: PhoneNumberPage) => any
-  ): Promise<PhoneNumberPage> {
-    const operationPromise = instance._version._domain.twilio.request({
-      method: "get",
-      uri: targetUrl,
-    });
+  instance.getPage = function getPage(targetUrl: string, callback?: (error: Error | null, items: PhoneNumberPage) => any): Promise<PhoneNumberPage> {
+    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
 
-    let pagePromise = operationPromise.then(
-      (payload) =>
-        new PhoneNumberPage(instance._version, payload, instance._solution)
-    );
+    let pagePromise = operationPromise.then(payload => new PhoneNumberPage(instance._version, payload, instance._solution));
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  };
+  }
+
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  };
+  }
 
-  instance[inspect.custom] = function inspectImpl(
-    _depth: any,
-    options: InspectOptions
-  ) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(instance.toJSON(), options);
-  };
+  }
 
   return instance;
 }
 
-export class PhoneNumberPage extends Page<
-  V1,
-  PhoneNumberPayload,
-  PhoneNumberResource,
-  PhoneNumberInstance
-> {
-  /**
-   * Initialize the PhoneNumberPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(
-    version: V1,
-    response: Response<string>,
-    solution: PhoneNumberSolution
-  ) {
+export class PhoneNumberPage extends Page<V1, PhoneNumberPayload, PhoneNumberResource, PhoneNumberInstance> {
+/**
+* Initialize the PhoneNumberPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V1, response: Response<string>, solution: PhoneNumberSolution) {
     super(version, response, solution);
-  }
+    }
 
-  /**
-   * Build an instance of PhoneNumberInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: PhoneNumberResource): PhoneNumberInstance {
+    /**
+    * Build an instance of PhoneNumberInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: PhoneNumberResource): PhoneNumberInstance {
     return new PhoneNumberInstance(
-      this._version,
-      payload,
-      this._solution.trunkSid
+    this._version,
+    payload,
+        this._solution.trunkSid,
     );
-  }
+    }
 
-  [inspect.custom](depth: any, options: InspectOptions) {
+    [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-  }
-}
+    }
+    }
+

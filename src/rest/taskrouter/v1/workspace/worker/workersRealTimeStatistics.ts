@@ -12,21 +12,25 @@
  * Do not edit the class manually.
  */
 
+
 import { inspect, InspectOptions } from "util";
 import V1 from "../../../V1";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
 
+
+
 /**
  * Options to pass to fetch a WorkersRealTimeStatisticsInstance
  */
 export interface WorkersRealTimeStatisticsContextFetchOptions {
   /** Only calculate real-time statistics on this TaskChannel. Can be the TaskChannel\'s SID or its `unique_name`, such as `voice`, `sms`, or `default`. */
-  taskChannel?: string;
+  "taskChannel"?: string;
 }
 
 export interface WorkersRealTimeStatisticsContext {
+
   /**
    * Fetch a WorkersRealTimeStatisticsInstance
    *
@@ -34,12 +38,7 @@ export interface WorkersRealTimeStatisticsContext {
    *
    * @returns Resolves to processed WorkersRealTimeStatisticsInstance
    */
-  fetch(
-    callback?: (
-      error: Error | null,
-      item?: WorkersRealTimeStatisticsInstance
-    ) => any
-  ): Promise<WorkersRealTimeStatisticsInstance>;
+  fetch(callback?: (error: Error | null, item?: WorkersRealTimeStatisticsInstance) => any): Promise<WorkersRealTimeStatisticsInstance>;
   /**
    * Fetch a WorkersRealTimeStatisticsInstance
    *
@@ -48,13 +47,7 @@ export interface WorkersRealTimeStatisticsContext {
    *
    * @returns Resolves to processed WorkersRealTimeStatisticsInstance
    */
-  fetch(
-    params: WorkersRealTimeStatisticsContextFetchOptions,
-    callback?: (
-      error: Error | null,
-      item?: WorkersRealTimeStatisticsInstance
-    ) => any
-  ): Promise<WorkersRealTimeStatisticsInstance>;
+  fetch(params: WorkersRealTimeStatisticsContextFetchOptions, callback?: (error: Error | null, item?: WorkersRealTimeStatisticsInstance) => any): Promise<WorkersRealTimeStatisticsInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -64,37 +57,25 @@ export interface WorkersRealTimeStatisticsContext {
 }
 
 export interface WorkersRealTimeStatisticsContextSolution {
-  workspaceSid: string;
+  "workspaceSid": string;
 }
 
-export class WorkersRealTimeStatisticsContextImpl
-  implements WorkersRealTimeStatisticsContext
-{
+export class WorkersRealTimeStatisticsContextImpl implements WorkersRealTimeStatisticsContext {
   protected _solution: WorkersRealTimeStatisticsContextSolution;
   protected _uri: string;
 
+
   constructor(protected _version: V1, workspaceSid: string) {
     if (!isValidPathParam(workspaceSid)) {
-      throw new Error("Parameter 'workspaceSid' is not valid.");
+      throw new Error('Parameter \'workspaceSid\' is not valid.');
     }
 
-    this._solution = { workspaceSid };
+    this._solution = { workspaceSid,  };
     this._uri = `/Workspaces/${workspaceSid}/Workers/RealTimeStatistics`;
   }
 
-  fetch(
-    params?:
-      | WorkersRealTimeStatisticsContextFetchOptions
-      | ((
-          error: Error | null,
-          item?: WorkersRealTimeStatisticsInstance
-        ) => any),
-    callback?: (
-      error: Error | null,
-      item?: WorkersRealTimeStatisticsInstance
-    ) => any
-  ): Promise<WorkersRealTimeStatisticsInstance> {
-    if (params instanceof Function) {
+  fetch(params?: WorkersRealTimeStatisticsContextFetchOptions | ((error: Error | null, item?: WorkersRealTimeStatisticsInstance) => any), callback?: (error: Error | null, item?: WorkersRealTimeStatisticsInstance) => any): Promise<WorkersRealTimeStatisticsInstance> {
+      if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -103,34 +84,25 @@ export class WorkersRealTimeStatisticsContextImpl
 
     let data: any = {};
 
-    if (params["taskChannel"] !== undefined)
-      data["TaskChannel"] = params["taskChannel"];
+        if (params["taskChannel"] !== undefined)
+    data["TaskChannel"] = params["taskChannel"];
+
+    
+    
 
     const headers: any = {};
 
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.fetch({
-        uri: instance._uri,
-        method: "get",
-        params: data,
-        headers,
-      });
+        operationPromise = operationVersion.fetch({ uri: instance._uri, method: "get", params: data, headers });
+    
+    operationPromise = operationPromise.then(payload => new WorkersRealTimeStatisticsInstance(operationVersion, payload, instance._solution.workspaceSid));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new WorkersRealTimeStatisticsInstance(
-          operationVersion,
-          payload,
-          instance._solution.workspaceSid
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
   /**
@@ -147,8 +119,8 @@ export class WorkersRealTimeStatisticsContextImpl
   }
 }
 
-interface WorkersRealTimeStatisticsPayload
-  extends WorkersRealTimeStatisticsResource {}
+
+interface WorkersRealTimeStatisticsPayload extends WorkersRealTimeStatisticsResource {}
 
 interface WorkersRealTimeStatisticsResource {
   account_sid: string;
@@ -162,18 +134,14 @@ export class WorkersRealTimeStatisticsInstance {
   protected _solution: WorkersRealTimeStatisticsContextSolution;
   protected _context?: WorkersRealTimeStatisticsContext;
 
-  constructor(
-    protected _version: V1,
-    payload: WorkersRealTimeStatisticsResource,
-    workspaceSid: string
-  ) {
-    this.accountSid = payload.account_sid;
-    this.activityStatistics = payload.activity_statistics;
+  constructor(protected _version: V1, payload: WorkersRealTimeStatisticsResource, workspaceSid: string) {
+    this.accountSid = (payload.account_sid);
+    this.activityStatistics = (payload.activity_statistics);
     this.totalWorkers = deserialize.integer(payload.total_workers);
-    this.workspaceSid = payload.workspace_sid;
-    this.url = payload.url;
+    this.workspaceSid = (payload.workspace_sid);
+    this.url = (payload.url);
 
-    this._solution = { workspaceSid };
+    this._solution = { workspaceSid,  };
   }
 
   /**
@@ -198,12 +166,7 @@ export class WorkersRealTimeStatisticsInstance {
   url: string;
 
   private get _proxy(): WorkersRealTimeStatisticsContext {
-    this._context =
-      this._context ||
-      new WorkersRealTimeStatisticsContextImpl(
-        this._version,
-        this._solution.workspaceSid
-      );
+    this._context = this._context || new WorkersRealTimeStatisticsContextImpl(this._version, this._solution.workspaceSid);
     return this._context;
   }
 
@@ -214,12 +177,7 @@ export class WorkersRealTimeStatisticsInstance {
    *
    * @returns Resolves to processed WorkersRealTimeStatisticsInstance
    */
-  fetch(
-    callback?: (
-      error: Error | null,
-      item?: WorkersRealTimeStatisticsInstance
-    ) => any
-  ): Promise<WorkersRealTimeStatisticsInstance>;
+  fetch(callback?: (error: Error | null, item?: WorkersRealTimeStatisticsInstance) => any): Promise<WorkersRealTimeStatisticsInstance>;
   /**
    * Fetch a WorkersRealTimeStatisticsInstance
    *
@@ -228,21 +186,10 @@ export class WorkersRealTimeStatisticsInstance {
    *
    * @returns Resolves to processed WorkersRealTimeStatisticsInstance
    */
-  fetch(
-    params: WorkersRealTimeStatisticsContextFetchOptions,
-    callback?: (
-      error: Error | null,
-      item?: WorkersRealTimeStatisticsInstance
-    ) => any
-  ): Promise<WorkersRealTimeStatisticsInstance>;
+  fetch(params: WorkersRealTimeStatisticsContextFetchOptions, callback?: (error: Error | null, item?: WorkersRealTimeStatisticsInstance) => any): Promise<WorkersRealTimeStatisticsInstance>;
 
-  fetch(
-    params?: any,
-    callback?: (
-      error: Error | null,
-      item?: WorkersRealTimeStatisticsInstance
-    ) => any
-  ): Promise<WorkersRealTimeStatisticsInstance> {
+    fetch(params?: any, callback?: (error: Error | null, item?: WorkersRealTimeStatisticsInstance) => any): Promise<WorkersRealTimeStatisticsInstance>
+    {
     return this._proxy.fetch(params, callback);
   }
 
@@ -258,13 +205,14 @@ export class WorkersRealTimeStatisticsInstance {
       totalWorkers: this.totalWorkers,
       workspaceSid: this.workspaceSid,
       url: this.url,
-    };
+    }
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
 }
+
 
 export interface WorkersRealTimeStatisticsSolution {
   workspaceSid: string;
@@ -278,6 +226,9 @@ export interface WorkersRealTimeStatisticsListInstance {
   (): WorkersRealTimeStatisticsContext;
   get(): WorkersRealTimeStatisticsContext;
 
+
+
+
   /**
    * Provide a user-friendly representation
    */
@@ -285,35 +236,30 @@ export interface WorkersRealTimeStatisticsListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function WorkersRealTimeStatisticsListInstance(
-  version: V1,
-  workspaceSid: string
-): WorkersRealTimeStatisticsListInstance {
+export function WorkersRealTimeStatisticsListInstance(version: V1, workspaceSid: string): WorkersRealTimeStatisticsListInstance {
   if (!isValidPathParam(workspaceSid)) {
-    throw new Error("Parameter 'workspaceSid' is not valid.");
+    throw new Error('Parameter \'workspaceSid\' is not valid.');
   }
 
-  const instance = (() =>
-    instance.get()) as WorkersRealTimeStatisticsListInstance;
+  const instance = (() => instance.get()) as WorkersRealTimeStatisticsListInstance;
 
   instance.get = function get(): WorkersRealTimeStatisticsContext {
     return new WorkersRealTimeStatisticsContextImpl(version, workspaceSid);
-  };
+  }
 
   instance._version = version;
-  instance._solution = { workspaceSid };
+  instance._solution = { workspaceSid,  };
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  };
+  }
 
-  instance[inspect.custom] = function inspectImpl(
-    _depth: any,
-    options: InspectOptions
-  ) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(instance.toJSON(), options);
-  };
+  }
 
   return instance;
 }
+
+

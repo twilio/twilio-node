@@ -12,33 +12,37 @@
  * Do not edit the class manually.
  */
 
+
 import { inspect, InspectOptions } from "util";
 import V1 from "../../../V1";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
 
+
+
 /**
  * Options to pass to fetch a WorkersStatisticsInstance
  */
 export interface WorkersStatisticsContextFetchOptions {
   /** Only calculate statistics since this many minutes in the past. The default 15 minutes. This is helpful for displaying statistics for the last 15 minutes, 240 minutes (4 hours), and 480 minutes (8 hours) to see trends. */
-  minutes?: number;
+  "minutes"?: number;
   /** Only calculate statistics from this date and time and later, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. */
-  startDate?: Date;
+  "startDate"?: Date;
   /** Only calculate statistics from this date and time and earlier, specified in GMT as an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time. */
-  endDate?: Date;
+  "endDate"?: Date;
   /** The SID of the TaskQueue for which to fetch Worker statistics. */
-  taskQueueSid?: string;
+  "taskQueueSid"?: string;
   /** The `friendly_name` of the TaskQueue for which to fetch Worker statistics. */
-  taskQueueName?: string;
+  "taskQueueName"?: string;
   /** Only include Workers with `friendly_name` values that match this parameter. */
-  friendlyName?: string;
+  "friendlyName"?: string;
   /** Only calculate statistics on this TaskChannel. Can be the TaskChannel\'s SID or its `unique_name`, such as `voice`, `sms`, or `default`. */
-  taskChannel?: string;
+  "taskChannel"?: string;
 }
 
 export interface WorkersStatisticsContext {
+
   /**
    * Fetch a WorkersStatisticsInstance
    *
@@ -46,9 +50,7 @@ export interface WorkersStatisticsContext {
    *
    * @returns Resolves to processed WorkersStatisticsInstance
    */
-  fetch(
-    callback?: (error: Error | null, item?: WorkersStatisticsInstance) => any
-  ): Promise<WorkersStatisticsInstance>;
+  fetch(callback?: (error: Error | null, item?: WorkersStatisticsInstance) => any): Promise<WorkersStatisticsInstance>;
   /**
    * Fetch a WorkersStatisticsInstance
    *
@@ -57,10 +59,7 @@ export interface WorkersStatisticsContext {
    *
    * @returns Resolves to processed WorkersStatisticsInstance
    */
-  fetch(
-    params: WorkersStatisticsContextFetchOptions,
-    callback?: (error: Error | null, item?: WorkersStatisticsInstance) => any
-  ): Promise<WorkersStatisticsInstance>;
+  fetch(params: WorkersStatisticsContextFetchOptions, callback?: (error: Error | null, item?: WorkersStatisticsInstance) => any): Promise<WorkersStatisticsInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -70,29 +69,25 @@ export interface WorkersStatisticsContext {
 }
 
 export interface WorkersStatisticsContextSolution {
-  workspaceSid: string;
+  "workspaceSid": string;
 }
 
 export class WorkersStatisticsContextImpl implements WorkersStatisticsContext {
   protected _solution: WorkersStatisticsContextSolution;
   protected _uri: string;
 
+
   constructor(protected _version: V1, workspaceSid: string) {
     if (!isValidPathParam(workspaceSid)) {
-      throw new Error("Parameter 'workspaceSid' is not valid.");
+      throw new Error('Parameter \'workspaceSid\' is not valid.');
     }
 
-    this._solution = { workspaceSid };
+    this._solution = { workspaceSid,  };
     this._uri = `/Workspaces/${workspaceSid}/Workers/Statistics`;
   }
 
-  fetch(
-    params?:
-      | WorkersStatisticsContextFetchOptions
-      | ((error: Error | null, item?: WorkersStatisticsInstance) => any),
-    callback?: (error: Error | null, item?: WorkersStatisticsInstance) => any
-  ): Promise<WorkersStatisticsInstance> {
-    if (params instanceof Function) {
+  fetch(params?: WorkersStatisticsContextFetchOptions | ((error: Error | null, item?: WorkersStatisticsInstance) => any), callback?: (error: Error | null, item?: WorkersStatisticsInstance) => any): Promise<WorkersStatisticsInstance> {
+      if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -101,45 +96,37 @@ export class WorkersStatisticsContextImpl implements WorkersStatisticsContext {
 
     let data: any = {};
 
-    if (params["minutes"] !== undefined) data["Minutes"] = params["minutes"];
+        if (params["minutes"] !== undefined)
+    data["Minutes"] = params["minutes"];
     if (params["startDate"] !== undefined)
-      data["StartDate"] = serialize.iso8601DateTime(params["startDate"]);
+    data["StartDate"] = serialize.iso8601DateTime(params["startDate"]);
     if (params["endDate"] !== undefined)
-      data["EndDate"] = serialize.iso8601DateTime(params["endDate"]);
+    data["EndDate"] = serialize.iso8601DateTime(params["endDate"]);
     if (params["taskQueueSid"] !== undefined)
-      data["TaskQueueSid"] = params["taskQueueSid"];
+    data["TaskQueueSid"] = params["taskQueueSid"];
     if (params["taskQueueName"] !== undefined)
-      data["TaskQueueName"] = params["taskQueueName"];
+    data["TaskQueueName"] = params["taskQueueName"];
     if (params["friendlyName"] !== undefined)
-      data["FriendlyName"] = params["friendlyName"];
+    data["FriendlyName"] = params["friendlyName"];
     if (params["taskChannel"] !== undefined)
-      data["TaskChannel"] = params["taskChannel"];
+    data["TaskChannel"] = params["taskChannel"];
+
+    
+    
 
     const headers: any = {};
 
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.fetch({
-        uri: instance._uri,
-        method: "get",
-        params: data,
-        headers,
-      });
+        operationPromise = operationVersion.fetch({ uri: instance._uri, method: "get", params: data, headers });
+    
+    operationPromise = operationPromise.then(payload => new WorkersStatisticsInstance(operationVersion, payload, instance._solution.workspaceSid));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new WorkersStatisticsInstance(
-          operationVersion,
-          payload,
-          instance._solution.workspaceSid
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
   /**
@@ -156,6 +143,7 @@ export class WorkersStatisticsContextImpl implements WorkersStatisticsContext {
   }
 }
 
+
 interface WorkersStatisticsPayload extends WorkersStatisticsResource {}
 
 interface WorkersStatisticsResource {
@@ -170,18 +158,14 @@ export class WorkersStatisticsInstance {
   protected _solution: WorkersStatisticsContextSolution;
   protected _context?: WorkersStatisticsContext;
 
-  constructor(
-    protected _version: V1,
-    payload: WorkersStatisticsResource,
-    workspaceSid: string
-  ) {
-    this.realtime = payload.realtime;
-    this.cumulative = payload.cumulative;
-    this.accountSid = payload.account_sid;
-    this.workspaceSid = payload.workspace_sid;
-    this.url = payload.url;
+  constructor(protected _version: V1, payload: WorkersStatisticsResource, workspaceSid: string) {
+    this.realtime = (payload.realtime);
+    this.cumulative = (payload.cumulative);
+    this.accountSid = (payload.account_sid);
+    this.workspaceSid = (payload.workspace_sid);
+    this.url = (payload.url);
 
-    this._solution = { workspaceSid };
+    this._solution = { workspaceSid,  };
   }
 
   /**
@@ -206,12 +190,7 @@ export class WorkersStatisticsInstance {
   url: string;
 
   private get _proxy(): WorkersStatisticsContext {
-    this._context =
-      this._context ||
-      new WorkersStatisticsContextImpl(
-        this._version,
-        this._solution.workspaceSid
-      );
+    this._context = this._context || new WorkersStatisticsContextImpl(this._version, this._solution.workspaceSid);
     return this._context;
   }
 
@@ -222,9 +201,7 @@ export class WorkersStatisticsInstance {
    *
    * @returns Resolves to processed WorkersStatisticsInstance
    */
-  fetch(
-    callback?: (error: Error | null, item?: WorkersStatisticsInstance) => any
-  ): Promise<WorkersStatisticsInstance>;
+  fetch(callback?: (error: Error | null, item?: WorkersStatisticsInstance) => any): Promise<WorkersStatisticsInstance>;
   /**
    * Fetch a WorkersStatisticsInstance
    *
@@ -233,15 +210,10 @@ export class WorkersStatisticsInstance {
    *
    * @returns Resolves to processed WorkersStatisticsInstance
    */
-  fetch(
-    params: WorkersStatisticsContextFetchOptions,
-    callback?: (error: Error | null, item?: WorkersStatisticsInstance) => any
-  ): Promise<WorkersStatisticsInstance>;
+  fetch(params: WorkersStatisticsContextFetchOptions, callback?: (error: Error | null, item?: WorkersStatisticsInstance) => any): Promise<WorkersStatisticsInstance>;
 
-  fetch(
-    params?: any,
-    callback?: (error: Error | null, item?: WorkersStatisticsInstance) => any
-  ): Promise<WorkersStatisticsInstance> {
+    fetch(params?: any, callback?: (error: Error | null, item?: WorkersStatisticsInstance) => any): Promise<WorkersStatisticsInstance>
+    {
     return this._proxy.fetch(params, callback);
   }
 
@@ -257,13 +229,14 @@ export class WorkersStatisticsInstance {
       accountSid: this.accountSid,
       workspaceSid: this.workspaceSid,
       url: this.url,
-    };
+    }
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
 }
+
 
 export interface WorkersStatisticsSolution {
   workspaceSid: string;
@@ -277,6 +250,9 @@ export interface WorkersStatisticsListInstance {
   (): WorkersStatisticsContext;
   get(): WorkersStatisticsContext;
 
+
+
+
   /**
    * Provide a user-friendly representation
    */
@@ -284,34 +260,30 @@ export interface WorkersStatisticsListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function WorkersStatisticsListInstance(
-  version: V1,
-  workspaceSid: string
-): WorkersStatisticsListInstance {
+export function WorkersStatisticsListInstance(version: V1, workspaceSid: string): WorkersStatisticsListInstance {
   if (!isValidPathParam(workspaceSid)) {
-    throw new Error("Parameter 'workspaceSid' is not valid.");
+    throw new Error('Parameter \'workspaceSid\' is not valid.');
   }
 
   const instance = (() => instance.get()) as WorkersStatisticsListInstance;
 
   instance.get = function get(): WorkersStatisticsContext {
     return new WorkersStatisticsContextImpl(version, workspaceSid);
-  };
+  }
 
   instance._version = version;
-  instance._solution = { workspaceSid };
+  instance._solution = { workspaceSid,  };
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  };
+  }
 
-  instance[inspect.custom] = function inspectImpl(
-    _depth: any,
-    options: InspectOptions
-  ) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(instance.toJSON(), options);
-  };
+  }
 
   return instance;
 }
+
+

@@ -12,6 +12,7 @@
  * Do not edit the class manually.
  */
 
+
 import { inspect, InspectOptions } from "util";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
@@ -19,12 +20,17 @@ const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 import { CountryListInstance } from "./messaging/country";
 
-export interface MessagingSolution {}
+
+
+
+export interface MessagingSolution {
+}
 
 export interface MessagingListInstance {
   _version: V1;
   _solution: MessagingSolution;
   _uri: string;
+
 
   _countries?: CountryListInstance;
   countries: CountryListInstance;
@@ -40,7 +46,7 @@ export function MessagingListInstance(version: V1): MessagingListInstance {
   const instance = {} as MessagingListInstance;
 
   instance._version = version;
-  instance._solution = {};
+  instance._solution = {  };
   instance._uri = `/Messaging`;
 
   Object.defineProperty(instance, "countries", {
@@ -49,19 +55,18 @@ export function MessagingListInstance(version: V1): MessagingListInstance {
         instance._countries = CountryListInstance(instance._version);
       }
       return instance._countries;
-    },
+    }
   });
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  };
+  }
 
-  instance[inspect.custom] = function inspectImpl(
-    _depth: any,
-    options: InspectOptions
-  ) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(instance.toJSON(), options);
-  };
+  }
 
   return instance;
 }
+
+

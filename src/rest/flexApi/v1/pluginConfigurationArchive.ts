@@ -12,21 +12,25 @@
  * Do not edit the class manually.
  */
 
+
 import { inspect, InspectOptions } from "util";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 
+
+
 /**
  * Options to pass to update a PluginConfigurationArchiveInstance
  */
 export interface PluginConfigurationArchiveContextUpdateOptions {
   /** The Flex-Metadata HTTP request header */
-  flexMetadata?: string;
+  "flexMetadata"?: string;
 }
 
 export interface PluginConfigurationArchiveContext {
+
   /**
    * Update a PluginConfigurationArchiveInstance
    *
@@ -34,12 +38,7 @@ export interface PluginConfigurationArchiveContext {
    *
    * @returns Resolves to processed PluginConfigurationArchiveInstance
    */
-  update(
-    callback?: (
-      error: Error | null,
-      item?: PluginConfigurationArchiveInstance
-    ) => any
-  ): Promise<PluginConfigurationArchiveInstance>;
+  update(callback?: (error: Error | null, item?: PluginConfigurationArchiveInstance) => any): Promise<PluginConfigurationArchiveInstance>;
   /**
    * Update a PluginConfigurationArchiveInstance
    *
@@ -48,13 +47,7 @@ export interface PluginConfigurationArchiveContext {
    *
    * @returns Resolves to processed PluginConfigurationArchiveInstance
    */
-  update(
-    params: PluginConfigurationArchiveContextUpdateOptions,
-    callback?: (
-      error: Error | null,
-      item?: PluginConfigurationArchiveInstance
-    ) => any
-  ): Promise<PluginConfigurationArchiveInstance>;
+  update(params: PluginConfigurationArchiveContextUpdateOptions, callback?: (error: Error | null, item?: PluginConfigurationArchiveInstance) => any): Promise<PluginConfigurationArchiveInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -64,37 +57,25 @@ export interface PluginConfigurationArchiveContext {
 }
 
 export interface PluginConfigurationArchiveContextSolution {
-  sid: string;
+  "sid": string;
 }
 
-export class PluginConfigurationArchiveContextImpl
-  implements PluginConfigurationArchiveContext
-{
+export class PluginConfigurationArchiveContextImpl implements PluginConfigurationArchiveContext {
   protected _solution: PluginConfigurationArchiveContextSolution;
   protected _uri: string;
 
+
   constructor(protected _version: V1, sid: string) {
     if (!isValidPathParam(sid)) {
-      throw new Error("Parameter 'sid' is not valid.");
+      throw new Error('Parameter \'sid\' is not valid.');
     }
 
-    this._solution = { sid };
+    this._solution = { sid,  };
     this._uri = `/PluginService/Configurations/${sid}/Archive`;
   }
 
-  update(
-    params?:
-      | PluginConfigurationArchiveContextUpdateOptions
-      | ((
-          error: Error | null,
-          item?: PluginConfigurationArchiveInstance
-        ) => any),
-    callback?: (
-      error: Error | null,
-      item?: PluginConfigurationArchiveInstance
-    ) => any
-  ): Promise<PluginConfigurationArchiveInstance> {
-    if (params instanceof Function) {
+  update(params?: PluginConfigurationArchiveContextUpdateOptions | ((error: Error | null, item?: PluginConfigurationArchiveInstance) => any), callback?: (error: Error | null, item?: PluginConfigurationArchiveInstance) => any): Promise<PluginConfigurationArchiveInstance> {
+      if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -103,33 +84,24 @@ export class PluginConfigurationArchiveContextImpl
 
     let data: any = {};
 
+    
+    
+    
+
     const headers: any = {};
-    if (params["flexMetadata"] !== undefined)
-      headers["Flex-Metadata"] = params["flexMetadata"];
+    if (params["flexMetadata"] !== undefined) headers["Flex-Metadata"] = params["flexMetadata"];
 
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.update({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      });
+        operationPromise = operationVersion.update({ uri: instance._uri, method: "post", data, headers });
+    
+    operationPromise = operationPromise.then(payload => new PluginConfigurationArchiveInstance(operationVersion, payload, instance._solution.sid));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new PluginConfigurationArchiveInstance(
-          operationVersion,
-          payload,
-          instance._solution.sid
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
   /**
@@ -146,8 +118,8 @@ export class PluginConfigurationArchiveContextImpl
   }
 }
 
-interface PluginConfigurationArchivePayload
-  extends PluginConfigurationArchiveResource {}
+
+interface PluginConfigurationArchivePayload extends PluginConfigurationArchiveResource {}
 
 interface PluginConfigurationArchiveResource {
   sid: string;
@@ -163,20 +135,16 @@ export class PluginConfigurationArchiveInstance {
   protected _solution: PluginConfigurationArchiveContextSolution;
   protected _context?: PluginConfigurationArchiveContext;
 
-  constructor(
-    protected _version: V1,
-    payload: PluginConfigurationArchiveResource,
-    sid?: string
-  ) {
-    this.sid = payload.sid;
-    this.accountSid = payload.account_sid;
-    this.name = payload.name;
-    this.description = payload.description;
-    this.archived = payload.archived;
+  constructor(protected _version: V1, payload: PluginConfigurationArchiveResource, sid?: string) {
+    this.sid = (payload.sid);
+    this.accountSid = (payload.account_sid);
+    this.name = (payload.name);
+    this.description = (payload.description);
+    this.archived = (payload.archived);
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
-    this.url = payload.url;
+    this.url = (payload.url);
 
-    this._solution = { sid: sid || this.sid };
+    this._solution = { sid: sid || this.sid,  };
   }
 
   /**
@@ -209,12 +177,7 @@ export class PluginConfigurationArchiveInstance {
   url: string;
 
   private get _proxy(): PluginConfigurationArchiveContext {
-    this._context =
-      this._context ||
-      new PluginConfigurationArchiveContextImpl(
-        this._version,
-        this._solution.sid
-      );
+    this._context = this._context || new PluginConfigurationArchiveContextImpl(this._version, this._solution.sid);
     return this._context;
   }
 
@@ -225,12 +188,7 @@ export class PluginConfigurationArchiveInstance {
    *
    * @returns Resolves to processed PluginConfigurationArchiveInstance
    */
-  update(
-    callback?: (
-      error: Error | null,
-      item?: PluginConfigurationArchiveInstance
-    ) => any
-  ): Promise<PluginConfigurationArchiveInstance>;
+  update(callback?: (error: Error | null, item?: PluginConfigurationArchiveInstance) => any): Promise<PluginConfigurationArchiveInstance>;
   /**
    * Update a PluginConfigurationArchiveInstance
    *
@@ -239,21 +197,10 @@ export class PluginConfigurationArchiveInstance {
    *
    * @returns Resolves to processed PluginConfigurationArchiveInstance
    */
-  update(
-    params: PluginConfigurationArchiveContextUpdateOptions,
-    callback?: (
-      error: Error | null,
-      item?: PluginConfigurationArchiveInstance
-    ) => any
-  ): Promise<PluginConfigurationArchiveInstance>;
+  update(params: PluginConfigurationArchiveContextUpdateOptions, callback?: (error: Error | null, item?: PluginConfigurationArchiveInstance) => any): Promise<PluginConfigurationArchiveInstance>;
 
-  update(
-    params?: any,
-    callback?: (
-      error: Error | null,
-      item?: PluginConfigurationArchiveInstance
-    ) => any
-  ): Promise<PluginConfigurationArchiveInstance> {
+    update(params?: any, callback?: (error: Error | null, item?: PluginConfigurationArchiveInstance) => any): Promise<PluginConfigurationArchiveInstance>
+    {
     return this._proxy.update(params, callback);
   }
 
@@ -271,7 +218,7 @@ export class PluginConfigurationArchiveInstance {
       archived: this.archived,
       dateCreated: this.dateCreated,
       url: this.url,
-    };
+    }
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
@@ -279,15 +226,20 @@ export class PluginConfigurationArchiveInstance {
   }
 }
 
-export interface PluginConfigurationArchiveSolution {}
+
+export interface PluginConfigurationArchiveSolution {
+}
 
 export interface PluginConfigurationArchiveListInstance {
   _version: V1;
   _solution: PluginConfigurationArchiveSolution;
   _uri: string;
 
-  (sid: string): PluginConfigurationArchiveContext;
-  get(sid: string): PluginConfigurationArchiveContext;
+  (sid: string, ): PluginConfigurationArchiveContext;
+  get(sid: string, ): PluginConfigurationArchiveContext;
+
+
+
 
   /**
    * Provide a user-friendly representation
@@ -296,30 +248,26 @@ export interface PluginConfigurationArchiveListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function PluginConfigurationArchiveListInstance(
-  version: V1
-): PluginConfigurationArchiveListInstance {
-  const instance = ((sid) =>
-    instance.get(sid)) as PluginConfigurationArchiveListInstance;
+export function PluginConfigurationArchiveListInstance(version: V1): PluginConfigurationArchiveListInstance {
+  const instance = ((sid, ) => instance.get(sid, )) as PluginConfigurationArchiveListInstance;
 
-  instance.get = function get(sid): PluginConfigurationArchiveContext {
+  instance.get = function get(sid, ): PluginConfigurationArchiveContext {
     return new PluginConfigurationArchiveContextImpl(version, sid);
-  };
+  }
 
   instance._version = version;
-  instance._solution = {};
+  instance._solution = {  };
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  };
+  }
 
-  instance[inspect.custom] = function inspectImpl(
-    _depth: any,
-    options: InspectOptions
-  ) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(instance.toJSON(), options);
-  };
+  }
 
   return instance;
 }
+
+

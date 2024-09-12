@@ -12,30 +12,37 @@
  * Do not edit the class manually.
  */
 
+
 import { inspect, InspectOptions } from "util";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 
+
+
 /**
  * Options to pass to create a ExternalCampaignInstance
  */
 export interface ExternalCampaignListInstanceCreateOptions {
   /** ID of the preregistered campaign. */
-  campaignId: string;
+  "campaignId": string;
   /** The SID of the [Messaging Service](https://www.twilio.com/docs/messaging/api/service-resource) that the resource is associated with. */
-  messagingServiceSid: string;
+  "messagingServiceSid": string;
   /** Customers should use this flag during the ERC registration process to indicate to Twilio that the campaign being registered is undergoing CNP migration. It is important for the user to first trigger the CNP migration process for said campaign in their CSP portal and have Twilio accept the sharing request, before making this api call. */
-  cnpMigration?: boolean;
+  "cnpMigration"?: boolean;
 }
 
-export interface ExternalCampaignSolution {}
+
+export interface ExternalCampaignSolution {
+}
 
 export interface ExternalCampaignListInstance {
   _version: V1;
   _solution: ExternalCampaignSolution;
   _uri: string;
+
+
 
   /**
    * Create a ExternalCampaignInstance
@@ -45,10 +52,8 @@ export interface ExternalCampaignListInstance {
    *
    * @returns Resolves to processed ExternalCampaignInstance
    */
-  create(
-    params: ExternalCampaignListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: ExternalCampaignInstance) => any
-  ): Promise<ExternalCampaignInstance>;
+  create(params: ExternalCampaignListInstanceCreateOptions, callback?: (error: Error | null, item?: ExternalCampaignInstance) => any): Promise<ExternalCampaignInstance>;
+
 
   /**
    * Provide a user-friendly representation
@@ -57,76 +62,60 @@ export interface ExternalCampaignListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function ExternalCampaignListInstance(
-  version: V1
-): ExternalCampaignListInstance {
+export function ExternalCampaignListInstance(version: V1): ExternalCampaignListInstance {
   const instance = {} as ExternalCampaignListInstance;
 
   instance._version = version;
-  instance._solution = {};
+  instance._solution = {  };
   instance._uri = `/Services/PreregisteredUsa2p`;
 
-  instance.create = function create(
-    params: ExternalCampaignListInstanceCreateOptions,
-    callback?: (error: Error | null, items: ExternalCampaignInstance) => any
-  ): Promise<ExternalCampaignInstance> {
+  instance.create = function create(params: ExternalCampaignListInstanceCreateOptions, callback?: (error: Error | null, items: ExternalCampaignInstance) => any): Promise<ExternalCampaignInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     if (params["campaignId"] === null || params["campaignId"] === undefined) {
-      throw new Error("Required parameter \"params['campaignId']\" missing.");
+      throw new Error('Required parameter "params[\'campaignId\']" missing.');
     }
 
-    if (
-      params["messagingServiceSid"] === null ||
-      params["messagingServiceSid"] === undefined
-    ) {
-      throw new Error(
-        "Required parameter \"params['messagingServiceSid']\" missing."
-      );
+    if (params["messagingServiceSid"] === null || params["messagingServiceSid"] === undefined) {
+      throw new Error('Required parameter "params[\'messagingServiceSid\']" missing.');
     }
 
     let data: any = {};
 
+    
+        
     data["CampaignId"] = params["campaignId"];
-
+    
     data["MessagingServiceSid"] = params["messagingServiceSid"];
     if (params["cnpMigration"] !== undefined)
-      data["CnpMigration"] = serialize.bool(params["cnpMigration"]);
+    data["CnpMigration"] = serialize.bool(params["cnpMigration"]);
+
+    
 
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = version,
-      operationPromise = operationVersion.create({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      });
+        operationPromise = operationVersion.create({ uri: instance._uri, method: "post", data, headers });
+    
+    operationPromise = operationPromise.then(payload => new ExternalCampaignInstance(operationVersion, payload));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) => new ExternalCampaignInstance(operationVersion, payload)
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
+
+
+    }
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  };
+  }
 
-  instance[inspect.custom] = function inspectImpl(
-    _depth: any,
-    options: InspectOptions
-  ) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(instance.toJSON(), options);
-  };
+  }
 
   return instance;
 }
@@ -142,12 +131,14 @@ interface ExternalCampaignResource {
 }
 
 export class ExternalCampaignInstance {
+
   constructor(protected _version: V1, payload: ExternalCampaignResource) {
-    this.sid = payload.sid;
-    this.accountSid = payload.account_sid;
-    this.campaignId = payload.campaign_id;
-    this.messagingServiceSid = payload.messaging_service_sid;
+    this.sid = (payload.sid);
+    this.accountSid = (payload.account_sid);
+    this.campaignId = (payload.campaign_id);
+    this.messagingServiceSid = (payload.messaging_service_sid);
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
+
   }
 
   /**
@@ -183,10 +174,12 @@ export class ExternalCampaignInstance {
       campaignId: this.campaignId,
       messagingServiceSid: this.messagingServiceSid,
       dateCreated: this.dateCreated,
-    };
+    }
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
 }
+
+

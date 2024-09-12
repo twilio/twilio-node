@@ -12,31 +12,36 @@
  * Do not edit the class manually.
  */
 
+
 import { inspect, InspectOptions } from "util";
 import V2 from "../V2";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 
+
+
+
 /**
  * Options to pass to update a FlexUserInstance
  */
 export interface FlexUserContextUpdateOptions {
   /** First name of the User. */
-  firstName?: string;
+  "firstName"?: string;
   /** Last name of the User. */
-  lastName?: string;
+  "lastName"?: string;
   /** Email of the User. */
-  email?: string;
+  "email"?: string;
   /** Friendly name of the User. */
-  friendlyName?: string;
+  "friendlyName"?: string;
   /** The unique SID identifier of the Twilio Unified User. */
-  userSid?: string;
+  "userSid"?: string;
   /** The locale preference of the user. */
-  locale?: string;
+  "locale"?: string;
 }
 
 export interface FlexUserContext {
+
   /**
    * Fetch a FlexUserInstance
    *
@@ -44,9 +49,7 @@ export interface FlexUserContext {
    *
    * @returns Resolves to processed FlexUserInstance
    */
-  fetch(
-    callback?: (error: Error | null, item?: FlexUserInstance) => any
-  ): Promise<FlexUserInstance>;
+  fetch(callback?: (error: Error | null, item?: FlexUserInstance) => any): Promise<FlexUserInstance>
 
   /**
    * Update a FlexUserInstance
@@ -55,9 +58,7 @@ export interface FlexUserContext {
    *
    * @returns Resolves to processed FlexUserInstance
    */
-  update(
-    callback?: (error: Error | null, item?: FlexUserInstance) => any
-  ): Promise<FlexUserInstance>;
+  update(callback?: (error: Error | null, item?: FlexUserInstance) => any): Promise<FlexUserInstance>;
   /**
    * Update a FlexUserInstance
    *
@@ -66,10 +67,7 @@ export interface FlexUserContext {
    *
    * @returns Resolves to processed FlexUserInstance
    */
-  update(
-    params: FlexUserContextUpdateOptions,
-    callback?: (error: Error | null, item?: FlexUserInstance) => any
-  ): Promise<FlexUserInstance>;
+  update(params: FlexUserContextUpdateOptions, callback?: (error: Error | null, item?: FlexUserInstance) => any): Promise<FlexUserInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -79,65 +77,45 @@ export interface FlexUserContext {
 }
 
 export interface FlexUserContextSolution {
-  instanceSid: string;
-  flexUserSid: string;
+  "instanceSid": string;
+  "flexUserSid": string;
 }
 
 export class FlexUserContextImpl implements FlexUserContext {
   protected _solution: FlexUserContextSolution;
   protected _uri: string;
 
-  constructor(
-    protected _version: V2,
-    instanceSid: string,
-    flexUserSid: string
-  ) {
+
+  constructor(protected _version: V2, instanceSid: string, flexUserSid: string) {
     if (!isValidPathParam(instanceSid)) {
-      throw new Error("Parameter 'instanceSid' is not valid.");
+      throw new Error('Parameter \'instanceSid\' is not valid.');
     }
 
     if (!isValidPathParam(flexUserSid)) {
-      throw new Error("Parameter 'flexUserSid' is not valid.");
+      throw new Error('Parameter \'flexUserSid\' is not valid.');
     }
 
-    this._solution = { instanceSid, flexUserSid };
+    this._solution = { instanceSid, flexUserSid,  };
     this._uri = `/Instances/${instanceSid}/Users/${flexUserSid}`;
   }
 
-  fetch(
-    callback?: (error: Error | null, item?: FlexUserInstance) => any
-  ): Promise<FlexUserInstance> {
+  fetch(callback?: (error: Error | null, item?: FlexUserInstance) => any): Promise<FlexUserInstance> {
+  
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.fetch({
-        uri: instance._uri,
-        method: "get",
-      });
+        operationPromise = operationVersion.fetch({ uri: instance._uri, method: "get" });
+    
+    operationPromise = operationPromise.then(payload => new FlexUserInstance(operationVersion, payload, instance._solution.instanceSid, instance._solution.flexUserSid));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new FlexUserInstance(
-          operationVersion,
-          payload,
-          instance._solution.instanceSid,
-          instance._solution.flexUserSid
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
-  update(
-    params?:
-      | FlexUserContextUpdateOptions
-      | ((error: Error | null, item?: FlexUserInstance) => any),
-    callback?: (error: Error | null, item?: FlexUserInstance) => any
-  ): Promise<FlexUserInstance> {
-    if (params instanceof Function) {
+  update(params?: FlexUserContextUpdateOptions | ((error: Error | null, item?: FlexUserInstance) => any), callback?: (error: Error | null, item?: FlexUserInstance) => any): Promise<FlexUserInstance> {
+      if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -146,42 +124,36 @@ export class FlexUserContextImpl implements FlexUserContext {
 
     let data: any = {};
 
-    if (params["firstName"] !== undefined)
-      data["FirstName"] = params["firstName"];
-    if (params["lastName"] !== undefined) data["LastName"] = params["lastName"];
-    if (params["email"] !== undefined) data["Email"] = params["email"];
+    
+        if (params["firstName"] !== undefined)
+    data["FirstName"] = params["firstName"];
+    if (params["lastName"] !== undefined)
+    data["LastName"] = params["lastName"];
+    if (params["email"] !== undefined)
+    data["Email"] = params["email"];
     if (params["friendlyName"] !== undefined)
-      data["FriendlyName"] = params["friendlyName"];
-    if (params["userSid"] !== undefined) data["UserSid"] = params["userSid"];
-    if (params["locale"] !== undefined) data["Locale"] = params["locale"];
+    data["FriendlyName"] = params["friendlyName"];
+    if (params["userSid"] !== undefined)
+    data["UserSid"] = params["userSid"];
+    if (params["locale"] !== undefined)
+    data["Locale"] = params["locale"];
+
+    
 
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.update({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      });
+        operationPromise = operationVersion.update({ uri: instance._uri, method: "post", data, headers });
+    
+    operationPromise = operationPromise.then(payload => new FlexUserInstance(operationVersion, payload, instance._solution.instanceSid, instance._solution.flexUserSid));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new FlexUserInstance(
-          operationVersion,
-          payload,
-          instance._solution.instanceSid,
-          instance._solution.flexUserSid
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
   /**
@@ -197,6 +169,7 @@ export class FlexUserContextImpl implements FlexUserContext {
     return inspect(this.toJSON(), options);
   }
 }
+
 
 interface FlexUserPayload extends FlexUserResource {}
 
@@ -225,35 +198,27 @@ export class FlexUserInstance {
   protected _solution: FlexUserContextSolution;
   protected _context?: FlexUserContext;
 
-  constructor(
-    protected _version: V2,
-    payload: FlexUserResource,
-    instanceSid?: string,
-    flexUserSid?: string
-  ) {
-    this.accountSid = payload.account_sid;
-    this.instanceSid = payload.instance_sid;
-    this.userSid = payload.user_sid;
-    this.flexUserSid = payload.flex_user_sid;
-    this.workerSid = payload.worker_sid;
-    this.workspaceSid = payload.workspace_sid;
-    this.flexTeamSid = payload.flex_team_sid;
-    this.firstName = payload.first_name;
-    this.lastName = payload.last_name;
-    this.username = payload.username;
-    this.email = payload.email;
-    this.friendlyName = payload.friendly_name;
-    this.locale = payload.locale;
-    this.roles = payload.roles;
+  constructor(protected _version: V2, payload: FlexUserResource, instanceSid?: string, flexUserSid?: string) {
+    this.accountSid = (payload.account_sid);
+    this.instanceSid = (payload.instance_sid);
+    this.userSid = (payload.user_sid);
+    this.flexUserSid = (payload.flex_user_sid);
+    this.workerSid = (payload.worker_sid);
+    this.workspaceSid = (payload.workspace_sid);
+    this.flexTeamSid = (payload.flex_team_sid);
+    this.firstName = (payload.first_name);
+    this.lastName = (payload.last_name);
+    this.username = (payload.username);
+    this.email = (payload.email);
+    this.friendlyName = (payload.friendly_name);
+    this.locale = (payload.locale);
+    this.roles = (payload.roles);
     this.createdDate = deserialize.iso8601DateTime(payload.created_date);
     this.updatedDate = deserialize.iso8601DateTime(payload.updated_date);
     this.version = deserialize.integer(payload.version);
-    this.url = payload.url;
+    this.url = (payload.url);
 
-    this._solution = {
-      instanceSid: instanceSid || this.instanceSid,
-      flexUserSid: flexUserSid || this.flexUserSid,
-    };
+    this._solution = { instanceSid: instanceSid || this.instanceSid, flexUserSid: flexUserSid || this.flexUserSid,  };
   }
 
   /**
@@ -327,13 +292,7 @@ export class FlexUserInstance {
   url: string;
 
   private get _proxy(): FlexUserContext {
-    this._context =
-      this._context ||
-      new FlexUserContextImpl(
-        this._version,
-        this._solution.instanceSid,
-        this._solution.flexUserSid
-      );
+    this._context = this._context || new FlexUserContextImpl(this._version, this._solution.instanceSid, this._solution.flexUserSid);
     return this._context;
   }
 
@@ -344,9 +303,9 @@ export class FlexUserInstance {
    *
    * @returns Resolves to processed FlexUserInstance
    */
-  fetch(
-    callback?: (error: Error | null, item?: FlexUserInstance) => any
-  ): Promise<FlexUserInstance> {
+  fetch(callback?: (error: Error | null, item?: FlexUserInstance) => any): Promise<FlexUserInstance>
+
+    {
     return this._proxy.fetch(callback);
   }
 
@@ -357,9 +316,7 @@ export class FlexUserInstance {
    *
    * @returns Resolves to processed FlexUserInstance
    */
-  update(
-    callback?: (error: Error | null, item?: FlexUserInstance) => any
-  ): Promise<FlexUserInstance>;
+  update(callback?: (error: Error | null, item?: FlexUserInstance) => any): Promise<FlexUserInstance>;
   /**
    * Update a FlexUserInstance
    *
@@ -368,15 +325,10 @@ export class FlexUserInstance {
    *
    * @returns Resolves to processed FlexUserInstance
    */
-  update(
-    params: FlexUserContextUpdateOptions,
-    callback?: (error: Error | null, item?: FlexUserInstance) => any
-  ): Promise<FlexUserInstance>;
+  update(params: FlexUserContextUpdateOptions, callback?: (error: Error | null, item?: FlexUserInstance) => any): Promise<FlexUserInstance>;
 
-  update(
-    params?: any,
-    callback?: (error: Error | null, item?: FlexUserInstance) => any
-  ): Promise<FlexUserInstance> {
+    update(params?: any, callback?: (error: Error | null, item?: FlexUserInstance) => any): Promise<FlexUserInstance>
+    {
     return this._proxy.update(params, callback);
   }
 
@@ -405,7 +357,7 @@ export class FlexUserInstance {
       updatedDate: this.updatedDate,
       version: this.version,
       url: this.url,
-    };
+    }
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
@@ -413,15 +365,22 @@ export class FlexUserInstance {
   }
 }
 
-export interface FlexUserSolution {}
+
+export interface FlexUserSolution {
+}
 
 export interface FlexUserListInstance {
   _version: V2;
   _solution: FlexUserSolution;
   _uri: string;
 
-  (instanceSid: string, flexUserSid: string): FlexUserContext;
-  get(instanceSid: string, flexUserSid: string): FlexUserContext;
+  (instanceSid: string, flexUserSid: string, ): FlexUserContext;
+  get(instanceSid: string, flexUserSid: string, ): FlexUserContext;
+
+
+
+
+
 
   /**
    * Provide a user-friendly representation
@@ -431,27 +390,25 @@ export interface FlexUserListInstance {
 }
 
 export function FlexUserListInstance(version: V2): FlexUserListInstance {
-  const instance = ((instanceSid, flexUserSid) =>
-    instance.get(instanceSid, flexUserSid)) as FlexUserListInstance;
+  const instance = ((instanceSid, flexUserSid, ) => instance.get(instanceSid, flexUserSid, )) as FlexUserListInstance;
 
-  instance.get = function get(instanceSid, flexUserSid): FlexUserContext {
+  instance.get = function get(instanceSid, flexUserSid, ): FlexUserContext {
     return new FlexUserContextImpl(version, instanceSid, flexUserSid);
-  };
+  }
 
   instance._version = version;
-  instance._solution = {};
+  instance._solution = {  };
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  };
+  }
 
-  instance[inspect.custom] = function inspectImpl(
-    _depth: any,
-    options: InspectOptions
-  ) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(instance.toJSON(), options);
-  };
+  }
 
   return instance;
 }
+
+

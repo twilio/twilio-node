@@ -12,6 +12,7 @@
  * Do not edit the class manually.
  */
 
+
 import { inspect, InspectOptions } from "util";
 import Page, { TwilioResponsePayload } from "../../../../../base/Page";
 import Response from "../../../../../http/response";
@@ -20,20 +21,22 @@ const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
 
-export type LogLevel = "info" | "warn" | "error";
+
+export type LogLevel = 'info'|'warn'|'error';
+
 
 /**
  * Options to pass to each
  */
 export interface LogListInstanceEachOptions {
   /** The SID of the function whose invocation produced the Log resources to read. */
-  functionSid?: string;
+  "functionSid"?: string;
   /** The date/time (in GMT, ISO 8601) after which the Log resources must have been created. Defaults to 1 day prior to current date/time. */
-  startDate?: Date;
+  "startDate"?: Date;
   /** The date/time (in GMT, ISO 8601) before which the Log resources must have been created. Defaults to current date/time. */
-  endDate?: Date;
+  "endDate"?: Date;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: LogInstance, done: (err?: Error) => void) => void;
   /** Function to be called upon completion of streaming */
@@ -47,13 +50,13 @@ export interface LogListInstanceEachOptions {
  */
 export interface LogListInstanceOptions {
   /** The SID of the function whose invocation produced the Log resources to read. */
-  functionSid?: string;
+  "functionSid"?: string;
   /** The date/time (in GMT, ISO 8601) after which the Log resources must have been created. Defaults to 1 day prior to current date/time. */
-  startDate?: Date;
+  "startDate"?: Date;
   /** The date/time (in GMT, ISO 8601) before which the Log resources must have been created. Defaults to current date/time. */
-  endDate?: Date;
+  "endDate"?: Date;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
@@ -63,20 +66,22 @@ export interface LogListInstanceOptions {
  */
 export interface LogListInstancePageOptions {
   /** The SID of the function whose invocation produced the Log resources to read. */
-  functionSid?: string;
+  "functionSid"?: string;
   /** The date/time (in GMT, ISO 8601) after which the Log resources must have been created. Defaults to 1 day prior to current date/time. */
-  startDate?: Date;
+  "startDate"?: Date;
   /** The date/time (in GMT, ISO 8601) before which the Log resources must have been created. Defaults to current date/time. */
-  endDate?: Date;
+  "endDate"?: Date;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
   /** PageToken provided by the API */
   pageToken?: string;
 }
 
+
 export interface LogContext {
+
   /**
    * Fetch a LogInstance
    *
@@ -84,9 +89,8 @@ export interface LogContext {
    *
    * @returns Resolves to processed LogInstance
    */
-  fetch(
-    callback?: (error: Error | null, item?: LogInstance) => any
-  ): Promise<LogInstance>;
+  fetch(callback?: (error: Error | null, item?: LogInstance) => any): Promise<LogInstance>
+
 
   /**
    * Provide a user-friendly representation
@@ -96,63 +100,46 @@ export interface LogContext {
 }
 
 export interface LogContextSolution {
-  serviceSid: string;
-  environmentSid: string;
-  sid: string;
+  "serviceSid": string;
+  "environmentSid": string;
+  "sid": string;
 }
 
 export class LogContextImpl implements LogContext {
   protected _solution: LogContextSolution;
   protected _uri: string;
 
-  constructor(
-    protected _version: V1,
-    serviceSid: string,
-    environmentSid: string,
-    sid: string
-  ) {
+
+  constructor(protected _version: V1, serviceSid: string, environmentSid: string, sid: string) {
     if (!isValidPathParam(serviceSid)) {
-      throw new Error("Parameter 'serviceSid' is not valid.");
+      throw new Error('Parameter \'serviceSid\' is not valid.');
     }
 
     if (!isValidPathParam(environmentSid)) {
-      throw new Error("Parameter 'environmentSid' is not valid.");
+      throw new Error('Parameter \'environmentSid\' is not valid.');
     }
 
     if (!isValidPathParam(sid)) {
-      throw new Error("Parameter 'sid' is not valid.");
+      throw new Error('Parameter \'sid\' is not valid.');
     }
 
-    this._solution = { serviceSid, environmentSid, sid };
+    this._solution = { serviceSid, environmentSid, sid,  };
     this._uri = `/Services/${serviceSid}/Environments/${environmentSid}/Logs/${sid}`;
   }
 
-  fetch(
-    callback?: (error: Error | null, item?: LogInstance) => any
-  ): Promise<LogInstance> {
+  fetch(callback?: (error: Error | null, item?: LogInstance) => any): Promise<LogInstance> {
+  
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.fetch({
-        uri: instance._uri,
-        method: "get",
-      });
+        operationPromise = operationVersion.fetch({ uri: instance._uri, method: "get" });
+    
+    operationPromise = operationPromise.then(payload => new LogInstance(operationVersion, payload, instance._solution.serviceSid, instance._solution.environmentSid, instance._solution.sid));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new LogInstance(
-          operationVersion,
-          payload,
-          instance._solution.serviceSid,
-          instance._solution.environmentSid,
-          instance._solution.sid
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
   /**
@@ -169,8 +156,9 @@ export class LogContextImpl implements LogContext {
   }
 }
 
+
 interface LogPayload extends TwilioResponsePayload {
-  logs: LogResource[];
+    logs: LogResource[];
 }
 
 interface LogResource {
@@ -192,27 +180,21 @@ export class LogInstance {
   protected _solution: LogContextSolution;
   protected _context?: LogContext;
 
-  constructor(
-    protected _version: V1,
-    payload: LogResource,
-    serviceSid: string,
-    environmentSid: string,
-    sid?: string
-  ) {
-    this.sid = payload.sid;
-    this.accountSid = payload.account_sid;
-    this.serviceSid = payload.service_sid;
-    this.environmentSid = payload.environment_sid;
-    this.buildSid = payload.build_sid;
-    this.deploymentSid = payload.deployment_sid;
-    this.functionSid = payload.function_sid;
-    this.requestSid = payload.request_sid;
-    this.level = payload.level;
-    this.message = payload.message;
+  constructor(protected _version: V1, payload: LogResource, serviceSid: string, environmentSid: string, sid?: string) {
+    this.sid = (payload.sid);
+    this.accountSid = (payload.account_sid);
+    this.serviceSid = (payload.service_sid);
+    this.environmentSid = (payload.environment_sid);
+    this.buildSid = (payload.build_sid);
+    this.deploymentSid = (payload.deployment_sid);
+    this.functionSid = (payload.function_sid);
+    this.requestSid = (payload.request_sid);
+    this.level = (payload.level);
+    this.message = (payload.message);
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
-    this.url = payload.url;
+    this.url = (payload.url);
 
-    this._solution = { serviceSid, environmentSid, sid: sid || this.sid };
+    this._solution = { serviceSid, environmentSid, sid: sid || this.sid,  };
   }
 
   /**
@@ -262,14 +244,7 @@ export class LogInstance {
   url: string;
 
   private get _proxy(): LogContext {
-    this._context =
-      this._context ||
-      new LogContextImpl(
-        this._version,
-        this._solution.serviceSid,
-        this._solution.environmentSid,
-        this._solution.sid
-      );
+    this._context = this._context || new LogContextImpl(this._version, this._solution.serviceSid, this._solution.environmentSid, this._solution.sid);
     return this._context;
   }
 
@@ -280,9 +255,9 @@ export class LogInstance {
    *
    * @returns Resolves to processed LogInstance
    */
-  fetch(
-    callback?: (error: Error | null, item?: LogInstance) => any
-  ): Promise<LogInstance> {
+  fetch(callback?: (error: Error | null, item?: LogInstance) => any): Promise<LogInstance>
+
+    {
     return this._proxy.fetch(callback);
   }
 
@@ -305,13 +280,14 @@ export class LogInstance {
       message: this.message,
       dateCreated: this.dateCreated,
       url: this.url,
-    };
+    }
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
 }
+
 
 export interface LogSolution {
   serviceSid: string;
@@ -323,8 +299,12 @@ export interface LogListInstance {
   _solution: LogSolution;
   _uri: string;
 
-  (sid: string): LogContext;
-  get(sid: string): LogContext;
+  (sid: string, ): LogContext;
+  get(sid: string, ): LogContext;
+
+
+
+
 
   /**
    * Streams LogInstance records from the API.
@@ -341,13 +321,8 @@ export interface LogListInstance {
    * @param { LogListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(
-    callback?: (item: LogInstance, done: (err?: Error) => void) => void
-  ): void;
-  each(
-    params: LogListInstanceEachOptions,
-    callback?: (item: LogInstance, done: (err?: Error) => void) => void
-  ): void;
+  each(callback?: (item: LogInstance, done: (err?: Error) => void) => void): void;
+  each(params: LogListInstanceEachOptions, callback?: (item: LogInstance, done: (err?: Error) => void) => void): void;
   /**
    * Retrieve a single target page of LogInstance records from the API.
    *
@@ -356,10 +331,7 @@ export interface LogListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(
-    targetUrl: string,
-    callback?: (error: Error | null, items: LogPage) => any
-  ): Promise<LogPage>;
+  getPage(targetUrl: string, callback?: (error: Error | null, items: LogPage) => any): Promise<LogPage>;
   /**
    * Lists LogInstance records from the API as a list.
    *
@@ -369,13 +341,8 @@ export interface LogListInstance {
    * @param { LogListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(
-    callback?: (error: Error | null, items: LogInstance[]) => any
-  ): Promise<LogInstance[]>;
-  list(
-    params: LogListInstanceOptions,
-    callback?: (error: Error | null, items: LogInstance[]) => any
-  ): Promise<LogInstance[]>;
+  list(callback?: (error: Error | null, items: LogInstance[]) => any): Promise<LogInstance[]>;
+  list(params: LogListInstanceOptions, callback?: (error: Error | null, items: LogInstance[]) => any): Promise<LogInstance[]>;
   /**
    * Retrieve a single page of LogInstance records from the API.
    *
@@ -387,13 +354,8 @@ export interface LogListInstance {
    * @param { LogListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(
-    callback?: (error: Error | null, items: LogPage) => any
-  ): Promise<LogPage>;
-  page(
-    params: LogListInstancePageOptions,
-    callback?: (error: Error | null, items: LogPage) => any
-  ): Promise<LogPage>;
+  page(callback?: (error: Error | null, items: LogPage) => any): Promise<LogPage>;
+  page(params: LogListInstancePageOptions, callback?: (error: Error | null, items: LogPage) => any): Promise<LogPage>;
 
   /**
    * Provide a user-friendly representation
@@ -402,35 +364,26 @@ export interface LogListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function LogListInstance(
-  version: V1,
-  serviceSid: string,
-  environmentSid: string
-): LogListInstance {
+export function LogListInstance(version: V1, serviceSid: string, environmentSid: string): LogListInstance {
   if (!isValidPathParam(serviceSid)) {
-    throw new Error("Parameter 'serviceSid' is not valid.");
+    throw new Error('Parameter \'serviceSid\' is not valid.');
   }
 
   if (!isValidPathParam(environmentSid)) {
-    throw new Error("Parameter 'environmentSid' is not valid.");
+    throw new Error('Parameter \'environmentSid\' is not valid.');
   }
 
-  const instance = ((sid) => instance.get(sid)) as LogListInstance;
+  const instance = ((sid, ) => instance.get(sid, )) as LogListInstance;
 
-  instance.get = function get(sid): LogContext {
+  instance.get = function get(sid, ): LogContext {
     return new LogContextImpl(version, serviceSid, environmentSid, sid);
-  };
+  }
 
   instance._version = version;
-  instance._solution = { serviceSid, environmentSid };
+  instance._solution = { serviceSid, environmentSid,  };
   instance._uri = `/Services/${serviceSid}/Environments/${environmentSid}/Logs`;
 
-  instance.page = function page(
-    params?:
-      | LogListInstancePageOptions
-      | ((error: Error | null, items: LogPage) => any),
-    callback?: (error: Error | null, items: LogPage) => any
-  ): Promise<LogPage> {
+  instance.page = function page(params?: LogListInstancePageOptions | ((error: Error | null, items: LogPage) => any), callback?: (error: Error | null, items: LogPage) => any): Promise<LogPage> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -440,97 +393,82 @@ export function LogListInstance(
 
     let data: any = {};
 
-    if (params["functionSid"] !== undefined)
-      data["FunctionSid"] = params["functionSid"];
+        if (params["functionSid"] !== undefined)
+    data["FunctionSid"] = params["functionSid"];
     if (params["startDate"] !== undefined)
-      data["StartDate"] = serialize.iso8601DateTime(params["startDate"]);
+    data["StartDate"] = serialize.iso8601DateTime(params["startDate"]);
     if (params["endDate"] !== undefined)
-      data["EndDate"] = serialize.iso8601DateTime(params["endDate"]);
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+    data["EndDate"] = serialize.iso8601DateTime(params["endDate"]);
+    if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
 
+    
+    
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-      operationPromise = operationVersion.page({
-        uri: instance._uri,
-        method: "get",
-        params: data,
-        headers,
-      });
+        operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers });
+    
+    operationPromise = operationPromise.then(payload => new LogPage(operationVersion, payload, instance._solution));
 
-    operationPromise = operationPromise.then(
-      (payload) => new LogPage(operationVersion, payload, instance._solution)
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
+
+  }
   instance.each = instance._version.each;
   instance.list = instance._version.list;
 
-  instance.getPage = function getPage(
-    targetUrl: string,
-    callback?: (error: Error | null, items: LogPage) => any
-  ): Promise<LogPage> {
-    const operationPromise = instance._version._domain.twilio.request({
-      method: "get",
-      uri: targetUrl,
-    });
+  instance.getPage = function getPage(targetUrl: string, callback?: (error: Error | null, items: LogPage) => any): Promise<LogPage> {
+    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
 
-    let pagePromise = operationPromise.then(
-      (payload) => new LogPage(instance._version, payload, instance._solution)
-    );
+    let pagePromise = operationPromise.then(payload => new LogPage(instance._version, payload, instance._solution));
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  };
+  }
+
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  };
+  }
 
-  instance[inspect.custom] = function inspectImpl(
-    _depth: any,
-    options: InspectOptions
-  ) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(instance.toJSON(), options);
-  };
+  }
 
   return instance;
 }
 
 export class LogPage extends Page<V1, LogPayload, LogResource, LogInstance> {
-  /**
-   * Initialize the LogPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V1, response: Response<string>, solution: LogSolution) {
+/**
+* Initialize the LogPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V1, response: Response<string>, solution: LogSolution) {
     super(version, response, solution);
-  }
+    }
 
-  /**
-   * Build an instance of LogInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: LogResource): LogInstance {
+    /**
+    * Build an instance of LogInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: LogResource): LogInstance {
     return new LogInstance(
-      this._version,
-      payload,
-      this._solution.serviceSid,
-      this._solution.environmentSid
+    this._version,
+    payload,
+        this._solution.serviceSid,
+        this._solution.environmentSid,
     );
-  }
+    }
 
-  [inspect.custom](depth: any, options: InspectOptions) {
+    [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-  }
-}
+    }
+    }
+

@@ -43,15 +43,13 @@ export default class V2 extends Version {
 
   /** Getter for authorizationDocuments resource */
   get authorizationDocuments(): AuthorizationDocumentListInstance {
-    this._authorizationDocuments =
-      this._authorizationDocuments || AuthorizationDocumentListInstance(this);
+    this._authorizationDocuments = this._authorizationDocuments || AuthorizationDocumentListInstance(this);
     return this._authorizationDocuments;
   }
 
   /** Getter for bulkHostedNumberOrders resource */
   get bulkHostedNumberOrders(): BulkHostedNumberOrderListInstance {
-    this._bulkHostedNumberOrders =
-      this._bulkHostedNumberOrders || BulkHostedNumberOrderListInstance(this);
+    this._bulkHostedNumberOrders = this._bulkHostedNumberOrders || BulkHostedNumberOrderListInstance(this);
     return this._bulkHostedNumberOrders;
   }
 
@@ -63,15 +61,14 @@ export default class V2 extends Version {
 
   /** Getter for hostedNumberOrders resource */
   get hostedNumberOrders(): HostedNumberOrderListInstance {
-    this._hostedNumberOrders =
-      this._hostedNumberOrders || HostedNumberOrderListInstance(this);
+    this._hostedNumberOrders = this._hostedNumberOrders || HostedNumberOrderListInstance(this);
     return this._hostedNumberOrders;
   }
 
   /** Getter for regulatoryCompliance resource */
   get regulatoryCompliance(): RegulatoryComplianceListInstance {
-    this._regulatoryCompliance =
-      this._regulatoryCompliance || RegulatoryComplianceListInstance(this);
+    this._regulatoryCompliance = this._regulatoryCompliance || RegulatoryComplianceListInstance(this);
     return this._regulatoryCompliance;
   }
+
 }

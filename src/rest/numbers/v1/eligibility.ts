@@ -12,26 +12,33 @@
  * Do not edit the class manually.
  */
 
+
 import { inspect, InspectOptions } from "util";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 
+
+
 /**
  * Options to pass to create a EligibilityInstance
  */
 export interface EligibilityListInstanceCreateOptions {
   /**  */
-  body?: object;
+  "body"?: object;
 }
 
-export interface EligibilitySolution {}
+
+export interface EligibilitySolution {
+}
 
 export interface EligibilityListInstance {
   _version: V1;
   _solution: EligibilitySolution;
   _uri: string;
+
+
 
   /**
    * Create a EligibilityInstance
@@ -40,9 +47,7 @@ export interface EligibilityListInstance {
    *
    * @returns Resolves to processed EligibilityInstance
    */
-  create(
-    callback?: (error: Error | null, item?: EligibilityInstance) => any
-  ): Promise<EligibilityInstance>;
+  create(callback?: (error: Error | null, item?: EligibilityInstance) => any): Promise<EligibilityInstance>;
   /**
    * Create a EligibilityInstance
    *
@@ -51,10 +56,8 @@ export interface EligibilityListInstance {
    *
    * @returns Resolves to processed EligibilityInstance
    */
-  create(
-    params: object,
-    callback?: (error: Error | null, item?: EligibilityInstance) => any
-  ): Promise<EligibilityInstance>;
+  create(params: object, callback?: (error: Error | null, item?: EligibilityInstance) => any): Promise<EligibilityInstance>;
+
 
   /**
    * Provide a user-friendly representation
@@ -67,15 +70,10 @@ export function EligibilityListInstance(version: V1): EligibilityListInstance {
   const instance = {} as EligibilityListInstance;
 
   instance._version = version;
-  instance._solution = {};
+  instance._solution = {  };
   instance._uri = `/HostedNumber/Eligibility`;
 
-  instance.create = function create(
-    params?:
-      | object
-      | ((error: Error | null, items: EligibilityInstance) => any),
-    callback?: (error: Error | null, items: EligibilityInstance) => any
-  ): Promise<EligibilityInstance> {
+  instance.create = function create(params?: object | ((error: Error | null, items: EligibilityInstance) => any), callback?: (error: Error | null, items: EligibilityInstance) => any): Promise<EligibilityInstance> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -85,40 +83,32 @@ export function EligibilityListInstance(version: V1): EligibilityListInstance {
 
     let data: any = {};
 
-    data = params;
+    
+    
+    data = params
 
     const headers: any = {};
-    headers["Content-Type"] = "application/json";
+    headers["Content-Type"] = "application/json"
 
     let operationVersion = version,
-      operationPromise = operationVersion.create({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      });
+        operationPromise = operationVersion.create({ uri: instance._uri, method: "post", data, headers });
+    
+    operationPromise = operationPromise.then(payload => new EligibilityInstance(operationVersion, payload));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) => new EligibilityInstance(operationVersion, payload)
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
+
+
+    }
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  };
+  }
 
-  instance[inspect.custom] = function inspectImpl(
-    _depth: any,
-    options: InspectOptions
-  ) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(instance.toJSON(), options);
-  };
+  }
 
   return instance;
 }
@@ -130,8 +120,10 @@ interface EligibilityResource {
 }
 
 export class EligibilityInstance {
+
   constructor(protected _version: V1, payload: EligibilityResource) {
-    this.results = payload.results;
+    this.results = (payload.results);
+
   }
 
   /**
@@ -147,10 +139,12 @@ export class EligibilityInstance {
   toJSON() {
     return {
       results: this.results,
-    };
+    }
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
 }
+
+

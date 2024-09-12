@@ -12,6 +12,7 @@
  * Do not edit the class manually.
  */
 
+
 import { inspect, InspectOptions } from "util";
 import Page, { TwilioResponsePayload } from "../../../../../base/Page";
 import Response from "../../../../../http/response";
@@ -20,19 +21,18 @@ const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
 
-export type SubscribedTrackKind = "audio" | "video" | "data";
+
+export type SubscribedTrackKind = 'audio'|'video'|'data';
+
 
 /**
  * Options to pass to each
  */
 export interface SubscribedTrackListInstanceEachOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
-  callback?: (
-    item: SubscribedTrackInstance,
-    done: (err?: Error) => void
-  ) => void;
+  callback?: (item: SubscribedTrackInstance, done: (err?: Error) => void) => void;
   /** Function to be called upon completion of streaming */
   done?: Function;
   /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
@@ -44,7 +44,7 @@ export interface SubscribedTrackListInstanceEachOptions {
  */
 export interface SubscribedTrackListInstanceOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
@@ -54,14 +54,16 @@ export interface SubscribedTrackListInstanceOptions {
  */
 export interface SubscribedTrackListInstancePageOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
   /** PageToken provided by the API */
   pageToken?: string;
 }
 
+
 export interface SubscribedTrackContext {
+
   /**
    * Fetch a SubscribedTrackInstance
    *
@@ -69,9 +71,8 @@ export interface SubscribedTrackContext {
    *
    * @returns Resolves to processed SubscribedTrackInstance
    */
-  fetch(
-    callback?: (error: Error | null, item?: SubscribedTrackInstance) => any
-  ): Promise<SubscribedTrackInstance>;
+  fetch(callback?: (error: Error | null, item?: SubscribedTrackInstance) => any): Promise<SubscribedTrackInstance>
+
 
   /**
    * Provide a user-friendly representation
@@ -81,63 +82,46 @@ export interface SubscribedTrackContext {
 }
 
 export interface SubscribedTrackContextSolution {
-  roomSid: string;
-  participantSid: string;
-  sid: string;
+  "roomSid": string;
+  "participantSid": string;
+  "sid": string;
 }
 
 export class SubscribedTrackContextImpl implements SubscribedTrackContext {
   protected _solution: SubscribedTrackContextSolution;
   protected _uri: string;
 
-  constructor(
-    protected _version: V1,
-    roomSid: string,
-    participantSid: string,
-    sid: string
-  ) {
+
+  constructor(protected _version: V1, roomSid: string, participantSid: string, sid: string) {
     if (!isValidPathParam(roomSid)) {
-      throw new Error("Parameter 'roomSid' is not valid.");
+      throw new Error('Parameter \'roomSid\' is not valid.');
     }
 
     if (!isValidPathParam(participantSid)) {
-      throw new Error("Parameter 'participantSid' is not valid.");
+      throw new Error('Parameter \'participantSid\' is not valid.');
     }
 
     if (!isValidPathParam(sid)) {
-      throw new Error("Parameter 'sid' is not valid.");
+      throw new Error('Parameter \'sid\' is not valid.');
     }
 
-    this._solution = { roomSid, participantSid, sid };
+    this._solution = { roomSid, participantSid, sid,  };
     this._uri = `/Rooms/${roomSid}/Participants/${participantSid}/SubscribedTracks/${sid}`;
   }
 
-  fetch(
-    callback?: (error: Error | null, item?: SubscribedTrackInstance) => any
-  ): Promise<SubscribedTrackInstance> {
+  fetch(callback?: (error: Error | null, item?: SubscribedTrackInstance) => any): Promise<SubscribedTrackInstance> {
+  
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.fetch({
-        uri: instance._uri,
-        method: "get",
-      });
+        operationPromise = operationVersion.fetch({ uri: instance._uri, method: "get" });
+    
+    operationPromise = operationPromise.then(payload => new SubscribedTrackInstance(operationVersion, payload, instance._solution.roomSid, instance._solution.participantSid, instance._solution.sid));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new SubscribedTrackInstance(
-          operationVersion,
-          payload,
-          instance._solution.roomSid,
-          instance._solution.participantSid,
-          instance._solution.sid
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
   /**
@@ -154,8 +138,9 @@ export class SubscribedTrackContextImpl implements SubscribedTrackContext {
   }
 }
 
+
 interface SubscribedTrackPayload extends TwilioResponsePayload {
-  subscribed_tracks: SubscribedTrackResource[];
+    subscribed_tracks: SubscribedTrackResource[];
 }
 
 interface SubscribedTrackResource {
@@ -175,25 +160,19 @@ export class SubscribedTrackInstance {
   protected _solution: SubscribedTrackContextSolution;
   protected _context?: SubscribedTrackContext;
 
-  constructor(
-    protected _version: V1,
-    payload: SubscribedTrackResource,
-    roomSid: string,
-    participantSid: string,
-    sid?: string
-  ) {
-    this.sid = payload.sid;
-    this.participantSid = payload.participant_sid;
-    this.publisherSid = payload.publisher_sid;
-    this.roomSid = payload.room_sid;
-    this.name = payload.name;
+  constructor(protected _version: V1, payload: SubscribedTrackResource, roomSid: string, participantSid: string, sid?: string) {
+    this.sid = (payload.sid);
+    this.participantSid = (payload.participant_sid);
+    this.publisherSid = (payload.publisher_sid);
+    this.roomSid = (payload.room_sid);
+    this.name = (payload.name);
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
-    this.enabled = payload.enabled;
-    this.kind = payload.kind;
-    this.url = payload.url;
+    this.enabled = (payload.enabled);
+    this.kind = (payload.kind);
+    this.url = (payload.url);
 
-    this._solution = { roomSid, participantSid, sid: sid || this.sid };
+    this._solution = { roomSid, participantSid, sid: sid || this.sid,  };
   }
 
   /**
@@ -235,14 +214,7 @@ export class SubscribedTrackInstance {
   url: string;
 
   private get _proxy(): SubscribedTrackContext {
-    this._context =
-      this._context ||
-      new SubscribedTrackContextImpl(
-        this._version,
-        this._solution.roomSid,
-        this._solution.participantSid,
-        this._solution.sid
-      );
+    this._context = this._context || new SubscribedTrackContextImpl(this._version, this._solution.roomSid, this._solution.participantSid, this._solution.sid);
     return this._context;
   }
 
@@ -253,9 +225,9 @@ export class SubscribedTrackInstance {
    *
    * @returns Resolves to processed SubscribedTrackInstance
    */
-  fetch(
-    callback?: (error: Error | null, item?: SubscribedTrackInstance) => any
-  ): Promise<SubscribedTrackInstance> {
+  fetch(callback?: (error: Error | null, item?: SubscribedTrackInstance) => any): Promise<SubscribedTrackInstance>
+
+    {
     return this._proxy.fetch(callback);
   }
 
@@ -276,13 +248,14 @@ export class SubscribedTrackInstance {
       enabled: this.enabled,
       kind: this.kind,
       url: this.url,
-    };
+    }
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
 }
+
 
 export interface SubscribedTrackSolution {
   roomSid: string;
@@ -294,8 +267,12 @@ export interface SubscribedTrackListInstance {
   _solution: SubscribedTrackSolution;
   _uri: string;
 
-  (sid: string): SubscribedTrackContext;
-  get(sid: string): SubscribedTrackContext;
+  (sid: string, ): SubscribedTrackContext;
+  get(sid: string, ): SubscribedTrackContext;
+
+
+
+
 
   /**
    * Streams SubscribedTrackInstance records from the API.
@@ -312,19 +289,8 @@ export interface SubscribedTrackListInstance {
    * @param { SubscribedTrackListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(
-    callback?: (
-      item: SubscribedTrackInstance,
-      done: (err?: Error) => void
-    ) => void
-  ): void;
-  each(
-    params: SubscribedTrackListInstanceEachOptions,
-    callback?: (
-      item: SubscribedTrackInstance,
-      done: (err?: Error) => void
-    ) => void
-  ): void;
+  each(callback?: (item: SubscribedTrackInstance, done: (err?: Error) => void) => void): void;
+  each(params: SubscribedTrackListInstanceEachOptions, callback?: (item: SubscribedTrackInstance, done: (err?: Error) => void) => void): void;
   /**
    * Retrieve a single target page of SubscribedTrackInstance records from the API.
    *
@@ -333,10 +299,7 @@ export interface SubscribedTrackListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(
-    targetUrl: string,
-    callback?: (error: Error | null, items: SubscribedTrackPage) => any
-  ): Promise<SubscribedTrackPage>;
+  getPage(targetUrl: string, callback?: (error: Error | null, items: SubscribedTrackPage) => any): Promise<SubscribedTrackPage>;
   /**
    * Lists SubscribedTrackInstance records from the API as a list.
    *
@@ -346,13 +309,8 @@ export interface SubscribedTrackListInstance {
    * @param { SubscribedTrackListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(
-    callback?: (error: Error | null, items: SubscribedTrackInstance[]) => any
-  ): Promise<SubscribedTrackInstance[]>;
-  list(
-    params: SubscribedTrackListInstanceOptions,
-    callback?: (error: Error | null, items: SubscribedTrackInstance[]) => any
-  ): Promise<SubscribedTrackInstance[]>;
+  list(callback?: (error: Error | null, items: SubscribedTrackInstance[]) => any): Promise<SubscribedTrackInstance[]>;
+  list(params: SubscribedTrackListInstanceOptions, callback?: (error: Error | null, items: SubscribedTrackInstance[]) => any): Promise<SubscribedTrackInstance[]>;
   /**
    * Retrieve a single page of SubscribedTrackInstance records from the API.
    *
@@ -364,13 +322,8 @@ export interface SubscribedTrackListInstance {
    * @param { SubscribedTrackListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(
-    callback?: (error: Error | null, items: SubscribedTrackPage) => any
-  ): Promise<SubscribedTrackPage>;
-  page(
-    params: SubscribedTrackListInstancePageOptions,
-    callback?: (error: Error | null, items: SubscribedTrackPage) => any
-  ): Promise<SubscribedTrackPage>;
+  page(callback?: (error: Error | null, items: SubscribedTrackPage) => any): Promise<SubscribedTrackPage>;
+  page(params: SubscribedTrackListInstancePageOptions, callback?: (error: Error | null, items: SubscribedTrackPage) => any): Promise<SubscribedTrackPage>;
 
   /**
    * Provide a user-friendly representation
@@ -379,40 +332,26 @@ export interface SubscribedTrackListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function SubscribedTrackListInstance(
-  version: V1,
-  roomSid: string,
-  participantSid: string
-): SubscribedTrackListInstance {
+export function SubscribedTrackListInstance(version: V1, roomSid: string, participantSid: string): SubscribedTrackListInstance {
   if (!isValidPathParam(roomSid)) {
-    throw new Error("Parameter 'roomSid' is not valid.");
+    throw new Error('Parameter \'roomSid\' is not valid.');
   }
 
   if (!isValidPathParam(participantSid)) {
-    throw new Error("Parameter 'participantSid' is not valid.");
+    throw new Error('Parameter \'participantSid\' is not valid.');
   }
 
-  const instance = ((sid) => instance.get(sid)) as SubscribedTrackListInstance;
+  const instance = ((sid, ) => instance.get(sid, )) as SubscribedTrackListInstance;
 
-  instance.get = function get(sid): SubscribedTrackContext {
-    return new SubscribedTrackContextImpl(
-      version,
-      roomSid,
-      participantSid,
-      sid
-    );
-  };
+  instance.get = function get(sid, ): SubscribedTrackContext {
+    return new SubscribedTrackContextImpl(version, roomSid, participantSid, sid);
+  }
 
   instance._version = version;
-  instance._solution = { roomSid, participantSid };
+  instance._solution = { roomSid, participantSid,  };
   instance._uri = `/Rooms/${roomSid}/Participants/${participantSid}/SubscribedTracks`;
 
-  instance.page = function page(
-    params?:
-      | SubscribedTrackListInstancePageOptions
-      | ((error: Error | null, items: SubscribedTrackPage) => any),
-    callback?: (error: Error | null, items: SubscribedTrackPage) => any
-  ): Promise<SubscribedTrackPage> {
+  instance.page = function page(params?: SubscribedTrackListInstancePageOptions | ((error: Error | null, items: SubscribedTrackPage) => any), callback?: (error: Error | null, items: SubscribedTrackPage) => any): Promise<SubscribedTrackPage> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -422,102 +361,76 @@ export function SubscribedTrackListInstance(
 
     let data: any = {};
 
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
 
+    
+    
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-      operationPromise = operationVersion.page({
-        uri: instance._uri,
-        method: "get",
-        params: data,
-        headers,
-      });
+        operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers });
+    
+    operationPromise = operationPromise.then(payload => new SubscribedTrackPage(operationVersion, payload, instance._solution));
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new SubscribedTrackPage(operationVersion, payload, instance._solution)
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
+
+  }
   instance.each = instance._version.each;
   instance.list = instance._version.list;
 
-  instance.getPage = function getPage(
-    targetUrl: string,
-    callback?: (error: Error | null, items: SubscribedTrackPage) => any
-  ): Promise<SubscribedTrackPage> {
-    const operationPromise = instance._version._domain.twilio.request({
-      method: "get",
-      uri: targetUrl,
-    });
+  instance.getPage = function getPage(targetUrl: string, callback?: (error: Error | null, items: SubscribedTrackPage) => any): Promise<SubscribedTrackPage> {
+    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
 
-    let pagePromise = operationPromise.then(
-      (payload) =>
-        new SubscribedTrackPage(instance._version, payload, instance._solution)
-    );
+    let pagePromise = operationPromise.then(payload => new SubscribedTrackPage(instance._version, payload, instance._solution));
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  };
+  }
+
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  };
+  }
 
-  instance[inspect.custom] = function inspectImpl(
-    _depth: any,
-    options: InspectOptions
-  ) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(instance.toJSON(), options);
-  };
+  }
 
   return instance;
 }
 
-export class SubscribedTrackPage extends Page<
-  V1,
-  SubscribedTrackPayload,
-  SubscribedTrackResource,
-  SubscribedTrackInstance
-> {
-  /**
-   * Initialize the SubscribedTrackPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(
-    version: V1,
-    response: Response<string>,
-    solution: SubscribedTrackSolution
-  ) {
+export class SubscribedTrackPage extends Page<V1, SubscribedTrackPayload, SubscribedTrackResource, SubscribedTrackInstance> {
+/**
+* Initialize the SubscribedTrackPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V1, response: Response<string>, solution: SubscribedTrackSolution) {
     super(version, response, solution);
-  }
+    }
 
-  /**
-   * Build an instance of SubscribedTrackInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: SubscribedTrackResource): SubscribedTrackInstance {
+    /**
+    * Build an instance of SubscribedTrackInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: SubscribedTrackResource): SubscribedTrackInstance {
     return new SubscribedTrackInstance(
-      this._version,
-      payload,
-      this._solution.roomSid,
-      this._solution.participantSid
+    this._version,
+    payload,
+        this._solution.roomSid,
+        this._solution.participantSid,
     );
-  }
+    }
 
-  [inspect.custom](depth: any, options: InspectOptions) {
+    [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-  }
-}
+    }
+    }
+

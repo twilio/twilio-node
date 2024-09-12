@@ -12,6 +12,7 @@
  * Do not edit the class manually.
  */
 
+
 import { inspect, InspectOptions } from "util";
 import Page, { TwilioResponsePayload } from "../../../base/Page";
 import Response from "../../../http/response";
@@ -20,32 +21,33 @@ const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 
-export type UsageRecordGranularity = "hour" | "day" | "all";
 
-export type UsageRecordGroup = "sim" | "fleet" | "network" | "isoCountry";
+export type UsageRecordGranularity = 'hour'|'day'|'all';
+
+export type UsageRecordGroup = 'sim'|'fleet'|'network'|'isoCountry';
 
 /**
  * Options to pass to each
  */
 export interface UsageRecordListInstanceEachOptions {
   /** SID or unique name of a Sim resource. Only show UsageRecords representing usage incurred by this Super SIM. */
-  sim?: string;
+  "sim"?: string;
   /** SID or unique name of a Fleet resource. Only show UsageRecords representing usage for Super SIMs belonging to this Fleet resource at the time the usage occurred. */
-  fleet?: string;
+  "fleet"?: string;
   /** SID of a Network resource. Only show UsageRecords representing usage on this network. */
-  network?: string;
+  "network"?: string;
   /** Alpha-2 ISO Country Code. Only show UsageRecords representing usage in this country. */
-  isoCountry?: string;
+  "isoCountry"?: string;
   /** Dimension over which to aggregate usage records. Can be: `sim`, `fleet`, `network`, `isoCountry`. Default is to not aggregate across any of these dimensions, UsageRecords will be aggregated into the time buckets described by the `Granularity` parameter. */
-  group?: UsageRecordGroup;
+  "group"?: UsageRecordGroup;
   /** Time-based grouping that UsageRecords should be aggregated by. Can be: `hour`, `day`, or `all`. Default is `all`. `all` returns one UsageRecord that describes the usage for the entire period. */
-  granularity?: UsageRecordGranularity;
+  "granularity"?: UsageRecordGranularity;
   /** Only include usage that occurred at or after this time, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. Default is one month before the `end_time`. */
-  startTime?: Date;
+  "startTime"?: Date;
   /** Only include usage that occurred before this time (exclusive), specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. Default is the current time. */
-  endTime?: Date;
+  "endTime"?: Date;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: UsageRecordInstance, done: (err?: Error) => void) => void;
   /** Function to be called upon completion of streaming */
@@ -59,23 +61,23 @@ export interface UsageRecordListInstanceEachOptions {
  */
 export interface UsageRecordListInstanceOptions {
   /** SID or unique name of a Sim resource. Only show UsageRecords representing usage incurred by this Super SIM. */
-  sim?: string;
+  "sim"?: string;
   /** SID or unique name of a Fleet resource. Only show UsageRecords representing usage for Super SIMs belonging to this Fleet resource at the time the usage occurred. */
-  fleet?: string;
+  "fleet"?: string;
   /** SID of a Network resource. Only show UsageRecords representing usage on this network. */
-  network?: string;
+  "network"?: string;
   /** Alpha-2 ISO Country Code. Only show UsageRecords representing usage in this country. */
-  isoCountry?: string;
+  "isoCountry"?: string;
   /** Dimension over which to aggregate usage records. Can be: `sim`, `fleet`, `network`, `isoCountry`. Default is to not aggregate across any of these dimensions, UsageRecords will be aggregated into the time buckets described by the `Granularity` parameter. */
-  group?: UsageRecordGroup;
+  "group"?: UsageRecordGroup;
   /** Time-based grouping that UsageRecords should be aggregated by. Can be: `hour`, `day`, or `all`. Default is `all`. `all` returns one UsageRecord that describes the usage for the entire period. */
-  granularity?: UsageRecordGranularity;
+  "granularity"?: UsageRecordGranularity;
   /** Only include usage that occurred at or after this time, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. Default is one month before the `end_time`. */
-  startTime?: Date;
+  "startTime"?: Date;
   /** Only include usage that occurred before this time (exclusive), specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. Default is the current time. */
-  endTime?: Date;
+  "endTime"?: Date;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
@@ -85,35 +87,41 @@ export interface UsageRecordListInstanceOptions {
  */
 export interface UsageRecordListInstancePageOptions {
   /** SID or unique name of a Sim resource. Only show UsageRecords representing usage incurred by this Super SIM. */
-  sim?: string;
+  "sim"?: string;
   /** SID or unique name of a Fleet resource. Only show UsageRecords representing usage for Super SIMs belonging to this Fleet resource at the time the usage occurred. */
-  fleet?: string;
+  "fleet"?: string;
   /** SID of a Network resource. Only show UsageRecords representing usage on this network. */
-  network?: string;
+  "network"?: string;
   /** Alpha-2 ISO Country Code. Only show UsageRecords representing usage in this country. */
-  isoCountry?: string;
+  "isoCountry"?: string;
   /** Dimension over which to aggregate usage records. Can be: `sim`, `fleet`, `network`, `isoCountry`. Default is to not aggregate across any of these dimensions, UsageRecords will be aggregated into the time buckets described by the `Granularity` parameter. */
-  group?: UsageRecordGroup;
+  "group"?: UsageRecordGroup;
   /** Time-based grouping that UsageRecords should be aggregated by. Can be: `hour`, `day`, or `all`. Default is `all`. `all` returns one UsageRecord that describes the usage for the entire period. */
-  granularity?: UsageRecordGranularity;
+  "granularity"?: UsageRecordGranularity;
   /** Only include usage that occurred at or after this time, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. Default is one month before the `end_time`. */
-  startTime?: Date;
+  "startTime"?: Date;
   /** Only include usage that occurred before this time (exclusive), specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. Default is the current time. */
-  endTime?: Date;
+  "endTime"?: Date;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
   /** PageToken provided by the API */
   pageToken?: string;
 }
 
-export interface UsageRecordSolution {}
+
+
+export interface UsageRecordSolution {
+}
 
 export interface UsageRecordListInstance {
   _version: V1;
   _solution: UsageRecordSolution;
   _uri: string;
+
+
+
 
   /**
    * Streams UsageRecordInstance records from the API.
@@ -130,13 +138,8 @@ export interface UsageRecordListInstance {
    * @param { UsageRecordListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(
-    callback?: (item: UsageRecordInstance, done: (err?: Error) => void) => void
-  ): void;
-  each(
-    params: UsageRecordListInstanceEachOptions,
-    callback?: (item: UsageRecordInstance, done: (err?: Error) => void) => void
-  ): void;
+  each(callback?: (item: UsageRecordInstance, done: (err?: Error) => void) => void): void;
+  each(params: UsageRecordListInstanceEachOptions, callback?: (item: UsageRecordInstance, done: (err?: Error) => void) => void): void;
   /**
    * Retrieve a single target page of UsageRecordInstance records from the API.
    *
@@ -145,10 +148,7 @@ export interface UsageRecordListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(
-    targetUrl: string,
-    callback?: (error: Error | null, items: UsageRecordPage) => any
-  ): Promise<UsageRecordPage>;
+  getPage(targetUrl: string, callback?: (error: Error | null, items: UsageRecordPage) => any): Promise<UsageRecordPage>;
   /**
    * Lists UsageRecordInstance records from the API as a list.
    *
@@ -158,13 +158,8 @@ export interface UsageRecordListInstance {
    * @param { UsageRecordListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(
-    callback?: (error: Error | null, items: UsageRecordInstance[]) => any
-  ): Promise<UsageRecordInstance[]>;
-  list(
-    params: UsageRecordListInstanceOptions,
-    callback?: (error: Error | null, items: UsageRecordInstance[]) => any
-  ): Promise<UsageRecordInstance[]>;
+  list(callback?: (error: Error | null, items: UsageRecordInstance[]) => any): Promise<UsageRecordInstance[]>;
+  list(params: UsageRecordListInstanceOptions, callback?: (error: Error | null, items: UsageRecordInstance[]) => any): Promise<UsageRecordInstance[]>;
   /**
    * Retrieve a single page of UsageRecordInstance records from the API.
    *
@@ -176,13 +171,8 @@ export interface UsageRecordListInstance {
    * @param { UsageRecordListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(
-    callback?: (error: Error | null, items: UsageRecordPage) => any
-  ): Promise<UsageRecordPage>;
-  page(
-    params: UsageRecordListInstancePageOptions,
-    callback?: (error: Error | null, items: UsageRecordPage) => any
-  ): Promise<UsageRecordPage>;
+  page(callback?: (error: Error | null, items: UsageRecordPage) => any): Promise<UsageRecordPage>;
+  page(params: UsageRecordListInstancePageOptions, callback?: (error: Error | null, items: UsageRecordPage) => any): Promise<UsageRecordPage>;
 
   /**
    * Provide a user-friendly representation
@@ -195,15 +185,10 @@ export function UsageRecordListInstance(version: V1): UsageRecordListInstance {
   const instance = {} as UsageRecordListInstance;
 
   instance._version = version;
-  instance._solution = {};
+  instance._solution = {  };
   instance._uri = `/UsageRecords`;
 
-  instance.page = function page(
-    params?:
-      | UsageRecordListInstancePageOptions
-      | ((error: Error | null, items: UsageRecordPage) => any),
-    callback?: (error: Error | null, items: UsageRecordPage) => any
-  ): Promise<UsageRecordPage> {
+  instance.page = function page(params?: UsageRecordListInstancePageOptions | ((error: Error | null, items: UsageRecordPage) => any), callback?: (error: Error | null, items: UsageRecordPage) => any): Promise<UsageRecordPage> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -213,80 +198,66 @@ export function UsageRecordListInstance(version: V1): UsageRecordListInstance {
 
     let data: any = {};
 
-    if (params["sim"] !== undefined) data["Sim"] = params["sim"];
-    if (params["fleet"] !== undefined) data["Fleet"] = params["fleet"];
-    if (params["network"] !== undefined) data["Network"] = params["network"];
+        if (params["sim"] !== undefined)
+    data["Sim"] = params["sim"];
+    if (params["fleet"] !== undefined)
+    data["Fleet"] = params["fleet"];
+    if (params["network"] !== undefined)
+    data["Network"] = params["network"];
     if (params["isoCountry"] !== undefined)
-      data["IsoCountry"] = params["isoCountry"];
-    if (params["group"] !== undefined) data["Group"] = params["group"];
+    data["IsoCountry"] = params["isoCountry"];
+    if (params["group"] !== undefined)
+    data["Group"] = params["group"];
     if (params["granularity"] !== undefined)
-      data["Granularity"] = params["granularity"];
+    data["Granularity"] = params["granularity"];
     if (params["startTime"] !== undefined)
-      data["StartTime"] = serialize.iso8601DateTime(params["startTime"]);
+    data["StartTime"] = serialize.iso8601DateTime(params["startTime"]);
     if (params["endTime"] !== undefined)
-      data["EndTime"] = serialize.iso8601DateTime(params["endTime"]);
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+    data["EndTime"] = serialize.iso8601DateTime(params["endTime"]);
+    if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
 
+    
+    
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-      operationPromise = operationVersion.page({
-        uri: instance._uri,
-        method: "get",
-        params: data,
-        headers,
-      });
+        operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers });
+    
+    operationPromise = operationPromise.then(payload => new UsageRecordPage(operationVersion, payload, instance._solution));
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new UsageRecordPage(operationVersion, payload, instance._solution)
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
+
+  }
   instance.each = instance._version.each;
   instance.list = instance._version.list;
 
-  instance.getPage = function getPage(
-    targetUrl: string,
-    callback?: (error: Error | null, items: UsageRecordPage) => any
-  ): Promise<UsageRecordPage> {
-    const operationPromise = instance._version._domain.twilio.request({
-      method: "get",
-      uri: targetUrl,
-    });
+  instance.getPage = function getPage(targetUrl: string, callback?: (error: Error | null, items: UsageRecordPage) => any): Promise<UsageRecordPage> {
+    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
 
-    let pagePromise = operationPromise.then(
-      (payload) =>
-        new UsageRecordPage(instance._version, payload, instance._solution)
-    );
+    let pagePromise = operationPromise.then(payload => new UsageRecordPage(instance._version, payload, instance._solution));
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  };
+  }
+
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  };
+  }
 
-  instance[inspect.custom] = function inspectImpl(
-    _depth: any,
-    options: InspectOptions
-  ) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(instance.toJSON(), options);
-  };
+  }
 
   return instance;
 }
 
 interface UsageRecordPayload extends TwilioResponsePayload {
-  usage_records: UsageRecordResource[];
+    usage_records: UsageRecordResource[];
 }
 
 interface UsageRecordResource {
@@ -304,18 +275,20 @@ interface UsageRecordResource {
 }
 
 export class UsageRecordInstance {
+
   constructor(protected _version: V1, payload: UsageRecordResource) {
-    this.accountSid = payload.account_sid;
-    this.simSid = payload.sim_sid;
-    this.networkSid = payload.network_sid;
-    this.fleetSid = payload.fleet_sid;
-    this.isoCountry = payload.iso_country;
-    this.period = payload.period;
-    this.dataUpload = payload.data_upload;
-    this.dataDownload = payload.data_download;
-    this.dataTotal = payload.data_total;
-    this.dataTotalBilled = payload.data_total_billed;
-    this.billedUnit = payload.billed_unit;
+    this.accountSid = (payload.account_sid);
+    this.simSid = (payload.sim_sid);
+    this.networkSid = (payload.network_sid);
+    this.fleetSid = (payload.fleet_sid);
+    this.isoCountry = (payload.iso_country);
+    this.period = (payload.period);
+    this.dataUpload = (payload.data_upload);
+    this.dataDownload = (payload.data_download);
+    this.dataTotal = (payload.data_total);
+    this.dataTotalBilled = (payload.data_total_billed);
+    this.billedUnit = (payload.billed_unit);
+
   }
 
   /**
@@ -381,7 +354,7 @@ export class UsageRecordInstance {
       dataTotal: this.dataTotal,
       dataTotalBilled: this.dataTotalBilled,
       billedUnit: this.billedUnit,
-    };
+    }
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
@@ -389,37 +362,32 @@ export class UsageRecordInstance {
   }
 }
 
-export class UsageRecordPage extends Page<
-  V1,
-  UsageRecordPayload,
-  UsageRecordResource,
-  UsageRecordInstance
-> {
-  /**
-   * Initialize the UsageRecordPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(
-    version: V1,
-    response: Response<string>,
-    solution: UsageRecordSolution
-  ) {
+export class UsageRecordPage extends Page<V1, UsageRecordPayload, UsageRecordResource, UsageRecordInstance> {
+/**
+* Initialize the UsageRecordPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V1, response: Response<string>, solution: UsageRecordSolution) {
     super(version, response, solution);
-  }
+    }
 
-  /**
-   * Build an instance of UsageRecordInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: UsageRecordResource): UsageRecordInstance {
-    return new UsageRecordInstance(this._version, payload);
-  }
+    /**
+    * Build an instance of UsageRecordInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: UsageRecordResource): UsageRecordInstance {
+    return new UsageRecordInstance(
+    this._version,
+    payload,
+    );
+    }
 
-  [inspect.custom](depth: any, options: InspectOptions) {
+    [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-  }
-}
+    }
+    }
+

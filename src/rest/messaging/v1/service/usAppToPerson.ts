@@ -12,6 +12,7 @@
  * Do not edit the class manually.
  */
 
+
 import { inspect, InspectOptions } from "util";
 import Page, { TwilioResponsePayload } from "../../../../base/Page";
 import Response from "../../../../http/response";
@@ -20,24 +21,28 @@ const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
 
+
+
+
+
 /**
  * Options to pass to update a UsAppToPersonInstance
  */
 export interface UsAppToPersonContextUpdateOptions {
   /** Indicates that this SMS campaign will send messages that contain links. */
-  hasEmbeddedLinks: boolean;
+  "hasEmbeddedLinks": boolean;
   /** Indicates that this SMS campaign will send messages that contain phone numbers. */
-  hasEmbeddedPhone: boolean;
+  "hasEmbeddedPhone": boolean;
   /** An array of sample message strings, min two and max five. Min length for each sample: 20 chars. Max length for each sample: 1024 chars. */
-  messageSamples: Array<string>;
+  "messageSamples": Array<string>;
   /** Required for all Campaigns. Details around how a consumer opts-in to their campaign, therefore giving consent to receive their messages. If multiple opt-in methods can be used for the same campaign, they must all be listed. 40 character minimum. 2048 character maximum. */
-  messageFlow: string;
+  "messageFlow": string;
   /** A short description of what this SMS campaign does. Min length: 40 characters. Max length: 4096 characters. */
-  description: string;
+  "description": string;
   /** A boolean that specifies whether campaign requires age gate for federally legal content. */
-  ageGated: boolean;
+  "ageGated": boolean;
   /** A boolean that specifies whether campaign allows direct lending or not. */
-  directLending: boolean;
+  "directLending": boolean;
 }
 
 /**
@@ -45,44 +50,44 @@ export interface UsAppToPersonContextUpdateOptions {
  */
 export interface UsAppToPersonListInstanceCreateOptions {
   /** A2P Brand Registration SID */
-  brandRegistrationSid: string;
+  "brandRegistrationSid": string;
   /** A short description of what this SMS campaign does. Min length: 40 characters. Max length: 4096 characters. */
-  description: string;
+  "description": string;
   /** Required for all Campaigns. Details around how a consumer opts-in to their campaign, therefore giving consent to receive their messages. If multiple opt-in methods can be used for the same campaign, they must all be listed. 40 character minimum. 2048 character maximum. */
-  messageFlow: string;
+  "messageFlow": string;
   /** An array of sample message strings, min two and max five. Min length for each sample: 20 chars. Max length for each sample: 1024 chars. */
-  messageSamples: Array<string>;
+  "messageSamples": Array<string>;
   /** A2P Campaign Use Case. Examples: [ 2FA, EMERGENCY, MARKETING..] */
-  usAppToPersonUsecase: string;
+  "usAppToPersonUsecase": string;
   /** Indicates that this SMS campaign will send messages that contain links. */
-  hasEmbeddedLinks: boolean;
+  "hasEmbeddedLinks": boolean;
   /** Indicates that this SMS campaign will send messages that contain phone numbers. */
-  hasEmbeddedPhone: boolean;
+  "hasEmbeddedPhone": boolean;
   /** If end users can text in a keyword to start receiving messages from this campaign, the auto-reply messages sent to the end users must be provided. The opt-in response should include the Brand name, confirmation of opt-in enrollment to a recurring message campaign, how to get help, and clear description of how to opt-out. This field is required if end users can text in a keyword to start receiving messages from this campaign. 20 character minimum. 320 character maximum. */
-  optInMessage?: string;
+  "optInMessage"?: string;
   /** Upon receiving the opt-out keywords from the end users, Twilio customers are expected to send back an auto-generated response, which must provide acknowledgment of the opt-out request and confirmation that no further messages will be sent. It is also recommended that these opt-out messages include the brand name. This field is required if managing opt out keywords yourself (i.e. not using Twilio\\\'s Default or Advanced Opt Out features). 20 character minimum. 320 character maximum. */
-  optOutMessage?: string;
+  "optOutMessage"?: string;
   /** When customers receive the help keywords from their end users, Twilio customers are expected to send back an auto-generated response; this may include the brand name and additional support contact information. This field is required if managing help keywords yourself (i.e. not using Twilio\\\'s Default or Advanced Opt Out features). 20 character minimum. 320 character maximum. */
-  helpMessage?: string;
+  "helpMessage"?: string;
   /** If end users can text in a keyword to start receiving messages from this campaign, those keywords must be provided. This field is required if end users can text in a keyword to start receiving messages from this campaign. Values must be alphanumeric. 255 character maximum. */
-  optInKeywords?: Array<string>;
+  "optInKeywords"?: Array<string>;
   /** End users should be able to text in a keyword to stop receiving messages from this campaign. Those keywords must be provided. This field is required if managing opt out keywords yourself (i.e. not using Twilio\\\'s Default or Advanced Opt Out features). Values must be alphanumeric. 255 character maximum. */
-  optOutKeywords?: Array<string>;
+  "optOutKeywords"?: Array<string>;
   /** End users should be able to text in a keyword to receive help. Those keywords must be provided as part of the campaign registration request. This field is required if managing help keywords yourself (i.e. not using Twilio\\\'s Default or Advanced Opt Out features). Values must be alphanumeric. 255 character maximum. */
-  helpKeywords?: Array<string>;
+  "helpKeywords"?: Array<string>;
   /** A boolean that specifies whether campaign has Subscriber Optin or not. */
-  subscriberOptIn?: boolean;
+  "subscriberOptIn"?: boolean;
   /** A boolean that specifies whether campaign is age gated or not. */
-  ageGated?: boolean;
+  "ageGated"?: boolean;
   /** A boolean that specifies whether campaign allows direct lending or not. */
-  directLending?: boolean;
+  "directLending"?: boolean;
 }
 /**
  * Options to pass to each
  */
 export interface UsAppToPersonListInstanceEachOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: UsAppToPersonInstance, done: (err?: Error) => void) => void;
   /** Function to be called upon completion of streaming */
@@ -96,7 +101,7 @@ export interface UsAppToPersonListInstanceEachOptions {
  */
 export interface UsAppToPersonListInstanceOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
@@ -106,14 +111,16 @@ export interface UsAppToPersonListInstanceOptions {
  */
 export interface UsAppToPersonListInstancePageOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
   /** PageToken provided by the API */
   pageToken?: string;
 }
 
+
 export interface UsAppToPersonContext {
+
   /**
    * Remove a UsAppToPersonInstance
    *
@@ -121,9 +128,7 @@ export interface UsAppToPersonContext {
    *
    * @returns Resolves to processed boolean
    */
-  remove(
-    callback?: (error: Error | null, item?: boolean) => any
-  ): Promise<boolean>;
+  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
 
   /**
    * Fetch a UsAppToPersonInstance
@@ -132,9 +137,7 @@ export interface UsAppToPersonContext {
    *
    * @returns Resolves to processed UsAppToPersonInstance
    */
-  fetch(
-    callback?: (error: Error | null, item?: UsAppToPersonInstance) => any
-  ): Promise<UsAppToPersonInstance>;
+  fetch(callback?: (error: Error | null, item?: UsAppToPersonInstance) => any): Promise<UsAppToPersonInstance>
 
   /**
    * Update a UsAppToPersonInstance
@@ -144,10 +147,9 @@ export interface UsAppToPersonContext {
    *
    * @returns Resolves to processed UsAppToPersonInstance
    */
-  update(
-    params: UsAppToPersonContextUpdateOptions,
-    callback?: (error: Error | null, item?: UsAppToPersonInstance) => any
-  ): Promise<UsAppToPersonInstance>;
+  update(params: UsAppToPersonContextUpdateOptions, callback?: (error: Error | null, item?: UsAppToPersonInstance) => any): Promise<UsAppToPersonInstance>;
+
+
 
   /**
    * Provide a user-friendly representation
@@ -157,177 +159,123 @@ export interface UsAppToPersonContext {
 }
 
 export interface UsAppToPersonContextSolution {
-  messagingServiceSid: string;
-  sid: string;
+  "messagingServiceSid": string;
+  "sid": string;
 }
 
 export class UsAppToPersonContextImpl implements UsAppToPersonContext {
   protected _solution: UsAppToPersonContextSolution;
   protected _uri: string;
 
-  constructor(
-    protected _version: V1,
-    messagingServiceSid: string,
-    sid: string
-  ) {
+
+  constructor(protected _version: V1, messagingServiceSid: string, sid: string) {
     if (!isValidPathParam(messagingServiceSid)) {
-      throw new Error("Parameter 'messagingServiceSid' is not valid.");
+      throw new Error('Parameter \'messagingServiceSid\' is not valid.');
     }
 
     if (!isValidPathParam(sid)) {
-      throw new Error("Parameter 'sid' is not valid.");
+      throw new Error('Parameter \'sid\' is not valid.');
     }
 
-    this._solution = { messagingServiceSid, sid };
+    this._solution = { messagingServiceSid, sid,  };
     this._uri = `/Services/${messagingServiceSid}/Compliance/Usa2p/${sid}`;
   }
 
-  remove(
-    callback?: (error: Error | null, item?: boolean) => any
-  ): Promise<boolean> {
+  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean> {
+  
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.remove({
-        uri: instance._uri,
-        method: "delete",
-      });
+        operationPromise = operationVersion.remove({ uri: instance._uri, method: "delete" });
+    
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
-  fetch(
-    callback?: (error: Error | null, item?: UsAppToPersonInstance) => any
-  ): Promise<UsAppToPersonInstance> {
+  fetch(callback?: (error: Error | null, item?: UsAppToPersonInstance) => any): Promise<UsAppToPersonInstance> {
+  
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.fetch({
-        uri: instance._uri,
-        method: "get",
-      });
+        operationPromise = operationVersion.fetch({ uri: instance._uri, method: "get" });
+    
+    operationPromise = operationPromise.then(payload => new UsAppToPersonInstance(operationVersion, payload, instance._solution.messagingServiceSid, instance._solution.sid));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new UsAppToPersonInstance(
-          operationVersion,
-          payload,
-          instance._solution.messagingServiceSid,
-          instance._solution.sid
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
-  update(
-    params: UsAppToPersonContextUpdateOptions,
-    callback?: (error: Error | null, item?: UsAppToPersonInstance) => any
-  ): Promise<UsAppToPersonInstance> {
-    if (params === null || params === undefined) {
+  update(params: UsAppToPersonContextUpdateOptions, callback?: (error: Error | null, item?: UsAppToPersonInstance) => any): Promise<UsAppToPersonInstance> {
+      if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (
-      params["hasEmbeddedLinks"] === null ||
-      params["hasEmbeddedLinks"] === undefined
-    ) {
-      throw new Error(
-        "Required parameter \"params['hasEmbeddedLinks']\" missing."
-      );
+    if (params["hasEmbeddedLinks"] === null || params["hasEmbeddedLinks"] === undefined) {
+      throw new Error('Required parameter "params[\'hasEmbeddedLinks\']" missing.');
     }
 
-    if (
-      params["hasEmbeddedPhone"] === null ||
-      params["hasEmbeddedPhone"] === undefined
-    ) {
-      throw new Error(
-        "Required parameter \"params['hasEmbeddedPhone']\" missing."
-      );
+    if (params["hasEmbeddedPhone"] === null || params["hasEmbeddedPhone"] === undefined) {
+      throw new Error('Required parameter "params[\'hasEmbeddedPhone\']" missing.');
     }
 
-    if (
-      params["messageSamples"] === null ||
-      params["messageSamples"] === undefined
-    ) {
-      throw new Error(
-        "Required parameter \"params['messageSamples']\" missing."
-      );
+    if (params["messageSamples"] === null || params["messageSamples"] === undefined) {
+      throw new Error('Required parameter "params[\'messageSamples\']" missing.');
     }
 
     if (params["messageFlow"] === null || params["messageFlow"] === undefined) {
-      throw new Error("Required parameter \"params['messageFlow']\" missing.");
+      throw new Error('Required parameter "params[\'messageFlow\']" missing.');
     }
 
     if (params["description"] === null || params["description"] === undefined) {
-      throw new Error("Required parameter \"params['description']\" missing.");
+      throw new Error('Required parameter "params[\'description\']" missing.');
     }
 
     if (params["ageGated"] === null || params["ageGated"] === undefined) {
-      throw new Error("Required parameter \"params['ageGated']\" missing.");
+      throw new Error('Required parameter "params[\'ageGated\']" missing.');
     }
 
-    if (
-      params["directLending"] === null ||
-      params["directLending"] === undefined
-    ) {
-      throw new Error(
-        "Required parameter \"params['directLending']\" missing."
-      );
+    if (params["directLending"] === null || params["directLending"] === undefined) {
+      throw new Error('Required parameter "params[\'directLending\']" missing.');
     }
 
     let data: any = {};
 
+    
+        
     data["HasEmbeddedLinks"] = serialize.bool(params["hasEmbeddedLinks"]);
-
+    
     data["HasEmbeddedPhone"] = serialize.bool(params["hasEmbeddedPhone"]);
-
-    data["MessageSamples"] = serialize.map(
-      params["messageSamples"],
-      (e: string) => e
-    );
-
+    
+    data["MessageSamples"] = serialize.map(params["messageSamples"], (e: string) => (e));
+    
     data["MessageFlow"] = params["messageFlow"];
-
+    
     data["Description"] = params["description"];
-
+    
     data["AgeGated"] = serialize.bool(params["ageGated"]);
-
+    
     data["DirectLending"] = serialize.bool(params["directLending"]);
 
+    
+
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.update({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      });
+        operationPromise = operationVersion.update({ uri: instance._uri, method: "post", data, headers });
+    
+    operationPromise = operationPromise.then(payload => new UsAppToPersonInstance(operationVersion, payload, instance._solution.messagingServiceSid, instance._solution.sid));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new UsAppToPersonInstance(
-          operationVersion,
-          payload,
-          instance._solution.messagingServiceSid,
-          instance._solution.sid
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
   /**
@@ -344,8 +292,9 @@ export class UsAppToPersonContextImpl implements UsAppToPersonContext {
   }
 }
 
+
 interface UsAppToPersonPayload extends TwilioResponsePayload {
-  compliance: UsAppToPersonResource[];
+    compliance: UsAppToPersonResource[];
 }
 
 interface UsAppToPersonResource {
@@ -383,42 +332,37 @@ export class UsAppToPersonInstance {
   protected _solution: UsAppToPersonContextSolution;
   protected _context?: UsAppToPersonContext;
 
-  constructor(
-    protected _version: V1,
-    payload: UsAppToPersonResource,
-    messagingServiceSid: string,
-    sid?: string
-  ) {
-    this.sid = payload.sid;
-    this.accountSid = payload.account_sid;
-    this.brandRegistrationSid = payload.brand_registration_sid;
-    this.messagingServiceSid = payload.messaging_service_sid;
-    this.description = payload.description;
-    this.messageSamples = payload.message_samples;
-    this.usAppToPersonUsecase = payload.us_app_to_person_usecase;
-    this.hasEmbeddedLinks = payload.has_embedded_links;
-    this.hasEmbeddedPhone = payload.has_embedded_phone;
-    this.subscriberOptIn = payload.subscriber_opt_in;
-    this.ageGated = payload.age_gated;
-    this.directLending = payload.direct_lending;
-    this.campaignStatus = payload.campaign_status;
-    this.campaignId = payload.campaign_id;
-    this.isExternallyRegistered = payload.is_externally_registered;
-    this.rateLimits = payload.rate_limits;
-    this.messageFlow = payload.message_flow;
-    this.optInMessage = payload.opt_in_message;
-    this.optOutMessage = payload.opt_out_message;
-    this.helpMessage = payload.help_message;
-    this.optInKeywords = payload.opt_in_keywords;
-    this.optOutKeywords = payload.opt_out_keywords;
-    this.helpKeywords = payload.help_keywords;
+  constructor(protected _version: V1, payload: UsAppToPersonResource, messagingServiceSid: string, sid?: string) {
+    this.sid = (payload.sid);
+    this.accountSid = (payload.account_sid);
+    this.brandRegistrationSid = (payload.brand_registration_sid);
+    this.messagingServiceSid = (payload.messaging_service_sid);
+    this.description = (payload.description);
+    this.messageSamples = (payload.message_samples);
+    this.usAppToPersonUsecase = (payload.us_app_to_person_usecase);
+    this.hasEmbeddedLinks = (payload.has_embedded_links);
+    this.hasEmbeddedPhone = (payload.has_embedded_phone);
+    this.subscriberOptIn = (payload.subscriber_opt_in);
+    this.ageGated = (payload.age_gated);
+    this.directLending = (payload.direct_lending);
+    this.campaignStatus = (payload.campaign_status);
+    this.campaignId = (payload.campaign_id);
+    this.isExternallyRegistered = (payload.is_externally_registered);
+    this.rateLimits = (payload.rate_limits);
+    this.messageFlow = (payload.message_flow);
+    this.optInMessage = (payload.opt_in_message);
+    this.optOutMessage = (payload.opt_out_message);
+    this.helpMessage = (payload.help_message);
+    this.optInKeywords = (payload.opt_in_keywords);
+    this.optOutKeywords = (payload.opt_out_keywords);
+    this.helpKeywords = (payload.help_keywords);
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
-    this.url = payload.url;
-    this.mock = payload.mock;
-    this.errors = payload.errors;
+    this.url = (payload.url);
+    this.mock = (payload.mock);
+    this.errors = (payload.errors);
 
-    this._solution = { messagingServiceSid, sid: sid || this.sid };
+    this._solution = { messagingServiceSid, sid: sid || this.sid,  };
   }
 
   /**
@@ -535,13 +479,7 @@ export class UsAppToPersonInstance {
   errors: Array<any>;
 
   private get _proxy(): UsAppToPersonContext {
-    this._context =
-      this._context ||
-      new UsAppToPersonContextImpl(
-        this._version,
-        this._solution.messagingServiceSid,
-        this._solution.sid
-      );
+    this._context = this._context || new UsAppToPersonContextImpl(this._version, this._solution.messagingServiceSid, this._solution.sid);
     return this._context;
   }
 
@@ -552,9 +490,9 @@ export class UsAppToPersonInstance {
    *
    * @returns Resolves to processed boolean
    */
-  remove(
-    callback?: (error: Error | null, item?: boolean) => any
-  ): Promise<boolean> {
+  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
+
+    {
     return this._proxy.remove(callback);
   }
 
@@ -565,9 +503,9 @@ export class UsAppToPersonInstance {
    *
    * @returns Resolves to processed UsAppToPersonInstance
    */
-  fetch(
-    callback?: (error: Error | null, item?: UsAppToPersonInstance) => any
-  ): Promise<UsAppToPersonInstance> {
+  fetch(callback?: (error: Error | null, item?: UsAppToPersonInstance) => any): Promise<UsAppToPersonInstance>
+
+    {
     return this._proxy.fetch(callback);
   }
 
@@ -579,15 +517,10 @@ export class UsAppToPersonInstance {
    *
    * @returns Resolves to processed UsAppToPersonInstance
    */
-  update(
-    params: UsAppToPersonContextUpdateOptions,
-    callback?: (error: Error | null, item?: UsAppToPersonInstance) => any
-  ): Promise<UsAppToPersonInstance>;
+  update(params: UsAppToPersonContextUpdateOptions, callback?: (error: Error | null, item?: UsAppToPersonInstance) => any): Promise<UsAppToPersonInstance>;
 
-  update(
-    params?: any,
-    callback?: (error: Error | null, item?: UsAppToPersonInstance) => any
-  ): Promise<UsAppToPersonInstance> {
+    update(params?: any, callback?: (error: Error | null, item?: UsAppToPersonInstance) => any): Promise<UsAppToPersonInstance>
+    {
     return this._proxy.update(params, callback);
   }
 
@@ -626,13 +559,14 @@ export class UsAppToPersonInstance {
       url: this.url,
       mock: this.mock,
       errors: this.errors,
-    };
+    }
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
 }
+
 
 export interface UsAppToPersonSolution {
   messagingServiceSid: string;
@@ -643,8 +577,15 @@ export interface UsAppToPersonListInstance {
   _solution: UsAppToPersonSolution;
   _uri: string;
 
-  (sid: string): UsAppToPersonContext;
-  get(sid: string): UsAppToPersonContext;
+  (sid: string, ): UsAppToPersonContext;
+  get(sid: string, ): UsAppToPersonContext;
+
+
+
+
+
+
+
 
   /**
    * Create a UsAppToPersonInstance
@@ -654,10 +595,9 @@ export interface UsAppToPersonListInstance {
    *
    * @returns Resolves to processed UsAppToPersonInstance
    */
-  create(
-    params: UsAppToPersonListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: UsAppToPersonInstance) => any
-  ): Promise<UsAppToPersonInstance>;
+  create(params: UsAppToPersonListInstanceCreateOptions, callback?: (error: Error | null, item?: UsAppToPersonInstance) => any): Promise<UsAppToPersonInstance>;
+
+
 
   /**
    * Streams UsAppToPersonInstance records from the API.
@@ -674,19 +614,8 @@ export interface UsAppToPersonListInstance {
    * @param { UsAppToPersonListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(
-    callback?: (
-      item: UsAppToPersonInstance,
-      done: (err?: Error) => void
-    ) => void
-  ): void;
-  each(
-    params: UsAppToPersonListInstanceEachOptions,
-    callback?: (
-      item: UsAppToPersonInstance,
-      done: (err?: Error) => void
-    ) => void
-  ): void;
+  each(callback?: (item: UsAppToPersonInstance, done: (err?: Error) => void) => void): void;
+  each(params: UsAppToPersonListInstanceEachOptions, callback?: (item: UsAppToPersonInstance, done: (err?: Error) => void) => void): void;
   /**
    * Retrieve a single target page of UsAppToPersonInstance records from the API.
    *
@@ -695,10 +624,7 @@ export interface UsAppToPersonListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(
-    targetUrl: string,
-    callback?: (error: Error | null, items: UsAppToPersonPage) => any
-  ): Promise<UsAppToPersonPage>;
+  getPage(targetUrl: string, callback?: (error: Error | null, items: UsAppToPersonPage) => any): Promise<UsAppToPersonPage>;
   /**
    * Lists UsAppToPersonInstance records from the API as a list.
    *
@@ -708,13 +634,8 @@ export interface UsAppToPersonListInstance {
    * @param { UsAppToPersonListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(
-    callback?: (error: Error | null, items: UsAppToPersonInstance[]) => any
-  ): Promise<UsAppToPersonInstance[]>;
-  list(
-    params: UsAppToPersonListInstanceOptions,
-    callback?: (error: Error | null, items: UsAppToPersonInstance[]) => any
-  ): Promise<UsAppToPersonInstance[]>;
+  list(callback?: (error: Error | null, items: UsAppToPersonInstance[]) => any): Promise<UsAppToPersonInstance[]>;
+  list(params: UsAppToPersonListInstanceOptions, callback?: (error: Error | null, items: UsAppToPersonInstance[]) => any): Promise<UsAppToPersonInstance[]>;
   /**
    * Retrieve a single page of UsAppToPersonInstance records from the API.
    *
@@ -726,13 +647,8 @@ export interface UsAppToPersonListInstance {
    * @param { UsAppToPersonListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(
-    callback?: (error: Error | null, items: UsAppToPersonPage) => any
-  ): Promise<UsAppToPersonPage>;
-  page(
-    params: UsAppToPersonListInstancePageOptions,
-    callback?: (error: Error | null, items: UsAppToPersonPage) => any
-  ): Promise<UsAppToPersonPage>;
+  page(callback?: (error: Error | null, items: UsAppToPersonPage) => any): Promise<UsAppToPersonPage>;
+  page(params: UsAppToPersonListInstancePageOptions, callback?: (error: Error | null, items: UsAppToPersonPage) => any): Promise<UsAppToPersonPage>;
 
   /**
    * Provide a user-friendly representation
@@ -741,164 +657,108 @@ export interface UsAppToPersonListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function UsAppToPersonListInstance(
-  version: V1,
-  messagingServiceSid: string
-): UsAppToPersonListInstance {
+export function UsAppToPersonListInstance(version: V1, messagingServiceSid: string): UsAppToPersonListInstance {
   if (!isValidPathParam(messagingServiceSid)) {
-    throw new Error("Parameter 'messagingServiceSid' is not valid.");
+    throw new Error('Parameter \'messagingServiceSid\' is not valid.');
   }
 
-  const instance = ((sid) => instance.get(sid)) as UsAppToPersonListInstance;
+  const instance = ((sid, ) => instance.get(sid, )) as UsAppToPersonListInstance;
 
-  instance.get = function get(sid): UsAppToPersonContext {
+  instance.get = function get(sid, ): UsAppToPersonContext {
     return new UsAppToPersonContextImpl(version, messagingServiceSid, sid);
-  };
+  }
 
   instance._version = version;
-  instance._solution = { messagingServiceSid };
+  instance._solution = { messagingServiceSid,  };
   instance._uri = `/Services/${messagingServiceSid}/Compliance/Usa2p`;
 
-  instance.create = function create(
-    params: UsAppToPersonListInstanceCreateOptions,
-    callback?: (error: Error | null, items: UsAppToPersonInstance) => any
-  ): Promise<UsAppToPersonInstance> {
+  instance.create = function create(params: UsAppToPersonListInstanceCreateOptions, callback?: (error: Error | null, items: UsAppToPersonInstance) => any): Promise<UsAppToPersonInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (
-      params["brandRegistrationSid"] === null ||
-      params["brandRegistrationSid"] === undefined
-    ) {
-      throw new Error(
-        "Required parameter \"params['brandRegistrationSid']\" missing."
-      );
+    if (params["brandRegistrationSid"] === null || params["brandRegistrationSid"] === undefined) {
+      throw new Error('Required parameter "params[\'brandRegistrationSid\']" missing.');
     }
 
     if (params["description"] === null || params["description"] === undefined) {
-      throw new Error("Required parameter \"params['description']\" missing.");
+      throw new Error('Required parameter "params[\'description\']" missing.');
     }
 
     if (params["messageFlow"] === null || params["messageFlow"] === undefined) {
-      throw new Error("Required parameter \"params['messageFlow']\" missing.");
+      throw new Error('Required parameter "params[\'messageFlow\']" missing.');
     }
 
-    if (
-      params["messageSamples"] === null ||
-      params["messageSamples"] === undefined
-    ) {
-      throw new Error(
-        "Required parameter \"params['messageSamples']\" missing."
-      );
+    if (params["messageSamples"] === null || params["messageSamples"] === undefined) {
+      throw new Error('Required parameter "params[\'messageSamples\']" missing.');
     }
 
-    if (
-      params["usAppToPersonUsecase"] === null ||
-      params["usAppToPersonUsecase"] === undefined
-    ) {
-      throw new Error(
-        "Required parameter \"params['usAppToPersonUsecase']\" missing."
-      );
+    if (params["usAppToPersonUsecase"] === null || params["usAppToPersonUsecase"] === undefined) {
+      throw new Error('Required parameter "params[\'usAppToPersonUsecase\']" missing.');
     }
 
-    if (
-      params["hasEmbeddedLinks"] === null ||
-      params["hasEmbeddedLinks"] === undefined
-    ) {
-      throw new Error(
-        "Required parameter \"params['hasEmbeddedLinks']\" missing."
-      );
+    if (params["hasEmbeddedLinks"] === null || params["hasEmbeddedLinks"] === undefined) {
+      throw new Error('Required parameter "params[\'hasEmbeddedLinks\']" missing.');
     }
 
-    if (
-      params["hasEmbeddedPhone"] === null ||
-      params["hasEmbeddedPhone"] === undefined
-    ) {
-      throw new Error(
-        "Required parameter \"params['hasEmbeddedPhone']\" missing."
-      );
+    if (params["hasEmbeddedPhone"] === null || params["hasEmbeddedPhone"] === undefined) {
+      throw new Error('Required parameter "params[\'hasEmbeddedPhone\']" missing.');
     }
 
     let data: any = {};
 
+    
+        
     data["BrandRegistrationSid"] = params["brandRegistrationSid"];
-
+    
     data["Description"] = params["description"];
-
+    
     data["MessageFlow"] = params["messageFlow"];
-
-    data["MessageSamples"] = serialize.map(
-      params["messageSamples"],
-      (e: string) => e
-    );
-
+    
+    data["MessageSamples"] = serialize.map(params["messageSamples"], (e: string) => (e));
+    
     data["UsAppToPersonUsecase"] = params["usAppToPersonUsecase"];
-
+    
     data["HasEmbeddedLinks"] = serialize.bool(params["hasEmbeddedLinks"]);
-
+    
     data["HasEmbeddedPhone"] = serialize.bool(params["hasEmbeddedPhone"]);
     if (params["optInMessage"] !== undefined)
-      data["OptInMessage"] = params["optInMessage"];
+    data["OptInMessage"] = params["optInMessage"];
     if (params["optOutMessage"] !== undefined)
-      data["OptOutMessage"] = params["optOutMessage"];
+    data["OptOutMessage"] = params["optOutMessage"];
     if (params["helpMessage"] !== undefined)
-      data["HelpMessage"] = params["helpMessage"];
+    data["HelpMessage"] = params["helpMessage"];
     if (params["optInKeywords"] !== undefined)
-      data["OptInKeywords"] = serialize.map(
-        params["optInKeywords"],
-        (e: string) => e
-      );
+    data["OptInKeywords"] = serialize.map(params["optInKeywords"], (e: string) => (e));
     if (params["optOutKeywords"] !== undefined)
-      data["OptOutKeywords"] = serialize.map(
-        params["optOutKeywords"],
-        (e: string) => e
-      );
+    data["OptOutKeywords"] = serialize.map(params["optOutKeywords"], (e: string) => (e));
     if (params["helpKeywords"] !== undefined)
-      data["HelpKeywords"] = serialize.map(
-        params["helpKeywords"],
-        (e: string) => e
-      );
+    data["HelpKeywords"] = serialize.map(params["helpKeywords"], (e: string) => (e));
     if (params["subscriberOptIn"] !== undefined)
-      data["SubscriberOptIn"] = serialize.bool(params["subscriberOptIn"]);
+    data["SubscriberOptIn"] = serialize.bool(params["subscriberOptIn"]);
     if (params["ageGated"] !== undefined)
-      data["AgeGated"] = serialize.bool(params["ageGated"]);
+    data["AgeGated"] = serialize.bool(params["ageGated"]);
     if (params["directLending"] !== undefined)
-      data["DirectLending"] = serialize.bool(params["directLending"]);
+    data["DirectLending"] = serialize.bool(params["directLending"]);
+
+    
 
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = version,
-      operationPromise = operationVersion.create({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      });
+        operationPromise = operationVersion.create({ uri: instance._uri, method: "post", data, headers });
+    
+    operationPromise = operationPromise.then(payload => new UsAppToPersonInstance(operationVersion, payload, instance._solution.messagingServiceSid));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new UsAppToPersonInstance(
-          operationVersion,
-          payload,
-          instance._solution.messagingServiceSid
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
 
-  instance.page = function page(
-    params?:
-      | UsAppToPersonListInstancePageOptions
-      | ((error: Error | null, items: UsAppToPersonPage) => any),
-    callback?: (error: Error | null, items: UsAppToPersonPage) => any
-  ): Promise<UsAppToPersonPage> {
+
+    }
+
+  instance.page = function page(params?: UsAppToPersonListInstancePageOptions | ((error: Error | null, items: UsAppToPersonPage) => any), callback?: (error: Error | null, items: UsAppToPersonPage) => any): Promise<UsAppToPersonPage> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -908,101 +768,75 @@ export function UsAppToPersonListInstance(
 
     let data: any = {};
 
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
 
+    
+    
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-      operationPromise = operationVersion.page({
-        uri: instance._uri,
-        method: "get",
-        params: data,
-        headers,
-      });
+        operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers });
+    
+    operationPromise = operationPromise.then(payload => new UsAppToPersonPage(operationVersion, payload, instance._solution));
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new UsAppToPersonPage(operationVersion, payload, instance._solution)
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
+
+  }
   instance.each = instance._version.each;
   instance.list = instance._version.list;
 
-  instance.getPage = function getPage(
-    targetUrl: string,
-    callback?: (error: Error | null, items: UsAppToPersonPage) => any
-  ): Promise<UsAppToPersonPage> {
-    const operationPromise = instance._version._domain.twilio.request({
-      method: "get",
-      uri: targetUrl,
-    });
+  instance.getPage = function getPage(targetUrl: string, callback?: (error: Error | null, items: UsAppToPersonPage) => any): Promise<UsAppToPersonPage> {
+    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
 
-    let pagePromise = operationPromise.then(
-      (payload) =>
-        new UsAppToPersonPage(instance._version, payload, instance._solution)
-    );
+    let pagePromise = operationPromise.then(payload => new UsAppToPersonPage(instance._version, payload, instance._solution));
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  };
+  }
+
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  };
+  }
 
-  instance[inspect.custom] = function inspectImpl(
-    _depth: any,
-    options: InspectOptions
-  ) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(instance.toJSON(), options);
-  };
+  }
 
   return instance;
 }
 
-export class UsAppToPersonPage extends Page<
-  V1,
-  UsAppToPersonPayload,
-  UsAppToPersonResource,
-  UsAppToPersonInstance
-> {
-  /**
-   * Initialize the UsAppToPersonPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(
-    version: V1,
-    response: Response<string>,
-    solution: UsAppToPersonSolution
-  ) {
+export class UsAppToPersonPage extends Page<V1, UsAppToPersonPayload, UsAppToPersonResource, UsAppToPersonInstance> {
+/**
+* Initialize the UsAppToPersonPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V1, response: Response<string>, solution: UsAppToPersonSolution) {
     super(version, response, solution);
-  }
+    }
 
-  /**
-   * Build an instance of UsAppToPersonInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: UsAppToPersonResource): UsAppToPersonInstance {
+    /**
+    * Build an instance of UsAppToPersonInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: UsAppToPersonResource): UsAppToPersonInstance {
     return new UsAppToPersonInstance(
-      this._version,
-      payload,
-      this._solution.messagingServiceSid
+    this._version,
+    payload,
+        this._solution.messagingServiceSid,
     );
-  }
+    }
 
-  [inspect.custom](depth: any, options: InspectOptions) {
+    [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-  }
-}
+    }
+    }
+

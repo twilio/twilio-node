@@ -12,21 +12,25 @@
  * Do not edit the class manually.
  */
 
+
 import { inspect, InspectOptions } from "util";
 import V2010 from "../../../V2010";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
 
+
+
 /**
  * Options to pass to create a UserDefinedMessageInstance
  */
 export interface UserDefinedMessageListInstanceCreateOptions {
   /** The User Defined Message in the form of URL-encoded JSON string. */
-  content: string;
+  "content": string;
   /** A unique string value to identify API call. This should be a unique string value per API call and can be a randomly generated. */
-  idempotencyKey?: string;
+  "idempotencyKey"?: string;
 }
+
 
 export interface UserDefinedMessageSolution {
   accountSid: string;
@@ -38,6 +42,8 @@ export interface UserDefinedMessageListInstance {
   _solution: UserDefinedMessageSolution;
   _uri: string;
 
+
+
   /**
    * Create a UserDefinedMessageInstance
    *
@@ -46,10 +52,8 @@ export interface UserDefinedMessageListInstance {
    *
    * @returns Resolves to processed UserDefinedMessageInstance
    */
-  create(
-    params: UserDefinedMessageListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: UserDefinedMessageInstance) => any
-  ): Promise<UserDefinedMessageInstance>;
+  create(params: UserDefinedMessageListInstanceCreateOptions, callback?: (error: Error | null, item?: UserDefinedMessageInstance) => any): Promise<UserDefinedMessageInstance>;
+
 
   /**
    * Provide a user-friendly representation
@@ -58,81 +62,62 @@ export interface UserDefinedMessageListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function UserDefinedMessageListInstance(
-  version: V2010,
-  accountSid: string,
-  callSid: string
-): UserDefinedMessageListInstance {
+export function UserDefinedMessageListInstance(version: V2010, accountSid: string, callSid: string): UserDefinedMessageListInstance {
   if (!isValidPathParam(accountSid)) {
-    throw new Error("Parameter 'accountSid' is not valid.");
+    throw new Error('Parameter \'accountSid\' is not valid.');
   }
 
   if (!isValidPathParam(callSid)) {
-    throw new Error("Parameter 'callSid' is not valid.");
+    throw new Error('Parameter \'callSid\' is not valid.');
   }
 
   const instance = {} as UserDefinedMessageListInstance;
 
   instance._version = version;
-  instance._solution = { accountSid, callSid };
+  instance._solution = { accountSid, callSid,  };
   instance._uri = `/Accounts/${accountSid}/Calls/${callSid}/UserDefinedMessages.json`;
 
-  instance.create = function create(
-    params: UserDefinedMessageListInstanceCreateOptions,
-    callback?: (error: Error | null, items: UserDefinedMessageInstance) => any
-  ): Promise<UserDefinedMessageInstance> {
+  instance.create = function create(params: UserDefinedMessageListInstanceCreateOptions, callback?: (error: Error | null, items: UserDefinedMessageInstance) => any): Promise<UserDefinedMessageInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     if (params["content"] === null || params["content"] === undefined) {
-      throw new Error("Required parameter \"params['content']\" missing.");
+      throw new Error('Required parameter "params[\'content\']" missing.');
     }
 
     let data: any = {};
 
+    
+        
     data["Content"] = params["content"];
     if (params["idempotencyKey"] !== undefined)
-      data["IdempotencyKey"] = params["idempotencyKey"];
+    data["IdempotencyKey"] = params["idempotencyKey"];
+
+    
 
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = version,
-      operationPromise = operationVersion.create({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      });
+        operationPromise = operationVersion.create({ uri: instance._uri, method: "post", data, headers });
+    
+    operationPromise = operationPromise.then(payload => new UserDefinedMessageInstance(operationVersion, payload, instance._solution.accountSid, instance._solution.callSid));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new UserDefinedMessageInstance(
-          operationVersion,
-          payload,
-          instance._solution.accountSid,
-          instance._solution.callSid
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
+
+
+    }
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  };
+  }
 
-  instance[inspect.custom] = function inspectImpl(
-    _depth: any,
-    options: InspectOptions
-  ) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(instance.toJSON(), options);
-  };
+  }
 
   return instance;
 }
@@ -147,16 +132,13 @@ interface UserDefinedMessageResource {
 }
 
 export class UserDefinedMessageInstance {
-  constructor(
-    protected _version: V2010,
-    payload: UserDefinedMessageResource,
-    accountSid: string,
-    callSid: string
-  ) {
-    this.accountSid = payload.account_sid;
-    this.callSid = payload.call_sid;
-    this.sid = payload.sid;
+
+  constructor(protected _version: V2010, payload: UserDefinedMessageResource, accountSid: string, callSid: string) {
+    this.accountSid = (payload.account_sid);
+    this.callSid = (payload.call_sid);
+    this.sid = (payload.sid);
     this.dateCreated = deserialize.rfc2822DateTime(payload.date_created);
+
   }
 
   /**
@@ -187,10 +169,12 @@ export class UserDefinedMessageInstance {
       callSid: this.callSid,
       sid: this.sid,
       dateCreated: this.dateCreated,
-    };
+    }
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
 }
+
+

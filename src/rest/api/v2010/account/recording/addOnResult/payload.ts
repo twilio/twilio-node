@@ -12,6 +12,7 @@
  * Do not edit the class manually.
  */
 
+
 import { inspect, InspectOptions } from "util";
 import Page, { TwilioResponsePayload } from "../../../../../../base/Page";
 import Response from "../../../../../../http/response";
@@ -21,12 +22,15 @@ const serialize = require("../../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../../base/utility";
 import { DataListInstance } from "./payload/data";
 
+
+
+
 /**
  * Options to pass to each
  */
 export interface PayloadListInstanceEachOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: PayloadInstance, done: (err?: Error) => void) => void;
   /** Function to be called upon completion of streaming */
@@ -40,7 +44,7 @@ export interface PayloadListInstanceEachOptions {
  */
 export interface PayloadListInstanceOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
@@ -50,12 +54,13 @@ export interface PayloadListInstanceOptions {
  */
 export interface PayloadListInstancePageOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
   /** PageToken provided by the API */
   pageToken?: string;
 }
+
 
 export interface PayloadContext {
   data: DataListInstance;
@@ -67,9 +72,7 @@ export interface PayloadContext {
    *
    * @returns Resolves to processed boolean
    */
-  remove(
-    callback?: (error: Error | null, item?: boolean) => any
-  ): Promise<boolean>;
+  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
 
   /**
    * Fetch a PayloadInstance
@@ -78,9 +81,8 @@ export interface PayloadContext {
    *
    * @returns Resolves to processed PayloadInstance
    */
-  fetch(
-    callback?: (error: Error | null, item?: PayloadInstance) => any
-  ): Promise<PayloadInstance>;
+  fetch(callback?: (error: Error | null, item?: PayloadInstance) => any): Promise<PayloadInstance>
+
 
   /**
    * Provide a user-friendly representation
@@ -90,10 +92,10 @@ export interface PayloadContext {
 }
 
 export interface PayloadContextSolution {
-  accountSid: string;
-  referenceSid: string;
-  addOnResultSid: string;
-  sid: string;
+  "accountSid": string;
+  "referenceSid": string;
+  "addOnResultSid": string;
+  "sid": string;
 }
 
 export class PayloadContextImpl implements PayloadContext {
@@ -102,90 +104,58 @@ export class PayloadContextImpl implements PayloadContext {
 
   protected _data?: DataListInstance;
 
-  constructor(
-    protected _version: V2010,
-    accountSid: string,
-    referenceSid: string,
-    addOnResultSid: string,
-    sid: string
-  ) {
+  constructor(protected _version: V2010, accountSid: string, referenceSid: string, addOnResultSid: string, sid: string) {
     if (!isValidPathParam(accountSid)) {
-      throw new Error("Parameter 'accountSid' is not valid.");
+      throw new Error('Parameter \'accountSid\' is not valid.');
     }
 
     if (!isValidPathParam(referenceSid)) {
-      throw new Error("Parameter 'referenceSid' is not valid.");
+      throw new Error('Parameter \'referenceSid\' is not valid.');
     }
 
     if (!isValidPathParam(addOnResultSid)) {
-      throw new Error("Parameter 'addOnResultSid' is not valid.");
+      throw new Error('Parameter \'addOnResultSid\' is not valid.');
     }
 
     if (!isValidPathParam(sid)) {
-      throw new Error("Parameter 'sid' is not valid.");
+      throw new Error('Parameter \'sid\' is not valid.');
     }
 
-    this._solution = { accountSid, referenceSid, addOnResultSid, sid };
+    this._solution = { accountSid, referenceSid, addOnResultSid, sid,  };
     this._uri = `/Accounts/${accountSid}/Recordings/${referenceSid}/AddOnResults/${addOnResultSid}/Payloads/${sid}.json`;
   }
 
   get data(): DataListInstance {
-    this._data =
-      this._data ||
-      DataListInstance(
-        this._version,
-        this._solution.accountSid,
-        this._solution.referenceSid,
-        this._solution.addOnResultSid,
-        this._solution.sid
-      );
+    this._data = this._data || DataListInstance(this._version, this._solution.accountSid, this._solution.referenceSid, this._solution.addOnResultSid, this._solution.sid);
     return this._data;
   }
 
-  remove(
-    callback?: (error: Error | null, item?: boolean) => any
-  ): Promise<boolean> {
+  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean> {
+  
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.remove({
-        uri: instance._uri,
-        method: "delete",
-      });
+        operationPromise = operationVersion.remove({ uri: instance._uri, method: "delete" });
+    
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
-  fetch(
-    callback?: (error: Error | null, item?: PayloadInstance) => any
-  ): Promise<PayloadInstance> {
+  fetch(callback?: (error: Error | null, item?: PayloadInstance) => any): Promise<PayloadInstance> {
+  
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.fetch({
-        uri: instance._uri,
-        method: "get",
-      });
+        operationPromise = operationVersion.fetch({ uri: instance._uri, method: "get" });
+    
+    operationPromise = operationPromise.then(payload => new PayloadInstance(operationVersion, payload, instance._solution.accountSid, instance._solution.referenceSid, instance._solution.addOnResultSid, instance._solution.sid));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new PayloadInstance(
-          operationVersion,
-          payload,
-          instance._solution.accountSid,
-          instance._solution.referenceSid,
-          instance._solution.addOnResultSid,
-          instance._solution.sid
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
   /**
@@ -202,8 +172,9 @@ export class PayloadContextImpl implements PayloadContext {
   }
 }
 
+
 interface PayloadPayload extends TwilioResponsePayload {
-  payloads: PayloadResource[];
+    payloads: PayloadResource[];
 }
 
 interface PayloadResource {
@@ -224,32 +195,20 @@ export class PayloadInstance {
   protected _solution: PayloadContextSolution;
   protected _context?: PayloadContext;
 
-  constructor(
-    protected _version: V2010,
-    payload: PayloadResource,
-    accountSid: string,
-    referenceSid: string,
-    addOnResultSid: string,
-    sid?: string
-  ) {
-    this.sid = payload.sid;
-    this.addOnResultSid = payload.add_on_result_sid;
-    this.accountSid = payload.account_sid;
-    this.label = payload.label;
-    this.addOnSid = payload.add_on_sid;
-    this.addOnConfigurationSid = payload.add_on_configuration_sid;
-    this.contentType = payload.content_type;
+  constructor(protected _version: V2010, payload: PayloadResource, accountSid: string, referenceSid: string, addOnResultSid: string, sid?: string) {
+    this.sid = (payload.sid);
+    this.addOnResultSid = (payload.add_on_result_sid);
+    this.accountSid = (payload.account_sid);
+    this.label = (payload.label);
+    this.addOnSid = (payload.add_on_sid);
+    this.addOnConfigurationSid = (payload.add_on_configuration_sid);
+    this.contentType = (payload.content_type);
     this.dateCreated = deserialize.rfc2822DateTime(payload.date_created);
     this.dateUpdated = deserialize.rfc2822DateTime(payload.date_updated);
-    this.referenceSid = payload.reference_sid;
-    this.subresourceUris = payload.subresource_uris;
+    this.referenceSid = (payload.reference_sid);
+    this.subresourceUris = (payload.subresource_uris);
 
-    this._solution = {
-      accountSid,
-      referenceSid,
-      addOnResultSid,
-      sid: sid || this.sid,
-    };
+    this._solution = { accountSid, referenceSid, addOnResultSid, sid: sid || this.sid,  };
   }
 
   /**
@@ -298,15 +257,7 @@ export class PayloadInstance {
   subresourceUris: Record<string, string>;
 
   private get _proxy(): PayloadContext {
-    this._context =
-      this._context ||
-      new PayloadContextImpl(
-        this._version,
-        this._solution.accountSid,
-        this._solution.referenceSid,
-        this._solution.addOnResultSid,
-        this._solution.sid
-      );
+    this._context = this._context || new PayloadContextImpl(this._version, this._solution.accountSid, this._solution.referenceSid, this._solution.addOnResultSid, this._solution.sid);
     return this._context;
   }
 
@@ -317,9 +268,9 @@ export class PayloadInstance {
    *
    * @returns Resolves to processed boolean
    */
-  remove(
-    callback?: (error: Error | null, item?: boolean) => any
-  ): Promise<boolean> {
+  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
+
+    {
     return this._proxy.remove(callback);
   }
 
@@ -330,9 +281,9 @@ export class PayloadInstance {
    *
    * @returns Resolves to processed PayloadInstance
    */
-  fetch(
-    callback?: (error: Error | null, item?: PayloadInstance) => any
-  ): Promise<PayloadInstance> {
+  fetch(callback?: (error: Error | null, item?: PayloadInstance) => any): Promise<PayloadInstance>
+
+    {
     return this._proxy.fetch(callback);
   }
 
@@ -361,13 +312,14 @@ export class PayloadInstance {
       dateUpdated: this.dateUpdated,
       referenceSid: this.referenceSid,
       subresourceUris: this.subresourceUris,
-    };
+    }
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
 }
+
 
 export interface PayloadSolution {
   accountSid: string;
@@ -380,8 +332,14 @@ export interface PayloadListInstance {
   _solution: PayloadSolution;
   _uri: string;
 
-  (sid: string): PayloadContext;
-  get(sid: string): PayloadContext;
+  (sid: string, ): PayloadContext;
+  get(sid: string, ): PayloadContext;
+
+
+
+
+
+
 
   /**
    * Streams PayloadInstance records from the API.
@@ -398,13 +356,8 @@ export interface PayloadListInstance {
    * @param { PayloadListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(
-    callback?: (item: PayloadInstance, done: (err?: Error) => void) => void
-  ): void;
-  each(
-    params: PayloadListInstanceEachOptions,
-    callback?: (item: PayloadInstance, done: (err?: Error) => void) => void
-  ): void;
+  each(callback?: (item: PayloadInstance, done: (err?: Error) => void) => void): void;
+  each(params: PayloadListInstanceEachOptions, callback?: (item: PayloadInstance, done: (err?: Error) => void) => void): void;
   /**
    * Retrieve a single target page of PayloadInstance records from the API.
    *
@@ -413,10 +366,7 @@ export interface PayloadListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(
-    targetUrl: string,
-    callback?: (error: Error | null, items: PayloadPage) => any
-  ): Promise<PayloadPage>;
+  getPage(targetUrl: string, callback?: (error: Error | null, items: PayloadPage) => any): Promise<PayloadPage>;
   /**
    * Lists PayloadInstance records from the API as a list.
    *
@@ -426,13 +376,8 @@ export interface PayloadListInstance {
    * @param { PayloadListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(
-    callback?: (error: Error | null, items: PayloadInstance[]) => any
-  ): Promise<PayloadInstance[]>;
-  list(
-    params: PayloadListInstanceOptions,
-    callback?: (error: Error | null, items: PayloadInstance[]) => any
-  ): Promise<PayloadInstance[]>;
+  list(callback?: (error: Error | null, items: PayloadInstance[]) => any): Promise<PayloadInstance[]>;
+  list(params: PayloadListInstanceOptions, callback?: (error: Error | null, items: PayloadInstance[]) => any): Promise<PayloadInstance[]>;
   /**
    * Retrieve a single page of PayloadInstance records from the API.
    *
@@ -444,13 +389,8 @@ export interface PayloadListInstance {
    * @param { PayloadListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(
-    callback?: (error: Error | null, items: PayloadPage) => any
-  ): Promise<PayloadPage>;
-  page(
-    params: PayloadListInstancePageOptions,
-    callback?: (error: Error | null, items: PayloadPage) => any
-  ): Promise<PayloadPage>;
+  page(callback?: (error: Error | null, items: PayloadPage) => any): Promise<PayloadPage>;
+  page(params: PayloadListInstancePageOptions, callback?: (error: Error | null, items: PayloadPage) => any): Promise<PayloadPage>;
 
   /**
    * Provide a user-friendly representation
@@ -459,46 +399,30 @@ export interface PayloadListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function PayloadListInstance(
-  version: V2010,
-  accountSid: string,
-  referenceSid: string,
-  addOnResultSid: string
-): PayloadListInstance {
+export function PayloadListInstance(version: V2010, accountSid: string, referenceSid: string, addOnResultSid: string): PayloadListInstance {
   if (!isValidPathParam(accountSid)) {
-    throw new Error("Parameter 'accountSid' is not valid.");
+    throw new Error('Parameter \'accountSid\' is not valid.');
   }
 
   if (!isValidPathParam(referenceSid)) {
-    throw new Error("Parameter 'referenceSid' is not valid.");
+    throw new Error('Parameter \'referenceSid\' is not valid.');
   }
 
   if (!isValidPathParam(addOnResultSid)) {
-    throw new Error("Parameter 'addOnResultSid' is not valid.");
+    throw new Error('Parameter \'addOnResultSid\' is not valid.');
   }
 
-  const instance = ((sid) => instance.get(sid)) as PayloadListInstance;
+  const instance = ((sid, ) => instance.get(sid, )) as PayloadListInstance;
 
-  instance.get = function get(sid): PayloadContext {
-    return new PayloadContextImpl(
-      version,
-      accountSid,
-      referenceSid,
-      addOnResultSid,
-      sid
-    );
-  };
+  instance.get = function get(sid, ): PayloadContext {
+    return new PayloadContextImpl(version, accountSid, referenceSid, addOnResultSid, sid);
+  }
 
   instance._version = version;
-  instance._solution = { accountSid, referenceSid, addOnResultSid };
+  instance._solution = { accountSid, referenceSid, addOnResultSid,  };
   instance._uri = `/Accounts/${accountSid}/Recordings/${referenceSid}/AddOnResults/${addOnResultSid}/Payloads.json`;
 
-  instance.page = function page(
-    params?:
-      | PayloadListInstancePageOptions
-      | ((error: Error | null, items: PayloadPage) => any),
-    callback?: (error: Error | null, items: PayloadPage) => any
-  ): Promise<PayloadPage> {
+  instance.page = function page(params?: PayloadListInstancePageOptions | ((error: Error | null, items: PayloadPage) => any), callback?: (error: Error | null, items: PayloadPage) => any): Promise<PayloadPage> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -508,103 +432,77 @@ export function PayloadListInstance(
 
     let data: any = {};
 
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
 
+    
+    
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-      operationPromise = operationVersion.page({
-        uri: instance._uri,
-        method: "get",
-        params: data,
-        headers,
-      });
+        operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers });
+    
+    operationPromise = operationPromise.then(payload => new PayloadPage(operationVersion, payload, instance._solution));
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new PayloadPage(operationVersion, payload, instance._solution)
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
+
+  }
   instance.each = instance._version.each;
   instance.list = instance._version.list;
 
-  instance.getPage = function getPage(
-    targetUrl: string,
-    callback?: (error: Error | null, items: PayloadPage) => any
-  ): Promise<PayloadPage> {
-    const operationPromise = instance._version._domain.twilio.request({
-      method: "get",
-      uri: targetUrl,
-    });
+  instance.getPage = function getPage(targetUrl: string, callback?: (error: Error | null, items: PayloadPage) => any): Promise<PayloadPage> {
+    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
 
-    let pagePromise = operationPromise.then(
-      (payload) =>
-        new PayloadPage(instance._version, payload, instance._solution)
-    );
+    let pagePromise = operationPromise.then(payload => new PayloadPage(instance._version, payload, instance._solution));
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  };
+  }
+
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  };
+  }
 
-  instance[inspect.custom] = function inspectImpl(
-    _depth: any,
-    options: InspectOptions
-  ) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(instance.toJSON(), options);
-  };
+  }
 
   return instance;
 }
 
-export class PayloadPage extends Page<
-  V2010,
-  PayloadPayload,
-  PayloadResource,
-  PayloadInstance
-> {
-  /**
-   * Initialize the PayloadPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(
-    version: V2010,
-    response: Response<string>,
-    solution: PayloadSolution
-  ) {
+export class PayloadPage extends Page<V2010, PayloadPayload, PayloadResource, PayloadInstance> {
+/**
+* Initialize the PayloadPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V2010, response: Response<string>, solution: PayloadSolution) {
     super(version, response, solution);
-  }
+    }
 
-  /**
-   * Build an instance of PayloadInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: PayloadResource): PayloadInstance {
+    /**
+    * Build an instance of PayloadInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: PayloadResource): PayloadInstance {
     return new PayloadInstance(
-      this._version,
-      payload,
-      this._solution.accountSid,
-      this._solution.referenceSid,
-      this._solution.addOnResultSid
+    this._version,
+    payload,
+        this._solution.accountSid,
+        this._solution.referenceSid,
+        this._solution.addOnResultSid,
     );
-  }
+    }
 
-  [inspect.custom](depth: any, options: InspectOptions) {
+    [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-  }
-}
+    }
+    }
+

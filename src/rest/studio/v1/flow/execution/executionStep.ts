@@ -12,6 +12,7 @@
  * Do not edit the class manually.
  */
 
+
 import { inspect, InspectOptions } from "util";
 import Page, { TwilioResponsePayload } from "../../../../../base/Page";
 import Response from "../../../../../http/response";
@@ -21,12 +22,14 @@ const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
 import { ExecutionStepContextListInstance } from "./executionStep/executionStepContext";
 
+
+
 /**
  * Options to pass to each
  */
 export interface ExecutionStepListInstanceEachOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: ExecutionStepInstance, done: (err?: Error) => void) => void;
   /** Function to be called upon completion of streaming */
@@ -40,7 +43,7 @@ export interface ExecutionStepListInstanceEachOptions {
  */
 export interface ExecutionStepListInstanceOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
@@ -50,12 +53,13 @@ export interface ExecutionStepListInstanceOptions {
  */
 export interface ExecutionStepListInstancePageOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
   /** PageToken provided by the API */
   pageToken?: string;
 }
+
 
 export interface ExecutionStepContext {
   stepContext: ExecutionStepContextListInstance;
@@ -67,9 +71,8 @@ export interface ExecutionStepContext {
    *
    * @returns Resolves to processed ExecutionStepInstance
    */
-  fetch(
-    callback?: (error: Error | null, item?: ExecutionStepInstance) => any
-  ): Promise<ExecutionStepInstance>;
+  fetch(callback?: (error: Error | null, item?: ExecutionStepInstance) => any): Promise<ExecutionStepInstance>
+
 
   /**
    * Provide a user-friendly representation
@@ -79,9 +82,9 @@ export interface ExecutionStepContext {
 }
 
 export interface ExecutionStepContextSolution {
-  flowSid: string;
-  executionSid: string;
-  sid: string;
+  "flowSid": string;
+  "executionSid": string;
+  "sid": string;
 }
 
 export class ExecutionStepContextImpl implements ExecutionStepContext {
@@ -90,66 +93,41 @@ export class ExecutionStepContextImpl implements ExecutionStepContext {
 
   protected _stepContext?: ExecutionStepContextListInstance;
 
-  constructor(
-    protected _version: V1,
-    flowSid: string,
-    executionSid: string,
-    sid: string
-  ) {
+  constructor(protected _version: V1, flowSid: string, executionSid: string, sid: string) {
     if (!isValidPathParam(flowSid)) {
-      throw new Error("Parameter 'flowSid' is not valid.");
+      throw new Error('Parameter \'flowSid\' is not valid.');
     }
 
     if (!isValidPathParam(executionSid)) {
-      throw new Error("Parameter 'executionSid' is not valid.");
+      throw new Error('Parameter \'executionSid\' is not valid.');
     }
 
     if (!isValidPathParam(sid)) {
-      throw new Error("Parameter 'sid' is not valid.");
+      throw new Error('Parameter \'sid\' is not valid.');
     }
 
-    this._solution = { flowSid, executionSid, sid };
+    this._solution = { flowSid, executionSid, sid,  };
     this._uri = `/Flows/${flowSid}/Executions/${executionSid}/Steps/${sid}`;
   }
 
   get stepContext(): ExecutionStepContextListInstance {
-    this._stepContext =
-      this._stepContext ||
-      ExecutionStepContextListInstance(
-        this._version,
-        this._solution.flowSid,
-        this._solution.executionSid,
-        this._solution.sid
-      );
+    this._stepContext = this._stepContext || ExecutionStepContextListInstance(this._version, this._solution.flowSid, this._solution.executionSid, this._solution.sid);
     return this._stepContext;
   }
 
-  fetch(
-    callback?: (error: Error | null, item?: ExecutionStepInstance) => any
-  ): Promise<ExecutionStepInstance> {
+  fetch(callback?: (error: Error | null, item?: ExecutionStepInstance) => any): Promise<ExecutionStepInstance> {
+  
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.fetch({
-        uri: instance._uri,
-        method: "get",
-      });
+        operationPromise = operationVersion.fetch({ uri: instance._uri, method: "get" });
+    
+    operationPromise = operationPromise.then(payload => new ExecutionStepInstance(operationVersion, payload, instance._solution.flowSid, instance._solution.executionSid, instance._solution.sid));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new ExecutionStepInstance(
-          operationVersion,
-          payload,
-          instance._solution.flowSid,
-          instance._solution.executionSid,
-          instance._solution.sid
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
   /**
@@ -166,8 +144,9 @@ export class ExecutionStepContextImpl implements ExecutionStepContext {
   }
 }
 
+
 interface ExecutionStepPayload extends TwilioResponsePayload {
-  steps: ExecutionStepResource[];
+    steps: ExecutionStepResource[];
 }
 
 interface ExecutionStepResource {
@@ -189,27 +168,21 @@ export class ExecutionStepInstance {
   protected _solution: ExecutionStepContextSolution;
   protected _context?: ExecutionStepContext;
 
-  constructor(
-    protected _version: V1,
-    payload: ExecutionStepResource,
-    flowSid: string,
-    executionSid: string,
-    sid?: string
-  ) {
-    this.sid = payload.sid;
-    this.accountSid = payload.account_sid;
-    this.flowSid = payload.flow_sid;
-    this.executionSid = payload.execution_sid;
-    this.name = payload.name;
-    this.context = payload.context;
-    this.transitionedFrom = payload.transitioned_from;
-    this.transitionedTo = payload.transitioned_to;
+  constructor(protected _version: V1, payload: ExecutionStepResource, flowSid: string, executionSid: string, sid?: string) {
+    this.sid = (payload.sid);
+    this.accountSid = (payload.account_sid);
+    this.flowSid = (payload.flow_sid);
+    this.executionSid = (payload.execution_sid);
+    this.name = (payload.name);
+    this.context = (payload.context);
+    this.transitionedFrom = (payload.transitioned_from);
+    this.transitionedTo = (payload.transitioned_to);
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
-    this.url = payload.url;
-    this.links = payload.links;
+    this.url = (payload.url);
+    this.links = (payload.links);
 
-    this._solution = { flowSid, executionSid, sid: sid || this.sid };
+    this._solution = { flowSid, executionSid, sid: sid || this.sid,  };
   }
 
   /**
@@ -262,14 +235,7 @@ export class ExecutionStepInstance {
   links: Record<string, string>;
 
   private get _proxy(): ExecutionStepContext {
-    this._context =
-      this._context ||
-      new ExecutionStepContextImpl(
-        this._version,
-        this._solution.flowSid,
-        this._solution.executionSid,
-        this._solution.sid
-      );
+    this._context = this._context || new ExecutionStepContextImpl(this._version, this._solution.flowSid, this._solution.executionSid, this._solution.sid);
     return this._context;
   }
 
@@ -280,9 +246,9 @@ export class ExecutionStepInstance {
    *
    * @returns Resolves to processed ExecutionStepInstance
    */
-  fetch(
-    callback?: (error: Error | null, item?: ExecutionStepInstance) => any
-  ): Promise<ExecutionStepInstance> {
+  fetch(callback?: (error: Error | null, item?: ExecutionStepInstance) => any): Promise<ExecutionStepInstance>
+
+    {
     return this._proxy.fetch(callback);
   }
 
@@ -312,13 +278,14 @@ export class ExecutionStepInstance {
       dateUpdated: this.dateUpdated,
       url: this.url,
       links: this.links,
-    };
+    }
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
 }
+
 
 export interface ExecutionStepSolution {
   flowSid: string;
@@ -330,8 +297,12 @@ export interface ExecutionStepListInstance {
   _solution: ExecutionStepSolution;
   _uri: string;
 
-  (sid: string): ExecutionStepContext;
-  get(sid: string): ExecutionStepContext;
+  (sid: string, ): ExecutionStepContext;
+  get(sid: string, ): ExecutionStepContext;
+
+
+
+
 
   /**
    * Streams ExecutionStepInstance records from the API.
@@ -348,19 +319,8 @@ export interface ExecutionStepListInstance {
    * @param { ExecutionStepListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(
-    callback?: (
-      item: ExecutionStepInstance,
-      done: (err?: Error) => void
-    ) => void
-  ): void;
-  each(
-    params: ExecutionStepListInstanceEachOptions,
-    callback?: (
-      item: ExecutionStepInstance,
-      done: (err?: Error) => void
-    ) => void
-  ): void;
+  each(callback?: (item: ExecutionStepInstance, done: (err?: Error) => void) => void): void;
+  each(params: ExecutionStepListInstanceEachOptions, callback?: (item: ExecutionStepInstance, done: (err?: Error) => void) => void): void;
   /**
    * Retrieve a single target page of ExecutionStepInstance records from the API.
    *
@@ -369,10 +329,7 @@ export interface ExecutionStepListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(
-    targetUrl: string,
-    callback?: (error: Error | null, items: ExecutionStepPage) => any
-  ): Promise<ExecutionStepPage>;
+  getPage(targetUrl: string, callback?: (error: Error | null, items: ExecutionStepPage) => any): Promise<ExecutionStepPage>;
   /**
    * Lists ExecutionStepInstance records from the API as a list.
    *
@@ -382,13 +339,8 @@ export interface ExecutionStepListInstance {
    * @param { ExecutionStepListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(
-    callback?: (error: Error | null, items: ExecutionStepInstance[]) => any
-  ): Promise<ExecutionStepInstance[]>;
-  list(
-    params: ExecutionStepListInstanceOptions,
-    callback?: (error: Error | null, items: ExecutionStepInstance[]) => any
-  ): Promise<ExecutionStepInstance[]>;
+  list(callback?: (error: Error | null, items: ExecutionStepInstance[]) => any): Promise<ExecutionStepInstance[]>;
+  list(params: ExecutionStepListInstanceOptions, callback?: (error: Error | null, items: ExecutionStepInstance[]) => any): Promise<ExecutionStepInstance[]>;
   /**
    * Retrieve a single page of ExecutionStepInstance records from the API.
    *
@@ -400,13 +352,8 @@ export interface ExecutionStepListInstance {
    * @param { ExecutionStepListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(
-    callback?: (error: Error | null, items: ExecutionStepPage) => any
-  ): Promise<ExecutionStepPage>;
-  page(
-    params: ExecutionStepListInstancePageOptions,
-    callback?: (error: Error | null, items: ExecutionStepPage) => any
-  ): Promise<ExecutionStepPage>;
+  page(callback?: (error: Error | null, items: ExecutionStepPage) => any): Promise<ExecutionStepPage>;
+  page(params: ExecutionStepListInstancePageOptions, callback?: (error: Error | null, items: ExecutionStepPage) => any): Promise<ExecutionStepPage>;
 
   /**
    * Provide a user-friendly representation
@@ -415,35 +362,26 @@ export interface ExecutionStepListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function ExecutionStepListInstance(
-  version: V1,
-  flowSid: string,
-  executionSid: string
-): ExecutionStepListInstance {
+export function ExecutionStepListInstance(version: V1, flowSid: string, executionSid: string): ExecutionStepListInstance {
   if (!isValidPathParam(flowSid)) {
-    throw new Error("Parameter 'flowSid' is not valid.");
+    throw new Error('Parameter \'flowSid\' is not valid.');
   }
 
   if (!isValidPathParam(executionSid)) {
-    throw new Error("Parameter 'executionSid' is not valid.");
+    throw new Error('Parameter \'executionSid\' is not valid.');
   }
 
-  const instance = ((sid) => instance.get(sid)) as ExecutionStepListInstance;
+  const instance = ((sid, ) => instance.get(sid, )) as ExecutionStepListInstance;
 
-  instance.get = function get(sid): ExecutionStepContext {
+  instance.get = function get(sid, ): ExecutionStepContext {
     return new ExecutionStepContextImpl(version, flowSid, executionSid, sid);
-  };
+  }
 
   instance._version = version;
-  instance._solution = { flowSid, executionSid };
+  instance._solution = { flowSid, executionSid,  };
   instance._uri = `/Flows/${flowSid}/Executions/${executionSid}/Steps`;
 
-  instance.page = function page(
-    params?:
-      | ExecutionStepListInstancePageOptions
-      | ((error: Error | null, items: ExecutionStepPage) => any),
-    callback?: (error: Error | null, items: ExecutionStepPage) => any
-  ): Promise<ExecutionStepPage> {
+  instance.page = function page(params?: ExecutionStepListInstancePageOptions | ((error: Error | null, items: ExecutionStepPage) => any), callback?: (error: Error | null, items: ExecutionStepPage) => any): Promise<ExecutionStepPage> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -453,102 +391,76 @@ export function ExecutionStepListInstance(
 
     let data: any = {};
 
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
 
+    
+    
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-      operationPromise = operationVersion.page({
-        uri: instance._uri,
-        method: "get",
-        params: data,
-        headers,
-      });
+        operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers });
+    
+    operationPromise = operationPromise.then(payload => new ExecutionStepPage(operationVersion, payload, instance._solution));
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new ExecutionStepPage(operationVersion, payload, instance._solution)
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
+
+  }
   instance.each = instance._version.each;
   instance.list = instance._version.list;
 
-  instance.getPage = function getPage(
-    targetUrl: string,
-    callback?: (error: Error | null, items: ExecutionStepPage) => any
-  ): Promise<ExecutionStepPage> {
-    const operationPromise = instance._version._domain.twilio.request({
-      method: "get",
-      uri: targetUrl,
-    });
+  instance.getPage = function getPage(targetUrl: string, callback?: (error: Error | null, items: ExecutionStepPage) => any): Promise<ExecutionStepPage> {
+    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
 
-    let pagePromise = operationPromise.then(
-      (payload) =>
-        new ExecutionStepPage(instance._version, payload, instance._solution)
-    );
+    let pagePromise = operationPromise.then(payload => new ExecutionStepPage(instance._version, payload, instance._solution));
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  };
+  }
+
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  };
+  }
 
-  instance[inspect.custom] = function inspectImpl(
-    _depth: any,
-    options: InspectOptions
-  ) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(instance.toJSON(), options);
-  };
+  }
 
   return instance;
 }
 
-export class ExecutionStepPage extends Page<
-  V1,
-  ExecutionStepPayload,
-  ExecutionStepResource,
-  ExecutionStepInstance
-> {
-  /**
-   * Initialize the ExecutionStepPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(
-    version: V1,
-    response: Response<string>,
-    solution: ExecutionStepSolution
-  ) {
+export class ExecutionStepPage extends Page<V1, ExecutionStepPayload, ExecutionStepResource, ExecutionStepInstance> {
+/**
+* Initialize the ExecutionStepPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V1, response: Response<string>, solution: ExecutionStepSolution) {
     super(version, response, solution);
-  }
+    }
 
-  /**
-   * Build an instance of ExecutionStepInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: ExecutionStepResource): ExecutionStepInstance {
+    /**
+    * Build an instance of ExecutionStepInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: ExecutionStepResource): ExecutionStepInstance {
     return new ExecutionStepInstance(
-      this._version,
-      payload,
-      this._solution.flowSid,
-      this._solution.executionSid
+    this._version,
+    payload,
+        this._solution.flowSid,
+        this._solution.executionSid,
     );
-  }
+    }
 
-  [inspect.custom](depth: any, options: InspectOptions) {
+    [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-  }
-}
+    }
+    }
+

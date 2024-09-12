@@ -12,11 +12,13 @@
  * Do not edit the class manually.
  */
 
+
 import { inspect, InspectOptions } from "util";
 import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
+
 
 /**
  * The [InboundCallPrice](https://www.twilio.com/docs/voice/pricing#inbound-call-price) record. If `null`, the Phone Number is not a Twilio number owned by this account.
@@ -27,6 +29,7 @@ export class PricingV1VoiceVoiceNumberInboundCallPrice {
   "numberType"?: string;
 }
 
+
 /**
  * The OutboundCallPrice record, which includes a list of `origination_prefixes` and the `base_price` and `current_price` for those prefixes.
  */
@@ -35,7 +38,11 @@ export class PricingV1VoiceVoiceNumberOutboundCallPrice {
   "currentPrice"?: number;
 }
 
+
+
+
 export interface NumberContext {
+
   /**
    * Fetch a NumberInstance
    *
@@ -43,9 +50,7 @@ export interface NumberContext {
    *
    * @returns Resolves to processed NumberInstance
    */
-  fetch(
-    callback?: (error: Error | null, item?: NumberInstance) => any
-  ): Promise<NumberInstance>;
+  fetch(callback?: (error: Error | null, item?: NumberInstance) => any): Promise<NumberInstance>
 
   /**
    * Provide a user-friendly representation
@@ -55,42 +60,36 @@ export interface NumberContext {
 }
 
 export interface NumberContextSolution {
-  number: string;
+  "number": string;
 }
 
 export class NumberContextImpl implements NumberContext {
   protected _solution: NumberContextSolution;
   protected _uri: string;
 
+
   constructor(protected _version: V1, number: string) {
     if (!isValidPathParam(number)) {
-      throw new Error("Parameter 'number' is not valid.");
+      throw new Error('Parameter \'number\' is not valid.');
     }
 
-    this._solution = { number };
+    this._solution = { number,  };
     this._uri = `/Voice/Numbers/${number}`;
   }
 
-  fetch(
-    callback?: (error: Error | null, item?: NumberInstance) => any
-  ): Promise<NumberInstance> {
+  fetch(callback?: (error: Error | null, item?: NumberInstance) => any): Promise<NumberInstance> {
+  
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.fetch({
-        uri: instance._uri,
-        method: "get",
-      });
+        operationPromise = operationVersion.fetch({ uri: instance._uri, method: "get" });
+    
+    operationPromise = operationPromise.then(payload => new NumberInstance(operationVersion, payload, instance._solution.number));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new NumberInstance(operationVersion, payload, instance._solution.number)
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
   /**
@@ -106,6 +105,7 @@ export class NumberContextImpl implements NumberContext {
     return inspect(this.toJSON(), options);
   }
 }
+
 
 interface NumberPayload extends NumberResource {}
 
@@ -123,20 +123,16 @@ export class NumberInstance {
   protected _solution: NumberContextSolution;
   protected _context?: NumberContext;
 
-  constructor(
-    protected _version: V1,
-    payload: NumberResource,
-    number?: string
-  ) {
-    this.number = payload.number;
-    this.country = payload.country;
-    this.isoCountry = payload.iso_country;
-    this.outboundCallPrice = payload.outbound_call_price;
-    this.inboundCallPrice = payload.inbound_call_price;
-    this.priceUnit = payload.price_unit;
-    this.url = payload.url;
+  constructor(protected _version: V1, payload: NumberResource, number?: string) {
+    this.number = (payload.number);
+    this.country = (payload.country);
+    this.isoCountry = (payload.iso_country);
+    this.outboundCallPrice = (payload.outbound_call_price);
+    this.inboundCallPrice = (payload.inbound_call_price);
+    this.priceUnit = (payload.price_unit);
+    this.url = (payload.url);
 
-    this._solution = { number: number || this.number };
+    this._solution = { number: number || this.number,  };
   }
 
   /**
@@ -163,9 +159,7 @@ export class NumberInstance {
   url: string;
 
   private get _proxy(): NumberContext {
-    this._context =
-      this._context ||
-      new NumberContextImpl(this._version, this._solution.number);
+    this._context = this._context || new NumberContextImpl(this._version, this._solution.number);
     return this._context;
   }
 
@@ -176,9 +170,9 @@ export class NumberInstance {
    *
    * @returns Resolves to processed NumberInstance
    */
-  fetch(
-    callback?: (error: Error | null, item?: NumberInstance) => any
-  ): Promise<NumberInstance> {
+  fetch(callback?: (error: Error | null, item?: NumberInstance) => any): Promise<NumberInstance>
+
+    {
     return this._proxy.fetch(callback);
   }
 
@@ -196,7 +190,7 @@ export class NumberInstance {
       inboundCallPrice: this.inboundCallPrice,
       priceUnit: this.priceUnit,
       url: this.url,
-    };
+    }
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
@@ -204,15 +198,20 @@ export class NumberInstance {
   }
 }
 
-export interface NumberSolution {}
+
+export interface NumberSolution {
+}
 
 export interface NumberListInstance {
   _version: V1;
   _solution: NumberSolution;
   _uri: string;
 
-  (number: string): NumberContext;
-  get(number: string): NumberContext;
+  (number: string, ): NumberContext;
+  get(number: string, ): NumberContext;
+
+
+
 
   /**
    * Provide a user-friendly representation
@@ -222,26 +221,25 @@ export interface NumberListInstance {
 }
 
 export function NumberListInstance(version: V1): NumberListInstance {
-  const instance = ((number) => instance.get(number)) as NumberListInstance;
+  const instance = ((number, ) => instance.get(number, )) as NumberListInstance;
 
-  instance.get = function get(number): NumberContext {
+  instance.get = function get(number, ): NumberContext {
     return new NumberContextImpl(version, number);
-  };
+  }
 
   instance._version = version;
-  instance._solution = {};
+  instance._solution = {  };
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  };
+  }
 
-  instance[inspect.custom] = function inspectImpl(
-    _depth: any,
-    options: InspectOptions
-  ) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(instance.toJSON(), options);
-  };
+  }
 
   return instance;
 }
+
+

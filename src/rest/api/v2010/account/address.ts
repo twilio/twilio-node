@@ -12,6 +12,7 @@
  * Do not edit the class manually.
  */
 
+
 import { inspect, InspectOptions } from "util";
 import Page, { TwilioResponsePayload } from "../../../../base/Page";
 import Response from "../../../../http/response";
@@ -21,28 +22,32 @@ const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
 import { DependentPhoneNumberListInstance } from "./address/dependentPhoneNumber";
 
+
+
+
+
 /**
  * Options to pass to update a AddressInstance
  */
 export interface AddressContextUpdateOptions {
   /** A descriptive string that you create to describe the address. It can be up to 64 characters long. */
-  friendlyName?: string;
+  "friendlyName"?: string;
   /** The name to associate with the address. */
-  customerName?: string;
+  "customerName"?: string;
   /** The number and street address of the address. */
-  street?: string;
+  "street"?: string;
   /** The city of the address. */
-  city?: string;
+  "city"?: string;
   /** The state or region of the address. */
-  region?: string;
+  "region"?: string;
   /** The postal code of the address. */
-  postalCode?: string;
+  "postalCode"?: string;
   /** Whether to enable emergency calling on the address. Can be: `true` or `false`. */
-  emergencyEnabled?: boolean;
+  "emergencyEnabled"?: boolean;
   /** Whether we should automatically correct the address. Can be: `true` or `false` and the default is `true`. If empty or `true`, we will correct the address you provide if necessary. If `false`, we won\\\'t alter the address you provide. */
-  autoCorrectAddress?: boolean;
+  "autoCorrectAddress"?: boolean;
   /** The additional number and street address of the address. */
-  streetSecondary?: string;
+  "streetSecondary"?: string;
 }
 
 /**
@@ -50,38 +55,38 @@ export interface AddressContextUpdateOptions {
  */
 export interface AddressListInstanceCreateOptions {
   /** The name to associate with the new address. */
-  customerName: string;
+  "customerName": string;
   /** The number and street address of the new address. */
-  street: string;
+  "street": string;
   /** The city of the new address. */
-  city: string;
+  "city": string;
   /** The state or region of the new address. */
-  region: string;
+  "region": string;
   /** The postal code of the new address. */
-  postalCode: string;
+  "postalCode": string;
   /** The ISO country code of the new address. */
-  isoCountry: string;
+  "isoCountry": string;
   /** A descriptive string that you create to describe the new address. It can be up to 64 characters long. */
-  friendlyName?: string;
+  "friendlyName"?: string;
   /** Whether to enable emergency calling on the new address. Can be: `true` or `false`. */
-  emergencyEnabled?: boolean;
+  "emergencyEnabled"?: boolean;
   /** Whether we should automatically correct the address. Can be: `true` or `false` and the default is `true`. If empty or `true`, we will correct the address you provide if necessary. If `false`, we won\\\'t alter the address you provide. */
-  autoCorrectAddress?: boolean;
+  "autoCorrectAddress"?: boolean;
   /** The additional number and street address of the address. */
-  streetSecondary?: string;
+  "streetSecondary"?: string;
 }
 /**
  * Options to pass to each
  */
 export interface AddressListInstanceEachOptions {
   /** The `customer_name` of the Address resources to read. */
-  customerName?: string;
+  "customerName"?: string;
   /** The string that identifies the Address resources to read. */
-  friendlyName?: string;
+  "friendlyName"?: string;
   /** The ISO country code of the Address resources to read. */
-  isoCountry?: string;
+  "isoCountry"?: string;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: AddressInstance, done: (err?: Error) => void) => void;
   /** Function to be called upon completion of streaming */
@@ -95,13 +100,13 @@ export interface AddressListInstanceEachOptions {
  */
 export interface AddressListInstanceOptions {
   /** The `customer_name` of the Address resources to read. */
-  customerName?: string;
+  "customerName"?: string;
   /** The string that identifies the Address resources to read. */
-  friendlyName?: string;
+  "friendlyName"?: string;
   /** The ISO country code of the Address resources to read. */
-  isoCountry?: string;
+  "isoCountry"?: string;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
@@ -111,18 +116,19 @@ export interface AddressListInstanceOptions {
  */
 export interface AddressListInstancePageOptions {
   /** The `customer_name` of the Address resources to read. */
-  customerName?: string;
+  "customerName"?: string;
   /** The string that identifies the Address resources to read. */
-  friendlyName?: string;
+  "friendlyName"?: string;
   /** The ISO country code of the Address resources to read. */
-  isoCountry?: string;
+  "isoCountry"?: string;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
   /** PageToken provided by the API */
   pageToken?: string;
 }
+
 
 export interface AddressContext {
   dependentPhoneNumbers: DependentPhoneNumberListInstance;
@@ -134,9 +140,7 @@ export interface AddressContext {
    *
    * @returns Resolves to processed boolean
    */
-  remove(
-    callback?: (error: Error | null, item?: boolean) => any
-  ): Promise<boolean>;
+  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
 
   /**
    * Fetch a AddressInstance
@@ -145,9 +149,7 @@ export interface AddressContext {
    *
    * @returns Resolves to processed AddressInstance
    */
-  fetch(
-    callback?: (error: Error | null, item?: AddressInstance) => any
-  ): Promise<AddressInstance>;
+  fetch(callback?: (error: Error | null, item?: AddressInstance) => any): Promise<AddressInstance>
 
   /**
    * Update a AddressInstance
@@ -156,9 +158,7 @@ export interface AddressContext {
    *
    * @returns Resolves to processed AddressInstance
    */
-  update(
-    callback?: (error: Error | null, item?: AddressInstance) => any
-  ): Promise<AddressInstance>;
+  update(callback?: (error: Error | null, item?: AddressInstance) => any): Promise<AddressInstance>;
   /**
    * Update a AddressInstance
    *
@@ -167,10 +167,9 @@ export interface AddressContext {
    *
    * @returns Resolves to processed AddressInstance
    */
-  update(
-    params: AddressContextUpdateOptions,
-    callback?: (error: Error | null, item?: AddressInstance) => any
-  ): Promise<AddressInstance>;
+  update(params: AddressContextUpdateOptions, callback?: (error: Error | null, item?: AddressInstance) => any): Promise<AddressInstance>;
+
+
 
   /**
    * Provide a user-friendly representation
@@ -180,8 +179,8 @@ export interface AddressContext {
 }
 
 export interface AddressContextSolution {
-  accountSid: string;
-  sid: string;
+  "accountSid": string;
+  "sid": string;
 }
 
 export class AddressContextImpl implements AddressContext {
@@ -192,79 +191,52 @@ export class AddressContextImpl implements AddressContext {
 
   constructor(protected _version: V2010, accountSid: string, sid: string) {
     if (!isValidPathParam(accountSid)) {
-      throw new Error("Parameter 'accountSid' is not valid.");
+      throw new Error('Parameter \'accountSid\' is not valid.');
     }
 
     if (!isValidPathParam(sid)) {
-      throw new Error("Parameter 'sid' is not valid.");
+      throw new Error('Parameter \'sid\' is not valid.');
     }
 
-    this._solution = { accountSid, sid };
+    this._solution = { accountSid, sid,  };
     this._uri = `/Accounts/${accountSid}/Addresses/${sid}.json`;
   }
 
   get dependentPhoneNumbers(): DependentPhoneNumberListInstance {
-    this._dependentPhoneNumbers =
-      this._dependentPhoneNumbers ||
-      DependentPhoneNumberListInstance(
-        this._version,
-        this._solution.accountSid,
-        this._solution.sid
-      );
+    this._dependentPhoneNumbers = this._dependentPhoneNumbers || DependentPhoneNumberListInstance(this._version, this._solution.accountSid, this._solution.sid);
     return this._dependentPhoneNumbers;
   }
 
-  remove(
-    callback?: (error: Error | null, item?: boolean) => any
-  ): Promise<boolean> {
+  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean> {
+  
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.remove({
-        uri: instance._uri,
-        method: "delete",
-      });
+        operationPromise = operationVersion.remove({ uri: instance._uri, method: "delete" });
+    
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
-  fetch(
-    callback?: (error: Error | null, item?: AddressInstance) => any
-  ): Promise<AddressInstance> {
+  fetch(callback?: (error: Error | null, item?: AddressInstance) => any): Promise<AddressInstance> {
+  
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.fetch({
-        uri: instance._uri,
-        method: "get",
-      });
+        operationPromise = operationVersion.fetch({ uri: instance._uri, method: "get" });
+    
+    operationPromise = operationPromise.then(payload => new AddressInstance(operationVersion, payload, instance._solution.accountSid, instance._solution.sid));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new AddressInstance(
-          operationVersion,
-          payload,
-          instance._solution.accountSid,
-          instance._solution.sid
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
-  update(
-    params?:
-      | AddressContextUpdateOptions
-      | ((error: Error | null, item?: AddressInstance) => any),
-    callback?: (error: Error | null, item?: AddressInstance) => any
-  ): Promise<AddressInstance> {
-    if (params instanceof Function) {
+  update(params?: AddressContextUpdateOptions | ((error: Error | null, item?: AddressInstance) => any), callback?: (error: Error | null, item?: AddressInstance) => any): Promise<AddressInstance> {
+      if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -273,49 +245,42 @@ export class AddressContextImpl implements AddressContext {
 
     let data: any = {};
 
-    if (params["friendlyName"] !== undefined)
-      data["FriendlyName"] = params["friendlyName"];
+    
+        if (params["friendlyName"] !== undefined)
+    data["FriendlyName"] = params["friendlyName"];
     if (params["customerName"] !== undefined)
-      data["CustomerName"] = params["customerName"];
-    if (params["street"] !== undefined) data["Street"] = params["street"];
-    if (params["city"] !== undefined) data["City"] = params["city"];
-    if (params["region"] !== undefined) data["Region"] = params["region"];
+    data["CustomerName"] = params["customerName"];
+    if (params["street"] !== undefined)
+    data["Street"] = params["street"];
+    if (params["city"] !== undefined)
+    data["City"] = params["city"];
+    if (params["region"] !== undefined)
+    data["Region"] = params["region"];
     if (params["postalCode"] !== undefined)
-      data["PostalCode"] = params["postalCode"];
+    data["PostalCode"] = params["postalCode"];
     if (params["emergencyEnabled"] !== undefined)
-      data["EmergencyEnabled"] = serialize.bool(params["emergencyEnabled"]);
+    data["EmergencyEnabled"] = serialize.bool(params["emergencyEnabled"]);
     if (params["autoCorrectAddress"] !== undefined)
-      data["AutoCorrectAddress"] = serialize.bool(params["autoCorrectAddress"]);
+    data["AutoCorrectAddress"] = serialize.bool(params["autoCorrectAddress"]);
     if (params["streetSecondary"] !== undefined)
-      data["StreetSecondary"] = params["streetSecondary"];
+    data["StreetSecondary"] = params["streetSecondary"];
+
+    
 
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.update({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      });
+        operationPromise = operationVersion.update({ uri: instance._uri, method: "post", data, headers });
+    
+    operationPromise = operationPromise.then(payload => new AddressInstance(operationVersion, payload, instance._solution.accountSid, instance._solution.sid));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new AddressInstance(
-          operationVersion,
-          payload,
-          instance._solution.accountSid,
-          instance._solution.sid
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
   /**
@@ -332,8 +297,9 @@ export class AddressContextImpl implements AddressContext {
   }
 }
 
+
 interface AddressPayload extends TwilioResponsePayload {
-  addresses: AddressResource[];
+    addresses: AddressResource[];
 }
 
 interface AddressResource {
@@ -359,30 +325,25 @@ export class AddressInstance {
   protected _solution: AddressContextSolution;
   protected _context?: AddressContext;
 
-  constructor(
-    protected _version: V2010,
-    payload: AddressResource,
-    accountSid: string,
-    sid?: string
-  ) {
-    this.accountSid = payload.account_sid;
-    this.city = payload.city;
-    this.customerName = payload.customer_name;
+  constructor(protected _version: V2010, payload: AddressResource, accountSid: string, sid?: string) {
+    this.accountSid = (payload.account_sid);
+    this.city = (payload.city);
+    this.customerName = (payload.customer_name);
     this.dateCreated = deserialize.rfc2822DateTime(payload.date_created);
     this.dateUpdated = deserialize.rfc2822DateTime(payload.date_updated);
-    this.friendlyName = payload.friendly_name;
-    this.isoCountry = payload.iso_country;
-    this.postalCode = payload.postal_code;
-    this.region = payload.region;
-    this.sid = payload.sid;
-    this.street = payload.street;
-    this.uri = payload.uri;
-    this.emergencyEnabled = payload.emergency_enabled;
-    this.validated = payload.validated;
-    this.verified = payload.verified;
-    this.streetSecondary = payload.street_secondary;
+    this.friendlyName = (payload.friendly_name);
+    this.isoCountry = (payload.iso_country);
+    this.postalCode = (payload.postal_code);
+    this.region = (payload.region);
+    this.sid = (payload.sid);
+    this.street = (payload.street);
+    this.uri = (payload.uri);
+    this.emergencyEnabled = (payload.emergency_enabled);
+    this.validated = (payload.validated);
+    this.verified = (payload.verified);
+    this.streetSecondary = (payload.street_secondary);
 
-    this._solution = { accountSid, sid: sid || this.sid };
+    this._solution = { accountSid, sid: sid || this.sid,  };
   }
 
   /**
@@ -451,13 +412,7 @@ export class AddressInstance {
   streetSecondary: string;
 
   private get _proxy(): AddressContext {
-    this._context =
-      this._context ||
-      new AddressContextImpl(
-        this._version,
-        this._solution.accountSid,
-        this._solution.sid
-      );
+    this._context = this._context || new AddressContextImpl(this._version, this._solution.accountSid, this._solution.sid);
     return this._context;
   }
 
@@ -468,9 +423,9 @@ export class AddressInstance {
    *
    * @returns Resolves to processed boolean
    */
-  remove(
-    callback?: (error: Error | null, item?: boolean) => any
-  ): Promise<boolean> {
+  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
+
+    {
     return this._proxy.remove(callback);
   }
 
@@ -481,9 +436,9 @@ export class AddressInstance {
    *
    * @returns Resolves to processed AddressInstance
    */
-  fetch(
-    callback?: (error: Error | null, item?: AddressInstance) => any
-  ): Promise<AddressInstance> {
+  fetch(callback?: (error: Error | null, item?: AddressInstance) => any): Promise<AddressInstance>
+
+    {
     return this._proxy.fetch(callback);
   }
 
@@ -494,9 +449,7 @@ export class AddressInstance {
    *
    * @returns Resolves to processed AddressInstance
    */
-  update(
-    callback?: (error: Error | null, item?: AddressInstance) => any
-  ): Promise<AddressInstance>;
+  update(callback?: (error: Error | null, item?: AddressInstance) => any): Promise<AddressInstance>;
   /**
    * Update a AddressInstance
    *
@@ -505,15 +458,10 @@ export class AddressInstance {
    *
    * @returns Resolves to processed AddressInstance
    */
-  update(
-    params: AddressContextUpdateOptions,
-    callback?: (error: Error | null, item?: AddressInstance) => any
-  ): Promise<AddressInstance>;
+  update(params: AddressContextUpdateOptions, callback?: (error: Error | null, item?: AddressInstance) => any): Promise<AddressInstance>;
 
-  update(
-    params?: any,
-    callback?: (error: Error | null, item?: AddressInstance) => any
-  ): Promise<AddressInstance> {
+    update(params?: any, callback?: (error: Error | null, item?: AddressInstance) => any): Promise<AddressInstance>
+    {
     return this._proxy.update(params, callback);
   }
 
@@ -547,13 +495,14 @@ export class AddressInstance {
       validated: this.validated,
       verified: this.verified,
       streetSecondary: this.streetSecondary,
-    };
+    }
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
 }
+
 
 export interface AddressSolution {
   accountSid: string;
@@ -564,8 +513,15 @@ export interface AddressListInstance {
   _solution: AddressSolution;
   _uri: string;
 
-  (sid: string): AddressContext;
-  get(sid: string): AddressContext;
+  (sid: string, ): AddressContext;
+  get(sid: string, ): AddressContext;
+
+
+
+
+
+
+
 
   /**
    * Create a AddressInstance
@@ -575,10 +531,9 @@ export interface AddressListInstance {
    *
    * @returns Resolves to processed AddressInstance
    */
-  create(
-    params: AddressListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: AddressInstance) => any
-  ): Promise<AddressInstance>;
+  create(params: AddressListInstanceCreateOptions, callback?: (error: Error | null, item?: AddressInstance) => any): Promise<AddressInstance>;
+
+
 
   /**
    * Streams AddressInstance records from the API.
@@ -595,13 +550,8 @@ export interface AddressListInstance {
    * @param { AddressListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(
-    callback?: (item: AddressInstance, done: (err?: Error) => void) => void
-  ): void;
-  each(
-    params: AddressListInstanceEachOptions,
-    callback?: (item: AddressInstance, done: (err?: Error) => void) => void
-  ): void;
+  each(callback?: (item: AddressInstance, done: (err?: Error) => void) => void): void;
+  each(params: AddressListInstanceEachOptions, callback?: (item: AddressInstance, done: (err?: Error) => void) => void): void;
   /**
    * Retrieve a single target page of AddressInstance records from the API.
    *
@@ -610,10 +560,7 @@ export interface AddressListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(
-    targetUrl: string,
-    callback?: (error: Error | null, items: AddressPage) => any
-  ): Promise<AddressPage>;
+  getPage(targetUrl: string, callback?: (error: Error | null, items: AddressPage) => any): Promise<AddressPage>;
   /**
    * Lists AddressInstance records from the API as a list.
    *
@@ -623,13 +570,8 @@ export interface AddressListInstance {
    * @param { AddressListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(
-    callback?: (error: Error | null, items: AddressInstance[]) => any
-  ): Promise<AddressInstance[]>;
-  list(
-    params: AddressListInstanceOptions,
-    callback?: (error: Error | null, items: AddressInstance[]) => any
-  ): Promise<AddressInstance[]>;
+  list(callback?: (error: Error | null, items: AddressInstance[]) => any): Promise<AddressInstance[]>;
+  list(params: AddressListInstanceOptions, callback?: (error: Error | null, items: AddressInstance[]) => any): Promise<AddressInstance[]>;
   /**
    * Retrieve a single page of AddressInstance records from the API.
    *
@@ -641,13 +583,8 @@ export interface AddressListInstance {
    * @param { AddressListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(
-    callback?: (error: Error | null, items: AddressPage) => any
-  ): Promise<AddressPage>;
-  page(
-    params: AddressListInstancePageOptions,
-    callback?: (error: Error | null, items: AddressPage) => any
-  ): Promise<AddressPage>;
+  page(callback?: (error: Error | null, items: AddressPage) => any): Promise<AddressPage>;
+  page(params: AddressListInstancePageOptions, callback?: (error: Error | null, items: AddressPage) => any): Promise<AddressPage>;
 
   /**
    * Provide a user-friendly representation
@@ -656,114 +593,92 @@ export interface AddressListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function AddressListInstance(
-  version: V2010,
-  accountSid: string
-): AddressListInstance {
+export function AddressListInstance(version: V2010, accountSid: string): AddressListInstance {
   if (!isValidPathParam(accountSid)) {
-    throw new Error("Parameter 'accountSid' is not valid.");
+    throw new Error('Parameter \'accountSid\' is not valid.');
   }
 
-  const instance = ((sid) => instance.get(sid)) as AddressListInstance;
+  const instance = ((sid, ) => instance.get(sid, )) as AddressListInstance;
 
-  instance.get = function get(sid): AddressContext {
+  instance.get = function get(sid, ): AddressContext {
     return new AddressContextImpl(version, accountSid, sid);
-  };
+  }
 
   instance._version = version;
-  instance._solution = { accountSid };
+  instance._solution = { accountSid,  };
   instance._uri = `/Accounts/${accountSid}/Addresses.json`;
 
-  instance.create = function create(
-    params: AddressListInstanceCreateOptions,
-    callback?: (error: Error | null, items: AddressInstance) => any
-  ): Promise<AddressInstance> {
+  instance.create = function create(params: AddressListInstanceCreateOptions, callback?: (error: Error | null, items: AddressInstance) => any): Promise<AddressInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (
-      params["customerName"] === null ||
-      params["customerName"] === undefined
-    ) {
-      throw new Error("Required parameter \"params['customerName']\" missing.");
+    if (params["customerName"] === null || params["customerName"] === undefined) {
+      throw new Error('Required parameter "params[\'customerName\']" missing.');
     }
 
     if (params["street"] === null || params["street"] === undefined) {
-      throw new Error("Required parameter \"params['street']\" missing.");
+      throw new Error('Required parameter "params[\'street\']" missing.');
     }
 
     if (params["city"] === null || params["city"] === undefined) {
-      throw new Error("Required parameter \"params['city']\" missing.");
+      throw new Error('Required parameter "params[\'city\']" missing.');
     }
 
     if (params["region"] === null || params["region"] === undefined) {
-      throw new Error("Required parameter \"params['region']\" missing.");
+      throw new Error('Required parameter "params[\'region\']" missing.');
     }
 
     if (params["postalCode"] === null || params["postalCode"] === undefined) {
-      throw new Error("Required parameter \"params['postalCode']\" missing.");
+      throw new Error('Required parameter "params[\'postalCode\']" missing.');
     }
 
     if (params["isoCountry"] === null || params["isoCountry"] === undefined) {
-      throw new Error("Required parameter \"params['isoCountry']\" missing.");
+      throw new Error('Required parameter "params[\'isoCountry\']" missing.');
     }
 
     let data: any = {};
 
+    
+        
     data["CustomerName"] = params["customerName"];
-
+    
     data["Street"] = params["street"];
-
+    
     data["City"] = params["city"];
-
+    
     data["Region"] = params["region"];
-
+    
     data["PostalCode"] = params["postalCode"];
-
+    
     data["IsoCountry"] = params["isoCountry"];
     if (params["friendlyName"] !== undefined)
-      data["FriendlyName"] = params["friendlyName"];
+    data["FriendlyName"] = params["friendlyName"];
     if (params["emergencyEnabled"] !== undefined)
-      data["EmergencyEnabled"] = serialize.bool(params["emergencyEnabled"]);
+    data["EmergencyEnabled"] = serialize.bool(params["emergencyEnabled"]);
     if (params["autoCorrectAddress"] !== undefined)
-      data["AutoCorrectAddress"] = serialize.bool(params["autoCorrectAddress"]);
+    data["AutoCorrectAddress"] = serialize.bool(params["autoCorrectAddress"]);
     if (params["streetSecondary"] !== undefined)
-      data["StreetSecondary"] = params["streetSecondary"];
+    data["StreetSecondary"] = params["streetSecondary"];
+
+    
 
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = version,
-      operationPromise = operationVersion.create({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      });
+        operationPromise = operationVersion.create({ uri: instance._uri, method: "post", data, headers });
+    
+    operationPromise = operationPromise.then(payload => new AddressInstance(operationVersion, payload, instance._solution.accountSid));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new AddressInstance(
-          operationVersion,
-          payload,
-          instance._solution.accountSid
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
 
-  instance.page = function page(
-    params?:
-      | AddressListInstancePageOptions
-      | ((error: Error | null, items: AddressPage) => any),
-    callback?: (error: Error | null, items: AddressPage) => any
-  ): Promise<AddressPage> {
+
+    }
+
+  instance.page = function page(params?: AddressListInstancePageOptions | ((error: Error | null, items: AddressPage) => any), callback?: (error: Error | null, items: AddressPage) => any): Promise<AddressPage> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -773,107 +688,81 @@ export function AddressListInstance(
 
     let data: any = {};
 
-    if (params["customerName"] !== undefined)
-      data["CustomerName"] = params["customerName"];
+        if (params["customerName"] !== undefined)
+    data["CustomerName"] = params["customerName"];
     if (params["friendlyName"] !== undefined)
-      data["FriendlyName"] = params["friendlyName"];
+    data["FriendlyName"] = params["friendlyName"];
     if (params["isoCountry"] !== undefined)
-      data["IsoCountry"] = params["isoCountry"];
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+    data["IsoCountry"] = params["isoCountry"];
+    if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
 
+    
+    
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-      operationPromise = operationVersion.page({
-        uri: instance._uri,
-        method: "get",
-        params: data,
-        headers,
-      });
+        operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers });
+    
+    operationPromise = operationPromise.then(payload => new AddressPage(operationVersion, payload, instance._solution));
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new AddressPage(operationVersion, payload, instance._solution)
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
+
+  }
   instance.each = instance._version.each;
   instance.list = instance._version.list;
 
-  instance.getPage = function getPage(
-    targetUrl: string,
-    callback?: (error: Error | null, items: AddressPage) => any
-  ): Promise<AddressPage> {
-    const operationPromise = instance._version._domain.twilio.request({
-      method: "get",
-      uri: targetUrl,
-    });
+  instance.getPage = function getPage(targetUrl: string, callback?: (error: Error | null, items: AddressPage) => any): Promise<AddressPage> {
+    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
 
-    let pagePromise = operationPromise.then(
-      (payload) =>
-        new AddressPage(instance._version, payload, instance._solution)
-    );
+    let pagePromise = operationPromise.then(payload => new AddressPage(instance._version, payload, instance._solution));
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  };
+  }
+
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  };
+  }
 
-  instance[inspect.custom] = function inspectImpl(
-    _depth: any,
-    options: InspectOptions
-  ) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(instance.toJSON(), options);
-  };
+  }
 
   return instance;
 }
 
-export class AddressPage extends Page<
-  V2010,
-  AddressPayload,
-  AddressResource,
-  AddressInstance
-> {
-  /**
-   * Initialize the AddressPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(
-    version: V2010,
-    response: Response<string>,
-    solution: AddressSolution
-  ) {
+export class AddressPage extends Page<V2010, AddressPayload, AddressResource, AddressInstance> {
+/**
+* Initialize the AddressPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V2010, response: Response<string>, solution: AddressSolution) {
     super(version, response, solution);
-  }
+    }
 
-  /**
-   * Build an instance of AddressInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: AddressResource): AddressInstance {
+    /**
+    * Build an instance of AddressInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: AddressResource): AddressInstance {
     return new AddressInstance(
-      this._version,
-      payload,
-      this._solution.accountSid
+    this._version,
+    payload,
+        this._solution.accountSid,
     );
-  }
+    }
 
-  [inspect.custom](depth: any, options: InspectOptions) {
+    [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-  }
-}
+    }
+    }
+

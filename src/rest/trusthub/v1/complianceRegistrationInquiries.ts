@@ -12,42 +12,31 @@
  * Do not edit the class manually.
  */
 
+
 import { inspect, InspectOptions } from "util";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 
-export type ComplianceRegistrationInquiriesBusinessIdentityType =
-  | "direct_customer"
-  | "isv_reseller_or_partner"
-  | "unknown";
 
-export type ComplianceRegistrationInquiriesBusinessRegistrationAuthority =
-  | "UK:CRN"
-  | "US:EIN"
-  | "CA:CBN"
-  | "AU:ACN"
-  | "Other";
+export type ComplianceRegistrationInquiriesBusinessIdentityType = 'direct_customer'|'isv_reseller_or_partner'|'unknown';
 
-export type ComplianceRegistrationInquiriesEndUserType =
-  | "Individual"
-  | "Business";
+export type ComplianceRegistrationInquiriesBusinessRegistrationAuthority = 'UK:CRN'|'US:EIN'|'CA:CBN'|'AU:ACN'|'Other';
 
-export type ComplianceRegistrationInquiriesPhoneNumberType =
-  | "local"
-  | "national"
-  | "mobile"
-  | "toll-free";
+export type ComplianceRegistrationInquiriesEndUserType = 'Individual'|'Business';
+
+export type ComplianceRegistrationInquiriesPhoneNumberType = 'local'|'national'|'mobile'|'toll-free';
+
 
 /**
  * Options to pass to update a ComplianceRegistrationInquiriesInstance
  */
 export interface ComplianceRegistrationInquiriesContextUpdateOptions {
   /** Indicates if the inquiry is being started from an ISV embedded component. */
-  isIsvEmbed?: boolean;
+  "isIsvEmbed"?: boolean;
   /** Theme id for styling the inquiry form. */
-  themeSetId?: string;
+  "themeSetId"?: string;
 }
 
 /**
@@ -55,86 +44,87 @@ export interface ComplianceRegistrationInquiriesContextUpdateOptions {
  */
 export interface ComplianceRegistrationInquiriesListInstanceCreateOptions {
   /**  */
-  endUserType: ComplianceRegistrationInquiriesEndUserType;
+  "endUserType": ComplianceRegistrationInquiriesEndUserType;
   /**  */
-  phoneNumberType: ComplianceRegistrationInquiriesPhoneNumberType;
+  "phoneNumberType": ComplianceRegistrationInquiriesPhoneNumberType;
   /**  */
-  businessIdentityType?: ComplianceRegistrationInquiriesBusinessIdentityType;
+  "businessIdentityType"?: ComplianceRegistrationInquiriesBusinessIdentityType;
   /**  */
-  businessRegistrationAuthority?: ComplianceRegistrationInquiriesBusinessRegistrationAuthority;
+  "businessRegistrationAuthority"?: ComplianceRegistrationInquiriesBusinessRegistrationAuthority;
   /** he name of the business or organization using the Tollfree number. */
-  businessLegalName?: string;
+  "businessLegalName"?: string;
   /** he email address to receive the notification about the verification result. */
-  notificationEmail?: string;
+  "notificationEmail"?: string;
   /** The email address to receive the notification about the verification result. */
-  acceptedNotificationReceipt?: boolean;
+  "acceptedNotificationReceipt"?: boolean;
   /** Business registration number of the business */
-  businessRegistrationNumber?: string;
+  "businessRegistrationNumber"?: string;
   /** The URL of the business website */
-  businessWebsiteUrl?: string;
+  "businessWebsiteUrl"?: string;
   /** Friendly name for your business information */
-  friendlyName?: string;
+  "friendlyName"?: string;
   /** First name of the authorized representative */
-  authorizedRepresentative1FirstName?: string;
+  "authorizedRepresentative1FirstName"?: string;
   /** Last name of the authorized representative */
-  authorizedRepresentative1LastName?: string;
+  "authorizedRepresentative1LastName"?: string;
   /** Phone number of the authorized representative */
-  authorizedRepresentative1Phone?: string;
+  "authorizedRepresentative1Phone"?: string;
   /** Email address of the authorized representative */
-  authorizedRepresentative1Email?: string;
+  "authorizedRepresentative1Email"?: string;
   /** Birthdate of the authorized representative */
-  authorizedRepresentative1DateOfBirth?: string;
+  "authorizedRepresentative1DateOfBirth"?: string;
   /** Street address of the business */
-  addressStreet?: string;
+  "addressStreet"?: string;
   /** Street address of the business */
-  addressStreetSecondary?: string;
+  "addressStreetSecondary"?: string;
   /** City of the business */
-  addressCity?: string;
+  "addressCity"?: string;
   /** State or province of the business */
-  addressSubdivision?: string;
+  "addressSubdivision"?: string;
   /** Postal code of the business */
-  addressPostalCode?: string;
+  "addressPostalCode"?: string;
   /** Country code of the business */
-  addressCountryCode?: string;
+  "addressCountryCode"?: string;
   /** Street address of the business */
-  emergencyAddressStreet?: string;
+  "emergencyAddressStreet"?: string;
   /** Street address of the business */
-  emergencyAddressStreetSecondary?: string;
+  "emergencyAddressStreetSecondary"?: string;
   /** City of the business */
-  emergencyAddressCity?: string;
+  "emergencyAddressCity"?: string;
   /** State or province of the business */
-  emergencyAddressSubdivision?: string;
+  "emergencyAddressSubdivision"?: string;
   /** Postal code of the business */
-  emergencyAddressPostalCode?: string;
+  "emergencyAddressPostalCode"?: string;
   /** Country code of the business */
-  emergencyAddressCountryCode?: string;
+  "emergencyAddressCountryCode"?: string;
   /** Use the business address as the emergency address */
-  useAddressAsEmergencyAddress?: boolean;
+  "useAddressAsEmergencyAddress"?: boolean;
   /** The name of the verification document to upload */
-  fileName?: string;
+  "fileName"?: string;
   /** The verification document to upload */
-  file?: string;
+  "file"?: string;
   /** The first name of the Individual User. */
-  firstName?: string;
+  "firstName"?: string;
   /** The last name of the Individual User. */
-  lastName?: string;
+  "lastName"?: string;
   /** The date of birth of the Individual User. */
-  dateOfBirth?: string;
+  "dateOfBirth"?: string;
   /** The email address of the Individual User. */
-  individualEmail?: string;
+  "individualEmail"?: string;
   /** The phone number of the Individual User. */
-  individualPhone?: string;
+  "individualPhone"?: string;
   /** Indicates if the inquiry is being started from an ISV embedded component. */
-  isIsvEmbed?: boolean;
+  "isIsvEmbed"?: boolean;
   /** Indicates if the isv registering for self or tenant. */
-  isvRegisteringForSelfOrTenant?: string;
+  "isvRegisteringForSelfOrTenant"?: string;
   /** The url we call to inform you of bundle changes. */
-  statusCallbackUrl?: string;
+  "statusCallbackUrl"?: string;
   /** Theme id for styling the inquiry form. */
-  themeSetId?: string;
+  "themeSetId"?: string;
 }
 
 export interface ComplianceRegistrationInquiriesContext {
+
   /**
    * Update a ComplianceRegistrationInquiriesInstance
    *
@@ -142,12 +132,7 @@ export interface ComplianceRegistrationInquiriesContext {
    *
    * @returns Resolves to processed ComplianceRegistrationInquiriesInstance
    */
-  update(
-    callback?: (
-      error: Error | null,
-      item?: ComplianceRegistrationInquiriesInstance
-    ) => any
-  ): Promise<ComplianceRegistrationInquiriesInstance>;
+  update(callback?: (error: Error | null, item?: ComplianceRegistrationInquiriesInstance) => any): Promise<ComplianceRegistrationInquiriesInstance>;
   /**
    * Update a ComplianceRegistrationInquiriesInstance
    *
@@ -156,13 +141,8 @@ export interface ComplianceRegistrationInquiriesContext {
    *
    * @returns Resolves to processed ComplianceRegistrationInquiriesInstance
    */
-  update(
-    params: ComplianceRegistrationInquiriesContextUpdateOptions,
-    callback?: (
-      error: Error | null,
-      item?: ComplianceRegistrationInquiriesInstance
-    ) => any
-  ): Promise<ComplianceRegistrationInquiriesInstance>;
+  update(params: ComplianceRegistrationInquiriesContextUpdateOptions, callback?: (error: Error | null, item?: ComplianceRegistrationInquiriesInstance) => any): Promise<ComplianceRegistrationInquiriesInstance>;
+
 
   /**
    * Provide a user-friendly representation
@@ -172,37 +152,25 @@ export interface ComplianceRegistrationInquiriesContext {
 }
 
 export interface ComplianceRegistrationInquiriesContextSolution {
-  registrationId: string;
+  "registrationId": string;
 }
 
-export class ComplianceRegistrationInquiriesContextImpl
-  implements ComplianceRegistrationInquiriesContext
-{
+export class ComplianceRegistrationInquiriesContextImpl implements ComplianceRegistrationInquiriesContext {
   protected _solution: ComplianceRegistrationInquiriesContextSolution;
   protected _uri: string;
 
+
   constructor(protected _version: V1, registrationId: string) {
     if (!isValidPathParam(registrationId)) {
-      throw new Error("Parameter 'registrationId' is not valid.");
+      throw new Error('Parameter \'registrationId\' is not valid.');
     }
 
-    this._solution = { registrationId };
+    this._solution = { registrationId,  };
     this._uri = `/ComplianceInquiries/Registration/${registrationId}/RegulatoryCompliance/GB/Initialize`;
   }
 
-  update(
-    params?:
-      | ComplianceRegistrationInquiriesContextUpdateOptions
-      | ((
-          error: Error | null,
-          item?: ComplianceRegistrationInquiriesInstance
-        ) => any),
-    callback?: (
-      error: Error | null,
-      item?: ComplianceRegistrationInquiriesInstance
-    ) => any
-  ): Promise<ComplianceRegistrationInquiriesInstance> {
-    if (params instanceof Function) {
+  update(params?: ComplianceRegistrationInquiriesContextUpdateOptions | ((error: Error | null, item?: ComplianceRegistrationInquiriesInstance) => any), callback?: (error: Error | null, item?: ComplianceRegistrationInquiriesInstance) => any): Promise<ComplianceRegistrationInquiriesInstance> {
+      if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -211,37 +179,28 @@ export class ComplianceRegistrationInquiriesContextImpl
 
     let data: any = {};
 
-    if (params["isIsvEmbed"] !== undefined)
-      data["IsIsvEmbed"] = serialize.bool(params["isIsvEmbed"]);
+    
+        if (params["isIsvEmbed"] !== undefined)
+    data["IsIsvEmbed"] = serialize.bool(params["isIsvEmbed"]);
     if (params["themeSetId"] !== undefined)
-      data["ThemeSetId"] = params["themeSetId"];
+    data["ThemeSetId"] = params["themeSetId"];
+
+    
 
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.update({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      });
+        operationPromise = operationVersion.update({ uri: instance._uri, method: "post", data, headers });
+    
+    operationPromise = operationPromise.then(payload => new ComplianceRegistrationInquiriesInstance(operationVersion, payload, instance._solution.registrationId));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new ComplianceRegistrationInquiriesInstance(
-          operationVersion,
-          payload,
-          instance._solution.registrationId
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
   /**
@@ -258,8 +217,8 @@ export class ComplianceRegistrationInquiriesContextImpl
   }
 }
 
-interface ComplianceRegistrationInquiriesPayload
-  extends ComplianceRegistrationInquiriesResource {}
+
+interface ComplianceRegistrationInquiriesPayload extends ComplianceRegistrationInquiriesResource {}
 
 interface ComplianceRegistrationInquiriesResource {
   inquiry_id: string;
@@ -272,17 +231,13 @@ export class ComplianceRegistrationInquiriesInstance {
   protected _solution: ComplianceRegistrationInquiriesContextSolution;
   protected _context?: ComplianceRegistrationInquiriesContext;
 
-  constructor(
-    protected _version: V1,
-    payload: ComplianceRegistrationInquiriesResource,
-    registrationId?: string
-  ) {
-    this.inquiryId = payload.inquiry_id;
-    this.inquirySessionToken = payload.inquiry_session_token;
-    this.registrationId = payload.registration_id;
-    this.url = payload.url;
+  constructor(protected _version: V1, payload: ComplianceRegistrationInquiriesResource, registrationId?: string) {
+    this.inquiryId = (payload.inquiry_id);
+    this.inquirySessionToken = (payload.inquiry_session_token);
+    this.registrationId = (payload.registration_id);
+    this.url = (payload.url);
 
-    this._solution = { registrationId: registrationId || this.registrationId };
+    this._solution = { registrationId: registrationId || this.registrationId,  };
   }
 
   /**
@@ -303,12 +258,7 @@ export class ComplianceRegistrationInquiriesInstance {
   url: string;
 
   private get _proxy(): ComplianceRegistrationInquiriesContext {
-    this._context =
-      this._context ||
-      new ComplianceRegistrationInquiriesContextImpl(
-        this._version,
-        this._solution.registrationId
-      );
+    this._context = this._context || new ComplianceRegistrationInquiriesContextImpl(this._version, this._solution.registrationId);
     return this._context;
   }
 
@@ -319,12 +269,7 @@ export class ComplianceRegistrationInquiriesInstance {
    *
    * @returns Resolves to processed ComplianceRegistrationInquiriesInstance
    */
-  update(
-    callback?: (
-      error: Error | null,
-      item?: ComplianceRegistrationInquiriesInstance
-    ) => any
-  ): Promise<ComplianceRegistrationInquiriesInstance>;
+  update(callback?: (error: Error | null, item?: ComplianceRegistrationInquiriesInstance) => any): Promise<ComplianceRegistrationInquiriesInstance>;
   /**
    * Update a ComplianceRegistrationInquiriesInstance
    *
@@ -333,21 +278,10 @@ export class ComplianceRegistrationInquiriesInstance {
    *
    * @returns Resolves to processed ComplianceRegistrationInquiriesInstance
    */
-  update(
-    params: ComplianceRegistrationInquiriesContextUpdateOptions,
-    callback?: (
-      error: Error | null,
-      item?: ComplianceRegistrationInquiriesInstance
-    ) => any
-  ): Promise<ComplianceRegistrationInquiriesInstance>;
+  update(params: ComplianceRegistrationInquiriesContextUpdateOptions, callback?: (error: Error | null, item?: ComplianceRegistrationInquiriesInstance) => any): Promise<ComplianceRegistrationInquiriesInstance>;
 
-  update(
-    params?: any,
-    callback?: (
-      error: Error | null,
-      item?: ComplianceRegistrationInquiriesInstance
-    ) => any
-  ): Promise<ComplianceRegistrationInquiriesInstance> {
+    update(params?: any, callback?: (error: Error | null, item?: ComplianceRegistrationInquiriesInstance) => any): Promise<ComplianceRegistrationInquiriesInstance>
+    {
     return this._proxy.update(params, callback);
   }
 
@@ -362,7 +296,7 @@ export class ComplianceRegistrationInquiriesInstance {
       inquirySessionToken: this.inquirySessionToken,
       registrationId: this.registrationId,
       url: this.url,
-    };
+    }
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
@@ -370,15 +304,20 @@ export class ComplianceRegistrationInquiriesInstance {
   }
 }
 
-export interface ComplianceRegistrationInquiriesSolution {}
+
+export interface ComplianceRegistrationInquiriesSolution {
+}
 
 export interface ComplianceRegistrationInquiriesListInstance {
   _version: V1;
   _solution: ComplianceRegistrationInquiriesSolution;
   _uri: string;
 
-  (registrationId: string): ComplianceRegistrationInquiriesContext;
-  get(registrationId: string): ComplianceRegistrationInquiriesContext;
+  (registrationId: string, ): ComplianceRegistrationInquiriesContext;
+  get(registrationId: string, ): ComplianceRegistrationInquiriesContext;
+
+
+
 
   /**
    * Create a ComplianceRegistrationInquiriesInstance
@@ -388,13 +327,8 @@ export interface ComplianceRegistrationInquiriesListInstance {
    *
    * @returns Resolves to processed ComplianceRegistrationInquiriesInstance
    */
-  create(
-    params: ComplianceRegistrationInquiriesListInstanceCreateOptions,
-    callback?: (
-      error: Error | null,
-      item?: ComplianceRegistrationInquiriesInstance
-    ) => any
-  ): Promise<ComplianceRegistrationInquiriesInstance>;
+  create(params: ComplianceRegistrationInquiriesListInstanceCreateOptions, callback?: (error: Error | null, item?: ComplianceRegistrationInquiriesInstance) => any): Promise<ComplianceRegistrationInquiriesInstance>;
+
 
   /**
    * Provide a user-friendly representation
@@ -403,175 +337,138 @@ export interface ComplianceRegistrationInquiriesListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function ComplianceRegistrationInquiriesListInstance(
-  version: V1
-): ComplianceRegistrationInquiriesListInstance {
-  const instance = ((registrationId) =>
-    instance.get(
-      registrationId
-    )) as ComplianceRegistrationInquiriesListInstance;
+export function ComplianceRegistrationInquiriesListInstance(version: V1): ComplianceRegistrationInquiriesListInstance {
+  const instance = ((registrationId, ) => instance.get(registrationId, )) as ComplianceRegistrationInquiriesListInstance;
 
-  instance.get = function get(
-    registrationId
-  ): ComplianceRegistrationInquiriesContext {
-    return new ComplianceRegistrationInquiriesContextImpl(
-      version,
-      registrationId
-    );
-  };
+  instance.get = function get(registrationId, ): ComplianceRegistrationInquiriesContext {
+    return new ComplianceRegistrationInquiriesContextImpl(version, registrationId);
+  }
 
   instance._version = version;
-  instance._solution = {};
+  instance._solution = {  };
   instance._uri = `/ComplianceInquiries/Registration/RegulatoryCompliance/GB/Initialize`;
 
-  instance.create = function create(
-    params: ComplianceRegistrationInquiriesListInstanceCreateOptions,
-    callback?: (
-      error: Error | null,
-      items: ComplianceRegistrationInquiriesInstance
-    ) => any
-  ): Promise<ComplianceRegistrationInquiriesInstance> {
+  instance.create = function create(params: ComplianceRegistrationInquiriesListInstanceCreateOptions, callback?: (error: Error | null, items: ComplianceRegistrationInquiriesInstance) => any): Promise<ComplianceRegistrationInquiriesInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     if (params["endUserType"] === null || params["endUserType"] === undefined) {
-      throw new Error("Required parameter \"params['endUserType']\" missing.");
+      throw new Error('Required parameter "params[\'endUserType\']" missing.');
     }
 
-    if (
-      params["phoneNumberType"] === null ||
-      params["phoneNumberType"] === undefined
-    ) {
-      throw new Error(
-        "Required parameter \"params['phoneNumberType']\" missing."
-      );
+    if (params["phoneNumberType"] === null || params["phoneNumberType"] === undefined) {
+      throw new Error('Required parameter "params[\'phoneNumberType\']" missing.');
     }
 
     let data: any = {};
 
+    
+        
     data["EndUserType"] = params["endUserType"];
-
+    
     data["PhoneNumberType"] = params["phoneNumberType"];
     if (params["businessIdentityType"] !== undefined)
-      data["BusinessIdentityType"] = params["businessIdentityType"];
+    data["BusinessIdentityType"] = params["businessIdentityType"];
     if (params["businessRegistrationAuthority"] !== undefined)
-      data["BusinessRegistrationAuthority"] =
-        params["businessRegistrationAuthority"];
+    data["BusinessRegistrationAuthority"] = params["businessRegistrationAuthority"];
     if (params["businessLegalName"] !== undefined)
-      data["BusinessLegalName"] = params["businessLegalName"];
+    data["BusinessLegalName"] = params["businessLegalName"];
     if (params["notificationEmail"] !== undefined)
-      data["NotificationEmail"] = params["notificationEmail"];
+    data["NotificationEmail"] = params["notificationEmail"];
     if (params["acceptedNotificationReceipt"] !== undefined)
-      data["AcceptedNotificationReceipt"] = serialize.bool(
-        params["acceptedNotificationReceipt"]
-      );
+    data["AcceptedNotificationReceipt"] = serialize.bool(params["acceptedNotificationReceipt"]);
     if (params["businessRegistrationNumber"] !== undefined)
-      data["BusinessRegistrationNumber"] = params["businessRegistrationNumber"];
+    data["BusinessRegistrationNumber"] = params["businessRegistrationNumber"];
     if (params["businessWebsiteUrl"] !== undefined)
-      data["BusinessWebsiteUrl"] = params["businessWebsiteUrl"];
+    data["BusinessWebsiteUrl"] = params["businessWebsiteUrl"];
     if (params["friendlyName"] !== undefined)
-      data["FriendlyName"] = params["friendlyName"];
+    data["FriendlyName"] = params["friendlyName"];
     if (params["authorizedRepresentative1FirstName"] !== undefined)
-      data["AuthorizedRepresentative1FirstName"] =
-        params["authorizedRepresentative1FirstName"];
+    data["AuthorizedRepresentative1FirstName"] = params["authorizedRepresentative1FirstName"];
     if (params["authorizedRepresentative1LastName"] !== undefined)
-      data["AuthorizedRepresentative1LastName"] =
-        params["authorizedRepresentative1LastName"];
+    data["AuthorizedRepresentative1LastName"] = params["authorizedRepresentative1LastName"];
     if (params["authorizedRepresentative1Phone"] !== undefined)
-      data["AuthorizedRepresentative1Phone"] =
-        params["authorizedRepresentative1Phone"];
+    data["AuthorizedRepresentative1Phone"] = params["authorizedRepresentative1Phone"];
     if (params["authorizedRepresentative1Email"] !== undefined)
-      data["AuthorizedRepresentative1Email"] =
-        params["authorizedRepresentative1Email"];
+    data["AuthorizedRepresentative1Email"] = params["authorizedRepresentative1Email"];
     if (params["authorizedRepresentative1DateOfBirth"] !== undefined)
-      data["AuthorizedRepresentative1DateOfBirth"] =
-        params["authorizedRepresentative1DateOfBirth"];
+    data["AuthorizedRepresentative1DateOfBirth"] = params["authorizedRepresentative1DateOfBirth"];
     if (params["addressStreet"] !== undefined)
-      data["AddressStreet"] = params["addressStreet"];
+    data["AddressStreet"] = params["addressStreet"];
     if (params["addressStreetSecondary"] !== undefined)
-      data["AddressStreetSecondary"] = params["addressStreetSecondary"];
+    data["AddressStreetSecondary"] = params["addressStreetSecondary"];
     if (params["addressCity"] !== undefined)
-      data["AddressCity"] = params["addressCity"];
+    data["AddressCity"] = params["addressCity"];
     if (params["addressSubdivision"] !== undefined)
-      data["AddressSubdivision"] = params["addressSubdivision"];
+    data["AddressSubdivision"] = params["addressSubdivision"];
     if (params["addressPostalCode"] !== undefined)
-      data["AddressPostalCode"] = params["addressPostalCode"];
+    data["AddressPostalCode"] = params["addressPostalCode"];
     if (params["addressCountryCode"] !== undefined)
-      data["AddressCountryCode"] = params["addressCountryCode"];
+    data["AddressCountryCode"] = params["addressCountryCode"];
     if (params["emergencyAddressStreet"] !== undefined)
-      data["EmergencyAddressStreet"] = params["emergencyAddressStreet"];
+    data["EmergencyAddressStreet"] = params["emergencyAddressStreet"];
     if (params["emergencyAddressStreetSecondary"] !== undefined)
-      data["EmergencyAddressStreetSecondary"] =
-        params["emergencyAddressStreetSecondary"];
+    data["EmergencyAddressStreetSecondary"] = params["emergencyAddressStreetSecondary"];
     if (params["emergencyAddressCity"] !== undefined)
-      data["EmergencyAddressCity"] = params["emergencyAddressCity"];
+    data["EmergencyAddressCity"] = params["emergencyAddressCity"];
     if (params["emergencyAddressSubdivision"] !== undefined)
-      data["EmergencyAddressSubdivision"] =
-        params["emergencyAddressSubdivision"];
+    data["EmergencyAddressSubdivision"] = params["emergencyAddressSubdivision"];
     if (params["emergencyAddressPostalCode"] !== undefined)
-      data["EmergencyAddressPostalCode"] = params["emergencyAddressPostalCode"];
+    data["EmergencyAddressPostalCode"] = params["emergencyAddressPostalCode"];
     if (params["emergencyAddressCountryCode"] !== undefined)
-      data["EmergencyAddressCountryCode"] =
-        params["emergencyAddressCountryCode"];
+    data["EmergencyAddressCountryCode"] = params["emergencyAddressCountryCode"];
     if (params["useAddressAsEmergencyAddress"] !== undefined)
-      data["UseAddressAsEmergencyAddress"] = serialize.bool(
-        params["useAddressAsEmergencyAddress"]
-      );
-    if (params["fileName"] !== undefined) data["FileName"] = params["fileName"];
-    if (params["file"] !== undefined) data["File"] = params["file"];
+    data["UseAddressAsEmergencyAddress"] = serialize.bool(params["useAddressAsEmergencyAddress"]);
+    if (params["fileName"] !== undefined)
+    data["FileName"] = params["fileName"];
+    if (params["file"] !== undefined)
+    data["File"] = params["file"];
     if (params["firstName"] !== undefined)
-      data["FirstName"] = params["firstName"];
-    if (params["lastName"] !== undefined) data["LastName"] = params["lastName"];
+    data["FirstName"] = params["firstName"];
+    if (params["lastName"] !== undefined)
+    data["LastName"] = params["lastName"];
     if (params["dateOfBirth"] !== undefined)
-      data["DateOfBirth"] = params["dateOfBirth"];
+    data["DateOfBirth"] = params["dateOfBirth"];
     if (params["individualEmail"] !== undefined)
-      data["IndividualEmail"] = params["individualEmail"];
+    data["IndividualEmail"] = params["individualEmail"];
     if (params["individualPhone"] !== undefined)
-      data["IndividualPhone"] = params["individualPhone"];
+    data["IndividualPhone"] = params["individualPhone"];
     if (params["isIsvEmbed"] !== undefined)
-      data["IsIsvEmbed"] = serialize.bool(params["isIsvEmbed"]);
+    data["IsIsvEmbed"] = serialize.bool(params["isIsvEmbed"]);
     if (params["isvRegisteringForSelfOrTenant"] !== undefined)
-      data["IsvRegisteringForSelfOrTenant"] =
-        params["isvRegisteringForSelfOrTenant"];
+    data["IsvRegisteringForSelfOrTenant"] = params["isvRegisteringForSelfOrTenant"];
     if (params["statusCallbackUrl"] !== undefined)
-      data["StatusCallbackUrl"] = params["statusCallbackUrl"];
+    data["StatusCallbackUrl"] = params["statusCallbackUrl"];
     if (params["themeSetId"] !== undefined)
-      data["ThemeSetId"] = params["themeSetId"];
+    data["ThemeSetId"] = params["themeSetId"];
+
+    
 
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = version,
-      operationPromise = operationVersion.create({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      });
+        operationPromise = operationVersion.create({ uri: instance._uri, method: "post", data, headers });
+    
+    operationPromise = operationPromise.then(payload => new ComplianceRegistrationInquiriesInstance(operationVersion, payload));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new ComplianceRegistrationInquiriesInstance(operationVersion, payload)
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
+
+
+    }
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  };
+  }
 
-  instance[inspect.custom] = function inspectImpl(
-    _depth: any,
-    options: InspectOptions
-  ) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(instance.toJSON(), options);
-  };
+  }
 
   return instance;
 }
+
+

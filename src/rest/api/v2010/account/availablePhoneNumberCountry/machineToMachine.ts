@@ -12,6 +12,7 @@
  * Do not edit the class manually.
  */
 
+
 import { inspect, InspectOptions } from "util";
 import Page, { TwilioResponsePayload } from "../../../../../base/Page";
 import Response from "../../../../../http/response";
@@ -21,53 +22,51 @@ const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
 import { PhoneNumberCapabilities } from "../../../../../interfaces";
 
+
 /**
  * Options to pass to each
  */
 export interface MachineToMachineListInstanceEachOptions {
   /** The area code of the phone numbers to read. Applies to only phone numbers in the US and Canada. */
-  areaCode?: number;
+  "areaCode"?: number;
   /** The pattern on which to match phone numbers. Valid characters are `*`, `0-9`, `a-z`, and `A-Z`. The `*` character matches any single digit. For examples, see [Example 2](https://www.twilio.com/docs/phone-numbers/api/availablephonenumber-resource#local-get-basic-example-2) and [Example 3](https://www.twilio.com/docs/phone-numbers/api/availablephonenumber-resource#local-get-basic-example-3). If specified, this value must have at least two characters. */
-  contains?: string;
+  "contains"?: string;
   /** Whether the phone numbers can receive text messages. Can be: `true` or `false`. */
-  smsEnabled?: boolean;
+  "smsEnabled"?: boolean;
   /** Whether the phone numbers can receive MMS messages. Can be: `true` or `false`. */
-  mmsEnabled?: boolean;
+  "mmsEnabled"?: boolean;
   /** Whether the phone numbers can receive calls. Can be: `true` or `false`. */
-  voiceEnabled?: boolean;
+  "voiceEnabled"?: boolean;
   /** Whether to exclude phone numbers that require an [Address](https://www.twilio.com/docs/usage/api/address). Can be: `true` or `false` and the default is `false`. */
-  excludeAllAddressRequired?: boolean;
+  "excludeAllAddressRequired"?: boolean;
   /** Whether to exclude phone numbers that require a local [Address](https://www.twilio.com/docs/usage/api/address). Can be: `true` or `false` and the default is `false`. */
-  excludeLocalAddressRequired?: boolean;
+  "excludeLocalAddressRequired"?: boolean;
   /** Whether to exclude phone numbers that require a foreign [Address](https://www.twilio.com/docs/usage/api/address). Can be: `true` or `false` and the default is `false`. */
-  excludeForeignAddressRequired?: boolean;
+  "excludeForeignAddressRequired"?: boolean;
   /** Whether to read phone numbers that are new to the Twilio platform. Can be: `true` or `false` and the default is `true`. */
-  beta?: boolean;
+  "beta"?: boolean;
   /** Given a phone number, find a geographically close number within `distance` miles. Distance defaults to 25 miles. Applies to only phone numbers in the US and Canada. */
-  nearNumber?: string;
+  "nearNumber"?: string;
   /** Given a latitude/longitude pair `lat,long` find geographically close numbers within `distance` miles. Applies to only phone numbers in the US and Canada. */
-  nearLatLong?: string;
+  "nearLatLong"?: string;
   /** The search radius, in miles, for a `near_` query.  Can be up to `500` and the default is `25`. Applies to only phone numbers in the US and Canada. */
-  distance?: number;
+  "distance"?: number;
   /** Limit results to a particular postal code. Given a phone number, search within the same postal code as that number. Applies to only phone numbers in the US and Canada. */
-  inPostalCode?: string;
+  "inPostalCode"?: string;
   /** Limit results to a particular region, state, or province. Given a phone number, search within the same region as that number. Applies to only phone numbers in the US and Canada. */
-  inRegion?: string;
+  "inRegion"?: string;
   /** Limit results to a specific rate center, or given a phone number search within the same rate center as that number. Requires `in_lata` to be set as well. Applies to only phone numbers in the US and Canada. */
-  inRateCenter?: string;
+  "inRateCenter"?: string;
   /** Limit results to a specific local access and transport area ([LATA](https://en.wikipedia.org/wiki/Local_access_and_transport_area)). Given a phone number, search within the same [LATA](https://en.wikipedia.org/wiki/Local_access_and_transport_area) as that number. Applies to only phone numbers in the US and Canada. */
-  inLata?: string;
+  "inLata"?: string;
   /** Limit results to a particular locality or city. Given a phone number, search within the same Locality as that number. */
-  inLocality?: string;
+  "inLocality"?: string;
   /** Whether the phone numbers can receive faxes. Can be: `true` or `false`. */
-  faxEnabled?: boolean;
+  "faxEnabled"?: boolean;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
-  callback?: (
-    item: MachineToMachineInstance,
-    done: (err?: Error) => void
-  ) => void;
+  callback?: (item: MachineToMachineInstance, done: (err?: Error) => void) => void;
   /** Function to be called upon completion of streaming */
   done?: Function;
   /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
@@ -79,43 +78,43 @@ export interface MachineToMachineListInstanceEachOptions {
  */
 export interface MachineToMachineListInstanceOptions {
   /** The area code of the phone numbers to read. Applies to only phone numbers in the US and Canada. */
-  areaCode?: number;
+  "areaCode"?: number;
   /** The pattern on which to match phone numbers. Valid characters are `*`, `0-9`, `a-z`, and `A-Z`. The `*` character matches any single digit. For examples, see [Example 2](https://www.twilio.com/docs/phone-numbers/api/availablephonenumber-resource#local-get-basic-example-2) and [Example 3](https://www.twilio.com/docs/phone-numbers/api/availablephonenumber-resource#local-get-basic-example-3). If specified, this value must have at least two characters. */
-  contains?: string;
+  "contains"?: string;
   /** Whether the phone numbers can receive text messages. Can be: `true` or `false`. */
-  smsEnabled?: boolean;
+  "smsEnabled"?: boolean;
   /** Whether the phone numbers can receive MMS messages. Can be: `true` or `false`. */
-  mmsEnabled?: boolean;
+  "mmsEnabled"?: boolean;
   /** Whether the phone numbers can receive calls. Can be: `true` or `false`. */
-  voiceEnabled?: boolean;
+  "voiceEnabled"?: boolean;
   /** Whether to exclude phone numbers that require an [Address](https://www.twilio.com/docs/usage/api/address). Can be: `true` or `false` and the default is `false`. */
-  excludeAllAddressRequired?: boolean;
+  "excludeAllAddressRequired"?: boolean;
   /** Whether to exclude phone numbers that require a local [Address](https://www.twilio.com/docs/usage/api/address). Can be: `true` or `false` and the default is `false`. */
-  excludeLocalAddressRequired?: boolean;
+  "excludeLocalAddressRequired"?: boolean;
   /** Whether to exclude phone numbers that require a foreign [Address](https://www.twilio.com/docs/usage/api/address). Can be: `true` or `false` and the default is `false`. */
-  excludeForeignAddressRequired?: boolean;
+  "excludeForeignAddressRequired"?: boolean;
   /** Whether to read phone numbers that are new to the Twilio platform. Can be: `true` or `false` and the default is `true`. */
-  beta?: boolean;
+  "beta"?: boolean;
   /** Given a phone number, find a geographically close number within `distance` miles. Distance defaults to 25 miles. Applies to only phone numbers in the US and Canada. */
-  nearNumber?: string;
+  "nearNumber"?: string;
   /** Given a latitude/longitude pair `lat,long` find geographically close numbers within `distance` miles. Applies to only phone numbers in the US and Canada. */
-  nearLatLong?: string;
+  "nearLatLong"?: string;
   /** The search radius, in miles, for a `near_` query.  Can be up to `500` and the default is `25`. Applies to only phone numbers in the US and Canada. */
-  distance?: number;
+  "distance"?: number;
   /** Limit results to a particular postal code. Given a phone number, search within the same postal code as that number. Applies to only phone numbers in the US and Canada. */
-  inPostalCode?: string;
+  "inPostalCode"?: string;
   /** Limit results to a particular region, state, or province. Given a phone number, search within the same region as that number. Applies to only phone numbers in the US and Canada. */
-  inRegion?: string;
+  "inRegion"?: string;
   /** Limit results to a specific rate center, or given a phone number search within the same rate center as that number. Requires `in_lata` to be set as well. Applies to only phone numbers in the US and Canada. */
-  inRateCenter?: string;
+  "inRateCenter"?: string;
   /** Limit results to a specific local access and transport area ([LATA](https://en.wikipedia.org/wiki/Local_access_and_transport_area)). Given a phone number, search within the same [LATA](https://en.wikipedia.org/wiki/Local_access_and_transport_area) as that number. Applies to only phone numbers in the US and Canada. */
-  inLata?: string;
+  "inLata"?: string;
   /** Limit results to a particular locality or city. Given a phone number, search within the same Locality as that number. */
-  inLocality?: string;
+  "inLocality"?: string;
   /** Whether the phone numbers can receive faxes. Can be: `true` or `false`. */
-  faxEnabled?: boolean;
+  "faxEnabled"?: boolean;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
@@ -125,48 +124,50 @@ export interface MachineToMachineListInstanceOptions {
  */
 export interface MachineToMachineListInstancePageOptions {
   /** The area code of the phone numbers to read. Applies to only phone numbers in the US and Canada. */
-  areaCode?: number;
+  "areaCode"?: number;
   /** The pattern on which to match phone numbers. Valid characters are `*`, `0-9`, `a-z`, and `A-Z`. The `*` character matches any single digit. For examples, see [Example 2](https://www.twilio.com/docs/phone-numbers/api/availablephonenumber-resource#local-get-basic-example-2) and [Example 3](https://www.twilio.com/docs/phone-numbers/api/availablephonenumber-resource#local-get-basic-example-3). If specified, this value must have at least two characters. */
-  contains?: string;
+  "contains"?: string;
   /** Whether the phone numbers can receive text messages. Can be: `true` or `false`. */
-  smsEnabled?: boolean;
+  "smsEnabled"?: boolean;
   /** Whether the phone numbers can receive MMS messages. Can be: `true` or `false`. */
-  mmsEnabled?: boolean;
+  "mmsEnabled"?: boolean;
   /** Whether the phone numbers can receive calls. Can be: `true` or `false`. */
-  voiceEnabled?: boolean;
+  "voiceEnabled"?: boolean;
   /** Whether to exclude phone numbers that require an [Address](https://www.twilio.com/docs/usage/api/address). Can be: `true` or `false` and the default is `false`. */
-  excludeAllAddressRequired?: boolean;
+  "excludeAllAddressRequired"?: boolean;
   /** Whether to exclude phone numbers that require a local [Address](https://www.twilio.com/docs/usage/api/address). Can be: `true` or `false` and the default is `false`. */
-  excludeLocalAddressRequired?: boolean;
+  "excludeLocalAddressRequired"?: boolean;
   /** Whether to exclude phone numbers that require a foreign [Address](https://www.twilio.com/docs/usage/api/address). Can be: `true` or `false` and the default is `false`. */
-  excludeForeignAddressRequired?: boolean;
+  "excludeForeignAddressRequired"?: boolean;
   /** Whether to read phone numbers that are new to the Twilio platform. Can be: `true` or `false` and the default is `true`. */
-  beta?: boolean;
+  "beta"?: boolean;
   /** Given a phone number, find a geographically close number within `distance` miles. Distance defaults to 25 miles. Applies to only phone numbers in the US and Canada. */
-  nearNumber?: string;
+  "nearNumber"?: string;
   /** Given a latitude/longitude pair `lat,long` find geographically close numbers within `distance` miles. Applies to only phone numbers in the US and Canada. */
-  nearLatLong?: string;
+  "nearLatLong"?: string;
   /** The search radius, in miles, for a `near_` query.  Can be up to `500` and the default is `25`. Applies to only phone numbers in the US and Canada. */
-  distance?: number;
+  "distance"?: number;
   /** Limit results to a particular postal code. Given a phone number, search within the same postal code as that number. Applies to only phone numbers in the US and Canada. */
-  inPostalCode?: string;
+  "inPostalCode"?: string;
   /** Limit results to a particular region, state, or province. Given a phone number, search within the same region as that number. Applies to only phone numbers in the US and Canada. */
-  inRegion?: string;
+  "inRegion"?: string;
   /** Limit results to a specific rate center, or given a phone number search within the same rate center as that number. Requires `in_lata` to be set as well. Applies to only phone numbers in the US and Canada. */
-  inRateCenter?: string;
+  "inRateCenter"?: string;
   /** Limit results to a specific local access and transport area ([LATA](https://en.wikipedia.org/wiki/Local_access_and_transport_area)). Given a phone number, search within the same [LATA](https://en.wikipedia.org/wiki/Local_access_and_transport_area) as that number. Applies to only phone numbers in the US and Canada. */
-  inLata?: string;
+  "inLata"?: string;
   /** Limit results to a particular locality or city. Given a phone number, search within the same Locality as that number. */
-  inLocality?: string;
+  "inLocality"?: string;
   /** Whether the phone numbers can receive faxes. Can be: `true` or `false`. */
-  faxEnabled?: boolean;
+  "faxEnabled"?: boolean;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
   /** PageToken provided by the API */
   pageToken?: string;
 }
+
+
 
 export interface MachineToMachineSolution {
   accountSid: string;
@@ -177,6 +178,9 @@ export interface MachineToMachineListInstance {
   _version: V2010;
   _solution: MachineToMachineSolution;
   _uri: string;
+
+
+
 
   /**
    * Streams MachineToMachineInstance records from the API.
@@ -193,19 +197,8 @@ export interface MachineToMachineListInstance {
    * @param { MachineToMachineListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(
-    callback?: (
-      item: MachineToMachineInstance,
-      done: (err?: Error) => void
-    ) => void
-  ): void;
-  each(
-    params: MachineToMachineListInstanceEachOptions,
-    callback?: (
-      item: MachineToMachineInstance,
-      done: (err?: Error) => void
-    ) => void
-  ): void;
+  each(callback?: (item: MachineToMachineInstance, done: (err?: Error) => void) => void): void;
+  each(params: MachineToMachineListInstanceEachOptions, callback?: (item: MachineToMachineInstance, done: (err?: Error) => void) => void): void;
   /**
    * Retrieve a single target page of MachineToMachineInstance records from the API.
    *
@@ -214,10 +207,7 @@ export interface MachineToMachineListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(
-    targetUrl: string,
-    callback?: (error: Error | null, items: MachineToMachinePage) => any
-  ): Promise<MachineToMachinePage>;
+  getPage(targetUrl: string, callback?: (error: Error | null, items: MachineToMachinePage) => any): Promise<MachineToMachinePage>;
   /**
    * Lists MachineToMachineInstance records from the API as a list.
    *
@@ -227,13 +217,8 @@ export interface MachineToMachineListInstance {
    * @param { MachineToMachineListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(
-    callback?: (error: Error | null, items: MachineToMachineInstance[]) => any
-  ): Promise<MachineToMachineInstance[]>;
-  list(
-    params: MachineToMachineListInstanceOptions,
-    callback?: (error: Error | null, items: MachineToMachineInstance[]) => any
-  ): Promise<MachineToMachineInstance[]>;
+  list(callback?: (error: Error | null, items: MachineToMachineInstance[]) => any): Promise<MachineToMachineInstance[]>;
+  list(params: MachineToMachineListInstanceOptions, callback?: (error: Error | null, items: MachineToMachineInstance[]) => any): Promise<MachineToMachineInstance[]>;
   /**
    * Retrieve a single page of MachineToMachineInstance records from the API.
    *
@@ -245,13 +230,8 @@ export interface MachineToMachineListInstance {
    * @param { MachineToMachineListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(
-    callback?: (error: Error | null, items: MachineToMachinePage) => any
-  ): Promise<MachineToMachinePage>;
-  page(
-    params: MachineToMachineListInstancePageOptions,
-    callback?: (error: Error | null, items: MachineToMachinePage) => any
-  ): Promise<MachineToMachinePage>;
+  page(callback?: (error: Error | null, items: MachineToMachinePage) => any): Promise<MachineToMachinePage>;
+  page(params: MachineToMachineListInstancePageOptions, callback?: (error: Error | null, items: MachineToMachinePage) => any): Promise<MachineToMachinePage>;
 
   /**
    * Provide a user-friendly representation
@@ -260,31 +240,22 @@ export interface MachineToMachineListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function MachineToMachineListInstance(
-  version: V2010,
-  accountSid: string,
-  countryCode: string
-): MachineToMachineListInstance {
+export function MachineToMachineListInstance(version: V2010, accountSid: string, countryCode: string): MachineToMachineListInstance {
   if (!isValidPathParam(accountSid)) {
-    throw new Error("Parameter 'accountSid' is not valid.");
+    throw new Error('Parameter \'accountSid\' is not valid.');
   }
 
   if (!isValidPathParam(countryCode)) {
-    throw new Error("Parameter 'countryCode' is not valid.");
+    throw new Error('Parameter \'countryCode\' is not valid.');
   }
 
   const instance = {} as MachineToMachineListInstance;
 
   instance._version = version;
-  instance._solution = { accountSid, countryCode };
+  instance._solution = { accountSid, countryCode,  };
   instance._uri = `/Accounts/${accountSid}/AvailablePhoneNumbers/${countryCode}/MachineToMachine.json`;
 
-  instance.page = function page(
-    params?:
-      | MachineToMachineListInstancePageOptions
-      | ((error: Error | null, items: MachineToMachinePage) => any),
-    callback?: (error: Error | null, items: MachineToMachinePage) => any
-  ): Promise<MachineToMachinePage> {
+  instance.page = function page(params?: MachineToMachineListInstancePageOptions | ((error: Error | null, items: MachineToMachinePage) => any), callback?: (error: Error | null, items: MachineToMachinePage) => any): Promise<MachineToMachinePage> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -294,105 +265,86 @@ export function MachineToMachineListInstance(
 
     let data: any = {};
 
-    if (params["areaCode"] !== undefined) data["AreaCode"] = params["areaCode"];
-    if (params["contains"] !== undefined) data["Contains"] = params["contains"];
+        if (params["areaCode"] !== undefined)
+    data["AreaCode"] = params["areaCode"];
+    if (params["contains"] !== undefined)
+    data["Contains"] = params["contains"];
     if (params["smsEnabled"] !== undefined)
-      data["SmsEnabled"] = serialize.bool(params["smsEnabled"]);
+    data["SmsEnabled"] = serialize.bool(params["smsEnabled"]);
     if (params["mmsEnabled"] !== undefined)
-      data["MmsEnabled"] = serialize.bool(params["mmsEnabled"]);
+    data["MmsEnabled"] = serialize.bool(params["mmsEnabled"]);
     if (params["voiceEnabled"] !== undefined)
-      data["VoiceEnabled"] = serialize.bool(params["voiceEnabled"]);
+    data["VoiceEnabled"] = serialize.bool(params["voiceEnabled"]);
     if (params["excludeAllAddressRequired"] !== undefined)
-      data["ExcludeAllAddressRequired"] = serialize.bool(
-        params["excludeAllAddressRequired"]
-      );
+    data["ExcludeAllAddressRequired"] = serialize.bool(params["excludeAllAddressRequired"]);
     if (params["excludeLocalAddressRequired"] !== undefined)
-      data["ExcludeLocalAddressRequired"] = serialize.bool(
-        params["excludeLocalAddressRequired"]
-      );
+    data["ExcludeLocalAddressRequired"] = serialize.bool(params["excludeLocalAddressRequired"]);
     if (params["excludeForeignAddressRequired"] !== undefined)
-      data["ExcludeForeignAddressRequired"] = serialize.bool(
-        params["excludeForeignAddressRequired"]
-      );
+    data["ExcludeForeignAddressRequired"] = serialize.bool(params["excludeForeignAddressRequired"]);
     if (params["beta"] !== undefined)
-      data["Beta"] = serialize.bool(params["beta"]);
+    data["Beta"] = serialize.bool(params["beta"]);
     if (params["nearNumber"] !== undefined)
-      data["NearNumber"] = params["nearNumber"];
+    data["NearNumber"] = params["nearNumber"];
     if (params["nearLatLong"] !== undefined)
-      data["NearLatLong"] = params["nearLatLong"];
-    if (params["distance"] !== undefined) data["Distance"] = params["distance"];
+    data["NearLatLong"] = params["nearLatLong"];
+    if (params["distance"] !== undefined)
+    data["Distance"] = params["distance"];
     if (params["inPostalCode"] !== undefined)
-      data["InPostalCode"] = params["inPostalCode"];
-    if (params["inRegion"] !== undefined) data["InRegion"] = params["inRegion"];
+    data["InPostalCode"] = params["inPostalCode"];
+    if (params["inRegion"] !== undefined)
+    data["InRegion"] = params["inRegion"];
     if (params["inRateCenter"] !== undefined)
-      data["InRateCenter"] = params["inRateCenter"];
-    if (params["inLata"] !== undefined) data["InLata"] = params["inLata"];
+    data["InRateCenter"] = params["inRateCenter"];
+    if (params["inLata"] !== undefined)
+    data["InLata"] = params["inLata"];
     if (params["inLocality"] !== undefined)
-      data["InLocality"] = params["inLocality"];
+    data["InLocality"] = params["inLocality"];
     if (params["faxEnabled"] !== undefined)
-      data["FaxEnabled"] = serialize.bool(params["faxEnabled"]);
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+    data["FaxEnabled"] = serialize.bool(params["faxEnabled"]);
+    if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
 
+    
+    
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-      operationPromise = operationVersion.page({
-        uri: instance._uri,
-        method: "get",
-        params: data,
-        headers,
-      });
+        operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers });
+    
+    operationPromise = operationPromise.then(payload => new MachineToMachinePage(operationVersion, payload, instance._solution));
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new MachineToMachinePage(operationVersion, payload, instance._solution)
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
+
+  }
   instance.each = instance._version.each;
   instance.list = instance._version.list;
 
-  instance.getPage = function getPage(
-    targetUrl: string,
-    callback?: (error: Error | null, items: MachineToMachinePage) => any
-  ): Promise<MachineToMachinePage> {
-    const operationPromise = instance._version._domain.twilio.request({
-      method: "get",
-      uri: targetUrl,
-    });
+  instance.getPage = function getPage(targetUrl: string, callback?: (error: Error | null, items: MachineToMachinePage) => any): Promise<MachineToMachinePage> {
+    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
 
-    let pagePromise = operationPromise.then(
-      (payload) =>
-        new MachineToMachinePage(instance._version, payload, instance._solution)
-    );
+    let pagePromise = operationPromise.then(payload => new MachineToMachinePage(instance._version, payload, instance._solution));
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  };
+  }
+
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  };
+  }
 
-  instance[inspect.custom] = function inspectImpl(
-    _depth: any,
-    options: InspectOptions
-  ) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(instance.toJSON(), options);
-  };
+  }
 
   return instance;
 }
 
 interface MachineToMachinePayload extends TwilioResponsePayload {
-  available_phone_numbers: MachineToMachineResource[];
+    available_phone_numbers: MachineToMachineResource[];
 }
 
 interface MachineToMachineResource {
@@ -412,25 +364,22 @@ interface MachineToMachineResource {
 }
 
 export class MachineToMachineInstance {
-  constructor(
-    protected _version: V2010,
-    payload: MachineToMachineResource,
-    accountSid: string,
-    countryCode: string
-  ) {
-    this.friendlyName = payload.friendly_name;
-    this.phoneNumber = payload.phone_number;
-    this.lata = payload.lata;
-    this.locality = payload.locality;
-    this.rateCenter = payload.rate_center;
-    this.latitude = payload.latitude;
-    this.longitude = payload.longitude;
-    this.region = payload.region;
-    this.postalCode = payload.postal_code;
-    this.isoCountry = payload.iso_country;
-    this.addressRequirements = payload.address_requirements;
-    this.beta = payload.beta;
-    this.capabilities = payload.capabilities;
+
+  constructor(protected _version: V2010, payload: MachineToMachineResource, accountSid: string, countryCode: string) {
+    this.friendlyName = (payload.friendly_name);
+    this.phoneNumber = (payload.phone_number);
+    this.lata = (payload.lata);
+    this.locality = (payload.locality);
+    this.rateCenter = (payload.rate_center);
+    this.latitude = (payload.latitude);
+    this.longitude = (payload.longitude);
+    this.region = (payload.region);
+    this.postalCode = (payload.postal_code);
+    this.isoCountry = (payload.iso_country);
+    this.addressRequirements = (payload.address_requirements);
+    this.beta = (payload.beta);
+    this.capabilities = (payload.capabilities);
+
   }
 
   /**
@@ -503,7 +452,7 @@ export class MachineToMachineInstance {
       addressRequirements: this.addressRequirements,
       beta: this.beta,
       capabilities: this.capabilities,
-    };
+    }
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
@@ -511,42 +460,34 @@ export class MachineToMachineInstance {
   }
 }
 
-export class MachineToMachinePage extends Page<
-  V2010,
-  MachineToMachinePayload,
-  MachineToMachineResource,
-  MachineToMachineInstance
-> {
-  /**
-   * Initialize the MachineToMachinePage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(
-    version: V2010,
-    response: Response<string>,
-    solution: MachineToMachineSolution
-  ) {
+export class MachineToMachinePage extends Page<V2010, MachineToMachinePayload, MachineToMachineResource, MachineToMachineInstance> {
+/**
+* Initialize the MachineToMachinePage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V2010, response: Response<string>, solution: MachineToMachineSolution) {
     super(version, response, solution);
-  }
+    }
 
-  /**
-   * Build an instance of MachineToMachineInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: MachineToMachineResource): MachineToMachineInstance {
+    /**
+    * Build an instance of MachineToMachineInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: MachineToMachineResource): MachineToMachineInstance {
     return new MachineToMachineInstance(
-      this._version,
-      payload,
-      this._solution.accountSid,
-      this._solution.countryCode
+    this._version,
+    payload,
+        this._solution.accountSid,
+        this._solution.countryCode,
     );
-  }
+    }
 
-  [inspect.custom](depth: any, options: InspectOptions) {
+    [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-  }
-}
+    }
+    }
+

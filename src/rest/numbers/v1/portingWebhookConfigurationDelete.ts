@@ -12,17 +12,20 @@
  * Do not edit the class manually.
  */
 
+
 import { inspect, InspectOptions } from "util";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 
-export type PortingWebhookConfigurationDeleteWebhookType =
-  | "PORT_IN"
-  | "PORT_OUT";
+
+export type PortingWebhookConfigurationDeleteWebhookType = 'PORT_IN'|'PORT_OUT';
+
+
 
 export interface PortingWebhookConfigurationDeleteContext {
+
   /**
    * Remove a PortingWebhookConfigurationDeleteInstance
    *
@@ -30,9 +33,7 @@ export interface PortingWebhookConfigurationDeleteContext {
    *
    * @returns Resolves to processed boolean
    */
-  remove(
-    callback?: (error: Error | null, item?: boolean) => any
-  ): Promise<boolean>;
+  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
 
   /**
    * Provide a user-friendly representation
@@ -42,42 +43,34 @@ export interface PortingWebhookConfigurationDeleteContext {
 }
 
 export interface PortingWebhookConfigurationDeleteContextSolution {
-  webhookType: PortingWebhookConfigurationDeleteWebhookType;
+  "webhookType": PortingWebhookConfigurationDeleteWebhookType;
 }
 
-export class PortingWebhookConfigurationDeleteContextImpl
-  implements PortingWebhookConfigurationDeleteContext
-{
+export class PortingWebhookConfigurationDeleteContextImpl implements PortingWebhookConfigurationDeleteContext {
   protected _solution: PortingWebhookConfigurationDeleteContextSolution;
   protected _uri: string;
 
-  constructor(
-    protected _version: V1,
-    webhookType: PortingWebhookConfigurationDeleteWebhookType
-  ) {
+
+  constructor(protected _version: V1, webhookType: PortingWebhookConfigurationDeleteWebhookType) {
     if (!isValidPathParam(webhookType)) {
-      throw new Error("Parameter 'webhookType' is not valid.");
+      throw new Error('Parameter \'webhookType\' is not valid.');
     }
 
-    this._solution = { webhookType };
+    this._solution = { webhookType,  };
     this._uri = `/Porting/Configuration/Webhook/${webhookType}`;
   }
 
-  remove(
-    callback?: (error: Error | null, item?: boolean) => any
-  ): Promise<boolean> {
+  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean> {
+  
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.remove({
-        uri: instance._uri,
-        method: "delete",
-      });
+        operationPromise = operationVersion.remove({ uri: instance._uri, method: "delete" });
+    
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
   /**
@@ -94,19 +87,21 @@ export class PortingWebhookConfigurationDeleteContextImpl
   }
 }
 
-export interface PortingWebhookConfigurationDeleteSolution {}
+
+
+export interface PortingWebhookConfigurationDeleteSolution {
+}
 
 export interface PortingWebhookConfigurationDeleteListInstance {
   _version: V1;
   _solution: PortingWebhookConfigurationDeleteSolution;
   _uri: string;
 
-  (
-    webhookType: PortingWebhookConfigurationDeleteWebhookType
-  ): PortingWebhookConfigurationDeleteContext;
-  get(
-    webhookType: PortingWebhookConfigurationDeleteWebhookType
-  ): PortingWebhookConfigurationDeleteContext;
+  (webhookType: PortingWebhookConfigurationDeleteWebhookType, ): PortingWebhookConfigurationDeleteContext;
+  get(webhookType: PortingWebhookConfigurationDeleteWebhookType, ): PortingWebhookConfigurationDeleteContext;
+
+
+
 
   /**
    * Provide a user-friendly representation
@@ -115,35 +110,26 @@ export interface PortingWebhookConfigurationDeleteListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function PortingWebhookConfigurationDeleteListInstance(
-  version: V1
-): PortingWebhookConfigurationDeleteListInstance {
-  const instance = ((webhookType) =>
-    instance.get(webhookType)) as PortingWebhookConfigurationDeleteListInstance;
+export function PortingWebhookConfigurationDeleteListInstance(version: V1): PortingWebhookConfigurationDeleteListInstance {
+  const instance = ((webhookType, ) => instance.get(webhookType, )) as PortingWebhookConfigurationDeleteListInstance;
 
-  instance.get = function get(
-    webhookType
-  ): PortingWebhookConfigurationDeleteContext {
-    return new PortingWebhookConfigurationDeleteContextImpl(
-      version,
-      webhookType
-    );
-  };
+  instance.get = function get(webhookType, ): PortingWebhookConfigurationDeleteContext {
+    return new PortingWebhookConfigurationDeleteContextImpl(version, webhookType);
+  }
 
   instance._version = version;
-  instance._solution = {};
+  instance._solution = {  };
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  };
+  }
 
-  instance[inspect.custom] = function inspectImpl(
-    _depth: any,
-    options: InspectOptions
-  ) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(instance.toJSON(), options);
-  };
+  }
 
   return instance;
 }
+
+

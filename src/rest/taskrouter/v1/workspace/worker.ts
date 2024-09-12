@@ -12,6 +12,7 @@
  * Do not edit the class manually.
  */
 
+
 import { inspect, InspectOptions } from "util";
 import Page, { TwilioResponsePayload } from "../../../../base/Page";
 import Response from "../../../../http/response";
@@ -26,28 +27,31 @@ import { WorkersCumulativeStatisticsListInstance } from "./worker/workersCumulat
 import { WorkersRealTimeStatisticsListInstance } from "./worker/workersRealTimeStatistics";
 import { WorkersStatisticsListInstance } from "./worker/workersStatistics";
 
+
+
 /**
  * Options to pass to remove a WorkerInstance
  */
 export interface WorkerContextRemoveOptions {
   /** The If-Match HTTP request header */
-  ifMatch?: string;
+  "ifMatch"?: string;
 }
+
 
 /**
  * Options to pass to update a WorkerInstance
  */
 export interface WorkerContextUpdateOptions {
   /** The If-Match HTTP request header */
-  ifMatch?: string;
+  "ifMatch"?: string;
   /** The SID of a valid Activity that will describe the Worker\\\'s initial state. See [Activities](https://www.twilio.com/docs/taskrouter/api/activity) for more information. */
-  activitySid?: string;
+  "activitySid"?: string;
   /** The JSON string that describes the Worker. For example: `{ \\\"email\\\": \\\"Bob@example.com\\\", \\\"phone\\\": \\\"+5095551234\\\" }`. This data is passed to the `assignment_callback_url` when TaskRouter assigns a Task to the Worker. Defaults to {}. */
-  attributes?: string;
+  "attributes"?: string;
   /** A descriptive string that you create to describe the Worker. It can be up to 64 characters long. */
-  friendlyName?: string;
+  "friendlyName"?: string;
   /** Whether to reject the Worker\\\'s pending reservations. This option is only valid if the Worker\\\'s new [Activity](https://www.twilio.com/docs/taskrouter/api/activity) resource has its `availability` property set to `False`. */
-  rejectPendingReservations?: boolean;
+  "rejectPendingReservations"?: boolean;
 }
 
 /**
@@ -55,34 +59,34 @@ export interface WorkerContextUpdateOptions {
  */
 export interface WorkerListInstanceCreateOptions {
   /** A descriptive string that you create to describe the new Worker. It can be up to 64 characters long. */
-  friendlyName: string;
+  "friendlyName": string;
   /** The SID of a valid Activity that will describe the new Worker\\\'s initial state. See [Activities](https://www.twilio.com/docs/taskrouter/api/activity) for more information. If not provided, the new Worker\\\'s initial state is the `default_activity_sid` configured on the Workspace. */
-  activitySid?: string;
+  "activitySid"?: string;
   /** A valid JSON string that describes the new Worker. For example: `{ \\\"email\\\": \\\"Bob@example.com\\\", \\\"phone\\\": \\\"+5095551234\\\" }`. This data is passed to the `assignment_callback_url` when TaskRouter assigns a Task to the Worker. Defaults to {}. */
-  attributes?: string;
+  "attributes"?: string;
 }
 /**
  * Options to pass to each
  */
 export interface WorkerListInstanceEachOptions {
   /** The `activity_name` of the Worker resources to read. */
-  activityName?: string;
+  "activityName"?: string;
   /** The `activity_sid` of the Worker resources to read. */
-  activitySid?: string;
+  "activitySid"?: string;
   /** Whether to return only Worker resources that are available or unavailable. Can be `true`, `1`, or `yes` to return Worker resources that are available, and `false`, or any value returns the Worker resources that are not available. */
-  available?: string;
+  "available"?: string;
   /** The `friendly_name` of the Worker resources to read. */
-  friendlyName?: string;
+  "friendlyName"?: string;
   /** Filter by Workers that would match an expression. In addition to fields in the workers\' attributes, the expression can include the following worker fields: `sid`, `friendly_name`, `activity_sid`, or `activity_name` */
-  targetWorkersExpression?: string;
+  "targetWorkersExpression"?: string;
   /** The `friendly_name` of the TaskQueue that the Workers to read are eligible for. */
-  taskQueueName?: string;
+  "taskQueueName"?: string;
   /** The SID of the TaskQueue that the Workers to read are eligible for. */
-  taskQueueSid?: string;
+  "taskQueueSid"?: string;
   /** Sorting parameter for Workers */
-  ordering?: string;
+  "ordering"?: string;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: WorkerInstance, done: (err?: Error) => void) => void;
   /** Function to be called upon completion of streaming */
@@ -96,23 +100,23 @@ export interface WorkerListInstanceEachOptions {
  */
 export interface WorkerListInstanceOptions {
   /** The `activity_name` of the Worker resources to read. */
-  activityName?: string;
+  "activityName"?: string;
   /** The `activity_sid` of the Worker resources to read. */
-  activitySid?: string;
+  "activitySid"?: string;
   /** Whether to return only Worker resources that are available or unavailable. Can be `true`, `1`, or `yes` to return Worker resources that are available, and `false`, or any value returns the Worker resources that are not available. */
-  available?: string;
+  "available"?: string;
   /** The `friendly_name` of the Worker resources to read. */
-  friendlyName?: string;
+  "friendlyName"?: string;
   /** Filter by Workers that would match an expression. In addition to fields in the workers\' attributes, the expression can include the following worker fields: `sid`, `friendly_name`, `activity_sid`, or `activity_name` */
-  targetWorkersExpression?: string;
+  "targetWorkersExpression"?: string;
   /** The `friendly_name` of the TaskQueue that the Workers to read are eligible for. */
-  taskQueueName?: string;
+  "taskQueueName"?: string;
   /** The SID of the TaskQueue that the Workers to read are eligible for. */
-  taskQueueSid?: string;
+  "taskQueueSid"?: string;
   /** Sorting parameter for Workers */
-  ordering?: string;
+  "ordering"?: string;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
@@ -122,28 +126,29 @@ export interface WorkerListInstanceOptions {
  */
 export interface WorkerListInstancePageOptions {
   /** The `activity_name` of the Worker resources to read. */
-  activityName?: string;
+  "activityName"?: string;
   /** The `activity_sid` of the Worker resources to read. */
-  activitySid?: string;
+  "activitySid"?: string;
   /** Whether to return only Worker resources that are available or unavailable. Can be `true`, `1`, or `yes` to return Worker resources that are available, and `false`, or any value returns the Worker resources that are not available. */
-  available?: string;
+  "available"?: string;
   /** The `friendly_name` of the Worker resources to read. */
-  friendlyName?: string;
+  "friendlyName"?: string;
   /** Filter by Workers that would match an expression. In addition to fields in the workers\' attributes, the expression can include the following worker fields: `sid`, `friendly_name`, `activity_sid`, or `activity_name` */
-  targetWorkersExpression?: string;
+  "targetWorkersExpression"?: string;
   /** The `friendly_name` of the TaskQueue that the Workers to read are eligible for. */
-  taskQueueName?: string;
+  "taskQueueName"?: string;
   /** The SID of the TaskQueue that the Workers to read are eligible for. */
-  taskQueueSid?: string;
+  "taskQueueSid"?: string;
   /** Sorting parameter for Workers */
-  ordering?: string;
+  "ordering"?: string;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
   /** PageToken provided by the API */
   pageToken?: string;
 }
+
 
 export interface WorkerContext {
   reservations: ReservationListInstance;
@@ -157,9 +162,7 @@ export interface WorkerContext {
    *
    * @returns Resolves to processed boolean
    */
-  remove(
-    callback?: (error: Error | null, item?: boolean) => any
-  ): Promise<boolean>;
+  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>;
   /**
    * Remove a WorkerInstance
    *
@@ -168,10 +171,7 @@ export interface WorkerContext {
    *
    * @returns Resolves to processed WorkerInstance
    */
-  remove(
-    params: WorkerContextRemoveOptions,
-    callback?: (error: Error | null, item?: boolean) => any
-  ): Promise<boolean>;
+  remove(params: WorkerContextRemoveOptions, callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>;
 
   /**
    * Fetch a WorkerInstance
@@ -180,9 +180,7 @@ export interface WorkerContext {
    *
    * @returns Resolves to processed WorkerInstance
    */
-  fetch(
-    callback?: (error: Error | null, item?: WorkerInstance) => any
-  ): Promise<WorkerInstance>;
+  fetch(callback?: (error: Error | null, item?: WorkerInstance) => any): Promise<WorkerInstance>
 
   /**
    * Update a WorkerInstance
@@ -191,9 +189,7 @@ export interface WorkerContext {
    *
    * @returns Resolves to processed WorkerInstance
    */
-  update(
-    callback?: (error: Error | null, item?: WorkerInstance) => any
-  ): Promise<WorkerInstance>;
+  update(callback?: (error: Error | null, item?: WorkerInstance) => any): Promise<WorkerInstance>;
   /**
    * Update a WorkerInstance
    *
@@ -202,10 +198,9 @@ export interface WorkerContext {
    *
    * @returns Resolves to processed WorkerInstance
    */
-  update(
-    params: WorkerContextUpdateOptions,
-    callback?: (error: Error | null, item?: WorkerInstance) => any
-  ): Promise<WorkerInstance>;
+  update(params: WorkerContextUpdateOptions, callback?: (error: Error | null, item?: WorkerInstance) => any): Promise<WorkerInstance>;
+
+
 
   /**
    * Provide a user-friendly representation
@@ -215,8 +210,8 @@ export interface WorkerContext {
 }
 
 export interface WorkerContextSolution {
-  workspaceSid: string;
-  sid: string;
+  "workspaceSid": string;
+  "sid": string;
 }
 
 export class WorkerContextImpl implements WorkerContext {
@@ -229,57 +224,34 @@ export class WorkerContextImpl implements WorkerContext {
 
   constructor(protected _version: V1, workspaceSid: string, sid: string) {
     if (!isValidPathParam(workspaceSid)) {
-      throw new Error("Parameter 'workspaceSid' is not valid.");
+      throw new Error('Parameter \'workspaceSid\' is not valid.');
     }
 
     if (!isValidPathParam(sid)) {
-      throw new Error("Parameter 'sid' is not valid.");
+      throw new Error('Parameter \'sid\' is not valid.');
     }
 
-    this._solution = { workspaceSid, sid };
+    this._solution = { workspaceSid, sid,  };
     this._uri = `/Workspaces/${workspaceSid}/Workers/${sid}`;
   }
 
   get reservations(): ReservationListInstance {
-    this._reservations =
-      this._reservations ||
-      ReservationListInstance(
-        this._version,
-        this._solution.workspaceSid,
-        this._solution.sid
-      );
+    this._reservations = this._reservations || ReservationListInstance(this._version, this._solution.workspaceSid, this._solution.sid);
     return this._reservations;
   }
 
   get workerChannels(): WorkerChannelListInstance {
-    this._workerChannels =
-      this._workerChannels ||
-      WorkerChannelListInstance(
-        this._version,
-        this._solution.workspaceSid,
-        this._solution.sid
-      );
+    this._workerChannels = this._workerChannels || WorkerChannelListInstance(this._version, this._solution.workspaceSid, this._solution.sid);
     return this._workerChannels;
   }
 
   get statistics(): WorkerStatisticsListInstance {
-    this._statistics =
-      this._statistics ||
-      WorkerStatisticsListInstance(
-        this._version,
-        this._solution.workspaceSid,
-        this._solution.sid
-      );
+    this._statistics = this._statistics || WorkerStatisticsListInstance(this._version, this._solution.workspaceSid, this._solution.sid);
     return this._statistics;
   }
 
-  remove(
-    params?:
-      | WorkerContextRemoveOptions
-      | ((error: Error | null, item?: boolean) => any),
-    callback?: (error: Error | null, item?: boolean) => any
-  ): Promise<boolean> {
-    if (params instanceof Function) {
+  remove(params?: WorkerContextRemoveOptions | ((error: Error | null, item?: boolean) => any), callback?: (error: Error | null, item?: boolean) => any): Promise<boolean> {
+      if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -287,61 +259,42 @@ export class WorkerContextImpl implements WorkerContext {
     }
 
     let data: any = {};
+
+    
+    
+    
 
     const headers: any = {};
-    if (params["ifMatch"] !== undefined)
-      headers["If-Match"] = params["ifMatch"];
+    if (params["ifMatch"] !== undefined) headers["If-Match"] = params["ifMatch"];
 
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.remove({
-        uri: instance._uri,
-        method: "delete",
-        params: data,
-        headers,
-      });
+        operationPromise = operationVersion.remove({ uri: instance._uri, method: "delete", params: data, headers });
+    
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
-  fetch(
-    callback?: (error: Error | null, item?: WorkerInstance) => any
-  ): Promise<WorkerInstance> {
+  fetch(callback?: (error: Error | null, item?: WorkerInstance) => any): Promise<WorkerInstance> {
+  
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.fetch({
-        uri: instance._uri,
-        method: "get",
-      });
+        operationPromise = operationVersion.fetch({ uri: instance._uri, method: "get" });
+    
+    operationPromise = operationPromise.then(payload => new WorkerInstance(operationVersion, payload, instance._solution.workspaceSid, instance._solution.sid));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new WorkerInstance(
-          operationVersion,
-          payload,
-          instance._solution.workspaceSid,
-          instance._solution.sid
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
-  update(
-    params?:
-      | WorkerContextUpdateOptions
-      | ((error: Error | null, item?: WorkerInstance) => any),
-    callback?: (error: Error | null, item?: WorkerInstance) => any
-  ): Promise<WorkerInstance> {
-    if (params instanceof Function) {
+  update(params?: WorkerContextUpdateOptions | ((error: Error | null, item?: WorkerInstance) => any), callback?: (error: Error | null, item?: WorkerInstance) => any): Promise<WorkerInstance> {
+      if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -350,46 +303,33 @@ export class WorkerContextImpl implements WorkerContext {
 
     let data: any = {};
 
-    if (params["activitySid"] !== undefined)
-      data["ActivitySid"] = params["activitySid"];
+    
+        if (params["activitySid"] !== undefined)
+    data["ActivitySid"] = params["activitySid"];
     if (params["attributes"] !== undefined)
-      data["Attributes"] = params["attributes"];
+    data["Attributes"] = params["attributes"];
     if (params["friendlyName"] !== undefined)
-      data["FriendlyName"] = params["friendlyName"];
+    data["FriendlyName"] = params["friendlyName"];
     if (params["rejectPendingReservations"] !== undefined)
-      data["RejectPendingReservations"] = serialize.bool(
-        params["rejectPendingReservations"]
-      );
+    data["RejectPendingReservations"] = serialize.bool(params["rejectPendingReservations"]);
+
+    
 
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded";
-    if (params["ifMatch"] !== undefined)
-      headers["If-Match"] = params["ifMatch"];
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    if (params["ifMatch"] !== undefined) headers["If-Match"] = params["ifMatch"];
 
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.update({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      });
+        operationPromise = operationVersion.update({ uri: instance._uri, method: "post", data, headers });
+    
+    operationPromise = operationPromise.then(payload => new WorkerInstance(operationVersion, payload, instance._solution.workspaceSid, instance._solution.sid));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new WorkerInstance(
-          operationVersion,
-          payload,
-          instance._solution.workspaceSid,
-          instance._solution.sid
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
   /**
@@ -406,8 +346,9 @@ export class WorkerContextImpl implements WorkerContext {
   }
 }
 
+
 interface WorkerPayload extends TwilioResponsePayload {
-  workers: WorkerResource[];
+    workers: WorkerResource[];
 }
 
 interface WorkerResource {
@@ -430,29 +371,22 @@ export class WorkerInstance {
   protected _solution: WorkerContextSolution;
   protected _context?: WorkerContext;
 
-  constructor(
-    protected _version: V1,
-    payload: WorkerResource,
-    workspaceSid: string,
-    sid?: string
-  ) {
-    this.accountSid = payload.account_sid;
-    this.activityName = payload.activity_name;
-    this.activitySid = payload.activity_sid;
-    this.attributes = payload.attributes;
-    this.available = payload.available;
+  constructor(protected _version: V1, payload: WorkerResource, workspaceSid: string, sid?: string) {
+    this.accountSid = (payload.account_sid);
+    this.activityName = (payload.activity_name);
+    this.activitySid = (payload.activity_sid);
+    this.attributes = (payload.attributes);
+    this.available = (payload.available);
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
-    this.dateStatusChanged = deserialize.iso8601DateTime(
-      payload.date_status_changed
-    );
+    this.dateStatusChanged = deserialize.iso8601DateTime(payload.date_status_changed);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
-    this.friendlyName = payload.friendly_name;
-    this.sid = payload.sid;
-    this.workspaceSid = payload.workspace_sid;
-    this.url = payload.url;
-    this.links = payload.links;
+    this.friendlyName = (payload.friendly_name);
+    this.sid = (payload.sid);
+    this.workspaceSid = (payload.workspace_sid);
+    this.url = (payload.url);
+    this.links = (payload.links);
 
-    this._solution = { workspaceSid, sid: sid || this.sid };
+    this._solution = { workspaceSid, sid: sid || this.sid,  };
   }
 
   /**
@@ -509,13 +443,7 @@ export class WorkerInstance {
   links: Record<string, string>;
 
   private get _proxy(): WorkerContext {
-    this._context =
-      this._context ||
-      new WorkerContextImpl(
-        this._version,
-        this._solution.workspaceSid,
-        this._solution.sid
-      );
+    this._context = this._context || new WorkerContextImpl(this._version, this._solution.workspaceSid, this._solution.sid);
     return this._context;
   }
 
@@ -526,9 +454,7 @@ export class WorkerInstance {
    *
    * @returns Resolves to processed boolean
    */
-  remove(
-    callback?: (error: Error | null, item?: boolean) => any
-  ): Promise<boolean>;
+  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>;
   /**
    * Remove a WorkerInstance
    *
@@ -537,15 +463,10 @@ export class WorkerInstance {
    *
    * @returns Resolves to processed WorkerInstance
    */
-  remove(
-    params: WorkerContextRemoveOptions,
-    callback?: (error: Error | null, item?: boolean) => any
-  ): Promise<boolean>;
+  remove(params: WorkerContextRemoveOptions, callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>;
 
-  remove(
-    params?: any,
-    callback?: (error: Error | null, item?: boolean) => any
-  ): Promise<boolean> {
+    remove(params?: any, callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
+    {
     return this._proxy.remove(params, callback);
   }
 
@@ -556,9 +477,9 @@ export class WorkerInstance {
    *
    * @returns Resolves to processed WorkerInstance
    */
-  fetch(
-    callback?: (error: Error | null, item?: WorkerInstance) => any
-  ): Promise<WorkerInstance> {
+  fetch(callback?: (error: Error | null, item?: WorkerInstance) => any): Promise<WorkerInstance>
+
+    {
     return this._proxy.fetch(callback);
   }
 
@@ -569,9 +490,7 @@ export class WorkerInstance {
    *
    * @returns Resolves to processed WorkerInstance
    */
-  update(
-    callback?: (error: Error | null, item?: WorkerInstance) => any
-  ): Promise<WorkerInstance>;
+  update(callback?: (error: Error | null, item?: WorkerInstance) => any): Promise<WorkerInstance>;
   /**
    * Update a WorkerInstance
    *
@@ -580,15 +499,10 @@ export class WorkerInstance {
    *
    * @returns Resolves to processed WorkerInstance
    */
-  update(
-    params: WorkerContextUpdateOptions,
-    callback?: (error: Error | null, item?: WorkerInstance) => any
-  ): Promise<WorkerInstance>;
+  update(params: WorkerContextUpdateOptions, callback?: (error: Error | null, item?: WorkerInstance) => any): Promise<WorkerInstance>;
 
-  update(
-    params?: any,
-    callback?: (error: Error | null, item?: WorkerInstance) => any
-  ): Promise<WorkerInstance> {
+    update(params?: any, callback?: (error: Error | null, item?: WorkerInstance) => any): Promise<WorkerInstance>
+    {
     return this._proxy.update(params, callback);
   }
 
@@ -633,13 +547,14 @@ export class WorkerInstance {
       workspaceSid: this.workspaceSid,
       url: this.url,
       links: this.links,
-    };
+    }
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
 }
+
 
 export interface WorkerSolution {
   workspaceSid: string;
@@ -650,8 +565,8 @@ export interface WorkerListInstance {
   _solution: WorkerSolution;
   _uri: string;
 
-  (sid: string): WorkerContext;
-  get(sid: string): WorkerContext;
+  (sid: string, ): WorkerContext;
+  get(sid: string, ): WorkerContext;
 
   _cumulativeStatistics?: WorkersCumulativeStatisticsListInstance;
   cumulativeStatistics: WorkersCumulativeStatisticsListInstance;
@@ -659,6 +574,12 @@ export interface WorkerListInstance {
   realTimeStatistics: WorkersRealTimeStatisticsListInstance;
   _statistics?: WorkersStatisticsListInstance;
   statistics: WorkersStatisticsListInstance;
+
+
+
+
+
+
 
   /**
    * Create a WorkerInstance
@@ -668,10 +589,9 @@ export interface WorkerListInstance {
    *
    * @returns Resolves to processed WorkerInstance
    */
-  create(
-    params: WorkerListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: WorkerInstance) => any
-  ): Promise<WorkerInstance>;
+  create(params: WorkerListInstanceCreateOptions, callback?: (error: Error | null, item?: WorkerInstance) => any): Promise<WorkerInstance>;
+
+
 
   /**
    * Streams WorkerInstance records from the API.
@@ -688,13 +608,8 @@ export interface WorkerListInstance {
    * @param { WorkerListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(
-    callback?: (item: WorkerInstance, done: (err?: Error) => void) => void
-  ): void;
-  each(
-    params: WorkerListInstanceEachOptions,
-    callback?: (item: WorkerInstance, done: (err?: Error) => void) => void
-  ): void;
+  each(callback?: (item: WorkerInstance, done: (err?: Error) => void) => void): void;
+  each(params: WorkerListInstanceEachOptions, callback?: (item: WorkerInstance, done: (err?: Error) => void) => void): void;
   /**
    * Retrieve a single target page of WorkerInstance records from the API.
    *
@@ -703,10 +618,7 @@ export interface WorkerListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(
-    targetUrl: string,
-    callback?: (error: Error | null, items: WorkerPage) => any
-  ): Promise<WorkerPage>;
+  getPage(targetUrl: string, callback?: (error: Error | null, items: WorkerPage) => any): Promise<WorkerPage>;
   /**
    * Lists WorkerInstance records from the API as a list.
    *
@@ -716,13 +628,8 @@ export interface WorkerListInstance {
    * @param { WorkerListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(
-    callback?: (error: Error | null, items: WorkerInstance[]) => any
-  ): Promise<WorkerInstance[]>;
-  list(
-    params: WorkerListInstanceOptions,
-    callback?: (error: Error | null, items: WorkerInstance[]) => any
-  ): Promise<WorkerInstance[]>;
+  list(callback?: (error: Error | null, items: WorkerInstance[]) => any): Promise<WorkerInstance[]>;
+  list(params: WorkerListInstanceOptions, callback?: (error: Error | null, items: WorkerInstance[]) => any): Promise<WorkerInstance[]>;
   /**
    * Retrieve a single page of WorkerInstance records from the API.
    *
@@ -734,13 +641,8 @@ export interface WorkerListInstance {
    * @param { WorkerListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(
-    callback?: (error: Error | null, items: WorkerPage) => any
-  ): Promise<WorkerPage>;
-  page(
-    params: WorkerListInstancePageOptions,
-    callback?: (error: Error | null, items: WorkerPage) => any
-  ): Promise<WorkerPage>;
+  page(callback?: (error: Error | null, items: WorkerPage) => any): Promise<WorkerPage>;
+  page(params: WorkerListInstancePageOptions, callback?: (error: Error | null, items: WorkerPage) => any): Promise<WorkerPage>;
 
   /**
    * Provide a user-friendly representation
@@ -749,117 +651,85 @@ export interface WorkerListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function WorkerListInstance(
-  version: V1,
-  workspaceSid: string
-): WorkerListInstance {
+export function WorkerListInstance(version: V1, workspaceSid: string): WorkerListInstance {
   if (!isValidPathParam(workspaceSid)) {
-    throw new Error("Parameter 'workspaceSid' is not valid.");
+    throw new Error('Parameter \'workspaceSid\' is not valid.');
   }
 
-  const instance = ((sid) => instance.get(sid)) as WorkerListInstance;
+  const instance = ((sid, ) => instance.get(sid, )) as WorkerListInstance;
 
-  instance.get = function get(sid): WorkerContext {
+  instance.get = function get(sid, ): WorkerContext {
     return new WorkerContextImpl(version, workspaceSid, sid);
-  };
+  }
 
   instance._version = version;
-  instance._solution = { workspaceSid };
+  instance._solution = { workspaceSid,  };
   instance._uri = `/Workspaces/${workspaceSid}/Workers`;
 
   Object.defineProperty(instance, "cumulativeStatistics", {
     get: function cumulativeStatistics() {
       if (!instance._cumulativeStatistics) {
-        instance._cumulativeStatistics =
-          WorkersCumulativeStatisticsListInstance(
-            instance._version,
-            instance._solution.workspaceSid
-          );
+        instance._cumulativeStatistics = WorkersCumulativeStatisticsListInstance(instance._version, instance._solution.workspaceSid);
       }
       return instance._cumulativeStatistics;
-    },
+    }
   });
 
   Object.defineProperty(instance, "realTimeStatistics", {
     get: function realTimeStatistics() {
       if (!instance._realTimeStatistics) {
-        instance._realTimeStatistics = WorkersRealTimeStatisticsListInstance(
-          instance._version,
-          instance._solution.workspaceSid
-        );
+        instance._realTimeStatistics = WorkersRealTimeStatisticsListInstance(instance._version, instance._solution.workspaceSid);
       }
       return instance._realTimeStatistics;
-    },
+    }
   });
 
   Object.defineProperty(instance, "statistics", {
     get: function statistics() {
       if (!instance._statistics) {
-        instance._statistics = WorkersStatisticsListInstance(
-          instance._version,
-          instance._solution.workspaceSid
-        );
+        instance._statistics = WorkersStatisticsListInstance(instance._version, instance._solution.workspaceSid);
       }
       return instance._statistics;
-    },
+    }
   });
 
-  instance.create = function create(
-    params: WorkerListInstanceCreateOptions,
-    callback?: (error: Error | null, items: WorkerInstance) => any
-  ): Promise<WorkerInstance> {
+  instance.create = function create(params: WorkerListInstanceCreateOptions, callback?: (error: Error | null, items: WorkerInstance) => any): Promise<WorkerInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
-    if (
-      params["friendlyName"] === null ||
-      params["friendlyName"] === undefined
-    ) {
-      throw new Error("Required parameter \"params['friendlyName']\" missing.");
+    if (params["friendlyName"] === null || params["friendlyName"] === undefined) {
+      throw new Error('Required parameter "params[\'friendlyName\']" missing.');
     }
 
     let data: any = {};
 
+    
+        
     data["FriendlyName"] = params["friendlyName"];
     if (params["activitySid"] !== undefined)
-      data["ActivitySid"] = params["activitySid"];
+    data["ActivitySid"] = params["activitySid"];
     if (params["attributes"] !== undefined)
-      data["Attributes"] = params["attributes"];
+    data["Attributes"] = params["attributes"];
+
+    
 
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = version,
-      operationPromise = operationVersion.create({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      });
+        operationPromise = operationVersion.create({ uri: instance._uri, method: "post", data, headers });
+    
+    operationPromise = operationPromise.then(payload => new WorkerInstance(operationVersion, payload, instance._solution.workspaceSid));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new WorkerInstance(
-          operationVersion,
-          payload,
-          instance._solution.workspaceSid
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
 
-  instance.page = function page(
-    params?:
-      | WorkerListInstancePageOptions
-      | ((error: Error | null, items: WorkerPage) => any),
-    callback?: (error: Error | null, items: WorkerPage) => any
-  ): Promise<WorkerPage> {
+
+    }
+
+  instance.page = function page(params?: WorkerListInstancePageOptions | ((error: Error | null, items: WorkerPage) => any), callback?: (error: Error | null, items: WorkerPage) => any): Promise<WorkerPage> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -869,115 +739,91 @@ export function WorkerListInstance(
 
     let data: any = {};
 
-    if (params["activityName"] !== undefined)
-      data["ActivityName"] = params["activityName"];
+        if (params["activityName"] !== undefined)
+    data["ActivityName"] = params["activityName"];
     if (params["activitySid"] !== undefined)
-      data["ActivitySid"] = params["activitySid"];
+    data["ActivitySid"] = params["activitySid"];
     if (params["available"] !== undefined)
-      data["Available"] = params["available"];
+    data["Available"] = params["available"];
     if (params["friendlyName"] !== undefined)
-      data["FriendlyName"] = params["friendlyName"];
+    data["FriendlyName"] = params["friendlyName"];
     if (params["targetWorkersExpression"] !== undefined)
-      data["TargetWorkersExpression"] = params["targetWorkersExpression"];
+    data["TargetWorkersExpression"] = params["targetWorkersExpression"];
     if (params["taskQueueName"] !== undefined)
-      data["TaskQueueName"] = params["taskQueueName"];
+    data["TaskQueueName"] = params["taskQueueName"];
     if (params["taskQueueSid"] !== undefined)
-      data["TaskQueueSid"] = params["taskQueueSid"];
-    if (params["ordering"] !== undefined) data["Ordering"] = params["ordering"];
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+    data["TaskQueueSid"] = params["taskQueueSid"];
+    if (params["ordering"] !== undefined)
+    data["Ordering"] = params["ordering"];
+    if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
 
+    
+    
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-      operationPromise = operationVersion.page({
-        uri: instance._uri,
-        method: "get",
-        params: data,
-        headers,
-      });
+        operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers });
+    
+    operationPromise = operationPromise.then(payload => new WorkerPage(operationVersion, payload, instance._solution));
 
-    operationPromise = operationPromise.then(
-      (payload) => new WorkerPage(operationVersion, payload, instance._solution)
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
+
+  }
   instance.each = instance._version.each;
   instance.list = instance._version.list;
 
-  instance.getPage = function getPage(
-    targetUrl: string,
-    callback?: (error: Error | null, items: WorkerPage) => any
-  ): Promise<WorkerPage> {
-    const operationPromise = instance._version._domain.twilio.request({
-      method: "get",
-      uri: targetUrl,
-    });
+  instance.getPage = function getPage(targetUrl: string, callback?: (error: Error | null, items: WorkerPage) => any): Promise<WorkerPage> {
+    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
 
-    let pagePromise = operationPromise.then(
-      (payload) =>
-        new WorkerPage(instance._version, payload, instance._solution)
-    );
+    let pagePromise = operationPromise.then(payload => new WorkerPage(instance._version, payload, instance._solution));
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  };
+  }
+
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  };
+  }
 
-  instance[inspect.custom] = function inspectImpl(
-    _depth: any,
-    options: InspectOptions
-  ) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(instance.toJSON(), options);
-  };
+  }
 
   return instance;
 }
 
-export class WorkerPage extends Page<
-  V1,
-  WorkerPayload,
-  WorkerResource,
-  WorkerInstance
-> {
-  /**
-   * Initialize the WorkerPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(
-    version: V1,
-    response: Response<string>,
-    solution: WorkerSolution
-  ) {
+export class WorkerPage extends Page<V1, WorkerPayload, WorkerResource, WorkerInstance> {
+/**
+* Initialize the WorkerPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V1, response: Response<string>, solution: WorkerSolution) {
     super(version, response, solution);
-  }
+    }
 
-  /**
-   * Build an instance of WorkerInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: WorkerResource): WorkerInstance {
+    /**
+    * Build an instance of WorkerInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: WorkerResource): WorkerInstance {
     return new WorkerInstance(
-      this._version,
-      payload,
-      this._solution.workspaceSid
+    this._version,
+    payload,
+        this._solution.workspaceSid,
     );
-  }
+    }
 
-  [inspect.custom](depth: any, options: InspectOptions) {
+    [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-  }
-}
+    }
+    }
+

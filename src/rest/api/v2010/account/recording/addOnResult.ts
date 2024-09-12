@@ -12,6 +12,7 @@
  * Do not edit the class manually.
  */
 
+
 import { inspect, InspectOptions } from "util";
 import Page, { TwilioResponsePayload } from "../../../../../base/Page";
 import Response from "../../../../../http/response";
@@ -21,22 +22,17 @@ const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
 import { PayloadListInstance } from "./addOnResult/payload";
 
-export type AddOnResultStatus =
-  | "canceled"
-  | "completed"
-  | "deleted"
-  | "failed"
-  | "in-progress"
-  | "init"
-  | "processing"
-  | "queued";
+
+export type AddOnResultStatus = 'canceled'|'completed'|'deleted'|'failed'|'in-progress'|'init'|'processing'|'queued';
+
+
 
 /**
  * Options to pass to each
  */
 export interface AddOnResultListInstanceEachOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: AddOnResultInstance, done: (err?: Error) => void) => void;
   /** Function to be called upon completion of streaming */
@@ -50,7 +46,7 @@ export interface AddOnResultListInstanceEachOptions {
  */
 export interface AddOnResultListInstanceOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
@@ -60,12 +56,13 @@ export interface AddOnResultListInstanceOptions {
  */
 export interface AddOnResultListInstancePageOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
   /** PageToken provided by the API */
   pageToken?: string;
 }
+
 
 export interface AddOnResultContext {
   payloads: PayloadListInstance;
@@ -77,9 +74,7 @@ export interface AddOnResultContext {
    *
    * @returns Resolves to processed boolean
    */
-  remove(
-    callback?: (error: Error | null, item?: boolean) => any
-  ): Promise<boolean>;
+  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
 
   /**
    * Fetch a AddOnResultInstance
@@ -88,9 +83,8 @@ export interface AddOnResultContext {
    *
    * @returns Resolves to processed AddOnResultInstance
    */
-  fetch(
-    callback?: (error: Error | null, item?: AddOnResultInstance) => any
-  ): Promise<AddOnResultInstance>;
+  fetch(callback?: (error: Error | null, item?: AddOnResultInstance) => any): Promise<AddOnResultInstance>
+
 
   /**
    * Provide a user-friendly representation
@@ -100,9 +94,9 @@ export interface AddOnResultContext {
 }
 
 export interface AddOnResultContextSolution {
-  accountSid: string;
-  referenceSid: string;
-  sid: string;
+  "accountSid": string;
+  "referenceSid": string;
+  "sid": string;
 }
 
 export class AddOnResultContextImpl implements AddOnResultContext {
@@ -111,83 +105,54 @@ export class AddOnResultContextImpl implements AddOnResultContext {
 
   protected _payloads?: PayloadListInstance;
 
-  constructor(
-    protected _version: V2010,
-    accountSid: string,
-    referenceSid: string,
-    sid: string
-  ) {
+  constructor(protected _version: V2010, accountSid: string, referenceSid: string, sid: string) {
     if (!isValidPathParam(accountSid)) {
-      throw new Error("Parameter 'accountSid' is not valid.");
+      throw new Error('Parameter \'accountSid\' is not valid.');
     }
 
     if (!isValidPathParam(referenceSid)) {
-      throw new Error("Parameter 'referenceSid' is not valid.");
+      throw new Error('Parameter \'referenceSid\' is not valid.');
     }
 
     if (!isValidPathParam(sid)) {
-      throw new Error("Parameter 'sid' is not valid.");
+      throw new Error('Parameter \'sid\' is not valid.');
     }
 
-    this._solution = { accountSid, referenceSid, sid };
+    this._solution = { accountSid, referenceSid, sid,  };
     this._uri = `/Accounts/${accountSid}/Recordings/${referenceSid}/AddOnResults/${sid}.json`;
   }
 
   get payloads(): PayloadListInstance {
-    this._payloads =
-      this._payloads ||
-      PayloadListInstance(
-        this._version,
-        this._solution.accountSid,
-        this._solution.referenceSid,
-        this._solution.sid
-      );
+    this._payloads = this._payloads || PayloadListInstance(this._version, this._solution.accountSid, this._solution.referenceSid, this._solution.sid);
     return this._payloads;
   }
 
-  remove(
-    callback?: (error: Error | null, item?: boolean) => any
-  ): Promise<boolean> {
+  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean> {
+  
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.remove({
-        uri: instance._uri,
-        method: "delete",
-      });
+        operationPromise = operationVersion.remove({ uri: instance._uri, method: "delete" });
+    
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
-  fetch(
-    callback?: (error: Error | null, item?: AddOnResultInstance) => any
-  ): Promise<AddOnResultInstance> {
+  fetch(callback?: (error: Error | null, item?: AddOnResultInstance) => any): Promise<AddOnResultInstance> {
+  
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.fetch({
-        uri: instance._uri,
-        method: "get",
-      });
+        operationPromise = operationVersion.fetch({ uri: instance._uri, method: "get" });
+    
+    operationPromise = operationPromise.then(payload => new AddOnResultInstance(operationVersion, payload, instance._solution.accountSid, instance._solution.referenceSid, instance._solution.sid));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new AddOnResultInstance(
-          operationVersion,
-          payload,
-          instance._solution.accountSid,
-          instance._solution.referenceSid,
-          instance._solution.sid
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
   /**
@@ -204,8 +169,9 @@ export class AddOnResultContextImpl implements AddOnResultContext {
   }
 }
 
+
 interface AddOnResultPayload extends TwilioResponsePayload {
-  add_on_results: AddOnResultResource[];
+    add_on_results: AddOnResultResource[];
 }
 
 interface AddOnResultResource {
@@ -225,25 +191,19 @@ export class AddOnResultInstance {
   protected _solution: AddOnResultContextSolution;
   protected _context?: AddOnResultContext;
 
-  constructor(
-    protected _version: V2010,
-    payload: AddOnResultResource,
-    accountSid: string,
-    referenceSid: string,
-    sid?: string
-  ) {
-    this.sid = payload.sid;
-    this.accountSid = payload.account_sid;
-    this.status = payload.status;
-    this.addOnSid = payload.add_on_sid;
-    this.addOnConfigurationSid = payload.add_on_configuration_sid;
+  constructor(protected _version: V2010, payload: AddOnResultResource, accountSid: string, referenceSid: string, sid?: string) {
+    this.sid = (payload.sid);
+    this.accountSid = (payload.account_sid);
+    this.status = (payload.status);
+    this.addOnSid = (payload.add_on_sid);
+    this.addOnConfigurationSid = (payload.add_on_configuration_sid);
     this.dateCreated = deserialize.rfc2822DateTime(payload.date_created);
     this.dateUpdated = deserialize.rfc2822DateTime(payload.date_updated);
     this.dateCompleted = deserialize.rfc2822DateTime(payload.date_completed);
-    this.referenceSid = payload.reference_sid;
-    this.subresourceUris = payload.subresource_uris;
+    this.referenceSid = (payload.reference_sid);
+    this.subresourceUris = (payload.subresource_uris);
 
-    this._solution = { accountSid, referenceSid, sid: sid || this.sid };
+    this._solution = { accountSid, referenceSid, sid: sid || this.sid,  };
   }
 
   /**
@@ -285,14 +245,7 @@ export class AddOnResultInstance {
   subresourceUris: Record<string, string>;
 
   private get _proxy(): AddOnResultContext {
-    this._context =
-      this._context ||
-      new AddOnResultContextImpl(
-        this._version,
-        this._solution.accountSid,
-        this._solution.referenceSid,
-        this._solution.sid
-      );
+    this._context = this._context || new AddOnResultContextImpl(this._version, this._solution.accountSid, this._solution.referenceSid, this._solution.sid);
     return this._context;
   }
 
@@ -303,9 +256,9 @@ export class AddOnResultInstance {
    *
    * @returns Resolves to processed boolean
    */
-  remove(
-    callback?: (error: Error | null, item?: boolean) => any
-  ): Promise<boolean> {
+  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
+
+    {
     return this._proxy.remove(callback);
   }
 
@@ -316,9 +269,9 @@ export class AddOnResultInstance {
    *
    * @returns Resolves to processed AddOnResultInstance
    */
-  fetch(
-    callback?: (error: Error | null, item?: AddOnResultInstance) => any
-  ): Promise<AddOnResultInstance> {
+  fetch(callback?: (error: Error | null, item?: AddOnResultInstance) => any): Promise<AddOnResultInstance>
+
+    {
     return this._proxy.fetch(callback);
   }
 
@@ -346,13 +299,14 @@ export class AddOnResultInstance {
       dateCompleted: this.dateCompleted,
       referenceSid: this.referenceSid,
       subresourceUris: this.subresourceUris,
-    };
+    }
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
 }
+
 
 export interface AddOnResultSolution {
   accountSid: string;
@@ -364,8 +318,14 @@ export interface AddOnResultListInstance {
   _solution: AddOnResultSolution;
   _uri: string;
 
-  (sid: string): AddOnResultContext;
-  get(sid: string): AddOnResultContext;
+  (sid: string, ): AddOnResultContext;
+  get(sid: string, ): AddOnResultContext;
+
+
+
+
+
+
 
   /**
    * Streams AddOnResultInstance records from the API.
@@ -382,13 +342,8 @@ export interface AddOnResultListInstance {
    * @param { AddOnResultListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(
-    callback?: (item: AddOnResultInstance, done: (err?: Error) => void) => void
-  ): void;
-  each(
-    params: AddOnResultListInstanceEachOptions,
-    callback?: (item: AddOnResultInstance, done: (err?: Error) => void) => void
-  ): void;
+  each(callback?: (item: AddOnResultInstance, done: (err?: Error) => void) => void): void;
+  each(params: AddOnResultListInstanceEachOptions, callback?: (item: AddOnResultInstance, done: (err?: Error) => void) => void): void;
   /**
    * Retrieve a single target page of AddOnResultInstance records from the API.
    *
@@ -397,10 +352,7 @@ export interface AddOnResultListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(
-    targetUrl: string,
-    callback?: (error: Error | null, items: AddOnResultPage) => any
-  ): Promise<AddOnResultPage>;
+  getPage(targetUrl: string, callback?: (error: Error | null, items: AddOnResultPage) => any): Promise<AddOnResultPage>;
   /**
    * Lists AddOnResultInstance records from the API as a list.
    *
@@ -410,13 +362,8 @@ export interface AddOnResultListInstance {
    * @param { AddOnResultListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(
-    callback?: (error: Error | null, items: AddOnResultInstance[]) => any
-  ): Promise<AddOnResultInstance[]>;
-  list(
-    params: AddOnResultListInstanceOptions,
-    callback?: (error: Error | null, items: AddOnResultInstance[]) => any
-  ): Promise<AddOnResultInstance[]>;
+  list(callback?: (error: Error | null, items: AddOnResultInstance[]) => any): Promise<AddOnResultInstance[]>;
+  list(params: AddOnResultListInstanceOptions, callback?: (error: Error | null, items: AddOnResultInstance[]) => any): Promise<AddOnResultInstance[]>;
   /**
    * Retrieve a single page of AddOnResultInstance records from the API.
    *
@@ -428,13 +375,8 @@ export interface AddOnResultListInstance {
    * @param { AddOnResultListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(
-    callback?: (error: Error | null, items: AddOnResultPage) => any
-  ): Promise<AddOnResultPage>;
-  page(
-    params: AddOnResultListInstancePageOptions,
-    callback?: (error: Error | null, items: AddOnResultPage) => any
-  ): Promise<AddOnResultPage>;
+  page(callback?: (error: Error | null, items: AddOnResultPage) => any): Promise<AddOnResultPage>;
+  page(params: AddOnResultListInstancePageOptions, callback?: (error: Error | null, items: AddOnResultPage) => any): Promise<AddOnResultPage>;
 
   /**
    * Provide a user-friendly representation
@@ -443,35 +385,26 @@ export interface AddOnResultListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function AddOnResultListInstance(
-  version: V2010,
-  accountSid: string,
-  referenceSid: string
-): AddOnResultListInstance {
+export function AddOnResultListInstance(version: V2010, accountSid: string, referenceSid: string): AddOnResultListInstance {
   if (!isValidPathParam(accountSid)) {
-    throw new Error("Parameter 'accountSid' is not valid.");
+    throw new Error('Parameter \'accountSid\' is not valid.');
   }
 
   if (!isValidPathParam(referenceSid)) {
-    throw new Error("Parameter 'referenceSid' is not valid.");
+    throw new Error('Parameter \'referenceSid\' is not valid.');
   }
 
-  const instance = ((sid) => instance.get(sid)) as AddOnResultListInstance;
+  const instance = ((sid, ) => instance.get(sid, )) as AddOnResultListInstance;
 
-  instance.get = function get(sid): AddOnResultContext {
+  instance.get = function get(sid, ): AddOnResultContext {
     return new AddOnResultContextImpl(version, accountSid, referenceSid, sid);
-  };
+  }
 
   instance._version = version;
-  instance._solution = { accountSid, referenceSid };
+  instance._solution = { accountSid, referenceSid,  };
   instance._uri = `/Accounts/${accountSid}/Recordings/${referenceSid}/AddOnResults.json`;
 
-  instance.page = function page(
-    params?:
-      | AddOnResultListInstancePageOptions
-      | ((error: Error | null, items: AddOnResultPage) => any),
-    callback?: (error: Error | null, items: AddOnResultPage) => any
-  ): Promise<AddOnResultPage> {
+  instance.page = function page(params?: AddOnResultListInstancePageOptions | ((error: Error | null, items: AddOnResultPage) => any), callback?: (error: Error | null, items: AddOnResultPage) => any): Promise<AddOnResultPage> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -481,102 +414,76 @@ export function AddOnResultListInstance(
 
     let data: any = {};
 
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
 
+    
+    
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-      operationPromise = operationVersion.page({
-        uri: instance._uri,
-        method: "get",
-        params: data,
-        headers,
-      });
+        operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers });
+    
+    operationPromise = operationPromise.then(payload => new AddOnResultPage(operationVersion, payload, instance._solution));
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new AddOnResultPage(operationVersion, payload, instance._solution)
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
+
+  }
   instance.each = instance._version.each;
   instance.list = instance._version.list;
 
-  instance.getPage = function getPage(
-    targetUrl: string,
-    callback?: (error: Error | null, items: AddOnResultPage) => any
-  ): Promise<AddOnResultPage> {
-    const operationPromise = instance._version._domain.twilio.request({
-      method: "get",
-      uri: targetUrl,
-    });
+  instance.getPage = function getPage(targetUrl: string, callback?: (error: Error | null, items: AddOnResultPage) => any): Promise<AddOnResultPage> {
+    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
 
-    let pagePromise = operationPromise.then(
-      (payload) =>
-        new AddOnResultPage(instance._version, payload, instance._solution)
-    );
+    let pagePromise = operationPromise.then(payload => new AddOnResultPage(instance._version, payload, instance._solution));
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  };
+  }
+
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  };
+  }
 
-  instance[inspect.custom] = function inspectImpl(
-    _depth: any,
-    options: InspectOptions
-  ) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(instance.toJSON(), options);
-  };
+  }
 
   return instance;
 }
 
-export class AddOnResultPage extends Page<
-  V2010,
-  AddOnResultPayload,
-  AddOnResultResource,
-  AddOnResultInstance
-> {
-  /**
-   * Initialize the AddOnResultPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(
-    version: V2010,
-    response: Response<string>,
-    solution: AddOnResultSolution
-  ) {
+export class AddOnResultPage extends Page<V2010, AddOnResultPayload, AddOnResultResource, AddOnResultInstance> {
+/**
+* Initialize the AddOnResultPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V2010, response: Response<string>, solution: AddOnResultSolution) {
     super(version, response, solution);
-  }
+    }
 
-  /**
-   * Build an instance of AddOnResultInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: AddOnResultResource): AddOnResultInstance {
+    /**
+    * Build an instance of AddOnResultInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: AddOnResultResource): AddOnResultInstance {
     return new AddOnResultInstance(
-      this._version,
-      payload,
-      this._solution.accountSid,
-      this._solution.referenceSid
+    this._version,
+    payload,
+        this._solution.accountSid,
+        this._solution.referenceSid,
     );
-  }
+    }
 
-  [inspect.custom](depth: any, options: InspectOptions) {
+    [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-  }
-}
+    }
+    }
+

@@ -40,15 +40,13 @@ export default class V1 extends Version {
 
   /** Getter for accountConfigs resource */
   get accountConfigs(): AccountConfigListInstance {
-    this._accountConfigs =
-      this._accountConfigs || AccountConfigListInstance(this);
+    this._accountConfigs = this._accountConfigs || AccountConfigListInstance(this);
     return this._accountConfigs;
   }
 
   /** Getter for accountSecrets resource */
   get accountSecrets(): AccountSecretListInstance {
-    this._accountSecrets =
-      this._accountSecrets || AccountSecretListInstance(this);
+    this._accountSecrets = this._accountSecrets || AccountSecretListInstance(this);
     return this._accountSecrets;
   }
 
@@ -63,4 +61,5 @@ export default class V1 extends Version {
     this._devices = this._devices || DeviceListInstance(this);
     return this._devices;
   }
+
 }

@@ -12,21 +12,27 @@
  * Do not edit the class manually.
  */
 
+
 import { inspect, InspectOptions } from "util";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 
+
+
+
+
 /**
  * Options to pass to create a PortingPortInInstance
  */
 export interface PortingPortInListInstanceCreateOptions {
   /**  */
-  body?: object;
+  "body"?: object;
 }
 
 export interface PortingPortInContext {
+
   /**
    * Remove a PortingPortInInstance
    *
@@ -34,9 +40,7 @@ export interface PortingPortInContext {
    *
    * @returns Resolves to processed boolean
    */
-  remove(
-    callback?: (error: Error | null, item?: boolean) => any
-  ): Promise<boolean>;
+  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
 
   /**
    * Fetch a PortingPortInInstance
@@ -45,9 +49,8 @@ export interface PortingPortInContext {
    *
    * @returns Resolves to processed PortingPortInInstance
    */
-  fetch(
-    callback?: (error: Error | null, item?: PortingPortInInstance) => any
-  ): Promise<PortingPortInInstance>;
+  fetch(callback?: (error: Error | null, item?: PortingPortInInstance) => any): Promise<PortingPortInInstance>
+
 
   /**
    * Provide a user-friendly representation
@@ -57,63 +60,49 @@ export interface PortingPortInContext {
 }
 
 export interface PortingPortInContextSolution {
-  portInRequestSid: string;
+  "portInRequestSid": string;
 }
 
 export class PortingPortInContextImpl implements PortingPortInContext {
   protected _solution: PortingPortInContextSolution;
   protected _uri: string;
 
+
   constructor(protected _version: V1, portInRequestSid: string) {
     if (!isValidPathParam(portInRequestSid)) {
-      throw new Error("Parameter 'portInRequestSid' is not valid.");
+      throw new Error('Parameter \'portInRequestSid\' is not valid.');
     }
 
-    this._solution = { portInRequestSid };
+    this._solution = { portInRequestSid,  };
     this._uri = `/Porting/PortIn/${portInRequestSid}`;
   }
 
-  remove(
-    callback?: (error: Error | null, item?: boolean) => any
-  ): Promise<boolean> {
+  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean> {
+  
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.remove({
-        uri: instance._uri,
-        method: "delete",
-      });
+        operationPromise = operationVersion.remove({ uri: instance._uri, method: "delete" });
+    
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
-  fetch(
-    callback?: (error: Error | null, item?: PortingPortInInstance) => any
-  ): Promise<PortingPortInInstance> {
+  fetch(callback?: (error: Error | null, item?: PortingPortInInstance) => any): Promise<PortingPortInInstance> {
+  
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.fetch({
-        uri: instance._uri,
-        method: "get",
-      });
+        operationPromise = operationVersion.fetch({ uri: instance._uri, method: "get" });
+    
+    operationPromise = operationPromise.then(payload => new PortingPortInInstance(operationVersion, payload, instance._solution.portInRequestSid));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new PortingPortInInstance(
-          operationVersion,
-          payload,
-          instance._solution.portInRequestSid
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
   /**
@@ -129,6 +118,7 @@ export class PortingPortInContextImpl implements PortingPortInContext {
     return inspect(this.toJSON(), options);
   }
 }
+
 
 interface PortingPortInPayload extends PortingPortInResource {}
 
@@ -151,29 +141,21 @@ export class PortingPortInInstance {
   protected _solution: PortingPortInContextSolution;
   protected _context?: PortingPortInContext;
 
-  constructor(
-    protected _version: V1,
-    payload: PortingPortInResource,
-    portInRequestSid?: string
-  ) {
-    this.portInRequestSid = payload.port_in_request_sid;
-    this.url = payload.url;
-    this.accountSid = payload.account_sid;
-    this.notificationEmails = payload.notification_emails;
-    this.targetPortInDate = deserialize.iso8601Date(
-      payload.target_port_in_date
-    );
-    this.targetPortInTimeRangeStart = payload.target_port_in_time_range_start;
-    this.targetPortInTimeRangeEnd = payload.target_port_in_time_range_end;
-    this.portInRequestStatus = payload.port_in_request_status;
-    this.losingCarrierInformation = payload.losing_carrier_information;
-    this.phoneNumbers = payload.phone_numbers;
-    this.documents = payload.documents;
+  constructor(protected _version: V1, payload: PortingPortInResource, portInRequestSid?: string) {
+    this.portInRequestSid = (payload.port_in_request_sid);
+    this.url = (payload.url);
+    this.accountSid = (payload.account_sid);
+    this.notificationEmails = (payload.notification_emails);
+    this.targetPortInDate = deserialize.iso8601Date(payload.target_port_in_date);
+    this.targetPortInTimeRangeStart = (payload.target_port_in_time_range_start);
+    this.targetPortInTimeRangeEnd = (payload.target_port_in_time_range_end);
+    this.portInRequestStatus = (payload.port_in_request_status);
+    this.losingCarrierInformation = (payload.losing_carrier_information);
+    this.phoneNumbers = (payload.phone_numbers);
+    this.documents = (payload.documents);
     this.dateCreated = deserialize.iso8601Date(payload.date_created);
 
-    this._solution = {
-      portInRequestSid: portInRequestSid || this.portInRequestSid,
-    };
+    this._solution = { portInRequestSid: portInRequestSid || this.portInRequestSid,  };
   }
 
   /**
@@ -220,12 +202,7 @@ export class PortingPortInInstance {
   dateCreated: Date;
 
   private get _proxy(): PortingPortInContext {
-    this._context =
-      this._context ||
-      new PortingPortInContextImpl(
-        this._version,
-        this._solution.portInRequestSid
-      );
+    this._context = this._context || new PortingPortInContextImpl(this._version, this._solution.portInRequestSid);
     return this._context;
   }
 
@@ -236,9 +213,9 @@ export class PortingPortInInstance {
    *
    * @returns Resolves to processed boolean
    */
-  remove(
-    callback?: (error: Error | null, item?: boolean) => any
-  ): Promise<boolean> {
+  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
+
+    {
     return this._proxy.remove(callback);
   }
 
@@ -249,9 +226,9 @@ export class PortingPortInInstance {
    *
    * @returns Resolves to processed PortingPortInInstance
    */
-  fetch(
-    callback?: (error: Error | null, item?: PortingPortInInstance) => any
-  ): Promise<PortingPortInInstance> {
+  fetch(callback?: (error: Error | null, item?: PortingPortInInstance) => any): Promise<PortingPortInInstance>
+
+    {
     return this._proxy.fetch(callback);
   }
 
@@ -274,7 +251,7 @@ export class PortingPortInInstance {
       phoneNumbers: this.phoneNumbers,
       documents: this.documents,
       dateCreated: this.dateCreated,
-    };
+    }
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
@@ -282,15 +259,22 @@ export class PortingPortInInstance {
   }
 }
 
-export interface PortingPortInSolution {}
+
+export interface PortingPortInSolution {
+}
 
 export interface PortingPortInListInstance {
   _version: V1;
   _solution: PortingPortInSolution;
   _uri: string;
 
-  (portInRequestSid: string): PortingPortInContext;
-  get(portInRequestSid: string): PortingPortInContext;
+  (portInRequestSid: string, ): PortingPortInContext;
+  get(portInRequestSid: string, ): PortingPortInContext;
+
+
+
+
+
 
   /**
    * Create a PortingPortInInstance
@@ -299,9 +283,7 @@ export interface PortingPortInListInstance {
    *
    * @returns Resolves to processed PortingPortInInstance
    */
-  create(
-    callback?: (error: Error | null, item?: PortingPortInInstance) => any
-  ): Promise<PortingPortInInstance>;
+  create(callback?: (error: Error | null, item?: PortingPortInInstance) => any): Promise<PortingPortInInstance>;
   /**
    * Create a PortingPortInInstance
    *
@@ -310,10 +292,8 @@ export interface PortingPortInListInstance {
    *
    * @returns Resolves to processed PortingPortInInstance
    */
-  create(
-    params: object,
-    callback?: (error: Error | null, item?: PortingPortInInstance) => any
-  ): Promise<PortingPortInInstance>;
+  create(params: object, callback?: (error: Error | null, item?: PortingPortInInstance) => any): Promise<PortingPortInInstance>;
+
 
   /**
    * Provide a user-friendly representation
@@ -322,26 +302,18 @@ export interface PortingPortInListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function PortingPortInListInstance(
-  version: V1
-): PortingPortInListInstance {
-  const instance = ((portInRequestSid) =>
-    instance.get(portInRequestSid)) as PortingPortInListInstance;
+export function PortingPortInListInstance(version: V1): PortingPortInListInstance {
+  const instance = ((portInRequestSid, ) => instance.get(portInRequestSid, )) as PortingPortInListInstance;
 
-  instance.get = function get(portInRequestSid): PortingPortInContext {
+  instance.get = function get(portInRequestSid, ): PortingPortInContext {
     return new PortingPortInContextImpl(version, portInRequestSid);
-  };
+  }
 
   instance._version = version;
-  instance._solution = {};
+  instance._solution = {  };
   instance._uri = `/Porting/PortIn`;
 
-  instance.create = function create(
-    params?:
-      | object
-      | ((error: Error | null, items: PortingPortInInstance) => any),
-    callback?: (error: Error | null, items: PortingPortInInstance) => any
-  ): Promise<PortingPortInInstance> {
+  instance.create = function create(params?: object | ((error: Error | null, items: PortingPortInInstance) => any), callback?: (error: Error | null, items: PortingPortInInstance) => any): Promise<PortingPortInInstance> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -351,40 +323,34 @@ export function PortingPortInListInstance(
 
     let data: any = {};
 
-    data = params;
+    
+    
+    data = params
 
     const headers: any = {};
-    headers["Content-Type"] = "application/json";
+    headers["Content-Type"] = "application/json"
 
     let operationVersion = version,
-      operationPromise = operationVersion.create({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      });
+        operationPromise = operationVersion.create({ uri: instance._uri, method: "post", data, headers });
+    
+    operationPromise = operationPromise.then(payload => new PortingPortInInstance(operationVersion, payload));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) => new PortingPortInInstance(operationVersion, payload)
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
+
+
+    }
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  };
+  }
 
-  instance[inspect.custom] = function inspectImpl(
-    _depth: any,
-    options: InspectOptions
-  ) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(instance.toJSON(), options);
-  };
+  }
 
   return instance;
 }
+
+

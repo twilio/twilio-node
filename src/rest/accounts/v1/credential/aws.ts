@@ -12,6 +12,7 @@
  * Do not edit the class manually.
  */
 
+
 import { inspect, InspectOptions } from "util";
 import Page, { TwilioResponsePayload } from "../../../../base/Page";
 import Response from "../../../../http/response";
@@ -20,12 +21,16 @@ const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
 
+
+
+
+
 /**
  * Options to pass to update a AwsInstance
  */
 export interface AwsContextUpdateOptions {
   /** A descriptive string that you create to describe the resource. It can be up to 64 characters long. */
-  friendlyName?: string;
+  "friendlyName"?: string;
 }
 
 /**
@@ -33,18 +38,18 @@ export interface AwsContextUpdateOptions {
  */
 export interface AwsListInstanceCreateOptions {
   /** A string that contains the AWS access credentials in the format `<AWS_ACCESS_KEY_ID>:<AWS_SECRET_ACCESS_KEY>`. For example, `AKIAIOSFODNN7EXAMPLE:wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY` */
-  credentials: string;
+  "credentials": string;
   /** A descriptive string that you create to describe the resource. It can be up to 64 characters long. */
-  friendlyName?: string;
+  "friendlyName"?: string;
   /** The SID of the Subaccount that this Credential should be associated with. Must be a valid Subaccount of the account issuing the request. */
-  accountSid?: string;
+  "accountSid"?: string;
 }
 /**
  * Options to pass to each
  */
 export interface AwsListInstanceEachOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: AwsInstance, done: (err?: Error) => void) => void;
   /** Function to be called upon completion of streaming */
@@ -58,7 +63,7 @@ export interface AwsListInstanceEachOptions {
  */
 export interface AwsListInstanceOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
@@ -68,14 +73,16 @@ export interface AwsListInstanceOptions {
  */
 export interface AwsListInstancePageOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
   /** PageToken provided by the API */
   pageToken?: string;
 }
 
+
 export interface AwsContext {
+
   /**
    * Remove a AwsInstance
    *
@@ -83,9 +90,7 @@ export interface AwsContext {
    *
    * @returns Resolves to processed boolean
    */
-  remove(
-    callback?: (error: Error | null, item?: boolean) => any
-  ): Promise<boolean>;
+  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
 
   /**
    * Fetch a AwsInstance
@@ -94,9 +99,7 @@ export interface AwsContext {
    *
    * @returns Resolves to processed AwsInstance
    */
-  fetch(
-    callback?: (error: Error | null, item?: AwsInstance) => any
-  ): Promise<AwsInstance>;
+  fetch(callback?: (error: Error | null, item?: AwsInstance) => any): Promise<AwsInstance>
 
   /**
    * Update a AwsInstance
@@ -105,9 +108,7 @@ export interface AwsContext {
    *
    * @returns Resolves to processed AwsInstance
    */
-  update(
-    callback?: (error: Error | null, item?: AwsInstance) => any
-  ): Promise<AwsInstance>;
+  update(callback?: (error: Error | null, item?: AwsInstance) => any): Promise<AwsInstance>;
   /**
    * Update a AwsInstance
    *
@@ -116,10 +117,9 @@ export interface AwsContext {
    *
    * @returns Resolves to processed AwsInstance
    */
-  update(
-    params: AwsContextUpdateOptions,
-    callback?: (error: Error | null, item?: AwsInstance) => any
-  ): Promise<AwsInstance>;
+  update(params: AwsContextUpdateOptions, callback?: (error: Error | null, item?: AwsInstance) => any): Promise<AwsInstance>;
+
+
 
   /**
    * Provide a user-friendly representation
@@ -129,68 +129,53 @@ export interface AwsContext {
 }
 
 export interface AwsContextSolution {
-  sid: string;
+  "sid": string;
 }
 
 export class AwsContextImpl implements AwsContext {
   protected _solution: AwsContextSolution;
   protected _uri: string;
 
+
   constructor(protected _version: V1, sid: string) {
     if (!isValidPathParam(sid)) {
-      throw new Error("Parameter 'sid' is not valid.");
+      throw new Error('Parameter \'sid\' is not valid.');
     }
 
-    this._solution = { sid };
+    this._solution = { sid,  };
     this._uri = `/Credentials/AWS/${sid}`;
   }
 
-  remove(
-    callback?: (error: Error | null, item?: boolean) => any
-  ): Promise<boolean> {
+  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean> {
+  
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.remove({
-        uri: instance._uri,
-        method: "delete",
-      });
+        operationPromise = operationVersion.remove({ uri: instance._uri, method: "delete" });
+    
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
-  fetch(
-    callback?: (error: Error | null, item?: AwsInstance) => any
-  ): Promise<AwsInstance> {
+  fetch(callback?: (error: Error | null, item?: AwsInstance) => any): Promise<AwsInstance> {
+  
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.fetch({
-        uri: instance._uri,
-        method: "get",
-      });
+        operationPromise = operationVersion.fetch({ uri: instance._uri, method: "get" });
+    
+    operationPromise = operationPromise.then(payload => new AwsInstance(operationVersion, payload, instance._solution.sid));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new AwsInstance(operationVersion, payload, instance._solution.sid)
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
-  update(
-    params?:
-      | AwsContextUpdateOptions
-      | ((error: Error | null, item?: AwsInstance) => any),
-    callback?: (error: Error | null, item?: AwsInstance) => any
-  ): Promise<AwsInstance> {
-    if (params instanceof Function) {
+  update(params?: AwsContextUpdateOptions | ((error: Error | null, item?: AwsInstance) => any), callback?: (error: Error | null, item?: AwsInstance) => any): Promise<AwsInstance> {
+      if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -199,31 +184,26 @@ export class AwsContextImpl implements AwsContext {
 
     let data: any = {};
 
-    if (params["friendlyName"] !== undefined)
-      data["FriendlyName"] = params["friendlyName"];
+    
+        if (params["friendlyName"] !== undefined)
+    data["FriendlyName"] = params["friendlyName"];
+
+    
 
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.update({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      });
+        operationPromise = operationVersion.update({ uri: instance._uri, method: "post", data, headers });
+    
+    operationPromise = operationPromise.then(payload => new AwsInstance(operationVersion, payload, instance._solution.sid));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new AwsInstance(operationVersion, payload, instance._solution.sid)
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
   /**
@@ -240,8 +220,9 @@ export class AwsContextImpl implements AwsContext {
   }
 }
 
+
 interface AwsPayload extends TwilioResponsePayload {
-  credentials: AwsResource[];
+    credentials: AwsResource[];
 }
 
 interface AwsResource {
@@ -258,14 +239,14 @@ export class AwsInstance {
   protected _context?: AwsContext;
 
   constructor(protected _version: V1, payload: AwsResource, sid?: string) {
-    this.sid = payload.sid;
-    this.accountSid = payload.account_sid;
-    this.friendlyName = payload.friendly_name;
+    this.sid = (payload.sid);
+    this.accountSid = (payload.account_sid);
+    this.friendlyName = (payload.friendly_name);
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
-    this.url = payload.url;
+    this.url = (payload.url);
 
-    this._solution = { sid: sid || this.sid };
+    this._solution = { sid: sid || this.sid,  };
   }
 
   /**
@@ -294,8 +275,7 @@ export class AwsInstance {
   url: string;
 
   private get _proxy(): AwsContext {
-    this._context =
-      this._context || new AwsContextImpl(this._version, this._solution.sid);
+    this._context = this._context || new AwsContextImpl(this._version, this._solution.sid);
     return this._context;
   }
 
@@ -306,9 +286,9 @@ export class AwsInstance {
    *
    * @returns Resolves to processed boolean
    */
-  remove(
-    callback?: (error: Error | null, item?: boolean) => any
-  ): Promise<boolean> {
+  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
+
+    {
     return this._proxy.remove(callback);
   }
 
@@ -319,9 +299,9 @@ export class AwsInstance {
    *
    * @returns Resolves to processed AwsInstance
    */
-  fetch(
-    callback?: (error: Error | null, item?: AwsInstance) => any
-  ): Promise<AwsInstance> {
+  fetch(callback?: (error: Error | null, item?: AwsInstance) => any): Promise<AwsInstance>
+
+    {
     return this._proxy.fetch(callback);
   }
 
@@ -332,9 +312,7 @@ export class AwsInstance {
    *
    * @returns Resolves to processed AwsInstance
    */
-  update(
-    callback?: (error: Error | null, item?: AwsInstance) => any
-  ): Promise<AwsInstance>;
+  update(callback?: (error: Error | null, item?: AwsInstance) => any): Promise<AwsInstance>;
   /**
    * Update a AwsInstance
    *
@@ -343,15 +321,10 @@ export class AwsInstance {
    *
    * @returns Resolves to processed AwsInstance
    */
-  update(
-    params: AwsContextUpdateOptions,
-    callback?: (error: Error | null, item?: AwsInstance) => any
-  ): Promise<AwsInstance>;
+  update(params: AwsContextUpdateOptions, callback?: (error: Error | null, item?: AwsInstance) => any): Promise<AwsInstance>;
 
-  update(
-    params?: any,
-    callback?: (error: Error | null, item?: AwsInstance) => any
-  ): Promise<AwsInstance> {
+    update(params?: any, callback?: (error: Error | null, item?: AwsInstance) => any): Promise<AwsInstance>
+    {
     return this._proxy.update(params, callback);
   }
 
@@ -368,7 +341,7 @@ export class AwsInstance {
       dateCreated: this.dateCreated,
       dateUpdated: this.dateUpdated,
       url: this.url,
-    };
+    }
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
@@ -376,15 +349,24 @@ export class AwsInstance {
   }
 }
 
-export interface AwsSolution {}
+
+export interface AwsSolution {
+}
 
 export interface AwsListInstance {
   _version: V1;
   _solution: AwsSolution;
   _uri: string;
 
-  (sid: string): AwsContext;
-  get(sid: string): AwsContext;
+  (sid: string, ): AwsContext;
+  get(sid: string, ): AwsContext;
+
+
+
+
+
+
+
 
   /**
    * Create a AwsInstance
@@ -394,10 +376,9 @@ export interface AwsListInstance {
    *
    * @returns Resolves to processed AwsInstance
    */
-  create(
-    params: AwsListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: AwsInstance) => any
-  ): Promise<AwsInstance>;
+  create(params: AwsListInstanceCreateOptions, callback?: (error: Error | null, item?: AwsInstance) => any): Promise<AwsInstance>;
+
+
 
   /**
    * Streams AwsInstance records from the API.
@@ -414,13 +395,8 @@ export interface AwsListInstance {
    * @param { AwsListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(
-    callback?: (item: AwsInstance, done: (err?: Error) => void) => void
-  ): void;
-  each(
-    params: AwsListInstanceEachOptions,
-    callback?: (item: AwsInstance, done: (err?: Error) => void) => void
-  ): void;
+  each(callback?: (item: AwsInstance, done: (err?: Error) => void) => void): void;
+  each(params: AwsListInstanceEachOptions, callback?: (item: AwsInstance, done: (err?: Error) => void) => void): void;
   /**
    * Retrieve a single target page of AwsInstance records from the API.
    *
@@ -429,10 +405,7 @@ export interface AwsListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(
-    targetUrl: string,
-    callback?: (error: Error | null, items: AwsPage) => any
-  ): Promise<AwsPage>;
+  getPage(targetUrl: string, callback?: (error: Error | null, items: AwsPage) => any): Promise<AwsPage>;
   /**
    * Lists AwsInstance records from the API as a list.
    *
@@ -442,13 +415,8 @@ export interface AwsListInstance {
    * @param { AwsListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(
-    callback?: (error: Error | null, items: AwsInstance[]) => any
-  ): Promise<AwsInstance[]>;
-  list(
-    params: AwsListInstanceOptions,
-    callback?: (error: Error | null, items: AwsInstance[]) => any
-  ): Promise<AwsInstance[]>;
+  list(callback?: (error: Error | null, items: AwsInstance[]) => any): Promise<AwsInstance[]>;
+  list(params: AwsListInstanceOptions, callback?: (error: Error | null, items: AwsInstance[]) => any): Promise<AwsInstance[]>;
   /**
    * Retrieve a single page of AwsInstance records from the API.
    *
@@ -460,13 +428,8 @@ export interface AwsListInstance {
    * @param { AwsListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(
-    callback?: (error: Error | null, items: AwsPage) => any
-  ): Promise<AwsPage>;
-  page(
-    params: AwsListInstancePageOptions,
-    callback?: (error: Error | null, items: AwsPage) => any
-  ): Promise<AwsPage>;
+  page(callback?: (error: Error | null, items: AwsPage) => any): Promise<AwsPage>;
+  page(params: AwsListInstancePageOptions, callback?: (error: Error | null, items: AwsPage) => any): Promise<AwsPage>;
 
   /**
    * Provide a user-friendly representation
@@ -476,64 +439,53 @@ export interface AwsListInstance {
 }
 
 export function AwsListInstance(version: V1): AwsListInstance {
-  const instance = ((sid) => instance.get(sid)) as AwsListInstance;
+  const instance = ((sid, ) => instance.get(sid, )) as AwsListInstance;
 
-  instance.get = function get(sid): AwsContext {
+  instance.get = function get(sid, ): AwsContext {
     return new AwsContextImpl(version, sid);
-  };
+  }
 
   instance._version = version;
-  instance._solution = {};
+  instance._solution = {  };
   instance._uri = `/Credentials/AWS`;
 
-  instance.create = function create(
-    params: AwsListInstanceCreateOptions,
-    callback?: (error: Error | null, items: AwsInstance) => any
-  ): Promise<AwsInstance> {
+  instance.create = function create(params: AwsListInstanceCreateOptions, callback?: (error: Error | null, items: AwsInstance) => any): Promise<AwsInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     if (params["credentials"] === null || params["credentials"] === undefined) {
-      throw new Error("Required parameter \"params['credentials']\" missing.");
+      throw new Error('Required parameter "params[\'credentials\']" missing.');
     }
 
     let data: any = {};
 
+    
+        
     data["Credentials"] = params["credentials"];
     if (params["friendlyName"] !== undefined)
-      data["FriendlyName"] = params["friendlyName"];
+    data["FriendlyName"] = params["friendlyName"];
     if (params["accountSid"] !== undefined)
-      data["AccountSid"] = params["accountSid"];
+    data["AccountSid"] = params["accountSid"];
+
+    
 
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = version,
-      operationPromise = operationVersion.create({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      });
+        operationPromise = operationVersion.create({ uri: instance._uri, method: "post", data, headers });
+    
+    operationPromise = operationPromise.then(payload => new AwsInstance(operationVersion, payload));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) => new AwsInstance(operationVersion, payload)
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
 
-  instance.page = function page(
-    params?:
-      | AwsListInstancePageOptions
-      | ((error: Error | null, items: AwsPage) => any),
-    callback?: (error: Error | null, items: AwsPage) => any
-  ): Promise<AwsPage> {
+
+    }
+
+  instance.page = function page(params?: AwsListInstancePageOptions | ((error: Error | null, items: AwsPage) => any), callback?: (error: Error | null, items: AwsPage) => any): Promise<AwsPage> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -543,86 +495,74 @@ export function AwsListInstance(version: V1): AwsListInstance {
 
     let data: any = {};
 
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
 
+    
+    
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-      operationPromise = operationVersion.page({
-        uri: instance._uri,
-        method: "get",
-        params: data,
-        headers,
-      });
+        operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers });
+    
+    operationPromise = operationPromise.then(payload => new AwsPage(operationVersion, payload, instance._solution));
 
-    operationPromise = operationPromise.then(
-      (payload) => new AwsPage(operationVersion, payload, instance._solution)
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
+
+  }
   instance.each = instance._version.each;
   instance.list = instance._version.list;
 
-  instance.getPage = function getPage(
-    targetUrl: string,
-    callback?: (error: Error | null, items: AwsPage) => any
-  ): Promise<AwsPage> {
-    const operationPromise = instance._version._domain.twilio.request({
-      method: "get",
-      uri: targetUrl,
-    });
+  instance.getPage = function getPage(targetUrl: string, callback?: (error: Error | null, items: AwsPage) => any): Promise<AwsPage> {
+    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
 
-    let pagePromise = operationPromise.then(
-      (payload) => new AwsPage(instance._version, payload, instance._solution)
-    );
+    let pagePromise = operationPromise.then(payload => new AwsPage(instance._version, payload, instance._solution));
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  };
+  }
+
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  };
+  }
 
-  instance[inspect.custom] = function inspectImpl(
-    _depth: any,
-    options: InspectOptions
-  ) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(instance.toJSON(), options);
-  };
+  }
 
   return instance;
 }
 
 export class AwsPage extends Page<V1, AwsPayload, AwsResource, AwsInstance> {
-  /**
-   * Initialize the AwsPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V1, response: Response<string>, solution: AwsSolution) {
+/**
+* Initialize the AwsPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V1, response: Response<string>, solution: AwsSolution) {
     super(version, response, solution);
-  }
+    }
 
-  /**
-   * Build an instance of AwsInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: AwsResource): AwsInstance {
-    return new AwsInstance(this._version, payload);
-  }
+    /**
+    * Build an instance of AwsInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: AwsResource): AwsInstance {
+    return new AwsInstance(
+    this._version,
+    payload,
+    );
+    }
 
-  [inspect.custom](depth: any, options: InspectOptions) {
+    [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-  }
-}
+    }
+    }
+

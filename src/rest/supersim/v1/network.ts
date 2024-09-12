@@ -12,6 +12,7 @@
  * Do not edit the class manually.
  */
 
+
 import { inspect, InspectOptions } from "util";
 import Page, { TwilioResponsePayload } from "../../../base/Page";
 import Response from "../../../http/response";
@@ -20,18 +21,20 @@ const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 
+
+
 /**
  * Options to pass to each
  */
 export interface NetworkListInstanceEachOptions {
   /** The [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the Network resources to read. */
-  isoCountry?: string;
+  "isoCountry"?: string;
   /** The \'mobile country code\' of a country. Network resources with this `mcc` in their `identifiers` will be read. */
-  mcc?: string;
+  "mcc"?: string;
   /** The \'mobile network code\' of a mobile operator network. Network resources with this `mnc` in their `identifiers` will be read. */
-  mnc?: string;
+  "mnc"?: string;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: NetworkInstance, done: (err?: Error) => void) => void;
   /** Function to be called upon completion of streaming */
@@ -45,13 +48,13 @@ export interface NetworkListInstanceEachOptions {
  */
 export interface NetworkListInstanceOptions {
   /** The [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the Network resources to read. */
-  isoCountry?: string;
+  "isoCountry"?: string;
   /** The \'mobile country code\' of a country. Network resources with this `mcc` in their `identifiers` will be read. */
-  mcc?: string;
+  "mcc"?: string;
   /** The \'mobile network code\' of a mobile operator network. Network resources with this `mnc` in their `identifiers` will be read. */
-  mnc?: string;
+  "mnc"?: string;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
@@ -61,20 +64,22 @@ export interface NetworkListInstanceOptions {
  */
 export interface NetworkListInstancePageOptions {
   /** The [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the Network resources to read. */
-  isoCountry?: string;
+  "isoCountry"?: string;
   /** The \'mobile country code\' of a country. Network resources with this `mcc` in their `identifiers` will be read. */
-  mcc?: string;
+  "mcc"?: string;
   /** The \'mobile network code\' of a mobile operator network. Network resources with this `mnc` in their `identifiers` will be read. */
-  mnc?: string;
+  "mnc"?: string;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
   /** PageToken provided by the API */
   pageToken?: string;
 }
 
+
 export interface NetworkContext {
+
   /**
    * Fetch a NetworkInstance
    *
@@ -82,9 +87,8 @@ export interface NetworkContext {
    *
    * @returns Resolves to processed NetworkInstance
    */
-  fetch(
-    callback?: (error: Error | null, item?: NetworkInstance) => any
-  ): Promise<NetworkInstance>;
+  fetch(callback?: (error: Error | null, item?: NetworkInstance) => any): Promise<NetworkInstance>
+
 
   /**
    * Provide a user-friendly representation
@@ -94,42 +98,36 @@ export interface NetworkContext {
 }
 
 export interface NetworkContextSolution {
-  sid: string;
+  "sid": string;
 }
 
 export class NetworkContextImpl implements NetworkContext {
   protected _solution: NetworkContextSolution;
   protected _uri: string;
 
+
   constructor(protected _version: V1, sid: string) {
     if (!isValidPathParam(sid)) {
-      throw new Error("Parameter 'sid' is not valid.");
+      throw new Error('Parameter \'sid\' is not valid.');
     }
 
-    this._solution = { sid };
+    this._solution = { sid,  };
     this._uri = `/Networks/${sid}`;
   }
 
-  fetch(
-    callback?: (error: Error | null, item?: NetworkInstance) => any
-  ): Promise<NetworkInstance> {
+  fetch(callback?: (error: Error | null, item?: NetworkInstance) => any): Promise<NetworkInstance> {
+  
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.fetch({
-        uri: instance._uri,
-        method: "get",
-      });
+        operationPromise = operationVersion.fetch({ uri: instance._uri, method: "get" });
+    
+    operationPromise = operationPromise.then(payload => new NetworkInstance(operationVersion, payload, instance._solution.sid));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new NetworkInstance(operationVersion, payload, instance._solution.sid)
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
   /**
@@ -146,8 +144,9 @@ export class NetworkContextImpl implements NetworkContext {
   }
 }
 
+
 interface NetworkPayload extends TwilioResponsePayload {
-  networks: NetworkResource[];
+    networks: NetworkResource[];
 }
 
 interface NetworkResource {
@@ -163,13 +162,13 @@ export class NetworkInstance {
   protected _context?: NetworkContext;
 
   constructor(protected _version: V1, payload: NetworkResource, sid?: string) {
-    this.sid = payload.sid;
-    this.friendlyName = payload.friendly_name;
-    this.url = payload.url;
-    this.isoCountry = payload.iso_country;
-    this.identifiers = payload.identifiers;
+    this.sid = (payload.sid);
+    this.friendlyName = (payload.friendly_name);
+    this.url = (payload.url);
+    this.isoCountry = (payload.iso_country);
+    this.identifiers = (payload.identifiers);
 
-    this._solution = { sid: sid || this.sid };
+    this._solution = { sid: sid || this.sid,  };
   }
 
   /**
@@ -194,9 +193,7 @@ export class NetworkInstance {
   identifiers: Array<any>;
 
   private get _proxy(): NetworkContext {
-    this._context =
-      this._context ||
-      new NetworkContextImpl(this._version, this._solution.sid);
+    this._context = this._context || new NetworkContextImpl(this._version, this._solution.sid);
     return this._context;
   }
 
@@ -207,9 +204,9 @@ export class NetworkInstance {
    *
    * @returns Resolves to processed NetworkInstance
    */
-  fetch(
-    callback?: (error: Error | null, item?: NetworkInstance) => any
-  ): Promise<NetworkInstance> {
+  fetch(callback?: (error: Error | null, item?: NetworkInstance) => any): Promise<NetworkInstance>
+
+    {
     return this._proxy.fetch(callback);
   }
 
@@ -225,7 +222,7 @@ export class NetworkInstance {
       url: this.url,
       isoCountry: this.isoCountry,
       identifiers: this.identifiers,
-    };
+    }
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
@@ -233,15 +230,21 @@ export class NetworkInstance {
   }
 }
 
-export interface NetworkSolution {}
+
+export interface NetworkSolution {
+}
 
 export interface NetworkListInstance {
   _version: V1;
   _solution: NetworkSolution;
   _uri: string;
 
-  (sid: string): NetworkContext;
-  get(sid: string): NetworkContext;
+  (sid: string, ): NetworkContext;
+  get(sid: string, ): NetworkContext;
+
+
+
+
 
   /**
    * Streams NetworkInstance records from the API.
@@ -258,13 +261,8 @@ export interface NetworkListInstance {
    * @param { NetworkListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(
-    callback?: (item: NetworkInstance, done: (err?: Error) => void) => void
-  ): void;
-  each(
-    params: NetworkListInstanceEachOptions,
-    callback?: (item: NetworkInstance, done: (err?: Error) => void) => void
-  ): void;
+  each(callback?: (item: NetworkInstance, done: (err?: Error) => void) => void): void;
+  each(params: NetworkListInstanceEachOptions, callback?: (item: NetworkInstance, done: (err?: Error) => void) => void): void;
   /**
    * Retrieve a single target page of NetworkInstance records from the API.
    *
@@ -273,10 +271,7 @@ export interface NetworkListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(
-    targetUrl: string,
-    callback?: (error: Error | null, items: NetworkPage) => any
-  ): Promise<NetworkPage>;
+  getPage(targetUrl: string, callback?: (error: Error | null, items: NetworkPage) => any): Promise<NetworkPage>;
   /**
    * Lists NetworkInstance records from the API as a list.
    *
@@ -286,13 +281,8 @@ export interface NetworkListInstance {
    * @param { NetworkListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(
-    callback?: (error: Error | null, items: NetworkInstance[]) => any
-  ): Promise<NetworkInstance[]>;
-  list(
-    params: NetworkListInstanceOptions,
-    callback?: (error: Error | null, items: NetworkInstance[]) => any
-  ): Promise<NetworkInstance[]>;
+  list(callback?: (error: Error | null, items: NetworkInstance[]) => any): Promise<NetworkInstance[]>;
+  list(params: NetworkListInstanceOptions, callback?: (error: Error | null, items: NetworkInstance[]) => any): Promise<NetworkInstance[]>;
   /**
    * Retrieve a single page of NetworkInstance records from the API.
    *
@@ -304,13 +294,8 @@ export interface NetworkListInstance {
    * @param { NetworkListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(
-    callback?: (error: Error | null, items: NetworkPage) => any
-  ): Promise<NetworkPage>;
-  page(
-    params: NetworkListInstancePageOptions,
-    callback?: (error: Error | null, items: NetworkPage) => any
-  ): Promise<NetworkPage>;
+  page(callback?: (error: Error | null, items: NetworkPage) => any): Promise<NetworkPage>;
+  page(params: NetworkListInstancePageOptions, callback?: (error: Error | null, items: NetworkPage) => any): Promise<NetworkPage>;
 
   /**
    * Provide a user-friendly representation
@@ -320,22 +305,17 @@ export interface NetworkListInstance {
 }
 
 export function NetworkListInstance(version: V1): NetworkListInstance {
-  const instance = ((sid) => instance.get(sid)) as NetworkListInstance;
+  const instance = ((sid, ) => instance.get(sid, )) as NetworkListInstance;
 
-  instance.get = function get(sid): NetworkContext {
+  instance.get = function get(sid, ): NetworkContext {
     return new NetworkContextImpl(version, sid);
-  };
+  }
 
   instance._version = version;
-  instance._solution = {};
+  instance._solution = {  };
   instance._uri = `/Networks`;
 
-  instance.page = function page(
-    params?:
-      | NetworkListInstancePageOptions
-      | ((error: Error | null, items: NetworkPage) => any),
-    callback?: (error: Error | null, items: NetworkPage) => any
-  ): Promise<NetworkPage> {
+  instance.page = function page(params?: NetworkListInstancePageOptions | ((error: Error | null, items: NetworkPage) => any), callback?: (error: Error | null, items: NetworkPage) => any): Promise<NetworkPage> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -345,101 +325,80 @@ export function NetworkListInstance(version: V1): NetworkListInstance {
 
     let data: any = {};
 
-    if (params["isoCountry"] !== undefined)
-      data["IsoCountry"] = params["isoCountry"];
-    if (params["mcc"] !== undefined) data["Mcc"] = params["mcc"];
-    if (params["mnc"] !== undefined) data["Mnc"] = params["mnc"];
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["isoCountry"] !== undefined)
+    data["IsoCountry"] = params["isoCountry"];
+    if (params["mcc"] !== undefined)
+    data["Mcc"] = params["mcc"];
+    if (params["mnc"] !== undefined)
+    data["Mnc"] = params["mnc"];
+    if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
 
+    
+    
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-      operationPromise = operationVersion.page({
-        uri: instance._uri,
-        method: "get",
-        params: data,
-        headers,
-      });
+        operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers });
+    
+    operationPromise = operationPromise.then(payload => new NetworkPage(operationVersion, payload, instance._solution));
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new NetworkPage(operationVersion, payload, instance._solution)
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
+
+  }
   instance.each = instance._version.each;
   instance.list = instance._version.list;
 
-  instance.getPage = function getPage(
-    targetUrl: string,
-    callback?: (error: Error | null, items: NetworkPage) => any
-  ): Promise<NetworkPage> {
-    const operationPromise = instance._version._domain.twilio.request({
-      method: "get",
-      uri: targetUrl,
-    });
+  instance.getPage = function getPage(targetUrl: string, callback?: (error: Error | null, items: NetworkPage) => any): Promise<NetworkPage> {
+    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
 
-    let pagePromise = operationPromise.then(
-      (payload) =>
-        new NetworkPage(instance._version, payload, instance._solution)
-    );
+    let pagePromise = operationPromise.then(payload => new NetworkPage(instance._version, payload, instance._solution));
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  };
+  }
+
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  };
+  }
 
-  instance[inspect.custom] = function inspectImpl(
-    _depth: any,
-    options: InspectOptions
-  ) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(instance.toJSON(), options);
-  };
+  }
 
   return instance;
 }
 
-export class NetworkPage extends Page<
-  V1,
-  NetworkPayload,
-  NetworkResource,
-  NetworkInstance
-> {
-  /**
-   * Initialize the NetworkPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(
-    version: V1,
-    response: Response<string>,
-    solution: NetworkSolution
-  ) {
+export class NetworkPage extends Page<V1, NetworkPayload, NetworkResource, NetworkInstance> {
+/**
+* Initialize the NetworkPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V1, response: Response<string>, solution: NetworkSolution) {
     super(version, response, solution);
-  }
+    }
 
-  /**
-   * Build an instance of NetworkInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: NetworkResource): NetworkInstance {
-    return new NetworkInstance(this._version, payload);
-  }
+    /**
+    * Build an instance of NetworkInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: NetworkResource): NetworkInstance {
+    return new NetworkInstance(
+    this._version,
+    payload,
+    );
+    }
 
-  [inspect.custom](depth: any, options: InspectOptions) {
+    [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-  }
-}
+    }
+    }
+

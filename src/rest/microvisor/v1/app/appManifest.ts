@@ -12,13 +12,18 @@
  * Do not edit the class manually.
  */
 
+
 import { inspect, InspectOptions } from "util";
 import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
 
+
+
+
 export interface AppManifestContext {
+
   /**
    * Fetch a AppManifestInstance
    *
@@ -26,9 +31,7 @@ export interface AppManifestContext {
    *
    * @returns Resolves to processed AppManifestInstance
    */
-  fetch(
-    callback?: (error: Error | null, item?: AppManifestInstance) => any
-  ): Promise<AppManifestInstance>;
+  fetch(callback?: (error: Error | null, item?: AppManifestInstance) => any): Promise<AppManifestInstance>
 
   /**
    * Provide a user-friendly representation
@@ -38,46 +41,36 @@ export interface AppManifestContext {
 }
 
 export interface AppManifestContextSolution {
-  appSid: string;
+  "appSid": string;
 }
 
 export class AppManifestContextImpl implements AppManifestContext {
   protected _solution: AppManifestContextSolution;
   protected _uri: string;
 
+
   constructor(protected _version: V1, appSid: string) {
     if (!isValidPathParam(appSid)) {
-      throw new Error("Parameter 'appSid' is not valid.");
+      throw new Error('Parameter \'appSid\' is not valid.');
     }
 
-    this._solution = { appSid };
+    this._solution = { appSid,  };
     this._uri = `/Apps/${appSid}/Manifest`;
   }
 
-  fetch(
-    callback?: (error: Error | null, item?: AppManifestInstance) => any
-  ): Promise<AppManifestInstance> {
+  fetch(callback?: (error: Error | null, item?: AppManifestInstance) => any): Promise<AppManifestInstance> {
+  
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.fetch({
-        uri: instance._uri,
-        method: "get",
-      });
+        operationPromise = operationVersion.fetch({ uri: instance._uri, method: "get" });
+    
+    operationPromise = operationPromise.then(payload => new AppManifestInstance(operationVersion, payload, instance._solution.appSid));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new AppManifestInstance(
-          operationVersion,
-          payload,
-          instance._solution.appSid
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
   /**
@@ -94,6 +87,7 @@ export class AppManifestContextImpl implements AppManifestContext {
   }
 }
 
+
 interface AppManifestPayload extends AppManifestResource {}
 
 interface AppManifestResource {
@@ -107,17 +101,13 @@ export class AppManifestInstance {
   protected _solution: AppManifestContextSolution;
   protected _context?: AppManifestContext;
 
-  constructor(
-    protected _version: V1,
-    payload: AppManifestResource,
-    appSid: string
-  ) {
-    this.appSid = payload.app_sid;
-    this.hash = payload.hash;
-    this.encodedBytes = payload.encoded_bytes;
-    this.url = payload.url;
+  constructor(protected _version: V1, payload: AppManifestResource, appSid: string) {
+    this.appSid = (payload.app_sid);
+    this.hash = (payload.hash);
+    this.encodedBytes = (payload.encoded_bytes);
+    this.url = (payload.url);
 
-    this._solution = { appSid };
+    this._solution = { appSid,  };
   }
 
   /**
@@ -138,9 +128,7 @@ export class AppManifestInstance {
   url: string;
 
   private get _proxy(): AppManifestContext {
-    this._context =
-      this._context ||
-      new AppManifestContextImpl(this._version, this._solution.appSid);
+    this._context = this._context || new AppManifestContextImpl(this._version, this._solution.appSid);
     return this._context;
   }
 
@@ -151,9 +139,9 @@ export class AppManifestInstance {
    *
    * @returns Resolves to processed AppManifestInstance
    */
-  fetch(
-    callback?: (error: Error | null, item?: AppManifestInstance) => any
-  ): Promise<AppManifestInstance> {
+  fetch(callback?: (error: Error | null, item?: AppManifestInstance) => any): Promise<AppManifestInstance>
+
+    {
     return this._proxy.fetch(callback);
   }
 
@@ -168,13 +156,14 @@ export class AppManifestInstance {
       hash: this.hash,
       encodedBytes: this.encodedBytes,
       url: this.url,
-    };
+    }
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
 }
+
 
 export interface AppManifestSolution {
   appSid: string;
@@ -188,6 +177,9 @@ export interface AppManifestListInstance {
   (): AppManifestContext;
   get(): AppManifestContext;
 
+
+
+
   /**
    * Provide a user-friendly representation
    */
@@ -195,34 +187,30 @@ export interface AppManifestListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function AppManifestListInstance(
-  version: V1,
-  appSid: string
-): AppManifestListInstance {
+export function AppManifestListInstance(version: V1, appSid: string): AppManifestListInstance {
   if (!isValidPathParam(appSid)) {
-    throw new Error("Parameter 'appSid' is not valid.");
+    throw new Error('Parameter \'appSid\' is not valid.');
   }
 
   const instance = (() => instance.get()) as AppManifestListInstance;
 
   instance.get = function get(): AppManifestContext {
     return new AppManifestContextImpl(version, appSid);
-  };
+  }
 
   instance._version = version;
-  instance._solution = { appSid };
+  instance._solution = { appSid,  };
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  };
+  }
 
-  instance[inspect.custom] = function inspectImpl(
-    _depth: any,
-    options: InspectOptions
-  ) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(instance.toJSON(), options);
-  };
+  }
 
   return instance;
 }
+
+

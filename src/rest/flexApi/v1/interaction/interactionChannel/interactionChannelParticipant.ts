@@ -12,6 +12,7 @@
  * Do not edit the class manually.
  */
 
+
 import { inspect, InspectOptions } from "util";
 import Page, { TwilioResponsePayload } from "../../../../../base/Page";
 import Response from "../../../../../http/response";
@@ -20,21 +21,18 @@ const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
 
-export type InteractionChannelParticipantStatus = "closed" | "wrapup";
 
-export type InteractionChannelParticipantType =
-  | "supervisor"
-  | "customer"
-  | "external"
-  | "agent"
-  | "unknown";
+export type InteractionChannelParticipantStatus = 'closed'|'wrapup';
+
+export type InteractionChannelParticipantType = 'supervisor'|'customer'|'external'|'agent'|'unknown';
+
 
 /**
  * Options to pass to update a InteractionChannelParticipantInstance
  */
 export interface InteractionChannelParticipantContextUpdateOptions {
   /**  */
-  status: InteractionChannelParticipantStatus;
+  "status": InteractionChannelParticipantStatus;
 }
 
 /**
@@ -42,23 +40,20 @@ export interface InteractionChannelParticipantContextUpdateOptions {
  */
 export interface InteractionChannelParticipantListInstanceCreateOptions {
   /**  */
-  type: InteractionChannelParticipantType;
+  "type": InteractionChannelParticipantType;
   /** JSON representing the Media Properties for the new Participant. */
-  mediaProperties: any;
+  "mediaProperties": any;
   /** Object representing the Routing Properties for the new Participant. */
-  routingProperties?: any;
+  "routingProperties"?: any;
 }
 /**
  * Options to pass to each
  */
 export interface InteractionChannelParticipantListInstanceEachOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
-  callback?: (
-    item: InteractionChannelParticipantInstance,
-    done: (err?: Error) => void
-  ) => void;
+  callback?: (item: InteractionChannelParticipantInstance, done: (err?: Error) => void) => void;
   /** Function to be called upon completion of streaming */
   done?: Function;
   /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
@@ -70,7 +65,7 @@ export interface InteractionChannelParticipantListInstanceEachOptions {
  */
 export interface InteractionChannelParticipantListInstanceOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
@@ -80,14 +75,16 @@ export interface InteractionChannelParticipantListInstanceOptions {
  */
 export interface InteractionChannelParticipantListInstancePageOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
   /** PageToken provided by the API */
   pageToken?: string;
 }
 
+
 export interface InteractionChannelParticipantContext {
+
   /**
    * Update a InteractionChannelParticipantInstance
    *
@@ -96,13 +93,9 @@ export interface InteractionChannelParticipantContext {
    *
    * @returns Resolves to processed InteractionChannelParticipantInstance
    */
-  update(
-    params: InteractionChannelParticipantContextUpdateOptions,
-    callback?: (
-      error: Error | null,
-      item?: InteractionChannelParticipantInstance
-    ) => any
-  ): Promise<InteractionChannelParticipantInstance>;
+  update(params: InteractionChannelParticipantContextUpdateOptions, callback?: (error: Error | null, item?: InteractionChannelParticipantInstance) => any): Promise<InteractionChannelParticipantInstance>;
+
+
 
   /**
    * Provide a user-friendly representation
@@ -112,86 +105,64 @@ export interface InteractionChannelParticipantContext {
 }
 
 export interface InteractionChannelParticipantContextSolution {
-  interactionSid: string;
-  channelSid: string;
-  sid: string;
+  "interactionSid": string;
+  "channelSid": string;
+  "sid": string;
 }
 
-export class InteractionChannelParticipantContextImpl
-  implements InteractionChannelParticipantContext
-{
+export class InteractionChannelParticipantContextImpl implements InteractionChannelParticipantContext {
   protected _solution: InteractionChannelParticipantContextSolution;
   protected _uri: string;
 
-  constructor(
-    protected _version: V1,
-    interactionSid: string,
-    channelSid: string,
-    sid: string
-  ) {
+
+  constructor(protected _version: V1, interactionSid: string, channelSid: string, sid: string) {
     if (!isValidPathParam(interactionSid)) {
-      throw new Error("Parameter 'interactionSid' is not valid.");
+      throw new Error('Parameter \'interactionSid\' is not valid.');
     }
 
     if (!isValidPathParam(channelSid)) {
-      throw new Error("Parameter 'channelSid' is not valid.");
+      throw new Error('Parameter \'channelSid\' is not valid.');
     }
 
     if (!isValidPathParam(sid)) {
-      throw new Error("Parameter 'sid' is not valid.");
+      throw new Error('Parameter \'sid\' is not valid.');
     }
 
-    this._solution = { interactionSid, channelSid, sid };
+    this._solution = { interactionSid, channelSid, sid,  };
     this._uri = `/Interactions/${interactionSid}/Channels/${channelSid}/Participants/${sid}`;
   }
 
-  update(
-    params: InteractionChannelParticipantContextUpdateOptions,
-    callback?: (
-      error: Error | null,
-      item?: InteractionChannelParticipantInstance
-    ) => any
-  ): Promise<InteractionChannelParticipantInstance> {
-    if (params === null || params === undefined) {
+  update(params: InteractionChannelParticipantContextUpdateOptions, callback?: (error: Error | null, item?: InteractionChannelParticipantInstance) => any): Promise<InteractionChannelParticipantInstance> {
+      if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     if (params["status"] === null || params["status"] === undefined) {
-      throw new Error("Required parameter \"params['status']\" missing.");
+      throw new Error('Required parameter "params[\'status\']" missing.');
     }
 
     let data: any = {};
 
+    
+        
     data["Status"] = params["status"];
 
+    
+
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.update({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      });
+        operationPromise = operationVersion.update({ uri: instance._uri, method: "post", data, headers });
+    
+    operationPromise = operationPromise.then(payload => new InteractionChannelParticipantInstance(operationVersion, payload, instance._solution.interactionSid, instance._solution.channelSid, instance._solution.sid));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new InteractionChannelParticipantInstance(
-          operationVersion,
-          payload,
-          instance._solution.interactionSid,
-          instance._solution.channelSid,
-          instance._solution.sid
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
   /**
@@ -208,8 +179,9 @@ export class InteractionChannelParticipantContextImpl
   }
 }
 
+
 interface InteractionChannelParticipantPayload extends TwilioResponsePayload {
-  participants: InteractionChannelParticipantResource[];
+    participants: InteractionChannelParticipantResource[];
 }
 
 interface InteractionChannelParticipantResource {
@@ -225,21 +197,15 @@ export class InteractionChannelParticipantInstance {
   protected _solution: InteractionChannelParticipantContextSolution;
   protected _context?: InteractionChannelParticipantContext;
 
-  constructor(
-    protected _version: V1,
-    payload: InteractionChannelParticipantResource,
-    interactionSid: string,
-    channelSid: string,
-    sid?: string
-  ) {
-    this.sid = payload.sid;
-    this.type = payload.type;
-    this.interactionSid = payload.interaction_sid;
-    this.channelSid = payload.channel_sid;
-    this.url = payload.url;
-    this.routingProperties = payload.routing_properties;
+  constructor(protected _version: V1, payload: InteractionChannelParticipantResource, interactionSid: string, channelSid: string, sid?: string) {
+    this.sid = (payload.sid);
+    this.type = (payload.type);
+    this.interactionSid = (payload.interaction_sid);
+    this.channelSid = (payload.channel_sid);
+    this.url = (payload.url);
+    this.routingProperties = (payload.routing_properties);
 
-    this._solution = { interactionSid, channelSid, sid: sid || this.sid };
+    this._solution = { interactionSid, channelSid, sid: sid || this.sid,  };
   }
 
   /**
@@ -262,14 +228,7 @@ export class InteractionChannelParticipantInstance {
   routingProperties: any;
 
   private get _proxy(): InteractionChannelParticipantContext {
-    this._context =
-      this._context ||
-      new InteractionChannelParticipantContextImpl(
-        this._version,
-        this._solution.interactionSid,
-        this._solution.channelSid,
-        this._solution.sid
-      );
+    this._context = this._context || new InteractionChannelParticipantContextImpl(this._version, this._solution.interactionSid, this._solution.channelSid, this._solution.sid);
     return this._context;
   }
 
@@ -281,21 +240,10 @@ export class InteractionChannelParticipantInstance {
    *
    * @returns Resolves to processed InteractionChannelParticipantInstance
    */
-  update(
-    params: InteractionChannelParticipantContextUpdateOptions,
-    callback?: (
-      error: Error | null,
-      item?: InteractionChannelParticipantInstance
-    ) => any
-  ): Promise<InteractionChannelParticipantInstance>;
+  update(params: InteractionChannelParticipantContextUpdateOptions, callback?: (error: Error | null, item?: InteractionChannelParticipantInstance) => any): Promise<InteractionChannelParticipantInstance>;
 
-  update(
-    params?: any,
-    callback?: (
-      error: Error | null,
-      item?: InteractionChannelParticipantInstance
-    ) => any
-  ): Promise<InteractionChannelParticipantInstance> {
+    update(params?: any, callback?: (error: Error | null, item?: InteractionChannelParticipantInstance) => any): Promise<InteractionChannelParticipantInstance>
+    {
     return this._proxy.update(params, callback);
   }
 
@@ -312,13 +260,14 @@ export class InteractionChannelParticipantInstance {
       channelSid: this.channelSid,
       url: this.url,
       routingProperties: this.routingProperties,
-    };
+    }
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
 }
+
 
 export interface InteractionChannelParticipantSolution {
   interactionSid: string;
@@ -330,8 +279,11 @@ export interface InteractionChannelParticipantListInstance {
   _solution: InteractionChannelParticipantSolution;
   _uri: string;
 
-  (sid: string): InteractionChannelParticipantContext;
-  get(sid: string): InteractionChannelParticipantContext;
+  (sid: string, ): InteractionChannelParticipantContext;
+  get(sid: string, ): InteractionChannelParticipantContext;
+
+
+
 
   /**
    * Create a InteractionChannelParticipantInstance
@@ -341,13 +293,9 @@ export interface InteractionChannelParticipantListInstance {
    *
    * @returns Resolves to processed InteractionChannelParticipantInstance
    */
-  create(
-    params: InteractionChannelParticipantListInstanceCreateOptions,
-    callback?: (
-      error: Error | null,
-      item?: InteractionChannelParticipantInstance
-    ) => any
-  ): Promise<InteractionChannelParticipantInstance>;
+  create(params: InteractionChannelParticipantListInstanceCreateOptions, callback?: (error: Error | null, item?: InteractionChannelParticipantInstance) => any): Promise<InteractionChannelParticipantInstance>;
+
+
 
   /**
    * Streams InteractionChannelParticipantInstance records from the API.
@@ -364,19 +312,8 @@ export interface InteractionChannelParticipantListInstance {
    * @param { InteractionChannelParticipantListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(
-    callback?: (
-      item: InteractionChannelParticipantInstance,
-      done: (err?: Error) => void
-    ) => void
-  ): void;
-  each(
-    params: InteractionChannelParticipantListInstanceEachOptions,
-    callback?: (
-      item: InteractionChannelParticipantInstance,
-      done: (err?: Error) => void
-    ) => void
-  ): void;
+  each(callback?: (item: InteractionChannelParticipantInstance, done: (err?: Error) => void) => void): void;
+  each(params: InteractionChannelParticipantListInstanceEachOptions, callback?: (item: InteractionChannelParticipantInstance, done: (err?: Error) => void) => void): void;
   /**
    * Retrieve a single target page of InteractionChannelParticipantInstance records from the API.
    *
@@ -385,13 +322,7 @@ export interface InteractionChannelParticipantListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(
-    targetUrl: string,
-    callback?: (
-      error: Error | null,
-      items: InteractionChannelParticipantPage
-    ) => any
-  ): Promise<InteractionChannelParticipantPage>;
+  getPage(targetUrl: string, callback?: (error: Error | null, items: InteractionChannelParticipantPage) => any): Promise<InteractionChannelParticipantPage>;
   /**
    * Lists InteractionChannelParticipantInstance records from the API as a list.
    *
@@ -401,19 +332,8 @@ export interface InteractionChannelParticipantListInstance {
    * @param { InteractionChannelParticipantListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(
-    callback?: (
-      error: Error | null,
-      items: InteractionChannelParticipantInstance[]
-    ) => any
-  ): Promise<InteractionChannelParticipantInstance[]>;
-  list(
-    params: InteractionChannelParticipantListInstanceOptions,
-    callback?: (
-      error: Error | null,
-      items: InteractionChannelParticipantInstance[]
-    ) => any
-  ): Promise<InteractionChannelParticipantInstance[]>;
+  list(callback?: (error: Error | null, items: InteractionChannelParticipantInstance[]) => any): Promise<InteractionChannelParticipantInstance[]>;
+  list(params: InteractionChannelParticipantListInstanceOptions, callback?: (error: Error | null, items: InteractionChannelParticipantInstance[]) => any): Promise<InteractionChannelParticipantInstance[]>;
   /**
    * Retrieve a single page of InteractionChannelParticipantInstance records from the API.
    *
@@ -425,19 +345,8 @@ export interface InteractionChannelParticipantListInstance {
    * @param { InteractionChannelParticipantListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(
-    callback?: (
-      error: Error | null,
-      items: InteractionChannelParticipantPage
-    ) => any
-  ): Promise<InteractionChannelParticipantPage>;
-  page(
-    params: InteractionChannelParticipantListInstancePageOptions,
-    callback?: (
-      error: Error | null,
-      items: InteractionChannelParticipantPage
-    ) => any
-  ): Promise<InteractionChannelParticipantPage>;
+  page(callback?: (error: Error | null, items: InteractionChannelParticipantPage) => any): Promise<InteractionChannelParticipantPage>;
+  page(params: InteractionChannelParticipantListInstancePageOptions, callback?: (error: Error | null, items: InteractionChannelParticipantPage) => any): Promise<InteractionChannelParticipantPage>;
 
   /**
    * Provide a user-friendly representation
@@ -446,107 +355,66 @@ export interface InteractionChannelParticipantListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function InteractionChannelParticipantListInstance(
-  version: V1,
-  interactionSid: string,
-  channelSid: string
-): InteractionChannelParticipantListInstance {
+export function InteractionChannelParticipantListInstance(version: V1, interactionSid: string, channelSid: string): InteractionChannelParticipantListInstance {
   if (!isValidPathParam(interactionSid)) {
-    throw new Error("Parameter 'interactionSid' is not valid.");
+    throw new Error('Parameter \'interactionSid\' is not valid.');
   }
 
   if (!isValidPathParam(channelSid)) {
-    throw new Error("Parameter 'channelSid' is not valid.");
+    throw new Error('Parameter \'channelSid\' is not valid.');
   }
 
-  const instance = ((sid) =>
-    instance.get(sid)) as InteractionChannelParticipantListInstance;
+  const instance = ((sid, ) => instance.get(sid, )) as InteractionChannelParticipantListInstance;
 
-  instance.get = function get(sid): InteractionChannelParticipantContext {
-    return new InteractionChannelParticipantContextImpl(
-      version,
-      interactionSid,
-      channelSid,
-      sid
-    );
-  };
+  instance.get = function get(sid, ): InteractionChannelParticipantContext {
+    return new InteractionChannelParticipantContextImpl(version, interactionSid, channelSid, sid);
+  }
 
   instance._version = version;
-  instance._solution = { interactionSid, channelSid };
+  instance._solution = { interactionSid, channelSid,  };
   instance._uri = `/Interactions/${interactionSid}/Channels/${channelSid}/Participants`;
 
-  instance.create = function create(
-    params: InteractionChannelParticipantListInstanceCreateOptions,
-    callback?: (
-      error: Error | null,
-      items: InteractionChannelParticipantInstance
-    ) => any
-  ): Promise<InteractionChannelParticipantInstance> {
+  instance.create = function create(params: InteractionChannelParticipantListInstanceCreateOptions, callback?: (error: Error | null, items: InteractionChannelParticipantInstance) => any): Promise<InteractionChannelParticipantInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     if (params["type"] === null || params["type"] === undefined) {
-      throw new Error("Required parameter \"params['type']\" missing.");
+      throw new Error('Required parameter "params[\'type\']" missing.');
     }
 
-    if (
-      params["mediaProperties"] === null ||
-      params["mediaProperties"] === undefined
-    ) {
-      throw new Error(
-        "Required parameter \"params['mediaProperties']\" missing."
-      );
+    if (params["mediaProperties"] === null || params["mediaProperties"] === undefined) {
+      throw new Error('Required parameter "params[\'mediaProperties\']" missing.');
     }
 
     let data: any = {};
 
+    
+        
     data["Type"] = params["type"];
-
+    
     data["MediaProperties"] = serialize.object(params["mediaProperties"]);
     if (params["routingProperties"] !== undefined)
-      data["RoutingProperties"] = serialize.object(params["routingProperties"]);
+    data["RoutingProperties"] = serialize.object(params["routingProperties"]);
+
+    
 
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
 
     let operationVersion = version,
-      operationPromise = operationVersion.create({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      });
+        operationPromise = operationVersion.create({ uri: instance._uri, method: "post", data, headers });
+    
+    operationPromise = operationPromise.then(payload => new InteractionChannelParticipantInstance(operationVersion, payload, instance._solution.interactionSid, instance._solution.channelSid));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new InteractionChannelParticipantInstance(
-          operationVersion,
-          payload,
-          instance._solution.interactionSid,
-          instance._solution.channelSid
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
 
-  instance.page = function page(
-    params?:
-      | InteractionChannelParticipantListInstancePageOptions
-      | ((
-          error: Error | null,
-          items: InteractionChannelParticipantPage
-        ) => any),
-    callback?: (
-      error: Error | null,
-      items: InteractionChannelParticipantPage
-    ) => any
-  ): Promise<InteractionChannelParticipantPage> {
+
+    }
+
+  instance.page = function page(params?: InteractionChannelParticipantListInstancePageOptions | ((error: Error | null, items: InteractionChannelParticipantPage) => any), callback?: (error: Error | null, items: InteractionChannelParticipantPage) => any): Promise<InteractionChannelParticipantPage> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -556,115 +424,76 @@ export function InteractionChannelParticipantListInstance(
 
     let data: any = {};
 
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
 
+    
+    
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-      operationPromise = operationVersion.page({
-        uri: instance._uri,
-        method: "get",
-        params: data,
-        headers,
-      });
+        operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers });
+    
+    operationPromise = operationPromise.then(payload => new InteractionChannelParticipantPage(operationVersion, payload, instance._solution));
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new InteractionChannelParticipantPage(
-          operationVersion,
-          payload,
-          instance._solution
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
+
+  }
   instance.each = instance._version.each;
   instance.list = instance._version.list;
 
-  instance.getPage = function getPage(
-    targetUrl: string,
-    callback?: (
-      error: Error | null,
-      items: InteractionChannelParticipantPage
-    ) => any
-  ): Promise<InteractionChannelParticipantPage> {
-    const operationPromise = instance._version._domain.twilio.request({
-      method: "get",
-      uri: targetUrl,
-    });
+  instance.getPage = function getPage(targetUrl: string, callback?: (error: Error | null, items: InteractionChannelParticipantPage) => any): Promise<InteractionChannelParticipantPage> {
+    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
 
-    let pagePromise = operationPromise.then(
-      (payload) =>
-        new InteractionChannelParticipantPage(
-          instance._version,
-          payload,
-          instance._solution
-        )
-    );
+    let pagePromise = operationPromise.then(payload => new InteractionChannelParticipantPage(instance._version, payload, instance._solution));
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  };
+  }
+
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  };
+  }
 
-  instance[inspect.custom] = function inspectImpl(
-    _depth: any,
-    options: InspectOptions
-  ) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(instance.toJSON(), options);
-  };
+  }
 
   return instance;
 }
 
-export class InteractionChannelParticipantPage extends Page<
-  V1,
-  InteractionChannelParticipantPayload,
-  InteractionChannelParticipantResource,
-  InteractionChannelParticipantInstance
-> {
-  /**
-   * Initialize the InteractionChannelParticipantPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(
-    version: V1,
-    response: Response<string>,
-    solution: InteractionChannelParticipantSolution
-  ) {
+export class InteractionChannelParticipantPage extends Page<V1, InteractionChannelParticipantPayload, InteractionChannelParticipantResource, InteractionChannelParticipantInstance> {
+/**
+* Initialize the InteractionChannelParticipantPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V1, response: Response<string>, solution: InteractionChannelParticipantSolution) {
     super(version, response, solution);
-  }
+    }
 
-  /**
-   * Build an instance of InteractionChannelParticipantInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(
-    payload: InteractionChannelParticipantResource
-  ): InteractionChannelParticipantInstance {
+    /**
+    * Build an instance of InteractionChannelParticipantInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: InteractionChannelParticipantResource): InteractionChannelParticipantInstance {
     return new InteractionChannelParticipantInstance(
-      this._version,
-      payload,
-      this._solution.interactionSid,
-      this._solution.channelSid
+    this._version,
+    payload,
+        this._solution.interactionSid,
+        this._solution.channelSid,
     );
-  }
+    }
 
-  [inspect.custom](depth: any, options: InspectOptions) {
+    [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-  }
-}
+    }
+    }
+

@@ -12,23 +12,23 @@
  * Do not edit the class manually.
  */
 
+
 import { inspect, InspectOptions } from "util";
 import V2 from "../V2";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 
-export type BulkHostedNumberOrderRequestStatus =
-  | "QUEUED"
-  | "IN_PROGRESS"
-  | "PROCESSED";
+
+export type BulkHostedNumberOrderRequestStatus = 'QUEUED'|'IN_PROGRESS'|'PROCESSED';
+
 
 /**
  * Options to pass to fetch a BulkHostedNumberOrderInstance
  */
 export interface BulkHostedNumberOrderContextFetchOptions {
   /** Order status can be used for filtering on Hosted Number Order status values. To see a complete list of order statuses, please check \'https://www.twilio.com/docs/phone-numbers/hosted-numbers/hosted-numbers-api/hosted-number-order-resource#status-values\'. */
-  orderStatus?: string;
+  "orderStatus"?: string;
 }
 
 /**
@@ -36,10 +36,11 @@ export interface BulkHostedNumberOrderContextFetchOptions {
  */
 export interface BulkHostedNumberOrderListInstanceCreateOptions {
   /**  */
-  body?: object;
+  "body"?: object;
 }
 
 export interface BulkHostedNumberOrderContext {
+
   /**
    * Fetch a BulkHostedNumberOrderInstance
    *
@@ -47,12 +48,7 @@ export interface BulkHostedNumberOrderContext {
    *
    * @returns Resolves to processed BulkHostedNumberOrderInstance
    */
-  fetch(
-    callback?: (
-      error: Error | null,
-      item?: BulkHostedNumberOrderInstance
-    ) => any
-  ): Promise<BulkHostedNumberOrderInstance>;
+  fetch(callback?: (error: Error | null, item?: BulkHostedNumberOrderInstance) => any): Promise<BulkHostedNumberOrderInstance>;
   /**
    * Fetch a BulkHostedNumberOrderInstance
    *
@@ -61,13 +57,8 @@ export interface BulkHostedNumberOrderContext {
    *
    * @returns Resolves to processed BulkHostedNumberOrderInstance
    */
-  fetch(
-    params: BulkHostedNumberOrderContextFetchOptions,
-    callback?: (
-      error: Error | null,
-      item?: BulkHostedNumberOrderInstance
-    ) => any
-  ): Promise<BulkHostedNumberOrderInstance>;
+  fetch(params: BulkHostedNumberOrderContextFetchOptions, callback?: (error: Error | null, item?: BulkHostedNumberOrderInstance) => any): Promise<BulkHostedNumberOrderInstance>;
+
 
   /**
    * Provide a user-friendly representation
@@ -77,34 +68,25 @@ export interface BulkHostedNumberOrderContext {
 }
 
 export interface BulkHostedNumberOrderContextSolution {
-  bulkHostingSid: string;
+  "bulkHostingSid": string;
 }
 
-export class BulkHostedNumberOrderContextImpl
-  implements BulkHostedNumberOrderContext
-{
+export class BulkHostedNumberOrderContextImpl implements BulkHostedNumberOrderContext {
   protected _solution: BulkHostedNumberOrderContextSolution;
   protected _uri: string;
 
+
   constructor(protected _version: V2, bulkHostingSid: string) {
     if (!isValidPathParam(bulkHostingSid)) {
-      throw new Error("Parameter 'bulkHostingSid' is not valid.");
+      throw new Error('Parameter \'bulkHostingSid\' is not valid.');
     }
 
-    this._solution = { bulkHostingSid };
+    this._solution = { bulkHostingSid,  };
     this._uri = `/HostedNumber/Orders/Bulk/${bulkHostingSid}`;
   }
 
-  fetch(
-    params?:
-      | BulkHostedNumberOrderContextFetchOptions
-      | ((error: Error | null, item?: BulkHostedNumberOrderInstance) => any),
-    callback?: (
-      error: Error | null,
-      item?: BulkHostedNumberOrderInstance
-    ) => any
-  ): Promise<BulkHostedNumberOrderInstance> {
-    if (params instanceof Function) {
+  fetch(params?: BulkHostedNumberOrderContextFetchOptions | ((error: Error | null, item?: BulkHostedNumberOrderInstance) => any), callback?: (error: Error | null, item?: BulkHostedNumberOrderInstance) => any): Promise<BulkHostedNumberOrderInstance> {
+      if (params instanceof Function) {
       callback = params;
       params = {};
     } else {
@@ -113,34 +95,25 @@ export class BulkHostedNumberOrderContextImpl
 
     let data: any = {};
 
-    if (params["orderStatus"] !== undefined)
-      data["OrderStatus"] = params["orderStatus"];
+        if (params["orderStatus"] !== undefined)
+    data["OrderStatus"] = params["orderStatus"];
+
+    
+    
 
     const headers: any = {};
 
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.fetch({
-        uri: instance._uri,
-        method: "get",
-        params: data,
-        headers,
-      });
+        operationPromise = operationVersion.fetch({ uri: instance._uri, method: "get", params: data, headers });
+    
+    operationPromise = operationPromise.then(payload => new BulkHostedNumberOrderInstance(operationVersion, payload, instance._solution.bulkHostingSid));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new BulkHostedNumberOrderInstance(
-          operationVersion,
-          payload,
-          instance._solution.bulkHostingSid
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
   /**
@@ -156,6 +129,7 @@ export class BulkHostedNumberOrderContextImpl
     return inspect(this.toJSON(), options);
   }
 }
+
 
 interface BulkHostedNumberOrderPayload extends BulkHostedNumberOrderResource {}
 
@@ -175,22 +149,18 @@ export class BulkHostedNumberOrderInstance {
   protected _solution: BulkHostedNumberOrderContextSolution;
   protected _context?: BulkHostedNumberOrderContext;
 
-  constructor(
-    protected _version: V2,
-    payload: BulkHostedNumberOrderResource,
-    bulkHostingSid?: string
-  ) {
-    this.bulkHostingSid = payload.bulk_hosting_sid;
-    this.requestStatus = payload.request_status;
-    this.friendlyName = payload.friendly_name;
-    this.notificationEmail = payload.notification_email;
+  constructor(protected _version: V2, payload: BulkHostedNumberOrderResource, bulkHostingSid?: string) {
+    this.bulkHostingSid = (payload.bulk_hosting_sid);
+    this.requestStatus = (payload.request_status);
+    this.friendlyName = (payload.friendly_name);
+    this.notificationEmail = (payload.notification_email);
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateCompleted = deserialize.iso8601DateTime(payload.date_completed);
-    this.url = payload.url;
+    this.url = (payload.url);
     this.totalCount = deserialize.integer(payload.total_count);
-    this.results = payload.results;
+    this.results = (payload.results);
 
-    this._solution = { bulkHostingSid: bulkHostingSid || this.bulkHostingSid };
+    this._solution = { bulkHostingSid: bulkHostingSid || this.bulkHostingSid,  };
   }
 
   /**
@@ -228,12 +198,7 @@ export class BulkHostedNumberOrderInstance {
   results: Array<any>;
 
   private get _proxy(): BulkHostedNumberOrderContext {
-    this._context =
-      this._context ||
-      new BulkHostedNumberOrderContextImpl(
-        this._version,
-        this._solution.bulkHostingSid
-      );
+    this._context = this._context || new BulkHostedNumberOrderContextImpl(this._version, this._solution.bulkHostingSid);
     return this._context;
   }
 
@@ -244,12 +209,7 @@ export class BulkHostedNumberOrderInstance {
    *
    * @returns Resolves to processed BulkHostedNumberOrderInstance
    */
-  fetch(
-    callback?: (
-      error: Error | null,
-      item?: BulkHostedNumberOrderInstance
-    ) => any
-  ): Promise<BulkHostedNumberOrderInstance>;
+  fetch(callback?: (error: Error | null, item?: BulkHostedNumberOrderInstance) => any): Promise<BulkHostedNumberOrderInstance>;
   /**
    * Fetch a BulkHostedNumberOrderInstance
    *
@@ -258,21 +218,10 @@ export class BulkHostedNumberOrderInstance {
    *
    * @returns Resolves to processed BulkHostedNumberOrderInstance
    */
-  fetch(
-    params: BulkHostedNumberOrderContextFetchOptions,
-    callback?: (
-      error: Error | null,
-      item?: BulkHostedNumberOrderInstance
-    ) => any
-  ): Promise<BulkHostedNumberOrderInstance>;
+  fetch(params: BulkHostedNumberOrderContextFetchOptions, callback?: (error: Error | null, item?: BulkHostedNumberOrderInstance) => any): Promise<BulkHostedNumberOrderInstance>;
 
-  fetch(
-    params?: any,
-    callback?: (
-      error: Error | null,
-      item?: BulkHostedNumberOrderInstance
-    ) => any
-  ): Promise<BulkHostedNumberOrderInstance> {
+    fetch(params?: any, callback?: (error: Error | null, item?: BulkHostedNumberOrderInstance) => any): Promise<BulkHostedNumberOrderInstance>
+    {
     return this._proxy.fetch(params, callback);
   }
 
@@ -292,7 +241,7 @@ export class BulkHostedNumberOrderInstance {
       url: this.url,
       totalCount: this.totalCount,
       results: this.results,
-    };
+    }
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
@@ -300,15 +249,20 @@ export class BulkHostedNumberOrderInstance {
   }
 }
 
-export interface BulkHostedNumberOrderSolution {}
+
+export interface BulkHostedNumberOrderSolution {
+}
 
 export interface BulkHostedNumberOrderListInstance {
   _version: V2;
   _solution: BulkHostedNumberOrderSolution;
   _uri: string;
 
-  (bulkHostingSid: string): BulkHostedNumberOrderContext;
-  get(bulkHostingSid: string): BulkHostedNumberOrderContext;
+  (bulkHostingSid: string, ): BulkHostedNumberOrderContext;
+  get(bulkHostingSid: string, ): BulkHostedNumberOrderContext;
+
+
+
 
   /**
    * Create a BulkHostedNumberOrderInstance
@@ -317,12 +271,7 @@ export interface BulkHostedNumberOrderListInstance {
    *
    * @returns Resolves to processed BulkHostedNumberOrderInstance
    */
-  create(
-    callback?: (
-      error: Error | null,
-      item?: BulkHostedNumberOrderInstance
-    ) => any
-  ): Promise<BulkHostedNumberOrderInstance>;
+  create(callback?: (error: Error | null, item?: BulkHostedNumberOrderInstance) => any): Promise<BulkHostedNumberOrderInstance>;
   /**
    * Create a BulkHostedNumberOrderInstance
    *
@@ -331,13 +280,8 @@ export interface BulkHostedNumberOrderListInstance {
    *
    * @returns Resolves to processed BulkHostedNumberOrderInstance
    */
-  create(
-    params: object,
-    callback?: (
-      error: Error | null,
-      item?: BulkHostedNumberOrderInstance
-    ) => any
-  ): Promise<BulkHostedNumberOrderInstance>;
+  create(params: object, callback?: (error: Error | null, item?: BulkHostedNumberOrderInstance) => any): Promise<BulkHostedNumberOrderInstance>;
+
 
   /**
    * Provide a user-friendly representation
@@ -346,29 +290,18 @@ export interface BulkHostedNumberOrderListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function BulkHostedNumberOrderListInstance(
-  version: V2
-): BulkHostedNumberOrderListInstance {
-  const instance = ((bulkHostingSid) =>
-    instance.get(bulkHostingSid)) as BulkHostedNumberOrderListInstance;
+export function BulkHostedNumberOrderListInstance(version: V2): BulkHostedNumberOrderListInstance {
+  const instance = ((bulkHostingSid, ) => instance.get(bulkHostingSid, )) as BulkHostedNumberOrderListInstance;
 
-  instance.get = function get(bulkHostingSid): BulkHostedNumberOrderContext {
+  instance.get = function get(bulkHostingSid, ): BulkHostedNumberOrderContext {
     return new BulkHostedNumberOrderContextImpl(version, bulkHostingSid);
-  };
+  }
 
   instance._version = version;
-  instance._solution = {};
+  instance._solution = {  };
   instance._uri = `/HostedNumber/Orders/Bulk`;
 
-  instance.create = function create(
-    params?:
-      | object
-      | ((error: Error | null, items: BulkHostedNumberOrderInstance) => any),
-    callback?: (
-      error: Error | null,
-      items: BulkHostedNumberOrderInstance
-    ) => any
-  ): Promise<BulkHostedNumberOrderInstance> {
+  instance.create = function create(params?: object | ((error: Error | null, items: BulkHostedNumberOrderInstance) => any), callback?: (error: Error | null, items: BulkHostedNumberOrderInstance) => any): Promise<BulkHostedNumberOrderInstance> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -378,40 +311,34 @@ export function BulkHostedNumberOrderListInstance(
 
     let data: any = {};
 
-    data = params;
+    
+    
+    data = params
 
     const headers: any = {};
-    headers["Content-Type"] = "application/json";
+    headers["Content-Type"] = "application/json"
 
     let operationVersion = version,
-      operationPromise = operationVersion.create({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      });
+        operationPromise = operationVersion.create({ uri: instance._uri, method: "post", data, headers });
+    
+    operationPromise = operationPromise.then(payload => new BulkHostedNumberOrderInstance(operationVersion, payload));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) => new BulkHostedNumberOrderInstance(operationVersion, payload)
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
+
+
+    }
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  };
+  }
 
-  instance[inspect.custom] = function inspectImpl(
-    _depth: any,
-    options: InspectOptions
-  ) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(instance.toJSON(), options);
-  };
+  }
 
   return instance;
 }
+
+

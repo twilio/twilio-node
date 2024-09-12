@@ -43,4 +43,5 @@ export default class V1 extends Version {
     this._token = this._token || TokenListInstance(this);
     return this._token;
   }
+
 }

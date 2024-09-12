@@ -12,6 +12,7 @@
  * Do not edit the class manually.
  */
 
+
 import { inspect, InspectOptions } from "util";
 import V2010 from "../../../../V2010";
 const deserialize = require("../../../../../../base/deserialize");
@@ -19,6 +20,9 @@ const serialize = require("../../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../../base/utility";
 import { AuthTypeCallsListInstance } from "./authTypes/authTypeCalls";
 import { AuthTypeRegistrationsListInstance } from "./authTypes/authTypeRegistrations";
+
+
+
 
 export interface AuthTypesSolution {
   accountSid: string;
@@ -29,6 +33,7 @@ export interface AuthTypesListInstance {
   _version: V2010;
   _solution: AuthTypesSolution;
   _uri: string;
+
 
   _calls?: AuthTypeCallsListInstance;
   calls: AuthTypeCallsListInstance;
@@ -42,61 +47,48 @@ export interface AuthTypesListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function AuthTypesListInstance(
-  version: V2010,
-  accountSid: string,
-  domainSid: string
-): AuthTypesListInstance {
+export function AuthTypesListInstance(version: V2010, accountSid: string, domainSid: string): AuthTypesListInstance {
   if (!isValidPathParam(accountSid)) {
-    throw new Error("Parameter 'accountSid' is not valid.");
+    throw new Error('Parameter \'accountSid\' is not valid.');
   }
 
   if (!isValidPathParam(domainSid)) {
-    throw new Error("Parameter 'domainSid' is not valid.");
+    throw new Error('Parameter \'domainSid\' is not valid.');
   }
 
   const instance = {} as AuthTypesListInstance;
 
   instance._version = version;
-  instance._solution = { accountSid, domainSid };
+  instance._solution = { accountSid, domainSid,  };
   instance._uri = `/Accounts/${accountSid}/SIP/Domains/${domainSid}/Auth.json`;
 
   Object.defineProperty(instance, "calls", {
     get: function calls() {
       if (!instance._calls) {
-        instance._calls = AuthTypeCallsListInstance(
-          instance._version,
-          instance._solution.accountSid,
-          instance._solution.domainSid
-        );
+        instance._calls = AuthTypeCallsListInstance(instance._version, instance._solution.accountSid, instance._solution.domainSid);
       }
       return instance._calls;
-    },
+    }
   });
 
   Object.defineProperty(instance, "registrations", {
     get: function registrations() {
       if (!instance._registrations) {
-        instance._registrations = AuthTypeRegistrationsListInstance(
-          instance._version,
-          instance._solution.accountSid,
-          instance._solution.domainSid
-        );
+        instance._registrations = AuthTypeRegistrationsListInstance(instance._version, instance._solution.accountSid, instance._solution.domainSid);
       }
       return instance._registrations;
-    },
+    }
   });
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  };
+  }
 
-  instance[inspect.custom] = function inspectImpl(
-    _depth: any,
-    options: InspectOptions
-  ) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(instance.toJSON(), options);
-  };
+  }
 
   return instance;
 }
+
+
