@@ -68,7 +68,7 @@ export interface BundleListInstanceCreateOptions {
   isoCountry?: string;
   /**  */
   endUserType?: BundleEndUserType;
-  /** The type of phone number of the Bundle\\\'s ownership request. Can be `local`, `mobile`, `national`, or `toll free`. */
+  /** The type of phone number of the Bundle\\\'s ownership request. Can be `local`, `mobile`, `national`, or `toll-free`. */
   numberType?: string;
   /** Indicates that Bundle is a Test Bundle and will be Auto-Rejected */
   isTest?: boolean;
@@ -85,7 +85,7 @@ export interface BundleListInstanceEachOptions {
   regulationSid?: string;
   /** The 2-digit [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the Bundle\'s phone number country ownership request. */
   isoCountry?: string;
-  /** The type of phone number of the Bundle\'s ownership request. Can be `local`, `mobile`, `national`, or `tollfree`. */
+  /** The type of phone number of the Bundle\'s ownership request. Can be `local`, `mobile`, `national`, or `toll-free`. */
   numberType?: string;
   /** Indicates that the Bundle is a valid Bundle until a specified expiration date. */
   hasValidUntilDate?: boolean;
@@ -121,7 +121,7 @@ export interface BundleListInstanceOptions {
   regulationSid?: string;
   /** The 2-digit [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the Bundle\'s phone number country ownership request. */
   isoCountry?: string;
-  /** The type of phone number of the Bundle\'s ownership request. Can be `local`, `mobile`, `national`, or `tollfree`. */
+  /** The type of phone number of the Bundle\'s ownership request. Can be `local`, `mobile`, `national`, or `toll-free`. */
   numberType?: string;
   /** Indicates that the Bundle is a valid Bundle until a specified expiration date. */
   hasValidUntilDate?: boolean;
@@ -153,7 +153,7 @@ export interface BundleListInstancePageOptions {
   regulationSid?: string;
   /** The 2-digit [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the Bundle\'s phone number country ownership request. */
   isoCountry?: string;
-  /** The type of phone number of the Bundle\'s ownership request. Can be `local`, `mobile`, `national`, or `tollfree`. */
+  /** The type of phone number of the Bundle\'s ownership request. Can be `local`, `mobile`, `national`, or `toll-free`. */
   numberType?: string;
   /** Indicates that the Bundle is a valid Bundle until a specified expiration date. */
   hasValidUntilDate?: boolean;

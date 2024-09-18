@@ -18,34 +18,27 @@ const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
 
-export class MarketplaceV1InstalledAddOnBillingUsageResponseBillableItems {
-  /**
-   *
-   */
-  "quantity"?: number;
-  /**
-   *
-   */
-  "sid"?: string;
-  /**
-   * Whether this billable item was successfully submitted for billing.
-   */
-  "submitted"?: boolean;
-}
-
 export class MarketplaceV1InstalledAddOnInstalledAddOnUsage {
+  /**
+   * Total amount in local currency that was billed in this request. Aggregates all billable_items that were successfully submitted.
+   */
+  "totalSubmitted"?: number;
   "billableItems": Array<MarketplaceV1InstalledAddOnInstalledAddOnUsageBillableItems>;
 }
 
 export class MarketplaceV1InstalledAddOnInstalledAddOnUsageBillableItems {
   /**
-   * Any floating number greater than 0.
+   * Total amount in local currency that was billed for this Billing Item. Can be any floating number greater than 0.
    */
   "quantity": number;
   /**
    * BillingSid to use for billing.
    */
   "sid": string;
+  /**
+   * Whether the billing event was successfully generated for this Billable Item.
+   */
+  "submitted"?: boolean;
 }
 
 /**
@@ -155,8 +148,8 @@ export function InstalledAddOnUsageListInstance(
 interface InstalledAddOnUsagePayload extends InstalledAddOnUsageResource {}
 
 interface InstalledAddOnUsageResource {
-  billable_items: Array<MarketplaceV1InstalledAddOnBillingUsageResponseBillableItems>;
   total_submitted: number;
+  billable_items: Array<MarketplaceV1InstalledAddOnInstalledAddOnUsageBillableItems>;
 }
 
 export class InstalledAddOnUsageInstance {
@@ -165,15 +158,15 @@ export class InstalledAddOnUsageInstance {
     payload: InstalledAddOnUsageResource,
     installedAddOnSid: string
   ) {
-    this.billableItems = payload.billable_items;
     this.totalSubmitted = payload.total_submitted;
+    this.billableItems = payload.billable_items;
   }
 
-  billableItems: Array<MarketplaceV1InstalledAddOnBillingUsageResponseBillableItems>;
   /**
-   * Represents the total quantity submitted.
+   * Total amount in local currency that was billed in this request. Aggregates all billable_items that were successfully submitted.
    */
   totalSubmitted: number;
+  billableItems: Array<MarketplaceV1InstalledAddOnInstalledAddOnUsageBillableItems>;
 
   /**
    * Provide a user-friendly representation
@@ -182,8 +175,8 @@ export class InstalledAddOnUsageInstance {
    */
   toJSON() {
     return {
-      billableItems: this.billableItems,
       totalSubmitted: this.totalSubmitted,
+      billableItems: this.billableItems,
     };
   }
 

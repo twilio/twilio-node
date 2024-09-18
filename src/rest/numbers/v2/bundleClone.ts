@@ -32,7 +32,7 @@ export type BundleCloneStatus =
 export interface BundleCloneContextCreateOptions {
   /** The SID of the [Account](https://www.twilio.com/docs/iam/api/account) where the bundle needs to be cloned. */
   targetAccountSid: string;
-  /** This is to determine whether the cloned bundle needs to be in draft state or not. */
+  /** If set to true, the cloned bundle will be in the DRAFT state, else it will be twilio-approved */
   moveToDraft?: boolean;
   /** The string that you assigned to describe the cloned bundle. */
   friendlyName?: string;

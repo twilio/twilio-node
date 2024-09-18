@@ -22,18 +22,20 @@ import { isValidPathParam } from "../../../base/utility";
  * Options to pass to update a ModuleDataManagementInstance
  */
 export interface ModuleDataManagementContextUpdateOptions {
-  /**  */
+  /** A JSON object containing essential attributes that define a Listing. */
   moduleInfo?: string;
-  /**  */
+  /** A JSON object describing the Listing. You can define the main body of the description, highlight key features or aspects of the Listing, and provide code samples for developers if applicable. */
   description?: string;
-  /**  */
+  /** A JSON object for providing comprehensive information, instructions, and resources related to the Listing. */
   documentation?: string;
-  /**  */
+  /** A JSON object describing the Listing\\\'s privacy and legal policies. The maximum file size for Policies is 5MB. */
   policies?: string;
-  /**  */
+  /** A JSON object containing information on how Marketplace users can obtain support for the Listing. Use this parameter to provide details such as contact information and support description. */
   support?: string;
-  /**  */
+  /** A JSON object for providing Listing-specific configuration. Contains button setup, notification URL, and more. */
   configuration?: string;
+  /** A JSON object for providing Listing\\\'s purchase options. */
+  pricing?: string;
 }
 
 export interface ModuleDataManagementContext {
@@ -148,6 +150,7 @@ export class ModuleDataManagementContextImpl
     if (params["support"] !== undefined) data["Support"] = params["support"];
     if (params["configuration"] !== undefined)
       data["Configuration"] = params["configuration"];
+    if (params["pricing"] !== undefined) data["Pricing"] = params["pricing"];
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
@@ -202,6 +205,7 @@ interface ModuleDataManagementResource {
   module_info: any;
   documentation: any;
   configuration: any;
+  pricing: any;
 }
 
 export class ModuleDataManagementInstance {
@@ -221,6 +225,7 @@ export class ModuleDataManagementInstance {
     this.moduleInfo = payload.module_info;
     this.documentation = payload.documentation;
     this.configuration = payload.configuration;
+    this.pricing = payload.pricing;
 
     this._solution = { sid: sid || this.sid };
   }
@@ -257,6 +262,10 @@ export class ModuleDataManagementInstance {
    * A JSON object for providing listing specific configuration. Contains button setup, notification url, among others.
    */
   configuration: any;
+  /**
+   * A JSON object for providing Listing specific pricing information.
+   */
+  pricing: any;
 
   private get _proxy(): ModuleDataManagementContext {
     this._context =
@@ -323,6 +332,7 @@ export class ModuleDataManagementInstance {
       moduleInfo: this.moduleInfo,
       documentation: this.documentation,
       configuration: this.configuration,
+      pricing: this.pricing,
     };
   }
 
