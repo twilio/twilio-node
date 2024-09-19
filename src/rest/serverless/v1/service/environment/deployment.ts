@@ -26,6 +26,8 @@ import { isValidPathParam } from "../../../../../base/utility";
 export interface DeploymentListInstanceCreateOptions {
   /** The SID of the Build for the Deployment. */
   buildSid?: string;
+  /** Whether the Deployment is a plugin. */
+  isPlugin?: boolean;
 }
 /**
  * Options to pass to each
@@ -426,6 +428,8 @@ export function DeploymentListInstance(
     let data: any = {};
 
     if (params["buildSid"] !== undefined) data["BuildSid"] = params["buildSid"];
+    if (params["isPlugin"] !== undefined)
+      data["IsPlugin"] = serialize.bool(params["isPlugin"]);
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
