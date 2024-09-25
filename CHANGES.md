@@ -1,6 +1,20 @@
 twilio-node changelog
 =====================
 
+[2024-09-25] Version 5.3.2
+--------------------------
+**Library - Chore**
+- [PR #1037](https://github.com/twilio/twilio-node/pull/1037): Sync for IoT has reached EOL; removing reference to Deployed Devices. Thanks to [@wanjunsli](https://github.com/wanjunsli)!
+
+**Accounts**
+- Update docs and mounts.
+- Change library visibility to public
+- Enable consent and contact bulk upsert APIs in prod.
+
+**Serverless**
+- Add is_plugin parameter in deployments api to check if it is plugins deployment
+
+
 [2024-09-18] Version 5.3.1
 --------------------------
 **Intelligence**

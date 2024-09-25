@@ -20,6 +20,7 @@ const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 import { ChunkListInstance } from "./knowledge/chunk";
+import { KnowledgeStatusListInstance } from "./knowledge/knowledgeStatus";
 
 export class AssistantsV1ServiceCreateKnowledgeRequest {
   /**
@@ -144,6 +145,7 @@ export interface KnowledgeListInstancePageOptions {
 
 export interface KnowledgeContext {
   chunks: ChunkListInstance;
+  knowledgeStatus: KnowledgeStatusListInstance;
 
   /**
    * Remove a KnowledgeInstance
@@ -206,6 +208,7 @@ export class KnowledgeContextImpl implements KnowledgeContext {
   protected _uri: string;
 
   protected _chunks?: ChunkListInstance;
+  protected _knowledgeStatus?: KnowledgeStatusListInstance;
 
   constructor(protected _version: V1, id: string) {
     if (!isValidPathParam(id)) {
@@ -220,6 +223,13 @@ export class KnowledgeContextImpl implements KnowledgeContext {
     this._chunks =
       this._chunks || ChunkListInstance(this._version, this._solution.id);
     return this._chunks;
+  }
+
+  get knowledgeStatus(): KnowledgeStatusListInstance {
+    this._knowledgeStatus =
+      this._knowledgeStatus ||
+      KnowledgeStatusListInstance(this._version, this._solution.id);
+    return this._knowledgeStatus;
   }
 
   remove(
@@ -328,6 +338,7 @@ interface KnowledgeResource {
   name: string;
   status: string;
   type: string;
+  url: string;
   date_created: Date;
   date_updated: Date;
 }
@@ -344,6 +355,7 @@ export class KnowledgeInstance {
     this.name = payload.name;
     this.status = payload.status;
     this.type = payload.type;
+    this.url = payload.url;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
 
@@ -378,6 +390,10 @@ export class KnowledgeInstance {
    * The type of knowledge source (\'Web\', \'Database\', \'Text\', \'File\')
    */
   type: string;
+  /**
+   * The url of the knowledge resource.
+   */
+  url: string;
   /**
    * The date and time in GMT when the Knowledge was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
@@ -458,6 +474,13 @@ export class KnowledgeInstance {
   }
 
   /**
+   * Access the knowledgeStatus.
+   */
+  knowledgeStatus(): KnowledgeStatusListInstance {
+    return this._proxy.knowledgeStatus;
+  }
+
+  /**
    * Provide a user-friendly representation
    *
    * @returns Object
@@ -471,6 +494,7 @@ export class KnowledgeInstance {
       name: this.name,
       status: this.status,
       type: this.type,
+      url: this.url,
       dateCreated: this.dateCreated,
       dateUpdated: this.dateUpdated,
     };

@@ -19,7 +19,10 @@ import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
+import { AssistantsKnowledgeListInstance } from "./assistant/assistantsKnowledge";
+import { AssistantsToolListInstance } from "./assistant/assistantsTool";
 import { FeedbackListInstance } from "./assistant/feedback";
+import { MessageListInstance } from "./assistant/message";
 
 export class AssistantsV1ServiceCreateAssistantRequest {
   "customerAi"?: AssistantsV1ServiceCustomerAi;
@@ -79,6 +82,10 @@ export class AssistantsV1ServiceKnowledge {
    */
   "type"?: string;
   /**
+   * The url of the knowledge resource.
+   */
+  "url"?: string;
+  /**
    * The date and time in GMT when the Knowledge was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
   "dateCreated"?: Date;
@@ -136,6 +143,10 @@ export class AssistantsV1ServiceTool {
    * The type of the tool. (\'WEBHOOK\')
    */
   "type": string;
+  /**
+   * The url of the tool resource.
+   */
+  "url"?: string;
   /**
    * The date and time in GMT when the Tool was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
@@ -215,7 +226,10 @@ export interface AssistantListInstancePageOptions {
 }
 
 export interface AssistantContext {
+  assistantsKnowledge: AssistantsKnowledgeListInstance;
+  assistantsTools: AssistantsToolListInstance;
   feedbacks: FeedbackListInstance;
+  messages: MessageListInstance;
 
   /**
    * Remove a AssistantInstance
@@ -277,7 +291,10 @@ export class AssistantContextImpl implements AssistantContext {
   protected _solution: AssistantContextSolution;
   protected _uri: string;
 
+  protected _assistantsKnowledge?: AssistantsKnowledgeListInstance;
+  protected _assistantsTools?: AssistantsToolListInstance;
   protected _feedbacks?: FeedbackListInstance;
+  protected _messages?: MessageListInstance;
 
   constructor(protected _version: V1, id: string) {
     if (!isValidPathParam(id)) {
@@ -288,10 +305,30 @@ export class AssistantContextImpl implements AssistantContext {
     this._uri = `/Assistants/${id}`;
   }
 
+  get assistantsKnowledge(): AssistantsKnowledgeListInstance {
+    this._assistantsKnowledge =
+      this._assistantsKnowledge ||
+      AssistantsKnowledgeListInstance(this._version, this._solution.id);
+    return this._assistantsKnowledge;
+  }
+
+  get assistantsTools(): AssistantsToolListInstance {
+    this._assistantsTools =
+      this._assistantsTools ||
+      AssistantsToolListInstance(this._version, this._solution.id);
+    return this._assistantsTools;
+  }
+
   get feedbacks(): FeedbackListInstance {
     this._feedbacks =
       this._feedbacks || FeedbackListInstance(this._version, this._solution.id);
     return this._feedbacks;
+  }
+
+  get messages(): MessageListInstance {
+    this._messages =
+      this._messages || MessageListInstance(this._version, this._solution.id);
+    return this._messages;
   }
 
   remove(
@@ -399,6 +436,7 @@ interface AssistantResource {
   model: string;
   name: string;
   owner: string;
+  url: string;
   personality_prompt: string;
   date_created: Date;
   date_updated: Date;
@@ -417,6 +455,7 @@ export class AssistantInstance {
     this.model = payload.model;
     this.name = payload.name;
     this.owner = payload.owner;
+    this.url = payload.url;
     this.personalityPrompt = payload.personality_prompt;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
@@ -450,6 +489,10 @@ export class AssistantInstance {
    * The owner/company of the assistant.
    */
   owner: string;
+  /**
+   * The url of the assistant resource.
+   */
+  url: string;
   /**
    * The personality prompt to be used for assistant.
    */
@@ -535,10 +578,31 @@ export class AssistantInstance {
   }
 
   /**
+   * Access the assistantsKnowledge.
+   */
+  assistantsKnowledge(): AssistantsKnowledgeListInstance {
+    return this._proxy.assistantsKnowledge;
+  }
+
+  /**
+   * Access the assistantsTools.
+   */
+  assistantsTools(): AssistantsToolListInstance {
+    return this._proxy.assistantsTools;
+  }
+
+  /**
    * Access the feedbacks.
    */
   feedbacks(): FeedbackListInstance {
     return this._proxy.feedbacks;
+  }
+
+  /**
+   * Access the messages.
+   */
+  messages(): MessageListInstance {
+    return this._proxy.messages;
   }
 
   /**
@@ -554,6 +618,7 @@ export class AssistantInstance {
       model: this.model,
       name: this.name,
       owner: this.owner,
+      url: this.url,
       personalityPrompt: this.personalityPrompt,
       dateCreated: this.dateCreated,
       dateUpdated: this.dateUpdated,
