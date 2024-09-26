@@ -11,6 +11,13 @@ export type PhoneNumberCapabilities = {
   fax: boolean;
 };
 
+export type PhoneNumberCapabilitiesResource = {
+  MMS: boolean;
+  SMS: boolean;
+  voice: boolean;
+  fax?: boolean;
+};
+
 export type Sid = string;
 
 export interface ListEachOptions<TInstance> {
