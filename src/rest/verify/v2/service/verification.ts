@@ -66,6 +66,8 @@ export interface VerificationListInstanceCreateOptions {
   templateCustomSubstitutions?: string;
   /** Strongly encouraged if using the auto channel. The IP address of the client\\\'s device. If provided, it has to be a valid IPv4 or IPv6 address. */
   deviceIp?: string;
+  /** An optional Boolean value to indicate the requirement of sna client token in the SNA URL invocation response for added security. This token must match in the Verification Check request to confirm phone number verification. */
+  enableSnaClientToken?: boolean;
   /**  */
   riskCheck?: VerificationRiskCheck;
   /** A string containing a JSON map of key value pairs of tags to be recorded as metadata for the message. The object may contain up to 10 tags. Keys and values can each be up to 128 characters in length. */
@@ -488,6 +490,10 @@ export function VerificationListInstance(
       data["TemplateCustomSubstitutions"] =
         params["templateCustomSubstitutions"];
     if (params["deviceIp"] !== undefined) data["DeviceIp"] = params["deviceIp"];
+    if (params["enableSnaClientToken"] !== undefined)
+      data["EnableSnaClientToken"] = serialize.bool(
+        params["enableSnaClientToken"]
+      );
     if (params["riskCheck"] !== undefined)
       data["RiskCheck"] = params["riskCheck"];
     if (params["tags"] !== undefined) data["Tags"] = params["tags"];

@@ -18,41 +18,41 @@ const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 
-export type NewApiKeyKeytype = "restricted";
+export type KeyKeytype = "restricted";
 
 /**
- * Options to pass to create a NewApiKeyInstance
+ * Options to pass to create a KeyInstance
  */
-export interface NewApiKeyListInstanceCreateOptions {
+export interface KeyListInstanceCreateOptions {
   /** The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Payments resource. */
   accountSid: string;
   /** A descriptive string that you create to describe the resource. It can be up to 64 characters long. */
   friendlyName?: string;
   /**  */
-  keyType?: NewApiKeyKeytype;
+  keyType?: KeyKeytype;
   /** The \\\\`Policy\\\\` object is a collection that specifies the allowed Twilio permissions for the restricted key. For more information on the permissions available with restricted API keys, refer to the [Twilio documentation](https://www.twilio.com/docs/iam/api-keys/restricted-api-keys#permissions-available-with-restricted-api-keys). */
   policy?: any;
 }
 
-export interface NewApiKeySolution {}
+export interface KeySolution {}
 
-export interface NewApiKeyListInstance {
+export interface KeyListInstance {
   _version: V1;
-  _solution: NewApiKeySolution;
+  _solution: KeySolution;
   _uri: string;
 
   /**
-   * Create a NewApiKeyInstance
+   * Create a KeyInstance
    *
    * @param params - Parameter for request
    * @param callback - Callback to handle processed record
    *
-   * @returns Resolves to processed NewApiKeyInstance
+   * @returns Resolves to processed KeyInstance
    */
   create(
-    params: NewApiKeyListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: NewApiKeyInstance) => any
-  ): Promise<NewApiKeyInstance>;
+    params: KeyListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: KeyInstance) => any
+  ): Promise<KeyInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -61,17 +61,17 @@ export interface NewApiKeyListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function NewApiKeyListInstance(version: V1): NewApiKeyListInstance {
-  const instance = {} as NewApiKeyListInstance;
+export function KeyListInstance(version: V1): KeyListInstance {
+  const instance = {} as KeyListInstance;
 
   instance._version = version;
   instance._solution = {};
   instance._uri = `/Keys`;
 
   instance.create = function create(
-    params: NewApiKeyListInstanceCreateOptions,
-    callback?: (error: Error | null, items: NewApiKeyInstance) => any
-  ): Promise<NewApiKeyInstance> {
+    params: KeyListInstanceCreateOptions,
+    callback?: (error: Error | null, items: KeyInstance) => any
+  ): Promise<KeyInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
@@ -101,7 +101,7 @@ export function NewApiKeyListInstance(version: V1): NewApiKeyListInstance {
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new NewApiKeyInstance(operationVersion, payload)
+      (payload) => new KeyInstance(operationVersion, payload)
     );
 
     operationPromise = instance._version.setPromiseCallback(
@@ -125,9 +125,9 @@ export function NewApiKeyListInstance(version: V1): NewApiKeyListInstance {
   return instance;
 }
 
-interface NewApiKeyPayload extends NewApiKeyResource {}
+interface KeyPayload extends KeyResource {}
 
-interface NewApiKeyResource {
+interface KeyResource {
   sid: string;
   friendly_name: string;
   date_created: Date;
@@ -136,8 +136,8 @@ interface NewApiKeyResource {
   policy: any;
 }
 
-export class NewApiKeyInstance {
-  constructor(protected _version: V1, payload: NewApiKeyResource) {
+export class KeyInstance {
+  constructor(protected _version: V1, payload: KeyResource) {
     this.sid = payload.sid;
     this.friendlyName = payload.friendly_name;
     this.dateCreated = deserialize.rfc2822DateTime(payload.date_created);
