@@ -22,6 +22,7 @@ import { DomainConfigMessagingServiceListInstance } from "./v1/domainConfigMessa
 import { ExternalCampaignListInstance } from "./v1/externalCampaign";
 import { LinkshorteningMessagingServiceListInstance } from "./v1/linkshorteningMessagingService";
 import { LinkshorteningMessagingServiceDomainAssociationListInstance } from "./v1/linkshorteningMessagingServiceDomainAssociation";
+import { RequestManagedCertListInstance } from "./v1/requestManagedCert";
 import { ServiceListInstance } from "./v1/service";
 import { TollfreeVerificationListInstance } from "./v1/tollfreeVerification";
 import { UsecaseListInstance } from "./v1/usecase";
@@ -52,6 +53,8 @@ export default class V1 extends Version {
   protected _linkshorteningMessagingService?: LinkshorteningMessagingServiceListInstance;
   /** linkshorteningMessagingServiceDomainAssociation - { Twilio.Messaging.V1.LinkshorteningMessagingServiceDomainAssociationListInstance } resource */
   protected _linkshorteningMessagingServiceDomainAssociation?: LinkshorteningMessagingServiceDomainAssociationListInstance;
+  /** requestManagedCert - { Twilio.Messaging.V1.RequestManagedCertListInstance } resource */
+  protected _requestManagedCert?: RequestManagedCertListInstance;
   /** services - { Twilio.Messaging.V1.ServiceListInstance } resource */
   protected _services?: ServiceListInstance;
   /** tollfreeVerifications - { Twilio.Messaging.V1.TollfreeVerificationListInstance } resource */
@@ -114,6 +117,13 @@ export default class V1 extends Version {
       this._linkshorteningMessagingServiceDomainAssociation ||
       LinkshorteningMessagingServiceDomainAssociationListInstance(this);
     return this._linkshorteningMessagingServiceDomainAssociation;
+  }
+
+  /** Getter for requestManagedCert resource */
+  get requestManagedCert(): RequestManagedCertListInstance {
+    this._requestManagedCert =
+      this._requestManagedCert || RequestManagedCertListInstance(this);
+    return this._requestManagedCert;
   }
 
   /** Getter for services resource */
