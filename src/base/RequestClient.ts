@@ -101,7 +101,7 @@ class RequestClient {
     // construct an https agent
     let agentOpts: https.AgentOptions = {
       timeout: this.defaultTimeout,
-      keepAlive: opts.keepAlive || false,
+      keepAlive: opts.keepAlive,
       keepAliveMsecs: opts.keepAliveMsecs,
       maxSockets: opts.maxSockets || DEFAULT_MAX_SOCKETS, // no of sockets open per host
       maxTotalSockets: opts.maxTotalSockets || DEFAULT_MAX_TOTAL_SOCKETS, // no of sockets open in total
