@@ -63,13 +63,13 @@ describe("RequestClient constructor", function () {
       undefined
     );
     expect(requestClient.axios.defaults.httpsAgent.options.maxSockets).toBe(
-      undefined
+      20
     );
     expect(
       requestClient.axios.defaults.httpsAgent.options.maxTotalSockets
-    ).toBe(undefined);
+    ).toBe(100);
     expect(requestClient.axios.defaults.httpsAgent.options.maxFreeSockets).toBe(
-      undefined
+      5
     );
     expect(requestClient.axios.defaults.httpsAgent.options.scheduling).toBe(
       undefined
@@ -157,13 +157,13 @@ describe("RequestClient constructor", function () {
       undefined
     );
     expect(requestClient.axios.defaults.httpsAgent.options.maxSockets).toBe(
-      undefined
+      20
     );
     expect(
       requestClient.axios.defaults.httpsAgent.options.maxTotalSockets
     ).toEqual(1500);
     expect(requestClient.axios.defaults.httpsAgent.options.maxFreeSockets).toBe(
-      undefined
+      5
     );
     expect(requestClient.axios.defaults.httpsAgent.options.scheduling).toEqual(
       "lifo"
