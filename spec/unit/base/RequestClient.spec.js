@@ -62,9 +62,7 @@ describe("RequestClient constructor", function () {
     expect(requestClient.axios.defaults.httpsAgent.options.keepAliveMsecs).toBe(
       undefined
     );
-    expect(requestClient.axios.defaults.httpsAgent.options.maxSockets).toBe(
-      20
-    );
+    expect(requestClient.axios.defaults.httpsAgent.options.maxSockets).toBe(20);
     expect(
       requestClient.axios.defaults.httpsAgent.options.maxTotalSockets
     ).toBe(100);
@@ -156,9 +154,7 @@ describe("RequestClient constructor", function () {
     expect(requestClient.axios.defaults.httpsAgent.options.keepAliveMsecs).toBe(
       undefined
     );
-    expect(requestClient.axios.defaults.httpsAgent.options.maxSockets).toBe(
-      20
-    );
+    expect(requestClient.axios.defaults.httpsAgent.options.maxSockets).toBe(20);
     expect(
       requestClient.axios.defaults.httpsAgent.options.maxTotalSockets
     ).toEqual(1500);

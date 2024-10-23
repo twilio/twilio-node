@@ -132,7 +132,7 @@ namespace Twilio {
       this.keepAliveMsecs = this.opts.keepAliveMsecs;
       this.maxSockets = this.opts.maxSockets;
       this.maxTotalSockets = this.opts.maxTotalSockets;
-      this.maxFreeSockets= this.opts.maxFreeSockets;
+      this.maxFreeSockets = this.opts.maxFreeSockets;
       this.scheduling = this.opts.scheduling;
       this.ca = this.opts.ca;
       this.autoRetry = this.opts.autoRetry || false;
