@@ -15,6 +15,9 @@ const DEFAULT_TIMEOUT = 30000;
 const DEFAULT_INITIAL_RETRY_INTERVAL_MILLIS = 100;
 const DEFAULT_MAX_RETRY_DELAY = 3000;
 const DEFAULT_MAX_RETRIES = 3;
+const DEFAULT_MAX_SOCKETS = 20;
+const DEFAULT_MAX_FREE_SOCKETS = 5;
+const DEFAULT_MAX_TOTAL_SOCKETS = 100;
 
 interface BackoffAxiosRequestConfig extends AxiosRequestConfig {
   /**
@@ -98,11 +101,11 @@ class RequestClient {
     // construct an https agent
     let agentOpts: https.AgentOptions = {
       timeout: this.defaultTimeout,
-      keepAlive: opts.keepAlive,
+      keepAlive: opts.keepAlive || false,
       keepAliveMsecs: opts.keepAliveMsecs,
-      maxSockets: opts.maxSockets,
-      maxTotalSockets: opts.maxTotalSockets,
-      maxFreeSockets: opts.maxFreeSockets,
+      maxSockets: opts.maxSockets || DEFAULT_MAX_SOCKETS, // no of sockets open per host
+      maxTotalSockets: opts.maxTotalSockets || DEFAULT_MAX_TOTAL_SOCKETS, // no of sockets open in total
+      maxFreeSockets: opts.maxFreeSockets || DEFAULT_MAX_FREE_SOCKETS, // no of free sockets open per host
       scheduling: opts.scheduling,
       ca: opts.ca,
     };

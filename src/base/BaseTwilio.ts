@@ -19,7 +19,20 @@ namespace Twilio {
     logLevel?: string;
     userAgentExtensions?: string[];
     autoRetry?: boolean;
+    maxRetryDelay?: number;
     maxRetries?: number;
+
+    /**
+     https.Agent options
+     */
+    timeout?: number;
+    keepAlive?: boolean;
+    keepAliveMsecs?: number;
+    maxSockets?: number;
+    maxTotalSockets?: number;
+    maxFreeSockets?: number;
+    scheduling?: "fifo" | "lifo" | undefined;
+    ca?: string | Buffer;
   }
 
   export interface RequestOpts {
@@ -51,8 +64,22 @@ namespace Twilio {
     edge?: string;
     region?: string;
     logLevel?: string;
-    autoRetry: boolean;
+    autoRetry?: boolean;
+    maxRetryDelay?: number;
     maxRetries?: number;
+
+    /**
+     https.Agent options
+     */
+    timeout?: number;
+    keepAlive?: boolean;
+    keepAliveMsecs?: number;
+    maxSockets?: number;
+    maxTotalSockets?: number;
+    maxFreeSockets?: number;
+    scheduling?: "fifo" | "lifo" | undefined;
+    ca?: string | Buffer;
+
     userAgentExtensions?: string[];
     _httpClient?: RequestClient;
 
@@ -99,7 +126,17 @@ namespace Twilio {
         this.opts.logLevel ??
         this.env.TWILIO_LOG_LEVEL ??
         process.env.TWILIO_LOG_LEVEL;
+
+      this.timeout = this.opts.timeout;
+      this.keepAlive = this.opts.keepAlive || false;
+      this.keepAliveMsecs = this.opts.keepAliveMsecs;
+      this.maxSockets = this.opts.maxSockets;
+      this.maxTotalSockets = this.opts.maxTotalSockets;
+      this.maxFreeSockets= this.opts.maxFreeSockets;
+      this.scheduling = this.opts.scheduling;
+      this.ca = this.opts.ca;
       this.autoRetry = this.opts.autoRetry || false;
+      this.maxRetryDelay = this.opts.maxRetryDelay;
       this.maxRetries = this.opts.maxRetries;
       this.userAgentExtensions = this.opts.userAgentExtensions || [];
       this._httpClient = this.opts.httpClient;
@@ -120,7 +157,16 @@ namespace Twilio {
     get httpClient() {
       if (!this._httpClient) {
         this._httpClient = new RequestClient({
+          timeout: this.timeout,
+          keepAlive: this.keepAlive,
+          keepAliveMsecs: this.keepAliveMsecs,
+          maxSockets: this.maxSockets,
+          maxTotalSockets: this.maxTotalSockets,
+          maxFreeSockets: this.maxFreeSockets,
+          scheduling: this.scheduling,
+          ca: this.ca,
           autoRetry: this.autoRetry,
+          maxRetryDelay: this.maxRetryDelay,
           maxRetries: this.maxRetries,
         });
       }
