@@ -2,7 +2,6 @@ import { AuthorizationDocumentListInstance } from "./preview/hosted_numbers/auth
 import { HostedNumberOrderListInstance } from "./preview/hosted_numbers/hostedNumberOrder";
 import { AvailableAddOnListInstance } from "./preview/marketplace/availableAddOn";
 import { InstalledAddOnListInstance } from "./preview/marketplace/installedAddOn";
-import { ServiceListInstance } from "./preview/sync/service";
 import { CommandListInstance } from "./preview/wireless/command";
 import { RatePlanListInstance } from "./preview/wireless/ratePlan";
 import { SimListInstance } from "./preview/wireless/sim";
@@ -47,14 +46,6 @@ class Preview extends PreviewBase {
       "installedAddOns is deprecated. Use marketplace.installedAddOns instead."
     );
     return this.marketplace.installedAddOns;
-  }
-
-  /**
-   * @deprecated - Use sync.services instead
-   */
-  get services(): ServiceListInstance {
-    console.warn("services is deprecated. Use sync.services instead.");
-    return this.sync.services;
   }
 
   /**
