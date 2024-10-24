@@ -1,6 +1,12 @@
 twilio-node changelog
 =====================
 
+[2024-10-24] Version 5.3.5
+--------------------------
+**Conversations**
+- Expose ConversationWithParticipants resource that allows creating a conversation with participants
+
+
 [2024-10-17] Version 5.3.4
 --------------------------
 **Api**
