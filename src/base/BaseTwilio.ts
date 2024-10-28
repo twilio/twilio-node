@@ -128,7 +128,7 @@ namespace Twilio {
         process.env.TWILIO_LOG_LEVEL;
 
       this.timeout = this.opts.timeout;
-      this.keepAlive = this.opts.keepAlive || false;
+      this.keepAlive = this.opts.keepAlive;
       this.keepAliveMsecs = this.opts.keepAliveMsecs;
       this.maxSockets = this.opts.maxSockets;
       this.maxTotalSockets = this.opts.maxTotalSockets;

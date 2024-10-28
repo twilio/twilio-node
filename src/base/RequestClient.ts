@@ -76,6 +76,7 @@ class RequestClient {
   autoRetry: boolean;
   maxRetryDelay: number;
   maxRetries: number;
+  keepAlive: boolean;
 
   /**
    * Make http request
@@ -97,11 +98,12 @@ class RequestClient {
     this.autoRetry = opts.autoRetry || false;
     this.maxRetryDelay = opts.maxRetryDelay || DEFAULT_MAX_RETRY_DELAY;
     this.maxRetries = opts.maxRetries || DEFAULT_MAX_RETRIES;
+    this.keepAlive = opts.keepAlive !== false;
 
     // construct an https agent
     let agentOpts: https.AgentOptions = {
       timeout: this.defaultTimeout,
-      keepAlive: opts.keepAlive,
+      keepAlive: this.keepAlive,
       keepAliveMsecs: opts.keepAliveMsecs,
       maxSockets: opts.maxSockets || DEFAULT_MAX_SOCKETS, // no of sockets open per host
       maxTotalSockets: opts.maxTotalSockets || DEFAULT_MAX_TOTAL_SOCKETS, // no of sockets open in total
@@ -168,11 +170,8 @@ class RequestClient {
 
     var headers = opts.headers || {};
 
-    if (!headers.Connection && !headers.connection && opts.forever) {
-      headers.Connection = "keep-alive";
-    } else if (!headers.Connection && !headers.connection) {
-      headers.Connection = "close";
-    }
+    if (!headers.Connection && !headers.connection)
+      headers.Connection = this.keepAlive ? "keep-alive" : "close";
 
     let auth = undefined;
 
