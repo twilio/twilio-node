@@ -113,6 +113,27 @@ const client = require('twilio')(accountSid, authToken, {
 });
 ```
 
+### Set HTTP Agent Options
+
+`twilio-node` allows you to set HTTP Agent Options in the Request Client. This feature allows you to re-use your connections. To enable this feature, instantiate the Twilio client with the `keepAlive` flag set to `true`.
+
+Optionally, the socket timeout and maximum number of sockets can also be set. See the example below:
+
+```javascript
+const accountSid = process.env.TWILIO_ACCOUNT_SID;
+const authToken = process.env.TWILIO_AUTH_TOKEN;
+
+const client = require('twilio')(accountSid, authToken, {
+    timeout: 30000, // HTTPS agent's socket timeout in milliseconds, default is 30000
+    keepAlive: true, // https.Agent keepAlive option, default is false
+    keepAliveMsecs: 1000, // https.Agent keepAliveMsecs option in milliseconds, default is 1000
+    maxSockets: 20, // https.Agent maxSockets option, default is 20
+    maxTotalSockets: 100, // https.Agent maxTotalSockets option, default is 100
+    maxFreeSockets: 5, // https.Agent maxFreeSockets option, default is 5
+    scheduling: "lifo", // https.Agent scheduling option, default is 'lifo'
+});
+```
+
 ### Specify Region and/or Edge
 
 To take advantage of Twilio's [Global Infrastructure](https://www.twilio.com/docs/global-infrastructure), specify the target Region and/or Edge for the client:
