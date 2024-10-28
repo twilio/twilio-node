@@ -57,7 +57,7 @@ describe("RequestClient constructor", function () {
       30000
     );
     expect(requestClient.axios.defaults.httpsAgent.options.keepAlive).toBe(
-      undefined
+      true
     );
     expect(requestClient.axios.defaults.httpsAgent.options.keepAliveMsecs).toBe(
       undefined
@@ -218,7 +218,7 @@ describe("lastResponse and lastRequest defined", function () {
     expect(client.lastRequest.headers).toEqual({
       "test-header-key": "test-header-value",
       Authorization: "Basic dGVzdC11c2VybmFtZTp0ZXN0LXBhc3N3b3Jk",
-      Connection: "close",
+      Connection: "keep-alive",
     });
     expect(client.lastRequest.data).toEqual({
       "test-data-key": "test-data-value",
@@ -284,7 +284,7 @@ describe("lastRequest defined, lastResponse undefined", function () {
       expect(client.lastRequest.headers).toEqual({
         "test-header-key": "test-header-value",
         Authorization: "Basic dGVzdC11c2VybmFtZTp0ZXN0LXBhc3N3b3Jk",
-        Connection: "close",
+        Connection: "keep-alive",
       });
       expect(client.lastRequest.data).toEqual({
         "test-data-key": "test-data-value",
