@@ -92,7 +92,7 @@ export class ContentCreateRequest {
   /**
    * User defined name of the content
    */
-  "friendlyName"?: string;
+  "friendly_name"?: string;
   /**
    * Key value pairs of variable name to value
    */
@@ -233,18 +233,18 @@ export class TwilioText {
  * Content types
  */
 export class Types {
-  "twilioText"?: TwilioText | null;
-  "twilioMedia"?: TwilioMedia | null;
-  "twilioLocation"?: TwilioLocation | null;
-  "twilioListPicker"?: TwilioListPicker | null;
-  "twilioCallToAction"?: TwilioCallToAction | null;
-  "twilioQuickReply"?: TwilioQuickReply | null;
-  "twilioCard"?: TwilioCard | null;
-  "twilioCatalog"?: TwilioCatalog | null;
-  "twilioCarousel"?: TwilioCarousel | null;
+  "twilio/text"?: TwilioText | null;
+  "twilio/media"?: TwilioMedia | null;
+  "twilio/location"?: TwilioLocation | null;
+  "twilio/list-picker"?: TwilioListPicker | null;
+  "twilio/call-to-action"?: TwilioCallToAction | null;
+  "twilio/quick-reply"?: TwilioQuickReply | null;
+  "twilio/card"?: TwilioCard | null;
+  "twilio/catalog"?: TwilioCatalog | null;
+  "twilio/carousel"?: TwilioCarousel | null;
   "twilioFlows"?: TwilioFlows | null;
-  "whatsappCard"?: WhatsappCard | null;
-  "whatsappAuthentication"?: WhatsappAuthentication | null;
+  "whatsapp/card"?: WhatsappCard | null;
+  "whatsapp/authentication"?: WhatsappAuthentication | null;
 }
 
 /**
