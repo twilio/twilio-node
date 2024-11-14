@@ -9,6 +9,7 @@ import Request, {
   RequestOptions as LastRequestOptions,
   Headers,
 } from "../http/request";
+import AuthStrategy from "../auth_strategy/AuthStrategy";
 
 const DEFAULT_CONTENT_TYPE = "application/x-www-form-urlencoded";
 const DEFAULT_TIMEOUT = 30000;
@@ -180,6 +181,8 @@ class RequestClient {
         "base64"
       );
       headers.Authorization = "Basic " + auth;
+    } else if(opts.authStrategy) {
+      headers.Authorization = opts.authStrategy.getAuthString();
     }
 
     const options: AxiosRequestConfig = {
@@ -296,6 +299,7 @@ namespace RequestClient {
      * The password used for auth
      */
     password?: string;
+    authStrategy?: AuthStrategy;
     /**
      * The request headers
      */
