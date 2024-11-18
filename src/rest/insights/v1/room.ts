@@ -21,7 +21,7 @@ const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 import { ParticipantListInstance } from "./room/participant";
 
-export type RoomCodec = "VP8" | "H264" | "VP9";
+export type RoomCodec = "VP8" | "H264" | "VP9" | "opus";
 
 export type RoomCreatedMethod = "sdk" | "ad_hoc" | "api";
 
@@ -54,7 +54,9 @@ export type RoomTwilioRealm =
   | "sg1"
   | "in1"
   | "de1"
-  | "gll";
+  | "gll"
+  | "stage_us1"
+  | "dev_us1";
 
 /**
  * Options to pass to each
