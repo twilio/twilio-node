@@ -150,6 +150,7 @@ class RequestClient {
    * @param opts.uri - The request uri
    * @param opts.username - The username used for auth
    * @param opts.password - The password used for auth
+   * @param opts.authStrategy - The authStrategy for API call
    * @param opts.headers - The request headers
    * @param opts.params - The request params
    * @param opts.data - The request data
@@ -299,6 +300,9 @@ namespace RequestClient {
      * The password used for auth
      */
     password?: string;
+    /**
+     * The AuthStrategy for API Call
+     */
     authStrategy?: AuthStrategy;
     /**
      * The request headers
