@@ -5,8 +5,8 @@ export default class NoAuthStrategy extends AuthStrategy {
         super("noauth");
     }
 
-    getAuthString(): string {
-        return "";
+    getAuthString(): Promise<string> {
+        return Promise.resolve("");
     }
 
     requiresAuthentication(): boolean {

@@ -3,6 +3,6 @@ export default abstract class AuthStrategy {
     protected constructor(authType: string) {
         this.authType = authType;
     }
-    abstract getAuthString(): string;
+    abstract getAuthString(): Promise<string>;
     abstract requiresAuthentication(): boolean;
 }

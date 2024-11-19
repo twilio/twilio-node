@@ -10,11 +10,11 @@ export default class BasicAuthStrategy extends AuthStrategy {
         this.password = password;
     }
 
-    getAuthString(): string {
+    getAuthString(): Promise<string> {
         const auth = Buffer.from(this.username + ":" + this.password).toString(
             "base64"
         );
-        return "Basic " + auth;
+        return Promise.resolve(`Basic ${auth}`);
     }
 
     requiresAuthentication(): boolean {

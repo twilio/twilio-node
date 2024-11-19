@@ -1,14 +1,11 @@
-import { HttpMethod } from "../interfaces";
-import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from "axios";
+import {HttpMethod} from "../interfaces";
+import axios, {AxiosInstance, AxiosRequestConfig, AxiosResponse} from "axios";
 import * as fs from "fs";
 import HttpsProxyAgent from "https-proxy-agent";
 import qs from "qs";
 import * as https from "https";
 import Response from "../http/response";
-import Request, {
-  RequestOptions as LastRequestOptions,
-  Headers,
-} from "../http/request";
+import Request, {Headers, RequestOptions as LastRequestOptions,} from "../http/request";
 import AuthStrategy from "../auth_strategy/AuthStrategy";
 
 const DEFAULT_CONTENT_TYPE = "application/x-www-form-urlencoded";
@@ -159,7 +156,7 @@ class RequestClient {
    * @param opts.forever - Set to true to use the forever-agent
    * @param opts.logLevel - Show debug logs
    */
-  request<TData>(
+  async request<TData>(
     opts: RequestClient.RequestOptions<TData>
   ): Promise<Response<TData>> {
     if (!opts.method) {
@@ -183,7 +180,7 @@ class RequestClient {
       );
       headers.Authorization = "Basic " + auth;
     } else if(opts.authStrategy) {
-      headers.Authorization = opts.authStrategy.getAuthString();
+      headers.Authorization = await opts.authStrategy.getAuthString();
     }
 
     const options: AxiosRequestConfig = {

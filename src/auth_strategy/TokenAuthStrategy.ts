@@ -12,11 +12,15 @@ export default class TokenAuthStrategy extends AuthStrategy {
         this.tokenManager = tokenManager;
     }
 
-    getAuthString(): string {
-        this.fetchToken().then(token => {
+    async getAuthString(): Promise<string> {
+        return this.fetchToken().then(token => {
             this.token = token;
-        });
-        return `Bearer ` + this.token;
+            return `Bearer ${this.token}`;
+        }).catch(
+            error => {
+                throw new Error(`Failed to fetch access token: ${error}`);
+            }
+        );
     }
 
     requiresAuthentication(): boolean {
@@ -25,7 +29,7 @@ export default class TokenAuthStrategy extends AuthStrategy {
 
     async fetchToken(): Promise<string> {
         if (this.token == null || this.token.length === 0 || this.isTokenExpired(this.token)) {
-            this.token = await this.tokenManager.fetchToken();
+            return this.tokenManager.fetchToken();
         }
         return this.token;
     }
