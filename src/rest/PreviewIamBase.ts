@@ -10,11 +10,9 @@
  */
 
 import Domain from "../base/Domain";
-import Organizations from "./previewIam/organizations";
 import V1 from "./previewIam/V1";
 
 class PreviewIamBase extends Domain {
-  _organizations?: Organizations;
   _v1?: V1;
 
   /**
@@ -24,11 +22,6 @@ class PreviewIamBase extends Domain {
    */
   constructor(twilio: any) {
     super(twilio, "https://preview-iam.twilio.com");
-  }
-
-  get organizations(): Organizations {
-    this._organizations = this._organizations || new Organizations(this);
-    return this._organizations;
   }
 
   get v1(): V1 {
