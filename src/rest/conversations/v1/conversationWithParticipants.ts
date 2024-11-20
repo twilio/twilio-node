@@ -53,7 +53,7 @@ export interface ConversationWithParticipantsListInstanceCreateOptions {
   "bindings.email.address"?: string;
   /** The default name that will be used when sending outbound emails in this conversation. */
   "bindings.email.name"?: string;
-  /** The participant to be added to the conversation in JSON format. The parameters are as in [Participant Resource](https://www.twilio.com/docs/conversations/api/conversation-participant-resource). The maximum number of participants that can be added in a single request is 10. */
+  /** The participant to be added to the conversation in JSON format. The JSON object attributes are as parameters in [Participant Resource](https://www.twilio.com/docs/conversations/api/conversation-participant-resource). The maximum number of participants that can be added in a single request is 10. */
   participant?: Array<string>;
 }
 

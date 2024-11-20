@@ -41,7 +41,8 @@ export type CallToActionActionType =
   | "URL"
   | "PHONE_NUMBER"
   | "COPY_CODE"
-  | "VOICE_CALL";
+  | "VOICE_CALL"
+  | "VOICE_CALL_REQUEST";
 
 export class CardAction {
   "type": CardActionType;

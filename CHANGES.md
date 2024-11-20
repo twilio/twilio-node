@@ -1,6 +1,21 @@
 twilio-node changelog
 =====================
 
+[2024-11-15] Version 5.3.6
+--------------------------
+**Library - Chore**
+- [PR #1040](https://github.com/twilio/twilio-node/pull/1040): pass http agent options to client. Thanks to [@tiwarishubham635](https://github.com/tiwarishubham635)!
+- [PR #1041](https://github.com/twilio/twilio-node/pull/1041): remove preview sync api. Thanks to [@sbansla](https://github.com/sbansla)!
+
+**Api**
+- Added `ivr-virtual-agent-custom-voices` and `ivr-virtual-agent-genai` to `usage_record` API.
+- Add open-api file tag to realtime_transcriptions
+
+**Taskrouter**
+- Add `api-tag` property to workers reservation
+- Add `api-tag` property to task reservation
+
+
 [2024-10-24] Version 5.3.5
 --------------------------
 **Conversations**

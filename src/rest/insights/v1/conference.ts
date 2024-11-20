@@ -56,7 +56,8 @@ export type ConferenceTag =
   | "high_jitter"
   | "high_latency"
   | "low_mos"
-  | "detected_silence";
+  | "detected_silence"
+  | "no_concurrent_participants";
 
 /**
  * Options to pass to each

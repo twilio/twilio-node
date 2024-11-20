@@ -20,7 +20,7 @@ const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
 
-export type ParticipantCodec = "VP8" | "H264" | "VP9";
+export type ParticipantCodec = "VP8" | "H264" | "VP9" | "opus";
 
 export type ParticipantEdgeLocation =
   | "ashburn"
@@ -45,7 +45,9 @@ export type ParticipantTwilioRealm =
   | "sg1"
   | "in1"
   | "de1"
-  | "gll";
+  | "gll"
+  | "stage_us1"
+  | "dev_us1";
 
 /**
  * Options to pass to each
