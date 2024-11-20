@@ -61,7 +61,7 @@ namespace Twilio {
   export class Client {
     username?: string;
     password?: string;
-    accountSid?: string;
+    accountSid: string;
     credentialProvider?: CredentialProvider;
     opts?: ClientOpts;
     env?: NodeJS.ProcessEnv;
@@ -120,6 +120,7 @@ namespace Twilio {
           (() => {
             throw new Error("password is required");
           })();
+      this.accountSid = "";
       this.setAccountSid(this.opts?.accountSid || this.username);
       this.invalidateOAuth();
     }
@@ -169,7 +170,7 @@ namespace Twilio {
 
     setCredentialProvider(credentialProvider: CredentialProvider) {
       this.credentialProvider = credentialProvider;
-      this.accountSid = undefined;
+      this.accountSid = "";
       this.invalidateBasicAuth();
     }
 
