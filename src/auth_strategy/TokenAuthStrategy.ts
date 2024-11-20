@@ -35,7 +35,7 @@ export default class TokenAuthStrategy extends AuthStrategy {
     ) {
       return this.tokenManager.fetchToken();
     }
-    return this.token;
+    return Promise.resolve(this.token);
   }
 
   /**
