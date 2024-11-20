@@ -1,28 +1,35 @@
 import TokenManager from "./TokenManager";
-import {TokenListInstance, TokenListInstanceCreateOptions} from "../../rest/previewIam/v1/token";
+import {
+  TokenListInstance,
+  TokenListInstanceCreateOptions,
+} from "../../rest/previewIam/v1/token";
 import PreviewIamBase from "../../rest/PreviewIamBase";
 import V1 from "../../rest/previewIam/V1";
 import NoAuthCredentialProvider from "../../credential_provider/NoAuthCredentialProvider";
-import {Client} from "../../base/BaseTwilio";
+import { Client } from "../../base/BaseTwilio";
 
 export default class ApiTokenManager implements TokenManager {
-    private params: TokenListInstanceCreateOptions;
+  private params: TokenListInstanceCreateOptions;
 
-    constructor(params: TokenListInstanceCreateOptions) {
-        this.params = params;
-    }
+  constructor(params: TokenListInstanceCreateOptions) {
+    this.params = params;
+  }
 
-    async fetchToken(): Promise<string> {
-        const noAuthCredentialProvider = new NoAuthCredentialProvider();
-        const client = new Client();
-        client.setCredentialProvider(noAuthCredentialProvider);
+  async fetchToken(): Promise<string> {
+    const noAuthCredentialProvider = new NoAuthCredentialProvider();
+    const client = new Client();
+    client.setCredentialProvider(noAuthCredentialProvider);
 
-        const tokenListInstance = TokenListInstance(new V1(new PreviewIamBase(client)));
-        return tokenListInstance.create(this.params).then(token => {
-            return token.accessToken;
-        }).catch(error => {
-            throw new Error(`Failed to fetch access token: ${error}`);
-        });
-    }
-
+    const tokenListInstance = TokenListInstance(
+      new V1(new PreviewIamBase(client))
+    );
+    return tokenListInstance
+      .create(this.params)
+      .then((token) => {
+        return token.accessToken;
+      })
+      .catch((error) => {
+        throw new Error(`Failed to fetch access token: ${error}`);
+      });
+  }
 }

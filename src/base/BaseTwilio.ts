@@ -107,19 +107,19 @@ namespace Twilio {
     constructor(username?: string, password?: string, opts?: ClientOpts) {
       this.setOpts(opts);
       this.username =
-          username ??
-          this.env?.TWILIO_ACCOUNT_SID ??
-          process.env.TWILIO_ACCOUNT_SID ??
-          (() => {
-            throw new Error("username is required");
-          })();
+        username ??
+        this.env?.TWILIO_ACCOUNT_SID ??
+        process.env.TWILIO_ACCOUNT_SID ??
+        (() => {
+          throw new Error("username is required");
+        })();
       this.password =
-          password ??
-          this.env?.TWILIO_AUTH_TOKEN ??
-          process.env.TWILIO_AUTH_TOKEN ??
-          (() => {
-            throw new Error("password is required");
-          })();
+        password ??
+        this.env?.TWILIO_AUTH_TOKEN ??
+        process.env.TWILIO_AUTH_TOKEN ??
+        (() => {
+          throw new Error("password is required");
+        })();
       this.accountSid = "";
       this.setAccountSid(this.opts?.accountSid || this.username);
       this.invalidateOAuth();
@@ -161,8 +161,8 @@ namespace Twilio {
 
       if (this.accountSid && !this.accountSid?.startsWith("AC")) {
         const apiKeyMsg = this.accountSid?.startsWith("SK")
-            ? ". The given SID indicates an API Key which requires the accountSid to be passed as an additional option"
-            : "";
+          ? ". The given SID indicates an API Key which requires the accountSid to be passed as an additional option"
+          : "";
 
         throw new Error("accountSid must start with AC" + apiKeyMsg);
       }
@@ -175,12 +175,12 @@ namespace Twilio {
     }
 
     invalidateBasicAuth() {
-        this.username = undefined;
-        this.password = undefined;
+      this.username = undefined;
+      this.password = undefined;
     }
 
     invalidateOAuth() {
-        this.credentialProvider = undefined;
+      this.credentialProvider = undefined;
     }
 
     get httpClient() {
@@ -225,7 +225,8 @@ namespace Twilio {
 
       const username = opts.username || this.username;
       const password = opts.password || this.password;
-      const authStrategy = opts.authStrategy || this.credentialProvider?.toAuthStrategy();
+      const authStrategy =
+        opts.authStrategy || this.credentialProvider?.toAuthStrategy();
 
       const headers = opts.headers || {};
 

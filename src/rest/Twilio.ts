@@ -340,7 +340,10 @@ class Twilio extends Client {
   }
   /** Getter for (Twilio.PreviewIam) domain */
   get previewIam(): Preview {
-    return this._previewIam ?? (this._previewIam = new (require("./PreviewIam"))(this));
+    return (
+      this._previewIam ??
+      (this._previewIam = new (require("./PreviewIam"))(this))
+    );
   }
   /** Getter for (Twilio.Pricing) domain */
   get pricing(): Pricing {

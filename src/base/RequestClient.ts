@@ -1,11 +1,14 @@
-import {HttpMethod} from "../interfaces";
-import axios, {AxiosInstance, AxiosRequestConfig, AxiosResponse} from "axios";
+import { HttpMethod } from "../interfaces";
+import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from "axios";
 import * as fs from "fs";
 import HttpsProxyAgent from "https-proxy-agent";
 import qs from "qs";
 import * as https from "https";
 import Response from "../http/response";
-import Request, {Headers, RequestOptions as LastRequestOptions,} from "../http/request";
+import Request, {
+  Headers,
+  RequestOptions as LastRequestOptions,
+} from "../http/request";
 import AuthStrategy from "../auth_strategy/AuthStrategy";
 
 const DEFAULT_CONTENT_TYPE = "application/x-www-form-urlencoded";
@@ -179,7 +182,7 @@ class RequestClient {
         "base64"
       );
       headers.Authorization = "Basic " + auth;
-    } else if(opts.authStrategy) {
+    } else if (opts.authStrategy) {
       headers.Authorization = await opts.authStrategy.getAuthString();
     }
 

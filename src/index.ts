@@ -46,8 +46,10 @@ namespace TwilioSDK {
   export type RequestClient = IRequestClient;
   export const RequestClient = IRequestClient;
 
-  export type ClientCredentialProviderBuilder = IClientCredentialProvider.ClientCredentialProviderBuilder;
-  export const ClientCredentialProviderBuilder = IClientCredentialProvider.ClientCredentialProviderBuilder;
+  export type ClientCredentialProviderBuilder =
+    IClientCredentialProvider.ClientCredentialProviderBuilder;
+  export const ClientCredentialProviderBuilder =
+    IClientCredentialProvider.ClientCredentialProviderBuilder;
 
   // Setup webhook helper functionality
   export type validateBody = typeof webhooks.validateBody;
