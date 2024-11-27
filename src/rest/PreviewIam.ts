@@ -1,7 +1,7 @@
 import { TokenListInstance } from "./previewIam/v1/token";
 import { AuthorizeListInstance } from "./previewIam/v1/authorize";
 import PreviewIamBase from "./PreviewIamBase";
-import {OrganizationListInstance} from "./previewIam/versionless/organization";
+import { OrganizationListInstance } from "./previewIam/versionless/organization";
 import Versionless from "./previewIam/Versionless";
 
 class PreviewIam extends PreviewIamBase {
@@ -24,7 +24,8 @@ class PreviewIam extends PreviewIamBase {
 
   /** Getter for organization resource */
   get organization(): OrganizationListInstance {
-    this._organization = this._organization || new Versionless(this).organization;
+    this._organization =
+      this._organization || new Versionless(this).organization;
     return this._organization;
   }
 }

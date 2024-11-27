@@ -12,7 +12,6 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import Versionless from "../Versionless";
 const deserialize = require("../../../base/deserialize");
@@ -21,8 +20,6 @@ import { isValidPathParam } from "../../../base/utility";
 import { AccountListInstance } from "./organization/account";
 import { RoleAssignmentListInstance } from "./organization/roleAssignment";
 import { UserListInstance } from "./organization/user";
-
-
 
 export interface OrganizationContext {
   accounts: AccountListInstance;
@@ -37,7 +34,7 @@ export interface OrganizationContext {
 }
 
 export interface OrganizationContextSolution {
-  "organizationSid": string;
+  organizationSid: string;
 }
 
 export class OrganizationContextImpl implements OrganizationContext {
@@ -50,25 +47,31 @@ export class OrganizationContextImpl implements OrganizationContext {
 
   constructor(protected _version: Versionless, organizationSid: string) {
     if (!isValidPathParam(organizationSid)) {
-      throw new Error('Parameter \'organizationSid\' is not valid.');
+      throw new Error("Parameter 'organizationSid' is not valid.");
     }
 
-    this._solution = { organizationSid,  };
+    this._solution = { organizationSid };
     this._uri = `/${organizationSid}`;
   }
 
   get accounts(): AccountListInstance {
-    this._accounts = this._accounts || AccountListInstance(this._version, this._solution.organizationSid);
+    this._accounts =
+      this._accounts ||
+      AccountListInstance(this._version, this._solution.organizationSid);
     return this._accounts;
   }
 
   get roleAssignments(): RoleAssignmentListInstance {
-    this._roleAssignments = this._roleAssignments || RoleAssignmentListInstance(this._version, this._solution.organizationSid);
+    this._roleAssignments =
+      this._roleAssignments ||
+      RoleAssignmentListInstance(this._version, this._solution.organizationSid);
     return this._roleAssignments;
   }
 
   get users(): UserListInstance {
-    this._users = this._users || UserListInstance(this._version, this._solution.organizationSid);
+    this._users =
+      this._users ||
+      UserListInstance(this._version, this._solution.organizationSid);
     return this._users;
   }
 
@@ -86,19 +89,15 @@ export class OrganizationContextImpl implements OrganizationContext {
   }
 }
 
-
-
-export interface OrganizationSolution {
-}
+export interface OrganizationSolution {}
 
 export interface OrganizationListInstance {
   _version: Versionless;
   _solution: OrganizationSolution;
   _uri: string;
 
-  (organizationSid: string, ): OrganizationContext;
-  get(organizationSid: string, ): OrganizationContext;
-
+  (organizationSid: string): OrganizationContext;
+  get(organizationSid: string): OrganizationContext;
 
   /**
    * Provide a user-friendly representation
@@ -107,26 +106,30 @@ export interface OrganizationListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function OrganizationListInstance(version: Versionless): OrganizationListInstance {
-  const instance = ((organizationSid, ) => instance.get(organizationSid, )) as OrganizationListInstance;
+export function OrganizationListInstance(
+  version: Versionless
+): OrganizationListInstance {
+  const instance = ((organizationSid) =>
+    instance.get(organizationSid)) as OrganizationListInstance;
 
-  instance.get = function get(organizationSid, ): OrganizationContext {
+  instance.get = function get(organizationSid): OrganizationContext {
     return new OrganizationContextImpl(version, organizationSid);
-  }
+  };
 
   instance._version = version;
-  instance._solution = {  };
+  instance._solution = {};
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions
+  ) {
     return inspect(instance.toJSON(), options);
-  }
+  };
 
   return instance;
 }
-
-

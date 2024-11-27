@@ -34,5 +34,4 @@ export default class Versionless extends Version {
     this._organization = this._organization || OrganizationListInstance(this);
     return this._organization;
   }
-
 }
