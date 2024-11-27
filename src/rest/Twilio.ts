@@ -126,7 +126,7 @@ class Twilio extends Client {
   _oauth?: Oauth;
   /** (Twilio.Preview) - preview domain */
   _preview?: Preview;
-  /** (Twilio.PreviewIam) - preview domain */
+  /** (Twilio.PreviewIam) - previewIam domain */
   _previewIam?: PreviewIam;
   /** (Twilio.Pricing) - pricing domain */
   _pricing?: Pricing;
@@ -339,7 +339,7 @@ class Twilio extends Client {
     return this._preview ?? (this._preview = new (require("./Preview"))(this));
   }
   /** Getter for (Twilio.PreviewIam) domain */
-  get previewIam(): Preview {
+  get previewIam(): PreviewIam {
     return (
       this._previewIam ??
       (this._previewIam = new (require("./PreviewIam"))(this))

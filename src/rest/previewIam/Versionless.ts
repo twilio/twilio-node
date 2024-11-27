@@ -14,34 +14,25 @@
 
 import PreviewIamBase from "../PreviewIamBase";
 import Version from "../../base/Version";
-import { AuthorizeListInstance } from "./v1/authorize";
-import { TokenListInstance } from "./v1/token";
+import { OrganizationListInstance } from "./versionless/organization";
 
-export default class V1 extends Version {
+export default class Versionless extends Version {
   /**
-   * Initialize the V1 version of PreviewIam
+   * Initialize the Versionless version of PreviewIam
    *
    * @param domain - The Twilio (Twilio.PreviewIam) domain
    */
   constructor(domain: PreviewIamBase) {
-    super(domain, "v1");
+    super(domain, "Organizations");
   }
 
-  /** authorize - { Twilio.PreviewIam.V1.AuthorizeListInstance } resource */
-  protected _authorize?: AuthorizeListInstance;
-  /** token - { Twilio.PreviewIam.V1.TokenListInstance } resource */
-  protected _token?: TokenListInstance;
+  /** organization - { Twilio.PreviewIam.Versionless.OrganizationListInstance } resource */
+  protected _organization?: OrganizationListInstance;
 
-  /** Getter for authorize resource */
-  get authorize(): AuthorizeListInstance {
-    this._authorize = this._authorize || AuthorizeListInstance(this);
-    return this._authorize;
-  }
-
-  /** Getter for token resource */
-  get token(): TokenListInstance {
-    this._token = this._token || TokenListInstance(this);
-    return this._token;
+  /** Getter for organization resource */
+  get organization(): OrganizationListInstance {
+    this._organization = this._organization || OrganizationListInstance(this);
+    return this._organization;
   }
 
 }
