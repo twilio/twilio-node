@@ -222,7 +222,7 @@ export interface UserContext {
    */
   update(
     params: ScimUser,
-    headers: any,
+    headers?: any,
     callback?: (error: Error | null, item?: UserInstance) => any
   ): Promise<UserInstance>;
 
@@ -262,11 +262,15 @@ export class UserContextImpl implements UserContext {
   remove(
     callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
+    const headers: any = {};
+    headers["Accept"] = "application/scim+json";
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
         uri: instance._uri,
         method: "delete",
+        headers,
       });
 
     operationPromise = instance._version.setPromiseCallback(
@@ -279,11 +283,15 @@ export class UserContextImpl implements UserContext {
   fetch(
     callback?: (error: Error | null, item?: UserInstance) => any
   ): Promise<UserInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/scim+json";
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
         uri: instance._uri,
         method: "get",
+        headers,
       });
 
     operationPromise = operationPromise.then(
@@ -305,7 +313,7 @@ export class UserContextImpl implements UserContext {
 
   update(
     params: ScimUser,
-    headers: any,
+    headers?: any,
     callback?: (error: Error | null, item?: UserInstance) => any
   ): Promise<UserInstance> {
     if (params === null || params === undefined) {
@@ -316,7 +324,9 @@ export class UserContextImpl implements UserContext {
 
     data = params;
 
-    headers["Content-Type"] = "application/json";
+    if (headers === null || headers === undefined) {
+      headers = {};
+    }
 
     const instance = this;
     let operationVersion = instance._version,
@@ -518,7 +528,7 @@ export class UserInstance {
    */
   update(
     params: ScimUser,
-    headers: any,
+    headers?: any,
     callback?: (error: Error | null, item?: UserInstance) => any
   ): Promise<UserInstance>;
 
@@ -583,7 +593,7 @@ export interface UserListInstance {
    */
   create(
     params: ScimUser,
-    headers: any,
+    headers?: any,
     callback?: (error: Error | null, item?: UserInstance) => any
   ): Promise<UserInstance>;
 
@@ -683,7 +693,7 @@ export function UserListInstance(
 
   instance.create = function create(
     params: ScimUser,
-    headers: any,
+    headers?: any,
     callback?: (error: Error | null, items: UserInstance) => any
   ): Promise<UserInstance> {
     if (params === null || params === undefined) {
@@ -694,7 +704,9 @@ export function UserListInstance(
 
     data = params;
 
-    headers["Content-Type"] = "application/json";
+    if (headers === null || headers === undefined) {
+      headers = {};
+    }
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
@@ -741,6 +753,7 @@ export function UserListInstance(
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
+    headers["Accept"] = "application/scim+json";
 
     let operationVersion = version,
       operationPromise = operationVersion.page({

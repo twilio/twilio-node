@@ -141,11 +141,15 @@ export class RoleAssignmentContextImpl implements RoleAssignmentContext {
   remove(
     callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
+    const headers: any = {};
+    headers["Accept"] = "application/scim+json";
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
         uri: instance._uri,
         method: "delete",
+        headers,
       });
 
     operationPromise = instance._version.setPromiseCallback(
@@ -309,7 +313,7 @@ export interface RoleAssignmentListInstance {
    */
   create(
     params: PublicApiCreateRoleAssignmentRequest,
-    headers: any,
+    headers?: any,
     callback?: (error: Error | null, item?: RoleAssignmentInstance) => any
   ): Promise<RoleAssignmentInstance>;
 
@@ -415,7 +419,7 @@ export function RoleAssignmentListInstance(
 
   instance.create = function create(
     params: PublicApiCreateRoleAssignmentRequest,
-    headers: any,
+    headers?: any,
     callback?: (error: Error | null, items: RoleAssignmentInstance) => any
   ): Promise<RoleAssignmentInstance> {
     if (params === null || params === undefined) {
@@ -426,7 +430,9 @@ export function RoleAssignmentListInstance(
 
     data = params;
 
-    headers["Content-Type"] = "application/json";
+    if (headers === null || headers === undefined) {
+      headers = {};
+    }
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
@@ -475,6 +481,7 @@ export function RoleAssignmentListInstance(
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.page({

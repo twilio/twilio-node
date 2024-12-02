@@ -10,6 +10,7 @@ import IVoiceResponse from "./twiml/VoiceResponse";
 import IMessagingResponse from "./twiml/MessagingResponse";
 import IFaxResponse from "./twiml/FaxResponse";
 import IClientCredentialProvider from "./credential_provider/ClientCredentialProvider";
+import INoAuthCredentialProvider from "./credential_provider/NoAuthCredentialProvider";
 
 // Shorthand to automatically create a RestClient
 function TwilioSDK(
@@ -50,6 +51,11 @@ namespace TwilioSDK {
     IClientCredentialProvider.ClientCredentialProviderBuilder;
   export const ClientCredentialProviderBuilder =
     IClientCredentialProvider.ClientCredentialProviderBuilder;
+
+  export type NoAuthCredentialProvider =
+    INoAuthCredentialProvider.NoAuthCredentialProvider;
+  export const NoAuthCredentialProvider =
+    INoAuthCredentialProvider.NoAuthCredentialProvider;
 
   // Setup webhook helper functionality
   export type validateBody = typeof webhooks.validateBody;

@@ -16,7 +16,8 @@ export default class ApiTokenManager implements TokenManager {
   }
 
   async fetchToken(): Promise<string> {
-    const noAuthCredentialProvider = new NoAuthCredentialProvider();
+    const noAuthCredentialProvider =
+      new NoAuthCredentialProvider.NoAuthCredentialProvider();
     const client = new Client();
     client.setCredentialProvider(noAuthCredentialProvider);
 
