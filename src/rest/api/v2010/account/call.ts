@@ -119,7 +119,7 @@ export interface CallListInstanceCreateOptions {
   /** The number of milliseconds of initial silence after which an `unknown` AnsweredBy result will be returned. Possible Values: 2000-10000. Default: 5000. */
   machineDetectionSilenceTimeout?: number;
   /** Select whether to perform answering machine detection in the background. Default, blocks the execution of the call until Answering Machine Detection is completed. Can be: `true` or `false`. */
-  asyncAmd?: string;
+  asyncAmd?: boolean;
   /** The URL that we should call using the `async_amd_status_callback_method` to notify customer application whether the call was answered by human, machine or fax. */
   asyncAmdStatusCallback?: string;
   /** The HTTP method we should use when calling the `async_amd_status_callback` URL. Can be: `GET` or `POST` and the default is `POST`. */
@@ -1085,7 +1085,8 @@ export function CallListInstance(
     if (params["machineDetectionSilenceTimeout"] !== undefined)
       data["MachineDetectionSilenceTimeout"] =
         params["machineDetectionSilenceTimeout"];
-    if (params["asyncAmd"] !== undefined) data["AsyncAmd"] = params["asyncAmd"];
+    if (params["asyncAmd"] !== undefined)
+      data["AsyncAmd"] = serialize.bool(params["asyncAmd"]);
     if (params["asyncAmdStatusCallback"] !== undefined)
       data["AsyncAmdStatusCallback"] = params["asyncAmdStatusCallback"];
     if (params["asyncAmdStatusCallbackMethod"] !== undefined)
