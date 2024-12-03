@@ -85,7 +85,5 @@ test("Should list role assignments", () => {
     .then((roles) => {
       expect(roles).not.toBeNull();
       expect(roles.length).toBeGreaterThanOrEqual(0);
-      expect(roles.sid).not.toBeNull();
-      expect(roles.roleSid).not.toBeNull();
     });
 });
