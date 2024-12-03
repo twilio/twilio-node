@@ -56,27 +56,27 @@ test("Should fetch given account", () => {
 });
 
 test("Should list users", () => {
-    return client.previewIam
-        .organization(organizationSid)
-        .users.list()
-        .then((users) => {
-            expect(users).not.toBeNull();
-            expect(users).not.toBeUndefined();
-            expect(users.length).toBeGreaterThanOrEqual(0);
-        })
-})
+  return client.previewIam
+    .organization(organizationSid)
+    .users.list()
+    .then((users) => {
+      expect(users).not.toBeNull();
+      expect(users).not.toBeUndefined();
+      expect(users.length).toBeGreaterThanOrEqual(0);
+    });
+});
 
 test("Should fetch given user", () => {
-    return client.previewIam
-      .organization(organizationSid)
-      .users(userId)
-      .fetch()
-      .then((user) => {
-        expect(user).not.toBeNull();
-        expect(user).not.toBeUndefined();
-        expect(user.id).toEqual(userId);
-      });
-})
+  return client.previewIam
+    .organization(organizationSid)
+    .users(userId)
+    .fetch()
+    .then((user) => {
+      expect(user).not.toBeNull();
+      expect(user).not.toBeUndefined();
+      expect(user.id).toEqual(userId);
+    });
+});
 
 test("Should list role assignments", () => {
   client.previewIam
