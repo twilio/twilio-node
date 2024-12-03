@@ -263,7 +263,6 @@ export class UserContextImpl implements UserContext {
     callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
     const headers: any = {};
-    headers["Accept"] = "application/scim+json";
 
     const instance = this;
     let operationVersion = instance._version,
@@ -327,6 +326,9 @@ export class UserContextImpl implements UserContext {
     if (headers === null || headers === undefined) {
       headers = {};
     }
+
+    headers["Content-Type"] = "application/json";
+    headers["Accept"] = "application/scim+json";
 
     const instance = this;
     let operationVersion = instance._version,
@@ -707,6 +709,9 @@ export function UserListInstance(
     if (headers === null || headers === undefined) {
       headers = {};
     }
+
+    headers["Content-Type"] = "application/json";
+    headers["Accept"] = "application/scim+json";
 
     let operationVersion = version,
       operationPromise = operationVersion.create({

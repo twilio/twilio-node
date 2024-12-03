@@ -254,7 +254,7 @@ namespace Twilio {
         headers["Content-Type"] = "application/x-www-form-urlencoded";
       }
 
-      if (!headers["Accept"]) {
+      if (opts.method !== "delete" && !headers["Accept"]) {
         headers["Accept"] = "application/json";
       }
 

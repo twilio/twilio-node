@@ -24,7 +24,7 @@ export class PublicApiCreateRoleAssignmentRequest {
   /**
    * Twilio Role Sid representing assigned role
    */
-  "roleSid": string;
+  "role_sid": string;
   /**
    * Twilio Sid representing scope of this assignment
    */
@@ -142,7 +142,6 @@ export class RoleAssignmentContextImpl implements RoleAssignmentContext {
     callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
     const headers: any = {};
-    headers["Accept"] = "application/scim+json";
 
     const instance = this;
     let operationVersion = instance._version,
@@ -433,6 +432,9 @@ export function RoleAssignmentListInstance(
     if (headers === null || headers === undefined) {
       headers = {};
     }
+
+    headers["Content-Type"] = "application/json";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
