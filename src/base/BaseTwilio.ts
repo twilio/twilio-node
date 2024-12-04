@@ -109,17 +109,11 @@ namespace Twilio {
       this.username =
         username ??
         this.env?.TWILIO_ACCOUNT_SID ??
-        process.env.TWILIO_ACCOUNT_SID ??
-        (() => {
-          throw new Error("username is required");
-        })();
+        process.env.TWILIO_ACCOUNT_SID;
       this.password =
         password ??
         this.env?.TWILIO_AUTH_TOKEN ??
-        process.env.TWILIO_AUTH_TOKEN ??
-        (() => {
-          throw new Error("password is required");
-        })();
+        process.env.TWILIO_AUTH_TOKEN;
       this.accountSid = "";
       this.setAccountSid(this.opts?.accountSid || this.username);
       this.invalidateOAuth();
@@ -156,8 +150,8 @@ namespace Twilio {
       }
     }
 
-    setAccountSid(accountSid: string) {
-      this.accountSid = accountSid;
+    setAccountSid(accountSid?: string) {
+      this.accountSid = accountSid || "";
 
       if (this.accountSid && !this.accountSid?.startsWith("AC")) {
         const apiKeyMsg = this.accountSid?.startsWith("SK")
@@ -227,6 +221,20 @@ namespace Twilio {
       const password = opts.password || this.password;
       const authStrategy =
         opts.authStrategy || this.credentialProvider?.toAuthStrategy();
+
+      if (!authStrategy) {
+        if (!username) {
+          (() => {
+            throw new Error("username is required");
+          })();
+        }
+
+        if (!password) {
+          (() => {
+            throw new Error("password is required");
+          })();
+        }
+      }
 
       const headers = opts.headers || {};
 
