@@ -5,7 +5,7 @@ import NoAuthStrategy from "../auth_strategy/NoAuthStrategy";
 namespace NoAuthCredentialProvider {
   export class NoAuthCredentialProvider extends CredentialProvider {
     constructor() {
-      super("client-credentials");
+      super("noauth");
     }
 
     public toAuthStrategy(): AuthStrategy {
