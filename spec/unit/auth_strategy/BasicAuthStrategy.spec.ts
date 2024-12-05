@@ -1,6 +1,6 @@
 import BasicAuthStrategy from "../../../src/auth_strategy/BasicAuthStrategy";
 
-describe("NoAuthStrategy constructor", function () {
+describe("BasicAuthStrategy constructor", function () {
   const username = "username";
   const password = "password";
   const basicAuthStrategy = new BasicAuthStrategy(username, password);

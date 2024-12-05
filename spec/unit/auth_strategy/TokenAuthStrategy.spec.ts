@@ -14,7 +14,7 @@ function createMockAxios(promiseHandler: Promise<any>) {
   return instance;
 }
 
-describe("NoAuthStrategy constructor", function () {
+describe("TokenAuthStrategy constructor", function () {
   const clientId = "clientId";
   const clientSecret = "clientSecret";
   const grantType = "client_credentials";
@@ -79,7 +79,7 @@ describe("NoAuthStrategy constructor", function () {
   });
 });
 
-describe("NoAuthStrategy error response", function () {
+describe("TokenAuthStrategy error response", function () {
   const clientId = "clientId";
   const clientSecret = "clientSecret";
   const grantType = "client_credentials";
