@@ -11,6 +11,7 @@ import IMessagingResponse from "./twiml/MessagingResponse";
 import IFaxResponse from "./twiml/FaxResponse";
 import IClientCredentialProvider from "./credential_provider/ClientCredentialProvider";
 import INoAuthCredentialProvider from "./credential_provider/NoAuthCredentialProvider";
+import IOrgsCredentialProvider from "./credential_provider/OrgsCredentialProvider";
 
 // Shorthand to automatically create a RestClient
 function TwilioSDK(
@@ -51,6 +52,11 @@ namespace TwilioSDK {
     IClientCredentialProvider.ClientCredentialProviderBuilder;
   export const ClientCredentialProviderBuilder =
     IClientCredentialProvider.ClientCredentialProviderBuilder;
+
+  export type OrgsCredentialProviderBuilder =
+      IOrgsCredentialProvider.OrgsCredentialProviderBuilder;
+  export const OrgsCredentialProviderBuilder =
+      IOrgsCredentialProvider.OrgsCredentialProviderBuilder;
 
   export type NoAuthCredentialProvider =
     INoAuthCredentialProvider.NoAuthCredentialProvider;
