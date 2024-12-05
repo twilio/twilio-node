@@ -1,6 +1,6 @@
 import TokenAuthStrategy from "../../../src/auth_strategy/TokenAuthStrategy";
 import ApiTokenManager from "../../../src/http/bearer_token/ApiTokenManager";
-import {jest} from "@jest/globals";
+import { jest } from "@jest/globals";
 import axios from "axios";
 import twilio from "../../../src";
 
@@ -30,17 +30,17 @@ describe("NoAuthStrategy constructor", function () {
   const initialHttpProxyValue = process.env.HTTP_PROXY;
 
   beforeEach(() => {
-    createSpy = jest.spyOn(axios, 'create');
+    createSpy = jest.spyOn(axios, "create");
     createSpy.mockReturnValue(
-        createMockAxios(
-            Promise.resolve({
-              status: 200,
-              data: {
-                "access_token": "accessTokenValue",
-                "token_type": "Bearer"
-              },
-            }),
-        ),
+      createMockAxios(
+        Promise.resolve({
+          status: 200,
+          data: {
+            access_token: "accessTokenValue",
+            token_type: "Bearer",
+          },
+        })
+      )
     );
   });
 
@@ -61,10 +61,9 @@ describe("NoAuthStrategy constructor", function () {
   it("Should check token expiry", function () {
     const accountSid = "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
     const keySid = "SKb5aed9ca12bf5890f37930e63cad6d38";
-    const token =
-        new twilio.jwt.AccessToken(accountSid, keySid, "secret", {
-          identity: "ID@example.com",
-        });
+    const token = new twilio.jwt.AccessToken(accountSid, keySid, "secret", {
+      identity: "ID@example.com",
+    });
     expect(tokenAuthStrategy.isTokenExpired(token.toJwt())).toBe(false);
   });
 
@@ -96,16 +95,16 @@ describe("NoAuthStrategy error response", function () {
   const initialHttpProxyValue = process.env.HTTP_PROXY;
 
   beforeEach(() => {
-    createSpy = jest.spyOn(axios, 'create');
+    createSpy = jest.spyOn(axios, "create");
     createSpy.mockReturnValue(
-        createMockAxios(
-            Promise.resolve({
-              status: 403,
-              data: {
-                "message": "Invalid Credentials",
-              },
-            }),
-        ),
+      createMockAxios(
+        Promise.resolve({
+          status: 403,
+          data: {
+            message: "Invalid Credentials",
+          },
+        })
+      )
     );
   });
 
@@ -120,7 +119,8 @@ describe("NoAuthStrategy error response", function () {
   });
 
   it("Should return error", async function () {
-    await expect(tokenAuthStrategy.getAuthString()).rejects.toThrow("Failed to fetch access token: Invalid Credentials");
+    await expect(tokenAuthStrategy.getAuthString()).rejects.toThrow(
+      "Failed to fetch access token: Invalid Credentials"
+    );
   });
-
 });

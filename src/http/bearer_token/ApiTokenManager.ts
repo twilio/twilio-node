@@ -34,7 +34,9 @@ export default class ApiTokenManager implements TokenManager {
         return token.accessToken;
       })
       .catch((error) => {
-        throw new Error(`Error Status Code: ${error.status}\nFailed to fetch access token: ${error.message}`);
+        throw new Error(
+          `Error Status Code: ${error.status}\nFailed to fetch access token: ${error.message}`
+        );
       });
   }
 }
