@@ -9,9 +9,7 @@ describe("OrgsCredentialProvider Constructor", () => {
       .build();
 
   it("Should have client-credentials as its authType", () => {
-    expect(orgsCredentialProvider.getAuthType()).toEqual(
-      "client-credentials"
-    );
+    expect(orgsCredentialProvider.getAuthType()).toEqual("client-credentials");
   });
 
   it("Should return NoAuthStrategy as its auth strategy", () => {
