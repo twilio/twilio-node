@@ -15,6 +15,10 @@ export default class ApiTokenManager implements TokenManager {
     this.params = params;
   }
 
+  getParams(): TokenListInstanceCreateOptions {
+    return this.params;
+  }
+
   async fetchToken(): Promise<string> {
     const noAuthCredentialProvider =
       new NoAuthCredentialProvider.NoAuthCredentialProvider();
@@ -30,7 +34,7 @@ export default class ApiTokenManager implements TokenManager {
         return token.accessToken;
       })
       .catch((error) => {
-        throw new Error(`Failed to fetch access token: ${error}`);
+        throw new Error(`Error Status Code: ${error.status}\nFailed to fetch access token: ${error.message}`);
       });
   }
 }

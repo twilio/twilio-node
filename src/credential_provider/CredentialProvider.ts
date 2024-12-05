@@ -5,5 +5,8 @@ export default abstract class CredentialProvider {
   protected constructor(authType: string) {
     this.authType = authType;
   }
+  getAuthType(): string {
+    return this.authType;
+  }
   abstract toAuthStrategy(): AuthStrategy;
 }

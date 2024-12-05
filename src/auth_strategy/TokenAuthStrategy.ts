@@ -19,7 +19,7 @@ export default class TokenAuthStrategy extends AuthStrategy {
         return `Bearer ${this.token}`;
       })
       .catch((error) => {
-        throw new Error(`Failed to fetch access token: ${error}`);
+        throw new Error(`Failed to fetch access token: ${error.message}`);
       });
   }
 
