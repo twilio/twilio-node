@@ -15,6 +15,9 @@ const DEFAULT_TIMEOUT = 30000;
 const DEFAULT_INITIAL_RETRY_INTERVAL_MILLIS = 100;
 const DEFAULT_MAX_RETRY_DELAY = 3000;
 const DEFAULT_MAX_RETRIES = 3;
+const DEFAULT_MAX_SOCKETS = 20;
+const DEFAULT_MAX_FREE_SOCKETS = 5;
+const DEFAULT_MAX_TOTAL_SOCKETS = 100;
 
 interface BackoffAxiosRequestConfig extends AxiosRequestConfig {
   /**
@@ -73,6 +76,7 @@ class RequestClient {
   autoRetry: boolean;
   maxRetryDelay: number;
   maxRetries: number;
+  keepAlive: boolean;
 
   /**
    * Make http request
@@ -94,15 +98,16 @@ class RequestClient {
     this.autoRetry = opts.autoRetry || false;
     this.maxRetryDelay = opts.maxRetryDelay || DEFAULT_MAX_RETRY_DELAY;
     this.maxRetries = opts.maxRetries || DEFAULT_MAX_RETRIES;
+    this.keepAlive = opts.keepAlive !== false;
 
     // construct an https agent
     let agentOpts: https.AgentOptions = {
       timeout: this.defaultTimeout,
-      keepAlive: opts.keepAlive,
+      keepAlive: this.keepAlive,
       keepAliveMsecs: opts.keepAliveMsecs,
-      maxSockets: opts.maxSockets,
-      maxTotalSockets: opts.maxTotalSockets,
-      maxFreeSockets: opts.maxFreeSockets,
+      maxSockets: opts.maxSockets || DEFAULT_MAX_SOCKETS, // no of sockets open per host
+      maxTotalSockets: opts.maxTotalSockets || DEFAULT_MAX_TOTAL_SOCKETS, // no of sockets open in total
+      maxFreeSockets: opts.maxFreeSockets || DEFAULT_MAX_FREE_SOCKETS, // no of free sockets open per host
       scheduling: opts.scheduling,
       ca: opts.ca,
     };
@@ -165,11 +170,8 @@ class RequestClient {
 
     var headers = opts.headers || {};
 
-    if (!headers.Connection && !headers.connection && opts.forever) {
-      headers.Connection = "keep-alive";
-    } else if (!headers.Connection && !headers.connection) {
-      headers.Connection = "close";
-    }
+    if (!headers.Connection && !headers.connection)
+      headers.Connection = this.keepAlive ? "keep-alive" : "close";
 
     let auth = undefined;
 

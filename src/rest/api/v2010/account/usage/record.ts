@@ -76,6 +76,8 @@ export type RecordCategory =
   | "group-rooms-participant-minutes"
   | "group-rooms-recorded-minutes"
   | "imp-v1-usage"
+  | "ivr-virtual-agent-custom-voices"
+  | "ivr-virtual-agent-genai"
   | "lookups"
   | "marketplace"
   | "marketplace-algorithmia-named-entity-recognition"

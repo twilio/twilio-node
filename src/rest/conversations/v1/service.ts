@@ -22,6 +22,7 @@ import { isValidPathParam } from "../../../base/utility";
 import { BindingListInstance } from "./service/binding";
 import { ConfigurationListInstance } from "./service/configuration";
 import { ConversationListInstance } from "./service/conversation";
+import { ConversationWithParticipantsListInstance } from "./service/conversationWithParticipants";
 import { ParticipantConversationListInstance } from "./service/participantConversation";
 import { RoleListInstance } from "./service/role";
 import { UserListInstance } from "./service/user";
@@ -73,6 +74,7 @@ export interface ServiceContext {
   bindings: BindingListInstance;
   configuration: ConfigurationListInstance;
   conversations: ConversationListInstance;
+  conversationWithParticipants: ConversationWithParticipantsListInstance;
   participantConversations: ParticipantConversationListInstance;
   roles: RoleListInstance;
   users: UserListInstance;
@@ -117,6 +119,7 @@ export class ServiceContextImpl implements ServiceContext {
   protected _bindings?: BindingListInstance;
   protected _configuration?: ConfigurationListInstance;
   protected _conversations?: ConversationListInstance;
+  protected _conversationWithParticipants?: ConversationWithParticipantsListInstance;
   protected _participantConversations?: ParticipantConversationListInstance;
   protected _roles?: RoleListInstance;
   protected _users?: UserListInstance;
@@ -148,6 +151,16 @@ export class ServiceContextImpl implements ServiceContext {
       this._conversations ||
       ConversationListInstance(this._version, this._solution.sid);
     return this._conversations;
+  }
+
+  get conversationWithParticipants(): ConversationWithParticipantsListInstance {
+    this._conversationWithParticipants =
+      this._conversationWithParticipants ||
+      ConversationWithParticipantsListInstance(
+        this._version,
+        this._solution.sid
+      );
+    return this._conversationWithParticipants;
   }
 
   get participantConversations(): ParticipantConversationListInstance {
@@ -333,6 +346,13 @@ export class ServiceInstance {
    */
   conversations(): ConversationListInstance {
     return this._proxy.conversations;
+  }
+
+  /**
+   * Access the conversationWithParticipants.
+   */
+  conversationWithParticipants(): ConversationWithParticipantsListInstance {
+    return this._proxy.conversationWithParticipants;
   }
 
   /**

@@ -23,8 +23,9 @@ import { isValidPathParam } from "../../../base/utility";
 export type OperatorTypeAvailability =
   | "internal"
   | "beta"
-  | "public"
-  | "retired";
+  | "general-availability"
+  | "retired"
+  | "deprecated";
 
 export type OperatorTypeOutputType =
   | "text-classification"

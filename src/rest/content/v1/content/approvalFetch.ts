@@ -38,20 +38,20 @@ export interface ApprovalFetchContext {
 }
 
 export interface ApprovalFetchContextSolution {
-  contentSid: string;
+  sid: string;
 }
 
 export class ApprovalFetchContextImpl implements ApprovalFetchContext {
   protected _solution: ApprovalFetchContextSolution;
   protected _uri: string;
 
-  constructor(protected _version: V1, contentSid: string) {
-    if (!isValidPathParam(contentSid)) {
-      throw new Error("Parameter 'contentSid' is not valid.");
+  constructor(protected _version: V1, sid: string) {
+    if (!isValidPathParam(sid)) {
+      throw new Error("Parameter 'sid' is not valid.");
     }
 
-    this._solution = { contentSid };
-    this._uri = `/Content/${contentSid}/ApprovalRequests`;
+    this._solution = { sid };
+    this._uri = `/Content/${sid}/ApprovalRequests`;
   }
 
   fetch(
@@ -69,7 +69,7 @@ export class ApprovalFetchContextImpl implements ApprovalFetchContext {
         new ApprovalFetchInstance(
           operationVersion,
           payload,
-          instance._solution.contentSid
+          instance._solution.sid
         )
     );
 
@@ -110,14 +110,14 @@ export class ApprovalFetchInstance {
   constructor(
     protected _version: V1,
     payload: ApprovalFetchResource,
-    contentSid: string
+    sid: string
   ) {
     this.sid = payload.sid;
     this.accountSid = payload.account_sid;
     this.whatsapp = payload.whatsapp;
     this.url = payload.url;
 
-    this._solution = { contentSid };
+    this._solution = { sid };
   }
 
   /**
@@ -140,7 +140,7 @@ export class ApprovalFetchInstance {
   private get _proxy(): ApprovalFetchContext {
     this._context =
       this._context ||
-      new ApprovalFetchContextImpl(this._version, this._solution.contentSid);
+      new ApprovalFetchContextImpl(this._version, this._solution.sid);
     return this._context;
   }
 
@@ -177,7 +177,7 @@ export class ApprovalFetchInstance {
 }
 
 export interface ApprovalFetchSolution {
-  contentSid: string;
+  sid: string;
 }
 
 export interface ApprovalFetchListInstance {
@@ -197,20 +197,20 @@ export interface ApprovalFetchListInstance {
 
 export function ApprovalFetchListInstance(
   version: V1,
-  contentSid: string
+  sid: string
 ): ApprovalFetchListInstance {
-  if (!isValidPathParam(contentSid)) {
-    throw new Error("Parameter 'contentSid' is not valid.");
+  if (!isValidPathParam(sid)) {
+    throw new Error("Parameter 'sid' is not valid.");
   }
 
   const instance = (() => instance.get()) as ApprovalFetchListInstance;
 
   instance.get = function get(): ApprovalFetchContext {
-    return new ApprovalFetchContextImpl(version, contentSid);
+    return new ApprovalFetchContextImpl(version, sid);
   };
 
   instance._version = version;
-  instance._solution = { contentSid };
+  instance._solution = { sid };
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {

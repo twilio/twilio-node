@@ -12,6 +12,7 @@
 import { Client, ClientOpts, RequestOpts } from "../base/BaseTwilio";
 import Accounts from "./Accounts";
 import Api from "./Api";
+import Assistants from "./Assistants";
 import Bulkexports from "./Bulkexports";
 import Chat from "./Chat";
 import Content from "./Content";
@@ -19,6 +20,7 @@ import Conversations from "./Conversations";
 import Events from "./Events";
 import FlexApi from "./FlexApi";
 import FrontlineApi from "./FrontlineApi";
+import Iam from "./Iam";
 import Insights from "./Insights";
 import Intelligence from "./Intelligence";
 import IpMessaging from "./IpMessaging";
@@ -81,6 +83,8 @@ class Twilio extends Client {
   _accounts?: Accounts;
   /** (Twilio.Api) - api domain */
   _api?: Api;
+  /** (Twilio.Assistants) - assistants domain */
+  _assistants?: Assistants;
   /** (Twilio.Bulkexports) - bulkexports domain */
   _bulkexports?: Bulkexports;
   /** (Twilio.Chat) - chat domain */
@@ -95,6 +99,8 @@ class Twilio extends Client {
   _flexApi?: FlexApi;
   /** (Twilio.FrontlineApi) - frontlineApi domain */
   _frontlineApi?: FrontlineApi;
+  /** (Twilio.Iam) - iam domain */
+  _iam?: Iam;
   /** (Twilio.Insights) - insights domain */
   _insights?: Insights;
   /** (Twilio.Intelligence) - intelligence domain */
@@ -167,6 +173,7 @@ class Twilio extends Client {
     if (this.opts?.lazyLoading === false) {
       this.accounts;
       this.api;
+      this.assistants;
       this.bulkexports;
       this.chat;
       this.content;
@@ -174,6 +181,7 @@ class Twilio extends Client {
       this.events;
       this.flexApi;
       this.frontlineApi;
+      this.iam;
       this.insights;
       this.intelligence;
       this.ipMessaging;
@@ -214,6 +222,13 @@ class Twilio extends Client {
   get api(): Api {
     return this._api ?? (this._api = new (require("./Api"))(this));
   }
+  /** Getter for (Twilio.Assistants) domain */
+  get assistants(): Assistants {
+    return (
+      this._assistants ??
+      (this._assistants = new (require("./Assistants"))(this))
+    );
+  }
   /** Getter for (Twilio.Bulkexports) domain */
   get bulkexports(): Bulkexports {
     return (
@@ -250,6 +265,10 @@ class Twilio extends Client {
       this._frontlineApi ??
       (this._frontlineApi = new (require("./FrontlineApi"))(this))
     );
+  }
+  /** Getter for (Twilio.Iam) domain */
+  get iam(): Iam {
+    return this._iam ?? (this._iam = new (require("./Iam"))(this));
   }
   /** Getter for (Twilio.Insights) domain */
   get insights(): Insights {

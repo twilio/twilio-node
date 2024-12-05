@@ -34,10 +34,15 @@ export class CallToActionAction {
   "title": string;
   "url"?: string;
   "phone"?: string;
-  "id"?: string;
+  "code"?: string;
 }
 
-export type CallToActionActionType = "URL" | "PHONE_NUMBER";
+export type CallToActionActionType =
+  | "URL"
+  | "PHONE_NUMBER"
+  | "COPY_CODE"
+  | "VOICE_CALL"
+  | "VOICE_CALL_REQUEST";
 
 export class CardAction {
   "type": CardActionType;
@@ -45,9 +50,32 @@ export class CardAction {
   "url"?: string;
   "phone"?: string;
   "id"?: string;
+  "code"?: string;
 }
 
-export type CardActionType = "URL" | "PHONE_NUMBER" | "QUICK_REPLY";
+export type CardActionType =
+  | "URL"
+  | "PHONE_NUMBER"
+  | "QUICK_REPLY"
+  | "COPY_CODE"
+  | "VOICE_CALL";
+
+export class CarouselAction {
+  "type": CarouselActionType;
+  "title": string;
+  "url"?: string;
+  "phone"?: string;
+  "id"?: string;
+}
+
+export type CarouselActionType = "URL" | "PHONE_NUMBER" | "QUICK_REPLY";
+
+export class CarouselCard {
+  "title"?: string;
+  "body"?: string;
+  "media"?: string;
+  "actions"?: Array<CarouselAction>;
+}
 
 export class CatalogItem {
   "id"?: string;
@@ -75,6 +103,26 @@ export class ContentCreateRequest {
    */
   "language": string;
   "types": Types;
+}
+
+export class FlowsPage {
+  "id": string;
+  "nextPageId"?: string;
+  "title"?: string;
+  "subtitle"?: string;
+  "layout": Array<FlowsPageComponent>;
+}
+
+export class FlowsPageComponent {
+  "label": string;
+  "type": string;
+  "text"?: string;
+  "options"?: Array<FlowsPageComponentSelectItem>;
+}
+
+export class FlowsPageComponentSelectItem {
+  "id": string;
+  "title": string;
 }
 
 export class ListItem {
@@ -110,6 +158,14 @@ export class TwilioCard {
 }
 
 /**
+ * twilio/carousel templates allow you to send a single text message accompanied by a set of up to 10 carousel cards in a horizontally scrollable view
+ */
+export class TwilioCarousel {
+  "body": string;
+  "cards": Array<CarouselCard>;
+}
+
+/**
  * twilio/catalog type lets recipients view list of catalog products, ask questions about products, order products.
  */
 export class TwilioCatalog {
@@ -119,6 +175,18 @@ export class TwilioCatalog {
   "id"?: string;
   "items"?: Array<CatalogItem>;
   "dynamicItems"?: string;
+}
+
+/**
+ * twilio/flows templates allow you to send multiple messages in a set order with text or select options
+ */
+export class TwilioFlows {
+  "body": string;
+  "buttonText": string;
+  "subtitle": string;
+  "mediaUrl": string;
+  "pages": Array<FlowsPage>;
+  "type": string;
 }
 
 /**
@@ -174,6 +242,8 @@ export class Types {
   "twilioQuickReply"?: TwilioQuickReply | null;
   "twilioCard"?: TwilioCard | null;
   "twilioCatalog"?: TwilioCatalog | null;
+  "twilioCarousel"?: TwilioCarousel | null;
+  "twilioFlows"?: TwilioFlows | null;
   "whatsappCard"?: WhatsappCard | null;
   "whatsappAuthentication"?: WhatsappAuthentication | null;
 }

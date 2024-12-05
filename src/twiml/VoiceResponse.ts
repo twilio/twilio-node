@@ -348,6 +348,8 @@ namespace VoiceResponse {
 
   type ConversationTrim = "trim-silence" | "do-not-trim";
 
+  type DialEvents = "call-progress-event";
+
   type DialRecord =
     | "do-not-record"
     | "record-from-answer"
@@ -1315,6 +1317,10 @@ namespace VoiceResponse {
 
   type StreamTrack = "inbound_track" | "outbound_track" | "both_tracks";
 
+  type TranscriptionStatusCallbackMethod = "GET" | "POST";
+
+  type TranscriptionTrack = "inbound_track" | "outbound_track" | "both_tracks";
+
   /**
    * Attributes to pass to connect
    */
@@ -1335,6 +1341,8 @@ namespace VoiceResponse {
     answerOnBridge?: boolean;
     /** callerId - Caller ID to display */
     callerId?: string;
+    /** events - Subscription to events */
+    events?: DialEvents;
     /** hangupOnStar - Hangup call on star press */
     hangupOnStar?: boolean;
     /** method - Action URL method */
@@ -1644,6 +1652,60 @@ namespace VoiceResponse {
   }
 
   /**
+   * Attributes to pass to transcription
+   */
+  export interface TranscriptionAttributes {
+    /** enableAutomaticPunctuation - Enable Automatic Punctuation */
+    enableAutomaticPunctuation?: boolean;
+    /** hints - Hints to be provided to the transcription engine */
+    hints?: string;
+    /** inboundTrackLabel - Friendly name given to the Inbound Track */
+    inboundTrackLabel?: string;
+    /** intelligenceService - The SID or the unique name of the Intelligence Service to be used */
+    intelligenceService?: string;
+    /** languageCode - Language Code used by the transcription engine */
+    languageCode?: string;
+    /** name - Friendly name given to the Transcription */
+    name?: string;
+    /** outboundTrackLabel - Friendly name given to the Outbound Track Label */
+    outboundTrackLabel?: string;
+    /** partialResults - Indicates if partial results are going to be send to the customer */
+    partialResults?: boolean;
+    /** profanityFilter - Enable Profanity Filter */
+    profanityFilter?: boolean;
+    /** speechModel - Speech Model used by the transcription engine */
+    speechModel?: string;
+    /** statusCallbackMethod - Status Callback URL method */
+    statusCallbackMethod?: TranscriptionStatusCallbackMethod;
+    /** statusCallbackUrl - Status Callback URL */
+    statusCallbackUrl?: string;
+    /** track - Track to be analyze by the provider */
+    track?: TranscriptionTrack;
+    /** transcriptionEngine - Transcription Engine to be used */
+    transcriptionEngine?: string;
+  }
+
+  /**
+   * Attributes to pass to config
+   */
+  export interface ConfigAttributes {
+    /** name - The name of the custom config */
+    name?: string;
+    /** value - The value of the custom config */
+    value?: string;
+  }
+
+  /**
+   * Attributes to pass to parameter
+   */
+  export interface ParameterAttributes {
+    /** name - The name of the custom parameter */
+    name?: string;
+    /** value - The value of the custom parameter */
+    value?: string;
+  }
+
+  /**
    * Attributes to pass to parameter
    */
   export interface ParameterAttributes {
@@ -1695,6 +1757,40 @@ namespace VoiceResponse {
     statusCallbackMethod?: SiprecStatusCallbackMethod;
     /** track - Track to be streamed to remote service */
     track?: SiprecTrack;
+  }
+
+  /**
+   * Attributes to pass to transcription
+   */
+  export interface TranscriptionAttributes {
+    /** enableAutomaticPunctuation - Enable Automatic Punctuation */
+    enableAutomaticPunctuation?: boolean;
+    /** hints - Hints to be provided to the transcription engine */
+    hints?: string;
+    /** inboundTrackLabel - Friendly name given to the Inbound Track */
+    inboundTrackLabel?: string;
+    /** intelligenceService - The SID or the unique name of the Intelligence Service to be used */
+    intelligenceService?: string;
+    /** languageCode - Language Code used by the transcription engine */
+    languageCode?: string;
+    /** name - Friendly name given to the Transcription */
+    name?: string;
+    /** outboundTrackLabel - Friendly name given to the Outbound Track Label */
+    outboundTrackLabel?: string;
+    /** partialResults - Indicates if partial results are going to be send to the customer */
+    partialResults?: boolean;
+    /** profanityFilter - Enable Profanity Filter */
+    profanityFilter?: boolean;
+    /** speechModel - Speech Model used by the transcription engine */
+    speechModel?: string;
+    /** statusCallbackMethod - Status Callback URL method */
+    statusCallbackMethod?: TranscriptionStatusCallbackMethod;
+    /** statusCallbackUrl - Status Callback URL */
+    statusCallbackUrl?: string;
+    /** track - Track to be analyze by the provider */
+    track?: TranscriptionTrack;
+    /** transcriptionEngine - Transcription Engine to be used */
+    transcriptionEngine?: string;
   }
 
   /**
@@ -2576,6 +2672,134 @@ namespace VoiceResponse {
   }
 
   /**
+   * Attributes to pass to conversationRelay
+   */
+  export interface ConversationRelayAttributes {
+    /** debug - Whether debugging on the session is enabled */
+    debug?: boolean;
+    /** dtmfDetection - Whether DTMF tones should be detected and reported in speech transcription */
+    dtmfDetection?: boolean;
+    /** interruptByDtmf - Whether DTMF tone can interrupt the play of text-to-speech */
+    interruptByDtmf?: boolean;
+    /** interruptible - Whether caller's speaking can interrupt the play of text-to-speech */
+    interruptible?: boolean;
+    /** language - Language to be used for both text-to-speech and transcription */
+    language?: string;
+    /** partialPrompts - Whether partial prompts should be reported to WebSocket server before the caller finishes speaking */
+    partialPrompts?: boolean;
+    /** profanityFilter - Whether profanities should be filtered out of the speech transcription */
+    profanityFilter?: boolean;
+    /** speechModel - Speech model to be used for transcription */
+    speechModel?: string;
+    /** transcriptionLanguage - Language to be used for transcription */
+    transcriptionLanguage?: string;
+    /** transcriptionProvider - Provider to be used for transcription */
+    transcriptionProvider?: string;
+    /** ttsLanguage - Language to be used for text-to-speech */
+    ttsLanguage?: string;
+    /** ttsProvider - Provider to be used for text-to-speech */
+    ttsProvider?: string;
+    /** url - URL of the remote service where the session is connected to */
+    url?: string;
+    /** voice - Voice to be used for text-to-speech */
+    voice?: string;
+    /** welcomeGreeting - The sentence to be played automatically when the session is connected */
+    welcomeGreeting?: string;
+    /** welcomeGreetingInterruptible - Whether caller's speaking can interrupt the welcome greeting */
+    welcomeGreetingInterruptible?: boolean;
+  }
+
+  /**
+   * Attributes to pass to assistant
+   */
+  export interface AssistantAttributes {
+    /** debug - Whether debugging on the session is enabled */
+    debug?: boolean;
+    /** dtmfDetection - Whether DTMF tones should be detected and reported in speech transcription */
+    dtmfDetection?: boolean;
+    /** id - The assistant ID of the AI Assistant */
+    id?: string;
+    /** interruptByDtmf - Whether DTMF tone can interrupt the play of text-to-speech */
+    interruptByDtmf?: boolean;
+    /** interruptible - Whether caller's speaking can interrupt the play of text-to-speech */
+    interruptible?: boolean;
+    /** language - Language to be used for both text-to-speech and transcription */
+    language?: string;
+    /** partialPrompts - Whether partial prompts should be reported to WebSocket server before the caller finishes speaking */
+    partialPrompts?: boolean;
+    /** profanityFilter - Whether profanities should be filtered out of the speech transcription */
+    profanityFilter?: boolean;
+    /** speechModel - Speech model to be used for transcription */
+    speechModel?: string;
+    /** transcriptionLanguage - Language to be used for transcription */
+    transcriptionLanguage?: string;
+    /** transcriptionProvider - Provider to be used for transcription */
+    transcriptionProvider?: string;
+    /** ttsLanguage - Language to be used for text-to-speech */
+    ttsLanguage?: string;
+    /** ttsProvider - Provider to be used for text-to-speech */
+    ttsProvider?: string;
+    /** voice - Voice to be used for text-to-speech */
+    voice?: string;
+    /** welcomeGreeting - The sentence to be played automatically when the session is connected */
+    welcomeGreeting?: string;
+    /** welcomeGreetingInterruptible - Whether caller's speaking can interrupt the welcome greeting */
+    welcomeGreetingInterruptible?: boolean;
+  }
+
+  /**
+   * Attributes to pass to language
+   */
+  export interface LanguageAttributes {
+    /** code - Language code of this language setting is for */
+    code?: string;
+    /** speechModel - Speech model to be used for transcription of this language */
+    speechModel?: string;
+    /** transcriptionProvider - Provider to be used for transcription of this language */
+    transcriptionProvider?: string;
+    /** ttsProvider - Provider to be used for text-to-speech of this language */
+    ttsProvider?: string;
+    /** voice - Voice to be used for text-to-speech of this language */
+    voice?: string;
+  }
+
+  /**
+   * Attributes to pass to parameter
+   */
+  export interface ParameterAttributes {
+    /** name - The name of the custom parameter */
+    name?: string;
+    /** value - The value of the custom parameter */
+    value?: string;
+  }
+
+  /**
+   * Attributes to pass to language
+   */
+  export interface LanguageAttributes {
+    /** code - Language code of this language setting is for */
+    code?: string;
+    /** speechModel - Speech model to be used for transcription of this language */
+    speechModel?: string;
+    /** transcriptionProvider - Provider to be used for transcription of this language */
+    transcriptionProvider?: string;
+    /** ttsProvider - Provider to be used for text-to-speech of this language */
+    ttsProvider?: string;
+    /** voice - Voice to be used for text-to-speech of this language */
+    voice?: string;
+  }
+
+  /**
+   * Attributes to pass to parameter
+   */
+  export interface ParameterAttributes {
+    /** name - The name of the custom parameter */
+    name?: string;
+    /** value - The value of the custom parameter */
+    value?: string;
+  }
+
+  /**
    * Attributes to pass to config
    */
   export interface ConfigAttributes {
@@ -2651,6 +2875,42 @@ namespace VoiceResponse {
       super();
       this.applicationSid = applicationSid;
       this._propertyName = "applicationSid";
+    }
+  }
+
+  export class Assistant extends TwiML {
+    assistant: XMLElement;
+    /**
+     * <Assistant> TwiML Noun
+     */
+    constructor(assistant: XMLElement) {
+      super();
+      this.assistant = assistant;
+      this._propertyName = "assistant";
+    }
+    /**
+     * <Language> TwiML Noun
+     *
+     * @param attributes - TwiML attributes
+     */
+    language(
+      attributes?: VoiceResponse.LanguageAttributes
+    ): VoiceResponse.Language {
+      return new VoiceResponse.Language(
+        this.assistant.ele("Language", attributes)
+      );
+    }
+    /**
+     * <Parameter> TwiML Noun
+     *
+     * @param attributes - TwiML attributes
+     */
+    parameter(
+      attributes?: VoiceResponse.ParameterAttributes
+    ): VoiceResponse.Parameter {
+      return new VoiceResponse.Parameter(
+        this.assistant.ele("Parameter", attributes)
+      );
     }
   }
 
@@ -2748,6 +3008,18 @@ namespace VoiceResponse {
       this._propertyName = "connect";
     }
     /**
+     * <Assistant> TwiML Noun
+     *
+     * @param attributes - TwiML attributes
+     */
+    assistant(
+      attributes?: VoiceResponse.AssistantAttributes
+    ): VoiceResponse.Assistant {
+      return new VoiceResponse.Assistant(
+        this.connect.ele("Assistant", attributes)
+      );
+    }
+    /**
      * <Autopilot> TwiML Noun
      *
      * @param attributes - TwiML attributes
@@ -2777,6 +3049,18 @@ namespace VoiceResponse {
     ): VoiceResponse.Conversation {
       return new VoiceResponse.Conversation(
         this.connect.ele("Conversation", attributes)
+      );
+    }
+    /**
+     * <ConversationRelay> TwiML Noun
+     *
+     * @param attributes - TwiML attributes
+     */
+    conversationRelay(
+      attributes?: VoiceResponse.ConversationRelayAttributes
+    ): VoiceResponse.ConversationRelay {
+      return new VoiceResponse.ConversationRelay(
+        this.connect.ele("ConversationRelay", attributes)
       );
     }
     /**
@@ -2831,6 +3115,42 @@ namespace VoiceResponse {
       super();
       this.conversation = conversation;
       this._propertyName = "conversation";
+    }
+  }
+
+  export class ConversationRelay extends TwiML {
+    conversationRelay: XMLElement;
+    /**
+     * <ConversationRelay> TwiML Noun
+     */
+    constructor(conversationRelay: XMLElement) {
+      super();
+      this.conversationRelay = conversationRelay;
+      this._propertyName = "conversationRelay";
+    }
+    /**
+     * <Language> TwiML Noun
+     *
+     * @param attributes - TwiML attributes
+     */
+    language(
+      attributes?: VoiceResponse.LanguageAttributes
+    ): VoiceResponse.Language {
+      return new VoiceResponse.Language(
+        this.conversationRelay.ele("Language", attributes)
+      );
+    }
+    /**
+     * <Parameter> TwiML Noun
+     *
+     * @param attributes - TwiML attributes
+     */
+    parameter(
+      attributes?: VoiceResponse.ParameterAttributes
+    ): VoiceResponse.Parameter {
+      return new VoiceResponse.Parameter(
+        this.conversationRelay.ele("Parameter", attributes)
+      );
     }
   }
 
@@ -3135,6 +3455,18 @@ namespace VoiceResponse {
       super();
       this.identity = identity;
       this._propertyName = "identity";
+    }
+  }
+
+  export class Language extends TwiML {
+    language: XMLElement;
+    /**
+     * <Language> TwiML Noun
+     */
+    constructor(language: XMLElement) {
+      super();
+      this.language = language;
+      this._propertyName = "language";
     }
   }
 
@@ -4877,6 +5209,18 @@ namespace VoiceResponse {
     stream(attributes?: VoiceResponse.StreamAttributes): VoiceResponse.Stream {
       return new VoiceResponse.Stream(this.start.ele("Stream", attributes));
     }
+    /**
+     * <Transcription> TwiML Noun
+     *
+     * @param attributes - TwiML attributes
+     */
+    transcription(
+      attributes?: VoiceResponse.TranscriptionAttributes
+    ): VoiceResponse.Transcription {
+      return new VoiceResponse.Transcription(
+        this.start.ele("Transcription", attributes)
+      );
+    }
   }
 
   export class Stop extends TwiML {
@@ -4904,6 +5248,18 @@ namespace VoiceResponse {
      */
     stream(attributes?: VoiceResponse.StreamAttributes): VoiceResponse.Stream {
       return new VoiceResponse.Stream(this.stop.ele("Stream", attributes));
+    }
+    /**
+     * <Transcription> TwiML Noun
+     *
+     * @param attributes - TwiML attributes
+     */
+    transcription(
+      attributes?: VoiceResponse.TranscriptionAttributes
+    ): VoiceResponse.Transcription {
+      return new VoiceResponse.Transcription(
+        this.stop.ele("Transcription", attributes)
+      );
     }
   }
 
@@ -4940,6 +5296,40 @@ namespace VoiceResponse {
       super();
       this.task = task;
       this._propertyName = "task";
+    }
+  }
+
+  export class Transcription extends TwiML {
+    transcription: XMLElement;
+    /**
+     * <Transcription> TwiML Noun
+     */
+    constructor(transcription: XMLElement) {
+      super();
+      this.transcription = transcription;
+      this._propertyName = "transcription";
+    }
+    /**
+     * <Config> TwiML Noun
+     *
+     * @param attributes - TwiML attributes
+     */
+    config(attributes?: VoiceResponse.ConfigAttributes): VoiceResponse.Config {
+      return new VoiceResponse.Config(
+        this.transcription.ele("Config", attributes)
+      );
+    }
+    /**
+     * <Parameter> TwiML Noun
+     *
+     * @param attributes - TwiML attributes
+     */
+    parameter(
+      attributes?: VoiceResponse.ParameterAttributes
+    ): VoiceResponse.Parameter {
+      return new VoiceResponse.Parameter(
+        this.transcription.ele("Parameter", attributes)
+      );
     }
   }
 

@@ -169,7 +169,7 @@ export class PortingPortInInstance {
     this.losingCarrierInformation = payload.losing_carrier_information;
     this.phoneNumbers = payload.phone_numbers;
     this.documents = payload.documents;
-    this.dateCreated = deserialize.iso8601Date(payload.date_created);
+    this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
 
     this._solution = {
       portInRequestSid: portInRequestSid || this.portInRequestSid,
@@ -185,23 +185,23 @@ export class PortingPortInInstance {
    */
   url: string;
   /**
-   * The Account SID that the numbers will be added to after they are ported into Twilio.
+   * Account Sid or subaccount where the phone number(s) will be Ported
    */
   accountSid: string;
   /**
-   * List of emails for getting notifications about the LOA signing process. Allowed Max 10 emails.
+   * Additional emails to send a copy of the signed LOA to.
    */
   notificationEmails: Array<string>;
   /**
-   * Minimum number of days in the future (at least 2 days) needs to be established with the Ops team for validation.
+   * Target date to port the number. We cannot guarantee that this date will be honored by the other carriers, please work with Ops to get a confirmation of the firm order commitment (FOC) date. Expected format is ISO Local Date, example: ‘2011-12-03`. This date must be at least 7 days in the future for US ports and 10 days in the future for Japanese ports. (This value is only available for custom porting customers.)
    */
   targetPortInDate: Date;
   /**
-   * Minimum hour in the future needs to be established with the Ops team for validation.
+   * The earliest time that the port should occur on the target port in date. Expected format is ISO Offset Time, example: ‘10:15:00-08:00\'. (This value is only available for custom porting customers.)
    */
   targetPortInTimeRangeStart: string;
   /**
-   * Maximum hour in the future needs to be established with the Ops team for validation.
+   * The latest time that the port should occur on the target port in date. Expected format is ISO Offset Time, example: ‘10:15:00-08:00\'.  (This value is only available for custom porting customers.)
    */
   targetPortInTimeRangeEnd: string;
   /**
@@ -209,15 +209,12 @@ export class PortingPortInInstance {
    */
   portInRequestStatus: string;
   /**
-   * The information for the losing carrier.
+   * Details regarding the customer’s information with the losing carrier. These values will be used to generate the letter of authorization and should match the losing carrier’s data as closely as possible to ensure the port is accepted.
    */
   losingCarrierInformation: any;
-  /**
-   * The list of phone numbers to Port in. Phone numbers are in E.164 format (e.g. +16175551212).
-   */
   phoneNumbers: Array<any>;
   /**
-   * The list of documents SID referencing a utility bills
+   * List of document SIDs for all phone numbers included in the port in request. At least one document SID referring to a document of the type Utility Bill is required.
    */
   documents: Array<string>;
   dateCreated: Date;

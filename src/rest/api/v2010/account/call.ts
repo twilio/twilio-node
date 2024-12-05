@@ -25,6 +25,7 @@ import { PaymentListInstance } from "./call/payment";
 import { RecordingListInstance } from "./call/recording";
 import { SiprecListInstance } from "./call/siprec";
 import { StreamListInstance } from "./call/stream";
+import { TranscriptionListInstance } from "./call/transcription";
 import { UserDefinedMessageListInstance } from "./call/userDefinedMessage";
 import { UserDefinedMessageSubscriptionListInstance } from "./call/userDefinedMessageSubscription";
 import TwiML from "../../../../twiml/TwiML";
@@ -243,6 +244,7 @@ export interface CallContext {
   recordings: RecordingListInstance;
   siprec: SiprecListInstance;
   streams: StreamListInstance;
+  transcriptions: TranscriptionListInstance;
   userDefinedMessages: UserDefinedMessageListInstance;
   userDefinedMessageSubscriptions: UserDefinedMessageSubscriptionListInstance;
 
@@ -313,6 +315,7 @@ export class CallContextImpl implements CallContext {
   protected _recordings?: RecordingListInstance;
   protected _siprec?: SiprecListInstance;
   protected _streams?: StreamListInstance;
+  protected _transcriptions?: TranscriptionListInstance;
   protected _userDefinedMessages?: UserDefinedMessageListInstance;
   protected _userDefinedMessageSubscriptions?: UserDefinedMessageSubscriptionListInstance;
 
@@ -393,6 +396,17 @@ export class CallContextImpl implements CallContext {
         this._solution.sid
       );
     return this._streams;
+  }
+
+  get transcriptions(): TranscriptionListInstance {
+    this._transcriptions =
+      this._transcriptions ||
+      TranscriptionListInstance(
+        this._version,
+        this._solution.accountSid,
+        this._solution.sid
+      );
+    return this._transcriptions;
   }
 
   get userDefinedMessages(): UserDefinedMessageListInstance {
@@ -817,6 +831,13 @@ export class CallInstance {
    */
   streams(): StreamListInstance {
     return this._proxy.streams;
+  }
+
+  /**
+   * Access the transcriptions.
+   */
+  transcriptions(): TranscriptionListInstance {
+    return this._proxy.transcriptions;
   }
 
   /**

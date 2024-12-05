@@ -276,6 +276,7 @@ interface SupportingDocumentResource {
   mime_type: string;
   status: SupportingDocumentStatus;
   failure_reason: string;
+  errors: Array<any>;
   type: string;
   attributes: any;
   date_created: Date;
@@ -298,6 +299,7 @@ export class SupportingDocumentInstance {
     this.mimeType = payload.mime_type;
     this.status = payload.status;
     this.failureReason = payload.failure_reason;
+    this.errors = payload.errors;
     this.type = payload.type;
     this.attributes = payload.attributes;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
@@ -328,6 +330,10 @@ export class SupportingDocumentInstance {
    * The failure reason of the Supporting Document Resource.
    */
   failureReason: string;
+  /**
+   * A list of errors that occurred during the registering RC Bundle
+   */
+  errors: Array<any>;
   /**
    * The type of the Supporting Document.
    */
@@ -425,6 +431,7 @@ export class SupportingDocumentInstance {
       mimeType: this.mimeType,
       status: this.status,
       failureReason: this.failureReason,
+      errors: this.errors,
       type: this.type,
       attributes: this.attributes,
       dateCreated: this.dateCreated,

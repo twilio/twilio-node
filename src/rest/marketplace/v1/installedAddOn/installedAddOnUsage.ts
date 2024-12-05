@@ -18,32 +18,25 @@ const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
 
-export class CreateMarketplaceBillingUsageRequest {
-  "billableItems"?: Array<CreateMarketplaceBillingUsageRequestBillableItems>;
+export class MarketplaceV1InstalledAddOnInstalledAddOnUsage {
+  /**
+   * Total amount in local currency that was billed in this request. Aggregates all billable_items that were successfully submitted.
+   */
+  "totalSubmitted"?: number;
+  "billableItems": Array<MarketplaceV1InstalledAddOnInstalledAddOnUsageBillableItems>;
 }
 
-export class CreateMarketplaceBillingUsageRequestBillableItems {
+export class MarketplaceV1InstalledAddOnInstalledAddOnUsageBillableItems {
   /**
-   *
+   * Total amount in local currency that was billed for this Billing Item. Can be any floating number greater than 0.
    */
   "quantity": number;
   /**
-   *
+   * BillingSid to use for billing.
    */
   "sid": string;
-}
-
-export class MarketplaceInstalledAddOnBillingUsageResponseBillableItems {
   /**
-   *
-   */
-  "quantity"?: number;
-  /**
-   *
-   */
-  "sid"?: string;
-  /**
-   * Whether this billable item was successfully submitted for billing.
+   * Whether the billing event was successfully generated for this Billable Item.
    */
   "submitted"?: boolean;
 }
@@ -53,7 +46,7 @@ export class MarketplaceInstalledAddOnBillingUsageResponseBillableItems {
  */
 export interface InstalledAddOnUsageListInstanceCreateOptions {
   /**  */
-  createMarketplaceBillingUsageRequest: CreateMarketplaceBillingUsageRequest;
+  marketplaceV1InstalledAddOnInstalledAddOnUsage: MarketplaceV1InstalledAddOnInstalledAddOnUsage;
 }
 
 export interface InstalledAddOnUsageSolution {
@@ -74,7 +67,7 @@ export interface InstalledAddOnUsageListInstance {
    * @returns Resolves to processed InstalledAddOnUsageInstance
    */
   create(
-    params: CreateMarketplaceBillingUsageRequest,
+    params: MarketplaceV1InstalledAddOnInstalledAddOnUsage,
     callback?: (error: Error | null, item?: InstalledAddOnUsageInstance) => any
   ): Promise<InstalledAddOnUsageInstance>;
 
@@ -100,7 +93,7 @@ export function InstalledAddOnUsageListInstance(
   instance._uri = `/InstalledAddOns/${installedAddOnSid}/Usage`;
 
   instance.create = function create(
-    params: CreateMarketplaceBillingUsageRequest,
+    params: MarketplaceV1InstalledAddOnInstalledAddOnUsage,
     callback?: (error: Error | null, items: InstalledAddOnUsageInstance) => any
   ): Promise<InstalledAddOnUsageInstance> {
     if (params === null || params === undefined) {
@@ -155,8 +148,8 @@ export function InstalledAddOnUsageListInstance(
 interface InstalledAddOnUsagePayload extends InstalledAddOnUsageResource {}
 
 interface InstalledAddOnUsageResource {
-  billable_items: Array<MarketplaceInstalledAddOnBillingUsageResponseBillableItems>;
   total_submitted: number;
+  billable_items: Array<MarketplaceV1InstalledAddOnInstalledAddOnUsageBillableItems>;
 }
 
 export class InstalledAddOnUsageInstance {
@@ -165,15 +158,15 @@ export class InstalledAddOnUsageInstance {
     payload: InstalledAddOnUsageResource,
     installedAddOnSid: string
   ) {
-    this.billableItems = payload.billable_items;
     this.totalSubmitted = payload.total_submitted;
+    this.billableItems = payload.billable_items;
   }
 
-  billableItems: Array<MarketplaceInstalledAddOnBillingUsageResponseBillableItems>;
   /**
-   * Represents the total quantity submitted.
+   * Total amount in local currency that was billed in this request. Aggregates all billable_items that were successfully submitted.
    */
   totalSubmitted: number;
+  billableItems: Array<MarketplaceV1InstalledAddOnInstalledAddOnUsageBillableItems>;
 
   /**
    * Provide a user-friendly representation
@@ -182,8 +175,8 @@ export class InstalledAddOnUsageInstance {
    */
   toJSON() {
     return {
-      billableItems: this.billableItems,
       totalSubmitted: this.totalSubmitted,
+      billableItems: this.billableItems,
     };
   }
 

@@ -22,16 +22,20 @@ import { isValidPathParam } from "../../../base/utility";
  * Options to pass to update a ModuleDataManagementInstance
  */
 export interface ModuleDataManagementContextUpdateOptions {
-  /**  */
+  /** A JSON object containing essential attributes that define a Listing. */
   moduleInfo?: string;
-  /**  */
+  /** A JSON object describing the Listing. You can define the main body of the description, highlight key features or aspects of the Listing, and provide code samples for developers if applicable. */
   description?: string;
-  /**  */
+  /** A JSON object for providing comprehensive information, instructions, and resources related to the Listing. */
   documentation?: string;
-  /**  */
+  /** A JSON object describing the Listing\\\'s privacy and legal policies. The maximum file size for Policies is 5MB. */
   policies?: string;
-  /**  */
+  /** A JSON object containing information on how Marketplace users can obtain support for the Listing. Use this parameter to provide details such as contact information and support description. */
   support?: string;
+  /** A JSON object for providing Listing-specific configuration. Contains button setup, notification URL, and more. */
+  configuration?: string;
+  /** A JSON object for providing Listing\\\'s purchase options. */
+  pricing?: string;
 }
 
 export interface ModuleDataManagementContext {
@@ -144,6 +148,9 @@ export class ModuleDataManagementContextImpl
       data["Documentation"] = params["documentation"];
     if (params["policies"] !== undefined) data["Policies"] = params["policies"];
     if (params["support"] !== undefined) data["Support"] = params["support"];
+    if (params["configuration"] !== undefined)
+      data["Configuration"] = params["configuration"];
+    if (params["pricing"] !== undefined) data["Pricing"] = params["pricing"];
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
@@ -197,6 +204,8 @@ interface ModuleDataManagementResource {
   policies: any;
   module_info: any;
   documentation: any;
+  configuration: any;
+  pricing: any;
 }
 
 export class ModuleDataManagementInstance {
@@ -215,17 +224,48 @@ export class ModuleDataManagementInstance {
     this.policies = payload.policies;
     this.moduleInfo = payload.module_info;
     this.documentation = payload.documentation;
+    this.configuration = payload.configuration;
+    this.pricing = payload.pricing;
 
     this._solution = { sid: sid || this.sid };
   }
 
+  /**
+   * URL to query the subresource.
+   */
   url: string;
+  /**
+   * ModuleSid that identifies this Listing.
+   */
   sid: string;
+  /**
+   * A JSON object describing the module and is displayed under the Description tab of the Module detail page. You can define the main body of the description, highlight key features or aspects of the module and if applicable, provide code samples for developers
+   */
   description: any;
+  /**
+   * A JSON object containing information on how customers can obtain support for the module. Use this parameter to provide details such as contact information and support description.
+   */
   support: any;
+  /**
+   * A JSON object describing the module\'s privacy and legal policies and is displayed under the Policies tab of the Module detail page. The maximum file size for Policies is 5MB
+   */
   policies: any;
+  /**
+   * A JSON object containing essential attributes that define a module. This information is presented on the Module detail page in the Twilio Marketplace Catalog. You can pass the following attributes in the JSON object
+   */
   moduleInfo: any;
+  /**
+   * A JSON object for providing comprehensive information, instructions, and resources related to the module
+   */
   documentation: any;
+  /**
+   * A JSON object for providing listing specific configuration. Contains button setup, notification url, among others.
+   */
+  configuration: any;
+  /**
+   * A JSON object for providing Listing specific pricing information.
+   */
+  pricing: any;
 
   private get _proxy(): ModuleDataManagementContext {
     this._context =
@@ -291,6 +331,8 @@ export class ModuleDataManagementInstance {
       policies: this.policies,
       moduleInfo: this.moduleInfo,
       documentation: this.documentation,
+      configuration: this.configuration,
+      pricing: this.pricing,
     };
   }
 

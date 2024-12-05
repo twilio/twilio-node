@@ -24,6 +24,8 @@ import { isValidPathParam } from "../../../base/utility";
 export interface ComplianceInquiriesContextUpdateOptions {
   /** The unique SID identifier of the Primary Customer Profile that should be used as a parent. Only necessary when creating a secondary Customer Profile. */
   primaryProfileSid: string;
+  /** Theme id for styling the inquiry form. */
+  themeSetId?: string;
 }
 
 /**
@@ -34,6 +36,8 @@ export interface ComplianceInquiriesListInstanceCreateOptions {
   primaryProfileSid: string;
   /** The email address that approval status updates will be sent to. If not specified, the email address associated with your primary customer profile will be used. */
   notificationEmail?: string;
+  /** Theme id for styling the inquiry form. */
+  themeSetId?: string;
 }
 
 export interface ComplianceInquiriesContext {
@@ -96,6 +100,8 @@ export class ComplianceInquiriesContextImpl
     let data: any = {};
 
     data["PrimaryProfileSid"] = params["primaryProfileSid"];
+    if (params["themeSetId"] !== undefined)
+      data["ThemeSetId"] = params["themeSetId"];
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
@@ -297,6 +303,8 @@ export function ComplianceInquiriesListInstance(
     data["PrimaryProfileSid"] = params["primaryProfileSid"];
     if (params["notificationEmail"] !== undefined)
       data["NotificationEmail"] = params["notificationEmail"];
+    if (params["themeSetId"] !== undefined)
+      data["ThemeSetId"] = params["themeSetId"];
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
