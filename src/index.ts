@@ -54,9 +54,9 @@ namespace TwilioSDK {
     IClientCredentialProvider.ClientCredentialProviderBuilder;
 
   export type OrgsCredentialProviderBuilder =
-      IOrgsCredentialProvider.OrgsCredentialProviderBuilder;
+    IOrgsCredentialProvider.OrgsCredentialProviderBuilder;
   export const OrgsCredentialProviderBuilder =
-      IOrgsCredentialProvider.OrgsCredentialProviderBuilder;
+    IOrgsCredentialProvider.OrgsCredentialProviderBuilder;
 
   export type NoAuthCredentialProvider =
     INoAuthCredentialProvider.NoAuthCredentialProvider;
