@@ -249,6 +249,8 @@ export default class Page<
     if (keys.length === 1) {
       return payload[keys[0]];
     }
+    for (const key of keys)
+      if (Array.isArray(payload[key])) return payload[key];
 
     throw new Error("Page Records cannot be deserialized");
   }

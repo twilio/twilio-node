@@ -1,6 +1,8 @@
 import RequestClient from "./RequestClient"; /* jshint ignore:line */
 import { HttpMethod } from "../interfaces"; /* jshint ignore:line */
 import { Headers } from "../http/request"; /* jshint ignore:line */
+import AuthStrategy from "../auth_strategy/AuthStrategy"; /* jshint ignore:line */
+import CredentialProvider from "../credential_provider/CredentialProvider"; /* jshint ignore:line */
 
 const os = require("os"); /* jshint ignore:line */
 const url = require("url"); /* jshint ignore:line */
@@ -40,6 +42,7 @@ namespace Twilio {
     uri?: string;
     username?: string;
     password?: string;
+    authStrategy?: AuthStrategy;
     headers?: Headers;
     params?: object;
     data?: object;
@@ -56,9 +59,10 @@ namespace Twilio {
   /* jshint ignore:end */
 
   export class Client {
-    username: string;
-    password: string;
+    username?: string;
+    password?: string;
     accountSid: string;
+    credentialProvider?: CredentialProvider;
     opts?: ClientOpts;
     env?: NodeJS.ProcessEnv;
     edge?: string;
@@ -101,23 +105,23 @@ namespace Twilio {
     /* jshint ignore:end */
 
     constructor(username?: string, password?: string, opts?: ClientOpts) {
-      this.opts = opts || {};
-      this.env = this.opts.env || {};
+      this.setOpts(opts);
       this.username =
         username ??
-        this.env.TWILIO_ACCOUNT_SID ??
-        process.env.TWILIO_ACCOUNT_SID ??
-        (() => {
-          throw new Error("username is required");
-        })();
+        this.env?.TWILIO_ACCOUNT_SID ??
+        process.env.TWILIO_ACCOUNT_SID;
       this.password =
         password ??
-        this.env.TWILIO_AUTH_TOKEN ??
-        process.env.TWILIO_AUTH_TOKEN ??
-        (() => {
-          throw new Error("password is required");
-        })();
-      this.accountSid = this.opts.accountSid || this.username;
+        this.env?.TWILIO_AUTH_TOKEN ??
+        process.env.TWILIO_AUTH_TOKEN;
+      this.accountSid = "";
+      this.setAccountSid(this.opts?.accountSid || this.username);
+      this.invalidateOAuth();
+    }
+
+    setOpts(opts?: ClientOpts) {
+      this.opts = opts || {};
+      this.env = this.opts.env || {};
       this.edge =
         this.opts.edge ?? this.env.TWILIO_EDGE ?? process.env.TWILIO_EDGE;
       this.region =
@@ -144,14 +148,33 @@ namespace Twilio {
       if (this.opts.lazyLoading === false) {
         this._httpClient = this.httpClient;
       }
+    }
 
-      if (!this.accountSid.startsWith("AC")) {
-        const apiKeyMsg = this.accountSid.startsWith("SK")
+    setAccountSid(accountSid?: string) {
+      this.accountSid = accountSid || "";
+
+      if (this.accountSid && !this.accountSid?.startsWith("AC")) {
+        const apiKeyMsg = this.accountSid?.startsWith("SK")
           ? ". The given SID indicates an API Key which requires the accountSid to be passed as an additional option"
           : "";
 
         throw new Error("accountSid must start with AC" + apiKeyMsg);
       }
+    }
+
+    setCredentialProvider(credentialProvider: CredentialProvider) {
+      this.credentialProvider = credentialProvider;
+      this.accountSid = "";
+      this.invalidateBasicAuth();
+    }
+
+    invalidateBasicAuth() {
+      this.username = undefined;
+      this.password = undefined;
+    }
+
+    invalidateOAuth() {
+      this.credentialProvider = undefined;
     }
 
     get httpClient() {
@@ -196,6 +219,22 @@ namespace Twilio {
 
       const username = opts.username || this.username;
       const password = opts.password || this.password;
+      const authStrategy =
+        opts.authStrategy || this.credentialProvider?.toAuthStrategy();
+
+      if (!authStrategy) {
+        if (!username) {
+          (() => {
+            throw new Error("username is required");
+          })();
+        }
+
+        if (!password) {
+          (() => {
+            throw new Error("password is required");
+          })();
+        }
+      }
 
       const headers = opts.headers || {};
 
@@ -223,7 +262,7 @@ namespace Twilio {
         headers["Content-Type"] = "application/x-www-form-urlencoded";
       }
 
-      if (!headers["Accept"]) {
+      if (opts.method !== "delete" && !headers["Accept"]) {
         headers["Accept"] = "application/json";
       }
 
@@ -235,6 +274,7 @@ namespace Twilio {
         uri: uri.href,
         username: username,
         password: password,
+        authStrategy: authStrategy,
         headers: headers,
         params: opts.params,
         data: opts.data,
