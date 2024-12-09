@@ -161,6 +161,7 @@ export class PluginVersionsContextImpl implements PluginVersionsContext {
     let data: any = {};
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
     if (params["flexMetadata"] !== undefined)
       headers["Flex-Metadata"] = params["flexMetadata"];
 
@@ -513,6 +514,7 @@ export function PluginVersionsListInstance(
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
     if (params["flexMetadata"] !== undefined)
       headers["Flex-Metadata"] = params["flexMetadata"];
 
@@ -561,6 +563,7 @@ export function PluginVersionsListInstance(
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
     if (params["flexMetadata"] !== undefined)
       headers["Flex-Metadata"] = params["flexMetadata"];
 

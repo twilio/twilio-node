@@ -149,6 +149,7 @@ export class PhoneNumberContextImpl implements PhoneNumberContext {
       data["VerificationSid"] = params["verificationSid"];
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,

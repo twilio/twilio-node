@@ -112,11 +112,15 @@ export class NotificationContextImpl implements NotificationContext {
   fetch(
     callback?: (error: Error | null, item?: NotificationInstance) => any
   ): Promise<NotificationInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
         uri: instance._uri,
         method: "get",
+        headers,
       });
 
     operationPromise = operationPromise.then(
@@ -191,6 +195,7 @@ export class NotificationContextImpl implements NotificationContext {
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,

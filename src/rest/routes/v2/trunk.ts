@@ -90,11 +90,15 @@ export class TrunkContextImpl implements TrunkContext {
   fetch(
     callback?: (error: Error | null, item?: TrunkInstance) => any
   ): Promise<TrunkInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
         uri: instance._uri,
         method: "get",
+        headers,
       });
 
     operationPromise = operationPromise.then(
@@ -135,6 +139,7 @@ export class TrunkContextImpl implements TrunkContext {
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,

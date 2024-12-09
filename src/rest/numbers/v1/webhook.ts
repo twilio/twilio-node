@@ -53,10 +53,14 @@ export function WebhookListInstance(version: V1): WebhookListInstance {
   instance.fetch = function fetch(
     callback?: (error: Error | null, items: WebhookInstance) => any
   ): Promise<WebhookInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
     let operationVersion = version,
       operationPromise = operationVersion.fetch({
         uri: instance._uri,
         method: "get",
+        headers,
       });
 
     operationPromise = operationPromise.then(

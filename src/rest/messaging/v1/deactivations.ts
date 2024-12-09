@@ -87,6 +87,7 @@ export class DeactivationsContextImpl implements DeactivationsContext {
       data["Date"] = serialize.iso8601Date(params["date"]);
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
