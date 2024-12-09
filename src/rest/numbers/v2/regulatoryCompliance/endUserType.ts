@@ -95,11 +95,15 @@ export class EndUserTypeContextImpl implements EndUserTypeContext {
   fetch(
     callback?: (error: Error | null, item?: EndUserTypeInstance) => any
   ): Promise<EndUserTypeInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
         uri: instance._uri,
         method: "get",
+        headers,
       });
 
     operationPromise = operationPromise.then(
@@ -341,6 +345,7 @@ export function EndUserTypeListInstance(version: V2): EndUserTypeListInstance {
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.page({

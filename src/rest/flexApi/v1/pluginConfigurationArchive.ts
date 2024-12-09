@@ -104,6 +104,7 @@ export class PluginConfigurationArchiveContextImpl
     let data: any = {};
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
     if (params["flexMetadata"] !== undefined)
       headers["Flex-Metadata"] = params["flexMetadata"];
 

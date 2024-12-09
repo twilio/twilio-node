@@ -116,6 +116,7 @@ export class CallSummaryContextImpl implements CallSummaryContext {
       data["ProcessingState"] = params["processingState"];
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,

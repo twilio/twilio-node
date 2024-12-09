@@ -53,10 +53,14 @@ export function UsecaseListInstance(version: V1): UsecaseListInstance {
   instance.fetch = function fetch(
     callback?: (error: Error | null, items: UsecaseInstance) => any
   ): Promise<UsecaseInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
     let operationVersion = version,
       operationPromise = operationVersion.fetch({
         uri: instance._uri,
         method: "get",
+        headers,
       });
 
     operationPromise = operationPromise.then(

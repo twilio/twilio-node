@@ -101,11 +101,15 @@ export class EventTypeContextImpl implements EventTypeContext {
   fetch(
     callback?: (error: Error | null, item?: EventTypeInstance) => any
   ): Promise<EventTypeInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
         uri: instance._uri,
         method: "get",
+        headers,
       });
 
     operationPromise = operationPromise.then(
@@ -373,6 +377,7 @@ export function EventTypeListInstance(version: V1): EventTypeListInstance {
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.page({

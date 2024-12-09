@@ -74,12 +74,14 @@ export interface ConfigurationContext {
    * Update a ConfigurationInstance
    *
    * @param params - Body for request
+   * @param headers - header params for request
    * @param callback - Callback to handle processed record
    *
    * @returns Resolves to processed ConfigurationInstance
    */
   update(
     params: object,
+    headers?: any,
     callback?: (error: Error | null, item?: ConfigurationInstance) => any
   ): Promise<ConfigurationInstance>;
 
@@ -120,6 +122,7 @@ export class ConfigurationContextImpl implements ConfigurationContext {
       data["UiVersion"] = params["uiVersion"];
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
@@ -145,6 +148,7 @@ export class ConfigurationContextImpl implements ConfigurationContext {
     params?:
       | object
       | ((error: Error | null, item?: ConfigurationInstance) => any),
+    headers?: any,
     callback?: (error: Error | null, item?: ConfigurationInstance) => any
   ): Promise<ConfigurationInstance> {
     if (params instanceof Function) {
@@ -158,8 +162,12 @@ export class ConfigurationContextImpl implements ConfigurationContext {
 
     data = params;
 
-    const headers: any = {};
+    if (headers === null || headers === undefined) {
+      headers = {};
+    }
+
     headers["Content-Type"] = "application/json";
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
@@ -551,12 +559,14 @@ export class ConfigurationInstance {
    * Update a ConfigurationInstance
    *
    * @param params - Body for request
+   * @param headers - header params for request
    * @param callback - Callback to handle processed record
    *
    * @returns Resolves to processed ConfigurationInstance
    */
   update(
     params: object,
+    headers?: any,
     callback?: (error: Error | null, item?: ConfigurationInstance) => any
   ): Promise<ConfigurationInstance>;
 

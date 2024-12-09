@@ -156,6 +156,7 @@ export class RegulationContextImpl implements RegulationContext {
       data["IncludeConstraints"] = serialize.bool(params["includeConstraints"]);
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
@@ -441,6 +442,7 @@ export function RegulationListInstance(version: V2): RegulationListInstance {
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.page({

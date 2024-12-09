@@ -84,6 +84,7 @@ export class InsightsUserRolesContextImpl implements InsightsUserRolesContext {
     let data: any = {};
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
     if (params["authorization"] !== undefined)
       headers["Authorization"] = params["authorization"];
 

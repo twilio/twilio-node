@@ -64,11 +64,15 @@ export class BuildStatusContextImpl implements BuildStatusContext {
   fetch(
     callback?: (error: Error | null, item?: BuildStatusInstance) => any
   ): Promise<BuildStatusInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
         uri: instance._uri,
         method: "get",
+        headers,
       });
 
     operationPromise = operationPromise.then(

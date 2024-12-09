@@ -59,11 +59,15 @@ export class FormContextImpl implements FormContext {
   fetch(
     callback?: (error: Error | null, item?: FormInstance) => any
   ): Promise<FormInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
         uri: instance._uri,
         method: "get",
+        headers,
       });
 
     operationPromise = operationPromise.then(

@@ -102,6 +102,7 @@ export function AuthorizeListInstance(version: V1): AuthorizeListInstance {
     if (params["state"] !== undefined) data["State"] = params["state"];
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.fetch({

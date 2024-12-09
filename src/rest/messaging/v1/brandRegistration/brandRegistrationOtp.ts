@@ -62,10 +62,14 @@ export function BrandRegistrationOtpListInstance(
   instance.create = function create(
     callback?: (error: Error | null, items: BrandRegistrationOtpInstance) => any
   ): Promise<BrandRegistrationOtpInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
     let operationVersion = version,
       operationPromise = operationVersion.create({
         uri: instance._uri,
         method: "post",
+        headers,
       });
 
     operationPromise = operationPromise.then(

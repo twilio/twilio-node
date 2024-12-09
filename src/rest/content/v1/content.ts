@@ -24,7 +24,7 @@ import { ApprovalFetchListInstance } from "./content/approvalFetch";
 
 export class AuthenticationAction {
   "type": AuthenticationActionType;
-  "copyCodeText": string;
+  "copy_code_text": string;
 }
 
 export type AuthenticationActionType = "COPY_CODE";
@@ -79,9 +79,9 @@ export class CarouselCard {
 
 export class CatalogItem {
   "id"?: string;
-  "sectionTitle"?: string;
+  "section_title"?: string;
   "name"?: string;
-  "mediaUrl"?: string;
+  "media_url"?: string;
   "price"?: number;
   "description"?: string;
 }
@@ -93,7 +93,7 @@ export class ContentCreateRequest {
   /**
    * User defined name of the content
    */
-  "friendlyName"?: string;
+  "friendly_name"?: string;
   /**
    * Key value pairs of variable name to value
    */
@@ -107,7 +107,7 @@ export class ContentCreateRequest {
 
 export class FlowsPage {
   "id": string;
-  "nextPageId"?: string;
+  "next_page_id"?: string;
   "title"?: string;
   "subtitle"?: string;
   "layout": Array<FlowsPageComponent>;
@@ -174,7 +174,7 @@ export class TwilioCatalog {
   "subtitle"?: string;
   "id"?: string;
   "items"?: Array<CatalogItem>;
-  "dynamicItems"?: string;
+  "dynamic_items"?: string;
 }
 
 /**
@@ -182,9 +182,9 @@ export class TwilioCatalog {
  */
 export class TwilioFlows {
   "body": string;
-  "buttonText": string;
+  "button_text": string;
   "subtitle": string;
-  "mediaUrl": string;
+  "media_url": string;
   "pages": Array<FlowsPage>;
   "type": string;
 }
@@ -234,26 +234,26 @@ export class TwilioText {
  * Content types
  */
 export class Types {
-  "twilioText"?: TwilioText | null;
-  "twilioMedia"?: TwilioMedia | null;
-  "twilioLocation"?: TwilioLocation | null;
-  "twilioListPicker"?: TwilioListPicker | null;
-  "twilioCallToAction"?: TwilioCallToAction | null;
-  "twilioQuickReply"?: TwilioQuickReply | null;
-  "twilioCard"?: TwilioCard | null;
-  "twilioCatalog"?: TwilioCatalog | null;
-  "twilioCarousel"?: TwilioCarousel | null;
-  "twilioFlows"?: TwilioFlows | null;
-  "whatsappCard"?: WhatsappCard | null;
-  "whatsappAuthentication"?: WhatsappAuthentication | null;
+  "twilio/text"?: TwilioText | null;
+  "twilio/media"?: TwilioMedia | null;
+  "twilio/location"?: TwilioLocation | null;
+  "twilio/list-picker"?: TwilioListPicker | null;
+  "twilio/call-to-action"?: TwilioCallToAction | null;
+  "twilio/quick-reply"?: TwilioQuickReply | null;
+  "twilio/card"?: TwilioCard | null;
+  "twilio/catalog"?: TwilioCatalog | null;
+  "twilio/carousel"?: TwilioCarousel | null;
+  "twilio/flows"?: TwilioFlows | null;
+  "whatsapp/card"?: WhatsappCard | null;
+  "whatsapp/authentication"?: WhatsappAuthentication | null;
 }
 
 /**
  * whatsApp/authentication templates let companies deliver WA approved one-time-password button.
  */
 export class WhatsappAuthentication {
-  "addSecurityRecommendation"?: boolean;
-  "codeExpirationMinutes"?: number;
+  "add_security_recommendation"?: boolean;
+  "code_expiration_minutes"?: number;
   "actions": Array<AuthenticationAction>;
 }
 
@@ -264,7 +264,7 @@ export class WhatsappCard {
   "body": string;
   "footer"?: string;
   "media"?: Array<string>;
-  "headerText"?: string;
+  "header_text"?: string;
   "actions"?: Array<CardAction>;
 }
 
@@ -381,11 +381,14 @@ export class ContentContextImpl implements ContentContext {
   remove(
     callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
+    const headers: any = {};
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
         uri: instance._uri,
         method: "delete",
+        headers,
       });
 
     operationPromise = instance._version.setPromiseCallback(
@@ -398,11 +401,15 @@ export class ContentContextImpl implements ContentContext {
   fetch(
     callback?: (error: Error | null, item?: ContentInstance) => any
   ): Promise<ContentInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
         uri: instance._uri,
         method: "get",
+        headers,
       });
 
     operationPromise = operationPromise.then(
@@ -594,12 +601,14 @@ export interface ContentListInstance {
    * Create a ContentInstance
    *
    * @param params - Body for request
+   * @param headers - header params for request
    * @param callback - Callback to handle processed record
    *
    * @returns Resolves to processed ContentInstance
    */
   create(
     params: ContentCreateRequest,
+    headers?: any,
     callback?: (error: Error | null, item?: ContentInstance) => any
   ): Promise<ContentInstance>;
 
@@ -692,6 +701,7 @@ export function ContentListInstance(version: V1): ContentListInstance {
 
   instance.create = function create(
     params: ContentCreateRequest,
+    headers?: any,
     callback?: (error: Error | null, items: ContentInstance) => any
   ): Promise<ContentInstance> {
     if (params === null || params === undefined) {
@@ -702,8 +712,12 @@ export function ContentListInstance(version: V1): ContentListInstance {
 
     data = params;
 
-    const headers: any = {};
+    if (headers === null || headers === undefined) {
+      headers = {};
+    }
+
     headers["Content-Type"] = "application/json";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
@@ -745,6 +759,7 @@ export function ContentListInstance(version: V1): ContentListInstance {
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.page({

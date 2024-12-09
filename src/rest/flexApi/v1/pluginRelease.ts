@@ -143,6 +143,7 @@ export class PluginReleaseContextImpl implements PluginReleaseContext {
     let data: any = {};
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
     if (params["flexMetadata"] !== undefined)
       headers["Flex-Metadata"] = params["flexMetadata"];
 
@@ -434,6 +435,7 @@ export function PluginReleaseListInstance(
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
     if (params["flexMetadata"] !== undefined)
       headers["Flex-Metadata"] = params["flexMetadata"];
 
@@ -477,6 +479,7 @@ export function PluginReleaseListInstance(
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
     if (params["flexMetadata"] !== undefined)
       headers["Flex-Metadata"] = params["flexMetadata"];
 

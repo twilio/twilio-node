@@ -98,6 +98,7 @@ export function UsAppToPersonUsecaseListInstance(
       data["BrandRegistrationSid"] = params["brandRegistrationSid"];
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.fetch({

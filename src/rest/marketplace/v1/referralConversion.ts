@@ -19,7 +19,7 @@ const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 
 export class CreateReferralConversionRequest {
-  "referralAccountSid"?: string;
+  "referral_account_sid"?: string;
 }
 
 /**
@@ -41,12 +41,14 @@ export interface ReferralConversionListInstance {
    * Create a ReferralConversionInstance
    *
    * @param params - Body for request
+   * @param headers - header params for request
    * @param callback - Callback to handle processed record
    *
    * @returns Resolves to processed ReferralConversionInstance
    */
   create(
     params: CreateReferralConversionRequest,
+    headers?: any,
     callback?: (error: Error | null, item?: ReferralConversionInstance) => any
   ): Promise<ReferralConversionInstance>;
 
@@ -68,6 +70,7 @@ export function ReferralConversionListInstance(
 
   instance.create = function create(
     params: CreateReferralConversionRequest,
+    headers?: any,
     callback?: (error: Error | null, items: ReferralConversionInstance) => any
   ): Promise<ReferralConversionInstance> {
     if (params === null || params === undefined) {
@@ -78,8 +81,12 @@ export function ReferralConversionListInstance(
 
     data = params;
 
-    const headers: any = {};
+    if (headers === null || headers === undefined) {
+      headers = {};
+    }
+
     headers["Content-Type"] = "application/json";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.create({

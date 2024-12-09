@@ -50,12 +50,14 @@ export interface PortingWebhookConfigurationListInstance {
    * Create a PortingWebhookConfigurationInstance
    *
    * @param params - Body for request
+   * @param headers - header params for request
    * @param callback - Callback to handle processed record
    *
    * @returns Resolves to processed PortingWebhookConfigurationInstance
    */
   create(
     params: object,
+    headers?: any,
     callback?: (
       error: Error | null,
       item?: PortingWebhookConfigurationInstance
@@ -85,6 +87,7 @@ export function PortingWebhookConfigurationListInstance(
           error: Error | null,
           items: PortingWebhookConfigurationInstance
         ) => any),
+    headers?: any,
     callback?: (
       error: Error | null,
       items: PortingWebhookConfigurationInstance
@@ -101,8 +104,12 @@ export function PortingWebhookConfigurationListInstance(
 
     data = params;
 
-    const headers: any = {};
+    if (headers === null || headers === undefined) {
+      headers = {};
+    }
+
     headers["Content-Type"] = "application/json";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.create({

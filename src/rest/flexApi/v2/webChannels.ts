@@ -92,6 +92,7 @@ export function WebChannelsListInstance(version: V2): WebChannelsListInstance {
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
     if (params["uiVersion"] !== undefined)
       headers["Ui-Version"] = params["uiVersion"];
 

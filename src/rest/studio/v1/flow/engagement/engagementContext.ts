@@ -62,11 +62,15 @@ export class EngagementContextContextImpl implements EngagementContextContext {
   fetch(
     callback?: (error: Error | null, item?: EngagementContextInstance) => any
   ): Promise<EngagementContextInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
         uri: instance._uri,
         method: "get",
+        headers,
       });
 
     operationPromise = operationPromise.then(

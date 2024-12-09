@@ -117,6 +117,7 @@ export class BulkHostedNumberOrderContextImpl
       data["OrderStatus"] = params["orderStatus"];
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
@@ -327,12 +328,14 @@ export interface BulkHostedNumberOrderListInstance {
    * Create a BulkHostedNumberOrderInstance
    *
    * @param params - Body for request
+   * @param headers - header params for request
    * @param callback - Callback to handle processed record
    *
    * @returns Resolves to processed BulkHostedNumberOrderInstance
    */
   create(
     params: object,
+    headers?: any,
     callback?: (
       error: Error | null,
       item?: BulkHostedNumberOrderInstance
@@ -364,6 +367,7 @@ export function BulkHostedNumberOrderListInstance(
     params?:
       | object
       | ((error: Error | null, items: BulkHostedNumberOrderInstance) => any),
+    headers?: any,
     callback?: (
       error: Error | null,
       items: BulkHostedNumberOrderInstance
@@ -380,8 +384,12 @@ export function BulkHostedNumberOrderListInstance(
 
     data = params;
 
-    const headers: any = {};
+    if (headers === null || headers === undefined) {
+      headers = {};
+    }
+
     headers["Content-Type"] = "application/json";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.create({

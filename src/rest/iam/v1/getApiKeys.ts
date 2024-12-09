@@ -167,6 +167,7 @@ export function GetApiKeysListInstance(version: V1): GetApiKeysListInstance {
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.page({

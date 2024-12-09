@@ -102,12 +102,14 @@ export interface SigningRequestConfigurationListInstance {
    * Create a SigningRequestConfigurationInstance
    *
    * @param params - Body for request
+   * @param headers - header params for request
    * @param callback - Callback to handle processed record
    *
    * @returns Resolves to processed SigningRequestConfigurationInstance
    */
   create(
     params: object,
+    headers?: any,
     callback?: (
       error: Error | null,
       item?: SigningRequestConfigurationInstance
@@ -227,6 +229,7 @@ export function SigningRequestConfigurationListInstance(
           error: Error | null,
           items: SigningRequestConfigurationInstance
         ) => any),
+    headers?: any,
     callback?: (
       error: Error | null,
       items: SigningRequestConfigurationInstance
@@ -243,8 +246,12 @@ export function SigningRequestConfigurationListInstance(
 
     data = params;
 
-    const headers: any = {};
+    if (headers === null || headers === undefined) {
+      headers = {};
+    }
+
     headers["Content-Type"] = "application/json";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
@@ -292,6 +299,7 @@ export function SigningRequestConfigurationListInstance(
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.page({

@@ -207,6 +207,7 @@ export class ConferenceParticipantContextImpl
     if (params["metrics"] !== undefined) data["Metrics"] = params["metrics"];
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
@@ -658,6 +659,7 @@ export function ConferenceParticipantListInstance(
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.page({

@@ -109,6 +109,7 @@ export class WorkerStatisticsContextImpl implements WorkerStatisticsContext {
       data["TaskChannel"] = params["taskChannel"];
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,

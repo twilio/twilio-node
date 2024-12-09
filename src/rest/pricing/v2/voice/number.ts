@@ -22,15 +22,15 @@ import { isValidPathParam } from "../../../../base/utility";
  * The [InboundCallPrice](https://www.twilio.com/docs/voice/pricing#inbound-call-price) record.
  */
 export class PricingV2VoiceVoiceNumberInboundCallPrice {
-  "basePrice"?: number;
-  "currentPrice"?: number;
-  "numberType"?: string;
+  "base_price"?: number;
+  "current_price"?: number;
+  "number_type"?: string;
 }
 
 export class PricingV2VoiceVoiceNumberOutboundCallPrices {
-  "basePrice"?: number;
-  "currentPrice"?: number;
-  "originationPrefixes"?: Array<string>;
+  "base_price"?: number;
+  "current_price"?: number;
+  "origination_prefixes"?: Array<string>;
 }
 
 /**
@@ -108,6 +108,7 @@ export class NumberContextImpl implements NumberContext {
       data["OriginationNumber"] = params["originationNumber"];
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,

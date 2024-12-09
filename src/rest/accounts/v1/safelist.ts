@@ -140,6 +140,7 @@ export function SafelistListInstance(version: V1): SafelistListInstance {
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
@@ -214,6 +215,7 @@ export function SafelistListInstance(version: V1): SafelistListInstance {
       data["PhoneNumber"] = params["phoneNumber"];
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.fetch({

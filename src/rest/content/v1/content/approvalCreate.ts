@@ -53,12 +53,14 @@ export interface ApprovalCreateListInstance {
    * Create a ApprovalCreateInstance
    *
    * @param params - Body for request
+   * @param headers - header params for request
    * @param callback - Callback to handle processed record
    *
    * @returns Resolves to processed ApprovalCreateInstance
    */
   create(
     params: ContentApprovalRequest,
+    headers?: any,
     callback?: (error: Error | null, item?: ApprovalCreateInstance) => any
   ): Promise<ApprovalCreateInstance>;
 
@@ -85,6 +87,7 @@ export function ApprovalCreateListInstance(
 
   instance.create = function create(
     params: ContentApprovalRequest,
+    headers?: any,
     callback?: (error: Error | null, items: ApprovalCreateInstance) => any
   ): Promise<ApprovalCreateInstance> {
     if (params === null || params === undefined) {
@@ -95,8 +98,12 @@ export function ApprovalCreateListInstance(
 
     data = params;
 
-    const headers: any = {};
+    if (headers === null || headers === undefined) {
+      headers = {};
+    }
+
     headers["Content-Type"] = "application/json";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.create({

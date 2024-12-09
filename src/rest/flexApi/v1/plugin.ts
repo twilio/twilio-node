@@ -194,6 +194,7 @@ export class PluginContextImpl implements PluginContext {
     let data: any = {};
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
     if (params["flexMetadata"] !== undefined)
       headers["Flex-Metadata"] = params["flexMetadata"];
 
@@ -240,6 +241,7 @@ export class PluginContextImpl implements PluginContext {
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
     if (params["flexMetadata"] !== undefined)
       headers["Flex-Metadata"] = params["flexMetadata"];
 
@@ -582,6 +584,7 @@ export function PluginListInstance(version: V1): PluginListInstance {
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
     if (params["flexMetadata"] !== undefined)
       headers["Flex-Metadata"] = params["flexMetadata"];
 
@@ -625,6 +628,7 @@ export function PluginListInstance(version: V1): PluginListInstance {
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
     if (params["flexMetadata"] !== undefined)
       headers["Flex-Metadata"] = params["flexMetadata"];
 

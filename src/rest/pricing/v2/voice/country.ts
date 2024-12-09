@@ -21,17 +21,17 @@ const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
 
 export class PricingV2TrunkingCountryInstanceOriginatingCallPrices {
-  "basePrice"?: number;
-  "currentPrice"?: number;
-  "numberType"?: string;
+  "base_price"?: number;
+  "current_price"?: number;
+  "number_type"?: string;
 }
 
 export class PricingV2TrunkingCountryInstanceTerminatingPrefixPrices {
-  "originationPrefixes"?: Array<string>;
-  "destinationPrefixes"?: Array<string>;
-  "basePrice"?: number;
-  "currentPrice"?: number;
-  "friendlyName"?: string;
+  "origination_prefixes"?: Array<string>;
+  "destination_prefixes"?: Array<string>;
+  "base_price"?: number;
+  "current_price"?: number;
+  "friendly_name"?: string;
 }
 
 /**
@@ -109,11 +109,15 @@ export class CountryContextImpl implements CountryContext {
   fetch(
     callback?: (error: Error | null, item?: CountryInstance) => any
   ): Promise<CountryInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
         uri: instance._uri,
         method: "get",
+        headers,
       });
 
     operationPromise = operationPromise.then(
@@ -363,6 +367,7 @@ export function CountryListInstance(version: V2): CountryListInstance {
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.page({

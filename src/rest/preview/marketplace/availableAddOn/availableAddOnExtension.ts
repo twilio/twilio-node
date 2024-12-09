@@ -115,11 +115,15 @@ export class AvailableAddOnExtensionContextImpl
       item?: AvailableAddOnExtensionInstance
     ) => any
   ): Promise<AvailableAddOnExtensionInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
         uri: instance._uri,
         method: "get",
+        headers,
       });
 
     operationPromise = operationPromise.then(
@@ -403,6 +407,7 @@ export function AvailableAddOnExtensionListInstance(
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.page({
