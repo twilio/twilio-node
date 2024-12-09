@@ -6,9 +6,10 @@ import qs from "qs";
 import * as https from "https";
 import Response from "../http/response";
 import Request, {
-  RequestOptions as LastRequestOptions,
   Headers,
+  RequestOptions as LastRequestOptions,
 } from "../http/request";
+import AuthStrategy from "../auth_strategy/AuthStrategy";
 
 const DEFAULT_CONTENT_TYPE = "application/x-www-form-urlencoded";
 const DEFAULT_TIMEOUT = 30000;
@@ -149,6 +150,7 @@ class RequestClient {
    * @param opts.uri - The request uri
    * @param opts.username - The username used for auth
    * @param opts.password - The password used for auth
+   * @param opts.authStrategy - The authStrategy for API call
    * @param opts.headers - The request headers
    * @param opts.params - The request params
    * @param opts.data - The request data
@@ -157,7 +159,7 @@ class RequestClient {
    * @param opts.forever - Set to true to use the forever-agent
    * @param opts.logLevel - Show debug logs
    */
-  request<TData>(
+  async request<TData>(
     opts: RequestClient.RequestOptions<TData>
   ): Promise<Response<TData>> {
     if (!opts.method) {
@@ -180,6 +182,8 @@ class RequestClient {
         "base64"
       );
       headers.Authorization = "Basic " + auth;
+    } else if (opts.authStrategy) {
+      headers.Authorization = await opts.authStrategy.getAuthString();
     }
 
     const options: AxiosRequestConfig = {
@@ -296,6 +300,10 @@ namespace RequestClient {
      * The password used for auth
      */
     password?: string;
+    /**
+     * The AuthStrategy for API Call
+     */
+    authStrategy?: AuthStrategy;
     /**
      * The request headers
      */

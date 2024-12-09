@@ -33,6 +33,7 @@ import Notify from "./Notify";
 import Numbers from "./Numbers";
 import Oauth from "./Oauth";
 import Preview from "./Preview";
+import PreviewIam from "./PreviewIam";
 import Pricing from "./Pricing";
 import Proxy from "./Proxy";
 import Routes from "./Routes";
@@ -125,6 +126,8 @@ class Twilio extends Client {
   _oauth?: Oauth;
   /** (Twilio.Preview) - preview domain */
   _preview?: Preview;
+  /** (Twilio.PreviewIam) - previewIam domain */
+  _previewIam?: PreviewIam;
   /** (Twilio.Pricing) - pricing domain */
   _pricing?: Pricing;
   /** (Twilio.Proxy) - proxy domain */
@@ -194,6 +197,7 @@ class Twilio extends Client {
       this.numbers;
       this.oauth;
       this.preview;
+      this.previewIam;
       this.pricing;
       this.proxy;
       this.routes;
@@ -333,6 +337,13 @@ class Twilio extends Client {
   /** Getter for (Twilio.Preview) domain */
   get preview(): Preview {
     return this._preview ?? (this._preview = new (require("./Preview"))(this));
+  }
+  /** Getter for (Twilio.PreviewIam) domain */
+  get previewIam(): PreviewIam {
+    return (
+      this._previewIam ??
+      (this._previewIam = new (require("./PreviewIam"))(this))
+    );
   }
   /** Getter for (Twilio.Pricing) domain */
   get pricing(): Pricing {
