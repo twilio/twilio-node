@@ -96,11 +96,15 @@ export class UserContextImpl implements UserContext {
   fetch(
     callback?: (error: Error | null, item?: UserInstance) => any
   ): Promise<UserInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
         uri: instance._uri,
         method: "get",
+        headers,
       });
 
     operationPromise = operationPromise.then(
@@ -139,6 +143,7 @@ export class UserContextImpl implements UserContext {
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,

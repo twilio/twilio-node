@@ -105,6 +105,7 @@ export class PortingPortabilityContextImpl
       data["AddressSid"] = params["addressSid"];
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,

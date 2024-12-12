@@ -62,10 +62,14 @@ export function BalanceListInstance(
   instance.fetch = function fetch(
     callback?: (error: Error | null, items: BalanceInstance) => any
   ): Promise<BalanceInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
     let operationVersion = version,
       operationPromise = operationVersion.fetch({
         uri: instance._uri,
         method: "get",
+        headers,
       });
 
     operationPromise = operationPromise.then(

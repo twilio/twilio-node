@@ -145,6 +145,7 @@ export class ConfiguredPluginContextImpl implements ConfiguredPluginContext {
     let data: any = {};
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
     if (params["flexMetadata"] !== undefined)
       headers["Flex-Metadata"] = params["flexMetadata"];
 
@@ -519,6 +520,7 @@ export function ConfiguredPluginListInstance(
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
     if (params["flexMetadata"] !== undefined)
       headers["Flex-Metadata"] = params["flexMetadata"];
 

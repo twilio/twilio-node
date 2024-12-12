@@ -26,7 +26,7 @@ export class AssistantsV1ServiceAssistantSendMessageRequest {
   /**
    * The unique name for the session.
    */
-  "sessionId"?: string;
+  "session_id"?: string;
   /**
    * The query to ask the assistant.
    */
@@ -62,12 +62,14 @@ export interface MessageListInstance {
    * Create a MessageInstance
    *
    * @param params - Body for request
+   * @param headers - header params for request
    * @param callback - Callback to handle processed record
    *
    * @returns Resolves to processed MessageInstance
    */
   create(
     params: AssistantsV1ServiceAssistantSendMessageRequest,
+    headers?: any,
     callback?: (error: Error | null, item?: MessageInstance) => any
   ): Promise<MessageInstance>;
 
@@ -94,6 +96,7 @@ export function MessageListInstance(
 
   instance.create = function create(
     params: AssistantsV1ServiceAssistantSendMessageRequest,
+    headers?: any,
     callback?: (error: Error | null, items: MessageInstance) => any
   ): Promise<MessageInstance> {
     if (params === null || params === undefined) {
@@ -104,8 +107,12 @@ export function MessageListInstance(
 
     data = params;
 
-    const headers: any = {};
+    if (headers === null || headers === undefined) {
+      headers = {};
+    }
+
     headers["Content-Type"] = "application/json";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.create({

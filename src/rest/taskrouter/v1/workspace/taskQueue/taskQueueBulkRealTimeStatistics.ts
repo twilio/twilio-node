@@ -52,12 +52,14 @@ export interface TaskQueueBulkRealTimeStatisticsListInstance {
    * Create a TaskQueueBulkRealTimeStatisticsInstance
    *
    * @param params - Body for request
+   * @param headers - header params for request
    * @param callback - Callback to handle processed record
    *
    * @returns Resolves to processed TaskQueueBulkRealTimeStatisticsInstance
    */
   create(
     params: object,
+    headers?: any,
     callback?: (
       error: Error | null,
       item?: TaskQueueBulkRealTimeStatisticsInstance
@@ -92,6 +94,7 @@ export function TaskQueueBulkRealTimeStatisticsListInstance(
           error: Error | null,
           items: TaskQueueBulkRealTimeStatisticsInstance
         ) => any),
+    headers?: any,
     callback?: (
       error: Error | null,
       items: TaskQueueBulkRealTimeStatisticsInstance
@@ -108,8 +111,12 @@ export function TaskQueueBulkRealTimeStatisticsListInstance(
 
     data = params;
 
-    const headers: any = {};
+    if (headers === null || headers === undefined) {
+      headers = {};
+    }
+
     headers["Content-Type"] = "application/json";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.create({

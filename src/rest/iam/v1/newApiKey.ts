@@ -18,41 +18,41 @@ const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 
-export type KeyKeytype = "restricted";
+export type NewApiKeyKeytype = "restricted";
 
 /**
- * Options to pass to create a KeyInstance
+ * Options to pass to create a NewApiKeyInstance
  */
-export interface KeyListInstanceCreateOptions {
+export interface NewApiKeyListInstanceCreateOptions {
   /** The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Payments resource. */
   accountSid: string;
   /** A descriptive string that you create to describe the resource. It can be up to 64 characters long. */
   friendlyName?: string;
   /**  */
-  keyType?: KeyKeytype;
+  keyType?: NewApiKeyKeytype;
   /** The \\\\`Policy\\\\` object is a collection that specifies the allowed Twilio permissions for the restricted key. For more information on the permissions available with restricted API keys, refer to the [Twilio documentation](https://www.twilio.com/docs/iam/api-keys/restricted-api-keys#permissions-available-with-restricted-api-keys). */
   policy?: any;
 }
 
-export interface KeySolution {}
+export interface NewApiKeySolution {}
 
-export interface KeyListInstance {
+export interface NewApiKeyListInstance {
   _version: V1;
-  _solution: KeySolution;
+  _solution: NewApiKeySolution;
   _uri: string;
 
   /**
-   * Create a KeyInstance
+   * Create a NewApiKeyInstance
    *
    * @param params - Parameter for request
    * @param callback - Callback to handle processed record
    *
-   * @returns Resolves to processed KeyInstance
+   * @returns Resolves to processed NewApiKeyInstance
    */
   create(
-    params: KeyListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: KeyInstance) => any
-  ): Promise<KeyInstance>;
+    params: NewApiKeyListInstanceCreateOptions,
+    callback?: (error: Error | null, item?: NewApiKeyInstance) => any
+  ): Promise<NewApiKeyInstance>;
 
   /**
    * Provide a user-friendly representation
@@ -61,17 +61,17 @@ export interface KeyListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function KeyListInstance(version: V1): KeyListInstance {
-  const instance = {} as KeyListInstance;
+export function NewApiKeyListInstance(version: V1): NewApiKeyListInstance {
+  const instance = {} as NewApiKeyListInstance;
 
   instance._version = version;
   instance._solution = {};
   instance._uri = `/Keys`;
 
   instance.create = function create(
-    params: KeyListInstanceCreateOptions,
-    callback?: (error: Error | null, items: KeyInstance) => any
-  ): Promise<KeyInstance> {
+    params: NewApiKeyListInstanceCreateOptions,
+    callback?: (error: Error | null, items: NewApiKeyInstance) => any
+  ): Promise<NewApiKeyInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
@@ -91,6 +91,7 @@ export function KeyListInstance(version: V1): KeyListInstance {
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
@@ -101,7 +102,7 @@ export function KeyListInstance(version: V1): KeyListInstance {
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new KeyInstance(operationVersion, payload)
+      (payload) => new NewApiKeyInstance(operationVersion, payload)
     );
 
     operationPromise = instance._version.setPromiseCallback(
@@ -125,9 +126,9 @@ export function KeyListInstance(version: V1): KeyListInstance {
   return instance;
 }
 
-interface KeyPayload extends KeyResource {}
+interface NewApiKeyPayload extends NewApiKeyResource {}
 
-interface KeyResource {
+interface NewApiKeyResource {
   sid: string;
   friendly_name: string;
   date_created: Date;
@@ -136,8 +137,8 @@ interface KeyResource {
   policy: any;
 }
 
-export class KeyInstance {
-  constructor(protected _version: V1, payload: KeyResource) {
+export class NewApiKeyInstance {
+  constructor(protected _version: V1, payload: NewApiKeyResource) {
     this.sid = payload.sid;
     this.friendlyName = payload.friendly_name;
     this.dateCreated = deserialize.rfc2822DateTime(payload.date_created);

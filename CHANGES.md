@@ -1,6 +1,15 @@
 twilio-node changelog
 =====================
 
+[2024-12-12] Version 5.4.0
+--------------------------
+**Library - Chore**
+- [PR #1058](https://github.com/twilio/twilio-node/pull/1058): add v22 support. Thanks to [@manisha1997](https://github.com/manisha1997)!
+
+**Library - Feature**
+- [PR #1057](https://github.com/twilio/twilio-node/pull/1057): add support for OAuth and Orgs API. Thanks to [@tiwarishubham635](https://github.com/tiwarishubham635)!
+
+
 [2024-12-05] Version 5.3.7
 --------------------------
 **Api**

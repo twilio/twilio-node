@@ -110,11 +110,15 @@ export class AvailableAddOnContextImpl implements AvailableAddOnContext {
   fetch(
     callback?: (error: Error | null, item?: AvailableAddOnInstance) => any
   ): Promise<AvailableAddOnInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
         uri: instance._uri,
         method: "get",
+        headers,
       });
 
     operationPromise = operationPromise.then(
@@ -385,6 +389,7 @@ export function AvailableAddOnListInstance(
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.page({

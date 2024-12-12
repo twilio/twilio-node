@@ -107,6 +107,7 @@ export class WorkersRealTimeStatisticsContextImpl
       data["TaskChannel"] = params["taskChannel"];
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,

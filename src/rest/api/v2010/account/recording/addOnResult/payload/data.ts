@@ -78,11 +78,15 @@ export class DataContextImpl implements DataContext {
   fetch(
     callback?: (error: Error | null, item?: DataInstance) => any
   ): Promise<DataInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
         uri: instance._uri,
         method: "get",
+        headers,
       });
 
     operationPromise = operationPromise.then(
