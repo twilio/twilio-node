@@ -6,6 +6,8 @@ var client;
 var holodeck;
 
 describe("IncomingPhoneNumber", function () {
+  const incomingPhoneNumbers = [{ capabilities: {} }];
+
   /* Before Hooks */
   beforeEach(function () {
     holodeck = new Holodeck();
@@ -20,7 +22,7 @@ describe("IncomingPhoneNumber", function () {
       end: 0,
       first_page_uri:
         "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IncomingPhoneNumbers.json?FriendlyName=friendly_name&Beta=true&PhoneNumber=%2B19876543210&PageSize=50&Page=0",
-      incoming_phone_numbers: [{}],
+      incoming_phone_numbers: incomingPhoneNumbers,
       next_page_uri: null,
       page: 0,
       page_size: 50,
@@ -38,7 +40,7 @@ describe("IncomingPhoneNumber", function () {
       end: 0,
       first_page_uri:
         "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IncomingPhoneNumbers.json?FriendlyName=friendly_name&Beta=true&PhoneNumber=%2B19876543210&PageSize=1&Page=0",
-      incoming_phone_numbers: [{}],
+      incoming_phone_numbers: incomingPhoneNumbers,
       next_page_uri:
         "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IncomingPhoneNumbers.json?FriendlyName=friendly_name&Beta=true&PhoneNumber=%2B19876543210&PageSize=1&Page=1",
       page: 0,
@@ -59,7 +61,7 @@ describe("IncomingPhoneNumber", function () {
       end: 0,
       first_page_uri:
         "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IncomingPhoneNumbers.json?FriendlyName=friendly_name&Beta=true&PhoneNumber=%2B19876543210&PageSize=1&Page=0",
-      incoming_phone_numbers: [{}],
+      incoming_phone_numbers: incomingPhoneNumbers,
       next_page_uri:
         "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IncomingPhoneNumbers.json?FriendlyName=friendly_name&Beta=true&PhoneNumber=%2B19876543210&PageSize=1&Page=1",
       page: 0,
@@ -80,7 +82,7 @@ describe("IncomingPhoneNumber", function () {
       end: 0,
       first_page_uri:
         "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IncomingPhoneNumbers.json?FriendlyName=friendly_name&Beta=true&PhoneNumber=%2B19876543210&PageSize=1&Page=0",
-      incoming_phone_numbers: [{}],
+      incoming_phone_numbers: incomingPhoneNumbers,
       next_page_uri:
         "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IncomingPhoneNumbers.json?FriendlyName=friendly_name&Beta=true&PhoneNumber=%2B19876543210&PageSize=1&Page=1",
       page: 0,

@@ -19,7 +19,10 @@ import HostedNumbers from "../../HostedNumbers";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
-import { PhoneNumberCapabilities } from "../../../../interfaces";
+import {
+  PhoneNumberCapabilities,
+  PhoneNumberCapabilitiesResource,
+} from "../../../../interfaces";
 
 export type DependentHostedNumberOrderStatus =
   | "received"
@@ -335,7 +338,7 @@ interface DependentHostedNumberOrderResource {
   address_sid: string;
   signing_document_sid: string;
   phone_number: string;
-  capabilities: PhoneNumberCapabilities;
+  capabilities: PhoneNumberCapabilitiesResource;
   friendly_name: string;
   unique_name: string;
   status: DependentHostedNumberOrderStatus;
@@ -365,7 +368,12 @@ export class DependentHostedNumberOrderInstance {
     this.addressSid = payload.address_sid;
     this.signingDocumentSid = payload.signing_document_sid;
     this.phoneNumber = payload.phone_number;
-    this.capabilities = payload.capabilities;
+    this.capabilities = {
+      voice: payload.capabilities.voice,
+      sms: payload.capabilities.SMS,
+      mms: payload.capabilities.MMS,
+      fax: payload.capabilities.fax ?? false,
+    };
     this.friendlyName = payload.friendly_name;
     this.uniqueName = payload.unique_name;
     this.status = payload.status;
