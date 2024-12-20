@@ -47,21 +47,21 @@ export interface RoomListInstanceCreateOptions {
   type?: RoomRoomType;
   /** An application-defined string that uniquely identifies the resource. It can be used as a `room_sid` in place of the resource\\\'s `sid` in the URL to address the resource, assuming it does not contain any [reserved characters](https://tools.ietf.org/html/rfc3986#section-2.2) that would need to be URL encoded. This value is unique for `in-progress` rooms. SDK clients can use this name to connect to the room. REST API clients can use this name in place of the Room SID to interact with the room as long as the room is `in-progress`. */
   uniqueName?: string;
-  /** The URL we should call using the `status_callback_method` to send status information to your application on every room event. See [Status Callbacks](https://www.twilio.com/docs/video/api/status-callbacks) for more info. */
+  /** The URL Twilio should call using the `status_callback_method` to send status information to your application on every room event. See [Status Callbacks](https://www.twilio.com/docs/video/api/status-callbacks) for more info. */
   statusCallback?: string;
-  /** The HTTP method we should use to call `status_callback`. Can be `POST` or `GET`. */
+  /** The HTTP method Twilio should use to call `status_callback`. Can be `POST` or `GET`. */
   statusCallbackMethod?: string;
-  /** The maximum number of concurrent Participants allowed in the room. Peer-to-peer rooms can have up to 10 Participants. Small Group rooms can have up to 4 Participants. Group rooms can have up to 50 Participants. */
+  /** The maximum number of concurrent Participants allowed in the room. The maximum allowed value is 50. */
   maxParticipants?: number;
-  /** Whether to start recording when Participants connect. ***This feature is not available in `peer-to-peer` rooms.*** */
+  /** Whether to start recording when Participants connect. */
   recordParticipantsOnConnect?: boolean;
-  /** An array of the video codecs that are supported when publishing a track in the room.  Can be: `VP8` and `H264`.  ***This feature is not available in `peer-to-peer` rooms*** */
+  /** An array of the video codecs that are supported when publishing a track in the room.  Can be: `VP8` and `H264`. */
   videoCodecs?: Array<RoomVideoCodec>;
-  /** The region for the media server in Group Rooms.  Can be: one of the [available Media Regions](https://www.twilio.com/docs/video/ip-addresses#group-rooms-media-servers). ***This feature is not available in `peer-to-peer` rooms.*** */
+  /** The region for the Room\\\'s media server.  Can be one of the [available Media Regions](https://www.twilio.com/docs/video/ip-addresses#group-rooms-media-servers). */
   mediaRegion?: string;
   /** A collection of Recording Rules that describe how to include or exclude matching tracks for recording */
   recordingRules?: any;
-  /** When set to true, indicates that the participants in the room will only publish audio. No video tracks will be allowed. Group rooms only. */
+  /** When set to true, indicates that the participants in the room will only publish audio. No video tracks will be allowed. */
   audioOnly?: boolean;
   /** The maximum number of seconds a Participant can be connected to the room. The maximum possible value is 86400 seconds (24 hours). The default is 14400 seconds (4 hours). */
   maxParticipantDuration?: number;
@@ -213,11 +213,15 @@ export class RoomContextImpl implements RoomContext {
   fetch(
     callback?: (error: Error | null, item?: RoomInstance) => any
   ): Promise<RoomInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
         uri: instance._uri,
         method: "get",
+        headers,
       });
 
     operationPromise = operationPromise.then(
@@ -250,6 +254,7 @@ export class RoomContextImpl implements RoomContext {
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
@@ -355,7 +360,7 @@ export class RoomInstance {
   }
 
   /**
-   * The unique string that we created to identify the Room resource.
+   * The unique string that Twilio created to identify the Room resource.
    */
   sid: string;
   status: RoomRoomStatus;
@@ -380,11 +385,11 @@ export class RoomInstance {
    */
   uniqueName: string;
   /**
-   * The URL we call using the `status_callback_method` to send status information to your application on every room event. See [Status Callbacks](https://www.twilio.com/docs/video/api/status-callbacks) for more info.
+   * The URL Twilio calls using the `status_callback_method` to send status information to your application on every room event. See [Status Callbacks](https://www.twilio.com/docs/video/api/status-callbacks) for more info.
    */
   statusCallback: string;
   /**
-   * The HTTP method we use to call `status_callback`. Can be `POST` or `GET` and defaults to `POST`.
+   * The HTTP method Twilio uses to call `status_callback`. Can be `POST` or `GET` and defaults to `POST`.
    */
   statusCallbackMethod: string;
   /**
@@ -409,19 +414,19 @@ export class RoomInstance {
    */
   maxConcurrentPublishedTracks: number;
   /**
-   * Whether to start recording when Participants connect. ***This feature is not available in `peer-to-peer` rooms.***
+   * Whether to start recording when Participants connect.
    */
   recordParticipantsOnConnect: boolean;
   /**
-   * An array of the video codecs that are supported when publishing a track in the room.  Can be: `VP8` and `H264`.  ***This feature is not available in `peer-to-peer` rooms***
+   * An array of the video codecs that are supported when publishing a track in the room.  Can be: `VP8` and `H264`.
    */
   videoCodecs: Array<RoomVideoCodec>;
   /**
-   * The region for the media server in Group Rooms.  Can be: one of the [available Media Regions](https://www.twilio.com/docs/video/ip-addresses#media-servers). ***This feature is not available in `peer-to-peer` rooms.***
+   * The region for the Room\'s media server.  Can be one of the [available Media Regions](https://www.twilio.com/docs/video/ip-addresses#media-servers).
    */
   mediaRegion: string;
   /**
-   * When set to true, indicates that the participants in the room will only publish audio. No video tracks will be allowed. Group rooms only.
+   * When set to true, indicates that the participants in the room will only publish audio. No video tracks will be allowed.
    */
   audioOnly: boolean;
   /**
@@ -716,6 +721,7 @@ export function RoomListInstance(version: V1): RoomListInstance {
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
@@ -768,6 +774,7 @@ export function RoomListInstance(version: V1): RoomListInstance {
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.page({

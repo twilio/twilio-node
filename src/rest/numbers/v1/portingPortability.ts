@@ -30,6 +30,8 @@ export type PortingPortabilityNumberType =
 export interface PortingPortabilityContextFetchOptions {
   /** Account Sid to which the number will be ported. This can be used to determine if a sub account already has the number in its inventory or a different sub account. If this is not provided, the authenticated account will be assumed to be the target account. */
   targetAccountSid?: string;
+  /** Address Sid of customer to which the number will be ported. */
+  addressSid?: string;
 }
 
 export interface PortingPortabilityContext {
@@ -99,8 +101,11 @@ export class PortingPortabilityContextImpl
 
     if (params["targetAccountSid"] !== undefined)
       data["TargetAccountSid"] = params["targetAccountSid"];
+    if (params["addressSid"] !== undefined)
+      data["AddressSid"] = params["addressSid"];
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,

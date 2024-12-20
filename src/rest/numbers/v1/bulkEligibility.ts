@@ -65,11 +65,15 @@ export class BulkEligibilityContextImpl implements BulkEligibilityContext {
   fetch(
     callback?: (error: Error | null, item?: BulkEligibilityInstance) => any
   ): Promise<BulkEligibilityInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
         uri: instance._uri,
         method: "get",
+        headers,
       });
 
     operationPromise = operationPromise.then(
@@ -223,12 +227,14 @@ export interface BulkEligibilityListInstance {
    * Create a BulkEligibilityInstance
    *
    * @param params - Body for request
+   * @param headers - header params for request
    * @param callback - Callback to handle processed record
    *
    * @returns Resolves to processed BulkEligibilityInstance
    */
   create(
     params: object,
+    headers?: any,
     callback?: (error: Error | null, item?: BulkEligibilityInstance) => any
   ): Promise<BulkEligibilityInstance>;
 
@@ -257,6 +263,7 @@ export function BulkEligibilityListInstance(
     params?:
       | object
       | ((error: Error | null, items: BulkEligibilityInstance) => any),
+    headers?: any,
     callback?: (error: Error | null, items: BulkEligibilityInstance) => any
   ): Promise<BulkEligibilityInstance> {
     if (params instanceof Function) {
@@ -270,8 +277,12 @@ export function BulkEligibilityListInstance(
 
     data = params;
 
-    const headers: any = {};
+    if (headers === null || headers === undefined) {
+      headers = {};
+    }
+
     headers["Content-Type"] = "application/json";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.create({

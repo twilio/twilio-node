@@ -19,10 +19,13 @@ import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
+import { AssistantsKnowledgeListInstance } from "./assistant/assistantsKnowledge";
+import { AssistantsToolListInstance } from "./assistant/assistantsTool";
 import { FeedbackListInstance } from "./assistant/feedback";
+import { MessageListInstance } from "./assistant/message";
 
 export class AssistantsV1ServiceCreateAssistantRequest {
-  "customerAi"?: AssistantsV1ServiceCustomerAi;
+  "customer_ai"?: AssistantsV1ServiceCustomerAi;
   /**
    * The name of the assistant.
    */
@@ -34,19 +37,19 @@ export class AssistantsV1ServiceCreateAssistantRequest {
   /**
    * The personality prompt to be used for assistant.
    */
-  "personalityPrompt"?: string;
-  "segmentCredential"?: AssistantsV1ServiceSegmentCredential;
+  "personality_prompt"?: string;
+  "segment_credential"?: AssistantsV1ServiceSegmentCredential;
 }
 
 export class AssistantsV1ServiceCustomerAi {
   /**
    * True if the perception engine is enabled.
    */
-  "perceptionEngineEnabled": boolean;
+  "perception_engine_enabled": boolean;
   /**
    * True if the personalization engine is enabled.
    */
-  "personalizationEngineEnabled": boolean;
+  "personalization_engine_enabled": boolean;
 }
 
 export class AssistantsV1ServiceKnowledge {
@@ -61,11 +64,11 @@ export class AssistantsV1ServiceKnowledge {
   /**
    * The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Knowledge resource.
    */
-  "accountSid"?: string;
+  "account_sid"?: string;
   /**
    * The details of the knowledge source based on the type.
    */
-  "knowledgeSourceDetails"?: Record<string, object>;
+  "knowledge_source_details"?: Record<string, object>;
   /**
    * The name of the knowledge source.
    */
@@ -79,35 +82,39 @@ export class AssistantsV1ServiceKnowledge {
    */
   "type"?: string;
   /**
+   * The url of the knowledge resource.
+   */
+  "url"?: string;
+  /**
    * The date and time in GMT when the Knowledge was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
-  "dateCreated"?: Date;
+  "date_created"?: Date;
   /**
    * The date and time in GMT when the Knowledge was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
-  "dateUpdated"?: Date;
+  "date_updated"?: Date;
 }
 
 export class AssistantsV1ServiceSegmentCredential {
   /**
    * The profile API key.
    */
-  "profileApiKey"?: string;
+  "profile_api_key"?: string;
   /**
    * The space ID.
    */
-  "spaceId"?: string;
+  "space_id"?: string;
   /**
    * The write key.
    */
-  "writeKey"?: string;
+  "write_key"?: string;
 }
 
 export class AssistantsV1ServiceTool {
   /**
    * The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Tool resource.
    */
-  "accountSid"?: string;
+  "account_sid"?: string;
   /**
    * The description of the tool.
    */
@@ -131,23 +138,27 @@ export class AssistantsV1ServiceTool {
   /**
    * The authentication requirement for the tool.
    */
-  "requiresAuth": boolean;
+  "requires_auth": boolean;
   /**
    * The type of the tool. (\'WEBHOOK\')
    */
   "type": string;
   /**
+   * The url of the tool resource.
+   */
+  "url"?: string;
+  /**
    * The date and time in GMT when the Tool was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
-  "dateCreated": Date;
+  "date_created": Date;
   /**
    * The date and time in GMT when the Tool was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
-  "dateUpdated": Date;
+  "date_updated": Date;
 }
 
 export class AssistantsV1ServiceUpdateAssistantRequest {
-  "customerAi"?: AssistantsV1ServiceCustomerAi;
+  "customer_ai"?: AssistantsV1ServiceCustomerAi;
   /**
    * The name of the assistant.
    */
@@ -159,8 +170,8 @@ export class AssistantsV1ServiceUpdateAssistantRequest {
   /**
    * The personality prompt to be used for assistant.
    */
-  "personalityPrompt"?: string;
-  "segmentCredential"?: AssistantsV1ServiceSegmentCredential;
+  "personality_prompt"?: string;
+  "segment_credential"?: AssistantsV1ServiceSegmentCredential;
 }
 
 /**
@@ -215,7 +226,10 @@ export interface AssistantListInstancePageOptions {
 }
 
 export interface AssistantContext {
+  assistantsKnowledge: AssistantsKnowledgeListInstance;
+  assistantsTools: AssistantsToolListInstance;
   feedbacks: FeedbackListInstance;
+  messages: MessageListInstance;
 
   /**
    * Remove a AssistantInstance
@@ -253,12 +267,14 @@ export interface AssistantContext {
    * Update a AssistantInstance
    *
    * @param params - Body for request
+   * @param headers - header params for request
    * @param callback - Callback to handle processed record
    *
    * @returns Resolves to processed AssistantInstance
    */
   update(
     params: AssistantsV1ServiceUpdateAssistantRequest,
+    headers?: any,
     callback?: (error: Error | null, item?: AssistantInstance) => any
   ): Promise<AssistantInstance>;
 
@@ -277,7 +293,10 @@ export class AssistantContextImpl implements AssistantContext {
   protected _solution: AssistantContextSolution;
   protected _uri: string;
 
+  protected _assistantsKnowledge?: AssistantsKnowledgeListInstance;
+  protected _assistantsTools?: AssistantsToolListInstance;
   protected _feedbacks?: FeedbackListInstance;
+  protected _messages?: MessageListInstance;
 
   constructor(protected _version: V1, id: string) {
     if (!isValidPathParam(id)) {
@@ -288,20 +307,43 @@ export class AssistantContextImpl implements AssistantContext {
     this._uri = `/Assistants/${id}`;
   }
 
+  get assistantsKnowledge(): AssistantsKnowledgeListInstance {
+    this._assistantsKnowledge =
+      this._assistantsKnowledge ||
+      AssistantsKnowledgeListInstance(this._version, this._solution.id);
+    return this._assistantsKnowledge;
+  }
+
+  get assistantsTools(): AssistantsToolListInstance {
+    this._assistantsTools =
+      this._assistantsTools ||
+      AssistantsToolListInstance(this._version, this._solution.id);
+    return this._assistantsTools;
+  }
+
   get feedbacks(): FeedbackListInstance {
     this._feedbacks =
       this._feedbacks || FeedbackListInstance(this._version, this._solution.id);
     return this._feedbacks;
   }
 
+  get messages(): MessageListInstance {
+    this._messages =
+      this._messages || MessageListInstance(this._version, this._solution.id);
+    return this._messages;
+  }
+
   remove(
     callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
+    const headers: any = {};
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
         uri: instance._uri,
         method: "delete",
+        headers,
       });
 
     operationPromise = instance._version.setPromiseCallback(
@@ -314,11 +356,15 @@ export class AssistantContextImpl implements AssistantContext {
   fetch(
     callback?: (error: Error | null, item?: AssistantInstance) => any
   ): Promise<AssistantInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
         uri: instance._uri,
         method: "get",
+        headers,
       });
 
     operationPromise = operationPromise.then(
@@ -337,6 +383,7 @@ export class AssistantContextImpl implements AssistantContext {
     params?:
       | AssistantsV1ServiceUpdateAssistantRequest
       | ((error: Error | null, item?: AssistantInstance) => any),
+    headers?: any,
     callback?: (error: Error | null, item?: AssistantInstance) => any
   ): Promise<AssistantInstance> {
     if (params instanceof Function) {
@@ -350,8 +397,12 @@ export class AssistantContextImpl implements AssistantContext {
 
     data = params;
 
-    const headers: any = {};
+    if (headers === null || headers === undefined) {
+      headers = {};
+    }
+
     headers["Content-Type"] = "application/json";
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
@@ -399,6 +450,7 @@ interface AssistantResource {
   model: string;
   name: string;
   owner: string;
+  url: string;
   personality_prompt: string;
   date_created: Date;
   date_updated: Date;
@@ -417,6 +469,7 @@ export class AssistantInstance {
     this.model = payload.model;
     this.name = payload.name;
     this.owner = payload.owner;
+    this.url = payload.url;
     this.personalityPrompt = payload.personality_prompt;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
@@ -450,6 +503,10 @@ export class AssistantInstance {
    * The owner/company of the assistant.
    */
   owner: string;
+  /**
+   * The url of the assistant resource.
+   */
+  url: string;
   /**
    * The personality prompt to be used for assistant.
    */
@@ -518,12 +575,14 @@ export class AssistantInstance {
    * Update a AssistantInstance
    *
    * @param params - Body for request
+   * @param headers - header params for request
    * @param callback - Callback to handle processed record
    *
    * @returns Resolves to processed AssistantInstance
    */
   update(
     params: AssistantsV1ServiceUpdateAssistantRequest,
+    headers?: any,
     callback?: (error: Error | null, item?: AssistantInstance) => any
   ): Promise<AssistantInstance>;
 
@@ -535,10 +594,31 @@ export class AssistantInstance {
   }
 
   /**
+   * Access the assistantsKnowledge.
+   */
+  assistantsKnowledge(): AssistantsKnowledgeListInstance {
+    return this._proxy.assistantsKnowledge;
+  }
+
+  /**
+   * Access the assistantsTools.
+   */
+  assistantsTools(): AssistantsToolListInstance {
+    return this._proxy.assistantsTools;
+  }
+
+  /**
    * Access the feedbacks.
    */
   feedbacks(): FeedbackListInstance {
     return this._proxy.feedbacks;
+  }
+
+  /**
+   * Access the messages.
+   */
+  messages(): MessageListInstance {
+    return this._proxy.messages;
   }
 
   /**
@@ -554,6 +634,7 @@ export class AssistantInstance {
       model: this.model,
       name: this.name,
       owner: this.owner,
+      url: this.url,
       personalityPrompt: this.personalityPrompt,
       dateCreated: this.dateCreated,
       dateUpdated: this.dateUpdated,
@@ -581,12 +662,14 @@ export interface AssistantListInstance {
    * Create a AssistantInstance
    *
    * @param params - Body for request
+   * @param headers - header params for request
    * @param callback - Callback to handle processed record
    *
    * @returns Resolves to processed AssistantInstance
    */
   create(
     params: AssistantsV1ServiceCreateAssistantRequest,
+    headers?: any,
     callback?: (error: Error | null, item?: AssistantInstance) => any
   ): Promise<AssistantInstance>;
 
@@ -679,6 +762,7 @@ export function AssistantListInstance(version: V1): AssistantListInstance {
 
   instance.create = function create(
     params: AssistantsV1ServiceCreateAssistantRequest,
+    headers?: any,
     callback?: (error: Error | null, items: AssistantInstance) => any
   ): Promise<AssistantInstance> {
     if (params === null || params === undefined) {
@@ -689,8 +773,12 @@ export function AssistantListInstance(version: V1): AssistantListInstance {
 
     data = params;
 
-    const headers: any = {};
+    if (headers === null || headers === undefined) {
+      headers = {};
+    }
+
     headers["Content-Type"] = "application/json";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
@@ -732,6 +820,7 @@ export function AssistantListInstance(version: V1): AssistantListInstance {
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.page({

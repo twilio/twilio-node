@@ -1,6 +1,88 @@
 twilio-node changelog
 =====================
 
+[2024-12-12] Version 5.4.0
+--------------------------
+**Library - Chore**
+- [PR #1058](https://github.com/twilio/twilio-node/pull/1058): add v22 support. Thanks to [@manisha1997](https://github.com/manisha1997)!
+
+**Library - Feature**
+- [PR #1057](https://github.com/twilio/twilio-node/pull/1057): add support for OAuth and Orgs API. Thanks to [@tiwarishubham635](https://github.com/tiwarishubham635)!
+
+
+[2024-12-05] Version 5.3.7
+--------------------------
+**Api**
+- Add optional parameter `intelligence_service` to `transcription`
+- Updated `phone_number_sid` to be populated for sip trunking terminating calls.
+
+**Numbers**
+- Add Update Hosted Number Order V2 API endpoint
+- Update Port in docs
+
+**Twiml**
+- Add optional parameter `intelligence_service` to `<Transcription>`
+- Add support for new `<ConversationRelay>` and `<Assistant>` noun
+- Add `events` attribute to `<Dial>` verb
+
+
+[2024-11-15] Version 5.3.6
+--------------------------
+**Library - Chore**
+- [PR #1040](https://github.com/twilio/twilio-node/pull/1040): pass http agent options to client. Thanks to [@tiwarishubham635](https://github.com/tiwarishubham635)!
+- [PR #1041](https://github.com/twilio/twilio-node/pull/1041): remove preview sync api. Thanks to [@sbansla](https://github.com/sbansla)!
+
+**Api**
+- Added `ivr-virtual-agent-custom-voices` and `ivr-virtual-agent-genai` to `usage_record` API.
+- Add open-api file tag to realtime_transcriptions
+
+**Taskrouter**
+- Add `api-tag` property to workers reservation
+- Add `api-tag` property to task reservation
+
+
+[2024-10-24] Version 5.3.5
+--------------------------
+**Conversations**
+- Expose ConversationWithParticipants resource that allows creating a conversation with participants
+
+
+[2024-10-17] Version 5.3.4
+--------------------------
+**Api**
+- Add response key `country` to fetch AvailablePhoneNumber resource by specific country.
+
+**Messaging**
+- Make library and doc public for requestManagedCert Endpoint
+
+
+[2024-10-03] Version 5.3.3
+--------------------------
+**Messaging**
+- Add A2P external campaign CnpMigration flag
+
+**Numbers**
+- Add address sid to portability API
+
+**Verify**
+- Add `SnaClientToken` optional parameter on Verification check.
+- Add `EnableSnaClientToken` optional parameter for Verification creation.
+
+
+[2024-09-25] Version 5.3.2
+--------------------------
+**Library - Chore**
+- [PR #1037](https://github.com/twilio/twilio-node/pull/1037): Sync for IoT has reached EOL; removing reference to Deployed Devices. Thanks to [@wanjunsli](https://github.com/wanjunsli)!
+
+**Accounts**
+- Update docs and mounts.
+- Change library visibility to public
+- Enable consent and contact bulk upsert APIs in prod.
+
+**Serverless**
+- Add is_plugin parameter in deployments api to check if it is plugins deployment
+
+
 [2024-09-18] Version 5.3.1
 --------------------------
 **Intelligence**

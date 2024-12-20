@@ -20,12 +20,13 @@ const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 import { ChunkListInstance } from "./knowledge/chunk";
+import { KnowledgeStatusListInstance } from "./knowledge/knowledgeStatus";
 
 export class AssistantsV1ServiceCreateKnowledgeRequest {
   /**
    * The Assistant ID.
    */
-  "assistantId"?: string;
+  "assistant_id"?: string;
   /**
    * The description of the knowledge source.
    */
@@ -33,7 +34,7 @@ export class AssistantsV1ServiceCreateKnowledgeRequest {
   /**
    * The details of the knowledge source based on the type.
    */
-  "knowledgeSourceDetails"?: Record<string, object>;
+  "knowledge_source_details"?: Record<string, object>;
   /**
    * The name of the tool.
    */
@@ -58,7 +59,7 @@ export class AssistantsV1ServiceCreatePolicyRequest {
    * The name of the policy.
    */
   "name"?: string;
-  "policyDetails": any | null;
+  "policy_details": any | null;
   /**
    * The description of the policy.
    */
@@ -73,7 +74,7 @@ export class AssistantsV1ServiceUpdateKnowledgeRequest {
   /**
    * The details of the knowledge source based on the type.
    */
-  "knowledgeSourceDetails"?: Record<string, object>;
+  "knowledge_source_details"?: Record<string, object>;
   /**
    * The name of the knowledge source.
    */
@@ -144,6 +145,7 @@ export interface KnowledgeListInstancePageOptions {
 
 export interface KnowledgeContext {
   chunks: ChunkListInstance;
+  knowledgeStatus: KnowledgeStatusListInstance;
 
   /**
    * Remove a KnowledgeInstance
@@ -181,12 +183,14 @@ export interface KnowledgeContext {
    * Update a KnowledgeInstance
    *
    * @param params - Body for request
+   * @param headers - header params for request
    * @param callback - Callback to handle processed record
    *
    * @returns Resolves to processed KnowledgeInstance
    */
   update(
     params: AssistantsV1ServiceUpdateKnowledgeRequest,
+    headers?: any,
     callback?: (error: Error | null, item?: KnowledgeInstance) => any
   ): Promise<KnowledgeInstance>;
 
@@ -206,6 +210,7 @@ export class KnowledgeContextImpl implements KnowledgeContext {
   protected _uri: string;
 
   protected _chunks?: ChunkListInstance;
+  protected _knowledgeStatus?: KnowledgeStatusListInstance;
 
   constructor(protected _version: V1, id: string) {
     if (!isValidPathParam(id)) {
@@ -222,14 +227,24 @@ export class KnowledgeContextImpl implements KnowledgeContext {
     return this._chunks;
   }
 
+  get knowledgeStatus(): KnowledgeStatusListInstance {
+    this._knowledgeStatus =
+      this._knowledgeStatus ||
+      KnowledgeStatusListInstance(this._version, this._solution.id);
+    return this._knowledgeStatus;
+  }
+
   remove(
     callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
+    const headers: any = {};
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
         uri: instance._uri,
         method: "delete",
+        headers,
       });
 
     operationPromise = instance._version.setPromiseCallback(
@@ -242,11 +257,15 @@ export class KnowledgeContextImpl implements KnowledgeContext {
   fetch(
     callback?: (error: Error | null, item?: KnowledgeInstance) => any
   ): Promise<KnowledgeInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
         uri: instance._uri,
         method: "get",
+        headers,
       });
 
     operationPromise = operationPromise.then(
@@ -265,6 +284,7 @@ export class KnowledgeContextImpl implements KnowledgeContext {
     params?:
       | AssistantsV1ServiceUpdateKnowledgeRequest
       | ((error: Error | null, item?: KnowledgeInstance) => any),
+    headers?: any,
     callback?: (error: Error | null, item?: KnowledgeInstance) => any
   ): Promise<KnowledgeInstance> {
     if (params instanceof Function) {
@@ -278,8 +298,12 @@ export class KnowledgeContextImpl implements KnowledgeContext {
 
     data = params;
 
-    const headers: any = {};
+    if (headers === null || headers === undefined) {
+      headers = {};
+    }
+
     headers["Content-Type"] = "application/json";
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
@@ -328,6 +352,7 @@ interface KnowledgeResource {
   name: string;
   status: string;
   type: string;
+  url: string;
   date_created: Date;
   date_updated: Date;
 }
@@ -344,6 +369,7 @@ export class KnowledgeInstance {
     this.name = payload.name;
     this.status = payload.status;
     this.type = payload.type;
+    this.url = payload.url;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
 
@@ -378,6 +404,10 @@ export class KnowledgeInstance {
    * The type of knowledge source (\'Web\', \'Database\', \'Text\', \'File\')
    */
   type: string;
+  /**
+   * The url of the knowledge resource.
+   */
+  url: string;
   /**
    * The date and time in GMT when the Knowledge was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
@@ -434,12 +464,14 @@ export class KnowledgeInstance {
    * Update a KnowledgeInstance
    *
    * @param params - Body for request
+   * @param headers - header params for request
    * @param callback - Callback to handle processed record
    *
    * @returns Resolves to processed KnowledgeInstance
    */
   update(
     params: AssistantsV1ServiceUpdateKnowledgeRequest,
+    headers?: any,
     callback?: (error: Error | null, item?: KnowledgeInstance) => any
   ): Promise<KnowledgeInstance>;
 
@@ -458,6 +490,13 @@ export class KnowledgeInstance {
   }
 
   /**
+   * Access the knowledgeStatus.
+   */
+  knowledgeStatus(): KnowledgeStatusListInstance {
+    return this._proxy.knowledgeStatus;
+  }
+
+  /**
    * Provide a user-friendly representation
    *
    * @returns Object
@@ -471,6 +510,7 @@ export class KnowledgeInstance {
       name: this.name,
       status: this.status,
       type: this.type,
+      url: this.url,
       dateCreated: this.dateCreated,
       dateUpdated: this.dateUpdated,
     };
@@ -495,12 +535,14 @@ export interface KnowledgeListInstance {
    * Create a KnowledgeInstance
    *
    * @param params - Body for request
+   * @param headers - header params for request
    * @param callback - Callback to handle processed record
    *
    * @returns Resolves to processed KnowledgeInstance
    */
   create(
     params: AssistantsV1ServiceCreateKnowledgeRequest,
+    headers?: any,
     callback?: (error: Error | null, item?: KnowledgeInstance) => any
   ): Promise<KnowledgeInstance>;
 
@@ -593,6 +635,7 @@ export function KnowledgeListInstance(version: V1): KnowledgeListInstance {
 
   instance.create = function create(
     params: AssistantsV1ServiceCreateKnowledgeRequest,
+    headers?: any,
     callback?: (error: Error | null, items: KnowledgeInstance) => any
   ): Promise<KnowledgeInstance> {
     if (params === null || params === undefined) {
@@ -603,8 +646,12 @@ export function KnowledgeListInstance(version: V1): KnowledgeListInstance {
 
     data = params;
 
-    const headers: any = {};
+    if (headers === null || headers === undefined) {
+      headers = {};
+    }
+
     headers["Content-Type"] = "application/json";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
@@ -648,6 +695,7 @@ export function KnowledgeListInstance(version: V1): KnowledgeListInstance {
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.page({

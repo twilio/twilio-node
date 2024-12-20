@@ -1,23 +1,13 @@
-import { FleetListInstance } from "./preview/deployed_devices/fleet";
 import { AuthorizationDocumentListInstance } from "./preview/hosted_numbers/authorizationDocument";
 import { HostedNumberOrderListInstance } from "./preview/hosted_numbers/hostedNumberOrder";
 import { AvailableAddOnListInstance } from "./preview/marketplace/availableAddOn";
 import { InstalledAddOnListInstance } from "./preview/marketplace/installedAddOn";
-import { ServiceListInstance } from "./preview/sync/service";
 import { CommandListInstance } from "./preview/wireless/command";
 import { RatePlanListInstance } from "./preview/wireless/ratePlan";
 import { SimListInstance } from "./preview/wireless/sim";
 import PreviewBase from "./PreviewBase";
 
 class Preview extends PreviewBase {
-  /**
-   * @deprecated - Use deployed_devices.fleets instead
-   */
-  get fleets(): FleetListInstance {
-    console.warn("fleets is deprecated. Use deployed_devices.fleets instead.");
-    return this.deployed_devices.fleets;
-  }
-
   /**
    * @deprecated - Use hosted_numbers.authorizationDocuments instead
    */
@@ -56,14 +46,6 @@ class Preview extends PreviewBase {
       "installedAddOns is deprecated. Use marketplace.installedAddOns instead."
     );
     return this.marketplace.installedAddOns;
-  }
-
-  /**
-   * @deprecated - Use sync.services instead
-   */
-  get services(): ServiceListInstance {
-    console.warn("services is deprecated. Use sync.services instead.");
-    return this.sync.services;
   }
 
   /**

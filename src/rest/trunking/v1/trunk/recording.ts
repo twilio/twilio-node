@@ -99,11 +99,15 @@ export class RecordingContextImpl implements RecordingContext {
   fetch(
     callback?: (error: Error | null, item?: RecordingInstance) => any
   ): Promise<RecordingInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
         uri: instance._uri,
         method: "get",
+        headers,
       });
 
     operationPromise = operationPromise.then(
@@ -142,6 +146,7 @@ export class RecordingContextImpl implements RecordingContext {
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,

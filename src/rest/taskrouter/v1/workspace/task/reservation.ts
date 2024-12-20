@@ -287,11 +287,15 @@ export class ReservationContextImpl implements ReservationContext {
   fetch(
     callback?: (error: Error | null, item?: ReservationInstance) => any
   ): Promise<ReservationInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
         uri: instance._uri,
         method: "get",
+        headers,
       });
 
     operationPromise = operationPromise.then(
@@ -450,6 +454,7 @@ export class ReservationContextImpl implements ReservationContext {
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
     if (params["ifMatch"] !== undefined)
       headers["If-Match"] = params["ifMatch"];
 
@@ -798,6 +803,7 @@ export function ReservationListInstance(
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.page({

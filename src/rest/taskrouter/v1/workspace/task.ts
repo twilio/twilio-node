@@ -53,7 +53,7 @@ export interface TaskContextUpdateOptions {
   priority?: number;
   /** When MultiTasking is enabled, specify the TaskChannel with the task to update. Can be the TaskChannel\\\'s SID or its `unique_name`, such as `voice`, `sms`, or `default`. */
   taskChannel?: string;
-  /** The task\\\'s new virtual start time value. When supplied, the Task takes on the specified virtual start time. Value can\\\'t be in the future. */
+  /** The task\\\'s new virtual start time value. When supplied, the Task takes on the specified virtual start time. Value can\\\'t be in the future or before the year of 1900. */
   virtualStartTime?: Date;
 }
 
@@ -71,7 +71,7 @@ export interface TaskListInstanceCreateOptions {
   workflowSid?: string;
   /** A URL-encoded JSON string with the attributes of the new task. This value is passed to the Workflow\\\'s `assignment_callback_url` when the Task is assigned to a Worker. For example: `{ \\\"task_type\\\": \\\"call\\\", \\\"twilio_call_sid\\\": \\\"CAxxx\\\", \\\"customer_ticket_number\\\": \\\"12345\\\" }`. */
   attributes?: string;
-  /** The virtual start time to assign the new task and override the default. When supplied, the new task will have this virtual start time. When not supplied, the new task will have the virtual start time equal to `date_created`. Value can\\\'t be in the future. */
+  /** The virtual start time to assign the new task and override the default. When supplied, the new task will have this virtual start time. When not supplied, the new task will have the virtual start time equal to `date_created`. Value can\\\'t be in the future or before the year of 1900. */
   virtualStartTime?: Date;
   /** A SID of a Worker, Queue, or Workflow to route a Task to */
   routingTarget?: string;
@@ -316,11 +316,15 @@ export class TaskContextImpl implements TaskContext {
   fetch(
     callback?: (error: Error | null, item?: TaskInstance) => any
   ): Promise<TaskInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
         uri: instance._uri,
         method: "get",
+        headers,
       });
 
     operationPromise = operationPromise.then(
@@ -370,6 +374,7 @@ export class TaskContextImpl implements TaskContext {
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
     if (params["ifMatch"] !== undefined)
       headers["If-Match"] = params["ifMatch"];
 
@@ -875,6 +880,7 @@ export function TaskListInstance(
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
@@ -942,6 +948,7 @@ export function TaskListInstance(
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.page({

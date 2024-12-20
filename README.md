@@ -58,6 +58,13 @@ After a brief delay, you will receive the text message on your phone.
 > **Warning**
 > It's okay to hardcode your credentials when testing locally, but you should use environment variables to keep them secret before committing any code or deploying to production. Check out [How to Set Environment Variables](https://www.twilio.com/blog/2017/01/how-to-set-environment-variables.html) for more information.
 
+## OAuth Feature for Twilio APIs
+We are introducing Client Credentials Flow-based OAuth 2.0 authentication. This feature is currently in beta and its implementation is subject to change.
+
+API examples [here](https://github.com/twilio/twilio-node/blob/main/examples/public_oauth.js)
+
+Organisation API examples [here](https://github.com/twilio/twilio-node/blob/main/examples/orgs_api.js)
+
 ## Usage
 
 Check out these [code examples](examples) in JavaScript and TypeScript to get up and running quickly.
@@ -110,6 +117,27 @@ const authToken = process.env.TWILIO_AUTH_TOKEN;
 const client = require('twilio')(accountSid, authToken, {
   autoRetry: true,
   maxRetries: 3,
+});
+```
+
+### Set HTTP Agent Options
+
+`twilio-node` allows you to set HTTP Agent Options in the Request Client. This feature allows you to re-use your connections. To enable this feature, instantiate the Twilio client with the `keepAlive` flag set to `true`.
+
+Optionally, the socket timeout and maximum number of sockets can also be set. See the example below:
+
+```javascript
+const accountSid = process.env.TWILIO_ACCOUNT_SID;
+const authToken = process.env.TWILIO_AUTH_TOKEN;
+
+const client = require('twilio')(accountSid, authToken, {
+    timeout: 30000, // HTTPS agent's socket timeout in milliseconds, default is 30000
+    keepAlive: true, // https.Agent keepAlive option, default is false
+    keepAliveMsecs: 1000, // https.Agent keepAliveMsecs option in milliseconds, default is 1000
+    maxSockets: 20, // https.Agent maxSockets option, default is 20
+    maxTotalSockets: 100, // https.Agent maxTotalSockets option, default is 100
+    maxFreeSockets: 5, // https.Agent maxFreeSockets option, default is 5
+    scheduling: "lifo", // https.Agent scheduling option, default is 'lifo'
 });
 ```
 

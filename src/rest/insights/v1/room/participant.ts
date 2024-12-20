@@ -20,7 +20,7 @@ const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
 
-export type ParticipantCodec = "VP8" | "H264" | "VP9";
+export type ParticipantCodec = "VP8" | "H264" | "VP9" | "opus";
 
 export type ParticipantEdgeLocation =
   | "ashburn"
@@ -45,7 +45,9 @@ export type ParticipantTwilioRealm =
   | "sg1"
   | "in1"
   | "de1"
-  | "gll";
+  | "gll"
+  | "stage_us1"
+  | "dev_us1";
 
 /**
  * Options to pass to each
@@ -127,11 +129,15 @@ export class ParticipantContextImpl implements ParticipantContext {
   fetch(
     callback?: (error: Error | null, item?: ParticipantInstance) => any
   ): Promise<ParticipantInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
         uri: instance._uri,
         method: "get",
+        headers,
       });
 
     operationPromise = operationPromise.then(
@@ -467,6 +473,7 @@ export function ParticipantListInstance(
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.page({

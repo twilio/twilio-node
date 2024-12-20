@@ -15,6 +15,8 @@
 import AccountsBase from "../AccountsBase";
 import Version from "../../base/Version";
 import { AuthTokenPromotionListInstance } from "./v1/authTokenPromotion";
+import { BulkConsentsListInstance } from "./v1/bulkConsents";
+import { BulkContactsListInstance } from "./v1/bulkContacts";
 import { CredentialListInstance } from "./v1/credential";
 import { SafelistListInstance } from "./v1/safelist";
 import { SecondaryAuthTokenListInstance } from "./v1/secondaryAuthToken";
@@ -31,6 +33,10 @@ export default class V1 extends Version {
 
   /** authTokenPromotion - { Twilio.Accounts.V1.AuthTokenPromotionListInstance } resource */
   protected _authTokenPromotion?: AuthTokenPromotionListInstance;
+  /** bulkConsents - { Twilio.Accounts.V1.BulkConsentsListInstance } resource */
+  protected _bulkConsents?: BulkConsentsListInstance;
+  /** bulkContacts - { Twilio.Accounts.V1.BulkContactsListInstance } resource */
+  protected _bulkContacts?: BulkContactsListInstance;
   /** credentials - { Twilio.Accounts.V1.CredentialListInstance } resource */
   protected _credentials?: CredentialListInstance;
   /** safelist - { Twilio.Accounts.V1.SafelistListInstance } resource */
@@ -43,6 +49,18 @@ export default class V1 extends Version {
     this._authTokenPromotion =
       this._authTokenPromotion || AuthTokenPromotionListInstance(this);
     return this._authTokenPromotion;
+  }
+
+  /** Getter for bulkConsents resource */
+  get bulkConsents(): BulkConsentsListInstance {
+    this._bulkConsents = this._bulkConsents || BulkConsentsListInstance(this);
+    return this._bulkConsents;
+  }
+
+  /** Getter for bulkContacts resource */
+  get bulkContacts(): BulkContactsListInstance {
+    this._bulkContacts = this._bulkContacts || BulkContactsListInstance(this);
+    return this._bulkContacts;
   }
 
   /** Getter for credentials resource */

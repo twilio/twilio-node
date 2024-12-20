@@ -33,7 +33,7 @@ export class AssistantsV1ServiceCreatePolicyRequest {
    * The name of the policy.
    */
   "name"?: string;
-  "policyDetails": any | null;
+  "policy_details": any | null;
   /**
    * The description of the policy.
    */
@@ -44,7 +44,7 @@ export class AssistantsV1ServiceCreateToolRequest {
   /**
    * The Assistant ID.
    */
-  "assistantId"?: string;
+  "assistant_id"?: string;
   /**
    * The description of the tool.
    */
@@ -68,11 +68,50 @@ export class AssistantsV1ServiceCreateToolRequest {
   "type": string;
 }
 
+export class AssistantsV1ServicePolicy {
+  /**
+   * The Policy ID.
+   */
+  "id"?: string;
+  /**
+   * The name of the policy.
+   */
+  "name"?: string;
+  /**
+   * The description of the policy.
+   */
+  "description"?: string;
+  /**
+   * The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Policy resource.
+   */
+  "account_sid"?: string;
+  /**
+   * The SID of the User that created the Policy resource.
+   */
+  "user_sid"?: string;
+  /**
+   * The type of the policy.
+   */
+  "type": string;
+  /**
+   * The details of the policy based on the type.
+   */
+  "policy_details": Record<string, object>;
+  /**
+   * The date and time in GMT when the Policy was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+   */
+  "date_created"?: Date;
+  /**
+   * The date and time in GMT when the Policy was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+   */
+  "date_updated"?: Date;
+}
+
 export class AssistantsV1ServiceUpdateToolRequest {
   /**
    * The Assistant ID.
    */
-  "assistantId"?: string;
+  "assistant_id"?: string;
   /**
    * The description of the tool.
    */
@@ -166,6 +205,17 @@ export interface ToolContext {
   ): Promise<boolean>;
 
   /**
+   * Fetch a ToolInstance
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed ToolInstance
+   */
+  fetch(
+    callback?: (error: Error | null, item?: ToolInstance) => any
+  ): Promise<ToolInstance>;
+
+  /**
    * Update a ToolInstance
    *
    * @param callback - Callback to handle processed record
@@ -179,12 +229,14 @@ export interface ToolContext {
    * Update a ToolInstance
    *
    * @param params - Body for request
+   * @param headers - header params for request
    * @param callback - Callback to handle processed record
    *
    * @returns Resolves to processed ToolInstance
    */
   update(
     params: AssistantsV1ServiceUpdateToolRequest,
+    headers?: any,
     callback?: (error: Error | null, item?: ToolInstance) => any
   ): Promise<ToolInstance>;
 
@@ -215,12 +267,41 @@ export class ToolContextImpl implements ToolContext {
   remove(
     callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
+    const headers: any = {};
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
         uri: instance._uri,
         method: "delete",
+        headers,
       });
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
+  fetch(
+    callback?: (error: Error | null, item?: ToolInstance) => any
+  ): Promise<ToolInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
+    const instance = this;
+    let operationVersion = instance._version,
+      operationPromise = operationVersion.fetch({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      });
+
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new ToolInstance(operationVersion, payload, instance._solution.id)
+    );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -233,6 +314,7 @@ export class ToolContextImpl implements ToolContext {
     params?:
       | AssistantsV1ServiceUpdateToolRequest
       | ((error: Error | null, item?: ToolInstance) => any),
+    headers?: any,
     callback?: (error: Error | null, item?: ToolInstance) => any
   ): Promise<ToolInstance> {
     if (params instanceof Function) {
@@ -246,8 +328,12 @@ export class ToolContextImpl implements ToolContext {
 
     data = params;
 
-    const headers: any = {};
+    if (headers === null || headers === undefined) {
+      headers = {};
+    }
+
     headers["Content-Type"] = "application/json";
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
@@ -297,8 +383,10 @@ interface ToolResource {
   name: string;
   requires_auth: boolean;
   type: string;
+  url: string;
   date_created: Date;
   date_updated: Date;
+  policies: Array<AssistantsV1ServicePolicy>;
 }
 
 export class ToolInstance {
@@ -314,8 +402,10 @@ export class ToolInstance {
     this.name = payload.name;
     this.requiresAuth = payload.requires_auth;
     this.type = payload.type;
+    this.url = payload.url;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
+    this.policies = payload.policies;
 
     this._solution = { id: id || this.id };
   }
@@ -353,6 +443,10 @@ export class ToolInstance {
    */
   type: string;
   /**
+   * The url of the tool resource.
+   */
+  url: string;
+  /**
    * The date and time in GMT when the Tool was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
   dateCreated: Date;
@@ -360,6 +454,10 @@ export class ToolInstance {
    * The date and time in GMT when the Tool was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
   dateUpdated: Date;
+  /**
+   * The Policies associated with the tool.
+   */
+  policies: Array<AssistantsV1ServicePolicy>;
 
   private get _proxy(): ToolContext {
     this._context =
@@ -381,6 +479,19 @@ export class ToolInstance {
   }
 
   /**
+   * Fetch a ToolInstance
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed ToolInstance
+   */
+  fetch(
+    callback?: (error: Error | null, item?: ToolInstance) => any
+  ): Promise<ToolInstance> {
+    return this._proxy.fetch(callback);
+  }
+
+  /**
    * Update a ToolInstance
    *
    * @param callback - Callback to handle processed record
@@ -394,12 +505,14 @@ export class ToolInstance {
    * Update a ToolInstance
    *
    * @param params - Body for request
+   * @param headers - header params for request
    * @param callback - Callback to handle processed record
    *
    * @returns Resolves to processed ToolInstance
    */
   update(
     params: AssistantsV1ServiceUpdateToolRequest,
+    headers?: any,
     callback?: (error: Error | null, item?: ToolInstance) => any
   ): Promise<ToolInstance>;
 
@@ -425,8 +538,10 @@ export class ToolInstance {
       name: this.name,
       requiresAuth: this.requiresAuth,
       type: this.type,
+      url: this.url,
       dateCreated: this.dateCreated,
       dateUpdated: this.dateUpdated,
+      policies: this.policies,
     };
   }
 
@@ -449,12 +564,14 @@ export interface ToolListInstance {
    * Create a ToolInstance
    *
    * @param params - Body for request
+   * @param headers - header params for request
    * @param callback - Callback to handle processed record
    *
    * @returns Resolves to processed ToolInstance
    */
   create(
     params: AssistantsV1ServiceCreateToolRequest,
+    headers?: any,
     callback?: (error: Error | null, item?: ToolInstance) => any
   ): Promise<ToolInstance>;
 
@@ -547,6 +664,7 @@ export function ToolListInstance(version: V1): ToolListInstance {
 
   instance.create = function create(
     params: AssistantsV1ServiceCreateToolRequest,
+    headers?: any,
     callback?: (error: Error | null, items: ToolInstance) => any
   ): Promise<ToolInstance> {
     if (params === null || params === undefined) {
@@ -557,8 +675,12 @@ export function ToolListInstance(version: V1): ToolListInstance {
 
     data = params;
 
-    const headers: any = {};
+    if (headers === null || headers === undefined) {
+      headers = {};
+    }
+
     headers["Content-Type"] = "application/json";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
@@ -602,6 +724,7 @@ export function ToolListInstance(version: V1): ToolListInstance {
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.page({

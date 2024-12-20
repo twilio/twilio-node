@@ -68,6 +68,8 @@ export type YesterdayCategory =
   | "group-rooms-participant-minutes"
   | "group-rooms-recorded-minutes"
   | "imp-v1-usage"
+  | "ivr-virtual-agent-custom-voices"
+  | "ivr-virtual-agent-genai"
   | "lookups"
   | "marketplace"
   | "marketplace-algorithmia-named-entity-recognition"
@@ -458,6 +460,7 @@ export function YesterdayListInstance(
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.page({

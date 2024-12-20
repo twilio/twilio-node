@@ -39,6 +39,8 @@ export interface VerificationCheckListInstanceCreateOptions {
   amount?: string;
   /** The payee of the associated PSD2 compliant transaction. Requires the PSD2 Service flag enabled. */
   payee?: string;
+  /** A sna client token received in sna url invocation response needs to be passed in Verification Check request and should match to get successful response. */
+  snaClientToken?: string;
 }
 
 export interface VerificationCheckSolution {
@@ -115,9 +117,12 @@ export function VerificationCheckListInstance(
       data["VerificationSid"] = params["verificationSid"];
     if (params["amount"] !== undefined) data["Amount"] = params["amount"];
     if (params["payee"] !== undefined) data["Payee"] = params["payee"];
+    if (params["snaClientToken"] !== undefined)
+      data["SnaClientToken"] = params["snaClientToken"];
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.create({

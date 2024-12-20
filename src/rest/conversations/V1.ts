@@ -17,6 +17,7 @@ import Version from "../../base/Version";
 import { AddressConfigurationListInstance } from "./v1/addressConfiguration";
 import { ConfigurationListInstance } from "./v1/configuration";
 import { ConversationListInstance } from "./v1/conversation";
+import { ConversationWithParticipantsListInstance } from "./v1/conversationWithParticipants";
 import { CredentialListInstance } from "./v1/credential";
 import { ParticipantConversationListInstance } from "./v1/participantConversation";
 import { RoleListInstance } from "./v1/role";
@@ -39,6 +40,8 @@ export default class V1 extends Version {
   protected _configuration?: ConfigurationListInstance;
   /** conversations - { Twilio.Conversations.V1.ConversationListInstance } resource */
   protected _conversations?: ConversationListInstance;
+  /** conversationWithParticipants - { Twilio.Conversations.V1.ConversationWithParticipantsListInstance } resource */
+  protected _conversationWithParticipants?: ConversationWithParticipantsListInstance;
   /** credentials - { Twilio.Conversations.V1.CredentialListInstance } resource */
   protected _credentials?: CredentialListInstance;
   /** participantConversations - { Twilio.Conversations.V1.ParticipantConversationListInstance } resource */
@@ -68,6 +71,14 @@ export default class V1 extends Version {
   get conversations(): ConversationListInstance {
     this._conversations = this._conversations || ConversationListInstance(this);
     return this._conversations;
+  }
+
+  /** Getter for conversationWithParticipants resource */
+  get conversationWithParticipants(): ConversationWithParticipantsListInstance {
+    this._conversationWithParticipants =
+      this._conversationWithParticipants ||
+      ConversationWithParticipantsListInstance(this);
+    return this._conversationWithParticipants;
   }
 
   /** Getter for credentials resource */

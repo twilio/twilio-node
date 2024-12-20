@@ -23,12 +23,27 @@ import { PhoneNumberCapabilities } from "../../../interfaces";
 
 export type HostedNumberOrderStatus =
   | "received"
+  | "pending-verification"
   | "verified"
   | "pending-loa"
   | "carrier-processing"
   | "completed"
   | "failed"
   | "action-required";
+
+export type HostedNumberOrderVerificationType = "phone-call";
+
+/**
+ * Options to pass to update a HostedNumberOrderInstance
+ */
+export interface HostedNumberOrderContextUpdateOptions {
+  /**  */
+  status: HostedNumberOrderStatus;
+  /** The number of seconds to wait before initiating the ownership verification call. Can be a value between 0 and 60, inclusive. */
+  verificationCallDelay?: number;
+  /** The numerical extension to dial when making the ownership verification call. */
+  verificationCallExtension?: string;
+}
 
 /**
  * Options to pass to create a HostedNumberOrderInstance
@@ -160,6 +175,19 @@ export interface HostedNumberOrderContext {
   ): Promise<HostedNumberOrderInstance>;
 
   /**
+   * Update a HostedNumberOrderInstance
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed HostedNumberOrderInstance
+   */
+  update(
+    params: HostedNumberOrderContextUpdateOptions,
+    callback?: (error: Error | null, item?: HostedNumberOrderInstance) => any
+  ): Promise<HostedNumberOrderInstance>;
+
+  /**
    * Provide a user-friendly representation
    */
   toJSON(): any;
@@ -186,11 +214,14 @@ export class HostedNumberOrderContextImpl implements HostedNumberOrderContext {
   remove(
     callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
+    const headers: any = {};
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.remove({
         uri: instance._uri,
         method: "delete",
+        headers,
       });
 
     operationPromise = instance._version.setPromiseCallback(
@@ -203,11 +234,64 @@ export class HostedNumberOrderContextImpl implements HostedNumberOrderContext {
   fetch(
     callback?: (error: Error | null, item?: HostedNumberOrderInstance) => any
   ): Promise<HostedNumberOrderInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
         uri: instance._uri,
         method: "get",
+        headers,
+      });
+
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new HostedNumberOrderInstance(
+          operationVersion,
+          payload,
+          instance._solution.sid
+        )
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
+  update(
+    params: HostedNumberOrderContextUpdateOptions,
+    callback?: (error: Error | null, item?: HostedNumberOrderInstance) => any
+  ): Promise<HostedNumberOrderInstance> {
+    if (params === null || params === undefined) {
+      throw new Error('Required parameter "params" missing.');
+    }
+
+    if (params["status"] === null || params["status"] === undefined) {
+      throw new Error("Required parameter \"params['status']\" missing.");
+    }
+
+    let data: any = {};
+
+    data["Status"] = params["status"];
+    if (params["verificationCallDelay"] !== undefined)
+      data["VerificationCallDelay"] = params["verificationCallDelay"];
+    if (params["verificationCallExtension"] !== undefined)
+      data["VerificationCallExtension"] = params["verificationCallExtension"];
+
+    const headers: any = {};
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
+
+    const instance = this;
+    let operationVersion = instance._version,
+      operationPromise = operationVersion.update({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
       });
 
     operationPromise = operationPromise.then(
@@ -264,6 +348,12 @@ interface HostedNumberOrderResource {
   contact_phone_number: string;
   bulk_hosting_request_sid: string;
   next_step: string;
+  verification_attempts: number;
+  verification_call_sids: Array<string>;
+  verification_call_delay: number;
+  verification_call_extension: string;
+  verification_code: string;
+  verification_type: HostedNumberOrderVerificationType;
 }
 
 export class HostedNumberOrderInstance {
@@ -294,6 +384,16 @@ export class HostedNumberOrderInstance {
     this.contactPhoneNumber = payload.contact_phone_number;
     this.bulkHostingRequestSid = payload.bulk_hosting_request_sid;
     this.nextStep = payload.next_step;
+    this.verificationAttempts = deserialize.integer(
+      payload.verification_attempts
+    );
+    this.verificationCallSids = payload.verification_call_sids;
+    this.verificationCallDelay = deserialize.integer(
+      payload.verification_call_delay
+    );
+    this.verificationCallExtension = payload.verification_call_extension;
+    this.verificationCode = payload.verification_code;
+    this.verificationType = payload.verification_type;
 
     this._solution = { sid: sid || this.sid };
   }
@@ -368,6 +468,27 @@ export class HostedNumberOrderInstance {
    * The next step you need to take to complete the hosted number order and request it successfully.
    */
   nextStep: string;
+  /**
+   * The number of attempts made to verify ownership via a call for the hosted phone number.
+   */
+  verificationAttempts: number;
+  /**
+   * The Call SIDs that identify the calls placed to verify ownership.
+   */
+  verificationCallSids: Array<string>;
+  /**
+   * The number of seconds to wait before initiating the ownership verification call. Can be a value between 0 and 60, inclusive.
+   */
+  verificationCallDelay: number;
+  /**
+   * The numerical extension to dial when making the ownership verification call.
+   */
+  verificationCallExtension: string;
+  /**
+   * The digits the user must pass in the ownership verification call.
+   */
+  verificationCode: string;
+  verificationType: HostedNumberOrderVerificationType;
 
   private get _proxy(): HostedNumberOrderContext {
     this._context =
@@ -403,6 +524,26 @@ export class HostedNumberOrderInstance {
   }
 
   /**
+   * Update a HostedNumberOrderInstance
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed HostedNumberOrderInstance
+   */
+  update(
+    params: HostedNumberOrderContextUpdateOptions,
+    callback?: (error: Error | null, item?: HostedNumberOrderInstance) => any
+  ): Promise<HostedNumberOrderInstance>;
+
+  update(
+    params?: any,
+    callback?: (error: Error | null, item?: HostedNumberOrderInstance) => any
+  ): Promise<HostedNumberOrderInstance> {
+    return this._proxy.update(params, callback);
+  }
+
+  /**
    * Provide a user-friendly representation
    *
    * @returns Object
@@ -428,6 +569,12 @@ export class HostedNumberOrderInstance {
       contactPhoneNumber: this.contactPhoneNumber,
       bulkHostingRequestSid: this.bulkHostingRequestSid,
       nextStep: this.nextStep,
+      verificationAttempts: this.verificationAttempts,
+      verificationCallSids: this.verificationCallSids,
+      verificationCallDelay: this.verificationCallDelay,
+      verificationCallExtension: this.verificationCallExtension,
+      verificationCode: this.verificationCode,
+      verificationType: this.verificationType,
     };
   }
 
@@ -619,6 +766,7 @@ export function HostedNumberOrderListInstance(
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
@@ -669,6 +817,7 @@ export function HostedNumberOrderListInstance(
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.page({

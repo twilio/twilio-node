@@ -57,11 +57,15 @@ export class ApprovalFetchContextImpl implements ApprovalFetchContext {
   fetch(
     callback?: (error: Error | null, item?: ApprovalFetchInstance) => any
   ): Promise<ApprovalFetchInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
         uri: instance._uri,
         method: "get",
+        headers,
       });
 
     operationPromise = operationPromise.then(

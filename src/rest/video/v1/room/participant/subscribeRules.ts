@@ -108,10 +108,14 @@ export function SubscribeRulesListInstance(
   instance.fetch = function fetch(
     callback?: (error: Error | null, items: SubscribeRulesInstance) => any
   ): Promise<SubscribeRulesInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
     let operationVersion = version,
       operationPromise = operationVersion.fetch({
         uri: instance._uri,
         method: "get",
+        headers,
       });
 
     operationPromise = operationPromise.then(
@@ -151,6 +155,7 @@ export function SubscribeRulesListInstance(
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.update({

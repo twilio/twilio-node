@@ -81,11 +81,15 @@ export class InteractionContextImpl implements InteractionContext {
   fetch(
     callback?: (error: Error | null, item?: InteractionInstance) => any
   ): Promise<InteractionInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
         uri: instance._uri,
         method: "get",
+        headers,
       });
 
     operationPromise = operationPromise.then(
@@ -275,6 +279,7 @@ export function InteractionListInstance(version: V1): InteractionListInstance {
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.create({

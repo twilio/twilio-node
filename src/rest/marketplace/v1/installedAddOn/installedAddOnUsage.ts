@@ -22,8 +22,8 @@ export class MarketplaceV1InstalledAddOnInstalledAddOnUsage {
   /**
    * Total amount in local currency that was billed in this request. Aggregates all billable_items that were successfully submitted.
    */
-  "totalSubmitted"?: number;
-  "billableItems": Array<MarketplaceV1InstalledAddOnInstalledAddOnUsageBillableItems>;
+  "total_submitted"?: number;
+  "billable_items": Array<MarketplaceV1InstalledAddOnInstalledAddOnUsageBillableItems>;
 }
 
 export class MarketplaceV1InstalledAddOnInstalledAddOnUsageBillableItems {
@@ -62,12 +62,14 @@ export interface InstalledAddOnUsageListInstance {
    * Create a InstalledAddOnUsageInstance
    *
    * @param params - Body for request
+   * @param headers - header params for request
    * @param callback - Callback to handle processed record
    *
    * @returns Resolves to processed InstalledAddOnUsageInstance
    */
   create(
     params: MarketplaceV1InstalledAddOnInstalledAddOnUsage,
+    headers?: any,
     callback?: (error: Error | null, item?: InstalledAddOnUsageInstance) => any
   ): Promise<InstalledAddOnUsageInstance>;
 
@@ -94,6 +96,7 @@ export function InstalledAddOnUsageListInstance(
 
   instance.create = function create(
     params: MarketplaceV1InstalledAddOnInstalledAddOnUsage,
+    headers?: any,
     callback?: (error: Error | null, items: InstalledAddOnUsageInstance) => any
   ): Promise<InstalledAddOnUsageInstance> {
     if (params === null || params === undefined) {
@@ -104,8 +107,12 @@ export function InstalledAddOnUsageListInstance(
 
     data = params;
 
-    const headers: any = {};
+    if (headers === null || headers === undefined) {
+      headers = {};
+    }
+
     headers["Content-Type"] = "application/json";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.create({

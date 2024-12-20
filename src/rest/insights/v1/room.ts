@@ -21,7 +21,7 @@ const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 import { ParticipantListInstance } from "./room/participant";
 
-export type RoomCodec = "VP8" | "H264" | "VP9";
+export type RoomCodec = "VP8" | "H264" | "VP9" | "opus";
 
 export type RoomCreatedMethod = "sdk" | "ad_hoc" | "api";
 
@@ -54,7 +54,9 @@ export type RoomTwilioRealm =
   | "sg1"
   | "in1"
   | "de1"
-  | "gll";
+  | "gll"
+  | "stage_us1"
+  | "dev_us1";
 
 /**
  * Options to pass to each
@@ -172,11 +174,15 @@ export class RoomContextImpl implements RoomContext {
   fetch(
     callback?: (error: Error | null, item?: RoomInstance) => any
   ): Promise<RoomInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
     const instance = this;
     let operationVersion = instance._version,
       operationPromise = operationVersion.fetch({
         uri: instance._uri,
         method: "get",
+        headers,
       });
 
     operationPromise = operationPromise.then(
@@ -563,6 +569,7 @@ export function RoomListInstance(version: V1): RoomListInstance {
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.page({

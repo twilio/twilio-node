@@ -95,6 +95,7 @@ export class UsageContextImpl implements UsageContext {
     if (params["start"] !== undefined) data["Start"] = params["start"];
 
     const headers: any = {};
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
