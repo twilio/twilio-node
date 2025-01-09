@@ -190,6 +190,7 @@ interface AssistantsKnowledgeResource {
   status: string;
   type: string;
   url: string;
+  embedding_model: string;
   date_created: Date;
   date_updated: Date;
 }
@@ -212,6 +213,7 @@ export class AssistantsKnowledgeInstance {
     this.status = payload.status;
     this.type = payload.type;
     this.url = payload.url;
+    this.embeddingModel = payload.embedding_model;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
 
@@ -250,6 +252,10 @@ export class AssistantsKnowledgeInstance {
    * The url of the knowledge resource.
    */
   url: string;
+  /**
+   * The embedding model to be used for the knowledge source.
+   */
+  embeddingModel: string;
   /**
    * The date and time in GMT when the Knowledge was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
@@ -311,6 +317,7 @@ export class AssistantsKnowledgeInstance {
       status: this.status,
       type: this.type,
       url: this.url,
+      embeddingModel: this.embeddingModel,
       dateCreated: this.dateCreated,
       dateUpdated: this.dateUpdated,
     };

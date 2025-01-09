@@ -116,13 +116,6 @@ export class FlowsPage {
 export class FlowsPageComponent {
   "label": string;
   "type": string;
-  "text"?: string;
-  "options"?: Array<FlowsPageComponentSelectItem>;
-}
-
-export class FlowsPageComponentSelectItem {
-  "id": string;
-  "title": string;
 }
 
 export class ListItem {

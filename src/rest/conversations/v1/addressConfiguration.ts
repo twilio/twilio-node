@@ -32,7 +32,8 @@ export type AddressConfigurationType =
   | "whatsapp"
   | "messenger"
   | "gbm"
-  | "email";
+  | "email"
+  | "rcs";
 
 /**
  * Options to pass to update a AddressConfigurationInstance
