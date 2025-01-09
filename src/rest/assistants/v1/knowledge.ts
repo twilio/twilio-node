@@ -44,6 +44,10 @@ export class AssistantsV1ServiceCreateKnowledgeRequest {
    * The type of the knowledge source.
    */
   "type": string;
+  /**
+   * The embedding model to be used for the knowledge source. It\'s required for \'Database\' type but disallowed for other types.
+   */
+  "embedding_model"?: string;
 }
 
 export class AssistantsV1ServiceCreatePolicyRequest {
@@ -84,6 +88,10 @@ export class AssistantsV1ServiceUpdateKnowledgeRequest {
    * The description of the knowledge source.
    */
   "type"?: string;
+  /**
+   * The embedding model to be used for the knowledge source. It\'s only applicable to \'Database\' type.
+   */
+  "embedding_model"?: string;
 }
 
 /**
@@ -353,6 +361,7 @@ interface KnowledgeResource {
   status: string;
   type: string;
   url: string;
+  embedding_model: string;
   date_created: Date;
   date_updated: Date;
 }
@@ -370,6 +379,7 @@ export class KnowledgeInstance {
     this.status = payload.status;
     this.type = payload.type;
     this.url = payload.url;
+    this.embeddingModel = payload.embedding_model;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
 
@@ -408,6 +418,10 @@ export class KnowledgeInstance {
    * The url of the knowledge resource.
    */
   url: string;
+  /**
+   * The embedding model to be used for the knowledge source.
+   */
+  embeddingModel: string;
   /**
    * The date and time in GMT when the Knowledge was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
@@ -511,6 +525,7 @@ export class KnowledgeInstance {
       status: this.status,
       type: this.type,
       url: this.url,
+      embeddingModel: this.embeddingModel,
       dateCreated: this.dateCreated,
       dateUpdated: this.dateUpdated,
     };
