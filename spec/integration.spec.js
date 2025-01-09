@@ -1,4 +1,6 @@
 import twilio from "../src/";
+import nock from "nock";
+import { jest } from "@jest/globals";
 
 var accountSid = "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
 var token = "token";
@@ -45,5 +47,53 @@ describe("twilio", function () {
     expect(client.maxRetries).toBe(5);
     expect(client.httpClient.autoRetry).toBe(true);
     expect(client.httpClient.maxRetries).toBe(5);
+  });
+
+  describe('logging', function () {
+    let consoleSpy;
+
+    beforeEach(() => {
+      consoleSpy = jest.spyOn(console, 'log').mockImplementation();
+    });
+
+    afterEach(() => {
+      consoleSpy.mockRestore();
+    });
+
+    it('should use the log-level during http requests', async function () {
+      const scope = nock("https://api.twilio.com")
+        .get(`/2010-04-01/Accounts/${accountSid}/Messages.json?PageSize=1`)
+        .reply(200, {
+          "first_page_uri": `/2010-04-01/Accounts/${accountSid}/Usage/Records/Daily.json?Category=sms-outbound&PageSize=1&Page=0`,
+          "end": 0,
+          "previous_page_uri": null,
+          "uri": "/2010-04-01/Accounts/${accountSid}/Usage/Records/Daily.json?Category=sms-outbound&PageSize=1&Page=0",
+          "page_size": 1,
+          "start": 0,
+          "usage_records": [],
+          "next_page_uri": null,
+          "page": 0
+        });
+
+      const client = new twilio.Twilio(accountSid, token, {
+        logLevel: "debug",
+      });
+
+      await client.messages.list({limit: 1});
+      expect(consoleSpy.mock.calls.map((a) => a[0]).join("\n")).toBe(
+        "-- BEGIN Twilio API Request --\n" +
+        `get https://api.twilio.com/2010-04-01/Accounts/${accountSid}/Messages.json\n` +
+        "Querystring:\n" +
+        "[object Object]\n" +
+        "Headers:\n" +
+        "Accept: undefined\n" +
+        "User-Agent: undefined\n" +
+        "Accept-Charset: undefined\n" +
+        "Connection: undefined\n" +
+        "-- END Twilio API Request --\n" +
+        "response.statusCode: 200\n" +
+        "response.headers: {\"content-type\":\"application/json\"}");
+      scope.done();
+    });
   });
 });
