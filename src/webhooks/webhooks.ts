@@ -2,6 +2,7 @@ const scmp = require("scmp");
 import crypto from "crypto";
 import urllib from "url";
 import { IncomingHttpHeaders } from "http2";
+import { parse, stringify } from "querystring";
 
 export interface Request {
   protocol: string;
@@ -102,6 +103,18 @@ function removePort(parsedUrl: URL): string {
   return parsedUrl.toString();
 }
 
+function withLegacyQuerystring(url: string): string {
+  const parsedUrl = new URL(url);
+
+  if (parsedUrl.search) {
+    const qs = parse(parsedUrl.search.slice(1));
+    parsedUrl.search = "";
+    return parsedUrl.toString() + "?" + stringify(qs);
+  }
+
+  return url;
+}
+
 /**
  Utility function to convert request parameter to a string format
 
@@ -179,33 +192,53 @@ export function validateRequest(
 ): boolean {
   twilioHeader = twilioHeader || "";
   const urlObject = new URL(url);
-  const urlWithPort = addPort(urlObject);
-  const urlWithoutPort = removePort(urlObject);
 
   /*
    *  Check signature of the url with and without the port number
+   *  and with and without the legacy querystring (special chars are encoded when using `new URL()`)
    *  since signature generation on the back end is inconsistent
    */
-  const signatureWithPort = getExpectedTwilioSignature(
-    authToken,
-    urlWithPort,
-    params
+  return (
+    validateSignatureWithUrl(
+      authToken,
+      twilioHeader,
+      removePort(urlObject),
+      params
+    ) ||
+    validateSignatureWithUrl(
+      authToken,
+      twilioHeader,
+      addPort(urlObject),
+      params
+    ) ||
+    validateSignatureWithUrl(
+      authToken,
+      twilioHeader,
+      withLegacyQuerystring(removePort(urlObject)),
+      params
+    ) ||
+    validateSignatureWithUrl(
+      authToken,
+      twilioHeader,
+      withLegacyQuerystring(addPort(urlObject)),
+      params
+    )
   );
+}
+
+function validateSignatureWithUrl(
+  authToken: string,
+  twilioHeader: string,
+  url: string,
+  params: Record<string, any>
+) {
   const signatureWithoutPort = getExpectedTwilioSignature(
     authToken,
-    urlWithoutPort,
+    url,
     params
   );
-  const validSignatureWithPort = scmp(
-    Buffer.from(twilioHeader),
-    Buffer.from(signatureWithPort)
-  );
-  const validSignatureWithoutPort = scmp(
-    Buffer.from(twilioHeader),
-    Buffer.from(signatureWithoutPort)
-  );
 
-  return validSignatureWithoutPort || validSignatureWithPort;
+  return scmp(Buffer.from(twilioHeader), Buffer.from(signatureWithoutPort));
 }
 
 export function validateBody(
