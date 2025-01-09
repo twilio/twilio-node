@@ -99,6 +99,8 @@ function addPort(parsedUrl: URL): string {
  @returns URL without port
  */
 function removePort(parsedUrl: URL): string {
+  parsedUrl = new URL(parsedUrl); // prevent mutation of original URL object
+
   parsedUrl.port = "";
   return parsedUrl.toString();
 }
