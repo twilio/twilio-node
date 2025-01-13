@@ -65,7 +65,7 @@ export interface TranscriptionListInstanceCreateOptions {
   hints?: string;
   /** The provider will add punctuation to recognition result */
   enableAutomaticPunctuation?: boolean;
-  /** The SID or the unique name of the [Voice Intelligence Service](https://www.twilio.com/docs/voice/intelligence/api/service-resource) to process the transcription. */
+  /** The SID of the [Voice Intelligence Service](https://www.twilio.com/docs/voice/intelligence/api/service-resource) for persisting transcripts and running post-call Language Operators . */
   intelligenceService?: string;
 }
 

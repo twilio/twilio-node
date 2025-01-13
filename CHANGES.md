@@ -1,6 +1,12 @@
 twilio-node changelog
 =====================
 
+[2025-01-13] Version 5.4.2
+--------------------------
+**Messaging**
+- Adds validity period Default value in service resource documentation
+
+
 [2025-01-09] Version 5.4.1
 --------------------------
 **Numbers**
