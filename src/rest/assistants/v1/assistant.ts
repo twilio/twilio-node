@@ -60,7 +60,7 @@ export class AssistantsV1ServiceKnowledge {
   /**
    * The description of knowledge.
    */
-  "id"?: string;
+  "id": string;
   /**
    * The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Knowledge resource.
    */
@@ -72,7 +72,7 @@ export class AssistantsV1ServiceKnowledge {
   /**
    * The name of the knowledge source.
    */
-  "name"?: string;
+  "name": string;
   /**
    * The status of processing the knowledge source (\'QUEUED\', \'PROCESSING\', \'COMPLETED\', \'FAILED\')
    */
@@ -80,19 +80,23 @@ export class AssistantsV1ServiceKnowledge {
   /**
    * The type of knowledge source (\'Web\', \'Database\', \'Text\', \'File\')
    */
-  "type"?: string;
+  "type": string;
   /**
    * The url of the knowledge resource.
    */
   "url"?: string;
   /**
+   * The embedding model to be used for the knowledge source.
+   */
+  "embedding_model"?: string;
+  /**
    * The date and time in GMT when the Knowledge was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
-  "date_created"?: Date;
+  "date_created": Date;
   /**
    * The date and time in GMT when the Knowledge was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
-  "date_updated"?: Date;
+  "date_updated": Date;
 }
 
 export class AssistantsV1ServiceSegmentCredential {

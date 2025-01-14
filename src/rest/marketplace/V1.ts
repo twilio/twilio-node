@@ -16,6 +16,7 @@ import MarketplaceBase from "../MarketplaceBase";
 import Version from "../../base/Version";
 import { AvailableAddOnListInstance } from "./v1/availableAddOn";
 import { InstalledAddOnListInstance } from "./v1/installedAddOn";
+import { ModuleDataListInstance } from "./v1/moduleData";
 import { ModuleDataManagementListInstance } from "./v1/moduleDataManagement";
 import { ReferralConversionListInstance } from "./v1/referralConversion";
 
@@ -33,6 +34,8 @@ export default class V1 extends Version {
   protected _availableAddOns?: AvailableAddOnListInstance;
   /** installedAddOns - { Twilio.Marketplace.V1.InstalledAddOnListInstance } resource */
   protected _installedAddOns?: InstalledAddOnListInstance;
+  /** moduleData - { Twilio.Marketplace.V1.ModuleDataListInstance } resource */
+  protected _moduleData?: ModuleDataListInstance;
   /** moduleDataManagement - { Twilio.Marketplace.V1.ModuleDataManagementListInstance } resource */
   protected _moduleDataManagement?: ModuleDataManagementListInstance;
   /** referralConversion - { Twilio.Marketplace.V1.ReferralConversionListInstance } resource */
@@ -50,6 +53,12 @@ export default class V1 extends Version {
     this._installedAddOns =
       this._installedAddOns || InstalledAddOnListInstance(this);
     return this._installedAddOns;
+  }
+
+  /** Getter for moduleData resource */
+  get moduleData(): ModuleDataListInstance {
+    this._moduleData = this._moduleData || ModuleDataListInstance(this);
+    return this._moduleData;
   }
 
   /** Getter for moduleDataManagement resource */

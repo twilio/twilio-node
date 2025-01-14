@@ -296,7 +296,7 @@ interface InstalledAddOnResource {
   account_sid: string;
   friendly_name: string;
   description: string;
-  configuration: any;
+  configuration: Record<string, object>;
   unique_name: string;
   date_created: Date;
   date_updated: Date;
@@ -346,7 +346,7 @@ export class InstalledAddOnInstance {
   /**
    * The JSON object that represents the current configuration of installed Add-on.
    */
-  configuration: any;
+  configuration: Record<string, object>;
   /**
    * An application-defined string that uniquely identifies the resource.
    */

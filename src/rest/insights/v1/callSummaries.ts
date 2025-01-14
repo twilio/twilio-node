@@ -39,7 +39,12 @@ export type CallSummariesCallState =
   | "answered"
   | "undialed";
 
-export type CallSummariesCallType = "carrier" | "sip" | "trunking" | "client";
+export type CallSummariesCallType =
+  | "carrier"
+  | "sip"
+  | "trunking"
+  | "client"
+  | "whatsapp";
 
 export type CallSummariesProcessingState = "complete" | "partial";
 

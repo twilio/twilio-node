@@ -204,13 +204,14 @@ interface ModuleDataManagementPayload extends ModuleDataManagementResource {}
 interface ModuleDataManagementResource {
   url: string;
   sid: string;
-  description: any;
-  support: any;
-  policies: any;
-  module_info: any;
-  documentation: any;
-  configuration: any;
-  pricing: any;
+  description: Record<string, object>;
+  support: Record<string, object>;
+  policies: Record<string, object>;
+  module_info: Record<string, object>;
+  documentation: Record<string, object>;
+  configuration: Record<string, object>;
+  pricing: Record<string, object>;
+  listings: Array<Record<string, object>>;
 }
 
 export class ModuleDataManagementInstance {
@@ -231,6 +232,7 @@ export class ModuleDataManagementInstance {
     this.documentation = payload.documentation;
     this.configuration = payload.configuration;
     this.pricing = payload.pricing;
+    this.listings = payload.listings;
 
     this._solution = { sid: sid || this.sid };
   }
@@ -246,31 +248,35 @@ export class ModuleDataManagementInstance {
   /**
    * A JSON object describing the module and is displayed under the Description tab of the Module detail page. You can define the main body of the description, highlight key features or aspects of the module and if applicable, provide code samples for developers
    */
-  description: any;
+  description: Record<string, object>;
   /**
    * A JSON object containing information on how customers can obtain support for the module. Use this parameter to provide details such as contact information and support description.
    */
-  support: any;
+  support: Record<string, object>;
   /**
    * A JSON object describing the module\'s privacy and legal policies and is displayed under the Policies tab of the Module detail page. The maximum file size for Policies is 5MB
    */
-  policies: any;
+  policies: Record<string, object>;
   /**
    * A JSON object containing essential attributes that define a module. This information is presented on the Module detail page in the Twilio Marketplace Catalog. You can pass the following attributes in the JSON object
    */
-  moduleInfo: any;
+  moduleInfo: Record<string, object>;
   /**
    * A JSON object for providing comprehensive information, instructions, and resources related to the module
    */
-  documentation: any;
+  documentation: Record<string, object>;
   /**
    * A JSON object for providing listing specific configuration. Contains button setup, notification url, among others.
    */
-  configuration: any;
+  configuration: Record<string, object>;
   /**
    * A JSON object for providing Listing specific pricing information.
    */
-  pricing: any;
+  pricing: Record<string, object>;
+  /**
+   *
+   */
+  listings: Array<Record<string, object>>;
 
   private get _proxy(): ModuleDataManagementContext {
     this._context =
@@ -338,6 +344,7 @@ export class ModuleDataManagementInstance {
       documentation: this.documentation,
       configuration: this.configuration,
       pricing: this.pricing,
+      listings: this.listings,
     };
   }
 
