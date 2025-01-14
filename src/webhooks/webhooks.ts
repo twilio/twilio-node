@@ -136,6 +136,7 @@ export function getExpectedTwilioSignature(
   url: string,
   params: Record<string, any>
 ): string {
+  url = new URL(url).toString();
   if (url.indexOf("bodySHA256") !== -1 && params === null) {
     params = {};
   }
