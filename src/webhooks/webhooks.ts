@@ -200,32 +200,47 @@ export function validateRequest(
    *  and with and without the legacy querystring (special chars are encoded when using `new URL()`)
    *  since signature generation on the back end is inconsistent
    */
-  return (
-    validateSignatureWithUrl(
-      authToken,
-      twilioHeader,
-      removePort(urlObject),
-      params
-    ) ||
-    validateSignatureWithUrl(
-      authToken,
-      twilioHeader,
-      addPort(urlObject),
-      params
-    ) ||
-    validateSignatureWithUrl(
-      authToken,
-      twilioHeader,
-      withLegacyQuerystring(removePort(urlObject)),
-      params
-    ) ||
-    validateSignatureWithUrl(
-      authToken,
-      twilioHeader,
-      withLegacyQuerystring(addPort(urlObject)),
-      params
-    )
+  const isValidSignatureWithoutPort = validateSignatureWithUrl(
+    authToken,
+    twilioHeader,
+    removePort(urlObject),
+    params
   );
+
+  if (isValidSignatureWithoutPort) {
+    return true;
+  }
+
+  const isValidSignatureWithPort = validateSignatureWithUrl(
+    authToken,
+    twilioHeader,
+    addPort(urlObject),
+    params
+  );
+
+  if (isValidSignatureWithPort) {
+    return true;
+  }
+
+  const isValidSignatureWithLegacyQuerystringWithoutPort = validateSignatureWithUrl(
+    authToken,
+    twilioHeader,
+    withLegacyQuerystring(removePort(urlObject)),
+    params
+  );
+
+  if (isValidSignatureWithLegacyQuerystringWithoutPort) {
+    return true;
+  }
+
+  const isValidSignatureWithLegacyQuerystringWithPort = validateSignatureWithUrl(
+    authToken,
+    twilioHeader,
+    withLegacyQuerystring(addPort(urlObject)),
+    params
+  );
+
+  return isValidSignatureWithLegacyQuerystringWithPort;
 }
 
 function validateSignatureWithUrl(
@@ -233,7 +248,7 @@ function validateSignatureWithUrl(
   twilioHeader: string,
   url: string,
   params: Record<string, any>
-) {
+): boolean {
   const signatureWithoutPort = getExpectedTwilioSignature(
     authToken,
     url,
