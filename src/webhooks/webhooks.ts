@@ -222,23 +222,25 @@ export function validateRequest(
     return true;
   }
 
-  const isValidSignatureWithLegacyQuerystringWithoutPort = validateSignatureWithUrl(
-    authToken,
-    twilioHeader,
-    withLegacyQuerystring(removePort(urlObject)),
-    params
-  );
+  const isValidSignatureWithLegacyQuerystringWithoutPort =
+    validateSignatureWithUrl(
+      authToken,
+      twilioHeader,
+      withLegacyQuerystring(removePort(urlObject)),
+      params
+    );
 
   if (isValidSignatureWithLegacyQuerystringWithoutPort) {
     return true;
   }
 
-  const isValidSignatureWithLegacyQuerystringWithPort = validateSignatureWithUrl(
-    authToken,
-    twilioHeader,
-    withLegacyQuerystring(addPort(urlObject)),
-    params
-  );
+  const isValidSignatureWithLegacyQuerystringWithPort =
+    validateSignatureWithUrl(
+      authToken,
+      twilioHeader,
+      withLegacyQuerystring(addPort(urlObject)),
+      params
+    );
 
   return isValidSignatureWithLegacyQuerystringWithPort;
 }
