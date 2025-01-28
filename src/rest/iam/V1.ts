@@ -16,7 +16,7 @@ import IamBase from "../IamBase";
 import Version from "../../base/Version";
 import { ApiKeyListInstance } from "./v1/apiKey";
 import { GetApiKeysListInstance } from "./v1/getApiKeys";
-import { KeyListInstance } from "./v1/key";
+import { NewApiKeyListInstance } from "./v1/newApiKey";
 
 export default class V1 extends Version {
   /**
@@ -32,8 +32,8 @@ export default class V1 extends Version {
   protected _apiKey?: ApiKeyListInstance;
   /** getApiKeys - { Twilio.Iam.V1.GetApiKeysListInstance } resource */
   protected _getApiKeys?: GetApiKeysListInstance;
-  /** keys - { Twilio.Iam.V1.KeyListInstance } resource */
-  protected _keys?: KeyListInstance;
+  /** newApiKey - { Twilio.Iam.V1.NewApiKeyListInstance } resource */
+  protected _newApiKey?: NewApiKeyListInstance;
 
   /** Getter for apiKey resource */
   get apiKey(): ApiKeyListInstance {
@@ -47,9 +47,9 @@ export default class V1 extends Version {
     return this._getApiKeys;
   }
 
-  /** Getter for keys resource */
-  get keys(): KeyListInstance {
-    this._keys = this._keys || KeyListInstance(this);
-    return this._keys;
+  /** Getter for newApiKey resource */
+  get newApiKey(): NewApiKeyListInstance {
+    this._newApiKey = this._newApiKey || NewApiKeyListInstance(this);
+    return this._newApiKey;
   }
 }

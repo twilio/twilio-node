@@ -58,6 +58,8 @@ export interface PhoneNumberContextFetchOptions {
   lastVerifiedDate?: string;
   /** The unique identifier associated with a verification process through verify API. This query parameter is only used (optionally) for pre_fill package requests. */
   verificationSid?: string;
+  /** The optional partnerSubId parameter to provide context for your sub-accounts, tenantIDs, sender IDs or other segmentation, enhancing the accuracy of the risk analysis. */
+  partnerSubId?: string;
 }
 
 export interface PhoneNumberContext {
@@ -147,6 +149,8 @@ export class PhoneNumberContextImpl implements PhoneNumberContext {
       data["LastVerifiedDate"] = params["lastVerifiedDate"];
     if (params["verificationSid"] !== undefined)
       data["VerificationSid"] = params["verificationSid"];
+    if (params["partnerSubId"] !== undefined)
+      data["PartnerSubId"] = params["partnerSubId"];
 
     const headers: any = {};
     headers["Accept"] = "application/json";

@@ -217,6 +217,15 @@ export class TwilioQuickReply {
 }
 
 /**
+ * twilio/schedule templates allow us to send a message with a schedule with different time slots
+ */
+export class TwilioSchedule {
+  "id": string;
+  "title": string;
+  "timeSlots": string;
+}
+
+/**
  * Type containing only plain text-based content
  */
 export class TwilioText {
@@ -237,6 +246,7 @@ export class Types {
   "twilio/catalog"?: TwilioCatalog | null;
   "twilio/carousel"?: TwilioCarousel | null;
   "twilio/flows"?: TwilioFlows | null;
+  "twilio/schedule"?: TwilioSchedule | null;
   "whatsapp/card"?: WhatsappCard | null;
   "whatsapp/authentication"?: WhatsappAuthentication | null;
 }

@@ -33,7 +33,8 @@ export type AddressConfigurationType =
   | "messenger"
   | "gbm"
   | "email"
-  | "rcs";
+  | "rcs"
+  | "apple";
 
 /**
  * Options to pass to update a AddressConfigurationInstance

@@ -38,6 +38,7 @@ export type ConferenceProcessingState = "complete" | "in_progress" | "timeout";
 
 export type ConferenceRegion =
   | "us1"
+  | "us2"
   | "au1"
   | "br1"
   | "ie1"
