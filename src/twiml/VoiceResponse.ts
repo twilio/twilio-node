@@ -539,13 +539,6 @@ namespace VoiceResponse {
     | "cmn-Hant-TW"
     | "zu-ZA";
 
-  type GatherSpeechModel =
-    | "default"
-    | "numbers_and_commands"
-    | "phone_call"
-    | "experimental_conversations"
-    | "experimental_utterances";
-
   type NumberEvent = "initiated" | "ringing" | "answered" | "completed";
 
   type PayBankAccountType =
@@ -1426,7 +1419,7 @@ namespace VoiceResponse {
     /** profanityFilter - Profanity Filter on speech */
     profanityFilter?: boolean;
     /** speechModel - Specify the model that is best suited for your use case */
-    speechModel?: GatherSpeechModel;
+    speechModel?: string;
     /** speechTimeout - Time to wait to gather speech input and it should be either auto or a positive integer. */
     speechTimeout?: string;
     /** timeout - Time to wait to gather input */

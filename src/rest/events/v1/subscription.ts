@@ -29,8 +29,6 @@ export interface SubscriptionContextUpdateOptions {
   description?: string;
   /** The SID of the sink that events selected by this subscription should be sent to. Sink must be active for the subscription to be created. */
   sinkSid?: string;
-  /** Receive events from all children accounts in the parent account subscription. */
-  receiveEventsFromSubaccounts?: boolean;
 }
 
 /**
@@ -43,8 +41,6 @@ export interface SubscriptionListInstanceCreateOptions {
   sinkSid: string;
   /** An array of objects containing the subscribed Event Types */
   types: Array<any>;
-  /** Receive events from all children accounts in the parent account subscription. */
-  receiveEventsFromSubaccounts?: boolean;
 }
 /**
  * Options to pass to each
@@ -237,10 +233,6 @@ export class SubscriptionContextImpl implements SubscriptionContext {
     if (params["description"] !== undefined)
       data["Description"] = params["description"];
     if (params["sinkSid"] !== undefined) data["SinkSid"] = params["sinkSid"];
-    if (params["receiveEventsFromSubaccounts"] !== undefined)
-      data["ReceiveEventsFromSubaccounts"] = serialize.bool(
-        params["receiveEventsFromSubaccounts"]
-      );
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
@@ -298,7 +290,6 @@ interface SubscriptionResource {
   sink_sid: string;
   url: string;
   links: Record<string, string>;
-  receive_events_from_subaccounts: boolean;
 }
 
 export class SubscriptionInstance {
@@ -318,7 +309,6 @@ export class SubscriptionInstance {
     this.sinkSid = payload.sink_sid;
     this.url = payload.url;
     this.links = payload.links;
-    this.receiveEventsFromSubaccounts = payload.receive_events_from_subaccounts;
 
     this._solution = { sid: sid || this.sid };
   }
@@ -355,10 +345,6 @@ export class SubscriptionInstance {
    * Contains a dictionary of URL links to nested resources of this Subscription.
    */
   links: Record<string, string>;
-  /**
-   * Receive events from all children accounts in the parent account subscription.
-   */
-  receiveEventsFromSubaccounts: boolean;
 
   private get _proxy(): SubscriptionContext {
     this._context =
@@ -445,7 +431,6 @@ export class SubscriptionInstance {
       sinkSid: this.sinkSid,
       url: this.url,
       links: this.links,
-      receiveEventsFromSubaccounts: this.receiveEventsFromSubaccounts,
     };
   }
 
@@ -595,10 +580,6 @@ export function SubscriptionListInstance(
     data["Types"] = serialize.map(params["types"], (e: any) =>
       serialize.object(e)
     );
-    if (params["receiveEventsFromSubaccounts"] !== undefined)
-      data["ReceiveEventsFromSubaccounts"] = serialize.bool(
-        params["receiveEventsFromSubaccounts"]
-      );
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";

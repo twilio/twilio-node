@@ -1,6 +1,30 @@
 twilio-node changelog
 =====================
 
+[2025-01-31] Version 5.5.0
+--------------------------
+**Library - Fix**
+- [PR #1061](https://github.com/twilio/twilio-node/pull/1061): validate Twilio signatures with escaped and unescaped query string values fixes #1059. Thanks to [@leon19](https://github.com/leon19)!
+
+**Api**
+- Add open-api file tag to `conference/call recordings` and `recording_transcriptions`.
+
+**Events**
+- Add support for subaccount subscriptions (beta)
+
+**Insights**
+- add new region to conference APIs
+
+**Lookups**
+- Add new `parnter_sub_id` query parameter to the lookup request
+
+**Messaging**
+- Adds validity period Default value in service resource documentation
+
+**Twiml**
+- Convert Twiml Attribute `speechModel` of type enum to string **(breaking change)**
+
+
 [2025-01-28] Version 5.4.3
 --------------------------
 **Library - Fix**
