@@ -2,7 +2,7 @@ import { HttpMethod } from "../interfaces";
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from "axios";
 import * as fs from "fs";
 import HttpsProxyAgent from "https-proxy-agent";
-import qs from "qs";
+import * as pq from "picoquery";
 import * as https from "https";
 import Response from "../http/response";
 import Request, {
@@ -200,7 +200,7 @@ class RequestClient {
       if (
         options.headers["Content-Type"] === "application/x-www-form-urlencoded"
       ) {
-        options.data = qs.stringify(opts.data, { arrayFormat: "repeat" });
+        options.data = pq.stringify(opts.data, { arrayRepeat: true, arrayRepeatSyntax: "repeat" });
       } else if (options.headers["Content-Type"] === "application/json") {
         options.data = opts.data;
       }
@@ -209,7 +209,7 @@ class RequestClient {
     if (opts.params) {
       options.params = opts.params;
       options.paramsSerializer = (params) => {
-        return qs.stringify(params, { arrayFormat: "repeat" });
+        return pq.stringify(params, { arrayRepeat: true, arrayRepeatSyntax: "repeat" });
       };
     }
 
