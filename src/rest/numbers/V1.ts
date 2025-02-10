@@ -21,8 +21,8 @@ import { PortingPortInPhoneNumberListInstance } from "./v1/portingPortInPhoneNum
 import { PortingPortabilityListInstance } from "./v1/portingPortability";
 import { PortingWebhookConfigurationListInstance } from "./v1/portingWebhookConfiguration";
 import { PortingWebhookConfigurationDeleteListInstance } from "./v1/portingWebhookConfigurationDelete";
-import { PortingWebhookConfigurationFetchListInstance } from "./v1/portingWebhookConfigurationFetch";
 import { SigningRequestConfigurationListInstance } from "./v1/signingRequestConfiguration";
+import { WebhookListInstance } from "./v1/webhook";
 
 export default class V1 extends Version {
   /**
@@ -48,10 +48,10 @@ export default class V1 extends Version {
   protected _portingWebhookConfigurations?: PortingWebhookConfigurationListInstance;
   /** portingWebhookConfigurationsDelete - { Twilio.Numbers.V1.PortingWebhookConfigurationDeleteListInstance } resource */
   protected _portingWebhookConfigurationsDelete?: PortingWebhookConfigurationDeleteListInstance;
-  /** portingWebhookConfigurationFetch - { Twilio.Numbers.V1.PortingWebhookConfigurationFetchListInstance } resource */
-  protected _portingWebhookConfigurationFetch?: PortingWebhookConfigurationFetchListInstance;
   /** signingRequestConfigurations - { Twilio.Numbers.V1.SigningRequestConfigurationListInstance } resource */
   protected _signingRequestConfigurations?: SigningRequestConfigurationListInstance;
+  /** webhook - { Twilio.Numbers.V1.WebhookListInstance } resource */
+  protected _webhook?: WebhookListInstance;
 
   /** Getter for bulkEligibilities resource */
   get bulkEligibilities(): BulkEligibilityListInstance {
@@ -104,19 +104,17 @@ export default class V1 extends Version {
     return this._portingWebhookConfigurationsDelete;
   }
 
-  /** Getter for portingWebhookConfigurationFetch resource */
-  get portingWebhookConfigurationFetch(): PortingWebhookConfigurationFetchListInstance {
-    this._portingWebhookConfigurationFetch =
-      this._portingWebhookConfigurationFetch ||
-      PortingWebhookConfigurationFetchListInstance(this);
-    return this._portingWebhookConfigurationFetch;
-  }
-
   /** Getter for signingRequestConfigurations resource */
   get signingRequestConfigurations(): SigningRequestConfigurationListInstance {
     this._signingRequestConfigurations =
       this._signingRequestConfigurations ||
       SigningRequestConfigurationListInstance(this);
     return this._signingRequestConfigurations;
+  }
+
+  /** Getter for webhook resource */
+  get webhook(): WebhookListInstance {
+    this._webhook = this._webhook || WebhookListInstance(this);
+    return this._webhook;
   }
 }
