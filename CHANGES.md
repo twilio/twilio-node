@@ -1,6 +1,25 @@
 twilio-node changelog
 =====================
 
+[2025-02-11] Version 5.4.4
+--------------------------
+**Library - Chore**
+- [PR #1070](https://github.com/twilio/twilio-node/pull/1070): update axios version. Thanks to [@manisha1997](https://github.com/manisha1997)!
+- [PR #1071](https://github.com/twilio/twilio-node/pull/1071): update readme to include node 22 in supported versions. Thanks to [@manisha1997](https://github.com/manisha1997)!
+
+**Api**
+- Change downstream url and change media type for file `base/api/v2010/validation_request.json`.
+
+**Intelligence**
+- Add json_results for Generative JSON operator results
+
+**Messaging**
+- Add DestinationAlphaSender API to support Country-Specific Alpha Senders
+
+**Video**
+- Change codec type from enum to case-insensitive enum in recording and room_recording apis
+
+
 [2025-01-28] Version 5.4.3
 --------------------------
 **Library - Fix**
