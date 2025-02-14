@@ -116,7 +116,7 @@ export class DeploymentContextImpl implements DeploymentContext {
     this._uri = `/Services/${serviceSid}/Environments/${environmentSid}/Deployments/${sid}`;
   }
 
-  fetch(
+  async fetch(
     callback?: (error: Error | null, item?: DeploymentInstance) => any
   ): Promise<DeploymentInstance> {
     const headers: any = {};
@@ -130,22 +130,27 @@ export class DeploymentContextImpl implements DeploymentContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new DeploymentInstance(
-          operationVersion,
-          payload,
-          instance._solution.serviceSid,
-          instance._solution.environmentSid,
-          instance._solution.sid
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new DeploymentInstance(
+        operationVersion,
+        payload,
+        instance._solution.serviceSid,
+        instance._solution.environmentSid,
+        instance._solution.sid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

@@ -93,7 +93,7 @@ export class PortingPortInContextImpl implements PortingPortInContext {
     return operationPromise;
   }
 
-  fetch(
+  async fetch(
     callback?: (error: Error | null, item?: PortingPortInInstance) => any
   ): Promise<PortingPortInInstance> {
     const headers: any = {};
@@ -107,20 +107,25 @@ export class PortingPortInContextImpl implements PortingPortInContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new PortingPortInInstance(
-          operationVersion,
-          payload,
-          instance._solution.portInRequestSid
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new PortingPortInInstance(
+        operationVersion,
+        payload,
+        instance._solution.portInRequestSid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

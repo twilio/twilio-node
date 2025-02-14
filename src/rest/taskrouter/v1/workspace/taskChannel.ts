@@ -172,7 +172,7 @@ export class TaskChannelContextImpl implements TaskChannelContext {
     return operationPromise;
   }
 
-  fetch(
+  async fetch(
     callback?: (error: Error | null, item?: TaskChannelInstance) => any
   ): Promise<TaskChannelInstance> {
     const headers: any = {};
@@ -186,24 +186,29 @@ export class TaskChannelContextImpl implements TaskChannelContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new TaskChannelInstance(
-          operationVersion,
-          payload,
-          instance._solution.workspaceSid,
-          instance._solution.sid
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new TaskChannelInstance(
+        operationVersion,
+        payload,
+        instance._solution.workspaceSid,
+        instance._solution.sid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
-  update(
+  async update(
     params?:
       | TaskChannelContextUpdateOptions
       | ((error: Error | null, item?: TaskChannelInstance) => any),
@@ -238,21 +243,26 @@ export class TaskChannelContextImpl implements TaskChannelContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new TaskChannelInstance(
-          operationVersion,
-          payload,
-          instance._solution.workspaceSid,
-          instance._solution.sid
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new TaskChannelInstance(
+        operationVersion,
+        payload,
+        instance._solution.workspaceSid,
+        instance._solution.sid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

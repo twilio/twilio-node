@@ -171,7 +171,7 @@ export class SubscribedEventContextImpl implements SubscribedEventContext {
     return operationPromise;
   }
 
-  fetch(
+  async fetch(
     callback?: (error: Error | null, item?: SubscribedEventInstance) => any
   ): Promise<SubscribedEventInstance> {
     const headers: any = {};
@@ -185,24 +185,29 @@ export class SubscribedEventContextImpl implements SubscribedEventContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new SubscribedEventInstance(
-          operationVersion,
-          payload,
-          instance._solution.subscriptionSid,
-          instance._solution.type
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new SubscribedEventInstance(
+        operationVersion,
+        payload,
+        instance._solution.subscriptionSid,
+        instance._solution.type
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
-  update(
+  async update(
     params?:
       | SubscribedEventContextUpdateOptions
       | ((error: Error | null, item?: SubscribedEventInstance) => any),
@@ -233,21 +238,26 @@ export class SubscribedEventContextImpl implements SubscribedEventContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new SubscribedEventInstance(
-          operationVersion,
-          payload,
-          instance._solution.subscriptionSid,
-          instance._solution.type
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new SubscribedEventInstance(
+        operationVersion,
+        payload,
+        instance._solution.subscriptionSid,
+        instance._solution.type
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

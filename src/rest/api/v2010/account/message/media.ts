@@ -156,7 +156,7 @@ export class MediaContextImpl implements MediaContext {
     return operationPromise;
   }
 
-  fetch(
+  async fetch(
     callback?: (error: Error | null, item?: MediaInstance) => any
   ): Promise<MediaInstance> {
     const headers: any = {};
@@ -170,22 +170,27 @@ export class MediaContextImpl implements MediaContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new MediaInstance(
-          operationVersion,
-          payload,
-          instance._solution.accountSid,
-          instance._solution.messageSid,
-          instance._solution.sid
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new MediaInstance(
+        operationVersion,
+        payload,
+        instance._solution.accountSid,
+        instance._solution.messageSid,
+        instance._solution.sid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

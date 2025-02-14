@@ -215,7 +215,7 @@ export class InsightsQuestionnairesQuestionContextImpl
     return operationPromise;
   }
 
-  update(
+  async update(
     params: InsightsQuestionnairesQuestionContextUpdateOptions,
     callback?: (
       error: Error | null,
@@ -256,20 +256,25 @@ export class InsightsQuestionnairesQuestionContextImpl
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new InsightsQuestionnairesQuestionInstance(
-          operationVersion,
-          payload,
-          instance._solution.questionSid
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new InsightsQuestionnairesQuestionInstance(
+        operationVersion,
+        payload,
+        instance._solution.questionSid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

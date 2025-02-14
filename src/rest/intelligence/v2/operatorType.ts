@@ -107,7 +107,7 @@ export class OperatorTypeContextImpl implements OperatorTypeContext {
     this._uri = `/OperatorTypes/${sid}`;
   }
 
-  fetch(
+  async fetch(
     callback?: (error: Error | null, item?: OperatorTypeInstance) => any
   ): Promise<OperatorTypeInstance> {
     const headers: any = {};
@@ -121,20 +121,25 @@ export class OperatorTypeContextImpl implements OperatorTypeContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new OperatorTypeInstance(
-          operationVersion,
-          payload,
-          instance._solution.sid
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new OperatorTypeInstance(
+        operationVersion,
+        payload,
+        instance._solution.sid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

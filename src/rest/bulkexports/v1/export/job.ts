@@ -85,7 +85,7 @@ export class JobContextImpl implements JobContext {
     return operationPromise;
   }
 
-  fetch(
+  async fetch(
     callback?: (error: Error | null, item?: JobInstance) => any
   ): Promise<JobInstance> {
     const headers: any = {};
@@ -99,16 +99,25 @@ export class JobContextImpl implements JobContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new JobInstance(operationVersion, payload, instance._solution.jobSid)
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new JobInstance(
+        operationVersion,
+        payload,
+        instance._solution.jobSid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

@@ -68,7 +68,7 @@ export class DeactivationsContextImpl implements DeactivationsContext {
     this._uri = `/Deactivations`;
   }
 
-  fetch(
+  async fetch(
     params?:
       | DeactivationsContextFetchOptions
       | ((error: Error | null, item?: DeactivationsInstance) => any),
@@ -98,15 +98,21 @@ export class DeactivationsContextImpl implements DeactivationsContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) => new DeactivationsInstance(operationVersion, payload)
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new DeactivationsInstance(operationVersion, payload);
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

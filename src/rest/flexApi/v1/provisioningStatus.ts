@@ -56,7 +56,7 @@ export class ProvisioningStatusContextImpl
     this._uri = `/account/provision/status`;
   }
 
-  fetch(
+  async fetch(
     callback?: (error: Error | null, item?: ProvisioningStatusInstance) => any
   ): Promise<ProvisioningStatusInstance> {
     const headers: any = {};
@@ -70,15 +70,21 @@ export class ProvisioningStatusContextImpl
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) => new ProvisioningStatusInstance(operationVersion, payload)
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new ProvisioningStatusInstance(operationVersion, payload);
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

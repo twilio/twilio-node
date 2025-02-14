@@ -184,7 +184,7 @@ export class IpAddressContextImpl implements IpAddressContext {
     return operationPromise;
   }
 
-  fetch(
+  async fetch(
     callback?: (error: Error | null, item?: IpAddressInstance) => any
   ): Promise<IpAddressInstance> {
     const headers: any = {};
@@ -198,25 +198,30 @@ export class IpAddressContextImpl implements IpAddressContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new IpAddressInstance(
-          operationVersion,
-          payload,
-          instance._solution.accountSid,
-          instance._solution.ipAccessControlListSid,
-          instance._solution.sid
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new IpAddressInstance(
+        operationVersion,
+        payload,
+        instance._solution.accountSid,
+        instance._solution.ipAccessControlListSid,
+        instance._solution.sid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
-  update(
+  async update(
     params?:
       | IpAddressContextUpdateOptions
       | ((error: Error | null, item?: IpAddressInstance) => any),
@@ -251,22 +256,27 @@ export class IpAddressContextImpl implements IpAddressContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new IpAddressInstance(
-          operationVersion,
-          payload,
-          instance._solution.accountSid,
-          instance._solution.ipAccessControlListSid,
-          instance._solution.sid
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new IpAddressInstance(
+        operationVersion,
+        payload,
+        instance._solution.accountSid,
+        instance._solution.ipAccessControlListSid,
+        instance._solution.sid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

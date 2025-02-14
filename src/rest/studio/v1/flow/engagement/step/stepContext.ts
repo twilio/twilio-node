@@ -69,7 +69,7 @@ export class StepContextContextImpl implements StepContextContext {
     this._uri = `/Flows/${flowSid}/Engagements/${engagementSid}/Steps/${stepSid}/Context`;
   }
 
-  fetch(
+  async fetch(
     callback?: (error: Error | null, item?: StepContextInstance) => any
   ): Promise<StepContextInstance> {
     const headers: any = {};
@@ -83,22 +83,27 @@ export class StepContextContextImpl implements StepContextContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new StepContextInstance(
-          operationVersion,
-          payload,
-          instance._solution.flowSid,
-          instance._solution.engagementSid,
-          instance._solution.stepSid
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new StepContextInstance(
+        operationVersion,
+        payload,
+        instance._solution.flowSid,
+        instance._solution.engagementSid,
+        instance._solution.stepSid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

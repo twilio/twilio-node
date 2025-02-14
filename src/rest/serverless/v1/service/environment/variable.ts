@@ -180,7 +180,7 @@ export class VariableContextImpl implements VariableContext {
     return operationPromise;
   }
 
-  fetch(
+  async fetch(
     callback?: (error: Error | null, item?: VariableInstance) => any
   ): Promise<VariableInstance> {
     const headers: any = {};
@@ -194,25 +194,30 @@ export class VariableContextImpl implements VariableContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new VariableInstance(
-          operationVersion,
-          payload,
-          instance._solution.serviceSid,
-          instance._solution.environmentSid,
-          instance._solution.sid
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new VariableInstance(
+        operationVersion,
+        payload,
+        instance._solution.serviceSid,
+        instance._solution.environmentSid,
+        instance._solution.sid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
-  update(
+  async update(
     params?:
       | VariableContextUpdateOptions
       | ((error: Error | null, item?: VariableInstance) => any),
@@ -243,22 +248,27 @@ export class VariableContextImpl implements VariableContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new VariableInstance(
-          operationVersion,
-          payload,
-          instance._solution.serviceSid,
-          instance._solution.environmentSid,
-          instance._solution.sid
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new VariableInstance(
+        operationVersion,
+        payload,
+        instance._solution.serviceSid,
+        instance._solution.environmentSid,
+        instance._solution.sid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

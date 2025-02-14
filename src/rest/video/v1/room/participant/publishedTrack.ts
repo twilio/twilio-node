@@ -112,7 +112,7 @@ export class PublishedTrackContextImpl implements PublishedTrackContext {
     this._uri = `/Rooms/${roomSid}/Participants/${participantSid}/PublishedTracks/${sid}`;
   }
 
-  fetch(
+  async fetch(
     callback?: (error: Error | null, item?: PublishedTrackInstance) => any
   ): Promise<PublishedTrackInstance> {
     const headers: any = {};
@@ -126,22 +126,27 @@ export class PublishedTrackContextImpl implements PublishedTrackContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new PublishedTrackInstance(
-          operationVersion,
-          payload,
-          instance._solution.roomSid,
-          instance._solution.participantSid,
-          instance._solution.sid
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new PublishedTrackInstance(
+        operationVersion,
+        payload,
+        instance._solution.roomSid,
+        instance._solution.participantSid,
+        instance._solution.sid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

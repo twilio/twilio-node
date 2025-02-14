@@ -91,7 +91,7 @@ export class DomainConfigContextImpl implements DomainConfigContext {
     this._uri = `/LinkShortening/Domains/${domainSid}/Config`;
   }
 
-  fetch(
+  async fetch(
     callback?: (error: Error | null, item?: DomainConfigInstance) => any
   ): Promise<DomainConfigInstance> {
     const headers: any = {};
@@ -105,23 +105,28 @@ export class DomainConfigContextImpl implements DomainConfigContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new DomainConfigInstance(
-          operationVersion,
-          payload,
-          instance._solution.domainSid
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new DomainConfigInstance(
+        operationVersion,
+        payload,
+        instance._solution.domainSid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
-  update(
+  async update(
     params?:
       | DomainConfigContextUpdateOptions
       | ((error: Error | null, item?: DomainConfigInstance) => any),
@@ -158,20 +163,25 @@ export class DomainConfigContextImpl implements DomainConfigContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new DomainConfigInstance(
-          operationVersion,
-          payload,
-          instance._solution.domainSid
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new DomainConfigInstance(
+        operationVersion,
+        payload,
+        instance._solution.domainSid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

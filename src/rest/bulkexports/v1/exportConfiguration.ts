@@ -91,7 +91,7 @@ export class ExportConfigurationContextImpl
     this._uri = `/Exports/${resourceType}/Configuration`;
   }
 
-  fetch(
+  async fetch(
     callback?: (error: Error | null, item?: ExportConfigurationInstance) => any
   ): Promise<ExportConfigurationInstance> {
     const headers: any = {};
@@ -105,23 +105,28 @@ export class ExportConfigurationContextImpl
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new ExportConfigurationInstance(
-          operationVersion,
-          payload,
-          instance._solution.resourceType
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new ExportConfigurationInstance(
+        operationVersion,
+        payload,
+        instance._solution.resourceType
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
-  update(
+  async update(
     params?:
       | ExportConfigurationContextUpdateOptions
       | ((error: Error | null, item?: ExportConfigurationInstance) => any),
@@ -156,20 +161,25 @@ export class ExportConfigurationContextImpl
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new ExportConfigurationInstance(
-          operationVersion,
-          payload,
-          instance._solution.resourceType
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new ExportConfigurationInstance(
+        operationVersion,
+        payload,
+        instance._solution.resourceType
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

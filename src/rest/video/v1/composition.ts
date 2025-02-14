@@ -179,7 +179,7 @@ export class CompositionContextImpl implements CompositionContext {
     return operationPromise;
   }
 
-  fetch(
+  async fetch(
     callback?: (error: Error | null, item?: CompositionInstance) => any
   ): Promise<CompositionInstance> {
     const headers: any = {};
@@ -193,20 +193,25 @@ export class CompositionContextImpl implements CompositionContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new CompositionInstance(
-          operationVersion,
-          payload,
-          instance._solution.sid
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new CompositionInstance(
+        operationVersion,
+        payload,
+        instance._solution.sid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

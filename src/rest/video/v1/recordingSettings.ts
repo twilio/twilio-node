@@ -79,7 +79,7 @@ export class RecordingSettingsContextImpl implements RecordingSettingsContext {
     this._uri = `/RecordingSettings/Default`;
   }
 
-  create(
+  async create(
     params: RecordingSettingsContextCreateOptions,
     callback?: (error: Error | null, item?: RecordingSettingsInstance) => any
   ): Promise<RecordingSettingsInstance> {
@@ -120,18 +120,24 @@ export class RecordingSettingsContextImpl implements RecordingSettingsContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) => new RecordingSettingsInstance(operationVersion, payload)
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new RecordingSettingsInstance(operationVersion, payload);
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
-  fetch(
+  async fetch(
     callback?: (error: Error | null, item?: RecordingSettingsInstance) => any
   ): Promise<RecordingSettingsInstance> {
     const headers: any = {};
@@ -145,15 +151,21 @@ export class RecordingSettingsContextImpl implements RecordingSettingsContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) => new RecordingSettingsInstance(operationVersion, payload)
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new RecordingSettingsInstance(operationVersion, payload);
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

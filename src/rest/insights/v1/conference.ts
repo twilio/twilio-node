@@ -206,7 +206,7 @@ export class ConferenceContextImpl implements ConferenceContext {
     return this._conferenceParticipants;
   }
 
-  fetch(
+  async fetch(
     callback?: (error: Error | null, item?: ConferenceInstance) => any
   ): Promise<ConferenceInstance> {
     const headers: any = {};
@@ -220,20 +220,25 @@ export class ConferenceContextImpl implements ConferenceContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new ConferenceInstance(
-          operationVersion,
-          payload,
-          instance._solution.conferenceSid
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new ConferenceInstance(
+        operationVersion,
+        payload,
+        instance._solution.conferenceSid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

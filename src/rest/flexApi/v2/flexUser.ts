@@ -104,7 +104,7 @@ export class FlexUserContextImpl implements FlexUserContext {
     this._uri = `/Instances/${instanceSid}/Users/${flexUserSid}`;
   }
 
-  fetch(
+  async fetch(
     callback?: (error: Error | null, item?: FlexUserInstance) => any
   ): Promise<FlexUserInstance> {
     const headers: any = {};
@@ -118,24 +118,29 @@ export class FlexUserContextImpl implements FlexUserContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new FlexUserInstance(
-          operationVersion,
-          payload,
-          instance._solution.instanceSid,
-          instance._solution.flexUserSid
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new FlexUserInstance(
+        operationVersion,
+        payload,
+        instance._solution.instanceSid,
+        instance._solution.flexUserSid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
-  update(
+  async update(
     params?:
       | FlexUserContextUpdateOptions
       | ((error: Error | null, item?: FlexUserInstance) => any),
@@ -172,21 +177,26 @@ export class FlexUserContextImpl implements FlexUserContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new FlexUserInstance(
-          operationVersion,
-          payload,
-          instance._solution.instanceSid,
-          instance._solution.flexUserSid
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new FlexUserInstance(
+        operationVersion,
+        payload,
+        instance._solution.instanceSid,
+        instance._solution.flexUserSid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

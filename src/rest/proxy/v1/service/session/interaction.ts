@@ -163,7 +163,7 @@ export class InteractionContextImpl implements InteractionContext {
     return operationPromise;
   }
 
-  fetch(
+  async fetch(
     callback?: (error: Error | null, item?: InteractionInstance) => any
   ): Promise<InteractionInstance> {
     const headers: any = {};
@@ -177,22 +177,27 @@ export class InteractionContextImpl implements InteractionContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new InteractionInstance(
-          operationVersion,
-          payload,
-          instance._solution.serviceSid,
-          instance._solution.sessionSid,
-          instance._solution.sid
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new InteractionInstance(
+        operationVersion,
+        payload,
+        instance._solution.serviceSid,
+        instance._solution.sessionSid,
+        instance._solution.sid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

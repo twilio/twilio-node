@@ -71,7 +71,7 @@ export class ExecutionStepContextContextImpl
     this._uri = `/Flows/${flowSid}/Executions/${executionSid}/Steps/${stepSid}/Context`;
   }
 
-  fetch(
+  async fetch(
     callback?: (error: Error | null, item?: ExecutionStepContextInstance) => any
   ): Promise<ExecutionStepContextInstance> {
     const headers: any = {};
@@ -85,22 +85,27 @@ export class ExecutionStepContextContextImpl
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new ExecutionStepContextInstance(
-          operationVersion,
-          payload,
-          instance._solution.flowSid,
-          instance._solution.executionSid,
-          instance._solution.stepSid
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new ExecutionStepContextInstance(
+        operationVersion,
+        payload,
+        instance._solution.flowSid,
+        instance._solution.executionSid,
+        instance._solution.stepSid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

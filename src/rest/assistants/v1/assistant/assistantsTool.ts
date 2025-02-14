@@ -111,7 +111,7 @@ export class AssistantsToolContextImpl implements AssistantsToolContext {
     this._uri = `/Assistants/${assistantId}/Tools/${id}`;
   }
 
-  create(
+  async create(
     callback?: (error: Error | null, item?: AssistantsToolInstance) => any
   ): Promise<AssistantsToolInstance> {
     const headers: any = {};
@@ -124,21 +124,26 @@ export class AssistantsToolContextImpl implements AssistantsToolContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new AssistantsToolInstance(
-          operationVersion,
-          payload,
-          instance._solution.assistantId,
-          instance._solution.id
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new AssistantsToolInstance(
+        operationVersion,
+        payload,
+        instance._solution.assistantId,
+        instance._solution.id
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   remove(

@@ -66,7 +66,7 @@ export class SchemaContextImpl implements SchemaContext {
     return this._versions;
   }
 
-  fetch(
+  async fetch(
     callback?: (error: Error | null, item?: SchemaInstance) => any
   ): Promise<SchemaInstance> {
     const headers: any = {};
@@ -80,16 +80,25 @@ export class SchemaContextImpl implements SchemaContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new SchemaInstance(operationVersion, payload, instance._solution.id)
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new SchemaInstance(
+        operationVersion,
+        payload,
+        instance._solution.id
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

@@ -74,7 +74,7 @@ export class PluginArchiveContextImpl implements PluginArchiveContext {
     this._uri = `/PluginService/Plugins/${sid}/Archive`;
   }
 
-  update(
+  async update(
     params?:
       | PluginArchiveContextUpdateOptions
       | ((error: Error | null, item?: PluginArchiveInstance) => any),
@@ -103,20 +103,25 @@ export class PluginArchiveContextImpl implements PluginArchiveContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new PluginArchiveInstance(
-          operationVersion,
-          payload,
-          instance._solution.sid
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new PluginArchiveInstance(
+        operationVersion,
+        payload,
+        instance._solution.sid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

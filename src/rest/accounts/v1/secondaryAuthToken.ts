@@ -61,7 +61,7 @@ export class SecondaryAuthTokenContextImpl
     this._uri = `/AuthTokens/Secondary`;
   }
 
-  create(
+  async create(
     callback?: (error: Error | null, item?: SecondaryAuthTokenInstance) => any
   ): Promise<SecondaryAuthTokenInstance> {
     const headers: any = {};
@@ -75,15 +75,21 @@ export class SecondaryAuthTokenContextImpl
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) => new SecondaryAuthTokenInstance(operationVersion, payload)
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new SecondaryAuthTokenInstance(operationVersion, payload);
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   remove(

@@ -82,7 +82,7 @@ export class PluginConfigurationArchiveContextImpl
     this._uri = `/PluginService/Configurations/${sid}/Archive`;
   }
 
-  update(
+  async update(
     params?:
       | PluginConfigurationArchiveContextUpdateOptions
       | ((
@@ -117,20 +117,25 @@ export class PluginConfigurationArchiveContextImpl
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new PluginConfigurationArchiveInstance(
-          operationVersion,
-          payload,
-          instance._solution.sid
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new PluginConfigurationArchiveInstance(
+        operationVersion,
+        payload,
+        instance._solution.sid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

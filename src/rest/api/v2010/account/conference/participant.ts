@@ -318,7 +318,7 @@ export class ParticipantContextImpl implements ParticipantContext {
     return operationPromise;
   }
 
-  fetch(
+  async fetch(
     callback?: (error: Error | null, item?: ParticipantInstance) => any
   ): Promise<ParticipantInstance> {
     const headers: any = {};
@@ -332,25 +332,30 @@ export class ParticipantContextImpl implements ParticipantContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new ParticipantInstance(
-          operationVersion,
-          payload,
-          instance._solution.accountSid,
-          instance._solution.conferenceSid,
-          instance._solution.callSid
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new ParticipantInstance(
+        operationVersion,
+        payload,
+        instance._solution.accountSid,
+        instance._solution.conferenceSid,
+        instance._solution.callSid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
-  update(
+  async update(
     params?:
       | ParticipantContextUpdateOptions
       | ((error: Error | null, item?: ParticipantInstance) => any),
@@ -403,22 +408,27 @@ export class ParticipantContextImpl implements ParticipantContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new ParticipantInstance(
-          operationVersion,
-          payload,
-          instance._solution.accountSid,
-          instance._solution.conferenceSid,
-          instance._solution.callSid
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new ParticipantInstance(
+        operationVersion,
+        payload,
+        instance._solution.accountSid,
+        instance._solution.conferenceSid,
+        instance._solution.callSid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

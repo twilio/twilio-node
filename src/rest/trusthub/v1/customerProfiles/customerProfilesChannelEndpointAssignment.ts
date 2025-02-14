@@ -157,7 +157,7 @@ export class CustomerProfilesChannelEndpointAssignmentContextImpl
     return operationPromise;
   }
 
-  fetch(
+  async fetch(
     callback?: (
       error: Error | null,
       item?: CustomerProfilesChannelEndpointAssignmentInstance
@@ -174,21 +174,26 @@ export class CustomerProfilesChannelEndpointAssignmentContextImpl
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new CustomerProfilesChannelEndpointAssignmentInstance(
-          operationVersion,
-          payload,
-          instance._solution.customerProfileSid,
-          instance._solution.sid
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new CustomerProfilesChannelEndpointAssignmentInstance(
+        operationVersion,
+        payload,
+        instance._solution.customerProfileSid,
+        instance._solution.sid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

@@ -137,7 +137,7 @@ export class RegulationContextImpl implements RegulationContext {
     this._uri = `/RegulatoryCompliance/Regulations/${sid}`;
   }
 
-  fetch(
+  async fetch(
     params?:
       | RegulationContextFetchOptions
       | ((error: Error | null, item?: RegulationInstance) => any),
@@ -167,20 +167,25 @@ export class RegulationContextImpl implements RegulationContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new RegulationInstance(
-          operationVersion,
-          payload,
-          instance._solution.sid
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new RegulationInstance(
+        operationVersion,
+        payload,
+        instance._solution.sid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

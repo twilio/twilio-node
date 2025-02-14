@@ -113,7 +113,7 @@ export class AssistantsKnowledgeContextImpl
     this._uri = `/Assistants/${assistantId}/Knowledge/${id}`;
   }
 
-  create(
+  async create(
     callback?: (error: Error | null, item?: AssistantsKnowledgeInstance) => any
   ): Promise<AssistantsKnowledgeInstance> {
     const headers: any = {};
@@ -126,21 +126,26 @@ export class AssistantsKnowledgeContextImpl
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new AssistantsKnowledgeInstance(
-          operationVersion,
-          payload,
-          instance._solution.assistantId,
-          instance._solution.id
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new AssistantsKnowledgeInstance(
+        operationVersion,
+        payload,
+        instance._solution.assistantId,
+        instance._solution.id
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   remove(

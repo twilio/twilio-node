@@ -80,7 +80,7 @@ export class ComplianceInquiriesContextImpl
     this._uri = `/ComplianceInquiries/Customers/${customerId}/Initialize`;
   }
 
-  update(
+  async update(
     params: ComplianceInquiriesContextUpdateOptions,
     callback?: (error: Error | null, item?: ComplianceInquiriesInstance) => any
   ): Promise<ComplianceInquiriesInstance> {
@@ -116,20 +116,25 @@ export class ComplianceInquiriesContextImpl
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new ComplianceInquiriesInstance(
-          operationVersion,
-          payload,
-          instance._solution.customerId
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new ComplianceInquiriesInstance(
+        operationVersion,
+        payload,
+        instance._solution.customerId
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

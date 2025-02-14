@@ -142,7 +142,7 @@ export class PaymentContextImpl implements PaymentContext {
     this._uri = `/Accounts/${accountSid}/Calls/${callSid}/Payments/${sid}.json`;
   }
 
-  update(
+  async update(
     params: PaymentContextUpdateOptions,
     callback?: (error: Error | null, item?: PaymentInstance) => any
   ): Promise<PaymentInstance> {
@@ -189,22 +189,27 @@ export class PaymentContextImpl implements PaymentContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new PaymentInstance(
-          operationVersion,
-          payload,
-          instance._solution.accountSid,
-          instance._solution.callSid,
-          instance._solution.sid
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new PaymentInstance(
+        operationVersion,
+        payload,
+        instance._solution.accountSid,
+        instance._solution.callSid,
+        instance._solution.sid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

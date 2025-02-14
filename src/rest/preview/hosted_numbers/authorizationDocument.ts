@@ -197,7 +197,7 @@ export class AuthorizationDocumentContextImpl
     return this._dependentHostedNumberOrders;
   }
 
-  fetch(
+  async fetch(
     callback?: (
       error: Error | null,
       item?: AuthorizationDocumentInstance
@@ -214,23 +214,28 @@ export class AuthorizationDocumentContextImpl
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new AuthorizationDocumentInstance(
-          operationVersion,
-          payload,
-          instance._solution.sid
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new AuthorizationDocumentInstance(
+        operationVersion,
+        payload,
+        instance._solution.sid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
-  update(
+  async update(
     params?:
       | AuthorizationDocumentContextUpdateOptions
       | ((error: Error | null, item?: AuthorizationDocumentInstance) => any),
@@ -277,20 +282,25 @@ export class AuthorizationDocumentContextImpl
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new AuthorizationDocumentInstance(
-          operationVersion,
-          payload,
-          instance._solution.sid
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new AuthorizationDocumentInstance(
+        operationVersion,
+        payload,
+        instance._solution.sid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

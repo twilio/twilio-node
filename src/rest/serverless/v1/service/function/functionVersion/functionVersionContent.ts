@@ -74,7 +74,7 @@ export class FunctionVersionContentContextImpl
     this._uri = `/Services/${serviceSid}/Functions/${functionSid}/Versions/${sid}/Content`;
   }
 
-  fetch(
+  async fetch(
     callback?: (
       error: Error | null,
       item?: FunctionVersionContentInstance
@@ -91,22 +91,27 @@ export class FunctionVersionContentContextImpl
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new FunctionVersionContentInstance(
-          operationVersion,
-          payload,
-          instance._solution.serviceSid,
-          instance._solution.functionSid,
-          instance._solution.sid
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new FunctionVersionContentInstance(
+        operationVersion,
+        payload,
+        instance._solution.serviceSid,
+        instance._solution.functionSid,
+        instance._solution.sid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

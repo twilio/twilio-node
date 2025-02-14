@@ -193,7 +193,7 @@ export class SimContextImpl implements SimContext {
     return this._usage;
   }
 
-  fetch(
+  async fetch(
     callback?: (error: Error | null, item?: SimInstance) => any
   ): Promise<SimInstance> {
     const headers: any = {};
@@ -207,19 +207,28 @@ export class SimContextImpl implements SimContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new SimInstance(operationVersion, payload, instance._solution.sid)
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new SimInstance(
+        operationVersion,
+        payload,
+        instance._solution.sid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
-  update(
+  async update(
     params?:
       | SimContextUpdateOptions
       | ((error: Error | null, item?: SimInstance) => any),
@@ -276,16 +285,25 @@ export class SimContextImpl implements SimContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new SimInstance(operationVersion, payload, instance._solution.sid)
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new SimInstance(
+        operationVersion,
+        payload,
+        instance._solution.sid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

@@ -167,7 +167,7 @@ export class DocumentPermissionContextImpl
     return operationPromise;
   }
 
-  fetch(
+  async fetch(
     callback?: (error: Error | null, item?: DocumentPermissionInstance) => any
   ): Promise<DocumentPermissionInstance> {
     const headers: any = {};
@@ -181,25 +181,30 @@ export class DocumentPermissionContextImpl
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new DocumentPermissionInstance(
-          operationVersion,
-          payload,
-          instance._solution.serviceSid,
-          instance._solution.documentSid,
-          instance._solution.identity
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new DocumentPermissionInstance(
+        operationVersion,
+        payload,
+        instance._solution.serviceSid,
+        instance._solution.documentSid,
+        instance._solution.identity
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
-  update(
+  async update(
     params: DocumentPermissionContextUpdateOptions,
     callback?: (error: Error | null, item?: DocumentPermissionInstance) => any
   ): Promise<DocumentPermissionInstance> {
@@ -240,22 +245,27 @@ export class DocumentPermissionContextImpl
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new DocumentPermissionInstance(
-          operationVersion,
-          payload,
-          instance._solution.serviceSid,
-          instance._solution.documentSid,
-          instance._solution.identity
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new DocumentPermissionInstance(
+        operationVersion,
+        payload,
+        instance._solution.serviceSid,
+        instance._solution.documentSid,
+        instance._solution.identity
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

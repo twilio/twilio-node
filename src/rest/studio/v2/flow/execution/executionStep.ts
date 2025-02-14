@@ -124,7 +124,7 @@ export class ExecutionStepContextImpl implements ExecutionStepContext {
     return this._stepContext;
   }
 
-  fetch(
+  async fetch(
     callback?: (error: Error | null, item?: ExecutionStepInstance) => any
   ): Promise<ExecutionStepInstance> {
     const headers: any = {};
@@ -138,22 +138,27 @@ export class ExecutionStepContextImpl implements ExecutionStepContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new ExecutionStepInstance(
-          operationVersion,
-          payload,
-          instance._solution.flowSid,
-          instance._solution.executionSid,
-          instance._solution.sid
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new ExecutionStepInstance(
+        operationVersion,
+        payload,
+        instance._solution.flowSid,
+        instance._solution.executionSid,
+        instance._solution.sid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

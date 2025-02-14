@@ -109,7 +109,7 @@ export class AssetVersionContextImpl implements AssetVersionContext {
     this._uri = `/Services/${serviceSid}/Assets/${assetSid}/Versions/${sid}`;
   }
 
-  fetch(
+  async fetch(
     callback?: (error: Error | null, item?: AssetVersionInstance) => any
   ): Promise<AssetVersionInstance> {
     const headers: any = {};
@@ -123,22 +123,27 @@ export class AssetVersionContextImpl implements AssetVersionContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new AssetVersionInstance(
-          operationVersion,
-          payload,
-          instance._solution.serviceSid,
-          instance._solution.assetSid,
-          instance._solution.sid
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new AssetVersionInstance(
+        operationVersion,
+        payload,
+        instance._solution.serviceSid,
+        instance._solution.assetSid,
+        instance._solution.sid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

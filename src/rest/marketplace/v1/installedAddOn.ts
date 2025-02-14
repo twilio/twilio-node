@@ -194,7 +194,7 @@ export class InstalledAddOnContextImpl implements InstalledAddOnContext {
     return operationPromise;
   }
 
-  fetch(
+  async fetch(
     callback?: (error: Error | null, item?: InstalledAddOnInstance) => any
   ): Promise<InstalledAddOnInstance> {
     const headers: any = {};
@@ -208,23 +208,28 @@ export class InstalledAddOnContextImpl implements InstalledAddOnContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new InstalledAddOnInstance(
-          operationVersion,
-          payload,
-          instance._solution.sid
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new InstalledAddOnInstance(
+        operationVersion,
+        payload,
+        instance._solution.sid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
-  update(
+  async update(
     params?:
       | InstalledAddOnContextUpdateOptions
       | ((error: Error | null, item?: InstalledAddOnInstance) => any),
@@ -257,20 +262,25 @@ export class InstalledAddOnContextImpl implements InstalledAddOnContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new InstalledAddOnInstance(
-          operationVersion,
-          payload,
-          instance._solution.sid
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new InstalledAddOnInstance(
+        operationVersion,
+        payload,
+        instance._solution.sid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

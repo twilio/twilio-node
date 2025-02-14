@@ -146,7 +146,7 @@ export class UserBindingContextImpl implements UserBindingContext {
     return operationPromise;
   }
 
-  fetch(
+  async fetch(
     callback?: (error: Error | null, item?: UserBindingInstance) => any
   ): Promise<UserBindingInstance> {
     const headers: any = {};
@@ -160,22 +160,27 @@ export class UserBindingContextImpl implements UserBindingContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new UserBindingInstance(
-          operationVersion,
-          payload,
-          instance._solution.serviceSid,
-          instance._solution.userSid,
-          instance._solution.sid
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new UserBindingInstance(
+        operationVersion,
+        payload,
+        instance._solution.serviceSid,
+        instance._solution.userSid,
+        instance._solution.sid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

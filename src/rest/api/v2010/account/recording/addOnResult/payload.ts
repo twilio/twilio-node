@@ -162,7 +162,7 @@ export class PayloadContextImpl implements PayloadContext {
     return operationPromise;
   }
 
-  fetch(
+  async fetch(
     callback?: (error: Error | null, item?: PayloadInstance) => any
   ): Promise<PayloadInstance> {
     const headers: any = {};
@@ -176,23 +176,28 @@ export class PayloadContextImpl implements PayloadContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new PayloadInstance(
-          operationVersion,
-          payload,
-          instance._solution.accountSid,
-          instance._solution.referenceSid,
-          instance._solution.addOnResultSid,
-          instance._solution.sid
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new PayloadInstance(
+        operationVersion,
+        payload,
+        instance._solution.accountSid,
+        instance._solution.referenceSid,
+        instance._solution.addOnResultSid,
+        instance._solution.sid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

@@ -95,7 +95,7 @@ export class BulkHostedNumberOrderContextImpl
     this._uri = `/HostedNumber/Orders/Bulk/${bulkHostingSid}`;
   }
 
-  fetch(
+  async fetch(
     params?:
       | BulkHostedNumberOrderContextFetchOptions
       | ((error: Error | null, item?: BulkHostedNumberOrderInstance) => any),
@@ -128,20 +128,25 @@ export class BulkHostedNumberOrderContextImpl
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new BulkHostedNumberOrderInstance(
-          operationVersion,
-          payload,
-          instance._solution.bulkHostingSid
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new BulkHostedNumberOrderInstance(
+        operationVersion,
+        payload,
+        instance._solution.bulkHostingSid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

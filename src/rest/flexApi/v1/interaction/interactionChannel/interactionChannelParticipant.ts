@@ -145,7 +145,7 @@ export class InteractionChannelParticipantContextImpl
     this._uri = `/Interactions/${interactionSid}/Channels/${channelSid}/Participants/${sid}`;
   }
 
-  update(
+  async update(
     params: InteractionChannelParticipantContextUpdateOptions,
     callback?: (
       error: Error | null,
@@ -177,22 +177,27 @@ export class InteractionChannelParticipantContextImpl
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new InteractionChannelParticipantInstance(
-          operationVersion,
-          payload,
-          instance._solution.interactionSid,
-          instance._solution.channelSid,
-          instance._solution.sid
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new InteractionChannelParticipantInstance(
+        operationVersion,
+        payload,
+        instance._solution.interactionSid,
+        instance._solution.channelSid,
+        instance._solution.sid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

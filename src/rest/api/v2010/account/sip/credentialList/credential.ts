@@ -178,7 +178,7 @@ export class CredentialContextImpl implements CredentialContext {
     return operationPromise;
   }
 
-  fetch(
+  async fetch(
     callback?: (error: Error | null, item?: CredentialInstance) => any
   ): Promise<CredentialInstance> {
     const headers: any = {};
@@ -192,25 +192,30 @@ export class CredentialContextImpl implements CredentialContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new CredentialInstance(
-          operationVersion,
-          payload,
-          instance._solution.accountSid,
-          instance._solution.credentialListSid,
-          instance._solution.sid
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new CredentialInstance(
+        operationVersion,
+        payload,
+        instance._solution.accountSid,
+        instance._solution.credentialListSid,
+        instance._solution.sid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
-  update(
+  async update(
     params?:
       | CredentialContextUpdateOptions
       | ((error: Error | null, item?: CredentialInstance) => any),
@@ -240,22 +245,27 @@ export class CredentialContextImpl implements CredentialContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new CredentialInstance(
-          operationVersion,
-          payload,
-          instance._solution.accountSid,
-          instance._solution.credentialListSid,
-          instance._solution.sid
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new CredentialInstance(
+        operationVersion,
+        payload,
+        instance._solution.accountSid,
+        instance._solution.credentialListSid,
+        instance._solution.sid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

@@ -166,7 +166,7 @@ export class FleetContextImpl implements FleetContext {
     this._uri = `/Fleets/${sid}`;
   }
 
-  fetch(
+  async fetch(
     callback?: (error: Error | null, item?: FleetInstance) => any
   ): Promise<FleetInstance> {
     const headers: any = {};
@@ -180,19 +180,28 @@ export class FleetContextImpl implements FleetContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new FleetInstance(operationVersion, payload, instance._solution.sid)
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new FleetInstance(
+        operationVersion,
+        payload,
+        instance._solution.sid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
-  update(
+  async update(
     params?:
       | FleetContextUpdateOptions
       | ((error: Error | null, item?: FleetInstance) => any),
@@ -235,16 +244,25 @@ export class FleetContextImpl implements FleetContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new FleetInstance(operationVersion, payload, instance._solution.sid)
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new FleetInstance(
+        operationVersion,
+        payload,
+        instance._solution.sid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

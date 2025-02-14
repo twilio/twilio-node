@@ -99,7 +99,7 @@ export class TaskQueueCumulativeStatisticsContextImpl
     this._uri = `/Workspaces/${workspaceSid}/TaskQueues/${taskQueueSid}/CumulativeStatistics`;
   }
 
-  fetch(
+  async fetch(
     params?:
       | TaskQueueCumulativeStatisticsContextFetchOptions
       | ((
@@ -142,21 +142,26 @@ export class TaskQueueCumulativeStatisticsContextImpl
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new TaskQueueCumulativeStatisticsInstance(
-          operationVersion,
-          payload,
-          instance._solution.workspaceSid,
-          instance._solution.taskQueueSid
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new TaskQueueCumulativeStatisticsInstance(
+        operationVersion,
+        payload,
+        instance._solution.workspaceSid,
+        instance._solution.taskQueueSid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

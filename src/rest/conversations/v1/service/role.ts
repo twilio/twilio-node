@@ -162,7 +162,7 @@ export class RoleContextImpl implements RoleContext {
     return operationPromise;
   }
 
-  fetch(
+  async fetch(
     callback?: (error: Error | null, item?: RoleInstance) => any
   ): Promise<RoleInstance> {
     const headers: any = {};
@@ -176,24 +176,29 @@ export class RoleContextImpl implements RoleContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new RoleInstance(
-          operationVersion,
-          payload,
-          instance._solution.chatServiceSid,
-          instance._solution.sid
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new RoleInstance(
+        operationVersion,
+        payload,
+        instance._solution.chatServiceSid,
+        instance._solution.sid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
-  update(
+  async update(
     params: RoleContextUpdateOptions,
     callback?: (error: Error | null, item?: RoleInstance) => any
   ): Promise<RoleInstance> {
@@ -222,21 +227,26 @@ export class RoleContextImpl implements RoleContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new RoleInstance(
-          operationVersion,
-          payload,
-          instance._solution.chatServiceSid,
-          instance._solution.sid
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new RoleInstance(
+        operationVersion,
+        payload,
+        instance._solution.chatServiceSid,
+        instance._solution.sid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

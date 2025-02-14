@@ -103,7 +103,7 @@ export class SessionContextImpl implements SessionContext {
     return this._messages;
   }
 
-  fetch(
+  async fetch(
     callback?: (error: Error | null, item?: SessionInstance) => any
   ): Promise<SessionInstance> {
     const headers: any = {};
@@ -117,16 +117,25 @@ export class SessionContextImpl implements SessionContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new SessionInstance(operationVersion, payload, instance._solution.id)
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new SessionInstance(
+        operationVersion,
+        payload,
+        instance._solution.id
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

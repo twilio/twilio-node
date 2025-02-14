@@ -62,7 +62,7 @@ export class BulkEligibilityContextImpl implements BulkEligibilityContext {
     this._uri = `/HostedNumber/Eligibility/Bulk/${requestId}`;
   }
 
-  fetch(
+  async fetch(
     callback?: (error: Error | null, item?: BulkEligibilityInstance) => any
   ): Promise<BulkEligibilityInstance> {
     const headers: any = {};
@@ -76,20 +76,25 @@ export class BulkEligibilityContextImpl implements BulkEligibilityContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new BulkEligibilityInstance(
-          operationVersion,
-          payload,
-          instance._solution.requestId
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new BulkEligibilityInstance(
+        operationVersion,
+        payload,
+        instance._solution.requestId
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

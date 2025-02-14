@@ -181,7 +181,7 @@ export class EnvironmentContextImpl implements EnvironmentContext {
     return operationPromise;
   }
 
-  fetch(
+  async fetch(
     callback?: (error: Error | null, item?: EnvironmentInstance) => any
   ): Promise<EnvironmentInstance> {
     const headers: any = {};
@@ -195,21 +195,26 @@ export class EnvironmentContextImpl implements EnvironmentContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new EnvironmentInstance(
-          operationVersion,
-          payload,
-          instance._solution.serviceSid,
-          instance._solution.sid
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new EnvironmentInstance(
+        operationVersion,
+        payload,
+        instance._solution.serviceSid,
+        instance._solution.sid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

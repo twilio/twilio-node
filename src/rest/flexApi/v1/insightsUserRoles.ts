@@ -68,7 +68,7 @@ export class InsightsUserRolesContextImpl implements InsightsUserRolesContext {
     this._uri = `/Insights/UserRoles`;
   }
 
-  fetch(
+  async fetch(
     params?:
       | InsightsUserRolesContextFetchOptions
       | ((error: Error | null, item?: InsightsUserRolesInstance) => any),
@@ -97,15 +97,21 @@ export class InsightsUserRolesContextImpl implements InsightsUserRolesContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) => new InsightsUserRolesInstance(operationVersion, payload)
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new InsightsUserRolesInstance(operationVersion, payload);
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

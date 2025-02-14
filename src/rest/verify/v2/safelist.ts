@@ -93,7 +93,7 @@ export class SafelistContextImpl implements SafelistContext {
     return operationPromise;
   }
 
-  fetch(
+  async fetch(
     callback?: (error: Error | null, item?: SafelistInstance) => any
   ): Promise<SafelistInstance> {
     const headers: any = {};
@@ -107,20 +107,25 @@ export class SafelistContextImpl implements SafelistContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new SafelistInstance(
-          operationVersion,
-          payload,
-          instance._solution.phoneNumber
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new SafelistInstance(
+        operationVersion,
+        payload,
+        instance._solution.phoneNumber
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

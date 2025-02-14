@@ -99,7 +99,7 @@ export class WorkflowCumulativeStatisticsContextImpl
     this._uri = `/Workspaces/${workspaceSid}/Workflows/${workflowSid}/CumulativeStatistics`;
   }
 
-  fetch(
+  async fetch(
     params?:
       | WorkflowCumulativeStatisticsContextFetchOptions
       | ((
@@ -142,21 +142,26 @@ export class WorkflowCumulativeStatisticsContextImpl
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new WorkflowCumulativeStatisticsInstance(
-          operationVersion,
-          payload,
-          instance._solution.workspaceSid,
-          instance._solution.workflowSid
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new WorkflowCumulativeStatisticsInstance(
+        operationVersion,
+        payload,
+        instance._solution.workspaceSid,
+        instance._solution.workflowSid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

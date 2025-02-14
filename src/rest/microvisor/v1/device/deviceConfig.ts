@@ -158,7 +158,7 @@ export class DeviceConfigContextImpl implements DeviceConfigContext {
     return operationPromise;
   }
 
-  fetch(
+  async fetch(
     callback?: (error: Error | null, item?: DeviceConfigInstance) => any
   ): Promise<DeviceConfigInstance> {
     const headers: any = {};
@@ -172,24 +172,29 @@ export class DeviceConfigContextImpl implements DeviceConfigContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new DeviceConfigInstance(
-          operationVersion,
-          payload,
-          instance._solution.deviceSid,
-          instance._solution.key
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new DeviceConfigInstance(
+        operationVersion,
+        payload,
+        instance._solution.deviceSid,
+        instance._solution.key
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
-  update(
+  async update(
     params: DeviceConfigContextUpdateOptions,
     callback?: (error: Error | null, item?: DeviceConfigInstance) => any
   ): Promise<DeviceConfigInstance> {
@@ -218,21 +223,26 @@ export class DeviceConfigContextImpl implements DeviceConfigContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new DeviceConfigInstance(
-          operationVersion,
-          payload,
-          instance._solution.deviceSid,
-          instance._solution.key
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new DeviceConfigInstance(
+        operationVersion,
+        payload,
+        instance._solution.deviceSid,
+        instance._solution.key
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

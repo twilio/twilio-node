@@ -138,7 +138,7 @@ export class OperatorResultContextImpl implements OperatorResultContext {
     this._uri = `/Transcripts/${transcriptSid}/OperatorResults/${operatorSid}`;
   }
 
-  fetch(
+  async fetch(
     params?:
       | OperatorResultContextFetchOptions
       | ((error: Error | null, item?: OperatorResultInstance) => any),
@@ -168,21 +168,26 @@ export class OperatorResultContextImpl implements OperatorResultContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new OperatorResultInstance(
-          operationVersion,
-          payload,
-          instance._solution.transcriptSid,
-          instance._solution.operatorSid
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new OperatorResultInstance(
+        operationVersion,
+        payload,
+        instance._solution.transcriptSid,
+        instance._solution.operatorSid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

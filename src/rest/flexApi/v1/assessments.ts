@@ -147,7 +147,7 @@ export class AssessmentsContextImpl implements AssessmentsContext {
     this._uri = `/Insights/QualityManagement/Assessments/${assessmentSid}`;
   }
 
-  update(
+  async update(
     params: AssessmentsContextUpdateOptions,
     callback?: (error: Error | null, item?: AssessmentsInstance) => any
   ): Promise<AssessmentsInstance> {
@@ -190,20 +190,25 @@ export class AssessmentsContextImpl implements AssessmentsContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new AssessmentsInstance(
-          operationVersion,
-          payload,
-          instance._solution.assessmentSid
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new AssessmentsInstance(
+        operationVersion,
+        payload,
+        instance._solution.assessmentSid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

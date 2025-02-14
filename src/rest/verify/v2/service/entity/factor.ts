@@ -190,7 +190,7 @@ export class FactorContextImpl implements FactorContext {
     return operationPromise;
   }
 
-  fetch(
+  async fetch(
     callback?: (error: Error | null, item?: FactorInstance) => any
   ): Promise<FactorInstance> {
     const headers: any = {};
@@ -204,25 +204,30 @@ export class FactorContextImpl implements FactorContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new FactorInstance(
-          operationVersion,
-          payload,
-          instance._solution.serviceSid,
-          instance._solution.identity,
-          instance._solution.sid
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new FactorInstance(
+        operationVersion,
+        payload,
+        instance._solution.serviceSid,
+        instance._solution.identity,
+        instance._solution.sid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
-  update(
+  async update(
     params?:
       | FactorContextUpdateOptions
       | ((error: Error | null, item?: FactorInstance) => any),
@@ -270,22 +275,27 @@ export class FactorContextImpl implements FactorContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new FactorInstance(
-          operationVersion,
-          payload,
-          instance._solution.serviceSid,
-          instance._solution.identity,
-          instance._solution.sid
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new FactorInstance(
+        operationVersion,
+        payload,
+        instance._solution.serviceSid,
+        instance._solution.identity,
+        instance._solution.sid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

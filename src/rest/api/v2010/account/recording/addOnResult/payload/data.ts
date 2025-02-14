@@ -75,7 +75,7 @@ export class DataContextImpl implements DataContext {
     this._uri = `/Accounts/${accountSid}/Recordings/${referenceSid}/AddOnResults/${addOnResultSid}/Payloads/${payloadSid}/Data.json`;
   }
 
-  fetch(
+  async fetch(
     callback?: (error: Error | null, item?: DataInstance) => any
   ): Promise<DataInstance> {
     const headers: any = {};
@@ -89,23 +89,28 @@ export class DataContextImpl implements DataContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new DataInstance(
-          operationVersion,
-          payload,
-          instance._solution.accountSid,
-          instance._solution.referenceSid,
-          instance._solution.addOnResultSid,
-          instance._solution.payloadSid
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new DataInstance(
+        operationVersion,
+        payload,
+        instance._solution.accountSid,
+        instance._solution.referenceSid,
+        instance._solution.addOnResultSid,
+        instance._solution.payloadSid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

@@ -147,7 +147,7 @@ export class NetworkAccessProfileNetworkContextImpl
     return operationPromise;
   }
 
-  fetch(
+  async fetch(
     callback?: (
       error: Error | null,
       item?: NetworkAccessProfileNetworkInstance
@@ -164,21 +164,26 @@ export class NetworkAccessProfileNetworkContextImpl
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new NetworkAccessProfileNetworkInstance(
-          operationVersion,
-          payload,
-          instance._solution.networkAccessProfileSid,
-          instance._solution.sid
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new NetworkAccessProfileNetworkInstance(
+        operationVersion,
+        payload,
+        instance._solution.networkAccessProfileSid,
+        instance._solution.sid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

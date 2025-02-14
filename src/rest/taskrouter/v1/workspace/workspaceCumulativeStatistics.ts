@@ -90,7 +90,7 @@ export class WorkspaceCumulativeStatisticsContextImpl
     this._uri = `/Workspaces/${workspaceSid}/CumulativeStatistics`;
   }
 
-  fetch(
+  async fetch(
     params?:
       | WorkspaceCumulativeStatisticsContextFetchOptions
       | ((
@@ -133,20 +133,25 @@ export class WorkspaceCumulativeStatisticsContextImpl
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new WorkspaceCumulativeStatisticsInstance(
-          operationVersion,
-          payload,
-          instance._solution.workspaceSid
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new WorkspaceCumulativeStatisticsInstance(
+        operationVersion,
+        payload,
+        instance._solution.workspaceSid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

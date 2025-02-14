@@ -75,7 +75,7 @@ export class AccessTokenContextImpl implements AccessTokenContext {
     this._uri = `/Services/${serviceSid}/AccessTokens/${sid}`;
   }
 
-  fetch(
+  async fetch(
     callback?: (error: Error | null, item?: AccessTokenInstance) => any
   ): Promise<AccessTokenInstance> {
     const headers: any = {};
@@ -89,21 +89,26 @@ export class AccessTokenContextImpl implements AccessTokenContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new AccessTokenInstance(
-          operationVersion,
-          payload,
-          instance._solution.serviceSid,
-          instance._solution.sid
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new AccessTokenInstance(
+        operationVersion,
+        payload,
+        instance._solution.serviceSid,
+        instance._solution.sid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

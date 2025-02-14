@@ -153,7 +153,7 @@ export class AccountSecretContextImpl implements AccountSecretContext {
     return operationPromise;
   }
 
-  fetch(
+  async fetch(
     callback?: (error: Error | null, item?: AccountSecretInstance) => any
   ): Promise<AccountSecretInstance> {
     const headers: any = {};
@@ -167,23 +167,28 @@ export class AccountSecretContextImpl implements AccountSecretContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new AccountSecretInstance(
-          operationVersion,
-          payload,
-          instance._solution.key
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new AccountSecretInstance(
+        operationVersion,
+        payload,
+        instance._solution.key
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
-  update(
+  async update(
     params: AccountSecretContextUpdateOptions,
     callback?: (error: Error | null, item?: AccountSecretInstance) => any
   ): Promise<AccountSecretInstance> {
@@ -212,20 +217,25 @@ export class AccountSecretContextImpl implements AccountSecretContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new AccountSecretInstance(
-          operationVersion,
-          payload,
-          instance._solution.key
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new AccountSecretInstance(
+        operationVersion,
+        payload,
+        instance._solution.key
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

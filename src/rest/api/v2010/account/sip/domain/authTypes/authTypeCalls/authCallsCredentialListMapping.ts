@@ -153,7 +153,7 @@ export class AuthCallsCredentialListMappingContextImpl
     return operationPromise;
   }
 
-  fetch(
+  async fetch(
     callback?: (
       error: Error | null,
       item?: AuthCallsCredentialListMappingInstance
@@ -170,22 +170,27 @@ export class AuthCallsCredentialListMappingContextImpl
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new AuthCallsCredentialListMappingInstance(
-          operationVersion,
-          payload,
-          instance._solution.accountSid,
-          instance._solution.domainSid,
-          instance._solution.sid
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new AuthCallsCredentialListMappingInstance(
+        operationVersion,
+        payload,
+        instance._solution.accountSid,
+        instance._solution.domainSid,
+        instance._solution.sid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

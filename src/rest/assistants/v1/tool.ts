@@ -284,7 +284,7 @@ export class ToolContextImpl implements ToolContext {
     return operationPromise;
   }
 
-  fetch(
+  async fetch(
     callback?: (error: Error | null, item?: ToolInstance) => any
   ): Promise<ToolInstance> {
     const headers: any = {};
@@ -298,19 +298,28 @@ export class ToolContextImpl implements ToolContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new ToolInstance(operationVersion, payload, instance._solution.id)
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new ToolInstance(
+        operationVersion,
+        payload,
+        instance._solution.id
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
-  update(
+  async update(
     params?:
       | AssistantsV1ServiceUpdateToolRequest
       | ((error: Error | null, item?: ToolInstance) => any),
@@ -344,16 +353,25 @@ export class ToolContextImpl implements ToolContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new ToolInstance(operationVersion, payload, instance._solution.id)
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new ToolInstance(
+        operationVersion,
+        payload,
+        instance._solution.id
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

@@ -84,7 +84,7 @@ export class WorkspaceStatisticsContextImpl
     this._uri = `/Workspaces/${workspaceSid}/Statistics`;
   }
 
-  fetch(
+  async fetch(
     params?:
       | WorkspaceStatisticsContextFetchOptions
       | ((error: Error | null, item?: WorkspaceStatisticsInstance) => any),
@@ -121,20 +121,25 @@ export class WorkspaceStatisticsContextImpl
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new WorkspaceStatisticsInstance(
-          operationVersion,
-          payload,
-          instance._solution.workspaceSid
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new WorkspaceStatisticsInstance(
+        operationVersion,
+        payload,
+        instance._solution.workspaceSid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

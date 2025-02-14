@@ -99,7 +99,7 @@ export class FlowRevisionContextImpl implements FlowRevisionContext {
     this._uri = `/Flows/${sid}/Revisions/${revision}`;
   }
 
-  fetch(
+  async fetch(
     callback?: (error: Error | null, item?: FlowRevisionInstance) => any
   ): Promise<FlowRevisionInstance> {
     const headers: any = {};
@@ -113,21 +113,26 @@ export class FlowRevisionContextImpl implements FlowRevisionContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new FlowRevisionInstance(
-          operationVersion,
-          payload,
-          instance._solution.sid,
-          instance._solution.revision
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new FlowRevisionInstance(
+        operationVersion,
+        payload,
+        instance._solution.sid,
+        instance._solution.revision
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

@@ -102,7 +102,7 @@ export class CallSummaryContextImpl implements CallSummaryContext {
     this._uri = `/Voice/${callSid}/Summary`;
   }
 
-  fetch(
+  async fetch(
     params?:
       | CallSummaryContextFetchOptions
       | ((error: Error | null, item?: CallSummaryInstance) => any),
@@ -132,20 +132,25 @@ export class CallSummaryContextImpl implements CallSummaryContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new CallSummaryInstance(
-          operationVersion,
-          payload,
-          instance._solution.callSid
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new CallSummaryInstance(
+        operationVersion,
+        payload,
+        instance._solution.callSid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

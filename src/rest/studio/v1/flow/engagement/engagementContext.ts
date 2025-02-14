@@ -59,7 +59,7 @@ export class EngagementContextContextImpl implements EngagementContextContext {
     this._uri = `/Flows/${flowSid}/Engagements/${engagementSid}/Context`;
   }
 
-  fetch(
+  async fetch(
     callback?: (error: Error | null, item?: EngagementContextInstance) => any
   ): Promise<EngagementContextInstance> {
     const headers: any = {};
@@ -73,21 +73,26 @@ export class EngagementContextContextImpl implements EngagementContextContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new EngagementContextInstance(
-          operationVersion,
-          payload,
-          instance._solution.flowSid,
-          instance._solution.engagementSid
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new EngagementContextInstance(
+        operationVersion,
+        payload,
+        instance._solution.flowSid,
+        instance._solution.engagementSid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

@@ -56,7 +56,7 @@ export class FormContextImpl implements FormContext {
     this._uri = `/Forms/${formType}`;
   }
 
-  fetch(
+  async fetch(
     callback?: (error: Error | null, item?: FormInstance) => any
   ): Promise<FormInstance> {
     const headers: any = {};
@@ -70,16 +70,25 @@ export class FormContextImpl implements FormContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new FormInstance(operationVersion, payload, instance._solution.formType)
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new FormInstance(
+        operationVersion,
+        payload,
+        instance._solution.formType
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

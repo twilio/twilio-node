@@ -93,7 +93,7 @@ export class WorkflowStatisticsContextImpl
     this._uri = `/Workspaces/${workspaceSid}/Workflows/${workflowSid}/Statistics`;
   }
 
-  fetch(
+  async fetch(
     params?:
       | WorkflowStatisticsContextFetchOptions
       | ((error: Error | null, item?: WorkflowStatisticsInstance) => any),
@@ -130,21 +130,26 @@ export class WorkflowStatisticsContextImpl
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new WorkflowStatisticsInstance(
-          operationVersion,
-          payload,
-          instance._solution.workspaceSid,
-          instance._solution.workflowSid
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new WorkflowStatisticsInstance(
+        operationVersion,
+        payload,
+        instance._solution.workspaceSid,
+        instance._solution.workflowSid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

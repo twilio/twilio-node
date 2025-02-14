@@ -357,7 +357,7 @@ export class AssistantContextImpl implements AssistantContext {
     return operationPromise;
   }
 
-  fetch(
+  async fetch(
     callback?: (error: Error | null, item?: AssistantInstance) => any
   ): Promise<AssistantInstance> {
     const headers: any = {};
@@ -371,19 +371,28 @@ export class AssistantContextImpl implements AssistantContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new AssistantInstance(operationVersion, payload, instance._solution.id)
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new AssistantInstance(
+        operationVersion,
+        payload,
+        instance._solution.id
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
-  update(
+  async update(
     params?:
       | AssistantsV1ServiceUpdateAssistantRequest
       | ((error: Error | null, item?: AssistantInstance) => any),
@@ -417,16 +426,25 @@ export class AssistantContextImpl implements AssistantContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new AssistantInstance(operationVersion, payload, instance._solution.id)
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new AssistantInstance(
+        operationVersion,
+        payload,
+        instance._solution.id
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

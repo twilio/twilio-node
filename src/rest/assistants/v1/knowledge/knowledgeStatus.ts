@@ -54,7 +54,7 @@ export class KnowledgeStatusContextImpl implements KnowledgeStatusContext {
     this._uri = `/Knowledge/${id}/Status`;
   }
 
-  fetch(
+  async fetch(
     callback?: (error: Error | null, item?: KnowledgeStatusInstance) => any
   ): Promise<KnowledgeStatusInstance> {
     const headers: any = {};
@@ -68,20 +68,25 @@ export class KnowledgeStatusContextImpl implements KnowledgeStatusContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new KnowledgeStatusInstance(
-          operationVersion,
-          payload,
-          instance._solution.id
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new KnowledgeStatusInstance(
+        operationVersion,
+        payload,
+        instance._solution.id
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

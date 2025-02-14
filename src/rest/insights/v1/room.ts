@@ -171,7 +171,7 @@ export class RoomContextImpl implements RoomContext {
     return this._participants;
   }
 
-  fetch(
+  async fetch(
     callback?: (error: Error | null, item?: RoomInstance) => any
   ): Promise<RoomInstance> {
     const headers: any = {};
@@ -185,16 +185,25 @@ export class RoomContextImpl implements RoomContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new RoomInstance(operationVersion, payload, instance._solution.roomSid)
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new RoomInstance(
+        operationVersion,
+        payload,
+        instance._solution.roomSid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

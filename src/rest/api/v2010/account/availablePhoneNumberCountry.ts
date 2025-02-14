@@ -209,7 +209,7 @@ export class AvailablePhoneNumberCountryContextImpl
     return this._voip;
   }
 
-  fetch(
+  async fetch(
     callback?: (
       error: Error | null,
       item?: AvailablePhoneNumberCountryInstance
@@ -226,21 +226,26 @@ export class AvailablePhoneNumberCountryContextImpl
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new AvailablePhoneNumberCountryInstance(
-          operationVersion,
-          payload,
-          instance._solution.accountSid,
-          instance._solution.countryCode
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new AvailablePhoneNumberCountryInstance(
+        operationVersion,
+        payload,
+        instance._solution.accountSid,
+        instance._solution.countryCode
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

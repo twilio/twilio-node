@@ -165,7 +165,7 @@ export class SyncListContextImpl implements SyncListContext {
     return operationPromise;
   }
 
-  fetch(
+  async fetch(
     callback?: (error: Error | null, item?: SyncListInstance) => any
   ): Promise<SyncListInstance> {
     const headers: any = {};
@@ -179,21 +179,26 @@ export class SyncListContextImpl implements SyncListContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new SyncListInstance(
-          operationVersion,
-          payload,
-          instance._solution.serviceSid,
-          instance._solution.sid
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new SyncListInstance(
+        operationVersion,
+        payload,
+        instance._solution.serviceSid,
+        instance._solution.sid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

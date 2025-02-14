@@ -124,7 +124,7 @@ export class StepContextImpl implements StepContext {
     return this._stepContext;
   }
 
-  fetch(
+  async fetch(
     callback?: (error: Error | null, item?: StepInstance) => any
   ): Promise<StepInstance> {
     const headers: any = {};
@@ -138,22 +138,27 @@ export class StepContextImpl implements StepContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new StepInstance(
-          operationVersion,
-          payload,
-          instance._solution.flowSid,
-          instance._solution.engagementSid,
-          instance._solution.sid
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new StepInstance(
+        operationVersion,
+        payload,
+        instance._solution.flowSid,
+        instance._solution.engagementSid,
+        instance._solution.sid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

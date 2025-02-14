@@ -228,7 +228,7 @@ export class ServiceContextImpl implements ServiceContext {
     return operationPromise;
   }
 
-  fetch(
+  async fetch(
     callback?: (error: Error | null, item?: ServiceInstance) => any
   ): Promise<ServiceInstance> {
     const headers: any = {};
@@ -242,19 +242,28 @@ export class ServiceContextImpl implements ServiceContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new ServiceInstance(operationVersion, payload, instance._solution.sid)
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new ServiceInstance(
+        operationVersion,
+        payload,
+        instance._solution.sid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
-  update(
+  async update(
     params?:
       | ServiceContextUpdateOptions
       | ((error: Error | null, item?: ServiceInstance) => any),
@@ -299,16 +308,25 @@ export class ServiceContextImpl implements ServiceContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new ServiceInstance(operationVersion, payload, instance._solution.sid)
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new ServiceInstance(
+        operationVersion,
+        payload,
+        instance._solution.sid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

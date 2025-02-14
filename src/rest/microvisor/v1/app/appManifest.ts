@@ -54,7 +54,7 @@ export class AppManifestContextImpl implements AppManifestContext {
     this._uri = `/Apps/${appSid}/Manifest`;
   }
 
-  fetch(
+  async fetch(
     callback?: (error: Error | null, item?: AppManifestInstance) => any
   ): Promise<AppManifestInstance> {
     const headers: any = {};
@@ -68,20 +68,25 @@ export class AppManifestContextImpl implements AppManifestContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new AppManifestInstance(
-          operationVersion,
-          payload,
-          instance._solution.appSid
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new AppManifestInstance(
+        operationVersion,
+        payload,
+        instance._solution.appSid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

@@ -139,7 +139,7 @@ export class ChannelSenderContextImpl implements ChannelSenderContext {
     return operationPromise;
   }
 
-  fetch(
+  async fetch(
     callback?: (error: Error | null, item?: ChannelSenderInstance) => any
   ): Promise<ChannelSenderInstance> {
     const headers: any = {};
@@ -153,21 +153,26 @@ export class ChannelSenderContextImpl implements ChannelSenderContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new ChannelSenderInstance(
-          operationVersion,
-          payload,
-          instance._solution.messagingServiceSid,
-          instance._solution.sid
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new ChannelSenderInstance(
+        operationVersion,
+        payload,
+        instance._solution.messagingServiceSid,
+        instance._solution.sid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

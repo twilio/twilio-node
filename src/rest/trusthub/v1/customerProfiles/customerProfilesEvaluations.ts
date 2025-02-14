@@ -114,7 +114,7 @@ export class CustomerProfilesEvaluationsContextImpl
     this._uri = `/CustomerProfiles/${customerProfileSid}/Evaluations/${sid}`;
   }
 
-  fetch(
+  async fetch(
     callback?: (
       error: Error | null,
       item?: CustomerProfilesEvaluationsInstance
@@ -131,21 +131,26 @@ export class CustomerProfilesEvaluationsContextImpl
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new CustomerProfilesEvaluationsInstance(
-          operationVersion,
-          payload,
-          instance._solution.customerProfileSid,
-          instance._solution.sid
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new CustomerProfilesEvaluationsInstance(
+        operationVersion,
+        payload,
+        instance._solution.customerProfileSid,
+        instance._solution.sid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

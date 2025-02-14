@@ -59,7 +59,7 @@ export class ExecutionContextContextImpl implements ExecutionContextContext {
     this._uri = `/Flows/${flowSid}/Executions/${executionSid}/Context`;
   }
 
-  fetch(
+  async fetch(
     callback?: (error: Error | null, item?: ExecutionContextInstance) => any
   ): Promise<ExecutionContextInstance> {
     const headers: any = {};
@@ -73,21 +73,26 @@ export class ExecutionContextContextImpl implements ExecutionContextContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new ExecutionContextInstance(
-          operationVersion,
-          payload,
-          instance._solution.flowSid,
-          instance._solution.executionSid
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new ExecutionContextInstance(
+        operationVersion,
+        payload,
+        instance._solution.flowSid,
+        instance._solution.executionSid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

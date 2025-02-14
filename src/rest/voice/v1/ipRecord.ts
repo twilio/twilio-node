@@ -165,7 +165,7 @@ export class IpRecordContextImpl implements IpRecordContext {
     return operationPromise;
   }
 
-  fetch(
+  async fetch(
     callback?: (error: Error | null, item?: IpRecordInstance) => any
   ): Promise<IpRecordInstance> {
     const headers: any = {};
@@ -179,19 +179,28 @@ export class IpRecordContextImpl implements IpRecordContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new IpRecordInstance(operationVersion, payload, instance._solution.sid)
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new IpRecordInstance(
+        operationVersion,
+        payload,
+        instance._solution.sid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
-  update(
+  async update(
     params?:
       | IpRecordContextUpdateOptions
       | ((error: Error | null, item?: IpRecordInstance) => any),
@@ -222,16 +231,25 @@ export class IpRecordContextImpl implements IpRecordContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new IpRecordInstance(operationVersion, payload, instance._solution.sid)
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new IpRecordInstance(
+        operationVersion,
+        payload,
+        instance._solution.sid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

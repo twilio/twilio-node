@@ -126,7 +126,7 @@ export class ParticipantContextImpl implements ParticipantContext {
     this._uri = `/Video/Rooms/${roomSid}/Participants/${participantSid}`;
   }
 
-  fetch(
+  async fetch(
     callback?: (error: Error | null, item?: ParticipantInstance) => any
   ): Promise<ParticipantInstance> {
     const headers: any = {};
@@ -140,21 +140,26 @@ export class ParticipantContextImpl implements ParticipantContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new ParticipantInstance(
-          operationVersion,
-          payload,
-          instance._solution.roomSid,
-          instance._solution.participantSid
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new ParticipantInstance(
+        operationVersion,
+        payload,
+        instance._solution.roomSid,
+        instance._solution.participantSid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

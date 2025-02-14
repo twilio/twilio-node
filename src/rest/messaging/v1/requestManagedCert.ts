@@ -56,7 +56,7 @@ export class RequestManagedCertContextImpl
     this._uri = `/LinkShortening/Domains/${domainSid}/RequestManagedCert`;
   }
 
-  update(
+  async update(
     callback?: (error: Error | null, item?: RequestManagedCertInstance) => any
   ): Promise<RequestManagedCertInstance> {
     const headers: any = {};
@@ -70,20 +70,25 @@ export class RequestManagedCertContextImpl
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new RequestManagedCertInstance(
-          operationVersion,
-          payload,
-          instance._solution.domainSid
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new RequestManagedCertInstance(
+        operationVersion,
+        payload,
+        instance._solution.domainSid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

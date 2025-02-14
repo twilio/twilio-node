@@ -99,7 +99,7 @@ export class ModuleDataManagementContextImpl
     this._uri = `/Listing/${sid}`;
   }
 
-  fetch(
+  async fetch(
     callback?: (error: Error | null, item?: ModuleDataManagementInstance) => any
   ): Promise<ModuleDataManagementInstance> {
     const headers: any = {};
@@ -113,23 +113,28 @@ export class ModuleDataManagementContextImpl
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new ModuleDataManagementInstance(
-          operationVersion,
-          payload,
-          instance._solution.sid
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new ModuleDataManagementInstance(
+        operationVersion,
+        payload,
+        instance._solution.sid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
-  update(
+  async update(
     params?:
       | ModuleDataManagementContextUpdateOptions
       | ((error: Error | null, item?: ModuleDataManagementInstance) => any),
@@ -169,20 +174,25 @@ export class ModuleDataManagementContextImpl
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new ModuleDataManagementInstance(
-          operationVersion,
-          payload,
-          instance._solution.sid
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new ModuleDataManagementInstance(
+        operationVersion,
+        payload,
+        instance._solution.sid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

@@ -128,7 +128,7 @@ export class EventContextImpl implements EventContext {
     this._uri = `/Events/${sid}`;
   }
 
-  fetch(
+  async fetch(
     callback?: (error: Error | null, item?: EventInstance) => any
   ): Promise<EventInstance> {
     const headers: any = {};
@@ -142,16 +142,25 @@ export class EventContextImpl implements EventContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new EventInstance(operationVersion, payload, instance._solution.sid)
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new EventInstance(
+        operationVersion,
+        payload,
+        instance._solution.sid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

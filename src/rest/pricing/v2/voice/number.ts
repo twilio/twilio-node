@@ -89,7 +89,7 @@ export class NumberContextImpl implements NumberContext {
     this._uri = `/Voice/Numbers/${destinationNumber}`;
   }
 
-  fetch(
+  async fetch(
     params?:
       | NumberContextFetchOptions
       | ((error: Error | null, item?: NumberInstance) => any),
@@ -119,20 +119,25 @@ export class NumberContextImpl implements NumberContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new NumberInstance(
-          operationVersion,
-          payload,
-          instance._solution.destinationNumber
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new NumberInstance(
+        operationVersion,
+        payload,
+        instance._solution.destinationNumber
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

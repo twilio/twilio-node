@@ -195,7 +195,7 @@ export class RecordingContextImpl implements RecordingContext {
     return operationPromise;
   }
 
-  fetch(
+  async fetch(
     callback?: (error: Error | null, item?: RecordingInstance) => any
   ): Promise<RecordingInstance> {
     const headers: any = {};
@@ -209,25 +209,30 @@ export class RecordingContextImpl implements RecordingContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new RecordingInstance(
-          operationVersion,
-          payload,
-          instance._solution.accountSid,
-          instance._solution.conferenceSid,
-          instance._solution.sid
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new RecordingInstance(
+        operationVersion,
+        payload,
+        instance._solution.accountSid,
+        instance._solution.conferenceSid,
+        instance._solution.sid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
-  update(
+  async update(
     params: RecordingContextUpdateOptions,
     callback?: (error: Error | null, item?: RecordingInstance) => any
   ): Promise<RecordingInstance> {
@@ -258,22 +263,27 @@ export class RecordingContextImpl implements RecordingContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new RecordingInstance(
-          operationVersion,
-          payload,
-          instance._solution.accountSid,
-          instance._solution.conferenceSid,
-          instance._solution.sid
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new RecordingInstance(
+        operationVersion,
+        payload,
+        instance._solution.accountSid,
+        instance._solution.conferenceSid,
+        instance._solution.sid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

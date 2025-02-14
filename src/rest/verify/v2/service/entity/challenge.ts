@@ -204,7 +204,7 @@ export class ChallengeContextImpl implements ChallengeContext {
     return this._notifications;
   }
 
-  fetch(
+  async fetch(
     callback?: (error: Error | null, item?: ChallengeInstance) => any
   ): Promise<ChallengeInstance> {
     const headers: any = {};
@@ -218,25 +218,30 @@ export class ChallengeContextImpl implements ChallengeContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new ChallengeInstance(
-          operationVersion,
-          payload,
-          instance._solution.serviceSid,
-          instance._solution.identity,
-          instance._solution.sid
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new ChallengeInstance(
+        operationVersion,
+        payload,
+        instance._solution.serviceSid,
+        instance._solution.identity,
+        instance._solution.sid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
-  update(
+  async update(
     params?:
       | ChallengeContextUpdateOptions
       | ((error: Error | null, item?: ChallengeInstance) => any),
@@ -269,22 +274,27 @@ export class ChallengeContextImpl implements ChallengeContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new ChallengeInstance(
-          operationVersion,
-          payload,
-          instance._solution.serviceSid,
-          instance._solution.identity,
-          instance._solution.sid
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new ChallengeInstance(
+        operationVersion,
+        payload,
+        instance._solution.serviceSid,
+        instance._solution.identity,
+        instance._solution.sid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

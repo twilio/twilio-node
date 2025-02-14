@@ -262,7 +262,7 @@ export class KnowledgeContextImpl implements KnowledgeContext {
     return operationPromise;
   }
 
-  fetch(
+  async fetch(
     callback?: (error: Error | null, item?: KnowledgeInstance) => any
   ): Promise<KnowledgeInstance> {
     const headers: any = {};
@@ -276,19 +276,28 @@ export class KnowledgeContextImpl implements KnowledgeContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new KnowledgeInstance(operationVersion, payload, instance._solution.id)
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new KnowledgeInstance(
+        operationVersion,
+        payload,
+        instance._solution.id
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
-  update(
+  async update(
     params?:
       | AssistantsV1ServiceUpdateKnowledgeRequest
       | ((error: Error | null, item?: KnowledgeInstance) => any),
@@ -322,16 +331,25 @@ export class KnowledgeContextImpl implements KnowledgeContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new KnowledgeInstance(operationVersion, payload, instance._solution.id)
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new KnowledgeInstance(
+        operationVersion,
+        payload,
+        instance._solution.id
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

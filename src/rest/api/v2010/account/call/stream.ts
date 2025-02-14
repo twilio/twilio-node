@@ -497,7 +497,7 @@ export class StreamContextImpl implements StreamContext {
     this._uri = `/Accounts/${accountSid}/Calls/${callSid}/Streams/${sid}.json`;
   }
 
-  update(
+  async update(
     params: StreamContextUpdateOptions,
     callback?: (error: Error | null, item?: StreamInstance) => any
   ): Promise<StreamInstance> {
@@ -526,22 +526,27 @@ export class StreamContextImpl implements StreamContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new StreamInstance(
-          operationVersion,
-          payload,
-          instance._solution.accountSid,
-          instance._solution.callSid,
-          instance._solution.sid
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new StreamInstance(
+        operationVersion,
+        payload,
+        instance._solution.accountSid,
+        instance._solution.callSid,
+        instance._solution.sid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

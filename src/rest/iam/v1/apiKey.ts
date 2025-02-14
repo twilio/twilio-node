@@ -118,7 +118,7 @@ export class ApiKeyContextImpl implements ApiKeyContext {
     return operationPromise;
   }
 
-  fetch(
+  async fetch(
     callback?: (error: Error | null, item?: ApiKeyInstance) => any
   ): Promise<ApiKeyInstance> {
     const headers: any = {};
@@ -132,19 +132,28 @@ export class ApiKeyContextImpl implements ApiKeyContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new ApiKeyInstance(operationVersion, payload, instance._solution.sid)
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new ApiKeyInstance(
+        operationVersion,
+        payload,
+        instance._solution.sid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
-  update(
+  async update(
     params?:
       | ApiKeyContextUpdateOptions
       | ((error: Error | null, item?: ApiKeyInstance) => any),
@@ -177,16 +186,25 @@ export class ApiKeyContextImpl implements ApiKeyContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new ApiKeyInstance(operationVersion, payload, instance._solution.sid)
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new ApiKeyInstance(
+        operationVersion,
+        payload,
+        instance._solution.sid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

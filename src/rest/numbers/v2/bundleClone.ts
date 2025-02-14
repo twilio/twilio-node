@@ -76,7 +76,7 @@ export class BundleCloneContextImpl implements BundleCloneContext {
     this._uri = `/RegulatoryCompliance/Bundles/${bundleSid}/Clones`;
   }
 
-  create(
+  async create(
     params: BundleCloneContextCreateOptions,
     callback?: (error: Error | null, item?: BundleCloneInstance) => any
   ): Promise<BundleCloneInstance> {
@@ -114,20 +114,25 @@ export class BundleCloneContextImpl implements BundleCloneContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new BundleCloneInstance(
-          operationVersion,
-          payload,
-          instance._solution.bundleSid
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new BundleCloneInstance(
+        operationVersion,
+        payload,
+        instance._solution.bundleSid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

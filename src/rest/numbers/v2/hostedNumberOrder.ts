@@ -231,7 +231,7 @@ export class HostedNumberOrderContextImpl implements HostedNumberOrderContext {
     return operationPromise;
   }
 
-  fetch(
+  async fetch(
     callback?: (error: Error | null, item?: HostedNumberOrderInstance) => any
   ): Promise<HostedNumberOrderInstance> {
     const headers: any = {};
@@ -245,23 +245,28 @@ export class HostedNumberOrderContextImpl implements HostedNumberOrderContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new HostedNumberOrderInstance(
-          operationVersion,
-          payload,
-          instance._solution.sid
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new HostedNumberOrderInstance(
+        operationVersion,
+        payload,
+        instance._solution.sid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
-  update(
+  async update(
     params: HostedNumberOrderContextUpdateOptions,
     callback?: (error: Error | null, item?: HostedNumberOrderInstance) => any
   ): Promise<HostedNumberOrderInstance> {
@@ -294,20 +299,25 @@ export class HostedNumberOrderContextImpl implements HostedNumberOrderContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new HostedNumberOrderInstance(
-          operationVersion,
-          payload,
-          instance._solution.sid
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new HostedNumberOrderInstance(
+        operationVersion,
+        payload,
+        instance._solution.sid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

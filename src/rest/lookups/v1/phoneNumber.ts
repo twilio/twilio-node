@@ -80,7 +80,7 @@ export class PhoneNumberContextImpl implements PhoneNumberContext {
     this._uri = `/PhoneNumbers/${phoneNumber}`;
   }
 
-  fetch(
+  async fetch(
     params?:
       | PhoneNumberContextFetchOptions
       | ((error: Error | null, item?: PhoneNumberInstance) => any),
@@ -119,20 +119,25 @@ export class PhoneNumberContextImpl implements PhoneNumberContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new PhoneNumberInstance(
-          operationVersion,
-          payload,
-          instance._solution.phoneNumber
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new PhoneNumberInstance(
+        operationVersion,
+        payload,
+        instance._solution.phoneNumber
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

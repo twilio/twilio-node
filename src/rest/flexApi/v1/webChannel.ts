@@ -175,7 +175,7 @@ export class WebChannelContextImpl implements WebChannelContext {
     return operationPromise;
   }
 
-  fetch(
+  async fetch(
     callback?: (error: Error | null, item?: WebChannelInstance) => any
   ): Promise<WebChannelInstance> {
     const headers: any = {};
@@ -189,23 +189,28 @@ export class WebChannelContextImpl implements WebChannelContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new WebChannelInstance(
-          operationVersion,
-          payload,
-          instance._solution.sid
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new WebChannelInstance(
+        operationVersion,
+        payload,
+        instance._solution.sid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
-  update(
+  async update(
     params?:
       | WebChannelContextUpdateOptions
       | ((error: Error | null, item?: WebChannelInstance) => any),
@@ -238,20 +243,25 @@ export class WebChannelContextImpl implements WebChannelContext {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new WebChannelInstance(
-          operationVersion,
-          payload,
-          instance._solution.sid
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new WebChannelInstance(
+        operationVersion,
+        payload,
+        instance._solution.sid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

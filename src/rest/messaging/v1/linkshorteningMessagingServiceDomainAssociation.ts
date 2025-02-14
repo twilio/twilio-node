@@ -59,7 +59,7 @@ export class LinkshorteningMessagingServiceDomainAssociationContextImpl
     this._uri = `/LinkShortening/MessagingServices/${messagingServiceSid}/Domain`;
   }
 
-  fetch(
+  async fetch(
     callback?: (
       error: Error | null,
       item?: LinkshorteningMessagingServiceDomainAssociationInstance
@@ -76,20 +76,26 @@ export class LinkshorteningMessagingServiceDomainAssociationContextImpl
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
+    try {
+      let payload = await operationPromise;
+      let operation =
         new LinkshorteningMessagingServiceDomainAssociationInstance(
           operationVersion,
           payload,
           instance._solution.messagingServiceSid
-        )
-    );
+        );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**

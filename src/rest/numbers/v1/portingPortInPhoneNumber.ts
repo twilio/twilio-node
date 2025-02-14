@@ -99,7 +99,7 @@ export class PortingPortInPhoneNumberContextImpl
     return operationPromise;
   }
 
-  fetch(
+  async fetch(
     callback?: (
       error: Error | null,
       item?: PortingPortInPhoneNumberInstance
@@ -116,21 +116,26 @@ export class PortingPortInPhoneNumberContextImpl
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new PortingPortInPhoneNumberInstance(
-          operationVersion,
-          payload,
-          instance._solution.portInRequestSid,
-          instance._solution.phoneNumberSid
-        )
-    );
+    try {
+      let payload = await operationPromise;
+      let operation = new PortingPortInPhoneNumberInstance(
+        operationVersion,
+        payload,
+        instance._solution.portInRequestSid,
+        instance._solution.phoneNumberSid
+      );
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
+      if (callback) {
+        callback(null, operation);
+      }
+
+      return operation;
+    } catch (err: any) {
+      if (callback) {
+        callback(err);
+      }
+      throw err;
+    }
   }
 
   /**
